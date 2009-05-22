@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :load_department, :only => [:index, :new, :create, :mass_add]
-
   def index
-    @users = @department.users
+    @users = current_department.users
   end
 
   def show
@@ -10,12 +8,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = @department.users.build
+    @user = current_department.users.build
   end
 
   def create
     @user = User.create(params[:user])
-    @user.departments << @department
+    @user.departments << current_department
     y @user
     if @user.save
       flash[:notice] = "Successfully created user."
@@ -55,11 +53,6 @@ class UsersController < ApplicationController
       flash[:error] = "Import of the following users failed:<br /> "+(errors.join "<br />")
     end
     redirect_to users_path
-  end
-
-  private
-  def load_department
-    @department = Department.find(params[:department_id])
   end
 end
 

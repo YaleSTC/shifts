@@ -1,6 +1,4 @@
 class RolesController < ApplicationController
-  before_filter :load_department
-
   def index
     @roles = Role.all
   end
@@ -12,6 +10,8 @@ class RolesController < ApplicationController
   # allow a selection of permissions
   def new
     @role = Role.new
+    @loc_groups = current_department.loc_groups
+    @role.departments << current_department
   end
 
   def create
@@ -43,11 +43,6 @@ class RolesController < ApplicationController
     @role.destroy
     flash[:notice] = "Successfully destroyed role."
     redirect_to roles_url
-  end
-
-  private
-  def load_department
-    @department = Department.find(params[:department_id])
   end
 end
 

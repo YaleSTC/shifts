@@ -4,6 +4,16 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+  <ul>
+  <% for lg in @loc_groups -%>
+      <li><%= lg.name %></li>
+      <ul>
+        <% for perm in lg.permissions -%>
+          <li><%= perm.name %></li>
+        <% end -%>
+      </ul>
+  <% end -%>
+  </ul>
   <p><%= f.submit "Submit" %></p>
 <% end %>
 

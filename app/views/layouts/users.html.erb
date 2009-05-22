@@ -1,9 +1,9 @@
 <% content_for :my_content do %>
     <div id="nav_bar">
       <ul>
-        <li><%= link_to "New User", new_department_user_path(@department) %></li>
-        <li><%= link_to "Mass Add", mass_add_department_users_path(@department) %></li>
-        <li><%= link_to "All Users", department_users_path(@department) %></li>
+        <li><%= link_to "New User", new_department_user_path(current_department) %></li>
+        <li><%= link_to "Mass Add", mass_add_department_users_path(current_department) %></li>
+        <li><%= link_to "All Users", department_users_path(current_department) %></li>
       <ul>
     </div>
 

@@ -1,8 +1,6 @@
 class LocGroupsController < ApplicationController
-  before_filter :load_department, :only => [:index, :create, :new]
-
   def index
-    @loc_groups = @department.loc_groups
+    @loc_groups = current_department.loc_groups
   end
 
   def show
@@ -10,7 +8,7 @@ class LocGroupsController < ApplicationController
   end
 
   def new
-    @loc_group = @department.loc_groups.build
+    @loc_group = current_department.loc_groups.build
   end
 
   def create
@@ -44,9 +42,5 @@ class LocGroupsController < ApplicationController
     redirect_to loc_groups_url
   end
 
-  private
-  def load_department
-    @department = Department.find params[:department_id]
-  end
 end
 

@@ -1,8 +1,10 @@
 <div id="nav_top">
+  <% if current_department -%>
     <ul class="no_underlined">
-      <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(@department) %></li>
-      <li class="<%= tab('roles') %>"><%= link_to "Roles", department_roles_path(@department) %></li>
-      <li class="<%= tab('loc_groups') %>"><%= link_to "Loc Groups", department_loc_groups_path(@department) %></li>
+      <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
+      <li class="<%= tab('roles') %>"><%= link_to "Roles", department_roles_path(current_department) %></li>
+      <li class="<%= tab('loc_groups') %>"><%= link_to "Loc Groups", department_loc_groups_path(current_department) %></li>
     <ul>
+  <% end -%>
 </div>
 
