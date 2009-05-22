@@ -15,9 +15,9 @@
       <td><%=h loc_group.view_permission.name %></td>
       <td><%=h loc_group.signup_permission.name %></td>
       <td><%=h loc_group.admin_permission.name %></td>
-      <td><%= link_to "Show", loc_group %></td>
-      <td><%= link_to "Edit", edit_loc_group_path(loc_group) %></td>
-      <td><%= link_to "Destroy", loc_group, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", [current_department, loc_group] %></td>
+      <td><%= link_to "Edit", edit_department_loc_group_path(current_department,loc_group) %></td>
+      <td><%= link_to "Destroy", [current_department, loc_group], :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>

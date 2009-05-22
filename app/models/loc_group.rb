@@ -15,6 +15,10 @@ class LocGroup < ActiveRecord::Base
 
   validates_presence_of :department
 
+  def permissions
+    [view_permission, signup_permission, admin_permission]
+  end
+
   private
 
   def create_permissions
