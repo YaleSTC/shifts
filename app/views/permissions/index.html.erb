@@ -1,0 +1,13 @@
+<% title "Permissions" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% for permission in @permissions %>
+    <tr>
+      <td><%=h permission.name %></td>
+    </tr>
+  <% end %>
+</table>
+

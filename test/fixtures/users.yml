@@ -1,0 +1,17 @@
+one:
+  login: 
+  name: MyString
+  active: false
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  ein: 1
+
+two:
+  login: 
+  name: MyString
+  active: false
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  ein: 1
