@@ -1,0 +1,9 @@
+<% title "Edit User" %>
+
+<%= render :partial => 'form' %>
+
+<p>
+  <%= link_to "Show", @user %> |
+  <%= link_to "View All", department_users_path(@user.department) %>
+</p>
+

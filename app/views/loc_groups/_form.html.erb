@@ -1,0 +1,12 @@
+<% form_for [@department,@loc_group] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.hidden_field :department_id %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+

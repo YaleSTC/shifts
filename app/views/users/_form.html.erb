@@ -1,0 +1,13 @@
+<% form_for [@department,@user] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :netid %><br />
+    <%= f.text_field :netid %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+

@@ -1,0 +1,13 @@
+one:
+  name: MyString
+  department_id: 1
+  view_perm_id: 1
+  signup_perm_id: 1
+  admin_perm_id: 1
+
+two:
+  name: MyString
+  department_id: 1
+  view_perm_id: 1
+  signup_perm_id: 1
+  admin_perm_id: 1
