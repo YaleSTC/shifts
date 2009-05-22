@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :load_department, :only => [:index, :new, :create]
+  before_filter :load_department, :only => [:index, :new, :create, :mass_add]
 
   def index
     @users = @department.users
