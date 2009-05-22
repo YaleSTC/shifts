@@ -2,15 +2,15 @@ class DepartmentsController < ApplicationController
   def index
     @departments = Department.all
   end
-  
+
   def show
-    @department = Department.find(params[:id])
+    redirect_to department_users_path(params[:id])
   end
-  
+
   def new
     @department = Department.new
   end
-  
+
   def create
     @department = Department.new(params[:department])
     if @department.save
@@ -20,11 +20,11 @@ class DepartmentsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @department = Department.find(params[:id])
   end
-  
+
   def update
     @department = Department.find(params[:id])
     if @department.update_attributes(params[:department])
@@ -34,7 +34,7 @@ class DepartmentsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @department = Department.find(params[:id])
     @department.destroy
@@ -42,3 +42,4 @@ class DepartmentsController < ApplicationController
     redirect_to departments_url
   end
 end
+
