@@ -1,9 +1,20 @@
 <% title "Edit User" %>
 
-<%= render :partial => 'form' %>
+<% form_for @user do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :netid %><br />
+    <%= f.text_field :netid %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
 
 <p>
   <%= link_to "Show", @user %> |
-  <%= link_to "View All", department_users_path(@user.department) %>
+  <%= link_to "View All", department_users_path(@department) %>
 </p>
 

@@ -12,6 +12,18 @@ module LayoutHelper
     @show_title
   end
 
+  # Add this to allow us to use nested layout, see layouts/users.html.erb on how to use it -H
+  # This one is a fix over the method in shift app that breaks in rails > 2.1
+  # If layout doesn't contain '/' then corresponding layout template
+  # is searched in default folder ('app/views/layouts'), otherwise
+  # it is searched relative to controller's template root directory
+  # ('app/views/' by default).
+  def inside_layout(layout, &block)
+    layout = layout.include?('/') ? layout : "layouts/#{layout}"
+    @template.instance_variable_set('@content_for_layout', capture(&block))
+    concat(@template.render( :file => layout, :use_full_path => true ))
+  end
+
   def stylesheet(*args)
     content_for(:head) { stylesheet_link_tag(*args.map(&:to_s)) }
   end

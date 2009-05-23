@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = current_department.users
+    @users = @department.users
   end
 
   def show
@@ -8,12 +8,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = current_department.users.build
+    @user = @department.users.build
   end
 
   def create
     @user = User.create(params[:user])
-    @user.departments << current_department
+    @user.departments << @department
     y @user
     if @user.save
       flash[:notice] = "Successfully created user."

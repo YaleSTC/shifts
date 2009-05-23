@@ -1,8 +1,12 @@
 <% title "Edit Role" %>
 
-<%= render :partial => 'form' %>
+<% form_for @role do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p><%= f.submit "Update" %></p>
+<% end %>
 
 <p>
   <%= link_to "Show", @role %> |
-  <%= link_to "View All", roles_path %>
+  <%= link_to "View All", department_roles_path(@department) %>
 </p>
+

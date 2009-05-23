@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :departments do |departments|
+  map.resources :departments, :shallow => true do |departments|
     departments.resources :users, :collection => {:mass_add => :get}
     departments.resources :loc_groups
     departments.resources :roles

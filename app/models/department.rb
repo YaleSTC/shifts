@@ -7,6 +7,8 @@ class Department < ActiveRecord::Base
   validates_presence_of :permission_id
 
   has_and_belongs_to_many :users
+  has_and_belongs_to_many :roles
+
   private
   def create_user_admin_permission
     self.create_permission(:name => name + " user admin")
@@ -16,5 +18,6 @@ class Department < ActiveRecord::Base
   def update_user_admin_permission
     self.permission.update_attribute(:name, name + " user admin")
   end
+
 end
 
