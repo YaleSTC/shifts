@@ -3,7 +3,7 @@
 <% form_for [@department, @role] do |f| %>
 
   <%= render :partial => 'form', :locals => {:f => f} %>
-  <p><%= f.submit "Submit" %></p>
+  <p><%= f.submit "Create" %></p>
 <% end %>
 
 <p><%= link_to "Back to List", department_roles_path(@department) %></p>

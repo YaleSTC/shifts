@@ -7,6 +7,7 @@
     <th>View Perm</th>
     <th>Signup Perm</th>
     <th>Admin Perm</th>
+    <th>Can view?</th>
   </tr>
   <% for loc_group in @loc_groups %>
     <tr>
@@ -15,8 +16,7 @@
       <td><%=h loc_group.view_permission.name %></td>
       <td><%=h loc_group.signup_permission.name %></td>
       <td><%=h loc_group.admin_permission.name %></td>
-      <td><%= link_to "Show", loc_group %></td>
-      <td><%= link_to "Edit", edit_loc_group_path(loc_group) %></td>
+      <td><%= current_user.can_view?(loc_group) %></td>
       <td><%= link_to "Destroy", loc_group, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>

@@ -7,6 +7,12 @@ li.current_tab{
 	background: #222;
 }
 
+div#login{
+	width: 84.2%;
+	margin: 0 auto;
+  text-align: right;
+  color: whitesmoke;
+}
 div#nav_top{
 	width: 84.2%;
 	margin: 0 auto;
@@ -23,7 +29,7 @@ div#nav_top li{
 	width: 200px;
 }
 
-div #nav_bar{
+div #nav_column{
 	width: 20%;
 	height: 100%;
 	float: left;

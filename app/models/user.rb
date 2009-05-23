@@ -46,6 +46,18 @@ class User < ActiveRecord::Base
     failed
   end
 
+  def permission_list
+    @pl ||= roles.collect { |r| r.permissions }. flatten
+  end
+
+  def can_view?(loc_group)
+    permission_list.include?(loc_group.view_permission)
+  end
+
+  def can_signup?(loc_group)
+    permission_list.include?(loc_group.signup_permission)
+  end
+
   def full_name
     [first_name, last_name].join(" ")
   end
