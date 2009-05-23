@@ -8,3 +8,10 @@
     <%= f.text_field :name %>
   </p>
 
+  <% for role in @department.roles -%>
+    <div>
+      <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
+      <%= role.name %>
+    </div>
+  <% end -%>
+

@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  skip_before_filter :load_department, :only => :index
   def index
     @departments = Department.all
   end

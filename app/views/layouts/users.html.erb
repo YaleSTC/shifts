@@ -1,6 +1,6 @@
 <% # NOTE: this method inside_layout is just a slight improvement over what I covered at training; the idea behind is the same -%>
 <% inside_layout 'application' do %>
-    <div id="nav_bar">
+    <div id="nav_column">
       <ul>
         <li><%= link_to "New User", new_department_user_path(@department) %></li>
         <li><%= link_to "Mass Add", mass_add_department_users_path(@department) %></li>
