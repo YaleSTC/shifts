@@ -1,19 +1,17 @@
-<% form_for [@department, @role] do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
   <ul>
-  <% for lg in @loc_groups -%>
+  <% for lg in @department.loc_groups -%>
       <li><%= lg.name %></li>
-      <ul>
         <% for perm in lg.permissions -%>
-          <li><%= perm.name %></li>
+            <div>
+              <%= check_box_tag "role[permission_ids][]", perm.id, @role.permissions.include?(perm) %>
+              <%= perm.name %>
+            </div>
         <% end -%>
-      </ul>
   <% end -%>
   </ul>
-  <p><%= f.submit "Submit" %></p>
-<% end %>
 

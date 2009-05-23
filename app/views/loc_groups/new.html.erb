@@ -1,6 +1,9 @@
 <% title "New Loc Group" %>
 
-<%= render :partial => 'form' %>
+<% form_for [@department,@loc_group] do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p><%= f.submit "Create" %></p>
+<% end %>
 
 <p><%= link_to "Back to List", department_loc_groups_path(@department) %></p>
 

@@ -1,6 +1,6 @@
 class LocGroupsController < ApplicationController
   def index
-    @loc_groups = current_department.loc_groups
+    @loc_groups = @department.loc_groups
   end
 
   def show
@@ -8,7 +8,7 @@ class LocGroupsController < ApplicationController
   end
 
   def new
-    @loc_group = current_department.loc_groups.build
+    @loc_group = @department.loc_groups.build
   end
 
   def create

@@ -3,7 +3,9 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  helper_method :current_department
+  # almost everything we do is restricted to a department so we always load_department
+  # feel free to skip_before_filter when desired
+  before_filter :load_department
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'ac2a5d70e82f4f955e299a9b53a795ed'
@@ -13,9 +15,17 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password").
   # filter_parameter_logging :password
 
-  private
+  protected
+  def load_department
+    # update department id in session if neccessary so that we can use shallow routes properly
+    session[:department_id] = params[:department_id] unless params[:department_id].blank?
+    # load @department variable, no need ||= because it's only called once at the start of controller
+    @department = Department.find_by_id(session[:department_id])
+  end
+
+  # an alternative, for those methods that skip load_department before_filter
   def current_department
-    @department ||= Department.find_by_id(params[:department_id])
+    @department ||= Department.find_by_id(params[:department_id] || session[:department_id])
   end
 end
 

@@ -1,6 +1,9 @@
 <% title "New User" %>
 
-<%= render :partial => 'form' %>
+<% form_for [@department,@user] do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p><%= f.submit "Create" %></p>
+<% end %>
 
 <p><%= link_to "Back to List", department_users_path(@department) %></p>
 

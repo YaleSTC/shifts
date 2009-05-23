@@ -9,9 +9,7 @@ class RolesController < ApplicationController
 
   # allow a selection of permissions
   def new
-    @role = Role.new
-    @loc_groups = current_department.loc_groups
-    @role.departments << current_department
+    @role = @department.roles.build
   end
 
   def create
@@ -29,6 +27,7 @@ class RolesController < ApplicationController
   end
 
   def update
+    params[:role][:permission_ids] ||= []
     @role = Role.find(params[:id])
     if @role.update_attributes(params[:role])
       flash[:notice] = "Successfully updated role."
