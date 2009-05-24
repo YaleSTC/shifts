@@ -1,6 +1,8 @@
 class LocGroupsController < ApplicationController
+  before_filter :require_admin
+
   def index
-    @loc_groups = @department.loc_groups
+    @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
   end
 
   def show
@@ -42,5 +44,10 @@ class LocGroupsController < ApplicationController
     redirect_to loc_groups_url
   end
 
+  private
+  # TODO: do we want finer role control: sth in between of department admin and loc group admin?
+  def require_admin
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
+  end
 end
 

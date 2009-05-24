@@ -3,7 +3,10 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
-  <%= f.hidden_field :department_ids %>
+  <p>
+    <%= check_box_tag "role[permission_ids][]", @department.permission_id, @role.permissions.include?(@department.permission) %>
+    <%= @department.permission.name %>
+  </p>
   <ul>
     <% if @department.loc_groups.empty? -%>
       <p>No location groups, hence no corresponding permissions.</p>
