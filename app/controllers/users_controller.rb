@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     unless errors.empty?
       flash[:error] = "Import of the following users failed:<br /> "+(errors.join "<br />")
     end
-    redirect_to users_path
+    redirect_to department_users_path
   end
 end
 
