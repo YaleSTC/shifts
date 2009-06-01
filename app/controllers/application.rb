@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def current_user
-    session[:cas_user] = 'dtt22'
+    session[:cas_user] = 'njg24'
     @current_user ||= User.find_by_netid(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
   end
 
