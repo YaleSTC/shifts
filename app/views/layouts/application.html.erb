@@ -13,7 +13,7 @@
 	  <% if current_user %>
 	    <%= render :partial => "layouts/chooser" %>
 	    <div id="login">
-		  Hello <%= current_user.name %>! You are logged in as <%= current_user.netid %> <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
+		  Hello <%= current_user.name %>! (NetID: <%= current_user.netid %>) <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
 	  	</div>
 	  <% end %>
 
