@@ -4,13 +4,14 @@
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
     <%= stylesheet_link_tag 'application', 'nav' %>
+    <%= javascript_include_tag :defaults %>
     <%= yield(:head) %>
   </head>
   <body>
 
-    <%= render :file => 'layouts/nav_top' %>
+    <%= render :partial => 'layouts/nav_top' %>
 	  <% if current_user %>
-	    <%= department_chooser %>
+	    <%= render :partial => "layouts/chooser" %>
 	    <div id="login">
 		  Hello <%= current_user.name %>! You are logged in as <%= current_user.netid %> <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
 	  	</div>

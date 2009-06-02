@@ -36,5 +36,6 @@ module LayoutHelper
   def tab(str)
     str == controller.controller_name ? "current_tab" : "tab"
   end
+
 end
 
