@@ -42,10 +42,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = "Successfully destroyed user."
-    redirect_to users_url
+    redirect_to department_users_path(current_department)
   end
 
   def mass_add
+    #just a view
   end
 
   def mass_create
