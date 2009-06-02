@@ -41,7 +41,7 @@ class LocGroupsController < ApplicationController
     @loc_group = LocGroup.find(params[:id])
     @loc_group.destroy
     flash[:notice] = "Successfully destroyed loc group."
-    redirect_to loc_groups_url
+    redirect_to department_loc_groups_path(current_department)
   end
 
   private

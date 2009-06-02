@@ -42,7 +42,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     @role.destroy
     flash[:notice] = "Successfully destroyed role."
-    redirect_to roles_url
+    redirect_to department_roles_path(current_department)
   end
 end
 

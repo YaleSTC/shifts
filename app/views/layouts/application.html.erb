@@ -10,8 +10,9 @@
 
     <%= render :file => 'layouts/nav_top' %>
 	  <% if current_user %>
+	    <%= department_chooser %>
 	    <div id="login">
-		  Hello <%= current_user.name %>! You are logged in as <%= current_user.netid %> <%= link_to "[Logout]", "" %>
+		  Hello <%= current_user.name %>! You are logged in as <%= current_user.netid %> <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
 	  	</div>
 	  <% end %>
 
