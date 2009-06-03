@@ -5,3 +5,5 @@ db/*.sqlite3
 doc/*
 db/schema.rb
 
+
+.project
