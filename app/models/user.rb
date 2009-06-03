@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     permission_list.include?(dept.permission) && self.is_active?(dept)
   end
 
-  # check to make sure the user does not have the "deactivated" role
+  # check to make sure the user does not have the "deactivated" role in that dept
   def is_active?(dept)
     not permission_list.include?(dept.deactivated_permission)
   end
