@@ -1,7 +1,7 @@
 
---- 
-loc_groups: 
-  columns: 
+---
+loc_groups:
+  columns:
   - id
   - name
   - department_id
@@ -10,105 +10,96 @@ loc_groups:
   - admin_perm_id
   - created_at
   - updated_at
-  records: 
-  - - "1"
+  records:
+  - - "2"
     - Public Clusters
     - "1"
-    - "2"
-    - "3"
-    - "4"
-    - 2009-06-03 20:56:30
-    - 2009-06-03 21:00:15
+    - "5"
+    - "6"
+    - "7"
+    - 2009-06-03 19:50:39
+    - 2009-06-03 19:50:39
 
---- 
-permissions: 
-  columns: 
+---
+permissions:
+  columns:
   - id
   - name
   - created_at
   - updated_at
-  records: 
+  records:
   - - "1"
     - STC user admin
-    - 2009-06-03 20:55:45
-    - 2009-06-03 20:55:45
-  - - "2"
+    - 2009-06-03 19:47:58
+    - 2009-06-03 19:47:58
+  - - "5"
     - Public Clusters view
-    - 2009-06-03 20:56:30
-    - 2009-06-03 21:00:15
-  - - "3"
+    - 2009-06-03 19:50:39
+    - 2009-06-03 19:50:39
+  - - "6"
     - Public Clusters signup
-    - 2009-06-03 20:56:30
-    - 2009-06-03 21:00:15
-  - - "4"
+    - 2009-06-03 19:50:39
+    - 2009-06-03 19:50:39
+  - - "7"
     - Public Clusters admin
-    - 2009-06-03 20:56:30
-    - 2009-06-03 21:00:15
+    - 2009-06-03 19:50:39
+    - 2009-06-03 19:50:39
 
---- 
-roles: 
-  columns: 
+---
+roles:
+  columns:
   - id
   - name
   - department_id
   - created_at
   - updated_at
-  records: 
+  records:
   - - "1"
     - Admin
-    - 
-    - 2009-06-03 20:56:08
-    - 2009-06-03 20:56:08
+    - "1"
+    - 2009-06-03 19:48:12
+    - 2009-06-03 19:48:12
   - - "2"
     - Student Tech
-    - 
-    - 2009-06-03 21:00:42
-    - 2009-06-03 21:00:42
+    - "1"
+    - 2009-06-03 19:51:12
+    - 2009-06-03 19:51:12
 
---- 
-departments: 
-  columns: 
+---
+departments:
+  columns:
   - id
   - name
   - permission_id
   - created_at
   - updated_at
-  records: 
+  records:
   - - "1"
     - STC
     - "1"
-    - 2009-06-03 20:55:45
-    - 2009-06-03 20:55:45
+    - 2009-06-03 19:47:58
+    - 2009-06-03 19:47:58
 
---- 
-permissions_roles: 
-  columns: 
+---
+permissions_roles:
+  columns:
   - role_id
   - permission_id
-  records: 
+  records:
   - - "1"
     - "1"
   - - "1"
     - "4"
-  - - "2"
-    - "2"
-  - - "2"
-    - "3"
-
---- 
-departments_roles: 
-  columns: 
-  - department_id
-  - role_id
-  records: 
   - - "1"
-    - "1"
-  - - "1"
-    - "2"
+    - "7"
+  - - "2"
+    - "5"
+  - - "2"
+    - "6"
 
---- 
-users: 
-  columns: 
+---
+users:
+  columns:
   - id
   - netid
   - name
@@ -117,82 +108,33 @@ users:
   - email
   - created_at
   - updated_at
-  records: 
+  records:
   - - "1"
     - njg24
     - Nathan Griffith
     - Nathan
     - Griffith
     - nathan.griffith@yale.edu
-    - 2009-06-03 20:56:16
-    - 2009-06-03 20:56:16
+    - 2009-06-03 19:48:05
+    - 2009-06-03 19:48:05
 
---- 
-departments_users: 
-  columns: 
+---
+departments_users:
+  columns:
   - department_id
   - user_id
   - deactivated
-  records: 
+  records:
   - - "1"
     - "1"
     - false
 
---- 
-roles_users: 
-  columns: 
+---
+roles_users:
+  columns:
   - role_id
   - user_id
-  records: 
+  records:
   - - "1"
     - "1"
 
---- 
-sessions: 
-  columns: 
-  - id
-  - session_id
-  - data
-  - created_at
-  - updated_at
-  records: 
-  - - "1"
-    - 7b9173724048f674c87874a649582884
-    - |
-      BAh7DzoYY2FzX3NlbnRfdG9fZ2F0ZXdheUY6HXByZXZpb3VzX3JlZGlyZWN0
-      X3RvX2Nhc0l1OglUaW1lDXRUG4BdGIneBjofQG1hcnNoYWxfd2l0aF91dGNf
-      Y29lcmNpb25GOhBfY3NyZl90b2tlbiIxeTdVUUZjZkZUdUE5L3hWaDJBZlov
-      NHpURWxUeE4wbXpBN1IrdHdPMFlKTT06EmRlcGFydG1lbnRfaWQiBjE6DWNh
-      c191c2VyIgpuamcyNDofY2FzX3ZhbGlkYXRpb25fcmV0cnlfY291bnRpACIK
-      Zmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsA
-      BjoKQHVzZWR7ADoaY2FzX2xhc3RfdmFsaWRfdGlja2V0bzodQ0FTQ2xpZW50
-      OjpTZXJ2aWNlVGlja2V0CToLQHJlbmV3MDoOQHJlc3BvbnNlbzoiQ0FTQ2xp
-      ZW50OjpWYWxpZGF0aW9uUmVzcG9uc2UKOhZAZXh0cmFfYXR0cmlidXRlc3sA
-      OglAeG1sbzoTUkVYTUw6OkVsZW1lbnQPOgxAcGFyZW50bzsWDzsXbzoUUkVY
-      TUw6OkRvY3VtZW50ETsXMDoTQGV4cGFuZGVkX25hbWUiDlVOREVGSU5FRDoQ
-      QGF0dHJpYnV0ZXNJQzoWUkVYTUw6OkF0dHJpYnV0ZXN7AAY6DUBlbGVtZW50
-      QBI6DEBwcmVmaXgiADoKQG5hbWUiDlVOREVGSU5FRDoOQGVsZW1lbnRzbzoU
-      UkVYTUw6OkVsZW1lbnRzBjscQBI6D0BuYW1lc3BhY2UiADoNQGNvbnRleHR7
-      ADoOQGNoaWxkcmVuWwdAEW86EFJFWE1MOjpUZXh0CzsXQBI6EkB1bm5vcm1h
-      bGl6ZWQwOhNAZW50aXR5X2ZpbHRlcjA6DEBzdHJpbmciBgo6CUByYXdUOhBA
-      bm9ybWFsaXplZDA6HEBlbnRpdHlfZXhwYW5zaW9uX2NvdW50aQA6HUBpZ25v
-      cmVfd2hpdGVzcGFjZV9ub2Rlc0Y6EEB3aGl0ZXNwYWNlVDsZIhhjYXM6c2Vy
-      dmljZVJlc3BvbnNlOxpJQzsbewYiCGNhc286FVJFWE1MOjpBdHRyaWJ1dGUL
-      OxkiDnhtbG5zOmNhczslIh9odHRwOi8vd3d3LnlhbGUuZWR1L3RwL2Nhczsd
-      Igp4bWxuczseIghjYXM7HEAROykwBjscQBE7HSIIY2FzOx4iFHNlcnZpY2VS
-      ZXNwb25zZTsfbzsgBjscQBE7IkAZOyNbCG87JAs7F0AROyUwOyYwOyciCAog
-      IDsoVDspMEAQbzskCzsXQBE7JTA7JjA7JyIGCjsoVDspMDsrRjssVDsZIh5j
-      YXM6YXV0aGVudGljYXRpb25TdWNjZXNzOxpJQzsbewAGOxxAEDsdIghjYXM7
-      HiIaYXV0aGVudGljYXRpb25TdWNjZXNzOx9vOyAGOxxAEDsiQBk7I1sIbzsk
-      CzsXQBA7JTA7JjA7JyIKCiAgICA7KFQ7KTBvOxYPOxdAEDsZIg1jYXM6dXNl
-      cjsaSUM7G3sABjscQDU7HSIIY2FzOx4iCXVzZXI7H287IAY7HEA1OyJAGTsj
-      WwZvOyQLOxdANTslIgpuamcyNDsmMDsnIgpuamcyNDsoVDspMDsrRjssVG87
-      JAs7F0AQOyUwOyYwOyciCAogIDsoVDspMDsrRjssVDoOQHByb3RvY29sZgYy
-      OhRAcGFyc2VfZGF0ZXRpbWVJdTsHDXRUG4C9W5DeBjsIRjoKQHVzZXIiCm5q
-      ZzI0Og1Ac2VydmljZSIoaHR0cDovL2xvY2FsaG9zdC9uZXdzdGMvZGVwYXJ0
-      bWVudHM6DEB0aWNrZXQiJFNULTE3MzE1MzUteG50dzhUTGpNR1lqcDVDTTZT
-      MGI6GWNhc19leHRyYV9hdHRyaWJ1dGVzQzoeSGFzaFdpdGhJbmRpZmZlcmVu
-      dEFjY2Vzc3sAOhJjYXNmaWx0ZXJ1c2VyQEM=
-
-    - 2009-06-03 20:55:40
-    - 2009-06-03 21:15:50

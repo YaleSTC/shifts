@@ -1,10 +1,11 @@
 class DepartmentsController < ApplicationController
-  skip_before_filter :load_department, :only => :index
+  before_filter :require_superuser
+  skip_before_filter :load_department
   def index
     if params[:department_id]
       redirect_to Department.find(params[:department_id])
     end
-    
+
     @departments = Department.all
   end
 
@@ -45,6 +46,14 @@ class DepartmentsController < ApplicationController
     @department.destroy
     flash[:notice] = "Successfully destroyed department."
     redirect_to departments_url
+  end
+
+  private
+  def require_superuser
+    unless current_user.is_superuser?
+      flash[:notice] = "Only superuser can manage departments."
+      redirect_to(access_denied_path)
+    end
   end
 end
 
