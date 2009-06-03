@@ -56,26 +56,26 @@ class User < ActiveRecord::Base
 
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
-    permission_list.include?(loc_group.view_permission) && self.is_active?
+    permission_list.include?(loc_group.view_permission) && self.is_active?(dept)
   end
 
   # check if a user can sign up for a shift in this loc group
   def can_signup?(loc_group)
-    permission_list.include?(loc_group.signup_permission) && self.is_active?
+    permission_list.include?(loc_group.signup_permission) && self.is_active?(dept)
   end
 
   # check for loc group admin, who can add locations and shifts under it
   def can_admin?(loc_group)
-    permission_list.include?(loc_group.admin_permission) && self.is_active?
+    permission_list.include?(loc_group.admin_permission) && self.is_active?(dept)
   end
 
   # check for department admin, who can create new loc group, new role, and new user in department
   def is_admin_of?(dept)
-    permission_list.include?(dept.permission) && self.is_active?
+    permission_list.include?(dept.permission) && self.is_active?(dept)
   end
 
   # check to make sure the user does not have the "deactivated" role
-  def is_active?
+  def is_active?(dept)
     not permission_list.include?(dept.deactivated_permission)
   end
 
