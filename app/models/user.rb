@@ -43,7 +43,11 @@ class User < ActiveRecord::Base
     failed = []
 
     netids.split(/\W+/).map do |n|
-      user = import_from_ldap(n, department, true)
+      if user = self.find_by_netid(n)
+        user.departments << department
+      else
+        user = import_from_ldap(n, department, true)
+      end
       failed << "From netid #{user.netid}: #{user.errors.full_messages.to_sentence}" if user.new_record?
     end
 
