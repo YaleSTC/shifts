@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         department_roles = @user.roles.select{|role| role.departments.include? @department}
         @user.roles -= department_roles
         #now add back all checked roles associated with this department
-        @user.roles |= params[:user][:role_ids].collect{|id| Role.find(id)}
+        @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
         
         #add user to new department
         @user.departments << @department
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     
       #if a name was given, it should override the name from LDAP
       @user.name = params[:user][:name] unless params[:user][:name] == ""
-      @user.roles = params[:user][:role_ids].collect{|id| Role.find(id)}
+      @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
       if @user.save
         flash[:notice] = "Successfully created user."
         redirect_to @user
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     department_roles = @user.roles.select{|role| role.departments.include? @department}
     updated_roles = @user.roles - department_roles
     #now add back all checked roles associated with this department
-    updated_roles |= params[:user][:role_ids].collect{|id| Role.find(id)}
+    updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
     
     if @user.update_attributes(params[:user])
