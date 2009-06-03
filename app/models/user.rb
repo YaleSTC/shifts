@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :netid
   validate :departments_not_empty
 
-  def self.import_from_ldap(netid, should_save = false)
+  def self.import_from_ldap(netid, department, should_save = false)
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => "directory.yale.edu", :port => 389 )
     begin
@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
         # Search, limiting results to yale domain and people
         ldap.search(:base => "ou=People,o=yale.edu", :filter => filter, :return_result => false ) do |entry|
           # Make sure only 1 record is found
+          Rails.logger.info(entry)
           raise "LDAP: more than one result is found" if entry['givenname'].size > 1
 
           new_user.first_name = entry['givenname'].first
@@ -28,6 +29,8 @@ class User < ActiveRecord::Base
           # create name as full name is this user doesn't have a nickname or different name assigned
           new_user.name = new_user.full_name if new_user.name.blank?
         end
+        #add the user to the currently selected department
+        new_user.departments << department
       end
       new_user.save if should_save
     rescue Exception => e
@@ -36,11 +39,11 @@ class User < ActiveRecord::Base
     new_user
   end
 
-  def self.mass_add(netids)
+  def self.mass_add(netids, department)
     failed = []
 
     netids.split(/\W+/).map do |n|
-      user = import_from_ldap(n, true)
+      user = import_from_ldap(n, department, true)
       failed << "From netid #{user.netid}: #{user.errors.full_messages.to_sentence}" if user.new_record?
     end
 
