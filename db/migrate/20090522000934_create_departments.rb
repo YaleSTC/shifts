@@ -3,7 +3,6 @@ class CreateDepartments < ActiveRecord::Migration
     create_table :departments do |t|
       t.string :name
       t.integer :permission_id
-      t.integer :deactive_perm_id
       t.timestamps
     end
   end
