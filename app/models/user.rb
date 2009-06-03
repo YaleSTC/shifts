@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :netid
   validate :departments_not_empty
 
+  # memoize allows more powerful caching of instance variable in methods
+  # memoize line must be added after the method definitions (see below)
+  extend ActiveSupport::Memoizable
+
   def self.import_from_ldap(netid, department, should_save = false)
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => "directory.yale.edu", :port => 389 )
@@ -44,7 +48,11 @@ class User < ActiveRecord::Base
     failed = []
 
     netids.split(/\W+/).map do |n|
-      user = import_from_ldap(n, department, true)
+      if user = self.find_by_netid(n)
+        user.departments << department
+      else
+        user = import_from_ldap(n, department, true)
+      end
       failed << "From netid #{user.netid}: #{user.errors.full_messages.to_sentence}" if user.new_record?
     end
 
@@ -52,7 +60,7 @@ class User < ActiveRecord::Base
   end
 
   def permission_list
-    @pl ||= roles.collect { |r| r.permissions }. flatten
+    roles.collect { |r| r.permissions }.flatten
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -75,6 +83,11 @@ class User < ActiveRecord::Base
     permission_list.include?(dept.permission) && self.is_active?(dept)
   end
 
+  # see list of superusers defined in config/initializers/superuser_list.rb
+  def is_superuser?
+    SUPERUSER_LIST.include?(netid)
+  end
+
   # check to make sure the user does not have the "deactivated" role in that dept
   def is_active?(dept)
     not DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => dept}).deactivated
@@ -83,6 +96,8 @@ class User < ActiveRecord::Base
   def full_name
     [first_name, last_name].join(" ")
   end
+
+  memoize :full_name, :permission_list, :is_superuser?
 
   private
 

@@ -15,7 +15,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   #THIS IS FOR NATHAN'S APACHE SETUP (comment it out):
-  config.action_controller.relative_url_root = "/newstc"
+  #config.action_controller.relative_url_root = "/newstc"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -43,7 +43,8 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
-  #config.gem "pdf-writer", :lib => 'pdf/writer'
+  # FIXME: I think we are going to choose prawn over pdf-writer
+#  # config.gem "pdf-writer", :lib => 'pdf/writer'
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
@@ -69,20 +70,6 @@ Rails::Initializer.run do |config|
   # All files from config/locales/*.rb,yml are added automatically.
   # config.i18n.load_path << Dir[File.join(RAILS_ROOT, 'my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
-
-  # Your secret key for verifying cookie session data integrity.
-  # If you change this key, all old sessions will become invalid!
-  # Make sure the secret is at least 30 characters and all random,
-  # no regular words or you'll be exposed to dictionary attacks.
-  #config.action_controller.session = {
-  #  :session_key => '_newstc_session',
-  #  :secret      => '10cfb9a347e0ad89c15eb1506c6a459822811a12e1f865e8519b8f1da5e79edd5da825aa36217e48fe3d84834057bfdb2db22506776fa652ced6e67aa0cd8fa7'
-  #}
-
-  # Use the database for sessions instead of the cookie-based default,
-  # which shouldn't be used to store highly confidential information
-  # (create the session table with "rake db:sessions:create")
-  config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

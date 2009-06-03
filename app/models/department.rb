@@ -1,5 +1,5 @@
 class Department < ActiveRecord::Base
-  has_many :loc_groups
+  has_many :loc_groups, :dependent => :destroy
   belongs_to :permission, :dependent => :destroy
   has_many :departments_users
   has_many :users, :through => :departments_users
