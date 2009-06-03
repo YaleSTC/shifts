@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  def access_denied(msg=nil)
-    render :text => (msg || "Access denied")
+  def access_denied
+    render :text => "Access denied", :layout => true
   end
 
   # Scrub sensitive parameters from your log
