@@ -46,6 +46,7 @@ class LocGroupsController < ApplicationController
 
   private
   # TODO: do we want finer role control: sth in between of department admin and loc group admin?
+  # Ben says "no" and Nathan can't think of a use case.
   def require_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
   end
