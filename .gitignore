@@ -4,4 +4,4 @@ tmp/**/*
 db/*.sqlite3
 doc/*
 db/schema.rb
-
+.DS_Store

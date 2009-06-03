@@ -12,8 +12,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(params[:user])
-    @user.departments << @department
+    #create from LDAP if possible; otherwise just use the given information
+    unless @user = User.import_from_ldap(params[:user][:netid], @department)
+      @user = User.create(params[:user])
+    end
+    
+    #if a name was given, it should override the name from LDAP
+    @user.name = params[:user][:name] unless params[:user][:name] == ""
+    
     y @user
     if @user.save
       flash[:notice] = "Successfully created user."
@@ -54,7 +60,7 @@ class UsersController < ApplicationController
   end
 
   def mass_create
-    errors = User.mass_add(params[:netids])
+    errors = User.mass_add(params[:netids], @department)
     unless errors.empty?
       flash[:error] = "Import of the following users failed:<br /> "+(errors.join "<br />")
     end
