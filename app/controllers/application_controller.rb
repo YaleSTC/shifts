@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_department
-  before_filter CASClient::Frameworks::Rails::Filter
+  #before_filter CASClient::Frameworks::Rails::Filter
 
   helper_method :current_user
   helper_method :current_department
