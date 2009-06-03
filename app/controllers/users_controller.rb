@@ -53,7 +53,31 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy #the preferred action. really only disables the user for that department.
+    @user = User.find(params[:id])
+    dept_user = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => current_department})
+    dept_user.deactivated = true
+    if dept_user.save
+      flash[:notice] = "Successfully deactivated user."
+      redirect_to @user
+    else
+      render :action => 'edit'
+    end
+  end
+
+  def restore #activates the user
+    @user = User.find(params[:id])
+    dept_user = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => current_department})
+    dept_user.deactivated = false
+    if dept_user.save
+      flash[:notice] = "Successfully restored user."
+      redirect_to @user
+    else
+      render :action => 'edit'
+    end
+  end
+
+  def really_destroy #if we ever need an action that actually destroys users.
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = "Successfully destroyed user."
