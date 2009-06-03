@@ -45,6 +45,10 @@ class UsersController < ApplicationController
     redirect_to department_users_path(current_department)
   end
 
+  def deactivate
+
+  end
+
   def mass_add
     #just a view
   end
