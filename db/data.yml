@@ -11,14 +11,14 @@ loc_groups:
   - created_at
   - updated_at
   records: 
-  - - "2"
+  - - "1"
     - Public Clusters
     - "1"
-    - "5"
-    - "6"
-    - "7"
-    - 2009-06-03 19:50:39
-    - 2009-06-03 19:50:39
+    - "2"
+    - "3"
+    - "4"
+    - 2009-06-03 20:56:30
+    - 2009-06-03 21:00:15
 
 --- 
 permissions: 
@@ -30,20 +30,20 @@ permissions:
   records: 
   - - "1"
     - STC user admin
-    - 2009-06-03 19:47:58
-    - 2009-06-03 19:47:58
-  - - "5"
+    - 2009-06-03 20:55:45
+    - 2009-06-03 20:55:45
+  - - "2"
     - Public Clusters view
-    - 2009-06-03 19:50:39
-    - 2009-06-03 19:50:39
-  - - "6"
+    - 2009-06-03 20:56:30
+    - 2009-06-03 21:00:15
+  - - "3"
     - Public Clusters signup
-    - 2009-06-03 19:50:39
-    - 2009-06-03 19:50:39
-  - - "7"
+    - 2009-06-03 20:56:30
+    - 2009-06-03 21:00:15
+  - - "4"
     - Public Clusters admin
-    - 2009-06-03 19:50:39
-    - 2009-06-03 19:50:39
+    - 2009-06-03 20:56:30
+    - 2009-06-03 21:00:15
 
 --- 
 roles: 
@@ -56,14 +56,14 @@ roles:
   records: 
   - - "1"
     - Admin
-    - "1"
-    - 2009-06-03 19:48:12
-    - 2009-06-03 19:48:12
+    - 
+    - 2009-06-03 20:56:08
+    - 2009-06-03 20:56:08
   - - "2"
     - Student Tech
-    - "1"
-    - 2009-06-03 19:51:12
-    - 2009-06-03 19:51:12
+    - 
+    - 2009-06-03 21:00:42
+    - 2009-06-03 21:00:42
 
 --- 
 departments: 
@@ -77,8 +77,8 @@ departments:
   - - "1"
     - STC
     - "1"
-    - 2009-06-03 19:47:58
-    - 2009-06-03 19:47:58
+    - 2009-06-03 20:55:45
+    - 2009-06-03 20:55:45
 
 --- 
 permissions_roles: 
@@ -90,12 +90,21 @@ permissions_roles:
     - "1"
   - - "1"
     - "4"
+  - - "2"
+    - "2"
+  - - "2"
+    - "3"
+
+--- 
+departments_roles: 
+  columns: 
+  - department_id
+  - role_id
+  records: 
   - - "1"
-    - "7"
-  - - "2"
-    - "5"
-  - - "2"
-    - "6"
+    - "1"
+  - - "1"
+    - "2"
 
 --- 
 users: 
@@ -115,8 +124,8 @@ users:
     - Nathan
     - Griffith
     - nathan.griffith@yale.edu
-    - 2009-06-03 19:48:05
-    - 2009-06-03 19:48:05
+    - 2009-06-03 20:56:16
+    - 2009-06-03 20:56:16
 
 --- 
 departments_users: 
@@ -150,10 +159,10 @@ sessions:
   - - "1"
     - 7b9173724048f674c87874a649582884
     - |
-      BAh7DzoYY2FzX3NlbnRfdG9fZ2F0ZXdheUY6EmRlcGFydG1lbnRfaWQiBjE6
-      HXByZXZpb3VzX3JlZGlyZWN0X3RvX2Nhc0l1OglUaW1lDXNUG4A5VgO/Bjof
-      QG1hcnNoYWxfd2l0aF91dGNfY29lcmNpb25GOhBfY3NyZl90b2tlbiIxNWFX
-      cEJRV3FtME5IZWg5YXozVzhmcVFYSG14N1lGWEgrcENEVGI5K3NTQT06DWNh
+      BAh7DzoYY2FzX3NlbnRfdG9fZ2F0ZXdheUY6HXByZXZpb3VzX3JlZGlyZWN0
+      X3RvX2Nhc0l1OglUaW1lDXRUG4BdGIneBjofQG1hcnNoYWxfd2l0aF91dGNf
+      Y29lcmNpb25GOhBfY3NyZl90b2tlbiIxeTdVUUZjZkZUdUE5L3hWaDJBZlov
+      NHpURWxUeE4wbXpBN1IrdHdPMFlKTT06EmRlcGFydG1lbnRfaWQiBjE6DWNh
       c191c2VyIgpuamcyNDofY2FzX3ZhbGlkYXRpb25fcmV0cnlfY291bnRpACIK
       Zmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsA
       BjoKQHVzZWR7ADoaY2FzX2xhc3RfdmFsaWRfdGlja2V0bzodQ0FTQ2xpZW50
@@ -179,11 +188,11 @@ sessions:
       cjsaSUM7G3sABjscQDU7HSIIY2FzOx4iCXVzZXI7H287IAY7HEA1OyJAGTsj
       WwZvOyQLOxdANTslIgpuamcyNDsmMDsnIgpuamcyNDsoVDspMDsrRjssVG87
       JAs7F0AQOyUwOyYwOyciCAogIDsoVDspMDsrRjssVDoOQHByb3RvY29sZgYy
-      OhRAcGFyc2VfZGF0ZXRpbWVJdTsIDXNUG4DqJD6/BjsJRjoKQHVzZXIiCm5q
+      OhRAcGFyc2VfZGF0ZXRpbWVJdTsHDXRUG4C9W5DeBjsIRjoKQHVzZXIiCm5q
       ZzI0Og1Ac2VydmljZSIoaHR0cDovL2xvY2FsaG9zdC9uZXdzdGMvZGVwYXJ0
-      bWVudHM6DEB0aWNrZXQiJFNULTE3MjIwNjYtYzJ6OEljYmRhQjNJSVFQcnh4
-      aWQ6GWNhc19leHRyYV9hdHRyaWJ1dGVzQzoeSGFzaFdpdGhJbmRpZmZlcmVu
+      bWVudHM6DEB0aWNrZXQiJFNULTE3MzE1MzUteG50dzhUTGpNR1lqcDVDTTZT
+      MGI6GWNhc19leHRyYV9hdHRyaWJ1dGVzQzoeSGFzaFdpdGhJbmRpZmZlcmVu
       dEFjY2Vzc3sAOhJjYXNmaWx0ZXJ1c2VyQEM=
 
-    - 2009-06-03 19:47:48
-    - 2009-06-03 19:51:14
+    - 2009-06-03 20:55:40
+    - 2009-06-03 21:15:50
