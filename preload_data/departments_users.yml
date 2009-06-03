@@ -1,0 +1,9 @@
+--- 
+departments_users_001: 
+  deactivated: f
+  department_id: "1"
+  user_id: "1"
+departments_users_002: 
+  deactivated: f
+  department_id: "1"
+  user_id: "2"
