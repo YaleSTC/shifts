@@ -8,7 +8,7 @@ class LocationsController < ApplicationController
   end
 
   def new
-    @location = Location.new
+    @location = @department.locations.build
   end
 
   def create
