@@ -13,4 +13,3 @@ class CreateDepartmentsUsers < ActiveRecord::Migration
     drop_table :departments_users
   end
 end
-
