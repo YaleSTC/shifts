@@ -1,9 +1,12 @@
 class Department < ActiveRecord::Base
   has_many :loc_groups
-  belongs_to :permission
+  belongs_to :permission, :dependent => :destroy
   belongs_to :deactivated_permission,
               :class_name => "Permission",
-              :foreign_key => "deactive_perm_id"
+              :foreign_key => "deactive_perm_id",
+              :dependent => :destroy
+   has_and_belongs_to_many :users
+
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name

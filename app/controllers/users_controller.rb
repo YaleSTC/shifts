@@ -16,10 +16,10 @@ class UsersController < ApplicationController
     unless @user = User.import_from_ldap(params[:user][:netid], @department)
       @user = User.create(params[:user])
     end
-    
+
     #if a name was given, it should override the name from LDAP
     @user.name = params[:user][:name] unless params[:user][:name] == ""
-    
+
     y @user
     if @user.save
       flash[:notice] = "Successfully created user."
@@ -49,10 +49,6 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:notice] = "Successfully destroyed user."
     redirect_to department_users_path(current_department)
-  end
-
-  def deactivate
-
   end
 
   def mass_add
