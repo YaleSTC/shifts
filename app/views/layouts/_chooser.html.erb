@@ -3,7 +3,7 @@
 <% elsif current_user.departments.count > 1 -%>
   <% form_tag({:controller => :departments, :id => nil}, {:id => 'form_chooser', :method => "get"}) do %>
     <%# TODO: at end of options_for_select (and above as well), add current department name, so that it defaults to that (currently no global way of handling current department) -%>
-    <%= select_tag 'department_id', options_for_select(current_user.departments.collect{|d| [d.name, d.id]}), {:onchange =>"$('form_chooser').submit()"} %>
+    <%= select_tag 'department_id', options_for_select(current_user.departments.collect{|d| [d.name, d.id]}, @department ? @department.id : nil), {:onchange =>"$('form_chooser').submit()"} %>
     <%= submit_tag value = "Switch", :id => 'submit_deptchooser' %>
     <%# hide the submit tag if javascript is enabled -%>
     <script type='text/javascript' charset='utf-8'>
