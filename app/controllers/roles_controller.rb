@@ -14,7 +14,7 @@ class RolesController < ApplicationController
 
   def create
     @role = Role.new(params[:role])
-    @role.departments << @department
+    @role.department = @department
     if @role.save
       flash[:notice] = "Successfully created role."
       redirect_to @role
