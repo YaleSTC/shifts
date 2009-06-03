@@ -3,6 +3,7 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+  <h3>Permissions</h3>
   <p>
     <%= check_box_tag "role[permission_ids][]", @department.permission_id, @role.permissions.include?(@department.permission) %>
     <%= @department.permission.name %>

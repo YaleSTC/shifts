@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   validate :departments_not_empty
 
   # memoize allows more powerful caching of instance variable in methods
+  # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
-  memoize :full_name, :permission_list, :is_superuser?
 
   def self.import_from_ldap(netid, department, should_save = false)
     # Setup our LDAP connection
@@ -91,6 +91,8 @@ class User < ActiveRecord::Base
   def full_name
     [first_name, last_name].join(" ")
   end
+
+  memoize :full_name, :permission_list, :is_superuser?
 
   private
 
