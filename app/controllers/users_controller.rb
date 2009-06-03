@@ -11,23 +11,33 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create
+  def create  
     #if user already in database
-    if @user = User.find_by_netid(params[:user][:netid])
-      if @user.departments.include? @department
+    if @user = User.find_by_netid(params[:user][:netid])      
+      if @user.departments.include? @department #if user is already in this department
+        #don't modify any data, as this is probably a mistake
         flash[:notice] = "This user already exists in this department!"
         redirect_to @user
       else
+        #make sure not to lose roles in other departments
+        #remove all roles associated with this department
+        department_roles = @user.roles.select{|role| role.departments.include? @department}
+        @user.roles -= department_roles
+        #now add back all checked roles associated with this department
+        @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+        
+        #add user to new department
         @user.departments << @department
-        flash[:notice] = "User successfully added to this department."
+        flash[:notice] = "User successfully added to new department."
         redirect_to @user
       end
-    elsif #user is a new user
+    else #user is a new user
       #create from LDAP if possible; otherwise just use the given information
       @user = User.import_from_ldap(params[:user][:netid], @department) || User.create(params[:user])
-
+    
       #if a name was given, it should override the name from LDAP
       @user.name = params[:user][:name] unless params[:user][:name] == ""
+      @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
       if @user.save
         flash[:notice] = "Successfully created user."
         redirect_to @user
@@ -35,7 +45,7 @@ class UsersController < ApplicationController
         render :action => 'new'
       end
     end
-    y @user
+    # y @user #debug output
   end
 
   def edit
@@ -45,6 +55,15 @@ class UsersController < ApplicationController
   def update
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
+  
+    #store role changes, or else they'll overwrite roles in other departments
+    #remove all roles associated with this department
+    department_roles = @user.roles.select{|role| role.departments.include? @department}
+    updated_roles = @user.roles - department_roles
+    #now add back all checked roles associated with this department
+    updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+    params[:user][:role_ids] = updated_roles
+    
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
       redirect_to @user
