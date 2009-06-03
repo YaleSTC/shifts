@@ -1,7 +1,8 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
-  has_and_belongs_to_many :departments
+  has_many :departments_users
+  has_many :departments, :through => :departments_users
 
   validates_presence_of :name
   validates_presence_of :netid
@@ -80,7 +81,7 @@ class User < ActiveRecord::Base
 
   # check to make sure the user does not have the "deactivated" role in that dept
   def is_active?(dept)
-    not permission_list.include?(dept.deactivated_permission)
+    not DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => dept}).deactivated
   end
 
   def full_name
