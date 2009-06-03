@@ -1,9 +1,9 @@
-Feature: User_test
-  In order
-  As an
-  I want
+Feature: user_test
+  In order to create a roster
+  As an regular user
+  I want to create and manage users
 
-  Scenario Mass add users
+  Scenario: Mass add users
     Given I have a department named "STC"
     And I have no users
     When I go to mass add
@@ -12,11 +12,11 @@ Feature: User_test
     Then I should see "New users created"
     And I should have 4 users
 
-  Scenario Create a new user
+  Scenario: Create a new user
     Given I have a department named "STC"
     And I have no users
     And I am on the list of users
-    When I follow "New User"
+    When I follow "New"
     And I fill in "netid" with "wy59"
     And I fill in "name" with "Wei Yan"
     And I press "Create"
