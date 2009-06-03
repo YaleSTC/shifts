@@ -12,21 +12,31 @@ class UsersController < ApplicationController
   end
 
   def create
-    #create from LDAP if possible; otherwise just use the given information
-    unless @user = User.import_from_ldap(params[:user][:netid], @department)
-      @user = User.create(params[:user])
-    end
+    #if user already in database
+    if @user = User.find_by_netid(params[:user][:netid])
+      if @user.departments.include? @department
+        flash[:notice] = "This user already exists in this department!"
+        redirect_to @user
+      else
+        @user.departments << @department
+        flash[:notice] = "User successfully added to new department."
+        redirect_to @user
+      end
+    elsif #user is a new user
+      #create from LDAP if possible; otherwise just use the given information
+      @user = User.import_from_ldap(params[:user][:netid], @department) || User.create(params[:user])
     
-    #if a name was given, it should override the name from LDAP
-    @user.name = params[:user][:name] unless params[:user][:name] == ""
+      #if a name was given, it should override the name from LDAP
+      @user.name = params[:user][:name] unless params[:user][:name] == ""
+      if @user.save
+        flash[:notice] = "Successfully created user."
+        redirect_to @user
+      else
+        render :action => 'new'
+      end
+    end
     
     y @user
-    if @user.save
-      flash[:notice] = "Successfully created user."
-      redirect_to @user
-    else
-      render :action => 'new'
-    end
   end
 
   def edit

@@ -1,6 +1,10 @@
 class DepartmentsController < ApplicationController
   skip_before_filter :load_department, :only => :index
   def index
+    if params[:department_id]
+      redirect_to Department.find(params[:department_id])
+    end
+    
     @departments = Department.all
   end
 
