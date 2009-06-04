@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   def index
-    @users = @department.users
+    if params[:inactive]
+      @users = @department.users
+    else
+      @users = @department.users.select{|user| user.is_active?(@department)}
+      #@users = User.find(:all, :conditions => {:is_active => true}, :order => :last_name)
+    end
   end
 
   def show
@@ -74,7 +79,7 @@ class UsersController < ApplicationController
 
   def destroy #the preferred action. really only disables the user for that department.
     @user = User.find(params[:id])
-    dept_user = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => current_department})
+    dept_user = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
     dept_user.deactivated = true
     if dept_user.save
       flash[:notice] = "Successfully deactivated user."
@@ -86,7 +91,7 @@ class UsersController < ApplicationController
 
   def restore #activates the user
     @user = User.find(params[:id])
-    dept_user = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => current_department})
+    dept_user = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
     dept_user.deactivated = false
     if dept_user.save
       flash[:notice] = "Successfully restored user."
