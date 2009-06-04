@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   def index
-    @locations = Location.all
+    @locations = @department.locations.select { |lg| current_user.can_admin?(lg.loc_group) }
   end
 
   def show
