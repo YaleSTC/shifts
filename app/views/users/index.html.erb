@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Netid</th>
+    <th>Login</th>
     <th>Name</th>
     <th>First Name</th>
     <th>Last Name</th>
@@ -10,7 +10,7 @@
   </tr>
   <% for user in @users %>
     <tr>
-      <td><%=h user.netid %></td>
+      <td><%=h user.login %></td>
       <td><%=h user.name %></td>
       <td><%=h user.first_name %></td>
       <td><%=h user.last_name %></td>
