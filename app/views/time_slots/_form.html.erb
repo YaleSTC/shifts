@@ -1,0 +1,16 @@
+<% form_for @time_slot do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
