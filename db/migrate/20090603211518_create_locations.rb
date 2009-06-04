@@ -8,7 +8,7 @@ class CreateLocations < ActiveRecord::Migration
       t.integer :min_staff
       t.integer :priority
       t.boolean :active
-      t.integer :loc_group_id
+      t.references :loc_group
       t.timestamps
     end
   end

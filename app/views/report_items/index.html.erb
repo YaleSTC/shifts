@@ -1,0 +1,23 @@
+<% title "Report Items" %>
+
+<table>
+  <tr>
+    <th>Report</th>
+    <th>Can Edit</th>
+    <th>Time</th>
+    <th>Content</th>
+  </tr>
+  <% for report_item in @report_items %>
+    <tr>
+      <td><%=h report_item.report %></td>
+      <td><%=h report_item.can_edit %></td>
+      <td><%=h report_item.time %></td>
+      <td><%=h report_item.content %></td>
+      <td><%= link_to "Show", report_item %></td>
+      <td><%= link_to "Edit", edit_report_item_path(report_item) %></td>
+      <td><%= link_to "Destroy", report_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Report Item", new_report_item_path %></p>
