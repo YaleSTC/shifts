@@ -5,7 +5,7 @@ class CreateDepartmentsUsers < ActiveRecord::Migration
       t.references :user
       t.boolean :deactivated, :default => false
 
-      t.timestamps
+      t.timestamps #TODO: do we want to track when a user was added to a particular departmenet?
     end
   end
 
