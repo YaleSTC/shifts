@@ -7,7 +7,6 @@ class CreateSubRequests < ActiveRecord::Migration
       t.datetime :bribe_end
       t.datetime :start
       t.datetime :end
-      t.datetime :end
       t.references :new_shift #TODO: does this really need to go into the database?
       t.references :new_user  #TODO: does this really need to go into the database?
       t.text :reason

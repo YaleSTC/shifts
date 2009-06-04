@@ -8,8 +8,9 @@ class CreateShifts < ActiveRecord::Migration
       t.timestamps
     end
   end
-  
+
   def self.down
     drop_table :shifts
   end
 end
+

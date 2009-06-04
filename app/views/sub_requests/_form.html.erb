@@ -1,14 +1,6 @@
 <% form_for @sub_request do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :shift %><br />
-    <%= f.text_field :shift %>
-  </p>
-  <p>
-    <%= f.label :shift %><br />
-    <%= f.text_field :shift %>
-  </p>
-  <p>
     <%= f.label :bribe_start %><br />
     <%= f.datetime_select :bribe_start %>
   </p>
@@ -25,18 +17,6 @@
     <%= f.datetime_select :end %>
   </p>
   <p>
-    <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
-  </p>
-  <p>
-    <%= f.label :new_shift %><br />
-    <%= f.text_field :new_shift %>
-  </p>
-  <p>
-    <%= f.label :new_user %><br />
-    <%= f.text_field :new_user %>
-  </p>
-  <p>
     <%= f.label :reason %><br />
     <%= f.text_area :reason %>
   </p>
@@ -46,3 +26,4 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
+

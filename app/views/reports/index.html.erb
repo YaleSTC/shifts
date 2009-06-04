@@ -16,10 +16,9 @@
       <td><%=h report.login_ip %></td>
       <td><%=h report.logout_ip %></td>
       <td><%= link_to "Show", report %></td>
-      <td><%= link_to "Edit", edit_report_path(report) %></td>
-      <td><%= link_to "Destroy", report, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Report", new_report_path %></p>
+<p>link to new report (not needed -- "sign in" to shift will create report automatically)</p>
+
