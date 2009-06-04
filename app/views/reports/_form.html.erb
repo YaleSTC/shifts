@@ -1,0 +1,24 @@
+<% form_for @report do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :shift %><br />
+    <%= f.text_field :shift %>
+  </p>
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </p>
+  <p>
+    <%= f.label :login_ip %><br />
+    <%= f.text_field :login_ip %>
+  </p>
+  <p>
+    <%= f.label :logout_ip %><br />
+    <%= f.text_field :logout_ip %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

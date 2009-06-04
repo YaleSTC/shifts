@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :report_items
+
+  map.resources :reports
+
+  map.resources :shifts
+
 
 
   map.resources :departments, :shallow => true do |departments|
