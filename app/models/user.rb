@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
       else
         user = import_from_ldap(n, department, true)
       end
-      failed << "From netid #{user.netid}: #{user.errors.full_messages.to_sentence}" if user.new_record?
+      failed << "From netid #{user.netid}: #{user.errors.full_messages.to_sentence} (LDAP import may have failed)" if user.new_record?
     end
 
     failed
