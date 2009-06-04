@@ -2,7 +2,7 @@ class CreateDepartments < ActiveRecord::Migration
   def self.up
     create_table :departments do |t|
       t.string :name
-      t.integer :permission_id
+      t.references :permission
       t.timestamps
     end
   end

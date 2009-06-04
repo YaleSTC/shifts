@@ -1,0 +1,28 @@
+<% title "Report" %>
+
+<p>
+  <strong>Shift:</strong>
+  <%=h @report.shift %>
+</p>
+<p>
+  <strong>Start:</strong>
+  <%=h @report.start %>
+</p>
+<p>
+  <strong>End:</strong>
+  <%=h @report.end %>
+</p>
+<p>
+  <strong>Login Ip:</strong>
+  <%=h @report.login_ip %>
+</p>
+<p>
+  <strong>Logout Ip:</strong>
+  <%=h @report.logout_ip %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_report_path(@report) %> |
+  <%= link_to "Destroy", @report, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", reports_path %>
+</p>
