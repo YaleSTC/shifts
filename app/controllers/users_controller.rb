@@ -91,12 +91,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def restore #activates the user
-    #TODO: modify the code from destroy and get this working
+  def restore #reactivates the user  
     @user = User.find(params[:id])
-    dept_user = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-    dept_user.deactivated = false
-    if dept_user.save
+    new_entry = DepartmentsUser.new();
+    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
+    new_entry.attributes = old_entry.attributes
+    new_entry.deactivated = false
+    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+    
+    if new_entry.save
       flash[:notice] = "Successfully restored user."
       redirect_to @user
     else
