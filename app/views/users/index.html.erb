@@ -9,7 +9,7 @@
     <th>Email</th>
   </tr>
   <% for user in @users %>
-    <tr>
+    <tr<%= " style='color: gray'" if !user.is_active?(@department) %>>
       <td><%=h user.login %></td>
       <td><%=h user.name %></td>
       <td><%=h user.first_name %></td>
