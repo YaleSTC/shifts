@@ -1,20 +1,9 @@
 <% form_for @report_item do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :report %><br />
-    <%= f.text_field :report %>
-  </p>
-  <p>
-    <%= f.label :can_edit %><br />
-    <%= f.check_box :can_edit %>
-  </p>
-  <p>
-    <%= f.label :time %><br />
-    <%= f.datetime_select :time %>
-  </p>
-  <p>
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
+

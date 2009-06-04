@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
   def current_user
     @current_user ||=
-      User.find_by_netid(session[:cas_user]) ||
+      User.find_by_login(session[:cas_user]) ||
       User.import_from_ldap(session[:cas_user], true)
   end
 

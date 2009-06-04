@@ -1,19 +1,20 @@
---- 
-users_001: 
+---
+users_001:
   created_at: 2009-06-03 19:48:05
   email: nathan.griffith@yale.edu
   first_name: Nathan
   id: "1"
   last_name: Griffith
   name: Nathan Griffith
-  netid: njg24
+  login: njg24
   updated_at: 2009-06-03 19:48:05
-users_002: 
+users_002:
   created_at: 2009-06-03 21:14:47
   email: harley.trung@yale.edu
   first_name: Dung
   id: "2"
   last_name: Trung
   name: Dung Trung
-  netid: dtt22
+  login: dtt22
   updated_at: 2009-06-03 21:14:47
+

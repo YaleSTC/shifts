@@ -5,21 +5,21 @@ class User < ActiveRecord::Base
   has_many :departments, :through => :departments_users
 
   validates_presence_of :name
-  validates_presence_of :netid
-  validates_uniqueness_of :netid
+  validates_presence_of :login
+  validates_uniqueness_of :login
   validate :departments_not_empty
 
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
 
-  def self.import_from_ldap(netid, department, should_save = false)
+  def self.import_from_ldap(login, department, should_save = false)
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => "directory.yale.edu", :port => 389 )
     begin
-      # We filter results based on netid
-      filter = Net::LDAP::Filter.eq("uid", netid)
-      new_user = User.new(:netid => netid)
+      # We filter results based on login
+      filter = Net::LDAP::Filter.eq("uid", login)
+      new_user = User.new(:login => login)
       ldap.open do |ldap|
         # Search, limiting results to yale domain and people
         ldap.search(:base => "ou=People,o=yale.edu", :filter => filter, :return_result => false ) do |entry|
@@ -44,16 +44,16 @@ class User < ActiveRecord::Base
     new_user
   end
 
-  def self.mass_add(netids, department)
+  def self.mass_add(logins, department)
     failed = []
 
-    netids.split(/\W+/).map do |n|
-      if user = self.find_by_netid(n)
+    logins.split(/\W+/).map do |n|
+      if user = self.find_by_login(n)
         user.departments << department
       else
         user = import_from_ldap(n, department, true)
       end
-      failed << "From netid #{user.netid}: #{user.errors.full_messages.to_sentence} (LDAP import may have failed)" if user.new_record?
+      failed << "From login #{user.login}: #{user.errors.full_messages.to_sentence} (LDAP import may have failed)" if user.new_record?
     end
 
     failed
@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
 
   # see list of superusers defined in config/initializers/superuser_list.rb
   def is_superuser?
-    SUPERUSER_LIST.include?(netid)
+    SUPERUSER_LIST.include?(user)
   end
 
   # check to make sure the user does not have the "deactivated" role in that dept
