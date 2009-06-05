@@ -6,6 +6,7 @@
     <th>Can Edit</th>
     <th>Time</th>
     <th>Content</th>
+    <th>Ip Address</th>
   </tr>
   <% for report_item in @report_items %>
     <tr>
@@ -13,6 +14,7 @@
       <td><%=h report_item.can_edit %></td>
       <td><%=h report_item.time %></td>
       <td><%=h report_item.content %></td>
+      <td><%=h report_item.ip_address %></td>
       <td><%= link_to "Show", report_item %></td>
       <td><%= link_to "Edit", edit_report_item_path(report_item) %></td>
       <td><%= link_to "Destroy", report_item, :confirm => 'Are you sure?', :method => :delete %></td>

@@ -5,10 +5,6 @@
   <%=h @report_item.report %>
 </p>
 <p>
-  <strong>Can Edit:</strong>
-  <%=h @report_item.can_edit %>
-</p>
-<p>
   <strong>Time:</strong>
   <%=h @report_item.time %>
 </p>
@@ -16,9 +12,14 @@
   <strong>Content:</strong>
   <%=h @report_item.content %>
 </p>
+<p>
+<strong>IP Address:</strong>
+  <%=h @report_item.ip_address %>
+</p>
 
 <p>
   <%= link_to "Edit", edit_report_item_path(@report_item) %> |
   <%= link_to "Destroy", @report_item, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", report_items_path %>
 </p>
+
