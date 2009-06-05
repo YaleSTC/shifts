@@ -5,6 +5,10 @@
   <%=h @user.login %>
 </p>
 <p>
+  <strong>Active:</strong>
+  <%=h @user.is_active?(@department) %>
+</p>
+<p>
   <strong>Name:</strong>
   <%=h @user.name %>
 </p>
@@ -23,7 +27,7 @@
 
 <p>
   <%= link_to "Edit", edit_user_path(@user) %> |
-  <%= deactivate_link %> |
-  <%= link_to "Destroy", :action => :really_destroy, :id => @user %> |
+  <%= deactivate_link(@user) %> |
+  <%= link_to "Destroy", :action => :really_destroy, :id => @user %>
 </p>
 
