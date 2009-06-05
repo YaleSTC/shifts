@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   end
   
   def show
-    @report = Report.find(params[:id])
+    @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
   end
   
   def new

@@ -15,7 +15,7 @@ class ReportItemsController < ApplicationController
     @report_item = ReportItem.new(params[:report_item])
     @report_item.time = Time.now
     @report_item.ip_address = request.remote_ip
-    @report_item.report_id = params[:report_id]
+    @report_item.report = params[:report_id] ? Report.find(params[:report_id]) : Shift.find(params[:shift_id]).report
     if @report_item.save
       flash[:notice] = "Successfully created reportitem."
       redirect_to @report_item
@@ -42,6 +42,6 @@ class ReportItemsController < ApplicationController
     @report_item = ReportItem.find(params[:id])
     @report_item.destroy
     flash[:notice] = "Successfully destroyed reportitem."
-    redirect_to report_items_url
+    redirect_to shift_report_report_items_url(@report_item.report.shift)
   end
 end

@@ -8,9 +8,15 @@ The categories you see below will be automatically handled behind the scenes.
   <strong>Arrived:</strong>
   <%=h @report.arrived %>
 </p>
+<p>
+  <strong>Report items:</strong>
+  <% @report.report_items.each do |report| %>
+    <li><%=h report.content %></li>
+  <% end %>
+</p>
 <% unless @report.departed %>
   <p>
-    <%= link_to "Add report item", new_report_report_item_path(@report) %>
+    <%= link_to "Add report item", new_shift_report_report_item_path(@report.shift) %>
   </p>
 <% end %>
 <p>
@@ -21,8 +27,3 @@ The categories you see below will be automatically handled behind the scenes.
     <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true}, {:method => :put} %>
   <% end %>
   </p>
-
-<p>
-  <%= link_to "View All", shift_reports_path(@report.shift) %>
-</p>
-

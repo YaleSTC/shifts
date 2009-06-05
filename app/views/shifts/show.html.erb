@@ -18,7 +18,11 @@
 </p>
 
 <p>
-  <%= link_to "Create report", new_shift_report_path(@shift), :post => true %>
+  <% if @shift.report %>
+    <%= link_to "View report", shift_report_path(@shift), :post => true %>
+  <% else %>
+    <%= link_to "Create report", new_shift_report_path(@shift), :post => true %>
+  <% end %>
 </p>
 <p>
   <%= link_to "Edit", edit_shift_path(@shift) %> |
