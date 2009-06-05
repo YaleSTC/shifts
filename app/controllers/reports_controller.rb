@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
   end
   
   def create
-    @report = Report.new(:shift_id => params[:shift_id], :start => Time.now)
+    @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
     if @report.save
       flash[:notice] = "Successfully created report."
       redirect_to @report
@@ -28,6 +28,7 @@ class ReportsController < ApplicationController
   
   def update
     @report = Report.find(params[:id])
+    @report.departed = Time.now if(params[:sign_out])
     if @report.update_attributes(params[:report])
       flash[:notice] = "Successfully updated report."
       redirect_to @report
