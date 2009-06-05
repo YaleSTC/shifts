@@ -1,0 +1,12 @@
+<% title "Edit Location" %>
+
+<% form_for @location do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p><%= f.submit "Update" %></p>
+<% end %>
+
+<p>
+  <%= link_to "Show", @location %> |
+  <%= link_to "View All", department_locations_path(@department) %>
+</p>
+

@@ -1,0 +1,24 @@
+<% title "Shift" %>
+
+<p>
+  <strong>Start:</strong>
+  <%=h @shift.start %>
+</p>
+<p>
+  <strong>End:</strong>
+  <%=h @shift.end %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @shift.user %>
+</p>
+<p>
+  <strong>Location:</strong>
+  <%=h @shift.location %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_shift_path(@shift) %> |
+  <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", shifts_path %>
+</p>

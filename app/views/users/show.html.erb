@@ -1,8 +1,12 @@
 <% title "User" %>
 
 <p>
-  <strong>Netid:</strong>
-  <%=h @user.netid %>
+  <strong>Login:</strong>
+  <%=h @user.login %>
+</p>
+<p>
+  <strong>Active:</strong>
+  <%=h @user.is_active?(@department) %>
 </p>
 <p>
   <strong>Name:</strong>
@@ -23,6 +27,7 @@
 
 <p>
   <%= link_to "Edit", edit_user_path(@user) %> |
-  <%= link_to "Destroy", @user, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= deactivate_link(@user) %> |
+  <%= link_to "Destroy", :action => :really_destroy, :id => @user %>
 </p>
 
