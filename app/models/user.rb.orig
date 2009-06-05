@@ -85,10 +85,14 @@ class User < ActiveRecord::Base
 
   # see list of superusers defined in config/initializers/superuser_list.rb
   def is_superuser?
+<<<<<<< HEAD:app/models/user.rb
+    SUPERUSER_LIST.include?(login)
+=======
     SUPERUSER_LIST.include?(self.login)
+>>>>>>> 139fe9fae2cf7cdc7b76c3b3ab8e1ac9c8a367cd:app/models/user.rb
   end
 
-  # check to make sure the user is "active" in the given dept
+  # check to make sure the user is not "deactivated" in the given dept
   def is_active?(dept)
     self.departments_users[0].active
   end
@@ -105,3 +109,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
+
