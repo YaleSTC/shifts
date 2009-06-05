@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
 
   # check for loc group admin, who can add locations and shifts under it
   def can_admin?(loc_group)
-    permission_list.include?(loc_group.admin_permission) && self.is_active?(loc_group.department)
+    (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
   end
 
   # check for department admin, who can create new loc group, new role, and new user in department

@@ -23,5 +23,10 @@
   <% end %>
 </table>
 
-<p><%= link_to "New User", new_department_user_path(@department) %></p>
-
+<p><%= link_to "New User", new_department_user_path(@department) %><br />
+<% if params[:show_inactive].nil? %>
+  <%= link_to "Show Inactive Users", :show_inactive => true %>
+<% else %>
+  <%= link_to "Hide Inactive Users", department_users_path(@department) %>
+<% end %>
+</p>
