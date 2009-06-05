@@ -1,0 +1,27 @@
+<% title "Report" %>
+
+THIS PAGE will act as a report page, allowing you to add report items, etc.
+
+The categories you see below will be automatically handled behind the scenes.
+
+<p>
+  <strong>Arrived:</strong>
+  <%=h @report.arrived %>
+</p>
+<p>
+  <strong>Departed:</strong>
+  <%=h @report.departed %>
+</p>
+<p>
+  <strong>Login Ip:</strong>
+  <%=h @report.login_ip %>
+</p>
+<p>
+  <strong>Logout Ip:</strong>
+  <%=h @report.logout_ip %>
+</p>
+
+<p>
+  <%= link_to "View All", shifts_reports_path(@report.shift) %>
+</p>
+

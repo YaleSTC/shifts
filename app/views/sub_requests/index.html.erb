@@ -1,0 +1,38 @@
+<% title "Sub Requests" %>
+
+<table>
+  <tr>
+    <th>Shift</th>
+    <th>Shift</th>
+    <th>Bribe Start</th>
+    <th>Bribe End</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>End</th>
+    <th>New Shift</th>
+    <th>New User</th>
+    <th>Reason</th>
+    <th>Target Ids</th>
+  </tr>
+  <% for sub_request in @sub_requests %>
+    <tr>
+      <td><%=h sub_request.shift %></td>
+      <td><%=h sub_request.shift %></td>
+      <td><%=h sub_request.bribe_start %></td>
+      <td><%=h sub_request.bribe_end %></td>
+      <td><%=h sub_request.start %></td>
+      <td><%=h sub_request.end %></td>
+      <td><%=h sub_request.end %></td>
+      <td><%=h sub_request.new_shift %></td>
+      <td><%=h sub_request.new_user %></td>
+      <td><%=h sub_request.reason %></td>
+      <td><%=h sub_request.target_ids %></td>
+      <td><%= link_to "Show", sub_request %></td>
+      <td><%= link_to "Edit", edit_sub_request_path(sub_request) %></td>
+      <td><%= link_to "Destroy", sub_request, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>New sub request action will be found when you are viewing shifts! However, this controller will handle the RESTful actions!</p>
+

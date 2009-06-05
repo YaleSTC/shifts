@@ -79,3 +79,7 @@ a {
   font-size: 12px;
   list-style: disc;
 }
+
+.disabled {
+  color: #999;
+}
