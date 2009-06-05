@@ -9,19 +9,15 @@ The categories you see below will be automatically handled behind the scenes.
   <%=h @report.arrived %>
 </p>
 <p>
-  <strong>Departed:</strong>
-  <%=h @report.departed %>
-</p>
-<p>
-  <strong>Login Ip:</strong>
-  <%=h @report.login_ip %>
-</p>
-<p>
-  <strong>Logout Ip:</strong>
-  <%=h @report.logout_ip %>
-</p>
+  <% if @report.departed %>
+    <strong>Departed:</strong>
+    <%=h @report.departed %>
+  <% else #report is still in progress %>
+    <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true}, {:method => :put} %>
+  <% end %>
+  </p>
 
 <p>
-  <%= link_to "View All", shifts_reports_path(@report.shift) %>
+  <%= link_to "View All", shift_reports_path(@report.shift) %>
 </p>
 

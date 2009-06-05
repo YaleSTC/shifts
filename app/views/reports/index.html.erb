@@ -5,19 +5,15 @@ There should be a link on the shifts page that says "sign into this shift" which
 
 <table>
   <tr>
-    <th>Shift</th>
-    <th>Start</th>
-    <th>End</th>
-    <th>Login Ip</th>
-    <th>Logout Ip</th>
+    <th>Shift ID</th>
+    <th>Arrived</th>
+    <th>Departed</th>
   </tr>
   <% for report in @reports %>
     <tr>
-      <td><%=h report.shift %></td>
-      <td><%=h report.start %></td>
-      <td><%=h report.end %></td>
-      <td><%=h report.login_ip %></td>
-      <td><%=h report.logout_ip %></td>
+      <td><%=h report.shift.id %></td>
+      <td><%=h report.arrived %></td>
+      <td><%=h report.departed %></td>
       <td><%= link_to "Show", report %></td>
     </tr>
   <% end %>
