@@ -1,22 +1,20 @@
 <% title "Payform Items" %>
 
+This view will display all payform items within a given payform period.
+
 <table>
   <tr>
-    <th>Deleted</th>
+    <th>Active?</th>
     <th>Hours</th>
-    <th>User</th>
     <th>Source</th>
-    <th>Escription</th>
-    <th>Category</th>
+    <th>Description</th>
   </tr>
   <% for payform_item in @payform_items %>
     <tr>
-      <td><%=h payform_item.deleted %></td>
+      <td><%=h payform_item.active %></td>
       <td><%=h payform_item.hours %></td>
-      <td><%=h payform_item.user %></td>
       <td><%=h payform_item.source %></td>
-      <td><%=h payform_item.escription %></td>
-      <td><%=h payform_item.category %></td>
+      <td><%=h payform_item.description %></td>
       <td><%= link_to "Show", payform_item %></td>
       <td><%= link_to "Edit", edit_payform_item_path(payform_item) %></td>
       <td><%= link_to "Destroy", payform_item, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -25,3 +23,4 @@
 </table>
 
 <p><%= link_to "New Payform Item", new_payform_item_path %></p>
+
