@@ -1,5 +1,6 @@
 Given /^I have a user named "([^\"]*)" in the department "([^\"]*)" with netid "([^\"]*)"$/ do |name, department, netid|
-  @department = department
-  @netid = netid
+  user = User.new(:netid => netid, :name => name)
+  user.departments << Department.find_by_name(department)
+  user.save!
 end
 
