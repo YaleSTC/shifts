@@ -1,0 +1,17 @@
+<% title "Payform Item Sets" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% for payform_item_set in @payform_item_sets %>
+    <tr>
+      <td><%=h payform_item_set.name %></td>
+      <td><%= link_to "Show", payform_item_set %></td>
+      <td><%= link_to "Edit", edit_payform_item_set_path(payform_item_set) %></td>
+      <td><%= link_to "Destroy", payform_item_set, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Payform Item Set", new_payform_item_set_path %></p>
