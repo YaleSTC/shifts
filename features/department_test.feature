@@ -15,7 +15,7 @@ Feature: department_test
   Scenario: Department list
     Given I have a department named "STC"
     And I have a department named "Film Studies"
-    And I have a user named "Bob Qu" in the department "STC" with netid "bq9"
+    And I have a user named "Bob Qu" in the department "STC" with login "bq9"
     And I am on the list of departments
     Then I should see "STC"
     And I should see "Film Studies"
