@@ -1,8 +1,8 @@
 <% title "Report Item" %>
 
 <p>
-  <strong>Report:</strong>
-  <%=h @report_item.report %>
+  <strong>Report ID:</strong>
+  <%= link_to @report_item.report.id, @report_item.report %>
 </p>
 <p>
   <strong>Time:</strong>
@@ -20,6 +20,6 @@
 <p>
   <%= link_to "Edit", edit_report_item_path(@report_item) %> |
   <%= link_to "Destroy", @report_item, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", report_report_items_path(@report_item.report) %>
+  <%= link_to "View All", shift_report_report_items_path(@report_item.report) %>
 </p>
 
