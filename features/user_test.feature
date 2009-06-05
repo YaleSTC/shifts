@@ -8,7 +8,7 @@ Feature: user_test
     And I have no users
     And I am on the list of users
     When I follow "Mass Add"
-    And I fill in "netids" with "wy59 brs35 alb64 aje29"
+    And I fill in "logins" with "wy59 brs35 alb64 aje29"
     And I press "Submit"
     Then I should see "New users created"
     And I should have 4 users
@@ -18,7 +18,7 @@ Feature: user_test
     And I have no users
     And I am on the list of users
     When I follow "New"
-    And I fill in "netid" with "wy59"
+    And I fill in "login" with "wy59"
     And I fill in "name" with "Wei Yan"
     And I press "Create"
     Then I should see "Successfully created user"
