@@ -14,6 +14,8 @@ class ShiftsController < ApplicationController
   def create
     @shift = Shift.new(params[:shift])
     if @shift.save
+      #combine with any compatible shifts
+      @shift = Shift.combine_with_surrounding_shifts(@shift)
       flash[:notice] = "Successfully created shift."
       redirect_to @shift
     else
@@ -28,6 +30,8 @@ class ShiftsController < ApplicationController
   def update
     @shift = Shift.find(params[:id])
     if @shift.update_attributes(params[:shift])
+      #combine with any compatible shifts
+      @shift = Shift.combine_with_surrounding_shifts(@shift)
       flash[:notice] = "Successfully updated shift."
       redirect_to @shift
     else

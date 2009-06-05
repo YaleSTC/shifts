@@ -14,7 +14,7 @@
   </p>
   <p>
     <%= f.label :location %><br />
-    <%= f.collection_select(:location_id, @department.locations, :id, :name, {:prompt => "Select a location"}) %> (TODO -- allow user to choose location group, which then gives them the options for locations)
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name)%><br />
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

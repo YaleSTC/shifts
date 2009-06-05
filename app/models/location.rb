@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
   belongs_to :loc_group
+  has_many :shifts
   
   validates_presence_of :loc_group
   validates_presence_of :name

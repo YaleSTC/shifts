@@ -17,8 +17,8 @@ Remember to figure out which links currently in the navbar can be moved to shift
     <tr>
       <td><%=h shift.start %></td>
       <td><%=h shift.end %></td>
-      <td><%=h shift.user %></td>
-      <td><%=h shift.location %></td>
+      <td><%=h shift.user.name %></td>
+      <td><%=h shift.location.name %></td>
       <td><%= link_to "Show", shift %></td>
       <td><%= link_to "Edit", edit_shift_path(shift) %></td>
       <td><%= link_to "Destroy", shift, :confirm => 'Are you sure?', :method => :delete %></td>
