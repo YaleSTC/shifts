@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
 
   # see list of superusers defined in config/initializers/superuser_list.rb
   def is_superuser?
-    SUPERUSER_LIST.include?(user)
+    SUPERUSER_LIST.include?(login)
   end
 
   # check to make sure the user does not have the "deactivated" role in that dept
