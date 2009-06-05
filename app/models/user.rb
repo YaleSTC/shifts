@@ -88,9 +88,9 @@ class User < ActiveRecord::Base
     SUPERUSER_LIST.include?(self.login)
   end
 
-  # check to make sure the user does not have the "deactivated" role in that dept
+  # check to make sure the user is not "deactivated" in the given dept
   def is_active?(dept)
-    not DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => dept}).deactivated
+    self.departments_users[0].active
   end
 
   def full_name

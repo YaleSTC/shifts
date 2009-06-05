@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    # if params[:deactivated]
+    # if params[:show_all]
       @users = @department.users
     # else
       # @users = @department.users.select{|user| user.is_active?(@department)}
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
     new_entry.attributes = old_entry.attributes
-    new_entry.deactivated = true
+    new_entry.active = false
     DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
     if new_entry.save
       flash[:notice] = "Successfully deactivated user."
@@ -96,7 +96,7 @@ class UsersController < ApplicationController
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
     new_entry.attributes = old_entry.attributes
-    new_entry.deactivated = false
+    new_entry.active = true
     DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
     
     if new_entry.save

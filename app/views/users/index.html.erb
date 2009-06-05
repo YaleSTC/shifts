@@ -9,7 +9,8 @@
     <th>Email</th>
   </tr>
   <% for user in @users %>
-    <tr<%= " style='color: gray'" if !user.is_active?(@department) %>>
+    <%# TODO: put this formatting in the css %>
+    <tr<%= " class='disabled'" if !user.is_active?(@department) %>>
       <td><%=h user.login %></td>
       <td><%=h user.name %></td>
       <td><%=h user.first_name %></td>
