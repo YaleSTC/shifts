@@ -1,4 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :payform_item_sets
+
+  map.resources :payform_item_sets
+
+  map.resources :payform_sets
+
+  map.resources :cagtegories
+
   map.resources :payforms
 
   map.resources :payform_items
