@@ -1,0 +1,9 @@
+<% title "New Location" %>
+
+<% form_for [@department,@location] do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p><%= f.submit "Create" %></p>
+<% end %>
+
+<p><%= link_to "Back to List", department_locations_path(@department) %></p>
+
