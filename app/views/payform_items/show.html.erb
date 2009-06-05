@@ -1,28 +1,20 @@
 <% title "Payform Item" %>
 
 <p>
-  <strong>Deleted:</strong>
-  <%=h @payform_item.deleted %>
+  <strong>Active?:</strong>
+  <%=h @payform_item.active %>
 </p>
 <p>
   <strong>Hours:</strong>
   <%=h @payform_item.hours %>
 </p>
 <p>
-  <strong>User:</strong>
-  <%=h @payform_item.user %>
-</p>
-<p>
   <strong>Source:</strong>
   <%=h @payform_item.source %>
 </p>
 <p>
-  <strong>Escription:</strong>
-  <%=h @payform_item.escription %>
-</p>
-<p>
-  <strong>Category:</strong>
-  <%=h @payform_item.category %>
+  <strong>Description:</strong>
+  <%=h @payform_item.description %>
 </p>
 
 <p>
@@ -30,3 +22,4 @@
   <%= link_to "Destroy", @payform_item, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", payform_items_path %>
 </p>
+
