@@ -8,7 +8,8 @@ class Department < ActiveRecord::Base
    has_and_belongs_to_many :users
 
   before_validation_on_create :create_permissions
-  before_validation_on_update :update_permissions
+# this next validation doesn't work, so it's commented out
+#  before_validation_on_update :update_permissions
   validates_uniqueness_of :name
   validates_uniqueness_of :permission_id
 
