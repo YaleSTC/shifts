@@ -2,34 +2,35 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  helper :layout # include all helpers, all the time
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_department
   #before_filter CASClient::Frameworks::Rails::Filter
 
+  helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
 
-  # See ActionController::RequestForgeryProtection for details
-  # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery # :secret => 'ac2a5d70e82f4f955e299a9b53a795ed'
+  protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   def access_denied
-    render :text => "Access denied"
+    render :text => "Access denied", :layout => true
   end
 
-  # See ActionController::Base for details
-  # Uncomment this to filter the contents of submitted sensitive data parameters
-  # from your application log (in this case, all fields with names like "password").
+  # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
   protected
+  # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
   def current_user
-    @current_user ||= User.find_by_netid(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
+    @current_user ||=
+      User.find_by_login(session[:cas_user]) ||
+      User.import_from_ldap(session[:cas_user], true)
   end
 
-  # an alternative, for those methods that skip load_department before_filter
+  # for department, current_department is a bit too long =),
+  # one can use @department or current_department
+  # current_department is suitable to those methods that skip_before_filter load_department
   def current_department
     @department ||= Department.find_by_id(params[:department_id] || session[:department_id])
   end
