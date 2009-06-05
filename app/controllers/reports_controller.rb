@@ -9,10 +9,11 @@ class ReportsController < ApplicationController
   
   def new
     @report = Report.new
+    #redirect_to :action => 'create', :method => :post
   end
   
   def create
-    @report = Report.new(params[:report])
+    @report = Report.new(:shift_id => params[:shift_id], :start => Time.now)
     if @report.save
       flash[:notice] = "Successfully created report."
       redirect_to @report
