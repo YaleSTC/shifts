@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   def index
-    # if params[:show_all]
+    if params[:show_inactive]
       @users = @department.users
-    # else
-      # @users = @department.users.select{|user| user.is_active?(@department)}
-    # end
+    else
+      @users = @department.users.select{|user| user.is_active?(@department)}
+    end
   end
 
   def show
