@@ -6,6 +6,11 @@ Given /^I have a user named (.+), netid (.+)$/ do |name, netid|
   User.create!(:name => name, :netid => netid)
 end
 
+Given /^the user with netid (.+) belongs to the department (.+)$/ do |netid, department|
+  department = @department
+  User.find_by_netid(netid).departments << @department
+end
+
 Given /^I have a department named "(.+)"$/ do |department|
   @department = Department.create!(:name => department)
 end
