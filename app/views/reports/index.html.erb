@@ -1,0 +1,27 @@
+<% title "Reports" %>
+
+This conroller will go to your current report if logged in (technically it will go to the "show" action for your current report), otherwise it will go to the shifts page. (Perhaps saying "you are not logged into a shift")<br>
+There should be a link on the shifts page that says "sign into this shift" which will direct to shift/x/report/new and create a report for that shift.<br>
+
+<table>
+  <tr>
+    <th>Shift</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Login Ip</th>
+    <th>Logout Ip</th>
+  </tr>
+  <% for report in @reports %>
+    <tr>
+      <td><%=h report.shift %></td>
+      <td><%=h report.start %></td>
+      <td><%=h report.end %></td>
+      <td><%=h report.login_ip %></td>
+      <td><%=h report.logout_ip %></td>
+      <td><%= link_to "Show", report %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>link to new report (not needed -- "sign in" to shift will create report automatically)</p>
+
