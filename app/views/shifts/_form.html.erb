@@ -1,0 +1,21 @@
+<% form_for @shift do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %> (specify a startime)
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %> (specify an endtime)
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.collection_select(:location_id, @department.locations, :id, :name, {:prompt => "Select a location"}) %> (TODO -- allow user to choose location group, which then gives them the options for locations)
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+

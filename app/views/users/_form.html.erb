@@ -1,7 +1,7 @@
   <%= f.error_messages %>
   <p>
-    <%= f.label :netid %><br />
-    <%= f.text_field :netid %>
+    <%= f.label :login %><br />
+    <%= f.text_field :login %>
   </p>
   <p>
     <%= f.label :name %><br />
@@ -20,6 +20,7 @@
     <%= f.text_field :email %>
   </p>
 
+  <h3>Roles</h3>
   <% for role in @department.roles -%>
     <div>
       <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
