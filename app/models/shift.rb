@@ -31,6 +31,7 @@ class Shift < ActiveRecord::Base
       shift_earlier.save
       shift = shift_earlier
     end
+    shift
   end
   
   

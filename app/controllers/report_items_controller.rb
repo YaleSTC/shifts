@@ -15,6 +15,7 @@ class ReportItemsController < ApplicationController
     @report_item = ReportItem.new(params[:report_item])
     @report_item.time = Time.now
     @report_item.ip_address = request.remote_ip
+    @report_item.report_id = params[:report_id]
     if @report_item.save
       flash[:notice] = "Successfully created reportitem."
       redirect_to @report_item

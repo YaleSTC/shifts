@@ -8,6 +8,11 @@ The categories you see below will be automatically handled behind the scenes.
   <strong>Arrived:</strong>
   <%=h @report.arrived %>
 </p>
+<% unless @report.departed %>
+  <p>
+    <%= link_to "Add report item", new_report_report_item_path(@report) %>
+  </p>
+<% end %>
 <p>
   <% if @report.departed %>
     <strong>Departed:</strong>
