@@ -1,0 +1,27 @@
+<% title "Payform Items" %>
+
+<table>
+  <tr>
+    <th>Deleted</th>
+    <th>Hours</th>
+    <th>User</th>
+    <th>Source</th>
+    <th>Escription</th>
+    <th>Category</th>
+  </tr>
+  <% for payform_item in @payform_items %>
+    <tr>
+      <td><%=h payform_item.deleted %></td>
+      <td><%=h payform_item.hours %></td>
+      <td><%=h payform_item.user %></td>
+      <td><%=h payform_item.source %></td>
+      <td><%=h payform_item.escription %></td>
+      <td><%=h payform_item.category %></td>
+      <td><%= link_to "Show", payform_item %></td>
+      <td><%= link_to "Edit", edit_payform_item_path(payform_item) %></td>
+      <td><%= link_to "Destroy", payform_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Payform Item", new_payform_item_path %></p>

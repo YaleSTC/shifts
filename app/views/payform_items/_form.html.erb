@@ -1,0 +1,28 @@
+<% form_for @payform_item do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :deleted %><br />
+    <%= f.check_box :deleted %>
+  </p>
+  <p>
+    <%= f.label :hours %><br />
+    <%= f.text_field :hours %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :source %><br />
+    <%= f.text_field :source %>
+  </p>
+  <p>
+    <%= f.label :escription %><br />
+    <%= f.text_area :escription %>
+  </p>
+  <p>
+    <%= f.label :category %><br />
+    <%= f.text_field :category %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
