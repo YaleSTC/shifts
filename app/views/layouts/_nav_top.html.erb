@@ -6,6 +6,11 @@
       <li class="<%= tab('roles') %>"><%= link_to "Roles", department_roles_path(@department) %></li>
       <li class="<%= tab('loc_groups') %>"><%= link_to "Loc Groups", department_loc_groups_path(@department) %></li>
       <li class="<%= tab('locations') %>"><%= link_to "Locations", department_locations_path(@department) %></li>
+      <li class="<%= tab('shifts') %>"><%= link_to "Shifts", shifts_path %></li>
+      <li class="<%= tab('reports') %>"><%= link_to "Reports", :controller => :reports %></li>
+      <li class="<%= tab('report_items') %>"><%= link_to "Report Items", :controller => :report_items %></li>
+      <li class="<%= tab('sub_requests') %>"><%= link_to "Sub Requests", :controller => :sub_requests %></li>
+      <li class="<%= tab('time_slots') %>"><%= link_to "Time Slots", time_slots_path %></li>
     <ul>
   <% end -%>
 </div>
