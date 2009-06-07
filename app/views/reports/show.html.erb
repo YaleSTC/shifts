@@ -11,7 +11,7 @@ The categories you see below will be automatically handled behind the scenes.
 <p>
   <strong>Report items:</strong>
   <% @report.report_items.each do |report| %>
-    <li><%=h report.content %></li>
+    <li><%=h report.time.getlocal %>: <%=h report.content %></li>
   <% end %>
 </p>
 <% unless @report.departed %>
@@ -27,3 +27,4 @@ The categories you see below will be automatically handled behind the scenes.
     <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true}, {:method => :put} %>
   <% end %>
   </p>
+
