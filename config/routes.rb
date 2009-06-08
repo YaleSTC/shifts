@@ -16,11 +16,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :payform_items
 
 
-  map.resources :time_slots #TODO: What should this be nested under, if anything?
+  map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
 
   map.resources :shifts, :shallow => true do |shifts|
     shifts.resources :reports
-    shifts.resources :sub_requests #NOTE: "sub_requests" instead of "subs" -- we can always change the routing, but sub_requests was a clearer name
+    shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
     map.resources :report_items
   end
 
