@@ -1,4 +1,8 @@
 class Shift < ActiveRecord::Base
+
+  delegate :loc_group, :to => 'location'
+  delegate :department, :to => 'location'
+
   belongs_to :user
   belongs_to :location
   has_one :report
@@ -41,6 +45,42 @@ class Shift < ActiveRecord::Base
   # ==================
   # = Object methods =
   # ==================
+
+  def too_early?
+    start > 30.minutes.from_now
+  end
+
+  def missed?
+    has_passed? and !signed_in?
+  end
+
+  def late?
+    #TODO: tie this to an actual admin preference
+    signed_in? && (report.start - start > 7)
+  end
+  
+  #a shift has been signed in to if it has a report
+  def signed_in?
+    report
+  end
+  
+  #a shift has been signed in to if its shift report has been submitted
+  def submitted?
+    report and report.departed
+  end
+
+
+  #TODO: subs!
+  #check if a shift has a *pending* sub request and that sub is not taken yet
+  # def has_sub?
+  #   #note: if the later part of a shift has been taken, self.sub still returns true so we also need to check self.sub.new_user.nil?
+  #   sub and sub.new_user.nil? #new_user in sub is only set after sub is taken.  shouldn't check new_shift bcoz a shift can be deleted from db. -H
+  # end
+  # 
+  # def has_sub_at_start?
+  #   has_sub? and start == sub.start
+  # end
+
 
   def has_passed?
     self.end < Time.now

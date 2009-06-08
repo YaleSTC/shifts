@@ -1,6 +1,9 @@
 class Location < ActiveRecord::Base
   belongs_to :loc_group
+
   has_many :time_slots
+  has_many :shifts
+  
 
   validates_presence_of :loc_group
   validates_presence_of :name
@@ -13,7 +16,6 @@ class Location < ActiveRecord::Base
   validates_uniqueness_of :short_name, :scope => :loc_group_id
   validate :max_staff_greater_than_min_staff
 
-  # NOTE: use delegate instead of "def department".  "belongs_to through" (when exists) will be overkill for this -H
   delegate :department, :to => :loc_group
 
   def max_staff_greater_than_min_staff
