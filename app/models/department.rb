@@ -1,7 +1,7 @@
 class Department < ActiveRecord::Base
   has_many :loc_groups, :dependent => :destroy
   belongs_to :permission, :dependent => :destroy
-  has_many :departments_users
+  has_many :departments_users, :dependent => :destroy
   has_many :users, :through => :departments_users
   has_many :locations, :through => :loc_groups
 
@@ -16,12 +16,12 @@ class Department < ActiveRecord::Base
 
   private
   def create_permissions
-    self.create_permission(:name => name + " user admin")
+    self.create_permission(:name => name + " dept admin")
   end
 
   # in case department name is changed, should update permissions accordingly
   def update_permissions
-    self.permission.update_attribute(:name, name + " user admin")
+    self.permission.update_attribute(:name, name + " dept admin")
   end
 
 end

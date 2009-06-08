@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  #TODO: add authorization before_filter here and update the action code accordingly
+  # a superuser can view all users while a department admin can manage a department's users
+  # depending on the dept chooser
+
   def index
     if params[:show_inactive]
       @users = @department.users
@@ -91,14 +95,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def restore #reactivates the user  
+  def restore #reactivates the user
     @user = User.find(params[:id])
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
     new_entry.attributes = old_entry.attributes
     new_entry.active = true
     DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
-    
+
     if new_entry.save
       flash[:notice] = "Successfully restored user."
       redirect_to @user

@@ -1,10 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :time_slots #TODO: What should this be nested under, if anything?
+  map.resources :payform_item_sets
+
+  map.resources :payform_sets
+
+  map.resources :payforms, :shallow => true do |payforms|
+    payforms.resources :payform_items
+  end
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
 
   map.resources :shifts, :shallow => true do |shifts|
     shifts.resources :reports
-    shifts.resources :sub_requests #NOTE: "sub_requests" instead of "subs" -- we can always change the routing, but sub_requests was a clearer name
+    shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
     map.resources :report_items
   end
 
@@ -15,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
+    departments.resources :cagtegories
   end
 
   map.resources :permissions, :only => :index
