@@ -16,13 +16,11 @@ describe User do
       @user.login.should == "ww"
     end
 
-    it "should have a unique login" do
+    it "should have a unique login"
 
-    end
-
-    it "should have a department" do
+    it "should have a department"
 #      @user.departments == "STC"
-    end
+
 
 end
 
