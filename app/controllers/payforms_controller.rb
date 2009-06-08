@@ -1,14 +1,10 @@
 class PayformsController < ApplicationController
   def index
-    @payforms = Payform.all
+    redirect_to Payform.current(current_department, current_user)
   end
 
   def show
-    if params[:id]
-      @payform = Payform.find(params[:id])
-    else
-      redirect_to Payform.current(current_department, current_user)
-    end
+    @payform = Payform.find(params[:id])
   end
 
 end

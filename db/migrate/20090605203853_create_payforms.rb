@@ -5,7 +5,7 @@ class CreatePayforms < ActiveRecord::Migration
 
       #PAYFORM PERIOD INFO
       t.boolean  :monthly, :default => false #defaults to WEEKLY
-      t.boolean  :type, :default => true #where false = bi-weekly or semi-monthly, and true = weekly or monthly
+      t.boolean  :complex, :default => true #where false = bi-weekly or semi-monthly, and true = weekly or monthly
       t.integer  :day #if it is weekly, this stores the day of the week, and if this is monthly, day of the month
 
       #payform status
