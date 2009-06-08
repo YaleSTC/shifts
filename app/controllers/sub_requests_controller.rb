@@ -42,6 +42,7 @@ class SubRequestsController < ApplicationController
   # POST /sub_requests.xml
   def create
     @sub_request = SubRequest.new(params[:sub_request])
+    @sub_request.shift = Shift.find(params[:shift_id])
 
     respond_to do |format|
       if @sub_request.save
