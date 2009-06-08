@@ -1,5 +1,5 @@
 class LocGroupsController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_department_admin
 
   def index
     @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
@@ -42,13 +42,6 @@ class LocGroupsController < ApplicationController
     @loc_group.destroy
     flash[:notice] = "Successfully destroyed loc group."
     redirect_to department_loc_groups_path(current_department)
-  end
-
-  private
-  # TODO: do we want finer role control: sth in between of department admin and loc group admin?
-  # Ben says "no" and Nathan can't think of a use case.
-  def require_admin
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
   end
 end
 

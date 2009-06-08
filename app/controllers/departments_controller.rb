@@ -48,12 +48,5 @@ class DepartmentsController < ApplicationController
     redirect_to departments_url
   end
 
-  private
-  def require_superuser
-    unless current_user.is_superuser?
-      flash[:notice] = "Only superuser can manage departments."
-      redirect_to(access_denied_path)
-    end
-  end
 end
 
