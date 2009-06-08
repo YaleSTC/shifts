@@ -1,4 +1,6 @@
 class LocationsController < ApplicationController
+  #TODO: add loc group authorization before filters here
+
   def index
     @locations = @department.locations.select { |lg| current_user.can_admin?(lg.loc_group) }
   end

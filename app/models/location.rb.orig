@@ -1,7 +1,12 @@
 class Location < ActiveRecord::Base
   belongs_to :loc_group
+<<<<<<< HEAD:app/models/location.rb
+  has_many :shifts
+  
+=======
   has_many :time_slots
 
+>>>>>>> 8142298ae6806c8883f9f87524be9997e739f5bb:app/models/location.rb
   validates_presence_of :loc_group
   validates_presence_of :name
   validates_presence_of :short_name
