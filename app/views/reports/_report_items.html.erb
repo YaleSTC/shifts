@@ -6,9 +6,7 @@
 </p>
 <% unless @report.departed %>
   <p>
-     <% remote_form_for :report_item, :url => {:controller => "create"} do |form| %>
-        <%= form.text_field :content %>
-        <%= submit_tag "Add" %>
+    <%= link_to "Add report item", new_shift_report_report_item_path(@report.shift) %>
  <% end %>
   </p>
 <% end %>
