@@ -9,7 +9,9 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resources :sub_requests #NOTE: "sub_requests" instead of "subs" -- we can always change the routing, but sub_requests was a clearer name
   end
 
-  map.resources :reports
+  map.resources :reports do |report|
+    report.resources :report_items
+  end
   
 
   map.resources :departments, :shallow => true do |departments|
