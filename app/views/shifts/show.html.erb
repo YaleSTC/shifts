@@ -16,7 +16,9 @@
   <strong>Location:</strong>
   <%=h @shift.location.name %>
 </p>
-
+<p>
+<%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+</p>
 <p>
   <% if @shift.report %>
     <%= link_to "View report", shift_report_path(@shift) %>
@@ -29,3 +31,4 @@
   <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", shifts_path %>
 </p>
+
