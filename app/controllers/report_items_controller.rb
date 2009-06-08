@@ -17,7 +17,7 @@ class ReportItemsController < ApplicationController
     @report_item.ip_address = request.remote_ip
     @report_item.report = params[:report_id] ? Report.find(params[:report_id]) : Shift.find(params[:shift_id]).report
     if @report_item.save
-      flash[:notice] = "Successfully created reportitem."
+      flash[:notice] = "Successfully added event."
       redirect_to Report.find(@report_item[:report_id])
     else
       render :action => 'new'

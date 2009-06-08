@@ -1,7 +1,7 @@
 <p>
-  <strong>Report items:</strong>
+  <strong>Events:</strong>
   <% @report.report_items.each do |report| %>
-    <li><%=h report.time.getlocal %>: <%=h report.content %></li>
+    <li><%=h report.time.getlocal.to_s(:am_pm) %>: <%=h report.content %></li>
   <% end %>
 </p>
 <% unless @report.departed %>
