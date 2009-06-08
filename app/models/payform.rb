@@ -24,7 +24,3 @@ class Payform < ActiveRecord::Base
 
 end
 
-  end
-
-end
-
