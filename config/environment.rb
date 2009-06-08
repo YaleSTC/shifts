@@ -44,7 +44,7 @@ Rails::Initializer.run do |config|
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
   # FIXME: I think we are going to choose prawn over pdf-writer
-#  # config.gem "pdf-writer", :lib => 'pdf/writer'
+  # config.gem "pdf-writer", :lib => 'pdf/writer'
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
