@@ -1,24 +1,10 @@
 <% title "Report" %>
 
-THIS PAGE will act as a report page, allowing you to add report items, etc.
-
-The categories you see below will be automatically handled behind the scenes.
-
 <p>
   <strong>Arrived:</strong>
   <%=h @report.arrived %>
 </p>
-<p>
-  <strong>Report items:</strong>
-  <% @report.report_items.each do |report| %>
-    <li><%=h report.time.getlocal %>: <%=h report.content %></li>
-  <% end %>
-</p>
-<% unless @report.departed %>
-  <p>
-    <%= link_to "Add report item", new_shift_report_report_item_path(@report.shift) %>
-  </p>
-<% end %>
+<%= render :partial => 'report_items' %>
 <p>
   <% if @report.departed %>
     <strong>Departed:</strong>
