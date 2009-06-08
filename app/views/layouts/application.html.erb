@@ -19,7 +19,8 @@
 
     <div id="container">
       <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
+        <%# TODO: Add fadeout for the flash. Something like 'flash[:no_fadeout]' could specify no fadeout -%>
       <%- end -%>
 
       <%- if show_title? -%>
