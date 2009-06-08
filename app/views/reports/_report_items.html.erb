@@ -5,8 +5,16 @@
   <% end %>
 </p>
 <% unless @report.departed %>
-  <p>
-    <%= link_to "Add report item", new_shift_report_report_item_path(@report.shift) %>
+  <% form_for :report_item, :url => {:controller => 'report_items', :action=>'create'},
+                     :html => { :id => 'line_form' } do |f| -%>
+    <%= f.text_field :content %>
+<%= hidden_field_tag 'report_id', @report.id %>
+
+
+
+      <%= f.submit "Add this event" %>
+
+  <% end -%>
  <% end %>
   </p>
 
