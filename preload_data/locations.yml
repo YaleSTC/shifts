@@ -1,0 +1,13 @@
+--- 
+locations_001: 
+  active: t
+  created_at: 2009-06-08 21:29:32
+  id: "1"
+  loc_group_id: "1"
+  max_staff: "100"
+  min_staff: "1"
+  name: Io
+  priority: "100"
+  short_name: io
+  updated_at: 2009-06-08 21:29:32
+  useful_links: ""
