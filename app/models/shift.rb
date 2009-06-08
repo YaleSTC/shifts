@@ -13,12 +13,13 @@ class Shift < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
-  validates_presence_of :end
+  #validates_presence_of :end
   
-  validate :start_less_than_end
-  validate :user_does_not_have_concurrent_shift
-  validate :shift_has_nonzero_length
-  validate :not_in_the_past
+  #TODO: clean this code up -- maybe just one call to report.scheduled?
+  validate :start_less_than_end, :if => Proc.new{|report| report.scheduled?}
+  validate :user_does_not_have_concurrent_shift, :if => Proc.new{|report| report.scheduled?}
+  validate :shift_has_nonzero_length, :if => Proc.new{|report| report.scheduled?}
+  validate :not_in_the_past, :if => Proc.new{|report| report.scheduled?}
   
   #
   # Class methods
@@ -88,6 +89,10 @@ class Shift < ActiveRecord::Base
 
   def has_started?
     self.start < Time.now
+  end
+  
+  def scheduled?
+    self.end
   end
   
   
