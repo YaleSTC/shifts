@@ -5,15 +5,11 @@
   <% end %>
 </p>
 <% unless @report.departed %>
-  <% form_for :report_item, :url => {:controller => 'report_items', :action=>'create'},
-                     :html => { :id => 'line_form' } do |f| -%>
+  <% form_for [@report, @report_item] do |f| %>
+    <%= f.error_messages %>
     <%= f.text_field :content %>
-<%= hidden_field_tag 'report_id', @report.id %>
 
-
-
-      <%= f.submit "Add this event" %>
-
+    <%= f.submit "Add this event" %>
   <% end -%>
  <% end %>
   </p>
