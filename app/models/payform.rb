@@ -4,6 +4,11 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
 
+  def to_param
+    "#{id}-#{date}"
+  end
+
+
   def self.current(dept, user)
     period_date = Payform.default_period_date(Date.today, dept)
     payform = Payform.find(:first, :conditions => {:user_id => user,
