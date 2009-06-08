@@ -1,20 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :categories
-
-  map.resources :categories
-
-  map.resources :payform_item_sets
 
   map.resources :payform_item_sets
 
   map.resources :payform_sets
 
-  map.resources :cagtegories
-
-  map.resources :payforms
-
-  map.resources :payform_items
-
+  map.resources :payforms, :shallow => true do |payforms|
+    payforms.resources :payform_items
+  end
 
   map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
 
@@ -31,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
+    departments.resources :cagtegories
   end
 
   map.resources :permissions, :only => :index
