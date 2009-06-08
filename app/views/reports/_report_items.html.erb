@@ -1,0 +1,15 @@
+<p>
+  <strong>Report items:</strong>
+  <% @report.report_items.each do |report| %>
+    <li><%=h report.time.getlocal %>: <%=h report.content %></li>
+  <% end %>
+</p>
+<% unless @report.departed %>
+  <p>
+     <% remote_form_for :report_item, :url => {:controller => "create"} do |form| %>
+        <%= form.text_field :content %>
+        <%= submit_tag "Add" %>
+ <% end %>
+  </p>
+<% end %>
+
