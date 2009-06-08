@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
     @report.shift.user.login
     # add a report item about logging in
-    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in")
+    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip)
     if @report.save
       flash[:notice] = "Successfully created report."
       redirect_to @report
@@ -35,7 +35,7 @@ class ReportsController < ApplicationController
     if (params[:sign_out])
       @report.departed = Time.now
       # add a report item about logging out
-      @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged out", :ip_address => request.remote_ip)
+      @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged out from "+request.remote_ip, :ip_address => request.remote_ip)
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
     end
     if @report.update_attributes(params[:report])
