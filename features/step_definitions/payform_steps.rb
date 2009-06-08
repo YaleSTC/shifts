@@ -1,7 +1,8 @@
-Given /^I am user "([^\"]*)" in department "([^\"]*)"$/ do |login, department|
-  user = User.new(:login => login)
-  user.departments << Department.find_by_name(department)
-  user.save!
+Given /^I am user "([^\"]*)" in department "([^\"]*)"$/ do |login, dept_string|
+  @user = User.new(:login => login)
+  department = Department.find_by_name(department) || Department.create!(:name => dept_string)
+  @user.departments << department
+  @user.save!
 end
 
 Given /^I have the following categories: "([^\"]*)"$/ do |categories|
@@ -12,7 +13,8 @@ end
 
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
-  #This has to be changed to make it consistent with creating a new payform
-  @payform = Payform.new(:user_id => @user.id, :week => date)
+  @payform = Payform.new(:date => date,
+                         :user_id => @user.id,
+                         :department_id => @user.departments[1].id)
 end
 
