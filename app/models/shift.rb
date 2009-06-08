@@ -9,10 +9,11 @@ class Shift < ActiveRecord::Base
   #validates_presence_of :end
   
   #perform these checks if the shift is scheduled
-  validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled? }
-  validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled? }
-  validate :shift_has_nonzero_length, :if => Proc.new{|shift| shift.scheduled? }
-  validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled? }
+  #TODO: make the 'scheduled?' check more efficient?
+  validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
+  validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
+  validate :shift_has_nonzero_length, :if => Proc.new{|shift| shift.scheduled?}
+  validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   
   #
   # Class methods

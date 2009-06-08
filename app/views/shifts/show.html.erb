@@ -19,9 +19,9 @@
 
 <p>
   <% if @shift.report %>
-    <%= link_to "View report", shift_report_path(@shift), :post => true %>
+    <%= link_to "View report", shift_report_path(@shift) %>
   <% else %>
-    <%= link_to "Create report", new_shift_report_path(@shift), :post => true %>
+    <%= button_to "Create report", shift_report_path(@shift), :method => :post %>
   <% end %>
 </p>
 <p>
