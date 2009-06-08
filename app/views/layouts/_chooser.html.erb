@@ -1,5 +1,5 @@
 <% if current_user.departments.count == 1 -%>
-  <%= current_user.departments[0].name %>
+  <%= @department.name %>
 <% elsif current_user.departments.count > 1 -%>
   <% form_tag({:controller => :departments, :id => nil}, {:id => 'form_chooser', :method => "get"}) do %>
     <%# TODO: at end of options_for_select (and above as well), add current department name, so that it defaults to that (currently no global way of handling current department) -%>
