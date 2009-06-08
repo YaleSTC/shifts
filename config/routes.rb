@@ -1,4 +1,20 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :categories
+
+  map.resources :categories
+
+  map.resources :payform_item_sets
+
+  map.resources :payform_item_sets
+
+  map.resources :payform_sets
+
+  map.resources :cagtegories
+
+  map.resources :payforms
+
+  map.resources :payform_items
+
 
   map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
 

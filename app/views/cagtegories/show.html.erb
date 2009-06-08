@@ -1,0 +1,20 @@
+<% title "Cagtegory" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @cagtegory.name %>
+</p>
+<p>
+  <strong>Active:</strong>
+  <%=h @cagtegory.active %>
+</p>
+<p>
+  <strong>Department:</strong>
+  <%=h @cagtegory.department %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_cagtegory_path(@cagtegory) %> |
+  <%= link_to "Destroy", @cagtegory, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", cagtegories_path %>
+</p>

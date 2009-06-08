@@ -1,0 +1,12 @@
+<% title "Payform Item Set" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @payform_item_set.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_payform_item_set_path(@payform_item_set) %> |
+  <%= link_to "Destroy", @payform_item_set, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", payform_item_sets_path %>
+</p>
