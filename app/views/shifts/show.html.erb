@@ -10,13 +10,20 @@
 </p>
 <p>
   <strong>User:</strong>
-  <%=h @shift.user %>
+  <%=h @shift.user.name %>
 </p>
 <p>
   <strong>Location:</strong>
-  <%=h @shift.location %>
+  <%=h @shift.location.name %>
 </p>
 
+<p>
+  <% if @shift.report %>
+    <%= link_to "View report", shift_report_path(@shift), :post => true %>
+  <% else %>
+    <%= link_to "Create report", new_shift_report_path(@shift), :post => true %>
+  <% end %>
+</p>
 <p>
   <%= link_to "Edit", edit_shift_path(@shift) %> |
   <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |

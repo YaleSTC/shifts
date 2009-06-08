@@ -1,8 +1,4 @@
 class Shift < ActiveRecord::Base
-
-  delegate :loc_group, :to => 'location'
-  delegate :department, :to => 'location'
-
   belongs_to :user
   belongs_to :location
   has_one :report
@@ -10,13 +6,12 @@ class Shift < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
-  #validates_presence_of :end
+  validates_presence_of :end
   
-  #perform these checks if the shift is scheduled
-  validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled? }
-  validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled? }
-  validate :shift_has_nonzero_length, :if => Proc.new{|shift| shift.scheduled? }
-  validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled? }
+  validate :start_less_than_end
+  validate :user_does_not_have_concurrent_shift
+  validate :shift_has_nonzero_length
+  validate :not_in_the_past
   
   #
   # Class methods
@@ -44,53 +39,12 @@ class Shift < ActiveRecord::Base
   # = Object methods =
   # ==================
 
-  def too_early?
-    start > 30.minutes.from_now
-  end
-
-  def missed?
-    has_passed? and !signed_in?
-  end
-
-  def late?
-    #TODO: tie this to an actual admin preference
-    signed_in? && (report.start - start > 7)
-  end
-  
-  #a shift has been signed in to if it has a report
-  def signed_in?
-    report
-  end
-  
-  #a shift has been signed in to if its shift report has been submitted
-  def submitted?
-    report and report.departed
-  end
-
-
-  #TODO: subs!
-  #check if a shift has a *pending* sub request and that sub is not taken yet
-  # def has_sub?
-  #   #note: if the later part of a shift has been taken, self.sub still returns true so we also need to check self.sub.new_user.nil?
-  #   sub and sub.new_user.nil? #new_user in sub is only set after sub is taken.  shouldn't check new_shift bcoz a shift can be deleted from db. -H
-  # end
-  # 
-  # def has_sub_at_start?
-  #   has_sub? and start == sub.start
-  # end
-
-
   def has_passed?
     self.end < Time.now
   end
 
   def has_started?
     self.start < Time.now
-  end
-  
-  #an unscheduled shift does not have a defined end time
-  def scheduled?
-    self.end
   end
   
   
@@ -123,6 +77,4 @@ class Shift < ActiveRecord::Base
   def not_in_the_past
     errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.end < Time.now
   end
->>>>>>> 9fac8592428117028077ee2bc370251a153a07d1:app/models/shift.rb
 end
-

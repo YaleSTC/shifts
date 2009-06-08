@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
+  has_many :shifts
 
   validates_presence_of :name
   validates_presence_of :login

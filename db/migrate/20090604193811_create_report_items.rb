@@ -4,6 +4,7 @@ class CreateReportItems < ActiveRecord::Migration
       t.references :report
       t.datetime :time
       t.text :content
+      t.string :ip_address
       t.timestamps
     end
   end
@@ -12,4 +13,3 @@ class CreateReportItems < ActiveRecord::Migration
     drop_table :report_items
   end
 end
-
