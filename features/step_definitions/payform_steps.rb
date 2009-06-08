@@ -1,8 +1,5 @@
-Given /^I am user "([^\"]*)" in department "([^\"]*)"$/ do |login, dept_string|
-  @user = User.new(:login => login)
-  department = Department.find_by_name(department) || Department.create!(:name => dept_string)
-  @user.departments << department
-  @user.save!
+Given /^I am user "([^\"]*)"$/ do |login, dept_string|
+  @user = User.find_by_login(login)
 end
 
 Given /^I have the following categories: "([^\"]*)"$/ do |categories|

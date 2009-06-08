@@ -4,7 +4,9 @@ Feature: payform
   I want to be able to add jobs to, edit, and submit my own payform
 
   Background:
-    Given I am user "wy59" in department "STC"
+    Given I have a department named "STC"
+    And I have a user named "Wei Yan" in the department "STC" with login "wy59"
+    Given I am user "wy59"
     Given I have the following categories: "Work, Play, Study"
     Given I have a payform for the week "2009-5-23"
 
