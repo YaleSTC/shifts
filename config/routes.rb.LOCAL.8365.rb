@@ -1,18 +1,30 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :categories
 
-  map.resources :time_slots #TODO: What should this be nested under, if anything?
+  map.resources :categories
 
-  map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
-    shifts.resource :report do |report|
-      report.resources :report_items
-    end
-    shifts.resources :sub_requests #NOTE: "sub_requests" instead of "subs" -- we can always change the routing, but sub_requests was a clearer name
+  map.resources :payform_item_sets
+
+  map.resources :payform_item_sets
+
+  map.resources :payform_sets
+
+  map.resources :cagtegories
+
+  map.resources :payforms
+
+  map.resources :payform_items
+
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
+
+  map.resources :shifts, :shallow => true do |shifts|
+    shifts.resources :reports
+    shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
+    map.resources :report_items
   end
 
-  map.resources :reports do |report|
-    report.resources :report_items
-  end
-  
+
 
   map.resources :departments, :shallow => true do |departments|
     departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}

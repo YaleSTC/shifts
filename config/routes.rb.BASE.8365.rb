@@ -2,17 +2,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :time_slots #TODO: What should this be nested under, if anything?
 
-  map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
-    shifts.resource :report do |report|
-      report.resources :report_items
-    end
+  map.resources :shifts, :shallow => true do |shifts|
+    shifts.resources :reports
     shifts.resources :sub_requests #NOTE: "sub_requests" instead of "subs" -- we can always change the routing, but sub_requests was a clearer name
+    map.resources :report_items
   end
 
-  map.resources :reports do |report|
-    report.resources :report_items
-  end
-  
+
 
   map.resources :departments, :shallow => true do |departments|
     departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}

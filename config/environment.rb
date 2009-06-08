@@ -91,4 +91,3 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes,
   :logger => cas_logger
 )
-
