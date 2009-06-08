@@ -11,10 +11,15 @@ class ShiftsController < ApplicationController
     @shift = Shift.new
   end
   
+  def unscheduled
+    @shift = Shift.new
+  end
+  
   def create
     @shift = Shift.new(params[:shift])
+    @shift.start = Time.now unless @shift.start
     if @shift.save
-      #combine with any compatible shifts
+      #combine with any compatible shifts (if the shift is scheduled)
       @shift = Shift.combine_with_surrounding_shifts(@shift)
       flash[:notice] = "Successfully created shift."
       redirect_to @shift
