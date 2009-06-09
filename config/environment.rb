@@ -15,7 +15,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   #THIS IS FOR NATHAN'S APACHE SETUP (comment it out):
-  config.action_controller.relative_url_root = "/newstc"
+  #config.action_controller.relative_url_root = "/newstc"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -91,3 +91,4 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes,
   :logger => cas_logger
 )
+
