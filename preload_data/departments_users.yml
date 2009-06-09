@@ -5,3 +5,9 @@ departments_users_001:
   department_id: "1"
   updated_at: 2009-06-08 21:28:44
   user_id: "1"
+departments_users_002: 
+  active: t
+  created_at: 2009-06-09 14:51:03
+  department_id: "1"
+  updated_at: 2009-06-09 14:51:03
+  user_id: "2"
