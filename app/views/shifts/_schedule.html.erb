@@ -1,3 +1,12 @@
+<%# testing stuff, to be removed later %>
+<%
+@dept_start_hour = 0
+@dept_end_hour = 24  #if the day ends after midnight, this should be > 24
+@blocks_per_hour = 2
+@blocks_per_day = (@dept_end_hour - @dept_start_hour) * @blocks_per_hour
+%>
+
+
 <div style="clear:both">
 <%= render :partial => 'shifts/schedule/header' %>
 
