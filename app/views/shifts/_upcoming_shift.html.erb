@@ -10,7 +10,7 @@
   <% if upcoming_shift.submitted? %>
     <%= link_to link_name, upcoming_shift %>
   <% else %>
-    <%= link_to link_name, upcoming_shift %>
+    <%= link_to link_name, new_shift_report_path(upcoming_shift) %>
   <% end %>
   
   <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(upcoming_shift.start) %></span>
