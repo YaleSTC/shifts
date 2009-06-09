@@ -1,8 +1,30 @@
-<% title "Edit Sub Request" %>
+<% title "Editing Sub Request" %>
 
-<%= render :partial => 'form' %>
 
-<p>
-  <%= link_to "Show", @sub_request %> |
-  <%= link_to "View All", sub_requests_path %>
-</p>
+<% form_for(@sub_request) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </p>
+  <p>
+    <%= f.label :potential_takers %><br />
+    <%= f.text_field :potential_takers %>
+  </p>
+  <p>
+    <%= f.label :reason %><br />
+    <%= f.text_field :reason %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @sub_request %> |
+<%= link_to 'Back', sub_requests_path %>
+

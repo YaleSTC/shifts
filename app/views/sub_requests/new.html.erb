@@ -1,5 +1,27 @@
 <% title "New Sub Request" %>
 
-<%= render :partial => 'form' %>
+<% form_for [@shift, @sub_request] do |f| %>
+  <%= f.error_messages %>
 
-<p><%= link_to "Back to List", sub_requests_path %></p>
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </p>
+  <p>
+    <%= f.label :potential_takers %><br />
+    <%= f.text_field :potential_takers %>
+  </p>
+  <p>
+    <%= f.label :reason %><br />
+    <%= f.text_field :reason %>
+  </p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', sub_requests_path %>
+

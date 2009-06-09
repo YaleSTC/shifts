@@ -1,20 +1,10 @@
----
-users_001:
-  created_at: 2009-06-03 19:48:05
-  email: nathan.griffith@yale.edu
-  first_name: Nathan
+--- 
+users_001: 
+  created_at: 2009-06-08 21:28:44
+  email: michael.libertin@yale.edu
+  first_name: Michael
   id: "1"
-  last_name: Griffith
-  name: Nathan Griffith
-  login: njg24
-  updated_at: 2009-06-03 19:48:05
-users_002:
-  created_at: 2009-06-03 21:14:47
-  email: harley.trung@yale.edu
-  first_name: Dung
-  id: "2"
-  last_name: Trung
-  name: Dung Trung
-  login: dtt22
-  updated_at: 2009-06-03 21:14:47
-
+  last_name: Libertin
+  login: mpl36
+  name: Michael Libertin
+  updated_at: 2009-06-08 21:28:44
