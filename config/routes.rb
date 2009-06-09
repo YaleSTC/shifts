@@ -8,13 +8,13 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resource :report do |report|
       report.resources :report_items
     end
-    shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
+    shifts.resources :sub_requests, :member => {:take => :get}, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
   end
 
   map.resources :reports do |report|
     report.resources :report_items
   end
-  
+
 
   map.resources :departments, :shallow => true do |departments|
     departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}
@@ -68,4 +68,3 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-
