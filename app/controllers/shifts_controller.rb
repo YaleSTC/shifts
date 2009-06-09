@@ -2,6 +2,8 @@ class ShiftsController < ApplicationController
   def index
     @shifts = Shift.all
     @current_shifts = Shift.all.select{|r| !r.submitted? and current_user.departments.collect{|d| d.locations}.flatten.include?(r.location)}.sort_by(&:start)
+    @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
+    @days_per_period = 7 #TODO: make this a setting for an admin
   end
   
   def show
