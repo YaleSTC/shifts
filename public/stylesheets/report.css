@@ -1,0 +1,85 @@
+#report_view .list_line_even {
+  background:   #f5f5f5;
+}
+
+#report_view .list_line_odd {
+  background:   #e6e6fa;
+}
+
+#report_view .list_actions {  
+  text-align:   right;
+  padding-left: 1em;
+}
+
+#report_view .list_header {
+  background-color:#778899; 
+  text-align: left;
+}
+
+#report_view_table{
+  border-collapse: collapse;
+  border-color: gray;
+  padding: 5px;
+  border-spacing: 2px;
+  width: 100%;
+}
+
+#report_view_table tr{
+  padding: 4px;
+}
+
+#report_view_table td.line_content{
+  word-wrap: break-word;
+}
+
+#report_view_table td.timestamp{
+  width: 7%;
+  padding: 4px;
+}
+/* for announcement and sticky fieldsets */
+fieldset.sticky {
+  padding: 5px;
+  margin: 0 0 0 0;
+  background-color:#FFFF99;
+}
+
+fieldset.announcement {
+  width:48%;
+  padding: 5px;
+  margin:0 0 0 0;
+  float: right;
+  clear: right;
+  background-color:#ADD8E6;
+}
+
+fieldset.sticky .grayleft, fieldset.announcement .grayleft{
+  float:left;
+  text-align:left;
+}
+
+fieldset.sticky .grayright, fieldset.announcement .grayright, fieldset.sticky .right, fieldset.announcement .right{
+  float:right;
+  text-align:right;
+}
+
+fieldset.sticky .grayleft, fieldset.sticky .grayright {
+  color:SlateGray;
+  font-size: 90%;
+}
+
+fieldset.announcement .grayleft, fieldset.announcement .grayright {
+  color:DarkRed;
+  font-size: 90%;
+}
+#message_center {
+  display: inline;
+  padding: 5px;
+}
+
+#useful_links {
+  padding: 5px;
+  clear: both;
+}
+#useful_links li {
+  display: inline;
+}

@@ -1,0 +1,469 @@
+/* Questions directed to me. -H */
+a {
+  color: #104e8b;
+}
+
+h1#thin_line_bottom {
+  padding: 0 0 0;
+  margin-bottom: 20px;
+  border-bottom: thin solid #408080;
+}
+/* START:shift_form */
+.shift_form {
+  position: relative;
+}
+.shift_form ul, .shift_form li, .shift_form ol {
+  margin: 1em;
+}
+.shift_form label {
+  width: 6em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+.form_notice {
+  font-style: italic;
+  margin-left: 75px;
+}
+div.shift_form .submit {
+  margin-left: 5.5em;
+}
+
+
+/* END: shift-form */
+
+/* ============ */
+/* = Sub form = */
+
+#sub_bribe {
+  position: absolute;
+  top: 45px;
+  right: 10px;
+  text-align: right;
+}
+
+#sub_bribe div.bribe_time{
+  padding: 7px;
+}
+#sub_bribe div.fieldWithErrors {
+  display: inline;
+}
+/* ============ */
+
+
+.big_links{
+  font-family: Verdana, Arial, serif;
+  font-size: 14px;
+  color: #333399;
+/*  width:30%;*/
+/*  border-bottom: thin solid #B0B0B0;*/
+  padding-bottom: 3px;
+}
+/* START: shift-links: style for links to sign up shift */
+.shift_links a {
+
+}
+/* END: shift_link */
+
+
+/* START: labels for div tables for weekly view*/
+div.table_title {
+  margin: 0px;
+  width:100%;
+  font-size: 12px;
+  border-bottom: thin solid #B0B0B0; padding-bottom: 7px;
+}
+div.table_bottom {
+  margin: 0px;
+  width:100%;
+  font-size: 12px;
+  border-top: thin solid #B0B0B0; padding-bottom: 7px;
+}
+div.time_table a:link, div.time_table a:visited{
+  text-decoration: none;
+}
+div.week_title{
+  width: 60%;
+  margin: 1em auto 0 auto;/*the 2 auto are margins for left and right, aligning this as center */
+
+  font-size: large;
+  text-align: center;
+}
+div.week_bottom{
+  width: 60%;
+  margin: 0 auto 0 auto;/*the 2 auto are margins for left and right, aligning this as center */
+  color: #808080;
+  font-size: 14px;
+  text-align: center;
+}
+div.last_week{
+  width: 20%;
+  float: left;
+}
+
+div.next_week{
+  text-align: right;
+  width: 20%;
+  float: right
+}
+
+table.day_view {
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  border-spacing: 1px;
+  border-collapse: separate;
+
+  /* below solves the unevent block problem, also makes page load faster, but breaking down words is still ugly.  block smaller than an hour still cause problems. -H*/
+/*  table-layout: fixed;
+  word-wrap: break-word;*/
+}
+
+td.between_groups{
+  height: 1px;
+}
+
+thead th.location_label{
+}
+
+td.hour {
+  background: #7f7f7f;
+  color: white;
+}
+
+tr.segments{
+}
+
+td.min_segment {
+  background: #123456;
+}
+
+th.location_label {
+  width: 6em;
+  background: #7f7f7f;
+  color: white;
+  font-size: small;
+}
+
+tr.location_row th.location_label a{
+  color: white;
+}
+td.bar_active{
+  background: #008B8B;
+}
+
+td.bar_full{
+  height: 6px;
+  background: #696969;
+}
+
+td.bar_inactive{
+  background: #505050;
+/*  font-size: 7px;*/
+}
+
+td.bar_passed{
+  background: #808080;
+}
+
+td.bar_pending {
+  background: #5F9EA0;
+}
+
+td.accept_sub{
+  background: #3CB371;
+}
+tr.location_row, tr.location_bar {
+  font-family: Trebuchet MS,Verdana,Arial,serif;
+  font-size: 9px;
+  font-stretch: ultra-condensed;
+}
+
+tr.location_row a, tr.location_bar a{
+  color: #104E8B;
+}
+
+td.user_time {
+  background: #009ACD;
+}
+
+td.user_late_time {
+  background: #ffcc00;
+}
+
+td.user_missed_time {
+  background: #a30013;
+}
+
+td.shift_time {
+  background: #7ac5cd;
+}
+
+td.shift_late_time {
+  background: #ffff66;
+}
+
+td.shift_missed_time {
+  background: #ff3333;
+}
+
+td.sub_missed_time {
+  background: #8b6914;
+}
+
+td.sub_time {
+  background: #8888cc;
+}
+
+td.free_time {
+  background: #A2A2A2;
+  height: 3em;
+}
+
+/* colors for validation */
+
+td.valid{
+  background: #65C164;
+}
+
+td.crowded{
+  background: #CFC57B;
+}
+
+td.user_conflict{
+  background: #A83B35;
+}
+
+td.out_of_range{
+  background: #525399;
+}
+
+table.quick_sign_in td{
+  width: 25em;
+  text-align: center;
+}
+table.quick_sign_in th{
+  width: 50em;
+}
+
+/*div.pref {
+  float: right;
+  padding: 1em;
+  border: 1px #408080 solid;
+  background: #D6D6D6;
+}
+*/
+/* END: labels for div tables for weekly view*/
+
+/* =================== */
+/* = Shift Admin Part = */
+table.template_items_table{
+  border: 1px solid #666666;
+  border-spacing: 1px;
+  width: 100%;
+}
+table.template_items_table th{
+  line-height:20px;
+  text-align: left;
+  font-weight: normal;
+  width: 60px;
+}
+
+table.template_items_table tr.valid{
+  background: #65C164;
+}
+
+table.template_items_table tr.crowded{
+  background: #CFC57B;
+}
+
+table.template_items_table tr.user_conflict{
+  background: #A83B35;
+}
+
+table.template_items_table tr.out_of_range{
+  background: #525399;
+}
+
+table.manage_table{
+  border: 1px solid #666666;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 4px;
+}
+
+table.manage_table caption{
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 1em;
+
+}
+table.manage_table td {
+  border: 1px solid #666666;
+  text-align: center;
+}
+
+table.manage_table th { border: 1px solid #666666; }
+
+.shift_admin_form label {
+  width: 20em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+
+
+table.template_view{
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  border-spacing: 1px;
+}
+
+table.template_view td{
+  height:20px;
+  line-height:20px;
+  font-size: 9px;
+}
+
+table.template_view th.location_label{
+  font-size: xx-small;
+  width: 1em;
+}
+table.template_view tr{
+  height: .5em;
+}
+
+table.time_slots {
+  border-spacing: 1px;
+  font-size: 10px;
+  width: 100%;
+}
+
+table.time_slots thead{
+  background-color: lightblue;
+  text-align: center;
+}
+
+table.time_slots th{
+  text-align: left;
+  font-weight: normal;
+  width: 22px;
+}
+
+table.time_slots tr.passed{
+  background-color: #A2A2A2;
+}
+
+table.time_slot_view{
+  width: 460px;
+  text-align: center;
+  padding: 0;
+  border-spacing: 1px;
+  font-size: 8px;
+  table-layout: fixed;
+}
+
+table.time_slot_view td{
+  height:20px;
+  line-height:20px;
+}
+
+table.time_slot_view td.passed{
+  background-color: #408080;
+}
+
+table.time_slot_view th.location_label{
+  font-size: 8px;
+  width: 2.5em;
+}
+table.time_slot_view tr{
+  height: .5em;
+}
+
+div.edit_times_location {
+  position: relative;
+  display: block;
+}
+div.per_slot_table{
+  display: inline-block;
+  width: 220px;
+  vertical-align: top;
+}
+div.per_slot_view{
+  display: inline-block;
+  right: 0;
+}
+/* =================== */
+
+div.restriction {
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  margin: 20px;
+  padding: 8px;
+  overflow-x: auto;
+}
+
+#work_hours{
+  width: 100%;
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  border-spacing: 1px;
+  padding: 4px;
+  overflow-x: auto;
+
+}
+#work_hours th{
+  text-align: left;
+}
+#work_hours tbody{
+  border-collapse: collapse;
+}
+#work_hours .even_row{
+  background-color: #C4C4FF;
+}
+#work_hours .odd_row{
+  background-color: #8BC5C5;
+}
+#user_filter_box {
+  margin: 2px;
+  border: 1px solid #AAAAAA;
+  padding: 5px;
+}
+#user_filter_notice {
+  height: 2em;
+  color: #AFAFD8;
+}
+#date_range {
+  margin: 4px;
+  border: 1px solid #8BC5C5;
+  padding: 5px;
+  background: #C4C4FF;
+}
+
+div#preferences {
+/*  border: 1px solid #8BC5C5;*/
+  padding: 5px;
+  padding-left: 15px;
+}
+/* ANNOUNCEMENT */
+fieldset.announcement {
+  width:50%;
+  padding: 5px;
+  margin:0 0 0 0;
+  background-color:#ADD8E6;
+}
+fieldset.announcement .grayleft, fieldset.announcement .grayright {
+  color:DarkRed;
+  font-size: 90%;
+}
+
+.early_late_info{
+  font-style: italic;
+  color: #949494;
+}
