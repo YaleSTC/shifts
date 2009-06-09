@@ -3,7 +3,7 @@
     <% @row_time = row_shift.end %>
 
 <% elsif row_shift.start < @row_time %>
-    <%= "ERROR from _row_shift partial from row #{row_shift.row}" %>
+    <%= "ERROR from _row_shift partial from row #{row_shift}" %>
     <%= row_shift.start %> to <%= row_shift.end %><br />
 
 <% else #which means:  @row_time < row_shift.start  # if shift is later -%>
