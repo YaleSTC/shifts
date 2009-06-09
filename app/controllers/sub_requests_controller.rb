@@ -24,7 +24,6 @@ class SubRequestsController < ApplicationController
   # GET /sub_requests/new
   # GET /sub_requests/new.xml
   def new
-    @shift = Shift.find(params[:shift_id])
     @sub_request = SubRequest.new
 
     respond_to do |format|
