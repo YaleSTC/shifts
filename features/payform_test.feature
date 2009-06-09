@@ -27,9 +27,9 @@ Feature: payform
     And I should see "1.08 hours"
 
   Scenario: Edit a job on a payform
-    Given I have the following "payform_item"
+    Given I have the following payform items
       | category | user_login | hours | description |
-      | "Work"   | "wy59"     | 2     | "my job"    |
+      | Work     | wy59       | 2     | my job      |
     And I am on the page for the payform for the week "2009-5-23"
     When I follow "edit"
     And I select "Study" from "Category"
@@ -37,7 +37,9 @@ Feature: payform
     And I fill in "description" with "I edited"
     And I fill in "reason" with "because I can"
     And I press "Save"
-    Then I should have 2 payform_items
+    Then I should have 2 payform items
+    And payform item 2 should be a child of payform item 1
+    And payform item 1 should have attribute reason "because I can"
     And I should see "I edited"
     And I should see "3 hours"
 
