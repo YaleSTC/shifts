@@ -1,5 +1,5 @@
 Given /^I am user "([^\"]*)" in department "([^\"]*)"$/ do |login, dept_string|
-  @user = User.new(:login => login)
+  @user = User.new(:login => login, :name => "name")
   department = Department.find_by_name(department) || Department.create!(:name => dept_string)
   @user.departments << department
   @user.save!
@@ -13,8 +13,9 @@ end
 
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
-  @payform = Payform.new(:date => date,
-                         :user_id => @user.id,
-                         :department_id => @user.departments[1].id)
+  @payform = Payform.new(:date => date)
+#                         :user_id => @user.id,
+#                         :department_id => @user.departments[1].id)
+  @payform.save!
 end
 
