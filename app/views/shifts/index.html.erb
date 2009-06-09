@@ -74,10 +74,12 @@
       </tr>
     <% end %>
   </table>
+  
+  <p><%= link_to "New Shift", new_shift_path %></p>
 </div>
 
 
 
 <div id="schedule">
-  <%#= render :partial => 'schedule'%>
+  <%= render :partial => 'schedule'%>
 </div>
