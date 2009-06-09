@@ -1,33 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-  <head>
-    <title><%= h(yield(:title) || "Untitled") %></title>
-    <%= stylesheet_link_tag 'application', 'nav' %>
-    <%= javascript_include_tag :defaults %>
-    <%= yield(:head) %>
-  </head>
-  <body>
-
-    <%= render :partial => 'layouts/nav_top' %>
-	  <% if current_user %>
-	    <%= render :partial => "layouts/chooser" %>
-	    <div id="login">
-		  Hello <%= current_user.name %>! (NetID: <%= current_user.login %>) <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
-	  	</div>
-	  <% end %>
-
-    <div id="container">
+<%= render :file => "layouts/include/main_header.html.erb" %>
+ 
+    <%#= @left_nav ? '<div id="contentNav">' : '<div id="contentNoNav">' %>
+    <%# the following line is just for testing: %>
+    <%= '<div id="contentNoNav">' %>
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
         <%# TODO: Add fadeout for the flash. Something like 'flash[:no_fadeout]' could specify no fadeout -%>
       <%- end -%>
 
       <%- if show_title? -%>
-        <h1><%=h yield(:title) %></h1>
+        <h1 id="page_title"><%=h yield(:title) %></h1>
       <%- end -%>
-      <%= yield(:my_content) || yield %>
+      <!-- Main Content -->
+      <%= yield(:my_content) || yield %>     
+      </div>
+      <div id="pageAnchor">
+        <a href="#top_of_page">
+          <%= image_tag "jump.gif", {:hspace => "0", :height => "13", :border => "0", :width => "19", :alt => "Jump to top", :title => "Jump to top"} %>
+        </a>
+      </div>
+      <div id="footer">
+        <p class="footer">
+          URL: <%= request.env["HTTP_HOST"] %><%= request.request_uri %><br />
+          Certifying authority: Adam Bray, Asst. Manager, Student Technology<br />
+          Last modified: Tues Jun 9 12:08:00 EST 2009<br />
+          Questions?  Please email <a href="mailto:stc-hiring@yale.edu">stc-hiring@yale.edu</a><br />
+        </p>
+      </div>
     </div>
+    <!-- End pagebox container -->
+    <div id="pageboxBottom"/> <!-- do not remove this -->
   </body>
 </html>
 

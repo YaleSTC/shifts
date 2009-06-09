@@ -1,8 +1,9 @@
 <% title "Edit Category" %>
 
-<%= render :partial => 'form' %>
+<%= render :partial => 'form', :locals => {:submit => "Update", :category => @category } %>
 
 <p>
   <%= link_to "Show", @category %> |
-  <%= link_to "View All", categories_path %>
+  <%= link_to "View All", department_categories_path(@department) %>
 </p>
+
