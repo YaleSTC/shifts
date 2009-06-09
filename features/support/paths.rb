@@ -7,14 +7,17 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
+
     when /the homepage/
       root_path
     when /the list of users/
       department_users_path(@department)
     when /the list of departments/
       departments_path
-    
+    when /the page for the payform for the week "([^\"]*)"/i
+      path_to(Payform.find_by_date($1.to_date))
+
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
@@ -29,3 +32,4 @@ module NavigationHelpers
 end
 
 World(NavigationHelpers)
+
