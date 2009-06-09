@@ -10,9 +10,9 @@ end
 
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
-  @payform = Payform.new(:date => date,
-                         :user_id => @user.id,
-                         :department_id => @user.departments[0].id)
+  @payform = Payform.create!(:date => date,
+                             :user_id => @user.id,
+                             :department_id => @user.departments[0].id)
 end
 
 Given /^I have the following "([^\"]*)"$/ do |object, table|
