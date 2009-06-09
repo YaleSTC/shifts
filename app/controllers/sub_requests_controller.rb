@@ -83,4 +83,11 @@ class SubRequestsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def take
+    @sub_request = SubRequest.find(params[:id])
+    @sub_request.take(current_user)
+    redirect_to (shifts_path)
+  end
+
 end

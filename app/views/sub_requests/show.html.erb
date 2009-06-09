@@ -19,7 +19,7 @@
   <%=h @sub_request.reason %>
 </p>
 
-
+<%= link_to 'Take', take_sub_request_path(@sub_request) %>
 <%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
 <%= link_to 'Back', sub_requests_path %>
 

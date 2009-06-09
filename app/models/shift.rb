@@ -22,7 +22,6 @@ class Shift < ActiveRecord::Base
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
-  validate :shift_has_nonzero_length, :if => Proc.new{|shift| shift.scheduled?}
   validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
 
   #
@@ -46,32 +45,62 @@ class Shift < ActiveRecord::Base
     shift
   end
 
+  def self.delete_part_of_shift(shift, start_of_delete, end_of_delete)
+    #Used for taking sub requests
+    #TODO: Make subrequests get adjusted properly...
+    if !(start_of_delete.between?(shift.start, shift.end) && end_of_delete.between?(shift.start, shift.end))
+      errors.add ("You can\'t delete more than the entire shift","")
+    elsif start_of_delete >= end_of_delete
+      errors.add ("Start of the deletion should be before end of deletion","")
+    elsif start_of_delete = shift.start && end_of_delete = shift.end
+      shift.destroy
+    elsif start_of_delete = shift.start
+      shift.start=end_of_delete
+      shift.save!
+    elsif end_of_delete = shift.end
+      shift.end=start_of_delete
+      shift.save!
+    else
+      later_shift = shift.clone
+      later_shift.user = shift.user
+      later_shift.location = shift.location
+      shift.end = start_of_delete
+      later_shift.start = end_of_delete
+      shift.save!
+      later_shift.save!
+    end
+  end
+
+
+
+
+
 
   # ==================
   # = Object methods =
   # ==================
 
   def too_early?
-    start > 30.minutes.from_now
+    self.start > 30.minutes.from_now
   end
 
   def missed?
-    has_passed? and !signed_in?
+    self.has_passed? and !self.signed_in?
   end
 
   def late?
     #TODO: tie this to an actual admin preference
-    signed_in? && (report.start - start > 7)
+    self.signed_in? && (self.report.start - self.start > 7)
   end
 
   #a shift has been signed in to if it has a report
   def signed_in?
-    report
+    self.report
   end
 
   #a shift has been signed in to if its shift report has been submitted
   def submitted?
-    report and report.departed
+    self.report and self.report.departed
   end
 
 
@@ -94,23 +123,23 @@ class Shift < ActiveRecord::Base
   def has_started?
     self.start < Time.now
   end
-  
-  
+
+
   # ===================
   # = Display helpers =
   # ===================
   def short_display
      self.location.short_name + ', ' + self.start.to_s(:just_date) + ' ' + self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm)
   end
-  
+
   def short_name
     time_string = self.scheduled? ? self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm) : "unscheduled"
-    
+
     self.location.short_name + ', ' + self.user.name + ', ' + self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm) + ", " + self.start.to_s(:just_date)
   end
-  
-  
-  
+
+
+
   private
 
   # ======================
@@ -121,23 +150,15 @@ class Shift < ActiveRecord::Base
   end
 
   def user_does_not_have_concurrent_shift
-    #unless self.start == self.end  #allow users to sign into blank report even if they have an overlapping shift
+
     c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ?', self.user_id, self.end, self.start])
     unless c.zero?
       errors.add_to_base("#{self.user.name} has an overlapping shift in that period") unless (self.id and c==1)
     end
-    #end
-  end
 
-  def shift_has_nonzero_length
-    # this prevents the error case where:
-    # 1) a user creates a shift
-    # 2) that shift is edited to conflict with another shift, with length 0
-    # 3) that shift can then be edited again to any length, conflicting with the other shift
-    errors.add_to_base("A shift's start and end time cannot be the same") if (self.start == self.end)
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.end < Time.now
+    errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.start <= Time.now
   end
 end
