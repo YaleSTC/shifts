@@ -16,10 +16,18 @@ module ShiftsHelper
     @can_sign_up = true #loc_group.allow_sign_up? get_user
   end
   
+  #use this instead of group_by because we want an array
+  def split_to_rows(item_list)
+    items_in_row = [[]]
+    if item_list
+      item_list.each do |sh|
+        items_in_row[sh.row] ||= []
+        items_in_row[sh.row] << sh
+      end
+    end
+    items_in_row
+  end
   
-# =================
-# = Shift Helpers =
-# =================
   #needs blocks_per_hour and @user
   def print_cell(type,from,to,shift=nil,content = "", first_time = true)
     span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
@@ -37,16 +45,15 @@ module ShiftsHelper
       ''
     else
       if (type=="bar_active")
-        # if @can_sign_up
-        #   link_name = is_admin? ? "schedule" : "sign up"
-        #   url_options = {:action => "sign_up",
-        #         :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
-        #   html_options = {:class => "sign_up_link"}
-        #       
-        # else
+        if @can_sign_up
+          link_name = current_user.is_admin_of?(@department) ? "schedule" : "sign up"
+          url_options = {:action => "sign_up",
+                :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
+          html_options = {:class => "sign_up_link"}          
+        else
           content = "view only"
           td_title = 'You only have a view access to this cluster, not sign up access.'
-        # end
+        end
       
       elsif (type=="bar_pending")
         content = '-'
@@ -54,11 +61,11 @@ module ShiftsHelper
 
       elsif shift
         if type == 'shift_time'
-          type.gsub!(/shift/, 'user') #TODO: if !is_admin? and shift.user == @user
+          type.gsub!(/shift/, 'user') if !current_user.is_admin_of?(@department) and shift.user == current_user
           if shift.missed?
             type.gsub!(/time/, 'missed_time')
-          # elsif (shift.signed_in? ? shift.shift_report.start : Time.now) > shift.end_of_grace
-          #   type.gsub!(/time/, 'late_time')
+          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + 7 #shift.end_of_grace
+            type.gsub!(/time/, 'late_time')
           end
         end
 
@@ -111,23 +118,24 @@ module ShiftsHelper
             html_options = {:rel => "floatbox#{shift.location_id}", :rev => "width:500px height:500px" }
           end
 
-          if current_user.is_admin_of?(@department)
-            url_options = {:action => "view_report", :id => shift.report}
-            html_options = {}
-          else
-            url_options = {:controller => "report", :action => "show", :id => shift}
-          end
+          #TODO: should this just always go to the report show action?
+          # if current_user.is_admin_of?(@department)
+            url_options = shift_report_path(shift.report)
+          #   html_options = {}
+          # else
+          #   url_options = {:controller => "report", :action => "show", :id => shift}
+          # end
 
           #this prepares view report as a popup, only yesterday onwards
-          # if shift.date >= Date.today
-          #   report = shift.shift_report
-          #   html_options.merge!(:id => "report_link_#{report.id}", :class => "popup_link")
-          #   extra = render_to_string(:partial => 'report/report_popup', :locals => {:report => report})
-          # end
+          if shift.start >= Date.today
+            report = shift.report
+            html_options.merge!(:id => "report_link_#{report.id}", :class => "popup_link")
+            extra = render(:partial => 'reports/report_popup', :locals => {:report => report})
+          end
 
         elsif type=="user_time" and not shift.has_passed? #if shift belongs to user and can be signed up
           br = '<br />'
-          url_options = {:controller => "shift", :action => "sign_in", :id => shift}
+          url_options = shift_report_path(shift)
           html_options = {:class => "sign_in_link"}
           link_name = "options"
 
@@ -139,7 +147,7 @@ module ShiftsHelper
 
         elsif current_user.is_admin_of?(@department) and not shift.has_passed? and not shift.signed_in?
           br = '<br />'
-          url_options = {:controller => "shift_admin", :action => "edit_shift", :id => shift}
+          url_options = edit_shift_path(shift)
           link_name = "edit"
           
         end
