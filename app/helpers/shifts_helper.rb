@@ -36,24 +36,23 @@ module ShiftsHelper
     if span.zero?#return nothing if from and to time are the same
       ''
     else
-      # if (type=="bar_active")
-      #   if @can_sign_up
-      #     link_name = is_admin? ? "schedule" : "sign up"
-      #     url_options = {:action => "sign_up",
-      #           :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
-      #     html_options = {:class => "sign_up_link"}
-      # 
-      #   else
-      #     content = "view only"
-      #     td_title = 'You only have a view access to this cluster, not sign up access.'
-      #   end
-      # 
-      # elsif (type=="bar_pending")
-      #   content = '-'
-      #   td_title = 'You may not sign up in this slot until a higher priority location is filled.'
+      if (type=="bar_active")
+        # if @can_sign_up
+        #   link_name = is_admin? ? "schedule" : "sign up"
+        #   url_options = {:action => "sign_up",
+        #         :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
+        #   html_options = {:class => "sign_up_link"}
+        #       
+        # else
+          content = "view only"
+          td_title = 'You only have a view access to this cluster, not sign up access.'
+        # end
+      
+      elsif (type=="bar_pending")
+        content = '-'
+        td_title = 'You may not sign up in this slot until a higher priority location is filled.'
 
-      #els
-      if shift
+      elsif shift
         if type == 'shift_time'
           type.gsub!(/shift/, 'user') #TODO: if !is_admin? and shift.user == @user
           if shift.missed?
