@@ -1,52 +1,25 @@
 <% title "Sub Request" %>
-
 <p>
-  <strong>Shift:</strong>
-  <%=h @sub_request.shift %>
-</p>
-<p>
-  <strong>Shift:</strong>
-  <%=h @sub_request.shift %>
-</p>
-<p>
-  <strong>Bribe Start:</strong>
-  <%=h @sub_request.bribe_start %>
-</p>
-<p>
-  <strong>Bribe End:</strong>
-  <%=h @sub_request.bribe_end %>
-</p>
-<p>
-  <strong>Start:</strong>
+  <b>Start:</b>
   <%=h @sub_request.start %>
 </p>
+
 <p>
-  <strong>End:</strong>
+  <b>End:</b>
   <%=h @sub_request.end %>
-</p>
-<p>
-  <strong>End:</strong>
-  <%=h @sub_request.end %>
-</p>
-<p>
-  <strong>New Shift:</strong>
-  <%=h @sub_request.new_shift %>
-</p>
-<p>
-  <strong>New User:</strong>
-  <%=h @sub_request.new_user %>
-</p>
-<p>
-  <strong>Reason:</strong>
-  <%=h @sub_request.reason %>
-</p>
-<p>
-  <strong>Target Ids:</strong>
-  <%=h @sub_request.target_ids %>
 </p>
 
 <p>
-  <%= link_to "Edit", edit_sub_request_path(@sub_request) %> |
-  <%= link_to "Destroy", @sub_request, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", sub_requests_path %>
+  <b>Potential takers:</b>
+  <%=h @sub_request.potential_takers %>
 </p>
+
+<p>
+  <b>Reason:</b>
+  <%=h @sub_request.reason %>
+</p>
+
+
+<%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
+<%= link_to 'Back', sub_requests_path %>
+
