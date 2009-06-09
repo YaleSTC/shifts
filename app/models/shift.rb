@@ -94,8 +94,23 @@ class Shift < ActiveRecord::Base
   def has_started?
     self.start < Time.now
   end
-
-
+  
+  
+  # ===================
+  # = Display helpers =
+  # ===================
+  def short_display
+     self.location.short_name + ', ' + self.start.to_s(:just_date) + ' ' + self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm)
+  end
+  
+  def short_name
+    time_string = self.scheduled? ? self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm) : "unscheduled"
+    
+    self.location.short_name + ', ' + self.user.name + ', ' + self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm) + ", " + self.start.to_s(:just_date)
+  end
+  
+  
+  
   private
 
   # ======================
