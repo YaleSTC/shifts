@@ -1,9 +1,7 @@
 <% title "Edit User" %>
 
-<% form_for @user do |f| %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  <p><%= f.submit "Update" %></p>
-<% end %>
+<%= render :partial => 'form', :locals => {:submit => "Update", :user => @user} %>
+
 
 <p>
   <%= link_to "Show", @user %> |

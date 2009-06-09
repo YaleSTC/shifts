@@ -1,16 +1,14 @@
-<% form_for @category do |f| %>
+<% form_for category do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :active %><br />
     <%= f.check_box :active %>
+    <%= f.label :active %>
   </p>
-  <p>
-    <%= f.label :department %><br />
-    <%= f.text_field :department %>
-  </p>
+
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
