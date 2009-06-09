@@ -49,15 +49,15 @@ class Shift < ActiveRecord::Base
     #Used for taking sub requests
     #TODO: Make subrequests get adjusted properly...
     if !(start_of_delete.between?(shift.start, shift.end) && end_of_delete.between?(shift.start, shift.end))
-      errors.add ("You can\'t delete more than the entire shift","")
+      errors.add("You can\'t delete more than the entire shift","")
     elsif start_of_delete >= end_of_delete
-      errors.add ("Start of the deletion should be before end of deletion","")
-    elsif start_of_delete = shift.start && end_of_delete = shift.end
+      errors.add("Start of the deletion should be before end of deletion","")
+    elsif start_of_delete == shift.start && end_of_delete == shift.end
       shift.destroy
-    elsif start_of_delete = shift.start
+    elsif start_of_delete == shift.start
       shift.start=end_of_delete
       shift.save!
-    elsif end_of_delete = shift.end
+    elsif end_of_delete == shift.end
       shift.end=start_of_delete
       shift.save!
     else
