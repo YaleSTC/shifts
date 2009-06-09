@@ -119,7 +119,7 @@ module ShiftsHelper
           br = '<br />'
           if (shift.user==@user && !shift.submitted?)
             link_name = "return"
-            view_action = "view"
+            view_action = shift_report_path(shift)
             html_options = {}
           else
             link_name = "view"
@@ -129,7 +129,7 @@ module ShiftsHelper
 
           #TODO: should this just always go to the report show action?
           # if current_user.is_admin_of?(@department)
-            url_options = shift_report_path(shift.report)
+            url_options = shift_report_path(shift)
           #   html_options = {}
           # else
           #   url_options = {:controller => "report", :action => "show", :id => shift}
