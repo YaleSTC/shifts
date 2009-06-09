@@ -1,6 +1,7 @@
 class ShiftsController < ApplicationController
   def index
     @shifts = Shift.all
+    @current_shifts = Shift.all.select{|r| !r.submitted? and current_user.departments.collect{|d| d.locations}.flatten.include?(r.location)}.sort_by(&:start)
   end
   
   def show

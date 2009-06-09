@@ -1,0 +1,33 @@
+<% title "Shifts" %>
+
+THIS PAGE will display all shifts for a given week. (this is THE shifts page. woot.)<br>
+The shift controller should have RESTful actions to handle adding and removing shifts.<br>
+Checks and balances can be added within these RESTful actions.<br>
+Another note: this page should also be a page for <strong>shift admins</strong>! Instead of a separate shift_admin controller, admins will just see more options!<br/>
+<br><br>
+Remember to figure out which links currently in the navbar can be moved to shift-exclusive or dashboard locations.<br>
+<table>
+  <tr>
+    <th>Start</th>
+    <th>End</th>
+    <th>User</th>
+    <th>Location</th>
+    <th>Scheduled?</th>
+  </tr>
+  <% for shift in @shifts %>
+    <tr>
+      <td><%=h shift.start %></td>
+      <td><%=h shift.end %></td>
+      <td><%=h shift.user.name %></td>
+      <td><%=h shift.location.name %></td>
+      <td><%=h shift.scheduled? %></td>
+      <td><%= link_to "Show", shift %></td>
+      <td><%= link_to "Edit", edit_shift_path(shift) %></td>
+      <td><%= link_to "Destroy", shift, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Shift", new_shift_path %></p>
+<p><%= link_to "New Unscheduled Shift", unscheduled_new_shift_path %></p>
+
