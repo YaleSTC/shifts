@@ -44,7 +44,7 @@ Feature: payform
     And I should see "3 hours"
 
   Scenario: Delete a job on a payform
-    Given I have the following payform items:
+    Given I have the following payform items
       | category | user_login | hours | description |
       | "Work"   | "wy59"     | 2     | "my job"    |
     And I am on the page for the payform for the week "2009-5-23"
