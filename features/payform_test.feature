@@ -27,7 +27,7 @@ Feature: payform
     And I should see "1.08 hours"
 
   Scenario: Edit a job on a payform
-    Given I have the following "payform_item"
+    Given I have the following payform items:
       | category | user_login | hours | description |
       | "Work"   | "wy59"     | 2     | "my job"    |
     And I am on the page for the payform for the week "2009-5-23"
@@ -40,4 +40,15 @@ Feature: payform
     Then I should have 2 payform_items
     And I should see "I edited"
     And I should see "3 hours"
+
+  Scenario: Delete a job on a payform
+    Given I have the following payform items:
+      | category | user_login | hours | description |
+      | "Work"   | "wy59"     | 2     | "my job"    |
+    And I am on the page for the payform for the week "2009-5-23"
+    When I follow "delete"
+    And I fill in "Reason for deletion" with "because I lied"
+    And I press "Yes, please delete this"
+    Then I should see "Payform item deleted"
+    And I should have 0 payform_items
 
