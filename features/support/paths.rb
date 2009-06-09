@@ -15,7 +15,7 @@ module NavigationHelpers
     when /the list of departments/
       departments_path
     when /the page for the payform for the week "([^\"]*)"/i
-      path_to(Payform.find_by_date($1.to_date))
+      payform_path(($1).id)
 
 
     # Add more mappings here.
