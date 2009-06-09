@@ -2,11 +2,11 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start %> (specify a startime)
+    <%= f.datetime_select :start %> (specify a start time)
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end %> (specify an endtime)
+    <%= f.datetime_select :end %> (specify an end time)
   </p>
   <p>
     <%= f.label :user %><br />
@@ -14,7 +14,7 @@
   </p>
   <p>
     <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name)%><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
   </p>
   <%= f.hidden_field :scheduled, :value => :true %>
   <p><%= f.submit "Submit" %></p>
