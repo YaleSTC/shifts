@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   def index
-    @reports = Report.find(:all, :order => :start)
+    @reports = Report.find(:all, :order => :arrived)
   end
 
   def show

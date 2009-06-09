@@ -1,9 +1,9 @@
-<%# I need these two for the new shift report popup view -Harley%>
-<!-- <% stylesheet 'floatbox' %>
-<% javascript 'floatbox' %> -->
+<%# Required for the shift report popup view %>
+<% stylesheet 'floatbox' %>
+<% javascript 'floatbox' %>
 
 <% title "Shifts" %>
-<%#= render :partial => 'shift/view_pref' %>
+<%= render :partial => 'view_preferences' %>
 
 <div class = "shift_links">
   <% if (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}).nil? %>
@@ -11,15 +11,18 @@
   <% end %>
   <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
 
-  <!-- <%# unless @announcements.empty? %>
-    <h2>Announcements for <%#= @department.name %></h2>
-    <%#= render :partial => 'report/notice', :collection => @announcements %>
-  <%# end %> -->
+  <%# TODO: implement announcements :P %>
+  <% @announcements = [] %>
+  <% unless @announcements.empty? %>
+    <h2>Announcements for <%= @department.name %></h2>
+    <%= render :partial => 'report/notice', :collection => @announcements %>
+  <% end %>
 
   <div id="upcoming_shifts_div">
     <%= render :partial => 'upcoming_shifts_layout' %>
   </div>
 
+  <%# @subs_you_requested = SubRequest.find(:all, :conditions => {:user => current_user}, :order => :start)%>
   <!-- <%# unless @subs_you_requested.empty? %>
       <h2>Subs you requested</h2>
       <ul>
@@ -38,8 +41,7 @@
     <h2>Currently logged in shifts (in your domain)</h2>
     <ul>
       <% @current_shifts.each do |s| %>
-        <li><%= link_to s.short_name, shift_path(s) -%> 
-              <!-- {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%> -->
+        <li><%= link_to s.short_name, shift_report_path(s), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
           <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(s.start) %></span>
         </li>
       <% end %>

@@ -1,20 +1,19 @@
 <%  @curr_day = day
     @bar_ids ||= {}
-    @bar_ids[@curr_day] = []
-    
-    #for testing only
-    @blocks_per_day = 2 %>
+    @bar_ids[@curr_day] = [] %>
 
 <% render :layout => 'shifts/schedule/day_table_layout' do
+#   TODO: gather this info from preferences correctly
 #    @loc_groups ||= pref_filter(fetch_location_groups) #need this for ajax sign up
-#    @loc_groups.each do |loc_group| 
-#      unless loc_group.locations.empty?
-#        load_variables(loc_group) %>
-        <%#= render :partial => 'shift/schedule/loc', :collection => loc_group.priority_list %>
+    @loc_groups = @department.loc_groups
+    @loc_groups.each do |loc_group| 
+      unless loc_group.locations.empty?
+        load_variables(loc_group) %>
+        <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations %>
 
         <tr>
           <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
         </tr>
-      <%# end %>
-    <%# end %>
+      <% end %>
+    <% end %>
 <% end %>
