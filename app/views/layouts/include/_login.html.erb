@@ -1,0 +1,5 @@
+<div id="login">
+  <p class="login_status"> 
+    Hello <%= current_user.name %>! (NetID: <%= current_user.login %>) <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
+  </p>
+</div>
