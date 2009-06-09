@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Payform Period Start Date</th>
+    <th>Start Date</th>
   </tr>
   <% for payform in @payforms %>
     <tr>
@@ -11,4 +11,6 @@
     </tr>
   <% end %>
 </table>
+<br/><br/>
+<%= link_to "Prune all empty payforms", prune_payforms_path, :confirm => 'Are you sure?', :method => :delete %>
 
