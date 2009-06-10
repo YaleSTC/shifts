@@ -1,10 +1,29 @@
 <% title "Payform" %>
 
-Payform Period Start Date: <%=h @payform.date %><br/>
+Date:
+<%= render :partial => "date_select" %>
+<br/>
 
-Show all payform items for this given payform.
+<table>
+  <tr>
+    <th>Hours</th>
+    <th>Description</th>
+  </tr>
+  <% for payform_item in @payform.payform_items %>
+    <tr>
+      <td><%=h payform_item.hours %></td>
+      <td><%=h payform_item.description %></td>
+      <td><%= link_to "Show", payform_item %></td>
+      <td><%= link_to "Edit", edit_payform_item_path(payform_item) %></td>
+      <td><%= link_to "Destroy", payform_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
 
 <p>
-  <%= link_to "View All", payform_path %>
+  <%= link_to "New Payform Item", new_payform_payform_item_path(@payform) %>
+</p>
+<p>
+  <%= link_to "View All", payforms_path %>
 </p>
 

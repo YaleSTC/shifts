@@ -1,5 +1,6 @@
 <% title "New Category" %>
 
-<%= render :partial => 'form' %>
+<%= render :partial => 'form', :locals => {:submit => "Create", :category => [@department,@category] } %>
 
-<p><%= link_to "Back to List", categories_path %></p>
+<p><%= link_to "Back to List", department_categories_path(@department) %></p>
+

@@ -1,8 +1,9 @@
 <% title "Edit Department" %>
 
-<%= render :partial => 'form' %>
+<%= render :partial => 'form', :locals => {:submit => "Update"} %>
 
 <p>
   <%= link_to "Show", @department %> |
   <%= link_to "View All", departments_path %>
 </p>
+
