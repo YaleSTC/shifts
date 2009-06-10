@@ -2,15 +2,13 @@
 
 <table>
   <tr>
-    <th>Name</th>
     <th>Active</th>
-    <th>Department</th>
+    <th>Name</th>
   </tr>
   <% for category in @categories %>
     <tr>
-      <td><%=h category.name %></td>
       <td><%=h category.active %></td>
-      <td><%=h category.department %></td>
+      <td><%=h category.name %></td>
       <td><%= link_to "Show", category %></td>
       <td><%= link_to "Edit", edit_category_path(category) %></td>
       <td><%= link_to "Destroy", category, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -18,4 +16,5 @@
   <% end %>
 </table>
 
-<p><%= link_to "New Category", new_category_path %></p>
+<p><%= link_to "New Category", new_department_category_path(@department) %></p>
+
