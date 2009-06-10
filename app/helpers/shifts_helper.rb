@@ -6,12 +6,9 @@ module ShiftsHelper
   end
   
   def load_variables(loc_group)
-    #TODO: fix these temporary things
-    start_hour = @dept_start_hour.to_s + ":00"
-    end_hour = @dept_end_hour.to_s + ":00"
-    
-    @day_start = Time.parse(start_hour, @curr_day) 
-    @day_end = Time.parse(end_hour, @curr_day) 
+    #TODO: maybe clean this up?
+    @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
+    @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
 
     @can_sign_up = true #loc_group.allow_sign_up? get_user
   end
@@ -38,7 +35,7 @@ module ShiftsHelper
   end
   
   #needs blocks_per_hour and @user
-  def print_cell(type,from,to,shift=nil,content = "", first_time = true)
+  def print_cell(type,from,to,shift=nil,content = "", first_time = true, overflow = false)
     span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
     user_info = ""
     br = ""
@@ -163,8 +160,43 @@ module ShiftsHelper
 
       end
 
+      type += " overflow_arrow" if overflow
+
       content += user_info + br + link_to(link_name, url_options, html_options)
       "<td title='#{td_title}' class='#{type}' colspan=#{span}>#{content}</td>" + extra
     end
+  end
+  
+  def show_bar_links(name)
+    javascript_tag("$('%s').down('.%s').show()" % [@curr_day, name])
+  end
+  
+  #TODO: look at this and show_bars and make sure they're efficient
+  def hide_bars(name)
+    f = ""
+    @bar_ids[@curr_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
+    unless f.empty?
+      f << "$(this).up().hide();"
+      f << "$(this).up().next().show();"
+      link_to_function(name, f)
+    end
+  end
+
+  def show_bars(name)
+    f = ""
+    @bar_ids[@curr_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
+    unless f.empty?
+      f << "$(this).up().hide();"
+      f << "$(this).up().previous().show();"
+      link_to_function(name, f)
+    end
+  end
+  
+  def sign_up_div_id
+    "quick_sign_up_%s" % @curr_day
+  end
+
+  def sign_in_div_id
+    "quick_sign_in_%s" % @curr_day
   end
 end

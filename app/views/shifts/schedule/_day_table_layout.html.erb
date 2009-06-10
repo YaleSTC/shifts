@@ -3,18 +3,19 @@
   
   <div style="text-align:left">
     <div style="float:right">
-      <!-- <span class='bars_off' style="display:none"><%#= hide_bars 'hide bars' %></span>
-      <span class='bars_on' style="display:none"><%#= show_bars 'show bars' %></span> -->
+      <span class='bars_off' style="display:none"><%= hide_bars 'hide bars' %></span>
+      <span class='bars_on' style="display:none"><%= show_bars 'show bars' %></span>
       <%# js to turn on off here to work well with ajax.  these links hide by default if js is off %>
-      <%#= show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
+      <%# TODO: show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
+      <%= show_bar_links(:false ? 'bars_off' : 'bars_on') %>
     </div>
-    <h3><%#= link_toggle table_id, @curr_day.to_s(:just_date_long) %>
+    <h3><%#= TODO: link_toggle table_id, @curr_day.to_s(:just_date_long) %>
       <%= @curr_day.to_s(:just_date_long) %></h3>
   </div>
   
   <div id="<%= table_id %>">
-    <div id="<%#= sign_up_div_id %>" style="display:none"></div>
-    <div id="<%#= sign_in_div_id %>" style="display:none"></div>    
+    <div id="<%= sign_up_div_id %>" style="display:none"></div>
+    <div id="<%= sign_in_div_id %>" style="display:none"></div>    
     <table class="day_view">
       <thead>
         <tr id="hours">
