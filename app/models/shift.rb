@@ -47,7 +47,6 @@ class Shift < ActiveRecord::Base
 
   def self.delete_part_of_shift(shift, start_of_delete, end_of_delete)
     #Used for taking sub requests
-    #TODO: Make subrequests get adjusted properly...
     if !(start_of_delete.between?(shift.start, shift.end) && end_of_delete.between?(shift.start, shift.end))
       raise "You can\'t delete more than the entire shift"
     elsif start_of_delete >= end_of_delete
