@@ -10,6 +10,11 @@ When /^I choose to view (.+)$/ do |department|
   visit path_to(department_users_path(@department))
 end
 
+Given /^I have a user named (.+), login (.+)$/ do |name, login|
+  Department.create!(:name => )
+  User.create!(:name => name, :login => login, :department =>
+end
+
 Given /^that CAS is happy$/ do
 #  request_login_ticket
 #  Department.create!(:name => "test-ground")
