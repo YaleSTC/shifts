@@ -1,5 +1,5 @@
 <% title "New Sub Request" %>
-<p>For shift beginning at <%#= :shift.start %> and ending at <%#= :shift.end %> <p>
+<p>For shift beginning at <%= @sub_request.shift.start %> and ending at <%= @sub_request.shift.end %> <p>
 
 <%= render :partial => 'form' %>
 

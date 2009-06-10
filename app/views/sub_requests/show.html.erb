@@ -1,4 +1,15 @@
 <% title "Sub Request" %>
+<h3> What must be taken: </h3>
+<p>
+  <b>Start:</b>
+  <%=h @sub_request.mandatory_start %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%=h @sub_request.mandatory_end %>
+</p>
+<h3> What can be taken (bribe): </h3>
 <p>
   <b>Start:</b>
   <%=h @sub_request.start %>
@@ -19,7 +30,7 @@
   <%=h @sub_request.reason %>
 </p>
 
-<%= link_to 'Take', take_sub_request_path(@sub_request) %>
+<%= link_to 'Take', get_take_info_sub_request_path(@sub_request) %> |
 <%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
 <%= link_to 'Back', sub_requests_path %>
 
