@@ -16,7 +16,7 @@
     <td><%=h sub_request.end %></td>
     <td><%=h sub_request.mandatory_start %></td>
     <td><%=h sub_request.mandatory_end %></td>
-    <td><%=h sub_request.potential_takers %></td>
+    <td><%=h sub_request.substitutes.collect{|s| s.name} * ", " %></td>
     <td><%=h sub_request.reason %></td>
     <td><%= link_to 'Show', sub_request %></td>
     <td><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td>
