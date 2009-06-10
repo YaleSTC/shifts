@@ -63,8 +63,8 @@
     </tr>
     <% for shift in @shifts %>
       <tr>
-        <td><%=h shift.start %></td>
-        <td><%=h shift.end %></td>
+        <td><%=h shift.start.to_s(:short_name) %></td>
+        <td><%=h shift.end.to_s(:short_name) %></td>
         <td><%=h shift.user.name %></td>
         <td><%=h shift.location.name %></td>
         <td><%=h shift.scheduled? %></td>
