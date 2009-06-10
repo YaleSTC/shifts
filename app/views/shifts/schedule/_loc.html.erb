@@ -1,32 +1,34 @@
 <%
-  shifts = Shift.find(:all, :conditions => {:location_id => loc})#, :start => @curr_day})
-  #populate_loc(loc, shifts)
+  @grace_period = 0 #minutes
+
+  shifts = Shift.find(:all, :conditions => {:location_id => loc}).select{|shift| shift.start.to_date == @curr_day}
+  populate_loc(loc, shifts)
   #shifts_in_row = split_to_rows(shifts) # break into groups, where index 1 returns shifts on 1st row, index 2 shifts on 2nd row, etc  
-  shifts_in_row = [shifts]
+  @shifts_in_row = [shifts]
 %>
 
 <tbody>
-  <% shifts_in_row.each_with_index do |row_shifts, i| %>
+  <% @shifts_in_row.each_with_index do |row_shifts, i| %>
     <tr class="location_row">
       <% if i==0 %>
         <th class="location_label" scope="rowgroup" rowspan="<%= loc.max_staff + 1 %>">
-          <%#= link_toggle_unless loc.bar_no_active?, loc.bar_id, loc.short_name %>
+          <%#= link_toggle_unless loc.bar_no_active?, @bar_id, loc.short_name %>
           <%= loc.short_name %>
         </th>
       <% end %>
       
       <% @row_time = @day_start %>
       <% unless row_shifts.empty? %><%# if there are any shifts on this row, print them %>
-        <%= render :partial => 'shifts/schedule/row_shift', :collection => row_shifts.sort_by(&:start) %>
+        <%= render :partial => 'shifts/schedule/row_shift', :collection => row_shifts.sort_by(&:start), :locals => {:index => i} %>
       <% end %>
       <%= print_cell("free_time", @row_time, @day_end, nil, ' ') -%><%# print rest of free time for the day %>            
     </tr>
   <% end %>
   
   <% unless true %> <%#loc.bar_no_active? %>
-    <tr class="location_bar" id="<%= loc.bar_id %>" <%= @user.preference.show_bars? ? '' : 'style="display:none"' %>>
+    <tr class="location_bar" id="<%= @bar_id %>" <%= @user.preference.show_bars? ? '' : 'style="display:none"' %>>
       <%= render :partial => 'shift/schedule/loc_bar', :collection => loc.bar, :locals => {:id => loc.id} %>
     </tr>
-    <% @bar_ids[@curr_day] << loc.bar_id %>
+    <% @bar_ids[@curr_day] << @bar_id %>
   <% end %>
 </tbody>

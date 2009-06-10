@@ -6,14 +6,23 @@ module ShiftsHelper
   end
   
   def load_variables(loc_group)
-    #temporary things
-    start_hour = " 9:00am"
-    end_hour = " 5:00pm"
+    #TODO: fix these temporary things
+    start_hour = @dept_start_hour.to_s + ":00"
+    end_hour = @dept_end_hour.to_s + ":00"
     
-    @day_start = Time.parse(@curr_day + start_hour)
-    @day_end = Time.parse(@curr_day + end_hour)
+    @day_start = Time.parse(start_hour, @curr_day) 
+    @day_end = Time.parse(end_hour, @curr_day) 
 
     @can_sign_up = true #loc_group.allow_sign_up? get_user
+  end
+  
+  # TODO: this shit
+  def populate_loc(loc, shifts)
+    #loc.label_row_for(shifts) #assigns row number for each shift (shift.row)
+    #loc.count_people_for(shifts, min_block)#count number of people working concurrently for each time block
+    #loc.apply_time_slot_in(@day_start, @day_end, min_block)#check if time is valid or not
+    #loc.create_bar(@day_start, @day_end, min_block)
+    @bar_id = loc.short_name + @curr_day.to_s
   end
   
   #use this instead of group_by because we want an array
@@ -64,7 +73,7 @@ module ShiftsHelper
           type.gsub!(/shift/, 'user') if !current_user.is_admin_of?(@department) and shift.user == current_user
           if shift.missed?
             type.gsub!(/time/, 'missed_time')
-          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + 7 #shift.end_of_grace
+          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + @grace_period #shift.end_of_grace
             type.gsub!(/time/, 'late_time')
           end
         end
@@ -73,7 +82,7 @@ module ShiftsHelper
           user_info = shift.user.name + '<br />' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
         else
           user_info = shift.user.login
-          td_title = shift.user.name + ',' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
+          td_title = shift.user.name + ', ' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
         end
 
         # if first_time && shift.has_sub? && (shift.sub.eligible?(@user) || type=="user_time") &&
@@ -110,7 +119,7 @@ module ShiftsHelper
           br = '<br />'
           if (shift.user==@user && !shift.submitted?)
             link_name = "return"
-            view_action = "view"
+            view_action = shift_report_path(shift)
             html_options = {}
           else
             link_name = "view"
@@ -120,7 +129,7 @@ module ShiftsHelper
 
           #TODO: should this just always go to the report show action?
           # if current_user.is_admin_of?(@department)
-            url_options = shift_report_path(shift.report)
+            url_options = shift_report_path(shift)
           #   html_options = {}
           # else
           #   url_options = {:controller => "report", :action => "show", :id => shift}

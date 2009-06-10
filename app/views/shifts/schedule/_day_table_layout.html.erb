@@ -9,7 +9,7 @@
       <%#= show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
     </div>
     <h3><%#= link_toggle table_id, @curr_day.to_s(:just_date_long) %>
-      <%= table_id %></h3>
+      <%= @curr_day.to_s(:just_date_long) %></h3>
   </div>
   
   <div id="<%= table_id %>">

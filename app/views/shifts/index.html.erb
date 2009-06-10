@@ -6,7 +6,7 @@
 <%= render :partial => 'view_preferences' %>
 
 <div class = "shift_links">
-  <% if (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}).nil? %>
+  <% unless (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}) == [] %>
     <%= link_to "Return to current shift", shift_path(current_shift) %><br />
   <% end %>
   <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
