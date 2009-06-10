@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payform_sets
 
-  map.resources :payforms, :shallow => true do |payforms|
+  map.resources :payforms, :collection => { :prune => :delete, :go => :get }, :member => { }, :shallow => true do |payforms|
     payforms.resources :payform_items
   end
 
@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
-    departments.resources :cagtegories
+    departments.resources :categories
   end
 
   map.resources :permissions, :only => :index

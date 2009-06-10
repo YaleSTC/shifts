@@ -1,16 +1,8 @@
 <% title "Payform Item" %>
 
 <p>
-  <strong>Active?:</strong>
-  <%=h @payform_item.active %>
-</p>
-<p>
   <strong>Hours:</strong>
   <%=h @payform_item.hours %>
-</p>
-<p>
-  <strong>Source:</strong>
-  <%=h @payform_item.source %>
 </p>
 <p>
   <strong>Description:</strong>
@@ -20,6 +12,6 @@
 <p>
   <%= link_to "Edit", edit_payform_item_path(@payform_item) %> |
   <%= link_to "Destroy", @payform_item, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", payform_items_path %>
+  <%= link_to "View All", payform_path(@payform_item.payform) %>
 </p>
 
