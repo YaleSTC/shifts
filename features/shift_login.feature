@@ -8,9 +8,9 @@ Scenario: Log into a blank report
 	And I am not logged into a shift report
 	When I follow "Shift"
 	And I follow "Sign in to a blank report"
-	I should see a list of clusters	
+	Then I should see a list of clusters	
 	And when I follow "Technology Troubleshooting Office"
-	I should see a shift report for "Technology Troubleshooting Office"
+	Then I should see a shift report for "Technology Troubleshooting Office"
 	And my shift report should have one comment
 	
 Scenario: Fail to log into a second report
