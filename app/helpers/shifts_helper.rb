@@ -35,7 +35,7 @@ module ShiftsHelper
   end
   
   #needs blocks_per_hour and @user
-  def print_cell(type,from,to,shift=nil,content = "", first_time = true, overflow = false)
+  def print_cell(type,from,to,shift=nil,content = "", render_pass = -1, overflow = false)
     span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
     user_info = ""
     br = ""
@@ -84,15 +84,26 @@ module ShiftsHelper
         
         # if first_time && shift.has_sub? && (shift.sub.eligible?(@user) || type=="user_time") &&
         #    (!shift.has_passed? || !shift.sub.new_user)
-        if first_time #&& shift.has_sub? && (!shift.has_passed? || !shift.sub.new_user)
+        if render_pass == -1 && shift.has_sub? && (!shift.has_passed? || !shift.sub.new_user)
+            sorted_sub_requests = shift.sub_requests.sort_by(&:start)
             
-            before_sub = print_cell("shift_time", shift.start, shift.sub_requests[0].start, shift, "", false)
-            #sub_class_name = shift.sub.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
-            sub_class_name = shift.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
-            sub = print_cell(sub_class_name, shift.sub_requests[0].start, shift.sub_requests[0].end, shift, "", false, overflow && shift.sub_requests[0].end >= @day_end)
-            after_sub = print_cell("shift_time", shift.sub_requests[0].end, shift.end, shift, "", false,  overflow && shift.end >= @day_end)
-        
-            s = before_sub + sub + after_sub
+            s=""
+            
+            current_time = shift.start
+            
+            sorted_sub_requests.each_with_index do |sub, i|
+              before_sub_block = print_cell("shift_time", current_time, sub.start, shift, "", i)
+              #sub_class_name = shift.sub.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
+              sub_class_name = shift.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
+              sub_block = print_cell(sub_class_name, sub.start, sub.end, shift, "", i, overflow && shift.sub.end >= @day_end)
+
+              s += before_sub_block + sub_block
+              current_time = sub.end
+            end
+            
+            after_sub_block = print_cell("shift_time", sorted_sub_requests.last.end, shift.end, shift, "", -1,  overflow && shift.end >= @day_end)
+            s += after_sub_block
+            
             return s
         elsif type=="sub_time"
           br = '<br />'
@@ -108,7 +119,7 @@ module ShiftsHelper
             html_options = {:onclick => make_popup(:title => 'Accept this sub?')}
           end
           #this prepares sub reason as a popup
-          sub = shift.sub_requests[0]
+          sub = shift.sub_requests.sort_by(&:start)[render_pass]
           html_options = {:id => "sub_link_#{sub.id}", :class => "popup_link" }
           extra = render(:partial => 'sub_reason', :locals => {:sub => sub})
 

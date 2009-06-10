@@ -1,5 +1,5 @@
 <h2 title="Displaying up to 4 upcoming shifts">Upcoming shifts</h2>
 <ul>
   <%= render :partial => 'upcoming_shift', :collection => 
-        current_user.shifts.select{|shift| shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3] %>
+        current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3] %>
 </ul>
