@@ -1,5 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
+  belongs_to :substitute_source, :polymorphic => true
 
   validates_presence_of :reason
   validates_presence_of :shift
@@ -31,6 +32,20 @@ class SubRequest < ActiveRecord::Base
   # Object methods
   #
 
+
+  def substitutes
+    substitutes = []
+    #self.substitute_sources.each do |source|
+    source = self.substitute_source
+    
+      if source.class == User
+        substitutes << source
+      elsif source.class == Department
+        substitutes += source.users
+      end
+    #end
+    substitutes
+  end
 
 
 

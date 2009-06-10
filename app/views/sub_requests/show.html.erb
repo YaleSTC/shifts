@@ -21,8 +21,16 @@
 </p>
 
 <p>
-  <b>Potential takers:</b>
-  <%=h @sub_request.potential_takers %>
+  <b>Substitute sources:</b>
+  <% if !@sub_request.substitutes.empty? %>
+    <ul>
+    <% @sub_request.substitutes.each do |substitute| %>
+      <li><%=h substitute.name %></li>
+    <% end %>
+    </ul>
+  <% else %>
+    none
+  <% end %>
 </p>
 
 <p>
