@@ -25,7 +25,7 @@ class SubRequestsController < ApplicationController
   # GET /sub_requests/new.xml
   def new
     @sub_request = SubRequest.new
-
+    @sub_request.shift = Shift.find(params[:shift_id])
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @sub_request }
@@ -45,7 +45,7 @@ class SubRequestsController < ApplicationController
 
     respond_to do |format|
       if @sub_request.save
-        flash[:notice] = 'SubRequest was successfully created.'
+        flash[:notice] = 'Sub request was successfully created.'
         format.html { redirect_to(@sub_request) }
         format.xml  { render :xml => @sub_request, :status => :created, :location => @sub_request }
       else
@@ -84,9 +84,13 @@ class SubRequestsController < ApplicationController
     end
   end
 
+  def get_take_info
+    @sub_request = SubRequest.find(params[:id])
+  end
+
   def take
     @sub_request = SubRequest.find(params[:id])
-    SubRequest.take(@sub_request, current_user)
+    SubRequest.take(@sub_request, current_user, params[:just_mandatory])
     redirect_to (shifts_path)
   end
 

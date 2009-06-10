@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resource :report do |report|
       report.resources :report_items
     end
-    shifts.resources :sub_requests, :member => {:take => :get}, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
+    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
   end
 
   map.resources :reports do |report|
