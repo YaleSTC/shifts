@@ -81,24 +81,25 @@ module ShiftsHelper
           user_info = shift.user.login
           td_title = shift.user.name + ', ' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
         end
-
+        
         # if first_time && shift.has_sub? && (shift.sub.eligible?(@user) || type=="user_time") &&
         #    (!shift.has_passed? || !shift.sub.new_user)
-        #     before_sub = print_cell("shift_time", shift.start, shift.sub.start, shift, "", false)
-        #     sub_class_name = shift.sub.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
-        #     sub = print_cell(sub_class_name, shift.sub.start, shift.sub.end, shift, "", false)
-        #     after_sub = print_cell("shift_time", shift.sub.end, shift.end, shift, "", false)
-        # 
-        #     s = before_sub + sub + after_sub
-        #     return s
-
-        #els
-        if type=="sub_time"
+        if first_time #&& shift.has_sub? && (!shift.has_passed? || !shift.sub.new_user)
+            
+            before_sub = print_cell("shift_time", shift.start, shift.sub_requests[0].start, shift, "", false)
+            #sub_class_name = shift.sub.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
+            sub_class_name = shift.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
+            sub = print_cell(sub_class_name, shift.sub_requests[0].start, shift.sub_requests[0].end, shift, "", false, overflow && shift.sub_requests[0].end >= @day_end)
+            after_sub = print_cell("shift_time", shift.sub_requests[0].end, shift.end, shift, "", false,  overflow && shift.end >= @day_end)
+        
+            s = before_sub + sub + after_sub
+            return s
+        elsif type=="sub_time"
           br = '<br />'
           if current_user.is_admin_of?(@department) or shift.user==current_user
             con_name = current_user.is_admin_of?(@department) ? 'shift_admin' : 'shift'
             link_name = "cancel sub"
-            url_options = {:controller => con_name, :action => "sign_in", :id => shift}
+            url_options = shift_report_path(shift)
             html_options = {:class => "sign_in_link"} unless current_user.is_admin_of?(@department)
           else
             link_name = "accept sub"
@@ -107,9 +108,9 @@ module ShiftsHelper
             html_options = {:onclick => make_popup(:title => 'Accept this sub?')}
           end
           #this prepares sub reason as a popup
-          sub = shift.sub
+          sub = shift.sub_requests[0]
           html_options = {:id => "sub_link_#{sub.id}", :class => "popup_link" }
-          extra = render_to_string(:partial => 'shift/sub_reason', :locals => {:sub => sub})
+          extra = render(:partial => 'sub_reason', :locals => {:sub => sub})
 
         elsif shift.signed_in? #display shift report
           # link to view report on a new page
