@@ -22,7 +22,7 @@ class Shift < ActiveRecord::Base
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
-  validate_on_createSub :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
+  validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
 
   #
   # Class methods
