@@ -1,6 +1,16 @@
 <% form_for [:shift, @sub_request] do |f| %>
   <%= f.error_messages %>
 
+  <p><h3>Time that you need someone to take for this sub request:</h3></p>
+  <p>
+    <%= f.label "Start" %><br />
+    <%= f.datetime_select :mandatory_start %>
+  </p>
+  <p>
+    <%= f.label "End" %><br />
+    <%= f.datetime_select :mandatory_end %>
+  </p>
+  <p><h3>Maximum amount of time you're willing to give up (bribe):</h3></p>
   <p>
     <%= f.label :start %><br />
     <%= f.datetime_select :start %>

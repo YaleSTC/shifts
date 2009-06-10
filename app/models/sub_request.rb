@@ -4,6 +4,7 @@ class SubRequest < ActiveRecord::Base
   validates_presence_of :reason
   validates_presence_of :shift
   validate :start_and_end_are_within_shift
+  validate :mandatory_start_and_end_are_within_subrequest
   validate :start_less_than_end
   validate :not_in_the_past
   validate :user_does_not_have_concurrent_sub_request
@@ -32,14 +33,20 @@ class SubRequest < ActiveRecord::Base
   private
   def start_and_end_are_within_shift
     unless self.start.between?(self.shift.start, self.shift.end) && self.end.between?(self.shift.start, self.shift.end)
-      errors.add("Sub Request must be within shift.", "")
+      errors.add_to_base("Sub Request must be within shift.")
     end
   end
 
-
+  def mandatory_start_and_end_are_within_subrequest
+    unless self.mandatory_start.between?(self.start, self.end) && self.mandatory_end.between?(self.start, self.end)
+      errors.add_to_base("The mandatory portion of this sub request must be within the optional portion")
+    end
+  end
 
   def start_less_than_end
-    errors.add(:start, "must be earlier than end time") if (self.end <= start)
+    if self.end <= self.start || self.mandatory_end <= self.mandatory_start
+      errors.add_to_base("All start times must be before end times")
+    end
   end
 
   def not_in_the_past
