@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :departments, :through => :departments_users
   has_many :shifts
   
-  has_many :sub_requests, :as => :substitute_source
+  has_many :substitute_sources, :as => :user_source
 
   validates_presence_of :name
   validates_presence_of :login

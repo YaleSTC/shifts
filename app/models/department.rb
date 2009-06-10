@@ -5,7 +5,7 @@ class Department < ActiveRecord::Base
   has_many :users, :through => :departments_users
   has_many :locations, :through => :loc_groups
   
-  has_many :sub_requests, :as => :substitute_source
+  has_many :substitute_sources, :as => :user_source
 
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
