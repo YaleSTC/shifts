@@ -1,9 +1,9 @@
 one:
-  name: MyString
   active: false
+  name: MyString
   department: 
 
 two:
-  name: MyString
   active: false
+  name: MyString
   department: 
