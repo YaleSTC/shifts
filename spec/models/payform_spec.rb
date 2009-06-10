@@ -13,9 +13,8 @@ module PayformHelper
 end
 
 describe Payform do
+  include PayformHelper
   describe "when newly created" do
-    include PayformHelper
-
     before(:each) do
       @payform = Payform.new
     end
@@ -31,7 +30,35 @@ describe Payform do
         @payform.should_not be_valid
       end
     end
-
   end
+
+  describe "when the user is finished adding jobs" do
+    before(:each) do
+      @payform = Payform.create!(valid_payform_attributes)
+    end
+
+    it "should not be approved unless submitted" do
+      @payform.should_not be_submitted
+      lambda {
+        @payform.approve
+      }.should raise_error("Payform cannot be approved until it is submitted")
+      #can modify the above error message to fit with actual error message - wy
+      @payform.submit
+      lambda { @payform.approve }.should_not raise_error
+    end
+
+    it "should not be printed unless approved" do
+      @payform.submit
+      @payform.should_not be_approved
+      lambda {
+        @payform.print
+      }.should raise_error("Payform cannot be printed until it is approved")
+      #can modify the above error message to fit with actual error message - wy
+      @payform.approve
+      lambda { @payform.approve }.should_not raise_error
+    end
+  end
+
+
 end
 

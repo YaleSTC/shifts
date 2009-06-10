@@ -11,9 +11,8 @@ module PayformItemHelper
 end
 
 describe PayformItem do
+  include PayformItemHelper
   describe "when newly created" do
-    include PayformItemHelper
-
     before(:each) do
       @payform_item = PayformItem.new
     end
@@ -31,7 +30,26 @@ describe PayformItem do
     end
   end
 
-  describe "already created" do
+  describe "when edited" do
+    before(:each) do
+      @payform_item = PayformItem.create(valid_payform_item_attributes)
+      @payform_item.should be_active
+      PayformItem.update(@payform_item.id, {:description => "I've been edited'"})
+    end
+
+    it "should not be active" do
+      @payform_item.should_not be_active
+    end
+
+    it "should have a child with the new attribute" do
+      children = @payform_item.children
+      children.should_not be_empty
+      children.first.description.should match("I've been edited")
+    end
+
+    it "should not have changed its own attributes" do
+      @payform_item.description.should match("Fun")
+    end
   end
 end
 
