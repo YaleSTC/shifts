@@ -8,7 +8,7 @@ class CreateDepartments < ActiveRecord::Migration
       #=========================
       t.boolean  :monthly, :default => false #defaults to WEEKLY
       t.boolean  :complex, :default => true #where false = bi-weekly or semi-monthly, and true = weekly or monthly
-      t.integer  :day, :default => 0 #if it is weekly, this stores the day of the week, and if this is monthly, day of the month
+      t.integer  :day, :default => 6 #if it is weekly, this stores the day of the week, and if this is monthly, day of the month
       t.integer  :day2, :default => 15  #if it is semi-monthly, this stores the second day of the month. (not used otherwise)
       #=========================
 
