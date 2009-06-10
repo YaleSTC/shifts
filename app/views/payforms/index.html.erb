@@ -1,8 +1,11 @@
 <% title "Payforms" %>
 
+
+<%= render :partial => "date_select" %>
+
 <table>
   <tr>
-    <th>Start Date</th>
+    <th>Date</th>
   </tr>
   <% for payform in @payforms %>
     <tr>

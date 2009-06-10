@@ -1,8 +1,9 @@
 <% title "Edit Payform Item" %>
 
-<%= render :partial => 'form' %>
+<%= render :partial => 'form', :locals => {:submit => "Save", :payform_item => @payform_item} %>
 
 <p>
   <%= link_to "Show", @payform_item %> |
-  <%= link_to "View All", payform_items_path %>
+  <%= link_to "View All", payform_path(@payform_item.payform) %>
 </p>
+

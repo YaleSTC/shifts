@@ -18,8 +18,7 @@ class PayformsController < ApplicationController
 
   def prune
     @payforms = current_user.payforms & current_department.payforms
-    @payforms.select{|p| p.payform_items.empty? }
-    @payforms.map{|p| p.destroy }
+    @payforms.select{|p| p.payform_items.empty? }.map{|p| p.destroy }
     flash[:notice] = "Successfully pruned empty payforms."
     redirect_to payforms_path
   end

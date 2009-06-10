@@ -1,18 +1,17 @@
 class PayformItemsController < ApplicationController
-  def index
-    @payform_items = PayformItem.all
-  end
-  
+
   def show
     @payform_item = PayformItem.find(params[:id])
   end
-  
+
   def new
+    @payform = Payform.find(params[:payform_id])
     @payform_item = PayformItem.new
   end
-  
+
   def create
     @payform_item = PayformItem.new(params[:payform_item])
+    @payform_item.payform = Payform.find(params[:payform_id])
     if @payform_item.save
       flash[:notice] = "Successfully created payform item."
       redirect_to @payform_item
@@ -20,11 +19,11 @@ class PayformItemsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @payform_item = PayformItem.find(params[:id])
   end
-  
+
   def update
     @payform_item = PayformItem.find(params[:id])
     if @payform_item.update_attributes(params[:payform_item])
@@ -34,11 +33,13 @@ class PayformItemsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @payform_item = PayformItem.find(params[:id])
+    @payform = @payform_item.payform
     @payform_item.destroy
     flash[:notice] = "Successfully destroyed payform item."
-    redirect_to payform_items_url
+    redirect_to payform_path(@payform)
   end
 end
+
