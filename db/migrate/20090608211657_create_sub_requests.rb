@@ -9,7 +9,7 @@ class CreateSubRequests < ActiveRecord::Migration
       t.string :reason
       t.references :shift
       
-      t.references :substitute_source, :polymorphic => true
+      #t.references :substitute_source, :polymorphic => true
 
       t.timestamps
     end
