@@ -17,12 +17,12 @@ class Payform < ActiveRecord::Base
 
   def self.default_period_date(given_date, dept)
     day = dept.day
-    date_day = (dept.monthly ? given_date.mday : given_date.wday)
+    given_date_day = (dept.monthly ? given_date.mday : given_date.wday)
     subtract = (dept.monthly ? 1.month : 1.week)
-    if day > date_day
-      given_date = given_date - subtract
+    if day <= given_date_day
+      given_date = given_date + subtract
     end
-    given_date - date_day.days + day.days
+    given_date - given_date_day.days + day.days
   end
 
 end

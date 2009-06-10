@@ -1,0 +1,9 @@
+<% form_tag({:action => :go, :department_id => @department}, {:id => 'form_week', :method => :get} ) do %>
+  <%= select_tag :date, options_for_select(last_10_payforms,Payform.default_period_date(Date.today, @department)), {:onchange =>"$('form_week').submit()"} %>
+  <%= submit_tag "Change Week", :id => 'submit_week' %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  document.observe('dom:loaded',function(){ $('submit_week').hide()})
+</script>
+
