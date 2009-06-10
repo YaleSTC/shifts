@@ -1,7 +1,7 @@
 <%
   @grace_period = 0 #minutes
 
-  shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.start.to_date == @curr_day}
+  shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and shift.start.to_date == @curr_day}
   populate_loc(loc, shifts)
   #shifts_in_row = split_to_rows(shifts) # break into groups, where index 1 returns shifts on 1st row, index 2 shifts on 2nd row, etc  
   @shifts_in_row = [shifts]

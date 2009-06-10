@@ -22,13 +22,15 @@
     <%= render :partial => 'upcoming_shifts_layout' %>
   </div>
 
-  <%# @subs_you_requested = SubRequest.find(:all, :conditions => {:user => current_user}, :order => :start)%>
-  <!-- <%# unless @subs_you_requested.empty? %>
-      <h2>Subs you requested</h2>
-      <ul>
-      <%#= render :partial => 'upcoming_sub', :collection => @subs_you_requested %>
-      </ul>
-    <%# end %> -->
+  
+  <% all_subs = SubRequest.find(:all, :order => :start) %>
+  <% @subs_you_requested = all_subs.select{|sub| sub.shift.user == current_user}%>
+  <% unless @subs_you_requested.empty? %>
+    <h2>Subs you requested</h2>
+    <ul>
+    <%= render :partial => 'upcoming_sub', :collection => @subs_you_requested %>
+    </ul>
+  <% end %>
 
   <!-- <%# unless @subs_you_can_take.empty? %>
       <h2>Subs you can take</h2>

@@ -1,6 +1,18 @@
-<% if row_shift.start == @row_time # if shift starts where we are -%>
-    <%= print_cell("shift_time", @row_time, row_shift.end, row_shift) -%><%# prints current shift -%>
-    <% @row_time = row_shift.end %>
+<%# if we've reached the end of the day, any remaining shifts don't fit on the page%>
+<% if row_shift.start >= @day_end %>
+    <% @shifts_outside_display += [row_shift] %>
+
+<% elsif row_shift.start == @row_time # if shift starts where we are -%>
+    <%# if a shift overflows the end of the page, display what fits and push to the list of shifts outside the display%>
+    <% if row_shift.end >= @day_end %>
+      <%= print_cell("shift_timeBLAH2", @row_time, @day_end, row_shift) -%><%# prints current shift -%>
+      <% @shifts_outside_display += [row_shift] %>
+      <% @row_time = @day_end %>
+    <% else %>
+      <%= print_cell("shift_timeBLAH1", @row_time, row_shift.end, row_shift) -%><%# prints current shift -%>
+      <%= row_shift.end %>
+      <% @row_time = row_shift.end %>
+    <% end %>
 
 <%# if this shift will not fit in the current row, push it to the next row%>
 <% elsif row_shift.start < @row_time %>
@@ -10,8 +22,15 @@
     <%#= row_shift.start + " to " row_shift.end %><!-- <br /> -->
 
 <% else #which means:  @row_time < row_shift.start  # if shift is later -%>
-    <%= print_cell("free_time", @row_time, row_shift.start, nil) -%><%# print some free time -%>
-    <%= print_cell("shift_time", row_shift.start, row_shift.end, row_shift) -%><%# this is the next shift, print it.%>
-    <% @row_time = row_shift.end # move to end of shift%>
+    <% if row_shift.end >= @day_end %>
+      <%= print_cell("free_time", @row_time, row_shift.start, nil) -%><%# print some free time -%>
+      <%= print_cell("shift_time", row_shift.start, row_shift.end, row_shift, "", false, true) -%><%# prints current shift -%>
+      <% @shifts_outside_display += [row_shift] %>
+      <%# arrow to show that shifts continue %>
+      <% @row_time = @day_end %>
+    <% else %>
+      <%= print_cell("free_time", @row_time, row_shift.start, nil) -%><%# print some free time -%>
+      <%= print_cell("shift_time", row_shift.start, row_shift.end, row_shift) -%><%# this is the next shift, print it.%>
+      <% @row_time = row_shift.end # move to end of shift%>
+    <% end %>
 <% end -%>
-<%# please do not remove this line after END, for some reason it doesn't work properly without it %>
