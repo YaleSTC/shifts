@@ -12,7 +12,11 @@ class SubRequest < ActiveRecord::Base
   # Class methods
   #
 
-  def self.take(sub_request, user)
+  def self.take(sub_request, user, just_mandatory)
+    if just_mandatory
+      sub_request.start = sub_request.mandatory_start
+      sub_request.end = sub_request.mandatory_end
+    end
     new_shift = sub_request.shift.clone
     new_shift.location = sub_request.shift.location
     Shift.delete_part_of_shift(sub_request.shift, sub_request.start, sub_request.end)

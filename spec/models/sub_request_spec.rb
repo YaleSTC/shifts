@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SubRequest do
-  it "should be valid" do
-    SubRequest.new.should be_valid
+
+  it "should have a shift" do 
   end
+
+
 end

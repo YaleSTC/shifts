@@ -4,6 +4,8 @@
   <tr>
     <th>Start</th>
     <th>End</th>
+    <th>Madatory Start</th>
+    <th>Mandatory End</th>
     <th>Potential takers</th>
     <th>Reason</th>
   </tr>
@@ -12,6 +14,8 @@
   <tr>
     <td><%=h sub_request.start %></td>
     <td><%=h sub_request.end %></td>
+    <td><%=h sub_request.mandatory_start %></td>
+    <td><%=h sub_request.mandatory_end %></td>
     <td><%=h sub_request.potential_takers %></td>
     <td><%=h sub_request.reason %></td>
     <td><%= link_to 'Show', sub_request %></td>
