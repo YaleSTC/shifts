@@ -14,6 +14,8 @@ module NavigationHelpers
       department_users_path(@department)
     when /the list of departments/
       departments_path
+    when /the shifts admin page/
+      shift_admin_path
     
     # Add more mappings here.
     # Here is a more fancy example:
