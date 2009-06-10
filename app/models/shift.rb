@@ -22,7 +22,7 @@ class Shift < ActiveRecord::Base
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
-  validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
+  validate_on_createSub :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
 
   #
   # Class methods
@@ -49,9 +49,9 @@ class Shift < ActiveRecord::Base
     #Used for taking sub requests
     #TODO: Make subrequests get adjusted properly...
     if !(start_of_delete.between?(shift.start, shift.end) && end_of_delete.between?(shift.start, shift.end))
-      errors.add("You can\'t delete more than the entire shift","")
+      raise "You can\'t delete more than the entire shift"
     elsif start_of_delete >= end_of_delete
-      errors.add("Start of the deletion should be before end of deletion","")
+      raise "Start of the deletion should be before end of deletion"
     elsif start_of_delete == shift.start && end_of_delete == shift.end
       shift.destroy
     elsif start_of_delete == shift.start
@@ -68,6 +68,12 @@ class Shift < ActiveRecord::Base
       later_shift.start = end_of_delete
       shift.save!
       later_shift.save!
+      shift.sub_requests.each do |s|
+        if s.start >= later_shift.start
+          s.shift = later_shift
+          s.save!
+        end
+      end
     end
   end
 

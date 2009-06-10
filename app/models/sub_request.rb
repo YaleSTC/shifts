@@ -11,19 +11,22 @@ class SubRequest < ActiveRecord::Base
   # Class methods
   #
 
+  def self.take(sub_request, user)
+    new_shift = sub_request.shift.clone
+    new_shift.location = sub_request.shift.location
+    Shift.delete_part_of_shift(sub_request.shift, sub_request.start, sub_request.end)
+    new_shift.user = user
+    new_shift.start = sub_request.start
+    new_shift.end = sub_request.end
+    new_shift.save!
+    sub_request.destroy
+  end
+
   #
   # Object methods
   #
 
-  def take(user)
-    new_shift = self.shift.clone
-    new_shift.location = self.shift.location
-    Shift.delete_part_of_shift(self.shift, self.start, self.end)
-    new_shift.user = user
-    new_shift.start = self.start
-    new_shift.end = self.end
-    new_shift.save!
-  end
+
 
 
   private

@@ -3,6 +3,8 @@ class CreateSubRequests < ActiveRecord::Migration
     create_table :sub_requests do |t|
       t.datetime :start
       t.datetime :end
+      t.datetime :mandatory_start
+      t.datetime :mandatory_end
       t.string :potential_takers
       t.string :reason
       t.references :shift
@@ -15,4 +17,3 @@ class CreateSubRequests < ActiveRecord::Migration
     drop_table :sub_requests
   end
 end
-
