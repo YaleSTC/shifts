@@ -1,10 +1,13 @@
 Given /^I am a payform administrator$/ do
   #this needs to be changed once we have payform administrator role/permission
-  session[:casfilteruser] = payformadmin
 
+  d = Department.find_by_name("STC") or Department.create!(:name => "STC")
+  @current_user = User.new(:name => "payformadmin", :login => "payformadmin")
+  @current_user.departments << Department.find_by_name("STC")
+  @current_user.save!
 
-    applicationController.should_receive(:current_user).and_return("payformadmin")
-
+ # session[:casfilteruser] = payformadmin
+  Payform.should_receive(:current_user).and_return(@current_user)
 end
 
 Given /^I have a category "([^\"]*)"$/ do |category|
@@ -23,8 +26,7 @@ Given /^I have the following payforms:$/ do |table|
       row[:approved] = true ? a = Time.now : a = nil
       row[:printed] = true ? p = Time.now : p = nil
 
-      mewling = Payform.create!(:date => d , :department_id => @department_id, :user_id => u, :submitted => s, :approved => a, :printed => p)
-      print mewling
+      Payform.create!(:date => d , :department_id => @department_id, :user_id => u, :submitted => s, :approved => a, :printed => p)
     end
 end
 

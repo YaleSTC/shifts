@@ -23,6 +23,5 @@ describe User do
     it "should have a department"
 #      @user.departments == "STC"
 
-
 end
 
