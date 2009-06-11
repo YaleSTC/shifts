@@ -34,7 +34,7 @@ class SubRequest < ActiveRecord::Base
   #
 
   def user_sources
-    self.substitute_sources ? self.substitute_sources.collect{|s| s.user_source} : [self.shift.department]
+    self.substitute_sources.empty? ? [self.shift.department] : self.substitute_sources.collect{|s| s.user_source}
   end
 
 

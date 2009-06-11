@@ -40,6 +40,12 @@ module ShiftsHelper
       ''
     else
       span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
+      # display the shift time correctly, even if the shift overflows
+      if overflow == "left"
+        from = shift.start
+      elsif overflow == "right"
+        to = shift.end
+      end
       user_info = ""
       br = ""
       #option for link_to:
@@ -67,10 +73,10 @@ module ShiftsHelper
 
       elsif shift
         if type == 'shift_time'
-          type.gsub!(/shift/, 'user') if !current_user.is_admin_of?(@department) and shift.user == current_user
+          type.gsub!(/shift/, 'user') if shift.user == current_user and !current_user.is_admin_of?(@department)
           if shift.missed?
             type.gsub!(/time/, 'missed_time')
-          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + @grace_period #shift.end_of_grace
+          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + @grace_period #TODO: get grace period for department/location
             type.gsub!(/time/, 'late_time')
           end
         end
@@ -84,7 +90,9 @@ module ShiftsHelper
         
         # if first_time && shift.has_sub? && (shift.sub.eligible?(@user) || type=="user_time") &&
         #    (!shift.has_passed? || !shift.sub.new_user)
-        if render_pass == -1 && shift.has_sub? && (!shift.has_passed?)# || !shift.sub.new_user)
+        # TODO: explain in comments what 'render_pass' is. basically, it's how we deal with
+        #       recursion when handling shifts with sub requests
+        if render_pass == -1 && shift.has_sub? && !shift.has_passed?
             sorted_sub_requests = shift.sub_requests.sort_by(&:start)
             
             s=""
@@ -172,7 +180,8 @@ module ShiftsHelper
 
       end
 
-      type += " overflow_arrow" if overflow
+      type += " overflow_right" if overflow == "right"
+      type += " overflow_left" if overflow == "left"
 
       content += user_info + br + link_to(link_name, url_options, html_options)
       "<td title='#{td_title}' class='#{type}' colspan=#{span}>#{content}</td>" + extra
