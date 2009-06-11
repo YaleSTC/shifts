@@ -39,7 +39,7 @@ module ShiftsHelper
     if from == to #return nothing if from and to time are the same
       ''
     else
-      span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
+      span = ((to - from) / 3600 * @blocks_per_hour).ceil #convert to integer is impt here
       # display the shift time correctly, even if the shift overflows
       if overflow == "left"
         from = shift.start
@@ -124,7 +124,7 @@ module ShiftsHelper
             html_options = {:class => "sign_in_link"}# unless current_user.is_admin_of?(@department)
           else
             link_name = "accept sub"
-            url_options = {:controller => "shifts", :action => "sub_accept", :id => shift.sub}
+            url_options = sub
             type = "accept_sub"
             html_options = {:onclick => make_popup(:title => 'Accept this sub?')}
           end
