@@ -9,12 +9,11 @@ Feature: payform admin
         And I have a user named "Frodo", department "Middle Earth", login "fb3"
         And I have a user named "Sam", department "Middle Earth", login "sg23"
         And I have the following payforms:
-            |date      | department   | user | submitted | approved |printed|
-            |2009-06-13| Middle Earth | Frodo| nil       | nil      | nil   |
-            |2009-06-06| Middle Earth | Frodo| true      | nil      | nil   |
-            |2009-05-23| Middle Earth | Sam  | true      | true     | nil   |
-            |2009-05-16| Middle Earth | Sam  | true      | true     | true  |
-
+            | date       | department   | user | submitted | approved |printed|
+            | 2009-06-13 | Middle Earth | Frodo| nil       | nil      | nil   |
+            | 2009-06-06 | Middle Earth | Frodo| true      | nil      | nil   |
+            | 2009-05-23 | Middle Earth | Sam  | true      | true     | nil   |
+            | 2009-05-16 | Middle Earth | Sam  | true      | true     | true  |
 
     Scenario: Creating a Payform Item Set
         Given I am on the Add Jobs en Masse page
