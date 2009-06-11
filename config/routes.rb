@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :notices
+
+  map.resources :notices
+
 
   map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
 
