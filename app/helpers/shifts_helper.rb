@@ -36,22 +36,22 @@ module ShiftsHelper
   
   #needs blocks_per_hour and @user
   def print_cell(type,from,to,shift=nil,content = "", render_pass = -1, overflow = false)
-    span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
-    user_info = ""
-    br = ""
-    #option for link_to:
-    link_name = ""
-    url_options = {}
-    html_options = {} #to pass id and class name to link_to
-    td_title = ""
-
-    extra = "" #other stuff to html,like a hidden div, must not contain table elements
-
-    if span.zero?#return nothing if from and to time are the same
+    if from == to #return nothing if from and to time are the same
       ''
     else
+      span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
+      user_info = ""
+      br = ""
+      #option for link_to:
+      link_name = ""
+      url_options = {}
+      html_options = {} #to pass id and class name to link_to
+      td_title = ""
+
+      extra = "" #other stuff to html,like a hidden div, must not contain table elements
+
       if (type=="bar_active")
-        if @can_sign_up
+        if @can_sign_up #TODO: implement this
           link_name = current_user.is_admin_of?(@department) ? "schedule" : "sign up"
           url_options = {:action => "sign_up",
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
@@ -84,7 +84,7 @@ module ShiftsHelper
         
         # if first_time && shift.has_sub? && (shift.sub.eligible?(@user) || type=="user_time") &&
         #    (!shift.has_passed? || !shift.sub.new_user)
-        if render_pass == -1 && shift.has_sub? && (!shift.has_passed? || !shift.sub.new_user)
+        if render_pass == -1 && shift.has_sub? && (!shift.has_passed?)# || !shift.sub.new_user)
             sorted_sub_requests = shift.sub_requests.sort_by(&:start)
             
             s=""
