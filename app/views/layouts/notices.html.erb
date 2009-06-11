@@ -1,9 +1,19 @@
 <% inside_layout 'application' do %>
 
+
+    <div id="nav_column">
+      <ul>
+        <li><%= link_to "New Notice", new_notice_path %></li>
+        <li><%= link_to "All Notices", notices_path %></li>
+      <ul>
+    </div>
+
+
     <div id="tab_content">
       <%= yield %>
     </div>
 
     <div class="clear"></div>
+
 <% end -%>
 

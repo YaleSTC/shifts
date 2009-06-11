@@ -1,4 +1,4 @@
-<h1>New notice</h1>
+<% title "New Notice" %>
 
 <% form_for(@notice) do |f| %>
   <%= f.error_messages %>
@@ -27,6 +27,7 @@
     <%= f.label :for_users %><br />
     <%= f.text_field :for_users %>
   </p>
+
     <%= check_box_tag "notice[for_departments]", @department.id, @notice.for_departments, :disabled => false %><%= @department.name %> (department-wide)<br />
   <% for loc_group in @loc_groups do %>
     &nbsp;&nbsp;&nbsp;
@@ -36,6 +37,7 @@
       <%= check_box_tag "notice[for_locations][]", location.id, :disabled => false %><%= location.name %><br />
     <% end %>
   <% end %>
+
   <p>
     <%= f.label :for_departments %><br />
     <%= f.text_field :for_departments %>
