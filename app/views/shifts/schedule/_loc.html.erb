@@ -7,10 +7,11 @@
   shiftsplit = shifts.group_by(&:scheduled)
   @scheduled_shifts = [shiftsplit[true]]
   @unscheduled_shifts = [shiftsplit[false]]
+  @shifts_in_row = @scheduled_shifts
 %>
 
 <tbody>
-  <% @scheduled_shifts.each_with_index do |row_shifts, i| %>
+  <% @shifts_in_row.each_with_index do |row_shifts, i| %>
     <tr class="location_row">
       <% if i==0 %>
         <th class="location_label" scope="rowgroup" rowspan="<%= loc.max_staff + 1 %>">
@@ -30,7 +31,7 @@
   <% if @display_unscheduled_shifts and !@unscheduled_shifts.flatten.compact.empty? %>
     </tbody>
     <tbody>
-    <% @unscheduled_shifts.each_with_index do |row_shifts, i| %>
+    <% (@shifts_in_row = @unscheduled_shifts).each_with_index do |row_shifts, i| %>
       <tr class="unscheduled_row">
         <% if i==0 %>
           <th class="unscheduled_label" scope="rowgroup" rowspan="<%= loc.max_staff + 1 %>">
