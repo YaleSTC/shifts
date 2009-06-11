@@ -20,8 +20,8 @@
     <%= f.datetime_select :end, :default => @sub_request.shift.end %>
   </p>
   <p>
-    <%#= f.label :potential_takers %><br />
-    <%#= f.text_field :potential_takers %>
+    <%= label_tag "List of logins that can take sub" %><br />
+    <%= text_field_tag :list_of_logins %>
   </p>
   <p>
     <%= f.label :reason %><br />
