@@ -42,6 +42,11 @@ class SubRequestsController < ApplicationController
   def create
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
+    unless params[:list_of_logins].empty?
+      params[:list_of_logins].split(/\W+/).each do |l|
+        @sub_request.add_substitute_source(User.find_by_login(l))
+      end
+    end
 
     respond_to do |format|
       if @sub_request.save
@@ -95,3 +100,4 @@ class SubRequestsController < ApplicationController
   end
 
 end
+
