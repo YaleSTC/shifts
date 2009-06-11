@@ -16,6 +16,7 @@ class Shift < ActiveRecord::Base
   validates_presence_of :location
   validates_presence_of :start
 
+
   #validate :a_bunch_of_shit
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
@@ -23,6 +24,7 @@ class Shift < ActiveRecord::Base
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
+  before_save :adjust_sub_requests
 
   #
   # Class methods
@@ -167,4 +169,19 @@ class Shift < ActiveRecord::Base
   def not_in_the_past
     errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.start <= Time.now
   end
+
+  def adjust_sub_requests
+    self.sub_requests.each do |sub|
+      if sub.start > self.end || sub.end < self.start
+        sub.destroy
+      else
+        sub.start = self.start if sub.start < self.start
+        sub.mandatory_start = self.start if sub.mandatory_start < self.start
+        sub.end = self.end if sub.end > self.end
+        sub.mandatory_end = self.end if sub.mandatory_end > self.end
+        sub.save!
+      end
+    end
+  end
 end
+

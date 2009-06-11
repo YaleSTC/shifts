@@ -45,6 +45,10 @@ class SubRequest < ActiveRecord::Base
       substitute_source.save!
   end
 
+  def remove_all_substitute_sources
+    SubstituteSource.delete_all(:sub_request_id => self.id)
+  end
+
   def user_is_eligible?(user)
     self.substitutes.include?(user)
   end

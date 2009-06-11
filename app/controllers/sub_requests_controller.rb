@@ -63,6 +63,9 @@ class SubRequestsController < ApplicationController
   # PUT /sub_requests/1.xml
   def update
     @sub_request = SubRequest.find(params[:id])
+    #TODO This should probably be in a transaction, so that
+    #if the update fails all sub sources don't get deleted...
+    @sub_request.remove_all_substitute_sources
     params[:list_of_logins].split(/\W+/).each do |l|
       @sub_request.add_substitute_source(User.find_by_login(l))
     end
