@@ -37,7 +37,7 @@ Feature: payform
     And I fill in "description" with "I edited"
     And I fill in "reason" with "because I can"
     And I press "Save"
-    Then I should have 2 payform_items
+    Then I should have 2 payform items
     And payform item 2 should be a child of payform item 1
     And payform item 1 should have attribute reason "because I can"
     And I should see "I edited"

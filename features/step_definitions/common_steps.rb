@@ -11,8 +11,8 @@ When /^I choose to view (.+)$/ do |department|
 end
 
 Given /^I have a user named (.+), login (.+)$/ do |name, login|
-  Department.create!(:name => )
-  User.create!(:name => name, :login => login, :department =>
+  Department.create!(:name => "dept")
+  User.create!(:name => name, :login => login, :department_id => 1)
 end
 
 Given /^that CAS is happy$/ do
