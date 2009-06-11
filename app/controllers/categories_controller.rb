@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.all
+    @categories = current_department.categories
   end
 
   def show
@@ -13,6 +13,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(params[:category])
+    @category.department = current_department
     if @category.save
       flash[:notice] = "Successfully created category."
       redirect_to @category
