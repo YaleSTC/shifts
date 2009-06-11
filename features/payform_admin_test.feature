@@ -8,6 +8,13 @@ Feature: payform admin
         And I have a category "Saving the World"
         And I have a user named "Frodo", department "Middle Earth", login "fb3"
         And I have a user named "Sam", department "Middle Earth", login "sg23"
+        And I have the following payforms:
+            |date      | department   | user | submitted | approved |printed|
+            |2009-06-13| Middle Earth | Frodo| nil       | nil      | nil   |
+            |2009-06-06| Middle Earth | Frodo| true      | nil      | nil   |
+            |2009-05-23| Middle Earth | Sam  | true      | true     | nil   |
+            |2009-05-16| Middle Earth | Sam  | true      | true     | true  |
+
 
     Scenario: Creating a Payform Item Set
         Given I am on the Add Jobs en Masse page
@@ -22,15 +29,24 @@ Feature: payform admin
         Then I should see "Job created successfully for the following users: Frodo and Sam"
 
     Scenario: Viewing payforms
-        Given I have a submitted payform:
-            |date      | department   | user | submitted | approved |printed|
-            |2009-06-06| Middle Earth | Frodo| true      | nil      | nil   |
-            |2009-06-13| Middle Earth | Frodo| true      | nil      | nil   |
-            |2009-06-06| Middle Earth | Sam  | true      | true     | nil   |
-            |2009-06-13| Middle Earth | Sam  | true      | true     | true  |
-        And I am on the Payform Admin page
+        Given I am on the Payform Admin page
         Then I should see "Frodo"
-        And I should see "2009-06-09" under "Unapproved"
+        And I should see "2009-06-13" under "Unsubmitted"
+        And I should see "2009-06-06" under "Unapproved"
         And I should see "Sam"
-        And I should see "2009-06-06" under "
+        And I should see "2009-05-23" under "Unprinted"
+        And I should not see "2009-05-16"
+
+    Scenario: Approving payforms
+        Given I am on the Payform Admin page
+        When I follow "2009-06-06"
+        And I follow "Approve"
+        Then I should see "Payform approved."
+        And I should see "2009-06-06" under "Unprinted"
+
+    Scenario: Printing payforms
+        Given I am on the Payform Admin page
+        When I follow "2009-05-23"
+        And I follow "Print"
+        Then I should see "Payform printing"
 
