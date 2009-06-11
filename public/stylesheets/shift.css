@@ -222,8 +222,14 @@ td.free_time {
   height: 3em;
 }
 
-td.overflow_arrow {
-	background-image: url(../images/overflow-arrow.png);/*right no-repeat;*/
+td.overflow_left {
+	background-image: url(../images/overflow_arrow_left.png);/*right no-repeat;*/
+	background-position: left;
+	background-repeat: no-repeat;
+}
+
+td.overflow_right {
+	background-image: url(../images/overflow_arrow_right.png);/*right no-repeat;*/
 	background-position: right;
 	background-repeat: no-repeat;
 }
