@@ -113,7 +113,7 @@ class Shift < ActiveRecord::Base
   #check if a shift has a *pending* sub request and that sub is not taken yet
   def has_sub?
     #note: if the later part of a shift has been taken, self.sub still returns true so we also need to check self.sub.new_user.nil?
-    self.sub_requests #and sub.new_user.nil? #new_user in sub is only set after sub is taken.  shouldn't check new_shift bcoz a shift can be deleted from db. -H
+    !self.sub_requests.empty? #and sub.new_user.nil? #new_user in sub is only set after sub is taken.  shouldn't check new_shift bcoz a shift can be deleted from db. -H
   end
   #
   # def has_sub_at_start?
