@@ -19,11 +19,6 @@ Given /^I have a user named "([A-Za-z]+)", department "(.+)", login "(.+)"$/ do 
 
 end
 
-Given /^I have a user named (.+), login (.+)$/ do |name, login|
-
-  User.create!(:name => name, :login => login)
-end
-
 Given /^that CAS is happy$/ do
 #  request_login_ticket
 #  Department.create!(:name => "test-ground")
