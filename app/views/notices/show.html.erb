@@ -1,0 +1,58 @@
+<p>
+  <b>Id:</b>
+  <%=h @notice.id %>
+</p>
+
+<p>
+  <b>Is sticky:</b>
+  <%=h @notice.is_sticky %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @notice.content %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%=h @notice.author_id %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%=h @notice.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%=h @notice.end_time %>
+</p>
+
+<p>
+  <b>For users:</b>
+  <%=h @notice.for_users %>
+</p>
+
+<p>
+  <b>For locations:</b>
+  <%=h @notice.for_locations %>
+</p>
+
+<p>
+  <b>For location groups:</b>
+  <%=h @notice.for_location_groups %>
+</p>
+
+<p>
+  <b>For departments:</b>
+  <%=h @notice.for_departments %>
+</p>
+
+<p>
+  <b>Remover:</b>
+  <%=h @notice.remover_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_notice_path(@notice) %> |
+<%= link_to 'Back', notices_path %>

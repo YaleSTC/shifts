@@ -1,0 +1,41 @@
+<% title "Notices" %>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Is sticky</th>
+    <th>Content</th>
+    <th>Author</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>For users</th>
+    <th>For locations</th>
+    <th>For location groups</th>
+    <th>For departments</th>
+    <th>Remover</th>
+  </tr>
+
+<% @notices.each do |notice| %>
+  <tr>
+    <td><%=h notice.id %></td>
+    <td><%=h notice.is_sticky %></td>
+    <td><%=h notice.content %></td>
+    <td><%=h notice.author_id %></td>
+    <td><%=h notice.start_time %></td>
+    <td><%=h notice.end_time %></td>
+    <td><%=h notice.for_users %></td>
+    <td><%=h notice.for_locations %></td>
+    <td><%=h notice.for_location_groups %></td>
+    <td><%=h notice.for_departments %></td>
+    <td><%=h notice.remover_id %></td>
+    <td><%= link_to 'Show', notice %></td>
+    <td><%= link_to 'Edit', edit_notice_path(notice) %></td>
+    <td><%= link_to 'Destroy', notice, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New notice', new_notice_path %>
+
