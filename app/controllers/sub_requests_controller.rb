@@ -42,11 +42,10 @@ class SubRequestsController < ApplicationController
   def create
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
-    unless params[:list_of_logins].empty?
-      params[:list_of_logins].split(/\W+/).each do |l|
-        @sub_request.add_substitute_source(User.find_by_login(l))
-      end
+    params[:list_of_logins].split(/\W+/).each do |l|
+      @sub_request.add_substitute_source(User.find_by_login(l))
     end
+
 
     respond_to do |format|
       if @sub_request.save
@@ -64,7 +63,9 @@ class SubRequestsController < ApplicationController
   # PUT /sub_requests/1.xml
   def update
     @sub_request = SubRequest.find(params[:id])
-
+    params[:list_of_logins].split(/\W+/).each do |l|
+      @sub_request.add_substitute_source(User.find_by_login(l))
+    end
     respond_to do |format|
       if @sub_request.update_attributes(params[:sub_request])
         flash[:notice] = 'SubRequest was successfully updated.'
@@ -95,8 +96,12 @@ class SubRequestsController < ApplicationController
 
   def take
     @sub_request = SubRequest.find(params[:id])
-    SubRequest.take(@sub_request, current_user, params[:just_mandatory])
-    redirect_to (shifts_path)
+    if SubRequest.take(@sub_request, current_user, params[:just_mandatory])
+      redirect_to(shifts_path)
+    else
+      flash[:notice] = 'You are not authorized to take this shift'
+      redirect_to(get_take_info_sub_request_path(@sub_request))
+    end
   end
 
 end
