@@ -1,5 +1,5 @@
 <%
-  @grace_period = 0 #minutes
+  @grace_period = 5*60 #seconds
 
   #Shift.find(:all, :conditions => {:location_id => loc}, :order => :start) : Shift.find(:all, :conditions => {:location_id => loc, :scheduled => true}, :order => :start))
   shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
@@ -31,9 +31,9 @@
     </tbody>
     <tbody>
     <% @unscheduled_shifts.each_with_index do |row_shifts, i| %>
-      <tr class="location_row">
+      <tr class="unscheduled_row">
         <% if i==0 %>
-          <th  scope="rowgroup" rowspan="<%= loc.max_staff + 1 %>">
+          <th class="unscheduled_label" scope="rowgroup" rowspan="<%= loc.max_staff + 1 %>">
             <%#= link_toggle_unless loc.bar_no_active?, @bar_id, loc.short_name %>
             (unscheduled)
           </th>
