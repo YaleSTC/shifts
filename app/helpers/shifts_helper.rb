@@ -39,7 +39,7 @@ module ShiftsHelper
     if from == to #return nothing if from and to time are the same
       ''
     else
-      span = ((to - from) / 3600 * @blocks_per_hour).ceil #convert to integer is impt here
+      span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
       # display the shift time correctly, even if the shift overflows
       if overflow == "left"
         from = shift.start
@@ -82,7 +82,11 @@ module ShiftsHelper
         end
 
         if span > 3
-          user_info = shift.user.name + '<br />' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
+          if shift.scheduled?
+            user_info = shift.user.name + '<br />' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
+          else
+            user_info = shift.user.name
+          end
         else
           user_info = shift.user.login
           td_title = shift.user.name + ', ' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
@@ -100,16 +104,19 @@ module ShiftsHelper
             current_time = shift.start
             
             sorted_sub_requests.each_with_index do |sub, i|
-              before_sub_block = print_cell("shift_time", current_time, sub.start, shift, "", i)
-              #sub_class_name = shift.sub.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
-              sub_class_name = shift.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
-              sub_block = print_cell(sub_class_name, sub.start, sub.end, shift, "", i, overflow && shift.sub.end >= @day_end)
+              if sub.user_is_eligible?(current_user)
+                before_sub_block = print_cell("shift_time", current_time, sub.start, shift, "", i)
+                sub_class_name = shift.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
+                sub_block = print_cell(sub_class_name, sub.start, sub.end, shift, "", i, overflow && shift.sub.end >= @day_end)
 
-              s += before_sub_block + sub_block
-              current_time = sub.end
+                s += before_sub_block + sub_block
+                current_time = sub.end
+              else
+                #skip this sub
+              end
             end
             
-            after_sub_block = print_cell("shift_time", sorted_sub_requests.last.end, shift.end, shift, "", 0,  overflow && shift.end >= @day_end)
+            after_sub_block = print_cell("shift_time", current_time, shift.end, shift, "", 0,  overflow && shift.end >= @day_end)
             s += after_sub_block
             
             return s
@@ -131,6 +138,7 @@ module ShiftsHelper
           #this prepares sub reason as a popup
           html_options = {:id => "sub_link_#{sub.id}", :class => "popup_link" }
           extra = render(:partial => 'sub_reason', :locals => {:sub => sub})
+          td_title = "Reason: "+sub.reason
 
         elsif shift.signed_in? #display shift report
           # link to view report on a new page
@@ -141,7 +149,7 @@ module ShiftsHelper
             html_options = {}
           else
             link_name = "view"
-            view_action = "view_float"
+            view_action = shift_report_path(shift)#"view_float"
             html_options = {:rel => "floatbox#{shift.location_id}", :rev => "width:500px height:500px" }
           end
 
@@ -178,11 +186,18 @@ module ShiftsHelper
           link_name = "edit"
           
         end
+        
+        if (!shift.scheduled?)
+          br = " "
+          type += " unscheduled"
+          link_name = "(#{link_name})"
+        end
 
       end
 
       type += " overflow_right" if overflow == "right"
       type += " overflow_left" if overflow == "left"
+
 
       content += user_info + br + link_to(link_name, url_options, html_options)
       "<td title='#{td_title}' class='#{type}' colspan=#{span}>#{content}</td>" + extra
