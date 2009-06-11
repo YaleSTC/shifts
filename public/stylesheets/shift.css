@@ -147,6 +147,16 @@ th.location_label {
   font-size: small;
 }
 
+th.unscheduled_label {
+  width: 6em;
+  background: #7f7f7f;
+  color: white;
+}
+
+td.unscheduled{
+	height: 0px !important;
+}
+
 tr.location_row th.location_label a{
   color: white;
 }
@@ -179,6 +189,15 @@ tr.location_row, tr.location_bar {
   font-family: Trebuchet MS,Verdana,Arial,serif;
   font-size: 9px;
   font-stretch: ultra-condensed;
+}
+tr.location_row {
+	height: 3em;
+}
+tr.unscheduled_row {
+  font-family: Trebuchet MS,Verdana,Arial,serif;
+  font-size: 9px;
+  font-stretch: ultra-condensed;
+	height: 0;
 }
 
 tr.location_row a, tr.location_bar a{
@@ -219,7 +238,6 @@ td.sub_time {
 
 td.free_time {
   background: #A2A2A2;
-  height: 3em;
 }
 
 td.overflow_left {
