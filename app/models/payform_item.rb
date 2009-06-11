@@ -6,7 +6,7 @@ class PayformItem < ActiveRecord::Base
   delegate :department, :to => :category
   delegate :user, :to => :payform
 
-  validates_presence_of :payform, :user, :description, :hours
+  validates_presence_of :payform_id, :category_id, :description, :hours, :date
 
 
 

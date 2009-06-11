@@ -1,13 +1,16 @@
-<% if miscellaneous %>
-  <%# jobs = @payform.misc_jobs(is_admin?) %> Miscellaneous Jobs
-<% else %>
-  <%# jobs = (is_admin? ? @payform.payform_items.in_category(category.id) : @payform.payform_items.in_category(category.id).active) %>
-<% end %>
-<%# unless jobs.empty? %>
-  <tr>
-    <td colspan="4"><h2><%=h miscellaneous ? "Miscellaneous" : category.name %></h2></td>
-    <td align="right"><h2><font color=black size=1>Hours<%#=h hours(jobs) -%></font></h2></td>
-  </tr>
-    <%#= render :partial => "payform/payform_item", :collection => jobs %>
-<%# end -%>
+<% jobs = (current_user.is_admin_of?(@payform.department) ? category.payform_items : category.payform_items) & @payform.payform_items %>
+<% unless jobs.empty? %>
+<table id="payformList" width="100%">
+  <thead>
+    <tr class="category">
+      <th scope="col" id="<%=h category.name %>" colspan=5>
+        <%=h category.name %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => "payform_item", :collection => jobs %>
+  </tbody>
+</table>
+<% end -%>
 
