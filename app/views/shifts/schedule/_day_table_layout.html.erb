@@ -7,10 +7,9 @@
       <span class='bars_on' style="display:none"><%= show_bars 'show bars' %></span>
       <%# js to turn on off here to work well with ajax.  these links hide by default if js is off %>
       <%# TODO: show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
-      <%= show_bar_links(:false ? 'bars_off' : 'bars_on') %>
+      <%= show_bar_links(true ? 'bars_off' : 'bars_on') %>
     </div>
-    <h3><%#= TODO: link_toggle table_id, @curr_day.to_s(:just_date_long) %>
-      <%= @curr_day.to_s(:just_date_long) %></h3>
+    <h3><%= link_toggle table_id, @curr_day.to_s(:just_date_long) %></h3>
   </div>
   
   <div id="<%= table_id %>">
@@ -21,7 +20,7 @@
         <tr id="hours">
           <th class = "location_label"></th>        
           <% for hour in @dept_start_hour...@dept_end_hour -%>
-            <td class="hour" colspan="<%= @blocks_per_hour %>"><%= (hour-1) % 12 + 1%><%= ':00' -%></td>
+            <td class="hour" colspan="<%= @blocks_per_hour %>"><%= (hour-1) % 12 + 1%>:00</td>
           <% end -%>
         </tr>
         
