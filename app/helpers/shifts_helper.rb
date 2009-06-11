@@ -109,32 +109,33 @@ module ShiftsHelper
               current_time = sub.end
             end
             
-            after_sub_block = print_cell("shift_time", sorted_sub_requests.last.end, shift.end, shift, "", -1,  overflow && shift.end >= @day_end)
+            after_sub_block = print_cell("shift_time", sorted_sub_requests.last.end, shift.end, shift, "", 0,  overflow && shift.end >= @day_end)
             s += after_sub_block
             
             return s
+            
         elsif type=="sub_time"
+          sub = shift.sub_requests.sort_by(&:start)[render_pass]
           br = '<br />'
           if current_user.is_admin_of?(@department) or shift.user==current_user
             con_name = current_user.is_admin_of?(@department) ? 'shift_admin' : 'shift'
             link_name = "cancel sub"
-            url_options = shift_report_path(shift)
-            html_options = {:class => "sign_in_link"} unless current_user.is_admin_of?(@department)
+            url_options = sub
+            html_options = {:class => "sign_in_link"}# unless current_user.is_admin_of?(@department)
           else
             link_name = "accept sub"
-            url_options = {:controller => "shift", :action => "sub_accept", :id => shift.sub}
+            url_options = {:controller => "shifts", :action => "sub_accept", :id => shift.sub}
             type = "accept_sub"
             html_options = {:onclick => make_popup(:title => 'Accept this sub?')}
           end
           #this prepares sub reason as a popup
-          sub = shift.sub_requests.sort_by(&:start)[render_pass]
           html_options = {:id => "sub_link_#{sub.id}", :class => "popup_link" }
           extra = render(:partial => 'sub_reason', :locals => {:sub => sub})
 
         elsif shift.signed_in? #display shift report
           # link to view report on a new page
           br = '<br />'
-          if (shift.user==@user && !shift.submitted?)
+          if (shift.user==current_user && !shift.submitted?)
             link_name = "return"
             view_action = shift_report_path(shift)
             html_options = {}
@@ -161,7 +162,7 @@ module ShiftsHelper
 
         elsif type=="user_time" and not shift.has_passed? #if shift belongs to user and can be signed up
           br = '<br />'
-          url_options = shift_report_path(shift)
+          url_options = shift
           html_options = {:class => "sign_in_link"}
           link_name = "options"
 
