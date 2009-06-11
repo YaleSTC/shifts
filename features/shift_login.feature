@@ -3,8 +3,14 @@ Feature: Regular user logs into a shift
 	I want to log into a shift
 	So that I can begin updating my report
 
+Scenario: User logged in
+  Given I am logged into apps with netid "bq9" in department "STC"
+  And I am on shifts
+  Then I should see "Bo Qu"
+  And I should see "bq9"
+
 Scenario: Log into a blank report
-	Given I am logged into apps
+	Given I am logged into apps with netid "bq9" in department "STC"
 	And I am not logged into a shift report
 	When I follow "Shift"
 	And I follow "Sign in to a blank report"
