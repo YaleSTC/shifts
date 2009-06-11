@@ -1,5 +1,4 @@
 class NoticesController < ApplicationController
-
   # GET /notices
   # GET /notices.xml
   def index
@@ -84,6 +83,7 @@ class NoticesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 
   def fetch_data
     @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
