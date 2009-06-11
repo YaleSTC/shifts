@@ -82,7 +82,11 @@ module ShiftsHelper
         end
 
         if span > 3
-          user_info = shift.user.name + '<br />' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
+          if shift.scheduled?
+            user_info = shift.user.name + '<br />' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
+          else
+            user_info = shift.user.name
+          end
         else
           user_info = shift.user.login
           td_title = shift.user.name + ', ' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
@@ -100,16 +104,19 @@ module ShiftsHelper
             current_time = shift.start
             
             sorted_sub_requests.each_with_index do |sub, i|
-              before_sub_block = print_cell("shift_time", current_time, sub.start, shift, "", i)
-              #sub_class_name = shift.sub.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
-              sub_class_name = shift.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
-              sub_block = print_cell(sub_class_name, sub.start, sub.end, shift, "", i, overflow && shift.sub.end >= @day_end)
+              if true #TODO: sub.user_is_eligible?(current_user)
+                before_sub_block = print_cell("shift_time", current_time, sub.start, shift, "", i)
+                sub_class_name = shift.has_passed? ? (is_admin? ? "sub_missed_time" : "shift_missed_time") : "sub_time"
+                sub_block = print_cell(sub_class_name, sub.start, sub.end, shift, "", i, overflow && shift.sub.end >= @day_end)
 
-              s += before_sub_block + sub_block
-              current_time = sub.end
+                s += before_sub_block + sub_block
+                current_time = sub.end
+              else
+                #skip this sub
+              end
             end
             
-            after_sub_block = print_cell("shift_time", sorted_sub_requests.last.end, shift.end, shift, "", 0,  overflow && shift.end >= @day_end)
+            after_sub_block = print_cell("shift_time", current_time, shift.end, shift, "", 0,  overflow && shift.end >= @day_end)
             s += after_sub_block
             
             return s
@@ -178,11 +185,18 @@ module ShiftsHelper
           link_name = "edit"
           
         end
+        
+        if (!shift.scheduled?)
+          br = " "
+          type += " unscheduled"
+          link_name = "(#{link_name})"
+        end
 
       end
 
       type += " overflow_right" if overflow == "right"
       type += " overflow_left" if overflow == "left"
+
 
       content += user_info + br + link_to(link_name, url_options, html_options)
       "<td title='#{td_title}' class='#{type}' colspan=#{span}>#{content}</td>" + extra
