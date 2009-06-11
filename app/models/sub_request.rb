@@ -33,6 +33,13 @@ class SubRequest < ActiveRecord::Base
   # Object methods
   #
 
+  def add_substitute_source(source)
+      substitute_source = SubstituteSource.new
+      substitute_source.user_source = source
+      substitute_source.sub_request = self
+      substitute_source.save!
+  end
+
   def user_sources
     self.substitute_sources ? self.substitute_sources.collect{|s| s.user_source} : [self.shift.department]
   end
@@ -83,3 +90,4 @@ class SubRequest < ActiveRecord::Base
   end
 
 end
+
