@@ -15,18 +15,23 @@ class SubRequest < ActiveRecord::Base
   #
 
   def self.take(sub_request, user, just_mandatory)
-    if just_mandatory
-      sub_request.start = sub_request.mandatory_start
-      sub_request.end = sub_request.mandatory_end
+    if sub_request.user_is_eligible?(user)
+      if just_mandatory
+        sub_request.start = sub_request.mandatory_start
+        sub_request.end = sub_request.mandatory_end
+      end
+      new_shift = sub_request.shift.clone
+      new_shift.location = sub_request.shift.location
+      Shift.delete_part_of_shift(sub_request.shift, sub_request.start, sub_request.end)
+      new_shift.user = user
+      new_shift.start = sub_request.start
+      new_shift.end = sub_request.end
+      new_shift.save!
+      sub_request.destroy
+      return true
+    else
+      return false
     end
-    new_shift = sub_request.shift.clone
-    new_shift.location = sub_request.shift.location
-    Shift.delete_part_of_shift(sub_request.shift, sub_request.start, sub_request.end)
-    new_shift.user = user
-    new_shift.start = sub_request.start
-    new_shift.end = sub_request.end
-    new_shift.save!
-    sub_request.destroy
   end
 
   #
@@ -38,6 +43,10 @@ class SubRequest < ActiveRecord::Base
       substitute_source.user_source = source
       substitute_source.sub_request = self
       substitute_source.save!
+  end
+
+  def user_is_eligible?(user)
+    self.substitutes.include?(user)
   end
 
   def user_sources
