@@ -18,6 +18,8 @@ module NavigationHelpers
       payform_path(Payform.find_by_date($1.to_date))
     when /the Add Jobs en Masse page/
       payform_item_set_path
+    when /the Payform Admin page/
+      payform_path
 
 
     # Add more mappings here.
