@@ -1,21 +1,27 @@
-Given /^I am user "([^\"]*)"$/ do |login|
-  @user = User.find_by_login(login)
+Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |user_name, permissions|
+  user = User.find_by_name(user_name)
+  permissions.split(", ").each do |permission_name|
+    #user.permissions << Permission.find_by_name(permission_name)
+  end
 end
 
-Given /^I have the following categories: "([^\"]*)"$/ do |categories|
-  categories.split(", ").each do |category_name|
-    Category.create!(:name => category_name, :department_id => @user.departments[0].id)
-  end
+Given /^I am "([^\"]*)"$/ do |user_name|
+  @user = User.find_by_name(user_name)
+  @department = @user.departments[0]
+  CASClient::Frameworks::Rails::Filter.fake(@user.login)
+  #this seems like a clumsy way to set the department but I can't figure out any other way - wei
+  visit departments_path
+  click_link @department.name
 end
 
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
-  @payform = Payform.create!(:date => date,
-                             :user_id => @user.id,
-                             :department_id => @user.departments[0].id)
+  payform = Payform.create!(:date => date,
+                            :user_id => @user.id,
+                            :department_id => @department)
 end
 
-Given /^I have the following payform items$/ do |table|
+Given /^I have the following payform items?$/ do |table|
   table.hashes.each do |row|
     category = Category.find_by_name(row[:category])
     user = User.find_by_login(row[:user_login])
@@ -36,5 +42,26 @@ Then /^payform item ([0-9]+) should have attribute (.+) "([^\"]*)"$/ do |id, att
   payform_item = PayformItem.find(id.to_i)
   attribute_constant = attribute.constantize
   payform_item.attribute_constant.should match(expected)
+end
+
+Given /^I have the following payforms:$/ do |table|
+  table.hashes.each do |row|
+
+      date = row[:date].to_date
+      department = Department.find_by_name(row[:department])
+      user = User.find_by_name(row[:user])
+
+      submitted = row[:submitted] == "true" ? DateTime.now : nil
+      approved = row[:approved] == "true" ? DateTime.now : nil
+      printed = row[:printed] == "true" ? DateTime.now : nil
+
+      Payform.create!(:date => date , :department_id => department.id,
+                      :user_id => user.id, :submitted => submitted,
+                      :approved => approved, :printed => printed)
+    end
+end
+
+Then /^I should see "([^\"]*)" under "([^\"]*)"$/ do |arg1, arg2|
+  pending
 end
 

@@ -1,9 +1,14 @@
 class PayformItem < ActiveRecord::Base
 
   belongs_to :payform
-  belongs_to :category
   belongs_to :payform_item
-  belongs_to :user
+
+  delegate :department, :to => :category
+  delegate :user, :to => :payform
+
+  validates_presence_of :payform_id, :category_id, :description, :hours, :date
+
+
 
 end
 

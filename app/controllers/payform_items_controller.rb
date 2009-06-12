@@ -1,9 +1,5 @@
 class PayformItemsController < ApplicationController
 
-  def show
-    @payform_item = PayformItem.find(params[:id])
-  end
-
   def new
     @payform = Payform.find(params[:payform_id])
     @payform_item = PayformItem.new
@@ -11,10 +7,11 @@ class PayformItemsController < ApplicationController
 
   def create
     @payform_item = PayformItem.new(params[:payform_item])
-    @payform_item.payform = Payform.find(params[:payform_id])
+    @payform = Payform.find(params[:payform_id])
+    @payform_item.payform = @payform
     if @payform_item.save
       flash[:notice] = "Successfully created payform item."
-      redirect_to @payform_item
+      redirect_to @payform
     else
       render :action => 'new'
     end
@@ -28,7 +25,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     if @payform_item.update_attributes(params[:payform_item])
       flash[:notice] = "Successfully updated payform item."
-      redirect_to @payform_item
+      redirect_to @payform_item.payform
     else
       render :action => 'edit'
     end

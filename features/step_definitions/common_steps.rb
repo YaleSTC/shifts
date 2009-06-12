@@ -10,7 +10,7 @@ When /^I choose to view (.+)$/ do |department|
   visit path_to(department_users_path(@department))
 end
 
-Given /^I have a user named "([A-Za-z]+)", department "(.+)", login "(.+)"$/ do |name, department, login|
+Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |name, department, login|
   d = Department.find_by_name("#{department}") or Department.create!(:name => department)
 
   u = User.new(:name => name, :login => login)
