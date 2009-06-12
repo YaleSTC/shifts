@@ -1,17 +1,1 @@
-<% title "Payform Item" %>
-
-<p>
-  <strong>Hours:</strong>
-  <%=h @payform_item.hours %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%=h @payform_item.description %>
-</p>
-
-<p>
-  <%= link_to "Edit", edit_payform_item_path(@payform_item) %> |
-  <%= link_to "Destroy", @payform_item, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", payform_path(@payform_item.payform) %>
-</p>
 

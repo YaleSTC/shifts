@@ -1,29 +1,45 @@
-<% title "Payform" %>
+<% title "Payform for " + @payform.date.strftime('%B %d, %Y')%>
 
-Date:
-<%= render :partial => "date_select" %>
-<br/>
+  <div id="cols">
+    <div id="cols-header">
+      <%= error_messages_for 'payform' %>
+    </div>
+    <div id="left-col">
+      <%= render :partial => 'date_select', :locals => {:date => @payform.date } %>
+      (I'm still working on this corner)
+    </div>
+    <div id="right-col">
+      <%= link_to "<span>View all past payforms</span>", payforms_path, :class=>"button" %>
+    </div>
+    <div id="middle-col">
+    Something can go here.
+    </div>
+    <div id="cols-footer">
+    Something can even go here! (the footer of the 3 columns)
+    </div>
+  </div>
+  <br><br>
+  <div id="payform_status">
+    Payform status will go here.
+    <%#= render :partial => 'payform/payform_status', :object => @payform %>
+  </div>
+  <br><br>
+  <div id="add_job_div" style="display: none">
+  </div>
 
-<table>
-  <tr>
-    <th>Hours</th>
-    <th>Description</th>
-  </tr>
-  <% for payform_item in @payform.payform_items %>
-    <tr>
-      <td><%=h payform_item.hours %></td>
-      <td><%=h payform_item.description %></td>
-      <td><%= link_to "Show", payform_item %></td>
-      <td><%= link_to "Edit", edit_payform_item_path(payform_item) %></td>
-      <td><%= link_to "Destroy", payform_item, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
-
-<p>
-  <%= link_to "New Payform Item", new_payform_payform_item_path(@payform) %>
-</p>
-<p>
-  <%= link_to "View All", payforms_path %>
-</p>
-
+<div id="payform">
+  <h1>Payform Items</h1>
+  <table id="payformList" width="100%">
+      <%= render :partial => "category", :collection => (@payform.department.categories) %>
+    <tfoot>
+      <tr>
+        <th scope="col" id="hours" colspan=3>
+          Total Hours: <%#= @payform.total_hours %><br/>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+  <br/>
+</div>
+<%= link_to "<span>Submit Payform</span>", "#", :class => "button", :onclick => "this.blur();"%>
+<%= link_to "<span>New Payform Item</span>", new_payform_payform_item_path(@payform), :class => "button", :onclick => "this.blur();"%>
