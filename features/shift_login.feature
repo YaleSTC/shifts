@@ -4,13 +4,13 @@ Feature: Regular user logs into a shift
 	So that I can begin updating my report
 
 Scenario: User logged in
-  Given I just got through CAS with the login "bq9"
+  Given I just got through CAS with the login "aje29"
   Given I am on the homepage
-  Then I should see "bq9"
+  Then I should see "aje29"
   And I should see "Log out"
 
 Scenario: Log into a blank report
-  Given I just got through CAS with the login "bq9"
+  Given I just got through CAS with the login "aje29"
 	And I am not logged into a shift report
 	When I follow "Shift"
 	And I follow "Sign in to a blank report"
@@ -20,7 +20,7 @@ Scenario: Log into a blank report
 	And my shift report should have one comment
 
 Scenario: Fail to log into a second report
-  Given I just got through CAS with the login "bq9"
+  Given I just got through CAS with the login "aje29"
 	And I am logged into a shift report
 	When I follow "Shift"
 	And I follow "Sign in to a blank report"
