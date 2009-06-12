@@ -14,15 +14,11 @@ class ShiftsController < ApplicationController
   def new
     @shift = Shift.new
   end
-<<<<<<< HEAD:app/controllers/shifts_controller.rb
-  
+
   def unscheduled
     @shift = Shift.new
   end
-  
-=======
 
->>>>>>> 7e4d2d25d8debe6cd7e58d9708ea0b3bba6ed775:app/controllers/shifts_controller.rb
   def create
     @shift = Shift.new(params[:shift])
     @shift.start = Time.now unless @shift.start
