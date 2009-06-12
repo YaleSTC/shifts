@@ -15,6 +15,7 @@ Feature: payform admin
     And I am on the payforms page
 
   Scenario: Creating a Mass Job
+    Given I have no payform_item_sets
     When I follow "Add jobs en masse"
     And I select "2009-06-13" from "Last Day of Pay Week"
     And I select "Quidditch" from "Category"
@@ -22,9 +23,30 @@ Feature: payform admin
     And I select "0" from "minutes"
     And I select "Tuesday, June 09, 2009" from "Date"
     And I fill in "Description" with "great game!"
-    And I fill in "Add users in a group: (enter to add)" with "hp123, hg9"
+    And I fill in "Search users" with "hp123, hg9"
     And I press "Save"
-    Then I should see "Job created successfully for the following users: Harry Potter and Hermione Granger"
+    Then I should have 1 punch_clock
+    And I should see "Job created successfully for the following users: Harry Potter and Hermione Granger"
+    When I go to the list of mass jobs
+    Then I should see "Quidditch"
+    And I should see "2009-6-9"
+    And I should see "2.0 hours"
+    And the user "hp123" should have 1 payform_item
+    And the user "hg9" should have 1 payform_item
+
+  Scenario: Creating a punch clock
+    Given I have no punch_clocks
+    When I follow "Mass Punch Clocks"
+    And I follow "Add Mass Clock"
+    And I select "Quidditch" from "Category"
+    And I fill in "Description" with "Starting the game"
+    And I fill in "Search user" with "hp123, hg9"
+    And I press "Clock Users In"
+    Then I should see "Mass Punch Clock created for the following users: Harry Potter and Hermione Granger"
+    When I go to Mass Punch Clocks page
+    Then I should see "1 active clock"
+    And I should see "Harry Potter"
+    And I should see "Hermione Granger"
 
   Scenario: Viewing payforms
     Then I should see "Harry Potter"
