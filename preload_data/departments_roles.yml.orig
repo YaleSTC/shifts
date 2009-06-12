@@ -1,9 +1,0 @@
-<<<<<<< HEAD:preload_data/departments_roles.yml
---- {}
-
-=======
---- 
-departments_roles_001: 
-  department_id: "1"
-  role_id: "1"
->>>>>>> 9505dc63d994e4ed74c9d30c121abf62b5b884aa:preload_data/departments_roles.yml
