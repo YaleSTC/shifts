@@ -1,19 +1,3 @@
-Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |user_name, permissions|
-  user = User.find_by_name(user_name)
-  permissions.split(", ").each do |permission_name|
-    #user.permissions << Permission.find_by_name(permission_name)
-  end
-end
-
-Given /^I am "([^\"]*)"$/ do |user_name|
-  @user = User.find_by_name(user_name)
-  @department = @user.departments[0]
-  CASClient::Frameworks::Rails::Filter.fake(@user.login)
-  #this seems like a clumsy way to set the department but I can't figure out any other way - wei
-  visit departments_path
-  click_link @department.name
-end
-
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
   payform = Payform.create!(:date => date,

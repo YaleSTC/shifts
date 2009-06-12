@@ -19,13 +19,19 @@ Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$
 
 end
 
-Given /^that CAS is happy$/ do
-#  request_login_ticket
-#  Department.create!(:name => "test-ground")
-#  @current_user = User.new(:login => "studcomp", :name => "Test")
-#  @current_user.departments << Department.find_by_name("test-ground")
-#  @current_user.is_superuser? == true
-#  @current_user.save!
-#  User.find_by_login(session[:cas_user])
+Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |user_name, permissions|
+  user = User.find_by_name(user_name)
+  permissions.split(", ").each do |permission_name|
+    #user.permissions << Permission.find_by_name(permission_name)
+  end
+end
+
+Given /^I am "([^\"]*)"$/ do |user_name|
+  @user = User.find_by_name(user_name)
+  @department = @user.departments[0]
+  CASClient::Frameworks::Rails::Filter.fake(@user.login)
+  #this seems like a clumsy way to set the department but I can't figure out any other way - wei
+  visit departments_path
+  click_link @department.name
 end
 

@@ -5,7 +5,7 @@ Feature: data object
 
   Background:
     Given I have a department named "Pet Store"
-    And I have locations "Cats asile, Dogs asile, Checkout" for the department "STC"
+    And I have locations "Cats aisle, Dogs aisle, Checkout" for the department "STC"
     And I have a data type with name "Cat", description "they're animals", for the department "STC", with the following data fields
       | name              | display_type | values                                   |
       | Name              | text_field   | string                                   |
