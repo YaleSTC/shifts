@@ -6,19 +6,23 @@ class ShiftsController < ApplicationController
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
     @days_per_period = 7 #TODO: make this a setting for an admin
   end
-  
+
   def show
     @shift = Shift.find(params[:id])
   end
-  
+
   def new
     @shift = Shift.new
   end
+<<<<<<< HEAD:app/controllers/shifts_controller.rb
   
   def unscheduled
     @shift = Shift.new
   end
   
+=======
+
+>>>>>>> 7e4d2d25d8debe6cd7e58d9708ea0b3bba6ed775:app/controllers/shifts_controller.rb
   def create
     @shift = Shift.new(params[:shift])
     @shift.start = Time.now unless @shift.start
@@ -31,11 +35,11 @@ class ShiftsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @shift = Shift.find(params[:id])
   end
-  
+
   def update
     @shift = Shift.find(params[:id])
     if @shift.update_attributes(params[:shift])
@@ -47,7 +51,7 @@ class ShiftsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @shift = Shift.find(params[:id])
     @shift.destroy
@@ -55,3 +59,4 @@ class ShiftsController < ApplicationController
     redirect_to shifts_url
   end
 end
+
