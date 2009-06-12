@@ -12,7 +12,7 @@
     @loc_groups.each do |loc_group| 
       unless loc_group.locations.empty?
         load_variables(loc_group) %>
-        <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations %>
+        <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active} %>
 
         <tr>
           <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
