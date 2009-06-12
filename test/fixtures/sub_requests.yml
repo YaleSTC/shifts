@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  start: 2009-06-08 17:16:57
+  end: 2009-06-08 17:16:57
+  potential_takers: MyString
+  reason: MyString
+
+two:
+  start: 2009-06-08 17:16:57
+  end: 2009-06-08 17:16:57
+  potential_takers: MyString
+  reason: MyString

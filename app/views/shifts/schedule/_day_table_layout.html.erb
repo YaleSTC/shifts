@@ -1,0 +1,37 @@
+<div class="time_table" id=<%= @curr_day %> >
+  <% table_id = "%s_table" % @curr_day %>
+  
+  <div style="text-align:left">
+    <div style="float:right">
+      <span class='bars_off' style="display:none"><%= hide_bars 'hide bars' %></span>
+      <span class='bars_on' style="display:none"><%= show_bars 'show bars' %></span>
+      <%# js to turn on off here to work well with ajax.  these links hide by default if js is off %>
+      <%# TODO: show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
+      <%= show_bar_links(true ? 'bars_off' : 'bars_on') %>
+    </div>
+    <h3><%= link_toggle table_id, @curr_day.to_s(:just_date_long) %></h3>
+  </div>
+  
+  <div id="<%= table_id %>">
+    <div id="<%= sign_up_div_id %>" style="display:none"></div>
+    <div id="<%= sign_in_div_id %>" style="display:none"></div>    
+    <table class="day_view">
+      <thead>
+        <tr id="hours">
+          <th class = "location_label"></th>        
+          <% for hour in @dept_start_hour...@dept_end_hour -%>
+            <td class="hour" colspan="<%= @blocks_per_hour %>"><%= (hour-1) % 12 + 1%>:00</td>
+          <% end -%>
+        </tr>
+        
+        <tr id="segments">
+          <th class="location_label"></th>
+          <% @blocks_per_day.times{ -%>
+            <td class="min_segment" colspan="1">&nbsp;</td>
+          <% } -%>
+        </tr>      
+      </thead>       
+      <%= yield %>
+    </table>
+  </div>
+</div>

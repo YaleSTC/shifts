@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
+  has_many :shifts
+  
+  has_many :substitute_sources, :as => :user_source
 
   validates_presence_of :name
   validates_presence_of :login
@@ -65,22 +68,22 @@ class User < ActiveRecord::Base
 
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
-    permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
+    self.is_superuser? || permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
   end
 
   # check if a user can sign up for a shift in this loc group
   def can_signup?(loc_group)
-    permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
+    self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
   # check for loc group admin, who can add locations and shifts under it
   def can_admin?(loc_group)
-    (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
+    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
   end
 
   # check for department admin, who can create new loc group, new role, and new user in department
   def is_admin_of?(dept)
-    permission_list.include?(dept.permission) && self.is_active?(dept)
+    self.is_superuser? || permission_list.include?(dept.permission) && self.is_active?(dept)
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
