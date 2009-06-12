@@ -1,2 +1,14 @@
---- {}
-
+--- 
+payforms_001: 
+  approved: 
+  complex: t
+  created_at: 2009-06-12 02:52:33
+  date: "2009-06-13"
+  day: 
+  department_id: "1"
+  id: "1"
+  monthly: f
+  printed: 
+  submitted: 
+  updated_at: 2009-06-12 02:52:33
+  user_id: "1"

@@ -14,6 +14,11 @@
         <td colspan=3><%= link_to payform.date, payform %></td>
       </tr>
     <% end %>
+    <% if @payforms.empty? -%>
+      <tr>
+        <td colspan=3>(No payforms to show)</td>
+      </tr>
+    <% end -%>
     <tfoot><tr>
       <th><%= @payforms.count %></th>
       <th></th>

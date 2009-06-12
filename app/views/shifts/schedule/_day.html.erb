@@ -1,0 +1,31 @@
+<%  @curr_day = day
+# I don't think these are necessary any more... -rjl39
+@bar_ids ||= {}
+@bar_ids[@curr_day] = [] 
+@shifts_outside_display = []
+%>
+
+<% render :layout => 'shifts/schedule/day_table_layout' do
+#   TODO: gather this info from preferences correctly
+#    @loc_groups ||= pref_filter(fetch_location_groups) #need this for ajax sign up
+    @loc_groups = @department.loc_groups
+    @loc_groups.each do |loc_group| 
+      unless loc_group.locations.empty?
+        load_variables(loc_group) %>
+        <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active} %>
+
+        <tr>
+          <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
+        </tr>
+      <% end %>
+    <% end %>
+<% end %>
+
+<% unless @shifts_outside_display.empty? %>
+  <h4>Shifts outside the display</h4>
+  <ul>
+    <% @shifts_outside_display.each do |s| %>
+      <li><%= link_to s.short_name, shift_report_path(s) -%></li>
+    <% end %>
+  </ul>
+<% end %>

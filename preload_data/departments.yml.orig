@@ -1,0 +1,19 @@
+--- 
+departments_001: 
+<<<<<<< HEAD:preload_data/departments.yml
+  complex: t
+  created_at: 2009-06-10 19:44:24
+  day: "6"
+  day2: "15"
+=======
+  created_at: 2009-06-08 21:19:44
+>>>>>>> 9505dc63d994e4ed74c9d30c121abf62b5b884aa:preload_data/departments.yml
+  id: "1"
+  monthly: f
+  name: STC
+  permission_id: "1"
+<<<<<<< HEAD:preload_data/departments.yml
+  updated_at: 2009-06-10 19:44:24
+=======
+  updated_at: 2009-06-08 21:19:44
+>>>>>>> 9505dc63d994e4ed74c9d30c121abf62b5b884aa:preload_data/departments.yml

@@ -1,11 +1,11 @@
 --- 
 departments_001: 
   complex: t
-  created_at: 2009-06-10 19:44:24
+  created_at: 2009-06-12 02:51:26
   day: "6"
   day2: "15"
   id: "1"
   monthly: f
   name: STC
   permission_id: "1"
-  updated_at: 2009-06-10 19:44:24
+  updated_at: 2009-06-12 02:51:26

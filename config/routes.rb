@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :sub_requests
+
 
   map.resources :payform_item_sets
 
@@ -16,8 +18,20 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resources :reports
     shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
     shifts.resources :report_items
+		end
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything?
+
+  map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
+    shifts.resource :report do |report|
+      report.resources :report_items
+    end
+    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
   end
 
+  map.resources :reports do |report|
+    report.resources :report_items
+  end
 
 
   map.resources :departments, :shallow => true do |departments|
@@ -73,4 +87,3 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-
