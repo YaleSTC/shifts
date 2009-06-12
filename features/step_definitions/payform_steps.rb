@@ -6,19 +6,16 @@ Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |user_name, permiss
 end
 
 Given /^I am "([^\"]*)"$/ do |user_name|
-  user = User.find_by_name(user_name)
-  department = user.departments[0]
-  ApplicationController.stub!(:current_user).and_return(user)
-  PayformsController.stub!(:current_user).and_return(user)
-  ApplicationController.stub!(:current_department).and_return(department)
-  PayformsController.stub!(:current_department).and_return(department)
+  @user = User.find_by_name(user_name)
+  @department = @user.departments[0]
+  CASClient::Frameworks::Rails::Filter.fake(@user.login)
 end
 
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
   payform = Payform.create!(:date => date,
-                            :user_id => ApplicationController.current_user.id,
-                            :department_id => ApplicationController.current_user.departments[0].id)
+                            :user_id => @user.id,
+                            :department_id => @department)
 end
 
 Given /^I have the following payform items?$/ do |table|
