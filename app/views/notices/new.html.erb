@@ -2,16 +2,12 @@
 
 <% form_for(@notice) do |f| %>
   <%= f.error_messages %>
-
+<% if @current_user.is_superuser? or @current_user.is_admin_of?(@department)%>
   <p>
     <%= f.label :is_sticky %><br />
     <%= f.check_box :is_sticky %>
   </p>
-  <p>
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </p>
-  <p>
+    <p>
     <%= f.label :start_time %><br />
     <%= f.datetime_select :start_time %>
   </p>
@@ -19,13 +15,19 @@
     <%= f.label :end_time %><br />
     <%= f.datetime_select :end_time %>
   </p>
+<% end %>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+
   <p>
     <%= f.label :for_users %><br />
     <%= f.text_field :for_users %>
   </p>
 
     <%= check_box_tag "notice[for_departments]", @department.id, @notice.for_departments, :disabled => false %><%= @department.name %> (department-wide)<br />
-  <% for loc_group in @loc_groups do %>
+    <% for loc_group in @loc_groups do %>
     &nbsp;&nbsp;&nbsp;
     <%= check_box_tag "notice[for_location_groups][]", loc_group.id, false, :disabled => false %><%= loc_group.name %><br />
     <% for location in loc_group.locations do %>

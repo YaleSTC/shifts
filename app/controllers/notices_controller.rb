@@ -90,5 +90,6 @@ class NoticesController < ApplicationController
     @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
   end
 
+
 end
 
