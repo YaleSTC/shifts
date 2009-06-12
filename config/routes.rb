@@ -1,7 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :sub_requests
 
-
   map.resources :payform_item_sets
 
   map.resources :payform_sets
