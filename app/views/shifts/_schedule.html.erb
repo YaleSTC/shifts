@@ -1,7 +1,7 @@
 <%# testing stuff, to be removed later %>
 <%
 @dept_start_hour = 9
-@dept_end_hour = 17  #if the day ends after midnight, this should be > 24
+@dept_end_hour = 24  #if the day ends after midnight, this should be > 24
 @blocks_per_hour = 4
 @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
 @display_unscheduled_shifts = true
@@ -11,10 +11,10 @@
 <div style="clear:both">
 <%= render :partial => 'shifts/schedule/header' %>
 
-<!-- <%# if @loc_groups.empty? %>
-  <p>No location groups to view</p>
-<%# else %> -->
+<% if @department.loc_groups.empty? %>
+  <p>Sorry, there are no location groups to view!</p>
+<% else %>
   <%= render :partial => 'shifts/schedule/day', :collection => @period_start...(@period_start+@days_per_period), :spacer_template => 'shifts/schedule/spacer'%>
-<%# end %>
+<% end %>
 </div>
 <%= render :partial => 'shifts/schedule/footer' %>
