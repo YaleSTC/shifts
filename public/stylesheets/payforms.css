@@ -26,12 +26,9 @@ div.payform_form legend {
 }
 
 /* MORE PAYFORM: */
-#payform h2 {
+#payform h1 {
   font-family: Verdana, Arial, serif;
   color: #2758B3;
-  width:100%;
-  border-bottom: thin solid #B0B0B0;
-  padding-bottom: 3px;
 }
 
 /* PAYFORM TABLE: */
@@ -45,6 +42,7 @@ div.payform_form legend {
 	width: 100%;
 	text-align: left;
 	border-collapse: collapse;
+	
 }
 #payformList th
 {
@@ -52,11 +50,19 @@ div.payform_form legend {
 	font-weight: bold;
 	padding: 5px;
 	background: #b9c9fe;
-	border-top: 4px solid #aabcfe;
-	border-bottom: 1px solid #fff;
-	color: #039;
+	color: #039;	
 }
-#payformList td
+#payformList thead th
+{
+	border-top: 3px solid #aabcfe;
+	border-bottom: 1px solid #fff;
+}
+#payformList tfoot th
+{
+	border-top: 3px solid #8a9cde;
+	border-bottom: 2px solid #8a9cde;
+}
+#payformList tbody td
 {
 	padding: 5px;
 	background: #e8edff;
@@ -64,43 +70,63 @@ div.payform_form legend {
 	color: #669;
 	border-top: 1px solid transparent;
 }
-#payformList tr:hover td
+#payformList tbody tr:hover td
 {
 	background: #d0dafd;
 	color: #339;
 }
 
-#payformList tr.even {
-  background-color:   #c6cfdf;
-}
-#payformList tr.odd {
-  background-color:   #d6dfef;
-}
-
-a {
+#payform a {
   color: #2758B3;
 }
-a:hover {
+#payform a:hover {
   color: #FF9933;
 }
 
-#payform-total {
-  text-align: center;
-  border: 1px solid #aaa;
-  width: 300px;
-  margin: 5px;
-  padding: 5px;
-  font-size: 15px;
+/*
+only if we need even and odd colors
+
+#payformList tr.even {
+  background-color:   #d8ddef;
+}
+#payformList tr.odd {
+  background-color:   #e8edff;
+}*/
+
+/*PRETTY BUTTONS*/
+/*Inspiration from: http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html */
+.clear { /* generic container (i.e. div) for floating buttons */
+    overflow: hidden;
+    width: 100%;
+}
+a.button {
+    background: transparent url('../images/payforms/bg_button_a.gif') no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: right;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
 }
 
-#add_job_link_div {
-  color: #2758B3;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  float:right;
-  text-align: right;
+a.button span {
+    background: transparent url('../images/payforms/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+} 
+a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; /* hide dotted outline in Firefox */
 }
+
+a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px */
+} 
 
 /* EMAIL REMINDERS: */
 #emailreminders h3 {
@@ -275,5 +301,4 @@ div.mass-clock-item a:hover {
   color: #001122;
 }
 
-/* div.note is moved to shared.css because it's also used in Shift application
 
