@@ -7,14 +7,18 @@ end
 
 Given /^I am "([^\"]*)"$/ do |user_name|
   user = User.find_by_name(user_name)
-  PayformsController.should_receive(:current_user).and_return(user)
+  department = user.departments[0]
+  ApplicationController.stub!(:current_user).and_return(user)
+  PayformsController.stub!(:current_user).and_return(user)
+  ApplicationController.stub!(:current_department).and_return(department)
+  PayformsController.stub!(:current_department).and_return(department)
 end
 
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
-  @payform = Payform.create!(:date => date,
-                             :user_id => PayformsController.current_user.id,
-                             :department_id => PayformsController.current_user.departments[0].id)
+  payform = Payform.create!(:date => date,
+                            :user_id => ApplicationController.current_user.id,
+                            :department_id => ApplicationController.current_user.departments[0].id)
 end
 
 Given /^I have the following payform items?$/ do |table|
