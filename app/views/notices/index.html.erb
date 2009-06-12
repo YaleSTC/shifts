@@ -15,7 +15,8 @@
     <th>Remover</th>
   </tr>
 
-<% @notices.each do |notice| %>
+  <%# if @notice.is_sticky %>
+  <% @notices.each do |notice| %>
   <tr>
     <td><%=h notice.id %></td>
     <td><%=h notice.is_sticky %></td>
@@ -35,9 +36,13 @@
 <% end %>
 </table>
 
+<fieldset class="notice" style="width: 48%">
+  <div class="grayright">
+    <%= link_to '[advanced]', { :action => 'sticky_add', :options => true} %>
+  </div>
+
+  <%= link_to 'post a new sticky note', {:action => 'sticky_add'} %>
+</fieldset>
+
 <br />
-
-
-<%= link_to 'New notice', new_notice_path %>
-
 
