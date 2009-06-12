@@ -1,4 +1,5 @@
 class NoticesController < ApplicationController
+
   # GET /notices
   # GET /notices.xml
   def index
@@ -44,6 +45,8 @@ class NoticesController < ApplicationController
     fetch_loc_groups
     @notice = Notice.new(params[:notice])
     @notice.author_id = @current_user.id
+    @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky?
+    @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky?
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
@@ -90,6 +93,10 @@ class NoticesController < ApplicationController
     @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
   end
 
+  protected
 
+  def is_sticky?
+    @notice.is_sticky
+  end
 end
 
