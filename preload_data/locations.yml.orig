@@ -1,0 +1,30 @@
+<<<<<<< HEAD:preload_data/locations.yml
+--- {}
+
+=======
+--- 
+locations_001: 
+  active: t
+  created_at: 2009-06-08 21:29:32
+  id: "1"
+  loc_group_id: "1"
+  max_staff: "100"
+  min_staff: "1"
+  name: Io
+  priority: "100"
+  short_name: io
+  updated_at: 2009-06-08 21:29:32
+  useful_links: ""
+locations_002: 
+  active: t
+  created_at: 2009-06-09 14:51:25
+  id: "2"
+  loc_group_id: "2"
+  max_staff: "3"
+  min_staff: "1"
+  name: TTO
+  priority: "100"
+  short_name: tto
+  updated_at: 2009-06-09 14:51:25
+  useful_links: ""
+>>>>>>> 9505dc63d994e4ed74c9d30c121abf62b5b884aa:preload_data/locations.yml

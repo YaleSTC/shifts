@@ -1,6 +1,10 @@
 class ShiftsController < ApplicationController
   def index
     @shifts = Shift.all
+    current_user_locations = current_user.departments.collect{|d| d.locations}.flatten
+    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_user_locations.include?(s.location)}.sort_by(&:start)
+    @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
+    @days_per_period = 7 #TODO: make this a setting for an admin
   end
   
   def show
@@ -11,9 +15,16 @@ class ShiftsController < ApplicationController
     @shift = Shift.new
   end
   
+  def unscheduled
+    @shift = Shift.new
+  end
+  
   def create
     @shift = Shift.new(params[:shift])
+    @shift.start = Time.now unless @shift.start
     if @shift.save
+      #combine with any compatible shifts (if the shift is scheduled)
+      @shift = Shift.combine_with_surrounding_shifts(@shift)
       flash[:notice] = "Successfully created shift."
       redirect_to @shift
     else
@@ -28,6 +39,8 @@ class ShiftsController < ApplicationController
   def update
     @shift = Shift.find(params[:id])
     if @shift.update_attributes(params[:shift])
+      #combine with any compatible shifts
+      @shift = Shift.combine_with_surrounding_shifts(@shift)
       flash[:notice] = "Successfully updated shift."
       redirect_to @shift
     else
