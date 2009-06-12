@@ -24,9 +24,5 @@ config.action_mailer.smtp_settings = {
   :address => "mail.yale.edu",
   :port => 25,
   :domain => "yale.edu"
-
-
-
-
 }
 
