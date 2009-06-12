@@ -14,8 +14,8 @@ TASKR4RAILS_ALLOWED_HOSTS = ['127.0.0.1']
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  #THIS IS FOR NATHAN'S APACHE SETUP (comment it out):
-#  config.action_controller.relative_url_root = "/newstc"
+  #THIS IS FOR NATHAN'S APACHE SETUP
+  # config.action_controller.relative_url_root = "/newstc"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

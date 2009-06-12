@@ -9,18 +9,56 @@ module ShiftsHelper
     #TODO: maybe clean this up?
     @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
     @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+    @loc_group = loc_group
 
     @can_sign_up = true #loc_group.allow_sign_up? get_user
   end
   
   # TODO: this shit
-  def populate_loc(loc, shifts)
+  def populate_loc(loc, shifts, min_block)
     #loc.label_row_for(shifts) #assigns row number for each shift (shift.row)
-    #loc.count_people_for(shifts, min_block)#count number of people working concurrently for each time block
+    people_count = loc.count_people_for(shifts, min_block)#count number of people working concurrently for each time block
     #loc.apply_time_slot_in(@day_start, @day_end, min_block)#check if time is valid or not
-    #loc.create_bar(@day_start, @day_end, min_block)
+    @bar = create_bar(@day_start, @day_end, people_count, min_block) unless @day_end < Time.now
     @bar_id = loc.short_name + @curr_day.to_s
+    @people_count = people_count
   end
+  
+  
+  def create_bar(day_start, day_end, people_count, min_block)
+    bar = []
+    block_start = day_start
+    should_return = false; #don't return a bar unless it has a time that can be signed up for
+    
+    while (block_start < day_end)
+      t = block_start
+      free_status = nil #check_status(t)
+
+      begin
+        if false #not open_at[t.to_s(:am_pm)]
+         current_status = 'bar_inactive'
+        elsif (people_count[t.to_s(:am_pm)] >= 1) #TODO: get max_staff from location
+          current_status = 'bar_full'
+        elsif (t<Time.now)
+          current_status = 'bar_passed'
+        # elsif pending?(t) #because of priority
+        #   current_status = 'bar_pending'
+        #   should_return = true
+        else
+          current_status = 'bar_active'
+          should_return = true
+        end
+        
+        free_status ||= current_status
+      end while (current_status == free_status) and (t <= day_end) and (t += min_block)
+      
+      t = day_end if t > day_end
+      bar << [block_start, t, free_status]
+      block_start = t
+    end
+    should_return ? bar : nil
+  end
+  
   
   #use this instead of group_by because we want an array
   def split_to_rows(item_list)
@@ -57,9 +95,9 @@ module ShiftsHelper
       extra = "" #other stuff to html,like a hidden div, must not contain table elements
 
       if (type=="bar_active")
-        if @can_sign_up #TODO: implement this
-          link_name = current_user.is_admin_of?(@department) ? "schedule" : "sign up"
-          url_options = {:action => "sign_up",
+        if current_user.can_signup?(@loc_group) #true #@can_sign_up #TODO: implement this
+          link_name = current_user.can_admin?(@loc_group) ? "schedule" : "sign up"
+          url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
           html_options = {:class => "sign_up_link"}          
         else
@@ -131,7 +169,7 @@ module ShiftsHelper
             html_options = {:class => "sign_in_link"}# unless current_user.is_admin_of?(@department)
           else
             link_name = "accept sub"
-            url_options = sub
+            url_options = get_take_info_sub_request_path(sub)
             type = "accept_sub"
             html_options = {:onclick => make_popup(:title => 'Accept this sub?')}
           end

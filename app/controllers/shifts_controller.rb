@@ -12,7 +12,7 @@ class ShiftsController < ApplicationController
   end
   
   def new
-    @shift = Shift.new
+    @shift = Shift.new(params[:shift])
   end
   
   def unscheduled
