@@ -6,23 +6,40 @@ module ShiftsHelper
   end
   
   def load_variables(loc_group)
-    #TODO: maybe clean this up?
-    @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
-    @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
-    @loc_group = loc_group
+    #TODO: clean this up?
+    #@day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
+    #@day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+    #@loc_group = loc_group
 
     @can_sign_up = true #loc_group.allow_sign_up? get_user
   end
   
-  # TODO: this shit
-  def populate_loc(loc, shifts, min_block)
-    #loc.label_row_for(shifts) #assigns row number for each shift (shift.row)
-    people_count = loc.count_people_for(shifts, min_block)#count number of people working concurrently for each time block
-    #loc.apply_time_slot_in(@day_start, @day_end, min_block)#check if time is valid or not
-    @bar = create_bar(@day_start, @day_end, people_count, min_block) unless @day_end < Time.now
-    @bar_id = loc.short_name + @curr_day.to_s
-    @people_count = people_count
+  # TODO: this shit  
+  def populate_all_locs(loc_groups, min_block)
+    #creates a bunch of arrays holding all the data we'll need to write for each location today
+    @scheduled_shifts = {}
+    @unscheduled_shifts = {}
+    @bar = {}
+    @people_count = {}
+    loc_groups.each do |loc_group|
+      @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
+      @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+      loc_group.locations.each do |loc|
+        if loc.active?
+          shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
+          shifts = shifts.group_by(&:scheduled)
+          @scheduled_shifts[loc.object_id] = [shifts[true]]
+          @unscheduled_shifts[loc.object_id] = [shifts[false]]
+      
+          people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
+          @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block) unless @day_end < Time.now
+          @bar_ids[@curr_day] << loc.short_name + @curr_day.to_s
+          @people_count[loc.object_id] = people_count
+        end
+      end
+    end
   end
+    
   
   
   def create_bar(day_start, day_end, people_count, min_block)
