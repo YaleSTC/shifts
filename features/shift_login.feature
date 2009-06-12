@@ -6,8 +6,8 @@ Feature: Regular user logs into a shift
 Scenario: User logged in
   Given I am logged into apps with netid "bq9" in department "STC"
   And I am on shifts
-  Then I should see "Bo Qu"
-  And I should see "bq9"
+  Then the "login_status" field should contain "Bo Qu"
+  And the "login_status" field should contain "bq9"
 
 Scenario: Log into a blank report
 	Given I am logged into apps with netid "bq9" in department "STC"
