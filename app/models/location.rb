@@ -21,5 +21,20 @@ class Location < ActiveRecord::Base
   def max_staff_greater_than_min_staff
     errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff > self.max_staff)
   end
+  
+  def count_people_for(shift_list, min_block)
+    people_count = {}
+    people_count.default = 0
+    unless shift_list.nil?
+      shift_list.each do |shift|
+        t = shift.start
+        while (t<shift.end)
+          people_count[t.to_s(:am_pm)] += 1
+          t += min_block          
+        end
+      end
+    end
+    people_count
+  end
 end
 
