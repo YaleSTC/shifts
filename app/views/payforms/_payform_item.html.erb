@@ -1,0 +1,8 @@
+<tr class='payform_item'>
+  <td><%=h payform_item.date.strftime('%b %d') %></td>
+  <td><%=h payform_item.description %></td>
+  <!--<td><%= link_to "Edit", edit_payform_item_path(payform_item) %></td>
+  <td><%= link_to "Destroy", payform_item, :confirm => 'Are you sure?', :method => :delete %></td>-->
+  <td><%=h payform_item.hours %> hours</td>
+</tr>
+

@@ -8,6 +8,16 @@ Cucumber::Rails.bypass_rescue # Comment out this line if you want Rails own erro
                               # (e.g. rescue_action_in_public / rescue_responses / rescue_from)
 
 require 'webrat'
+require 'spec/mocks'
+
+# The following code loads all fixtures in spec/fixtures
+Before do
+  Fixtures.reset_cache
+  fixtures_folder = File.join(RAILS_ROOT, 'spec', 'fixtures')
+  fixtures = Dir[File.join(fixtures_folder, '*.yml')].map {|f| File.basename(f, '.yml') }
+  Fixtures.create_fixtures(fixtures_folder, fixtures)
+end
+
 
 Webrat.configure do |config|
   config.mode = :rails
@@ -17,18 +27,6 @@ require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'
 
 require File.expand_path(File.dirname(__FILE__) + '/../../spec/spec_helper')
-require 'spec/mocks'
-#Before do
-#  $rspec_mocks ||= Spec::Mocks::Space.new
-#end
-
-#After do
-#  begin
-#    $rspec_mocks.verify_all
-#  ensure
-#    $rspec_mocks.reset_all
-#  end
-#end
 
 Fixtures.create_fixtures("spec/fixtures", "users")
 

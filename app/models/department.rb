@@ -5,6 +5,7 @@ class Department < ActiveRecord::Base
   has_many :users, :through => :departments_users
   has_many :locations, :through => :loc_groups
   has_many :payforms
+  has_many :categories
 
   before_validation_on_create :create_permissions
 # this next validation doesn't work -cmk

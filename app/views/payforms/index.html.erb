@@ -1,19 +1,21 @@
 <% title "Payforms" %>
 
 
-<%= render :partial => "date_select" %>
-
-<table>
-  <tr>
-    <th>Date</th>
-  </tr>
-  <% for payform in @payforms %>
+<div id="payform">
+  <h1>Last day of payweek</h1>
+  <table id="payformList" width="100%">
     <tr>
-      <td><%=h payform.date %></td>
-      <td><%= link_to "Show", payform %></td>
+      <th>Unsubmitted</th>
+      <th>Submitted</th>
+      <th>Printed</th>
     </tr>
-  <% end %>
-</table>
-<br/><br/>
-<%= link_to "Prune all empty payforms", prune_payforms_path, :confirm => 'Are you sure?', :method => :delete %>
+    <% for payform in @payforms %>
+      <tr>
+        <td colspan=3><%= link_to payform.date, payform %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
+<%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :confirm => 'Are you sure?', :method => :delete, :class=>"button" %>
+<%= link_to "<span>Current Payform</span>", go_payforms_path, :class=>"button" %>
