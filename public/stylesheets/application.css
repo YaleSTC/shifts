@@ -29,21 +29,6 @@ a {
   margin-top: 20px;
 }
 
-#flash_notice, #flash_error {
-  padding: 5px 8px;
-  margin: 10px 0;
-}
-
-#flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
-}
-
-#flash_error {
-  background-color: #FCC;
-  border: solid 1px #C66;
-}
-
 .fieldWithErrors {
   display: inline;
 }
@@ -103,24 +88,20 @@ html {
   overflow-y: scroll;
 }
 
-/* START:notice */
-/* Change the colors. It's not red anymore because it's not particularly important. */
-#notice {  
-  background-color:#FFF0AA;
-  border:1px solid #908C99;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;  
+#flash_notice, #flash_error {
+  padding: 5px 8px;
+  margin: 10px 0;
 }
-/* big notice gets red because it's important */
-#big_notice {  
-  background-color:#FFCCCC;
-  border:1px solid #CC6666;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;  
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
 }
-/* END:notice */
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
 
 /* Main Styles and IDs */
 body {
@@ -404,14 +385,6 @@ a:link, a:visited {
 }
 
 /* Text-formatting-specfic classes */
-div.flash {
-  font-weight: bold;
-  background-color: #C6C6C6;
-  border: 2px solid #1B2368;
-  padding: 4px;
-  margin: 5px;
-  width: auto;
-}
 
 #pageAnchor {
   clear: both;
