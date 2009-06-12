@@ -8,7 +8,7 @@ module CASClient
         @@config = nil
         @@client = nil
         @@log = nil
-        @@fake = nil
+        @@fake_user = nil
 
         class << self
           def filter(controller)
