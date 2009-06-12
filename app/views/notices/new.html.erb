@@ -12,10 +12,6 @@
     <%= f.text_area :content %>
   </p>
   <p>
-    <%= f.label :author_id %><br />
-    <%= f.text_field :author_id %>
-  </p>
-  <p>
     <%= f.label :start_time %><br />
     <%= f.datetime_select :start_time %>
   </p>
@@ -31,21 +27,13 @@
     <%= check_box_tag "notice[for_departments]", @department.id, @notice.for_departments, :disabled => false %><%= @department.name %> (department-wide)<br />
   <% for loc_group in @loc_groups do %>
     &nbsp;&nbsp;&nbsp;
-    <%= check_box_tag "notice[for_location_groups][]", loc_group.id, :disabled => false %><%= loc_group.name %><br />
+    <%= check_box_tag "notice[for_location_groups][]", loc_group.id, false, :disabled => false %><%= loc_group.name %><br />
     <% for location in loc_group.locations do %>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= check_box_tag "notice[for_locations][]", location.id, :disabled => false %><%= location.name %><br />
+      <%= check_box_tag "notice[for_locations][]", location.id, false, :disabled => false %><%= location.name %><br />
     <% end %>
   <% end %>
 
-  <p>
-    <%= f.label :for_departments %><br />
-    <%= f.text_field :for_departments %>
-  </p>
-  <p>
-    <%= f.label :remover_id %><br />
-    <%= f.text_field :remover_id %>
-  </p>
   <p>
     <%= f.submit 'Create' %>
   </p>
