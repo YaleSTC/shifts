@@ -1,14 +1,15 @@
 <%# testing stuff, to be removed later %>
 <%
-@dept_start_hour = 9
-@dept_end_hour = 17  #if the day ends after midnight, this should be > 24
-@blocks_per_hour = 4
-@blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
-@block_length = (((@dept_end_hour - @dept_start_hour) * 60) / @blocks_per_day) * 60
-@display_unscheduled_shifts = true
+  @bar_ids = {}
+  
+  @dept_start_hour = 9
+  @dept_end_hour = 17  #if the day ends after midnight, this should be > 24
+  @blocks_per_hour = 4
+  @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
+  @block_length = (((@dept_end_hour - @dept_start_hour) * 60) / @blocks_per_day) * 60
+  @display_unscheduled_shifts = true
+  @grace_period = 5*60 #seconds
 %>
-
-TEST: <%= @block_length %>
 
 <div style="clear:both">
 <%= render :partial => 'shifts/schedule/header' %>
