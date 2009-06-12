@@ -16,20 +16,23 @@ class SubRequest < ActiveRecord::Base
 
   def self.take(sub_request, user, just_mandatory)
     if sub_request.user_is_eligible?(user)
-      if just_mandatory
-        sub_request.start = sub_request.mandatory_start
-        sub_request.end = sub_request.mandatory_end
+      SubRequest.transaction do
+        if just_mandatory
+          sub_request.start = sub_request.mandatory_start
+          sub_request.end = sub_request.mandatory_end
+        end
+        new_shift = sub_request.shift.clone
+        old_shift = sub_request.shift
+        new_shift.location = old_shift.location
+        new_shift.user = user
+        new_shift.start = sub_request.start
+        new_shift.end = sub_request.end
+        sub_request.destroy
+        Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
+        new_shift.save!
+        AppMailer.deliver_sub_taken_notification(sub_request, new_shift)
+        return true
       end
-      new_shift = sub_request.shift.clone
-      new_shift.location = sub_request.shift.location
-      Shift.delete_part_of_shift(sub_request.shift, sub_request.start, sub_request.end)
-      new_shift.user = user
-      new_shift.start = sub_request.start
-      new_shift.end = sub_request.end
-      new_shift.save!
-      AppMailer.deliver_sub_taken_notification(sub_request)
-      sub_request.destroy
-      return true
     else
       return false
     end
