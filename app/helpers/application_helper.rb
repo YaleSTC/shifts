@@ -4,5 +4,11 @@ module ApplicationHelper
     hash[:width] ||= 600
     "Modalbox.show(this.href, {title: '#{hash[:title]}', width: #{hash[:width]}}); return false;"
   end
+  
+  def link_toggle(id, name)
+    # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
+    # link_to_function name, "$('#{id}').toggle()"
+    link_to_function name, "Effect.toggle('#{id}', 'appear', { duration: 0.3 });"
+  end
 end
 
