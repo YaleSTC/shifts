@@ -1,5 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+<<<<<<< HEAD:config/routes.rb
   map.resources :sub_requests
+=======
+  map.resources :notices
+
+  map.resources :notices
+
+>>>>>>> 7e4d2d25d8debe6cd7e58d9708ea0b3bba6ed775:config/routes.rb
 
 
   map.resources :time_slots #TODO: What should this be nested under, if anything?
