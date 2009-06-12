@@ -4,18 +4,23 @@
 <div id="payform">
   <h1>Last day of payweek</h1>
   <table id="payformList" width="100%">
-    <tr>
+    <thead><tr>
       <th>Unsubmitted</th>
       <th>Submitted</th>
       <th>Printed</th>
-    </tr>
+    </tr></thead>
     <% for payform in @payforms %>
       <tr>
         <td colspan=3><%= link_to payform.date, payform %></td>
       </tr>
     <% end %>
+    <tfoot><tr>
+      <th><%= @payforms.count %></th>
+      <th></th>
+      <th></th>
+    </tr></tfoot>
   </table>
 </div>
-
+<br/>
 <%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :confirm => 'Are you sure?', :method => :delete, :class=>"button" %>
 <%= link_to "<span>Current Payform</span>", go_payforms_path, :class=>"button" %>

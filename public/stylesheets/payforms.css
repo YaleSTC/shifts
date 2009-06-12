@@ -42,7 +42,6 @@ div.payform_form legend {
 	width: 100%;
 	text-align: left;
 	border-collapse: collapse;
-	
 }
 #payformList th
 {
@@ -59,7 +58,9 @@ div.payform_form legend {
 }
 #payformList tfoot th
 {
-	border-top: 3px solid #8a9cde;
+    font-size: 14px;
+    padding: 4px 3px 2px 3px;
+	border-top: 2px solid #8a9cde;
 	border-bottom: 2px solid #8a9cde;
 }
 #payformList tbody td
@@ -70,17 +71,47 @@ div.payform_form legend {
 	color: #669;
 	border-top: 1px solid transparent;
 }
+#payformList td.rightside a
+{
+	color: #d8ddef;
+}
+#payformList tbody tr:hover td a
+{
+	color: #787ddf;
+}
+#payformList tbody tr:hover td a:hover
+{
+	color: #484d9f;
+}
 #payformList tbody tr:hover td
 {
 	background: #d0dafd;
 	color: #339;
 }
-
+#payformList td.date {
+    width: 45px;
+    text-align: left;
+}
+#payformList td.description {
+    width:auto;
+    text-align: left;
+}
+#payformList td.rightside {
+    text-align: right;
+    width:1%
+}
 #payform a {
-  color: #2758B3;
+    color: #2758B3;
 }
 #payform a:hover {
-  color: #FF9933;
+    color: #FF9933;
+}
+div.hours-right {
+    float: right;
+}
+div.total-hours-right {
+
+    float: right;
 }
 
 /*
