@@ -10,6 +10,7 @@
     </div>
     <div id="right-col">
       <%= link_to "<span>View all past payforms</span>", payforms_path, :class=>"button" %>
+      ("clock" buttons used to go here, but I'm reconsidering this.')
     </div>
     <div id="middle-col">
     Something can go here.
@@ -20,7 +21,7 @@
   </div>
   <br><br>
   <div id="payform_status">
-    Payform status will go here.
+    <u>P</u><font color=blue>a</font><strong>y</strong><font size=5>f</font><em>or</em><u>m</u> status will go here.
     <%#= render :partial => 'payform/payform_status', :object => @payform %>
   </div>
   <br><br>
@@ -33,13 +34,16 @@
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
     <tfoot>
       <tr>
-        <th scope="col" id="hours" colspan=3>
-          Total Hours: <%#= @payform.total_hours %><br/>
+        <th scope="col" id="hours" colspan=6>
+          <div class="total-hours-right">
+            <%= @payform.payform_items.map{|i| i.hours}.sum %><%#TODO: ROUNDING OPTIONS %>
+          </div>
+          Total Hours:
         </th>
       </tr>
     </tfoot>
   </table>
   <br/>
 </div>
-<%= link_to "<span>Submit Payform</span>", "#", :class => "button", :onclick => "this.blur();"%>
+<%= link_to "<span><strong>Submit Payform</strong></span>", "#", :class => "button", :onclick => "this.blur();"%>
 <%= link_to "<span>New Payform Item</span>", new_payform_payform_item_path(@payform), :class => "button", :onclick => "this.blur();"%>

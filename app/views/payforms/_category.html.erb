@@ -3,7 +3,10 @@
 
 <thead>
   <tr class="category">
-    <th scope="col" id="<%=h category.name %>" colspan=5>
+    <th scope="col" id="<%=h category.name %>" colspan=6>
+      <div class="hours-right">
+        <%= (@payform.payform_items & category.payform_items).map{|i| i.hours}.sum %>
+      </div>
       <%=h category.name %>
     </th>
   </tr>
