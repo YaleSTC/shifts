@@ -24,7 +24,7 @@ class NoticesController < ApplicationController
   # GET /notices/new
   # GET /notices/new.xml
   def new
-    fetch_data
+    fetch_loc_groups
     @notice = Notice.new
 
     respond_to do |format|
@@ -41,8 +41,9 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.xml
   def create
+    fetch_loc_groups
     @notice = Notice.new(params[:notice])
-
+    @notice.author_id = @current_user.id
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
@@ -85,7 +86,7 @@ class NoticesController < ApplicationController
   end
 
 
-  def fetch_data
+  def fetch_loc_groups
     @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
   end
 
