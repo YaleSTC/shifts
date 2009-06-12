@@ -1,0 +1,15 @@
+<% jobs = (current_user.is_admin_of?(@payform.department) ? category.payform_items : category.payform_items) & @payform.payform_items %>
+<% unless jobs.empty? %>
+
+<thead>
+  <tr class="category">
+    <th scope="col" id="<%=h category.name %>" colspan=5>
+      <%=h category.name %>
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <%= render :partial => "payform_item", :collection => jobs %>
+</tbody>
+<% end -%>
+

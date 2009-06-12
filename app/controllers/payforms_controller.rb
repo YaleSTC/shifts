@@ -1,4 +1,5 @@
 class PayformsController < ApplicationController
+
   def index
     @payforms = current_user.payforms & current_department.payforms
   end
