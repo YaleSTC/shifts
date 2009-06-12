@@ -2,7 +2,7 @@ Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
   payform = Payform.create!(:date => date,
                             :user_id => @user.id,
-                            :department_id => @department)
+                            :department_id => @department.id)
 end
 
 Given /^I have the following payform items?$/ do |table|
@@ -28,21 +28,25 @@ Then /^payform item ([0-9]+) should have attribute (.+) "([^\"]*)"$/ do |id, att
   payform_item.attribute_constant.should match(expected)
 end
 
-Given /^I have the following payforms:$/ do |table|
+Given /^I have the following payforms?:$/ do |table|
   table.hashes.each do |row|
 
-      date = row[:date].to_date
-      department = Department.find_by_name(row[:department])
-      user = User.find_by_name(row[:user])
+    date = row[:date].to_date
+    department = Department.find_by_name(row[:department])
+    user = User.find_by_name(row[:user])
 
-      submitted = row[:submitted] == "true" ? DateTime.now : nil
-      approved = row[:approved] == "true" ? DateTime.now : nil
-      printed = row[:printed] == "true" ? DateTime.now : nil
+    submitted = row[:submitted] == "true" ? DateTime.now : nil
+    approved = row[:approved] == "true" ? DateTime.now : nil
+    printed = row[:printed] == "true" ? DateTime.now : nil
 
-      Payform.create!(:date => date , :department_id => department.id,
-                      :user_id => user.id, :submitted => submitted,
-                      :approved => approved, :printed => printed)
-    end
+    Payform.create!(:date => date , :department_id => department.id,
+                    :user_id => user.id, :submitted => submitted,
+                    :approved => approved, :printed => printed)
+  end
+end
+
+Then /^the payform should be submitted$/ do
+  @user.payforms.first.submitted.should_not be_nil
 end
 
 Then /^I should see "([^\"]*)" under "([^\"]*)"$/ do |arg1, arg2|
