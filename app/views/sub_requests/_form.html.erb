@@ -1,29 +1,33 @@
-<% form_for @sub_request do |f| %>
+<% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
   <%= f.error_messages %>
+
+  <p><h3>Time that you need someone to take for this sub request:</h3></p>
   <p>
-    <%= f.label :bribe_start %><br />
-    <%= f.datetime_select :bribe_start %>
+    <%= f.label "Start" %><br />
+    <%= f.datetime_select :mandatory_start, :default => @sub_request.shift.start %>
   </p>
   <p>
-    <%= f.label :bribe_end %><br />
-    <%= f.datetime_select :bribe_end %>
+    <%= f.label "End" %><br />
+    <%= f.datetime_select :mandatory_end, :default => @sub_request.shift.end %>
   </p>
+  <p><h3>Maximum amount of time you're willing to give up (bribe):</h3></p>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start %>
+    <%= f.datetime_select :start, :default => @sub_request.shift.start %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
+    <%= f.datetime_select :end, :default => @sub_request.shift.end %>
+  </p>
+  <p>
+    <%= label_tag "List of logins that can take sub" %><br />
+    <%= text_field_tag :list_of_logins %>
   </p>
   <p>
     <%= f.label :reason %><br />
-    <%= f.text_area :reason %>
+    <%= f.text_field :reason %>
   </p>
-  <p>
-    <%= f.label :target_ids %><br />
-    <%= f.text_field :target_ids %>
+    <%= f.submit 'Create' %>
   </p>
-  <p><%= f.submit "Submit" %></p>
 <% end %>
 

@@ -1,0 +1,7 @@
+<%# 4 statuses: inactive, full, passed, active , and maybe wait%>
+<% if loc_bar[2]=='bar_active'
+    sign_up_slot = Shift.new(:start => loc_bar[0], :end => loc_bar[1], :location_id => id) %>    
+    <%= print_cell(loc_bar[2], loc_bar[0], loc_bar[1], sign_up_slot) %>  
+<% else %>
+  <%= print_cell(loc_bar[2], loc_bar[0], loc_bar[1]) %>
+<% end %>

@@ -1,30 +1,91 @@
+<%# Required for the shift report popup view %>
+<% stylesheet 'floatbox' %>
+<% javascript 'floatbox' %>
+
 <% title "Shifts" %>
+<%= render :partial => 'view_preferences' %>
 
-THIS PAGE will display all shifts for a given week. (this is THE shifts page. woot.)<br>
-The shift controller should have RESTful actions to handle adding and removing shifts.<br>
-Checks and balances can be added within these RESTful actions.<br>
-Another note: this page should also be a page for <strong>shift admins</strong>! Instead of a separate shift_admin controller, admins will just see more options!<br/>
-<br><br>
-Remember to figure out which links currently in the navbar can be moved to shift-exclusive or dashboard locations.<br>
-<table>
-  <tr>
-    <th>Start</th>
-    <th>End</th>
-    <th>User</th>
-    <th>Location</th>
-  </tr>
-  <% for shift in @shifts %>
-    <tr>
-      <td><%=h shift.start %></td>
-      <td><%=h shift.end %></td>
-      <td><%=h shift.user %></td>
-      <td><%=h shift.location %></td>
-      <td><%= link_to "Show", shift %></td>
-      <td><%= link_to "Edit", edit_shift_path(shift) %></td>
-      <td><%= link_to "Destroy", shift, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
+<div class = "shift_links">
+  <% unless (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}) == [] %>
+    <%= link_to "Return to current shift", shift_path(current_shift) %><br />
   <% end %>
-</table>
+  <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
 
-<p><%= link_to "New Shift", new_shift_path %></p>
+  <%# TODO: implement announcements :P %>
+  <% @announcements = [] %>
+  <% unless @announcements.empty? %>
+    <h2>Announcements for <%= @department.name %></h2>
+    <%= render :partial => 'report/notice', :collection => @announcements %>
+  <% end %>
 
+  <div id="upcoming_shifts_div">
+    <%= render :partial => 'upcoming_shifts_layout' %>
+  </div>
+
+  
+  <% all_subs = SubRequest.find(:all, :order => :start) %>
+  <% @subs_you_requested = all_subs.select{|sub| sub.shift.user == current_user}%>
+  <% unless @subs_you_requested.empty? %>
+    <h2>Subs you requested</h2>
+    <ul>
+    <%= render :partial => 'upcoming_sub', :collection => @subs_you_requested %>
+    </ul>
+  <% end %>
+
+  <!-- <%# unless @subs_you_can_take.empty? %>
+      <h2>Subs you can take</h2>
+      <ul>
+      <%#= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
+      </ul>
+    <%# end %> -->
+
+  <% unless @current_shifts.empty? %>
+    <h2>Currently logged in shifts (in your domain)</h2>
+    <ul>
+      <% @current_shifts.each do |s| %>
+        <li><%= link_to s.short_name, shift_report_path(s), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
+          <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(s.start) %></span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+
+<div style="height:15px"></div>
+<div id="temporary-list-of-all-shifts">
+  <h1>All shifts (for development and debugging)</h1>
+  <table>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th>User</th>
+      <th>Location</th>
+      <th>Scheduled?</th>
+    </tr>
+    <% for shift in @shifts %>
+      <tr>
+        <% if shift.scheduled? %>
+          <td><%=h shift.start.to_s(:short_name) %></td>
+          <td><%=h shift.end.to_s(:short_name) %></td>
+        <% else %>
+          <td colspan=2>unscheduled</td>
+        <% end %>
+        <td><%=h shift.user.name %></td>
+        <td><%=h shift.location.name %></td>
+        <td><%=h shift.scheduled? %></td>
+        <td><%= link_to "Show", shift %></td>
+        <td><%= link_to "Edit", edit_shift_path(shift) %></td>
+        <td><%= link_to "Destroy", shift, :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+  
+  <p><%= link_to "New Shift", new_shift_path %></p>
+</div>
+
+
+
+<div id="schedule">
+  <%= render :partial => 'schedule'%>
+</div>
