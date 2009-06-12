@@ -12,10 +12,11 @@ Feature: payform admin
       | 2009-06-06 | Hogwarts   | Harry Potter     | true      | nil      | nil   |
       | 2009-05-23 | Hogwarts   | Hermione Granger | true      | true     | nil   |
       | 2009-05-16 | Hogwarts   | Hermione Granger | true      | true     | true  |
+    And I am on the payforms page
 
-  Scenario: Creating a Payform Item Set
-    Given I am on the Add Jobs en Masse page
-    When I select "2009-06-13" from "Last Day of Pay Week"
+  Scenario: Creating a Mass Job
+    When I follow "Add jobs en masse"
+    And I select "2009-06-13" from "Last Day of Pay Week"
     And I select "Quidditch" from "Category"
     And I select "2" from "hours"
     And I select "0" from "minutes"
@@ -26,7 +27,6 @@ Feature: payform admin
     Then I should see "Job created successfully for the following users: Harry Potter and Hermione Granger"
 
   Scenario: Viewing payforms
-    Given I am on the Payform Admin page
     Then I should see "Harry Potter"
     And I should see "2009-06-13" under "Unsubmitted"
     And I should see "2009-06-06" under "Unapproved"
@@ -35,14 +35,12 @@ Feature: payform admin
     And I should not see "2009-05-16"
 
   Scenario: Approving payforms
-    Given I am on the Payform Admin page
     When I follow "2009-06-06"
     And I follow "Approve"
     Then I should see "Payform approved."
     And I should see "2009-06-06" under "Unprinted"
 
   Scenario: Printing payforms
-    Given I am on the Payform Admin page
     When I follow "2009-05-23"
     And I follow "Print"
     Then I should see "Payform printing"
