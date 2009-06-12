@@ -27,6 +27,7 @@ class SubRequest < ActiveRecord::Base
       new_shift.start = sub_request.start
       new_shift.end = sub_request.end
       new_shift.save!
+      AppMailer.deliver_sub_taken_notification(sub_request)
       sub_request.destroy
       return true
     else
