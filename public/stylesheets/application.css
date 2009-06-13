@@ -1,3 +1,5 @@
+/* default css -- shouldn't be necessary anymore
+
 body {
   background-color: #4B7399;
   font-family: Verdana, Helvetica, Arial;
@@ -84,6 +86,7 @@ a {
   color: #999;
 }
 
+*/
 
 
 
@@ -121,6 +124,7 @@ html {
 
 /* Main Styles and IDs */
 body {
+	color: #000;
   margin: 0pt;
   padding: 0pt;
   font-family: Trebuchet MS, Verdana, Arial, serif;

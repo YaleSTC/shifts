@@ -4,8 +4,6 @@ class CreateReports < ActiveRecord::Migration
       t.references :shift
       t.datetime :arrived
       t.datetime :departed
-      t.string :login_ip
-      t.string :logout_ip
       t.timestamps
     end
   end

@@ -5,6 +5,7 @@ class CreateShifts < ActiveRecord::Migration
       t.datetime :end
       t.references :user
       t.references :location
+      t.boolean :scheduled, :default => :true
       t.timestamps
     end
   end

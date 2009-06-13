@@ -1,0 +1,4 @@
+<div id="sub_popup_<%= sub.id %>" class="popup popup_draghandle" style="display:none">
+  <%= simple_format(h sub.reason)%>
+</div>
+<%= javascript_tag "new Popup('sub_popup_#{sub.id}','sub_link_#{sub.id}')" %>

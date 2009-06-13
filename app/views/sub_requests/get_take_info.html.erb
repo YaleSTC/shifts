@@ -1,0 +1,12 @@
+<% title "Please choose how big of a shift you want to take" %>
+<h3>You can take either of these two shifts:</h3>
+<p>From <%= @sub_request.mandatory_start %> to
+   <%= @sub_request.mandatory_end %>
+   <%= button_to "Take this!", {:action => :take, :id => @sub_request, :just_mandatory => :true} %>
+</p>
+<p>or</p>
+ <p>From <%= @sub_request.start %> to
+   <%= @sub_request.end %>
+   <%= button_to "Take this!", {:action => :take, :id => @sub_request, :just_mandatory => :false} %>
+   </p>
+

@@ -1,5 +1,5 @@
 <% if @department && !@department.new_record? &&
-      (current_user.is_admin_of?(@department) || current_user.is_superuser?) -%>
+      (current_user.is_admin_of?(@department) || current_user.is_superuser? || current_user) -%>
   <ul id="miniTabs"> <!-- id="no_underlined"> -->
     <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(@department) %></li>
     <li class="<%= tab('roles') %>"><%= link_to "Roles", department_roles_path(@department) %></li>
