@@ -1,7 +1,5 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+hogwarts_department:
+  id: 1
+  name: Hogwarts
+  permission_id: 1
 
-# one:
-#   column: value
-#
-# two:
-#   column: value

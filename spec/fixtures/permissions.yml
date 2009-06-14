@@ -1,0 +1,12 @@
+hogwarts_admin_permission:
+  id: 1
+  name: Hogwarts dept admin
+
+payform_normal_permission:
+  id: 2
+  name: payform regular user
+
+Payform_admin_permission:
+  id: 3
+  name: payform admin
+
