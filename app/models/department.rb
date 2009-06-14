@@ -13,6 +13,7 @@ class Department < ActiveRecord::Base
 
 
   before_validation_on_create :create_permissions
+# this next validation doesn't work -cmk
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name
   validates_uniqueness_of :permission_id

@@ -1,0 +1,24 @@
+user_1:
+  id: 1
+  login: ad12
+  name: Albus Dumbledore
+  first_name: Albus
+  last_name: Dumbledore
+  email: ad12@hogwarts.edu
+
+user_2:
+  id: 2
+  login: hp123
+  name: Harry Potter
+  first_name: Harry
+  last_name: Potter
+  email: hp123@hogwarts.edu
+
+user_3:
+  id: 3
+  login: hg9
+  name: Hermione Granger
+  first_name: Hermione
+  last_name: Granger
+  email: hg9@hogwarts.edu
+
