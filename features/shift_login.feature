@@ -19,7 +19,7 @@ Scenario: Log into a blank report
 	When I follow "Shifts"
 	And I follow "Sign in to a blank report"
 	Then I should see a list of clusters
-	And when I follow "Technology Troubleshooting Office"
+	When I follow "Technology Troubleshooting Office"
 	Then I should see a shift report for "Technology Troubleshooting Office"
 	And my shift report should have one comment
 
@@ -28,9 +28,9 @@ Scenario: Log into a blank report (2)
   And I am on the homepage
 	When I follow "Shifts"
 	Then I should not see "Return to current report"
-	And I follow "Sign in to a blank report"
+	When I follow "Sign in to a blank report"
 	Then I should see a list of clusters
-	And when I follow "Technology Troubleshooting Office"
+	When I follow "Technology Troubleshooting Office"
 	Then I should see a shift report for "Technology Troubleshooting Office"
 	And my shift report should have one comment
 
