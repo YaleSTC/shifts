@@ -10,6 +10,7 @@
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name)%><br />
   </p>
+  <%= f.hidden_field :scheduled, :value => :false %>
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
