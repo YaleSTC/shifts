@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     text = "Access denied"
-    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/shifts\">here</a>?" if current_user
+    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user
     render :text => text, :layout => true
   end
 
