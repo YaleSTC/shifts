@@ -6,12 +6,13 @@
   <%# stylesheet 'shift', 'report', 'date_selector', :media => 'all' %>
   <% stylesheet 'shift', 'report' %>
 
-  <% if (woo = @current_user.is_admin_of?(@department)) %>
-    <div id="nav_column">
-      <ul>
-        <li>These are liiiiiinks</li>
-        <li>For an administratorrrr</li>
-        <li>Woohooooo</li>
+  <% if (woo = current_user.is_admin_of?(@department)) %>
+    <div id="navigationShow">
+      <ul id="navigationList">
+        <li><h3>Scheduling Options</h3></li>
+        <li><%= link_to_unless_current "Home", shifts_path %></li>
+        <li><%= link_to_unless_current "Home", shifts_path %></li>
+        <li><%= link_to_unless_current "Home", shifts_path %></li>
       <ul>
     </div>
 

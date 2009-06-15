@@ -14,7 +14,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   def access_denied
-    render :text => "Access denied", :layout => true
+    text = "Access denied"
+    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/shifts\">here</a>?" if current_user
+    render :text => text, :layout => true
   end
 
   # Scrub sensitive parameters from your log
