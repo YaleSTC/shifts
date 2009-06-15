@@ -4,20 +4,12 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :id %><br />
-    <%= f.text_field :id %>
-  </p>
-  <p>
     <%= f.label :is_sticky %><br />
     <%= f.check_box :is_sticky %>
   </p>
   <p>
     <%= f.label :content %><br />
     <%= f.text_field :content %>
-  </p>
-  <p>
-    <%= f.label :author_id %><br />
-    <%= f.text_field :author_id %>
   </p>
   <p>
     <%= f.label :start_time %><br />
@@ -31,22 +23,15 @@
     <%= f.label :for_users %><br />
     <%= f.text_field :for_users %>
   </p>
-  <p>
-    <%= f.label :for_locations %><br />
-    <%= f.text_field :for_locations %>
-  </p>
-  <p>
-    <%= f.label :for_location_groups %><br />
-    <%= f.text_field :for_location_groups %>
-  </p>
-  <p>
-    <%= f.label :for_departments %><br />
-    <%= f.text_field :for_departments %>
-  </p>
-  <p>
-    <%= f.label :remover_id %><br />
-    <%= f.text_field :remover_id %>
-  </p>
+  <%= check_box_tag "notice[for_departments]", @department.id, if @notice.for_departments == @department.id,  :disabled => false %><%= @department.name %> (department-wide)<br />
+    <% for loc_group in @loc_groups do %>
+    &nbsp;&nbsp;&nbsp;
+    <%= check_box_tag "notice[for_location_groups][]", loc_group.id, @notice.location_groups.include?(loc_group.id), :disabled => false %><%= loc_group.name %><br />
+    <% for location in loc_group.locations do %>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= check_box_tag "notice[for_locations][]", location.id, @notice.locations.include?(location.id), :disabled => false %><%= location.name %><br />
+    <% end %>
+  <% end %>
   <p>
     <%= f.submit 'Update' %>
   </p>
@@ -54,3 +39,4 @@
 
 <%= link_to 'Show', @notice %> |
 <%= link_to 'Back', notices_path %>
+
