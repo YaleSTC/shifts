@@ -10,7 +10,6 @@
       <% @row_time = @day_end %>
     <% else %>
       <%= print_cell("shift_time", @day_start, row_shift.end, row_shift) -%><%# prints current shift -%>
-      <%= row_shift.end %>
       <% @row_time = row_shift.end %>
     <% end %>
 
