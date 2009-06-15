@@ -1,2 +1,15 @@
---- {}
-
+--- 
+reports_001: 
+  arrived: 2009-06-15 18:18:38
+  created_at: 2009-06-15 18:18:38
+  departed: 2009-06-15 18:18:41
+  id: "1"
+  shift_id: "1"
+  updated_at: 2009-06-15 18:18:41
+reports_002: 
+  arrived: 2009-06-15 18:20:30
+  created_at: 2009-06-15 18:20:30
+  departed: 2009-06-15 18:20:37
+  id: "2"
+  shift_id: "2"
+  updated_at: 2009-06-15 18:20:37
