@@ -5,7 +5,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payform_sets
 
-  map.resources :payforms, :collection => { :prune => :delete, :go => :get }, :shallow => true do |payforms|
+  map.resources :payforms, 
+                :collection => { :prune => :delete, :go => :get }, 
+                :member => {:submit => :put, :approve => :put, :print => :put}, 
+                :shallow => true do |payforms|
     payforms.resources :payform_items
   end
 
