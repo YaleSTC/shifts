@@ -4,10 +4,22 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
 
+  def status
+    if printed
+      "printed"
+    elsif approved
+      "approved"
+    elsif submitted
+      "submitted"
+    else
+      "unsubmitted"
+    end
+  end
+
   #CUSTOM URL -- STILL REQUIRES ID AT FRONT, BUT LOOKS FRIENDLIER
-  #def to_param
-  #  "#{id}-#{date}"
-  #end
+  def to_param
+    "#{id}-#{date}"
+  end
 
   def self.build(dept, user, date)
     period_date = Payform.default_period_date(date, dept)
@@ -16,10 +28,19 @@ class Payform < ActiveRecord::Base
   end
 
   def self.default_period_date(given_date, dept)
-    given_date_day = (dept.monthly ? given_date.mday : given_date.wday)
-    add = (dept.monthly ? 1.month : 1.week)
-    if dept.day < given_date_day
-      given_date = given_date + add
+    if dept.monthly
+      given_date_day = given_date.mday
+      if dept.end_of_month 
+        dept.day = given_date.end_of_month
+      end
+      if dept.day < given_date_day
+        given_date = given_date + 1.month
+      end
+    else
+      given_date_day = given_date.wday
+      if dept.day < given_date_day
+        given_date = given_date + 1.week
+      end
     end
     given_date - given_date_day.days + dept.day.days
   end
