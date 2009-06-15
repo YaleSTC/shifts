@@ -14,4 +14,3 @@ class CreateShifts < ActiveRecord::Migration
     drop_table :shifts
   end
 end
-

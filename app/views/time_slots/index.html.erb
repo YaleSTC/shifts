@@ -10,7 +10,7 @@ What do time slots do again? Make sure to handle them restfully :)<br>
   </tr>
   <% for time_slot in @time_slots %>
     <tr>
-      <td><%=h time_slot.location %></td>
+      <td><%=h time_slot.location.short_name %></td>
       <td><%=h time_slot.start %></td>
       <td><%=h time_slot.end %></td>
       <td><%= link_to "Show", time_slot %></td>
