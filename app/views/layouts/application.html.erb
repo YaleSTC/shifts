@@ -11,7 +11,45 @@
         <h1 id="page_title"><%=h yield(:title) %></h1>
       <%- end -%>
       <!-- Main Content -->
+      
+      <!-- Admin Menu -->
+      <% if (woo = current_user.is_admin_of?(@department)) %>
+        <div id="nav_column">
+          <h3>Scheduling Options</h3>
+          <ul class="navigationList">
+            <li><%= link_to_unless_current "Home", shifts_path %></li>
+            <li><%= link_to_unless_current "Schedule", { :controller => '/shift_admin', :action => 'index' } %></li>
+            <li><%= link_to_unless_current "Time Slots", time_slots_path %></li>
+            <li><%= link_to_unless_current "Locations", department_locations_path(@department) %></li>
+            <li><%= link_to_unless_current "Location Groups", department_loc_groups_path(@department) %></li>
+            <li><%= link_to_unless_current "Restrictions", { :controller => '/shift_admin', :action => 'restrictions' } %></li>
+            <li><%= link_to_unless_current "Announcements", { :controller => '/shift_admin', :action => 'announcements' } %></li>
+            <li><%= link_to_unless_current "Shift Report Links", { :controller => '/shift_admin', :action => 'report_links' } %></li>
+            <li><%= link_to_unless_current "Export Schedule", { :controller => '/shift_admin/calendar', :action => 'index' } %></li>
+            <li><%= link_to_unless_current "Templates", { :controller => '/shift_admin', :action => 'manage_templates' } %>
+              <ul><li><%= link_to_unless_current "Activate Templates", { :controller => '/shift_admin', :action => 'activate_templates' } %></li></ul>
+            </li>
+            <%# if @user.authorized?("shift_admin/@" + @department.name.decamelize + "/department_admin")%>
+              <li><%#= link_to_unless_current "Edit Configuration", { :controller => '/shift_admin', :action => 'config' } %></li>        
+            <%# end %>
+          </ul>
+          <div style="clear:both; height:10px"></div>
+          <h3>View Options</h3>
+          <ul class="navigationList">
+            <li><%= link_to_unless_current "Active Shifts", {:controller => '/shift_admin',  :action => 'view_logged_in_shifts' } %></li>
+            <li><%= link_to_unless_current "Unscheduled Shifts", {:controller => '/shift_admin',  :action => 'view_unscheduled_shifts' } %></li>
+            <li><%= link_to_unless_current "Cluster Data", { :controller => '/data', :action => 'index' } %></li>
+            <li><%#= link_to "Shift Stats", stats_path %></li>
+            <li><%#= link_to "Missed Shifts", {:controller => '/shift_admin', :action => 'view_missed_shifts'} %></li>
+          </ul>  
+        </div>
+
+        <div id="tab_content">
+      <% end %>
+      
       <%= yield(:my_content) || yield %>     
+      
+      <%= "</div>" if woo %>
       </div>
       <div id="pageAnchor">
         <a href="#top_of_page">
