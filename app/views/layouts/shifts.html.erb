@@ -6,7 +6,21 @@
   <%# stylesheet 'shift', 'report', 'date_selector', :media => 'all' %>
   <% stylesheet 'shift', 'report' %>
 
-  <%# and here's the template content, of course %>
-  <%= yield %>
+  <% if (woo = @current_user.is_admin_of?(@department)) %>
+    <div id="nav_column">
+      <ul>
+        <li>These are liiiiiinks</li>
+        <li>For an administratorrrr</li>
+        <li>Woohooooo</li>
+      <ul>
+    </div>
 
-<% end %>
+    <div id="tab_content">
+  <% end %>
+  
+  <%= yield %>
+  
+  <%= "</div>" if woo %>
+
+  <div class="clear"></div>
+<% end -%>
