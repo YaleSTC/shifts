@@ -162,8 +162,10 @@ class Shift < ActiveRecord::Base
   end
 
   def shift_is_within_time_slot
-    c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start < ? AND end > ?', self.location_id, self.start, self.end])
-    errors.add_to_base("You can only sign up for a shift druing a time slot!") if c == 0
+    unless self.power_signed_up
+      c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start < ? AND end > ?', self.location_id, self.start, self.end])
+      errors.add_to_base("You can only sign up for a shift druing a time slot!") if c == 0
+    end
   end
 
   def user_does_not_have_concurrent_shift
