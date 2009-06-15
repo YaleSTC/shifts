@@ -8,7 +8,7 @@
 
 <% if @current_user.is_admin_of?(@department) %>
   <div>
-    <%= link_to "Power sign up", new_shift_path %> |
+    <%= link_to "Power sign up", power_sign_up_new_shift_path %> |
     <%= link_to "Edit Times", time_slots_path %> |
     <%# TODO: %>
     <%= link_to "View Work Hours", {:action => "view_work_hours", :date => params[:date]}, :class => "dotted_link" %>
@@ -31,7 +31,7 @@
       <%= render :partial => 'upcoming_shifts_layout' %>
     </div>
 
-  
+
     <% all_subs = SubRequest.find(:all, :order => :start) %>
     <% @subs_you_requested = all_subs.select{|sub| sub.shift.user == current_user}%>
     <% unless @subs_you_requested.empty? %>
@@ -91,7 +91,7 @@
       </tr>
     <% end %>
   </table>
-  
+
   <p><%= link_to "New Shift", new_shift_path %></p>
 </div>
 
@@ -100,3 +100,4 @@
 <div id="schedule">
   <%= render :partial => 'schedule'%>
 </div>
+
