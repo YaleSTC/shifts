@@ -12,6 +12,7 @@ Scenario: User logged in
 Scenario: Log into a blank report
   Given I just got through CAS with the login "aje29"
 	And I am not logged into a shift report
+  And I am on shifts
 	When I follow "Shift"
 	And I follow "Sign in to a blank report"
 	Then I should see a list of clusters
@@ -22,6 +23,7 @@ Scenario: Log into a blank report
 Scenario: Fail to log into a second report
   Given I just got through CAS with the login "aje29"
 	And I am logged into a shift report
+  And I am on shifts
 	When I follow "Shift"
 	And I follow "Sign in to a blank report"
 	Then I should see "You are already signed into a shift!"

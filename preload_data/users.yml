@@ -17,3 +17,12 @@ users_002:
   login: rjl39
   name: Ryan Laughlin
   updated_at: 2009-06-09 14:51:03
+users_003: 
+  created_at: 2009-06-09 15:51:03
+  email: alfonso.espinosa@yale.edu
+  first_name: Alfonso
+  id: "3"
+  last_name: Espinosa
+  login: aje29
+  name: AJ Espinosa
+  updated_at: 2009-06-09 15:51:03
