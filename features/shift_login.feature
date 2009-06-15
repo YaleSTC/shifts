@@ -12,8 +12,11 @@ Scenario: User logged in
 Scenario: Log into a blank report
   Given I just got through CAS with the login "aje29"
 	And I am not logged into a shift report
+	And I am on the homepage
+	Then I should see "STC"
+	When I follow "STC"
   And I am on shifts
-	When I follow "Shift"
+	When I follow "Shifts"
 	And I follow "Sign in to a blank report"
 	Then I should see a list of clusters
 	And when I follow "Technology Troubleshooting Office"
@@ -23,7 +26,7 @@ Scenario: Log into a blank report
 Scenario: Log into a blank report (2)
   Given I just got through CAS with the login "aje29"
   And I am on the homepage
-	When I follow "Shift"
+	When I follow "Shifts"
 	Then I should not see "Return to current report"
 	And I follow "Sign in to a blank report"
 	Then I should see a list of clusters
