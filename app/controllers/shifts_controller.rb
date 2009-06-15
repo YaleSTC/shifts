@@ -27,6 +27,7 @@ class ShiftsController < ApplicationController
   def create
     @shift = Shift.new(params[:shift])
     @shift.start = Time.now unless @shift.start
+    @shift.power_signed_up = false unless current_user.is_admin_of?(@department)
     if @shift.save
       #combine with any compatible shifts (if the shift is scheduled)
       flash[:notice] = "Successfully created shift."
