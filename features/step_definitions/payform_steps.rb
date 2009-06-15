@@ -53,3 +53,12 @@ Then /^I should see "([^\"]*)" under "([^\"]*)"$/ do |arg1, arg2|
   pending
 end
 
+Then /^"([^\"]*)" should have ([0-9]+) payform_items?$/ do |user, count, object|
+  User.find_by_name(user).payform_items.should have(count.to_i).payform_items
+end
+
+Then /^"([^\"]*)" should have ([0-9]+) payforms?$/ do |user, count|
+  User.find_by_name(user).payforms.should have(count.to_i).payforms
+
+end
+

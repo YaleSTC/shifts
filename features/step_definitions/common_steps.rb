@@ -22,7 +22,9 @@ end
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |user_name, permissions|
   user = User.find_by_name(user_name)
   permissions.split(", ").each do |permission_name|
-    #user.permissions << Permission.find_by_name(permission_name)
+    role = Role.create!(:name => permission_name + " role", :department_id => @department.id)
+    role.permissions << Permission.find_by_name(permission_name)
+    user.roles << role
   end
 end
 
@@ -34,3 +36,4 @@ Given /^I am "([^\"]*)"$/ do |user_name|
   visit departments_path
   click_link @department.name
 end
+
