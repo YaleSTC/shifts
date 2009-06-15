@@ -22,6 +22,7 @@ class Shift < ActiveRecord::Base
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
+  validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   before_save :adjust_sub_requests
@@ -160,6 +161,11 @@ class Shift < ActiveRecord::Base
     errors.add(:start, "must be earlier than end time") if (self.end < start)
   end
 
+  def shift_is_within_time_slot
+    c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start < ? AND end > ?', self.location_id, self.start, self.end])
+    errors.add_to_base("You can only sign up for a shift druing a time slot!") if c == 0
+  end
+
   def user_does_not_have_concurrent_shift
 
     c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ?', self.user_id, self.end, self.start])
@@ -188,4 +194,3 @@ class Shift < ActiveRecord::Base
     end
   end
 end
-
