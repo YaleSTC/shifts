@@ -6,9 +6,8 @@ Feature: Regular user logs into a shift
 Scenario: Log into an unscheduled shift
   Given I just got through CAS with the login "aje29"
 	And I am not logged into a shift report
-	And I am on the homepage
-	When I follow "STC"
-	When I follow "Shifts"
+	When I am on the homepage
+	And I follow "Shifts"
 	Then I should not see "Return to current shift"
 	When I follow "Start an unscheduled shift"
   When I select "AJ Espinosa" from "shift_user_id"
@@ -23,11 +22,10 @@ Scenario: Log into an unscheduled shift
 Scenario: Fail to log into a second report
   Given I just got through CAS with the login "aje29"
   And I am on the homepage
-  When I follow "STC"
-	And I am logged into a shift report
+	When I am logged into a shift report
   And I am on shifts
-	When I follow "Shift"
-  When I select "AJ Espinosa" from "shift_user_id"
+	And I follow "Shift"
+  And I select "AJ Espinosa" from "shift_user_id"
   And I follow "Start an unscheduled shift"
 	When I select "TTO" from "shift_location_id"
 	When I press "Submit"
