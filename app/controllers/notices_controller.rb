@@ -3,6 +3,7 @@ class NoticesController < ApplicationController
   # GET /notices
   # GET /notices.xml
   def index
+    fetch_loc_groups
     @notices = Notice.all
 
     respond_to do |format|
@@ -93,7 +94,7 @@ class NoticesController < ApplicationController
     @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
   end
 
-  protected
+
 
   def is_sticky?
     @notice.is_sticky
