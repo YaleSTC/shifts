@@ -13,8 +13,8 @@
         <li><%= link_to_unless_current "Home", shifts_path %></li>
         <li><%= link_to "Schedule", { :controller => '/shift_admin', :action => 'index' } %></li>
         <li><%= link_to "Time Slots", time_slots_path %></li>
-        <li><%= link_to "Locations", locations_path %></li>
-        <li><%= link_to "Location Groups", location_groups_path %></li>
+        <li><%= link_to "Locations", department_locations_path(@department) %></li>
+        <li><%= link_to "Location Groups", department_loc_groups_path(@department) %></li>
         <li><%= link_to "Restrictions", { :controller => '/shift_admin', :action => 'restrictions' } %></li>
         <li><%= link_to "Announcements", { :controller => '/shift_admin', :action => 'announcements' } %></li>
         <li><%= link_to "Shift Report Links", { :controller => '/shift_admin', :action => 'report_links' } %></li>
