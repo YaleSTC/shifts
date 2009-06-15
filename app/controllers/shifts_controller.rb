@@ -5,6 +5,7 @@ class ShiftsController < ApplicationController
     @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_user_locations.include?(s.location)}.sort_by(&:start)
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
     @days_per_period = 7 #TODO: make this a setting for an admin
+    @show_weekends = false
   end
 
   def show
