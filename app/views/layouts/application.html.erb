@@ -1,5 +1,5 @@
 <%= render :file => "layouts/include/main_header.html.erb" %>
- 
+
     <%#= @left_nav ? '<div id="contentNav">' : '<div id="contentNoNav">' %>
     <%# the following line is just for testing: %>
     <%= '<div id="contentNoNav">' %>
@@ -11,7 +11,7 @@
         <h1 id="page_title"><%=h yield(:title) %></h1>
       <%- end -%>
       <!-- Main Content -->
-      <%= yield(:my_content) || yield %>     
+      <%= yield(:my_content) || yield %>
       </div>
       <div id="pageAnchor">
         <a href="#top_of_page">
