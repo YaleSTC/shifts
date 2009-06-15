@@ -1,9 +1,15 @@
-one:
-  active: false
-  name: MyString
-  department: 
+work_category:
+  name: Magic
+  active: true
+  department_id: 1
 
-two:
-  active: false
-  name: MyString
-  department: 
+study_category:
+  name: Study
+  active: true
+  department_id: 1
+
+play_category:
+  name: Quidditch
+  active: true
+  department_id: 1
+
