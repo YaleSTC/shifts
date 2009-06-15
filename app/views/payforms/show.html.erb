@@ -1,4 +1,4 @@
-<% title "Payform for " + @payform.date.strftime('%B %d, %Y')%>
+<% title "Payform for " + start_of_period(@payform.date).strftime('%B %d, %Y')+ " through " + @payform.date.strftime('%B %d, %Y')%>
 
   <div id="cols">
     <div id="cols-header">
@@ -19,8 +19,23 @@
   </div>
   <br><br>
   <div id="payform_status">
-    <u>P</u><font color=blue>a</font><strong>y</strong><font size=5>f</font><em>or</em><u>m</u> status will go here.
-    <%#= render :partial => 'payform/payform_status', :object => @payform %>
+    <div class="payform_form">
+      <fieldset> 
+        <legend><font size=3><strong>Status:</strong> <%=h "STATUS!" %></font></legend>
+      <% time_format = '%A, %B %d, %Y at %I:%M%p' -%>
+        <strong>Created:</strong> <%=h @payform.created_at.strftime(time_format) %><br/>
+      <% if @payform.submitted -%>
+        <strong>Submitted:</strong> <%=h @payform.submitted.strftime(time_format) %><br/>
+      <% end -%>
+      <% if @payform.approved and is_admin? -%>
+        <strong>Approved:</strong> <%=h @payform.approved.strftime(time_format) %> by <%=h User.find_by_id(@payform.approved_by).name %><br/>
+      <% end -%>
+      <% if @payform.printed -%>
+        <strong>Printed:</strong> <%= @payform.printed.strftime(time_format) %><br/>
+        <em><%=h(@payform.department.payform_configuration.printed).gsub(/\n/, '<br />') %></em><br/>
+      <%end -%>
+      </fieldset>
+    </div>
   </div>
   <br><br>
   <div id="add_job_div" style="display: none">
