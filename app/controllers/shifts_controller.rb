@@ -20,6 +20,10 @@ class ShiftsController < ApplicationController
     @shift = Shift.new
   end
 
+  def power_sign_up
+    @shift = Shift.new
+  end
+
   def create
     @shift = Shift.new(params[:shift])
     @shift.start = Time.now unless @shift.start
@@ -54,4 +58,3 @@ class ShiftsController < ApplicationController
     redirect_to shifts_url
   end
 end
-
