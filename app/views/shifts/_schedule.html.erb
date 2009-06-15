@@ -9,6 +9,12 @@
   @block_length = (((@dept_end_hour - @dept_start_hour) * 60) / @blocks_per_day) * 60
   @display_unscheduled_shifts = true
   @grace_period = 5*60 #seconds
+  
+  if @show_weekends
+    @day_collection = @period_start...(@period_start+@days_per_period)
+  else
+    @day_collection = (@period_start+1)...(@period_start+@days_per_period-1)
+  end
 %>
 
 <div style="clear:both">
@@ -17,7 +23,7 @@
 <% if @department.loc_groups.empty? %>
   <p>Sorry, there are no location groups to view!</p>
 <% else %>
-  <%= render :partial => 'shifts/schedule/day', :collection => @period_start...(@period_start+@days_per_period), :spacer_template => 'shifts/schedule/spacer'%>
+  <%= render :partial => 'shifts/schedule/day', :collection => @day_collection, :spacer_template => 'shifts/schedule/spacer'%>
 <% end %>
 </div>
 <%= render :partial => 'shifts/schedule/footer' %>
