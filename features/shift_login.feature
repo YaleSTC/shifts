@@ -12,18 +12,37 @@ Scenario: User logged in
 Scenario: Log into a blank report
   Given I just got through CAS with the login "aje29"
 	And I am not logged into a shift report
-	When I follow "Shift"
-	And I follow "Sign in to a blank report"
-	Then I should see a list of clusters
-	And when I follow "Technology Troubleshooting Office"
+	And I am on the homepage
+	When I follow "STC"
+	When I follow "Shifts"
+	And I follow "Start an unscheduled shift"
+	#Then I should see a list of clusters
+	When I follow "Technology Troubleshooting Office"
+	Then I should see a shift report for "Technology Troubleshooting Office"
+	And my shift report should have one comment
+
+Scenario: Log into a blank report (2)
+  Given I just got through CAS with the login "aje29"
+  And I am on the homepage
+  When I follow "STC"
+	Then I should not see "Return to current shift"
+	When I follow "Shifts"
+	When I follow "Start an unscheduled shift"
+	#Then I should see a list of clusters
+	When I follow "Technology Troubleshooting Office"
 	Then I should see a shift report for "Technology Troubleshooting Office"
 	And my shift report should have one comment
 
 Scenario: Fail to log into a second report
   Given I just got through CAS with the login "aje29"
+  And I am on the homepage
+  When I follow "STC"
 	And I am logged into a shift report
+  And I am on shifts
 	When I follow "Shift"
-	And I follow "Sign in to a blank report"
+	And I follow "Start an unscheduled shift"
+	#Then I should see a list of clusters
 	Then I should see "You are already signed into a shift!"
 	And I should be on the shift page
+	When I follow "STC"
 
