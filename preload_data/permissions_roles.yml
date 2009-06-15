@@ -2,12 +2,3 @@
 permissions_roles_001: 
   permission_id: "1"
   role_id: "1"
-permissions_roles_002: 
-  permission_id: "2"
-  role_id: "1"
-permissions_roles_003: 
-  permission_id: "3"
-  role_id: "1"
-permissions_roles_004: 
-  permission_id: "4"
-  role_id: "1"
