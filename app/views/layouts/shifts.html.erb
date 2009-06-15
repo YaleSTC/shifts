@@ -6,43 +6,7 @@
   <%# stylesheet 'shift', 'report', 'date_selector', :media => 'all' %>
   <% stylesheet 'shift', 'report' %>
   
-  <% if (woo = current_user.is_admin_of?(@department)) %>
-    <div id="nav_column">
-      <h3>Scheduling Options</h3>
-      <ul class="navigationList">
-        <li><%= link_to_unless_current "Home", shifts_path %></li>
-        <li><%= link_to "Schedule", { :controller => '/shift_admin', :action => 'index' } %></li>
-        <li><%= link_to "Time Slots", time_slots_path %></li>
-        <li><%= link_to "Locations", department_locations_path(@department) %></li>
-        <li><%= link_to "Location Groups", department_loc_groups_path(@department) %></li>
-        <li><%= link_to "Restrictions", { :controller => '/shift_admin', :action => 'restrictions' } %></li>
-        <li><%= link_to "Announcements", { :controller => '/shift_admin', :action => 'announcements' } %></li>
-        <li><%= link_to "Shift Report Links", { :controller => '/shift_admin', :action => 'report_links' } %></li>
-        <li><%= link_to "Export Schedule", { :controller => '/shift_admin/calendar', :action => 'index' } %></li>
-        <li><%= link_to "Templates", { :controller => '/shift_admin', :action => 'manage_templates' } %>
-          <ul><li><%= link_to "Activate Templates", { :controller => '/shift_admin', :action => 'activate_templates' } %></li></ul>
-        </li>
-        <%# if @user.authorized?("shift_admin/@" + @department.name.decamelize + "/department_admin")%>
-          <li><%#= link_to "Edit Configuration", { :controller => '/shift_admin', :action => 'config' } %></li>        
-        <%# end %>
-      </ul>
-      <div style="clear:both; height:10px"></div>
-      <h3>View Options</h3>
-      <ul class="navigationList">
-        <li><%= link_to "Active Shifts", {:controller => '/shift_admin',  :action => 'view_logged_in_shifts' } %></li>
-        <li><%= link_to "Unscheduled Shifts", {:controller => '/shift_admin',  :action => 'view_unscheduled_shifts' } %></li>
-        <li><%= link_to "Cluster Data", { :controller => '/data', :action => 'index' } %></li>
-        <li><%#= link_to "Shift Stats", stats_path %></li>
-        <li><%#= link_to "Missed Shifts", {:controller => '/shift_admin', :action => 'view_missed_shifts'} %></li>
-      </ul>  
-    </div>
-    
-    <div id="tab_content">
-  <% end %>
-  
   <%= yield %>
-  
-  <%= "</div>" if woo %>
 
   <div class="clear"></div>
 <% end -%>
