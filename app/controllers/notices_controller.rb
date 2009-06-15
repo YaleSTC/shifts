@@ -1,5 +1,5 @@
 class NoticesController < ApplicationController
-
+  before_filter :fetch_loc_groups
   # GET /notices
   # GET /notices.xml
   def index
@@ -25,7 +25,6 @@ class NoticesController < ApplicationController
   # GET /notices/new
   # GET /notices/new.xml
   def new
-    fetch_loc_groups
     @notice = Notice.new
 
     respond_to do |format|
@@ -42,7 +41,7 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.xml
   def create
-    fetch_loc_groups
+d
     @notice = Notice.new(params[:notice])
     @notice.author_id = @current_user.id
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky?
