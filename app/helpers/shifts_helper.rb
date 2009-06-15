@@ -12,6 +12,7 @@ module ShiftsHelper
     #@loc_group = loc_group
 
     @can_sign_up = true #loc_group.allow_sign_up? get_user
+    @loc_group = loc_group
   end
   
   # TODO: this shit  
@@ -22,8 +23,11 @@ module ShiftsHelper
     @bar = {}
     @people_count = {}
     loc_groups.each do |loc_group|
+      # different location groups can have different start/end times...maybe bring this down
+      # further, to the individual location level?
       @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
       @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+      @prioritized_location = {}
       loc_group.locations.each do |loc|
         if loc.active?
           shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
@@ -32,7 +36,7 @@ module ShiftsHelper
           @unscheduled_shifts[loc.object_id] = [shifts[false]]
       
           people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
-          @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block) unless @day_end < Time.now
+          @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block, loc) unless @day_end < Time.now
           @bar_ids[@curr_day] << loc.short_name + @curr_day.to_s
           @people_count[loc.object_id] = people_count
         end
@@ -42,26 +46,33 @@ module ShiftsHelper
     
   
   
-  def create_bar(day_start, day_end, people_count, min_block)
+  def create_bar(day_start, day_end, people_count, min_block, location)
     bar = []
     block_start = day_start
-    should_return = false; #don't return a bar unless it has a time that can be signed up for
+    #don't return a bar unless it has at least one time that can be signed up for
+    should_return = false;
     
     while (block_start < day_end)
       t = block_start
       free_status = nil #check_status(t)
 
       begin
-        if false #not open_at[t.to_s(:am_pm)]
+        
+        if false #TODO: not open_at[t.to_s(:am_pm)]
          current_status = 'bar_inactive'
-        elsif (people_count[t.to_s(:am_pm)] >= 1) #TODO: get max_staff from location
+        elsif (people_count[t.to_s(:am_pm)] >= location.max_staff)
           current_status = 'bar_full'
         elsif (t<Time.now)
           current_status = 'bar_passed'
-        # elsif pending?(t) #because of priority
-        #   current_status = 'bar_pending'
-        #   should_return = true
+        elsif @prioritized_location[t] and @prioritized_location[t].priority > location.priority
+          # if another location has higher priority
+          current_status = 'bar_pending'
+          should_return = true
         else
+          if (people_count[t.to_s(:am_pm)] < location.min_staff)
+            # if this location has not reached minimum staff yet, give it priority
+            @prioritized_location[t] = location
+          end
           current_status = 'bar_active'
           should_return = true
         end
