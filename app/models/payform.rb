@@ -4,6 +4,18 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
 
+  def status
+    if printed
+      "printed"
+    elsif approved
+      "approved"
+    elsif submitted
+      "submitted"
+    else
+      "unsubmitted"
+    end
+  end
+
   #CUSTOM URL -- STILL REQUIRES ID AT FRONT, BUT LOOKS FRIENDLIER
   def to_param
     "#{id}-#{date}"

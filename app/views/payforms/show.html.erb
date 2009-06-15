@@ -1,43 +1,15 @@
-<% title "Payform for " + start_of_period(@payform.date).strftime('%B %d, %Y')+ " through " + @payform.date.strftime('%B %d, %Y')%>
+<% title "Payform for " + start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format)%>
 
   <div id="cols">
-    <div id="cols-header">
-      <%= error_messages_for 'payform' %>
-    </div>
-    <div id="left-col">
-      <%= render :partial => 'date_select', :locals => {:date => @payform.date } %>
-    </div>
-    <div id="right-col">
-      <%= link_to "<span>View all past payforms</span>", payforms_path, :class=>"button" %>
-    </div>
-    <div id="middle-col">
-    10:20:30
-    </div>
-    <div id="cols-footer">
-
-    </div>
+    <div id="cols-header"><%= error_messages_for 'payform' %></div>
+    <div id="left-col"><%= render :partial => 'date_select', :locals => {:date => @payform.date } %></div>
+    <div id="right-col"><%= link_to "<span>View all past payforms</span>", payforms_path, :class=>"button" %></div>
+    <div id="middle-col">10:20:30</div>
+    <div id="cols-footer"></div>
   </div>
-  <br><br>
-  <div id="payform_status">
-    <div class="payform_form">
-      <fieldset> 
-        <legend><font size=3><strong>Status:</strong> <%=h "STATUS!" %></font></legend>
-      <% time_format = '%A, %B %d, %Y at %I:%M%p' -%>
-        <strong>Created:</strong> <%=h @payform.created_at.strftime(time_format) %><br/>
-      <% if @payform.submitted -%>
-        <strong>Submitted:</strong> <%=h @payform.submitted.strftime(time_format) %><br/>
-      <% end -%>
-      <% if @payform.approved and is_admin? -%>
-        <strong>Approved:</strong> <%=h @payform.approved.strftime(time_format) %> by <%=h User.find_by_id(@payform.approved_by).name %><br/>
-      <% end -%>
-      <% if @payform.printed -%>
-        <strong>Printed:</strong> <%= @payform.printed.strftime(time_format) %><br/>
-        <em><%=h(@payform.department.payform_configuration.printed).gsub(/\n/, '<br />') %></em><br/>
-      <%end -%>
-      </fieldset>
-    </div>
-  </div>
-  <br><br>
+  <br /><br />
+  <%= render :partial => "status" %>
+  <br /><br />
   <div id="add_job_div" style="display: none">
   </div>
 
@@ -45,18 +17,12 @@
   <h1>Payform Items</h1>
   <table id="payformList" width="100%">
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
-    <tfoot>
-      <tr>
-        <th scope="col" id="hours" colspan=6>
-          <div class="total-hours-right">
-            <%= @payform.payform_items.map{|i| i.hours}.sum %><%#TODO: ROUNDING OPTIONS %>
-          </div>
-          Total Hours:
-        </th>
-      </tr>
-    </tfoot>
+    <tfoot><tr> <th scope="col" id="hours" colspan=6>
+      <div class="total-hours-right"><%= @payform.payform_items.map{|i| i.hours}.sum %><%#TODO: ROUNDING OPTIONS %></div>
+      Total Hours:
+    </th></tr> </tfoot>
   </table>
   <br/>
 </div>
-<%= link_to "<span><strong>Submit Payform</strong></span>", "#", :class => "button", :onclick => "this.blur();"%>
-<%= link_to "<span>New Payform Item</span>", new_payform_payform_item_path(@payform), :class => "button", :onclick => "this.blur();"%>
+<%= payform_update_button %>
+<%= payform_add_button %>
