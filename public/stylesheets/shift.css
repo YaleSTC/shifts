@@ -2,7 +2,6 @@
 a {
   color: #104e8b;
 }
-
 h1#thin_line_bottom {
   padding: 0 0 0;
   margin-bottom: 20px;
@@ -317,26 +316,6 @@ table.template_items_table tr.out_of_range{
   background: #525399;
 }
 
-table.manage_table{
-  border: 1px solid #666666;
-  border-collapse: collapse;
-  width: 100%;
-  padding: 4px;
-}
-
-table.manage_table caption{
-  text-align: left;
-  font-size: 15px;
-  font-weight: bold;
-  padding-top: 1em;
-
-}
-table.manage_table td {
-  border: 1px solid #666666;
-  text-align: center;
-}
-
-table.manage_table th { border: 1px solid #666666; }
 
 .shift_admin_form label {
   width: 20em;

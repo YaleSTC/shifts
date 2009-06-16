@@ -3,6 +3,7 @@ class LocationsController < ApplicationController
 
   def index
     @locations = @department.locations.select { |lg| current_user.can_admin?(lg.loc_group) }
+    @location = Location.new #for embedded form at page bottom
   end
 
   def show
