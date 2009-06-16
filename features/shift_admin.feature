@@ -4,14 +4,14 @@ Feature: Shift admin manages shifts
   I want to be able to create, assign, and destroy shifts
 
 Scenario: Log into an unscheduled shift
-  Given I just got through CAS with the login "studcomp"
+  Given I just got through CAS with the login "catest"
 	And I am not logged into a shift report
 	And I am on the homepage
 	When I follow "STC"
 	When I follow "Shifts"
 	Then I should not see "Return to current shift"
 	When I follow "Start an unscheduled shift"
-  When I select "AJ Espinosa" from "shift_user_id"
+  When I select "CA" from "shift_user_id"
   When I select "TTO" from "shift_location_id"
 	When I press "Submit"
 	Then I should see "Unscheduled Shift"
@@ -21,13 +21,13 @@ Scenario: Log into an unscheduled shift
 	And my shift report should have 1 comment
 
 Scenario: Fail to log into a second report
-  Given I just got through CAS with the login "studcomp"
+  Given I just got through CAS with the login "catest"
   And I am on the homepage
   When I follow "STC"
 	And I am logged into a shift report
   And I am on shifts
 	When I follow "Shift"
-  When I select "AJ Espinosa" from "shift_user_id"
+  When I select "CA" from "shift_user_id"
   And I follow "Start an unscheduled shift"
 	When I select "TTO" from "shift_location_id"
 	When I press "Submit"

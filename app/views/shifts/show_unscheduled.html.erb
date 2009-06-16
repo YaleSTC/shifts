@@ -1,0 +1,14 @@
+<p>
+  <% form_tag :action => "show_unscheduled" do %>
+    View from 
+    <%= select_date @start_date, :prefix => 'start' %>
+    to
+    <%= select_date @end_date,  :prefix => 'end' %>
+    <%= submit_tag "Update display" %>
+  <% end %>
+</p>
+
+<div id="unscheduled_shifts_div">
+  <% title "Unscheduled Shift Reports" %>
+  <%= render :partial => 'unscheduled_shifts_layout' %>
+</div>

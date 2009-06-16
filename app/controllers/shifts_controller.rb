@@ -1,15 +1,29 @@
 class ShiftsController < ApplicationController
   def index
     @shifts = Shift.all
-    current_user_locations = current_user.departments.collect{|d| d.locations}.flatten
-    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_user_locations.include?(s.location)}.sort_by(&:start)
+    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
     @days_per_period = 7 #TODO: make this a setting for an admin
     @show_weekends = false
+    @upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
   end
 
   def show
     @shift = Shift.find(params[:id])
+  end
+  
+  def show_active
+    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
+  end
+  
+  def show_unscheduled
+    @start_date = 1.week.ago
+    @end_date = Date.current
+    if request.post?
+      @start_date = Time.local(params[:start][:year], params[:start][:month], params[:start][:day])
+      @end_date = Time.local(params[:end][:year], params[:end][:month], params[:end][:day], 23, 59, 59)
+    end
+    @unscheduled_shifts_by_locgroup = Shift.all.select{|s| !s.scheduled? and @department.locations.include?(s.location) and (@start_date <= s.start and s.start <= @end_date)}.sort_by(&:start).group_by(&:loc_group)
   end
 
   def new
