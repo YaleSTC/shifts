@@ -1,3 +1,5 @@
+@payform
+
 Feature: payform
   In order to manage my own payform
   As a regular user
