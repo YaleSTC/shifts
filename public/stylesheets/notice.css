@@ -1,0 +1,35 @@
+fieldset.sticky {
+  padding: 5px;
+  margin: 0 0 0 0;
+  background-color:#FFFF99;
+}
+
+fieldset.announcement {
+  width:48%;
+  padding: 5px;
+  margin:0 0 0 0;
+  float: right;
+  clear: right;
+  background-color:#ADD8E6;
+}
+
+fieldset.sticky .grayleft, fieldset.announcement .grayleft{
+  float:left;
+  text-align:left;
+}
+
+fieldset.sticky .grayright, fieldset.announcement .grayright, fieldset.sticky .right, fieldset.announcement .right{
+  float:right;
+  text-align:right;
+}
+
+fieldset.sticky .grayleft, fieldset.sticky .grayright {
+  color:SlateGray;
+  font-size: 90%;
+}
+
+fieldset.announcement .grayleft, fieldset.announcement .grayright {
+  color:DarkRed;
+  font-size: 90%;
+}
+
