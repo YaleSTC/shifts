@@ -4,6 +4,7 @@ class NoticesController < ApplicationController
 
   # GET /notices
   # GET /notices.xml
+
   def index
     fetch_loc_groups
     @notices = Notice.all
@@ -48,8 +49,8 @@ class NoticesController < ApplicationController
     @notice = Notice.new(params[:notice])
     @notice.author_id = @current_user.id
     @notice.department = @department.id
-    @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky?
-    @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky?
+    @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky
+    @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky
     @notice.for_locations = params[:for_locations].join(', ')
     @notice.for_location_groups = params[:for_location_groups].join(', ')
     respond_to do |format|
@@ -94,15 +95,8 @@ class NoticesController < ApplicationController
     end
   end
 
-
   def fetch_loc_groups
     @loc_groups = @department.loc_groups.all
-  end
-
-
-
-  def is_sticky?
-    @notice.is_sticky
   end
 end
 

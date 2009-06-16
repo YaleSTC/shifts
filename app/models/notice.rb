@@ -42,5 +42,12 @@ class Notice < ActiveRecord::Base
     self.for_users = temp_users.join(',')
   end
 
+  def is_current?
+    return Time.now > self.start_time && Time.now < self.end_time
+  end
+
+  def is_upcoming?
+    return Time.now < self.start_time
+
 end
 
