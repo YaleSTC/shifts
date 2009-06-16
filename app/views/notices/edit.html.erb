@@ -23,7 +23,7 @@
     <%= f.label :for_users %><br />
     <%= f.text_field :for_users %>
   </p>
-  <%= check_box_tag "notice[for_departments]", @department.id, if @notice.for_departments == @department.id,  :disabled => false %><%= @department.name %> (department-wide)<br />
+  <%= check_box_tag "notice[department]", @department.id, if @notice.for_departments == @department.id,  :disabled => false %><%= @department.name %> (department-wide)<br />
     <% for loc_group in @loc_groups do %>
     &nbsp;&nbsp;&nbsp;
     <%= check_box_tag "notice[for_location_groups][]", loc_group.id, @notice.location_groups.include?(loc_group.id), :disabled => false %><%= loc_group.name %><br />

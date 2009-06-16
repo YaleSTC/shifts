@@ -42,7 +42,7 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.xml
   def create
-d
+
     @notice = Notice.new(params[:notice])
     @notice.author_id = @current_user.id
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky?
