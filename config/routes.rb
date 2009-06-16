@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :sub_requests
 
+  map.resources :notices
 
   map.resources :time_slots #TODO: What should this be nested under, if anything?
 
@@ -68,3 +69,4 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+
