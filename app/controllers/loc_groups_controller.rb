@@ -3,6 +3,7 @@ class LocGroupsController < ApplicationController
 
   def index
     @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
+    @loc_group = @department.loc_groups.build
   end
 
   def show

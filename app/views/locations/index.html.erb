@@ -1,34 +1,35 @@
 <% title "Locations" %>
-  <% for group in @department.loc_groups %>
-    <table class="manage_table">
-      <caption><%= group.name %></caption>
-      <thead>
+<% for group in @department.loc_groups %>
+  <table class="manage_table">
+    <caption><%= group.name %></caption>
+    <thead>
+      <tr>
+        <th width="30%">Long Name</th>
+        <th>Short Name</th>
+        <th>Report Email</th>
+        <th>Max Staff</th>
+        <th>Priority</th>
+        <th>Min Staff</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- group.locations.each do |loc| -%>
         <tr>
-          <th width="30%">Long Name</th>
-          <th>Short Name</th>
-          <th>Report Email</th>
-          <th>Max Staff</th>
-          <th>Priority</th>
-          <th>Min Staff</th>
+          <td><%= link_to loc.name, edit_location_path(loc) %></td>
+          <td><%= loc.short_name %></td>
+          <td><%#= loc.report_email ? loc.report_email : "-" %></td>
+          <td><%= loc.max_staff %></td>
+          <td><%= loc.priority %></td>
+          <td><%= loc.min_staff %></td>
+          <td><%= link_to "Show", loc %></td>
+          <td><%= link_to "Edit", edit_location_path(loc) %></td>
+          <td><%= link_to "Destroy", loc, :confirm => 'Are you sure?', :method => :delete %></td>
         </tr>
-      </thead>
-      <tbody>
-        <%- group.locations.each do |loc| -%>
-          <tr>
-            <td><%= link_to loc.name, edit_location_path(loc) %></td>
-            <td><%= loc.short_name %></td>
-            <td><%#= loc.report_email ? loc.report_email : "-" %></td>
-            <td><%= loc.max_staff %></td>
-            <td><%= loc.priority %></td>
-            <td><%= loc.min_staff %></td>
-            <td><%= link_to "Show", loc %></td>
-            <td><%= link_to "Edit", edit_location_path(loc) %></td>
-            <td><%= link_to "Destroy", loc, :confirm => 'Are you sure?', :method => :delete %></td>
-          </tr>
-        <% end -%>
-      </tbody>
-    </table>
-  <% end -%>  
-
+      <% end -%>
+    </tbody>
+  </table>
+<% end -%>  
 <br />
-<%= render :partial => 'form', :locals => {:title => "Create a new Location"} %>
+<% if current_user.is_admin_of?(@department) %>
+  <%= render :partial => 'form', :locals => {:title => "Create a new location"} %>
+<% end %>

@@ -317,15 +317,6 @@ table.template_items_table tr.out_of_range{
 }
 
 
-.shift_admin_form label {
-  width: 20em;
-  float: left;
-  text-align: right;
-  margin-right: 0.5em;
-  display: block;
-}
-
-
 
 table.template_view{
   width: 100%;

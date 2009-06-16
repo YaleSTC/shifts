@@ -494,3 +494,28 @@ a {
 a:hover{
 	color: orange;
 }
+
+
+
+.admin_form label {
+  width: 20em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+fieldset#warning {
+  background: #C0C0C0;
+}
+
+fieldset {
+  background: #ddf;
+}
+
+legend {
+  color: #eef;
+  background: #123456;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}

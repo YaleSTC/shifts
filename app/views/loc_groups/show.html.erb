@@ -1,4 +1,4 @@
-<% title "Loc Group" %>
+<% title "Location Group" %>
 
 <p>
   <strong>Name:</strong>
@@ -6,24 +6,33 @@
 </p>
 <p>
   <strong>Department:</strong>
-  <%=h @loc_group.department_id %>
+  <%=h @loc_group.department.name %>
 </p>
 <p>
-  <strong>View Perm:</strong>
+  <strong>View Permission:</strong>
   <%=h @loc_group.view_perm_id %>
 </p>
 <p>
-  <strong>Signup Perm:</strong>
+  <strong>Signup Permission:</strong>
   <%=h @loc_group.signup_perm_id %>
 </p>
 <p>
-  <strong>Admin Perm:</strong>
+  <strong>Admin Permission:</strong>
   <%=h @loc_group.admin_perm_id %>
 </p>
-
 <p>
   <%= link_to "Edit", edit_loc_group_path(@loc_group) %> |
   <%= link_to "Destroy", @loc_group, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", department_loc_groups_path(@loc_group.department) %>
 </p>
 
+<h1>Sub-locations</h1>
+<% @loc_group.locations.each do |location| %>
+  <%= render :partial => 'locations/summary', :locals => {:location => location} %>
+  <p>
+    <%= link_to "Show", location %> | 
+    <%= link_to "Edit", edit_location_path(location) %> |
+    <%= link_to "Destroy", location, :confirm => 'Are you sure?', :method => :delete %>
+  </p>
+  <br />
+<% end %>
