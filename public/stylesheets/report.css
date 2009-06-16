@@ -6,13 +6,13 @@
   background:   #e6e6fa;
 }
 
-#report_view .list_actions {  
+#report_view .list_actions {
   text-align:   right;
   padding-left: 1em;
 }
 
 #report_view .list_header {
-  background-color:#778899; 
+  background-color:#778899;
   text-align: left;
 }
 
@@ -28,7 +28,7 @@
   padding: 4px;
 }
 
-#report_view_table td.line_content{
+#report_view_table td.report_item_content{
   word-wrap: break-word;
 }
 
@@ -83,3 +83,4 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 #useful_links li {
   display: inline;
 }
+
