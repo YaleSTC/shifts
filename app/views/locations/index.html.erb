@@ -1,30 +1,34 @@
 <% title "Locations" %>
+  <% for group in @department.loc_groups %>
+    <table class="manage_table">
+      <caption><%= group.name %></caption>
+      <thead>
+        <tr>
+          <th width="30%">Long Name</th>
+          <th>Short Name</th>
+          <th>Report Email</th>
+          <th>Max Staff</th>
+          <th>Priority</th>
+          <th>Min Staff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- group.locations.each do |loc| -%>
+          <tr>
+            <td><%= link_to loc.name, edit_location_path(loc) %></td>
+            <td><%= loc.short_name %></td>
+            <td><%#= loc.report_email ? loc.report_email : "-" %></td>
+            <td><%= loc.max_staff %></td>
+            <td><%= loc.priority %></td>
+            <td><%= loc.min_staff %></td>
+            <td><%= link_to "Show", loc %></td>
+            <td><%= link_to "Edit", edit_location_path(loc) %></td>
+            <td><%= link_to "Destroy", loc, :confirm => 'Are you sure?', :method => :delete %></td>
+          </tr>
+        <% end -%>
+      </tbody>
+    </table>
+  <% end -%>  
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Short Name</th>
-    <th>Useful Links</th>
-    <th>Max Staff</th>
-    <th>Min Staff</th>
-    <th>Priority</th>
-    <th>Active</th>
-  </tr>
-  <% for location in @locations %>
-    <tr>
-      <td><%=h location.name %></td>
-      <td><%=h location.short_name %></td>
-      <td><%=h location.useful_links %></td>
-      <td><%=h location.max_staff %></td>
-      <td><%=h location.min_staff %></td>
-      <td><%=h location.priority %></td>
-      <td><%=h location.active %></td>
-      <td><%= link_to "Show", location %></td>
-      <td><%= link_to "Edit", edit_location_path(location) %></td>
-      <td><%= link_to "Destroy", location, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
-
-<p><%= link_to "New Location", new_department_location_path(current_department) %></p>
-
+<br />
+<%= render :partial => 'form', :locals => {:title => "Create a new Location"} %>

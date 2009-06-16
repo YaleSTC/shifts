@@ -52,15 +52,7 @@ div #nav_column li{
 	padding: 0;
 }
 
-a{
-	color: blue;
-}
-a:hover{
-	color: orange;
-}
-
 div #tab_content{
 	float: right;
 	width: 650px;
 }
-
