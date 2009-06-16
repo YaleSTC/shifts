@@ -1,36 +1,36 @@
 --- 
 permissions_001: 
-  created_at: 2009-06-08 21:19:44
+  created_at: 2009-06-15 18:13:05
   id: "1"
   name: STC dept admin
-  updated_at: 2009-06-08 21:19:44
+  updated_at: 2009-06-15 18:13:05
 permissions_002: 
-  created_at: 2009-06-08 21:20:12
+  created_at: 2009-06-15 18:13:56
   id: "2"
   name: IO view
-  updated_at: 2009-06-08 21:20:12
+  updated_at: 2009-06-15 18:13:56
 permissions_003: 
-  created_at: 2009-06-08 21:20:12
+  created_at: 2009-06-15 18:13:56
   id: "3"
   name: IO signup
-  updated_at: 2009-06-08 21:20:12
+  updated_at: 2009-06-15 18:13:56
 permissions_004: 
-  created_at: 2009-06-08 21:20:12
+  created_at: 2009-06-15 18:13:56
   id: "4"
   name: IO admin
-  updated_at: 2009-06-08 21:20:12
+  updated_at: 2009-06-15 18:13:56
 permissions_005: 
-  created_at: 2009-06-09 14:51:12
+  created_at: 2009-06-15 18:23:50
   id: "5"
-  name: TTO view
-  updated_at: 2009-06-09 14:51:12
+  name: Public Clusters view
+  updated_at: 2009-06-15 18:23:50
 permissions_006: 
-  created_at: 2009-06-09 14:51:12
+  created_at: 2009-06-15 18:23:50
   id: "6"
-  name: TTO signup
-  updated_at: 2009-06-09 14:51:12
+  name: Public Clusters signup
+  updated_at: 2009-06-15 18:23:50
 permissions_007: 
-  created_at: 2009-06-09 14:51:12
+  created_at: 2009-06-15 18:23:50
   id: "7"
-  name: TTO admin
-  updated_at: 2009-06-09 14:51:12
+  name: Public Clusters admin
+  updated_at: 2009-06-15 18:23:50
