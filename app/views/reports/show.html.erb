@@ -1,10 +1,17 @@
+<% stylesheet 'report' %>
 <% title "Shift Report at the #{@report.shift.location.name}" %>
 
 <p>
   <strong>Arrived:</strong>
   <%=h @report.arrived.getlocal.to_s(:short_name) %>
 </p>
-<%= render :partial => 'report_items' %>
+<p>
+<% unless @report.departed %>
+  <%= render :partial => 'new_report_item_form' %>
+ <% end %>
+  <strong>Events:</strong>
+  </p>
+<%= render :partial => 'report'%>
 <p>
   <% if @report.departed %>
     <strong>Departed:</strong>
