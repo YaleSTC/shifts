@@ -1,6 +1,6 @@
 <% @notices.each do |notice| %>
-<% if notice.is_sticky? == false %>
-<fieldset class="announcement">
+<% if !notice.is_sticky %>
+<fieldset class="announcement", title= "<%= "Posted on #{notice.start_time.to_date} at #{notice.start_time.to_s(:am_pm)}" %>" >
   <% if @current_user.is_admin_of?(@department) %>
       <div class="right">
         <%= link_to '[x]', { :action => 'destroy', :id => notice },
