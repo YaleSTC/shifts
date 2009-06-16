@@ -1,5 +1,5 @@
 <% @notices.each do |notice| %>
-  <% if notice.is_sticky? %>
+  <% if notice.is_sticky %>
     <fieldset class="sticky">
         <div class="right">
         <%= link_to '[x]', { :action => 'destroy', :id => notice },
