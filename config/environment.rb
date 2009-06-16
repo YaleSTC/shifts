@@ -49,6 +49,7 @@ Rails::Initializer.run do |config|
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
+  config.gem "prawn"
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
