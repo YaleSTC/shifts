@@ -5,21 +5,28 @@
   <h1>Last day of payweek</h1>
   <table id="payformList" width="100%">
     <thead><tr>
+      <% if current_user.is_admin_of?(current_department) -%>
+        <th>User</th>
+      <% end -%>
       <th>Unsubmitted</th>
       <th>Submitted</th>
       <th>Printed</th>
     </tr></thead>
     <% for payform in @payforms %>
       <tr>
+        <% if current_user.is_admin_of?(current_department) -%>
+          <td><%= link_to payform.user.name, payform.user %></td>
+        <% end -%>
         <td colspan=3><%= link_to payform.date, payform %></td>
       </tr>
     <% end %>
     <% if @payforms.empty? -%>
-      <tr>
-        <td colspan=3>(No payforms to show)</td>
-      </tr>
+      <tr><td colspan=3>(No payforms to show)</td></tr>
     <% end -%>
     <tfoot><tr>
+      <% if current_user.is_admin_of?(current_department) -%>
+        <th>Total:</th>
+      <% end -%>
       <th><%= @payforms.length %></th>
       <th></th>
       <th></th>
