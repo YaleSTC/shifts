@@ -1,5 +1,5 @@
 <% @notices.each do |notice| %>
-<% if notice.is_sticky? == false %>
+<% if notice.is_sticky %>
 <fieldset class="announcement">
   <% if @current_user.is_admin_of?(@department) %>
       <div class="right">
