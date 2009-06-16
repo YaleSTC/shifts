@@ -1,6 +1,7 @@
 class NoticesController < ApplicationController
 
   before_filter :fetch_loc_groups, :current_user
+
   # GET /notices
   # GET /notices.xml
   def index
@@ -43,11 +44,14 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.xml
   def create
+
     @notice = Notice.new(params[:notice])
     @notice.author_id = @current_user.id
     @notice.department = @department.id
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky?
     @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky?
+    @notice.for_locations = params[:for_locations].join(', ')
+    @notice.for_location_groups = params[:for_location_groups].join(', ')
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
@@ -58,6 +62,7 @@ class NoticesController < ApplicationController
         format.xml  { render :xml => @notice.errors, :status => :unprocessable_entity }
       end
     end
+
   end
 
   # PUT /notices/1
