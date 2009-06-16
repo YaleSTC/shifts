@@ -1,21 +1,23 @@
 <% @notices.each do |notice| %>
-  <fieldset class="<%= notice.class.to_s.downcase%>" id="<%= "%s_%s" % [notice.class.to_s.downcase, notice.id] %>" style="width:48%">
-    <% if @current_user.is_admin_of?(@department) %>
-      <div class="grayright">
-        <%= link_to '[x]', { :action => 'new', :id => notice },
-          :confirm => "Are you sure you want to trash this notice? It will be removed for other users as well.",
-          :method => :post if notice.class == Notice %>
+<% if notice.is_sticky? == false %>
+<fieldset class="announcement">
+  <% if @current_user.is_admin_of?(@department) %>
+      <div class="right">
+        <%= link_to '[x]', { :action => 'destroy', :id => notice },
+          :confirm => "Are you sure you want to trash this announcement? It will be removed for other users as well.",
+          :method => :post %>
       </div>
-    <% end %>
+      <div class="grayright">
+        <%= link_to 'Edit', edit_notice_path(notice) %>
+      </div>
+  <% end %>
   <%= notice.content %>
+
 <br />
-  <div class="grayleft">
-    <%= "by #{(notice.author_id )}" -%><%= ": <a title=\"On #{notice.start_time.to_date} at #{notice.start_time.to_s(:am_pm)}\">#{distance_of_time_in_words(notice.start_time, Time.now, true)} ago</a>"  if notice.class == Notice %>
-  </div>
-  <%# TO DO: Admins should only be able to see this edit link%>
-  <div class="grayright">
-    <%= link_to 'Edit', edit_notice_path(notice) %>
-    </div>
+<div class="grayleft">
+    <%= "by #{(notice.author_id )}" -%>
+</div>
   </fieldset>
+  <% end %>
 <% end %>
 
