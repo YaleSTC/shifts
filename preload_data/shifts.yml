@@ -4,6 +4,7 @@ shifts_001:
   end: 
   id: "3"
   location_id: "1"
+  power_signed_up: f
   scheduled: f
   start: 2009-06-15 14:05:35
   updated_at: 2009-06-15 14:05:35
@@ -13,6 +14,7 @@ shifts_002:
   end: 
   id: "4"
   location_id: "2"
+  power_signed_up: f
   scheduled: f
   start: 2009-06-15 14:05:59
   updated_at: 2009-06-15 14:05:59
@@ -22,6 +24,7 @@ shifts_003:
   end: 
   id: "5"
   location_id: "2"
+  power_signed_up: f
   scheduled: f
   start: 2009-06-15 14:06:50
   updated_at: 2009-06-15 14:06:51

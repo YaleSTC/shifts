@@ -4,14 +4,15 @@ Feature: Regular user logs into a shift
 	So that I can begin updating my report
 
 Scenario: Log into an unscheduled shift
-  Given I just got through CAS with the login "aje29"
+  Given I just got through CAS with the login "studcomp"
+  #Let us make studcomp the default regular user
 	And I am not logged into a shift report
-	#When I am on the homepage
-	#Routes have changed
-	When I follow "Shifts"
+	When I am on the homepage
+	And I follow "Here"
+  And I follow "Shifts"
 	Then I should not see "Return to current shift"
 	When I follow "Start an unscheduled shift"
-  When I select "AJ Espinosa" from "shift_user_id"
+  When I select "StudComp" from "shift_user_id"
   When I select "TTO" from "shift_location_id"
 	When I press "Submit"
 	Then I should see "Unscheduled Shift"
@@ -21,14 +22,13 @@ Scenario: Log into an unscheduled shift
 	And my shift report should have 1 comment
 
 Scenario: Fail to log into a second report
-  Given I just got through CAS with the login "aje29"
-  #And I am on the homepage
-	#Routes have changed
+  Given I just got through CAS with the login "studcomp"
+  And I am on the homepage
 	When I am logged into a shift report
   And I am on shifts
 	And I follow "Shifts"
 	Then I should see "Return to current shift"
-	When I select "AJ Espinosa" from "shift_user_id"
+	When I select "StudComp" from "shift_user_id"
   And I follow "Start an unscheduled shift"
 	When I select "TTO" from "shift_location_id"
 	When I press "Submit"
