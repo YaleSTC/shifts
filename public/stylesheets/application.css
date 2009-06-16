@@ -99,26 +99,26 @@ a {
 
 
 /* Make the vertical scrollbar always appear */
-html { 
+html {
   overflow-y: scroll;
 }
 
 /* START:notice */
 /* Change the colors. It's not red anymore because it's not particularly important. */
-#notice {  
+#notice {
   background-color:#FFF0AA;
   border:1px solid #908C99;
   font-size:11px;
   margin-top:10px;
-  padding:5px 8px;  
+  padding:5px 8px;
 }
 /* big notice gets red because it's important */
-#big_notice {  
+#big_notice {
   background-color:#FFCCCC;
   border:1px solid #CC6666;
   font-size:11px;
   margin-top:10px;
-  padding:5px 8px;  
+  padding:5px 8px;
 }
 /* END:notice */
 
@@ -284,11 +284,11 @@ ul#navigationList {
   line-height: 1.2em;
   margin: 40px 0pt 0pt;
   padding: 0pt;
-  
+
   list-style-image: none;
   list-style-position: outside;
   list-style-type: square;
-  
+
   float: left;
 }
 ul#navigationList li {
@@ -450,3 +450,4 @@ p.footer {
 textarea {
   overflow: auto;
 }
+
