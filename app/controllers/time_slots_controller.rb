@@ -1,8 +1,12 @@
 class TimeSlotsController < ApplicationController
   before_filter :require_department_admin
+  layout 'shifts'
 
   def index
     @time_slots = TimeSlot.all
+    #TODO: figure out where this should go...
+    @period_start = Time.parse("last Sunday")
+    @days_per_period = 7
   end
 
   def show
