@@ -23,13 +23,13 @@
     <%= f.label :for_users %><br />
     <%= f.text_field :for_users %>
   </p>
-  <%= check_box_tag :for_departments, @department.id, @notice.for_departments == @department.id,  :disabled => false %><%= @department.name %> (department-wide)<br />
+  <%= check_box_tag :department, @department.id, @notice.for_departments == @department.id,  :disabled => false %><%= @department.name %> (department-wide)<br />
     <% for loc_group in @loc_groups do %>
     &nbsp;&nbsp;&nbsp;
-    <%= check_box_tag "for_location_groups[" + loc_group.id + "]", loc_group.id, @notice.location_groups.include?(loc_group.id), :disabled => false %><%= loc_group.name %><br />
+    <%= check_box_tag "notice[for_location_groups][]", loc_group.id, @notice.location_groups.include?(loc_group.id), :disabled => false %><%= loc_group.name %><br />
     <% for location in loc_group.locations do %>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= check_box_tag :for_locations, location.id, @notice.locations.include?(location.id), :disabled => false %><%= location.name %><br />
+      <%= check_box_tag "notice[for_locations][]", location.id, @notice.locations.include?(location.id), :disabled => false %><%= location.name %><br />
     <% end %>
   <% end %>
   <p>
