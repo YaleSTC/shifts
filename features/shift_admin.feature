@@ -1,10 +1,10 @@
 Feature: Shift admin manages shifts
   In order to manage shifts
-  As a shift admin
+  As a shifts admininistrator
   I want to be able to create, assign, and destroy shifts
 
 Scenario: Log into an unscheduled shift
-  Given I just got through CAS with the login "aje29"
+  Given I just got through CAS with the login "studcomp"
 	And I am not logged into a shift report
 	And I am on the homepage
 	When I follow "STC"
@@ -21,7 +21,7 @@ Scenario: Log into an unscheduled shift
 	And my shift report should have 1 comment
 
 Scenario: Fail to log into a second report
-  Given I just got through CAS with the login "aje29"
+  Given I just got through CAS with the login "studcomp"
   And I am on the homepage
   When I follow "STC"
 	And I am logged into a shift report
