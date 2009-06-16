@@ -43,13 +43,9 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.xml
   def create
-<<<<<<< HEAD:app/controllers/notices_controller.rb
-=======
-
->>>>>>> 34368f1f92cb493d16857f814e71093e5f55a998:app/controllers/notices_controller.rb
     @notice = Notice.new(params[:notice])
     @notice.author_id = @current_user.id
-    @notice.for_departments = @department.id
+    @notice.department = @department.id
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky?
     @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky?
     respond_to do |format|
