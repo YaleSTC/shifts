@@ -519,3 +519,13 @@ legend {
   font-family: sans-serif;
   padding: 0.2em 1em;
 }
+
+/* BOXED-IN NOTE */
+div.note {
+  border: 1px solid #AAAAAA;
+  border-style: dashed;
+  margin: 5px;
+  padding: 2px;
+  overflow-x: auto;
+  color: #556677;
+}

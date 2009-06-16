@@ -30,6 +30,7 @@
 <% @loc_group.locations.each do |location| %>
   <%= render :partial => 'locations/summary', :locals => {:location => location} %>
   <p>
+    <%= location.name %>: 
     <%= link_to "Show", location %> | 
     <%= link_to "Edit", edit_location_path(location) %> |
     <%= link_to "Destroy", location, :confirm => 'Are you sure?', :method => :delete %>
