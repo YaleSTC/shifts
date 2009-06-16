@@ -17,6 +17,12 @@ module ShiftsHelper
   
   # TODO: this shit  
   def populate_all_locs(loc_groups, min_block)
+    #TODO: drastic optimization. we might try something like this:
+    #  -grab data from the database in large chunks
+    #  -use group_by to break it up into subgroups
+    #  -process the subgroups
+    
+    
     #creates a bunch of arrays holding all the data we'll need to write for each location today
     @scheduled_shifts = {}
     @unscheduled_shifts = {}
@@ -30,6 +36,8 @@ module ShiftsHelper
       @prioritized_location = {}
       loc_group.locations.each do |loc|
         if loc.active?
+          @open_at = apply_time_slot_in(loc, @day_start, @day_end, min_block)
+          
           shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
           shifts = shifts.group_by(&:scheduled)
           @scheduled_shifts[loc.object_id] = [shifts[true]]
@@ -44,6 +52,30 @@ module ShiftsHelper
     end
   end
     
+    
+    
+    
+    
+  def apply_time_slot_in(location, day_start, day_end, min_block)
+    #get open timeslot on the day: date is Date object and when converted to time, its time is at midnight
+    slots = TimeSlot.find(:all, :conditions => ['location_id = ? AND end >= ? AND start <= ?', location, day_start, day_end])
+    
+    open_at = {}
+    open_at.default = false
+    
+    slots.each do |ts|
+      t = ts.start
+      while (t<ts.end)
+        t += min_block
+        open_at[t.to_s(:am_pm)] = true              
+      end
+    end
+    open_at
+  end
+  
+  
+  
+  
   
   
   def create_bar(day_start, day_end, people_count, min_block, location)
@@ -58,7 +90,7 @@ module ShiftsHelper
 
       begin
         
-        if false #TODO: not open_at[t.to_s(:am_pm)]
+        if not @open_at[t.to_s(:am_pm)]
          current_status = 'bar_inactive'
         elsif (people_count[t.to_s(:am_pm)] >= location.max_staff)
           current_status = 'bar_full'
@@ -105,7 +137,7 @@ module ShiftsHelper
     if from == to #return nothing if from and to time are the same
       ''
     else
-      span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
+      span = ((to - from) / 3600 * @blocks_per_hour).round #convert to integer is impt here
       # display the shift time correctly, even if the shift overflows
       if overflow == "left"
         from = shift.start
