@@ -29,7 +29,7 @@
   </p>
 
   <% if @current_user.is_admin_of?(@department) %>
-    <%= check_box_tag :for_departments, @department.id, false,  :disabled => false %><%= @department.name %> (department-wide)<br />
+    <%= check_box_tag :department, @department.id, false,  :disabled => false %><%= @department.name %> (department-wide)<br />
   <% end %>
 
   <%#= checkboxes_for_multiple_select("Location Groups", @loc_groups.,'for_location_groups[]') %>
