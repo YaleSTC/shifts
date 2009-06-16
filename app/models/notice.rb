@@ -39,7 +39,7 @@ class Notice < ActiveRecord::Base
         self.errors.add "contains \'#{user_string}\'. Could not find user by that name or netid" unless user_string.blank?
       end
     end
-    self.for_users = temp_users
+    self.for_users = temp_users.join(',')
   end
 
 end

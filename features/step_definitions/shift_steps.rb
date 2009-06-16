@@ -6,3 +6,6 @@ Given /^I am not logged into a shift report$/ do
   @current_user.shifts.reports == nil?
 end
 
+Given /^I am logged into a shift report$/ do
+end
+
