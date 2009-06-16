@@ -1,0 +1,7 @@
+<ul>
+  <% @current_shifts.each do |s| %>
+    <li><%= link_to s.short_name, shift_report_path(s), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
+      <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(s.start) %></span>
+    </li>
+  <% end %>
+</ul>
