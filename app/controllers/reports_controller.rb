@@ -19,7 +19,6 @@ class ReportsController < ApplicationController
     # add a report item about logging in
     @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip)
     if @report.save
-      flash[:notice] = "Successfully created report."
       redirect_to @report
     else
       render :action => 'new'
