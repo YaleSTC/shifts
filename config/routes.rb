@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :time_slots #TODO: What should this be nested under, if anything?
 
-  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get}, :shallow => true do |shifts|
+  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end

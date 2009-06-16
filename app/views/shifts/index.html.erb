@@ -6,61 +6,64 @@
 <% title "Shifts" %>
 <%= render :partial => 'view_preferences' %>
 
-<% if @current_user.is_admin_of?(@department) %>
+<div class = "shift_links">
   <div>
-    <%= link_to "Power sign up", power_sign_up_new_shift_path %> |
-    <%= link_to "Edit Times", time_slots_path %> |
-    <%# TODO: %>
-    <%= link_to "View Work Hours", {:action => "view_work_hours", :date => params[:date]}, :class => "dotted_link" %>
-  </div>
-<% else %>
-  <div class = "shift_links">
-    <% unless (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}) == [] %>
-      <%= link_to "Return to current shift", shift_path(current_shift) %><br />
+    <% if current_user.is_admin_of?(@department) %>
+      <%= link_to "Power sign up", power_sign_up_new_shift_path %> |
+      <%= link_to "Edit Times", time_slots_path %> |
+      <%# TODO: %>
+      <%= link_to "View Work Hours", {:action => "view_work_hours", :date => params[:date]}, :class => "dotted_link" %>
+    <% else %>
+      <% unless (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}) == [] %>
+        <%= link_to "Return to current shift", shift_path(current_shift) %><br />
+      <% end %>
+      <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
     <% end %>
-    <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
+  </div>
 
-    <%# TODO: implement announcements :P %>
-    <% @announcements = [] %>
-    <% unless @announcements.empty? %>
+  <%# TODO: implement announcements :P %>
+  <% @announcements = [] %>
+  <% unless @announcements.empty? %>
+    <div id="announcements">
       <h2>Announcements for <%= @department.name %></h2>
       <%= render :partial => 'report/notice', :collection => @announcements %>
-    <% end %>
+    </div>
+  <% end %>
 
+  <% unless @upcoming_shifts.empty? %>
     <div id="upcoming_shifts_div">
+      <h2 title="Displaying up to 4 upcoming shifts">Upcoming shifts</h2>
       <%= render :partial => 'upcoming_shifts_layout' %>
     </div>
+  <% end %>
 
 
-    <% all_subs = SubRequest.find(:all, :order => :start) %>
-    <% @subs_you_requested = all_subs.select{|sub| sub.shift.user == current_user}%>
-    <% unless @subs_you_requested.empty? %>
+  <% all_subs = SubRequest.find(:all, :order => :start) %>
+  <% @subs_you_requested = all_subs.select{|sub| sub.shift.user == current_user} %>
+  <% unless @subs_you_requested.empty? %>
+    <div id="subs_you_requested">
       <h2>Subs you requested</h2>
       <ul>
-      <%= render :partial => 'upcoming_sub', :collection => @subs_you_requested %>
+        <%= render :partial => 'upcoming_sub', :collection => @subs_you_requested %>
       </ul>
-    <% end %>
+    </div>
+  <% end %>
 
-    <%# TODO: implement! %>
-    <!-- <%# unless @subs_you_can_take.empty? %>
-        <h2>Subs you can take</h2>
-        <ul>
-        <%#= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
-        </ul>
-      <%# end %> -->
-
-    <% unless @current_shifts.empty? %>
-      <h2>Currently logged in shifts (in your domain)</h2>
+  <%# TODO: implement! %>
+  <!-- <%# unless @subs_you_can_take.empty? %>
+      <h2>Subs you can take</h2>
       <ul>
-        <% @current_shifts.each do |s| %>
-          <li><%= link_to s.short_name, shift_report_path(s), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
-            <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(s.start) %></span>
-          </li>
-        <% end %>
+      <%#= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
       </ul>
-    <% end %>
-  </div>
-<% end %>
+    <%# end %> -->
+
+  <% unless @current_shifts.empty? %>
+    <div id="active_shifts_div">
+      <h2>Currently logged in shifts (in your domain)</h2>
+      <%= render :partial => 'active_shifts_layout' %>
+    </div>
+  <% end %>
+</div>
 
 
 <div style="height:15px"></div>
