@@ -1,5 +1,6 @@
 class NoticesController < ApplicationController
-  before_filter :fetch_loc_groups
+
+  before_filter :fetch_loc_groups, :current_user
   # GET /notices
   # GET /notices.xml
   def index
@@ -41,9 +42,9 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.xml
   def create
-d
     @notice = Notice.new(params[:notice])
     @notice.author_id = @current_user.id
+    @notice.for_departments = @department.id
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky?
     @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky?
     respond_to do |format|
@@ -89,7 +90,7 @@ d
 
 
   def fetch_loc_groups
-    @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
+    @loc_groups = @department.loc_groups.all
   end
 
   protected
