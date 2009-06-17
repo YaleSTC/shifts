@@ -1,7 +1,7 @@
 <%= render :file => "layouts/include/main_header.html.erb" %>
  
  <!-- Admin Menu -->
- <% if true and @department and current_user.is_admin_of?(@department) %>
+ <% if @department and current_user.is_admin_of?(@department) %>
  <div id="scanColumn">
      <h3>Scheduling Options</h3>
      <ul class="navigationList">
