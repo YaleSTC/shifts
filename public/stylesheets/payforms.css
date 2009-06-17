@@ -229,7 +229,7 @@ a.button:active span {
 }
 #left-col {
   float: left;
-  width: 21%;
+  width: 23%;
   text-align: left;
   vertical-align: top;
 }
@@ -246,7 +246,7 @@ a.button:active span {
   float: right;
   text-align: right;
   vertical-align: top;
-  width: 20%;
+  width: 28%;
 }
 #cols-footer {
   clear: both;

@@ -16,18 +16,6 @@ Given /^I have the following payform items?$/ do |table|
   end
 end
 
-Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id_1, id_2|
-  payform_item_1 = PayformItem.find(id_1.to_i)
-  payform_item_2 = PayformItem.find(id_2.to_i)
-  payform_item_2.payform_item_id.should == payform_item_1.id
-end
-
-Then /^payform item ([0-9]+) should have attribute (.+) "([^\"]*)"$/ do |id, attribute, expected|
-  payform_item = PayformItem.find(id.to_i)
-  attribute_constant = attribute.constantize
-  payform_item.attribute_constant.should match(expected)
-end
-
 Given /^I have the following payforms?:$/ do |table|
   table.hashes.each do |row|
 
@@ -45,6 +33,19 @@ Given /^I have the following payforms?:$/ do |table|
   end
 end
 
+Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id_1, id_2|
+  payform_item_1 = PayformItem.find(id_1.to_i)
+  payform_item_2 = PayformItem.find(id_2.to_i)
+  payform_item_2.payform_item_id.should == payform_item_1.id
+end
+
+Then /^payform item ([0-9]+) should have attribute (.+) "([^\"]*)"$/ do |id, attribute, expected|
+  payform_item = PayformItem.find(id.to_i)
+  attribute_constant = attribute.constantize
+  payform_item.attribute_constant.should match(expected)
+end
+
+
 Then /^the payform should be submitted$/ do
   @user.payforms.first.submitted.should_not be_nil
 end
@@ -56,12 +57,10 @@ Then /^I should see "([^\"]*)" under "([^\"]*)" in column ([0-9]+)$/ do |expecte
   end
 end
 
-Then /^"([^\"]*)" should have ([0-9]+) payform_items?$/ do |user, count, object|
-  User.find_by_name(user).payform_items.should have(count.to_i).payform_items
-end
-
 Then /^"([^\"]*)" should have ([0-9]+) payforms?$/ do |user, count|
   User.find_by_name(user).payforms.should have(count.to_i).payforms
 
+Then /^the user "([^\"]*)" should have ([0-9]+) payform_item$/ do |user, count|
+  @user = User.find_by_name(user).id
+  PayformItem.find(:conditions => {:user_id => user}).count.should == count.to_i
 end
-
