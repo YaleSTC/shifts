@@ -1,0 +1,20 @@
+<table class="<%= table_name %>" id="<%= @location.short_name %>" >
+  <thead width=100%>
+    <tr id="hours">
+      <th class = "location_label"></th>
+      <% for hour in @dept_start_hour...@dept_end_hour-%>
+        <td class="hour" colspan="<%= @blocks_per_hour %>"><%= (hour-1) % 12 + 1%><%= ':00' -%></td>
+      <% end -%>
+    </tr>
+  
+    <tr id="segments">
+      <th class="location_label"></th>
+      <% @blocks_per_day.times{ -%>
+        <td class="min_segment" colspan="1">&nbsp;</td>
+      <% } -%>
+    </tr>
+  </thead>
+  
+  <%= yield %>
+
+</table>

@@ -1,6 +1,20 @@
+<%
+  @dept_start_hour = 9
+  @dept_end_hour = 17
+  
+  @dept_start_minute = @dept_start_hour * 60
+  @dept_end_minute = @dept_end_hour * 60
+  
+  @blocks_per_hour = 4
+  @block_length = 60 / @blocks_per_hour
+  @blocks_per_day = (@dept_end_hour - @dept_start_hour) * @blocks_per_hour
+%>
+
+
+
 <h2><%= link_toggle location.short_name, location.name %></h2>
 <div class="edit_times_location" id="<%= location.short_name %>">
-  <%# slots = location.all_time_slots_between(@week_days.first, @week_days.last) %>
+  <% slots = location.time_slots.sort_by(&:start) %><%#.select(@week_days.first, @week_days.last) %>
   <% @location = location %>
   <%# @start_minute =  @dept_start_hour * 60%>
   <%# @end_minute =  @dept_end_hour * 60 %>
@@ -10,20 +24,55 @@
     <table class="time_slots">
       <thead>
       <tr>
-        <th>Day</th>
         <td>start</td>
         <td>end</td>
         <td>del?</td>
       </tr>
       </thead>
-      <%#= render :partial => 'time_slot', :collection => slots %>
+      <%= render :partial => 'time_slot', :collection => slots %>
     </table>
   </div>
     
   <div class="per_slot_view">
-  <%# render :layout => 'shift_admin/template_schedule/location_layout', :locals => {:table_name => "time_slot_view"} do %>
+  <% render :layout => 'time_slots/template_schedule/location_layout', :locals => {:table_name => "time_slot_view"} do %>
+    <% day = 0; slot_index = 0 %>
+    <% begin %>
+      <tr>
+        <%# TODO: HOLY MOTHER OF GOD THIS FUNCTION  -rjl %>
+        <th class="location_label"><%= WEEK_DAYS[day][0..2] %></th>
+        <% day_start = (day * 1440) + @dept_start_minute %>
+        <% day_end = (day * 1440) + @dept_end_minute %>
+        <% current_time = day_start %>
+        <% while current_time < day_end %>
+          <% type = ""; cols = 0 %>
+          <% if slots[slot_index] and (slots[slot_index].start.wday <= day and slots[slot_index].end.wday >= day)%>
+          <% slot_start = slots[slot_index].start.wday * 1440 + slots[slot_index].start.hour * 60 + slots[slot_index].start.min %>
+          <% if slot_start > current_time %>
+            <% type = "free_time"; cols = ((slot_start - current_time)/@block_length).round; current_time = slot_start %>
+          <% else %>
+            <% slot_end = slots[slot_index].end.wday * 1440 + slots[slot_index].end.hour * 60 + slots[slot_index].end.min%>
+            <% if slot_end > day_end %>
+              <% type = "shift_time"; cols = ((day_end - slot_start)/@block_length).round; current_time = day_end %>
+            <% else %>
+              <% if slot_start < day_start %>
+                <% type = "shift_time"; cols = ((slot_end - day_start)/@block_length).round; current_time = slot_end %>
+              <% else %>
+                <% type = "shift_time"; cols = ((slot_end - slot_start)/@block_length).round; current_time = slot_end %>
+              <% end %>
+              <% current_time = slot_end %>
+              <% slot_index += 1 %>
+            <% end %>
+          <% end %>
+          <% else %>
+            <% type = "free_time"; cols = ((day_end - current_time)/@block_length).round; current_time = day_end %>
+          <% end %>
+          
+          <td class="<%= type %>" colspan=<%= cols %>></td>
+        <% end %>
+      </tr>  
+    <% end while day += 1 and day < 7 %>
     <%#= render :partial => 'slots_one_day', :collection => slots_many_days %>
-  <%# end %>
+  <% end %>
   </div>
 
 </div>
