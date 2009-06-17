@@ -27,20 +27,20 @@ users_003:
   name: AJ Espinosa
   updated_at: 2009-06-09 15:51:03
 users_004: 
-  created_at: 2009-06-16 13:47:06
-  email: 
-  first_name: 
+  created_at: 2009-06-16 13:18:53
+  email: testytesting@test.com
+  first_name: Fred
   id: "4"
-  last_name: 
+  last_name: Testcase
   login: catest
-  name: CA
-  updated_at: 2009-06-16 13:47:06
+  name: Freddy Testcase
+  updated_at: 2009-06-16 13:19:05
 users_005: 
-  created_at: 2009-06-16 13:48:03
+  created_at: 2009-06-17 11:48:03
   email: 
   first_name: 
   id: "5"
   last_name: 
   login: studcomp
-  name: StudComp
-  updated_at: 2009-06-16 13:48:03
+  name: Jane Jones
+  updated_at: 2009-06-17 11:48:03
