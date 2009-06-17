@@ -19,8 +19,8 @@ module NavigationHelpers
     when /notices/
       notices_path
     when /new notices/
-      notices_new_path
-    
+      new_notices_path
+          
     # Add more mappings here.
     # Here is a more fancy example:
     #
