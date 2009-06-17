@@ -48,6 +48,7 @@ class Notice < ActiveRecord::Base
 
   def is_upcoming?
     return Time.now < self.start_time
+  end
 
 end
 

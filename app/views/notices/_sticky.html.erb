@@ -1,20 +1,15 @@
 <% @notices.each do |notice| %>
   <% if notice.is_sticky %>
-    <fieldset class="sticky">
+    <fieldset class="sticky", title= "<%= "Posted on #{notice.start_time.to_date} at #{notice.start_time.to_s(:am_pm)}" %>" >
         <div class="right">
         <%= link_to '[x]', { :action => 'destroy', :id => notice },
           :confirm => "Are you sure you want to trash this sticky? It will be removed for other users as well.",
           :method => :post %>
       </div>
-      <% if @current_user.is_admin_of?(@department) %>
-      <div class="grayright">
-        <%= link_to 'Edit', edit_notice_path(notice) %>
-      </div>
-      <% end %>
       <%= notice.content %>
     <br />
   <div class="grayleft">
-    <%= "by #{(notice.author_id )}" -%><%= ": <a title=\"On #{notice.start_time.to_date} at #{notice.start_time.to_s(:am_pm)}\">#{distance_of_time_in_words(notice.start_time, Time.now, true)} ago</a>" %>
+    <%= "by #{(notice.author_id )}: #{distance_of_time_in_words(notice.start_time, Time.now, true)} ago" %>
   </div>
   <div class="grayright">
     <%= "for " %>
