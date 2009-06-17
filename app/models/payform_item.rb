@@ -9,6 +9,5 @@ class PayformItem < ActiveRecord::Base
   validates_presence_of :payform_id, :category_id, :description, :hours, :date
 
 
-
 end
 
