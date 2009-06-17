@@ -11,8 +11,18 @@ class PayformsController < ApplicationController
 
   def show
     @payform = Payform.find(params[:id])
-    unless @payform && (@payform.user == current_user || current_user.is_admin_of?(current_department)) && @payform.department == current_department
-      flash[:notice] = "Invalid payform"
+    errors = []
+    if !@payform
+      errors << "Payform does not exist."
+    end
+    if !(@payform.user == current_user || current_user.is_admin_of?(current_department))
+      errors << "You do not own this payform, and are not an admin of this deparment."
+    end
+    if @payform.department != current_department
+      errors << "The payform (from "+@payform.department.name+") is not in this department ("+current_department.name+")."
+    end
+    if errors.length > 0
+      flash[:error] = "Error: "+errors*"<br/>"
       redirect_to payforms_path
     end
   end
