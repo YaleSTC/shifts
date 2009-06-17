@@ -25,7 +25,7 @@ class Notice < ActiveRecord::Base
     result.push "for location #{locations.join(", ")}"
     location_groups = []
     self.location_groups(true).each do |lg|
-      location_groups.push lg.name
+      location_groups.push lg.name unless lg.nil?
     end
     result.push "for location group #{location_groups.join(", ")}"
     result.join "<br/>"
