@@ -6,7 +6,7 @@ class PayformsController < ApplicationController
     else
       @payforms =  current_department.payforms && current_user.payforms
     end
-    @payforms.sort{|a,b| a.date <=> b.date}
+    @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
   end
 
   def show
