@@ -1,20 +1,21 @@
 ActionController::Routing::Routes.draw do |map|
+  #FIXME: I think this was included by mistake right? having subs nested in shifts below should be enough -H
   map.resources :sub_requests
 
-
-  map.resources :time_slots #TODO: What should this be nested under, if anything?
+  #TODO: What should time_slots be nested under, if anything? (H: it can be nested under /locations/:location_id/)
+  map.resources :time_slots
 
   map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end
-    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
+    #NOTE: "sub_requests" is a clearer model name, we use subs for routing
+    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, :as => "subs"
   end
 
   map.resources :reports do |report|
     report.resources :report_items
   end
-
 
   map.resources :departments, :shallow => true do |departments|
     departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}
@@ -23,7 +24,9 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :roles
   end
 
+  # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
+
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -68,3 +71,4 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+
