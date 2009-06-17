@@ -22,10 +22,10 @@ class Payform < ActiveRecord::Base
     "#{id}-#{date}"
   end
 
-  def self.build(dept, usr, date)
-    period_date = Payform.default_period_date(date, dept)
-    Payform.find(:first, :conditions => {:user_id => usr, :department_id => dept, :date => period_date}) ||
-    Payform.create(:user_id => usr, :department_id => dept, :date => period_date)
+  def self.build(dept, usr, given_date)
+    period_date = Payform.default_period_date(given_date, dept)
+    Payform.find(:first, :conditions => {:user_id => usr.id, :department_id => dept.id, :date => period_date}) ||
+    Payform.create(:user_id => usr.id, :department_id => dept.id, :date => period_date)
   end
 
   def self.default_period_date(given_date, dept)
