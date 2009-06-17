@@ -5,8 +5,11 @@ Scenario: Create a new notice
   And I go to the homepage
   And I follow "STC"
   And I go to new notices
-  And I choose "start_time_choice_now"
   
+  
+  Then I should see "New Notice"
+  
+  And I fill in "notice_content" with "wibble wibble"
   
   And I uncheck "start_time_choice, date"
   And I check "start_time_choice_now"
