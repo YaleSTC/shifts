@@ -2,9 +2,9 @@
   <% if notice.is_sticky %>
     <fieldset class="sticky", title= "<%= "Posted on #{notice.start_time.to_date} at #{notice.start_time.to_s(:am_pm)}" %>" >
         <div class="right">
-        <%= link_to '[x]', { :action => 'destroy', :id => notice },
+        <%= link_to '[x]', notice_path(notice),
           :confirm => "Are you sure you want to trash this sticky? It will be removed for other users as well.",
-          :method => :post %>
+          :method => :delete %>
       </div>
       <%= notice.content %>
     <br />
