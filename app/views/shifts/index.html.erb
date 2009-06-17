@@ -1,6 +1,6 @@
 <%# Required for the shift report popup view %>
 <%# TODO: use something better than this %>
-<% stylesheet 'floatbox' %>
+<% stylesheet 'floatbox', 'notice' %>
 <% javascript 'floatbox' %>
 
 <% title "Shifts" %>
@@ -22,11 +22,11 @@
   </div>
 
   <%# TODO: implement announcements :P %>
-  <% @announcements = [] %>
   <% unless @announcements.empty? %>
+    <% @notices = @announcements %>
     <div id="announcements">
       <h2>Announcements for <%= @department.name %></h2>
-      <%= render :partial => 'report/notice', :collection => @announcements %>
+      <%= render :partial => 'notices/notice', :collection => @announcements %>
     </div>
   <% end %>
 
