@@ -22,8 +22,10 @@
   <% if @report.departed %>
     <strong>Departed:</strong>
     <%=h @report.departed.getlocal.to_s(:short_name) %>
-  <% else #report is still in progress %>
+  <% elsif current_user==@report.user %>
     <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true}, {:method => :put} %>
+  <% else %>
+    This report is still in progress.
   <% end %>
   </p>
 </div>

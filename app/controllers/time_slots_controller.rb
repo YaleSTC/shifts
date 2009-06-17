@@ -41,6 +41,11 @@ class TimeSlotsController < ApplicationController
     end
   end
 
+#TODO We probably don't need this, it'll be handled by templates....
+#  def mass_create
+#    TimeSlot.mass_create(slot_start, slot_end, days, locations, range_start, range_end)
+#  end
+
   def destroy
     @time_slot = TimeSlot.find(params[:id])
     @time_slot.destroy
