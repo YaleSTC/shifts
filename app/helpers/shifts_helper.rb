@@ -159,7 +159,7 @@ module ShiftsHelper
           link_name = current_user.can_admin?(@loc_group) ? "schedule" : "sign up"
           url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
-          html_options = {:class => "sign_up_link"}          
+          html_options = {:class => "sign_up_link"}         
         else
           content = "view only"
           td_title = 'You only have a view access to this cluster, not sign up access.'
@@ -296,9 +296,15 @@ module ShiftsHelper
       type += " overflow_right" if overflow == "right"
       type += " overflow_left" if overflow == "left"
 
-
       content += user_info + br + link_to(link_name, url_options, html_options)
-      "<td title='#{td_title}' class='#{type}' colspan=#{span}>#{content}</td>" + extra
+      
+      if type=="free_time"
+        #print a bunch of individual cells, so we can click and add shifts
+        onclick = "onclick=\"window.location = 'http://bd.vg/'\""
+        ("<td title='#{td_title}' class='#{type}' colspan=1 #{onclick}>#{content}</td>" + extra) * span
+      else
+        "<td title='#{td_title}' class='#{type}' colspan=#{span} #{onclick}>#{content}</td>" + extra
+      end
     end
   end
   
