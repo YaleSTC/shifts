@@ -9,7 +9,7 @@
       <%= notice.content %>
     <br />
   <div class="grayleft">
-    <%= "by #{(notice.author_id )}: #{distance_of_time_in_words(notice.start_time, Time.now, true)} ago" %>
+    <%= "by #{(notice.author_name )} #{distance_of_time_in_words(notice.start_time, Time.now, true)} ago" %>
   </div>
   <div class="grayright">
     <%= "for " %>
