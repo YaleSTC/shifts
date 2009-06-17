@@ -1,0 +1,9 @@
+<tr>
+  <% if current_user.is_admin_of?(current_department) -%>
+    <td><%= link_to payform.user.name, payform.user %></td>
+  <% end -%>
+  <td><%= link_to payform.date, payform if !payform.submitted && !payform.approved && !payform.printed %></td>
+  <td><%= link_to payform.date, payform if  payform.submitted && !payform.approved && !payform.printed %></td>
+  <td><%= link_to payform.date, payform if  payform.submitted &&  payform.approved && !payform.printed %></td>
+  <td><%= link_to payform.date, payform if  payform.submitted &&  payform.approved &&  payform.printed %></td>
+</tr>
