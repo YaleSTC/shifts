@@ -15,7 +15,7 @@
     </tr></thead>
     <%= render :partial => "payform", :collection => @payforms %>
     <% if @payforms.empty? -%>
-      <tr><td colspan=4>(No payforms to show)</td></tr>
+      <tr><td colspan=5>(No payforms to show)</td></tr>
     <% end -%>
     <tfoot><tr>
       <% if current_user.is_admin_of?(current_department) -%>

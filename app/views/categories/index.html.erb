@@ -1,20 +1,22 @@
-<% title "Categories" %>
-
-<table>
-  <tr>
-    <th>Active</th>
-    <th>Name</th>
-  </tr>
-  <% for category in @categories %>
-    <tr>
-      <td><%=h category.active %></td>
-      <td><%=h category.name %></td>
-      <td><%= link_to "Show", category %></td>
-      <td><%= link_to "Edit", edit_category_path(category) %></td>
-      <td><%= link_to "Destroy", category, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
-
-<p><%= link_to "New Category", new_department_category_path(@department) %></p>
-
+<%= error_messages_for :category %>
+  <div style="float:left; width:50%">
+    <%= render :partial => "category", :collection => @categories, :locals => {:text => "disable" }%>
+  </div>
+  <div style="float:right; width:50%">
+    <%= render :partial => "category", :collection => @categories, :locals => {:text => "enable" }%>
+    <div class="note">
+      Note: Jobs cannot be added to disabled categories.
+      Payform items in disabled categories will appear under the "Other" category.
+    </div>
+    
+  </div>
+<div style="clear:both">
+  <fieldset style="width:50%">
+    <legend>Add Category</legend>
+      <%= render :partial => 'form', :locals => {:submit => "Create", :category => [@department,@category] } %>
+  </fieldset>
+  <br/>
+  
+  
+  
+</div>

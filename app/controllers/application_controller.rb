@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_department
+  before_filter :load_user
   before_filter CASClient::Frameworks::Rails::Filter
 
   helper :layout # include all helpers, all the time
@@ -41,6 +42,10 @@ class ApplicationController < ActionController::Base
     session[:department_id] = params[:department_id] unless params[:department_id].blank?
     # load @department variable, no need ||= because it's only called once at the start of controller
     @department = Department.find_by_id(session[:department_id])
+  end
+  
+  def load_user
+    @current_user = User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
   end
 
   protected
