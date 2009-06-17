@@ -2,30 +2,32 @@
 
 
 <div id="payform">
-  <h1>Last day of payweek</h1>
+  <h1>All Payforms</h1>
   <table id="payformList" width="100%">
     <thead><tr>
+      <% if current_user.is_admin_of?(current_department) -%>
+        <th>User</th>
+      <% end -%>
       <th>Unsubmitted</th>
       <th>Submitted</th>
+      <th>Approved</th>
       <th>Printed</th>
     </tr></thead>
-    <% for payform in @payforms %>
-      <tr>
-        <td colspan=3><%= link_to payform.date, payform %></td>
-      </tr>
-    <% end %>
+    <%= render :partial => "payform", :collection => @payforms %>
     <% if @payforms.empty? -%>
-      <tr>
-        <td colspan=3>(No payforms to show)</td>
-      </tr>
+      <tr><td colspan=4>(No payforms to show)</td></tr>
     <% end -%>
     <tfoot><tr>
-      <th><%= @payforms.length %></th>
-      <th></th>
-      <th></th>
+      <% if current_user.is_admin_of?(current_department) -%>
+        <th>Total:</th>
+      <% end -%>
+      <th><%= @payforms.select{|p| !p.submitted && !p.approved && !p.printed}.length %></th>
+      <th><%= @payforms.select{|p|  p.submitted && !p.approved && !p.printed}.length %></th>
+      <th><%= @payforms.select{|p|  p.submitted &&  p.approved && !p.printed}.length %></th>
+      <th><%= @payforms.select{|p|  p.submitted &&  p.approved &&  p.printed}.length %></th>
     </tr></tfoot>
   </table>
 </div>
 <br/>
 <%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :confirm => 'Are you sure?', :method => :delete, :class=>"button" %>
-<%= link_to "<span>Current Payform</span>", go_payforms_path, :class=>"button" %>
+<%= link_to "<span>Your Current Payform</span>", go_payforms_path, :class=>"button" %>
