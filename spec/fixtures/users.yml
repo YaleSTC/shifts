@@ -31,3 +31,11 @@ users_04:
   last_name: Arbuckle
   email: ja@garfield.com
 
+users_05:
+  id: "5"
+  login: em123
+  name: Every Man
+  first_name: Every
+  last_name: Man
+  email: em132@example.com
+
