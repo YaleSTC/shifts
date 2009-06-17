@@ -88,12 +88,25 @@ class User < ActiveRecord::Base
 
   # see list of superusers defined in config/initializers/superuser_list.rb
   def is_superuser?
+    return false
     SUPERUSER_LIST.include?(self.login)
   end
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
     self.departments_users[0].active
+  end
+
+  # Given a department, check to see if the user can admin any loc groups in it
+  def is_loc_group_admin?(dept)
+    dept.loc_groups.any?{|lg| self.can_admin?(lg)}
+  end
+
+  # Given a department, return any location groups within that department that the user can admin
+  def loc_groups_to_admin(dept)
+    loc_groups = []
+    dept.loc_groups.each {|lg| loc_groups << lg if self.permission_list.include?(lg.admin_permission)}
+    loc_groups
   end
 
   def full_name

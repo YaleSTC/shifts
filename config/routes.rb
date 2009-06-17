@@ -10,18 +10,34 @@ ActionController::Routing::Routes.draw do |map|
       report.resources :report_items
     end
     #NOTE: "sub_requests" is a clearer model name, we use subs for routing
-    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, :as => "subs"
+    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, 
+                                    :as => "subs"
   end
 
   map.resources :reports do |report|
     report.resources :report_items
   end
 
+  map.resources :data_objects do |data_object|
+    data_object.resources :data_entries
+  end
+
+  map.resources :data_types do |data_type|
+    data_type.resources :data_fields
+  end
+
+  map.resources :data_types, :shallow => true do |data_type|
+    data_type.resources :data_objects
+  end
+
   map.resources :departments, :shallow => true do |departments|
-    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
+    departments.resources :data_types
+    departments.resources :users, :collection => {:mass_add => :get, 
+                                                  :mass_create => :post, 
+                                                  :restore => :post}
   end
 
   # permission is always created indirectly so there is only index method that lists them

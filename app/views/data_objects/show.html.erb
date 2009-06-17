@@ -1,0 +1,16 @@
+<% title "Data Object" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @data_object.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%=h @data_object.description %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_data_object_path(@data_object) %> |
+  <%= link_to "Destroy", @data_object, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", data_type_data_objects_path %>
+</p>
