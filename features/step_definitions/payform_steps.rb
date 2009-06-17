@@ -49,8 +49,11 @@ Then /^the payform should be submitted$/ do
   @user.payforms.first.submitted.should_not be_nil
 end
 
-Then /^I should see "([^\"]*)" under "([^\"]*)"$/ do |arg1, arg2|
-  pending
+Then /^I should see "([^\"]*)" under "([^\"]*)" in column ([0-9]+)$/ do |expected_message, header, column|
+  assert_select("table") do
+    assert_select("th td:nth-of-type(#{column.to_i})", header)
+    assert_select("tr td:nth-of-type(#{column.to_i})", expected_message)
+  end
 end
 
 Then /^"([^\"]*)" should have ([0-9]+) payform_items?$/ do |user, count, object|

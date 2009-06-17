@@ -52,17 +52,17 @@ Feature: payform admin
 
   Scenario: Viewing payforms
     Then I should see "Harry Potter"
-    And I should see "2009-06-13" under "Unsubmitted"
-    And I should see "2009-06-06" under "Unapproved"
+    And I should see "2009-06-13" under "Unsubmitted" in column 1
+    And I should see "2009-06-06" under "Unapproved" in column 2
     And I should see "Hermione Granger"
-    And I should see "2009-05-23" under "Unprinted"
+    And I should see "2009-05-23" under "Unprinted" in column 3
     And I should not see "2009-05-16"
 
   Scenario: Approving payforms
     When I follow "2009-06-06"
     And I follow "Approve"
     Then I should see "Payform approved."
-    And I should see "2009-06-06" under "Unprinted"
+    And I should see "2009-06-06" under "Unprinted" in column 3
 
   Scenario: Printing payforms
     When I follow "2009-05-23"
