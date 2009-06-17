@@ -4,7 +4,7 @@ Feature: Shift admin manages shifts
   I want to be able to create, assign, and destroy shifts
 
 Scenario: Create a shift with power sign up
-  Given I just got through CAS with the login "catest"
+  Given I am logged into CAS as "catest"
 	And I am on the homepage
 	When I follow "STC"
 	And I follow "Shifts"
