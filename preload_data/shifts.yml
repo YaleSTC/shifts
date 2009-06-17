@@ -29,3 +29,13 @@ shifts_003:
   start: 2009-06-15 14:06:50
   updated_at: 2009-06-15 14:06:51
   user_id: "3"
+shifts_004: 
+  created_at: 2009-06-16 12:14:27
+  end: 2009-06-16 15:05:33
+  id: "6"
+  location_id: "1"
+  power_signed_up: f
+  scheduled: f
+  start: 2009-06-16 12:14:27
+  updated_at: 2009-06-16 15:05:33
+  user_id: "2"
