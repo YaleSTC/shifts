@@ -59,8 +59,10 @@ end
 
 Then /^"([^\"]*)" should have ([0-9]+) payforms?$/ do |user, count|
   User.find_by_name(user).payforms.should have(count.to_i).payforms
+end
 
 Then /^the user "([^\"]*)" should have ([0-9]+) payform_item$/ do |user, count|
   @user = User.find_by_name(user).id
   PayformItem.find(:conditions => {:user_id => user}).count.should == count.to_i
 end
+
