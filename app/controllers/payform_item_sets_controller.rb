@@ -1,4 +1,6 @@
-class PayformItemSetsController < ApplicationController
+ class PayformItemSetsController < ApplicationController
+layout "payforms"
+  
   def index
     @payform_item_sets = PayformItemSet.all
   end
