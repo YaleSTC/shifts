@@ -1,0 +1,6 @@
+describe Notice do
+
+
+
+
+end
