@@ -4,8 +4,10 @@ class Department < ActiveRecord::Base
   has_many :departments_users, :dependent => :destroy
   has_many :users, :through => :departments_users
   has_many :locations, :through => :loc_groups
-  
+
   has_many :substitute_sources, :as => :user_source
+
+  has_many :notices
 
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
@@ -26,4 +28,3 @@ class Department < ActiveRecord::Base
   end
 
 end
-
