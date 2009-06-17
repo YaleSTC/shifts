@@ -1,10 +1,10 @@
-Given /^I am not logged into a shift report$/ do
+Given /^I am not logged into a shift$/ do
   @current_user.shifts.each do |n|
     n.report == nil
   end
 end
 
-Given /^I am logged into a shift report$/ do
+Given /^I am logged into a shift$/ do
   @current_user.shifts.each do |n|
     n.report == nil?
   end
