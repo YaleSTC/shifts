@@ -9,7 +9,7 @@
   </p>
   <p>
     <%= f.label :content %><br />
-    <%= f.text_field :content %>
+    <%= f.text_area :content %>
   </p>
   <p>
     <%= f.label :start_time %><br />
@@ -23,7 +23,7 @@
     <%= f.label :for_users %><br />
     <%= f.text_field :for_users %>
   </p>
-  <%= check_box_tag :department, @department.id, @notice.department == @department.id,  :disabled => false %><%= @department.name %> (department-wide)<br />
+  <%= f.check_box :department_wide %><%= @department.name %> (department-wide)<br />
     <% for loc_group in @loc_groups do %>
     &nbsp;&nbsp;&nbsp;
     <%= check_box_tag "notice[for_location_groups][]", loc_group.id, @notice.location_groups.include?(loc_group.id), :disabled => false %><%= loc_group.name %><br />
