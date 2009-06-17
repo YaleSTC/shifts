@@ -37,7 +37,7 @@
   padding: 4px;
 }
 /* for announcement and sticky fieldsets */
-fieldset.sticky {
+fieldset.notice {
   padding: 5px;
   margin: 0 0 0 0;
   background-color:#FFFF99;
@@ -52,17 +52,17 @@ fieldset.announcement {
   background-color:#ADD8E6;
 }
 
-fieldset.sticky .grayleft, fieldset.announcement .grayleft{
+fieldset.notice .grayleft, fieldset.announcement .grayleft{
   float:left;
   text-align:left;
 }
 
-fieldset.sticky .grayright, fieldset.announcement .grayright, fieldset.sticky .right, fieldset.announcement .right{
+fieldset.notice .grayright, fieldset.announcement .grayright, fieldset.notice .right, fieldset.announcement .right{
   float:right;
   text-align:right;
 }
 
-fieldset.sticky .grayleft, fieldset.sticky .grayright {
+fieldset.notice .grayleft, fieldset.notice .grayright {
   color:SlateGray;
   font-size: 90%;
 }
@@ -83,4 +83,3 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 #useful_links li {
   display: inline;
 }
-
