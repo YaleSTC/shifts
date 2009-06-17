@@ -45,9 +45,8 @@
       <%- if show_title? -%>
         <h1 id="page_title"><%=h yield(:title) %></h1>
       <%- end -%>
-      
-      <%= yield(:my_content) || yield %>     
-      
+      <!-- Main Content -->
+      <%= yield(:my_content) || yield %>
       </div>
       <div id="pageAnchor">
         <a href="#top_of_page">
