@@ -4,8 +4,9 @@ class User < ActiveRecord::Base
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :shifts
-  
+
   has_many :substitute_sources, :as => :user_source
+
 
   validates_presence_of :name
   validates_presence_of :login
@@ -98,6 +99,11 @@ class User < ActiveRecord::Base
 
   def full_name
     [first_name, last_name].join(" ")
+  end
+
+  #This method is needed to make polymorphic associations work
+  def users
+    [self]
   end
 
   memoize :full_name, :permission_list, :is_superuser?
