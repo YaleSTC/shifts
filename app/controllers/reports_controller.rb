@@ -10,18 +10,18 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
-    #redirect_to :action => 'create', :method => :post
+    redirect_to :action => 'create', :method => :post
   end
 
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
-    @report.shift.user.login
     # add a report item about logging in
-    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip)
-    if @report.save
+    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+    if @report.user==current_user && @report.save
       redirect_to @report
     else
-      render :action => 'new'
+      flash[:notice] = "You can\'t sign into someone else's report!" unless @report.shift.user==current_user
+      redirect_to shifts_path
     end
   end
 
