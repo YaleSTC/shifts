@@ -5,17 +5,17 @@ class ShiftsController < ApplicationController
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
     @days_per_period = 7 #TODO: make this a setting for an admin
     @show_weekends = false
-    @upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
+    @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
   end
 
   def show
     @shift = Shift.find(params[:id])
   end
-  
+
   def show_active
     @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
   end
-  
+
   def show_unscheduled
     @start_date = 1.week.ago
     @end_date = Date.current
