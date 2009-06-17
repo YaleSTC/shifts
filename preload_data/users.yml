@@ -1,6 +1,7 @@
 --- 
 users_001: 
   created_at: 2009-06-08 21:28:44
+  default_department_id: 
   email: michael.libertin@yale.edu
   first_name: Michael
   id: "1"
@@ -10,6 +11,7 @@ users_001:
   updated_at: 2009-06-08 21:28:44
 users_002: 
   created_at: 2009-06-09 14:51:03
+  default_department_id: 
   email: ryan.laughlin@yale.edu
   first_name: Ryan
   id: "2"
@@ -19,6 +21,7 @@ users_002:
   updated_at: 2009-06-09 14:51:03
 users_003: 
   created_at: 2009-06-13 13:59:20
+  default_department_id: 
   email: harley.trung@yale.edu
   first_name: Dung
   id: "3"
@@ -28,6 +31,7 @@ users_003:
   updated_at: 2009-06-13 13:59:20
 users_004: 
   created_at: 2009-06-13 13:59:25
+  default_department_id: 
   email: adam.bray@yale.edu
   first_name: Adam
   id: "4"
@@ -37,6 +41,7 @@ users_004:
   updated_at: 2009-06-13 13:59:25
 users_005: 
   created_at: 2009-06-13 13:59:26
+  default_department_id: 
   email: nathan.griffith@yale.edu
   first_name: Nathan
   id: "5"
@@ -46,6 +51,7 @@ users_005:
   updated_at: 2009-06-13 13:59:26
 users_006: 
   created_at: 2009-06-13 13:59:27
+  default_department_id: 
   email: bob.qu@yale.edu
   first_name: Bo
   id: "6"
@@ -55,6 +61,7 @@ users_006:
   updated_at: 2009-06-13 13:59:27
 users_007: 
   created_at: 2009-06-13 13:59:28
+  default_department_id: 
   email: alfonso.espinosa@yale.edu
   first_name: Alfonso
   id: "7"
@@ -64,6 +71,7 @@ users_007:
   updated_at: 2009-06-13 13:59:28
 users_008: 
   created_at: 2009-06-13 20:47:46
+  default_department_id: 
   email: cassandra.kildow@yale.edu
   first_name: Cassandra
   id: "8"
@@ -73,6 +81,7 @@ users_008:
   updated_at: 2009-06-13 20:47:46
 users_009: 
   created_at: 2009-06-13 20:47:46
+  default_department_id: 
   email: kwabena.antwi-boasiako@yale.edu
   first_name: Kwabena
   id: "9"
@@ -82,6 +91,7 @@ users_009:
   updated_at: 2009-06-13 20:47:46
 users_010: 
   created_at: 2009-06-13 20:47:57
+  default_department_id: 
   email: aashish.manchanda@yale.edu
   first_name: Aashish
   id: "10"
@@ -91,6 +101,7 @@ users_010:
   updated_at: 2009-06-13 20:47:57
 users_011: 
   created_at: 2009-06-13 20:48:01
+  default_department_id: 
   email: ben.somers@yale.edu
   first_name: Benjamin
   id: "11"
