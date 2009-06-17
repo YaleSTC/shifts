@@ -1,9 +1,7 @@
 class Notice < ActiveRecord::Base
 
-  has_and_belongs_to_many :LocGroup
-
   validates_presence_of :content
-  validate :process_for_users
+  validate :process_for_users, :proper_time, :presence_of_locations_or_loc_groups
 
   def locations(get_objects = false)
     array = self.for_locations.split.map &:to_i
@@ -31,7 +29,7 @@ class Notice < ActiveRecord::Base
 
   def process_for_users
     temp_users = []
-    for_users.split(",").map(&:strip).each do |user_string|
+    self.for_users.split(",").map(&:strip).each do |user_string|
       user = User.find_by_login(user_string) || User.find_by_name(user_string)
       if user
         temp_users << user.id
@@ -40,6 +38,18 @@ class Notice < ActiveRecord::Base
       end
     end
     self.for_users = temp_users.join(',')
+  end
+
+  def presence_of_locations_or_loc_groups
+    self.errors add "You must add a location or location group" if self.for_locations.nil? && self.for_location_groups.nil?
+  end
+
+  def proper_time
+    errors.add "Start/end time" if self.start_time > self.end_time || Time.now > self.end_time unless self.end_time.nil?
+  end
+
+  def author_name
+    User.find_by_id(self.author_id).name
   end
 
   def is_current?
