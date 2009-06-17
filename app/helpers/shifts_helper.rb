@@ -6,21 +6,119 @@ module ShiftsHelper
   end
   
   def load_variables(loc_group)
-    #TODO: maybe clean this up?
-    @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
-    @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+    #TODO: clean this up?
+    #@day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
+    #@day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+    #@loc_group = loc_group
 
     @can_sign_up = true #loc_group.allow_sign_up? get_user
+    @loc_group = loc_group
   end
   
-  # TODO: this shit
-  def populate_loc(loc, shifts)
-    #loc.label_row_for(shifts) #assigns row number for each shift (shift.row)
-    #loc.count_people_for(shifts, min_block)#count number of people working concurrently for each time block
-    #loc.apply_time_slot_in(@day_start, @day_end, min_block)#check if time is valid or not
-    #loc.create_bar(@day_start, @day_end, min_block)
-    @bar_id = loc.short_name + @curr_day.to_s
+  # TODO: this shit  
+  def populate_all_locs(loc_groups, min_block)
+    #TODO: drastic optimization. we might try something like this:
+    #  -grab data from the database in large chunks
+    #  -use group_by to break it up into subgroups
+    #  -process the subgroups
+    
+    
+    #creates a bunch of arrays holding all the data we'll need to write for each location today
+    @scheduled_shifts = {}
+    @unscheduled_shifts = {}
+    @bar = {}
+    @people_count = {}
+    loc_groups.each do |loc_group|
+      # different location groups can have different start/end times...maybe bring this down
+      # further, to the individual location level?
+      @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
+      @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+      @prioritized_location = {}
+      loc_group.locations.each do |loc|
+        if loc.active?
+          @open_at = apply_time_slot_in(loc, @day_start, @day_end, min_block)
+          
+          shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
+          shifts = shifts.group_by(&:scheduled)
+          @scheduled_shifts[loc.object_id] = [shifts[true]]
+          @unscheduled_shifts[loc.object_id] = [shifts[false]]
+      
+          people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
+          @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block, loc) unless @day_end < Time.now
+          @bar_ids[@curr_day] << loc.short_name + @curr_day.to_s
+          @people_count[loc.object_id] = people_count
+        end
+      end
+    end
   end
+    
+    
+    
+    
+    
+  def apply_time_slot_in(location, day_start, day_end, min_block)
+    #get open timeslot on the day: date is Date object and when converted to time, its time is at midnight
+    slots = TimeSlot.find(:all, :conditions => ['location_id = ? AND end >= ? AND start <= ?', location, day_start, day_end])
+    
+    open_at = {}
+    open_at.default = false
+    
+    slots.each do |ts|
+      t = ts.start
+      while (t<ts.end)
+        t += min_block
+        open_at[t.to_s(:am_pm)] = true              
+      end
+    end
+    open_at
+  end
+  
+  
+  
+  
+  
+  
+  def create_bar(day_start, day_end, people_count, min_block, location)
+    bar = []
+    block_start = day_start
+    #don't return a bar unless it has at least one time that can be signed up for
+    should_return = false;
+    
+    while (block_start < day_end)
+      t = block_start
+      free_status = nil #check_status(t)
+
+      begin
+        
+        if not @open_at[t.to_s(:am_pm)]
+         current_status = 'bar_inactive'
+        elsif (people_count[t.to_s(:am_pm)] >= location.max_staff)
+          current_status = 'bar_full'
+        elsif (t<Time.now)
+          current_status = 'bar_passed'
+        elsif @prioritized_location[t] and @prioritized_location[t].priority > location.priority
+          # if another location has higher priority
+          current_status = 'bar_pending'
+          should_return = true
+        else
+          if (people_count[t.to_s(:am_pm)] < location.min_staff)
+            # if this location has not reached minimum staff yet, give it priority
+            @prioritized_location[t] = location
+          end
+          current_status = 'bar_active'
+          should_return = true
+        end
+        
+        free_status ||= current_status
+      end while (current_status == free_status) and (t <= day_end) and (t += min_block)
+      
+      t = day_end if t > day_end
+      bar << [block_start, t, free_status]
+      block_start = t
+    end
+    should_return ? bar : nil
+  end
+  
   
   #use this instead of group_by because we want an array
   def split_to_rows(item_list)
@@ -39,7 +137,7 @@ module ShiftsHelper
     if from == to #return nothing if from and to time are the same
       ''
     else
-      span = ((to - from) / 3600 * @blocks_per_hour).floor #convert to integer is impt here
+      span = ((to - from) / 3600 * @blocks_per_hour).round #convert to integer is impt here
       # display the shift time correctly, even if the shift overflows
       if overflow == "left"
         from = shift.start
@@ -57,9 +155,9 @@ module ShiftsHelper
       extra = "" #other stuff to html,like a hidden div, must not contain table elements
 
       if (type=="bar_active")
-        if @can_sign_up #TODO: implement this
-          link_name = current_user.is_admin_of?(@department) ? "schedule" : "sign up"
-          url_options = {:action => "sign_up",
+        if current_user.can_signup?(@loc_group) #true #@can_sign_up #TODO: implement this
+          link_name = current_user.can_admin?(@loc_group) ? "schedule" : "sign up"
+          url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
           html_options = {:class => "sign_up_link"}          
         else
@@ -131,7 +229,7 @@ module ShiftsHelper
             html_options = {:class => "sign_in_link"}# unless current_user.is_admin_of?(@department)
           else
             link_name = "accept sub"
-            url_options = sub
+            url_options = get_take_info_sub_request_path(sub)
             type = "accept_sub"
             html_options = {:onclick => make_popup(:title => 'Accept this sub?')}
           end

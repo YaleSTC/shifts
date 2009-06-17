@@ -103,6 +103,11 @@ html {
   overflow-y: scroll;
 }
 
+
+
+
+
+
 /* START:notice */
 /* Change the colors. It's not red anymore because it's not particularly important. */
 #notice {
@@ -273,42 +278,47 @@ ul#miniTabs a:hover {
   background: #FFFFFF none repeat scroll 0% 0%;
   float: left;
   margin: 0px;
-  padding: 0px;
-  width: 160px;
-}
-ul#navigationList {
+  margin-top: 20px;
+  padding-left: 15px;
+  width: 145px;
+
   color: #415578;
   font-family: Verdana, Geneva, Arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
-  line-height: 1.2em;
-  margin: 40px 0pt 0pt;
-  padding: 0pt;
+  line-height: 1.75em;
+}
 
+
+ul.navigationList {
+  margin: 0;
+  padding: 0 10px;
+  
   list-style-image: none;
   list-style-position: outside;
   list-style-type: square;
 
   float: left;
 }
-ul#navigationList li {
+
+
+ul.navigationList li {
   list-style-type: none;
 }
-ul#navigationList li ul {
+ul.navigationList li ul {
   font-size: 10px;
-  margin: 0pt;
-  padding: 0pt 0pt 0pt 17px;
+  margin: 0;
+  padding: 0;
 }
-ul#navigationList li a, ul#navigationList li h3 {
+ul.navigationList li a, ul.navigationList li h3 {
   height: 1%;
   display: block;
-  padding: 5px 5px 5px 17px;
 }
-ul#navigationList a:link, ul#navigationList a:visited {
+ul.navigationList a:link, ul.navigationList a:visited {
   color: #2758B3;
   text-decoration: none;
 }
-ul#navigationList a:hover {
+ul.navigationList a:hover {
   color: #FF9933;
   text-decoration: none;
 }
@@ -452,3 +462,71 @@ textarea {
   overflow: auto;
 }
 
+
+
+
+
+
+table.manage_table{
+  border: 1px solid #666666;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 4px;
+}
+
+table.manage_table caption{
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 1em;
+
+}
+table.manage_table td {
+  border: 1px solid #666666;
+  text-align: center;
+}
+
+table.manage_table th { border: 1px solid #666666; }
+
+a {
+  color: #104e8b;
+}
+
+a:hover{
+	color: orange;
+}
+
+
+
+.admin_form label {
+  width: 20em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+fieldset#warning {
+  background: #C0C0C0;
+}
+
+fieldset {
+  background: #ddf;
+}
+
+legend {
+  color: #eef;
+  background: #123456;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}
+
+/* BOXED-IN NOTE */
+div.note {
+  border: 1px solid #AAAAAA;
+  border-style: dashed;
+  margin: 5px;
+  padding: 2px;
+  overflow-x: auto;
+  color: #556677;
+}

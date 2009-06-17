@@ -73,11 +73,11 @@ class Notice < ActiveRecord::Base
   end
 
   def presence_of_locations_or_loc_groups
-    self.errors add "You must add a location or location group" if self.for_locations.nil? && self.for_location_groups.nil?
+    errors.add("Your notice must display somehwere or for someone. ",:invalid => false) if self.for_locations.nil? && self.for_location_groups.nil? && self.for_users.nil?
   end
 
   def proper_time
-    errors.add "Start/end time" if self.start_time > self.end_time || Time.now > self.end_time unless self.end_time.nil?
+    errors.add("Start/end time combination is invalid.",:invalid=>false) if self.start_time > self.end_time || Time.now > self.end_time unless self.end_time.nil?
   end
 
   def is_current?
