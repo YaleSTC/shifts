@@ -65,11 +65,7 @@ class SubRequest < ActiveRecord::Base
   def substitutes
     substitutes = []
     self.user_sources.each do |source|
-      if source.class == User
-        substitutes << source
-      elsif source.class == Department
-        substitutes += source.users
-      end
+      source.users
     end
     substitutes.uniq
   end

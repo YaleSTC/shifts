@@ -1,8 +1,14 @@
 class Notice < ActiveRecord::Base
 
   belongs_to  :author,
-              :class_name => "User",
-              :foreign_key => "author_id"
+              :class_name => "User"
+
+  belongs_to :remover,
+              :class_name => "User"
+
+  belongs_to :department
+
+  has_many :viewer_sources, :class_name => "UserSourceLink", :as => :user_sink
 
   validates_presence_of :content
   validate :process_for_users, :proper_time, :presence_of_locations_or_loc_groups
@@ -89,4 +95,3 @@ class Notice < ActiveRecord::Base
   end
 
 end
-

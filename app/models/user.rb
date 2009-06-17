@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :shifts
 
   has_many :substitute_sources, :as => :user_source
+  has_many :notices, :as => :author
+  has_many :notices, :as => :remover
+
 
 
   validates_presence_of :name
