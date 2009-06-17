@@ -21,31 +21,19 @@ class Shift < ActiveRecord::Base
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
+  validates_presence_of :user
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
+  validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   before_save :adjust_sub_requests
+  before_save :combine_with_surrounding_shifts
 
   #
   # Class methods
   #
 
-  def self.combine_with_surrounding_shifts(shift)
-    # if new shift runs up against another compatible shift, combine them and save,
-    # preserving the earlier shift's information
-    if (shift_later = Shift.find(:first, :conditions => {:start => shift.end, :user_id => shift.user_id, :location_id => shift.location_id}))
-      shift.end = shift_later.end
-      shift_later.destroy
-      shift.save
-    end
-    if (shift_earlier = Shift.find(:first, :conditions => {:end => shift.start, :user_id => shift.user_id, :location_id => shift.location_id}))
-      shift_earlier.end = shift.end
-      shift.destroy
-      shift_earlier.save
-      shift = shift_earlier
-    end
-    shift
-  end
+
 
   def self.delete_part_of_shift(shift, start_of_delete, end_of_delete)
     #Used for taking sub requests
@@ -131,6 +119,23 @@ class Shift < ActiveRecord::Base
     self.start < Time.now
   end
 
+  def combine_with_surrounding_shifts
+    # if new shift runs up against another compatible shift, combine them and save,
+    # preserving the earlier shift's information
+    if (shift_later = Shift.find(:first, :conditions => {:start => self.end, :user_id => self.user_id, :location_id => self.location_id}))
+      self.end = shift_later.end
+      shift_later.sub_requests.each { |s| s.shift = self }
+      shift_later.destroy
+      self.save!
+    end
+    if (shift_earlier = Shift.find(:first, :conditions => {:end => self.start, :user_id => self.user_id, :location_id => self.location_id}))
+      self.start = shift_earlier.start
+      shift_earlier.sub_requests.each {|s| s.shift = self}
+      shift_earlier.destroy
+      self.save!
+    end
+  end
+
 
   # ===================
   # = Display helpers =
@@ -157,6 +162,13 @@ class Shift < ActiveRecord::Base
     errors.add(:start, "must be earlier than end time") if (self.end < start)
   end
 
+  def shift_is_within_time_slot
+    unless self.power_signed_up
+      c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start <= ? AND end >= ?', self.location_id, self.start, self.end])
+      errors.add_to_base("You can only sign up for a shift druing a time slot!") if c == 0
+    end
+  end
+
   def user_does_not_have_concurrent_shift
 
     c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ?', self.user_id, self.end, self.start])
@@ -169,6 +181,7 @@ class Shift < ActiveRecord::Base
   def not_in_the_past
     errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.start <= Time.now
   end
+
 
   def adjust_sub_requests
     self.sub_requests.each do |sub|
@@ -184,4 +197,3 @@ class Shift < ActiveRecord::Base
     end
   end
 end
-

@@ -18,12 +18,13 @@ class ReportItemsController < ApplicationController
     #if ip has changed from previous line item, note this
     previous_report_items = Report.find(params[:report_id]).report_items
     @report_item.content += " [IP Address changed to #{@report_item.ip_address}]" if(previous_report_items and previous_report_items[-1].ip_address != @report_item.ip_address)
-    @report_item.report = params[:report_id] ? Report.find(params[:report_id]) : Shift.find(params[:shift_id]).report    
-    if @report_item.save
+    @report_item.report = params[:report_id] ? Report.find(params[:report_id]) : Shift.find(params[:shift_id]).report
+    if current_user==@report_item.user && @report_item.save
       flash[:notice] = "Successfully added event."
       redirect_to Report.find(@report_item[:report_id])
     else
-      render :action => 'new'
+      flash[:notice] = "You can't add things to someone else\'s report!" if @report_item.user != current_user
+      redirect_to @report_item.report
     end
   end
 

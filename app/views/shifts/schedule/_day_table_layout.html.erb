@@ -2,13 +2,6 @@
   <% table_id = "%s_table" % @curr_day %>
   
   <div style="text-align:left">
-    <div style="float:right">
-      <span class='bars_off' style="display:none"><%= hide_bars 'hide bars' %></span>
-      <span class='bars_on' style="display:none"><%= show_bars 'show bars' %></span>
-      <%# js to turn on off here to work well with ajax.  these links hide by default if js is off %>
-      <%# TODO: show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
-      <%= show_bar_links(true ? 'bars_off' : 'bars_on') %>
-    </div>
     <h3><%= link_toggle table_id, @curr_day.to_s(:just_date_long) %></h3>
   </div>
   
@@ -33,5 +26,14 @@
       </thead>       
       <%= yield %>
     </table>
+    <% unless @bar.empty? %>
+      <div style="float:right"> <%# TODO: these links aren't showing up in Safari. figure out why.%>
+        <span class='bars_off' style="display:none"><%= hide_bars 'hide bars' %></span>
+        <span class='bars_on' style="display:none"><%= show_bars 'show bars' %></span>
+        <%# js to turn on off here to work well with ajax.  these links hide by default if js is off %>
+        <%# TODO: show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
+        <%= show_bar_links(true ? 'bars_off' : 'bars_on') %>
+      </div>
+    <% end %>
   </div>
 </div>

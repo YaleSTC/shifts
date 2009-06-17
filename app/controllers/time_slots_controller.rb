@@ -1,8 +1,12 @@
 class TimeSlotsController < ApplicationController
   before_filter :require_department_admin
+  layout 'shifts'
 
   def index
     @time_slots = TimeSlot.all
+    #TODO: figure out where this should go...
+    @period_start = Time.parse("last Sunday")
+    @days_per_period = 7
   end
 
   def show
@@ -36,6 +40,11 @@ class TimeSlotsController < ApplicationController
       render :action => 'edit'
     end
   end
+
+#TODO We probably don't need this, it'll be handled by templates....
+#  def mass_create
+#    TimeSlot.mass_create(slot_start, slot_end, days, locations, range_start, range_end)
+#  end
 
   def destroy
     @time_slot = TimeSlot.find(params[:id])

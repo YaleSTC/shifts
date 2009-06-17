@@ -1,11 +1,17 @@
-Given /^I am logged into apps with netid "(.+)" in department "(.+)"$/ do |login, department|
-  @current_user =  User.import_from_ldap("login", "department", true)
+Given /^I am not logged into a shift$/ do
+  @current_user.shifts.each do |n|
+    n.report == nil
+  end
 end
 
-Given /^I am not logged into a shift report$/ do
-  @current_user.shifts.reports == nil?
+Given /^I am logged into a shift$/ do
+  @current_user.shifts.each do |n|
+    n.report == nil?
+  end
 end
 
-Given /^I am logged into a shift report$/ do
+Then /^my shift report should have ([0-9]+) comment$/ do |count|
+  @shift = @current_user.shifts[0]
+  @shift.report.report_items.count.should == count.to_i
 end
 

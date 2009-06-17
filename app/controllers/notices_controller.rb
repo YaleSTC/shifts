@@ -51,8 +51,8 @@ class NoticesController < ApplicationController
     @notice.department = @department.id
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky
     @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky
-    @notice.for_locations = params[:for_locations].join(',')
-    @notice.for_location_groups = params[:for_location_groups].join(',')
+    @notice.for_locations = params[:for_locations].join(',') if params[:for_locations]
+    @notice.for_location_groups = params[:for_location_groups].join(',') if params[:for_location_groups]
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
