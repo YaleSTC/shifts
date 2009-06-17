@@ -1,0 +1,19 @@
+<% form_for [:data_type, @data_field] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :display_type %><br />
+    <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
+  </p>
+  <p>
+    <%= f.label :values %><br />
+    <%= f.text_field :values %><br />
+    <em><small>For text field display types, values 
+      should be either "integer", "decimal", or "text"</small></em>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

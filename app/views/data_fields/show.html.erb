@@ -1,0 +1,16 @@
+<% title "Data Field" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @data_field.name %>
+</p>
+<p>
+  <strong>Display Type:</strong>
+  <%=h @data_field.display_type %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_data_field_path(@data_field) %> |
+  <%= link_to "Destroy", @data_field, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", data_fields_path %>
+</p>

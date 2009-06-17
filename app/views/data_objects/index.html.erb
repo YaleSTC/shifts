@@ -1,0 +1,21 @@
+<% title "Data Objects" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <% for data_object in @data_objects %>
+    <tr>
+      <td><%=h data_object.name %></td>
+      <td><%=h data_object.description %></td>
+      <td><%= link_to "Show", data_object %></td>
+      <td><%= link_to "Edit", edit_data_object_path(data_object) %></td>
+      <td><%= link_to "Destroy", data_object, :confirm => 'Are you sure?', 
+                                              :method => :delete %></td>
+      <td><%= link_to "View Entries", data_object_data_entries_path(data_object) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Data Object", new_data_object_path %></p>
