@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  layout "payforms"
+  
   def index
     @categories = current_department.categories
   end
