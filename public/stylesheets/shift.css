@@ -69,13 +69,13 @@ div.shift_form .submit {
 
 /* START: labels for div tables for weekly view*/
 div.table_title {
-  margin: 0px;
+  margin-bottom: 12px;
   width:100%;
   font-size: 12px;
   border-bottom: thin solid #B0B0B0; padding-bottom: 7px;
 }
 div.table_bottom {
-  margin: 0px;
+  margin-top: 12px;
   width:100%;
   font-size: 12px;
   border-top: thin solid #B0B0B0; padding-bottom: 7px;
@@ -121,24 +121,25 @@ table.day_view {
 }
 
 table.day_view td {
-	border: 1px red solid;
+	border: 1px #fff solid;
+	border-bottom: 1px #fff solid;
+	border-top: 1px #fff solid;
+	/*temp*/
 }
 
 table.day_view th {
-	border: 1px red solid;
+	border: 1px #fff solid;
+	/*temp*/
 }
 
 td.between_groups{
-  height: 15px;
-}
-
-thead th.location_label{
-	border: 1px red solid;
+  height: 10px;
 }
 
 td.hour {
   background: #7f7f7f;
   color: white;
+  border: 1px #fff solid !important;
 }
 
 tr.segments{
@@ -146,6 +147,7 @@ tr.segments{
 
 td.min_segment {
   background: #123456;
+  border: 1px #fff solid !important;
 }
 
 th.location_label {
@@ -153,7 +155,8 @@ th.location_label {
   background: #7f7f7f;
   color: white;
   font-size: small;
-  border:1px blue solid !important;
+  border:1px #fff solid;
+  /*temp*/
 }
 
 th.unscheduled_label {
@@ -250,7 +253,23 @@ table.day_view td.free_time {
 /*  border-bottom: 1px solid white;
   border-top: 1px solid white;
   border-right: 1px #888 solid !important;*/
-	border: 1px solid #666;
+	/*border: 1px solid #666;*/
+	/*temp*/
+	/*background: transparent none;*/
+	/*border-left: transparent;*/
+	border-right: 1px #fff solid;
+}
+
+table.day_view td.free_time.clickable_signup {
+	border-right: 1px #888 solid;
+}
+
+table.day_view td.free_time.end_of_hour {
+	border-right: 1px #666 solid !important;
+}
+
+table.day_view td.free_time.end_of_segment {
+	border-right: 1px #fff solid !important;
 }
 
 table.day_view td.free_time:hover {
