@@ -1,4 +1,4 @@
 <h1 id="page_title"><%=h "Notices - " %><font size = -2><%= link_to 'Post a new notice', {:action => 'new'} %></font></h1>
 
-<%= render :partial => 'notice' %>
+<%= render :partial => 'notice', :collection => Notice.all %>
 
