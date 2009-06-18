@@ -1,9 +1,11 @@
+Given /^I am logged into CAS as "(.+)"$/ do |login|
+  CASClient::Frameworks::Rails::Filter.fake(login)
+  @current_user = User.find_by_login(login)
+end
+
 Given /^I have no (.+)$/ do |class_name|
   class_name.classify.constantize.delete_all
 end
-
-#Given /^I am logged in as a superuser$/ do
-#end
 
 Then /^I should have ([0-9]+) (.+)$/ do |count, class_name|
   class_name.classify.constantize.count.should == count.to_i
@@ -18,3 +20,4 @@ Then /^there should be a shift with user "(.+)" at location "(.+)"$/ do |user, l
   @location = location
   Shift.find_by_user(@user).find_by_location(@location)
 end
+

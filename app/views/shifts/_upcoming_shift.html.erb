@@ -1,17 +1,16 @@
 <%  link_name = upcoming_shift.short_display
-    if upcoming_shift.submitted?
-      link_name << " (Already submitted)"
-    # elsif upcoming_shift.has_sub?
-    #   link_name << " (Sub requested)"
+    if upcoming_shift.has_sub?
+      link_name << " (Sub requested)"
     elsif upcoming_shift.signed_in?
       link_name << " (signed in)"
     end   %>
 <li>
-  <% if upcoming_shift.submitted? %>
-    <%= link_to link_name, upcoming_shift %>
+  <% if upcoming_shift.signed_in? %>
+    <%= link_to link_name,  shift_report_path(upcoming_shift) %>
   <% else %>
-    <%= link_to link_name, new_shift_report_path(upcoming_shift) %>
+    <%= link_to link_name, upcoming_shift %>
   <% end %>
-  
+
   <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(upcoming_shift.start) %></span>
 </li>
+

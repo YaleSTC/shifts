@@ -2,10 +2,11 @@ ActionController::Routing::Routes.draw do |map|
   #FIXME: I think this was included by mistake right? having subs nested in shifts below should be enough -H
   map.resources :sub_requests
 
-  #TODO: What should time_slots be nested under, if anything? (H: it can be nested under /locations/:location_id/)
-  map.resources :time_slots
+  map.resources :notices
 
-  map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
+  map.resources :time_slots #TODO: What should this be nested under, if anything?
+
+  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end
