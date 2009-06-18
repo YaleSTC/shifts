@@ -1,6 +1,7 @@
 <% stylesheet 'report' %>
 <% title "Shift Report at the #{@report.shift.location.name}" %>
 
+<%= render :partial => 'notices/notice', :collection => @report.shift.location.notices %>
 
 <p>
 <% unless @report.departed || current_user!=@report.user %>

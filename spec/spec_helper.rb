@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
 require 'spec/autorun'
 require 'spec/rails'
+require 'spec/spec_helper'
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
@@ -42,6 +43,11 @@ Spec::Runner.configure do |config|
   # config.mock_with :rr
   #
   # == Notes
-  # 
+  #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
+  require "rubygems"
+
+# Add the local gems dir if found within the app root; any dependencies loaded
+# hereafter will try to load from the local gems before loading system gems.
 end
+

@@ -69,8 +69,10 @@ class Notice < ActiveRecord::Base
 
   def viewers
     viewers = []
-    self.viewer_links.each do |link|
-      viewers += link.user_source.users
+#    if link.user_source
+     self.viewer_links.each do |link|
+       viewers += link.user_source.users
+#     end
     end
     viewers.uniq
   end
