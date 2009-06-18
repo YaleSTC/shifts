@@ -1,4 +1,7 @@
 <h1 id="page_title"><%=h "Notices - " %><font size = -2><%= link_to 'Post a new notice', {:action => 'new'} %></font></h1>
 
-<%= render :partial => 'notice', :collection => Notice.all %>
+<% @department.locations.each do |loc| %>
+  <h2> Notices for <%= loc.short_name %></h2>
+  <%= render :partial => 'notice', :collection => loc.notices %>
+<% end %>
 
