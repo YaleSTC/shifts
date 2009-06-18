@@ -19,4 +19,18 @@ Feature: User settings
     Then the page should indicate that I am in the department "Outer space"
 
   Scenario: Changing the days displayed in shifts
+    # This test will not work if you happen to run it on Sunday
+    Given I have a shift yesterday
+    And today is not Sunday
+    When I choose "Show shift schedule for the entire week"
+    And I press "Submit"
+    And I go to shifts
+    Then I should see all the days of the week
+    And I should not see "Harry Potter"
+    When I go to the user settings page
+    And I choose "Show only shift schedule for the remaining days of the week"
+    And I press "Submit"
+    And I go to shifts
+    Then I should see all the days of the week
+    And I should see "Harry Potter"
 
