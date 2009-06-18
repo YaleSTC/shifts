@@ -4,7 +4,7 @@ class DataObject < ActiveRecord::Base
   has_and_belongs_to_many :locations
 
   validates_presence_of   :name
-  validates_presence_of   :data_type_id
+  #validates_presence_of   :data_type_id  #does not work well because of issues with nested routes
   validates_uniqueness_of :name
   
   def self.by_department(dept)

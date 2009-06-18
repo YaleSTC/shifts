@@ -1,5 +1,7 @@
 class DataObjectsController < ApplicationController
   #User admin methods will need to be rewritten in move to other codebase
+  attr_reader :data_type_id
+  
   def index
     if params[:data_type_id]
       @data_objects = DataObject.find_all_by_data_type_id(params[:data_type_id])
@@ -23,11 +25,12 @@ class DataObjectsController < ApplicationController
   end
   
   def create
+    raise penguins
     @data_object = DataObject.new(params[:data_object])
     @data_object.data_type_id = params[:data_type_id]
     if @data_object.save
       flash[:notice] = "Successfully created data object."
-      redirect_to data_type_data_objects_path
+      redirect_to :action => 'show', :id => @data_object.id
     else
       render :action => 'new'
     end
@@ -53,5 +56,8 @@ class DataObjectsController < ApplicationController
     flash[:notice] = "Successfully destroyed data object."
     redirect_to data_objects_url
   end
-    
+  
+  def data_type_id
+    #@data_object.data_type_id
+  end
 end
