@@ -109,6 +109,18 @@ class User < ActiveRecord::Base
     [self]
   end
 
+  def sub_requests
+    sub_requests = []
+    SubRequest.all.each {|sr| sub_requests << sr if sr.substitutes.include?(self)}
+    sub_requests
+  end
+
+  def notices
+    notices = []
+    Notice.all.each {|n| notices << n if n.viewers.include?(self)}
+    notices
+  end
+
   memoize :full_name, :permission_list, :is_superuser?
 
   private

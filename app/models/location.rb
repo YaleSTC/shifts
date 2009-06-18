@@ -29,6 +29,12 @@ class Location < ActiveRecord::Base
     [self]
   end
 
+  def notices
+    notices = []
+    Notice.all.each {|n| notices << n if n.display_locations.include?(self)}
+    notices
+  end
+
   def count_people_for(shift_list, min_block)
     people_count = {}
     people_count.default = 0
