@@ -1,7 +1,8 @@
 <%# Required for the shift report popup view %>
 <%# TODO: use something better than this %>
-<% stylesheet 'floatbox' %>
+<% stylesheet 'floatbox', 'notice' %>
 <% javascript 'floatbox' %>
+
 
 <% title "Shifts" %>
 <%= render :partial => 'view_preferences' %>
@@ -22,11 +23,11 @@
   </div>
 
   <%# TODO: implement announcements :P %>
-  <% @announcements = [] %>
   <% unless @announcements.empty? %>
+    <% @notices = @announcements %>
     <div id="announcements">
       <h2>Announcements for <%= @department.name %></h2>
-      <%= render :partial => 'report/notice', :collection => @announcements %>
+      <%= render :partial => 'notices/notice', :collection => @announcements %>
     </div>
   <% end %>
 
@@ -83,7 +84,7 @@
           <td><%=h shift.start.to_s(:short_name) %></td>
           <td><%=h shift.end.to_s(:short_name) %></td>
         <% else %>
-          <td colspan=2>unscheduled</td>
+          <td colspan="2">unscheduled</td>
         <% end %>
         <td><%=h shift.user.name %></td>
         <td><%=h shift.location.name %></td>
