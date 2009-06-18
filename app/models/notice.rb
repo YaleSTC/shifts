@@ -23,25 +23,12 @@ class Notice < ActiveRecord::Base
 #    names.join(", ")
 #  end
 
-#  def auth_full_list
-#    result = []
-#    result.push "for users #{self.for_user_names}" unless self.for_users.empty?
-#    if(!self.for_locations.nil?)
-#      locations = []
-#      self.locations(true).each do |loc|
-#       locations.push loc.short_name
-#      end
-#      result.push "for location #{locations.join(", ")}"
-#    end
-#    if(!self.for_location_groups.nil?)
-#      location_groups = []
-#      self.location_groups(true).each do |lg|
-#       location_groups.push lg.name
-#      end
-#      result.push "for location group #{location_groups.join(", ")}"
-#    end
-#    result.join "<br/>"
-#  end
+  def display_for
+    display_for = []
+    display_for.push "for users #{self.viewers.collect{|n| n.name}.join(", ")}" unless self.viewers.empty?
+    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.join(", ")}" unless self.display_locations.empty?
+    display_for.join "<br/>"
+  end
 
 #  def locations(get_objects = false)
 #    array = self.for_locations.split(",").map &:to_i
