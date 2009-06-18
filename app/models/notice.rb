@@ -139,6 +139,7 @@ class Notice < ActiveRecord::Base
   def remove(user)
     self.end_time = Time.now
     self.remover = user
+    true
   end
 
 end
