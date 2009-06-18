@@ -1,0 +1,50 @@
+<p>
+  <b>Id:</b>
+  <%=h @notice.id %>
+</p>
+
+<p>
+  <b>Is sticky:</b>
+  <%=h @notice.is_sticky %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @notice.content %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%=h @notice.author_id %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%=h @notice.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%=h @notice.end_time %>
+</p>
+
+<p>
+  <b>People who see this:</b> <br />
+  <%= (@notice.viewers.collect {|v| v.name}).join("<br />") %>
+</p>
+
+<p>
+  <b>Display in these locations:</b> <br />
+  <%= (@notice.display_locations.collect {|v| v.name}).join("<br />") %>
+</p>
+
+
+<p>
+  <b>Remover:</b>
+  <%=h @notice.remover_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_notice_path(@notice) %> |
+<%= link_to 'Back', notices_path %>
+

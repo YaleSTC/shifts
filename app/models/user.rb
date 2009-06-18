@@ -4,8 +4,12 @@ class User < ActiveRecord::Base
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :shifts
-  
-  has_many :substitute_sources, :as => :user_source
+
+  has_many :user_source_links, :as => :user_source
+  has_many :notices, :as => :author
+  has_many :notices, :as => :remover
+
+
 
   validates_presence_of :name
   validates_presence_of :login
@@ -98,6 +102,23 @@ class User < ActiveRecord::Base
 
   def full_name
     [first_name, last_name].join(" ")
+  end
+
+  #This method is needed to make polymorphic associations work
+  def users
+    [self]
+  end
+
+  def available_sub_requests
+    sub_requests = []
+    SubRequest.all.each {|sr| sub_requests << sr if sr.substitutes.include?(self)}
+    sub_requests
+  end
+
+  def notices
+    notices = []
+    Notice.current.each {|n| notices << n if n.viewers.include?(self)}
+    notices
   end
 
   memoize :full_name, :permission_list, :is_superuser?
