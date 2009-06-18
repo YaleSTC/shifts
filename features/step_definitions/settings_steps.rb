@@ -4,8 +4,13 @@ Given /^I have a shift yesterday$/ do
                 :scheduled => true)
 end
 
-Given /^today is not Sunday$/ do
+Given /^today is not Sunday$/ do``
   Date::DAYNAMES[Date.today.wday].should_not == "Sunday"
+end
+
+Given /^I have a LocGroup named "([^\"]*)" with location "([^\"]*)"$/ do |loc_group_name, location|
+  loc_group = LocGroup.create!(:name => loc_group_name, :department_id => @department.id)
+  Location.create!(:name => location, :short_name => location, :loc_group_id => loc_group.id, :max_staff => 2, :min_staff => 1, :priority => 1)
 end
 
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|

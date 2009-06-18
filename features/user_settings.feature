@@ -34,3 +34,20 @@ Feature: User settings
     Then I should see all the days of the week
     And I should see "Harry Potter"
 
+  Scenario: What LocGroups to display on schedule view
+    Given I have a LocGroup named "Classrooms" with location "Potions"
+    And I have a LocGroup named "Gryffindor" with location "Common Room"
+    When I check "Classrooms"
+    And I go to shifts
+    Then I should see "Potions"
+    And I should not see "Common Room"
+
+    When I go to the user settings page
+    And I check "Gryffindor"
+    And I uncheck "Classrooms"
+    And I go to shifts
+    Then I should see "Common Room"
+    And I should not see "Potions"
+
+    And I go to shifts
+
