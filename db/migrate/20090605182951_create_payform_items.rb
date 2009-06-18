@@ -5,6 +5,7 @@ class CreatePayformItems < ActiveRecord::Migration
       t.references :user
       t.references :payform_item #if this is an edit, the parent is the more recent version
       t.references :payform
+      t.references :payform_item_set # payform_item.payform_item_set
 
       t.boolean   :active, :default => true
       t.decimal   :hours

@@ -11,7 +11,7 @@
       <th>Unsubmitted</th>
       <th>Submitted</th>
       <th>Approved</th>
-      <th>Printed</th>
+      <!--<th>Printed</th>-->
     </tr></thead>
     <%= render :partial => "payform", :collection => @payforms %>
     <% if @payforms.empty? -%>
@@ -24,7 +24,7 @@
       <th><%= @payforms.select{|p| !p.submitted && !p.approved && !p.printed}.length %></th>
       <th><%= @payforms.select{|p|  p.submitted && !p.approved && !p.printed}.length %></th>
       <th><%= @payforms.select{|p|  p.submitted &&  p.approved && !p.printed}.length %></th>
-      <th><%= @payforms.select{|p|  p.submitted &&  p.approved &&  p.printed}.length %></th>
+      <!--<th><%= @payforms.select{|p|  p.submitted &&  p.approved &&  p.printed}.length %></th>-->
     </tr></tfoot>
   </table>
 </div>
