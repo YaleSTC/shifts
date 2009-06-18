@@ -26,7 +26,7 @@
   <% @announcements = [] %>
   <% unless @announcements.empty? %>
     <% @notices = @announcements %>
-    <div id="announcements">
+    <div id="Notices">
       <h2>Announcements for <%= @department.name %></h2>
       <%= render :partial => 'notices/notice', :collection => @announcements %>
     </div>
