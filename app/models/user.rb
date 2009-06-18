@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
 
   def notices
     notices = []
-    Notice.all.each {|n| notices << n if n.viewers.include?(self)}
+    Notice.current.each {|n| notices << n if n.viewers.include?(self)}
     notices
   end
 
@@ -129,3 +129,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
+

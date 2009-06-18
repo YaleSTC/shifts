@@ -67,6 +67,12 @@ class Notice < ActiveRecord::Base
 #    self.for_location_groups = array.join " "
 #  end
 
+  def self.current
+    current_notices = []
+    Notice.all.each {|n| current_notices << n if n.is_current?}
+    current_notices
+  end
+
   def add_viewer_source(source)
       viewer_link = UserSourceLink.new
       viewer_link.user_source = source
@@ -79,7 +85,7 @@ class Notice < ActiveRecord::Base
     self.viewer_links.each do |link|
       viewers += link.user_source.users
     end
-   viewers.uniq
+    viewers.uniq
   end
 
   def add_display_location_source(source)
@@ -131,3 +137,4 @@ class Notice < ActiveRecord::Base
   end
 
 end
+
