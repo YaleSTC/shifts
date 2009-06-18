@@ -47,6 +47,7 @@ class NoticesController < ApplicationController
 #    raise params.to_yaml
     @notice = Notice.new(params[:notice])
     @notice.author = current_user
+    @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     params[:for_users].split(/\W+/).each do |l|
@@ -73,7 +74,6 @@ class NoticesController < ApplicationController
   # PUT /notices/1.xml
   def update
     @notice = Notice.find(params[:id])
-
     respond_to do |format|
       if @notice.update_attributes(params[:notice])
         flash[:notice] = 'Notice was successfully updated.'
@@ -86,11 +86,11 @@ class NoticesController < ApplicationController
     end
   end
 
-  # DELETE /notices/1
+  # DELETE /notices/1_id
   # DELETE /notices/1.xml
   def destroy
     @notice = Notice.find(params[:id])
-    unless @notice.is_sticky && current_user.is_admin_of?(@notice.department)
+    unless !@notice.is_sticky && current_user.is_admin_of?(@notice.department)
         redirect_with_flash("You are not authorized to remove this notice") and return
     end
     unless @notice.is_current?
