@@ -29,28 +29,13 @@
 </p>
 
 <p>
-  <b>For users:</b>
-  <%=h @notice.for_users %>
+  <b>People who see this:</b> <br />
+  <%= (@notice.viewers.collect {|v| v.name}).join("<br />") %>
 </p>
 
 <p>
-  <b>For locations:</b>
-  <%=h @notice.for_locations %>
-</p>
-
-<p>
-  <b>For location groups:</b>
-  <%=h @notice.for_location_groups %>
-</p>
-
-<p>
-  <b>For departments:</b>
-  <%=h @notice.department %>
-</p>
-
-<p>
-  <b>Department wide:</b>
-  <%=h @notice.department_wide %>
+  <b>Display in these locations:</b> <br />
+  <%= (@notice.display_locations.collect {|v| v.name}).join("<br />") %>
 </p>
 
 

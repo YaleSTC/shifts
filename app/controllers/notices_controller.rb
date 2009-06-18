@@ -1,7 +1,6 @@
 class NoticesController < ApplicationController
 
-  before_filter :fetch_loc_groups, :current_user
-
+  before_filter :fetch_loc_groups
   # GET /notices
   # GET /notices.xml
 
@@ -48,14 +47,15 @@ class NoticesController < ApplicationController
 #    raise params.to_yaml
     @notice = Notice.new(params[:notice])
     @notice.author = current_user
-    @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     params[:for_users].split(/\W+/).each do |l|
       @notice.add_viewer_source(User.find_by_login(l))
     end
-    @notice.for_locations = params[:for_locations].join(',') if params[:for_locations]
-    @notice.for_location_groups = params[:for_location_groups].join(',') if params[:for_location_groups]
+    @notice.add_display_location_source(@department) if params[:department_wide] && current_user.is_admin_of?(@department)
+    @notice.add_viewer_source(@department) if params[:department_wide_users] && current_user.is_admin_of?(@department)
+#    @notice.for_locations = params[:for_locations].join(',') if params[:for_locations]
+#    @notice.for_location_groups = params[:for_location_groups].join(',') if params[:for_location_groups]
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'

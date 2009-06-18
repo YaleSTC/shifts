@@ -3,7 +3,9 @@ class Location < ActiveRecord::Base
 
   has_many :time_slots
   has_many :shifts
-  
+
+  has_many :location_source_links, :as => :location_source
+
 
   validates_presence_of :loc_group
   validates_presence_of :name
@@ -22,7 +24,11 @@ class Location < ActiveRecord::Base
   def max_staff_greater_than_min_staff
     errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff and self.max_staff and self.min_staff > self.max_staff)
   end
-  
+
+  def locations
+    [self]
+  end
+
   def count_people_for(shift_list, min_block)
     people_count = {}
     people_count.default = 0
@@ -31,11 +37,10 @@ class Location < ActiveRecord::Base
         t = shift.start
         while (t<shift.end)
           people_count[t.to_s(:am_pm)] += 1
-          t += min_block          
+          t += min_block
         end
       end
     end
     people_count
   end
 end
-

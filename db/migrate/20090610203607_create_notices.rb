@@ -6,10 +6,7 @@ class CreateNotices < ActiveRecord::Migration
       t.references :author
       t.datetime :start_time
       t.datetime :end_time
-      t.string :for_locations
-      t.string :for_location_groups
       t.references :department
-      t.boolean :department_wide
       t.references :remover
 
       t.timestamps
