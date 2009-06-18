@@ -90,15 +90,17 @@ class NoticesController < ApplicationController
   # DELETE /notices/1.xml
   def destroy
     @notice = Notice.find(params[:id])
-    @notice.destroy
+    if @notice.remove(current_user)
 
     respond_to do |format|
       format.html { redirect_to(notices_url) }
       format.xml  { head :ok }
     end
   end
+end
 
   def fetch_loc_groups
     @loc_groups = @department.loc_groups.all
   end
 end
+

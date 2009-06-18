@@ -125,15 +125,20 @@ class Notice < ActiveRecord::Base
   end
 
   def is_current?
-    return Time.now > self.start_time && Time.now < self.end_time
-  end
-
-  def is_sticky?
-    return self.is_sticky
+    if self.end_time.nil?
+      Time.now > self.start_time
+    else
+      Time.now > self.start_time && Time.now < self.end_time
+    end
   end
 
   def is_upcoming?
     return Time.now < self.start_time
+  end
+
+  def remove(user)
+    self.end_time = Time.now
+    self.remover = user
   end
 
 end
