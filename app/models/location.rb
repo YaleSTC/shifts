@@ -31,7 +31,7 @@ class Location < ActiveRecord::Base
 
   def notices
     notices = []
-    Notice.all.each {|n| notices << n if n.display_locations.include?(self)}
+    Notice.current.each {|n| notices << n if n.display_locations.include?(self)}
     notices
   end
 
@@ -50,3 +50,4 @@ class Location < ActiveRecord::Base
     people_count
   end
 end
+
