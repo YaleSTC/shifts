@@ -297,13 +297,24 @@ module ShiftsHelper
       type += " overflow_left" if overflow == "left"
 
       content += user_info + br + link_to(link_name, url_options, html_options)
-      
-      if type=="free_time"
+
+      @clickable_signup = true      
+      if @clickable_signup and type=="free_time"
         #print a bunch of individual cells, so we can click and add shifts
-        onclick = "onclick=\"window.location = 'http://bd.vg/'\""
-        ("<td title='#{td_title}' class='#{type}' colspan=\"1\" #{onclick}>#{content}</td>" + extra) * span
+        result = ""
+        time = from
+        span.times do
+          signup_url = new_shift_path+"?shift%5Bstart%5D="+time.to_s #:location_id => nil
+          #onclick = "onclick=\"window.location = 'http://bd.vg/'\""
+          onclick = "onclick=\"window.location = '#{signup_url}'\""
+          
+          time += @block_length
+          temp_type = (time == to or time >= @day_end) ? "end_of_segment" : (time.strftime("%M") == "00" ? "end_of_hour" : "clickable_signup")
+          result += "<td title='#{td_title}' class='#{type} #{temp_type}' colspan=\"1\" #{onclick}>#{content}</td>" + extra
+        end
+        result
       else
-        "<td title='#{td_title}' class='#{type}' colspan=\"#{span}\" #{onclick}>#{content}</td>" + extra
+        "<td title='#{td_title}' class='#{type}' colspan=\"#{span}\">#{content}</td>" + extra
       end
     end
   end
