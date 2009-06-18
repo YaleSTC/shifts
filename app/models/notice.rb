@@ -122,6 +122,10 @@ class Notice < ActiveRecord::Base
     return Time.now > self.start_time && Time.now < self.end_time
   end
 
+  def is_sticky?
+    return self.is_sticky
+  end
+
   def is_upcoming?
     return Time.now < self.start_time
   end
