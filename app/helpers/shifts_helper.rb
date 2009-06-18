@@ -301,9 +301,9 @@ module ShiftsHelper
       if type=="free_time"
         #print a bunch of individual cells, so we can click and add shifts
         onclick = "onclick=\"window.location = 'http://bd.vg/'\""
-        ("<td title='#{td_title}' class='#{type}' colspan=1 #{onclick}>#{content}</td>" + extra) * span
+        ("<td title='#{td_title}' class='#{type}' colspan=\"1\" #{onclick}>#{content}</td>" + extra) * span
       else
-        "<td title='#{td_title}' class='#{type}' colspan=#{span} #{onclick}>#{content}</td>" + extra
+        "<td title='#{td_title}' class='#{type}' colspan=\"#{span}\" #{onclick}>#{content}</td>" + extra
       end
     end
   end
