@@ -9,7 +9,7 @@
     <%= f.text_field :description %>
   </p>
 
-    <%= f.hidden_field(:data_field_id, params[:data_field_id]) %><br />
+    <%= f.hidden_field(:data_type_id, :value => params[:data_type_id]) %><br />
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
