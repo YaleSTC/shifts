@@ -90,11 +90,11 @@ class NoticesController < ApplicationController
   # DELETE /notices/1.xml
   def destroy
     @notice = Notice.find(params[:id])
-    unless !@notice.is_sticky && current_user.is_admin_of?(@notice.department)
+    unless @notice.is_sticky || current_user.is_admin_of?(@notice.department)
         redirect_with_flash("You are not authorized to remove this notice") and return
     end
     unless @notice.is_current?
-        redirect_with_flash("This notice was already removed at #{@notice.end_time}") and return
+        redirect_with_flash("This notice was already removed on #{@notice.end_time}") and return
     end
     redirect_with_flash("Notice successfully removed") if @notice.remove(current_user)
     @notice.save
