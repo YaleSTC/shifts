@@ -8,9 +8,9 @@ class Notice < ActiveRecord::Base
 
   belongs_to :department
 
-  has_many :viewer_sources, :class_name => "UserSourceLink", :as => :user_sink
+  has_many :viewer_links, :class_name => "UserSourceLink", :as => :user_sink
 
-  has_many :display_location_sources, :class_name => "LocationSourceLink", :as => :location_sink
+  has_many :display_location_links, :class_name => "LocationSourceLink", :as => :location_sink
 
   validates_presence_of :content
 #  validate :process_for_users, :proper_time, :presence_of_locations_or_loc_groups
@@ -68,31 +68,31 @@ class Notice < ActiveRecord::Base
 #  end
 
   def add_viewer_source(source)
-      viewer_source = UserSourceLink.new
-      viewer_source.user_source = source
-      viewer_source.user_sink = self
-      viewer_source.save!
+      viewer_link = UserSourceLink.new
+      viewer_link.user_source = source
+      viewer_link.user_sink = self
+      viewer_link.save!
   end
 
   def viewers
     viewers = []
-    self.viewer_sources.each do |source|
-      viewers += source.user_source.users
+    self.viewer_links.each do |link|
+      viewers += link.user_source.users
     end
    viewers.uniq
   end
 
   def add_display_location_source(source)
-      display_location_source = LocationSourceLink.new
-      display_location_source.location_source = source
-      display_location_source.location_sink = self
-      display_location_source.save!
+      display_location_link = LocationSourceLink.new
+      display_location_link.location_source = source
+      display_location_link.location_sink = self
+      display_location_link.save!
   end
 
   def display_locations
     display_locations = []
-    self.display_location_sources.each do |source|
-      display_locations += source.location_source.locations
+    self.display_location_links.each do |link|
+      display_locations += link.location_source.locations
     end
    display_locations.uniq
   end
