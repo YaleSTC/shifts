@@ -16,7 +16,11 @@ module NavigationHelpers
       departments_path
     when /shifts/
       shifts_path
-    
+    when /notices/
+      notices_path
+    when /new notices/
+      new_notices_path
+          
     # Add more mappings here.
     # Here is a more fancy example:
     #

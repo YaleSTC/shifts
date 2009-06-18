@@ -159,7 +159,7 @@ module ShiftsHelper
           link_name = current_user.can_admin?(@loc_group) ? "schedule" : "sign up"
           url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
-          html_options = {:class => "sign_up_link"}          
+          html_options = {:class => "sign_up_link"}         
         else
           content = "view only"
           td_title = 'You only have a view access to this cluster, not sign up access.'
@@ -296,9 +296,26 @@ module ShiftsHelper
       type += " overflow_right" if overflow == "right"
       type += " overflow_left" if overflow == "left"
 
-
       content += user_info + br + link_to(link_name, url_options, html_options)
-      "<td title='#{td_title}' class='#{type}' colspan=#{span}>#{content}</td>" + extra
+
+      @clickable_signup = true      
+      if @clickable_signup and type=="free_time"
+        #print a bunch of individual cells, so we can click and add shifts
+        result = ""
+        time = from
+        span.times do
+          signup_url = new_shift_path+"?shift%5Bstart%5D="+time.to_s #:location_id => nil
+          #onclick = "onclick=\"window.location = 'http://bd.vg/'\""
+          onclick = "onclick=\"window.location = '#{signup_url}'\""
+          
+          time += @block_length
+          temp_type = (time == to or time >= @day_end) ? "end_of_segment" : (time.strftime("%M") == "00" ? "end_of_hour" : "clickable_signup")
+          result += "<td title='#{td_title}' class='#{type} #{temp_type}' colspan=\"1\" #{onclick}>#{content}</td>" + extra
+        end
+        result
+      else
+        "<td title='#{td_title}' class='#{type}' colspan=\"#{span}\">#{content}</td>" + extra
+      end
     end
   end
   

@@ -17,9 +17,11 @@
         load_variables(loc_group) %>
         <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
 
-        <tr>
-          <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
-        </tr>
+        <% unless loc_group == @loc_groups.last %>
+          <tr>
+            <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
 <% end %>
