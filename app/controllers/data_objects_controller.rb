@@ -24,14 +24,15 @@ class DataObjectsController < ApplicationController
   end
   
   def create
-    raise penguins
+    #raise penguins
+    @data_type = DataType.find(params[:data_object][:data_type_id])
     @data_object = DataObject.new(params[:data_object])
-    @data_object.data_type_id = params[:data_type_id]
+    @data_object.data_type_id = params[:data_object][:data_type_id]
     if @data_object.save
       flash[:notice] = "Successfully created data object."
       redirect_to :action => 'show', :id => @data_object.id
     else
-      render :action => 'new'
+      redirect_to params
     end
   end
   
