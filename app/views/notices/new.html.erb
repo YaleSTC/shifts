@@ -5,17 +5,19 @@
 
   <% if @current_user.is_admin_of?(@department) %>
   <p>
-    Is sticky?<br />
+    Is sticky (clicking this will render the times meaningless)?
     <%= f.check_box :is_sticky %>
   </p>
-  From:<br/>
-    <%= radio_button_tag 'start_time_choice', 'date', :checked => true -%>
-      <%= datetime_select 'notice', 'start_time' %><br />
-    <%= radio_button_tag 'start_time_choice', 'now' -%> Now<br />
-    Until:<br/>
-    <%= radio_button_tag 'end_time_choice', 'date', :checked => true -%>
-      <%= datetime_select 'notice', 'end_time' %><br />
-    <%= radio_button_tag 'end_time_choice', 'indefinite' -%> Indefinitely<br />
+    <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start_time %> (specify a start time)
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end_time %> (specify an end time) or check here to make it indefinite:
+
+    <%= check_box_tag :indefinite -%>
+    </p>
   <% end %>
 
   <p>
@@ -24,12 +26,12 @@
   </p>
 
   <p>
-    <%= f.label :for_users %><br />
-    <%#= f.text_field :for_users %>
+    <%= label_tag :for_users %><br />
+    <%= text_field_tag :for_users %>
   </p>
 
   <% if @current_user.is_admin_of?(@department) %>
-    <%= f.check_box :department_wide %><%= @department.name %> (department-wide)<br />
+    <%= check_box_tag :department_wide %><%= @department.name %> (department-wide)<br />
   <% end %>
 
   <%#= checkboxes_for_multiple_select("Location Groups", @loc_groups.,'for_location_groups[]') %>

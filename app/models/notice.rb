@@ -65,18 +65,33 @@ class Notice < ActiveRecord::Base
     self.for_location_groups = array.join " "
   end
 
-  def process_for_users
-    temp_users = []
-    self.for_users.split(",").map(&:strip).each do |user_string|
-      user = User.find_by_login(user_string) || User.find_by_name(user_string)
-      if user
-        temp_users << user.id
-      else
-        self.errors.add "contains \'#{user_string}\'. Could not find user by that name or netid" unless user_string.blank?
-      end
-    end
-    self.for_users = temp_users.join(',')
+  def add_viewer_source(source)
+      viewer_source = UserSourceLink.new
+      viewer_source.user_source = source
+      viewer_source.user_sink = self
+      viewer_source.save!
   end
+
+  def viewers
+    viewers = []
+    self.viewer_sources.each do |source|
+      viewers += source.user_source.users
+    end
+   viewers.uniq
+  end
+
+#  def process_for_users
+#    temp_users = []
+#    self.for_users.split(",").map(&:strip).each do |user_string|
+#      user = User.find_by_login(user_string) || User.find_by_name(user_string)
+#      if user
+#        temp_users << user.id
+#      else
+#        self.errors.add "contains \'#{user_string}\'. Could not find user by that name or netid" unless user_string.blank?
+#      end
+#    end
+#    self.for_users = temp_users.join(',')
+#  end
 
   def presence_of_locations_or_loc_groups
     errors.add("Your notice must display somehwere or for someone. ",:invalid => false) if self.for_locations.nil? && self.for_location_groups.nil? && self.for_users.nil?

@@ -45,12 +45,15 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.xml
   def create
-
+#    raise params.to_yaml
     @notice = Notice.new(params[:notice])
-    @notice.author_id = @current_user.id
-    @notice.department = @department.id
-    @notice.start_time = Time.now if params[:start_time_choice] == 'now' or @notice.is_sticky
-    @notice.end_time = nil if params[:end_time_choice] == 'indefinite' or @notice.is_sticky
+    @notice.author = current_user
+    @notice.department = @department
+    @notice.start_time = Time.now if @notice.is_sticky
+    @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
+    params[:for_users].split(/\W+/).each do |l|
+      @notice.add_viewer_source(User.find_by_login(l))
+    end
     @notice.for_locations = params[:for_locations].join(',') if params[:for_locations]
     @notice.for_location_groups = params[:for_location_groups].join(',') if params[:for_location_groups]
     respond_to do |format|
@@ -99,4 +102,3 @@ class NoticesController < ApplicationController
     @loc_groups = @department.loc_groups.all
   end
 end
-
