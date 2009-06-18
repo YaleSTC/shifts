@@ -1,42 +1,7 @@
 --- 
 users_001: 
-  created_at: 2009-06-08 21:28:44
-  email: michael.libertin@yale.edu
-  first_name: Michael
-  id: "1"
-  last_name: Libertin
-  login: mpl36
-  name: Michael Libertin
-  updated_at: 2009-06-08 21:28:44
-users_002: 
-  created_at: 2009-06-09 14:51:03
-  email: ryan.laughlin@yale.edu
-  first_name: Ryan
-  id: "2"
-  last_name: Laughlin
-  login: rjl39
-  name: Ryan Laughlin
-  updated_at: 2009-06-09 14:51:03
-users_003: 
-  created_at: 2009-06-13 13:59:20
-  email: harley.trung@yale.edu
-  first_name: Dung
-  id: "3"
-  last_name: Trung
-  login: dtt22
-  name: Dung Trung
-  updated_at: 2009-06-13 13:59:20
-users_004: 
-  created_at: 2009-06-13 13:59:25
-  email: adam.bray@yale.edu
-  first_name: Adam
-  id: "4"
-  last_name: Bray
-  login: alb64
-  name: Adam Bray
-  updated_at: 2009-06-13 13:59:25
-users_005: 
-  created_at: 2009-06-13 13:59:26
+  created_at: 2009-06-16 15:17:04
+  default_department_id: 
   email: nathan.griffith@yale.edu
   first_name: Nathan
   id: "5"

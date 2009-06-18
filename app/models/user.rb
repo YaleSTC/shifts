@@ -3,9 +3,12 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
+
+  has_many :payforms
+
   has_many :shifts
-  
   has_many :substitute_sources, :as => :user_source
+
 
   validates_presence_of :name
   validates_presence_of :login
@@ -108,3 +111,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
+

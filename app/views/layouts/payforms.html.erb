@@ -1,0 +1,49 @@
+<% if current_user.is_admin_of?(current_department) %>
+  <% content_for :left_nav do %>
+    <div id="navigationShow">
+      <ul id="navigationList">
+        <li><h3>Payform Admin</h3></li>
+        <li>
+          <%= link_to "View Payforms", payforms_path %>
+          <ul>
+            <li><%= link_to "Unapproved", '#' %></li>
+            <li><%= link_to "History", '#' %></li>
+          </ul>
+        </li>
+        <li><%= link_to "Mass Add Jobs", '#' %>
+
+          <ul>
+            <li><%= link_to "View Mass Jobs", '#' %></li>
+          </ul>
+        </li>
+        <li><%= link_to "Punch Clocks", '#' %>
+              <ul>
+                <li><%= link_to "Mass Punch Clocks", '#' %></li>
+              </ul>
+          </li>
+          
+        <li><%= link_to "E-mail Reminders", '#' %></li>
+        <li><%= link_to "Edit Categories", department_categories_path(current_department) %></li>
+        <li><%= link_to "Edit Configurations", '#' %></li>
+      </ul>  
+    </div>
+    <div id="contentNav">
+  <% end %>
+<% end %>
+
+<% content_for :head do %>
+
+  <%# put payform specific head info here %>
+  <% stylesheet 'payforms', :media => 'all' %>
+
+<% end %>
+
+<% content_for :body do %>
+
+  <%# put payform specific body content here %>
+  <%= yield %>
+
+<% end %>
+
+<%= render :file => "layouts/application.html.erb" %>
+

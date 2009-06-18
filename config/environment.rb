@@ -14,8 +14,9 @@ TASKR4RAILS_ALLOWED_HOSTS = ['127.0.0.1']
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  #THIS IS FOR NATHAN'S APACHE SETUP (comment it out):
-#  config.action_controller.relative_url_root = "/newstc"
+  
+  #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
+  config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -44,10 +45,11 @@ Rails::Initializer.run do |config|
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
   # FIXME: I think we are going to choose prawn over pdf-writer
-#  # config.gem "pdf-writer", :lib => 'pdf/writer'
+  # config.gem "pdf-writer", :lib => 'pdf/writer'
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
+  config.gem "prawn"
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
@@ -91,3 +93,4 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes,
   :logger => cas_logger
 )
+

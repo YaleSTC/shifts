@@ -1,0 +1,12 @@
+<% title "Payform Set" %>
+
+<p>
+  <strong>Printed:</strong>
+  <%=h @payform_set.printed %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_payform_set_path(@payform_set) %> |
+  <%= link_to "Destroy", @payform_set, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", payform_sets_path %>
+</p>

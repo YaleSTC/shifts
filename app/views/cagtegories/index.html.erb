@@ -1,0 +1,21 @@
+<% title "Cagtegories" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Active</th>
+    <th>Department</th>
+  </tr>
+  <% for cagtegory in @cagtegories %>
+    <tr>
+      <td><%=h cagtegory.name %></td>
+      <td><%=h cagtegory.active %></td>
+      <td><%=h cagtegory.department %></td>
+      <td><%= link_to "Show", cagtegory %></td>
+      <td><%= link_to "Edit", edit_cagtegory_path(cagtegory) %></td>
+      <td><%= link_to "Destroy", cagtegory, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Cagtegory", new_cagtegory_path %></p>

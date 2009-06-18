@@ -1,19 +1,2 @@
---- 
-loc_groups_001: 
-  admin_perm_id: "4"
-  created_at: 2009-06-08 21:20:12
-  department_id: "1"
-  id: "1"
-  name: IO
-  signup_perm_id: "3"
-  updated_at: 2009-06-08 21:20:12
-  view_perm_id: "2"
-loc_groups_002: 
-  admin_perm_id: "7"
-  created_at: 2009-06-09 14:51:12
-  department_id: "1"
-  id: "2"
-  name: TTO
-  signup_perm_id: "6"
-  updated_at: 2009-06-09 14:51:12
-  view_perm_id: "5"
+--- {}
+
