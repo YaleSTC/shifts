@@ -9,7 +9,7 @@ class CreateUserSourceLinks < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :substitute_sources
+    drop_table :user_source_links
   end
 
 end

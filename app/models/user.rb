@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :departments, :through => :departments_users
   has_many :shifts
 
-  has_many :substitute_sources, :as => :user_source
+  has_many :user_source_links, :as => :user_source
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
 
