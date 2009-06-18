@@ -38,6 +38,7 @@ Scenario: End shift
   And I am logged into a shift
   When I follow "Here"
   And I follow "Shifts"
+  Then I should see "Return to current shift"
   And I follow "Return to current shift"
   And I press "End shift"
   Then I should see "Successfully ended shift"

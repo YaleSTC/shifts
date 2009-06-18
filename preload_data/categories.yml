@@ -1,0 +1,15 @@
+--- 
+categories_001: 
+  active: t
+  created_at: 2009-06-16 15:17:25
+  department_id: "1"
+  id: "1"
+  name: Email
+  updated_at: 2009-06-16 15:17:25
+categories_002: 
+  active: t
+  created_at: 2009-06-16 15:17:40
+  department_id: "1"
+  id: "2"
+  name: Hardware
+  updated_at: 2009-06-16 15:17:40
