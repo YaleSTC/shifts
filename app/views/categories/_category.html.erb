@@ -1,10 +1,11 @@
 <div class=<%= text == 'enable' ? "\"category-item-disabled\"" : "\"category-item\"" %>>
 <div style="float: right">
+  
   <%= link_to '[' + text + ']', { :action => text, :id => category}, { :method  => :put } %>
-  <%= link_to '[X]', destroy_category_path(category), { :method  => :delete } if text == 'enable' %>
+  <%= link_to '[X]', category_path(category), { :method  => :delete } if text == 'enable' %>
 </div>
 <strong>
-  <%= category.name %>
+  <%= link_to '[edit]', edit_category_path(category) %><%= category.name %>
 </strong>
 <br/>
 <%= " (" + category.payform_items.count.to_s + " payform item" + (category.payform_items.count == 1 ? ")" : "s)" ) %>
