@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
     [self]
   end
 
-  def sub_requests
+  def available_sub_requests
     sub_requests = []
     SubRequest.all.each {|sr| sub_requests << sr if sr.substitutes.include?(self)}
     sub_requests
@@ -129,4 +129,3 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
-
