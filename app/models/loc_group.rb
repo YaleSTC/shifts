@@ -13,6 +13,9 @@ class LocGroup < ActiveRecord::Base
               :foreign_key => "admin_perm_id",
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
+
+  has_many :location_source_links, :as => :location_source
+
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
 
@@ -38,4 +41,3 @@ class LocGroup < ActiveRecord::Base
     self.admin_permission.update_attribute(:name, name + " admin")
   end
 end
-

@@ -2,7 +2,6 @@
 a {
   color: #104e8b;
 }
-
 h1#thin_line_bottom {
   padding: 0 0 0;
   margin-bottom: 20px;
@@ -113,19 +112,28 @@ table.day_view {
   width: 100%;
   text-align: center;
   padding: 0;
-  border-spacing: 1px;
-  border-collapse: separate;
+  border-spacing: 0px;
 
+  border-collapse: collapse;
   /* below solves the unevent block problem, also makes page load faster, but breaking down words is still ugly.  block smaller than an hour still cause problems. -H*/
 /*  table-layout: fixed;
   word-wrap: break-word;*/
 }
 
+table.day_view td {
+	border: 1px red solid;
+}
+
+table.day_view th {
+	border: 1px red solid;
+}
+
 td.between_groups{
-  height: 1px;
+  height: 15px;
 }
 
 thead th.location_label{
+	border: 1px red solid;
 }
 
 td.hour {
@@ -145,6 +153,7 @@ th.location_label {
   background: #7f7f7f;
   color: white;
   font-size: small;
+  border:1px blue solid !important;
 }
 
 th.unscheduled_label {
@@ -236,8 +245,16 @@ td.sub_time {
   background: #8888cc;
 }
 
-td.free_time {
+table.day_view td.free_time {
   background: #A2A2A2;
+/*  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  border-right: 1px #888 solid !important;*/
+	border: 1px solid #666;
+}
+
+table.day_view td.free_time:hover {
+  background: #888;
 }
 
 td.overflow_left {
@@ -315,35 +332,6 @@ table.template_items_table tr.user_conflict{
 
 table.template_items_table tr.out_of_range{
   background: #525399;
-}
-
-table.manage_table{
-  border: 1px solid #666666;
-  border-collapse: collapse;
-  width: 100%;
-  padding: 4px;
-}
-
-table.manage_table caption{
-  text-align: left;
-  font-size: 15px;
-  font-weight: bold;
-  padding-top: 1em;
-
-}
-table.manage_table td {
-  border: 1px solid #666666;
-  text-align: center;
-}
-
-table.manage_table th { border: 1px solid #666666; }
-
-.shift_admin_form label {
-  width: 20em;
-  float: left;
-  text-align: right;
-  margin-right: 0.5em;
-  display: block;
 }
 
 

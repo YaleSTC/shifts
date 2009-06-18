@@ -8,15 +8,16 @@
     <%= f.label :end %><br />
     <%= f.datetime_select :end %> (specify an end time)
   </p>
+  <% if current_user.is_admin_of?(@department) %>
   <p>
     <%= f.label :user %><br />
     <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
   </p>
+  <% end %>
   <p>
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
   </p>
-  <%= f.hidden_field :scheduled, :value => :true %>
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
