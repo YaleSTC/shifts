@@ -83,12 +83,6 @@ div.table_bottom {
 div.time_table a:link, div.time_table a:visited{
   text-decoration: none;
 }
-div.time_table td, th {
-  border: 100px;
-}
-div.time_table td {
-	border-right: 5px gray !important;
-}
 div.week_title{
   width: 60%;
   margin: 1em auto 0 auto;/*the 2 auto are margins for left and right, aligning this as center */
@@ -126,15 +120,20 @@ table.day_view {
   word-wrap: break-word;*/
 }
 
-table.day_view td, th {
-	  border: 1px white solid;
+table.day_view td {
+	border: 1px red solid;
+}
+
+table.day_view th {
+	border: 1px red solid;
 }
 
 td.between_groups{
-  height: 1px;
+  height: 15px;
 }
 
 thead th.location_label{
+	border: 1px red solid;
 }
 
 td.hour {
@@ -154,6 +153,7 @@ th.location_label {
   background: #7f7f7f;
   color: white;
   font-size: small;
+  border:1px blue solid !important;
 }
 
 th.unscheduled_label {
@@ -247,9 +247,10 @@ td.sub_time {
 
 table.day_view td.free_time {
   background: #A2A2A2;
-  border-right: 1px #888 solid !important;
-  border-bottom: 1px solid white;
+/*  border-bottom: 1px solid white;
   border-top: 1px solid white;
+  border-right: 1px #888 solid !important;*/
+	border: 1px solid #666;
 }
 
 table.day_view td.free_time:hover {
