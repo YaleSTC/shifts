@@ -3,6 +3,7 @@
 <% stylesheet 'floatbox', 'notice' %>
 <% javascript 'floatbox' %>
 
+
 <% title "Shifts" %>
 <%= render :partial => 'view_preferences' %>
 
@@ -83,7 +84,7 @@
           <td><%=h shift.start.to_s(:short_name) %></td>
           <td><%=h shift.end.to_s(:short_name) %></td>
         <% else %>
-          <td colspan=2>unscheduled</td>
+          <td colspan="2">unscheduled</td>
         <% end %>
         <td><%=h shift.user.name %></td>
         <td><%=h shift.location.name %></td>
