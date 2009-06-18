@@ -293,7 +293,7 @@ ul#miniTabs a:hover {
 ul.navigationList {
   margin: 0;
   padding: 0 10px;
-  
+
   list-style-image: none;
   list-style-position: outside;
   list-style-type: square;
@@ -530,3 +530,4 @@ div.note {
   overflow-x: auto;
   color: #556677;
 }
+
