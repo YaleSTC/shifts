@@ -50,13 +50,24 @@ class NoticesController < ApplicationController
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    params[:for_users].split(/\W+/).each do |l|
-      @notice.add_viewer_source(User.find_by_login(l))
+    params[:for_users].split(/\W+/).each do |login|
+      if a=User.find_by_login(login)
+        @notice.add_viewer_source(a)
+      end
+# => TODO add validation for not usernames/logins
     end
-    @notice.add_display_location_source(@department) if params[:department_wide] && current_user.is_admin_of?(@department)
+    @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
     @notice.add_viewer_source(@department) if params[:department_wide_users] && current_user.is_admin_of?(@department)
-#    @notice.for_locations = params[:for_locations].join(',') if params[:for_locations]
-#    @notice.for_location_groups = params[:for_location_groups].join(',') if params[:for_location_groups]
+    if params[:for_locations]
+      params[:for_locations].each do |loc|
+         @notice.add_display_location_source(Location.find(loc))
+      end
+    end
+    if params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group|
+       @notice.add_display_location_source(LocGroup.find(loc_group))
+      end
+    end
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
