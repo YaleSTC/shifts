@@ -1,6 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-  has_many :substitute_sources, :class_name => "UserSourceLink", :as => :user_sink
+  has_many :substitute_links, :class_name => "UserSourceLink", :as => :user_sink
   #has_many :user_sources, :through => :substitute_sources
 
   validates_presence_of :reason
@@ -43,10 +43,10 @@ class SubRequest < ActiveRecord::Base
   #
 
   def add_substitute_source(source)
-      substitute_source = UserSourceLink.new
-      substitute_source.user_source = source
-      substitute_source.user_sink = self
-      substitute_source.save!
+      substitute_link = UserSourceLink.new
+      substitute_link.user_source = source
+      substitute_link.user_sink = self
+      substitute_link.save!
   end
 
   def remove_all_substitute_sources
@@ -58,16 +58,16 @@ class SubRequest < ActiveRecord::Base
   end
 
   def user_sources
-    self.substitute_sources.empty? ? [self.shift.department] : self.substitute_sources.collect{|s| s.user_source}
+    self.substitute_links.empty? ? [self.shift.department] : self.substitute_links.collect{|s| s.user_source}
   end
 
 
   def substitutes
     substitutes = []
     self.user_sources.each do |source|
-      source.users
+      substitutes += source.users
     end
-    substitutes.uniq
+   substitutes.uniq
   end
 
 
