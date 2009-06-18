@@ -39,16 +39,16 @@
 
   <%#= checkboxes_for_multiple_select("Location Groups", @loc_groups.,'for_location_groups[]') %>
 
-<!--
-  <%# for loc_group in @loc_groups do %>
-    &nbsp;&nbsp;&nbsp;
-    <%#= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%#= loc_group.name %><br />
 
-    <%# for location in loc_group.locations do %>
+  <% for loc_group in @loc_groups do %>
+    &nbsp;&nbsp;&nbsp;
+    <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%#= loc_group.name %><br />
+
+    <% for location in loc_group.locations do %>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%#= check_box_tag "for_locations[]", location.id, false, :disabled => false %><%#= location.name %><br />
-    <%# end %>
-  <%# end %>
+      <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %><%#= location.name %><br />
+    <% end %>
+  <% end %>
 -->
   <p>
     <%= f.submit 'Create' %>
