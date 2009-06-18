@@ -1,0 +1,6 @@
+<% title "New Payform Item" %>
+
+<%= render :partial => 'form', :locals => {:submit => "Create", :payform_item => [@payform,@payform_item] } %>
+
+<p><%= link_to "Back to List", payform_path(@payform) %></p>
+

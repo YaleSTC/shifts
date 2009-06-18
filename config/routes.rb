@@ -2,8 +2,28 @@ ActionController::Routing::Routes.draw do |map|
   #FIXME: I think this was included by mistake right? having subs nested in shifts below should be enough -H
   map.resources :sub_requests
 
-  #TODO: What should time_slots be nested under, if anything? (H: it can be nested under /locations/:location_id/)
-  map.resources :time_slots
+  map.resources :payform_item_sets
+
+  map.resources :payform_sets
+
+  map.resources :payforms, 
+                :collection => { :prune => :delete, :go => :get }, 
+                :member => {:submit => :put, :approve => :put, :print => :put}, 
+                :shallow => true do |payforms|
+    payforms.resources :payform_items
+  end
+
+  map.resources :payform_items
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
+
+  map.resources :shifts, :shallow => true do |shifts|
+    shifts.resources :reports
+    shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
+    shifts.resources :report_items
+		end
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything?
 
   map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
@@ -22,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
+    departments.resources :categories
   end
 
   # permission is always created indirectly so there is only index method that lists them

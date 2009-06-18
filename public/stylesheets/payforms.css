@@ -1,0 +1,335 @@
+#notice pre {
+  background-color: #F3F3F3;
+  border: 1px dashed #AAAAAA;
+  margin: 20px;
+  padding: 8px;
+  overflow-x: auto;
+
+  /* Word wrapping for <pre> tags */
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+/* PAYFORM FORM FIELDSET AND LEGEND: */
+div.payform_form fieldset {
+  background: #ddf;
+}
+
+div.payform_form legend {
+  color: #eef;
+  background: #114;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}
+
+/* MORE PAYFORM: */
+#payform h1 {
+  font-family: Verdana, Arial, serif;
+  color: #2758B3;
+}
+
+/* PAYFORM TABLE: */
+/* Inspiration: http://www.smashingmagazine.com/2008/08/13/top-10-css-table-designs/ */
+
+#payformList
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	margin: 0px;
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+}
+#payformList th
+{
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px;
+	background: #b9c9fe;
+	color: #039;	
+}
+#payformList thead th
+{
+	border-top: 3px solid #aabcfe;
+	border-bottom: 1px solid #fff;
+}
+#payformList tfoot th
+{
+    font-size: 14px;
+    padding: 4px 3px 2px 3px;
+	border-top: 2px solid #8a9cde;
+	border-bottom: 2px solid #8a9cde;
+}
+#payformList tbody td
+{
+	padding: 5px;
+	background: #e8edff;
+	border-bottom: 1px solid #fff;
+	color: #669;
+	border-top: 1px solid transparent;
+}
+#payformList td.rightside a
+{
+	color: #d8ddef;
+}
+#payformList tbody tr:hover td a
+{
+	color: #787ddf;
+}
+#payformList tbody tr:hover td a:hover
+{
+	color: #484d9f;
+}
+#payformList tbody tr:hover td
+{
+	background: #d0dafd;
+	color: #339;
+}
+#payformList td.date {
+    width: 45px;
+    text-align: left;
+}
+#payformList td.description {
+    width:auto;
+    text-align: left;
+}
+#payformList td.rightside {
+    text-align: right;
+    width:1%
+}
+#payform a {
+    color: #2758B3;
+}
+#payform a:hover {
+    color: #FF9933;
+}
+div.hours-right {
+    float: right;
+}
+div.total-hours-right {
+
+    float: right;
+}
+
+/*
+only if we need even and odd colors
+
+#payformList tr.even {
+  background-color:   #d8ddef;
+}
+#payformList tr.odd {
+  background-color:   #e8edff;
+}*/
+
+/*PRETTY BUTTONS*/
+/*Inspiration from: http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html */
+.clear { /* generic container (i.e. div) for floating buttons */
+    overflow: hidden;
+    width: 100%;
+}
+a.button {
+    background: transparent url('../images/payforms/bg_button_a.gif') no-repeat scroll top right;
+    color: #444;
+    display: block;
+    float: right;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
+}
+
+a.button span {
+    background: transparent url('../images/payforms/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+} 
+a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px */
+} 
+
+/* EMAIL REMINDERS: */
+#emailreminders h3 {
+  clear: both;
+  font-size: 14px;
+  padding: 5px 0px 10px;
+}
+#emailReminders form {
+  text-align: center;
+  width: 100%;
+  margin: 0pt;
+  padding: 0pt;
+}
+#emailReminders textarea {
+  display: block;
+}
+#emailReminders fieldset.reminders {
+  border: 1px solid #CCCCCC;
+  margin-bottom: 15px;
+  margin-top: 6px;
+  padding: 4px 10px 10px;
+  background: #FFFFFF none repeat scroll 0% 0%;
+}
+#emailReminders fieldset.reminders legend {
+  color: #53662E;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 15px;
+  font-weight: normal;
+  background: #FFFFFF none repeat scroll 0% 0%;
+  padding: 0px;
+}
+
+#unselected {
+  float: left;
+}
+#selected {
+  float: right;
+}
+
+#unselected, #selected {
+  color: #415578;
+  font-family: Trebuchet, Helvetica, sans-serif;
+  font-size: 12px;
+  margin: 5px auto;
+  border: solid 1px #ddd;
+  width: 49%;
+  text-align: center;
+  height: 150px;
+  overflow: auto;
+}
+
+#unselected a, #selected a {
+  color: #2758B3;
+  text-decoration: none;
+}
+#unselected a:hover, #selected a:hover {
+  color: #FF9933;
+}
+
+/* PAYFORM 3 COLUMN THING WITH THE TIME PUNCH: */
+#cols {
+  margin: 0px auto;
+  padding: 0px;
+  border:0;
+  width: 100%;
+}
+#cols-header {
+  text-align: center;
+}
+#left-col {
+  float: left;
+  width: 23%;
+  text-align: left;
+  vertical-align: top;
+}
+#hidden-button {
+  float: right;
+  text-align: right;
+  vertical-align: top;
+}
+#middle-col {
+  text-align: center;
+  height: 1px;
+}
+#right-col {
+  float: right;
+  text-align: right;
+  vertical-align: top;
+  width: 28%;
+}
+#cols-footer {
+  clear: both;
+  text-align: center;
+}
+
+#buttons {
+  float: right;
+}
+
+/* PAYFORM USER SELECT WITH AUTO COMPLETE */
+#payform_user_chooser, #add_by_group, #select_container {
+  float: right;
+  width: 200px;
+}
+#payform_user_chooser #select_container {
+  background-color: #FFFFFF;
+  color: #415578;
+  margin: 5px auto;
+  border: solid 1px #AAAAFF;
+  text-align: center;
+  overflow: auto;
+}
+
+div.clock-notice {
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  margin: 20px;
+  padding: 8px;
+  overflow-x: auto;
+}
+
+/* CATEGORIES */
+div.category-item {
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  margin: 5px;
+  padding: 5px;
+  overflow-x: auto;
+}
+div.category-item a:link {
+  color: #778899;
+}
+div.category-item a:visited {
+  color: #778899;
+}
+div.category-item a:hover {
+  color: #001122;
+}
+div.category-item-disabled {
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  color: #778899;
+  margin: 5px;
+  padding: 5px;
+  overflow-x: auto;
+}
+div.category-item-disabled a:link {
+  color: #778899;
+}
+div.category-item-disabled a:visited {
+  color: #778899;
+}
+div.category-item-disabled a:hover {
+  color: #001122;
+}
+
+/* MASS CLOCKS */
+div.mass-clock-item {
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  margin: 5px;
+  padding: 5px;
+  overflow-x: auto;
+}
+div.mass-clock-item a:link {
+  color: #778899;
+}
+div.mass-clock-item a:visited {
+  color: #778899;
+}
+div.mass-clock-item a:hover {
+  color: #001122;
+}
+
+
