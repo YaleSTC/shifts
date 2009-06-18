@@ -1,6 +1,5 @@
 class DataObjectsController < ApplicationController
   #User admin methods will need to be rewritten in move to other codebase
-  attr_reader :data_type_id
   
   def index
     if params[:data_type_id]
