@@ -1,4 +1,5 @@
 <% unless announcement.is_sticky %>
+
 <fieldset class="announcement", title= "<%= "Posted on #{announcement.start_time.to_date} at #{announcement.start_time.to_s(:am_pm)}" %>" >
   <% if current_user.is_admin_of?(@department) %>
       <div class="right">
