@@ -32,7 +32,7 @@ class PayformSetsController < ApplicationController
       flash[:notice] = "Successfully created payform set."
       redirect_to @payform_set
     else
-      flash[:notice] = "Error saving print job."
+      flash[:notice] = "Error saving print job. Make sure approved payforms exist."
       redirect_to payforms_path
     end
   end
