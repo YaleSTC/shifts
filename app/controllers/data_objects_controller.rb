@@ -17,11 +17,12 @@ class DataObjectsController < ApplicationController
   
   def show
     @data_object = DataObject.find(params[:id])
-    @data_type = DataType.find(params[:data_object][:data_type_id])
+    @data_type = @data_object.data_type
   end
   
   def new
     @data_object = DataObject.new
+    @data_type = DataType.find(params[:data_type_id])
   end
   
   def create
@@ -39,6 +40,7 @@ class DataObjectsController < ApplicationController
   
   def edit
     @data_object = DataObject.find(params[:id])
+    @data_type = @data_object.data_type
   end
   
   def update
