@@ -51,7 +51,8 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     params[:for_users].split(",").each do |login_or_name|
-      if (viewer = User.find_by_login(login_or_name.strip!) || User.find_by_name(login_or_name.strip!))
+      viewer = User.find_by_login(login_or_name.strip!) || User.find_by_name(login_or_name.strip!)
+      if viewer
         @notice.add_viewer_source(viewer)
       else
         @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
@@ -98,7 +99,7 @@ class NoticesController < ApplicationController
 
   # DELETE /notices/1_id
   # DELETE /notices/1.xml
-  def remove
+  def destroy
     @notice = Notice.find(params[:id])
     unless @notice.is_sticky || current_user.is_admin_of?(@notice.department)
       redirect_with_flash("You are not authorized to remove this notice") and return
@@ -107,7 +108,7 @@ class NoticesController < ApplicationController
       redirect_with_flash("This notice was already removed on #{@notice.end_time}") and return
     end
     redirect_with_flash("Notice successfully removed") if @notice.remove(current_user)
-    @notice.save
+    @notice.save!
   end
 
   def fetch_loc_groups

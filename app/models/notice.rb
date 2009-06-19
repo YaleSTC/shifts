@@ -108,7 +108,8 @@ class Notice < ActiveRecord::Base
   end
 
   def proper_time
-    errors.add_to_base("Start/end time combination is invalid.") if self.start_time > self.end_time || Time.now > self.end_time unless self.end_time.nil?
+    errors.add_to_base("Start/end time combination is invalid.") if (self.start_time > self.end_time unless self.end_time.nil?)
+#    (self.start_time > self.end_time if self.end_time) || Time.now >= self.start_time || (Time.now <= self.end_time if self.end_time)
   end
 
   def is_current?
