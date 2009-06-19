@@ -1,5 +1,5 @@
-<div class="time_table" id=<%= @curr_day %> >
-  <% table_id = "%s_table" % @curr_day %>
+<div class="time_table" id="table_<%= @curr_day %>" >
+  <% table_id = "%s_table" % "table_"+@curr_day.to_s %>
   
   <div style="text-align:left">
     <h3><%= link_toggle table_id, @curr_day.to_s(:just_date_long) %></h3>
@@ -24,9 +24,9 @@
           <% } -%>
         </tr>      
       </thead>
-      <!-- <tbody> -->
+      <tbody>
       <%= yield %>
-      <!-- </tbody> -->
+      </tbody>
     </table>
     <% unless @bar.empty? %>
       <div style="float:right"> <%# TODO: these links aren't showing up in Safari. figure out why.%>
