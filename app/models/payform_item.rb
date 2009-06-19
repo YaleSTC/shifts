@@ -2,7 +2,8 @@ class PayformItem < ActiveRecord::Base
 
   belongs_to :payform
   belongs_to :payform_item
-  belongs_to :category
+  belongs_to :payform_item_set
+		belongs_to :category
 
   delegate :department, :to => :category
   delegate :user, :to => :payform
@@ -25,4 +26,3 @@ class PayformItem < ActiveRecord::Base
   end
 
 end
-
