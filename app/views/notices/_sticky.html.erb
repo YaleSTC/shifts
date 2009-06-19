@@ -1,4 +1,3 @@
-<% if sticky.is_sticky %>
     <fieldset class="sticky", title= "<%= "Posted on #{sticky.start_time.to_date} at #{sticky.start_time.to_s(:am_pm)}" %>" >
         <div class="right">
         <%= link_to '[x]', { :action => 'destroy', :id => sticky },
@@ -14,6 +13,4 @@
     <%= sticky.display_for %>
   </div>
     </fieldset>
-
-<% end %>
 
