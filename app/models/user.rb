@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
     [first_name, '"' + nick_name + '"', last_name]
   end
 
-  memoize :full_name, :permission_list, :is_superuser?
+  memoize :name, :permission_list, :is_superuser?
 
   private
 
