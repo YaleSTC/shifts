@@ -99,10 +99,9 @@ class User < ActiveRecord::Base
     self.departments_users[0].active
   end
   
-  def full_name
+  def name
     [(nick_name || first_name), last_name].join(" ")
   end
-  alias :name :full_name
   
   def proper_name
     [first_name, last_name].join(" ")
