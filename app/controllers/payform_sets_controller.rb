@@ -1,4 +1,6 @@
 class PayformSetsController < ApplicationController
+  helper :payforms
+  layout "payforms"
   
   def index
     @payform_sets = PayformSet.all

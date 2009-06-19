@@ -7,11 +7,9 @@
   </tr>
   <% for payform_set in @payform_sets %>
     <tr>
-      <td><%=h payform_set.created_at %></td>
+      <td><%=h payform_set.created_at.strftime(date_format) %></td>
       <td><%=  payform_set.payforms.length %></td>
       <td><%= link_to "Show", payform_set %></td>
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Payform Set", new_payform_set_path %></p>

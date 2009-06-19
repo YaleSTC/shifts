@@ -1,9 +1,3 @@
-
-#Name:          Nathan Griffith
-#Employee ID:
-#NetID:         njg24
-#Department:    STC
-#Week Ending:   2009-06-20
 #Network Troubleshooting
 #2009-06-18       aggghhh                                                                                      10.0
 #2009-06-18       mffffff                                                                                       2.0
@@ -19,21 +13,23 @@
   pdf.font "Helvetica"
   
   pdf.text "Name: #{@payform.user.name}"
+  pdf.text "Login: #{@payform.user.login}"
+  pdf.text "Department: #{@payform.department.name}"
+  pdf.text "Week Ending: #{@payform.date.strftime(date_format)}"
   
-  payform_items = @payform.payform_items.map do |payform_item|
-    [
-      payform_item.category.name,
-      payform_item.date,
-      payform_item.description,
-      payform_item.hours
-    ]
+  for category in current_department.categories do
+    payform_items = category.payform_items & @payform.payform_items
+    unless payform_items.empty?
+      table_items = @payform.payform_items.map do |table_item|
+        [table_item.date, table_item.description, table_item.hours]
+      end
+      pdf.table table_items, :border_style => :grid,
+                             :row_colors => ["FFFFFF","DDDDDD"],
+                             :headers => [category.name,"",payform_items.map{|i| i.hours}.sum],
+                             :align => { 0 => :left, 1 => :left, 2 => :right}
+    end
   end
-
-  pdf.table payform_items, :border_style => :grid,
-    :row_colors => ["FFFFFF","DDDDDD"],
-    :headers => ["Category","Date", "Description", "Hours"],
-    :align => { 0 => :left, 1 => :left, 2 => :right}
-
+  
   pdf.move_down(10)
 
   pdf.text "Total Hours: #{@payform.payform_items.map{|i| i.hours}.sum}", :size => 16, :style => :bold
