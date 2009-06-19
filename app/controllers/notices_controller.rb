@@ -57,15 +57,15 @@ class NoticesController < ApplicationController
 # => TODO add validation for not usernames/logins
     end
     @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
-    @notice.add_viewer_source(@department) if params[:department_wide_users] && current_user.is_admin_of?(@department)
+#    @notice.add_viewer_source(@department) if params[:department_wide_users] && current_user.is_admin_of?(@department)
     if params[:for_locations]
       params[:for_locations].each do |loc|
-         @notice.add_display_location_source(Location.find(loc))
+         @notice.add_display_location_source(Location.find_by_id(loc))
       end
     end
     if params[:for_location_groups]
       params[:for_location_groups].each do |loc_group|
-       @notice.add_display_location_source(LocGroup.find(loc_group))
+       @notice.add_display_location_source(LocGroup.find_by_id(loc_group))
       end
     end
     respond_to do |format|
