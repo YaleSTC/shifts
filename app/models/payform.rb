@@ -47,6 +47,10 @@ class Payform < ActiveRecord::Base
     given_date - given_date_day.days + dept.day.days
   end
   
+  def hours
+    payform_items.map{|i| i.hours}.sum
+  end
+  
   
   protected
   

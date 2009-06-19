@@ -8,6 +8,19 @@ class PayformSetsController < ApplicationController
   
   def show
     @payform_set = PayformSet.find(params[:id])
+    respond_to do |show|
+      show.html #show.html.erb
+      show.pdf  #show.pdf.prawn
+      show.csv do
+        csv_string = FasterCSV.generate do |csv|
+          csv << ["Name", "Date", "Number of Jobs", "Total Hours"]
+          @payform_set.payforms.each do |payform|
+            csv << [payform.user.name, payform.date, payform.payform_items.length, payform.hours]
+          end
+        end
+        send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
+      end
+    end
   end
   
   def create

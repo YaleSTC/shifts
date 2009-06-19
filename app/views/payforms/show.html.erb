@@ -19,7 +19,7 @@
   <table id="payformList" width="100%">
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
     <tfoot><tr> <th scope="col" id="hours" colspan=6>
-      <div class="total-hours-right"><%= @payform.payform_items.map{|i| i.hours}.sum %><%#TODO: ROUNDING OPTIONS %></div>
+      <div class="total-hours-right"><%= @payform.hours %><%#TODO: ROUNDING OPTIONS %></div>
       Total Hours:
     </th></tr> </tfoot>
   </table>

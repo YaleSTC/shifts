@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
     @current_user = User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
   end
 
+
   protected
   # these are the authorization before_filters to use under controllers
   def require_department_admin
