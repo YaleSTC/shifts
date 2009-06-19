@@ -264,11 +264,18 @@ table.day_view td.free_time.clickable_signup {
 	border-right: 1px #888 solid;
 }
 
-table.day_view td.free_time.end_of_hour {
+table.day_view td.free_time a.linkbox {
+	display:block;
+	min-width: 100%;
+	min-height: 2.5em;
+	cursor: default;
+}
+
+table.day_view td.free_time.clickable_signup.end_of_hour {
 	border-right: 1px #666 solid !important;
 }
 
-table.day_view td.free_time.end_of_segment {
+table.day_view td.free_time.clickable_signup.end_of_segment {
 	border-right: 1px #fff solid !important;
 }
 
@@ -503,4 +510,26 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 .early_late_info{
   font-style: italic;
   color: #949494;
+}
+
+
+
+/*style for SimpleTip*/
+.tooltip{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	display: none;
+	background: #ffc;
+	color: #000;
+	padding: 5px;
+	font-style: normal;
+	font-weight: normal;
+  font-family: Verdana, Arial, serif;
+	font-size: 10pt;
+	border: 2px dashed gray;
+}
+.tooltip p{
+	margin: 5px 0;
 }
