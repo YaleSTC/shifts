@@ -3,15 +3,13 @@
 <table>
   <tr>
     <th>Printed</th>
+    <th>Number of Payforms</th>
   </tr>
   <% for payform_set in @payform_sets %>
     <tr>
-      <td><%=h payform_set.printed %></td>
+      <td><%=h payform_set.created_at.strftime(date_format) %></td>
+      <td><%=  payform_set.payforms.length %></td>
       <td><%= link_to "Show", payform_set %></td>
-      <td><%= link_to "Edit", edit_payform_set_path(payform_set) %></td>
-      <td><%= link_to "Destroy", payform_set, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Payform Set", new_payform_set_path %></p>

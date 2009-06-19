@@ -43,8 +43,6 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
-  # FIXME: I think we are going to choose prawn over pdf-writer
-  # config.gem "pdf-writer", :lib => 'pdf/writer'
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
@@ -65,7 +63,7 @@ Rails::Initializer.run do |config|
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
   # Run "rake -D time" for a list of tasks for finding time zone names. Comment line to use default local time.
-  # config.time_zone = 'UTC'
+  config.time_zone = 'UTC'
 
   # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
   # All files from config/locales/*.rb,yml are added automatically.

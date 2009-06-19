@@ -84,15 +84,15 @@ a {
 
 
 /* Make the vertical scrollbar always appear */
-html { 
+html {
   overflow-y: scroll;
 }
 
+/* START:notice */
 #flash_notice, #flash_error {
   padding: 5px 8px;
   margin: 10px 0;
 }
-
 #flash_notice {
   background-color: #CFC;
   border: solid 1px #6C6;
@@ -101,6 +101,21 @@ html {
 #flash_error {
   background-color: #FCC;
   border: solid 1px #C66;
+}
+#flash_notice {
+  background-color:#FFF0AA;
+  border:1px solid #908C99;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+
+#flash_big_notice {
+  background-color:#FFCCCC;
+  border:1px solid #CC6666;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8
 }
 
 /* Main Styles and IDs */
@@ -246,8 +261,10 @@ ul#miniTabs a {
   margin: 6px 12px 0px;
   text-decoration: none;
 }
+
 ul#miniTabs a:hover {
-  text-decoration: underline;
+    border-bottom:2px solid #EEF0AE;
+    padding-bottom:1px;
 }
 
 #scanColumn {
@@ -265,11 +282,11 @@ ul#navigationList {
   line-height: 1.2em;
   margin: 40px 0pt 0pt;
   padding: 0pt;
-  
+
   list-style-image: none;
   list-style-position: outside;
   list-style-type: square;
-  
+
   float: left;
 }
 ul#navigationList li {
@@ -423,3 +440,4 @@ p.footer {
 textarea {
   overflow: auto;
 }
+
