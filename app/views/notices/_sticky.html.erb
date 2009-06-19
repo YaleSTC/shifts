@@ -2,9 +2,9 @@
     <%# stylesheet 'message_center'%>
     <fieldset class="sticky", title= "<%= "Posted on #{sticky.start_time.to_date} at #{sticky.start_time.to_s(:am_pm)}" %>" >
         <div class="right">
-        <%= link_to '[x]', { :action => 'destroy', :id => sticky },
-          :confirm => "Are you sure you want to trash this sticky? It will be removed for other users as well.",
-          :method => :delete %>
+        <%= link_to '[x]', { :action => 'remove', :id => sticky },
+          :confirm => "Are you sure you want to remove this notice? It will be removed for all users and all locations.",
+          :method => :post %>
       </div>
       <%= sticky.content %>
     <br />
