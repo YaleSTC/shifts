@@ -13,7 +13,7 @@ class Notice < ActiveRecord::Base
   has_many :display_location_links, :class_name => "LocationSourceLink", :as => :location_sink
 
   validates_presence_of :content
-#  validate :process_for_users, :proper_time, :presence_of_locations_or_loc_groups
+  validate :proper_time, :presence_of_locations_or_viewers
 
 #  def for_user_names
 #    names = []
@@ -21,26 +21,6 @@ class Notice < ActiveRecord::Base
 #      names.push User.find_by_id(user_id.to_i).name
 #    end
 #    names.join(", ")
-#  end
-
-#  def auth_full_list
-#    result = []
-#    result.push "for users #{self.for_user_names}" unless self.for_users.empty?
-#    if(!self.for_locations.nil?)
-#      locations = []
-#      self.locations(true).each do |loc|
-#       locations.push loc.short_name
-#      end
-#      result.push "for location #{locations.join(", ")}"
-#    end
-#    if(!self.for_location_groups.nil?)
-#      location_groups = []
-#      self.location_groups(true).each do |lg|
-#       location_groups.push lg.name
-#      end
-#      result.push "for location group #{location_groups.join(", ")}"
-#    end
-#    result.join "<br/>"
 #  end
 
 #  def locations(get_objects = false)
@@ -66,6 +46,26 @@ class Notice < ActiveRecord::Base
 #    array.map! &:id if array.first.class == LocGroup
 #    self.for_location_groups = array.join " "
 #  end
+
+#  def process_for_users
+#    temp_users = []
+#    self.for_users.split(",").map(&:strip).each do |user_string|
+#      user = User.find_by_login(user_string) || User.find_by_name(user_string)
+#      if user
+#        temp_users << user.id
+#      else
+#        self.errors.add "contains \'#{user_string}\'. Could not find user by that name or netid" unless user_string.blank?
+#      end
+#    end
+#    self.for_users = temp_users.join(',')
+#  end
+
+  def display_for
+    display_for = []
+    display_for.push "for users #{self.viewers.collect{|n| n.name}.join(", ")}" unless self.viewers.empty?
+    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.join(", ")}" unless self.display_locations.empty?
+    display_for.join "<br/>"
+  end
 
   def self.current
     current_notices = []
@@ -103,33 +103,17 @@ class Notice < ActiveRecord::Base
    display_locations.uniq
   end
 
-#  def process_for_users
-#    temp_users = []
-#    self.for_users.split(",").map(&:strip).each do |user_string|
-#      user = User.find_by_login(user_string) || User.find_by_name(user_string)
-#      if user
-#        temp_users << user.id
-#      else
-#        self.errors.add "contains \'#{user_string}\'. Could not find user by that name or netid" unless user_string.blank?
-#      end
-#    end
-#    self.for_users = temp_users.join(',')
-#  end
-
-#  def presence_of_locations_or_loc_groups
-#    errors.add("Your notice must display somehwere or for someone. ",:invalid => false) if self.for_locations.nil? && self.for_location_groups.nil? && self.for_users.nil?
-#  end
+  def presence_of_locations_or_viewers
+    errors.add_to_base("Your notice must display somehwere or for someone.") if self.display_locations.empty? && self.viewers.empty?
+  end
 
   def proper_time
-    errors.add("Start/end time combination is invalid.",:invalid=>false) if self.start_time > self.end_time || Time.now > self.end_time unless self.end_time.nil?
+    errors.add_to_base("Start/end time combination is invalid.") if (self.start_time > self.end_time unless self.end_time.nil?)
+#    (self.start_time > self.end_time if self.end_time) || Time.now >= self.start_time || (Time.now <= self.end_time if self.end_time)
   end
 
   def is_current?
-    if self.end_time.nil?
-      Time.now > self.start_time
-    else
-      Time.now > self.start_time && Time.now < self.end_time
-    end
+    self.end_time.nil? ? Time.now > self.start_time : Time.now > self.start_time && Time.now < self.end_time
   end
 
   def is_upcoming?
@@ -137,10 +121,10 @@ class Notice < ActiveRecord::Base
   end
 
   def remove(user)
+    self.errors.add_to_base("This notice has already been removed by #{remover.name}") and return if self.remover && self.end_time
     self.end_time = Time.now
     self.remover = user
     true
   end
-
 end
 

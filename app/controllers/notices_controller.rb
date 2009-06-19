@@ -47,15 +47,28 @@ class NoticesController < ApplicationController
 #    raise params.to_yaml
     @notice = Notice.new(params[:notice])
     @notice.author = current_user
+    @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    params[:for_users].split(/\W+/).each do |l|
-      @notice.add_viewer_source(User.find_by_login(l))
+    params[:for_users].split(",").each do |login_or_name|
+      viewer = User.find_by_login(login_or_name.strip!) || User.find_by_name(login_or_name.strip!)
+      if viewer
+        @notice.add_viewer_source(viewer)
+      else
+        @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
+      end
     end
-    @notice.add_display_location_source(@department) if params[:department_wide] && current_user.is_admin_of?(@department)
-    @notice.add_viewer_source(@department) if params[:department_wide_users] && current_user.is_admin_of?(@department)
-#    @notice.for_locations = params[:for_locations].join(',') if params[:for_locations]
-#    @notice.for_location_groups = params[:for_location_groups].join(',') if params[:for_location_groups]
+    @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
+    if params[:for_locations]
+      params[:for_locations].each do |loc|
+        @notice.add_display_location_source(Location.find_by_id(loc))
+      end
+    end
+    if params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group|
+        @notice.add_display_location_source(LocGroup.find_by_id(loc_group))
+      end
+    end
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
@@ -66,14 +79,12 @@ class NoticesController < ApplicationController
         format.xml  { render :xml => @notice.errors, :status => :unprocessable_entity }
       end
     end
-
   end
 
   # PUT /notices/1
   # PUT /notices/1.xml
   def update
     @notice = Notice.find(params[:id])
-
     respond_to do |format|
       if @notice.update_attributes(params[:notice])
         flash[:notice] = 'Notice was successfully updated.'
@@ -86,18 +97,18 @@ class NoticesController < ApplicationController
     end
   end
 
-  # DELETE /notices/1
+  # DELETE /notices/1_id
   # DELETE /notices/1.xml
   def destroy
     @notice = Notice.find(params[:id])
-    unless @notice.is_sticky && current_user.is_admin_of?(@notice.department)
-        redirect_with_flash("You are not authorized to remove this notice") and return
+    unless @notice.is_sticky || current_user.is_admin_of?(@notice.department)
+      redirect_with_flash("You are not authorized to remove this notice") and return
     end
     unless @notice.is_current?
-        redirect_with_flash("This notice was already removed at #{@notice.end_time}") and return
+      redirect_with_flash("This notice was already removed on #{@notice.end_time}") and return
     end
     redirect_with_flash("Notice successfully removed") if @notice.remove(current_user)
-    @notice.save
+    @notice.save!
   end
 
   def fetch_loc_groups
