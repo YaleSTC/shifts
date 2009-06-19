@@ -15,7 +15,7 @@ class PayformsController < ApplicationController
     elsif params[:printed]
       @payforms = @payforms.printed
     else
-      @payforms = @payforms.unsubmitted & @payforms.unapproved & @payforms.unprinted
+      @payforms -= @payforms.printed
     end
     @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
   end
