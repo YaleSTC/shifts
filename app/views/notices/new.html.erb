@@ -9,12 +9,12 @@
     <%= f.check_box :is_sticky %>
   </p>
     <p>
-    <%= f.label :start %><br />
-    <%= f.datetime_select :start_time %> (specify a start time)
+    Specify a start time<br />
+    <%= f.datetime_select :start_time %>
   </p>
   <p>
-    <%= f.label :end %><br />
-    <%= f.datetime_select :end_time %> (specify an end time) or check here to make it indefinite:
+    Specify an end time<br />
+    <%= f.datetime_select :end_time %> or check here to make it indefinite:
 
     <%= check_box_tag :indefinite -%>
     </p>
@@ -42,11 +42,11 @@
 
   <% for loc_group in @loc_groups do %>
     &nbsp;&nbsp;&nbsp;
-    <%= check_box_tag "for_location_groups[]", loc_group, false, :disabled => false %><%= loc_group.name %><br />
+    <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%= loc_group.name %><br />
 
     <% for location in loc_group.locations do %>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= check_box_tag "for_locations[]", location, false, :disabled => false %><%= location.name %><br />
+      <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %><%= location.name %><br />
     <% end %>
   <% end %>
   <p>
