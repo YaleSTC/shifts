@@ -1,10 +1,4 @@
-#Network Troubleshooting
-#2009-06-18       aggghhh                                                                                      10.0
-#2009-06-18       mffffff                                                                                       2.0
-#                                                                                              Category Hours: 12.0
-#Work-Related E-mail
-#2009-06-18       emaillllz                                                                                     7.0
-#                                                                                               Category Hours: 7.0
+
 #                                        TOTAL HOURS: 19.0
 #                  This payform was approved by Nathan Griffith at 03:53PM on Thu Jun 18, 2009
 
@@ -32,4 +26,5 @@
   
   pdf.move_down(10)
 
-  pdf.text "Total Hours: #{@payform.payform_items.map{|i| i.hours}.sum}", :size => 16, :style => :bold
+  pdf.text "Total Hours: #{@payform.hours}", :size => 16, :style => :bold
+  pdf.text "This payform was approved by #{@payform.approved_by.name} at #{@payform.approved.strftime(time_format + ' on ' + date_format)}"

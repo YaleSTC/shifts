@@ -98,9 +98,18 @@ class User < ActiveRecord::Base
   def is_active?(dept)
     self.departments_users[0].active
   end
-
+  
   def full_name
+    [(nick_name || first_name), last_name].join(" ")
+  end
+  alias :name :full_name
+  
+  def proper_name
     [first_name, last_name].join(" ")
+  end
+  
+  def awesome_name
+    [first_name, '"' + nick_name + '"', last_name]
   end
 
   memoize :full_name, :permission_list, :is_superuser?
