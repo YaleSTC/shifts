@@ -137,6 +137,11 @@ module ShiftsHelper
     if from == to #return nothing if from and to time are the same
       ''
     else
+      if (type=="free_time")
+        #then location is passed instead of shift
+        location = shift
+        shift = nil
+      end
       span = ((to - from) / 3600 * @blocks_per_hour).round #convert to integer is impt here
       # display the shift time correctly, even if the shift overflows
       if overflow == "left"
@@ -262,8 +267,8 @@ module ShiftsHelper
           #this prepares view report as a popup, only yesterday onwards
           if shift.start >= Date.today
             report = shift.report
-            html_options.merge!(:id => "report_link_#{report.id}", :class => "popup_link")
-            extra = render(:partial => 'reports/report_popup', :locals => {:report => report})
+            html_options.merge!(:id => "report_link_#{report.id}", :class => "popup_link", :rel => "lightbox")
+            #extra = render(:partial => 'reports/report_popup', :locals => {:report => report})
           end
 
         elsif type=="user_time" and not shift.has_passed? #if shift belongs to user and can be signed up
@@ -299,18 +304,22 @@ module ShiftsHelper
       content += user_info + br + link_to(link_name, url_options, html_options)
 
       @clickable_signup = true      
-      if @clickable_signup and type=="free_time"
+      if @clickable_signup and type=="free_time" and location
         #print a bunch of individual cells, so we can click and add shifts
         result = ""
         time = from
         span.times do
-          signup_url = new_shift_path+"?shift%5Bstart%5D="+time.to_s #:location_id => nil
+          signup_url = new_shift_path+"?shift%5Bstart%5D="+time.to_s
+          signup_url += "&shift%5Blocation_id%5D="+location.id.to_s
+          onclick = ""
           #onclick = "onclick=\"window.location = 'http://bd.vg/'\""
-          onclick = "onclick=\"window.location = '#{signup_url}'\""
+          #onclick = "window.location = '#{signup_url}'"
+          #onclick="$('#{signup_url}').lightbox({start:true,events:false}); return false;"
           
           time += @block_length
-          temp_type = (time == to or time >= @day_end) ? "end_of_segment" : (time.strftime("%M") == "00" ? "end_of_hour" : "clickable_signup")
-          result += "<td title='#{td_title}' class='#{type} #{temp_type}' colspan=\"1\" #{onclick}>#{content}</td>" + extra
+          temp_type = (time == to or time >= @day_end) ? "end_of_segment" : (time.strftime("%M") == "00" ? "end_of_hour" : nil)
+          link = nil #"<a class='linkbox' rel='signup'>#{content}</a>" #"<a class='linkbox' rel='lightbox' href='#{signup_url}'>#{content}</a>"
+          result += "<td title='#{td_title}' class='#{type} clickable_signup #{temp_type}' colspan='1' onclick=\"#{onclick}\">#{link}</td>" + extra
         end
         result
       else
