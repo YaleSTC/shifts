@@ -17,6 +17,7 @@ class DataObjectsController < ApplicationController
   
   def show
     @data_object = DataObject.find(params[:id])
+    @data_type = DataType.find(params[:data_object][:data_type_id])
   end
   
   def new
@@ -55,9 +56,5 @@ class DataObjectsController < ApplicationController
     @data_object.destroy
     flash[:notice] = "Successfully destroyed data object."
     redirect_to data_objects_url
-  end
-  
-  def data_type_id
-    #@data_object.data_type_id
   end
 end

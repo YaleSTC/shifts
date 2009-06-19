@@ -57,8 +57,4 @@ class DataEntriesController < ApplicationController
       redirect_to data_objects_path
     end
   end
-  
-  def 
-  
-  end
 end
