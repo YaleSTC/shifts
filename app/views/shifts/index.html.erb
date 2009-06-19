@@ -1,8 +1,7 @@
 <%# Required for the shift report popup view %>
 <%# TODO: use something better than this %>
 <% stylesheet 'floatbox', 'notice' %>
-<% javascript 'floatbox' %>
-
+<% javascript 'floatbox', 'jrails', 'jquery', 'jquery.lightbox', 'jquery.simpletip-1.3.1' %>
 
 <% title "Shifts" %>
 <%= render :partial => 'view_preferences' %>
@@ -100,9 +99,37 @@
   <p><%= link_to "New Shift", new_shift_path %></p>
 </div>
 
-
+<%= link_to "Look! Lightbox can do simple popups really easily!", new_shift_path, :rel => "lightbox" %>
 
 <div id="schedule">
   <%= render :partial => 'schedule'%>
 </div>
 
+
+
+<%#= render :partial => "shifts/mini_form" %>
+<%# signup_popup = (render :partial => 'shifts/mini_form').gsub(/[']/, '\\\\\'').gsub(/\n/, '\\\n') %>
+
+
+<%= link_to_remote "Add a new shift", :url => { :action => "new" } %>
+
+<div id="ajax_result"></div>
+
+<script type="text/javascript">
+<!--
+  $("td.clickable_signup").simpletip({
+  
+    onBeforeShow: function(){
+      this.load('/shifts/new', "tooltip=true&");
+    },
+
+    content: 'loading...',
+    position: ["0", "26px"],
+    fixed: true,
+    //offset: [0,0],
+    persistent: true,
+    focus: true
+  
+  });
+-->
+</script>
