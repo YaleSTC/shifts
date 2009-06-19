@@ -51,6 +51,11 @@ class Payform < ActiveRecord::Base
     payform_items.map{|i| i.hours}.sum
   end
   
+  def start_date
+    subtract = (department.monthly ? 1.month : 1.week)
+    date - subtract + 1.day  
+  end
+  
   
   protected
   
