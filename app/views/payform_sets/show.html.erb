@@ -1,10 +1,7 @@
-<% title "Payform Set" %>
+<% title "Printed "+@payform_set.created_at.strftime(date_format+" at "+time_format) %>
 
 <p>
   Number of payforms: <%= @payform_set.payforms.length %>
-</p>
-<p>
-  Payforms Printed: <%=h @payform_set.created_at.strftime(date_format) %>
 </p>
 
 <p>
@@ -13,4 +10,6 @@
 <p>
   <%= link_to "Export CSV", :action => "show", :id => @payform_set, :format => :csv %>
 </p>
-
+<p>
+  <%= link_to "Print History", payform_sets_path %>
+</p>
