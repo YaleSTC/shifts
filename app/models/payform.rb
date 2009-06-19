@@ -1,24 +1,17 @@
 class Payform < ActiveRecord::Base
 
   has_many :payform_items
+  belongs_to :payform_set
   belongs_to :department
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
   
   validates_presence_of :department_id, :user_id
 
-  named_scope :unsubmitted, lambda { |dept_id| {
-    :conditions => ["department_id = ? AND submitted IS ?", dept_id, nil]
-  }}
-  named_scope :unapproved, lambda { |dept_id| {
-    :conditions => ["department_id = ? AND submitted IS NOT ? AND approved IS ?", dept_id, nil, nil]
-  }}
-  named_scope :unprinted, lambda { |dept_id| {
-    :conditions => ["department_id = ? AND approved IS NOT ? AND printed IS ?", dept_id, nil, nil]
-  }}
-  named_scope :printed, lambda { |dept_id| {
-    :conditions => ["department_id = ? AND printed IS NOT ?", dept_id, nil]
-  }}
+  named_scope :unsubmitted, {:conditions => ["submitted IS ?", nil] }
+  named_scope :unapproved,  {:conditions => ["submitted IS NOT ? AND approved IS ?", nil, nil] }
+  named_scope :unprinted,   {:conditions => ["approved IS NOT ? AND printed IS ?", nil, nil] }
+  named_scope :printed,     {:conditions => ["printed IS NOT ?", nil] }
 
 
   def status
@@ -63,9 +56,6 @@ class Payform < ActiveRecord::Base
     end
     if printed and !approved
       errors.add("Cannot print unapproved payform, so the approved field")
-    end
-    unless user.authorized?(department.payform_configuration.payform_permission.name)
-      errors.add("Payform owner is not authorized for payform department")
     end
   end
 

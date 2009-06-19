@@ -1,7 +1,7 @@
 class CreatePayformSets < ActiveRecord::Migration
   def self.up
     create_table :payform_sets do |t|
-      t.datetime :printed
+      t.references :department
       t.timestamps
     end
   end
