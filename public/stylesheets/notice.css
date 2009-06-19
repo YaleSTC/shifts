@@ -6,6 +6,7 @@ fieldset.sticky {
 }
 
 fieldset.announcement {
+  float
   width:48%;
   padding: 5px;
   margin:0 0 0 0;
