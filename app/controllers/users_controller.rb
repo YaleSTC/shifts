@@ -26,7 +26,7 @@ class UsersController < ApplicationController
         #don't modify any data, as this is probably a mistake
         flash[:notice] = "This user already exists in this department!"
         redirect_to @user
-      else
+    else
         #make sure not to lose roles in other departments
         #remove all roles associated with this department
         department_roles = @user.roles.select{|role| role.departments.include? @department}
@@ -44,7 +44,6 @@ class UsersController < ApplicationController
       @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
 
       #if a name was given, it should override the name from LDAP
-      @user.name = params[:user][:name] unless params[:user][:name] == ""
       @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
       if @user.save
         flash[:notice] = "Successfully created user."
