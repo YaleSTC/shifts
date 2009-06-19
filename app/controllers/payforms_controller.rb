@@ -8,13 +8,14 @@ class PayformsController < ApplicationController
     end
     if params[:unsubmitted]
       @payforms = @payforms.unsubmitted
-    elsif params[:unapproved]
+    elsif params[:submitted]
       @payforms = @payforms.unapproved
-    elsif params[:unprinted]
+    elsif params[:approved]
       @payforms = @payforms.unprinted
     elsif params[:printed]
       @payforms = @payforms.printed
     else
+      params[:unsubmitted] = params[:submitted] = params[:approved] = true
       @payforms -= @payforms.printed
     end
     @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
