@@ -1,4 +1,6 @@
-class PayformItemSetsController < ApplicationController
+ class PayformItemSetsController < ApplicationController
+layout "payforms"
+  
   def index
     @payform_item_sets = PayformItemSet.all
   end
@@ -13,6 +15,7 @@ class PayformItemSetsController < ApplicationController
   
   def create
     @payform_item_set = PayformItemSet.new(params[:payform_item_set])
+    #@payform_item_set.select{|p| p.. }.map{|p| p.destroy }
     if @payform_item_set.save
       flash[:notice] = "Successfully created payform item set."
       redirect_to @payform_item_set
