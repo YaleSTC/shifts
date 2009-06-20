@@ -13,7 +13,8 @@ class Notice < ActiveRecord::Base
   has_many :display_location_links, :class_name => "LocationSourceLink", :as => :location_sink
 
   validates_presence_of :content
-  validate :proper_time, :presence_of_locations_or_viewers
+  validate :presence_of_locations_or_viewers
+  validate_on_create :proper_time
 
 #  def for_user_names
 #    names = []
@@ -104,12 +105,11 @@ class Notice < ActiveRecord::Base
   end
 
   def presence_of_locations_or_viewers
-    errors.add_to_base("Your notice must display somehwere or for someone.") if self.display_locations.empty? && self.viewers.empty?
+    errors.add_to_base "Your notice must display somehwere or for someone." if self.display_locations.empty? && self.viewers.empty?
   end
 
   def proper_time
-    errors.add_to_base("Start/end time combination is invalid.") if (self.start_time > self.end_time unless self.end_time.nil?)
-#    (self.start_time > self.end_time if self.end_time) || Time.now >= self.start_time || (Time.now <= self.end_time if self.end_time)
+    errors.add_to_base "Start/end time combination is invalid." if self.start_time > self.end_time if self.end_time || Time.now > self.end_time if self.end_time
   end
 
   def is_current?
@@ -121,7 +121,7 @@ class Notice < ActiveRecord::Base
   end
 
   def remove(user)
-    self.errors.add_to_base("This notice has already been removed by #{remover.name}") and return if self.remover && self.end_time
+    self.errors.add_to_base "This notice has already been removed by #{remover.name}" and return if self.remover && self.end_time
     self.end_time = Time.now
     self.remover = user
     true
