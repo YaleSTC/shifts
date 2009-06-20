@@ -50,14 +50,14 @@ class NoticesController < ApplicationController
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    params[:for_users].split(",").each do |login_or_name|
-      viewer = User.find_by_login(login_or_name.strip!) || User.find_by_name(login_or_name.strip!)
-      if viewer
-        @notice.add_viewer_source(viewer)
-      else
-        @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
-      end
+    params[:for_users].split(",").map(&:strip).each do |login_or_name|
+    viewer = User.find_by_login(login_or_name) || User.find_by_name(login_or_name)
+    if viewer
+      @notice.add_viewer_source(viewer)
+    else
+      @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
     end
+  end
     @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
     if params[:for_locations]
       params[:for_locations].each do |loc|
