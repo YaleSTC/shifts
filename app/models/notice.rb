@@ -105,7 +105,7 @@ class Notice < ActiveRecord::Base
   end
 
   def presence_of_locations_or_viewers
-    errors.add_to_base "Your notice must display somehwere or for someone." if self.display_locations.empty? && self.viewers.empty?
+    errors.add_to_base "Your notice must display somewhere or for someone." if self.display_locations.empty? && self.viewers.empty?
   end
 
   def proper_time
@@ -125,6 +125,12 @@ class Notice < ActiveRecord::Base
     self.end_time = Time.now
     self.remover = user
     true
+  end
+
+  def self.inactive
+    inactive_notices = []
+    Notice.all.each {|n| inactive_notices << n unless n.is_current?}
+    inactive_notices
   end
 end
 

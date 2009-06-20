@@ -18,3 +18,10 @@
   <% end %>
 <% end %>
 
+<% if current_user.is_admin_of?(@department) %>
+<fieldset>
+  <legend>Inactive Notices</legend>
+  <%= render :partial => 'notice', :collection => Notice.inactive %>
+  </fieldset>
+<% end %>
+
