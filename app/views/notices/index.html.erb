@@ -1,13 +1,13 @@
 <h1 id="page_title"><%=h "Notices - " %><font size = -2><%= link_to 'Post a new notice', {:action => 'new'} %></font></h1>
-
+<fieldset>
+  <legend>For you</legend>
+  <%= render :partial => 'notice', :collection => current_user.notices if current_user.notices%>
+</fieldset>
 <% @department.locations.each do |loc| %>
-<% unless loc.notices.empty? %>
+  <% if loc.notices %>
   <fieldset>
-
-   <legend><%= loc.name %></legend>
-
-  <%= render :partial => 'notice', :collection => loc.notices %>
-
+    <legend><%= loc.name %></legend>
+    <%= render :partial => 'notice', :collection => loc.notices %>
   </fieldset>
   <br/>
   <% end %>
