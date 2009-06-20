@@ -253,7 +253,9 @@ module ShiftsHelper
           else
             link_name = "view"
             view_action = shift_report_path(shift)#"view_float"
-            html_options = {:rel => "floatbox#{shift.location_id}", :rev => "width:500px height:500px" }
+            #TODO: render without layout
+            url_options = {:layout => "none"}
+            html_options = {:rel => "lightbox"}
           end
 
           #TODO: should this just always go to the report show action?
@@ -303,23 +305,22 @@ module ShiftsHelper
 
       content += user_info + br + link_to(link_name, url_options, html_options)
 
-      @clickable_signup = true      
-      if @clickable_signup and type=="free_time" and location
+      #TODO: make this a preference
+      clickable_signup_preference = false;
+      clickable_signup = clickable_signup_preference
+      if clickable_signup and type=="bar_active"# and location
         #print a bunch of individual cells, so we can click and add shifts
         result = ""
         time = from
         span.times do
           signup_url = new_shift_path+"?shift%5Bstart%5D="+time.to_s
-          signup_url += "&shift%5Blocation_id%5D="+location.id.to_s
-          onclick = ""
-          #onclick = "onclick=\"window.location = 'http://bd.vg/'\""
-          #onclick = "window.location = '#{signup_url}'"
-          #onclick="$('#{signup_url}').lightbox({start:true,events:false}); return false;"
-          
+          #signup_url += "&shift%5Blocation_id%5D="+location.id.to_s
+          #pass variables via id?
+
           time += @block_length
           temp_type = (time == to or time >= @day_end) ? "end_of_segment" : (time.strftime("%M") == "00" ? "end_of_hour" : nil)
-          link = nil #"<a class='linkbox' rel='signup'>#{content}</a>" #"<a class='linkbox' rel='lightbox' href='#{signup_url}'>#{content}</a>"
-          result += "<td title='#{td_title}' class='#{type} clickable_signup #{temp_type}' colspan='1' onclick=\"#{onclick}\">#{link}</td>" + extra
+          #link = nil #"<a class='linkbox' rel='signup'>#{content}</a>" #"<a class='linkbox' rel='lightbox' href='#{signup_url}'>#{content}</a>"
+          result += "<td title='#{td_title}' id='#{shift.location_id}||#{time}' class='#{type} clickable_signup #{temp_type}' colspan='1'>test</td>" + extra
         end
         result
       else
