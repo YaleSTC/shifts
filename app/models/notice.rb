@@ -13,7 +13,8 @@ class Notice < ActiveRecord::Base
   has_many :display_location_links, :class_name => "LocationSourceLink", :as => :location_sink
 
   validates_presence_of :content
-  validate :proper_time, :presence_of_locations_or_loc_groups
+  validate :presence_of_locations_or_viewers
+  validate_on_create :proper_time
 
 #  def for_user_names
 #    names = []
@@ -22,13 +23,6 @@ class Notice < ActiveRecord::Base
 #    end
 #    names.join(", ")
 #  end
-
-  def display_for
-    display_for = []
-    display_for.push "for users #{self.viewers.collect{|n| n.name}.join(", ")}" unless self.viewers.empty?
-    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.join(", ")}" unless self.display_locations.empty?
-    display_for.join "<br/>"
-  end
 
 #  def locations(get_objects = false)
 #    array = self.for_locations.split(",").map &:to_i
@@ -54,6 +48,26 @@ class Notice < ActiveRecord::Base
 #    self.for_location_groups = array.join " "
 #  end
 
+#  def process_for_users
+#    temp_users = []
+#    self.for_users.split(",").map(&:strip).each do |user_string|
+#      user = User.find_by_login(user_string) || User.find_by_name(user_string)
+#      if user
+#        temp_users << user.id
+#      else
+#        self.errors.add "contains \'#{user_string}\'. Could not find user by that name or netid" unless user_string.blank?
+#      end
+#    end
+#    self.for_users = temp_users.join(',')
+#  end
+
+  def display_for
+    display_for = []
+    display_for.push "for users #{self.viewers.collect{|n| n.name}.join(", ")}" unless self.viewers.empty?
+    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.join(", ")}" unless self.display_locations.empty?
+    display_for.join "<br/>"
+  end
+
   def self.current
     current_notices = []
     Notice.all.each {|n| current_notices << n if n.is_current?}
@@ -69,10 +83,8 @@ class Notice < ActiveRecord::Base
 
   def viewers
     viewers = []
-#    if link.user_source
-     self.viewer_links.each do |link|
-       viewers += link.user_source.users
-#     end
+    self.viewer_links.each do |link|
+      viewers += link.user_source.users
     end
     viewers.uniq
   end
@@ -92,33 +104,16 @@ class Notice < ActiveRecord::Base
    display_locations.uniq
   end
 
-#  def process_for_users
-#    temp_users = []
-#    self.for_users.split(",").map(&:strip).each do |user_string|
-#      user = User.find_by_login(user_string) || User.find_by_name(user_string)
-#      if user
-#        temp_users << user.id
-#      else
-#        self.errors.add "contains \'#{user_string}\'. Could not find user by that name or netid" unless user_string.blank?
-#      end
-#    end
-#    self.for_users = temp_users.join(',')
-#  end
-
-  def presence_of_locations_or_loc_groups
-    errors.add_to_base("Your notice must display somehwere or for someone.") if self.display_locations.empty? && self.viewers.empty?
+  def presence_of_locations_or_viewers
+    errors.add_to_base "Your notice must display somehwere or for someone." if self.display_locations.empty? && self.viewers.empty?
   end
 
   def proper_time
-    errors.add_to_base("Start/end time combination is invalid.") if self.start_time > self.end_time || Time.now > self.end_time unless self.end_time.nil?
+    errors.add_to_base "Start/end time combination is invalid." if self.start_time > self.end_time if self.end_time || Time.now > self.end_time if self.end_time
   end
 
   def is_current?
-    if self.end_time.nil?
-      Time.now > self.start_time
-    else
-      Time.now > self.start_time && Time.now < self.end_time
-    end
+    self.end_time.nil? ? Time.now > self.start_time : Time.now > self.start_time && Time.now < self.end_time
   end
 
   def is_upcoming?
@@ -131,6 +126,5 @@ class Notice < ActiveRecord::Base
     self.remover = user
     true
   end
-
 end
 
