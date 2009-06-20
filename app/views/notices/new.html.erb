@@ -1,5 +1,5 @@
 <% title "New Notice" %>
-
+<fieldset>
 <% form_for(@notice) do |f| %>
   <%= f.error_messages %>
 
@@ -46,6 +46,7 @@
       <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %><%= location.name %><br />
     <% end %>
   <% end %>
+  </fieldset>
   <p>
     <%= f.submit 'Create' %>
   </p>
