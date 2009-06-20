@@ -35,6 +35,14 @@ class Location < ActiveRecord::Base
     notices
   end
 
+  def stickys
+    self.notices.select {|n| n.is_sticky}
+  end
+
+  def announcements
+    self.notices.select {|n| !(n.is_sticky)}
+  end
+
   def count_people_for(shift_list, min_block)
     people_count = {}
     people_count.default = 0
@@ -50,4 +58,3 @@ class Location < ActiveRecord::Base
     people_count
   end
 end
-
