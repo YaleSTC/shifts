@@ -279,7 +279,7 @@ table.day_view td.free_time.clickable_signup.end_of_segment {
 	border-right: 1px #fff solid !important;
 }
 
-table.day_view td.free_time:hover {
+table.day_view td.free_time.clickable_signup:hover {
   background: #888;
 }
 

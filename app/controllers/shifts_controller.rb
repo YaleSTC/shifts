@@ -30,7 +30,7 @@ class ShiftsController < ApplicationController
   def new
     params[:shift][:end] ||= params[:shift][:start] if params[:shift] and params[:shift][:start]
     @shift = Shift.new(params[:shift])
-    render :partial => 'shifts/tooltips/new', :layout => nil if params[:tooltip]
+    (render :partial => 'shifts/tooltips/new', :layout => 'none') if params[:tooltip]
   end
 
   def unscheduled

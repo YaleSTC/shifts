@@ -117,10 +117,17 @@
 
 <script type="text/javascript">
 <!--
-  $("td.clickable_signup").simpletip({
+  var api = $("td.clickable_signup").simpletip({
   
     onBeforeShow: function(){
-      this.load('/shifts/new', "tooltip=true&");
+      var text = this.getParent().get(0).id;
+      text = text.split("||");
+      //text = "testing"
+      
+
+      var location_id = "2";
+      
+      this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
     },
 
     content: 'loading...',
@@ -131,5 +138,7 @@
     focus: true
   
   });
+  
+
 -->
 </script>
