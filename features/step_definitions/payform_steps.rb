@@ -9,11 +9,15 @@ Given /^I have the following payform items?$/ do |table|
   table.hashes.each do |row|
     category = Category.find_by_name(row[:category])
     user = User.find_by_login(row[:user_login])
-    PayformItem.new(:category_id => category.id,
+    payform = Payform.create!(:user_id => user.id, :department_id => user.departments.first)
+    PayformItem.create!(:category_id => category.id,
                     :user_id => user.id,
                     :hours => row[:hours].to_f,
-                    :description => row[:description])
+                    :description => row[:description],
+                    :date => Time.parse(row[:date]),
+                    :payform_id => payform.id)
   end
+
 end
 
 Given /^I have the following payforms?:$/ do |table|
