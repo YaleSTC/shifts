@@ -288,6 +288,7 @@ module ShiftsHelper
         elsif current_user.is_admin_of?(@department) and not shift.has_passed? and not shift.signed_in?
           br = '<br />'
           url_options = edit_shift_path(shift)
+          html_options = {:class => 'clickable_edit', :id => "edit||"+shift.id.to_s}
           link_name = "edit"
           
         end
