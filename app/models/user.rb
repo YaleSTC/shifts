@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [(nick_name.length == 0 ? first_name : nick_name), last_name].join(" ")
+    [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
   end
 
   def proper_name

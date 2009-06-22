@@ -66,8 +66,8 @@ module ShiftsHelper
     slots.each do |ts|
       t = ts.start
       while (t<ts.end)
+        open_at[t.to_s(:am_pm)] = true
         t += min_block
-        open_at[t.to_s(:am_pm)] = true              
       end
     end
     open_at
@@ -252,26 +252,26 @@ module ShiftsHelper
             html_options = {}
           else
             link_name = "view"
-            view_action = shift_report_path(shift)#"view_float"
+            #view_action = shift_report_path(shift)#"view_float"
             #TODO: render without layout
-            url_options = {:layout => "none"}
-            html_options = {:rel => "lightbox"}
+            url_options = {:controller => 'reports', :action => 'show', :id => shift.report, :TB_iframe => true}
+            html_options = {:class => 'thickbox'}
           end
 
           #TODO: should this just always go to the report show action?
           # if current_user.is_admin_of?(@department)
-            url_options = shift_report_path(shift)
+          #   url_options = shift_report_path(shift)
           #   html_options = {}
           # else
           #   url_options = {:controller => "report", :action => "show", :id => shift}
           # end
 
           #this prepares view report as a popup, only yesterday onwards
-          if shift.start >= Date.today
-            report = shift.report
-            html_options.merge!(:id => "report_link_#{report.id}", :class => "popup_link", :rel => "lightbox")
-            #extra = render(:partial => 'reports/report_popup', :locals => {:report => report})
-          end
+          # if shift.start >= Date.today
+          #   report = shift.report
+          #   html_options.merge!(:id => "report_link_#{report.id}", :class => "popup_link", :rel => "lightbox")
+          #   #extra = render(:partial => 'reports/report_popup', :locals => {:report => report})
+          # end
 
         elsif type=="user_time" and not shift.has_passed? #if shift belongs to user and can be signed up
           br = '<br />'

@@ -1,21 +1,11 @@
 *~
-app/*
-config/*
-db/*
-lib/*
 log/*
-public/*
-script/*
-test/*
 tmp/*
-vendor/*
 Rakefile
-README
 structures.txt
 .DS_Store
 .project
 *.orig
 *.sqlite3
-.DS_Store
-.project
+db/schema.rb
 
