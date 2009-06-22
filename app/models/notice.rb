@@ -69,9 +69,7 @@ class Notice < ActiveRecord::Base
   end
 
   def self.current
-    current_notices = []
-    Notice.all.each {|n| current_notices << n if n.is_current?}
-    current_notices
+    Notice.all.select {|n| n.is_current?}
   end
 
   def add_viewer_source(source)
@@ -82,11 +80,7 @@ class Notice < ActiveRecord::Base
   end
 
   def viewers
-    viewers = []
-    self.viewer_links.each do |link|
-      viewers += link.user_source.users
-    end
-    viewers.uniq
+    self.viewer_links.collect{|l| l.user_source.users}.flatten.uniq
   end
 
   def add_display_location_source(source)
@@ -97,19 +91,7 @@ class Notice < ActiveRecord::Base
   end
 
   def display_locations
-    display_locations = []
-    self.display_location_links.each do |link|
-      display_locations += link.location_source.locations
-    end
-   display_locations.uniq
-  end
-
-  def presence_of_locations_or_viewers
-    errors.add_to_base "Your notice must display somewhere or for someone." if self.display_locations.empty? && self.viewers.empty?
-  end
-
-  def proper_time
-    errors.add_to_base "Start/end time combination is invalid." if self.start_time > self.end_time if self.end_time || Time.now > self.end_time if self.end_time
+    self.display_location_links.collect{|l| l.location_source.locations}.flatten.uniq
   end
 
   def is_current?
@@ -132,5 +114,14 @@ class Notice < ActiveRecord::Base
     Notice.all.each {|n| inactive_notices << n unless n.is_current?}
     inactive_notices
   end
-end
 
+  private
+  #Validations
+  def presence_of_locations_or_viewers
+    errors.add_to_base "Your notice must display somewhere or for someone." if self.display_locations.empty? && self.viewers.empty?
+  end
+
+  def proper_time
+    errors.add_to_base "Start/end time combination is invalid." if self.start_time > self.end_time if self.end_time || Time.now > self.end_time if self.end_time
+  end
+end

@@ -30,9 +30,7 @@ class Location < ActiveRecord::Base
   end
 
   def notices
-    notices = []
-    Notice.current.each {|n| notices << n if n.display_locations.include?(self)}
-    notices
+    Notice.current.select {|n| n.display_locations.include?(self)}
   end
 
   def stickys
