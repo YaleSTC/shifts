@@ -1,14 +1,4 @@
 *~
-app/*
-config/*
-db/*
-lib/*
-log/*
-public/*
-script/*
-test/*
-tmp/*
-vendor/*
 Rakefile
 README
 structures.txt
