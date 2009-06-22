@@ -11,33 +11,33 @@ departments_users_002:
   department_id: "1"
   updated_at: 2009-06-09 14:51:03
   user_id: "2"
-departments_users_003:
+departments_users_002: 
   active: t
-  created_at: 2009-06-13 13:59:20
+  created_at: 2009-06-09 15:51:03
   department_id: "1"
-  updated_at: 2009-06-13 13:59:20
+  updated_at: 2009-06-09 15:51:03
   user_id: "3"
-departments_users_004:
+departments_users_003: 
   active: t
-  created_at: 2009-06-13 13:59:25
+  created_at: 2009-06-08 21:28:44
   department_id: "1"
-  updated_at: 2009-06-13 13:59:25
+  updated_at: 2009-06-08 21:28:44
+  user_id: "1"
+departments_users_004: 
+  active: t
+  created_at: 2009-06-16 13:18:53
+  department_id: "1"
+  updated_at: 2009-06-16 13:18:53
   user_id: "4"
-departments_users_006:
+departments_users_005: 
   active: t
-  created_at: 2009-06-13 13:59:26
-  department_id: "1"
-  updated_at: 2009-06-13 13:59:26
-  user_id: "5"
-departments_users_008:
+  created_at: 2009-06-16 14:29:42
+  department_id: "2"
+  updated_at: 2009-06-16 14:29:42
+  user_id: "2"
+departments_users_006: 
   active: t
-  created_at: 2009-06-13 13:59:27
-  department_id: "1"
-  updated_at: 2009-06-13 13:59:27
-  user_id: "6"
-departments_users_009:
-  active: t
-  created_at: 2009-06-13 13:59:28
+  created_at: 2009-06-17 11:48:03
   department_id: "1"
   updated_at: 2009-06-13 13:59:28
   user_id: "7"

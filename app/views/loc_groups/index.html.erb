@@ -1,18 +1,21 @@
-<% title "Loc Groups" %>
+<% title "Location Groups" %>
 
-<table>
+<table class = "manage_table">
+  <thead>
   <tr>
     <th>Name</th>
-    <th>Department</th>
+    <th>Locations</th>
     <th>View Perm</th>
     <th>Signup Perm</th>
     <th>Admin Perm</th>
     <th>Can view?</th>
   </tr>
+  </thead>
+  <tbody>
   <% for loc_group in @loc_groups %>
     <tr>
       <td><%=h loc_group.name %></td>
-      <td><%=h loc_group.department.name %></td>
+      <td><%=h loc_group.locations.collect{|loc| loc.name} * ", " %></td>
       <td><%=h loc_group.view_permission.name %></td>
       <td><%=h loc_group.signup_permission.name %></td>
       <td><%=h loc_group.admin_permission.name %></td>
@@ -22,7 +25,9 @@
       <td><%= link_to "Destroy", loc_group, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
-
-<p><%= link_to "New Loc Group", new_department_loc_group_path(@department) %></p>
-
+<br />
+<% if current_user.is_admin_of?(@department) %>
+  <%= render :partial => 'form', :locals => {:title => "Add a new location group"}%>
+<% end %>

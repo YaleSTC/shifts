@@ -24,6 +24,7 @@
 </table>
 
 <p><%= link_to "New User", new_department_user_path(@department) %><br />
+<%= link_to "Mass Add", mass_add_department_users_path(@department) %><br />
 <% if params[:show_inactive].nil? %>
   <%= link_to "Show Inactive Users", :show_inactive => true %>
 <% else %>

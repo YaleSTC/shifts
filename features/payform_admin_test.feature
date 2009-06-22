@@ -6,8 +6,8 @@ Feature: payform admin
   I want to be able to approve, print, and perform other administrative tasks for payforms
 
   Background:
-    Given I am "Albus Dumbledore"
-    And the user "Albus Dumbledore" has permission "payform administrator"
+    Given the user "Albus Dumledore" has permissions "payform regular user, payform administrator"
+    And I am "Albus Dumbledore"
     And I have the following payforms:
       | date       | department | user             | submitted | approved |printed|
       | 2009-06-13 | Hogwarts   | Harry Potter     | nil       | nil      | nil   |
@@ -33,8 +33,13 @@ Feature: payform admin
     Then I should see "Quidditch"
     And I should see "2009-6-9"
     And I should see "2.0 hours"
+<<<<<<< HEAD:features/payform_admin_test.feature
     And "hp123" should have 1 payform_item
     And "hg9" should have 1 payform_item
+=======
+    And the user "hp123" should have 1 payform_item
+    And the user "hg9" should have 1 payform_item
+>>>>>>> shift-settings:features/payform_admin_test.feature
 
   Scenario: Creating a punch clock
     Given I have no punch_clocks
@@ -52,17 +57,28 @@ Feature: payform admin
 
   Scenario: Viewing payforms
     Then I should see "Harry Potter"
+<<<<<<< HEAD:features/payform_admin_test.feature
     And I should see "2009-06-13" under "Unsubmitted" in column 1
     And I should see "2009-06-06" under "Unapproved" in column 2
     And I should see "Hermione Granger"
     And I should see "2009-05-23" under "Unprinted" in column 3
+=======
+    And I should see "2009-06-13" under "Unsubmitted"
+    And I should see "2009-06-06" under "Unapproved"
+    And I should see "Hermione Granger"
+    And I should see "2009-05-23" under "Unprinted"
+>>>>>>> shift-settings:features/payform_admin_test.feature
     And I should not see "2009-05-16"
 
   Scenario: Approving payforms
     When I follow "2009-06-06"
     And I follow "Approve"
     Then I should see "Payform approved."
+<<<<<<< HEAD:features/payform_admin_test.feature
     And I should see "2009-06-06" under "Unprinted" in column 3
+=======
+    And I should see "2009-06-06" under "Unprinted"
+>>>>>>> shift-settings:features/payform_admin_test.feature
 
   Scenario: Printing payforms
     When I follow "2009-05-23"

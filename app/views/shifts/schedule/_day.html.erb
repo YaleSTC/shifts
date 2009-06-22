@@ -1,22 +1,27 @@
-<%  @curr_day = day
-# I don't think these are necessary any more... -rjl39
-@bar_ids ||= {}
-@bar_ids[@curr_day] = [] 
+<%  
+@curr_day = day
+@bar_ids[@curr_day] = []
 @shifts_outside_display = []
+#populate_all_locs(loc, shifts[true], @block_length)
 %>
 
 <% render :layout => 'shifts/schedule/day_table_layout' do
 #   TODO: gather this info from preferences correctly
 #    @loc_groups ||= pref_filter(fetch_location_groups) #need this for ajax sign up
     @loc_groups = @department.loc_groups
+    
+    populate_all_locs(@loc_groups, @block_length)
+    
     @loc_groups.each do |loc_group| 
       unless loc_group.locations.empty?
         load_variables(loc_group) %>
-        <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active} %>
+        <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
 
-        <tr>
-          <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
-        </tr>
+        <% unless loc_group == @loc_groups.last %>
+          <tr>
+            <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
 <% end %>

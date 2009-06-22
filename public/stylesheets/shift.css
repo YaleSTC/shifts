@@ -2,7 +2,6 @@
 a {
   color: #104e8b;
 }
-
 h1#thin_line_bottom {
   padding: 0 0 0;
   margin-bottom: 20px;
@@ -70,13 +69,13 @@ div.shift_form .submit {
 
 /* START: labels for div tables for weekly view*/
 div.table_title {
-  margin: 0px;
+  margin-bottom: 12px;
   width:100%;
   font-size: 12px;
   border-bottom: thin solid #B0B0B0; padding-bottom: 7px;
 }
 div.table_bottom {
-  margin: 0px;
+  margin-top: 12px;
   width:100%;
   font-size: 12px;
   border-top: thin solid #B0B0B0; padding-bottom: 7px;
@@ -113,24 +112,34 @@ table.day_view {
   width: 100%;
   text-align: center;
   padding: 0;
-  border-spacing: 1px;
-  border-collapse: separate;
+  border-spacing: 0px;
 
+  border-collapse: collapse;
   /* below solves the unevent block problem, also makes page load faster, but breaking down words is still ugly.  block smaller than an hour still cause problems. -H*/
 /*  table-layout: fixed;
   word-wrap: break-word;*/
 }
 
-td.between_groups{
-  height: 1px;
+table.day_view td {
+	border: 1px #fff solid;
+	border-bottom: 1px #fff solid;
+	border-top: 1px #fff solid;
+	/*temp*/
 }
 
-thead th.location_label{
+table.day_view th {
+	border: 1px #fff solid;
+	/*temp*/
+}
+
+td.between_groups{
+  height: 10px;
 }
 
 td.hour {
   background: #7f7f7f;
   color: white;
+  border: 1px #fff solid !important;
 }
 
 tr.segments{
@@ -138,6 +147,7 @@ tr.segments{
 
 td.min_segment {
   background: #123456;
+  border: 1px #fff solid !important;
 }
 
 th.location_label {
@@ -145,6 +155,8 @@ th.location_label {
   background: #7f7f7f;
   color: white;
   font-size: small;
+  border:1px #fff solid;
+  /*temp*/
 }
 
 th.unscheduled_label {
@@ -236,8 +248,39 @@ td.sub_time {
   background: #8888cc;
 }
 
-td.free_time {
+table.day_view td.free_time {
   background: #A2A2A2;
+/*  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  border-right: 1px #888 solid !important;*/
+	/*border: 1px solid #666;*/
+	/*temp*/
+	/*background: transparent none;*/
+	/*border-left: transparent;*/
+	border-right: 1px #fff solid;
+}
+
+table.day_view td.free_time.clickable_signup {
+	border-right: 1px #888 solid;
+}
+
+table.day_view td.free_time a.linkbox {
+	display:block;
+	min-width: 100%;
+	min-height: 2.5em;
+	cursor: default;
+}
+
+table.day_view td.free_time.clickable_signup.end_of_hour {
+	border-right: 1px #666 solid !important;
+}
+
+table.day_view td.free_time.clickable_signup.end_of_segment {
+	border-right: 1px #fff solid !important;
+}
+
+table.day_view td.free_time:hover {
+  background: #888;
 }
 
 td.overflow_left {
@@ -315,35 +358,6 @@ table.template_items_table tr.user_conflict{
 
 table.template_items_table tr.out_of_range{
   background: #525399;
-}
-
-table.manage_table{
-  border: 1px solid #666666;
-  border-collapse: collapse;
-  width: 100%;
-  padding: 4px;
-}
-
-table.manage_table caption{
-  text-align: left;
-  font-size: 15px;
-  font-weight: bold;
-  padding-top: 1em;
-
-}
-table.manage_table td {
-  border: 1px solid #666666;
-  text-align: center;
-}
-
-table.manage_table th { border: 1px solid #666666; }
-
-.shift_admin_form label {
-  width: 20em;
-  float: left;
-  text-align: right;
-  margin-right: 0.5em;
-  display: block;
 }
 
 
@@ -496,4 +510,26 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 .early_late_info{
   font-style: italic;
   color: #949494;
+}
+
+
+
+/*style for SimpleTip*/
+.tooltip{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	display: none;
+	background: #ffc;
+	color: #000;
+	padding: 5px;
+	font-style: normal;
+	font-weight: normal;
+  font-family: Verdana, Arial, serif;
+	font-size: 10pt;
+	border: 2px dashed gray;
+}
+.tooltip p{
+	margin: 5px 0;
 }

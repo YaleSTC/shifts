@@ -1,14 +1,5 @@
 <% inside_layout 'application' do %>
-    <div id="nav_column">
-      <ul>
-        <li><%= link_to "New Loc Group", new_department_loc_group_path(@department) %></li>
-        <li><%= link_to "All Loc Groups", department_loc_groups_path(@department) %></li>
-      <ul>
-    </div>
-
-    <div id="tab_content">
-      <%= yield %>
-    </div>
+    <%= yield %>
 
     <div class="clear"></div>
 <% end -%>

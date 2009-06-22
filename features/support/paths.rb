@@ -24,6 +24,9 @@ module NavigationHelpers
       user_settings_path
     when /the Application Settings page/
       application_settings_path
+    when /new notices/
+      new_notices_path
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
