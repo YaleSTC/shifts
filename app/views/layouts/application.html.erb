@@ -16,3 +16,18 @@
       <div id="pageAnchor">
         <a href="#top_of_page">
           <%= image_tag "jump.gif", {:hspace => "0", :height => "13", :border => "0", :width => "19", :alt => "Jump to top", :title => "Jump to top"} %>
+        </a>
+      </div>
+      <div id="footer">
+        <p class="footer">
+          URL: <%= request.env["HTTP_HOST"] %><%= request.request_uri %><br />
+          Certifying authority: Adam Bray, Asst. Manager, Student Technology<br />
+          Last modified: Tues Jun 9 12:08:00 EST 2009<br />
+          Questions?  Please email <a href="mailto:stc-hiring@yale.edu">stc-hiring@yale.edu</a><br />
+        </p>
+      </div>
+    </div>
+    <!-- End pagebox container -->
+    <div id="pageboxBottom"/> <!-- do not remove this -->
+  </body>
+</html>
