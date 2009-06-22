@@ -1,18 +1,20 @@
 class DataObjectsController < ApplicationController
   #User admin methods will need to be rewritten in move to other codebase
   
-  def index
-    if params[:data_type_id]
-      @data_objects = DataObject.find_all_by_data_type_id(params[:data_type_id])
-    elsif current_user.is_admin_of?(@department)
-      @data_objects = DataObject.by_department(@department)
-    elsif current_user.is_loc_group_admin?(@department)
-      @data_objects = current_user.loc_groups_to_admin(@department).map{|lg| DataObject.by_location_group(lg)}.flatten
-    else
-      flash[:error] = "You do not have the permissions necessary to view any
-                      data objects."
-      redirect_to access_denied_path
+  def index   
+    @data_objects = get_allowed_data_objects
+    @group_type_options = options_for_group_type
+    @group_by_options = []
+    if params[:view_options]
+      @selected_type = params[:view_options][:group_type]
+      if params[:view_options][:group_by]
+        unless (@selected_by = params[:view_options][:group_by]).blank?
+          @data_objects = @selected_type.classify.constantize.find(@selected_by).data_objects
+        end
+      end
+      @group_by_options = options_for_group_by(@selected_type)
     end
+    @data_types = @data_objects.group_by &:data_type
   end
   
   def show
@@ -26,15 +28,13 @@ class DataObjectsController < ApplicationController
   end
   
   def create
-    #raise penguins
-    @data_type = DataType.find(params[:data_object][:data_type_id])
     @data_object = DataObject.new(params[:data_object])
     @data_object.data_type_id = params[:data_object][:data_type_id]
     if @data_object.save
       flash[:notice] = "Successfully created data object."
-      redirect_to :action => 'show', :id => @data_object.id
+      redirect_to data_objects_path
     else
-      redirect_to params
+      render :action => 'new'
     end
   end
   
@@ -59,10 +59,44 @@ class DataObjectsController < ApplicationController
     flash[:notice] = "Successfully destroyed data object."
     redirect_to data_objects_url
   end
+<<<<<<< HEAD:app/controllers/data_objects_controller.rb
   
   # have to define a more elaborate sort method that will make
   # Object 2 appear before Object 10, for example
   def view_all
     @data_objects = DataObject.find(:all, :order => :data_type_id)
   end
+=======
+    
+private
+
+  # Returns all the data objects that the user is permitted to administer
+  def get_allowed_data_objects
+    unless (@loc_groups = current_user.loc_groups_to_admin(@department)).empty?
+      return @loc_groups.map{|lg| DataObject.by_location_group(lg)}.flatten    
+    end
+    return @department.data_objects if current_user.is_admin_of?(@department)
+    flash[:error] = "You do not have the permissions necessary to view any
+                    data objects."
+    redirect_to access_denied_path
+  end
+  
+  def options_for_group_type
+    options = [["Location","locations"],["Location Group","loc_groups"]]
+    if current_user.is_admin_of?(@department)
+      options.push(["Data type", "data_types"], ["Department", "departments"])
+    end
+  end 
+  
+  def options_for_group_by(group_type)
+    return [] if group_type == "departments"
+    @options = @department.send(group_type)
+    if group_type == "locations" || group_type == "loc_groups" 
+      @options.reject!{|opt| !current_user.permission_list.include?(opt.admin_permission)}
+    end
+    @options.map{|t| [t.name, t.id]} << []
+  end
+    
+    
+>>>>>>> d5c67992be4696f1119cdae50216700c784e23c7:app/controllers/data_objects_controller.rb
 end

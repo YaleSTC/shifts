@@ -1,0 +1,25 @@
+  <table class="data_objects_table">
+    <caption><%= data_objects_table.first.name %></caption>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <% data_objects_table.first.data_fields.sort_by(&:id).each do |df| %>
+          <th><%= df.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% data_objects_table.second.each do |obj| %>
+      <tr>
+        <td><%= obj.name %></td>
+        <td><%= obj.description %></td>
+        <% unless obj.data_entries.empty? %>
+          <% obj.data_entries.last.data_fields_with_contents.sort do |entry| %>
+            <td><%= entry.second %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>

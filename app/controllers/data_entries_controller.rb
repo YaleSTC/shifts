@@ -21,7 +21,7 @@ class DataEntriesController < ApplicationController
     @data_entry.data_object_id = params[:data_object_id]
     if @data_entry.save
       flash[:notice] = "Successfully created data entry."
-      redirect_to @data_entry
+      redirect_to data_object_data_entry_path(params[:data_object_id])
     else
       render :action => 'new'
     end
@@ -29,6 +29,7 @@ class DataEntriesController < ApplicationController
   
   def edit
     @data_entry = DataEntry.find(params[:id])
+    @data_object = DataObject.find(params[:data_object_id])
   end
   
   def update

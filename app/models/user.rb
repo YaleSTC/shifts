@@ -77,18 +77,18 @@ class User < ActiveRecord::Base
   end
 
   # check for loc group admin, who can add locations and shifts under it
-  def can_admin?(loc_group)
-    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
-  end
+  # DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
+#  def can_admin?(loc_group)
+#    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
+#  end
 
-  # check for department admin, who can create new loc group, new role, and new user in department
-  def is_admin_of?(dept)
-    self.is_superuser? || permission_list.include?(dept.permission) && self.is_active?(dept)
+  # check for admin permission given a dept or location group
+  def is_admin_of?(thing)
+    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(dept))
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
   def is_superuser?
-    return false
     SUPERUSER_LIST.include?(self.login)
   end
 

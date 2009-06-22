@@ -48,6 +48,11 @@ class ApplicationController < ActionController::Base
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
   end
+  
+  def require_loc_group_admin
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(@loc_group)
+  end
+  
   def require_superuser
     unless current_user.is_superuser?
       flash[:notice] = "Only superuser can manage departments."
