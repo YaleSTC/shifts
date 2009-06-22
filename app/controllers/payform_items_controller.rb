@@ -1,4 +1,6 @@
 class PayformItemsController < ApplicationController
+  layout 'payforms'
+  
   def new
     @payform = Payform.find(params[:payform_id])
     @payform_item = PayformItem.new
