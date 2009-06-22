@@ -1,9 +1,8 @@
 *~
 log/*
-tmp/**/*
-db/*.sqlite3
-doc/*
-db/schema.rb
+tmp/*
+Rakefile
+structures.txt
 .DS_Store
 .project
 *.orig

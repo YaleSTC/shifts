@@ -14,12 +14,16 @@ module NavigationHelpers
       department_users_path(@department)
     when /the list of departments/
       departments_path
-    when /the page for the payform for the week "([^\"]*)"/
+    when /the page for the payform for the week "([^\"]*)"/i
       payform_path(Payform.find_by_date($1.to_date))
     when /the payforms page/
       payforms_path
-    when /shifts/
-      shifts_path
+				when /shifts/
+				  shifts_path
+				when /notices/
+      notices_path
+    when /new notices/
+      new_notices_path
 
     # Add more mappings here.
     # Here is a more fancy example:

@@ -1,9 +1,19 @@
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.hidden_field :department_id %>
-  </p>
-
+<div class="admin_form">
+  <fieldset>
+    <legend><%= title %></legend>
+    <% form_for (@loc_group.new_record? ? [@department,@loc_group] : @loc_group) do |f| %>
+      <%= f.error_messages %>
+      <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.hidden_field :department_id %>
+      </p>
+      <p>
+        <label>&#8200;</label>
+        <%= f.submit (@loc_group.id.nil? ? "Create" : "Update") %>
+      </p>
+    <% end %>
+  </fieldset>
+</div>

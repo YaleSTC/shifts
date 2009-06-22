@@ -1,0 +1,14 @@
+<% @unscheduled_shifts_by_locgroup.each do |loc_group, shifts| %>
+  <h1><%= loc_group.name %></h1>
+  <% shifts_by_location = shifts.group_by(&:location) %>
+  <% shifts_by_location.each do |location, shifts| %>
+    <h2><%= location.name %></h2>
+    <ul>
+    <% shifts.each do |s| %>
+      <li><%= link_to "#{s.short_name}, #{s.start.to_s(:am_pm)}", shift_report_path(s), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+  <br>
+<% end %>

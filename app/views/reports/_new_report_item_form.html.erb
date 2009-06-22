@@ -1,0 +1,12 @@
+<% form_for [@report, @report_item] do |f| %>
+<p>
+    <%= f.error_messages %>
+</p>
+<p>
+    <%= f.text_area :content, {:size => '80x3', :wrap => 'hard'} %>
+</p>
+<p>
+    <%= f.submit "Add this event" %>
+</p>
+<% end -%>
+
