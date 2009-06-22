@@ -8,26 +8,43 @@
       <% if current_user.is_admin_of?(current_department) -%>
         <th>User</th>
       <% end -%>
-      <th>Unsubmitted</th>
-      <th>Submitted</th>
-      <th>Approved</th>
-      <th>Printed</th>
+      <% if params[:unsubmitted] %>
+        <th>Unsubmitted</th>
+      <% end -%>
+      <% if params[:submitted] %>
+        <th>Submitted</th>
+      <% end -%>
+      <% if params[:approved] %>
+        <th>Approved</th>
+      <% end -%>
+      <% if params[:printed] %>
+        <th>Printed</th>
+      <% end -%>
     </tr></thead>
     <%= render :partial => "payform", :collection => @payforms %>
     <% if @payforms.empty? -%>
-      <tr><td colspan=4>(No payforms to show)</td></tr>
+      <tr><td colspan=5>(No payforms to show)</td></tr>
     <% end -%>
     <tfoot><tr>
       <% if current_user.is_admin_of?(current_department) -%>
         <th>Total:</th>
       <% end -%>
-      <th><%= @payforms.select{|p| !p.submitted && !p.approved && !p.printed}.length %></th>
-      <th><%= @payforms.select{|p|  p.submitted && !p.approved && !p.printed}.length %></th>
-      <th><%= @payforms.select{|p|  p.submitted &&  p.approved && !p.printed}.length %></th>
-      <th><%= @payforms.select{|p|  p.submitted &&  p.approved &&  p.printed}.length %></th>
+      <% if params[:unsubmitted] %>
+        <th><%= @payforms.select{|p|!p.submitted }.length %></th>
+      <% end -%>
+      <% if params[:submitted] %>
+        <th><%= @payforms.select{|p| p.submitted && !p.approved}.length %></th>
+      <% end -%>
+      <% if params[:approved] %>
+        <th><%= @payforms.select{|p| p.approved  && !p.printed }.length %></th>
+      <% end -%>
+      <% if params[:printed] %>
+        <th><%= @payforms.select{|p| p.printed}.length %></th>
+      <% end -%>
     </tr></tfoot>
   </table>
 </div>
 <br/>
-<%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :confirm => 'Are you sure?', :method => :delete, :class=>"button" %>
+<%= link_to "<span>Print all approved payforms</span>", payform_sets_path, :method => :post, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
+<%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :method => :delete, :class=>"button" %>
 <%= link_to "<span>Your Current Payform</span>", go_payforms_path, :class=>"button" %>

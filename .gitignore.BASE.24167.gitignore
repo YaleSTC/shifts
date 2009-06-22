@@ -6,4 +6,3 @@ doc/*
 db/schema.rb
 .DS_Store
 .project
-*.orig

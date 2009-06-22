@@ -17,7 +17,7 @@ module PayformsHelper
   end
 
   def time_format
-    '%A, %B %d, %Y at %I:%M%p'
+    '%I:%M%p'
   end
   
   def date_format
