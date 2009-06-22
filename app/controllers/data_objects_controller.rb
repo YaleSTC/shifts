@@ -18,12 +18,12 @@ class DataObjectsController < ApplicationController
   end
   
   def show
-    @data_object = DataObject.find(params[:id])
+    @data_object = DataObject.find(params[:id])   
     @data_type = @data_object.data_type
   end
   
   def new
-    @data_object = DataObject.new
+    @data_object = DataObject.build({:data_type_id => params[:data_type_id]})
     @data_type = DataType.find(params[:data_type_id])
   end
   
