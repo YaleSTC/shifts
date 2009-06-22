@@ -6,19 +6,20 @@ Feature: payform admin
   I want to be able to approve, print, and perform other administrative tasks for payforms
 
   Background:
-    Given I am "Albus Dumbledore"
-    And the user "Albus Dumbledore" has permission "payform administrator"
+    Given the user "Albus" "Dumledore" has permissions "payform regular user, payform administrator"
+    And I am "Albus" "Dumbledore"
     And I have the following payforms:
-      | date       | department | user             | submitted | approved |printed|
-      | 2009-06-13 | Hogwarts   | Harry Potter     | nil       | nil      | nil   |
-      | 2009-06-06 | Hogwarts   | Harry Potter     | true      | nil      | nil   |
-      | 2009-05-23 | Hogwarts   | Hermione Granger | true      | true     | nil   |
-      | 2009-05-16 | Hogwarts   | Hermione Granger | true      | true     | true  |
+      | date       | department | user_first | user_last      | submitted | approved |printed|
+      | 2009-06-13 | Hogwarts   | Harry      | Potter         | nil       | nil      | nil   |
+      | 2009-06-06 | Hogwarts   | Harry      | Potter         | true      | nil      | nil   |
+      | 2009-05-23 | Hogwarts   | Hermione   | Granger        | true      | true     | nil   |
+      | 2009-05-16 | Hogwarts   | Hermione   | Granger        | true      | true     | true  |
     And I am on the payforms page
 
   Scenario: Creating a Mass Job
     Given I have no payform_item_sets
-    When I follow "Add jobs en masse"
+    When I follow "Mass Add Jobs"
+    And I follow "Add a Mass Job"
     And I select "2009-06-13" from "Last Day of Pay Week"
     And I select "Quidditch" from "Category"
     And I select "2" from "hours"
@@ -51,18 +52,20 @@ Feature: payform admin
     And I should see "Hermione Granger"
 
   Scenario: Viewing payforms
-    Then I should see "Harry Potter"
-    And I should see "2009-06-13" under "Unsubmitted" in column 1
-    And I should see "2009-06-06" under "Unapproved" in column 2
-    And I should see "Hermione Granger"
-    And I should see "2009-05-23" under "Unprinted" in column 3
+    Then I should see "Harry Potter" under "User" in column 1
+    And I should see "2009-06-13" under "Unsubmitted" in column 2
+    And I should see "2009-06-06" under "Submitted" in column 3
+    And I should see "Hermione Granger" under "User" in column 1
+    And I should see "2009-05-23" under "Approved" in column 4
     And I should not see "2009-05-16"
 
   Scenario: Approving payforms
     When I follow "2009-06-06"
     And I follow "Approve"
-    Then I should see "Payform approved."
-    And I should see "2009-06-06" under "Unprinted" in column 3
+    Then I should see "Approved"
+    And I should not see "not"
+    When I am on the payforms page
+    Then I should see "2009-06-06" under "Approved" in column 3
 
   Scenario: Printing payforms
     When I follow "2009-05-23"
