@@ -265,7 +265,6 @@ ul#miniTabs a:hover {
   margin-top: 20px;
   padding-left: 15px;
   width: 145px;
-
   color: #415578;
   font-family: Verdana, Geneva, Arial, sans-serif;
   font-size: 11px;
@@ -277,35 +276,39 @@ ul#miniTabs a:hover {
 }
 
 
-ul.navigationList {
-  margin: 0;
-  padding: 0 10px;
-}
-
+ul#navigationList {
+  color: #415578;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1.2em;
+  margin: 40px 0pt 0pt;
+  padding: 0pt;
+ 
   list-style-image: none;
   list-style-position: outside;
   list-style-type: square;
+ 
   float: left;
 }
-
-
-ul.navigationList li {
+ul#navigationList li {
   list-style-type: none;
 }
-ul.navigationList li ul {
+ul#navigationList li ul {
   font-size: 10px;
-  margin: 0;
-  padding: 0;
+  margin: 0pt;
+  padding: 0pt 0pt 0pt 17px;
 }
-ul.navigationList li a, ul.navigationList li h3 {
+ul#navigationList li a, ul#navigationList li h3 {
   height: 1%;
   display: block;
+  padding: 5px 5px 5px 17px;
 }
-ul.navigationList a:link, ul.navigationList a:visited {
+ul#navigationList a:link, ul#navigationList a:visited {
   color: #2758B3;
   text-decoration: none;
 }
-ul.navigationList a:hover {
+ul#navigationList a:hover {
   color: #FF9933;
   text-decoration: none;
 }
@@ -460,7 +463,9 @@ table.manage_table td {
   text-align: center;
 }
 
-table.manage_table th { border: 1px solid #666666; }
+table.manage_table th { 
+  border: 1px solid #666666; 
+}
 
 a {
   color: #104e8b;
@@ -469,8 +474,6 @@ a {
 a:hover{
 	color: orange;
 }
-
-
 
 .admin_form label {
   width: 20em;
