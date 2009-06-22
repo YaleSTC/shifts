@@ -6,3 +6,4 @@ structures.txt
 .DS_Store
 .project
 *.orig
+*.sqlite3
