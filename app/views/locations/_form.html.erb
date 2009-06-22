@@ -1,34 +1,44 @@
-<%= f.error_messages %>
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-<p>
-  <%= f.label :short_name %><br />
-  <%= f.text_field :short_name %>
-</p>
-<p>
-  <%= f.label :loc_group %><br />
-  <%= f.collection_select(:loc_group_id, @department.loc_groups, :id, :name, {:prompt => "Select a location group"}) %>
-</p>
-<p>
-  <%= f.label :useful_links %><br />
-  <%= f.text_area :useful_links %>
-</p>
-<p>
-  <%= f.label :min_staff %><br />
-  <%= f.text_field :min_staff %>
-</p>
-<p>
-  <%= f.label :max_staff %><br />
-  <%= f.text_field :max_staff %>
-</p>
-<p>
-  <%= f.label :priority %><br />
-  <%= f.text_field :priority %>
-</p>
-<p>
-  <%= f.label :active %><br />
-  <%= f.check_box :active %>
-</p>
-
+<div class="admin_form">
+  <fieldset>
+    <legend><%= title %></legend>
+    <% form_for (@location.new_record? ? [@department,@location] : @location) do |f| %>
+      <%= f.error_messages %>
+      <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :short_name %>
+        <%= f.text_field :short_name %>
+      </p>
+      <p>
+        <%= f.label :loc_group %>
+        <%= f.collection_select(:loc_group_id, @department.loc_groups, :id, :name, {:prompt => "Select a location group"}) %>
+      </p>
+      <p>
+        <%= f.label :useful_links %>
+        <%= f.text_area :useful_links, :rows => 4, :cols => 40 %>
+      </p>
+      <p>
+        <%= f.label :min_staff %>
+        <%= f.text_field :min_staff %>
+      </p>
+      <p>
+        <%= f.label :max_staff %>
+        <%= f.text_field :max_staff %>
+      </p>
+      <p>
+        <%= f.label :priority %>
+        <%= f.text_field :priority %>
+      </p>
+      <p>
+        <%= f.label :active %>
+        <%= f.check_box :active %>
+      </p>
+      <p>
+        <label>&#8200;</label>
+        <%= f.submit (@location.id.nil? ? "Create" : "Update") %>
+      </p>
+    <% end %>
+  </fieldset>
+</div>

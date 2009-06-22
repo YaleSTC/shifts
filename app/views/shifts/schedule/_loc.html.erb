@@ -1,60 +1,59 @@
 <%
-  @grace_period = 5*60 #seconds
-
   #Shift.find(:all, :conditions => {:location_id => loc}, :order => :start) : Shift.find(:all, :conditions => {:location_id => loc, :scheduled => true}, :order => :start))
-  shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
-  populate_loc(loc, shifts)
-  shiftsplit = shifts.group_by(&:scheduled)
-  @scheduled_shifts = [shiftsplit[true]]
-  @unscheduled_shifts = [shiftsplit[false]]
-  @shifts_in_row = @scheduled_shifts
+  # shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
+  # shifts = shifts.group_by(&:scheduled)
+  # @scheduled_shifts = [shifts[true]]
+  # populate_loc(loc, shifts[true], @block_length)
+  # @unscheduled_shifts = [shifts[false]]
+  @shifts_in_row = @scheduled_shifts[loc.object_id]
 %>
 
-<tbody>
+<!-- <tbody> -->
   <% @shifts_in_row.each_with_index do |row_shifts, i| %>
-    <tr class="location_row">
-      <% if i==0 %>
-        <th class="location_label" scope="rowgroup" rowspan="<%= loc.max_staff + 1 %>">
-          <%= link_toggle @bar_id, loc.short_name %><%# unless loc.bar_no_active? %>
+    <tr class="location_row" style="background: #ff0">
+      <%# if i==0 %>
+        <th class="location_label" scope="rowgroup" rowspan="1">
+          <%= i == 0 ? (@bar[loc.object_id] ? (link_toggle @bar_id, loc.short_name) : loc.short_name) : nil %><%#TODO%>
         </th>
-      <% end %>
+      <%# end %>
       
       <% @row_time = @day_start %>
       <% unless row_shifts.nil? %><%# if there are any shifts on this row, print them %>
-        <%= render :partial => 'shifts/schedule/row_shift', :collection => row_shifts.sort_by(&:start), :locals => {:index => i} %>
+        <%= render :partial => 'shifts/schedule/row_shift', :collection => row_shifts.sort_by(&:start), :locals => {:index => i, :location => loc} %>
       <% end %>
-      <%= print_cell("free_time", @row_time, @day_end, nil, ' ') -%><%# print rest of free time for the day %>            
+      <%= print_cell("free_time", @row_time, @day_end, loc) -%><%# print rest of free time for the day %>            
     </tr>
   <% end %>
   
-  <% if @display_unscheduled_shifts and !@unscheduled_shifts.flatten.compact.empty? %>
-    </tbody>
-    <tbody>
-    <% (@shifts_in_row = @unscheduled_shifts).each_with_index do |row_shifts, i| %>
+  <% @shifts_in_row = @unscheduled_shifts[loc.object_id] %>
+  <% if @display_unscheduled_shifts and !@shifts_in_row.flatten.compact.empty? %>
+    <!-- </tbody>
+    <tbody> -->
+    <% @shifts_in_row.each_with_index do |row_shifts, i| %>
       <tr class="unscheduled_row">
-        <% if i==0 %>
-          <th class="unscheduled_label" scope="rowgroup" rowspan="<%= loc.max_staff + 1 %>">
+        <%# if i==0 %>
+          <th class="unscheduled_label" scope="rowgroup" rowspan="1">
             <%#= link_toggle_unless loc.bar_no_active?, @bar_id, loc.short_name %>
             (unscheduled)
           </th>
-        <% end %>
+        <%# end %>
       
         <% @row_time = @day_start %>
         <% unless row_shifts.nil? %><%# if there are any shifts on this row, print them %>
-          <%= render :partial => 'shifts/schedule/row_shift', :collection => row_shifts.sort_by(&:start), :locals => {:index => i} %>
+          <%= render :partial => 'shifts/schedule/row_shift', :collection => row_shifts.sort_by(&:start), :locals => {:index => i, :location => nil} %>
         <% end %>
-        <%= print_cell("free_time", @row_time, @day_end, nil, ' ') -%><%# print rest of free time for the day %>            
+        <%= print_cell("free_time", @row_time, @day_end, nil) -%><%# print rest of free time for the day %>            
       </tr>
     <% end %>
   <% end %>
   
-  <% unless true %> <%#loc.bar_no_active? %>
-    <tr class="location_bar" id="<%= @bar_id %>" <%# TODO: current_user.preference.show_bars? ? '' : 'style="display:none"' %>>
-      <%# TODO: so much cleanup %>
-      <% bar = [[@day_start, @day_end, 'bar_pending']]%>
-      <%#= render :partial => 'shift/schedule/loc_bar', :collection => loc.bar, :locals => {:id => loc.id} %>
-      <%= render :partial => 'shifts/schedule/loc_bar', :collection => bar, :locals => {:id => loc.id} %>
+  <% unless @bar[loc.object_id].nil? %> <%#loc.bar_no_active? %>
+    <tr class="location_bar" id="<%= loc.short_name + @curr_day.to_s %>" <%# TODO: current_user.preference.show_bars? ? '' : 'style="display:none"' %>>
+      <th scope="rowgroup" rowspan="1<%#= loc.max_staff + 1 %>">
+      </th>
+      <%# TODO: cleanup %>
+      <%= render :partial => 'shifts/schedule/loc_bar', :collection => @bar[loc.object_id], :locals => {:id => loc.id} %>
     </tr>
-    <% @bar_ids[@curr_day] << @bar_id %>
+    <%# @bar_ids[@curr_day] << @bar_id %>
   <% end %>
-</tbody>
+<!-- </tbody> -->
