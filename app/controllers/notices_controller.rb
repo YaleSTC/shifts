@@ -46,6 +46,7 @@ class NoticesController < ApplicationController
   def create
 #    raise params.to_yaml
     @notice = Notice.new(params[:notice])
+    @notice.is_sticky = true unless current_user.is_admin_of?(@department)
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
@@ -115,3 +116,4 @@ class NoticesController < ApplicationController
     @loc_groups = @department.loc_groups.all
   end
 end
+
