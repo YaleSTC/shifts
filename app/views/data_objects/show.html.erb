@@ -11,6 +11,8 @@
 
 <p>
   <%= link_to "Edit", edit_data_object_path(@data_object) %> |
-  <%= link_to "Destroy", @data_object, {:confirm => 'Are you sure?', :method => :delete} %> |
-  <%= link_to "View All", data_type_data_objects_path(@data_type) %>
+  <%= link_to "Destroy", @data_type,  
+  :confirm => 'Are you sure? This will destroy all data entries belonging to this object.', 
+  :method => :delete %> |
+  <%= link_to "View all data objects", data_objects_path %>
 </p>
