@@ -1,4 +1,4 @@
-<% form_for (@shift ||= Shift.new) do |f| %>
+<% form_for @shift do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
@@ -19,4 +19,5 @@
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
   </p>
   <p><%= f.submit "Submit" %></p>
+  <p><%= submit_to_remote 'update', 'Submit without leaving page', :url => { :action => 'ajax_create' }, :before => "$('div.tooltip').hide()" %></p>
 <% end %>

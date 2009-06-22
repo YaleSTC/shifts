@@ -56,9 +56,22 @@ class ShiftsController < ApplicationController
       render :action => 'new'
     end
   end
+  
+  def ajax_create
+    @shift = Shift.new(params[:shift])
+    if @shift.save
+      #combine with any compatible shifts (if the shift is scheduled)
+      flash[:notice] = "Successfully created shift."
+      #redirect_to @shift
+    else
+      flash[:error] = "Shift could not be saved for some reason"
+      #render :action => 'new'
+    end
+  end
 
   def edit
     @shift = Shift.find(params[:id])
+    (render :partial => 'shifts/tooltips/new', :layout => 'none') if params[:tooltip]
   end
 
   def update
