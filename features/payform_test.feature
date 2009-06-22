@@ -65,10 +65,9 @@ Feature: payform
     When I follow "Submit Payform"
     Then the payform should be submitted
     And I should see "Successfully submitted payform."
-    And I should see "2009-5-23" under "Submitted"
-    Given the user "Albus" "Dumledore" has permissions "payform regular user, payform administrator"
+    Given the user "Albus" "Dumbledore" has permission "payform administrator"
     And I am "Albus" "Dumbledore"
     When I go to the payforms page
     Then I should see "Harry Potter"
-    And I should see "2009-5-23" under "Submitted"
+    And I should see "2009-05-23" under "Submitted" in column 3
 

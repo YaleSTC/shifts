@@ -4,7 +4,7 @@ user_01:
   login: ad12
   first_name: Albus
   last_name: Dumbledore
-  nick_name: "Albus Dumbledore"
+  nick_name: "Albus"
   email: ad12@hogwarts.edu
 
 user_02:
@@ -12,7 +12,7 @@ user_02:
   login: hp123
   first_name: Harry
   last_name: Potter
-  nick_name: "Harry Potter"
+  nick_name: "Harry"
   email: hp123@hogwarts.edu
 
 user_03:
@@ -20,7 +20,7 @@ user_03:
   login: hg9
   first_name: Hermione
   last_name: Granger
-  nick_name: "Hermione Granger"
+  nick_name: "Hermione"
   email: hg9@hogwarts.edu
 
 users_04:
@@ -28,6 +28,6 @@ users_04:
   login: ja
   first_name: John
   last_name: Arbuckle
-  nick_name: "John Arbuckle"
+  nick_name: "John"
   email: ja@garfield.com
 

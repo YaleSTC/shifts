@@ -6,6 +6,7 @@ module PayformItemHelper
       :user_id => 1,
       :category_id => 1,
       :hours => 3,
+      :date => "2009-5-23".to_date
       :description => "Fun"
     }
   end
@@ -20,7 +21,7 @@ describe PayformItem do
       @payform_item = PayformItem.new
     end
 
-    [:user_id, :description, :category, :hours].each do |attribute|
+    [:user_id, :description, :category_id, :hours, :date].each do |attribute|
       it "should be invalid without #{attribute}" do
         @payform_item.attributes = valid_payform_item_attributes.except(attribute)
         @payform_item.should_not be_valid

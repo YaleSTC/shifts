@@ -19,6 +19,7 @@ Feature: payform admin
   Scenario: Creating a Mass Job
     Given I have no payform_item_sets
     When I follow "Mass Add Jobs"
+    And I follow "Add a Mass Job"
     And I select "2009-06-13" from "Last Day of Pay Week"
     And I select "Quidditch" from "Category"
     And I select "2" from "hours"
@@ -51,18 +52,20 @@ Feature: payform admin
     And I should see "Hermione Granger"
 
   Scenario: Viewing payforms
-    Then I should see "Harry Potter"
-    And I should see "2009-06-13" under "Unsubmitted"
-    And I should see "2009-06-06" under "Unapproved"
-    And I should see "Hermione Granger"
-    And I should see "2009-05-23" under "Unprinted"
+    Then I should see "Harry Potter" under "User" in column 1
+    And I should see "2009-06-13" under "Unsubmitted" in column 2
+    And I should see "2009-06-06" under "Submitted" in column 3
+    And I should see "Hermione Granger" under "User" in column 1
+    And I should see "2009-05-23" under "Approved" in column 4
     And I should not see "2009-05-16"
 
   Scenario: Approving payforms
     When I follow "2009-06-06"
     And I follow "Approve"
-    Then I should see "Payform approved."
-    And I should see "2009-06-06" under "Unprinted"
+    Then I should see "Approved"
+    And I should not see "not"
+    When I am on the payforms page
+    Then I should see "2009-06-06" under "Approved" in column 3
 
   Scenario: Printing payforms
     When I follow "2009-05-23"
