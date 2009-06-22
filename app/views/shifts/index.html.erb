@@ -22,7 +22,6 @@
   </div>
 
   <%# TODO: implement announcements :P %>
-  <% @announcements = [] %>
   <% unless @announcements.empty? %>
     <% @notices = @announcements %>
     <div id="Notices">
@@ -118,15 +117,15 @@
 <script type="text/javascript">
 <!--
   var api = $("td.clickable_signup").simpletip({
-  
+
     onBeforeShow: function(){
       var text = this.getParent().get(0).id;
       text = text.split("||");
       //text = "testing"
-      
+
 
       var location_id = "2";
-      
+
       this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
     },
 
@@ -136,9 +135,10 @@
     //offset: [0,0],
     persistent: true,
     focus: true
-  
+
   });
-  
+
 
 -->
 </script>
+
