@@ -8,13 +8,14 @@ class PayformsController < ApplicationController
     end
     if params[:unsubmitted]
       @payforms = @payforms.unsubmitted
-    elsif params[:unapproved]
+    elsif params[:submitted]
       @payforms = @payforms.unapproved
-    elsif params[:unprinted]
+    elsif params[:approved]
       @payforms = @payforms.unprinted
     elsif params[:printed]
       @payforms = @payforms.printed
     else
+      params[:unsubmitted] = params[:submitted] = params[:approved] = true
       @payforms -= @payforms.printed
     end
     @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
@@ -35,6 +36,18 @@ class PayformsController < ApplicationController
     if errors.length > 0
       flash[:error] = "Error: "+errors*"<br/>"
       redirect_to payforms_path
+    else 
+      respond_to do |show|
+        show.html #show.html.erb
+        show.pdf  #show.pdf.prawn
+        show.csv do
+          csv_string = FasterCSV.generate do |csv|
+            csv << ["First Name", "Last Name", "Employee ID", "Start Date", "End Date", "Total Hours"]
+            csv << [@payform.user.first_name, @payform.user.last_name, @payform.user.employee_id, @payform.start_date, @payform.date, @payform.hours]
+          end
+          send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
+        end
+      end
     end
   end
 
