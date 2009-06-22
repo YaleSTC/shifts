@@ -63,11 +63,7 @@ class SubRequest < ActiveRecord::Base
 
 
   def substitutes
-    substitutes = []
-    self.user_sources.each do |source|
-      substitutes += source.users
-    end
-   substitutes.uniq
+    self.user_sources.collect{|s| s.users}.flatten.uniq
   end
 
 

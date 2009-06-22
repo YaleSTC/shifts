@@ -6,9 +6,7 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    all_notices = []
     all_notices = self.shift.location.notices + self.shift.user.notices
     all_notices.uniq
   end
 end
-

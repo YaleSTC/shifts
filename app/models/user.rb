@@ -110,15 +110,11 @@ class User < ActiveRecord::Base
   end
 
   def available_sub_requests
-    sub_requests = []
-    SubRequest.all.each {|sr| sub_requests << sr if sr.substitutes.include?(self)}
-    sub_requests
+    SubRequest.all.select{|sr| sr.substitutes.include?(self)}
   end
 
   def notices
-    notices = []
-    Notice.current.each {|n| notices << n if n.viewers.include?(self)}
-    notices
+    Notice.current.select{|n| n.viewers.include?(self)}
   end
 
   memoize :full_name, :permission_list, :is_superuser?
