@@ -56,12 +56,19 @@ Then /^the payform should be submitted$/ do
   @user.payforms.first.submitted.should_not be_nil
 end
 
-Then /^the user "([^\"]*)" should have ([0-9]+) payform_item$/ do |user, count|
-  @user = User.find_by_name(user).id
-  PayformItem.find(:conditions => {:user_id => user}).count.should == count.to_i
+Then /^I should see "([^\"]*)" under "([^\"]*)" in column ([0-9]+)$/ do |expected_message, header, column|
+  assert_select("table") do
+#    assert_select("th td:nth-of-type(#{column.to_i})", header)
+    assert_select("tr td:nth-of-type(#{column.to_i})", expected_message)
+  end
 end
 
-Then /^I should see "([^\"]*)" under "([^\"]*)"$/ do |payform_date, column|
-  raise "This is pending"
+Then /^"([^\"]*)" should have ([0-9]+) payforms?$/ do |user, count|
+  User.find_by_name(user).payforms.should have(count.to_i).payforms
+end
+
+Then /^the user "([^\"]*)" should have ([0-9]+) payform_item$/ do |user, count|
+  @user = User.find_by_login(user).id
+  PayformItem.find(:conditions => {:user_id => user}).count.should == count.to_i
 end
 
