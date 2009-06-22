@@ -1,25 +1,29 @@
-Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |name, department, login|
+Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |first_name, last_name, department, login|
   d = Department.find_by_name("#{department}") or Department.create!(:name => department)
 
-  u = User.new(:name => name, :login => login)
+  u = User.new(:first_name => first_name, :last_name => last_name, :login => login)
   u.departments << Department.find_by_name("#{department}")
   u.save!
 end
 
-Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |user_name, permissions|
-  user = User.find_by_name(user_name)
+Given /^the user "([^\"]*)" "([^\"]*)" has permissions? "([^\"]*)"$/ do |first_name, last_name, permissions|
+  User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
+
+  user = User.find_by_last_name(last_name)
   permissions.split(", ").each do |permission_name|
     #user.permissions << Permission.find_by_name(permission_name)
   end
 end
 
-Given /^I am "([^\"]*)"$/ do |user_name|
-  @user = User.find_by_name(user_name)
+Given /^I am "([^\"]*)" "([^\"]*)"$/ do |first_name, last_name|
+  @user = User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
+  user_id = @user.id
   @department = @user.departments[0]
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
-  #this seems like a clumsy way to set the department but I can't figure out any other way - wei
+    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
   visit departments_path
   click_link @department.name
+
 end
 
 Given /^I have no (.+)$/ do |class_name|

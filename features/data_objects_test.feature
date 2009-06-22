@@ -36,7 +36,6 @@ Feature: data object
 
     Scenario: Editing data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location group "Jurassic Park Pets"
-      And I have 1 data_object
       When I press "Edit"
       And I select "Cat" from "Data type"
       And I fill in "Name" with "Crookshanks"
@@ -52,7 +51,6 @@ Feature: data object
 
     Scenario: Deleting data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location group "Jurassic Park Pets"
-      And I have 1 data_object
       When I press "Delete"
       And I press "Yes, I am sure"
       Then I should have no data_objects
