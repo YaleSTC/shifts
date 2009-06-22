@@ -1,8 +1,9 @@
 <% stylesheet 'report' %>
 <% title "Shift Report at the #{@report.shift.location.name}" %>
-
+<fieldset>
+<legend>Relevant stickies and announcements</legend>
 <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
-
+</fieldset>
 <p>
 <% unless @report.departed || current_user!=@report.user %>
   <%= render :partial => 'new_report_item_form' %>
