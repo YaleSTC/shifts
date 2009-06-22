@@ -104,16 +104,6 @@
   <%= render :partial => 'schedule'%>
 </div>
 
-
-
-<%#= render :partial => "shifts/mini_form" %>
-<%# signup_popup = (render :partial => 'shifts/mini_form').gsub(/[']/, '\\\\\'').gsub(/\n/, '\\\n') %>
-
-
-<%= link_to_remote "Add a new shift", :url => { :action => "new" } %>
-
-<div id="ajax_result"></div>
-
 <script type="text/javascript">
 <!--
   var api = $("td.clickable_signup").simpletip({
@@ -121,10 +111,6 @@
     onBeforeShow: function(){
       var text = this.getParent().get(0).id;
       text = text.split("||");
-      //text = "testing"
-
-
-      var location_id = "2";
 
       this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
     },
@@ -132,13 +118,9 @@
     content: 'loading...',
     position: ["0", "26px"],
     fixed: true,
-    //offset: [0,0],
     persistent: true,
     focus: true
 
   });
-
-
 -->
 </script>
-
