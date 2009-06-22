@@ -18,6 +18,8 @@ ActionController::Routing::Routes.draw do |map|
     report.resources :report_items
   end
 
+  map.view_all_data_objects "data_objects/view_all_data_objects", :controller => "data_objects", :action => "view_all"
+  
   map.resources :data_objects do |data_object|
     data_object.resources :data_entries
   end
