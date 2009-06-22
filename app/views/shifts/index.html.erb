@@ -21,15 +21,6 @@
     <% end %>
   </div>
 
-  <%# TODO: implement announcements :P %>
-  <% unless @announcements.empty? %>
-    <% @notices = @announcements %>
-    <div id="Notices">
-      <h2>Announcements for <%= @department.name %></h2>
-      <%= render :partial => 'notices/notice', :collection => @announcements %>
-    </div>
-  <% end %>
-
   <% unless @upcoming_shifts.empty? %>
     <div id="upcoming_shifts_div">
       <h2 title="Displaying up to 4 upcoming shifts">Upcoming shifts</h2>
