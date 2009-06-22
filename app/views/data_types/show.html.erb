@@ -21,7 +21,7 @@
     </ul>
 <p>
   <%= link_to "New Data Field", edit_data_type_path(@data_type) %> |
-  <%= link_to "New Data Object", new_data_type_data_object_path(@data_type) %> | 
+  <%= link_to "New Data Object", data_object_path(@data_type) %> | 
   <%= link_to "Edit", edit_data_type_path(@data_type) %> |
   <%= link_to "Destroy", @data_type,  
   :confirm => 'Are you sure? This will destroy all data objects of this type, as well as their associated entries.', 
