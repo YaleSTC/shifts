@@ -59,11 +59,6 @@ class NoticesController < ApplicationController
     end
   end
     @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
-#    if params[:department_wide_users] && current_user.is_admin_of?(@department)
-#      User.each do |user|
-#        @notice.add_viewer_source(User.find_by_name(user))
-#      end
-#    end
     if params[:for_locations]
       params[:for_locations].each do |loc|
         @notice.add_display_location_source(Location.find_by_id(loc))
@@ -99,7 +94,7 @@ class NoticesController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @notice.errors, :status => :unprocessable_entity }
       end
-    end
+    endhttp://start.ubuntu.com/9.04/
   end
 
   # DELETE /notices/1_id
