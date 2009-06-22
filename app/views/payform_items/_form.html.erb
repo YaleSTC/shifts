@@ -16,6 +16,10 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </p>
+  <% if submit == "Save" %>
+    <%= f.label :reason %><br />
+    <%= f.text_area :reason %>
+  <% end %>
   <p><%= f.submit submit %></p>
 <% end %>
 
