@@ -17,4 +17,3 @@ class CreateLocations < ActiveRecord::Migration
     drop_table :locations
   end
 end
-

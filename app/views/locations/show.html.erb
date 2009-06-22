@@ -1,0 +1,10 @@
+<% title "Location" %>
+
+<%= render :partial => 'summary', :locals => {:location => @location} %>
+
+<p>
+  <%= link_to "Edit", edit_location_path(@location) %> |
+  <%= link_to "Destroy", @location, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", department_locations_path(@department) %>
+</p>
+

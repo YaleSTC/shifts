@@ -1,0 +1,22 @@
+<% form_for @shift do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %> (specify a start time)
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %> (specify an end time)
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
+  </p>
+  <%= f.hidden_field :power_signed_up, :value => :true %>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
