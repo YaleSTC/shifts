@@ -5,6 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
+
 RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 TASKR4RAILS_AUTH = "stc_493"
@@ -14,7 +15,7 @@ TASKR4RAILS_ALLOWED_HOSTS = ['127.0.0.1']
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  
+
   #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
   config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
 
@@ -47,7 +48,11 @@ Rails::Initializer.run do |config|
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
+
   config.gem "prawn"
+
+  config.gem "chronic"
+
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.

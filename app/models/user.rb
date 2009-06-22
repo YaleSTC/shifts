@@ -7,10 +7,15 @@ class User < ActiveRecord::Base
   has_many :payforms
 
   has_many :shifts
-  has_many :substitute_sources, :as => :user_source
+
+  has_many :user_source_links, :as => :user_source
+  has_many :notices, :as => :author
+  has_many :notices, :as => :remover
 
 
-  validates_presence_of :name
+
+  validates_presence_of :first_name
+  validates_presence_of :last_name
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
@@ -96,20 +101,33 @@ class User < ActiveRecord::Base
   def is_active?(dept)
     self.departments_users[0].active
   end
-  
+
   def name
     [(nick_name || first_name), last_name].join(" ")
   end
-  
+
   def proper_name
     [first_name, last_name].join(" ")
   end
-  
+
   def awesome_name
     [first_name, '"' + nick_name + '"', last_name]
   end
+  #This method is needed to make polymorphic associations work
+  def users
+    [self]
+  end
+
+  def available_sub_requests
+    SubRequest.all.select{|sr| sr.substitutes.include?(self)}
+  end
+
+  def notices
+    Notice.current.select{|n| n.viewers.include?(self)}
+  end
 
   memoize :name, :permission_list, :is_superuser?
+
 
   private
 
@@ -117,4 +135,3 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
-
