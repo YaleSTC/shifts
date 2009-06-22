@@ -1,11 +1,9 @@
 hogwarts_admin_permission:
   id: "1"
   name: Hogwarts dept admin
-
 Payform_admin_permission:
   id: "2"
   name: payform admin
-
 Data_Permission_001:
   id: "3"
   name: user_admin/superuser

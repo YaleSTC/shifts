@@ -7,18 +7,18 @@ Feature: payform admin
 
   Background:
     Given the user "Albus" "Dumledore" has permissions "payform regular user, payform administrator"
-    And I am "Albus Dumbledore"
+    And I am "Albus" "Dumbledore"
     And I have the following payforms:
-      | date       | department | user             | submitted | approved |printed|
-      | 2009-06-13 | Hogwarts   | Harry Potter     | nil       | nil      | nil   |
-      | 2009-06-06 | Hogwarts   | Harry Potter     | true      | nil      | nil   |
-      | 2009-05-23 | Hogwarts   | Hermione Granger | true      | true     | nil   |
-      | 2009-05-16 | Hogwarts   | Hermione Granger | true      | true     | true  |
+      | date       | department | user_first | user_last      | submitted | approved |printed|
+      | 2009-06-13 | Hogwarts   | Harry      | Potter         | nil       | nil      | nil   |
+      | 2009-06-06 | Hogwarts   | Harry      | Potter         | true      | nil      | nil   |
+      | 2009-05-23 | Hogwarts   | Hermione   | Granger        | true      | true     | nil   |
+      | 2009-05-16 | Hogwarts   | Hermione   | Granger        | true      | true     | true  |
     And I am on the payforms page
 
   Scenario: Creating a Mass Job
     Given I have no payform_item_sets
-    When I follow "Add jobs en masse"
+    When I follow "Mass Add Jobs"
     And I select "2009-06-13" from "Last Day of Pay Week"
     And I select "Quidditch" from "Category"
     And I select "2" from "hours"
