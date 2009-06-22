@@ -1,12 +1,12 @@
 <%# Required for the shift report popup view %>
 <%# TODO: use something better than this %>
-<% stylesheet 'floatbox', 'notice' %>
-<% javascript 'floatbox', 'jrails', 'jquery', 'jquery.lightbox', 'jquery.simpletip-1.3.1' %>
+<% stylesheet 'notice', 'thickbox' %>
+<% javascript 'jrails', 'jquery', 'thickbox-compressed', 'jquery.simpletip-1.3.1' %>
 
 <% title "Shifts" %>
 <%= render :partial => 'view_preferences' %>
 
-<div class = "shift_links">
+<div class="shift_links">
   <div>
     <% if current_user.is_admin_of?(@department) %>
       <%= link_to "Power sign up", power_sign_up_new_shift_path %> |
@@ -98,7 +98,8 @@
   <p><%= link_to "New Shift", new_shift_path %></p>
 </div>
 
-<%= link_to "Look! Lightbox can do simple popups really easily!", new_shift_path, :rel => "lightbox" %>
+<%= link_to "Sample Thickbox modal box", {:controller => 'reports', :action => 'show', :id => Report.first, :TB_iframe => true}, :class => "thickbox" %>
+
 
 <div id="schedule">
   <%= render :partial => 'schedule'%>
