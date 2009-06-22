@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_department
-  #before_filter CASClient::Frameworks::Rails::Filter
+  before_filter CASClient::Frameworks::Rails::Filter
 
   helper :layout # include all helpers, all the time
   helper_method :current_user
@@ -48,6 +48,11 @@ class ApplicationController < ActionController::Base
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
   end
+  
+  def require_loc_group_admin
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(@loc_group)
+  end
+  
   def require_superuser
     unless current_user.is_superuser?
       flash[:notice] = "Only superuser can manage departments."

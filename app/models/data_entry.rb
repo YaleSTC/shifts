@@ -3,6 +3,7 @@ class DataEntry < ActiveRecord::Base
 
   validates_presence_of :data_object_id
   validates_presence_of :content
+  
   # Write DataEntry content as a string with the following delimiters:
   #   Double semicolon between each datafield
   #   Double colon between the id of the datafield and the information it holds
@@ -53,12 +54,6 @@ class DataEntry < ActiveRecord::Base
     end
     return content_arrays
   end
-
-
-
-##      [a.first, a.second.gsub('**semicolon**',';').gsub('**colon**',':')]
-#    end
-#  end
 
 end
 

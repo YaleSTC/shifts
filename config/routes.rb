@@ -26,15 +26,10 @@ ActionController::Routing::Routes.draw do |map|
     data_type.resources :data_fields
   end
 
-  map.resources :data_types, :shallow => true do |data_type|
-    data_type.resources :data_objects
-  end
-
   map.resources :departments, :shallow => true do |departments|
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
-    departments.resources :data_types
     departments.resources :users, :collection => {:mass_add => :get, 
                                                   :mass_create => :post, 
                                                   :restore => :post}

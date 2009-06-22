@@ -2,7 +2,7 @@ class LocGroupsController < ApplicationController
   before_filter :require_department_admin
 
   def index
-    @loc_groups = @department.loc_groups.select { |lg| current_user.can_admin?(lg) }
+    @loc_groups = @department.loc_groups.select { |lg| current_user.is_admin_of?(lg) }
   end
 
   def show

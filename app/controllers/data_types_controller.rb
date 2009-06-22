@@ -1,10 +1,7 @@
 class DataTypesController < ApplicationController
-  # Hack to provide a consistent department within the data controller
-  before_filter :set_department_for_data   #department is STC
-
 
   def index
-    @data_types = DataType.find_all_by_department_id(@department.id)
+    @data_types = DataType.find_all_by_department_id(current_department)
   end
   
   def show
@@ -17,7 +14,7 @@ class DataTypesController < ApplicationController
   end
   
   def create
-    @data_type = DataType.new({:department => @department})
+    @data_type = DataType.new({:department => current_department})
     @data_type.update_attributes(params[:data_type])
     if @data_type.save
       flash[:notice] = "Successfully created data type."
@@ -49,10 +46,4 @@ class DataTypesController < ApplicationController
     redirect_to data_types_url
   end
   
-  private
-  
-  def set_department_for_data
-    @department = Department.find_by_name("STC")
-  end
-
 end

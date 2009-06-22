@@ -1,10 +1,15 @@
 class Department < ActiveRecord::Base
   has_many :loc_groups, :dependent => :destroy
-  belongs_to :permission, :dependent => :destroy
+  has_many :data_types, :dependent => :destroy
   has_many :departments_users, :dependent => :destroy
   has_many :users, :through => :departments_users
   has_many :locations, :through => :loc_groups
-  
+  has_many :data_objects, :through => :data_types
+  belongs_to :admin_permission,
+              :class_name => "Permission",
+              :foreign_key => "permission_id",
+              :dependent => :destroy
+ 
   has_many :substitute_sources, :as => :user_source
 
   before_validation_on_create :create_permissions
@@ -17,12 +22,12 @@ class Department < ActiveRecord::Base
 
   private
   def create_permissions
-    self.create_permission(:name => name + " dept admin")
+    self.create_admin_permission(:name => name + " dept admin")
   end
 
   # in case department name is changed, should update permissions accordingly
   def update_permissions
-    self.permission.update_attribute(:name, name + " dept admin")
+    self.admin_permission.update_attribute(:name, name + " dept admin")
   end
 
 end
