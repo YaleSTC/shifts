@@ -6,6 +6,7 @@ class Department < ActiveRecord::Base
   has_many :locations, :through => :loc_groups
 
   has_many :payforms
+  has_many :payform_sets
   has_many :categories
 
 

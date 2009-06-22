@@ -1,8 +1,11 @@
 class CreatePayformItemSets < ActiveRecord::Migration
   def self.up
     create_table :payform_item_sets do |t|
-      t.string :name
-      t.timestamps
+      t.references :category
+      t.date :date
+      t.decimal :hours
+      t.text :description
+      
     end
   end
   

@@ -18,6 +18,7 @@ class CreatePayforms < ActiveRecord::Migration
 
       t.references :department
       t.references :user
+      t.references :payform_set
 
       t.timestamps
     end

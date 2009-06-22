@@ -3,14 +3,11 @@ class CategoriesController < ApplicationController
   
   def index
     @categories = current_department.categories
+    @category = Category.new
   end
 
   def show
     @category = Category.find(params[:id])
-  end
-
-  def new
-    @category = Category.new
   end
 
   def create

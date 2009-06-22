@@ -37,8 +37,6 @@ class User < ActiveRecord::Base
           new_user.last_name  = entry['sn'].first
           new_user.email = entry['mail'].first
 
-          # create name as full name is this user doesn't have a nickname or different name assigned
-          new_user.name = new_user.full_name if new_user.name.blank?
         end
         #add the user to the currently selected department
         new_user.departments << department
@@ -98,12 +96,20 @@ class User < ActiveRecord::Base
   def is_active?(dept)
     self.departments_users[0].active
   end
-
-  def full_name
+  
+  def name
+    [(nick_name || first_name), last_name].join(" ")
+  end
+  
+  def proper_name
     [first_name, last_name].join(" ")
   end
+  
+  def awesome_name
+    [first_name, '"' + nick_name + '"', last_name]
+  end
 
-  memoize :full_name, :permission_list, :is_superuser?
+  memoize :name, :permission_list, :is_superuser?
 
   private
 
