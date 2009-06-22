@@ -1,4 +1,4 @@
-<%  
+<%
 @curr_day = day
 @bar_ids[@curr_day] = []
 @shifts_outside_display = []
@@ -9,10 +9,10 @@
 #   TODO: gather this info from preferences correctly
 #    @loc_groups ||= pref_filter(fetch_location_groups) #need this for ajax sign up
     @loc_groups = @department.loc_groups
-    
+
     populate_all_locs(@loc_groups, @block_length)
-    
-    @loc_groups.each do |loc_group| 
+
+    @loc_groups.each do |loc_group|
       unless loc_group.locations.empty?
         load_variables(loc_group) %>
         <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
@@ -30,7 +30,8 @@
   <h4>Shifts outside the display</h4>
   <ul>
     <% @shifts_outside_display.each do |s| %>
-      <li><%= link_to s.short_name, shift_report_path(s) -%></li>
+      <li><%= link_to s.short_name, (s.report ? shift_report_path(s) : shift_path(s)) -%></li>
     <% end %>
   </ul>
 <% end %>
+
