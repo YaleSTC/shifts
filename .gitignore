@@ -15,6 +15,7 @@ structures.txt
 .DS_Store
 .project
 *.orig
+*.sqlite3
 .DS_Store
 .project
 
