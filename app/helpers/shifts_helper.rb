@@ -306,21 +306,22 @@ module ShiftsHelper
       content += user_info + br + link_to(link_name, url_options, html_options)
 
       #TODO: make this a preference
-      clickable_signup_preference = false;
+      clickable_signup_preference = true;
       clickable_signup = clickable_signup_preference
-      if clickable_signup and type=="bar_active"# and location
+      if clickable_signup and type=="free_time" and location #bar_active"# 
         #print a bunch of individual cells, so we can click and add shifts
+        loc = location #shift.location_id
         result = ""
         time = from
         span.times do
           signup_url = new_shift_path+"?shift%5Bstart%5D="+time.to_s
           #signup_url += "&shift%5Blocation_id%5D="+location.id.to_s
           #pass variables via id?
-
+          id = loc.id.to_s+"||"+time.to_s
           time += @block_length
           temp_type = (time == to or time >= @day_end) ? "end_of_segment" : (time.strftime("%M") == "00" ? "end_of_hour" : nil)
           #link = nil #"<a class='linkbox' rel='signup'>#{content}</a>" #"<a class='linkbox' rel='lightbox' href='#{signup_url}'>#{content}</a>"
-          result += "<td title='#{td_title}' id='#{shift.location_id}||#{time}' class='#{type} clickable_signup #{temp_type}' colspan='1'>test</td>" + extra
+          result += "<td title='#{td_title}' id='#{id}' class='#{type} clickable_signup #{temp_type}' colspan='1'>&#8200;</td>" + extra
         end
         result
       else

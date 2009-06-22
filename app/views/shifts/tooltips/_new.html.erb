@@ -2,17 +2,17 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start, :default => Time.now, :minute_step => 15 %>
+    <%= f.datetime_select :start, :minute_step => 15 %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end, :default => Time.now, :minute_step => 15 %>
+    <%= f.datetime_select :end, :minute_step => 15 %>
   </p>
-  <% if current_user.is_admin_of?(@department) %>
-  <p>
-    <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
-  </p>
+    <% if current_user.is_admin_of?(@department) %>
+    <p>
+      <%= f.label :user %><br />
+      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
   <% end %>
   <p>
     <%= f.label :location %><br />
@@ -20,5 +20,3 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-
-<pre><%= params.to_yaml %></pre>
