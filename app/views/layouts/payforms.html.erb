@@ -6,16 +6,16 @@
         <li>
           <%= link_to "View Payforms", payforms_path %>
           <ul>
-            <li><%= link_to "Submitted", payforms_path(:submitted => true)%></li>
-            <li><%= link_to "Approved", payforms_path(:approved => true)%></li>
+            <li><%= link_to "Submitted", payforms_path(:unapproved => true)%></li>
+            <li><%= link_to "Approved", payforms_path(:unprinted => true)%></li>
             <li><%= link_to "Printed", payforms_path(:printed => true) %></li>
           </ul>
         </li>
         <li><%= link_to "Print History", payform_sets_path %></li>
-        <li><%= link_to "Mass Add Jobs", payform_item_sets_path %>
+        <li><%= link_to "Mass Add Jobs", new_payform_item_set_path %>
 
           <ul>
-            <li><%= link_to "View Mass Jobs", '#' %></li>
+            <li><%= link_to "View Mass Jobs", payform_item_sets_path %></li>
           </ul>
         </li>
         <li><%= link_to "Punch Clocks", '#' %>
