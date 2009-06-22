@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [(nick_name || first_name), last_name].join(" ")
+    [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
   end
 
   def proper_name
@@ -113,6 +113,7 @@ class User < ActiveRecord::Base
   def awesome_name
     [first_name, '"' + nick_name + '"', last_name]
   end
+  
   #This method is needed to make polymorphic associations work
   def users
     [self]
