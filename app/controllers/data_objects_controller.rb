@@ -59,4 +59,10 @@ class DataObjectsController < ApplicationController
     flash[:notice] = "Successfully destroyed data object."
     redirect_to data_objects_url
   end
+  
+  # have to define a more elaborate sort method that will make
+  # Object 2 appear before Object 10, for example
+  def view_all
+    @data_objects = DataObject.find(:all, :order => :data_type_id)
+  end
 end
