@@ -1,10 +1,12 @@
 *~
+log/*
+tmp/*
 Rakefile
 README
 structures.txt
 .DS_Store
 .project
 *.orig
-.DS_Store
-.project
+*.sqlite3
+db/schema.rb
 

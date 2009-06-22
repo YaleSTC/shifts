@@ -1,6 +1,6 @@
 <%= error_messages_for :category %>
   <div style="float:left; width:50%">
-    <%= render :partial => "category", :collection => @categories.active, :locals => {:text => "disable" }%>
+    <%= render :partial => "category", :collection => @categories, :locals => {:text => "disable" }%>
   </div>
   <div style="float:right; width:50%">
     <%= render :partial => "category", :collection => @categories.disabled, :locals => {:text => "enable" }%>

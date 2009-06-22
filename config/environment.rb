@@ -5,7 +5,6 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-
 RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 TASKR4RAILS_AUTH = "stc_493"
@@ -48,11 +47,8 @@ Rails::Initializer.run do |config|
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
-
   config.gem "prawn"
-
   config.gem "chronic"
-
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
@@ -96,4 +92,3 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes,
   :logger => cas_logger
 )
-

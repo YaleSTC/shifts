@@ -2,11 +2,11 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start %> (specify a start time)
+    <%= f.datetime_select :start, :minute_step => 15 %> (specify a start time)
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end %> (specify an end time)
+    <%= f.datetime_select :end, :minute_step => 15 %> (specify an end time)
   </p>
   <p>
     <%= f.label :user %><br />

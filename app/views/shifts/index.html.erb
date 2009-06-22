@@ -1,7 +1,7 @@
 <%# Required for the shift report popup view %>
 <%# TODO: use something better than this %>
 <% stylesheet 'notice', 'thickbox' %>
-<% javascript 'jrails', 'jquery', 'thickbox-compressed', 'jquery.simpletip-1.3.1' %>
+<% javascript 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed', 'jquery.simpletip-1.3.1' %>
 
 <% title "Shifts" %>
 <%= render :partial => 'view_preferences' %>
@@ -20,15 +20,6 @@
       <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
     <% end %>
   </div>
-
-  <%# TODO: implement announcements :P %>
-  <% unless @announcements.empty? %>
-    <% @notices = @announcements %>
-    <div id="Notices">
-      <h2>Announcements for <%= @department.name %></h2>
-      <%= render :partial => 'notices/notice', :collection => @announcements %>
-    </div>
-  <% end %>
 
   <% unless @upcoming_shifts.empty? %>
     <div id="upcoming_shifts_div">
@@ -97,49 +88,57 @@
 
   <p><%= link_to "New Shift", new_shift_path %></p>
 </div>
-
-<%= link_to "Sample Thickbox modal box", {:controller => 'reports', :action => 'show', :id => Report.first, :TB_iframe => true}, :class => "thickbox" %>
+<h3><%= link_to "Sample Thickbox modal box!", {:controller => 'reports', :action => 'show', :id => Report.first, :TB_iframe => true}, :class => "thickbox" %></h3>
 
 
 <div id="schedule">
   <%= render :partial => 'schedule'%>
 </div>
 
-
-
-<%#= render :partial => "shifts/mini_form" %>
-<%# signup_popup = (render :partial => 'shifts/mini_form').gsub(/[']/, '\\\\\'').gsub(/\n/, '\\\n') %>
-
-
-<%= link_to_remote "Add a new shift", :url => { :action => "new" } %>
-
-<div id="ajax_result"></div>
-
 <script type="text/javascript">
 <!--
-  var api = $("td.clickable_signup").simpletip({
-
-    onBeforeShow: function(){
-      var text = this.getParent().get(0).id;
-      text = text.split("||");
-      //text = "testing"
-
-
-      var location_id = "2";
-
-      this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
-    },
-
-    content: 'loading...',
-    position: ["0", "26px"],
-    fixed: true,
-    //offset: [0,0],
-    persistent: true,
-    focus: true
-
+  // var api = $("td.clickable_signup").simpletip({
+  // 
+  //   onBeforeShow: function(){
+  //     var text = this.getParent().get(0).id;
+  //     text = text.split("||");
+  // 
+  //     this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
+  //   },
+  // 
+  //   content: 'loading...',
+  //   position: ["0", "26px"],
+  //   fixed: true,
+  //   persistent: true,
+  //   focus: true
+  // 
+  // });
+  
+  
+  //test code for jQuery-ui's draggable and droppable classes  
+  $(document).ready(function(){
+    $(".draggable_users").draggable({ snap: '.droppable_slots', revert: 'invalid' });
+    $(".droppable_slots").droppable({ drop: function() { alert(this.id); } }); 
   });
-
-
+  
 -->
 </script>
 
+This is all a big jQuery test down here :D
+
+<div style="clear:both; height:20px"></div>
+
+<% User.all.each do |user|%>
+  <div class="draggable_users" style="float:left; height:48px; width:48px; border: 1px black solid; background: #<%= (rand(10)).to_s + (rand(10)).to_s + (rand(10)).to_s %>; color: white"><%= user.login %></div>
+<% end %>
+
+<div style="clear:both; height:20px"></div>
+
+<div>
+  <% 5.times do |i| %>
+    <% 5.times do |j| %>
+    <div style="float: left; width:48px; height:48px; border:1px black solid;" class="droppable_slots" id="<%= "#{i}x#{j}" %>"></div>
+    <% end %>
+    <div style="clear:both"></div>
+  <% end %>
+</div>

@@ -1,12 +1,15 @@
-<% inside_layout 'application' do %>
+<% content_for :head do %>
 
-  <%# the following are yieled in the HEAD of document, not here, thus there's no equal sign %>
-  <%#shift should be the last one because it might call classes belonging to the prior js files %>
-  <%# javascript 'date_selector', 'shift' %>
-  <%# stylesheet 'shift', 'report', 'date_selector', :media => 'all' %>
+  <%# put payform specific head info here %>
   <% stylesheet 'shift', 'report' %>
+
+<% end %>
+
+<% content_for :body do %>
   
   <%= yield %>
 
   <div class="clear"></div>
 <% end -%>
+
+<%= render :file => "layouts/application.html.erb" %>
