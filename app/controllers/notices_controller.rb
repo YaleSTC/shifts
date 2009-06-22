@@ -94,7 +94,7 @@ class NoticesController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @notice.errors, :status => :unprocessable_entity }
       end
-    endhttp://start.ubuntu.com/9.04/
+    end
   end
 
   # DELETE /notices/1_id
@@ -115,4 +115,3 @@ class NoticesController < ApplicationController
     @loc_groups = @department.loc_groups.all
   end
 end
-
