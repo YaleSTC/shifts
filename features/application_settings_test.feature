@@ -18,4 +18,5 @@ Feature: Application settings
   Scenario: Email: Site admin email address
 
   Scenario: Changing Authentication settings
+  host name , port #, search base (str), mappings from LDAP field to first_name and last_name (given_name and sn)
 

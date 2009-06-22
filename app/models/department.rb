@@ -5,12 +5,9 @@ class Department < ActiveRecord::Base
   has_many :users, :through => :departments_users
   has_many :locations, :through => :loc_groups
 
-  has_many :payforms
-  has_many :categories
+  has_many :user_source_links, :as => :user_source
 
-
-  has_many :substitute_sources, :as => :user_source
-  has_many :roles
+  has_many :location_source_links, :as => :location_source
 
   before_validation_on_create :create_permissions
 # this next validation doesn't work -cmk
@@ -31,4 +28,3 @@ class Department < ActiveRecord::Base
   end
 
 end
-

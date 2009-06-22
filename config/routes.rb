@@ -22,10 +22,10 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
     shifts.resources :report_items
 		end
-
+  map.resources :notices
   map.resources :time_slots #TODO: What should this be nested under, if anything?
 
-  map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
+  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end
