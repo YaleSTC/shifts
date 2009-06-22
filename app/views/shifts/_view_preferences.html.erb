@@ -1,5 +1,5 @@
 <div id="preferences" style="float:right">
-  <span id="pref_link" class="dotted_link" style="display:none">Show/Hide Groups (TODO)</span>
+  <span id="pref_link" class="dotted_link" style="display:none"><%= link_toggle "checkbox_div", "Show/Hide Groups (TODO)", "fast" %></span>
   <div id="checkbox_div">
     <%# TODO: actually make this preferences form work%>
     <% form_tag({:action => "view_preferences"}, {:id => 'pref_form'} ) do %>  
