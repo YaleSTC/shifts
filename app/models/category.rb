@@ -8,8 +8,12 @@ class Category < ActiveRecord::Base
   named_scope :disabled, :conditions => { :active => false }
   named_scope :active, :conditions => { :active => true }
   
+  def self.enabled
+    Category.find(:all, :conditions => ['active = ?', true])
+  end
+  
   protected
   
-
+  
 end
 
