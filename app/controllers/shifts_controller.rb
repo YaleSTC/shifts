@@ -7,6 +7,7 @@ class ShiftsController < ApplicationController
     @show_weekends = false
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
     @announcements = current_user.notices
+    @subs_you_can_take = current_user.available_sub_requests
   end
 
   def show
@@ -58,6 +59,18 @@ class ShiftsController < ApplicationController
       end
     else
       @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
+    end
+  end
+
+  def ajax_create
+    @shift = Shift.new(params[:shift])
+    if @shift.save
+      #combine with any compatible shifts (if the shift is scheduled)
+      flash[:notice] = "Successfully created shift."
+      #redirect_to @shift
+    else
+      flash[:error] = "Shift could not be saved for some reason"
+      #render :action => 'new'
     end
   end
 

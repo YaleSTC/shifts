@@ -40,13 +40,12 @@
     </div>
   <% end %>
 
-  <%# TODO: implement! %>
-  <!-- <%# unless @subs_you_can_take.empty? %>
+  <% unless @subs_you_can_take.empty? %>
       <h2>Subs you can take</h2>
       <ul>
-      <%#= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
+      <%= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
       </ul>
-    <%# end %> -->
+  <% end %>
 
   <% unless @current_shifts.empty? %>
     <div id="active_shifts_div">
