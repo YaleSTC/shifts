@@ -69,7 +69,7 @@ class Notice < ActiveRecord::Base
   end
 
   def self.current
-    Notice.all.select {|n| n.is_current?}
+    Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 
   def add_viewer_source(source)
