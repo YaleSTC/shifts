@@ -14,7 +14,7 @@ class DataObjectsController < ApplicationController
       end
       @group_by_options = options_for_group_by(@selected_type)
     end
-    @data_types = @data_objects.group_by &:data_type
+    @types_objects_hash = @data_objects.group_by &:data_type
   end
   
   def show
@@ -23,7 +23,7 @@ class DataObjectsController < ApplicationController
   end
   
   def new
-    @data_object = DataObject.build({:data_type_id => params[:data_type_id]})
+    @data_object = DataObject.new
     @data_type = DataType.find(params[:data_type_id])
   end
   
