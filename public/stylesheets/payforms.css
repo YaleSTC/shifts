@@ -66,10 +66,17 @@ div.payform_form legend {
 #payformList tbody td
 {
 	padding: 5px;
-	background: #e8edff;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
+}
+#payformList tbody tr.payform_item td
+{
+	background: #e8edff;
+}
+#payformList tbody tr.edit_item td
+{
+	background: #e8ffed;
 }
 #payformList td.rightside a
 {
@@ -83,10 +90,15 @@ div.payform_form legend {
 {
 	color: #484d9f;
 }
-#payformList tbody tr:hover td
+#payformList tbody tr.payform_item:hover  td
 {
 	background: #d0dafd;
 	color: #339;
+}
+#payformList tbody tr.edit_item:hover  td
+{
+	background: #d0fdda;
+	color: #393;
 }
 #payformList td.date {
     width: 45px;

@@ -1,4 +1,4 @@
-<tr class='payform_item'>
+<tr class="<%= class2 %>">
   <td class="date">
     <%=h payform_item.date.strftime('%b %d') %>
   </td>
@@ -8,7 +8,7 @@
   <td class="rightside" id="hours">
     <%=h payform_item.hours %>
   </td>
-  <% unless payform_item.payform.approved %>
+  <% if payform_item.payform && !payform_item.payform.approved %>
     <td class="rightside" id="edit">
       <%= link_to "edit", edit_payform_item_path(payform_item) %>
     </td>
@@ -17,4 +17,4 @@
     </td>
   <% end %>
 </tr>
-
+  <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:class2 => 'edit_item' } unless payform_item.payform_item.nil? %>
