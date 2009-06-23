@@ -74,7 +74,7 @@ class NoticesController < ApplicationController
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
-        format.html { redirect_to(@notice) }
+        format.html { redirect_to (request.referer) }
         format.xml  { render :xml => @notice, :status => :created, :location => @notice }
       else
         format.html { render :action => "new" }
@@ -132,12 +132,12 @@ class NoticesController < ApplicationController
   def destroy
     @notice = Notice.find(params[:id])
     unless @notice.is_sticky || current_user.is_admin_of?(@notice.department)
-      redirect_with_flash("You are not authorized to remove this notice") and return
+      redirect_with_flash("You are not authorized to remove this notice", :back) and return
     end
     unless @notice.is_current?
-      redirect_with_flash("This notice was already removed on #{@notice.end_time}") and return
+      redirect_with_flash("This notice was already removed on #{@notice.end_time}", :back) and return
     end
-    redirect_with_flash("Notice successfully removed") if @notice.remove(current_user)
+    redirect_with_flash("Notice successfully removed", :back) if @notice.remove(current_user)
     @notice.save!
   end
 
