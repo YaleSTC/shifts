@@ -18,7 +18,8 @@ layout "payforms"
     params[:user_ids] ||= []
     users = []
     date = build_date_from_params(:date, params[:payform_item_set])
-
+    errors = []
+    
     params[:user_ids].each do |user_id|
       user = User.find(user_id)
       payform = Payform.build(current_department, user, date)
@@ -31,7 +32,7 @@ layout "payforms"
       end
       @payform_item_set.payform_items << payform_item
     end
-    errors = []
+
     if !@payform_item_set.save
       errors << "Payform Item Set did not save"
     end
