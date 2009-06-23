@@ -14,29 +14,19 @@ layout "payforms"
   end
   
   def create
-    @payform_item_set = PayformItemSet.new(params[:payform_item_set])
+    @payform_item_set = PayformItemSet.create(params[:payform_item_set])
     params[:user_ids] ||= []
-    users = []
     date = build_date_from_params(:date, params[:payform_item_set])
-
     params[:user_ids].each do |user_id|
-      user = User.find(user_id)
-      payform = Payform.build(current_department, user, date)
       payform_item = PayformItem.new(params[:payform_item_set])
-      payform.payform_items << payform_item
-      payform.save!
+      payform_item.payform = Payform.build(current_department, User.find(user_id), date)
       @payform_item_set.payform_items << payform_item
     end
-    errors = []
-    if !@payform_item_set.save
-      errors << "Payform Item Set did not save"
-    end
-    if errors.length == 0
+    if @payform_item_set.save
       flash[:notice] = "Successfully created payform item set."
       redirect_to @payform_item_set
     else
-      flash[:error] =  "Error: "+errors*"<br/>" 
-      redirect_to @payform_item_set
+      render :action => "new"
     end
   end
   
