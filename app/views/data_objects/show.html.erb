@@ -8,7 +8,14 @@
   <strong>Description:</strong>
   <%=h @data_object.description %>
 </p>
-
+<p>
+  <strong>Data Type:</strong>
+  <%=h @data_object.data_type.name %>
+</p>
+<p>
+  <strong>Locations:</strong>
+  <%=h @data_object.locations.map{|l| l.short_name}.join(', ') %>
+</p>
 <p>
   <%= link_to "Edit", edit_data_object_path(@data_object) %> |
   <%= link_to "Destroy", @data_type,  
