@@ -10,7 +10,6 @@ class PayformItem < ActiveRecord::Base
 
   validates_presence_of :category_id, :description, :date
   validates_numericality_of :hours
-  validates_presence_of :reason, :if => :payform_item_id
 
   named_scope :active, lambda { |*args| { :conditions => ['active = ?',  true] } }
   
