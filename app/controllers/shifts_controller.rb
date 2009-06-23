@@ -51,7 +51,11 @@ class ShiftsController < ApplicationController
     if @shift.save
       #combine with any compatible shifts (if the shift is scheduled)
       flash[:notice] = "Successfully created shift."
-      redirect_to @shift
+      flash[:notice] = "Successfully updated shift."
+      respond_to do |format|
+        format.html { redirect_to @shift }
+        format.js
+      end
     else
       @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
     end
