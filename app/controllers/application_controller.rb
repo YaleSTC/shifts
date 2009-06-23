@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   # feel free to skip_before_filter when desired
   before_filter :load_department
   before_filter :load_user
-  before_filter CASClient::Frameworks::Rails::Filter
 
   helper :layout # include all helpers, all the time
   helper_method :current_user
@@ -27,8 +26,8 @@ class ApplicationController < ActionController::Base
   # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
   def current_user
     @current_user ||=
-      User.find_by_login(session[:cas_user]) ||
-      User.import_from_ldap(session[:cas_user], true)
+      User.find_by_login('catest') ||
+      User.import_from_ldap('catest', true)
   end
 
   # for department, current_department is a bit too long =),
@@ -47,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user
-    @current_user = User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
+    @current_user = User.find_by_login('catest') || User.import_from_ldap('catest', true)
   end
 
 
@@ -71,4 +70,3 @@ class ApplicationController < ActionController::Base
     redirect_to options
   end
 end
-
