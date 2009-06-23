@@ -89,6 +89,10 @@ class Notice < ActiveRecord::Base
   def viewers
     self.viewer_links.collect{|l| l.user_source.users}.flatten.uniq
   end
+  
+  def viewer_sources
+    self.viewer_links.collect{|l| l.user_source}
+  end
 
   def remove_all_viewer_sources
     UserSourceLink.delete_all(:user_sink_id => self.id)
