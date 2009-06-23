@@ -1,8 +1,14 @@
-<% stylesheet 'report' %>
+<% stylesheet 'report', 'notice' %>
 <% title "Shift Report at the #{@report.shift.location.name}" %>
-
+<fieldset>
+<legend>Message Center</legend>
 <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
-
+<fieldset class="sticky" style="width: 48%">
+  <div class="left">
+  <%= link_to 'Post a new notice', {:controller => 'notices', :action => 'new'} %>
+  </div>
+  </fieldset>
+</fieldset>
 <p>
 <% unless @report.departed || current_user!=@report.user %>
   <%= render :partial => 'new_report_item_form' %>
