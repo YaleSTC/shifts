@@ -53,7 +53,7 @@ class ShiftsController < ApplicationController
       flash[:notice] = "Successfully created shift."
       redirect_to @shift
     else
-      render :action => 'new'
+      @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
     end
   end
   
