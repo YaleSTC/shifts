@@ -1,5 +1,6 @@
 class PayformItemsController < ApplicationController
-
+  layout 'payforms'
+  
   def new
     @payform = Payform.find(params[:payform_id])
     @payform_item = PayformItem.new
@@ -19,6 +20,7 @@ class PayformItemsController < ApplicationController
 
   def edit
     @payform_item = PayformItem.find(params[:id])
+    @payform_item.payform_item_set = nil
   end
 
   def update
@@ -35,7 +37,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
     @payform_item.destroy
-    flash[:notice] = "Successfully destroyed payform item."
+    flash[:notice] = "Payform item deleted."
     redirect_to payform_path(@payform)
   end
 end

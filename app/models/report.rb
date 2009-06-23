@@ -4,4 +4,9 @@ class Report < ActiveRecord::Base
   has_many :report_items, :dependent => :destroy
 
   validates_uniqueness_of :shift_id
+
+  def get_notices
+    all_notices = self.shift.location.notices + self.shift.user.notices
+    all_notices.uniq
+  end
 end

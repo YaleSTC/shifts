@@ -1,4 +1,7 @@
 class ReportsController < ApplicationController
+  #AJAX requests will be returned without layout
+  layout proc{ |c| c.params[:format] == "js" ? false : "application" }
+
   def index
     @reports = Report.find(:all, :order => :arrived)
   end
@@ -6,6 +9,10 @@ class ReportsController < ApplicationController
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     @report_item = ReportItem.new
+    
+    #this doesn't currently work :P
+    #trying to disable the layout when viewing via a popout thickbox
+    render :layout => !request.xhr?
   end
 
   def new

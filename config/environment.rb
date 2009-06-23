@@ -5,7 +5,6 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-
 RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 TASKR4RAILS_AUTH = "stc_493"
@@ -15,8 +14,9 @@ TASKR4RAILS_ALLOWED_HOSTS = ['127.0.0.1']
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  #THIS IS FOR NATHAN'S APACHE SETUP
-  config.action_controller.relative_url_root = "/newstc" if ENV["USER"] == "smudge"
+
+  #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
+  config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -44,13 +44,11 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on.
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
-  # FIXME: I think we are going to choose prawn over pdf-writer
-  # config.gem "pdf-writer", :lib => 'pdf/writer'
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
   config.gem "fastercsv", :lib => false
   config.gem "icalendar", :lib  => false
-  config.gem "chronic"
   config.gem "prawn"
+  config.gem "chronic"
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
@@ -67,7 +65,7 @@ Rails::Initializer.run do |config|
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
   # Run "rake -D time" for a list of tasks for finding time zone names. Comment line to use default local time.
-  # config.time_zone = 'UTC'
+  config.time_zone = 'Eastern Time (US & Canada)'
 
   # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
   # All files from config/locales/*.rb,yml are added automatically.
@@ -94,4 +92,3 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes,
   :logger => cas_logger
 )
-

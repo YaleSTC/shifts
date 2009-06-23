@@ -1,7 +1,7 @@
 <div id="chooser">
   <p class="chooser_status">
   <% if current_user.departments.count == 1 -%>
-    <%= current_user.departments[0].name %>
+    <p class="chooser_status"><%= current_user.departments[0].name %></p>
   <% elsif current_user.departments.count > 1 -%>
     <% form_tag({:controller => :departments, :id => nil}, {:id => 'form_chooser', :method => "get"}) do %>
       <%= select_tag 'department_id', options_for_select(current_user.departments.collect{|d| [d.name, d.id]}, @department ? @department.id : nil), {:onchange =>"$('form_chooser').submit()"} %>
@@ -12,5 +12,4 @@
       </script>
     <% end -%>
   <% end -%>
-  </p>
 </div>

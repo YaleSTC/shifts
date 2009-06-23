@@ -1,6 +1,5 @@
-
 # insert netids of superusers here, note that only space is needed
-SUPERUSER_LIST = %w{dtt22 alb64 rjl39 njg24 mpl36 bq9 aje29 cmk49 kaa43 am846 brs35 dz65 lt275 catest}
+SUPERUSER_LIST = %w{dtt22 alb64 rjl39 njg24 mpl36 bq9 lt275 catest aje29 cmk49 kaa43 am846 brs35 dz65}
 
 # this should be fixed later, so that superusers can be changed in the app itself
 

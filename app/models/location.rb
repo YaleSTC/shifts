@@ -30,9 +30,15 @@ class Location < ActiveRecord::Base
   end
 
   def notices
-    notices = []
-    Notice.current.each {|n| notices << n if n.display_locations.include?(self)}
-    notices
+    Notice.current.select {|n| n.display_locations.include?(self)}
+  end
+
+  def stickys
+    self.notices.select {|n| n.is_sticky}
+  end
+
+  def announcements
+    self.notices.select {|n| !(n.is_sticky)}
   end
 
   def count_people_for(shift_list, min_block)
@@ -50,4 +56,3 @@ class Location < ActiveRecord::Base
     people_count
   end
 end
-
