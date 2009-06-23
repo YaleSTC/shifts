@@ -76,7 +76,8 @@ div.payform_form legend {
 }
 #payformList tbody tr.edit_item td
 {
-	background: #e8ffed;
+	background: #d0fdda;
+	color: #393;
 }
 #payformList td.rightside a
 {
@@ -94,11 +95,6 @@ div.payform_form legend {
 {
 	background: #d0dafd;
 	color: #339;
-}
-#payformList tbody tr.edit_item:hover  td
-{
-	background: #d0fdda;
-	color: #393;
 }
 #payformList td.date {
     width: 45px;
