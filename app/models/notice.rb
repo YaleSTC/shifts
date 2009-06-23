@@ -69,6 +69,8 @@ class Notice < ActiveRecord::Base
   end
 
   def self.current
+    #TODO: this could be much cleaner.  once we get beyond a few hundred notices,
+    #      the speed of this degrades really fast. should be moved to database logic.
     Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 
