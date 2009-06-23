@@ -7,6 +7,7 @@ class ShiftsController < ApplicationController
     @show_weekends = false
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
     @announcements = current_user.notices
+    @subs_you_can_take = current_user.available_sub_requests
   end
 
   def show
@@ -56,7 +57,7 @@ class ShiftsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def ajax_create
     @shift = Shift.new(params[:shift])
     if @shift.save
