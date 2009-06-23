@@ -1,7 +1,7 @@
 <h1 id="page_title"><%=h "Notices - " %><font size = -2><%= link_to 'Post a new notice', {:action => 'new'} %></font></h1>
 
 <% unless current_user.notices.empty? %>
-  <fieldset>
+  <fieldset class ="index">
     <legend>For you</legend>
     <%= render :partial => 'notice', :collection => current_user.notices if current_user.notices%>
   </fieldset>
@@ -10,7 +10,7 @@
 
 <% @department.locations.each do |loc| %>
   <% unless loc.notices.empty? %>
-  <fieldset>
+  <fieldset class ="index">
     <legend><%= loc.name %></legend>
     <%= render :partial => 'notice', :collection => loc.notices %>
   </fieldset>
@@ -20,7 +20,7 @@
 
 <% if current_user.is_admin_of?(@department) %>
 <% unless Notice.inactive.empty? %>
-<fieldset>
+<fieldset class ="index">
   <legend>Inactive Notices</legend>
   <%= render :partial => 'notice', :collection => Notice.inactive %>
   </fieldset>
