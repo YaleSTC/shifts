@@ -69,11 +69,12 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search_string)
-    users = []
-    User.all.each do |u|
-      u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string ? users << u : false
+    self.all.each do |u|
+      if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+        @found_user =  u
+      end
     end
-    users.uniq
+    @found_user
   end
 
   def permission_list
