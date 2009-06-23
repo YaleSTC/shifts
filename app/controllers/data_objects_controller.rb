@@ -24,7 +24,8 @@ class DataObjectsController < ApplicationController
   
   def new
     @data_object = DataObject.new
-    @data_type = DataType.find(params[:data_type_id])
+    @data_object.data_type_id = params[:data_type_id] if params[:data_type_id]
+    @locations_select = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
   end
   
   def create
@@ -40,7 +41,7 @@ class DataObjectsController < ApplicationController
   
   def edit
     @data_object = DataObject.find(params[:id])
-    @data_type = @data_object.data_type
+    @locations_select = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
   end
   
   def update
@@ -71,7 +72,7 @@ private
   # Returns all the data objects that the user is permitted to administer
   def get_allowed_data_objects
     unless (@loc_groups = current_user.loc_groups_to_admin(@department)).empty?
-      return @loc_groups.map{|lg| DataObject.by_location_group(lg)}.flatten    
+      @loc_groups.map{|lg| DataObject.by_location_group(lg)}.flatten    
     end
     return @department.data_objects if current_user.is_admin_of?(@department)
     flash[:error] = "You do not have the permissions necessary to view any
