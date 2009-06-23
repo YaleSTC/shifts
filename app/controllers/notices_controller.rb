@@ -117,6 +117,7 @@ class NoticesController < ApplicationController
         end
       end
     end
+    @notice.add_viewer_source(@department) if params[:department_wide_viewers] && !@notice.is_sticky
     @notice.remove_all_display_location_sources if update
     @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
     if params[:for_locations]
