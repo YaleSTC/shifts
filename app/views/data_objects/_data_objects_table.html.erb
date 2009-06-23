@@ -7,19 +7,18 @@
         <% data_objects_table.first.data_fields.sort_by(&:id).each do |df| %>
           <th><%= df.name %></th>
         <% end %>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
     <% data_objects_table.second.each do |obj| %>
+      <% entry = obj.data_entries.last.data_fields_with_contents unless obj.data_entries.empty? %>
       <tr>
         <td><%= link_to obj.name, obj %></td>
         <td><%= obj.description %></td>
-        <% unless obj.data_entries.empty? %>
-          <% obj.data_entries.last.data_fields_with_contents.sort do |entry| %>
-            <td><%= entry.second %></td>
-          <% end %>
+        <% data_objects_table.first.data_fields.sort_by(&:id).each do |df| %>
+          <td>
+            <%= entry[df.id] if entry && entry.include?(df.id) %>
+          </td>
         <% end %>
       </tr>
     <% end %>
