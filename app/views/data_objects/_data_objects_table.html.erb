@@ -4,7 +4,7 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <% data_objects_table.first.data_entries.last.data_fields_with_.sort_by(&:id).each do |df| %>
+        <% data_objects_table.first.data_fields.sort_by(&:id).each do |df| %>
           <th><%= df.name %></th>
         <% end %>
         <th></th>
