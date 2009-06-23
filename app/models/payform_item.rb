@@ -3,13 +3,15 @@ class PayformItem < ActiveRecord::Base
   belongs_to :payform
   belongs_to :payform_item
   belongs_to :payform_item_set
-		belongs_to :category
+	belongs_to :category
 
   delegate :department, :to => :category
   delegate :user, :to => :payform
 
   validates_presence_of :category_id, :description, :date
   validates_numericality_of :hours
+  
+  attr_protected :reason
 
   named_scope :active, lambda { |*args| { :conditions => ['active = ?',  true] } }
   
