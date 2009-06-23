@@ -130,4 +130,33 @@ class UsersController < ApplicationController
     end
     redirect_to department_users_path
   end
+  
+  def autocomplete
+    departments = current_user.departments
+    users = Department.find(params[:department_id]).users
+    roles = Department.find(params[:department_id]).roles
+    
+    @list = []
+    users.each do |user|
+      if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
+      #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
+        @list << {:id => "User||#{user.id}", :name => "#{user.name} (#{user.login})"}
+      end
+    end
+    departments.each do |department|
+      if department.name.downcase.include?(params[:q])
+        #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
+        @list << {:id => "Department||#{department.id}", :name => "Department: #{department.name}"}
+      end
+    end
+    roles.each do |role|
+      if role.name.downcase.include?(params[:q])
+        #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
+        @list << {:id => "Role||#{role.id}", :name => "Role: #{role.name}"}
+      end
+    end
+
+    #@users = @users.collect{|user| :id => user.id, :name => user.name}
+    render :layout => false
+  end
 end

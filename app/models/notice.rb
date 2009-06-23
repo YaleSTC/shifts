@@ -68,11 +68,15 @@ class Notice < ActiveRecord::Base
     display_for.join "<br/>"
   end
 
-  def self.current
+  def self.active
     #TODO: this could be much cleaner.  once we get beyond a few hundred notices,
     #      the speed of this degrades really fast. should be moved to database logic.
     #      Something like this: Notice.find(:all, :conditions => ['start_time < ? AND end_time > ?', Time.now, Time.now]).sort_by{|note| note.is_sticky ? 1 : 0}
     Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
+  end
+
+  def self.inactive
+    Notice.all.select{|n| !n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 
   def add_viewer_source(source)
@@ -84,6 +88,10 @@ class Notice < ActiveRecord::Base
 
   def viewers
     self.viewer_links.collect{|l| l.user_source.users}.flatten.uniq
+  end
+  
+  def viewer_sources
+    self.viewer_links.collect{|l| l.user_source}
   end
 
   def remove_all_viewer_sources
@@ -118,12 +126,6 @@ class Notice < ActiveRecord::Base
     self.end_time = Time.now
     self.remover = user
     true
-  end
-
-  def self.inactive
-    inactive_notices = []
-    Notice.all.each {|n| inactive_notices << n unless n.is_current?}
-    inactive_notices
   end
 
   private
