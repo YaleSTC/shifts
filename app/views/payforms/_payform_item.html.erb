@@ -3,17 +3,17 @@
     <%=h payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
-    &#x275D;<%=h payform_item.description %>&#x275E;
+    <%=h '❝'+payform_item.description+'❞' %>
   </td>
   <td class ="description" id= "reason">
     <% if !payform_item.payform_item.nil? %>
-    <I><%=h payform_item.reason %></I>
+      <em><%=h payform_item.reason %></em>
     <% end %>
   </td>
   <td class="rightside" id="hours">
     <%=h payform_item.hours %>
   </td>
-  <% if payform_item.payform && !payform_item.payform.approved %>
+  <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
     <td class="rightside" id="edit">
       <%= link_to "edit", edit_payform_item_path(payform_item) %>
     </td>
@@ -22,4 +22,4 @@
     </td>
   <% end %>
 </tr>
-  <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:class2 => 'edit_item' } unless payform_item.payform_item.nil? %>
+  <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:class2 => 'edit_item', :previous => payform_item } unless payform_item.payform_item.nil? %>

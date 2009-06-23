@@ -45,7 +45,6 @@ div.payform_form legend {
 }
 #payformList th
 {
-	font-size: 12px;
 	font-weight: bold;
 	padding: 5px;
 	background: #b9c9fe;
@@ -65,7 +64,6 @@ div.payform_form legend {
 }
 #payformList tbody td
 {
-	padding: 5px;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
@@ -73,11 +71,14 @@ div.payform_form legend {
 #payformList tbody tr.payform_item td
 {
 	background: #e8edff;
+	padding: 5px;
 }
 #payformList tbody tr.edit_item td
 {
+    font-size: 11px;
 	background: #d0fdda;
 	color: #393;
+	padding: 1px 5px 1px 5px;
 }
 #payformList td.rightside a
 {
