@@ -6,7 +6,6 @@ class ShiftsController < ApplicationController
     @days_per_period = 7 #TODO: make this a setting for an admin
     @show_weekends = false
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
-    @announcements = current_user.notices
     @subs_you_can_take = current_user.available_sub_requests
   end
 
@@ -100,3 +99,4 @@ class ShiftsController < ApplicationController
     redirect_to shifts_url
   end
 end
+
