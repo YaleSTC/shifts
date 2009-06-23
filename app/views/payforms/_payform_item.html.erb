@@ -18,6 +18,8 @@
     <td class="rightside" id="delete">
       <%= link_to "&#x2716;", payform_item, :confirm => 'Are you sure?', :method => :delete %>
     </td>
+  <% else %>
+    <td></td><td></td>
   <% end %>
 </tr>
 <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:type => 'edit_item' } if payform_item.payform_item %>
