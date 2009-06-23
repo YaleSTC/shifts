@@ -4,7 +4,7 @@
   <head>
     <title><%= h(yield(:title) || 'Student Technology Collaborative') %></title>
     <%= stylesheet_link_tag 'application', 'nav' %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', 'jrails', 'jquery' %>
     <%= yield(:head) %>
   </head>
   <body>

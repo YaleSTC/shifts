@@ -9,6 +9,17 @@ class UsersController < ApplicationController
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
+    
+    #filter results if we are searching
+    if params[:search]
+      @search_result = []
+      @users.each do |user|
+        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+          @search_result << user
+        end
+      end
+      @users = @search_result
+    end
   end
 
   def show
@@ -158,5 +169,18 @@ class UsersController < ApplicationController
 
     #@users = @users.collect{|user| :id => user.id, :name => user.name}
     render :layout => false
+  end
+  
+  def search
+    @all_users = Department.find(params[:department_id]).users
+    unless @all_users.nil?
+      @users = []
+      @all_users.each do |user|
+        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+        #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
+          @users << user
+        end
+      end
+    end
   end
 end
