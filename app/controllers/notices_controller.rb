@@ -66,7 +66,9 @@ class NoticesController < ApplicationController
   # PUT /notices/1
   # PUT /notices/1.xml
   def update
+#    raise params.to_yaml
     @notice = Notice.find(params[:id])
+    @notice.update_attributes(params[:notice])
     @notice.is_sticky = true unless current_user.is_admin_of?(@department)
     @notice.author = current_user
     @notice.department = @department
@@ -74,7 +76,7 @@ class NoticesController < ApplicationController
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     set_sources(true)
     respond_to do |format|
-      if @notice.update_attributes(params[:notice]) && current_user.is_admin_of?(@department) && @notice.save
+      if current_user.is_admin_of?(@department) && @notice.save
         flash[:notice] = 'Notice was successfully updated.'
         format.html { redirect_to(@notice) }
         format.xml  { head :ok }
