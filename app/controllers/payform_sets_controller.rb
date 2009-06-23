@@ -1,44 +1,40 @@
 class PayformSetsController < ApplicationController
+  helper :payforms
+  layout "payforms"
+  
   def index
     @payform_sets = PayformSet.all
   end
   
   def show
     @payform_set = PayformSet.find(params[:id])
-  end
-  
-  def new
-    @payform_set = PayformSet.new
+    respond_to do |show|
+      show.html #show.html.erb
+      show.pdf  #show.pdf.prawn
+      show.csv do
+        csv_string = FasterCSV.generate do |csv|
+          csv << ["First Name", "Last Name", "Employee ID", "Start Date", "End Date", "Total Hours"]
+          @payform_set.payforms.each do |payform|
+            csv << [payform.user.first_name, payform.user.last_name, payform.user.employee_id, payform.start_date, payform.date, payform.hours]
+          end
+        end
+        send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
+      end
+    end
   end
   
   def create
-    @payform_set = PayformSet.new(params[:payform_set])
+    @payform_set = PayformSet.new
+    @payform_set.department = current_department
+    @payform_set.payforms = current_department.payforms.unprinted
+    @payform_set.payforms.map {|p| p.printed = Time.now }
     if @payform_set.save
       flash[:notice] = "Successfully created payform set."
       redirect_to @payform_set
     else
-      render :action => 'new'
+      flash[:notice] = "Error saving print job. Make sure approved payforms exist."
+      redirect_to payforms_path
     end
   end
   
-  def edit
-    @payform_set = PayformSet.find(params[:id])
-  end
-  
-  def update
-    @payform_set = PayformSet.find(params[:id])
-    if @payform_set.update_attributes(params[:payform_set])
-      flash[:notice] = "Successfully updated payform set."
-      redirect_to @payform_set
-    else
-      render :action => 'edit'
-    end
-  end
-  
-  def destroy
-    @payform_set = PayformSet.find(params[:id])
-    @payform_set.destroy
-    flash[:notice] = "Successfully destroyed payform set."
-    redirect_to payform_sets_url
-  end
 end

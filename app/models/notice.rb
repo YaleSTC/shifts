@@ -13,7 +13,8 @@ class Notice < ActiveRecord::Base
   has_many :display_location_links, :class_name => "LocationSourceLink", :as => :location_sink
 
   validates_presence_of :content
-  validate :proper_time, :presence_of_locations_or_viewers
+  validate :presence_of_locations_or_viewers
+  validate_on_create :proper_time
 
 #  def for_user_names
 #    names = []
@@ -68,9 +69,9 @@ class Notice < ActiveRecord::Base
   end
 
   def self.current
-    current_notices = []
-    Notice.all.each {|n| current_notices << n if n.is_current?}
-    current_notices
+    #TODO: this could be much cleaner.  once we get beyond a few hundred notices,
+    #      the speed of this degrades really fast. should be moved to database logic.
+    Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 
   def add_viewer_source(source)
@@ -81,11 +82,11 @@ class Notice < ActiveRecord::Base
   end
 
   def viewers
-    viewers = []
-    self.viewer_links.each do |link|
-      viewers += link.user_source.users
-    end
-    viewers.uniq
+    self.viewer_links.collect{|l| l.user_source.users}.flatten.uniq
+  end
+
+  def remove_all_viewer_sources
+    UserSourceLink.delete_all(:user_sink_id => self.id)
   end
 
   def add_display_location_source(source)
@@ -96,20 +97,11 @@ class Notice < ActiveRecord::Base
   end
 
   def display_locations
-    display_locations = []
-    self.display_location_links.each do |link|
-      display_locations += link.location_source.locations
-    end
-   display_locations.uniq
+    self.display_location_links.collect{|l| l.location_source.locations}.flatten.uniq
   end
 
-  def presence_of_locations_or_viewers
-    errors.add_to_base("Your notice must display somehwere or for someone.") if self.display_locations.empty? && self.viewers.empty?
-  end
-
-  def proper_time
-    errors.add_to_base("Start/end time combination is invalid.") if (self.start_time > self.end_time unless self.end_time.nil?)
-#    (self.start_time > self.end_time if self.end_time) || Time.now >= self.start_time || (Time.now <= self.end_time if self.end_time)
+  def remove_all_display_location_sources
+    LocationSourceLink.delete_all(:location_sink_id => self.id)
   end
 
   def is_current?
@@ -121,10 +113,26 @@ class Notice < ActiveRecord::Base
   end
 
   def remove(user)
-    self.errors.add_to_base("This notice has already been removed by #{remover.name}") and return if self.remover && self.end_time
+    self.errors.add_to_base "This notice has already been removed by #{remover.name}" and return if self.remover && self.end_time
     self.end_time = Time.now
     self.remover = user
     true
+  end
+
+  def self.inactive
+    inactive_notices = []
+    Notice.all.each {|n| inactive_notices << n unless n.is_current?}
+    inactive_notices
+  end
+
+  private
+  #Validations
+  def presence_of_locations_or_viewers
+    errors.add_to_base "Your notice must display somewhere or for someone." if self.display_locations.empty? && self.viewers.empty?
+  end
+
+  def proper_time
+    errors.add_to_base "Start/end time combination is invalid." if self.start_time > self.end_time if self.end_time || Time.now > self.end_time if self.end_time
   end
 end
 

@@ -1,13 +1,23 @@
 --- 
 departments_001: 
-  created_at: 2009-06-08 21:19:44
+  complex: f
+  created_at: 2009-06-22 17:27:52
+  day: "6"
+  day2: "1"
+  end_of_month: f
   id: "1"
   name: STC
   permission_id: "1"
-  updated_at: 2009-06-08 21:19:44
+  updated_at: 2009-06-22 17:27:52
 departments_002: 
-  created_at: 2009-06-16 14:29:35
+  complex: f
+  created_at: 2009-06-22 18:09:37
+  day: "6"
+  day2: "1"
+  end_of_month: f
   id: "2"
+  monthly: f
   name: DOJ
-  permission_id: "8"
-  updated_at: 2009-06-16 14:29:35
+  payform_permission_id: 
+  permission_id: "14"
+  updated_at: 2009-06-22 18:09:37

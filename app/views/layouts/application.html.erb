@@ -1,57 +1,20 @@
 <%= render :file => "layouts/include/main_header.html.erb" %>
- 
- <!-- Admin Menu -->
- <% if @department and current_user.is_admin_of?(@department) %>
- <div id="scanColumn">
-     <h3>Scheduling Options</h3>
-     <ul class="navigationList">
-       <li><%= link_to_unless_current "Schedule", shifts_path %></li>
-       <li><%= link_to_unless_current "Time Slots", time_slots_path %></li>
-       <li><%= link_to_unless_current "Locations", department_locations_path(@department) %></li>
-       <li><%= link_to_unless_current "Location Groups", department_loc_groups_path(@department) %></li>
-       <li><%= link_to_unless_current "Restrictions", { :controller => '/shift_admin', :action => 'restrictions' } %></li>
-       <li><%= link_to_unless_current "Announcements", { :controller => '/shift_admin', :action => 'announcements' } %></li>
-       <li><%= link_to_unless_current "Shift Report Links", { :controller => '/shift_admin', :action => 'report_links' } %></li>
-       <li><%= link_to_unless_current "Export Schedule", { :controller => '/shift_admin/calendar', :action => 'index' } %></li>
-       <li><%= link_to_unless_current "Templates", { :controller => '/shift_admin', :action => 'manage_templates' } %>
-         <ul><li><%= link_to_unless_current "Activate Templates", { :controller => '/shift_admin', :action => 'activate_templates' } %></li></ul>
-       </li>
-       <%# if @user.authorized?("shift_admin/@" + @department.name.decamelize + "/department_admin")%>
-         <li><%#= link_to_unless_current "Edit Configuration", { :controller => '/shift_admin', :action => 'config' } %></li>        
-       <%# end %>
-     </ul>
-     <div style="clear:both; height:10px"></div>
-     <h3>View Options</h3>
-     <ul class="navigationList">
-       <li><%= link_to_unless_current "Active Shifts", show_active_shifts_path %></li>
-       <li><%= link_to_unless_current "Unscheduled Shifts", show_unscheduled_shifts_path %></li>
-       <li><%= link_to_unless_current "Cluster Data", { :controller => '/data', :action => 'index' } %></li>
-       <li><%#= link_to "Shift Stats", stats_path %></li>
-       <li><%#= link_to "Missed Shifts", {:controller => '/shift_admin', :action => 'view_missed_shifts'} %></li>
-     </ul>  
-  </div>
-   
-    <div id="contentNav">
-  <% else %>
-    <div id="contentNoNav">
-  <% end %>
- 
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
-        <%# TODO: Add fadeout for the flash. Something like 'flash[:no_fadeout]' could specify no fadeout -%>
-      <%- end -%>
+    <%= yield(:left_nav) || '<div id="contentNoNav">' %>
+    <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
+    <%- end -%>
 
-      <!-- Main Content -->
+    <!-- Main Content -->
 
       <%- if show_title? -%>
         <h1 id="page_title"><%=h yield(:title) %></h1>
       <%- end -%>
       <!-- Main Content -->
-      <%= yield(:my_content) || yield %>
+      <%= yield(:body) || yield %>     
       </div>
       <div id="pageAnchor">
         <a href="#top_of_page">
-          <%= image_tag "jump.gif", {:height => "13", :border => "0", :width => "19", :alt => "Jump to top", :title => "Jump to top"} %>
+          <%= image_tag "jump.gif", {:hspace => "0", :height => "13", :border => "0", :width => "19", :alt => "Jump to top", :title => "Jump to top"} %>
         </a>
       </div>
       <div id="footer">
@@ -67,4 +30,3 @@
     <div id="pageboxBottom"/> <!-- do not remove this -->
   </body>
 </html>
-

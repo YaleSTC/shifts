@@ -44,7 +44,8 @@ class UsersController < ApplicationController
       @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
 
       #if a name was given, it should override the name from LDAP
-      @user.name = params[:user][:name] unless params[:user][:name] == ""
+      @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
+      @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
       @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
       if @user.save
         flash[:notice] = "Successfully created user."
@@ -130,4 +131,3 @@ class UsersController < ApplicationController
     redirect_to department_users_path
   end
 end
-

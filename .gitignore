@@ -1,11 +1,12 @@
 *~
-db/*
 log/*
-tmp/**/*
-db/*.sqlite3
-doc/*
-db/schema.rb
+tmp/*
+Rakefile
+README
+structures.txt
 .DS_Store
 .project
 *.orig
+*.sqlite3
+db/schema.rb
 
