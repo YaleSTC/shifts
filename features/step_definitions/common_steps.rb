@@ -7,17 +7,14 @@ Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$
 end
 
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
-  user_name => name.split
-  User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
-
-  user = User.find_by_last_name(last_name)
+  User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   permissions.split(", ").each do |permission_name|
     #user.permissions << Permission.find_by_name(permission_name)
   end
 end
 
-Given /^I am "([^\"]*)" "([^\"]*)"$/ do |first_name, last_name|
-  @user = User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
+Given /^I am "([^\"]*)"$/ do |name|
+  @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user_id = @user.id
   @department = @user.departments[0]
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
