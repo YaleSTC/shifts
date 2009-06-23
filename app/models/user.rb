@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   end
 
   def notices
-    Notice.current.select{|n| n.viewers.include?(self)}
+    Notice.active.select{|n| n.viewers.include?(self)}
   end
 
   memoize :name, :permission_list, :is_superuser?

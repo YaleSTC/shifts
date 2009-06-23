@@ -30,7 +30,7 @@ class Location < ActiveRecord::Base
   end
 
   def notices
-    Notice.current.select {|n| n.display_locations.include?(self)}
+    Notice.active.select {|n| n.display_locations.include?(self)}
   end
 
   def stickys
@@ -56,3 +56,4 @@ class Location < ActiveRecord::Base
     people_count
   end
 end
+
