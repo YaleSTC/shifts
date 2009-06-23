@@ -67,9 +67,6 @@ div.payform_form legend {
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
-}
-#payformList tbody tr.payform_item td
-{
 	background: #e8edff;
 	padding: 5px;
 }
