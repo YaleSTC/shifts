@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     # load @department variable, no need ||= because it's only called once at the start of controller
     @department = Department.find_by_id(session[:department_id])
   end
-  
+
   def load_user
     @current_user = User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
   end
