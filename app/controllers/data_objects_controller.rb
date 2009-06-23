@@ -94,5 +94,5 @@ private
     end
     @options.map{|t| [t.name, t.id]} << []
   end
-    
+
 end
