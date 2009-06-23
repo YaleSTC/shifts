@@ -54,7 +54,7 @@ class ShiftsController < ApplicationController
       flash[:notice] = "Successfully created shift."
       redirect_to @shift
     else
-      render :action => 'new'
+      @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
     end
   end
 
@@ -72,7 +72,7 @@ class ShiftsController < ApplicationController
 
   def edit
     @shift = Shift.find(params[:id])
-    (render :partial => 'shifts/tooltips/new', :layout => 'none') if params[:tooltip]
+    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
 
   def update
@@ -80,7 +80,10 @@ class ShiftsController < ApplicationController
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
       flash[:notice] = "Successfully updated shift."
-      redirect_to @shift
+      respond_to do |format|
+        format.html { redirect_to @shift }
+        format.js
+      end
     else
       render :action => 'edit'
     end
