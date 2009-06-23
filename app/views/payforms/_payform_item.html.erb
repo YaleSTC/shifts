@@ -5,11 +5,11 @@
   <td class="description">
     &#x275D;<%=h payform_item.description %>&#x275E;
   </td>
-  <td class ="description" id= "reason">
-    <% if (current_user.is_admin_of?(current_department) || current_user.is_superuser?) -%>
-    <% if !payform_item.payform_item.nil? %>
-    <I><%=h payform_item.reason %></I>
-    <% end %>
+  <td class ="description" id = "reason">
+    <% if (current_user.is_admin_of?(current_department)) -%>
+      <% if !payform_item.payform_item.nil? %>
+        <I><%=h payform_item.reason %></I>
+      <% end %>
     <% end %>
   </td>
   <td class="rightside" id="hours">
