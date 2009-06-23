@@ -68,6 +68,15 @@ class User < ActiveRecord::Base
     failed
   end
 
+  def self.search(search_string)
+    self.all.each do |u|
+      if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+        @found_user =  u
+      end
+    end
+    @found_user
+  end
+
   def permission_list
     roles.collect { |r| r.permissions }.flatten
   end
@@ -111,9 +120,9 @@ class User < ActiveRecord::Base
   end
 
   def awesome_name
-    [first_name, '"' + nick_name + '"', last_name]
+    [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
-  
+
   #This method is needed to make polymorphic associations work
   def users
     [self]
@@ -136,3 +145,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
+
