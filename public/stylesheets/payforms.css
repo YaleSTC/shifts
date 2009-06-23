@@ -97,17 +97,11 @@ div.payform_form legend {
 	background: #d0dafd;
 	color: #339;
 }
-#payformList td.date {
-    width: 45px;
-    text-align: left;
-}
-#payformList td.description {
-    width:auto;
-    text-align: left;
-}
 #payformList td.rightside {
     text-align: right;
-    width:1px;
+}
+#payformList td.reason {
+    font-style:italic;
 }
 #payform a {
     color: #2758B3;
