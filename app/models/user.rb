@@ -80,6 +80,10 @@ class User < ActiveRecord::Base
   def permission_list
     roles.collect { |r| r.permissions }.flatten
   end
+  
+  def current_shift
+    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}
+  end
 
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
