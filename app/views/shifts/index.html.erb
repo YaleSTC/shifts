@@ -40,13 +40,12 @@
     </div>
   <% end %>
 
-  <%# TODO: implement! %>
-  <!-- <%# unless @subs_you_can_take.empty? %>
+  <% unless @subs_you_can_take.empty? %>
       <h2>Subs you can take</h2>
       <ul>
-      <%#= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
+      <%= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
       </ul>
-    <%# end %> -->
+  <% end %>
 
   <% unless @current_shifts.empty? %>
     <div id="active_shifts_div">
@@ -98,26 +97,26 @@
 <script type="text/javascript">
 <!--
   var api = $("td.clickable_signup").simpletip({
-  
+
     onBeforeShow: function(){
       var text = this.getParent().get(0).id;
       text = text.split("||");
-  
+
       this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
     },
-  
+
     content: 'loading...',
     position: ["0", "26px"],
     fixed: true,
     persistent: true,
     focus: true
-  
+
   });
-  
-  
-  
+
+
+
   var api = $("a.clickable_edit").simpletip({
-  
+
     onBeforeShow: function(){
       this.getParent().get(0).href = "javascript: return false;";
       var text = this.getParent().get(0).id;
@@ -131,26 +130,26 @@
         this.load('/shifts/new/', params);
       }
     },
-  
+
     content: 'loading...',
     position: ["0", "26px"],
     fixed: true,
     persistent: true,
     focus: true
-  
+
   });
-  
-  
-  
-  
-  
-  
-  //test code for jQuery-ui's draggable and droppable classes  
+
+
+
+
+
+
+  //test code for jQuery-ui's draggable and droppable classes
   $(document).ready(function(){
     $(".draggable_users").draggable({ snap: '.droppable_slots', revert: 'invalid' });
-    $(".droppable_slots").droppable({ drop: function() { alert(this.id); } }); 
+    $(".droppable_slots").droppable({ drop: function() { alert(this.id); } });
   });
-  
+
 -->
 </script>
 
@@ -174,3 +173,4 @@ This is all a big jQuery test down here :D
     <div style="clear:both"></div>
   <% end %>
 </div>
+
