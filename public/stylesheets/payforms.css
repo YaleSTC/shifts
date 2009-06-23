@@ -107,7 +107,7 @@ div.payform_form legend {
 }
 #payformList td.rightside {
     text-align: right;
-    width:1%
+    width:1px;
 }
 #payform a {
     color: #2758B3;
