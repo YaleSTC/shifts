@@ -6,3 +6,4 @@ doc/*
 db/schema.rb
 .DS_Store
 .project
+preload_data/*

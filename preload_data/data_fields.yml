@@ -1,0 +1,41 @@
+--- 
+data_fields_001: 
+  created_at: 2009-06-17 17:12:22
+  data_type_id: "1"
+  display_type: text_field
+  id: "1"
+  name: Number of pages
+  updated_at: 2009-06-17 17:12:22
+  values: "\"integer\""
+data_fields_002: 
+  created_at: 2009-06-17 17:16:39
+  data_type_id: "2"
+  display_type: text_field
+  id: "2"
+  name: Number of pages scanned
+  updated_at: 2009-06-17 17:16:39
+  values: "\"integer\""
+data_fields_003: 
+  created_at: 2009-06-17 17:55:45
+  data_type_id: "3"
+  display_type: text_field
+  id: "3"
+  name: How many boxes
+  updated_at: 2009-06-17 17:55:45
+  values: "\"float\""
+data_fields_004: 
+  created_at: 2009-06-17 19:29:45
+  data_type_id: "4"
+  display_type: text_field
+  id: "4"
+  name: Number of books
+  updated_at: 2009-06-17 19:29:45
+  values: "\"integer\""
+data_fields_005: 
+  created_at: 2009-06-17 19:59:32
+  data_type_id: "5"
+  display_type: text_field
+  id: "5"
+  name: Number in TTO
+  updated_at: 2009-06-17 19:59:32
+  values: "\"integer\""
