@@ -13,21 +13,28 @@ class DataEntry < ActiveRecord::Base
   # ; and : in supplied content are escaped as **semicolon** and **colon**
   def write_content(fields)
     content = ""
-    fields.each_pair do |key, value|
-      if value.class == HashWithIndifferentAccess
+    # Add empty entries for all the unused fields
+    self.data_object.data_type.data_fields.each do |type_field|
+      fields["#{type_field.id}"] = " " unless fields["#{type_field.id}"]
+    end
+    fields.sort.each do |a|       # Sorts the fields and converts to key, value arrays
+      raise a.to_yaml
+      key = a.first, value = a.second
+#    fields.each_pair do |key, value|
+      if value.class == HashWithIndifferentAccess || value.class == Hash
         content << key.to_s + "::"
         value.each_pair do |k,v|
           content << k.to_s + ":"
           content << v.to_s.gsub(";","**semicolon**").gsub(":","**colon**") + ";"
         end
-        content.chomp!(";")          #strip off the final semicolon
+        content.chomp!(";")          #strip off the last semicolon
         content << ";;"
       else
         content << key.to_s + "::"
         content << value.to_s.gsub(";","**semicolon**").gsub(":","**colon**") + ";;"
       end
     end
-    return self.content = content.chomp!(';;') #strip last final double semicolon
+    self.content = content.chomp!(';;') #strip last double semicolon
   end
 
 ### Virtual attributes ###
@@ -52,7 +59,7 @@ class DataEntry < ActiveRecord::Base
         a[1] = box.first if box.second == "1"
       end
     end
-    return content_arrays
+    return content_arrays.sort
   end
 
 end
