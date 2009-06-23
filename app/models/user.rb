@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
   def awesome_name
     [first_name, '"' + nick_name + '"', last_name]
   end
-  
+
   #This method is needed to make polymorphic associations work
   def users
     [self]
@@ -136,3 +136,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
+
