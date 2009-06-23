@@ -5,6 +5,11 @@
   <td class="description">
     &#x275D;<%=h payform_item.description %>&#x275E;
   </td>
+  <td class ="description" id= "reason">
+    <% if !payform_item.payform_item.nil? %>
+    <I><%=h payform_item.reason %></I>
+    <% end %>
+  </td>
   <td class="rightside" id="hours">
     <%=h payform_item.hours %>
   </td>
