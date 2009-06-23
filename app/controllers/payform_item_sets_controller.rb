@@ -24,7 +24,9 @@ layout "payforms"
       payform = Payform.build(current_department, user, date)
       payform_item = PayformItem.new(params[:payform_item_set])
       payform.payform_items << payform_item
-      if !payform.save
+      if !payform_item.save
+        errors << "Payform Item for " + user.name + "did not save"        
+      elsif !payform.save
         errors << "Payform for " + user.name + "did not save"  
       end
       @payform_item_set.payform_items << payform_item
