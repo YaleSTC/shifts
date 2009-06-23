@@ -10,8 +10,13 @@ Given /^I have a sub request restriction for ([0-9]+) sub requests$/ do |max_sub
 end
 
 Given /^this restriction expires <expiration>$/ do |expiration|
-  expiration == 'indefinite'? 
-  @restriction.expires = expiration
+  if expiration = "indefinitely" 
+    @restriction.expires = nil
+  else
+    @restriction.expires = expiration
+  end
 end
+
+Given /^this restriction applies to 
 
 
