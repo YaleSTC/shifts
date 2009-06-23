@@ -9,7 +9,7 @@
       <% @shifts_outside_display += [row_shift] %>
       <% @row_time = @day_end %>
     <% else %>
-      <%= print_cell("shift_time", @day_start, row_shift.end, row_shift) -%><%# prints current shift -%>
+      <%= print_cell("shift_time", @row_time, row_shift.end, row_shift) -%><%# prints current shift -%>
       <% @row_time = row_shift.end %>
     <% end %>
 
