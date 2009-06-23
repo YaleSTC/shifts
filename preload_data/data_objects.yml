@@ -1,0 +1,155 @@
+--- 
+data_objects_001: 
+  created_at: 2009-06-18 15:52:13
+  data_type_id: "1"
+  description: Prints
+  id: "24"
+  name: Printer 5
+  updated_at: 2009-06-18 15:52:13
+data_objects_002: 
+  created_at: 2009-06-18 19:48:29
+  data_type_id: "1"
+  description: Just an object
+  id: "25"
+  name: Object 9
+  updated_at: 2009-06-19 12:33:49
+data_objects_003: 
+  created_at: 2009-06-19 12:27:30
+  data_type_id: "1"
+  description: Just an object!
+  id: "26"
+  name: Object 10
+  updated_at: 2009-06-19 12:29:42
+data_objects_004: 
+  created_at: 2009-06-19 12:41:32
+  data_type_id: "1"
+  description: Prints
+  id: "27"
+  name: Printer 6
+  updated_at: 2009-06-19 12:41:32
+data_objects_005: 
+  created_at: 2009-06-19 12:41:55
+  data_type_id: "1"
+  description: Just a printer
+  id: "28"
+  name: Printer 7
+  updated_at: 2009-06-19 12:41:55
+data_objects_006: 
+  created_at: 2009-06-19 12:58:54
+  data_type_id: "1"
+  description: Just an object
+  id: "29"
+  name: Object 11
+  updated_at: 2009-06-19 12:58:54
+data_objects_007: 
+  created_at: 2009-06-19 13:32:13
+  data_type_id: "1"
+  description: Just an object
+  id: "30"
+  name: Object 12
+  updated_at: 2009-06-19 13:32:13
+data_objects_008: 
+  created_at: 2009-06-22 12:15:04
+  data_type_id: "2"
+  description: Just an object
+  id: "31"
+  name: Object 1
+  updated_at: 2009-06-22 12:15:04
+data_objects_009: 
+  created_at: 2009-06-22 12:15:29
+  data_type_id: "2"
+  description: Just an object
+  id: "32"
+  name: Object 2
+  updated_at: 2009-06-22 12:15:29
+data_objects_010: 
+  created_at: 2009-06-22 12:15:48
+  data_type_id: "2"
+  description: Just an object
+  id: "33"
+  name: Object 3
+  updated_at: 2009-06-22 12:15:48
+data_objects_011: 
+  created_at: 2009-06-22 12:54:35
+  data_type_id: "3"
+  description: Just an object
+  id: "34"
+  name: Object 20
+  updated_at: 2009-06-22 12:54:35
+data_objects_012: 
+  created_at: 2009-06-22 12:54:59
+  data_type_id: "3"
+  description: Just an object
+  id: "35"
+  name: Object 19
+  updated_at: 2009-06-22 12:54:59
+data_objects_013: 
+  created_at: 2009-06-22 12:55:23
+  data_type_id: "3"
+  description: Just an object
+  id: "36"
+  name: Object 18
+  updated_at: 2009-06-22 12:55:23
+data_objects_014: 
+  created_at: 2009-06-22 12:55:33
+  data_type_id: "3"
+  description: Just an object
+  id: "37"
+  name: Object 17
+  updated_at: 2009-06-22 12:55:33
+data_objects_015: 
+  created_at: 2009-06-22 12:55:40
+  data_type_id: "3"
+  description: Just an object
+  id: "38"
+  name: Object 16
+  updated_at: 2009-06-22 12:55:40
+data_objects_016: 
+  created_at: 2009-06-22 13:00:26
+  data_type_id: "4"
+  description: Just an object
+  id: "39"
+  name: Object 15
+  updated_at: 2009-06-22 13:00:26
+data_objects_017: 
+  created_at: 2009-06-22 13:00:33
+  data_type_id: "4"
+  description: Just an object
+  id: "40"
+  name: Object 14
+  updated_at: 2009-06-22 13:00:33
+data_objects_018: 
+  created_at: 2009-06-22 13:00:38
+  data_type_id: "4"
+  description: Just an object
+  id: "41"
+  name: Object 13
+  updated_at: 2009-06-22 13:00:38
+data_objects_019: 
+  created_at: 2009-06-22 13:01:59
+  data_type_id: "5"
+  description: Just an object
+  id: "42"
+  name: Screw 1
+  updated_at: 2009-06-22 13:01:59
+data_objects_020: 
+  created_at: 2009-06-22 13:02:05
+  data_type_id: "5"
+  description: Just an object
+  id: "43"
+  name: Screw 2
+  updated_at: 2009-06-22 13:02:05
+data_objects_021: 
+  created_at: 2009-06-22 13:02:10
+  data_type_id: "5"
+  description: Just an object
+  id: "44"
+  name: Screw 3
+  updated_at: 2009-06-22 13:02:10
+data_objects_022: 
+  created_at: 2009-06-22 13:02:16
+  data_type_id: "5"
+  description: Just an object
+  id: "45"
+  name: Screw 4
+  updated_at: 2009-06-22 13:02:16
