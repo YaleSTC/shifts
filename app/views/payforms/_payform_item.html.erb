@@ -7,7 +7,7 @@
   </td>
   <td class ="description" id= "reason">
     <% if type == 'edit_item' && current_user.is_admin_of?(current_department) %>
-      <em><%=h payform_item.reason %></em>
+      <%=h payform_item.reason %>
     <% end %>
   </td>
   <td class="rightside" id="hours" >
