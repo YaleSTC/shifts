@@ -46,12 +46,13 @@ class NoticesController < ApplicationController
   def create
 #    raise params.to_yaml
     @notice = Notice.new(params[:notice])
+    @notice.is_sticky = true unless current_user.is_admin_of(@department)
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     params[:for_users].split(",").map(&:strip).each do |login_or_name|
-    viewer = User.find_by_login(login_or_name) || User.find_by_name(login_or_name)
+    viewer = User.find_by_login(login_or_name)
     if viewer
       @notice.add_viewer_source(viewer)
     else
@@ -85,6 +86,27 @@ class NoticesController < ApplicationController
   # PUT /notices/1.xml
   def update
     @notice = Notice.find(params[:id])
+    @notice.remove_all_viewer_sources
+    params[:for_users].split(",").map(&:strip).each do |login_or_name|
+      viewer = User.find_by_login(login_or_name)
+      if viewer
+        @notice.add_viewer_source(viewer)
+      else
+        @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
+      end
+    end
+    @notice.remove_all_display_location_sources
+    @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
+    if params[:for_locations]
+      params[:for_locations].each do |loc|
+        @notice.add_display_location_source(Location.find_by_id(loc))
+      end
+    end
+    if params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group|
+        @notice.add_display_location_source(LocGroup.find_by_id(loc_group))
+      end
+    end
     respond_to do |format|
       if @notice.update_attributes(params[:notice])
         flash[:notice] = 'Notice was successfully updated.'
@@ -115,3 +137,4 @@ class NoticesController < ApplicationController
     @loc_groups = @department.loc_groups.all
   end
 end
+
