@@ -14,7 +14,7 @@ layout "payforms"
   end
   
   def create
-    @payform_item_set = PayformItemSet.new(params[:payform_item_set])
+    @payform_item_set = PayformItemSet.create(params[:payform_item_set])
     params[:user_ids] ||= []
     users = []
     date = build_date_from_params(:date, params[:payform_item_set])
