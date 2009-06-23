@@ -8,11 +8,13 @@
   <td class="rightside" id="hours">
     <%=h payform_item.hours %>
   </td>
-  <td class="rightside" id="edit">
-    <%= link_to "edit", edit_payform_item_path(payform_item) %>
-  </td>
-  <td class="rightside" id="delete">
-    <%= link_to "&#x2716;", payform_item, :confirm => 'Are you sure?', :method => :delete %>
-  </td>
+  <% unless payform_item.payform.approved %>
+    <td class="rightside" id="edit">
+      <%= link_to "edit", edit_payform_item_path(payform_item) %>
+    </td>
+    <td class="rightside" id="delete">
+      <%= link_to "&#x2716;", payform_item, :confirm => 'Are you sure?', :method => :delete %>
+    </td>
+  <% end %>
 </tr>
 

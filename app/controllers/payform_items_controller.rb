@@ -29,10 +29,18 @@ class PayformItemsController < ApplicationController
     @payform_item.payform = @payform_item.payform_item.payform
     @payform_item.payform_item.payform = nil
     @payform_item.payform_item.active = false
-    if @payform_item.save
+    errors = []
+    if !@payform_item.payform_item.save
+      errors << "Failed to update the old payform item"
+    end
+    if !@payform_item.save
+      errors << "Failed to create a new payform item"
+    end
+    if errors.length == 0
       flash[:notice] = "Successfully edited payform item."
       redirect_to @payform_item.payform
     else
+      flash[:error] =  "Error: "+errors*"<br/>" 
       render :action => 'edit'
     end
   end
