@@ -20,7 +20,7 @@ class DataEntriesController < ApplicationController
     @data_entry.write_content(params[:data_fields]) 
     if @data_entry.save
       flash[:notice] = "Successfully created data entry."
-      redirect_to data_object_data_entry_path(params[:data_object_id])
+      redirect_to data_object_data_entry_path(params[:data_object_id], @data_entry.id)
     else
       render :action => 'new'
     end

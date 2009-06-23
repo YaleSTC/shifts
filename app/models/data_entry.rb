@@ -13,14 +13,7 @@ class DataEntry < ActiveRecord::Base
   # ; and : in supplied content are escaped as **semicolon** and **colon**
   def write_content(fields)
     content = ""
-    # Add empty entries for all the unused fields
-    self.data_object.data_type.data_fields.each do |type_field|
-      fields["#{type_field.id}"] = " " unless fields["#{type_field.id}"]
-    end
-    fields.sort.each do |a|       # Sorts the fields and converts to key, value arrays
-      raise a.to_yaml
-      key = a.first, value = a.second
-#    fields.each_pair do |key, value|
+    fields.each_pair do |key, value|
       if value.class == HashWithIndifferentAccess || value.class == Hash
         content << key.to_s + "::"
         value.each_pair do |k,v|
