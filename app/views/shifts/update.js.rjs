@@ -1,0 +1,2 @@
+page.replace_html 'schedule', :partial => 'shifts/schedule'
+page.visual_effect :highlight, 'schedule', :duration => 0.5
