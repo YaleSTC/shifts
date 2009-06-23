@@ -1,21 +1,19 @@
-<tr class="<%= class2 %>">
+<tr class="<%= type %>">
   <td class="date">
     <%=h payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
-    &#x275D;<%=h payform_item.description %>&#x275E;
+    <%=h '❝'+payform_item.description+'❞' %>
   </td>
   <td class ="description" id= "reason">
-    <% if (current_user.is_admin_of?(current_department) || current_user.is_superuser?) -%>
-    <% if !payform_item.payform_item.nil? %>
-    <I><%=h payform_item.reason %></I>
-    <% end %>
+    <% if type == 'edit_item' && current_user.is_admin_of?(current_department) %>
+      <%=h payform_item.reason %>
     <% end %>
   </td>
-  <td class="rightside" id="hours">
+  <td class="rightside" id="hours" >
     <%=h payform_item.hours %>
   </td>
-  <% if payform_item.payform && !payform_item.payform.approved %>
+  <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
     <td class="rightside" id="edit">
       <%= link_to "edit", edit_payform_item_path(payform_item) %>
     </td>
@@ -24,4 +22,4 @@
     </td>
   <% end %>
 </tr>
-  <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:class2 => 'edit_item' } unless payform_item.payform_item.nil? %>
+  <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:type => 'edit_item' } if payform_item.payform_item %>
