@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :departments, :shallow => true do |departments|
-    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
