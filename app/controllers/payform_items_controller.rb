@@ -27,7 +27,7 @@ class PayformItemsController < ApplicationController
     @payform_item.payform_item = PayformItem.find(params[:id])
     @payform_item.payform_item.payform_item_set = nil
     @payform_item.payform = @payform_item.payform_item.payform
-    @payform_item.payform.reason = @payform_item.reason
+    @payform_item.payform_item.reason = @payform_item.reason
     @payform_item.reason = nil
     @payform_item.payform_item.payform = nil
     @payform_item.payform_item.active = false
