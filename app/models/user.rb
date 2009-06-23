@@ -68,6 +68,14 @@ class User < ActiveRecord::Base
     failed
   end
 
+  def self.search(search_string)
+    users = []
+    User.all.each do |u|
+      u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string ? users << u : false
+    end
+    users.uniq
+  end
+
   def permission_list
     roles.collect { |r| r.permissions }.flatten
   end
@@ -111,7 +119,7 @@ class User < ActiveRecord::Base
   end
 
   def awesome_name
-    [first_name, '"' + nick_name + '"', last_name]
+    [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
   #This method is needed to make polymorphic associations work

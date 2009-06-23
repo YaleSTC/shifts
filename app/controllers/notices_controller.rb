@@ -46,14 +46,14 @@ class NoticesController < ApplicationController
   def create
 #    raise params.to_yaml
     @notice = Notice.new(params[:notice])
-    @notice.is_sticky = true unless current_user.is_admin_of(@department)
+    @notice.is_sticky = true unless current_user.is_admin_of?(@department)
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     params[:for_users].split(",").map(&:strip).each do |login_or_name|
-    viewer = User.find_by_login(login_or_name)
-    if viewer
+    viewer = User.search(login_or_name)
+    unless viewer.empty?
       @notice.add_viewer_source(viewer)
     else
       @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
@@ -88,8 +88,8 @@ class NoticesController < ApplicationController
     @notice = Notice.find(params[:id])
     @notice.remove_all_viewer_sources
     params[:for_users].split(",").map(&:strip).each do |login_or_name|
-      viewer = User.find_by_login(login_or_name)
-      if viewer
+      viewer = User.search(login_or_name)
+      unless viewer.empty?
         @notice.add_viewer_source(viewer)
       else
         @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
