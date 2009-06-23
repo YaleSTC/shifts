@@ -6,9 +6,7 @@
     <%=h '❝'+payform_item.description+'❞' %>
   </td>
   <td class ="description" id= "reason">
-    <% if type == 'edit_item' && current_user.is_admin_of?(current_department) %>
-      <%=h payform_item.reason %>
-    <% end %>
+    <%=h payform_item.reason if type == 'edit_item' && current_user.is_admin_of?(current_department) %>
   </td>
   <td class="rightside" id="hours" >
     <%=h payform_item.hours %>
@@ -22,4 +20,4 @@
     </td>
   <% end %>
 </tr>
-  <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:type => 'edit_item' } if payform_item.payform_item %>
+<%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:type => 'edit_item' } if payform_item.payform_item %>
