@@ -6,7 +6,7 @@ class DataObject < ActiveRecord::Base
   validates_presence_of   :name
   validates_presence_of   :data_type_id 
   validates_uniqueness_of :name
-  
+    
 #  GROUP_TYPE_OPTIONS = {"Data type"     =>  "data_types",
 #                      "Location"        =>  "locations",
 #                      "Location Group"  =>  "loc_groups",
