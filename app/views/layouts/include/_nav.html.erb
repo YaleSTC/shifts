@@ -1,4 +1,5 @@
 <ul id="miniTabs">
+    <li class="<%= tab('register') %>"><%= link_to "Register", register_new_department_user_path(current_department) %></li>
   <% if current_user.is_superuser? -%>
     <li class="<%= tab('departments') %>"><%= link_to "Departments", departments_path %></li>
   <% end -%>
@@ -12,3 +13,4 @@
     <% end %>
   <% end %>
 <ul>
+
