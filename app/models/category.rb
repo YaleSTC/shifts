@@ -6,10 +6,14 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :department_id
   
   named_scope :disabled, :conditions => { :active => false }
-  default_scope :conditions => { :active => true }
+  named_scope :active, :conditions => { :active => true }
+  
+  def self.enabled
+    Category.find(:all, :conditions => ['active = ?', true])
+  end
   
   protected
   
-
+  
 end
 
