@@ -38,7 +38,7 @@ Feature: payform
     And I fill in "Reason" with "because I can"
     And I press "Save"
     Then I should have 2 payform_items
-    And payform item 2 should be a child of payform item 1
+    Then payform item 2 should be a child of payform item 1
     And payform item 1 should have attribute reason "because I can"
     And I should see "I edited"
     And I should see "3 hours"
@@ -49,7 +49,7 @@ Feature: payform
       | Magic    | hp123      | 2     | doing some magic    | May 18, 2009 |
     And I am on the page for the payform for the week "2009-5-23"
     When I follow "✖"
-    Then I should see "Are you sure?"
+#    Then I should see "Are you sure?" : except that is done using java, so cucumber cannot see
     And I fill in "Reason for deletion" with "because I lied"
     And I press "Yes"
     Then I should see "Payform item deleted"

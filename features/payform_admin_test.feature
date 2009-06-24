@@ -19,29 +19,29 @@ Feature: payform admin
   Scenario: Creating a Mass Job
     Given I have no payform_item_sets
     When I follow "Mass Add Jobs"
-    And I follow "Add a Mass Job"
-    And I select "2009-06-13" from "Last Day of Pay Week"
-    And I select "Quidditch" from "Category"
-    And I select "2" from "hours"
-    And I select "0" from "minutes"
-    And I select "Tuesday, June 09, 2009" from "Date"
+#    And I follow "Add a Mass Job"
+    And I select "2009-06-09" as the date
+    And I select "Quidditch" from "payform_item_set[category_id]"
+    And I fill in "hours" with "2"
     And I fill in "Description" with "great game!"
-    And I fill in "Search users" with "hp123, hg9"
+    And I check "Harry Potter" in Users:
+    And I check "Hermione Granger"
     And I press "Save"
-    Then I should have 1 punch_clock
-    And I should see "Job created successfully for the following users: Harry Potter and Hermione Granger"
+    Then I should have 1 payform_item_sets
+    And I should see "Successfully created payform item set."
     When I go to the list of mass jobs
     Then I should see "Quidditch"
-    And I should see "2009-6-9"
-    And I should see "2.0 hours"
-    And "Harry Potter" should have 1 payform_item
-    And "Hermione Granger" should have 1 payform_item
+    And I should see "2009-06-09"
+    And I should see "Hours"
+    And I should see "2.0"
+    And the user "hp123" should have 1 payform_item
+    And the user "hg9" should have 1 payform_item
 
   Scenario: Creating a punch clock
     Given I have no punch_clocks
     When I follow "Mass Punch Clocks"
     And I follow "Add Mass Clock"
-    And I select "Quidditch" from "Category"
+    And I select "Quidditch" from "punch_clock[category_id]"
     And I fill in "Description" with "Starting the game"
     And I fill in "Search user" with "hp123, hg9"
     And I press "Clock Users In"
