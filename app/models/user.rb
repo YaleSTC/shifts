@@ -81,6 +81,10 @@ class User < ActiveRecord::Base
     roles.collect { |r| r.permissions }.flatten
   end
 
+  def current_shift
+    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
+  end
+
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     self.is_superuser? || permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
@@ -133,7 +137,7 @@ class User < ActiveRecord::Base
   end
 
   def notices
-    Notice.current.select{|n| n.viewers.include?(self)}
+    Notice.active.select{|n| n.viewers.include?(self)}
   end
 
   memoize :name, :permission_list, :is_superuser?

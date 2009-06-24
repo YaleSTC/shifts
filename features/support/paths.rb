@@ -18,12 +18,26 @@ module NavigationHelpers
       payform_path(Payform.find_by_date($1.to_date))
     when /the payforms page/
       payforms_path
-				when /shifts/
-				  shifts_path
-				when /notices/
-      notices_path
-    when /new notices/
-      new_notices_path
+  	when /shifts/
+	    shifts_path
+    when /the user settings page/
+      user_settings_path
+    when /the Application Settings page/
+      application_settings_path
+    # Add more mappings here.
+    # Here is a more fancy example:
+    #
+    #   when /^(.*)'s profile page$/i
+    #     user_profile_path(User.find_by_login($1))
+
+    else
+      raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+        "Now, go and add a mapping in #{__FILE__}"
+    end
+  end
+end
+
+World(NavigationHelpers)
 
     # Add more mappings here.
     # Here is a more fancy example:

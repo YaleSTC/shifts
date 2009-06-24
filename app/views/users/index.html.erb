@@ -1,4 +1,20 @@
-<% title "Users" %>
+<% title (params[:search] ? "User results for '#{params[:search]}'" : "Users") %>
+
+<div id="searchbox" style="display:none; margin-bottom: 1em">
+  <% form_tag (department_users_path(current_department), :method => :get) do %>
+    Search for a user: <%= text_field_tag :search %>
+    <%= submit_tag "Submit", :id => 'search_submit' %>
+    TODO: AJAXify this!
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $('div#searchbox').toggle();
+  $('input#search_submit').toggle();
+  $('#search').delayedObserver(0.5, function(){alert('test!')});
+</script>
+
+<%= observe_field :search, :function => "alert('test!')", :frequency => 0.5 %>
 
 <table>
   <tr>
@@ -25,8 +41,6 @@
   <% end %>
 </table>
 
-<p><%= link_to "New User", new_department_user_path(@department) %><br />
-<%= link_to "Mass Add", mass_add_department_users_path(@department) %><br />
 <% if params[:show_inactive].nil? %>
   <%= link_to "Show Inactive Users", :show_inactive => true %>
 <% else %>
