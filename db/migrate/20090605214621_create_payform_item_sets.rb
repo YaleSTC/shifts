@@ -5,6 +5,7 @@ class CreatePayformItemSets < ActiveRecord::Migration
       t.date :date
       t.decimal :hours
       t.text :description
+      t.references :approved_by
       
     end
   end

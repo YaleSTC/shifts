@@ -39,11 +39,17 @@ class SubRequestsController < ApplicationController
 
   # POST /sub_requests
   # POST /sub_requests.xml
-  def create
+  def create  
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
-    params[:list_of_logins].split(/\W+/).each do |l|
-      @sub_request.add_substitute_source(User.find_by_login(l))
+    # params[:list_of_logins].split(/\W+/).each do |l|
+    #   @sub_request.add_substitute_source(User.find_by_login(l))
+    # end
+    
+    #parse autocomplete
+    params[:list_of_logins].split(",").each do |l|
+      l = l.split("||")
+      @sub_request.add_substitute_source(l[0].constantize.find(l[1])) if l.length == 2
     end
 
 
@@ -66,9 +72,13 @@ class SubRequestsController < ApplicationController
     #TODO This should probably be in a transaction, so that
     #if the update fails all sub sources don't get deleted...
     @sub_request.remove_all_substitute_sources
-    params[:list_of_logins].split(/\W+/).each do |l|
-      @sub_request.add_substitute_source(User.find_by_login(l))
+    
+    #parse autocomplete
+    params[:list_of_logins].split(",").each do |l|
+      l = l.split("||")
+      @sub_request.add_substitute_source(l[0].constantize.find(l[1])) if l.length == 2
     end
+    
     respond_to do |format|
       if @sub_request.update_attributes(params[:sub_request])
         flash[:notice] = 'SubRequest was successfully updated.'

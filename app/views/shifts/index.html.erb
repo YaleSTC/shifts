@@ -14,7 +14,7 @@
       <%# TODO: %>
       <%= link_to "View Work Hours", {:action => "view_work_hours", :date => params[:date]}, :class => "dotted_link" %>
     <% else %>
-      <% unless (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}) == [] %>
+      <% unless (current_shift = current_user.current_shift) == [] %>
         <%= link_to "Return to current shift", shift_path(current_shift) %><br />
       <% end %>
       <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
@@ -40,13 +40,12 @@
     </div>
   <% end %>
 
-  <%# TODO: implement! %>
-  <!-- <%# unless @subs_you_can_take.empty? %>
+  <% unless @subs_you_can_take.empty? %>
       <h2>Subs you can take</h2>
       <ul>
-      <%#= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
+      <%= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
       </ul>
-    <%# end %> -->
+  <% end %>
 
   <% unless @current_shifts.empty? %>
     <div id="active_shifts_div">
@@ -97,7 +96,7 @@
 
 <script type="text/javascript">
 <!--
-  var api = $("td.clickable_signup").simpletip({
+  $("td.clickable_signup").simpletip({
   
     onBeforeShow: function(){
       var text = this.getParent().get(0).id;
@@ -116,8 +115,7 @@
   
   
   
-  var api = $("a.clickable_edit").simpletip({
-  
+  $("a.clickable_edit").simpletip({
     onBeforeShow: function(){
       this.getParent().get(0).href = "javascript: return false;";
       var text = this.getParent().get(0).id;
@@ -141,6 +139,49 @@
   });
   
   
+  //update tooltips when a new ajax result is returned
+  $(".updated").ajaxSuccess(function(evt, request, settings){
+     $(".updated td.clickable_signup").simpletip({
+     
+       onBeforeShow: function(){
+         var text = this.getParent().get(0).id;
+         text = text.split("||");
+     
+         this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
+       },
+     
+       content: 'loading...',
+       position: ["0", "26px"],
+       fixed: true,
+       persistent: true,
+       focus: true
+     
+     });
+     
+     $(".updated a.clickable_edit").simpletip({
+
+       onBeforeShow: function(){
+         this.getParent().get(0).href = "javascript: return false;";
+         var text = this.getParent().get(0).id;
+         text = text.split("||");
+         var params = "tooltip=true";
+         if (text[0] == "edit") {
+           this.load('/shifts/edit/'+text[1], params);
+         }
+         else {
+           params += "&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0];
+           this.load('/shifts/new/', params);
+         }
+       },
+
+       content: 'loading...',
+       position: ["0", "26px"],
+       fixed: true,
+       persistent: true,
+       focus: true
+
+     });
+   });
   
   
   

@@ -6,7 +6,7 @@ class ShiftsController < ApplicationController
     @days_per_period = 7 #TODO: make this a setting for an admin
     @show_weekends = false
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
-    @announcements = current_user.notices
+    @subs_you_can_take = current_user.available_sub_requests
   end
 
   def show
@@ -51,27 +51,19 @@ class ShiftsController < ApplicationController
     if @shift.save
       #combine with any compatible shifts (if the shift is scheduled)
       flash[:notice] = "Successfully created shift."
-      redirect_to @shift
+      flash[:notice] = "Successfully updated shift."
+      respond_to do |format|
+        format.html { redirect_to @shift }
+        format.js
+      end
     else
-      render :action => 'new'
-    end
-  end
-  
-  def ajax_create
-    @shift = Shift.new(params[:shift])
-    if @shift.save
-      #combine with any compatible shifts (if the shift is scheduled)
-      flash[:notice] = "Successfully created shift."
-      #redirect_to @shift
-    else
-      flash[:error] = "Shift could not be saved for some reason"
-      #render :action => 'new'
+      @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
     end
   end
 
   def edit
     @shift = Shift.find(params[:id])
-    (render :partial => 'shifts/tooltips/new', :layout => 'none') if params[:tooltip]
+    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
 
   def update
@@ -79,7 +71,10 @@ class ShiftsController < ApplicationController
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
       flash[:notice] = "Successfully updated shift."
-      redirect_to @shift
+      respond_to do |format|
+        format.html { redirect_to @shift }
+        format.js
+      end
     else
       render :action => 'edit'
     end
@@ -92,3 +87,4 @@ class ShiftsController < ApplicationController
     redirect_to shifts_url
   end
 end
+
