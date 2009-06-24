@@ -34,7 +34,7 @@ users_04:
 users_05:
   id: "5"
   login: em123
-  name: Every Man
+  nick_name: "Every"
   first_name: Every
   last_name: Man
   email: em132@example.com
