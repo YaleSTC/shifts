@@ -1,67 +1,115 @@
----
-departments_users_001:
+--- 
+departments_users_001: 
   active: t
-  created_at: 2009-06-16 15:17:04
+  created_at: 2009-06-22 17:29:16
   department_id: "1"
-  updated_at: 2009-06-16 15:17:04
+  updated_at: 2009-06-22 17:29:16
   user_id: "1"
-departments_users_002:
+departments_users_002: 
   active: t
-  created_at: 2009-06-09 14:51:03
+  created_at: 2009-06-22 17:40:21
   department_id: "1"
-  updated_at: 2009-06-09 14:51:03
+  updated_at: 2009-06-22 17:40:21
   user_id: "2"
-departments_users_003:
+departments_users_003: 
   active: t
-  created_at: 2009-06-13 13:59:20
+  created_at: 2009-06-22 17:40:21
   department_id: "1"
-  updated_at: 2009-06-13 13:59:20
+  updated_at: 2009-06-22 17:40:21
   user_id: "3"
-departments_users_004:
+departments_users_004: 
   active: t
-  created_at: 2009-06-13 13:59:25
+  created_at: 2009-06-22 17:40:21
   department_id: "1"
-  updated_at: 2009-06-13 13:59:25
+  updated_at: 2009-06-22 17:40:21
   user_id: "4"
-departments_users_006:
+departments_users_005: 
   active: t
-  created_at: 2009-06-13 13:59:26
+  created_at: 2009-06-22 17:40:21
   department_id: "1"
-  updated_at: 2009-06-13 13:59:26
+  updated_at: 2009-06-22 17:40:21
   user_id: "5"
-departments_users_008:
+departments_users_006: 
   active: t
-  created_at: 2009-06-13 13:59:27
+  created_at: 2009-06-22 17:40:22
   department_id: "1"
-  updated_at: 2009-06-13 13:59:27
+  updated_at: 2009-06-22 17:40:22
   user_id: "6"
-departments_users_009:
+departments_users_007: 
   active: t
-  created_at: 2009-06-13 13:59:28
+  created_at: 2009-06-22 17:40:22
   department_id: "1"
-  updated_at: 2009-06-13 13:59:28
+  updated_at: 2009-06-22 17:40:22
   user_id: "7"
-departments_users_010:
+departments_users_008: 
   active: t
-  created_at: 2009-06-13 20:47:46
+  created_at: 2009-06-22 17:40:22
   department_id: "1"
-  updated_at: 2009-06-13 20:47:46
+  updated_at: 2009-06-22 17:40:22
   user_id: "8"
-departments_users_018:
+departments_users_009: 
   active: t
-  created_at: 2009-06-13 20:47:46
+  created_at: 2009-06-22 17:40:22
   department_id: "1"
-  updated_at: 2009-06-13 20:47:46
+  updated_at: 2009-06-22 17:40:22
   user_id: "9"
-departments_users_019:
+departments_users_010: 
   active: t
-  created_at: 2009-06-13 20:47:57
+  created_at: 2009-06-22 17:40:23
   department_id: "1"
-  updated_at: 2009-06-13 20:47:57
+  updated_at: 2009-06-22 17:40:23
+  user_id: "9"
+departments_users_011: 
+  active: t
+  created_at: 2009-06-22 17:40:23
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:23
+  user_id: "6"
+departments_users_012: 
+  active: t
+  created_at: 2009-06-22 17:40:23
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:23
+  user_id: "2"
+departments_users_013: 
+  active: t
+  created_at: 2009-06-22 17:40:23
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:23
+  user_id: "3"
+departments_users_014: 
+  active: t
+  created_at: 2009-06-22 17:40:23
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:23
+  user_id: "7"
+departments_users_015: 
+  active: t
+  created_at: 2009-06-22 17:40:23
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:23
   user_id: "10"
-departments_users_020:
+departments_users_016: 
   active: t
-  created_at: 2009-06-13 20:48:01
+  created_at: 2009-06-22 17:40:24
   department_id: "1"
-  updated_at: 2009-06-13 20:48:01
+  updated_at: 2009-06-22 17:40:24
+  user_id: "1"
+departments_users_017: 
+  active: t
+  created_at: 2009-06-22 17:40:24
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:24
+  user_id: "8"
+departments_users_018: 
+  active: t
+  created_at: 2009-06-22 17:40:24
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:24
+  user_id: "1"
+departments_users_019: 
+  active: t
+  created_at: 2009-06-22 17:40:24
+  department_id: "1"
+  updated_at: 2009-06-22 17:40:24
   user_id: "11"

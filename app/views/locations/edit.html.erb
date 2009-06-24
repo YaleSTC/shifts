@@ -1,9 +1,6 @@
-<% title "Edit Location" %>
+<% title = "Edit Location" %>
 
-<% form_for @location do |f| %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  <p><%= f.submit "Update" %></p>
-<% end %>
+<%= render :partial => 'form', :locals => {:title => title} %>
 
 <p>
   <%= link_to "Show", @location %> |
