@@ -2,7 +2,7 @@
   <% unless current_user.nil? -%>
     <li class="<%= tab('dashboard') %>"><%= link_to "Dashboard", dashboard_path %></li>
   <% end -%>
-  <% if current_user.is_superuser? or current_user.departments.size > 1 -%>
+  <% if current_user.is_superuser? or Department.all.size == 0 -%>
     <li class="<%= tab('departments') %>"><%= link_to "Departments", departments_path %></li>
   <% end -%>
   <% if !current_user.new_record? && !current_department.new_record? %>
