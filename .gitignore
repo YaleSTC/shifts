@@ -9,4 +9,3 @@ structures.txt
 *.orig
 *.sqlite3
 db/schema.rb
-
