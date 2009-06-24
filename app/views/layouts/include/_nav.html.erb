@@ -1,9 +1,12 @@
 <ul id="miniTabs">
-  <% if current_user.is_superuser? -%>
+  <% unless current_user.nil? -%>
+    <li class="<%= tab('dashboard') %>"><%= link_to "Dashboard", dashboard_path %></li>
+  <% end -%>
+  <% if current_user.is_superuser? or Department.all.size == 0 -%>
     <li class="<%= tab('departments') %>"><%= link_to "Departments", departments_path %></li>
   <% end -%>
   <% if !current_user.new_record? && !current_department.new_record? %>
-    <% if (current_user.is_admin_of?(current_department) || current_user.is_superuser?) -%>
+    <% if (current_user.is_admin_of?(current_department)) -%>
       <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
     <% end -%>
     <% if current_user.departments.include?(current_department) || current_user.is_superuser? %>

@@ -49,6 +49,12 @@ class CategoriesController < ApplicationController
     redirect_to @category
   end
   
+  def enable
+    @category = Category.find(params[:id])
+    @category.active = true
+    @category.save!
+    redirect_to @category
+  end
   
 end
 
