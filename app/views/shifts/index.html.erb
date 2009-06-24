@@ -13,12 +13,14 @@
       <%= link_to "Edit Times", time_slots_path %> |
       <%# TODO: %>
       <%= link_to "View Work Hours", {:action => "view_work_hours", :date => params[:date]}, :class => "dotted_link" %>
-    <% else %>
-      <% unless (current_shift = current_user.current_shift) == [] %>
-        <%= link_to "Return to current shift", shift_path(current_shift) %><br />
-      <% end %>
-      <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
+      <br>
     <% end %>
+    <% if (current_shift = current_user.current_shift) %>
+      <%= link_to "Return to current shift", shift_path(current_shift) %><br />
+    <% end %>
+    <%= link_to_remote "Start an unscheduled shift", :url => unscheduled_new_shift_path, :method => :get %>
+    <%# for AJAX insert: %>
+    <div id="unscheduled" style="margin: 0; padding:0; margin-left:20px; display: none"></div>
   </div>
 
   <% unless @upcoming_shifts.empty? %>
@@ -87,8 +89,6 @@
 
   <p><%= link_to "New Shift", new_shift_path %></p>
 </div>
-<h3><%= link_to "Sample Thickbox modal box!", {:controller => 'reports', :action => 'show', :id => Report.first, :TB_iframe => true}, :class => "thickbox" %></h3>
-
 
 <div id="schedule">
   <%= render :partial => 'schedule'%>
