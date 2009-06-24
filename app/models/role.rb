@@ -22,5 +22,3 @@ class Role < ActiveRecord::Base
     errors.add("Name must be unique in a department.", "") unless associated_roles.select{ |role| role.name == self.name }.empty?
   end
 end
-<<<<<<< HEAD:app/models/role.rb
-
