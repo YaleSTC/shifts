@@ -19,42 +19,56 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def register
+    @user = User.new
+  end
+
   def create
-    #if user already in database
-    if @user = User.find_by_login(params[:user][:login])
-      if @user.departments.include? @department #if user is already in this department
-        #don't modify any data, as this is probably a mistake
-        flash[:notice] = "This user already exists in this department!"
-        redirect_to @user
-      else
-        #make sure not to lose roles in other departments
-        #remove all roles associated with this department
-        department_roles = @user.roles.select{|role| role.departments.include? @department}
-        @user.roles -= department_roles
-        #now add back all checked roles associated with this department
-        @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-
-        #add user to new department
-        @user.departments << @department
-        flash[:notice] = "User successfully added to new department."
-        redirect_to @user
-      end
-    else #user is a new user
-      #create from LDAP if possible; otherwise just use the given information
-      @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
-
-      #if a name was given, it should override the name from LDAP
-      @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
-      @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
-      @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+    if true
+      @user = User.new(params[:user])
+      @user.departments << @department
       if @user.save
-        flash[:notice] = "Successfully created user."
+        flash[:notice] = "Successfully registered user."
         redirect_to @user
       else
-        render :action => 'new'
+        render :action => 'register'
       end
+    else
+      if @user = User.find_by_login(params[:user][:login])
+        if @user.departments.include? @department #if user is already in this department
+          #don't modify any data, as this is probably a mistake
+          flash[:notice] = "This user already exists in this department!"
+          redirect_to @user
+        else
+          #make sure not to lose roles in other departments
+          #remove all roles associated with this department
+          department_roles = @user.roles.select{|role| role.departments.include? @department}
+          @user.roles -= department_roles
+          #now add back all checked roles associated with this department
+          @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+
+          #add user to new department
+          @user.departments << @department
+          flash[:notice] = "User successfully added to new department."
+          redirect_to @user
+        end
+      else #user is a new user
+        #create from LDAP if possible; otherwise just use the given information
+        @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
+
+        #if a name was given, it should override the name from LDAP
+        @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
+        @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
+        @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+        if @user.save
+          flash[:notice] = "Successfully created user."
+          redirect_to @user
+        else
+           render :action => 'new'
+        end
+      end
+        # y @user #debug output
     end
-    # y @user #debug output
   end
 
   def edit

@@ -7,9 +7,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payform_sets
 
-  map.resources :payforms, 
-                :collection => { :prune => :delete, :go => :get }, 
-                :member => {:submit => :put, :approve => :put, :print => :put}, 
+  map.resources :payforms,
+                :collection => { :prune => :delete, :go => :get },
+                :member => {:submit => :put, :approve => :put, :print => :put},
                 :shallow => true do |payforms|
     payforms.resources :payform_items
   end
@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :departments, :shallow => true do |departments|
-    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}, :new => {:register => :get}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
@@ -93,4 +93,3 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-
