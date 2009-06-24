@@ -5,7 +5,6 @@ class NoticesController < ApplicationController
   # GET /notices.xml
 
   def index
-    fetch_loc_groups
     @notices = Notice.all
 
     respond_to do |format|
@@ -46,33 +45,16 @@ class NoticesController < ApplicationController
   def create
 #    raise params.to_yaml
     @notice = Notice.new(params[:notice])
+    @notice.is_sticky = true unless current_user.is_admin_of?(@department)
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    params[:for_users].split(",").map(&:strip).each do |login_or_name|
-    viewer = User.find_by_login(login_or_name) || User.find_by_name(login_or_name)
-    if viewer
-      @notice.add_viewer_source(viewer)
-    else
-      @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
-    end
-  end
-    @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
-    if params[:for_locations]
-      params[:for_locations].each do |loc|
-        @notice.add_display_location_source(Location.find_by_id(loc))
-      end
-    end
-    if params[:for_location_groups]
-      params[:for_location_groups].each do |loc_group|
-        @notice.add_display_location_source(LocGroup.find_by_id(loc_group))
-      end
-    end
+    set_sources
     respond_to do |format|
       if @notice.save
         flash[:notice] = 'Notice was successfully created.'
-        format.html { redirect_to(@notice) }
+        format.html { redirect_to (@notice) }
         format.xml  { render :xml => @notice, :status => :created, :location => @notice }
       else
         format.html { render :action => "new" }
@@ -84,9 +66,17 @@ class NoticesController < ApplicationController
   # PUT /notices/1
   # PUT /notices/1.xml
   def update
+#    raise params.to_yaml
     @notice = Notice.find(params[:id])
+    @notice.update_attributes(params[:notice])
+    @notice.is_sticky = true unless current_user.is_admin_of?(@department)
+    @notice.author = current_user
+    @notice.department = @department
+    @notice.start_time = Time.now if @notice.is_sticky
+    @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
+    set_sources(true)
     respond_to do |format|
-      if @notice.update_attributes(params[:notice])
+      if current_user.is_admin_of?(@department) && @notice.save
         flash[:notice] = 'Notice was successfully updated.'
         format.html { redirect_to(@notice) }
         format.xml  { head :ok }
@@ -102,16 +92,49 @@ class NoticesController < ApplicationController
   def destroy
     @notice = Notice.find(params[:id])
     unless @notice.is_sticky || current_user.is_admin_of?(@notice.department)
-      redirect_with_flash("You are not authorized to remove this notice") and return
+      redirect_with_flash("You are not authorized to remove this notice", :back) and return
     end
     unless @notice.is_current?
-      redirect_with_flash("This notice was already removed on #{@notice.end_time}") and return
+      redirect_with_flash("This notice was already removed on #{@notice.end_time}", :back) and return
     end
-    redirect_with_flash("Notice successfully removed") if @notice.remove(current_user)
+    redirect_with_flash("Notice successfully removed", :back) if @notice.remove(current_user)
     @notice.save!
   end
 
   def fetch_loc_groups
     @loc_groups = @department.loc_groups.all
   end
+
+  def set_sources(update = false)
+    @notice.remove_all_viewer_sources if update
+    if params[:for_users]
+      # params[:for_users].split(",").map(&:strip).each do |login_or_name|
+      #   viewer = User.search(login_or_name)
+      #   if viewer
+      #     @notice.add_viewer_source(viewer)
+      #   else
+      #     @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
+      #   end
+      # end
+      #parse autocomplete
+      params[:for_users].split(",").each do |l|
+        l = l.split("||")
+        @notice.add_viewer_source(l[0].constantize.find(l[1])) if l.length == 2
+      end
+    end
+    @notice.add_viewer_source(@department) if params[:department_wide_viewers] && !@notice.is_sticky
+    @notice.remove_all_display_location_sources if update
+    @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
+    if params[:for_locations]
+      params[:for_locations].each do |loc|
+        @notice.add_display_location_source(Location.find_by_id(loc))
+      end
+    end
+    if params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group|
+        @notice.add_display_location_source(LocGroup.find_by_id(loc_group))
+      end
+    end
+  end
 end
+

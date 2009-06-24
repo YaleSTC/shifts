@@ -1,5 +1,9 @@
 <% title "Time Slots" %>
 
+<p><%= link_to "New Time Slot", new_time_slot_path %></p>
+
+<h1>Nothing Below Here Works. Use the link above</h1>
+
 <div class="note">
   <strong>Notes</strong>
   <ol>
@@ -17,7 +21,7 @@
       Start: <%= f.time_select :start_in_minute, {:minute_step => 15} %><%#= f.select :start_in_minute, @time_choices_select %>
       End: <%= f.time_select :start_in_minute, {:minute_step => 15} %><%#= f.select :end_in_minute, @time_choices_select, {:selected => @time_choices_select.last[1]} %>
     </p>
-    
+
     <p>in Locations:
       <% @department.loc_groups.each do |loc_group| %>
       <fieldset>
@@ -29,17 +33,17 @@
       </fieldset>
       <%- end -%>
     </p>
-            
+
     <p>for Days:
       <% WEEK_DAYS.each_with_index do |day, i| %>
         <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %> <%#>, :disabled => i < Date.today} %>
         <%= day %>
       <% end %>
     </p>
-    
+
       <%= hidden_field_tag :date, params[:date]%>
       <%= submit_tag 'Add' %>
-      
+
     <% end %>
   </fieldset>
 </div>
@@ -71,6 +75,4 @@
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Time Slot", new_time_slot_path %></p>
 

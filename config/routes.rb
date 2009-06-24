@@ -1,10 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
 
   map.resources :sub_requests
-		map.resources :notices
-
+	map.resources :notices
   map.resources :payform_item_sets
-
   map.resources :payform_sets
 
   map.resources :payforms, 
@@ -16,17 +14,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payform_items
 
-  map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
-
-  map.resources :shifts, :shallow => true do |shifts|
-    shifts.resources :reports
-    shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
-    shifts.resources :report_items
-		end
-
   map.resources :time_slots #TODO: What should this be nested under, if anything?
 
-  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
+  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get, :ajax_create => :post}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end
@@ -39,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :departments, :shallow => true do |departments|
-    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post}
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
@@ -49,6 +39,7 @@ ActionController::Routing::Routes.draw do |map|
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
 
+  map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -83,7 +74,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   # map.root :controller => "welcome"
-  map.root :controller => "departments"
+  map.root :controller => "dashboard"
 
   # See how all your routes lay out with "rake routes"
 

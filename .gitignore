@@ -1,20 +1,14 @@
 *~
-app/*
-config/*
-db/*
-lib/*
 log/*
-public/*
-script/*
-test/*
 tmp/*
-vendor/*
 Rakefile
-README
 structures.txt
 .DS_Store
 .project
 *.orig
-.DS_Store
-.project
+*.sqlite3
+db/schema.rb
+<<<<<<< HEAD:.gitignore
 
+=======
+>>>>>>> 68c31c3399698b625fa545c4960385a6d1016b09:.gitignore
