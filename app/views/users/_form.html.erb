@@ -1,11 +1,8 @@
+<% form_for user do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :login %><br />
     <%= f.text_field :login %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
   </p>
   <p>
     <%= f.label :first_name %><br />
@@ -14,6 +11,14 @@
   <p>
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name %>
+  </p>
+  <p>
+    <%= f.label :nick_name %><br />
+    <%= f.text_field :nick_name %>
+  </p>
+  <p>
+    <%= f.label :employee_id %><br />
+    <%= f.text_field :employee_id %>
   </p>
   <p>
     <%= f.label :email %><br />
@@ -27,4 +32,6 @@
       <%= role.name %>
     </div>
   <% end -%>
+  <p><%= f.submit submit %></p>
+<% end %>
 

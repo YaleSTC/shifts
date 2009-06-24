@@ -1,0 +1,25 @@
+<% form_for payform_item do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </p>
+  <p>
+    <%= f.label :hours %><br />
+    <%= f.text_field :hours %>
+  </p>
+  <p>
+    <%= f.label :category %><br />
+    <%= f.collection_select(:category_id, @department.categories.enabled, :id, :name, {:prompt => "Select a category"}) %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <% if submit == "Save" %>
+    <%= f.label :reason %><br />
+    <%= f.text_area :reason %>
+  <% end %>
+  <p><%= f.submit submit %></p>
+<% end %>
+

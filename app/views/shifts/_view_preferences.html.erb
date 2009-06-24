@@ -1,23 +1,25 @@
 <div id="preferences" style="float:right">
-  <span id="pref_link" class="dotted_link" style="display:none">Show/Hide Groups (TODO)</span>
+  <span id="pref_link" class="dotted_link" style="display:none"><%= link_toggle "checkbox_div", "Show/Hide Groups (TODO)", "fast" %></span>
   <div id="checkbox_div">
     <%# TODO: actually make this preferences form work%>
     <% form_tag({:action => "view_preferences"}, {:id => 'pref_form'} ) do %>  
       <% if @department.loc_groups.size > 1 %>
+        <ul>
         <% @department.loc_groups.each do |lg| %>
-          <%= check_box_tag "show_groups[]", lg.id %><%# !@user.preference.hide_group?(lg) %><%= lg.name %><br />
+          <li><%= check_box_tag "show_groups[]", lg.id %><%# !@user.preference.hide_group?(lg) %><%= lg.name %></li>
         <% end %>
+        </ul>
       <% end %>
       
-      <%= check_box_tag 'show_bars', 'all' %><%#, @user.preference.show_bars? %>Sign up bars<br />
+      <p><%= check_box_tag 'show_bars', 'all' %><%#, @user.preference.show_bars? %>Sign up bars</p>
       <%= hidden_field_tag :date, params[:date] %>      
-      <%= submit_tag "Show", :id => 'submit_pref' %><br />
-      <span id="cancel_pref_link" class="dotted_link" style="display:none">Cancel</span><br /><br />
+      <p><%= submit_tag "Show", :id => 'submit_pref' %></p>
+      <div id="cancel_pref_link" class="dotted_link" style="display:none">Cancel</div>
 
     <% end %>
   </div>
   <script type="text/javascript" charset="utf-8">
-    document.observe('dom:loaded',function(){ $('checkbox_div').hide(); });
-    document.observe('dom:loaded',function(){ $('pref_link').show(); });
+    $(document).ready(function(){ $("#checkbox_div").hide(); });
+    $(document).ready(function(){ $("#pref_link").show();    });
   </script>
 </div>

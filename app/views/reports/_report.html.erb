@@ -1,0 +1,32 @@
+
+
+<div id="report_view">
+  <p>
+  <strong>Arrived:</strong>
+  <%=h @report.arrived.getlocal.to_s(:short_name) %>
+</p>
+  <table id="report_view_table">
+    <tr>
+      <th class="list_header" colspan="2">
+        <h3><%= @report.shift.start.to_s(:just_date) %> - <%= @report.shift.scheduled? ? "scheduled for #{@report.shift.start.to_s(:am_pm)} - #{@report.shift.end.to_s(:am_pm)}" : "unscheduled" %> <br />
+        <%= @report.shift.user.name %> @ <%= @report.shift.location.name %></h3>
+
+        </th>
+    </tr>
+
+    <tbody>
+    <%= render :partial => 'report_item', :collection => @report.report_items %>
+    </tbody>
+    </table>
+    <p>
+  <% if @report.departed %>
+    <strong>Departed:</strong>
+    <%=h @report.departed.getlocal.to_s(:short_name) %>
+  <% elsif current_user==@report.user %>
+    <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true}, {:method => :put} %>
+  <% else %>
+    This report is still in progress.
+  <% end %>
+  </p>
+</div>
+

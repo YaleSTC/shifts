@@ -1,6 +1,62 @@
 <% title "Time Slots" %>
 
-What do time slots do again? Make sure to handle them restfully :)<br>
+<p><%= link_to "New Time Slot", new_time_slot_path %></p>
+
+<h1>Nothing Below Here Works. Use the link above</h1>
+
+<div class="note">
+  <strong>Notes</strong>
+  <ol>
+    <li>Time slots in the past cannot be changed or deleted.</li>
+    <li>Click on any location name to toggle the schedule display for that location</li>
+  </ol>
+</div>
+
+<div class="admin_form">
+  <% form_for :mass_create do |f|%>
+  <fieldset>
+    <legend>Add new time slots to the week (TODO: make this work)</legend>
+
+    <p>
+      Start: <%= f.time_select :start_in_minute, {:minute_step => 15} %><%#= f.select :start_in_minute, @time_choices_select %>
+      End: <%= f.time_select :start_in_minute, {:minute_step => 15} %><%#= f.select :end_in_minute, @time_choices_select, {:selected => @time_choices_select.last[1]} %>
+    </p>
+
+    <p>in Locations:
+      <% @department.loc_groups.each do |loc_group| %>
+      <fieldset>
+        <legend><%= loc_group.name %></legend>
+        <% loc_group.locations.each do |loc| %>
+          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= loc.short_name %>
+        <% end %>
+      </fieldset>
+      <%- end -%>
+    </p>
+
+    <p>for Days:
+      <% WEEK_DAYS.each_with_index do |day, i| %>
+        <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %> <%#>, :disabled => i < Date.today} %>
+        <%= day %>
+      <% end %>
+    </p>
+
+      <%= hidden_field_tag :date, params[:date]%>
+      <%= submit_tag 'Add' %>
+
+    <% end %>
+  </fieldset>
+</div>
+
+<div>
+<%= render :partial => 'shifts/schedule/header' %>
+
+  <% form_tag do %>
+    <%= render :partial => 'location', :collection => @department.locations %>
+    <%= submit_tag 'Update' %>
+  <% end %>
+</div>
+
 
 <table>
   <tr>
@@ -10,7 +66,7 @@ What do time slots do again? Make sure to handle them restfully :)<br>
   </tr>
   <% for time_slot in @time_slots %>
     <tr>
-      <td><%=h time_slot.location %></td>
+      <td><%=h time_slot.location.short_name %></td>
       <td><%=h time_slot.start %></td>
       <td><%=h time_slot.end %></td>
       <td><%= link_to "Show", time_slot %></td>
@@ -19,6 +75,4 @@ What do time slots do again? Make sure to handle them restfully :)<br>
     </tr>
   <% end %>
 </table>
-
-<p><%= link_to "New Time Slot", new_time_slot_path %></p>
 

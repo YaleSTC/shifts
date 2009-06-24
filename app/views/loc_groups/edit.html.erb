@@ -1,9 +1,6 @@
-<% title "Edit Loc Group" %>
+<% title = "Edit Location Group" %>
 
-<% form_for @loc_group do |f| %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  <p><%= f.submit "Update" %></p>
-<% end %>
+<%= render :partial => 'form', :locals => {:title => title} %>
 
 <p>
   <%= link_to "Show", @loc_group %> |

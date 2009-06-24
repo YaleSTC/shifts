@@ -2,7 +2,7 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :location %><br />
-    <%= f.text_field :location %>
+    <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location ? @time_slot.location.id : nil)%><br />
   </p>
   <p>
     <%= f.label :start %><br />
@@ -14,3 +14,4 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
