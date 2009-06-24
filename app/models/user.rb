@@ -1,5 +1,6 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
+  acts_as_authentic
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
@@ -80,7 +81,7 @@ class User < ActiveRecord::Base
   def permission_list
     roles.collect { |r| r.permissions }.flatten
   end
-  
+
   def current_shift
     self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}
   end
@@ -149,4 +150,3 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
-
