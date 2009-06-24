@@ -10,3 +10,4 @@ class Report < ActiveRecord::Base
     all_notices.uniq
   end
 end
+

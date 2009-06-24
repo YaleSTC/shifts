@@ -2,10 +2,10 @@
 log/*
 tmp/*
 Rakefile
+README
 structures.txt
 .DS_Store
 .project
 *.orig
 *.sqlite3
 db/schema.rb
-

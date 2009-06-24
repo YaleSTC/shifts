@@ -1,0 +1,511 @@
+/* default css -- shouldn't be necessary anymore
+
+body {
+  background-color: #4B7399;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 14px;
+}
+
+a img {
+  border: none;
+}
+
+a {
+  color: #0000FF;
+}
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+#container {
+  width: 75%;
+  margin: 0 auto;
+  background-color: #FFF;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 20px;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+#errorExplanation ul {
+  margin: 2px 24px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: disc;
+}
+
+.disabled {
+  color: #999;
+}
+
+*/
+
+
+
+
+
+
+
+
+/*this used to be main.css -- copied here for the time being*/
+
+
+/* Make the vertical scrollbar always appear */
+html {
+  overflow-y: scroll;
+}
+
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+#flash_notice {
+  background-color:#FFF0AA;
+  border:1px solid #908C99;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+
+#flash_big_notice {
+  background-color:#FFCCCC;
+  border:1px solid #CC6666;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8
+}
+
+/* Main Styles and IDs */
+body {
+	color: #000;
+  margin: 0pt;
+  padding: 0pt;
+  font-family: Trebuchet MS, Verdana, Arial, serif;
+  font-size: 11px;
+  background-color: #E9E9E9;
+  background-image: none;
+}
+
+#pagebox {
+  background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
+  margin: 0px auto;
+  padding: 0pt 12px;
+  width: 900px;
+  border: medium none;
+}
+#yaleHeader {
+  background-color: #536E8D;
+  border-bottom: 1px solid #FFFFFF;
+  float: left;
+  width: 100%;
+  height: 35px;
+  padding: 0px;;
+}
+#yaleHeader h2 {
+  background: transparent url(../images/yale_alt_header.gif) no-repeat scroll 0% 0%;
+  float: left;
+  font-size: 12px;
+  margin: 0pt;
+  text-indent: -9999px;
+  border-bottom: none;
+}
+#yaleHeader h2 a {
+  display: block;
+  height: 36px;
+  width: 130px;
+}
+#identityHeader {
+  background: #869FC7 url(../images/identityheader2.jpg) no-repeat scroll 0% 0%;
+  border-bottom: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  clear: both;
+  height: 85px;
+  margin: 0px auto;
+  padding: 0px;
+}
+#identityHeader h1 {
+  float: left;
+  font-size: 12px;
+  height: 0pt;
+  margin: 0pt;
+  text-indent: -9999px;
+}
+#identityHeader img {
+  display: block;
+  color: #FFFFFF;
+}
+
+#chooser {
+  float: left;
+  width: 120px;
+  padding: 0px 0px 0px 10px;
+  margin-top: 1px;
+}
+#chooser p {
+  margin: 0pt 5px 0pt 0pt;
+  font-size: 12px;
+  color: #FFFFFF;
+  float: left;
+}
+
+#login {
+  float: right;
+  width: 700px;
+}
+#login p {
+  margin: 9pt 10px 0pt 0pt;
+  font-size: 12px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  line-height: 1.1em;
+  color: #FFFFFF;
+  float: right;
+}
+
+/* Header-specific classes */
+#login p.login_status {
+  color: #fff;
+}
+#login a.login_status {
+  color: #660000;
+  font-weight: bold;
+  text-decoration: none;
+}
+#login a.login_status:hover {
+  color: #CC0000;
+}
+#chooser p.chooser_status {
+  float: left;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 12px;
+  padding: 0pt;
+  line-height: 1.6em;
+}
+
+#itsLinksHeader {
+  background-color: #8B9B6C;
+  border-bottom: 1px solid #FFFFFF;
+  height: 25px;
+  padding: 5px 10px 4px;
+}
+
+
+#miniTabsBox {
+  float: right;
+  width: 750px;
+}
+ul#miniTabs {
+  float: right;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 12px;
+  margin: 0pt 5px 0pt 0pt;
+  padding: 0pt;
+  line-height: 1.6em;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: square;
+}
+ul#miniTabs li {
+  display: inline;
+  line-height: 11px;
+  list-style-type: none;
+  margin: 0pt;
+  padding: 0pt;
+}
+ul#miniTabs a {
+  color: #FFFFFF;
+  float: left;
+  line-height: 11px;
+  margin: 6px 12px 0px;
+  text-decoration: none;
+}
+
+ul#miniTabs a:hover {
+    border-bottom:2px solid #EEF0AE;
+    padding-bottom:1px;
+}
+
+#scanColumn {
+  background: #FFFFFF none repeat scroll 0% 0%;
+  float: left;
+  margin: 0px;
+  margin-top: 20px;
+  padding-left: 15px;
+  width: 145px;
+  color: #415578;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1.2em;
+  margin: 40px 0pt 0pt;
+  padding: 0pt;
+  line-height: 1.75em;
+}
+
+
+ul#navigationList {
+  color: #415578;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1.7em;
+  margin: 40px 0pt 0pt;
+  padding: 0;
+ 
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: square;
+ 
+  float: left;
+  padding: 5px 5px 5px 17px;
+}
+ul#navigationList li {
+  list-style-type: none;
+  margin-left: 0px;
+}
+ul#navigationList li ul {
+  font-size: 10px;
+  margin: 0pt;
+  padding: 0pt 0pt 0pt 17px;
+}
+ul#navigationList li a, ul#navigationList li h3 {
+  height: 1%;
+  display: block;
+}
+ul#navigationList a:link, ul#navigationList a:visited {
+  color: #2758B3;
+  text-decoration: none;
+}
+ul#navigationList a:hover {
+  color: #FF9933;
+  text-decoration: none;
+}
+
+#contentNav, #contentNoNav {
+  background: transparent none no-repeat scroll 0% 0%;
+  height: auto !important;
+  min-height: 450px;
+}
+#contentNav h1, #contentNoNav h1 {
+  padding: 0px 0px 5px 0px;
+}
+#contentNav li, #contentNoNav li {
+  margin: 0pt 0pt 0pt 20px;
+}
+#contentNav {
+  float: right;
+  padding: 30px 30px 10px 10px;
+  width: 700px;
+}
+#contentNoNav {
+  padding: 30px;
+  width: 840px;
+}
+
+#header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 120px;
+  background-color: #8B9B6C;
+}
+#header .login {
+  position: absolute;
+  top: 88px;
+  right: 18px;
+  text-align: right;
+}
+#header .chooser {
+  position: absolute;
+  top: 88px;
+  left: 5px;
+  text-align: left;
+}
+
+#pageboxBottom {
+  background: transparent url(../images/pagebox_shadow_bottom.gif) no-repeat scroll 0% 0%;
+  height: 12px;
+  margin: 0px auto;
+  padding-bottom: 2px;
+  width: 924px;
+}
+
+#menu {
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  top: 125px;
+  left: 0px;
+  float: left;
+}
+
+#page_title {
+  padding: 0 0 0;
+  margin-bottom: 15px;
+  border-bottom: thin solid #408080;
+}
+
+/* Get rid of standard margin/padding */
+h1, h2, h3, h4, h5, h6, ul, li, ol {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Redefine standard styles */
+h1, h2, h3, h4, h5, h6 {
+  margin: 2px 0px;
+}
+h1 {
+  font-size: 18px;
+}
+h2 {
+  font-size: 14px;
+}
+h3 {
+  font-size: 12px;
+  font-weight: bold;
+}
+a:link, a:visited {
+  text-decoration: none;
+}
+
+/* Text-formatting-specfic classes */
+
+#pageAnchor {
+  clear: both;
+}
+
+#pageAnchor img {
+  float: left;
+  padding: 10px 50px 10px 190px;
+}
+/* Footer-specific classes */
+#footer {
+  background-color: #536E8D;
+  border-bottom: medium none;
+  border-top: medium none;
+  clear: both;
+  padding: 5px 10px 15px;
+}
+#footer a {
+  color: #999999;
+  font-weight: bold;
+  text-decoration: none;
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+
+p.footer {
+  color: #FFFFFF;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-size: 10px;
+  line-height: 1.6em;
+  margin: 0px 0px 0px 180px;
+  padding: 0em;
+}
+
+textarea {
+  overflow: auto;
+}
+
+table.manage_table{
+  border: 1px solid #666666;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 4px;
+}
+
+table.manage_table caption{
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 1em;
+
+}
+table.manage_table td {
+  border: 1px solid #666666;
+  text-align: center;
+}
+
+table.manage_table th { 
+  border: 1px solid #666666; 
+}
+
+a {
+  color: #104e8b;
+}
+
+a:hover{
+	color: orange;
+}
+
+.admin_form label {
+  width: 20em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+fieldset#warning {
+  background: #C0C0C0;
+}
+
+fieldset {
+  background: #ddf;
+}
+
+legend {
+  color: #eef;
+  background: #123456;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}
+
+/* BOXED-IN NOTE */
+div.note {
+  border: 1px solid #AAAAAA;
+  border-style: dashed;
+  margin: 5px;
+  padding: 2px;
+  overflow-x: auto;
+  color: #556677;
+}
+
