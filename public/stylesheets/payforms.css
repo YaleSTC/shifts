@@ -45,7 +45,6 @@ div.payform_form legend {
 }
 #payformList th
 {
-	font-size: 12px;
 	font-weight: bold;
 	padding: 5px;
 	background: #b9c9fe;
@@ -65,11 +64,18 @@ div.payform_form legend {
 }
 #payformList tbody td
 {
-	padding: 5px;
-	background: #e8edff;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
+	background: #e8edff;
+	padding: 5px;
+}
+#payformList tbody tr.edit_item td
+{
+    font-size: 10px;
+	background: #d0fdda;
+	color: #393;
+	padding: 1px 5px 1px 5px;
 }
 #payformList td.rightside a
 {
@@ -83,22 +89,16 @@ div.payform_form legend {
 {
 	color: #484d9f;
 }
-#payformList tbody tr:hover td
+#payformList tbody tr.payform_item:hover  td
 {
 	background: #d0dafd;
 	color: #339;
 }
-#payformList td.date {
-    width: 45px;
-    text-align: left;
-}
-#payformList td.description {
-    width:auto;
-    text-align: left;
-}
 #payformList td.rightside {
     text-align: right;
-    width:1%
+}
+#payformList td.reason {
+    font-style:italic;
 }
 #payform a {
     color: #2758B3;

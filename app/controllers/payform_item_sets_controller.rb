@@ -14,13 +14,19 @@ layout "payforms"
   end
   
   def create
-    @payform_item_set = PayformItemSet.new(params[:payform_item_set])
-    #@payform_item_set.select{|p| p.. }.map{|p| p.destroy }
+    @payform_item_set = PayformItemSet.create(params[:payform_item_set])
+    params[:user_ids] ||= []
+    date = build_date_from_params(:date, params[:payform_item_set])
+    params[:user_ids].each do |user_id|
+      payform_item = PayformItem.new(params[:payform_item_set])
+      payform_item.payform = Payform.build(current_department, User.find(user_id), date)
+      @payform_item_set.payform_items << payform_item
+    end
     if @payform_item_set.save
       flash[:notice] = "Successfully created payform item set."
       redirect_to @payform_item_set
     else
-      render :action => 'new'
+      render :action => "new"
     end
   end
   
@@ -44,4 +50,13 @@ layout "payforms"
     flash[:notice] = "Successfully destroyed payform item set."
     redirect_to payform_item_sets_url
   end
+  
+  private
+  
+  def build_date_from_params(field_name, params)
+    Date.new(params["#{field_name.to_s}(1i)"].to_i, 
+             params["#{field_name.to_s}(2i)"].to_i, 
+             params["#{field_name.to_s}(3i)"].to_i)
+  end
+
 end
