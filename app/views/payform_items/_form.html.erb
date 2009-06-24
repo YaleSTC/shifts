@@ -10,12 +10,16 @@
   </p>
   <p>
     <%= f.label :category %><br />
-    <%= f.collection_select(:category_id, @department.categories, :id, :name, {:prompt => "Select a category"}) %>
+    <%= f.collection_select(:category_id, @department.categories.enabled, :id, :name, {:prompt => "Select a category"}) %>
   </p>
   <p>
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </p>
+  <% if submit == "Save" %>
+    <%= f.label :reason %><br />
+    <%= f.text_area :reason %>
+  <% end %>
   <p><%= f.submit submit %></p>
 <% end %>
 
