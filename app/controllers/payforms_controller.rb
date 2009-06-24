@@ -6,14 +6,48 @@ class PayformsController < ApplicationController
     else
       @payforms =  current_department.payforms && current_user.payforms
     end
-    @payforms.sort{|a,b| a.date <=> b.date}
+    if params[:unsubmitted]
+      @payforms = @payforms.unsubmitted
+    elsif params[:submitted]
+      @payforms = @payforms.unapproved
+    elsif params[:approved]
+      @payforms = @payforms.unprinted
+    elsif params[:printed]
+      @payforms = @payforms.printed
+    else
+      params[:unsubmitted] = params[:submitted] = params[:approved] = true
+      @payforms -= @payforms.printed
+    end
+    @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
   end
 
   def show
     @payform = Payform.find(params[:id])
-    unless @payform && (@payform.user == current_user || current_user.is_admin_of?(current_department)) && @payform.department == current_department
-      flash[:notice] = "Invalid payform"
+    errors = []
+    if !@payform
+      errors << "Payform does not exist."
+    end
+    if !(@payform.user == current_user || current_user.is_admin_of?(current_department))
+      errors << "You do not own this payform, and are not an admin of this deparment."
+    end
+    if @payform.department != current_department
+      errors << "The payform (from "+@payform.department.name+") is not in this department ("+current_department.name+")."
+    end
+    if errors.length > 0
+      flash[:error] = "Error: "+errors*"<br/>"
       redirect_to payforms_path
+    else 
+      respond_to do |show|
+        show.html #show.html.erb
+        show.pdf  #show.pdf.prawn
+        show.csv do
+          csv_string = FasterCSV.generate do |csv|
+            csv << ["First Name", "Last Name", "Employee ID", "Start Date", "End Date", "Total Hours"]
+            csv << [@payform.user.first_name, @payform.user.last_name, @payform.user.employee_id, @payform.start_date, @payform.date, @payform.hours]
+          end
+          send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
+        end
+      end
     end
   end
 

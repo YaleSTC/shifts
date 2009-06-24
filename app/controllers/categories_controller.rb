@@ -3,14 +3,11 @@ class CategoriesController < ApplicationController
   
   def index
     @categories = current_department.categories
+    @category = Category.new
   end
 
   def show
     @category = Category.find(params[:id])
-  end
-
-  def new
-    @category = Category.new
   end
 
   def create
@@ -44,5 +41,14 @@ class CategoriesController < ApplicationController
     flash[:notice] = "Successfully destroyed category."
     redirect_to department_categories_path(current_department)
   end
+  
+  def disable
+    @category = Category.find(params[:id])
+    @category.active = false
+    @category.save!
+    redirect_to @category
+  end
+  
+  
 end
 

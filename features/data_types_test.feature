@@ -39,7 +39,6 @@ Feature: data types
         | Number of lives   | text_field   | integer                                  |
         | Level of cuteness | text_field   | float                                    |
 
-        And I have 1 data_type
         And I am on the data types page
         When I follow "Edit"
         And I fill in "Name" with "Vegetable"
@@ -58,7 +57,6 @@ Feature: data types
         | Comments | text_area    |                                          |
         | Number   | text_field   | integer                                  |
 
-        And I have 1 data_type
         And I am on the data types page
         When I follow "Delete"
         And I press "Yes, please delete this"

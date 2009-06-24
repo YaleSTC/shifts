@@ -1,9 +1,10 @@
 <%= render :file => "layouts/include/main_header.html.erb" %>
     <%= yield(:left_nav) || '<div id="contentNoNav">' %>
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
-        <%# TODO: Add fadeout for the flash. Something like 'flash[:no_fadeout]' could specify no fadeout -%>
-      <%- end -%>
+    <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
+    <%- end -%>
+
+    <!-- Main Content -->
 
       <%- if show_title? -%>
         <h1 id="page_title"><%=h yield(:title) %></h1>
@@ -29,4 +30,3 @@
     <div id="pageboxBottom"/> <!-- do not remove this -->
   </body>
 </html>
-
