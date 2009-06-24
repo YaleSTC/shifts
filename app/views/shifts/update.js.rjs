@@ -1,0 +1,3 @@
+page.call "$('.updated').removeClass", "updated"
+page.replace_html "div_#{@shift.start.strftime('%Y-%m-%d')}", :partial => 'shifts/schedule/day', :object => @shift.start.to_date
+page.visual_effect :highlight, "div_#{@shift.start.strftime('%Y-%m-%d')}", :duration => 1

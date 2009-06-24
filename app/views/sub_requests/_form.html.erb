@@ -1,3 +1,6 @@
+<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput' %>
+<% stylesheet 'tokeninput-facebook' %>
+
 <% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
   <%= f.error_messages %>
 
@@ -20,8 +23,8 @@
     <%= f.datetime_select :end, :default => @sub_request.shift.end %>
   </p>
   <p>
-    <%= label_tag "List of logins that can take sub" %><br />
-    <%= text_field_tag :list_of_logins %>
+    <%= label_tag "People/groups eligible for this sub" %><br />
+    <%= tokenized_users_autocomplete(@sub_request, "user_sources", "list_of_logins") %>
   </p>
   <p>
     <%= f.label :reason %><br />
