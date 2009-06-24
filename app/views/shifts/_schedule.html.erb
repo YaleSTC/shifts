@@ -1,12 +1,25 @@
 <%# testing stuff, to be removed later %>
 <%
-@dept_start_hour = 9
-@dept_end_hour = 24  #if the day ends after midnight, this should be > 24
-@blocks_per_hour = 4
-@blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
-@display_unscheduled_shifts = true
+  @bar_ids = {}
+  
+  @dept_start_hour = 9
+  @dept_end_hour = 17  #if the day ends after midnight, this should be > 24
+  @blocks_per_hour = 4
+  @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
+  @block_length = 3600 / @blocks_per_hour #seconds
+  @display_unscheduled_shifts = true
+  @grace_period = 5*60 #seconds
+  
+  #for now, for AJAX
+  @period_start ||= params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
+  @days_per_period ||= 7 #TODO: make this a setting for an admin
+  
+  if @show_weekends
+    @day_collection = @period_start...(@period_start+@days_per_period)
+  else
+    @day_collection = (@period_start+1)...(@period_start+@days_per_period-1)
+  end
 %>
-
 
 <div style="clear:both">
 <%= render :partial => 'shifts/schedule/header' %>
@@ -14,7 +27,7 @@
 <% if @department.loc_groups.empty? %>
   <p>Sorry, there are no location groups to view!</p>
 <% else %>
-  <%= render :partial => 'shifts/schedule/day', :collection => @period_start...(@period_start+@days_per_period), :spacer_template => 'shifts/schedule/spacer'%>
+  <%= render :partial => 'shifts/schedule/day', :collection => @day_collection, :spacer_template => 'shifts/schedule/spacer'%>
 <% end %>
 </div>
 <%= render :partial => 'shifts/schedule/footer' %>

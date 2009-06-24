@@ -17,13 +17,15 @@
   <%=h @shift.location.name %>
 </p>
 <p>
-<%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
-</p>
-<p>
   <% if @shift.report %>
     <%= link_to "View report", shift_report_path(@shift) %>
+  <% elsif current_user==@shift.user %>
+    <p>
+    <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+    </p>
+    <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
   <% else %>
-    <%= button_to "Create report", shift_report_path(@shift), :method => :post %>
+    This shift has not yet been signed in to.
   <% end %>
 </p>
 <p>

@@ -3,11 +3,19 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
-  has_many :shifts
-  
-  has_many :substitute_sources, :as => :user_source
 
-  validates_presence_of :name
+  has_many :payforms
+
+  has_many :shifts
+
+  has_many :user_source_links, :as => :user_source
+  has_many :notices, :as => :author
+  has_many :notices, :as => :remover
+
+
+
+  validates_presence_of :first_name
+  validates_presence_of :last_name
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
@@ -34,8 +42,6 @@ class User < ActiveRecord::Base
           new_user.last_name  = entry['sn'].first
           new_user.email = entry['mail'].first
 
-          # create name as full name is this user doesn't have a nickname or different name assigned
-          new_user.name = new_user.full_name if new_user.name.blank?
         end
         #add the user to the currently selected department
         new_user.departments << department
@@ -62,8 +68,21 @@ class User < ActiveRecord::Base
     failed
   end
 
+  def self.search(search_string)
+    self.all.each do |u|
+      if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+        @found_user =  u
+      end
+    end
+    @found_user
+  end
+
   def permission_list
     roles.collect { |r| r.permissions }.flatten
+  end
+
+  def current_shift
+    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -97,6 +116,7 @@ class User < ActiveRecord::Base
     self.departments_users[0].active
   end
 
+<<<<<<< HEAD:app/models/user.rb
   # Given a department, check to see if the user can admin any loc groups in it
   def is_loc_group_admin?(dept)
     dept.loc_groups.any?{|lg| self.is_admin_of?(lg)}
@@ -109,10 +129,35 @@ class User < ActiveRecord::Base
   end
 
   def full_name
+=======
+  def name
+    [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
+  end
+
+  def proper_name
+>>>>>>> 37117e5bc936c24acc7bf5ad6d71a5cf97f5750b:app/models/user.rb
     [first_name, last_name].join(" ")
   end
 
-  memoize :full_name, :permission_list, :is_superuser?
+  def awesome_name
+    [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
+  end
+
+  #This method is needed to make polymorphic associations work
+  def users
+    [self]
+  end
+
+  def available_sub_requests
+    SubRequest.all.select{|sr| sr.substitutes.include?(self)}
+  end
+
+  def notices
+    Notice.active.select{|n| n.viewers.include?(self)}
+  end
+
+  memoize :name, :permission_list, :is_superuser?
+
 
   private
 
@@ -120,3 +165,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
+

@@ -1,0 +1,23 @@
+<tr class="<%= type %>">
+  
+  <td class="date">
+    <%= "➘" if type == 'edit_item' %>
+    <%=h payform_item.date.strftime('%b %d') %>
+  </td>
+  <td class="description">
+    <%=h '❝'+payform_item.description+'❞' %>
+  </td>
+  <td class ="description" id= "reason">
+    <%=h payform_item.reason if type == 'edit_item' && current_user.is_admin_of?(current_department) %>
+  </td>
+  <td class="rightside" id="hours" >
+    <%=h payform_item.hours %>
+  </td>
+  <td class="rightside" id="edit">
+    <%= link_to "edit", edit_payform_item_path(payform_item) if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+  </td>
+  <td class="rightside" id="delete">
+    <%= link_to "&#x2716;", payform_item, :confirm => 'Are you sure?', :method => :delete  if payform_item.active && payform_item.payform && !payform_item.payform.approved%>
+  </td>
+</tr>
+<%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:type => 'edit_item' } if payform_item.payform_item %>

@@ -1,0 +1,29 @@
+<% title "Payform for " + start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format)%>
+  <% unless current_user.is_admin_of?(current_department) %>
+    <div id="cols">
+      <div id="cols-header"><%= error_messages_for 'payform' %></div>
+      <div id="left-col"><%= render :partial => 'date_select', :locals => {:date => @payform.date } %></div>
+      <div id="right-col"><%= link_to "<span>View all past payforms</span>", payforms_path, :class=>"button" %></div>
+      <div id="middle-col"></div>
+      <div id="cols-footer"></div>
+    </div>
+    <br /><br />
+  <% end -%>
+  <%= render :partial => "status" %>
+  <br /><br />
+  <div id="add_job_div" style="display: none">
+  </div>
+
+<div id="payform">
+  <h1>Payform Items</h1>
+  <table id="payformList" width="100%">
+      <%= render :partial => "category", :collection => (@payform.department.categories) %>
+    <tfoot><tr> <th scope="col" id="hours" colspan=6>
+      <div class="total-hours-right"><%= @payform.hours %></div>
+      Total Hours:
+    </th></tr> </tfoot>
+  </table>
+  <br/>
+</div>
+<%= payform_update_button %>
+<%= payform_add_button %>

@@ -1,4 +1,7 @@
 class ReportsController < ApplicationController
+  #AJAX requests will be returned without layout
+  layout proc{ |c| c.params[:format] == "js" ? false : "application" }
+
   def index
     @reports = Report.find(:all, :order => :arrived)
   end
@@ -6,23 +9,26 @@ class ReportsController < ApplicationController
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     @report_item = ReportItem.new
+    
+    #this doesn't currently work :P
+    #trying to disable the layout when viewing via a popout thickbox
+    render :layout => !request.xhr?
   end
 
   def new
     @report = Report.new
-    #redirect_to :action => 'create', :method => :post
+    redirect_to :action => 'create', :method => :post
   end
 
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
-    @report.shift.user.login
     # add a report item about logging in
-    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip)
-    if @report.save
-      flash[:notice] = "Successfully created report."
+    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+    if @report.user==current_user && @report.save
       redirect_to @report
     else
-      render :action => 'new'
+      flash[:notice] = "You can\'t sign into someone else's report!" unless @report.shift.user==current_user
+      redirect_to shifts_path
     end
   end
 

@@ -1,11 +1,32 @@
 ActionController::Routing::Routes.draw do |map|
-  #FIXME: I think this was included by mistake right? having subs nested in shifts below should be enough -H
+
   map.resources :sub_requests
+	map.resources :notices
 
-  #TODO: What should time_slots be nested under, if anything? (H: it can be nested under /locations/:location_id/)
-  map.resources :time_slots
+  map.resources :payform_item_sets
 
-  map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
+  map.resources :payform_sets
+
+  map.resources :payforms, 
+                :collection => { :prune => :delete, :go => :get }, 
+                :member => {:submit => :put, :approve => :put, :print => :put}, 
+                :shallow => true do |payforms|
+    payforms.resources :payform_items
+  end
+
+  map.resources :payform_items
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything? (probably not)
+
+  #   map.resources :shifts, :shallow => true do |shifts|
+  #     shifts.resources :reports
+  #     shifts.resources :sub_requests, :as => "subs" #NOTE: "sub_requests" is a clearer model name, we use subs for routing
+  #     shifts.resources :report_items
+  # end
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything?
+
+  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get, :ajax_create => :post}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end
@@ -30,12 +51,20 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :departments, :shallow => true do |departments|
+<<<<<<< HEAD:config/routes.rb
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
     departments.resources :users, :collection => {:mass_add => :get, 
                                                   :mass_create => :post, 
                                                   :restore => :post}
+=======
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get}
+    departments.resources :loc_groups
+    departments.resources :locations
+    departments.resources :roles
+    departments.resources :categories
+>>>>>>> 37117e5bc936c24acc7bf5ad6d71a5cf97f5750b:config/routes.rb
   end
 
   # permission is always created indirectly so there is only index method that lists them

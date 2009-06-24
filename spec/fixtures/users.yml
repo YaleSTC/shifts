@@ -1,0 +1,33 @@
+---
+user_01:
+  id: "1"
+  login: ad12
+  first_name: Albus
+  last_name: Dumbledore
+  nick_name: "Albus"
+  email: ad12@hogwarts.edu
+
+user_02:
+  id: "2"
+  login: hp123
+  first_name: Harry
+  last_name: Potter
+  nick_name: "Harry"
+  email: hp123@hogwarts.edu
+
+user_03:
+  id: "3"
+  login: hg9
+  first_name: Hermione
+  last_name: Granger
+  nick_name: "Hermione"
+  email: hg9@hogwarts.edu
+
+users_04:
+  id: "4"
+  login: ja
+  first_name: John
+  last_name: Arbuckle
+  nick_name: "John"
+  email: ja@garfield.com
+

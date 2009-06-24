@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_department
+  before_filter :load_user
   before_filter CASClient::Frameworks::Rails::Filter
 
   helper :layout # include all helpers, all the time
@@ -14,7 +15,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   def access_denied
-    render :text => "Access denied", :layout => true
+    text = "Access denied"
+    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user.departments
+    render :text => text, :layout => true
   end
 
   # Scrub sensitive parameters from your log
@@ -43,6 +46,11 @@ class ApplicationController < ActionController::Base
     @department = Department.find_by_id(session[:department_id])
   end
 
+  def load_user
+    @current_user = User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
+  end
+
+
   protected
   # these are the authorization before_filters to use under controllers
   def require_department_admin
@@ -58,6 +66,14 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "Only superuser can manage departments."
       redirect_to(access_denied_path)
     end
+  end
+
+  def redirect_with_flash(msg = nil, options = {:action => :index})
+    if msg
+      msg = msg.join("<br/>") if msg.is_a?(Array)
+      flash[:notice] = msg
+    end
+    redirect_to options
   end
 end
 

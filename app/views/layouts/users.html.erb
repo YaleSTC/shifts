@@ -1,17 +1,29 @@
-<% # NOTE: this method inside_layout is just a slight improvement over what I covered at training; the idea behind is the same -%>
-<% inside_layout 'application' do %>
-    <div id="nav_column">
-      <ul>
-        <li><%= link_to_unless_current "New User", new_department_user_path(@department) %></li>
-        <li><%= link_to_unless_current "Mass Add", mass_add_department_users_path(@department) %></li>
-        <li><%= link_to_unless_current "All Users", department_users_path(@department) %></li>
-      <ul>
-    </div>
+<% content_for :head do %>
 
-    <div id="tab_content">
-      <%= yield %>
-    </div>
+  <%# put payform specific head info here %>
+  <% stylesheet 'shift', 'report' %>
 
-    <div class="clear"></div>
+<% end %>
+
+ <!-- Admin Menu -->
+ <% if current_user.is_admin_of?(current_department) %>
+   <% content_for :left_nav do %>
+   <ul id="navigationList">
+     <h3>User Actions</h3>
+     <li><%= link_to_unless_current "New User", new_department_user_path(@department) %></li>
+     <li><%= link_to_unless_current "Mass Add", mass_add_department_users_path(@department) %></li>
+     <li><%= link_to_unless_current "All Users", department_users_path(@department) %></li>
+   </ul>
+   
+    <div id="contentNav">
+  <% end %>
+<% end %>
+
+<% content_for :body do %>
+  
+  <%= yield %>
+
+  <div class="clear"></div>
 <% end -%>
 
+<%= render :file => "layouts/application.html.erb" %>
