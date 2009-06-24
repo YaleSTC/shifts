@@ -7,18 +7,21 @@ Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$
 end
 
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
-  User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user.should_not be_nil
+  role = Role.new(:name => permissions + " role")
+  role.departments << @department
   permissions.split(", ").each do |permission_name|
-    role = Role.create!(:name => permission_name + " role", :department_id => @department.id)
     role.permissions << Permission.find_by_name(permission_name)
-    user.roles << role
   end
+  role.save!
+  user.roles << role
 end
 
 Given /^I am "([^\"]*)"$/ do |name|
   @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user_id = @user.id
-  @department = @user.departments[0]
+  @department = @user.departments.first
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
     #this seems like a clumsy way to set the department but I can't figure out any other way - wei
   visit departments_path
@@ -58,12 +61,5 @@ end
 
 Then /^I should have no (.+)$/ do |class_name|
   class_name.classify.constantize.count.should == 0
-end
-
-Then /^"([^\"]*)" should have ([0-9]+) (.+)s?$/ do |name, count, object_type|
-  user = User.find(:first, :conditions => {:first_name => name.split.first,
-                                           :last_name => name.split.last})
-  object = object_type.classify.constantize.count.should == count.to_i
-  User.find(user).payforms.should have(count.to_i).payforms
 end
 
