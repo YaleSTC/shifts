@@ -34,8 +34,8 @@ Feature: payform admin
     Then I should see "Quidditch"
     And I should see "2009-6-9"
     And I should see "2.0 hours"
-    And the user "hp123" should have 1 payform_item
-    And the user "hg9" should have 1 payform_item
+    And "Harry Potter" should have 1 payform_item
+    And "Hermione Granger" should have 1 payform_item
 
   Scenario: Creating a punch clock
     Given I have no punch_clocks
