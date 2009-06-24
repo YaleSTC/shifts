@@ -10,8 +10,8 @@ class Department < ActiveRecord::Base
   has_many :payform_sets
   has_many :categories
 
-  
-  
+  has_and_belongs_to_many :roles
+
 
   has_many :user_source_links, :as => :user_source
 
@@ -38,3 +38,4 @@ class Department < ActiveRecord::Base
   end
 
 end
+
