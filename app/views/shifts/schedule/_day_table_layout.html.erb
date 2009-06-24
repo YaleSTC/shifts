@@ -1,5 +1,5 @@
-<div class="time_table" id="table_<%= @curr_day %>" >
-  <% table_id = "%s_table" % "table_"+@curr_day.to_s %>
+<div class="time_table updated" id="div_<%= @curr_day %>">
+  <% table_id = "table_%s" % @curr_day.to_s %>
   
   <div style="text-align:left">
     <h3><%= link_toggle table_id, @curr_day.to_s(:just_date_long) %></h3>
@@ -34,7 +34,7 @@
         <span class='bars_on' style="display:none"><%= show_bars 'show bars' %></span>
         <%# js to turn on off here to work well with ajax.  these links hide by default if js is off %>
         <%# TODO: show_bar_links(@user.preference.show_bars? ? 'bars_off' : 'bars_on') %>
-        <%= show_bar_links(true ? 'bars_off' : 'bars_on') %>
+        <%#= show_bar_links(true ? 'bars_off' : 'bars_on') %>
       </div>
     <% end %>
   </div>

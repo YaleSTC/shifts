@@ -68,8 +68,21 @@ class User < ActiveRecord::Base
     failed
   end
 
+  def self.search(search_string)
+    self.all.each do |u|
+      if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+        @found_user =  u
+      end
+    end
+    @found_user
+  end
+
   def permission_list
     roles.collect { |r| r.permissions }.flatten
+  end
+
+  def current_shift
+    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -103,7 +116,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [(nick_name.length == 0 ? first_name : nick_name), last_name].join(" ")
+    [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
   end
 
   def proper_name
@@ -111,9 +124,9 @@ class User < ActiveRecord::Base
   end
 
   def awesome_name
-    [first_name, '"' + nick_name + '"', last_name]
+    [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
-  
+
   #This method is needed to make polymorphic associations work
   def users
     [self]
@@ -124,7 +137,7 @@ class User < ActiveRecord::Base
   end
 
   def notices
-    Notice.current.select{|n| n.viewers.include?(self)}
+    Notice.active.select{|n| n.viewers.include?(self)}
   end
 
   memoize :name, :permission_list, :is_superuser?
@@ -136,3 +149,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
+

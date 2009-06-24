@@ -68,8 +68,15 @@ class Notice < ActiveRecord::Base
     display_for.join "<br/>"
   end
 
-  def self.current
-    Notice.all.select {|n| n.is_current?}
+  def self.active
+    #TODO: this could be much cleaner.  once we get beyond a few hundred notices,
+    #      the speed of this degrades really fast. should be moved to database logic.
+    #      Something like this: Notice.find(:all, :conditions => ['start_time < ? AND end_time > ?', Time.now, Time.now]).sort_by{|note| note.is_sticky ? 1 : 0}
+    Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
+  end
+
+  def self.inactive
+    Notice.all.select{|n| !n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 
   def add_viewer_source(source)
@@ -82,6 +89,14 @@ class Notice < ActiveRecord::Base
   def viewers
     self.viewer_links.collect{|l| l.user_source.users}.flatten.uniq
   end
+  
+  def viewer_sources
+    self.viewer_links.collect{|l| l.user_source}
+  end
+
+  def remove_all_viewer_sources
+    UserSourceLink.delete_all(:user_sink_id => self.id)
+  end
 
   def add_display_location_source(source)
       display_location_link = LocationSourceLink.new
@@ -92,6 +107,10 @@ class Notice < ActiveRecord::Base
 
   def display_locations
     self.display_location_links.collect{|l| l.location_source.locations}.flatten.uniq
+  end
+
+  def remove_all_display_location_sources
+    LocationSourceLink.delete_all(:location_sink_id => self.id)
   end
 
   def is_current?
@@ -109,12 +128,6 @@ class Notice < ActiveRecord::Base
     true
   end
 
-  def self.inactive
-    inactive_notices = []
-    Notice.all.each {|n| inactive_notices << n unless n.is_current?}
-    inactive_notices
-  end
-
   private
   #Validations
   def presence_of_locations_or_viewers
@@ -125,3 +138,4 @@ class Notice < ActiveRecord::Base
     errors.add_to_base "Start/end time combination is invalid." if self.start_time > self.end_time if self.end_time || Time.now > self.end_time if self.end_time
   end
 end
+
