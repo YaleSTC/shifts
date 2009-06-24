@@ -20,6 +20,8 @@ module NavigationHelpers
       payforms_path
   	when /shifts/
 	    shifts_path
+    when /that_shift page/
+      shift_path(Shift.find(@that_shift))
     when /the user settings page/
       user_settings_path
     when /the Application Settings page/

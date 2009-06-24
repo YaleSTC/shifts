@@ -10,32 +10,34 @@ Given /^I am logged into a shift$/ do
   end
 end
 
-Given /^I have a time_slot in "([^\"]*)", from "([^\"]*)" to "([^\"]*)"$/ do |location, start_time, end_time|
-  TimeSlot.create!(:location_id => Location.find_by_name(location).id,
-                   :start       => Time.parse(start_time),
-                   :end         => Time.parse(end_time))
+Given /^there is a scheduled shift:$/ do |table|
+  table.hashes.each do |row|
+    TimeSlot.create!(:location_id => Location.find_by_name(row[:location]).id,
+                     :start       => Time.parse(row[:start_time]),
+                     :end         => Time.parse(row[:end_time]))
+    @user = User.find(:first, :conditions => {:first_name => row[:user].split.first, :last_name => row[:user].split.last})
+    @that_shift = Shift.create!(:user_id     => @user.id,
+                           :location_id => Location.find_by_name(row[:location]).id,
+                           :start       => Time.parse(row[:start_time]),
+                           :end         => Time.parse(row[:end_time]))
+  end
 end
 
-Given /^"([^\"]*)" has a scheduled shift, in "([^\"]*)", from "([^\"]*)" to "([^\"]*)"$/ do |arg1, arg2, arg3, arg4, arg5|
-  pending
-end
-Given /^"([^\"]*)" has a scheduled shift, in "([^\"]*)", from "([^\"]*)" to "([^\"]*)" and signed in at "([^\"]*)"$/ do |user, location, start_time, end_time, arrived|
-  s = Shift.create!(:user_id     => User.find_by_name(user).id,
-                :location_id => Location.find_by_name(location).id,
-                :start       => Time.parse(start_time),
-                :end         => Time.parse(end_time))
-
-  that_report = Report.create!(:shift_id => s.id,
-                 :arrived  => Time.parse(arrived))
+Given /^"([^\"]*)" signs in at "([^\"]*)"$/ do |user, arrived|
+  @that_report = Report.create!(:shift_id => @that_shift.id,
+                                :arrived  => Time.parse(arrived))
 end
 
-
-Then /^that_report is not late$/ do
-  that_report.is_late? == false
+When /^I comment in that_report "([^\"]*)"$/ do |content|
+  ReportItem.create!(:report_id => @that_report.id, :time => Time.now, :content => content)
 end
 
-Then /^that_report is late$/ do
-  that_report.is_late? == true
+Then /^that_shift should not be late$/ do
+  @that_shift.should_not be_late
+end
+
+Then /^that_shift should be late$/ do
+  @that_shift.should be_late
 end
 
 Then /^my shift report should have ([0-9]+) comment$/ do |count|
