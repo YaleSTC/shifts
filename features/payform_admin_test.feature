@@ -6,8 +6,8 @@ Feature: payform admin
   I want to be able to approve, print, and perform other administrative tasks for payforms
 
   Background:
-    Given the user "Albus Dumledore" has permissions "payform administrator"
-    And I am "Albus Dumbledore"
+    Given I am "Albus Dumbledore"
+    Given the user "Albus Dumbledore" has permissions "payform administrator"
     And I have the following payforms:
       | date       | department | user_first | user_last      | submitted | approved |printed|
       | 2009-06-13 | Hogwarts   | Harry      | Potter         | nil       | nil      | nil   |
@@ -24,7 +24,7 @@ Feature: payform admin
     And I select "Quidditch" from "payform_item_set[category_id]"
     And I fill in "hours" with "2"
     And I fill in "Description" with "great game!"
-    And I check "Harry Potter" in Users:
+    And I check "Harry Potter"
     And I check "Hermione Granger"
     And I press "Save"
     Then I should have 1 payform_item_sets
@@ -34,8 +34,8 @@ Feature: payform admin
     And I should see "2009-06-09"
     And I should see "Hours"
     And I should see "2.0"
-    And the user "hp123" should have 1 payform_item
-    And the user "hg9" should have 1 payform_item
+    And "Harry Potter" should have 1 payform_item
+    And "Hermione Granger" should have 1 payform_item
 
   Scenario: Creating a punch clock
     Given I have no punch_clocks
