@@ -116,7 +116,6 @@ class User < ActiveRecord::Base
     self.departments_users[0].active
   end
 
-<<<<<<< HEAD:app/models/user.rb
   # Given a department, check to see if the user can admin any loc groups in it
   def is_loc_group_admin?(dept)
     dept.loc_groups.any?{|lg| self.is_admin_of?(lg)}
@@ -129,13 +128,13 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-=======
+  end
+
   def name
     [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
   end
 
   def proper_name
->>>>>>> 37117e5bc936c24acc7bf5ad6d71a5cf97f5750b:app/models/user.rb
     [first_name, last_name].join(" ")
   end
 
