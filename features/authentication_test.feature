@@ -3,23 +3,23 @@ Feature: Authentication Systems
   As a super user
   I want manage the application settings
 
-  Scenario: Setting the authentication system
+  Scenario Outline: Setting the authentication system
     Given I am "Albus Dumbledore"
     And I am on the Application Settings page
     When I choose "<system>"
     And I press "Save"
     Then I should see "Authentication System preference saved."
 
-    When I logout
+    When I follow "logout"
     And I go to the homepage
     And I follow "Login"
-    Then I should <register> see "Register"
-    And I should <CAS> see "CAS"
-    And I should <OpenID> see "OpenID"
+    Then I should <register>
+    And I should <CAS>
+    And I should <OpenID>
 
     Examples:
-      | system              | register | CAS | OpenID |
-      | Authlogic (generic) |          | not | not    |
-      | CAS                 | not      |     | not    |
-      | OpenID              | not      | not |        |
+      | system              | register           | CAS           | OpenID           |
+      | Authlogic (generic) | see "Register"     | not see "CAS" | not see "OpenID" |
+      | CAS                 | not see "Register" | see "CAS"     | not see "OpenID" |
+      | OpenID              | not see "Register" | not see "CAS" | see "OpenID"     |
 
