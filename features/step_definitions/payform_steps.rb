@@ -39,6 +39,12 @@ Given /^I have the following payforms?:$/ do |table|
   end
 end
 
+When /^I check "([^\"]*)" in Users:$/ do |user|
+  field = User.find(:first, :conditions => {:first_name => user.split.first,
+                                            :last_name => user.split.last}).id
+  select(field, :from => "user_ids_")
+end
+
 Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id_1, id_2|
   payform_item_1 = PayformItem.find(id_1.to_i)
   payform_item_2 = PayformItem.find(id_2.to_i)
