@@ -71,5 +71,3 @@ Then /^the user "([^\"]*)" should have ([0-9]+) payform_item$/ do |user, count|
   @user = User.find_by_login(user).id
   PayformItem.find(:conditions => {:user_id => user}).count.should == count.to_i
 end
-
->>>>>>> master:features/step_definitions/payform_steps.rb
