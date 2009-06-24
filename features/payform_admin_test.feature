@@ -6,7 +6,7 @@ Feature: payform admin
   I want to be able to approve, print, and perform other administrative tasks for payforms
 
   Background:
-    Given the user "Albus Dumledore" has permissions "payform regular user, payform administrator"
+    Given the user "Albus Dumledore" has permissions "payform administrator"
     And I am "Albus Dumbledore"
     And I have the following payforms:
       | date       | department | user_first | user_last      | submitted | approved |printed|

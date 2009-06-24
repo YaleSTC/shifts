@@ -6,8 +6,7 @@ Feature: payform
   I want to be able to add jobs to, edit, and submit my own payform
 
   Background:
-    Given the user "Harry Potter" has permission "payform regular user"
-    And I am "Harry Potter"
+    Given I am "Harry Potter"
     And I have a payform for the week "2009-5-23"
 
   Scenario: Add a job to a payform

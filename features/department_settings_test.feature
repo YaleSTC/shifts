@@ -6,7 +6,6 @@ Feature: department_test
   Background:
     Given I am "Albus Dumbledore"
     And I am on the department settings page
-    And the user "Harry Potter" has permissions "regular payform user"
 
   Scenario: Shifts settings: Start and end times
     When I
