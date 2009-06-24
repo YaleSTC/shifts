@@ -11,7 +11,9 @@ Given /^the user "([^\"]*)" "([^\"]*)" has permissions? "([^\"]*)"$/ do |first_n
 
   user = User.find_by_last_name(last_name)
   permissions.split(", ").each do |permission_name|
-    #user.permissions << Permission.find_by_name(permission_name)
+    role = Role.create!(:name => permission_name + " role", :department_id => @department.id)
+    role.permissions << Permission.find_by_name(permission_name)
+    user.roles << role
   end
 end
 

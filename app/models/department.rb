@@ -18,6 +18,8 @@ class Department < ActiveRecord::Base
   has_many :location_source_links, :as => :location_source
 
 
+  has_many :substitute_sources, :as => :user_source
+  has_many :roles
 
   before_validation_on_create :create_permissions
 # this next validation doesn't work -cmk
@@ -26,7 +28,6 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :permission_id
 
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :roles
 
   private
   def create_permissions
