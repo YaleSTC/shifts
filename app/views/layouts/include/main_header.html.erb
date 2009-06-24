@@ -15,15 +15,15 @@
         <h2 class="yaleHeader">
           <a title="Yale Unversity" href="http://www.yale.edu/">Yale University</a>
         </h2>
-        <%= render :partial => "layouts/include/login" if current_user %>
+        <%= render :partial => "layouts/include/login" unless current_user.nil? %>
       </div>
       <div id="identityHeader">
         <div class="logo"><%= render :file => "layouts/include/logo.html.erb" %></div>
       </div>
       <div id="itsLinksHeader">
-    	  <%= render :partial => "layouts/include/chooser" if current_user %>
+    	  <%= render :partial => "layouts/include/chooser" unless current_user.nil? %>
         <div id="miniTabsBox">
-          <%= render :partial => "layouts/include/nav" %>
+          <%= render :partial => "layouts/include/nav" unless current_user.nil? or current_department.nil? %>
         </div>
       </div>
 
