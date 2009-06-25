@@ -6,7 +6,7 @@
 <% end %>
 
  <!-- Admin Menu -->
- <% if current_user.is_admin_of?(current_department) %>
+ <% if @session && current_user.is_admin_of?(current_department) %>
    <% content_for :left_nav do %>
    <ul id="navigationList">
      <h3>User Actions</h3>
@@ -14,16 +14,17 @@
      <li><%= link_to_unless_current "Mass Add", mass_add_department_users_path(@department) %></li>
      <li><%= link_to_unless_current "All Users", department_users_path(@department) %></li>
    </ul>
-   
+
     <div id="contentNav">
   <% end %>
 <% end %>
 
 <% content_for :body do %>
-  
+
   <%= yield %>
 
   <div class="clear"></div>
 <% end -%>
 
 <%= render :file => "layouts/application.html.erb" %>
+
