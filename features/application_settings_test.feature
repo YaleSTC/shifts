@@ -13,10 +13,28 @@ Feature: Application settings
     And I go to the homepage
     Then I should see "Hogwarts University"
 
+    When I go to the Applications Settings page
+    And I fill in "Footer" with "Jedi Academy /n <a href= 'www.jediAcad.edu'> Jedi Rule </a>"
+    And I press "Save"
+    And I go to the homepage
+    Then I should see "Jedi Academy"
+    And I should see "Jedi Rule"
+
   Scenario: Email: SMTP
 
-  Scenario: Email: Site admin email address
+  Scenario: LDAP Settings
+    When I fill in "host name" with ""
+    And I fill in "port #" with ""
+    And I fill in "search base" with ""
+    And I fill in "first_name from LDAP" with "given_name"
+    And I fill in "last_name from LDAP" with "sn"
+    Then I should see ???
 
-  Scenario: Changing Authentication settings
-  host name , port #, search base (str), mappings from LDAP field to first_name and last_name (given_name and sn)
+  Scenario: Email: Site admin email address
+    When I fill in "Site Admin Email Address" with "dumbledore@hogwarts.edu"
+    And I press "Save"
+    Then I should see "Site Admin Email Address successfully saved"
+
+    When I go to the homepage
+    Then I should see "Questions? Please email dumbledore@hogwarts.edu"
 

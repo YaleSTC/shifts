@@ -1,57 +1,47 @@
 require File.dirname(__FILE__) + '/../spec_helper'
- 
-describe PayformsController do
-  fixtures :all
-  integrate_views
-  
-  it "index action should render index template" do
-    get :index
-    response.should render_template(:index)
-  end
-  
-  it "show action should render show template" do
-    get :show, :id => Payform.first
-    response.should render_template(:show)
-  end
-  
-  it "new action should render new template" do
-    get :new
-    response.should render_template(:new)
-  end
-  
-  it "create action should render new template when model is invalid" do
-    Payform.any_instance.stubs(:valid?).returns(false)
-    post :create
-    response.should render_template(:new)
-  end
-  
-  it "create action should redirect when model is valid" do
-    Payform.any_instance.stubs(:valid?).returns(true)
-    post :create
-    response.should redirect_to(payform_url(assigns[:payform]))
-  end
-  
-  it "edit action should render edit template" do
-    get :edit, :id => Payform.first
-    response.should render_template(:edit)
-  end
-  
-  it "update action should render edit template when model is invalid" do
-    Payform.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Payform.first
-    response.should render_template(:edit)
-  end
-  
-  it "update action should redirect when model is valid" do
-    Payform.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Payform.first
-    response.should redirect_to(payform_url(assigns[:payform]))
-  end
-  
-  it "destroy action should destroy model and redirect to index action" do
-    payform = Payform.first
-    delete :destroy, :id => payform
-    response.should redirect_to(payforms_url)
-    Payform.exists?(payform.id).should be_false
+
+module PayformHelper
+  def valid_payform_attributes
+    { :date => "2009-5-12".to_date,
+      :monthly => false,
+      :end_of_month => false,
+      :day => 1,
+      :department_id => 1,
+      :user_id => 1,
+    }
   end
 end
+
+describe PayformsController do
+  include PayformHelper
+  fixtures :all
+  integrate_views
+
+    describe "after adding jobs" do
+    before(:each) do
+      @payform = Payform.create!(valid_payform_attributes)
+    end
+
+    it "should not be approved unless submitted" do
+      @payform.should_not be_submitted
+      lambda {
+        @payform.approved
+      }.should raise_error("Payform cannot be approved until it is submitted")
+      #can modify the above error message to fit with actual error message - wy
+      @payform.submit
+      lambda { @payform.approve }.should_not raise_error
+    end
+
+    it "should not be printed unless approved" do
+      @payform.submitted
+      @payform.should_not be_approved
+      lambda {
+        @payform.printed
+      }.should raise_error("Payform cannot be printed until it is approved")
+      #can modify the above error message to fit with actual error message - wy
+      @payform.approved
+      lambda { @payform.approve }.should_not raise_error
+    end
+  end
+end
+
