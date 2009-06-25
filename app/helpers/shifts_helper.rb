@@ -254,7 +254,7 @@ module ShiftsHelper
             link_name = "view"
             #view_action = shift_report_path(shift)#"view_float"
             #TODO: render without layout
-            url_options = {:controller => 'reports', :action => 'show', :id => shift.report, :TB_iframe => true}
+            url_options = {:controller => 'reports', :action => 'popup', :id => shift.report, :TB_iframe => true, :popup => true}
             html_options = {:class => 'thickbox'}
           end
 
