@@ -38,15 +38,30 @@ class ApplicationController < ActionController::Base
   # one can use @department or current_department
   # current_department is suitable to those methods that skip_before_filter load_department
   def current_department
-    @department ||= Department.find_by_id(params[:department_id] || session[:department_id])
+    if params[:department_id] or session[:department_id]
+      @department ||= Department.find(params[:department_id] || session[:department_id])
+    elsif current_user and current_user.departments
+      @department = current_user.departments[0]
+    end
   end
 
   private
   def load_department
     # update department id in session if neccessary so that we can use shallow routes properly
-    session[:department_id] = params[:department_id] unless params[:department_id].blank?
+    if @session
+      if params[:department_id]
+        session[:department_id] = params[:department_id]
+        @department = Department.find_by_id(session[:department_id])
+      elsif session[:department_id]
+        @department = Department.find_by_id(session[:department_id])
+      elsif current_user and current_user.departments
+        @department = current_user.departments[0]
+      end
+    else
+        session[:department_id] = Department.first.id
+        @department=Department.first
+    end
     # load @department variable, no need ||= because it's only called once at the start of controller
-    @department = Department.find_by_id(session[:department_id])
   end
 
   def load_user

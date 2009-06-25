@@ -1,22 +1,19 @@
 <fieldset class="announcement", title= "<%= "Posted on #{announcement.start_time.to_date} at #{announcement.start_time.to_s(:am_pm)}" %>" >
   <% if current_user.is_admin_of?(@department) %>
-      <div class="right">
-        <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => announcement },
-          :confirm => "Are you sure you want to remove this announcement?",
-          :method => :delete %>
-      </div>
-      <div class="grayright">
-        <%= link_to 'Edit', edit_notice_path(announcement) %>
-      </div>
+    <div class="right">
+      <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => announcement },
+                           :confirm => "Are you sure you want to remove this announcement?",
+                           :method => :delete %>
+    </div>
+    <div class="grayright">
+      <%= link_to 'Edit', edit_notice_path(announcement) %>
+    </div>
   <% end %>
-  <%= announcement.content %>
 
-<br />
-<div class="grayleft">
+  <%= announcement.content %> <br />
+
+  <div class="grayleft">
     <%= "by #{(announcement.author.name )}" -%>
-</div>
-  <div class="grayright">
-    <%= announcement.display_for %>
   </div>
-  </fieldset>
+</fieldset>
 

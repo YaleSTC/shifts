@@ -108,15 +108,21 @@ class NoticesController < ApplicationController
   def set_sources(update = false)
     @notice.remove_all_viewer_sources if update
     if params[:for_users]
-      params[:for_users].split(",").map(&:strip).each do |login_or_name|
-        viewer = User.search(login_or_name)
-        if viewer
-          @notice.add_viewer_source(viewer)
-        else
-          @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
-        end
+      # params[:for_users].split(",").map(&:strip).each do |login_or_name|
+      #   viewer = User.search(login_or_name)
+      #   if viewer
+      #     @notice.add_viewer_source(viewer)
+      #   else
+      #     @notice.errors.add_to_base "\'#{login_or_name}\' is not a valid name or NetID." unless login_or_name.blank?
+      #   end
+      # end
+      #parse autocomplete
+      params[:for_users].split(",").each do |l|
+        l = l.split("||")
+        @notice.add_viewer_source(l[0].constantize.find(l[1])) if l.length == 2
       end
     end
+    @notice.add_viewer_source(@department) if params[:department_wide_viewers] && !@notice.is_sticky
     @notice.remove_all_display_location_sources if update
     @notice.add_display_location_source(@department) if params[:department_wide_locations] && current_user.is_admin_of?(@department)
     if params[:for_locations]

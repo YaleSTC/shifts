@@ -4,7 +4,7 @@
   <head>
     <title><%= h(yield(:title) || 'Student Technology Collaborative') %></title>
     <%= stylesheet_link_tag 'application', 'nav' %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', 'jquery', 'jrails' %>
     <%= yield(:head) %>
   </head>
   <body>
@@ -23,7 +23,7 @@
       <div id="itsLinksHeader">
     	  <%= render :partial => "layouts/include/chooser" if @session%>
         <div id="miniTabsBox">
-          <%= render :partial => "layouts/include/nav" %>
+          <%= render :partial => "layouts/include/nav" if @session && current_user %>
         </div>
       </div>
 

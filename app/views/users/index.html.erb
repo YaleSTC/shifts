@@ -1,5 +1,18 @@
 <% title "Users" %>
 
+<div id="searchbox" style="display:none; margin-bottom: 1em">
+  <% form_tag (department_users_path(current_department), :method => :get) do %>
+    Search for a user: <%= text_field_tag :search %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $('div#searchbox').toggle();
+  $('input#search_submit').toggle();
+</script>
+
+<%= observe_field :search, :frequency => 0.2, :url => search_department_users_path(current_department), :with => :search %>
+
 <table>
   <tr>
     <th>Login</th>
@@ -9,24 +22,11 @@
     <th>Employee ID</th>
     <th>Email</th>
   </tr>
-  <% for user in @users %>
-    <%# TODO: put this formatting in the css %>
-    <tr<%= " class='disabled'" if !user.is_active?(@department) %>>
-      <td><%=h user.login %></td>
-      <td><%=h user.first_name %></td>
-      <td><%=h user.last_name %></td>
-      <td><%=h user.nick_name %></td>
-      <td><%=h user.employee_id %></td>
-      <td><%=h user.email %></td>
-      <td><%= link_to "Show", user %></td>
-      <td><%= link_to "Edit", edit_user_path(user) %></td>
-      <td><%= deactivate_link(user) %></td>
-    </tr>
-  <% end %>
+  <tbody id="user_list">
+    <%= render :partial => 'user_list' %>
+  </tbody>
 </table>
 
-<p><%= link_to "New User", new_department_user_path(@department) %><br />
-<%= link_to "Mass Add", mass_add_department_users_path(@department) %><br />
 <% if params[:show_inactive].nil? %>
   <%= link_to "Show Inactive Users", :show_inactive => true %>
 <% else %>
