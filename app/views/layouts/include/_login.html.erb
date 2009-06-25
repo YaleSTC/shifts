@@ -1,6 +1,12 @@
 <div id="login">
   <p class="login_status">
-    You are currently logged in as <strong><%= current_user.login %><%= link_to "[Logout]", logout_path %></strong>
+    You are currently logged in as <strong><%= current_user.login %>
+    <% if @user_session %>
+    <%= link_to "[Logout]", logout_path %>
+    <% else %>
+    <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
+    <% end %>
+    </strong>
   </p>
 </div>
 

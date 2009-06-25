@@ -4,7 +4,8 @@
 class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
-  before_filter :load_session
+#  before_filter :test
+  before_filter :load_user_session
   before_filter :login_or_register
   before_filter :load_department
 #  before_filter :load_user
@@ -27,11 +28,15 @@ class ApplicationController < ActionController::Base
   protected
   # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
   def current_user
-#    raise @session.login.to_s
-    @session.user
-#    @current_user ||=
-#      User.find_by_login('catest') ||
-#      User.import_from_ldap('catest', true)
+#    raise @user_session.login.to_s
+    if @user_session
+      @user_session.user
+    elsif session[:cas_user]
+      User.find_by_login(session[:cas_user]) ||
+      User.import_from_ldap(session[:cas_user], true)
+    else
+      nil
+    end
   end
 
   # for department, current_department is a bit too long =),
@@ -48,7 +53,7 @@ class ApplicationController < ActionController::Base
   private
   def load_department
     # update department id in session if neccessary so that we can use shallow routes properly
-    if @session
+    if @user_session
       if params[:department_id]
         session[:department_id] = params[:department_id]
         @department = Department.find_by_id(session[:department_id])
@@ -65,11 +70,11 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user
-    @current_user = @session.user #|| User.import_from_ldap('catest', true)
+    @current_user = @user_session.user || User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
   end
 
-  def load_session
-    @session = UserSession.find
+  def load_user_session
+    @user_session = UserSession.find
   end
 
   # these are the authorization before_filters to use under controllers
@@ -85,7 +90,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_or_register
-    unless @session
+    unless @user_session || current_user
       flash[:notice] = "Please login or register"
       redirect_to login_path
     end
@@ -98,5 +103,9 @@ class ApplicationController < ActionController::Base
     end
     redirect_to options
   end
+
+#  def test
+#    raise current_user.to_yaml
+#  end
 
 end
