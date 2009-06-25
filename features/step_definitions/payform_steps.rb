@@ -26,11 +26,13 @@ Given /^I have the following payforms?:$/ do |table|
     user = User.find(:first, :conditions => {:first_name => row[:user_first], :last_name => row[:user_last]})
     submitted = row[:submitted] == "true" ? Time.now - 180 : nil
     approved = row[:approved] == "true" ? Time.now - 120 : nil
+    approval = row[:approved] == "true" ? @current_user : nil
     printed = row[:printed] == "true" ? Time.now - 60 : nil
 
     Payform.create!(:date => date , :department_id => department.id,
                     :user_id => user.id, :submitted => submitted,
-                    :approved => approved, :printed => printed)
+                    :approved => approved, :approved_by => approval,
+                    :printed => printed)
   end
 end
 
@@ -61,5 +63,9 @@ end
 Then /^"([^\"]*)" should have ([0-9]+) (.+)$/ do |name, count, object|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.send(object.pluralize).should have(count.to_i).objects
+end
+
+Then /^I should have a pdf with "([^\"]*)" in it$/ do |text|
+    PDF::Inspector.parse(Prawn::PdfObject(text, true)).should == text
 end
 
