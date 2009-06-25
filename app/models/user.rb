@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :user_source_links, :as => :user_source
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
-
+  has_one  :punch_clock
 
 
   validates_presence_of :first_name

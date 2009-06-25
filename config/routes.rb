@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :punch_clocks
 
   map.resources :sub_requests
 	map.resources :notices
@@ -38,8 +39,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reports do |report|
     report.resources :report_items
   end
-
-  map.view_all_data_objects "data_objects/view_all_data_objects", :controller => "data_objects", :action => "view_all"
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
