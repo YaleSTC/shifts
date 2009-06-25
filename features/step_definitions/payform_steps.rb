@@ -9,13 +9,14 @@ Given /^I have the following payform items?$/ do |table|
   table.hashes.each do |row|
     category = Category.find_by_name(row[:category])
     user = User.find_by_login(row[:user_login])
+    payform = @payform ? @payform.id : nil
     PayformItem.create!(:category_id => category.id,
                     :user_id => user.id,
                     :hours => row[:hours].to_f,
                     :description => row[:description],
-                    :date => Time.parse(row[:date]))
+                    :date => Time.parse(row[:date]),
+                    :payform_id => payform)
   end
-
 end
 
 Given /^I have the following payforms?:$/ do |table|
@@ -26,7 +27,7 @@ Given /^I have the following payforms?:$/ do |table|
     user = User.find(:first, :conditions => {:first_name => row[:user_first], :last_name => row[:user_last]})
     submitted = row[:submitted] == "true" ? Time.now - 180 : nil
     approved = row[:approved] == "true" ? Time.now - 120 : nil
-    approval = row[:approved] == "true" ? @current_user : nil
+    approval = row[:approved] == "true" ? @user : nil
     printed = row[:printed] == "true" ? Time.now - 60 : nil
 
     Payform.create!(:date => date , :department_id => department.id,
@@ -42,10 +43,10 @@ Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id
   payform_item_2.payform_item_id.should == payform_item_1.id
 end
 
-Then /^payform item ([0-9]+) should have attribute (.+) "([^\"]*)"$/ do |id, attribute, expected|
+Then /^payform item ([0-9]+) should have attribute "([^\"]*)" "([^\"]*)"$/ do |id, attribute, expected|
   payform_item = PayformItem.find(id.to_i)
   attribute_constant = attribute.constantize
-  payform_item.attribute_constant.should match(expected)
+  payform_item.attribute.should match(expected.to_s)
 end
 
 
