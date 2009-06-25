@@ -34,12 +34,12 @@ Feature: payform
     When I follow "edit"
     And I select "Magic" from "payform_item[category_id]"
     And I fill in "hours" with "3"
-    And I fill in "description" with "I edited"
+    And I fill in "description" with "I edited this payform item"
     And I fill in "Reason" with "because I can"
     And I press "Save"
     Then I should have 2 payform_items
-    Then payform item 2 should be a child of payform item 1
-    And payform item 1 should have attribute reason "because I can"
+    Then payform item 1 should be a child of payform item 2
+    And payform item 1 should have attribute "reason" "because I can"
     And I should see "I edited"
     And I should see "3 hours"
 

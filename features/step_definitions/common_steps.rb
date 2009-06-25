@@ -56,7 +56,6 @@ Then /^there should be a shift with user "(.+)" at location "(.+)"$/ do |user, l
 end
 
 Then /^I should have ([0-9]+) (.+)$/ do |count, class_name|
-
   class_name.classify.constantize.count.should == count.to_i
 end
 
