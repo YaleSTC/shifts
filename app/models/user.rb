@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
 #    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
 #  end
 
-  # check for admin permission given a dept or location group
+  # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
     self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(dept))
   end

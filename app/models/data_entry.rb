@@ -45,12 +45,12 @@ class DataEntry < ActiveRecord::Base
         checked = []
         a.second.split(';').each do |box|
           box = box.split(':')
-          checked << box.second if box.first == "1"
+          checked << box.first if box.second == "1"
         end
         a[1] = checked.join(', ') unless checked.empty?
       elsif DataField.find(a.first).display_type == "radio_button"
         box = a.second.split(':')
-        a[1] = box.first if box.second == "1"
+        a[1] = box.second if box.first == "1"
       end
     end
     content_arrays.sort!          # At this point, we have [field, content] arrays

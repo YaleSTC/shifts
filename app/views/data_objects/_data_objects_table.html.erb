@@ -1,10 +1,10 @@
-  <table class="data_objects_table">
+  <table class="data_table">
     <caption><%= data_objects_table.first.name %></caption>
     <thead>
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <% data_objects_table.first.data_fields.sort_by(&:id).each do |df| %>
+        <% data_objects_table.first.data_fields.each do |df| %>
           <th><%= df.name %></th>
         <% end %>
       </tr>
@@ -15,9 +15,9 @@
       <tr>
         <td><%= link_to obj.name, obj %></td>
         <td><%= obj.description %></td>
-        <% data_objects_table.first.data_fields.sort_by(&:id).each do |df| %>
+        <% data_objects_table.first.data_fields.each do |df| %>
           <td>
-            <%= entry[df.id] if entry && entry.include?(df.id) %>
+            <%= entry[df.id.to_s] if entry %>
           </td>
         <% end %>
       </tr>
