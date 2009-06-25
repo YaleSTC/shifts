@@ -96,4 +96,3 @@ class ShiftsController < ApplicationController
     redirect_to shifts_url
   end
 end
-
