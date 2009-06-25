@@ -6,9 +6,7 @@ departments_001:
   day2: "1"
   end_of_month: f
   id: "1"
-  monthly: f
   name: STC
-  payform_permission_id: 
   permission_id: "1"
   updated_at: 2009-06-22 17:27:52
 departments_002: 

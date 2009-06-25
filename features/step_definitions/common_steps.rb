@@ -1,4 +1,4 @@
-Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |first_name, last_name, department, login|
+Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |name, department, login|
   d = Department.find_by_name("#{department}") or Department.create!(:name => department)
 
   u = User.new(:first_name => first_name, :last_name => last_name, :login => login)
@@ -6,17 +6,17 @@ Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login 
   u.save!
 end
 
-Given /^the user "([^\"]*)" "([^\"]*)" has permissions? "([^\"]*)"$/ do |first_name, last_name, permissions|
-  User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
-
-  user = User.find_by_last_name(last_name)
+Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
+  User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   permissions.split(", ").each do |permission_name|
-    #user.permissions << Permission.find_by_name(permission_name)
+    role = Role.create!(:name => permission_name + " role", :department_id => @department.id)
+    role.permissions << Permission.find_by_name(permission_name)
+    user.roles << role
   end
 end
 
-Given /^I am "([^\"]*)" "([^\"]*)"$/ do |first_name, last_name|
-  @user = User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
+Given /^I am "([^\"]*)"$/ do |name|
+  @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user_id = @user.id
   @department = @user.departments[0]
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
@@ -58,5 +58,12 @@ end
 
 Then /^I should have no (.+)$/ do |class_name|
   class_name.classify.constantize.count.should == 0
+end
+
+Then /^"([^\"]*)" should have ([0-9]+) (.+)s?$/ do |name, count, object_type|
+  user = User.find(:first, :conditions => {:first_name => name.split.first,
+                                           :last_name => name.split.last})
+  object = object_type.classify.constantize.count.should == count.to_i
+  User.find(user).payforms.should have(count.to_i).payforms
 end
 

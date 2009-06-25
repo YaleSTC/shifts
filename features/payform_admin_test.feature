@@ -6,8 +6,8 @@ Feature: payform admin
   I want to be able to approve, print, and perform other administrative tasks for payforms
 
   Background:
-    Given the user "Albus" "Dumledore" has permissions "payform regular user, payform administrator"
-    And I am "Albus" "Dumbledore"
+    Given the user "Albus Dumledore" has permissions "payform regular user, payform administrator"
+    And I am "Albus Dumbledore"
     And I have the following payforms:
       | date       | department | user_first | user_last      | submitted | approved |printed|
       | 2009-06-13 | Hogwarts   | Harry      | Potter         | nil       | nil      | nil   |
@@ -34,8 +34,8 @@ Feature: payform admin
     Then I should see "Quidditch"
     And I should see "2009-6-9"
     And I should see "2.0 hours"
-    And the user "hp123" should have 1 payform_item
-    And the user "hg9" should have 1 payform_item
+    And "Harry Potter" should have 1 payform_item
+    And "Hermione Granger" should have 1 payform_item
 
   Scenario: Creating a punch clock
     Given I have no punch_clocks

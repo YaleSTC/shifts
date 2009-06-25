@@ -2,6 +2,7 @@
 log/*
 tmp/*
 Rakefile
+README
 structures.txt
 .DS_Store
 .project

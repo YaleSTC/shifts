@@ -26,7 +26,6 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :permission_id
 
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :roles
 
   private
   def create_permissions
