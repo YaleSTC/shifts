@@ -1,0 +1,13 @@
+<% for user in @users %>
+  <tr<%= " class='disabled'" if !user.is_active?(@department) %>>
+    <td><%=h user.login %></td>
+    <td><%=h user.first_name %></td>
+    <td><%=h user.last_name %></td>
+    <td><%=h user.nick_name %></td>
+    <td><%=h user.employee_id %></td>
+    <td><%=h user.email %></td>
+    <td><%= link_to "Show", user %></td>
+    <td><%= link_to "Edit", edit_user_path(user) %></td>
+    <td><%= deactivate_link(user) %></td>
+  </tr>
+<% end %>

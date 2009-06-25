@@ -1,53 +1,59 @@
 <%# Required for the shift report popup view %>
-<% stylesheet 'floatbox' %>
-<% javascript 'floatbox' %>
+<%# TODO: use something better than this %>
+<% stylesheet 'notice', 'thickbox' %>
+<% javascript 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed', 'jquery.simpletip-1.3.1' %>
 
 <% title "Shifts" %>
 <%= render :partial => 'view_preferences' %>
 
-<div class = "shift_links">
-  <% unless (current_shift = current_user.shifts.select{|shift| shift.signed_in? and !shift.submitted?}) == [] %>
-    <%= link_to "Return to current shift", shift_path(current_shift) %><br />
-  <% end %>
-  <%= link_to "Start an unscheduled shift", unscheduled_new_shift_path %>
-
-  <%# TODO: implement announcements :P %>
-  <% @announcements = [] %>
-  <% unless @announcements.empty? %>
-    <h2>Announcements for <%= @department.name %></h2>
-    <%= render :partial => 'report/notice', :collection => @announcements %>
-  <% end %>
-
-  <div id="upcoming_shifts_div">
-    <%= render :partial => 'upcoming_shifts_layout' %>
+<div class="shift_links">
+  <div>
+    <% if current_user.is_admin_of?(@department) %>
+      <%= link_to "Power sign up", power_sign_up_new_shift_path %> |
+      <%= link_to "Edit Times", time_slots_path %> |
+      <%# TODO: %>
+      <%= link_to "View Work Hours", {:action => "view_work_hours", :date => params[:date]}, :class => "dotted_link" %>
+      <br>
+    <% end %>
+    <% if (current_shift = current_user.current_shift) %>
+      <%= link_to "Return to current shift", shift_path(current_shift) %><br />
+    <% end %>
+    <%= link_to_remote "Start an unscheduled shift", :url => unscheduled_new_shift_path, :method => :get %>
+    <%# for AJAX insert: %>
+    <div id="unscheduled" style="margin: 0; padding:0; margin-left:20px; display: none"></div>
   </div>
 
-  
-  <% all_subs = SubRequest.find(:all, :order => :start) %>
-  <% @subs_you_requested = all_subs.select{|sub| sub.shift.user == current_user}%>
-  <% unless @subs_you_requested.empty? %>
-    <h2>Subs you requested</h2>
-    <ul>
-    <%= render :partial => 'upcoming_sub', :collection => @subs_you_requested %>
-    </ul>
+  <% unless @upcoming_shifts.empty? %>
+    <div id="upcoming_shifts_div">
+      <h2 title="Displaying up to 4 upcoming shifts">Upcoming shifts</h2>
+      <%= render :partial => 'upcoming_shifts_layout' %>
+    </div>
   <% end %>
 
-  <!-- <%# unless @subs_you_can_take.empty? %>
+
+  <% all_subs = SubRequest.find(:all, :order => :start) %>
+  <% @subs_you_requested = all_subs.select{|sub| sub.shift.user == current_user} %>
+  <% unless @subs_you_requested.empty? %>
+    <div id="subs_you_requested">
+      <h2>Subs you requested</h2>
+      <ul>
+        <%= render :partial => 'upcoming_sub', :collection => @subs_you_requested %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% unless @subs_you_can_take.empty? %>
       <h2>Subs you can take</h2>
       <ul>
-      <%#= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
+      <%= render :partial => 'upcoming_sub', :collection => @subs_you_can_take%>
       </ul>
-    <%# end %> -->
+  <% end %>
 
   <% unless @current_shifts.empty? %>
-    <h2>Currently logged in shifts (in your domain)</h2>
-    <ul>
-      <% @current_shifts.each do |s| %>
-        <li><%= link_to s.short_name, shift_report_path(s), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
-          <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(s.start) %></span>
-        </li>
-      <% end %>
-    </ul>
+    <div id="active_shifts_div">
+      <h2>Currently logged in shifts (in your domain)</h2>
+      <%= render :partial => 'active_shifts_layout' %>
+    </div>
   <% end %>
 </div>
 
@@ -69,7 +75,7 @@
           <td><%=h shift.start.to_s(:short_name) %></td>
           <td><%=h shift.end.to_s(:short_name) %></td>
         <% else %>
-          <td colspan=2>unscheduled</td>
+          <td colspan="2">unscheduled</td>
         <% end %>
         <td><%=h shift.user.name %></td>
         <td><%=h shift.location.name %></td>
@@ -80,12 +86,132 @@
       </tr>
     <% end %>
   </table>
-  
+
   <p><%= link_to "New Shift", new_shift_path %></p>
 </div>
 
-
-
 <div id="schedule">
   <%= render :partial => 'schedule'%>
+</div>
+
+<script type="text/javascript">
+<!--
+  $("td.clickable_signup").simpletip({
+  
+    onBeforeShow: function(){
+      var text = this.getParent().get(0).id;
+      text = text.split("||");
+  
+      this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
+    },
+  
+    content: 'loading...',
+    position: ["0", "26px"],
+    fixed: true,
+    persistent: true,
+    focus: true
+  
+  });
+  
+  
+  
+  $("a.clickable_edit").simpletip({
+    onBeforeShow: function(){
+      this.getParent().get(0).href = "javascript: return false;";
+      var text = this.getParent().get(0).id;
+      text = text.split("||");
+      var params = "tooltip=true";
+      if (text[0] == "edit") {
+        this.load('/shifts/edit/'+text[1], params);
+      }
+      else {
+        params += "&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0];
+        this.load('/shifts/new/', params);
+      }
+    },
+  
+    content: 'loading...',
+    position: ["0", "26px"],
+    fixed: true,
+    persistent: true,
+    focus: true
+  
+  });
+  
+  
+  //update tooltips when a new ajax result is returned
+  $(".updated").ajaxSuccess(function(evt, request, settings){
+     $(".updated td.clickable_signup").simpletip({
+     
+       onBeforeShow: function(){
+         var text = this.getParent().get(0).id;
+         text = text.split("||");
+     
+         this.load('/shifts/new', "tooltip=true&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0]);
+       },
+     
+       content: 'loading...',
+       position: ["0", "26px"],
+       fixed: true,
+       persistent: true,
+       focus: true
+     
+     });
+     
+     $(".updated a.clickable_edit").simpletip({
+
+       onBeforeShow: function(){
+         this.getParent().get(0).href = "javascript: return false;";
+         var text = this.getParent().get(0).id;
+         text = text.split("||");
+         var params = "tooltip=true";
+         if (text[0] == "edit") {
+           this.load('/shifts/edit/'+text[1], params);
+         }
+         else {
+           params += "&shift%5Bstart%5D="+text[1]+"&shift%5Blocation_id%5D="+text[0];
+           this.load('/shifts/new/', params);
+         }
+       },
+
+       content: 'loading...',
+       position: ["0", "26px"],
+       fixed: true,
+       persistent: true,
+       focus: true
+
+     });
+   });
+  
+  
+  
+  
+  //test code for jQuery-ui's draggable and droppable classes  
+  $(document).ready(function(){
+    $(".draggable_users").draggable({ snap: '.droppable_slots', revert: 'invalid' });
+    $(".droppable_slots").droppable({ drop: function() { alert(this.id); } }); 
+  });
+  
+-->
+</script>
+
+<div id="ajaxtest"></div>
+
+This is all a big jQuery test down here :D
+
+<div style="clear:both; height:20px"></div>
+
+<% User.all.each do |user|%>
+  <div class="draggable_users" style="float:left; height:48px; width:48px; border: 1px black solid; background: #<%= (rand(10)).to_s + (rand(10)).to_s + (rand(10)).to_s %>; color: white"><%= user.login %></div>
+<% end %>
+
+<div style="clear:both; height:20px"></div>
+
+<div>
+  <% 5.times do |i| %>
+    <% 5.times do |j| %>
+    <div style="float: left; width:48px; height:48px; border:1px black solid;" class="droppable_slots" id="<%= "#{i}x#{j}" %>"></div>
+    <% end %>
+    <div style="clear:both"></div>
+  <% end %>
 </div>

@@ -2,7 +2,8 @@ class LocationsController < ApplicationController
   #TODO: add loc group authorization before filters here
 
   def index
-    @locations = @department.locations.select { |lg| current_user.is_admin_of?(lg.loc_group) }
+    @locations = @department.locations.select { |lg| current_user.can_admin?(lg.loc_group) }
+    @location = Location.new #for embedded form at page bottom
   end
 
   def show

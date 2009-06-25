@@ -9,8 +9,7 @@
       <% @shifts_outside_display += [row_shift] %>
       <% @row_time = @day_end %>
     <% else %>
-      <%= print_cell("shift_time", @day_start, row_shift.end, row_shift) -%><%# prints current shift -%>
-      <%= row_shift.end %>
+      <%= print_cell("shift_time", @row_time, row_shift.end, row_shift) -%><%# prints current shift -%>
       <% @row_time = row_shift.end %>
     <% end %>
 
@@ -29,12 +28,12 @@
 
 <% else #which means:  @row_time < row_shift.start  # if shift is later -%>
     <% if row_shift.end > @day_end %>
-      <%= print_cell("free_time", @row_time, row_shift.start, nil) -%><%# print some free time -%>
+      <%= print_cell("free_time", @row_time, row_shift.start, location) -%><%# print some free time -%>
       <%= print_cell("shift_time", row_shift.start, row_shift.end, row_shift, "", true, "right") -%><%# prints current shift -%>
       <% @shifts_outside_display += [row_shift] %>
       <% @row_time = @day_end %>
     <% else %>
-      <%= print_cell("free_time", @row_time, row_shift.start, nil) -%><%# print some free time -%>
+      <%= print_cell("free_time", @row_time, row_shift.start, location) -%><%# print some free time -%>
       <%= print_cell("shift_time", row_shift.start, row_shift.end, row_shift) -%><%# this is the next shift, print it.%>
       <% @row_time = row_shift.end # move to end of shift%>
     <% end %>

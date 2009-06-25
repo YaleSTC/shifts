@@ -1,11 +1,22 @@
 ActionController::Routing::Routes.draw do |map|
-  #FIXME: I think this was included by mistake right? having subs nested in shifts below should be enough -H
+
   map.resources :sub_requests
+	 map.resources :notices
+  map.resources :payform_item_sets
+  map.resources :payform_sets
 
-  #TODO: What should time_slots be nested under, if anything? (H: it can be nested under /locations/:location_id/)
-  map.resources :time_slots
+  map.resources :payforms, 
+                :collection => { :prune => :delete, :go => :get }, 
+                :member => {:submit => :put, :approve => :put, :print => :put}, 
+                :shallow => true do |payforms|
+    payforms.resources :payform_items
+  end
 
-  map.resources :shifts, :new => {:unscheduled => :get}, :shallow => true do |shifts|
+  map.resources :payform_items
+
+  map.resources :time_slots #TODO: What should this be nested under, if anything?
+
+  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get, :ajax_create => :post}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end
@@ -14,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :as => "subs"
   end
 
-  map.resources :reports do |report|
+  map.resources :reports, :member => {:popup => :get} do |report|
     report.resources :report_items
   end
 
@@ -30,17 +41,17 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :departments, :shallow => true do |departments|
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
-    departments.resources :users, :collection => {:mass_add => :get, 
-                                                  :mass_create => :post, 
-                                                  :restore => :post}
+    departments.resources :categories
   end
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
 
+  map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -75,7 +86,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   # map.root :controller => "welcome"
-  map.root :controller => "departments"
+  map.root :controller => "dashboard"
 
   # See how all your routes lay out with "rake routes"
 

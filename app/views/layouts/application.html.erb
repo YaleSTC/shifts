@@ -1,17 +1,16 @@
 <%= render :file => "layouts/include/main_header.html.erb" %>
- 
-    <%#= @left_nav ? '<div id="contentNav">' : '<div id="contentNoNav">' %>
-    <%# the following line is just for testing: %>
-    <%= '<div id="contentNoNav">' %>
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <%- end -%>
+    <%= yield(:left_nav) || '<div id="contentNoNav">' %>
+    <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
+    <%- end -%>
+
+    <!-- Main Content -->
 
       <%- if show_title? -%>
         <h1 id="page_title"><%=h yield(:title) %></h1>
       <%- end -%>
       <!-- Main Content -->
-      <%= yield(:my_content) || yield %>     
+      <%= yield(:body) || yield %>     
       </div>
       <div id="pageAnchor">
         <a href="#top_of_page">
@@ -31,4 +30,3 @@
     <div id="pageboxBottom"/> <!-- do not remove this -->
   </body>
 </html>
-

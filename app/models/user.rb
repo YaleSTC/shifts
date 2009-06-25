@@ -3,11 +3,14 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
+  has_many :payforms
   has_many :shifts
-  
-  has_many :substitute_sources, :as => :user_source
+  has_many :notices, :as => :author
+  has_many :notices, :as => :remover
+  has_many :user_source_links, :as => :user_source
 
-  validates_presence_of :name
+  validates_presence_of :first_name
+  validates_presence_of :last_name
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
@@ -34,8 +37,6 @@ class User < ActiveRecord::Base
           new_user.last_name  = entry['sn'].first
           new_user.email = entry['mail'].first
 
-          # create name as full name is this user doesn't have a nickname or different name assigned
-          new_user.name = new_user.full_name if new_user.name.blank?
         end
         #add the user to the currently selected department
         new_user.departments << department
@@ -62,8 +63,21 @@ class User < ActiveRecord::Base
     failed
   end
 
+  def self.search(search_string)
+    self.all.each do |u|
+      if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+        @found_user =  u
+      end
+    end
+    @found_user
+  end
+
   def permission_list
     roles.collect { |r| r.permissions }.flatten
+  end
+
+  def current_shift
+    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -76,15 +90,15 @@ class User < ActiveRecord::Base
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
-  # check for loc group admin, who can add locations and shifts under it
-  # DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
+#   check for loc group admin, who can add locations and shifts under it
+#   DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
 #  def can_admin?(loc_group)
 #    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
 #  end
 
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
-    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(dept))
+    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(thing))
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
@@ -108,11 +122,33 @@ class User < ActiveRecord::Base
     dept.loc_groups.delete_if{|lg| !self.is_admin_of?(lg)}
   end
 
-  def full_name
+  def name
+    [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
+  end
+
+  def proper_name
     [first_name, last_name].join(" ")
   end
 
-  memoize :full_name, :permission_list, :is_superuser?
+  def awesome_name
+    [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
+  end
+
+  #This method is needed to make polymorphic associations work
+  def users
+    [self]
+  end
+
+  def available_sub_requests
+    SubRequest.all.select{|sr| sr.substitutes.include?(self)}
+  end
+
+  def notices
+    Notice.active.select{|n| n.viewers.include?(self)}
+  end
+
+  memoize :name, :permission_list, :is_superuser?
+
 
   private
 
