@@ -6,8 +6,8 @@ Feature: payform
   I want to be able to add jobs to, edit, and submit my own payform
 
   Background:
-    Given the user "Harry" "Potter" has permission "payform regular user"
-    And I am "Harry" "Potter"
+    Given the user "Harry Potter" has permission "payform regular user"
+    And I am "Harry Potter"
     And I have a payform for the week "2009-5-23"
 
   Scenario: Add a job to a payform
@@ -65,8 +65,8 @@ Feature: payform
     When I follow "Submit Payform"
     Then the payform should be submitted
     And I should see "Successfully submitted payform."
-    Given the user "Albus" "Dumbledore" has permission "payform administrator"
-    And I am "Albus" "Dumbledore"
+    Given the user "Albus Dumbledore" has permission "payform administrator"
+    And I am "Albus Dumbledore"
     When I go to the payforms page
     Then I should see "Harry Potter"
     And I should see "2009-05-23" under "Submitted" in column 3

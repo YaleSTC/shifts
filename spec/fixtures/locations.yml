@@ -1,0 +1,44 @@
+location_001:
+  id: 1
+  name: Jurassic Park Pets
+  short_name: JPP
+  useful_links: MyText
+  max_staff: 2
+  min_staff: 1
+  priority: 1
+  active: true
+  loc_group_id: 1
+
+location_002:
+  id: 2
+  name: Tatooine
+  short_name: Tat
+  useful_links: MyText
+  max_staff: 1
+  min_staff: 1
+  priority: 1
+  active: true
+  loc_group_id: 2
+
+location_003:
+  id: 3
+  name: Diagon Alley
+  short_name: Diagon Alley
+  useful_links: MyText
+  max_staff: 1
+  min_staff: 1
+  priority: 1
+  active: true
+  loc_group_id: 1
+
+location_004:
+  id: 4
+  name: Miranda
+  short_name: Miranda
+  useful_links: MyText
+  max_staff: 1
+  min_staff: 1
+  priority: 1
+  active: true
+  loc_group_id: 2
+
