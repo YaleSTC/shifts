@@ -13,8 +13,7 @@ Given /^I have the following payform items?$/ do |table|
                     :user_id => user.id,
                     :hours => row[:hours].to_f,
                     :description => row[:description],
-                    :date => Time.parse(row[:date]),
-                    :payform_id => @payform.id)
+                    :date => Time.parse(row[:date]))
   end
 
 end

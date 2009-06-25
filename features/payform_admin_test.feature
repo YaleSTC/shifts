@@ -16,10 +16,17 @@ Feature: payform admin
       | 2009-05-16 | Hogwarts   | Hermione   | Granger        | true      | true     | true  |
     And I am on the payforms page
 
+  Scenario: Viewing payforms
+    Then I should see "Harry Potter" under "User" in column 1
+    And I should see "2009-06-13" under "Unsubmitted" in column 2
+    And I should see "2009-06-06" under "Submitted" in column 3
+    And I should see "Hermione Granger" under "User" in column 1
+    And I should see "2009-05-23" under "Approved" in column 4
+    And I should not see "2009-05-16"
+
   Scenario: Creating a Mass Job
     Given I have no payform_item_sets
     When I follow "Mass Add Jobs"
-#    And I follow "Add a Mass Job"
     And I select "2009-06-09" as the date
     And I select "Quidditch" from "payform_item_set[category_id]"
     And I fill in "hours" with "2"
@@ -51,25 +58,29 @@ Feature: payform admin
     And I should see "Harry Potter"
     And I should see "Hermione Granger"
 
-  Scenario: Viewing payforms
-    Then I should see "Harry Potter" under "User" in column 1
-    And I should see "2009-06-13" under "Unsubmitted" in column 2
-    And I should see "2009-06-06" under "Submitted" in column 3
-    And I should see "Hermione Granger" under "User" in column 1
-    And I should see "2009-05-23" under "Approved" in column 4
-    And I should not see "2009-05-16"
-
   Scenario: Approving payforms
     When I follow "2009-06-06"
-    And I follow "Approve"
-    Then I should see "Approved"
+    And I follow "Approve Payform"
+    Then I should see "Successfully approved payform."
     And I should not see "not"
     When I am on the payforms page
-    Then I should see "2009-06-06" under "Approved" in column 3
+    Then I should see "2009-06-06" under "Approved" in column 4
 
   Scenario: Printing payforms
     When I follow "2009-05-23"
     And I follow "Print"
     Then I should see "Payform printing"
     And I should not see "2009-05-23"
+
+  Scenario: Pruning Empty Payforms
+   Given I have the following payform items
+      | category  | user_login | hours | description        | date          |
+      | Magic     | hg9        | 2     | fighting Voldemort | May 18, 2009  |
+      | Quidditch | hp123      | 1.5   | caught the snitch  | June 10, 2009 |
+    When I follow "Prune all empty payforms"
+    Then I should see "Successfully pruned empty payforms."
+    And I should see "2009-06-13"
+    And I should see "2009-05-23"
+    And I should not see "2009-06-06"
+    And I should not see "2009-05-16"
 
