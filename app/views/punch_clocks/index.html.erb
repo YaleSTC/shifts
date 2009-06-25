@@ -1,0 +1,19 @@
+<% title "Running Punch Clocks" %>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>User</th>
+  </tr>
+  <% for punch_clock in @punch_clocks %>
+    <tr>
+      <td><%=h punch_clock.description %></td>
+      <td><%= User.find(punch_clock.user_id).name %></td>
+      <td><%= link_to "Sign Out", punch_clock, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%# This line should be taken out. It is still there because %>
+<%# I must create punch_clocks for testing %>
+<p><%= link_to "New Punch Clock", new_punch_clock_path %></p>

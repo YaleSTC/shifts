@@ -63,9 +63,5 @@ end
           people_count[t.to_s(:am_pm)] += 1
           t += min_block
         end
-      end
-    end
-    people_count
-  end
 end
 
