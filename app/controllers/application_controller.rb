@@ -45,11 +45,13 @@ class ApplicationController < ActionController::Base
     # update department id in session if neccessary so that we can use shallow routes properly
     if params[:department_id]
       session[:department_id] = params[:department_id]
+      @department = Department.find_by_id(session[:department_id])
+    elsif session[:department_id]
+      @department = Department.find_by_id(session[:department_id])
     elsif current_user and current_user.departments
       @department = current_user.departments[0]
     end
     # load @department variable, no need ||= because it's only called once at the start of controller
-    @department = Department.find_by_id(session[:department_id])
   end
 
   def load_user
