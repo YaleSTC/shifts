@@ -134,9 +134,9 @@ class UsersController < ApplicationController
   end
   
   def autocomplete
-    departments = current_user.departments
-    users = Department.find(params[:department_id]).users
-    roles = Department.find(params[:department_id]).roles
+    departments = current_user.departments.sort_by(&:name)
+    users = Department.find(params[:department_id]).users.sort_by(&:first_name)
+    roles = Department.find(params[:department_id]).roles.sort_by(&:name)
     
     @list = []
     users.each do |user|
