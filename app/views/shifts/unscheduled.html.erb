@@ -1,16 +1,6 @@
-<% title "New Shift" %>
+<% title "New Unscheduled Shift" %>
 
-<% form_for @shift do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
-  </p>
-  <p>
-    <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name)%><br />
-  </p>
-  <p><%= f.submit "Submit" %></p>
-<% end %>
+<%= render :partial => 'form_unscheduled' %>
 
 <p><%= link_to "Back to List", shifts_path %></p>
+

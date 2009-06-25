@@ -1,9 +1,11 @@
 *~
 log/*
-tmp/**/*
-db/*.sqlite3
-doc/*
+tmp/*
+preload_data/*
 db/schema.rb
+Rakefile
+structures.txt
 .DS_Store
 .project
-preload_data/*
+*.orig
+*.sqlite3

@@ -1,0 +1,22 @@
+<%= error_messages_for :category %>
+  <div style="float:left; width:50%">
+    <%= render :partial => "category", :collection => @categories.active, :locals => {:text => "disable" }%>
+  </div>
+  <div style="float:right; width:50%">
+    <%= render :partial => "category", :collection => @categories.disabled, :locals => {:text => "enable" }%>
+    <div class="note">
+      Note: Jobs cannot be added to disabled categories.
+      Payform items in disabled categories will appear under the "Other" category.
+    </div>
+    
+  </div>
+<div style="clear:both">
+  <fieldset style="width:50%">
+    <legend>Add Category</legend>
+      <%= render :partial => 'form', :locals => {:submit => "Create", :category => [@department,@category] } %>
+  </fieldset>
+  <br/>
+  
+  
+  
+</div>

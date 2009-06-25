@@ -1,6 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-  has_many :substitute_sources
+  has_many :substitute_links, :class_name => "UserSourceLink", :as => :user_sink
   #has_many :user_sources, :through => :substitute_sources
 
   validates_presence_of :reason
@@ -16,20 +16,23 @@ class SubRequest < ActiveRecord::Base
 
   def self.take(sub_request, user, just_mandatory)
     if sub_request.user_is_eligible?(user)
-      if just_mandatory
-        sub_request.start = sub_request.mandatory_start
-        sub_request.end = sub_request.mandatory_end
+      SubRequest.transaction do
+        if just_mandatory
+          sub_request.start = sub_request.mandatory_start
+          sub_request.end = sub_request.mandatory_end
+        end
+        new_shift = sub_request.shift.clone
+        old_shift = sub_request.shift
+        new_shift.location = old_shift.location
+        new_shift.user = user
+        new_shift.start = sub_request.start
+        new_shift.end = sub_request.end
+        sub_request.destroy
+        Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
+        new_shift.save!
+        AppMailer.deliver_sub_taken_notification(sub_request, new_shift)
+        return true
       end
-      new_shift = sub_request.shift.clone
-      new_shift.location = sub_request.shift.location
-      Shift.delete_part_of_shift(sub_request.shift, sub_request.start, sub_request.end)
-      new_shift.user = user
-      new_shift.start = sub_request.start
-      new_shift.end = sub_request.end
-      new_shift.save!
-      AppMailer.deliver_sub_taken_notification(sub_request)
-      sub_request.destroy
-      return true
     else
       return false
     end
@@ -40,14 +43,14 @@ class SubRequest < ActiveRecord::Base
   #
 
   def add_substitute_source(source)
-      substitute_source = SubstituteSource.new
-      substitute_source.user_source = source
-      substitute_source.sub_request = self
-      substitute_source.save!
+      substitute_link = UserSourceLink.new
+      substitute_link.user_source = source
+      substitute_link.user_sink = self
+      substitute_link.save!
   end
 
   def remove_all_substitute_sources
-    SubstituteSource.delete_all(:sub_request_id => self.id)
+    UserSourceLink.delete_all(:user_sink_id => self.id)
   end
 
   def user_is_eligible?(user)
@@ -55,20 +58,12 @@ class SubRequest < ActiveRecord::Base
   end
 
   def user_sources
-    self.substitute_sources.empty? ? [self.shift.department] : self.substitute_sources.collect{|s| s.user_source}
+    self.substitute_links.empty? ? [self.shift.department] : self.substitute_links.collect{|s| s.user_source}
   end
 
 
   def substitutes
-    substitutes = []
-    self.user_sources.each do |source|
-      if source.class == User
-        substitutes << source
-      elsif source.class == Department
-        substitutes += source.users
-      end
-    end
-    substitutes.uniq
+    self.user_sources.collect{|s| s.users}.flatten.uniq
   end
 
 
@@ -104,4 +99,3 @@ class SubRequest < ActiveRecord::Base
   end
 
 end
-

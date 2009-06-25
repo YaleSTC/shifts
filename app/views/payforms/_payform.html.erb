@@ -1,0 +1,19 @@
+<tr>
+  <% if current_user.is_admin_of?(current_department) -%>
+    <td><%= link_to payform.user.name, payform.user unless @previous_user && payform.user == @previous_user%></td>
+  <% end -%>
+  <% if params[:unsubmitted] %>
+    <td><%= link_to payform.date, payform if !payform.submitted %></td>
+  <% end %>
+  <% if  params[:submitted] %>
+    <td><%= link_to payform.date, payform if payform.submitted && !payform.approved %></td>
+  <% end %>
+  <% if  params[:approved] %>
+    <td><%= link_to payform.date, payform if payform.approved && !payform.printed %></td>
+  <% end %>
+  <% if  params[:printed] %>
+    <td><%= link_to payform.date, payform if payform.printed %></td>
+  <% end %>
+</tr>
+
+<% @previous_user = payform.user %>

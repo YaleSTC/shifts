@@ -4,8 +4,9 @@
 class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
-  before_filter :load_department
   before_filter CASClient::Frameworks::Rails::Filter
+  before_filter :load_user
+  before_filter :load_department
 
   helper :layout # include all helpers, all the time
   helper_method :current_user
@@ -14,7 +15,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   def access_denied
-    render :text => "Access denied", :layout => true
+    text = "Access denied"
+    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user.departments
+    render :text => text, :layout => true
   end
 
   # Scrub sensitive parameters from your log
@@ -23,25 +26,38 @@ class ApplicationController < ActionController::Base
   protected
   # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
   def current_user
-    @current_user ||=
-      User.find_by_login(session[:cas_user]) ||
-      User.import_from_ldap(session[:cas_user], true)
+    @current_user ||= User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
   end
 
   # for department, current_department is a bit too long =),
   # one can use @department or current_department
   # current_department is suitable to those methods that skip_before_filter load_department
   def current_department
-    @department ||= Department.find_by_id(params[:department_id] || session[:department_id])
+    if params[:department_id] or session[:department_id]
+      @department ||= Department.find(params[:department_id] || session[:department_id])
+    elsif current_user and current_user.departments
+      @department = current_user.departments[0]
+    end
   end
 
   private
   def load_department
     # update department id in session if neccessary so that we can use shallow routes properly
-    session[:department_id] = params[:department_id] unless params[:department_id].blank?
+    if params[:department_id]
+      session[:department_id] = params[:department_id]
+      @department = Department.find_by_id(session[:department_id])
+    elsif session[:department_id]
+      @department = Department.find_by_id(session[:department_id])
+    elsif current_user and current_user.departments
+      @department = current_user.departments[0]
+    end
     # load @department variable, no need ||= because it's only called once at the start of controller
-    @department = Department.find_by_id(session[:department_id])
   end
+
+  def load_user
+    @current_user = User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
+  end
+
 
   protected
   # these are the authorization before_filters to use under controllers
@@ -58,6 +74,14 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "Only superuser can manage departments."
       redirect_to(access_denied_path)
     end
+  end
+
+  def redirect_with_flash(msg = nil, options = {:action => :index})
+    if msg
+      msg = msg.join("<br/>") if msg.is_a?(Array)
+      flash[:notice] = msg
+    end
+    redirect_to options
   end
 end
 

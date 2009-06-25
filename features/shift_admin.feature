@@ -1,22 +1,26 @@
-# Feature: Shift admin manages shifts
-#  In order to manage shifts
-#  As a shift admin
-#  I want to be able to create, assign, and destroy shifts
-    
-#  Scenario: Power sign up a user for a shift
-#    Given I am logged in as a superuser
-#    And I am on shift_admin
-#    And I am on the shifts page (pending combination of shift/shift admin)
-#    And I follow "Power sign up"
-#    Then I should see "Power sign up"
-#    Given I am on shift_admin/power_sign_up
-#    When I select "Bass Library Cluster" from "Location:"
-#    When I fill in "name/netid" with "bq9"
-#    And I fill in "Date" with "05/08/2030"
-#    And I select "08:00 AM" from "Start:"
-#    And I select "09:00 AM" from "End:"
-#    And I press "Power sign up"
-#    Then there should be a shift with user "bq9" at location "Bass Library Cluster"
-  
-  
-  
+Feature: Shift admin manages shifts
+  In order to manage shifts
+  As a shifts admininistrator
+  I want to be able to create, assign, and destroy shifts
+
+Scenario: Create a shift with power sign up
+  Given I am logged into CAS as "catest"
+	And I am on the homepage
+	When I follow "STC"
+	And I follow "Shifts"
+	And I follow "Power sign up"
+	  And I select "2010" from "shift_start_1i"
+	  And I select "January" from "shift_start_2i"
+	  And I select "18" from "shift_start_3i"
+	  And I select "09" from "shift_start_4i"
+	  And I select "00" from "shift_start_5i"
+	  And I select "2010" from "shift_end_1i"
+	  And I select "January" from "shift_end_2i"
+	  And I select "18" from "shift_end_3i"
+	  And I select "17" from "shift_end_4i"
+	  And I select "00" from "shift_end_5i"
+	  And I select "StudComp" from "shift_user_id"
+	  And I select "TTO" from "shift_location_id"
+	When I press "Submit"
+	Then I should see "Successfully created shift."
+

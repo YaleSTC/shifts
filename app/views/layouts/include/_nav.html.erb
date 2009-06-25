@@ -1,14 +1,17 @@
-<% if @department && !@department.new_record? &&
-      (current_user.is_admin_of?(@department) || current_user.is_superuser? || current_user) -%>
-  <ul id="miniTabs"> <!-- id="no_underlined"> -->
-    <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(@department) %></li>
-    <li class="<%= tab('roles') %>"><%= link_to "Roles", department_roles_path(@department) %></li>
-    <li class="<%= tab('loc_groups') %>"><%= link_to "Loc Groups", department_loc_groups_path(@department) %></li>
-    <li class="<%= tab('locations') %>"><%= link_to "Locations", department_locations_path(@department) %></li>
-    <li class="<%= tab('shifts') %>"><%= link_to "Shifts", shifts_path %></li>
-    <li class="<%= tab('reports') %>"><%= link_to "Reports", :controller => :reports %></li>
-    <li class="<%= tab('sub_requests') %>"><%= link_to "Sub Requests", :controller => :sub_requests %></li>
-    <li class="<%= tab('time_slots') %>"><%= link_to "Time Slots", time_slots_path %></li>
-  <ul>
-<% end -%>
-
+<ul id="miniTabs">
+  <% unless current_user.nil? -%>
+    <li class="<%= tab('dashboard') %>"><%= link_to "Dashboard", dashboard_path %></li>
+  <% end -%>
+  <% if current_user.is_superuser? or Department.all.size == 0 -%>
+    <li class="<%= tab('departments') %>"><%= link_to "Departments", departments_path %></li>
+  <% end -%>
+  <% if !current_user.new_record? && !current_department.new_record? %>
+    <% if (current_user.is_admin_of?(current_department)) -%>
+      <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
+    <% end -%>
+    <% if current_user.departments.include?(current_department) || current_user.is_superuser? %>
+      <li class="<%= tab('shifts') %>"><%= link_to "Shifts", shifts_path %></li>
+     <li class="<%= tab('payforms') %>"><%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %></li>
+    <% end %>
+  <% end %>
+<ul>
