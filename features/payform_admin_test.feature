@@ -12,6 +12,7 @@ Feature: payform admin
       | date       | department | user_first | user_last      | submitted | approved |printed|
       | 2009-06-13 | Hogwarts   | Harry      | Potter         | nil       | nil      | nil   |
       | 2009-06-06 | Hogwarts   | Harry      | Potter         | true      | nil      | nil   |
+      | 2009-05-09 | Hogwarts   | Harry      | Potter         | true      | true     | nil   |
       | 2009-05-23 | Hogwarts   | Hermione   | Granger        | true      | true     | nil   |
       | 2009-05-16 | Hogwarts   | Hermione   | Granger        | true      | true     | true  |
     And I am on the payforms page
@@ -66,11 +67,33 @@ Feature: payform admin
     When I am on the payforms page
     Then I should see "2009-06-06" under "Approved" in column 4
 
-  Scenario: Printing payforms
+  Scenario: Printing Individual payforms
     When I follow "2009-05-23"
-    And I follow "Print"
+    And I follow "Print Payform"
     Then I should see "Payform printing"
     And I should not see "2009-05-23"
+
+  Scenario: Printing Sets of Payforms
+   Given I have the following payform items
+      | category  | user_login | hours | description        | date        |
+      | Quidditch | hp123      | 1.5   | caught the snitch  | May 8, 2009 |
+    When I follow "Print all approved payforms"
+    Then I should see "Successfully created payform set."
+    And I should see "Number of payforms: 2"
+    And I should see "Export CSV"
+    And I follow "Print PDF"
+    Then I should have a pdf with "Name: Harry Potter" in it
+    Then I should have a pdf with "Name: Hermione Granger" in it
+    Then I should have a pdf with "Login: hp123" in it
+    Then I should have a pdf with "Login: hg9" in it
+    Then I should have a pdf with "Department: Hogwarts" in it
+    Then I should have a pdf with "Week Ending: May 23, 2009" in it
+    Then I should have a pdf with "Week Ending: May 9, 2009" in it
+    Then I should have a pdf with "Total Hours: 0" in it
+    Then I should have a pdf with "Quidditch" in it
+    Then I should have a pdf with "caught the snitch" in it
+    Then I should have a pdf with "Total Hours: 1.5" in it
+    Then I should have a pdf with "This payform was approved by #{@current_user} at" in it
 
   Scenario: Pruning Empty Payforms
    Given I have the following payform items
