@@ -24,12 +24,12 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, :as => "subs"
   end
 
-  map.resources :reports do |report|
+  map.resources :reports, :member => {:popup => :get} do |report|
     report.resources :report_items
   end
 
   map.resources :departments, :shallow => true do |departments|
-    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get}
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
