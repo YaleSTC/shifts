@@ -9,15 +9,17 @@ class ReportsController < ApplicationController
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     @report_item = ReportItem.new
-    
-    #this doesn't currently work :P
-    #trying to disable the layout when viewing via a popout thickbox
-    render :layout => !request.xhr?
+  end
+  
+  def popup
+    @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
+    render :layout => false
   end
 
   def new
+    #TODO: this doesn't work, because we can't redirect with post. bah.
     @report = Report.new
-    redirect_to :action => 'create', :method => :post
+    #post_via_redirect :action => 'create'
   end
 
   def create

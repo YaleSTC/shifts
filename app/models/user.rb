@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   end
 
   def current_shift
-    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}
+    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
   end
 
   # check if a user can see locations and shifts under this loc group

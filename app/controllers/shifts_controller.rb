@@ -6,7 +6,6 @@ class ShiftsController < ApplicationController
     @days_per_period = 7 #TODO: make this a setting for an admin
     @show_weekends = false
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
-    @announcements = current_user.notices
     @subs_you_can_take = current_user.available_sub_requests
   end
 
@@ -36,6 +35,10 @@ class ShiftsController < ApplicationController
 
   def unscheduled
     @shift = Shift.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def power_sign_up
@@ -50,27 +53,20 @@ class ShiftsController < ApplicationController
       @shift.user = current_user
     end
     if @shift.save
+      if !@shift.scheduled
+        @report = Report.new(:shift_id => @shift, :arrived => Time.now)
+        # add a report item about logging in
+        @report.report_items << ReportItem.new(:time => Time.now, :content => @shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+        redirect_to @report and return if @report.save
+      end
       #combine with any compatible shifts (if the shift is scheduled)
       flash[:notice] = "Successfully created shift."
-      flash[:notice] = "Successfully updated shift."
       respond_to do |format|
-        format.html { redirect_to @shift }
+        format.html { redirect_to ( @shift.scheduled ? @shift : new_shift_report_path(@shift) ) }
         format.js
       end
     else
       @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
-    end
-  end
-
-  def ajax_create
-    @shift = Shift.new(params[:shift])
-    if @shift.save
-      #combine with any compatible shifts (if the shift is scheduled)
-      flash[:notice] = "Successfully created shift."
-      #redirect_to @shift
-    else
-      flash[:error] = "Shift could not be saved for some reason"
-      #render :action => 'new'
     end
   end
 
@@ -100,3 +96,4 @@ class ShiftsController < ApplicationController
     redirect_to shifts_url
   end
 end
+
