@@ -69,3 +69,4 @@ Feature: payform
     When I go to the payforms page
     Then I should see "Harry Potter"
     And I should see "2009-05-23" under "Submitted" in column 3
+
