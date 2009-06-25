@@ -41,7 +41,7 @@ Feature: payform
     Then payform item 1 should be a child of payform item 2
     And payform item 1 should have attribute "reason" "because I can"
     And I should see "I edited"
-    And I should see "3 hours"
+    And I should see "3.0"
 
   Scenario: Delete a job on a payform
     Given I have the following payform item
