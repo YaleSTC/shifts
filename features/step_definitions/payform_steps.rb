@@ -13,9 +13,9 @@ Given /^I have the following payform items?$/ do |table|
                     :user_id => user.id,
                     :hours => row[:hours].to_f,
                     :description => row[:description],
-                    :date => Time.parse(row[:date]))
+                    :date => Time.parse(row[:date]),
+                    :payform_id => @payform.id)
   end
-
 end
 
 Given /^I have the following payforms?:$/ do |table|
@@ -26,7 +26,7 @@ Given /^I have the following payforms?:$/ do |table|
     user = User.find(:first, :conditions => {:first_name => row[:user_first], :last_name => row[:user_last]})
     submitted = row[:submitted] == "true" ? Time.now - 180 : nil
     approved = row[:approved] == "true" ? Time.now - 120 : nil
-    approval = row[:approved] == "true" ? @current_user : nil
+    approval = row[:approved] == "true" ? @user : nil
     printed = row[:printed] == "true" ? Time.now - 60 : nil
 
     Payform.create!(:date => date , :department_id => department.id,
