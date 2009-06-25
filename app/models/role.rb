@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  belongs_to :department
+  has_and_belongs_to_many :departments
   has_and_belongs_to_many :permissions
   has_and_belongs_to_many :users
 
@@ -12,7 +12,7 @@ class Role < ActiveRecord::Base
   # FIXME: only role of user admin permission can belong to more than one department.
   # should user_admin role and loc_group roles be separated?
   def must_belong_to_department
-    errors.add("Role must belong to a department.", "") if self.department.nil?
+    errors.add("Role must belong to a department.", "") if self.departments.empty?
   end
 
   def must_have_unique_name_in_dept
@@ -22,3 +22,4 @@ class Role < ActiveRecord::Base
     errors.add("Name must be unique in a department.", "") unless associated_roles.select{ |role| role.name == self.name }.empty?
   end
 end
+
