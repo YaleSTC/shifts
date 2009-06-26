@@ -1,3 +1,4 @@
+<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 2} %>
 <div style="width:30%; float:right" id="data_type_display">
   <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
 </div>
@@ -19,7 +20,10 @@
         should be either "integer", "decimal", or "text"</small></em>
     </p>
 
-    <p><%= f.submit "Submit" %></p>
+    <p>
+      <%= f.submit "Save and add another field", :name => "add_another" %>
+      <%= f.submit "Finish", :name => "submit" %>
+    </p>
   <% end %>
 </div>
 <div style="clear:both"></div>

@@ -521,3 +521,17 @@ span#progress_bar #current_step {
 	border: 1px black solid;
 	padding: 3px;
 }
+
+span#progress_bar #current_step a {
+	color: white;
+}
+
+span#progress_bar #other_step {
+	border: 1px black solid;
+	padding: 3px;
+}
+
+.delete_link {
+	float: right;
+	align: right;
+}
