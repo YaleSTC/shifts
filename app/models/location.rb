@@ -54,11 +54,3 @@ class Location < ActiveRecord::Base
   end
 end
 
-      shift_list.each do |shift|
-        t = shift.start
-        while (t<shift.end)
-          people_count[t.to_s(:am_pm)] += 1
-          t += min_block
-        end
-end
-
