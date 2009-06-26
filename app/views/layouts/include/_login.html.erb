@@ -1,5 +1,5 @@
 <div id="login">
   <p class="login_status"> 
-    You are currently logged in as <strong><%= current_user.login %></strong> <%= link_to "[Log out]", :controller => "sessions", :action => "logout" %>
+    You are currently logged in as <strong><%= session[:cas_user] %></strong> <%= link_to "[Log out]", :controller => "sessions", :action => "logout" %>
   </p>
 </div>

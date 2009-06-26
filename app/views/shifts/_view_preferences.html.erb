@@ -2,7 +2,7 @@
   <span id="pref_link" class="dotted_link" style="display:none"><%= link_toggle "checkbox_div", "Show/Hide Groups (TODO)", "fast" %></span>
   <div id="checkbox_div">
     <%# TODO: actually make this preferences form work%>
-    <% form_tag({:action => "view_preferences"}, {:id => 'pref_form'} ) do %>  
+    <% form_tag({:action => "view_preferences"}, {:id => 'pref_form'} ) do %>
       <% if @department.loc_groups.size > 1 %>
         <ul>
         <% @department.loc_groups.each do |lg| %>
@@ -10,16 +10,17 @@
         <% end %>
         </ul>
       <% end %>
-      
+
       <p><%= check_box_tag 'show_bars', 'all' %><%#, @user.preference.show_bars? %>Sign up bars</p>
-      <%= hidden_field_tag :date, params[:date] %>      
+      <%= hidden_field_tag :date, params[:date] %>
       <p><%= submit_tag "Show", :id => 'submit_pref' %></p>
       <div id="cancel_pref_link" class="dotted_link" style="display:none">Cancel</div>
 
     <% end %>
   </div>
   <script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){ $("#checkbox_div").hide(); });
-    $(document).ready(function(){ $("#pref_link").show();    });
+    $("#checkbox_div").hide();
+    $("#pref_link").show();
   </script>
 </div>
+
