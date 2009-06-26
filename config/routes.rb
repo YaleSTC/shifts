@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :punch_clocks
 
   map.resources :sub_requests
 	map.resources :notices
@@ -24,6 +23,10 @@ ActionController::Routing::Routes.draw do |map|
     #NOTE: "sub_requests" is a clearer model name, we use subs for routing
     shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, 
                                     :as => "subs"
+  end
+  
+  map.resources :users do |user|
+    user.resources :punch_clocks
   end
 
   map.resources :reports, :member => {:popup => :get} do |report|
