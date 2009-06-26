@@ -1,0 +1,11 @@
+<% title "Data Objects" %>
+
+<% form_tag '/data_objects/index' do %>
+  Group by 
+  <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @selected_type) %>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <%= select_tag "view_options[group_by]", options_for_select(@group_by_options, @selected_by) %>
+  <%= submit_tag "Update" %>
+<% end -%>
+
+<%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>

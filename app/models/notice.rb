@@ -8,10 +8,6 @@ class Notice < ActiveRecord::Base
 
   belongs_to :department
 
-  has_many :viewer_links, :class_name => "UserSourceLink", :as => :user_sink
-
-  has_many :display_location_links, :class_name => "LocationSourceLink", :as => :location_sink
-
   validates_presence_of :content
   validate :presence_of_locations_or_viewers
   validate_on_create :proper_time
