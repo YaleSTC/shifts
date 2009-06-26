@@ -1,5 +1,5 @@
 <div style="width:30%; float:right" id="data_type_display">
-  <%= render :partial => "summary" %>
+  <%= render :partial => "summary", :locals => {:data_type => @data_type} %>
 </div>
 <div style="width: 60%; float:left">
   <% form_for @data_type do |form| %>
