@@ -4,9 +4,6 @@ class Location < ActiveRecord::Base
   has_many :time_slots
   has_many :shifts
 
-  has_many :location_source_links, :as => :location_source
-
-
   validates_presence_of :loc_group
   validates_presence_of :name
   validates_presence_of :short_name
@@ -55,5 +52,13 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
+end
+
+      shift_list.each do |shift|
+        t = shift.start
+        while (t<shift.end)
+          people_count[t.to_s(:am_pm)] += 1
+          t += min_block
+        end
 end
 

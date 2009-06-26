@@ -3,8 +3,6 @@ class Role < ActiveRecord::Base
   has_and_belongs_to_many :permissions
   has_and_belongs_to_many :users
 
-  has_many :user_sinks_user_sources, :as => :user_source
-
   validates_presence_of :name
   validate :must_belong_to_department
   validate :must_have_unique_name_in_dept #can't use scope because of habtm relationship :(
