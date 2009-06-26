@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :punch_clocks
-  map.resource  :restrictions
+  map.resources  :restrictions
 
   map.resources :sub_requests
 	map.resources :notices
