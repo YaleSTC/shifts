@@ -9,6 +9,10 @@ class Department < ActiveRecord::Base
               :class_name => "Permission",
               :foreign_key => "permission_id",
               :dependent => :destroy
+<<<<<<< HEAD:app/models/department.rb
+=======
+
+>>>>>>> c603c4c00f5163669444c451d365b894b5569307:app/models/department.rb
 
   has_many :payforms
   has_many :payform_sets
