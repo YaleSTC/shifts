@@ -91,7 +91,6 @@ When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
 end
 
 Then /^I should see "([^\"]*)"$/ do |text|
-#  raise @user.roles.to_yaml
   response.should contain(text)
 end
 
