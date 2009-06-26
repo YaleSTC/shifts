@@ -1,14 +1,11 @@
 *~
 log/*
 tmp/*
+preload_data/*
+db/schema.rb
 Rakefile
 structures.txt
 .DS_Store
 .project
 *.orig
 *.sqlite3
-db/schema.rb
-<<<<<<< HEAD:.gitignore
-
-=======
->>>>>>> 68c31c3399698b625fa545c4960385a6d1016b09:.gitignore

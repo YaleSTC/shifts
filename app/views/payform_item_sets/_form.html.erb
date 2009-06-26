@@ -11,16 +11,27 @@
   <p>
      <%= f.label :category %><br />
      <%= f.collection_select(:category_id, @department.categories, :id, :name, {:prompt => "Select a category"}) %>
-   </p>ˇ
+  </p>
   <p>
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </p>
   <p>
-    Users:<br />
-    <% @department.users.each do |user| -%>
-      <%= check_box_tag "user_ids[]", user.id, false -%> <%= user.name -%><br />
-    <% end %>
+    <%= label_tag :users %><br />
+    <div class="no_js">
+      <% @department.users.each do |user| -%>
+        <%= check_box_tag "user_ids[]", user.id, false -%> <%= user.name -%><br />
+      <% end %>
+    </div>
+    <%# TODO: bah not done %>
+    <div class="js" style="display: none">
+      <%= tokenized_users_autocomplete(@payform_item_set, nil, "users") %>
+    </div>
+    
+    <script type="text/javascript">
+      $('div.js').toggle();
+      //$('div.no_js').toggle();
+    </script>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
