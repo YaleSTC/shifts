@@ -4,13 +4,18 @@ module ApplicationHelper
     hash[:width] ||= 600
     "Modalbox.show(this.href, {title: '#{hash[:title]}', width: #{hash[:width]}}); return false;"
   end
-  
+
   def link_toggle(id, name, speed = "medium")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
     # link_to_function name, "Effect.toggle('#{id}', 'appear', { duration: 0.3 });"
   end
-  
+
+  def thick_box_end
+    parent.tb_remove()
+    redirect_to notices_path
+  end
+
   def tokenized_users_autocomplete(object, field, id)
     json_string = ""
     unless object.nil?
@@ -18,7 +23,7 @@ module ApplicationHelper
         json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
       end
     end
-    
+
     '<script type="text/javascript">
         $(document).ready(function() {
             $("#'+id+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {

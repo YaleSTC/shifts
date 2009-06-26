@@ -4,7 +4,7 @@ module ShiftsHelper
     m = distance_of_time_in_words(now - start)
     m += (now > start) ? " ago" : " later"
   end
-  
+
   def load_variables(loc_group)
     #TODO: clean this up?
     #@day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
@@ -14,15 +14,15 @@ module ShiftsHelper
     @can_sign_up = true #loc_group.allow_sign_up? get_user
     @loc_group = loc_group
   end
-  
-  # TODO: this shit  
+
+  # TODO: this shit
   def populate_all_locs(loc_groups, min_block)
     #TODO: drastic optimization. we might try something like this:
     #  -grab data from the database in large chunks
     #  -use group_by to break it up into subgroups
     #  -process the subgroups
-    
-    
+
+
     #creates a bunch of arrays holding all the data we'll need to write for each location today
     @scheduled_shifts = {}
     @unscheduled_shifts = {}
@@ -37,12 +37,12 @@ module ShiftsHelper
       loc_group.locations.each do |loc|
         if loc.active?
           @open_at = apply_time_slot_in(loc, @day_start, @day_end, min_block)
-          
+
           shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
           shifts = shifts.group_by(&:scheduled)
           @scheduled_shifts[loc.object_id] = [shifts[true]]
           @unscheduled_shifts[loc.object_id] = [shifts[false]]
-      
+
           people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
           @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block, loc) unless @day_end < Time.now
           @bar_ids[@curr_day] << loc.short_name + @curr_day.to_s
@@ -51,18 +51,18 @@ module ShiftsHelper
       end
     end
   end
-    
-    
-    
-    
-    
+
+
+
+
+
   def apply_time_slot_in(location, day_start, day_end, min_block)
     #get open timeslot on the day: date is Date object and when converted to time, its time is at midnight
     slots = TimeSlot.find(:all, :conditions => ['location_id = ? AND end >= ? AND start <= ?', location, day_start, day_end])
-    
+
     open_at = {}
     open_at.default = false
-    
+
     slots.each do |ts|
       t = ts.start
       while (t<ts.end)
@@ -72,24 +72,24 @@ module ShiftsHelper
     end
     open_at
   end
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
   def create_bar(day_start, day_end, people_count, min_block, location)
     bar = []
     block_start = day_start
     #don't return a bar unless it has at least one time that can be signed up for
     should_return = false;
-    
+
     while (block_start < day_end)
       t = block_start
       free_status = nil #check_status(t)
 
       begin
-        
+
         if not @open_at[t.to_s(:am_pm)]
          current_status = 'bar_inactive'
         elsif (people_count[t.to_s(:am_pm)] >= location.max_staff)
@@ -108,18 +108,18 @@ module ShiftsHelper
           current_status = 'bar_active'
           should_return = true
         end
-        
+
         free_status ||= current_status
       end while (current_status == free_status) and (t <= day_end) and (t += min_block)
-      
+
       t = day_end if t > day_end
       bar << [block_start, t, free_status]
       block_start = t
     end
     should_return ? bar : nil
   end
-  
-  
+
+
   #use this instead of group_by because we want an array
   def split_to_rows(item_list)
     items_in_row = [[]]
@@ -131,7 +131,7 @@ module ShiftsHelper
     end
     items_in_row
   end
-  
+
   #needs blocks_per_hour and @user
   def print_cell(type,from,to,shift=nil,content = "", render_pass = -1, overflow = false)
     if from == to #return nothing if from and to time are the same
@@ -164,12 +164,12 @@ module ShiftsHelper
           link_name = current_user.can_admin?(@loc_group) ? "schedule" : "sign up"
           url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
-          html_options = {:class => "sign_up_link"}         
+          html_options = {:class => "sign_up_link"}
         else
           content = "view only"
           td_title = 'You only have a view access to this cluster, not sign up access.'
         end
-      
+
       elsif (type=="bar_pending")
         content = '-'
         td_title = 'You may not sign up in this slot until a higher priority location is filled.'
@@ -194,18 +194,18 @@ module ShiftsHelper
           user_info = shift.user.login
           td_title = shift.user.name + ', ' + from.to_s(:twelve_hour) + ' - ' + to.to_s(:twelve_hour)
         end
-        
+
         # if first_time && shift.has_sub? && (shift.sub.eligible?(@user) || type=="user_time") &&
         #    (!shift.has_passed? || !shift.sub.new_user)
         # TODO: explain in comments what 'render_pass' is. basically, it's how we deal with
         #       recursion when handling shifts with sub requests
         if render_pass == -1 && shift.has_sub? && !shift.has_passed?
             sorted_sub_requests = shift.sub_requests.sort_by(&:start)
-            
+
             s=""
-            
+
             current_time = shift.start
-            
+
             sorted_sub_requests.each_with_index do |sub, i|
               if sub.user_is_eligible?(current_user)
                 before_sub_block = print_cell("shift_time", current_time, sub.start, shift, "", i)
@@ -218,12 +218,12 @@ module ShiftsHelper
                 #skip this sub
               end
             end
-            
+
             after_sub_block = print_cell("shift_time", current_time, shift.end, shift, "", 0,  overflow && shift.end >= @day_end)
             s += after_sub_block
-            
+
             return s
-            
+
         elsif type=="sub_time"
           sub = shift.sub_requests.sort_by(&:start)[render_pass]
           br = '<br />'
@@ -255,7 +255,7 @@ module ShiftsHelper
             #view_action = shift_report_path(shift)#"view_float"
             #TODO: render without layout
             url_options = {:controller => 'reports', :action => 'popup', :id => shift.report, :TB_iframe => true, :popup => true}
-            html_options = {:class => 'thickbox'}
+            html_options = {:class => '.thickbox'}
           end
 
           #TODO: should this just always go to the report show action?
@@ -290,9 +290,9 @@ module ShiftsHelper
           url_options = edit_shift_path(shift)
           html_options = {:class => 'clickable_edit', :id => "edit||"+shift.id.to_s}
           link_name = "edit"
-          
+
         end
-        
+
         if (!shift.scheduled?)
           br = " "
           type += " unscheduled"
@@ -309,7 +309,7 @@ module ShiftsHelper
       #TODO: make this a preference
       clickable_signup_preference = true;
       clickable_signup = clickable_signup_preference
-      if clickable_signup and type=="free_time" and location #bar_active"# 
+      if clickable_signup and type=="free_time" and location #bar_active"#
         #print a bunch of individual cells, so we can click and add shifts
         loc = location #shift.location_id
         result = ""
@@ -330,11 +330,11 @@ module ShiftsHelper
       end
     end
   end
-  
+
   def show_bar_links(name)
     javascript_tag("$('%s').down('.%s').show()" % [@curr_day, name])
   end
-  
+
   #TODO: look at this and show_bars and make sure they're efficient
   def hide_bars(name)
     f = ""
@@ -355,7 +355,7 @@ module ShiftsHelper
       link_to_function(name, f)
     end
   end
-  
+
   def sign_up_div_id
     "quick_sign_up_%s" % @curr_day
   end
@@ -364,3 +364,4 @@ module ShiftsHelper
     "quick_sign_in_%s" % @curr_day
   end
 end
+
