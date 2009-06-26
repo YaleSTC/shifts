@@ -1,0 +1,22 @@
+<fieldset>
+  <legend>Data type information</legend>
+<p>
+  <strong>Name:</strong>
+  <%=h @data_type.name %>
+<p>
+  <strong>Description:</strong>
+  <%=h @data_type.description %>
+</p>
+<p>
+  <strong>Data fields:</strong>
+  <%=h @data_type.data_fields.map{|df| df.name}.join(', ') %>
+</p>
+<p>
+  <strong>Data objects:</strong>
+    <ul>
+      <% for obj in @data_type.data_objects %>
+        <li><%= link_to "#{obj.name}", obj %></li>
+      <% end %>
+    </ul>
+</p>
+</fieldset>
