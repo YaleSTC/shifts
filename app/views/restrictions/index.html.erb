@@ -1,0 +1,23 @@
+<% title "Restrictions" %>
+
+<table>
+  <tr>
+    <th>Starts</th>
+    <th>Expires</th>
+    <th>Max Subs</th>
+    <th>Max Hours</th>
+  </tr>
+  <% for restriction in @restrictions %>
+    <tr>
+      <td><%=h restriction.starts %></td>
+      <td><%=h restriction.expires %></td>
+      <td><%=h restriction.max_subs %></td>
+      <td><%=h restriction.max_hours %></td>
+      <td><%= link_to "Show", restriction %></td>
+      <td><%= link_to "Edit", edit_restriction_path(restriction) %></td>
+      <td><%= link_to "Destroy", restriction, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Restriction", new_restriction_path %></p>
