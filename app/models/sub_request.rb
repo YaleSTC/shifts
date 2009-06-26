@@ -1,7 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-  has_many :substitute_links, :class_name => "UserSourceLink", :as => :user_sink
-  #has_many :user_sources, :through => :substitute_sources
+  has_many :substitute_links, :class_name => "UserSinksUserSource", :as => :user_sink
 
   validates_presence_of :reason
   validates_presence_of :shift

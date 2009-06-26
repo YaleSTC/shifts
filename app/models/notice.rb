@@ -72,6 +72,7 @@ class Notice < ActiveRecord::Base
     #TODO: this could be much cleaner.  once we get beyond a few hundred notices,
     #      the speed of this degrades really fast. should be moved to database logic.
     #      Something like this: Notice.find(:all, :conditions => ['start_time < ? AND end_time > ?', Time.now, Time.now]).sort_by{|note| note.is_sticky ? 1 : 0}
+    #NATHAN SAYS: make this a named_scope. See "categories.rb"
     Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 

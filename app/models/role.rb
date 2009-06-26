@@ -3,7 +3,7 @@ class Role < ActiveRecord::Base
   has_and_belongs_to_many :permissions
   has_and_belongs_to_many :users
 
-  has_many :user_source_links, :as => :user_source
+  has_many :user_sinks_user_sources, :as => :user_source
 
   validates_presence_of :name
   validate :must_belong_to_department
