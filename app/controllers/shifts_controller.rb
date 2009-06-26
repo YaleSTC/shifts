@@ -60,9 +60,8 @@ class ShiftsController < ApplicationController
         redirect_to @report and return if @report.save
       end
       #combine with any compatible shifts (if the shift is scheduled)
-      flash[:notice] = "Successfully created shift."
       respond_to do |format|
-        format.html { redirect_to ( @shift.scheduled ? @shift : new_shift_report_path(@shift) ) }
+        format.html{ flash[:notice] = "Successfully created shift."; redirect_to(@shift.scheduled ? @shift : new_shift_report_path(@shift))}
         format.js
       end
     else
@@ -79,9 +78,8 @@ class ShiftsController < ApplicationController
     @shift = Shift.find(params[:id])
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
-      flash[:notice] = "Successfully updated shift."
       respond_to do |format|
-        format.html { redirect_to @shift }
+        format.html { flash[:notice] = "Successfully updated shift."; redirect_to @shift }
         format.js
       end
     else

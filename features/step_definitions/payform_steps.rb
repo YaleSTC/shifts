@@ -45,8 +45,7 @@ end
 
 Then /^payform item ([0-9]+) should have attribute "([^\"]*)" "([^\"]*)"$/ do |id, attribute, expected|
   payform_item = PayformItem.find(id.to_i)
-  attribute_constant = attribute.constantize
-  payform_item.attribute.should match(expected.to_s)
+    payform_item.send(attribute).to_s.should == expected
 end
 
 

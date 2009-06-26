@@ -25,6 +25,11 @@ class LocGroup < ActiveRecord::Base
     [view_permission, signup_permission, admin_permission]
   end
 
+  # Conventional has_many :through won't work -Ben
+  def data_objects
+    self.locations.map{|loc| loc.data_objects}.flatten.compact
+  end
+
   private
 
   def create_permissions
@@ -40,4 +45,5 @@ class LocGroup < ActiveRecord::Base
     self.signup_permission.update_attribute(:name, name + " signup")
     self.admin_permission.update_attribute(:name, name + " admin")
   end
+
 end
