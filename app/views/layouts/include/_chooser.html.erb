@@ -4,11 +4,11 @@
     <p class="chooser_status"><%= current_user.departments[0].name %></p>
   <% elsif current_user.departments.count > 1 -%>
     <% form_tag({:controller => :departments, :id => nil}, {:id => 'form_chooser', :method => "get"}) do %>
-      <%= select_tag 'department_id', options_for_select(current_user.departments.collect{|d| [d.name, d.id]}, @department ? @department.id : nil), {:onchange =>"$('form_chooser').submit()"} %>
+      <%= select_tag 'department_id', options_for_select(current_user.departments.collect{|d| [d.name, d.id]}, @department ? @department.id : nil), {:onchange =>"$('#form_chooser').submit()"} %>
       <%= submit_tag value = "Switch", :id => 'submit_deptchooser' %>
       <%# hide the submit tag if javascript is enabled -%>
       <script type='text/javascript' charset='utf-8'>
-        document.observe('dom:loaded',function(){ $('submit_deptchooser').hide(); });
+        $('#submit_deptchooser').toggle();
       </script>
     <% end -%>
   <% end -%>

@@ -3,9 +3,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
-
   has_many :payforms
-
   has_many :shifts
 
   has_many :user_source_links, :as => :user_source
@@ -95,15 +93,17 @@ class User < ActiveRecord::Base
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
-  # check for loc group admin, who can add locations and shifts under it
-  # DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
+#   check for loc group admin, who can add locations and shifts under it
+#   DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
+
 #  def can_admin?(loc_group)
 #    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
 #  end
 
-  # check for admin permission given a dept or location group
+  # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
-    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(dept))
+    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(thing))
+
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
@@ -164,4 +164,3 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
-
