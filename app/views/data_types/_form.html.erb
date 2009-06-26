@@ -1,3 +1,7 @@
+<div style="width:30%; float:right" id="data_type_display">
+  <%= render :partial => "data_type_summary" %>
+</div>
+<div style="width: 60%; float:left">
 <% form_for @data_type do |form| %>
   <%= form.error_messages %>
   <p>
@@ -9,24 +13,28 @@
     <%= form.text_field :description %>
   </p>
   
-  <h2>Data Fields</h2>
-  <% form.fields_for :data_fields do |df_form| %>
+  <div class="ajax_form">
+    <h2>Data Fields</h2>
+    <% form.fields_for :data_fields do |df_form| %>
     
-    <p>
-      <%= df_form.label :name %>
-      <%= df_form.text_field :name %>
-    </p>
-    <p>
-      <%= df_form.label :display_type %><br />
-      <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
-    </p>
-    <p>
-      <%= df_form.label :values %><br />
-      <%= df_form.text_field :values %><br />
-      <em><small>For text field display types, values 
-        should be either "integer", "decimal", or "text"</small></em>
-    </p>
-    <hr/>
-  <% end %>
+      <p>
+        <%= df_form.label :name %>
+        <%= df_form.text_field :name %>
+      </p>
+      <p>
+        <%= df_form.label :display_type %><br />
+        <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
+      </p>
+      <p>
+        <%= df_form.label :values %><br />
+        <%= df_form.text_field :values %><br />
+        <em><small>For text field display types, values 
+          should be either "integer", "decimal", or "text"</small></em>
+      </p>
+      <hr/>
+    <% end %>
+  </div>
   <p><%= form.submit "Submit" %></p>
 <% end %>
+</div>
+<div style="clear:both"></div>
