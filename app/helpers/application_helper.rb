@@ -18,7 +18,7 @@ module ApplicationHelper
 
   def tokenized_users_autocomplete(object, field, id)
     json_string = ""
-    unless object.nil?
+    unless object.nil? or field.nil?
       object.send(field).each do |user_source|
         json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
       end
