@@ -15,7 +15,7 @@
       <li><%= link_to "#{field.name}", data_type_data_field_path(@data_type, field) %></li>
       <ul style="margin-left: 1em">
         <li>Type: <%= field.display_type %>
-        <li>Values: <%= field.values %>
+        <li>Values: <%= field.values.empty? ? "none" : field.values %>
       </ul>
     <% end %>
   </ul>
