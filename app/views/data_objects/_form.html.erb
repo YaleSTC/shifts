@@ -1,0 +1,23 @@
+<% form_for @data_object do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :locations %><br />
+    <%= collection_multiple_select(@data_object, :locations, 
+                                   @locations_select, :id, :name, 
+                                   :selected_items => @data_object.locations.map{|loc| loc.id}) %>
+  </p>
+  <p>
+    <%= f.label :data_type %><br />
+    <%= f.select :data_type_id, @department.data_types.map{|dt| [dt.name, dt.id]} %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>
