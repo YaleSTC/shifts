@@ -61,3 +61,11 @@ Then /^I should be redirected to (.+)$/ do |page_name|
   response.should redirect_to(path_to(page_name))
 end
 
+Then /^I should be able to select "([^\"]*)" as a time$/ do |arg1|
+  select_time(time).should be_valid
+end
+
+Then /^I should notbe able to select "([^\"]*)" as a time$/ do |arg1|
+  select_time(time).should_not be_valid
+end
+
