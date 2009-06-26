@@ -1,7 +1,22 @@
-Given /^I have a shift yesterday$/ do
-  Shift.create!(:start => Date.yesterday + " 1PM", :end => Date.yesterday + " 3 PM",
-                :user_id => @user, :location_id => @department.locations.first,
-                :scheduled => true)
+Given /^I had a shift yesterday$/ do
+creation_time = ("January 4, 2010 5pm".to_time)
+start_time = ("January 5, 2010 5pm".to_time)
+end_time = ("January 5, 2010 7pm".to_time)
+shift_taken = ("January 4, 2010 7pm".to_time)
+
+  TimeSlot.create!(:location_id => @department.locations.first,
+                   :start => start_time,
+                   :end => end_time,
+                   :created_at => creation_time)
+  shift = Shift.create!(:start => start_time, :end => end_time,
+                        :user_id => @user, :location_id => @department.locations.first,
+                        :scheduled => true, :created_at => shift_taken,
+                        :updated_at => shift_taken)
+  Report.create!(:shift_id => shift.id,
+                 :arrived => start_time,
+                 :departed => end_time,
+                 :created_at => start_time,
+                 :updated_at => end_time)
 end
 
 Given /^today is not Sunday$/ do``
