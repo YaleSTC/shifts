@@ -3,16 +3,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
-
   has_many :payforms
-
   has_many :shifts
-
-  has_many :user_source_links, :as => :user_source
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
-
-
+  has_many :user_source_links, :as => :user_source
 
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -95,14 +90,15 @@ class User < ActiveRecord::Base
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
-  # check for loc group admin, who can add locations and shifts under it
-  def can_admin?(loc_group)
-    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
-  end
+#   check for loc group admin, who can add locations and shifts under it
+#   DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
+#  def can_admin?(loc_group)
+#    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
+#  end
 
-  # check for department admin, who can create new loc group, new role, and new user in department
-  def is_admin_of?(dept)
-    self.is_superuser? || permission_list.include?(dept.permission) && self.is_active?(dept)
+  # check for admin permission given a dept, location group, or location
+  def is_admin_of?(thing)
+    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(thing))
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
@@ -113,6 +109,17 @@ class User < ActiveRecord::Base
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
     self.departments_users[0].active
+  end
+
+  # Given a department, check to see if the user can admin any loc groups in it
+  def is_loc_group_admin?(dept)
+    dept.loc_groups.any?{|lg| self.is_admin_of?(lg)}
+  end
+
+  # Given a department, return any location groups within that department that the user can admin
+  def loc_groups_to_admin(dept)
+    return dept.loc_groups if self.is_admin_of?(dept)
+    dept.loc_groups.delete_if{|lg| !self.is_admin_of?(lg)}
   end
 
   def name
@@ -149,4 +156,3 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 end
-
