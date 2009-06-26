@@ -6,5 +6,6 @@
     <%= render :partial => 'notices/for_you' %>
   </fieldset>
 <% end %>
- <%= render :partial => 'shifts/upcoming_shifts_layout' %>
 
+<%= link_to "Clock in to a shift?", new_user_punch_clock(current_user.id) %>
+<%= render :partial => 'shifts/upcoming_shifts_layout' %>
