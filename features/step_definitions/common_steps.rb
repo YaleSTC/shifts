@@ -23,9 +23,9 @@ Given /^I am "([^\"]*)"$/ do |name|
   user_id = @user.id
   @department = @user.departments.first
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
-    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
-  visit departments_path
-  click_link @department.name
+#    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
+#  visit departments_path
+#  click_link @department.name
 
 end
 

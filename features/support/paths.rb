@@ -18,8 +18,8 @@ module NavigationHelpers
       payform_path(Payform.find_by_date($1.to_date))
     when /the payforms page/
       payforms_path
-  	when /shifts/
-	    shifts_path
+    when /shifts/
+      shifts_path
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/

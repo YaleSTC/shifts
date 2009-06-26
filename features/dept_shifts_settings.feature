@@ -5,14 +5,21 @@ Feature: department_test
 
   Background:
     Given I am "Albus Dumbledore"
-#    And I am on the department settings page
+    And I am on the department settings page
     And there is a scheduled shift:
         | start_time     | end_time       | location     | user         |
         | 12/25/2009 5pm | 12/25/2009 7pm | Diagon Alley | Harry Potter |
     And "Harry Potter" signs in at "12/25/2009 5:10pm"
 
   Scenario: Shifts settings: Start and end times
-    When I select "Schedule view start time:"
+    When I select "05:00AM" from "Schedule view start time:"
+    And I select "07:00AM" from "Schedule view end time:"
+    And I go to the shifts page
+    Then I should see "5:00"
+    And I should see "6:00"
+    And I should see "7:00"
+    And I should not see "8:00"
+    And I should not see "4:00"
 
   Scenario: Shifts settings: Grace Period
     When I fill in "Grace Period" with "11"
