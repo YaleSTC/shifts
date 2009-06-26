@@ -1,0 +1,25 @@
+<% title "Data Types" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Data fields</th>
+  </tr>
+  <% for data_type in @data_types %>
+    <tr>
+      <td><%=h data_type.name %></td>
+      <td><%=h data_type.description %></td>
+      <td><%=h data_type.data_fields.map{|df| df.name}.join(', ') %></td>
+      <td><%= link_to "Show", data_type %></td>
+      <td><%= link_to "Edit", edit_data_type_path(data_type) %></td>
+      <td><%= link_to "Destroy", data_type, :confirm => "Are you sure? This will also delete any data objects associated with this type, as well as any entries belonging to those objects.",  
+                                            :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+<%= link_to "New Data Type", new_data_type_path %> | 
+<%= link_to "View all Data Objects", data_objects_path %>
+</p>

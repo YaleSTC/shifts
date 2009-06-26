@@ -1,8 +1,10 @@
 <% title "Welcome #{current_user.name}" %>
 
-<fieldset class ="index">
-  <legend>Notices for you</legend>
-  <%= render :partial => 'notices/for_you' %>
-</fieldset>
+<% unless current_user.notices.empty? %>
+  <fieldset class ="index">
+    <legend>Notices for you</legend>
+    <%= render :partial => 'notices/for_you' %>
+  </fieldset>
+<% end %>
  <%= render :partial => 'shifts/upcoming_shifts_layout' %>
 
