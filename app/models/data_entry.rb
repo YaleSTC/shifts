@@ -15,6 +15,7 @@ class DataEntry < ActiveRecord::Base
   def write_content(fields)
     content = ""
     fields.each_pair do |key, value|
+#      DataField.find(key).validate_content(value)    # awaiting implementation
       if value.class == HashWithIndifferentAccess || value.class == Hash
         content << key.to_s + "::"
         value.each_pair do |k,v|
@@ -55,7 +56,7 @@ class DataEntry < ActiveRecord::Base
     end
     content_arrays.sort!          # At this point, we have [field, content] arrays
     content_hash = {}
-    content_arrays.each{|array| content_hash.store(array.first, array.second)}     
+    content_arrays.each{|array| content_hash.store(array.first,array.second.gsub("**semicolon**",";").gsub("**colon**",":"))}     
     content_hash
   end
 
