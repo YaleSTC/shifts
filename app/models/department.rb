@@ -10,8 +10,8 @@ class Department < ActiveRecord::Base
   has_many :payform_sets
   has_many :categories
 
-  
-  
+  has_and_belongs_to_many :roles
+
 
   has_many :user_source_links, :as => :user_source
 
@@ -20,13 +20,11 @@ class Department < ActiveRecord::Base
 
 
   before_validation_on_create :create_permissions
-# this next validation doesn't work -cmk
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name
   validates_uniqueness_of :permission_id
 
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :roles
 
   private
   def create_permissions
@@ -39,3 +37,4 @@ class Department < ActiveRecord::Base
   end
 
 end
+

@@ -85,7 +85,7 @@ class Shift < ActiveRecord::Base
 
   def late?
     #TODO: tie this to an actual admin preference
-    self.signed_in? && (self.report.start - self.start > 7)
+    self.signed_in? && (self.report.arrived - self.start > 7)
   end
 
   #a shift has been signed in to if it has a report
@@ -165,7 +165,7 @@ class Shift < ActiveRecord::Base
   def shift_is_within_time_slot
     unless self.power_signed_up
       c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start <= ? AND end >= ?', self.location_id, self.start, self.end])
-      errors.add_to_base("You can only sign up for a shift druing a time slot!") if c == 0
+      errors.add_to_base("You can only sign up for a shift during a time slot!") if c == 0
     end
   end
 
@@ -197,3 +197,4 @@ class Shift < ActiveRecord::Base
     end
   end
 end
+
