@@ -182,7 +182,6 @@ class Shift < ActiveRecord::Base
     errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.start <= Time.now
   end
 
-
   def adjust_sub_requests
     self.sub_requests.each do |sub|
       if sub.start > self.end || sub.end < self.start
