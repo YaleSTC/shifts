@@ -38,3 +38,23 @@ Feature: Application settings
     When I go to the homepage
     Then I should see "Questions? Please email dumbledore@hogwarts.edu"
 
+  Scenario: Authentication settings: authlogic
+    When I choose "Use built in authentication"
+    And I press "Save"
+    And I log out
+    And I go to the homepage
+    # Not sure if the following step would work since webrat follows internal redirects
+    Then I should be redirected to the login page
+    When I fill in "login" with "hp123"
+    And I fill in "password" with "password"
+    And I press "Log in"
+    Then I should be redirected to the homepage
+    And I should see "Successfully logged in as Harry Potter"
+
+  Scenario: Authentication settings: CAS
+    When I choose "CAS"
+    And I press "Save"
+    And I log out
+    And I go to the homepage
+    Then I should be redirected
+
