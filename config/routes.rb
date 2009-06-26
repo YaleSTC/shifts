@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :user_sessions
 
+  map.resources :password_resets
+
 
   map.resources :sub_requests
 	map.resources :notices
