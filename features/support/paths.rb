@@ -26,6 +26,11 @@ module NavigationHelpers
       user_settings_path
     when /the Application Settings page/
       application_settings_path
+    when /the dashboard/
+      {:controller => 'dashboard', :action => 'index'}
+    when /CAS/
+      "https://secure.its.yale.edu/cas/login"
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
