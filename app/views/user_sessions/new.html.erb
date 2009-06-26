@@ -12,7 +12,7 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-
-Can't login? Want to <%= link_to "register?", register_new_department_user_path(Department.first) %>
-Or maybe you want to <%= link_to "login with CAS", :controller => "sessions", :action => "login" %>
+<p>Can't login? Want to <%= link_to "register?", register_new_department_user_path(Department.first) %></p>
+<p>Or maybe you want to <%= link_to "login with CAS?", :controller => "sessions", :action => "login" %></p>
+<p>Or <%= link_to "reset your password?", :controller => "password_resets", :action => "new" %></p>
 

@@ -141,6 +141,11 @@ class User < ActiveRecord::Base
     Notice.active.select{|n| n.viewers.include?(self)}
   end
 
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    AppMailer.deliver_password_reset_instructions(self)
+  end
+
   memoize :name, :permission_list, :is_superuser?
 
 
