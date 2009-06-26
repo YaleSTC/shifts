@@ -26,13 +26,13 @@ Feature: User settings
     And I press "Submit"
     And I go to shifts
     Then I should see all the days of the week
-    And I should not see "Harry Potter"
+    And I should see "Harry Potter"
     When I go to the user settings page
     And I choose "Show only shift schedule for the remaining days of the week"
     And I press "Submit"
     And I go to shifts
     Then I should see all the days of the week
-    And I should see "Harry Potter"
+    And I should not see "Harry Potter"
 
   Scenario: What LocGroups to display on schedule view
     Given I have a LocGroup named "Classrooms" with location "Potions"
