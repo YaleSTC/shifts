@@ -11,7 +11,6 @@ class DataField < ActiveRecord::Base
   validates_presence_of :data_type, :on => :update
   validates_presence_of :name
   validates_presence_of :display_type
-  validates_uniqueness_of :name
 
   #This should probably be moved to the data_entries helper
   #Based on the display type, returns the arguments for the formhelper methods
@@ -31,6 +30,17 @@ class DataField < ActiveRecord::Base
       return options.map{|v| ["data_fields[#{id}]", 1, v]}
     end
   end
+
+  # TODO: Write the validations, probably with a string-parsing method similar
+  # to that used in DataEntry.rb write_content.  Also needs associated view
+  # written for it, in terms of new options added to the data type form.  I may
+  # or may not work on this alongside other work. -ben
+  # Used to check validations and alerts on data field values.
+#  def validate_content(content)
+#    if self.display_type == "text_field"
+#      raise value.to_yaml
+#    end
+#  end
 
 end
 
