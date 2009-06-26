@@ -1,0 +1,19 @@
+<% title "Data Entries" %>
+
+<table>
+  <tr>
+    <th>Content</th>
+  </tr>
+  <% for data_entry in @data_entries %>
+    <tr>
+      <td><%=h data_entry.content %></td>
+      <td><%= link_to "Show", data_object_data_entry_path(:id => data_entry.id) %></td>
+      <td><%= link_to "Edit", edit_data_object_data_entry_path(:id => data_entry.id) %></td>
+      <td><%= link_to "Destroy", data_object_data_entry_path(:id => data_entry.id), 
+                                :confirm => 'Are you sure?', 
+                                :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Data Entry", new_data_object_data_entry_path %></p>
