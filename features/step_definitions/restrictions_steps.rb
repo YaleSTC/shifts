@@ -9,7 +9,7 @@ Given /^I have a sub request restriction for ([0-9]+) sub requests$/ do |max_sub
   @restriction.max_subs = max_subs
 end
 
-Given /^this restriction expires <expiration>$/ do |expiration|
+Given /^this restriction expires "([^\"]*)"$/ do |expiration|
   if expiration = "indefinitely" 
     @restriction.expires = nil
   else
