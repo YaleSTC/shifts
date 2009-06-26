@@ -18,5 +18,8 @@
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
   </p>
-  <p><%= submit_to_remote 'update', 'Submit', :url => { :action => 'create' }, :before => "$('div.tooltip').hide()" %></p>
+  <%= f.hidden_field :power_signed_up, :value => :true if current_user.is_admin_of?(current_department) %>
+  <p>
+    <%= submit_to_remote 'update', 'Submit', :url => { :action => 'create' }, :before => "$('div.tooltip').hide()" %>
+  </p>
 <% end %>

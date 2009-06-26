@@ -3,9 +3,8 @@ class Location < ActiveRecord::Base
 
   has_many :time_slots
   has_many :shifts
-
+  has_and_belongs_to_many :data_objects
   has_many :location_source_links, :as => :location_source
-
 
   validates_presence_of :loc_group
   validates_presence_of :name
@@ -23,6 +22,10 @@ class Location < ActiveRecord::Base
 
   def max_staff_greater_than_min_staff
     errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff and self.max_staff and self.min_staff > self.max_staff)
+  end
+
+  def admin_permission
+    self.loc_group.admin_permission
   end
 
   def locations
@@ -54,6 +57,10 @@ class Location < ActiveRecord::Base
       end
     end
     people_count
+  end
+  
+  def admin_permission
+    self.loc_group.admin_permission
   end
 end
 
