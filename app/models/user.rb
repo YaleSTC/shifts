@@ -4,11 +4,14 @@ class User < ActiveRecord::Base
   has_many :departments_users
   has_many :departments, :through => :departments_users
 
+
   has_many :payforms
+  has_many :payform_items, :through => :payforms
 
   has_many :shifts
 
-  has_many :user_source_links, :as => :user_source
+  has_many :user_sinks_user_sources, :as => :user_source
+  
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
 
