@@ -3,10 +3,13 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
-  has_many :payforms
-  has_many :shifts
 
-  has_many :user_source_links, :as => :user_source
+
+  has_many :payforms
+  has_many :payform_items, :through => :payforms
+
+  has_many :shifts
+  
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
