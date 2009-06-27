@@ -11,7 +11,7 @@ class Department < ActiveRecord::Base
               :dependent => :destroy
   has_many :payforms
   has_many :payform_sets
-  has_many :categories 
+  has_many :categories
 
   has_many :user_source_links, :as => :user_source
   has_many :location_source_links, :as => :location_source
@@ -22,7 +22,7 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :permission_id
 
   has_and_belongs_to_many :users
-
+  has_and_belongs_to_many :roles
   private
   def create_permissions
     self.create_admin_permission(:name => name + " dept admin")

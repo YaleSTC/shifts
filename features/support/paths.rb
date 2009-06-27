@@ -30,8 +30,11 @@ module NavigationHelpers
       {:controller => 'dashboard', :action => 'index'}
     when /CAS/
       "https://secure.its.yale.edu/cas/login"
-
-    # Add more mappings here.
+    when /the data types page/i
+      data_types_path
+    when /the data objects page/i
+      data_objects_path
+      # Add more mappings here.
     # Here is a more fancy example:
     #
     #   when /^(.*)'s profile page$/i

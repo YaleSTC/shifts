@@ -9,13 +9,16 @@ end
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
-  role = Role.new(:name => permissions + " role")
-  role.departments << @department
   permissions.split(", ").each do |permission_name|
+    dept = Department.create!(:name => permission_name.split(" dept admin").to_s)
+    user.departments << dept
+
+    role = Role.new(:name => permissions + " role")
+    role.departments << dept
     role.permissions << Permission.find_by_name(permission_name)
+    role.save!
+    user.roles << role
   end
-  role.save!
-  user.roles << role
 end
 
 Given /^I am "([^\"]*)"$/ do |name|
@@ -24,8 +27,8 @@ Given /^I am "([^\"]*)"$/ do |name|
   @department = @user.departments.first
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
 #    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
-#  visit departments_path
-#  click_link @department.name
+  visit departments_path
+  click_link @department.name
 
 end
 
@@ -39,9 +42,10 @@ end
 
 Given /^I have locations "([^\"]*)" in location group "([^\"]*)" for the department "([^\"]*)"$/ do |locations, location_group, department|
   locations.split(", ").each do |location_name|
-  loc_group = LocGroup.find_by_name(location_group)
+  loc_group = LocGroup.create!(:name => location_group, :department_id => Department.find_by_name(department).id)
   Location.create!(:name => location_name, :loc_group_id => loc_group.id,
-                   :min_staff => 1, :max_staff => 3, :short_name => location_name)
+                   :min_staff => 1, :max_staff => 3, :short_name => location_name,
+                   :priority => 1)
   end
 end
 
