@@ -3,12 +3,12 @@ hogwarts_department:
   id: "1"
   name: Hogwarts
   permission_id: "1"
-departments_002:
-  id: "2"
-  name: Pet Store
-  permission_id: "2"
-departments_003:
-  id: "3"
-  name: Outer Space
-  permission_id: "3"
+#departments_002:
+#  id: "2"
+#  name: Pet Store
+#  permission_id: "2"
+#departments_003:
+#  id: "3"
+#  name: Outer Space
+#  permission_id: "3"
 
