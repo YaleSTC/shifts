@@ -7,7 +7,7 @@ Scenario Outline: Time limit
 Given I have a time limit restriction for <res-hours> hours <res-minutes> minutes
 Given this restriction expires <res-expiration>
 # Given this restriction applies <res-department_locations_locgroups>
-Given I am logged into CAS as "alb64"
+Given I am "Adam" "Bray"
 Given I am on the homepage
 When I follow "STC"
 When I follow "Shifts"
