@@ -23,7 +23,7 @@ end
 
 Given /^I am "([^\"]*)"$/ do |name|
   @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  user_id = @user.id
+  @user.should_not be_nil
   @department = @user.departments.first
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
 #    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
