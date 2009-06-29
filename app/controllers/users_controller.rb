@@ -2,9 +2,7 @@ class UsersController < ApplicationController
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
-  skip_before_filter :login_or_register, :only => [:register, :create]
   helper_method :random_password
-  #TODO: Plug the hole that would in theory allow one to create users through params hacking w/o logging in from above
   def index
     if params[:show_inactive]
       @users = @department.users
