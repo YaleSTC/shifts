@@ -58,9 +58,5 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
-  
-  def admin_permission
-    self.loc_group.admin_permission
-  end
 end
 
