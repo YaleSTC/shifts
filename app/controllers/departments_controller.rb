@@ -5,7 +5,6 @@ class DepartmentsController < ApplicationController
     if params[:department_id]
       redirect_to Department.find(params[:department_id])
     end
-
     @departments = Department.all
   end
 

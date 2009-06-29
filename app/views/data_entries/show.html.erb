@@ -1,0 +1,16 @@
+<% title "Data Entry" %>
+
+<table>
+  <tr>
+    <th>Data Field</th>
+    <th>Contents</th>
+  </tr>
+<%= render :partial => "data_entry", 
+           :collection => @data_entry.data_fields_with_contents %>
+</table>
+
+<p>
+  <%= link_to "Edit", edit_data_object_data_entry_path(@data_entry.data_object_id, @data_entry.id) %> |
+  <%= link_to "Destroy", data_object_data_entry_path, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", data_object_data_entries_path %>
+</p>

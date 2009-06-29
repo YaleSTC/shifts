@@ -10,6 +10,8 @@ class UsersController < ApplicationController
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
+    
+    @users = @users.sort_by(&:last_name)
   end
 
   def show
@@ -147,9 +149,9 @@ class UsersController < ApplicationController
   end
   
   def autocomplete
-    departments = current_user.departments
-    users = Department.find(params[:department_id]).users
-    roles = Department.find(params[:department_id]).roles
+    departments = current_user.departments.sort_by(&:name)
+    users = Department.find(params[:department_id]).users.sort_by(&:first_name)
+    roles = Department.find(params[:department_id]).roles.sort_by(&:name)
     
     @list = []
     users.each do |user|
@@ -186,7 +188,7 @@ class UsersController < ApplicationController
           @search_result << user
         end
       end
-      @users = @search_result
+      @users = @search_result.sort_by(&:last_name)
     end
   end
 end
