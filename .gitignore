@@ -1,6 +1,7 @@
 *~
 log/*
 tmp/*
+db/schema.rb
 Rakefile
 structures.txt
 .DS_Store

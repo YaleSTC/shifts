@@ -1,9 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :punch_clocks
   map.resources  :restrictions
-
+  map.resources :user_configs
   map.resources :sub_requests
-	map.resources :notices
+	 map.resources :notices
   map.resources :payform_item_sets
   map.resources :payform_sets
 
