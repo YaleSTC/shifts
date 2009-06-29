@@ -1,0 +1,22 @@
+<% content_for :head do %>
+  <% stylesheet 'shift', 'report' %>
+<% end %>
+
+<% content_for :left_nav do %>
+  <ul id="navigationList">
+    <li><%= link_to_unless_current "Notices", notices_path %></li>
+    <li><%= link_to_unless_current "User settings", notices_path %></li>
+  </ul>
+  <div id="contentNav">
+<% end %>
+
+
+<% content_for :body do %>
+
+  <%= yield %>
+
+  <div class="clear"></div>
+<% end -%>
+
+<%= render :file => "layouts/application.html.erb" %>
+
