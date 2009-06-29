@@ -16,7 +16,3 @@ Given /^this restriction expires "([^\"]*)"$/ do |expiration|
     @restriction.expires = expiration
   end
 end
-
-#Given /^this restriction applies to 
-
-

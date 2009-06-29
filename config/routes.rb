@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :user_configs
   map.resources :punch_clocks
-  map.resources  :restrictions
-
+  map.resources :restrictions
   map.resources :sub_requests
 	 map.resources :notices
   map.resources :payform_item_sets
@@ -34,6 +34,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reports, :member => {:popup => :get} do |report|
     report.resources :report_items
   end
+
+  map.view_all_data_objects "data_objects/view_all_data_objects", :controller => "data_objects", :action => "view_all"
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
