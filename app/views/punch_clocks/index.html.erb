@@ -1,19 +1,21 @@
 <% title "Running Punch Clocks" %>
 
+<% if @punch_clocks.empty? %>
+There are currently no punch clocks running.
+<% else %>
 <table>
   <tr>
     <th>Description</th>
     <th>User</th>
+    <th>Has been running for</th>
   </tr>
   <% for punch_clock in @punch_clocks %>
     <tr>
       <td><%=h punch_clock.description %></td>
-      <td><%= punch_clock.user_id %></td>
-      <td><%= link_to "Sign Out", user_punch_clocks_path(params[:user_id]), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= User.find(punch_clock.user_id).name %></td>
+      <td><%= Time.now - punch_clock.created_at %></td>
+      <td><%= link_to "Sign Out", punch_clock, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
-
-<%# This line should be taken out. It is still there because %>
-<%# I must create punch_clocks for testing %>
-<p><%= link_to "New Punch Clock", new_user_punch_clock_path %></p>
+<% end %>

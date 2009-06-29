@@ -18,17 +18,30 @@ class PunchClocksController < ApplicationController
     @punch_clock.user = @user
     if @punch_clock.save
       flash[:notice] = "Successfully created punchclock."
-      redirect_to @user
+      redirect_to dashboard_url
     else
       render :action => 'new'
     end
   end
   
   def destroy
-    @user = User.find(params[:user_id])
     @punch_clock = PunchClock.find(params[:id])
     @punch_clock.destroy
+    @time = (Time.now - @punch_clock.created_at) / 3600.0
     flash[:notice] = "Successfully destroyed punchclock."
-    redirect_to user_punch_clocks_path(@user)
+    @payform_item = PayformItem.new({:date => Date.today,
+                                    :category_id => 2, #2 for "shifts"
+                                    :hours => 4.0,  #should be changed to @time
+                                    :description => @punch_clock.description})
+    @payform = Payform.build(current_department, current_user, Date.today)
+    @payform_item.payform = @payform
+    @payform_item.save
+    @payform.save
+    #clock deleted by admin
+    if current_user.is_admin_of?(current_department)
+      redirect_to punch_clocks_path
+    else  #clock deleted by user
+      redirect_to dashboard_url
+    end
   end
 end
