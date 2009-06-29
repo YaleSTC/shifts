@@ -6,5 +6,11 @@
     <%= render :partial => 'notices/for_you' %>
   </fieldset>
 <% end %>
- <%= render :partial => 'shifts/upcoming_shifts_layout' %>
+<br/>
+<% unless @upcoming_shifts.empty? %>
+  <fieldset class ="index">
+    <legend>Upcoming shifts</legend>
+    <%= render :partial => 'shifts/upcoming_shifts_layout' %>
+    </fieldset>
+<% end %>
 
