@@ -1,5 +1,6 @@
 class Department < ActiveRecord::Base
   has_many :loc_groups, :dependent => :destroy
+  belongs_to :admin_permission, :class_name => "Permission", :dependent => :destroy
   has_many :departments_users, :dependent => :destroy
   has_many :users, :through => :departments_users
   has_many :locations, :through => :loc_groups
@@ -20,7 +21,7 @@ class Department < ActiveRecord::Base
 # this next validation doesn't work -cmk
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name
-  validates_uniqueness_of :permission_id
+  validates_uniqueness_of :admin_permission_id
 
   has_and_belongs_to_many :users
 

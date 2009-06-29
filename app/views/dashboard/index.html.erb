@@ -6,5 +6,19 @@
     <%= render :partial => 'notices/for_you' %>
   </fieldset>
 <% end %>
- <%= render :partial => 'shifts/upcoming_shifts_layout' %>
+<br/>
+<% unless @upcoming_shifts.empty? %>
+  <fieldset class ="index">
+    <legend>Upcoming shifts</legend>
+    <%= render :partial => 'shifts/upcoming_shifts_layout' %>
+    </fieldset>
+<% end %>
 
+<% if current_user.punch_clock %>
+<%= link_to "Clock out of your current shift?", current_user.punch_clock, 
+                                :confirm => "Are you sure", 
+                                :method => :delete %>
+<% else %>
+<%= link_to "Clock in to a shift?", new_user_punch_clock_path(current_user.id) %>
+<% end %>
+<%= render :partial => 'shifts/upcoming_shifts_layout' %>
