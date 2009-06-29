@@ -1,7 +1,6 @@
 *~
 log/*
 tmp/*
-preload_data/*
 db/schema.rb
 Rakefile
 structures.txt
