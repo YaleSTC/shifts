@@ -10,18 +10,32 @@
 </p>
 <p>
   <strong>Data fields:</strong>
-  <%=h @data_type.data_fields.map{|df| df.name}.join(', ') %>
+  <ul>
+    <% for field in @data_type.data_fields %>
+      <li><%= link_to "#{field.name}", data_type_data_field_path(@data_type, field) %></li>
+      <ul style="margin-left: 1em">
+        <li>Type: <%= field.display_type %>
+        <li>Values: <%= field.values %>
+      </ul>
+    <% end %>
+  </ul>
+  <%= button_to "Add a new data field", new_data_type_data_field_path(@data_type), :method => :get %>
 </p>
-<p>
-  <strong>Data Objects</strong>
+<% if @data_type.data_fields.length > 0 %>
+  <p>
+    <strong>Data objects:</strong>
     <ul>
       <% for obj in @data_type.data_objects %>
         <li><%= link_to "#{obj.name}", obj %></li>
       <% end %>
     </ul>
+    <%= button_to "Create a new instance of this data type", new_data_type_data_object_path(@data_type), :method => :get %>
+  </p>
+<% end %>
 <p>
-  <%= link_to "New data object", new_data_type_data_object_path(@data_type.id) %> | 
-  <%= link_to "Edit and add new data fields", edit_data_type_path(@data_type) %> |
+  <!-- <%= link_to "New data object", new_data_type_data_object_path(@data_type.id) %> | 
+  <%= link_to "Edit and add new data fields", edit_data_type_path(@data_type) %><br> -->
+  <%= link_to "Edit this data type", edit_data_type_path(@data_type) %> | 
   <%= link_to "Destroy", @data_type,  
   :confirm => 'Are you sure? This will destroy all data objects of this type, as well as their associated entries.', 
   :method => :delete %> |
