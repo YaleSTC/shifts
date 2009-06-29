@@ -9,23 +9,23 @@ Given this restriction expires <res-expiration>
 # Given this restriction applies <res-department_locations_locgroups>
 Given I am logged into CAS as "alb64"
 Given I am on the homepage
-When I follow STC
-When I follow Shifts
-When I follow Power sign up
-And I select <year> from "shift_start_1i"
-And I select <month> from "shift_start_2i"
-And I select <s_date> from "shift_start_3i"
-And I select <s_24hours> from "shift_start_4i"
-And I select <s_min> from "shift_start_5i"
-And I select <year> from "shift_end_1i"
-And I select <month> from "shift_end_2i"
-And I select <e_date> from "shift_end_3i"
-And I select <e_24hours> from "shift_end_4i"
-And I select <e_min> from "shift_end_5i"
+When I follow "STC"
+When I follow "Shifts"
+When I follow "Power sign up"
+And I select "<year>" from "shift_start_1i"
+And I select "<month>" from "shift_start_2i"
+And I select "<s_date>" from "shift_start_3i"
+And I select "<s_24hours>" from "shift_start_4i"
+And I select "<s_min>" from "shift_start_5i"
+And I select "<year>" from "shift_end_1i"
+And I select "<month>" from "shift_end_2i"
+And I select "<e_date>" from "shift_end_3i"
+And I select "<e_24hours>" from "shift_end_4i"
+And I select "<e_min>" from "shift_end_5i"
 And I select "Michael Libertin" from "shift_user_id"
 And I select "Io" from "shift_location_id"
-And I press submit
-Then I should see <validity>
+And I press "Submit"
+Then I should see "<validity>"
 
 Scenarios: Shift signup successful because under time limit, before expiration
 
@@ -43,7 +43,7 @@ Scenarios: Shift signup successful because over time limit, past expiration
 |8        |00         |"2010-12-20 16:00:00"|2010|12   |21    |01       |00   |21    |12       |00   |valid   |          
 |5        |00         |"2009-11-23 12:25:00"|2009|12   |01    |12       |00   |01    |20       |00   |valid   |       
 
-Scenario: Shift signup successful because under time limit, past expiration
+Scenarios: Shift signup successful because under time limit, past expiration
 
 |res-hours|res-minutes|res-expiration       |year|month|s_date|s_24hours|s_min|e_date|e_24hours|e_min|validity|
 |2        |00         |"2010-02-22 22:10:00"|2010|03   |15    |08       |00   |15    |09       |00   |valid   |

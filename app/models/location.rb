@@ -24,6 +24,10 @@ class Location < ActiveRecord::Base
     errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff and self.max_staff and self.min_staff > self.max_staff)
   end
 
+  def admin_permission
+    self.loc_group.admin_permission
+  end
+
   def locations
     [self]
   end
