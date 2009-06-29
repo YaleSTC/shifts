@@ -24,33 +24,47 @@
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </p>
-<-- everything below should be invisible by default -->
+<span id ="advanced_link">
+<%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
+</span>
+<div id="advanced">
+  For users: <br />
+  <%= tokenized_users_autocomplete(@notice, "viewer_sources", "for_users") %>
   <p>
-    <%= label_tag :for_users %><br />
-    <%= tokenized_users_autocomplete(@notice, "viewer_sources", "for_users") %>
-  </p>
-  For locations: <br />
-  <% if current_user.is_admin_of?(@department) %>
-    <%= check_box_tag :department_wide_locations %><%= @department.name %> (all locations)<br />
-  <% end %>
-
-  <% for loc_group in @loc_groups do %>
-    &nbsp;&nbsp;&nbsp;
-    <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%= loc_group.name %><br />
-
-    <% for location in loc_group.locations do %>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <% if current_user.current_shift %>
-        <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, :disabled => false %>
-      <% else %>
-        <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %>
-      <% end %>
-      <%= location.name %><br />
+    For locations: <br />
+    <% if current_user.is_admin_of?(@department) %>
+      <%= check_box_tag :department_wide_locations %><%= @department.name %> (all locations)<br />
     <% end %>
-  <% end %>
+    <% for loc_group in @loc_groups do %>
+      &nbsp;&nbsp;&nbsp;
+      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%= loc_group.name %>:
+      <% for location in loc_group.locations do %>
+        <% if current_user.current_shift %>
+          <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, :disabled => false %>
+        <% else %>
+          <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %>
+        <% end %>
+        <%= location.name %> &nbsp;
+      <% end %>
+      <br />
+    <% end %>
+  </p>
+</div>
+
 </fieldset>
+
 <p>
   <%= f.submit 'Create/Update' %>
 </p>
+
 <% end %>
+<!--
+ document.observe('dom:loaded',function(){ $('checkbox_div').hide(); });
+    document.observe('dom:loaded',function(){ $('pref_link').show(); });
+-->
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){$("#advanced").hide();})
+    $(document).ready(function(){$("#advanced_link").show();})
+</script>
 

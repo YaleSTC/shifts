@@ -9,8 +9,6 @@ class Department < ActiveRecord::Base
               :class_name => "Permission",
               :foreign_key => "permission_id",
               :dependent => :destroy
-
-
   has_many :payforms
   has_many :payform_sets
   has_many :categories 

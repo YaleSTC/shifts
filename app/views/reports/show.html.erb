@@ -12,7 +12,7 @@
 <p>
 <% unless @report.departed || current_user!=@report.user %>
   <%= render :partial => 'new_report_item_form' %>
- <% end %>
+<% end %>
   <h2>Report:</h2>
   </p>
 <%= render :partial => 'report'%>
