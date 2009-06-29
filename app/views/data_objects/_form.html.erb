@@ -29,7 +29,10 @@
                                      @locations_select, :id, :name, 
                                      :selected_items => @data_object.locations.map{|loc| loc.id}) %>
     </p>
-    <p><%= f.submit "Submit" %></p>
+    <p>
+      <%= f.submit "Save and add another object", :name => "add_another" %>
+      <%= f.submit "Save and finish", :name => "submit" %>
+    </p>
   <% end %>
 </div>
 <div style="clear:both"></div>
