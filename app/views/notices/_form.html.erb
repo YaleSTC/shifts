@@ -1,4 +1,4 @@
-<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput' %>
+<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput', 'thickbox-compressed'  %>
 <% stylesheet 'tokeninput-facebook' %>
 
 <fieldset>
@@ -54,7 +54,7 @@
 </fieldset>
 
 <p>
-  <%= f.submit 'Create/Update' %>
+  <%= f.submit 'Create/Update', :onclick => thick_box_end %>
 </p>
 
 <% end %>
