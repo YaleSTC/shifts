@@ -1,0 +1,29 @@
+<% title "User Settings" %>
+
+<p>
+  <strong>Default Department:</strong>
+  <%=h @user_config.default_dept %><br />
+  <small>This is the department you will be logged into when you sign in to the 
+    application.  You can then change it through the department chooser.  If you 
+    leave this blank, then it will default to your first department.</small>
+</p>
+<p>
+  <strong>View Location Groups:</strong>
+  <%=h @user_config.view_loc_groups.map{|id| LocGroup.find(id).name}.join(', ')  if @user_config.view_loc_groups %><br />
+  <small>These are the location groups you will view by default on the shift 
+    schedule.  If you leave this blank, then it will default to all of your 
+    location groups.</small>
+</p>
+<p>
+  <strong>View Week:</strong>
+  <%=h @user_config.view_week %><br />
+  <small>This controls what portion of the shift schedule you see.  If you leave
+    this blank, then it will default to the entirety of your department's 
+    defined payform period.</small>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_user_config_path(@user_config) %> |
+  <%= link_to "Destroy", @user_config, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", user_configs_path %>
+</p>
