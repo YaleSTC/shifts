@@ -169,12 +169,8 @@ class User < ActiveRecord::Base
   def departments_not_empty
     errors.add("User must have at least one department.", "") if departments.empty?
   end
-<<<<<<< HEAD:app/models/user.rb
-=======
-  
+    
   def create_user_config
     UserConfig.new({:user_id => self.id}).save
   end
-    
->>>>>>> 1bb17931ecf2cfdad61881d43babbbf22480b0e9:app/models/user.rb
 end

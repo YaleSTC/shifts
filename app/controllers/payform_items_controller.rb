@@ -50,7 +50,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
     @payform_item.destroy
-    flash[:notice] = "Payform item deleted."
+    flash[:notice] = "Payform item deleted." # send misleading message to user :)
     redirect_to payform_path(@payform)
   end
 end
