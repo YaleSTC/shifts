@@ -6,9 +6,9 @@ class Department < ActiveRecord::Base
   has_many :data_types, :dependent => :destroy
   has_many :data_objects, :through => :data_types
   belongs_to :admin_permission,
-              :class_name => "Permission",
-              :foreign_key => "permission_id",
-              :dependent => :destroy
+             :class_name => "Permission",
+             :foreign_key => "permission_id",
+             :dependent => :destroy
   has_many :payforms
   has_many :payform_sets
   has_many :categories 
