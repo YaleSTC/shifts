@@ -15,6 +15,7 @@ class DataEntry < ActiveRecord::Base
   def write_content(fields)
     content = ""
     fields.each_pair do |key, value|
+#      DataField.find(key).validate_content(value)    # awaiting implementation
       if value.class == HashWithIndifferentAccess || value.class == Hash
         content << key.to_s + "::"
         value.each_pair do |k,v|
@@ -45,17 +46,17 @@ class DataEntry < ActiveRecord::Base
         checked = []
         a.second.split(';').each do |box|
           box = box.split(':')
-          checked << box.second if box.first == "1"
+          checked << box.first if box.second == "1"
         end
         a[1] = checked.join(', ') unless checked.empty?
       elsif DataField.find(a.first).display_type == "radio_button"
         box = a.second.split(':')
-        a[1] = box.first if box.second == "1"
+        a[1] = box.second if box.first == "1"
       end
     end
     content_arrays.sort!          # At this point, we have [field, content] arrays
     content_hash = {}
-    content_arrays.each{|array| content_hash.store(array.first, array.second)}     
+    content_arrays.each{|array| content_hash.store(array.first,array.second.gsub("**semicolon**",";").gsub("**colon**",":"))}     
     content_hash
   end
 

@@ -3,17 +3,12 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
-
-
   has_many :payforms
   has_many :payform_items, :through => :payforms
-
   has_many :shifts
-  
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
-
 
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -96,17 +91,9 @@ class User < ActiveRecord::Base
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
-#   check for loc group admin, who can add locations and shifts under it
-#   DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
-
-#  def can_admin?(loc_group)
-#    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
-#  end
-
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
     self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(thing))
-
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
@@ -130,9 +117,6 @@ class User < ActiveRecord::Base
     dept.loc_groups.delete_if{|lg| !self.is_admin_of?(lg)}
   end
 
-  def full_name
-  end
-
   def name
     [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
   end
@@ -145,17 +129,20 @@ class User < ActiveRecord::Base
     [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
-  #This method is needed to make polymorphic associations work
   def users
     [self]
   end
 
-  def available_sub_requests
+  def available_sub_requests #TODO: this could probalby be optimized
     SubRequest.all.select{|sr| sr.substitutes.include?(self)}
   end
 
-  def notices
+  def notices #TODO: this could probalby be optimized
     Notice.active.select{|n| n.viewers.include?(self)}
+  end
+  
+  def restrictions #TODO: this could probalby be optimized
+    Restriction.all.select{|r| r.users.include?(self)}
   end
 
   memoize :name, :permission_list, :is_superuser?
