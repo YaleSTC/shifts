@@ -76,11 +76,11 @@ class ApplicationController < ActionController::Base
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
   end
-  
+
   def require_loc_group_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@loc_group)
   end
-  
+
   def require_superuser
     unless current_user.is_superuser?
       flash[:notice] = "Only superuser can manage departments."
@@ -89,10 +89,18 @@ class ApplicationController < ActionController::Base
   end
 
   def login_or_register
-    unless @user_session || current_user
+    unless current_user
       flash[:notice] = "Please login or register"
       redirect_to login_path
     end
+#TODO: Something like the below functionality, b/c we've lost the whole constantly-
+#check-CAS-to-see-if-you're-still-logged-in feature. The code below would work if
+#RubyCAS weren't retarded. But, unfortunately, RubyCAS is retarded, and as such,
+#for some terrible reason, CASClient::Frameworks::Rails::Filter *only* works in
+# a before_filter. Don't believe me? Try it....
+#    if current_user && current_user.auth_type == "CAS"
+#      CASClient::Frameworks::Rails::Filter
+#    end
   end
 
   def redirect_with_flash(msg = nil, options = {:action => :index})
