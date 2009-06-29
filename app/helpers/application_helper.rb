@@ -11,9 +11,10 @@ module ApplicationHelper
     # link_to_function name, "Effect.toggle('#{id}', 'appear', { duration: 0.3 });"
   end
 
-  def thick_box_end
-    parent.tb_remove()
-    redirect_to notices_path
+  def early_late_info(start)
+    now = Time.now
+    m = distance_of_time_in_words(now - start)
+    m += (now > start) ? " ago" : " later"
   end
 
   def tokenized_users_autocomplete(object, field, id)
