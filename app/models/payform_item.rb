@@ -8,7 +8,9 @@ class PayformItem < ActiveRecord::Base
   delegate :department, :to => :category
   delegate :user, :to => :payform
 
-  validates_presence_of :category_id, :description, :date
+  # commented out :category_id since it is not fully functional
+  # and yet it tries to prevent the creation of new payform_items
+  validates_presence_of :description, :date #:category_id
   validates_numericality_of :hours
   
   attr_protected :reason

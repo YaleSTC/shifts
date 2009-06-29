@@ -26,6 +26,10 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, 
                                     :as => "subs"
   end
+  
+  map.resources :users do |user|
+    user.resources :punch_clocks
+  end
 
   map.resources :reports, :member => {:popup => :get} do |report|
     report.resources :report_items
