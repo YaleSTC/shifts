@@ -1,6 +1,8 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
-  acts_as_authentic
+  acts_as_authentic do |options|
+    options.maintain_sessions false
+  end
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
