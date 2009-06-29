@@ -17,12 +17,14 @@ class Department < ActiveRecord::Base
   has_many :location_source_links, :as => :location_source
 
   before_validation_on_create :create_permissions
+# this next validation doesn't work -cmk
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name
   validates_uniqueness_of :permission_id
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :roles
+
   private
   def create_permissions
     self.create_admin_permission(:name => name + " dept admin")
@@ -34,4 +36,3 @@ class Department < ActiveRecord::Base
   end
 
 end
-
