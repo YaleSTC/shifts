@@ -10,29 +10,30 @@ Feature: User settings
   Scenario: Changing the default department
     When I select "Hogwarts" from "Default department"
     And I press "Submit"
-    And I go to the home page
+    And I go to the homepage
     Then the page should indicate that I am in the department "Hogwarts"
     When I go to the user settings page
     And I select "Outer space" from "Default department"
     And I press "Submit"
-    And I go to the home page
+    And I go to the homepage
     Then the page should indicate that I am in the department "Outer space"
 
   Scenario: Changing the days displayed in shifts
-    # This test will not work if you happen to run it on Sunday
-    Given I have a shift yesterday
+     This test will not work if you happen to run it
+     for the first day of the shift cycle (sunday if weekly)
+    Given I had a shift yesterday
     And today is not Sunday
     When I choose "Show shift schedule for the entire week"
     And I press "Submit"
-    And I go to shifts
+    And I go to shifts for this week
     Then I should see all the days of the week
-    And I should not see "Harry Potter"
+    And I should see "Harry Potter"
     When I go to the user settings page
     And I choose "Show only shift schedule for the remaining days of the week"
     And I press "Submit"
-    And I go to shifts
+    And I go to shifts for this week
     Then I should see all the days of the week
-    And I should see "Harry Potter"
+    And I should not see "Harry Potter"
 
   Scenario: What LocGroups to display on schedule view
     Given I have a LocGroup named "Classrooms" with location "Potions"
@@ -48,6 +49,4 @@ Feature: User settings
     And I go to shifts
     Then I should see "Common Room"
     And I should not see "Potions"
-
-    And I go to shifts
 

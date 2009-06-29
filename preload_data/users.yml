@@ -1,7 +1,6 @@
---- 
-users_001: 
+---
+users_001:
   created_at: 2009-06-22 17:42:57
-  default_department_id: 
   email: harley.trung@yale.edu
   employee_id: ""
   first_name: Dung
@@ -10,9 +9,8 @@ users_001:
   login: dtt22
   nick_name: ""
   updated_at: 2009-06-22 17:56:18
-users_002: 
+users_002:
   created_at: 2009-06-22 17:42:58
-  default_department_id: 
   email: adam.bray@yale.edu
   employee_id: ""
   first_name: Adam
@@ -21,9 +19,8 @@ users_002:
   login: alb64
   nick_name: ""
   updated_at: 2009-06-22 17:56:27
-users_003: 
+users_003:
   created_at: 2009-06-22 17:42:58
-  default_department_id: 
   email: ryan.laughlin@yale.edu
   employee_id: ""
   first_name: Ryan
@@ -32,9 +29,8 @@ users_003:
   login: rjl39
   nick_name: ""
   updated_at: 2009-06-22 17:56:35
-users_004: 
+users_004:
   created_at: 2009-06-22 17:42:58
-  default_department_id: 
   email: nathan.griffith@yale.edu
   employee_id: ""
   first_name: Nathan
@@ -43,9 +39,8 @@ users_004:
   login: njg24
   nick_name: ""
   updated_at: 2009-06-22 17:56:44
-users_005: 
+users_005:
   created_at: 2009-06-22 17:42:58
-  default_department_id: 
   email: cassandra.kildow@yale.edu
   employee_id: ""
   first_name: Cassandra
@@ -54,9 +49,8 @@ users_005:
   login: cmk49
   nick_name: ""
   updated_at: 2009-06-22 17:56:55
-users_006: 
+users_006:
   created_at: 2009-06-22 17:42:59
-  default_department_id: 
   email: bob.qu@yale.edu
   employee_id: ""
   first_name: Bo
@@ -65,20 +59,18 @@ users_006:
   login: bq9
   nick_name: ""
   updated_at: 2009-06-22 17:57:07
-users_007: 
+users_007:
   created_at: 2009-06-22 17:42:59
-  default_department_id: 
   email: wei.yan@yale.edu
-  employee_id: 
+  employee_id:
   first_name: Wei
   id: "20"
   last_name: Yan
   login: wy59
-  nick_name: 
+  nick_name:
   updated_at: 2009-06-22 17:42:59
-users_008: 
+users_008:
   created_at: 2009-06-22 17:43:00
-  default_department_id: 
   email: alfonso.espinosa@yale.edu
   employee_id: ""
   first_name: Alfonso
@@ -87,20 +79,18 @@ users_008:
   login: aje29
   nick_name: ""
   updated_at: 2009-06-22 17:57:31
-users_009: 
+users_009:
   created_at: 2009-06-22 17:43:00
-  default_department_id: 
   email: kwabena.antwi-boasiako@yale.edu
-  employee_id: 
+  employee_id:
   first_name: Kwabena
   id: "22"
   last_name: Antwi-Boasiako
   login: kaa43
-  nick_name: 
+  nick_name:
   updated_at: 2009-06-22 17:43:00
-users_010: 
+users_010:
   created_at: 2009-06-22 17:43:00
-  default_department_id: 
   email: aashish.manchanda@yale.edu
   employee_id: ""
   first_name: Aashish
@@ -109,9 +99,8 @@ users_010:
   login: am846
   nick_name: ""
   updated_at: 2009-06-22 17:57:56
-users_011: 
+users_011:
   created_at: 2009-06-22 17:43:00
-  default_department_id: 
   email: ben.somers@yale.edu
   employee_id: ""
   first_name: Benjamin
@@ -120,36 +109,34 @@ users_011:
   login: brs35
   nick_name: ""
   updated_at: 2009-06-22 17:58:09
-users_012: 
+users_012:
   created_at: 2009-06-22 17:55:03
-  default_department_id: 
-  email: 
-  employee_id: 
+  email:
+  employee_id:
   first_name: CA
   id: "26"
   last_name: TEST
   login: catest
-  nick_name: 
+  nick_name:
   updated_at: 2009-06-22 17:55:03
-users_013: 
+users_013:
   created_at: 2009-06-22 17:56:03
-  default_department_id: 
-  email: 
-  employee_id: 
+  email:
+  employee_id:
   first_name: Stud
   id: "27"
   last_name: Comp
   login: studcomp
-  nick_name: 
+  nick_name:
   updated_at: 2009-06-22 17:56:03
-users_014: 
+users_014:
   created_at: 2009-06-22 17:58:24
-  default_department_id: 
   email: michael.libertin@yale.edu
-  employee_id: 
+  employee_id:
   first_name: Michael
   id: "28"
   last_name: Libertin
   login: mpl36
-  nick_name: 
+  nick_name:
   updated_at: 2009-06-22 17:58:24
+

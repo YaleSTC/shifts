@@ -18,15 +18,23 @@ module NavigationHelpers
       payform_path(Payform.find_by_date($1.to_date))
     when /the payforms page/
       payforms_path
-  	when /shifts/
-	    shifts_path
+    when /shifts/
+      shifts_path
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/
       user_settings_path
     when /the Application Settings page/
       application_settings_path
-    # Add more mappings here.
+    when /the dashboard/
+      {:controller => 'dashboard', :action => 'index'}
+    when /CAS/
+      "https://secure.its.yale.edu/cas/login"
+    when /the data types page/i
+      data_types_path
+    when /the data objects page/i
+      data_objects_path
+      # Add more mappings here.
     # Here is a more fancy example:
     #
     #   when /^(.*)'s profile page$/i
