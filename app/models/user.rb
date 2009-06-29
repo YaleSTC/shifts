@@ -1,6 +1,7 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
+  has_one :user_config
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -14,6 +15,9 @@ class User < ActiveRecord::Base
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
+  
+  after_create :create_user_config
+  before_destroy :destroy_user_config
 
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
@@ -155,4 +159,13 @@ class User < ActiveRecord::Base
   def departments_not_empty
     errors.add("User must have at least one department.", "") if departments.empty?
   end
+  
+  def create_user_config
+    UserConfig.new({:user_id => self.id}).save
+  end
+  
+  def destroy_user_config
+    self.user_config.destroy
+  end
+    
 end
