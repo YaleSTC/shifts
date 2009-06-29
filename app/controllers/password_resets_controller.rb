@@ -13,7 +13,7 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.deliver_password_reset_instructions!
       flash[:notice] = "Instructions to reset the password have been emailed. "
-      redirect_to root_url
+      redirect_to @user
     else
       flash[:notice] = "No user was found with that email address"
       render :action => :new
