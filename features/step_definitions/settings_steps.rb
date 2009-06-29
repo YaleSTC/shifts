@@ -83,3 +83,21 @@ Then /^I should notbe able to select "([^\"]*)" as a time$/ do |time|
 #  assert_response :failure
 end
 
+Given /^"([^\"]*)" has a current payform$/ do |user_name|
+  user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
+  Payform.create!(:date => 4.days.from_now, :user_id => user, :department_id => user.departments.first)
+end
+
+Given /^"([^\"]*)" has the following current payform items?$/ do |user_name, table|
+  user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
+  table.hashes.each do |row|
+    category = Category.find_by_name(row[:category])
+    PayformItem.create!(:category_id => category,
+                        :user_id => user,
+                        :hours => row[:hours].to_f,
+                        :description => row[:description],
+                        :date => Date.today,
+                        :payform_id => Payform.first)
+  end
+end
+
