@@ -1,23 +1,35 @@
-<% form_for @data_object do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </p>
-  <p>
-    <%= f.label :locations %><br />
-    <%= collection_multiple_select(@data_object, :locations, 
-                                   @locations_select, :id, :name, 
-                                   :selected_items => @data_object.locations.map{|loc| loc.id}) %>
-  </p>
-  <p>
-    <%= f.label :data_type %><br />
-    <%= f.select :data_type_id, @department.data_types.map{|dt| [dt.name, dt.id]} %>
-  </p>
-
-  <p><%= f.submit "Submit" %></p>
-<% end %>
+<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 3} %>
+<div style="width:30%; float:right" id="data_type_display">
+  <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
+</div>
+<div style="width: 60%; float:left">
+  <% form_for @data_object do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label :data_type %><br />
+      <% if params[:data_type_id] %>
+        <strong><%= DataType.find(params[:data_type_id]).name %></strong>
+        <%= hidden_field_tag :data_type_id, params[:data_type_id] %>
+      <% else %>
+        <%= f.select :data_type_id, @department.data_types.map{|dt| [dt.name, dt.id]} %>
+      <% end %>
+    </p>
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :description %><br />
+      <%= f.text_field :description %>
+    </p>
+    <p>
+      <%= f.label :locations %><br />
+      <%#= select_tag 'data_object[location_ids][]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
+      <%= collection_multiple_select(@data_object, :locations, 
+                                     @locations_select, :id, :name, 
+                                     :selected_items => @data_object.locations.map{|loc| loc.id}) %>
+    </p>
+    <p><%= f.submit "Submit" %></p>
+  <% end %>
+</div>
+<div style="clear:both"></div>

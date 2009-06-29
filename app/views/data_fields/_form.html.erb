@@ -1,19 +1,29 @@
-<% form_for [:data_type, @data_field] do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :display_type %><br />
-    <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
-  </p>
-  <p>
-    <%= f.label :values %><br />
-    <%= f.text_field :values %><br />
-    <em><small>For text field display types, values 
-      should be either "integer", "decimal", or "text"</small></em>
-  </p>
+<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 2} %>
+<div style="width:30%; float:right" id="data_type_display">
+  <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
+</div>
+<div style="width: 60%; float:left">
+  <% form_for [:data_type, @data_field] do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :display_type %><br />
+      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
+    </p>
+    <p>
+      <%= f.label :values %><br />
+      <%= f.text_field :values %><br />
+      <em><small>For text field display types, values 
+        should be either "integer", "decimal", or "text"</small></em>
+    </p>
 
-  <p><%= f.submit "Submit" %></p>
-<% end %>
+    <p>
+      <%= f.submit "Save and add another field", :name => "add_another" %>
+      <%= f.submit "Finish", :name => "submit" %>
+    </p>
+  <% end %>
+</div>
+<div style="clear:both"></div>

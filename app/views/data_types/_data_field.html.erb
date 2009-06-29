@@ -1,0 +1,24 @@
+<div class="data_field">
+  <fieldset>
+  <% fields_for_data_field(data_field) do |df_form| %>
+    <div class="delete_link">
+      <%= link_to_function "remove this data field [x]", "$(this).closest('.data_field').remove()"%>
+    </div>
+    <p>
+      <%= df_form.label :name %><br />
+      <%= df_form.text_field :name %>
+    </p>
+    <p>
+      <%= df_form.label :display_type %><br />
+      <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
+    </p>
+    <p>
+      <%= df_form.label :options %><br />
+      <%= df_form.text_field :values %><br />
+      <em><small>For text field display types, values 
+        should be either "integer", "decimal", or "text"</small></em>
+    </p>
+  <% end %>
+  </fieldset>
+  <br>
+</div>
