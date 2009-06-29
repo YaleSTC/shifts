@@ -16,10 +16,12 @@ class DataObjectsController < ApplicationController
     end
     @types_objects_hash = @data_objects.group_by &:data_type
   end
-  
+
+# This needs its views rewritten to enable viewing a subset of all entries -ben  
   def show
     @data_object = DataObject.find(params[:id])   
-    @data_type = @data_object.data_type
+    @data_fields = @data_object.data_type.data_fields
+    @data_entries = @data_object.data_entries
   end
   
   def new
@@ -91,7 +93,7 @@ private
     return [] if group_type == "departments"
     @options = @department.send(group_type)
     if group_type == "locations" || group_type == "loc_groups" 
-      @options.reject!{|opt| !current_user.permission_list.include?(opt.admin_permission)}
+      @options.delete_if{|opt| !current_user.is_admin_of?(opt)}
     end
     @options.map{|t| [t.name, t.id]} << []
   end

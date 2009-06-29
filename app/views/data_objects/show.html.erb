@@ -18,8 +18,32 @@
 </p>
 <p>
   <%= link_to "Edit", edit_data_object_path(@data_object) %> |
-  <%= link_to "Destroy", @data_type,  
+  <%= link_to "Destroy", @data_object,  
   :confirm => 'Are you sure? This will destroy all data entries belonging to this object.', 
   :method => :delete %> |
   <%= link_to "View all data objects", data_objects_path %>
 </p>
+
+<% # This is a good candidate for partializing, esp. if rewritten as divs %>
+<table class="data_table">
+  <caption>Data Entries</caption>
+  <thead>
+    <tr>
+      <% @data_object.data_type.data_fields.each do |df| %>
+        <th><%= df.name %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render(:partial => "data_entry_row", 
+               :collection => @data_entries,
+               :locals => {:data_fields => @data_fields}) %>
+  </tbody>
+</table>
+    
+      
+      
+      
+      
+      
+      
