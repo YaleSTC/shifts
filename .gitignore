@@ -3,9 +3,9 @@ log/*
 tmp/*
 db/schema.rb
 Rakefile
+README
 structures.txt
 .DS_Store
 .project
 *.orig
 *.sqlite3
-db/schema.rb

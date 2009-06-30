@@ -9,13 +9,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :password_resets
 
-  map.resources :user_configs
+  map.resources :user_configs :only => [:edit, :update]
 
 
 
   map.resources :sub_requests
   map.resources :notices, :collection => {:archive => :get}
-	 map.resources :notices
+
   map.resources :payform_item_sets
   map.resources :payform_sets
 
@@ -51,7 +51,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
-    data_type.resources :data_objects, :only => :new
+    data_type.resources :data_objects, :only => [:new, :create]
   end
 
   map.resources :data_objects do |data_object|

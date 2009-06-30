@@ -4,28 +4,23 @@ class User < ActiveRecord::Base
     options.maintain_sessions false
   end
   has_and_belongs_to_many :roles
-  has_one :user_config, :dependent => :destroy
   has_many :departments_users
   has_many :departments, :through => :departments_users
-
-
   has_many :payforms
   has_many :payform_items, :through => :payforms
-
   has_many :shifts
-
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
 
+  # New user configs are created by a user observer, after create
+  has_one :user_config, :dependent => :destroy
 
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
-
-  after_create :create_user_config
 
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
@@ -92,6 +87,11 @@ class User < ActiveRecord::Base
     self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
   end
 
+  # Returns all the loc groups a user can view within a given department
+  def loc_groups(dept)
+    dept.loc_groups.delete_if{|lg| !self.can_view?(lg)}
+  end
+
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     self.is_superuser? || permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
@@ -102,17 +102,9 @@ class User < ActiveRecord::Base
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
-#   check for loc group admin, who can add locations and shifts under it
-#   DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
-
-#  def can_admin?(loc_group)
-#    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
-#  end
-
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
     self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(thing))
-
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
@@ -134,9 +126,6 @@ class User < ActiveRecord::Base
   def loc_groups_to_admin(dept)
     return dept.loc_groups if self.is_admin_of?(dept)
     dept.loc_groups.delete_if{|lg| !self.is_admin_of?(lg)}
-  end
-
-  def full_name
   end
 
   def name
@@ -177,8 +166,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 
-  def create_user_config
-    UserConfig.new({:user_id => self.id}).save
-  end
 end
-
