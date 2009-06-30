@@ -1,3 +1,4 @@
+<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 1} %>
 <div style="width:30%; float:right" id="data_type_display">
   <%= render :partial => "summary", :locals => {:data_type => @data_type} %>
 </div>
@@ -5,37 +6,30 @@
   <% form_for @data_type do |form| %>
     <%= form.error_messages %>
     <p>
-      <%= form.label :name %><br />
+      <%= form.label :name %> (e.g. "Printer")<br />
       <%= form.text_field :name %>
     </p>
     <p>
       <%= form.label :description %><br />
       <%= form.text_field :description %>
     </p>
+    <br>
   
-    <div class="ajax_form">
-      -----<br>
-      only show this after initial AJAX submit
+    <div id="data_fields" style="display:none">
       <h2>Data Fields</h2>
-      <% form.fields_for :data_fields do |df_form| %>
-    
-      <p>
-        <%= df_form.label :name %>
-        <%= df_form.text_field :name %>
-      </p>
-      <p>
-        <%= df_form.label :display_type %><br />
-        <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
-      </p>
-      <p>
-        <%= df_form.label :options %><br />
-        <%= df_form.text_field :values %><br />
-        <em><small>For text field display types, values 
-          should be either "integer", "decimal", or "text"</small></em>
-      </p>
-      <hr/>
-    <% end %>
-    <p><%= form.submit "Submit" %></p>
+      <%= render :partial => 'data_field', :collection => @data_type.data_fields %>
+    </div>
+    <div class="javascript_link" style="display:none">
+      <%= add_data_field_link "Add a data field" %>
+    </div>
+    <%# toggle javascript elements%>
+    <script type="text/javascript">
+      $('#data_fields').toggle();
+      $('.javascript_link').toggle();
+    </script>
+    <p>
+      <%= form.submit "Submit" %>
+    </p>
   <% end %>
 </div>
 <div style="clear:both"></div>

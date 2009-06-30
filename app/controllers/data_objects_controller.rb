@@ -32,10 +32,10 @@ class DataObjectsController < ApplicationController
   
   def create
     @data_object = DataObject.new(params[:data_object])
-    @data_object.data_type_id = params[:data_object][:data_type_id]
+    @data_object.data_type_id = params[:data_type_id]
     if @data_object.save
       flash[:notice] = "Successfully created data object."
-      redirect_to data_objects_path
+      redirect_to (params[:add_another] ? new_data_type_data_object_path(@data_object.data_type) : data_objects_path)
     else
       render :action => 'new'
     end
