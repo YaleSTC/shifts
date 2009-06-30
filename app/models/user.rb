@@ -100,8 +100,8 @@ class User < ActiveRecord::Base
   end
 
   # check for admin permission given a dept, location group, or location
-  def is_admin_of?(thing)
-    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(thing))
+  def is_admin_of?(dept)
+    self.is_superuser? || (permission_list.include?(dept.admin_permission) && self.is_active?(dept))
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
@@ -159,3 +159,4 @@ class User < ActiveRecord::Base
   end
 
 end
+
