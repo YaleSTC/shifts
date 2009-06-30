@@ -1,0 +1,41 @@
+<div class="data_field">
+  <script type="text/javascript">
+    // function values_field(type)
+    //     {
+    //       <% DataField::DISPLAY_TYPE_OPTIONS.each do |name, value| %>
+    //       if(type.match("<%= value %>")){
+    //         return "<%#= escape_javascript(render :partial => "data_fields/data_field_types/#{value}") %>";
+    //       }
+    //       <% end %>
+    //     
+    //       return "AJAX error!: Could not find form element for input type '"+type+"'";
+    //     }
+  </script>
+  <fieldset>
+  <% fields_for_data_field(data_field) do |df_form| %>
+    <div class="delete_link">
+      <%= link_to_function "remove this data field [x]", "$(this).closest('.data_field').remove()"%>
+    </div>
+    <p>
+      <%= df_form.label :name %><br />
+      <%= df_form.text_field :name %>
+    </p>
+    <p>
+      <%= df_form.label :display_type %><br />
+      <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type" %>
+      <%#= ,:onchange => "$(this).parent().parent().find('.value_fields').html(values_field($(this).find(':selected').val()))" %><br/>   
+    </p>
+
+    <div class="value_fields">
+      <p>
+        <%# type = (data_field.display_type ? data_field.display_type : "text_field") %>
+        <%#= render :partial => "data_fields/data_field_types/#{type}", :locals => {:df_form => df_form} %>
+        <%= df_form.label :values %><br />
+        <%= df_form.text_field :values %><br />
+        <em><small>Value should be either 'integer', 'decimal', or 'text'</small></em>
+      </p>
+    </div>
+  <% end %>  
+  </fieldset>
+  <br>
+</div>

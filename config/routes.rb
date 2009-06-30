@@ -1,15 +1,15 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :user_configs
+  map.resources :user_configs, :only => [:edit, :update]
+  map.resources :sub_requests
+  map.resources :notices, :collection => {:archive => :get}
   map.resources :punch_clocks
   map.resources :restrictions
-  map.resources :sub_requests
-	 map.resources :notices
   map.resources :payform_item_sets
   map.resources :payform_sets
 
-  map.resources :payforms, 
-                :collection => { :prune => :delete, :go => :get }, 
-                :member => {:submit => :put, :approve => :put, :print => :put}, 
+  map.resources :payforms,
+                :collection => { :prune => :delete, :go => :get },
+                :member => {:submit => :put, :approve => :put, :print => :put},
                 :shallow => true do |payforms|
     payforms.resources :payform_items
   end
@@ -23,10 +23,10 @@ ActionController::Routing::Routes.draw do |map|
       report.resources :report_items
     end
     #NOTE: "sub_requests" is a clearer model name, we use subs for routing
-    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, 
+    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get},
                                     :as => "subs"
   end
-  
+
   map.resources :users do |user|
     user.resources :punch_clocks
   end
@@ -39,13 +39,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
-    data_type.resources :data_objects, :only => :new
+    data_type.resources :data_objects, :only => [:new, :create]
   end
-  
+
   map.resources :data_objects do |data_object|
     data_object.resources :data_entries
   end
-  
+
   map.resources :departments, :shallow => true do |departments|
     departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post}
     departments.resources :loc_groups
@@ -59,6 +59,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

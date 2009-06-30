@@ -6,6 +6,10 @@ class NoticesController < ApplicationController
     @notices = Notice.all
   end
 
+  def archive
+    @notices = Notice.inactive
+  end
+
   def show
     @notice = Notice.find(params[:id])
   end

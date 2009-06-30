@@ -6,8 +6,7 @@ Feature: payform
   I want to be able to add jobs to, edit, and submit my own payform
 
   Background:
-    Given the user "Harry" "Potter" has permission "payform regular user"
-    And I am "Harry" "Potter"
+    Given I am "Harry Potter"
     And I have a payform for the week "2009-5-23"
 
   Scenario: Add a job to a payform
@@ -35,12 +34,12 @@ Feature: payform
     When I follow "edit"
     And I select "Magic" from "payform_item[category_id]"
     And I fill in "hours" with "3"
-    And I fill in "description" with "I edited"
+    And I fill in "description" with "I edited this payform item"
     And I fill in "Reason" with "because I can"
     And I press "Save"
     Then I should have 2 payform_items
-    And payform item 2 should be a child of payform item 1
-    And payform item 1 should have attribute reason "because I can"
+    Then payform item 1 should be a child of payform item 2
+    And payform item 1 should have attribute "reason" "because I can"
     And I should see "I edited"
     And I should see "3 hours"
 
@@ -50,7 +49,7 @@ Feature: payform
       | Magic    | hp123      | 2     | doing some magic    | May 18, 2009 |
     And I am on the page for the payform for the week "2009-5-23"
     When I follow "✖"
-    Then I should see "Are you sure?"
+#    Then I should see "Are you sure?" : except that is done using java, so cucumber cannot see
     And I fill in "Reason for deletion" with "because I lied"
     And I press "Yes"
     Then I should see "Payform item deleted"
@@ -65,8 +64,8 @@ Feature: payform
     When I follow "Submit Payform"
     Then the payform should be submitted
     And I should see "Successfully submitted payform."
-    Given the user "Albus" "Dumbledore" has permission "payform administrator"
-    And I am "Albus" "Dumbledore"
+    Given the user "Albus Dumbledore" has permission "payform administrator"
+    And I am "Albus Dumbledore"
     When I go to the payforms page
     Then I should see "Harry Potter"
     And I should see "2009-05-23" under "Submitted" in column 3
