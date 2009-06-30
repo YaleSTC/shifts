@@ -97,3 +97,17 @@ userconfigs_014:
   user_id: "28"
   default_dept: "1"
   view_week:
+userconfigs_015: 
+  created_at: 2009-06-22 17:42:57
+  updated_at: 2009-06-22 17:56:18
+  id: "15"
+  user_id: "29"
+  default_dept: "1"
+  view_week:
+userconfigs_016: 
+  created_at: 2009-06-22 17:42:57
+  updated_at: 2009-06-22 17:56:18
+  id: "16"
+  user_id: "30"
+  default_dept: "1"
+  view_week:

@@ -85,7 +85,7 @@ class Shift < ActiveRecord::Base
 
   def late?
     #TODO: tie this to an actual admin preference
-    self.signed_in? && (self.report.start - self.start > 7)
+    self.signed_in? && (self.report.arrived - self.start > 7)
   end
 
   #a shift has been signed in to if it has a report
@@ -197,3 +197,4 @@ class Shift < ActiveRecord::Base
     end
   end
 end
+
