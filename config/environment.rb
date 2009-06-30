@@ -49,6 +49,7 @@ Rails::Initializer.run do |config|
   config.gem "icalendar", :lib  => false
   config.gem "prawn"
   config.gem "chronic"
+  config.gem "has_many_polymorphs"
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
