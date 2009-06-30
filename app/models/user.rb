@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
-  
+
   after_create :create_user_config
-  
+
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
@@ -152,15 +152,15 @@ class User < ActiveRecord::Base
 
   memoize :name, :permission_list, :is_superuser?
 
-
   private
 
   def departments_not_empty
     errors.add("User must have at least one department.", "") if departments.empty?
   end
-  
+
   def create_user_config
     UserConfig.new({:user_id => self.id}).save
   end
-    
+
 end
+
