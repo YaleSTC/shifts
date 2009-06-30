@@ -22,8 +22,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    if params[:user][:auth_type] == "authlogic"
-      @user = User.new(params[:user])
+    @user = User.new(params[:user])
+    @user.auth_type = LOGIN_OPTIONS[0] if LOGIN_OPTIONS.size == 1
+    if @user.auth_type == "authlogic"
       @user.password = @user.password_confirmation = random_password
       @user.departments << @department
       if @user.save
