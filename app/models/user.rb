@@ -1,5 +1,8 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
+  acts_as_authentic do |options|
+    options.maintain_sessions false
+  end
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
@@ -151,6 +154,11 @@ class User < ActiveRecord::Base
   
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
+  end
+
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    AppMailer.deliver_password_reset_instructions(self)
   end
 
   memoize :name, :permission_list, :is_superuser?

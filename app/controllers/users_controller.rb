@@ -2,14 +2,14 @@ class UsersController < ApplicationController
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
-
+  helper_method :random_password
   def index
     if params[:show_inactive]
       @users = @department.users
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
-    
+
     @users = @users.sort_by(&:last_name)
   end
 
@@ -22,39 +22,55 @@ class UsersController < ApplicationController
   end
 
   def create
-    #if user already in database
-    if @user = User.find_by_login(params[:user][:login])
-      if @user.departments.include?(@department) #if user is already in this department
-        #don't modify any data, as this is probably a mistake
-        flash[:notice] = "This user already exists in this department!"
-        redirect_to @user
-      else
-        #make sure not to lose roles in other departments
-        #remove all roles associated with this department
-        department_roles = @user.roles.select{|role| role.departments.include? @department}
-        @user.roles -= department_roles
-        #now add back all checked roles associated with this department
-        @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-
-        #add user to new department
-        @user.departments << @department
-        flash[:notice] = "User successfully added to new department."
-        redirect_to @user
-      end
-    else #user is a new user
-      #create from LDAP if possible; otherwise just use the given information
-      @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
-
-      #if a name was given, it should override the name from LDAP
-      @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
-      @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
-      @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+    @user = User.new(params[:user])
+    @user.auth_type = LOGIN_OPTIONS[0] if LOGIN_OPTIONS.size == 1
+    if @user.auth_type == "authlogic"
+      @user.password = @user.password_confirmation = random_password
+      @user.departments << @department
       if @user.save
-        flash[:notice] = "Successfully created user."
+        @user.deliver_password_reset_instructions!
+        flash[:notice] = "Successfully created user and emailed instructions for setting password."
         redirect_to @user
       else
         render :action => 'new'
       end
+    else
+      if @user = User.find_by_login(params[:user][:login])
+        if @user.departments.include? @department #if user is already in this department
+          #don't modify any data, as this is probably a mistake
+          flash[:notice] = "This user already exists in this department!"
+          redirect_to @user
+        else
+          #make sure not to lose roles in other departments
+          #remove all roles associated with this department
+          department_roles = @user.roles.select{|role| role.departments.include? @department}
+          @user.roles -= department_roles
+          #now add back all checked roles associated with this department
+          @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+
+          #add user to new department
+          @user.departments << @department
+          flash[:notice] = "User successfully added to new department."
+          redirect_to @user
+        end
+      else #user is a new user
+        #create from LDAP if possible; otherwise just use the given information
+        @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
+
+        #if a name was given, it should override the name from LDAP
+        @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
+        @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
+        @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+        @user.password = @user.password_confirmation = random_password
+        @user.auth_type='CAS'
+        if @user.save
+          flash[:notice] = "Successfully created user."
+          redirect_to @user
+        else
+           render :action => 'new'
+        end
+      end
+        # y @user #debug output
     end
   end
 
@@ -131,12 +147,12 @@ class UsersController < ApplicationController
     end
     redirect_to department_users_path
   end
-  
+
   def autocomplete
     departments = current_user.departments.sort_by(&:name)
     users = Department.find(params[:department_id]).users.sort_by(&:first_name)
     roles = Department.find(params[:department_id]).roles.sort_by(&:name)
-    
+
     @list = []
     users.each do |user|
       if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
@@ -160,10 +176,10 @@ class UsersController < ApplicationController
     #@users = @users.collect{|user| :id => user.id, :name => user.name}
     render :layout => false
   end
-  
+
   def search
     @users = @department.users
-    
+
     #filter results if we are searching
     if params[:search]
       @search_result = []
@@ -174,5 +190,12 @@ class UsersController < ApplicationController
       end
       @users = @search_result.sort_by(&:last_name)
     end
+  end
+
+  private
+
+  def random_password(size = 20)
+    chars = (('a'..'z').to_a + ('0'..'9').to_a)
+    (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 end

@@ -15,9 +15,9 @@ class CreatePayformItems < ActiveRecord::Migration
       t.text        :reason #reason for deletion or edit
       t.string      :source #where it came from (shifts, rt, admin: adam, mass_job, etc)
 
-      t.datetime    :submitted
-      t.datetime    :approved
-      t.datetime    :printed
+      #t.datetime    :submitted
+      #t.datetime    :approved
+      #t.datetime    :printed
       t.timestamps
     end
   end
