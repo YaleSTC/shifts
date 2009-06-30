@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
   skip_before_filter :login_or_register
+  skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}
   def new
     @user_session = UserSession.new
   end
@@ -18,6 +19,6 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.find
     @user_session.destroy
     flash[:notice] = "Successfully logged out"
-    redirect_to root_url
+    redirect_to login_path
   end
 end
