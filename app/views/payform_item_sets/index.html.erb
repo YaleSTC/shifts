@@ -12,7 +12,7 @@
     <tr>
       <td><%=h payform_item_set.date %></td>
       <td><%=h payform_item_set.hours %></td>
-      <td><%=h payform_item_set.category_id %></td>
+      <td><%=h payform_item_set.category.name %></td>
       <td><%=h payform_item_set.description %></td>
       <td><%= link_to "Show", payform_item_set %></td>
       <td><%= link_to "Edit", edit_payform_item_set_path(payform_item_set) %></td>
