@@ -4,10 +4,14 @@ class User < ActiveRecord::Base
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
+  has_many :payform_items, :through => :payforms
   has_many :shifts
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
-  has_many :user_source_links, :as => :user_source
+  has_one  :punch_clock
+
+  # New user configs are created by a user observer, after create
+  has_one :user_config, :dependent => :destroy
 
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -80,6 +84,11 @@ class User < ActiveRecord::Base
     self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
   end
 
+  # Returns all the loc groups a user can view within a given department
+  def loc_groups(dept)
+    dept.loc_groups.delete_if{|lg| !self.can_view?(lg)}
+  end
+
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     self.is_superuser? || permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
@@ -89,12 +98,6 @@ class User < ActiveRecord::Base
   def can_signup?(loc_group)
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
-
-#   check for loc group admin, who can add locations and shifts under it
-#   DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
-#  def can_admin?(loc_group)
-#    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
-#  end
 
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
@@ -149,10 +152,10 @@ class User < ActiveRecord::Base
 
   memoize :name, :permission_list, :is_superuser?
 
-
   private
 
   def departments_not_empty
     errors.add("User must have at least one department.", "") if departments.empty?
   end
+
 end

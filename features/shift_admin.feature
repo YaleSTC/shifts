@@ -4,8 +4,8 @@ Feature: Shift admin manages shifts
   I want to be able to create, assign, and destroy shifts
 
 Scenario: Create a shift with power sign up
-#  Given I am logged into CAS as "alb64"
-  Given I am "Adam" "Bray"
+  Given I am logged into CAS as "alb64"
+#  Given I am "Adam" "Bray"
 	And I am on the homepage
 	When I follow "STC"
 	And I follow "Shifts"
@@ -26,6 +26,6 @@ Scenario: Create a shift with power sign up
 	When I press "Submit"
 	Then I should see "Successfully created shift."
 	
-Scenario: Remove a shift
-  Given I am logged 
+#Scenario: Remove a shift
+#e  Given I am logged into CAS as "alb64"
 
