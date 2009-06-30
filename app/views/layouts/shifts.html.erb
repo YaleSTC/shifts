@@ -5,9 +5,9 @@
 
 <% end %>
 
- <!-- Admin Menu -->
- <% if current_user.is_admin_of?(current_department) %>
-   <% content_for :left_nav do %>
+<!-- Admin Menu -->
+<% if current_user.is_admin_of?(current_department) %>
+  <% content_for :left_nav do %>
    <ul id="navigationList">
      <h3>Scheduling Options</h3>
      <ul class="navigationList">
@@ -15,8 +15,8 @@
        <li><%= link_to_unless_current "Time Slots", time_slots_path %></li>
        <li><%= link_to_unless_current "Locations", department_locations_path(@department) %></li>
        <li><%= link_to_unless_current "Location Groups", department_loc_groups_path(@department) %></li>
-       <li><%= link_to_unless_current "Restrictions", { :controller => '/shift_admin', :action => 'restrictions' } %></li>
-       <li><%= link_to_unless_current "Announcements", { :controller => '/shift_admin', :action => 'announcements' } %></li>
+       <li><%= link_to_unless_current "Restrictions", restrictions_path %></li>
+       <li><%= link_to_unless_current "Notices", notices_path %></li>
        <li><%= link_to_unless_current "Shift Report Links", { :controller => '/shift_admin', :action => 'report_links' } %></li>
        <li><%= link_to_unless_current "Export Schedule", { :controller => '/shift_admin/calendar', :action => 'index' } %></li>
        <li><%= link_to_unless_current "Templates", { :controller => '/shift_admin', :action => 'manage_templates' } %>
