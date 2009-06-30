@@ -1,4 +1,5 @@
 <div id="chooser">
+<% if current_user %>
   <p class="chooser_status">
   <% if current_user.departments.count == 1 -%>
     <p class="chooser_status"><%= current_user.departments[0].name %></p>
@@ -12,4 +13,7 @@
       </script>
     <% end -%>
   <% end -%>
+	</p>
+<% end %>
 </div>
+

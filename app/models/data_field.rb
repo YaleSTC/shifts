@@ -8,9 +8,11 @@ class DataField < ActiveRecord::Base
 
   belongs_to :data_type
 
-  validates_presence_of :data_type, :on => :update
+  validates_presence_of :data_type
   validates_presence_of :name
   validates_presence_of :display_type
+  
+  validates_uniqueness_of :name, :scope => :data_type_id
 
   #This should probably be moved to the data_entries helper
   #Based on the display type, returns the arguments for the formhelper methods
@@ -41,6 +43,5 @@ class DataField < ActiveRecord::Base
 #      raise value.to_yaml
 #    end
 #  end
-
 end
 

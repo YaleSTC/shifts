@@ -17,6 +17,12 @@ module ApplicationHelper
     m += (now > start) ? " ago" : " later"
   end
 
+  def return_to_shift_report_if_needed
+    if current_user.current_shift
+      link_to "Return to your current report", {:controller => "report", :action => "index"}
+    end
+  end
+
   def tokenized_users_autocomplete(object, field, id)
     json_string = ""
     unless object.nil? or field.nil?

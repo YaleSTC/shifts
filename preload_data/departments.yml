@@ -21,7 +21,7 @@ departments_002:
   end_of_month: f
   id: "2"
   monthly: f
-  name: TEST
+  name: DOJ
   payforms_permission_id: 
   shifts_permission_id: 
   updated_at: 2009-06-22 18:09:37
