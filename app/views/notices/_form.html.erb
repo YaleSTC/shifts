@@ -24,12 +24,12 @@
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </p>
-<span id ="advanced_link">
+<span id ="advanced_link" style="display:none" >
 <%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
 </span>
 <div id="advanced">
   For users: <br />
-  <%= tokenized_users_autocomplete(@notice, "viewer_sources", "for_users") %>
+  <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
   <p>
     For locations: <br />
     <% if current_user.is_admin_of?(@department) %>
@@ -54,7 +54,7 @@
 </fieldset>
 
 <p>
-  <%= f.submit 'Create/Update', :onclick => thick_box_end %>
+  <%= f.submit 'Create/Update' %>
 </p>
 
 <% end %>

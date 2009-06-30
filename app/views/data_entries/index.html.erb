@@ -1,19 +1,25 @@
-<% title "Data Entries" %>
+<% title "Data Entries for '#{@data_object.name}' (#{@data_object.data_type.name})" %>
 
-<table>
-  <tr>
-    <th>Content</th>
-  </tr>
-  <% for data_entry in @data_entries %>
+<% for data_entry in @data_entries %>
+  <table>
     <tr>
-      <td><%=h data_entry.content %></td>
+      <th>Data Entry #<%=h data_entry.id %></th>
       <td><%= link_to "Show", data_object_data_entry_path(:id => data_entry.id) %></td>
       <td><%= link_to "Edit", edit_data_object_data_entry_path(:id => data_entry.id) %></td>
       <td><%= link_to "Destroy", data_object_data_entry_path(:id => data_entry.id), 
                                 :confirm => 'Are you sure?', 
                                 :method => :delete %></td>
     </tr>
-  <% end %>
-</table>
+    <tr>
+      <td colspan=4><em>Submitted on <%= data_entry.updated_at.to_s(:long) %></em></th>
+    </tr>
+    <tr>
+      <th>Field name</th>
+      <th>Value</th>
+    </tr>
+    <%= render :partial => "data_entry", 
+               :collection => data_entry.data_fields_with_contents %>
+  </table>
+<% end %>
 
 <p><%= link_to "New Data Entry", new_data_object_data_entry_path %></p>

@@ -1,16 +1,19 @@
 --- 
 departments_001: 
+  admin_permission_id: "1"
   complex: f
   created_at: 2009-06-22 17:27:52
   day: "6"
   day2: "1"
   end_of_month: f
   id: "1"
+  monthly: f
   name: STC
   payforms_permission_id: 
-  admin_permission_id: "1"
+  shifts_permission_id: 
   updated_at: 2009-06-22 17:27:52
 departments_002: 
+  admin_permission_id: "14"
   complex: f
   created_at: 2009-06-22 18:09:37
   day: "6"
@@ -20,5 +23,5 @@ departments_002:
   monthly: f
   name: DOJ
   payforms_permission_id: 
-  admin_permission_id: "14"
+  shifts_permission_id: 
   updated_at: 2009-06-22 18:09:37

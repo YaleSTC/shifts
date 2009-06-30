@@ -1,9 +1,21 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :punch_clocks
-  map.resources  :restrictions
-  map.resources :user_configs
+  map.resources :restrictions
+
+  map.login "login", :controller => 'user_sessions', :action => 'new'
+  map.logout "logout", :controller => 'user_sessions', :action => 'destroy'
+
+  map.resources :user_sessions
+
+  map.resources :password_resets
+
+  map.resources :user_configs, :only => [:edit, :update]
+
+
+
   map.resources :sub_requests
-  map.resources :notices
+  map.resources :notices, :collection => {:archive => :get}
+
   map.resources :payform_item_sets
   map.resources :payform_sets
 
@@ -26,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get},
                                     :as => "subs"
   end
-  
+
   map.resources :users do |user|
     user.resources :punch_clocks
   end
@@ -35,9 +47,11 @@ ActionController::Routing::Routes.draw do |map|
     report.resources :report_items
   end
 
+  map.view_all_data_objects "data_objects/view_all_data_objects", :controller => "data_objects", :action => "view_all"
+
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
-    data_type.resources :data_objects, :only => :new
+    data_type.resources :data_objects, :only => [:new, :create]
   end
 
   map.resources :data_objects do |data_object|
@@ -57,6 +71,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -100,4 +115,3 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-

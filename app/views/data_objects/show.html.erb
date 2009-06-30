@@ -10,7 +10,7 @@
 </p>
 <p>
   <strong>Data Type:</strong>
-  <%=h @data_object.data_type.name %>
+  <%= link_to @data_object.data_type.name, @data_object.data_type %>
 </p>
 <p>
   <strong>Locations:</strong>
@@ -25,6 +25,7 @@
 </p>
 
 <% # This is a good candidate for partializing, esp. if rewritten as divs %>
+<%= link_to "New data entry", new_data_object_data_entry_path(@data_object) %>
 <table class="data_table">
   <caption>Data Entries</caption>
   <thead>

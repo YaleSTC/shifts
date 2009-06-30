@@ -1,4 +1,4 @@
-Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |name, department, login|
+Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |first_name, last_name, department, login|
   d = Department.find_by_name("#{department}") or Department.create!(:name => department)
 
   u = User.new(:first_name => first_name, :last_name => last_name, :login => login)
