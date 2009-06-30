@@ -3,6 +3,7 @@ class DataEntriesController < ApplicationController
   before_filter :check_for_data_object
   
   def index
+    @data_object = DataObject.find(params[:data_object_id])
     @data_entries = DataEntry.find_all_by_data_object_id(params[:data_object_id])
   end
   

@@ -1,0 +1,19 @@
+<% title "Login" %>
+
+<% form_for @user_session do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :login %><br />
+    <%= f.text_field :login %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+<% if LOGIN_OPTIONS.include?('CAS') %>
+<p>Can't login? Maybe you want to <%= link_to "login with CAS?", root_url %></p>
+<%end%>
+<p>Or <%= link_to "reset your password?", :controller => "password_resets", :action => "new" %></p>
+

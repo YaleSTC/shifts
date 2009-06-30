@@ -5,7 +5,7 @@ class DataObject < ActiveRecord::Base
   
   validates_presence_of   :name
   validates_presence_of   :data_type_id 
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :scope => :data_type_id
     
 #  GROUP_TYPE_OPTIONS = {"Data type"     =>  "data_types",
 #                      "Location"        =>  "locations",
