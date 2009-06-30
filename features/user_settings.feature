@@ -4,7 +4,8 @@ Feature: User settings
   I want manage my own settings
 
   Background:
-    Given I am "Harry Potter"
+    Given the user "Harry Potter" has permissions "Inside of Hogwarts view, Inside of Hogwarts signup"
+    And I am "Harry Potter"
     And I am on the user settings page
 
   Scenario: Changing the default department
@@ -38,10 +39,10 @@ Feature: User settings
     And I should not see "Harry Potter"
 
   Scenario: What LocGroups to display on schedule view
-    Given I have a LocGroup named "Classrooms" with location "Potions"
-    And I have a LocGroup named "Gryffindor" with location "Common Room"
-    Then I should see "Classrooms"
-    When I check "Classrooms"
+    Given I have a LocGroup named "Inside of Hogwarts" with location "Potions"
+    And I have a LocGroup named "Inside of Hogwarts" with location "Common Room"
+    Then I should see "Inside of Hogwarts"
+    When I check "Inside of Hogwarts"
     And I go to shifts
     Then I should see "Potions"
     And I should not see "Common Room"
