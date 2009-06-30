@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       @user.departments << @department
       if @user.save
         @user.deliver_password_reset_instructions!
-        flash[:notice] = "Successfully registered user."
+        flash[:notice] = "Successfully created user and emailed instructions for setting password."
         redirect_to @user
       else
         render :action => 'new'
@@ -62,6 +62,7 @@ class UsersController < ApplicationController
         @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
         @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
         @user.password = @user.password_confirmation = random_password
+        @user.auth_type='CAS'
         if @user.save
           flash[:notice] = "Successfully created user."
           redirect_to @user

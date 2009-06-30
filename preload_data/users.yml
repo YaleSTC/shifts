@@ -239,3 +239,51 @@ users_015:
   perishable_token: 4JrYNRY-nIkBVCKqfhb2
   persistence_token: 58de000748d3710c866e1a9922bccac50726c2e067daf67407c9556a922644023447484d97beba7a533b99ac48eeec676c448add935a3407b5b9e143b665dbf6
   updated_at: 2009-06-29 20:27:07
+users_016: 
+  auth_type: CAS
+  created_at: 2009-06-30 19:58:09
+  crypted_password: 40b0f11c5842761498331eb1a4609f3ede05a2c5ff7da9920d9dc948f1f288a3acaecee1b1e29d0d028cd4b4a59fe2737fc2b9d3bdf91f09813e6ac119173b84
+  default_department_id: 
+  email: derek.zhao@yale.edu
+  employee_id: 
+  first_name: Derek
+  id: "49"
+  last_name: Zhao
+  login: dz65
+  nick_name: 
+  password_salt: A93lT46f1cKjflQYJKWz
+  perishable_token: VibdtJDG9G79jV53uDbT
+  persistence_token: 2bffee5de55f8e0e5c760db3f62adadfea18309cada50fc06b1b97ebf5b82d51a875606b8d1cfa08f8ba25092754a505b4136b587f2427a123e00fa3c0a9aad0
+  updated_at: 2009-06-30 19:58:09
+users_017: 
+  auth_type: CAS
+  created_at: 2009-06-30 19:58:26
+  crypted_password: 5934cf079abc01fbeb2ec9adeaae567670913023ed1de867c6043d31fb9f22068cd916927f8f9128dc5c0de5be931d3685a51dcf9d8d2589400cab259716213c
+  default_department_id: 
+  email: laura.tomas@yale.edu
+  employee_id: 
+  first_name: Laura
+  id: "50"
+  last_name: Tomas
+  login: lt275
+  nick_name: 
+  password_salt: -sf6BF3l4h_OvUM-Bh0t
+  perishable_token: cuaPHVp_hcxSVWzNsC9g
+  persistence_token: c9893252fdb94226c7e9c1a2ab158c26686c53425c057618c00e21111be957516b20ae56e2762d66492385116ef7054fb16532a6e035e8101b758d4bc5005b8d
+  updated_at: 2009-06-30 19:58:26
+users_018: 
+  auth_type: authlogic
+  created_at: 2009-06-30 20:23:05
+  crypted_password: ecfc16b2ff6e277066e52a4514e44308acdb50f372448fd5bf2b735ac17d6316d4312d7517719da562e5e7ae93151b1c65e8c5ce61e32cc92612a00b91c65552
+  default_department_id: 
+  email: m.ichael.libertin@gmail.com
+  employee_id: 
+  first_name: testing
+  id: "51"
+  last_name: testing
+  login: testing
+  nick_name: 
+  password_salt: cZGcddzHX_IRli8a6tyu
+  perishable_token: Spg5wuCfSML9J3Prouah
+  persistence_token: cb8bc496e1b87c3cb3951621da7f8b685d7d7c5b52aec513c17dedd702a31eab8f7806a4f6f074ba3c7b925cd5fb342877c773d8fae8b2d62e6fc4273c63336b
+  updated_at: 2009-06-30 20:26:00

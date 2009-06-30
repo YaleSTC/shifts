@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # feel free to skip_before_filter when desired
 #  before_filter :test
   before_filter :load_user_session
+  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && LOGIN_OPTIONS.include?('CAS')}
   before_filter :login_or_register
   before_filter :load_department
 #  before_filter :load_user
@@ -20,6 +21,10 @@ class ApplicationController < ActionController::Base
     text = "Access denied"
     text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user.departments
     render :text => text, :layout => true
+  end
+
+  def using_CAS?
+    !current_user || current_user.auth_type=='CAS'
   end
 
   # Scrub sensitive parameters from your log
@@ -89,7 +94,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_or_register
-    unless current_user
+    unless current_user || !LOGIN_OPTIONS.include?('authlogic')
       flash[:notice] = "Please login or register"
       redirect_to login_path
     end
@@ -111,8 +116,8 @@ class ApplicationController < ActionController::Base
     redirect_to options
   end
 
-#  def test
-#    raise current_user.to_yaml
-#  end
+  def test
+    raise "ewoks"
+  end
 
 end
