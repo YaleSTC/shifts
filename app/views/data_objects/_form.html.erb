@@ -1,0 +1,37 @@
+<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 3} %>
+<div style="width:30%; float:right" id="data_type_display">
+  <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
+</div>
+<div style="width: 60%; float:left">
+  <% form_for @data_object do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label :data_type %><br />
+      <% if params[:data_type_id] %>
+        <strong><%= DataType.find(params[:data_type_id]).name %></strong>
+        <%= hidden_field_tag :data_type_id, params[:data_type_id] %>
+      <% else %>
+        <%= f.select :data_type_id, @department.data_types.map{|dt| [dt.name, dt.id]} %>
+      <% end %>
+    </p>
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :description %><br />
+      <%= f.text_field :description %>
+    </p>
+    <p>
+      <%= f.label :locations %><br />
+      <%= collection_multiple_select(@data_object, :locations, 
+                                     @locations_select, :id, :name, 
+                                     :selected_items => @data_object.locations.map{|loc| loc.id}) %>
+    </p>
+    <p>
+      <%= f.submit "Save and add another object", :name => "add_another" %>
+      <%= f.submit "Save and finish", :name => "submit" %>
+    </p>
+  <% end %>
+</div>
+<div style="clear:both"></div>

@@ -3,9 +3,8 @@ class Location < ActiveRecord::Base
 
   has_many :time_slots
   has_many :shifts
-
+  has_and_belongs_to_many :data_objects
   has_many :location_source_links, :as => :location_source
-
 
   validates_presence_of :loc_group
   validates_presence_of :name

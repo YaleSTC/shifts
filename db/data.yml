@@ -4,15 +4,15 @@ departments:
   columns: 
   - id
   - name
-  - permission_id
+  - admin_permission_id
   - created_at
   - updated_at
   records: 
-  - - "1"
-    - STC
-    - "1"
-    - 2009-06-11 19:58:05
-    - 2009-06-11 19:58:05
+  - "1"
+  - STC
+  - "1"
+  - 2009-06-11 19:58:05
+  - 2009-06-11 19:58:05
 
 --- 
 departments_users: 
