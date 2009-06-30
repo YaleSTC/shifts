@@ -5,7 +5,8 @@ Feature: department_test
 
   Background:
     Given I am "Albus Dumbledore"
-    And I am on the department settings page
+    And the user "Albus Dumbledore" has permission "Hogwarts dept admin"
+    And I am on the department settings page for the "Hogwarts" department
 
   Scenario: Payform settings: Reminder email text and times
     Given I have the following payforms:
@@ -35,6 +36,7 @@ Feature: department_test
     Then I should see "Description seems too short"
     And I should have 0 payform_items
     When I fill in "Description" with "a longer description"
+    And I press "Create"
     Then I should see "Payform item successfully created"
     And I should have 1 payform_item
 
@@ -59,14 +61,14 @@ Feature: department_test
     Then I should see "Payform item edited"
     And I should have 2 payform_items
 
-    When I follow "Destroy"
+    When I follow "✖"
     And I fill in "Reason" with "delete"
-    And I press "Destroy"
+    And I press "Delete"
     Then I should see "Reason seems too short"
     And I should have 1 payform_item
     And payform item 1 should have attribute "active" "true"
     When I fill in "Reason" with "a longer reason"
-    And I press "Destroy"
+    And I press "Delete"
     Then I should see "Payform item destroyed"
     And I should have 1 payform_item
     And payform item 1 should have attribute "active" "false"
@@ -95,9 +97,7 @@ Feature: department_test
       | Quidditch | 2     | played a game |
     When I choose "Show disabled categories on old payforms"
     And I press "Save"
-    And I go to the categories page
-    And I check "Quidditch"
-    And I press "Inactivate selected categories"
+    And I disable the "Work" category
     Given I am "Harry Potter"
     And I am on the payforms page
     Then I should see "Quidditch"

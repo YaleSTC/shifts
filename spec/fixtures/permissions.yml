@@ -3,5 +3,5 @@ hogwarts_admin_permission:
   name: Hogwarts dept admin
 Payform_admin_permission:
   id: "2"
-  name: payform administrator
+  name: Hogwarts payform admin
 
