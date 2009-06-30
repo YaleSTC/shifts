@@ -29,7 +29,7 @@
 </span>
 <div id="advanced">
   For users: <br />
-  <%= tokenized_users_autocomplete(@notice, "viewer_sources", "for_users") %>
+  <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
   <p>
     For locations: <br />
     <% if current_user.is_admin_of?(@department) %>
