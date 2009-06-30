@@ -1,4 +1,7 @@
     <tr>
+      <td>
+        <%= data_entry_row.updated_at.to_s(:long) %>
+      </td>
       <% data_fields.each do |df| %>
         <td>
           <%= data_entry_row.data_fields_with_contents[df.id.to_s] %>
