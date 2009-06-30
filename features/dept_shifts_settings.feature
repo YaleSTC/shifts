@@ -5,6 +5,8 @@ Feature: department_test
 
   Background:
     Given I am "Albus Dumbledore"
+    And the user "Albus Dumbledore" has permissions "Hogwarts dept admin, Hogwarts shifts admin"
+    And the user "Harry Potter" has permissions "Outside of Hogwarts view, Outside of Hogwarts signup"
     And I am on the department settings page
     And there is a scheduled shift:
         | start_time     | end_time       | location     | user         |
