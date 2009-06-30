@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_sink: 
+  user_sink_type: MyString
+  user_source: 
+  user_source_type: MyString
+
+two:
+  user_sink: 
+  user_sink_type: MyString
+  user_source: 
+  user_source_type: MyString

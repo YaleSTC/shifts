@@ -14,8 +14,6 @@ class LocGroup < ActiveRecord::Base
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
 
-  has_many :location_source_links, :as => :location_source
-
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
 
