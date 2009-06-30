@@ -1,7 +1,7 @@
 ---
 department_001:
   id: "1"
-  name: Hogwarts
+  name: STC
   admin_permission_id: "1"
   payforms_permission_id: "2"
   shifts_permission_id: "3"

@@ -11,9 +11,16 @@ class UserConfig < ActiveRecord::Base
     ["Just the current day",  "current_day"]
   ]
   
-  # Custom accessor, so you can assign loc groups by simply passing in an array of ids
-  def view_loc_groups=(loc_groups = [])
-    @view_loc_groups = loc_groups.uniq.remove_blank.join(", ")
+  # Custom accessor, so you can assign loc groups by passing in either an array
+  # of ids or a comma-separated string.
+  def view_loc_groups=(loc_groups)
+    loc_groups = loc_groups.split(', ') if loc_groups.class == String
+    write_attribute(:view_loc_groups, loc_groups.uniq.remove_blank.join(", "))
   end
+  
+  # Returns an array of loc groups, rather than the databse comma-sep string
+#  def view_loc_groups
+#    read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
+#  end
   
 end
