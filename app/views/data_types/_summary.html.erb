@@ -11,11 +11,13 @@
   <strong>Data fields:</strong>
   <ul>
     <% for field in data_type.data_fields %>
-      <li><%= link_to "#{field.name}", data_type_data_field_path(data_type, field) %></li>
-      <ul style="margin-left: 1em">
-        <li>Type: <%= field.display_type %>
-        <li>Values: <%= field.values %>
-      </ul>
+      <% unless field.name.nil? %>
+        <li><%= link_to "#{field.name}", data_type_data_field_path(data_type, field) %></li>
+        <ul style="margin-left: 1em">
+          <li>Type: <%= field.display_type %>
+          <li>Values: <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %>
+        </ul>
+      <% end %>
     <% end %>
   </ul>
 </p>

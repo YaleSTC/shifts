@@ -1,0 +1,20 @@
+<% form_for @restriction do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :starts %><br />
+    <%= f.datetime_select :starts %>
+  </p>
+  <p>
+    <%= f.label :expires %><br />
+    <%= f.datetime_select :expires %>
+  </p>
+  <p>
+    <%= f.label :max_subs %><br />
+    <%= f.text_field :max_subs %>
+  </p>
+  <p>
+    <%= f.label :max_hours %><br />
+    <%= f.text_field :max_hours %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

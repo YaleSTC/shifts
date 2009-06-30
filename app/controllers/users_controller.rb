@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def create
     #if user already in database
     if @user = User.find_by_login(params[:user][:login])
-      if @user.departments.include? @department #if user is already in this department
+      if @user.departments.include?(@department) #if user is already in this department
         #don't modify any data, as this is probably a mistake
         flash[:notice] = "This user already exists in this department!"
         redirect_to @user
@@ -56,7 +56,6 @@ class UsersController < ApplicationController
         render :action => 'new'
       end
     end
-    # y @user #debug output
   end
 
   def edit
