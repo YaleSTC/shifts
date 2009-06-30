@@ -1,4 +1,4 @@
-Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |name, department, login|
+Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |first_name, last_name, department, login|
   d = Department.find_by_name("#{department}") or Department.create!(:name => department)
 
   u = User.new(:first_name => first_name, :last_name => last_name, :login => login)
@@ -6,22 +6,29 @@ Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$
   u.save!
 end
 
-Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  user.should_not be_nil
-  role = Role.new(:name => permissions + " role")
-  role.departments << @department
-  permissions.split(", ").each do |permission_name|
-    role.permissions << Permission.find_by_name(permission_name)
-  end
-  role.save!
-  user.roles << role
+Given /^I am logged into CAS as "(.+)"$/ do |login|
+  CASClient::Frameworks::Rails::Filter.fake(login)
+  @current_user = User.find_by_login(login)
 end
 
-Given /^I am "([^\"]*)"$/ do |name|
-  @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+Given /^the user "([^\"]*)" "([^\"]*)" has permissions? "([^\"]*)"$/ do |first_name, last_name, permissions|
+  User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
+
+  user = User.find_by_last_name(last_name)
+  permissions.split(", ").each do |permission_name|
+    #user.permissions << Permission.find_by_name(permission_name)
+  end
+end
+
+Given /^I am logged into CAS as "(.+)"$/ do |login|
+  CASClient::Frameworks::Rails::Filter.fake(login)
+  @current_user = User.find_by_login(login)
+end
+
+Given /^I am "([^\"]*)" "([^\"]*)"$/ do |first_name, last_name|
+  @user = User.find(:first, :conditions => {:first_name => first_name, :last_name => last_name})
   user_id = @user.id
-  @department = @user.departments.first
+  @department = @user.departments[0]
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
 #    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
 #  visit departments_path

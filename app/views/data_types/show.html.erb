@@ -15,13 +15,13 @@
       <li><%= link_to "#{field.name}", data_type_data_field_path(@data_type, field) %></li>
       <ul style="margin-left: 1em">
         <li>Type: <%= field.display_type %>
-        <li>Values: <%= field.values %>
+        <li>Values: <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %>
       </ul>
     <% end %>
   </ul>
   <%= button_to "Add a new data field", new_data_type_data_field_path(@data_type), :method => :get %>
 </p>
-<% if @data_type.data_fields.length > 0 %>
+<%# if @data_type.data_fields.length > 0 %>
   <p>
     <strong>Data objects:</strong>
     <ul>
@@ -31,7 +31,7 @@
     </ul>
     <%= button_to "Create a new instance of this data type", new_data_type_data_object_path(@data_type), :method => :get %>
   </p>
-<% end %>
+<%# end %>
 <p>
   <!-- <%= link_to "New data object", new_data_type_data_object_path(@data_type.id) %> | 
   <%= link_to "Edit and add new data fields", edit_data_type_path(@data_type) %><br> -->

@@ -8,10 +8,6 @@ class Notice < ActiveRecord::Base
 
   belongs_to :department
 
-  has_many :viewer_links, :class_name => "UserSourceLink", :as => :user_sink
-
-  has_many :display_location_links, :class_name => "LocationSourceLink", :as => :location_sink
-
   validates_presence_of :content
   validate :presence_of_locations_or_viewers
   validate_on_create :proper_time
@@ -72,6 +68,7 @@ class Notice < ActiveRecord::Base
     #TODO: this could be much cleaner.  once we get beyond a few hundred notices,
     #      the speed of this degrades really fast. should be moved to database logic.
     #      Something like this: Notice.find(:all, :conditions => ['start_time < ? AND end_time > ?', Time.now, Time.now]).sort_by{|note| note.is_sticky ? 1 : 0}
+    #NATHAN SAYS: make this a named_scope. See "categories.rb"
     Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 

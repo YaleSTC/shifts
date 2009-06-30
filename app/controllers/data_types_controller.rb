@@ -10,7 +10,7 @@ class DataTypesController < ApplicationController
   
   def new
     @data_type = DataType.new
-    @data_type.data_fields.build
+    #@data_type.data_fields.build
   end
   
   def create
@@ -18,7 +18,7 @@ class DataTypesController < ApplicationController
     @data_type.update_attributes(params[:data_type])
     if @data_type.save
       flash[:notice] = "Successfully created data type."
-      redirect_to @data_type
+      redirect_to (@data_type.data_fields.empty? ? new_data_type_data_field_path(@data_type) : @data_type)
     else
       render :action => 'new'
     end
@@ -26,7 +26,7 @@ class DataTypesController < ApplicationController
   
   def edit
     @data_type = DataType.find(params[:id])
-    @data_type.data_fields.build
+    #@data_type.data_fields.build if @data_type.data_fields.empty?
   end
   
   def update
