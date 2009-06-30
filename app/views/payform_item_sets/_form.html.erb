@@ -17,10 +17,9 @@
     <%= f.text_area :description %>
   </p>
   <p>
-    <%= label_tag :users %><br />
     <div class="no_js">
       <% @department.users.each do |user| -%>
-        <%= check_box_tag "user_ids[]", user.id, false -%> <%= user.name -%><br />
+        <%= check_box_tag "user_ids[]", user.id, false -%> <%= f.label :users, user.name -%><br />
       <% end %>
     </div>
     <%# TODO: bah not done %>

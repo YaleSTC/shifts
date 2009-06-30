@@ -3,6 +3,7 @@ class DataEntriesController < ApplicationController
   before_filter :check_for_data_object
   
   def index
+    @data_object = DataObject.find(params[:data_object_id])
     @data_entries = DataEntry.find_all_by_data_object_id(params[:data_object_id])
   end
   
@@ -20,7 +21,7 @@ class DataEntriesController < ApplicationController
     @data_entry.write_content(params[:data_fields]) 
     if @data_entry.save
       flash[:notice] = "Successfully created data entry."
-      redirect_to data_object_data_entry_path(params[:data_object_id], @data_entry.id)
+      redirect_to data_object_path(params[:data_object_id])
     else
       render :action => 'new'
     end
@@ -35,7 +36,7 @@ class DataEntriesController < ApplicationController
     @data_entry = DataEntry.find(params[:id])
     if @data_entry.update_attributes(params[:data_entry])
       flash[:notice] = "Successfully updated data entry."
-      redirect_to @data_entry
+      redirect_to data_object_path(params[:data_object_id])
     else
       render :action => 'edit'
     end

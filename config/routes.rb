@@ -1,9 +1,21 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :user_configs, :only => [:edit, :update]
-  map.resources :sub_requests
-  map.resources :notices, :collection => {:archive => :get}
   map.resources :punch_clocks
   map.resources :restrictions
+
+  map.login "login", :controller => 'user_sessions', :action => 'new'
+  map.logout "logout", :controller => 'user_sessions', :action => 'destroy'
+
+  map.resources :user_sessions
+
+  map.resources :password_resets
+
+  map.resources :user_configs, :only => [:edit, :update]
+
+
+
+  map.resources :sub_requests
+  map.resources :notices, :collection => {:archive => :get}
+
   map.resources :payform_item_sets
   map.resources :payform_sets
   map.resources :department_configs
@@ -35,6 +47,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reports, :member => {:popup => :get} do |report|
     report.resources :report_items
   end
+
+  map.view_all_data_objects "data_objects/view_all_data_objects", :controller => "data_objects", :action => "view_all"
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
@@ -113,4 +127,3 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-

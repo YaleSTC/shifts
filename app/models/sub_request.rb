@@ -1,6 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-
+  
   validates_presence_of :reason
   validates_presence_of :shift
   validate :start_and_end_are_within_shift
@@ -40,17 +40,6 @@ class SubRequest < ActiveRecord::Base
   # Object methods
   #
 
-  def add_substitute_source(source)
-      substitute_link = UserSourceLink.new
-      substitute_link.user_source = source
-      substitute_link.user_sink = self
-      substitute_link.save!
-  end
-
-  def remove_all_substitute_sources
-    UserSourceLink.delete_all(:user_sink_id => self.id)
-  end
-
   def user_is_eligible?(user)
     self.substitutes.include?(user)
   end
@@ -62,6 +51,7 @@ class SubRequest < ActiveRecord::Base
 
 
   private
+  
   def start_and_end_are_within_shift
     unless self.start.between?(self.shift.start, self.shift.end) && self.end.between?(self.shift.start, self.shift.end)
       errors.add_to_base("Sub Request must be within shift.")

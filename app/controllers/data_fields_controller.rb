@@ -34,7 +34,7 @@ class DataFieldsController < ApplicationController
     @data_field = DataField.find(params[:id])
     if @data_field.update_attributes(params[:data_field])
       flash[:notice] = "Successfully updated data field."
-      redirect_to @data_field
+      redirect_to (params[:add_another] ? new_data_type_data_field_path(params[:data_type_id]) : data_type_path(params[:data_type_id]))
     else
       render :action => 'edit'
     end
@@ -42,9 +42,10 @@ class DataFieldsController < ApplicationController
   
   def destroy
     @data_field = DataField.find(params[:id])
+    @data_type = @data_field.data_type
     @data_field.destroy
     flash[:notice] = "Successfully destroyed data field."
-    redirect_to data_type_data_fields_path
+    redirect_to data_type_path(@data_type)
   end
   
   private
