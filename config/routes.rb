@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :punch_clocks
-  map.resources  :restrictions
+  map.resources :restrictions
   map.resources :user_configs
   map.resources :sub_requests
   map.resources :notices, :collection => {:archive => :get}
@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
     shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get},
                                     :as => "subs"
   end
-  
+
   map.resources :users do |user|
     user.resources :punch_clocks
   end
