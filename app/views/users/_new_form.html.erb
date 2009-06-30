@@ -24,6 +24,10 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </p>
+  <p>
+    <%= f.label :login_type %><br />
+    <%= f.select(:auth_type, LOGIN_OPTIONS, {:prompt => "Select a login type"}) %>
+  </p>
 
   <h3>Roles</h3>
   <% for role in @department.roles -%>
