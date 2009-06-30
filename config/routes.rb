@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :password_resets
 
-  map.resources :user_configs :only => [:edit, :update]
+  map.resources :user_configs, :only => [:edit, :update]
 
 
 
@@ -115,4 +115,3 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-
