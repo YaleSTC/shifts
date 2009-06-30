@@ -31,7 +31,7 @@
      <ul class="navigationList">
        <li><%= link_to_unless_current "Active Shifts", show_active_shifts_path %></li>
        <li><%= link_to_unless_current "Unscheduled Shifts", show_unscheduled_shifts_path %></li>
-       <li><%= link_to_unless_current "Cluster Data", { :controller => '/data', :action => 'index' } %></li>
+       <li><%= link_to_unless_current "Data Types", data_types_path %></li>
        <li><%#= link_to "Shift Stats", stats_path %></li>
        <li><%#= link_to "Missed Shifts", {:controller => '/shift_admin', :action => 'view_missed_shifts'} %></li>
      </ul>  

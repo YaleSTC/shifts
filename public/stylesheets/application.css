@@ -106,7 +106,7 @@ html {
   border:1px solid #CC6666;
   font-size:11px;
   margin-top:10px;
-  padding:5px 8
+  padding:5px 8px;
 }
 
 /* Main Styles and IDs */
@@ -533,5 +533,5 @@ span#progress_bar #other_step {
 
 .delete_link {
 	float: right;
-	align: right;
+	text-align: right;
 }
