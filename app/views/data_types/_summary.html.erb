@@ -1,0 +1,32 @@
+<fieldset>
+  <legend>Data type information</legend>
+<p>
+  <strong>Name:</strong>
+  <%=h data_type.name %>
+<p>
+  <strong>Description:</strong>
+  <%=h data_type.description %>
+</p>
+<p>
+  <strong>Data fields:</strong>
+  <ul>
+    <% for field in data_type.data_fields %>
+      <% unless field.name.nil? %>
+        <li><%= link_to "#{field.name}", data_type_data_field_path(data_type, field) %></li>
+        <ul style="margin-left: 1em">
+          <li>Type: <%= field.display_type %>
+          <li>Values: <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %>
+        </ul>
+      <% end %>
+    <% end %>
+  </ul>
+</p>
+<p>
+  <strong>Data objects:</strong>
+    <ul>
+      <% for obj in data_type.data_objects %>
+        <li><%= link_to "#{obj.name}", obj %></li>
+      <% end %>
+    </ul>
+</p>
+</fieldset>

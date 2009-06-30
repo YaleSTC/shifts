@@ -1,6 +1,7 @@
 *~
 log/*
 tmp/*
+db/schema.rb
 Rakefile
 README
 structures.txt
@@ -8,4 +9,3 @@ structures.txt
 .project
 *.orig
 *.sqlite3
-db/schema.rb
