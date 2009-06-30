@@ -1,3 +1,6 @@
+<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput', 'thickbox-compressed'  %>
+<% stylesheet 'tokeninput-facebook' %>
+
 <% form_for @restriction do |f| %>
   <%= f.error_messages %>
   <p>
@@ -16,5 +19,39 @@
     <%= f.label :max_hours %><br />
     <%= f.text_field :max_hours %>
   </p>
+
+  <span id ="advanced_link" style="display:none" >
+  <%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
+  </span>
+  <div id="advanced">
+    For users: <br />
+    <%= tokenized_users_autocomplete(@restriction, "user_sources", "for_users") %>
+    <p>
+      For locations: <br />
+      <% if current_user.is_admin_of?(@department) %>
+        <%= check_box_tag :department_wide_locations %><%= @department.name %> (all locations)<br />
+      <% end %>
+      <% for loc_group in @department.loc_groups do %>
+        &nbsp;&nbsp;&nbsp;
+        <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%= loc_group.name %>:
+        <% for location in loc_group.locations do %>
+          <% if current_user.current_shift %>
+            <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, :disabled => false %>
+          <% else %>
+            <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %>
+          <% end %>
+          <%= location.name %> &nbsp;
+        <% end %>
+        <br />
+      <% end %>
+    </p>
+  </div>
+
+
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){$("#advanced").hide();})
+    $(document).ready(function(){$("#advanced_link").show();})
+</script>
