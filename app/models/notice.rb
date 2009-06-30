@@ -76,24 +76,24 @@ class Notice < ActiveRecord::Base
     Notice.all.select{|n| !n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
   end
 
-  def add_viewer_source(source)
-      viewer_link = UserSourceLink.new
-      viewer_link.user_source = source
-      viewer_link.user_sink = self
-      viewer_link.save!
-  end
+#  def add_viewer_source(source)
+#      viewer_link = UserSourceLink.new
+#      viewer_link.user_source = source
+#      viewer_link.user_sink = self
+#      viewer_link.save!
+#  end
 
   def viewers
     self.viewer_links.collect{|l| l.user_source.users}.flatten.uniq
   end
-  
-  def viewer_sources
-    self.viewer_links.collect{|l| l.user_source}
-  end
 
-  def remove_all_viewer_sources
-    UserSourceLink.delete_all(:user_sink_id => self.id)
-  end
+#  def viewer_sources
+#    self.viewer_links.collect{|l| l.user_source}
+#  end
+
+#  def remove_all_viewer_sources
+#    UserSourceLink.delete_all(:user_sink_id => self.id)
+#  end
 
   def add_display_location_source(source)
       display_location_link = LocationSourceLink.new
