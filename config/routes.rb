@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :restrictions
   map.resources :payform_item_sets
   map.resources :payform_sets
+  map.resources :department_configs
 
   map.resources :payforms,
                 :collection => { :prune => :delete, :go => :get },
@@ -90,6 +91,17 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
+  # map.root :controller => "welcome"
+  map.root :controller => "dashboard"
+
+  # See how all your routes lay out with "rake routes"
+
+  # Install the default routes as the lowest priority.
+  # Note: These default routes make all actions in every controller accessible via GET requests. You should
+  # consider removing the them or commenting them out if you're using named routes and resources.
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
+
   # map.root :controller => "welcome"
   map.root :controller => "dashboard"
 
