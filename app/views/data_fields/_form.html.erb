@@ -3,7 +3,7 @@
   <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
 </div>
 <div style="width: 60%; float:left">
-  <% form_for [:data_type, @data_field] do |f| %>
+  <% form_for (params[:id] ? [DataType.find(params[:data_type_id]), @data_field] : [:data_type, @data_field]) do |f| %>
     <%= f.error_messages %>
     <p>
       <%= f.label :name %><br />
@@ -12,13 +12,13 @@
     <p>
       <%= f.label :display_type %><br />
       <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {},
-                   :onchange => "$(this).parent().parent().find('.value_fields').toggle()" %><br/>
+                   :onchange => "//$(this).parent().parent().find('.value_fields').toggle()" %><br/>
     </p>
     
     <script type="text/javascript">
-      $(document).ready ( function () {
-        $(this).find('.value_fields').toggle();    
-      });
+      // $(document).ready ( function () {
+      //   $(this).find('.value_fields').toggle();    
+      // });
     </script>
     
     <div class="value_fields">

@@ -1,3 +1,4 @@
+# this is not currently in use -- a failed attempt at AJAX :( -rjl
   page << "function create_value_field(type) {"
     page << "if(false){}"
     DataField::DISPLAY_TYPE_OPTIONS.each do |name, value|  
