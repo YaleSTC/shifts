@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
+    
+    @users = @users.sort_by(&:last_name)
   end
 
   def show
@@ -22,7 +24,7 @@ class UsersController < ApplicationController
   def create
     #if user already in database
     if @user = User.find_by_login(params[:user][:login])
-      if @user.departments.include? @department #if user is already in this department
+      if @user.departments.include?(@department) #if user is already in this department
         #don't modify any data, as this is probably a mistake
         flash[:notice] = "This user already exists in this department!"
         redirect_to @user
@@ -54,7 +56,6 @@ class UsersController < ApplicationController
         render :action => 'new'
       end
     end
-    # y @user #debug output
   end
 
   def edit
@@ -132,9 +133,9 @@ class UsersController < ApplicationController
   end
   
   def autocomplete
-    departments = current_user.departments
-    users = Department.find(params[:department_id]).users
-    roles = Department.find(params[:department_id]).roles
+    departments = current_user.departments.sort_by(&:name)
+    users = Department.find(params[:department_id]).users.sort_by(&:first_name)
+    roles = Department.find(params[:department_id]).roles.sort_by(&:name)
     
     @list = []
     users.each do |user|
@@ -171,7 +172,7 @@ class UsersController < ApplicationController
           @search_result << user
         end
       end
-      @users = @search_result
+      @users = @search_result.sort_by(&:last_name)
     end
   end
 end

@@ -4,21 +4,33 @@ module ApplicationHelper
     hash[:width] ||= 600
     "Modalbox.show(this.href, {title: '#{hash[:title]}', width: #{hash[:width]}}); return false;"
   end
-  
+
   def link_toggle(id, name, speed = "medium")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
     # link_to_function name, "Effect.toggle('#{id}', 'appear', { duration: 0.3 });"
   end
-  
+
+  def early_late_info(start)
+    now = Time.now
+    m = distance_of_time_in_words(now - start)
+    m += (now > start) ? " ago" : " later"
+  end
+
+  def return_to_shift_report_if_needed
+    if current_user.current_shift
+      link_to "Return to your current report", {:controller => "report", :action => "index"}
+    end
+  end
+
   def tokenized_users_autocomplete(object, field, id)
     json_string = ""
-    unless object.nil?
+    unless object.nil? or field.nil?
       object.send(field).each do |user_source|
         json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
       end
     end
-    
+
     '<script type="text/javascript">
         $(document).ready(function() {
             $("#'+id+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {

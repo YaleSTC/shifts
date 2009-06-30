@@ -14,8 +14,6 @@ class LocGroup < ActiveRecord::Base
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
 
-  has_many :location_source_links, :as => :location_source
-
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
 
@@ -23,6 +21,11 @@ class LocGroup < ActiveRecord::Base
 
   def permissions
     [view_permission, signup_permission, admin_permission]
+  end
+
+  # Conventional has_many :through won't work -Ben
+  def data_objects
+    self.locations.map{|loc| loc.data_objects}.flatten.compact
   end
 
   private
@@ -40,4 +43,5 @@ class LocGroup < ActiveRecord::Base
     self.signup_permission.update_attribute(:name, name + " signup")
     self.admin_permission.update_attribute(:name, name + " admin")
   end
+
 end

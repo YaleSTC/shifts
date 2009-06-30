@@ -1,7 +1,5 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-  has_many :substitute_links, :class_name => "UserSourceLink", :as => :user_sink
-  #has_many :user_sources, :through => :substitute_sources
 
   validates_presence_of :reason
   validates_presence_of :shift
@@ -56,11 +54,6 @@ class SubRequest < ActiveRecord::Base
   def user_is_eligible?(user)
     self.substitutes.include?(user)
   end
-
-  def user_sources
-    self.substitute_links.empty? ? [self.shift.department] : self.substitute_links.collect{|s| s.user_source}
-  end
-
 
   def substitutes
     self.user_sources.collect{|s| s.users}.flatten.uniq
