@@ -27,9 +27,11 @@
   </tbody>
 </table>
 
+<p>
 <% if params[:show_inactive].nil? %>
   <%= link_to "Show Inactive Users", :show_inactive => true %>
 <% else %>
   <%= link_to "Hide Inactive Users", department_users_path(@department) %>
 <% end %>
 </p>
+<p><%= link_to "Add A New User", new_user_path%></p>
