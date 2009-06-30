@@ -1,0 +1,10 @@
+<% current_step ||= 0 %>
+<span id="progress_bar">
+  <span id="<%= current_step == 1 ? "current_step" : "other_step"%>"><%= link_to_if params[:data_type_id], "Step 1: Create data type", ( params[:data_type_id] ? edit_data_type_path(params[:data_type_id]) : false ) %></span> &#8680; 
+  <span id="<%= current_step == 2 ? "current_step" : "other_step"%>"><%= link_to_if (params[:data_type_id] or !@data_type.new_record?), "Step 2: Add fields", ( (params[:data_type_id] or !@data_type.new_record?) ? new_data_type_data_field_path(params[:data_type_id] || @data_type) : root_path ) %></span> &#8680; 
+  <span id="<%= current_step == 3 ? "current_step" : "other_step"%>"><%= link_to_if (params[:data_type_id] or !@data_type.new_record?), "Step 3: Make objects", ( (params[:data_type_id] or !@data_type.new_record?) ? new_data_type_data_object_path(params[:data_type_id] || @data_type) : root_path ) %></span>
+</span>
+<script type="text/javascript">
+  //hide if javascript doesn't work
+  $('#progress_bar').toggle();
+</script>
