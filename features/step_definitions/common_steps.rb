@@ -9,16 +9,13 @@ end
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
+  role = Role.new(:name => permissions + " role")
+  role.departments << user.departments.first
   permissions.split(", ").each do |permission_name|
-    dept = Department.create!(:name => permission_name.split(" dept admin").to_s)
-    user.departments << dept
-
-    role = Role.new(:name => permissions + " role")
-    role.departments << dept
     role.permissions << Permission.find_by_name(permission_name)
-    role.save!
-    user.roles << role
   end
+  role.save!
+  user.roles << role
 end
 
 Given /^I am "([^\"]*)"$/ do |name|
@@ -65,5 +62,9 @@ end
 
 Then /^I should have no (.+)$/ do |class_name|
   class_name.classify.constantize.count.should == 0
+end
+
+Then /^(.+) ([0-9]+) should have attribute "([^\"]*)" "([^\"]*)"$/ do |object, id, attribute, expected|
+  object.classify.constantize.find(id.to_i).send(attribute).to_s.should == expected
 end
 

@@ -97,3 +97,17 @@ Given /^"([^\"]*)" has the following current payform items?$/ do |user_name, tab
   end
 end
 
+When /^I (.+) the "([^\"]*)" category$/ do |action, category|
+# action is either enable or disable
+  setting =
+    case action
+      when /enable/
+        true
+      when /disable/
+        false
+      else
+        raise("The action must be either enable or disable")
+      end
+  Category.find_by_name(category).update_attribute(:active, setting)
+end
+

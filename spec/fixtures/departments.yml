@@ -3,6 +3,8 @@ hogwarts_department:
   id: "1"
   name: Hogwarts
   permission_id: "1"
+  payform_permission_id: "2"
+
 #departments_002:
 #  id: "2"
 #  name: Pet Store
