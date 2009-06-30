@@ -1,0 +1,11 @@
+d_types_001:
+  id: "1"
+  name: Cat
+  description: animal
+  department_id: "1"
+d_types_002:
+  id: "2"
+  name: Space Ship
+  description: vehicles to travel in space
+  department_id: "1"
+
