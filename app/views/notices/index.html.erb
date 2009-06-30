@@ -1,7 +1,7 @@
 <% stylesheet 'thickbox' %>
 <% javascript 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed' %>
 
-<h1 id="page_title"><%=h "Notices - " %><font size = -2><%= link_to 'Post a new notice', new_notice_path, :class => "thickbox" %></font></h1>
+<h1 id="page_title"><%=h "Notices - " %><font size = -2><%= link_to 'Post a new notice', new_notice_path,{:TB_iframe => true, :popup => true}, :class => "thickbox" %></font></h1>
 
 <% unless current_user.notices.empty? %>
   <fieldset class ="index">
