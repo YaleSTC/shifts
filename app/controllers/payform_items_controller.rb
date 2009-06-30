@@ -27,6 +27,7 @@ class PayformItemsController < ApplicationController
   def update
     @payform_item = PayformItem.new(params[:payform_item])
     @payform_item.payform_item = PayformItem.find(params[:id])
+    @payform = @payform_item.payform_item.payform
     @payform_item.payform_item.payform_item_set = nil
     @payform_item.payform = @payform_item.payform_item.payform
     @payform_item.payform_item.payform = nil
