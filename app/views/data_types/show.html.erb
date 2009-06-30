@@ -38,6 +38,19 @@
         </li>
       <% end %>
     </ul>
+    
+<!--     <table>
+    <% for obj in @data_type.data_objects %>
+      <tr>
+      <% if obj.data_entries.last %>
+        <% obj.data_entries.last.data_fields.each do |name, value| %>
+          <td><%= "#{name}: #{value}" %></td>
+        <% end %>
+      <% end %>
+      </tr>
+    <% end %>
+    </table> -->
+    
     <%= button_to "Create a new instance of this data type", new_data_type_data_object_path(@data_type), :method => :get %>
   </p>
 <%# end %>
