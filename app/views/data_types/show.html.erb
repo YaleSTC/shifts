@@ -12,26 +12,35 @@
   <strong>Data fields:</strong>
   <ul>
     <% for field in @data_type.data_fields %>
-      <li><%= link_to "#{field.name}", data_type_data_field_path(@data_type, field) %></li>
+      <li>
+        <strong><%= field.name %></strong>
+        <%= link_to "[edit]", edit_data_type_data_field_path(@data_type, field) %>
+        <%= link_to "[x]", data_type_data_field_path(@data_type, field), :confirm => 'Delete this data field?', :method => :delete %>
+      </li>
       <ul style="margin-left: 1em">
         <li>Type: <%= field.display_type %>
-        <li>Values: <%= field.values %>
+        <li>Values: <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %>
       </ul>
     <% end %>
   </ul>
   <%= button_to "Add a new data field", new_data_type_data_field_path(@data_type), :method => :get %>
 </p>
-<% if @data_type.data_fields.length > 0 %>
+<%# if @data_type.data_fields.length > 0 %>
   <p>
     <strong>Data objects:</strong>
     <ul>
       <% for obj in @data_type.data_objects %>
-        <li><%= link_to "#{obj.name}", obj %></li>
+        <li>
+          <%= link_to "#{obj.name}", obj %>
+          <%= link_to "[x]", obj,  
+          :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.', 
+          :method => :delete %>
+        </li>
       <% end %>
     </ul>
     <%= button_to "Create a new instance of this data type", new_data_type_data_object_path(@data_type), :method => :get %>
   </p>
-<% end %>
+<%# end %>
 <p>
   <!-- <%= link_to "New data object", new_data_type_data_object_path(@data_type.id) %> | 
   <%= link_to "Edit and add new data fields", edit_data_type_path(@data_type) %><br> -->
