@@ -139,3 +139,23 @@ users_014:
   login: mpl36
   nick_name: 
   updated_at: 2009-06-22 17:58:24
+users_015: 
+  created_at: 2009-06-22 17:58:24
+  email: derek.zhao@yale.edu
+  employee_id: 
+  first_name: Derek
+  id: "29"
+  last_name: Zhao
+  login: dz65
+  nick_name: 
+  updated_at: 2009-06-22 17:58:24
+users_016: 
+  created_at: 2009-06-22 17:58:24
+  email: laura.tomas@yale.edu
+  employee_id: 
+  first_name: Laura
+  id: "30"
+  last_name: Tomas
+  login: lt275
+  nick_name: 
+  updated_at: 2009-06-22 17:58:24

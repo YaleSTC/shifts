@@ -15,7 +15,10 @@
     <% for department in current_user.departments %>
       <div class="multiple_select">
         <h3><%= department.name %></h3>
-        <%= collection_multiple_select("user_config", "view_loc_groups[#{department.id}]", 
+        <%= collection_multiple_select(:user_config, :view_loc_groups, 
+                                    @loc_group_select[department.id], :id, :name) %>
+
+        <%#= collection_multiple_select_tag("user_config[view_loc_groups[#{department.id}]", 
                                     @loc_group_select[department.id], :id, :name) %>
       </div>
     <% end %>
