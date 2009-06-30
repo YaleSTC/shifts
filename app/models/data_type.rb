@@ -21,7 +21,8 @@ class DataType < ActiveRecord::Base
 
   def new_data_field_attributes=(data_field_attributes)
     data_field_attributes.each do |data_field|
-      data_fields.build(data_field)
+      temp = data_fields.build(data_field)
+      temp.data_type = self
     end
   end
 
