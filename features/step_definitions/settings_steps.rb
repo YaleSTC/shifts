@@ -34,7 +34,7 @@ end
 
 
 Given /^I have a LocGroup named "([^\"]*)" with location "([^\"]*)"$/ do |loc_group_name, location|
-  loc_group = LocGroup.create!(:name => loc_group_name, :department_id => @department.id)
+  loc_group = LocGroup.find_by_name(loc_group_name)
   Location.create!(:name => location, :short_name => location, :loc_group_id => loc_group.id, :max_staff => 2, :min_staff => 1, :priority => 1)
 
 end
