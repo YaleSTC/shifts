@@ -58,9 +58,10 @@ class DataObjectsController < ApplicationController
   
   def destroy
     @data_object = DataObject.find(params[:id])
+    @data_type = @data_object.data_type
     @data_object.destroy
     flash[:notice] = "Successfully destroyed data object."
-    redirect_to data_objects_url
+    redirect_to data_type_path(@data_type)
   end
 
   # have to define a more elaborate sort method that will make
