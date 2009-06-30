@@ -1,7 +1,9 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
+  acts_as_authentic do |options|
+    options.maintain_sessions false
+  end
   has_and_belongs_to_many :roles
-  has_one :user_config, :dependent => :destroy
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -11,14 +13,15 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :remover
   has_one  :punch_clock
 
+  # New user configs are created by a user observer, after create
+  has_one :user_config, :dependent => :destroy
+
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
-  
-  after_create :create_user_config
-  
+
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
@@ -82,6 +85,11 @@ class User < ActiveRecord::Base
 
   def current_shift
     self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
+  end
+
+  # Returns all the loc groups a user can view within a given department
+  def loc_groups(dept)
+    dept.loc_groups.delete_if{|lg| !self.can_view?(lg)}
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -148,8 +156,12 @@ class User < ActiveRecord::Base
     Restriction.all.select{|r| r.users.include?(self)}
   end
 
-  memoize :name, :permission_list, :is_superuser?
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    AppMailer.deliver_password_reset_instructions(self)
+  end
 
+  memoize :name, :permission_list, :is_superuser?
 
   private
 

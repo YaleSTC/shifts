@@ -1,8 +1,9 @@
+<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 2} %>
 <div style="width:30%; float:right" id="data_type_display">
   <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
 </div>
 <div style="width: 60%; float:left">
-  <% form_for [:data_type, @data_field] do |f| %>
+  <% form_for (params[:id] ? [DataType.find(params[:data_type_id]), @data_field] : [:data_type, @data_field]) do |f| %>
     <%= f.error_messages %>
     <p>
       <%= f.label :name %><br />
@@ -10,16 +11,29 @@
     </p>
     <p>
       <%= f.label :display_type %><br />
-      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS) %><br/>
+      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {},
+                   :onchange => "//$(this).parent().parent().find('.value_fields').toggle()" %><br/>
     </p>
+    
+    <script type="text/javascript">
+      // $(document).ready ( function () {
+      //   $(this).find('.value_fields').toggle();    
+      // });
+    </script>
+    
+    <div class="value_fields">
+      <p>
+        <%= f.label :values %><br />
+        <%= f.text_field :values %><br />
+        <em><small>For text field display types, values 
+          should be either "integer", "decimal", or "text"<br>
+          For a list of options, entries should be comma-separated</small></em>
+      </p>
+    </div>
     <p>
-      <%= f.label :values %><br />
-      <%= f.text_field :values %><br />
-      <em><small>For text field display types, values 
-        should be either "integer", "decimal", or "text"</small></em>
+      <%= f.submit "Save and add another field", :name => "add_another" %>
+      <%= f.submit "Save and finish", :name => "submit" %>
     </p>
-
-    <p><%= f.submit "Submit" %></p>
   <% end %>
 </div>
 <div style="clear:both"></div>

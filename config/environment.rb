@@ -50,6 +50,7 @@ Rails::Initializer.run do |config|
   config.gem "prawn"
   config.gem "chronic"
   config.gem "has_many_polymorphs"
+  config.gem "authlogic"
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
@@ -80,7 +81,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
-  # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+  config.active_record.observers = :user_observer
 end
 
 # enable detailed CAS logging

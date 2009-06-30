@@ -3,7 +3,7 @@ module Prawnto
 
     class CompileSupport
       extend ActiveSupport::Memoizable
-      
+
       attr_reader :options
 
       def initialize(controller)
@@ -31,7 +31,9 @@ module Prawnto
 
       # added to make ie happy with ssl pdf's (per naisayer)
       def ssl_request?
-        @controller.request.env['SERVER_PROTOCOL'].downcase == "https"
+#        @controller.request.env['SERVER_PROTOCOL'].downcase == "https"
+        @controller.request.env['SERVER_PROTOCOL'].try(:downcase) ==
+"https"
       end
       memoize :ssl_request?
 
@@ -67,6 +69,4 @@ module Prawnto
 
   end
 end
-
-
 
