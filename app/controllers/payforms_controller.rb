@@ -57,7 +57,8 @@ class PayformsController < ApplicationController
   end
   
   def prune
-    @payforms = current_user.payforms & current_department.payforms
+    @payforms = current_department.payforms
+    @payforms &= current_user.payforms unless current_user.is_admin_of?(current_department)
     @payforms.select{|p| p.payform_items.empty? }.map{|p| p.destroy }
     flash[:notice] = "Successfully pruned empty payforms."
     redirect_to payforms_path
@@ -84,11 +85,17 @@ class PayformsController < ApplicationController
   
   def print
     @payform = Payform.find(params[:id])
-    # @payform.printed = Time.now
-    if @payform.save
-      flash[:notice] = "Printing is not implemented yet."
+    @payform.printed = Time.now
+    @payform_set = PayformSet.new
+    @payform_set.department = @payform.department
+    @payform_set.payforms << @payform
+    if @payform_set.save && @payform.save
+      flash[:notice] = "Successfully created payform set."
+      redirect_to @payform_set
+    else
+      flash[:notice] = "Error saving print job. Make sure approved payforms exist."
+      redirect_to @payform
     end
-    redirect_to @payform
   end
 
 end

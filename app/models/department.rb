@@ -6,13 +6,9 @@ class Department < ActiveRecord::Base
   has_many :data_types, :dependent => :destroy
   has_many :data_objects, :through => :data_types
   belongs_to :admin_permission, :class_name => "Permission", :dependent => :destroy
-
   has_many :payforms
   has_many :payform_sets
   has_many :categories 
-
-  has_many :user_source_links, :as => :user_source
-  has_many :location_source_links, :as => :location_source
 
   before_validation_on_create :create_permissions
 # this next validation doesn't work -cmk
