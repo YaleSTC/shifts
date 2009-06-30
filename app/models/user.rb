@@ -140,17 +140,20 @@ class User < ActiveRecord::Base
     [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
-  #This method is needed to make polymorphic associations work
   def users
     [self]
   end
 
-  def available_sub_requests
+  def available_sub_requests #TODO: this could probalby be optimized
     SubRequest.all.select{|sr| sr.substitutes.include?(self)}
   end
 
-  def notices
+  def notices #TODO: this could probalby be optimized
     Notice.active.select{|n| n.viewers.include?(self)}
+  end
+  
+  def restrictions #TODO: this could probalby be optimized
+    Restriction.all.select{|r| r.users.include?(self)}
   end
 
   def deliver_password_reset_instructions!
@@ -166,4 +169,7 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 
+  def create_user_config
+    UserConfig.new({:user_id => self.id}).save
+  end
 end

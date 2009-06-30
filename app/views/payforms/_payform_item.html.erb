@@ -1,3 +1,5 @@
+<% type = 'deleted_item' if !payform_item.active && type != 'edit_item' %>
+<% if payform_item.active || current_user.is_admin_of?(current_department) %>
 <tr class="<%= type %>">
   
   <td class="date">
@@ -21,3 +23,4 @@
   </td>
 </tr>
 <%= render :partial => "payform_item", :object => payform_item.payform_item, :locals => {:type => 'edit_item' } if payform_item.payform_item %>
+<% end %>
