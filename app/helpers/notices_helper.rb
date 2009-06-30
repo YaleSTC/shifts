@@ -7,7 +7,7 @@ module NoticesHelper
       unless Notice.inactive.empty?
         concat('<fieldset class ="index">')
           concat('<legend>Inactive Notices</legend>')
-          render (:partial => 'notice', :collection => Notice.inactive)
+          render(:partial => 'notice', :collection => Notice.inactive)
         concat("<fieldset>")
       end
     end
