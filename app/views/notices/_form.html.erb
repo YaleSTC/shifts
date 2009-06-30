@@ -1,4 +1,4 @@
-<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput' %>
+<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput', 'thickbox-compressed'  %>
 <% stylesheet 'tokeninput-facebook' %>
 
 <fieldset>
@@ -24,7 +24,7 @@
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </p>
-<span id ="advanced_link">
+<span id ="advanced_link" style="display:none" >
 <%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
 </span>
 <div id="advanced">

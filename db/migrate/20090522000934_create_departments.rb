@@ -2,8 +2,9 @@ class CreateDepartments < ActiveRecord::Migration
   def self.up
     create_table :departments do |t|
       t.string :name
-      t.references :permission
-      t.references :payform_permission
+      t.references :admin_permission
+      t.references :payforms_permission
+      t.references :shifts_permission
 
       #Payform Configuration
       #=========================

@@ -23,7 +23,7 @@ module NavigationHelpers
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/
-      user_settings_path
+      edit_user_config_path(UserConfig.find_by_user_id(@user.id))
     when /the Application Settings page/
       application_settings_path
     when /the department settings page for the "([^\"]*)" department/

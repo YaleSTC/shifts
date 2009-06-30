@@ -7,7 +7,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :nick_name
       t.string :employee_id #optional, but pretty standard, and can be used under any id system (not just Yale)
       t.string :email
-      t.references :default_department
       t.timestamps
     end
   end

@@ -1,6 +1,7 @@
 hogwarts_admin_permission:
   id: "1"
   name: Hogwarts dept admin
+
 Payform_admin_permission:
   id: "2"
   name: Hogwarts payform admin
