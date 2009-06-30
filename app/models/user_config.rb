@@ -18,6 +18,7 @@ class UserConfig < ActiveRecord::Base
     write_attribute(:view_loc_groups, loc_groups.uniq.remove_blank.join(", "))
   end
   
+  # Currently deprecated because I'm not sure if it's a good idea -ben
   # Returns an array of loc groups, rather than the databse comma-sep string
 #  def view_loc_groups
 #    read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}

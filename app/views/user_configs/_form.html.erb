@@ -18,9 +18,6 @@
         <%= collection_multiple_select(:user_config, :view_loc_groups, 
                                     @loc_group_select[department.id], :id, :name,
                                     :selected_items => @selected_loc_groups) %>
-
-        <%#= collection_multiple_select_tag("user_config[view_loc_groups[#{department.id}]", 
-                                    @loc_group_select[department.id], :id, :name) %>
       </div>
     <% end %>
   </p>
