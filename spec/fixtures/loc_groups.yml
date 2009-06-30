@@ -7,4 +7,8 @@ location_groups_002:
   department_id: "3"
   id: "2"
   name: Film
+location_groups_003:
+  department_id: "2"
+  id: "3"
+  name: Comics
 
