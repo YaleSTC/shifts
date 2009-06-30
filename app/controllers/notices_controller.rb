@@ -5,12 +5,21 @@ class NoticesController < ApplicationController
   # GET /notices.xml
 
   def index
+#    if params[:show_inactive]
+#      @notices = @department.users
+#    else
+#      @notices = @department.users.select{|user| user.is_active?(@department)}
+#    end
     @notices = Notice.all
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notices }
     end
+  end
+
+  def archive
+    @notices = Notice.inactive
   end
 
   # GET /notices/1
