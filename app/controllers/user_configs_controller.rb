@@ -15,9 +15,9 @@ class UserConfigsController < ApplicationController
   
   def update
     @user_config = UserConfig.find(params[:id])
-    raise params.to_yaml
-    params[:user_config][:view_loc_groups] = params[:user_config][:view_loc_groups].join(", ")
-    raise params.to_yaml
+#    raise params.to_yaml
+#    params[:user_config][:view_loc_groups] = params[:user_config][:view_loc_groups].join(", ")
+#    raise params.to_yaml
     if @user_config.update_attributes(params[:user_config])
       flash[:notice] = "Successfully updated user config."
       raise @user_config.to_yaml
