@@ -1,6 +1,6 @@
-<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 3} %>
+<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 3, :data_type => (params[:data_type_id] ? DataType.find(params[:data_type_id]) : @data_object.data_type)} %>
 <div style="width:30%; float:right" id="data_type_display">
-  <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
+  <%= render :partial => "data_types/summary", :locals => {:data_type => (params[:data_type_id] ? DataType.find(params[:data_type_id]) : @data_object.data_type) } %>
 </div>
 <div style="width: 60%; float:left">
   <% form_for @data_object do |f| %>
@@ -24,9 +24,7 @@
     </p>
     <p>
       <%= f.label :locations %><br />
-      <%= collection_multiple_select(@data_object, :locations, 
-                                     @locations_select, :id, :name, 
-                                     :selected_items => @data_object.locations.map{|loc| loc.id}) %>
+      <%= collection_multiple_select(:data_object, :location_ids, @locations_select, :id, :name, :selected_items => @data_object.locations.map{|loc| loc.id}) %>
     </p>
     <p>
       <%= f.submit "Save and add another object", :name => "add_another" %>
