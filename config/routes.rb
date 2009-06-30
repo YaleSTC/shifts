@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :password_resets
 
-  map.resources :user_configs :only => [:edit, :update]
+  map.resources :user_configs, :only => [:edit, :update]
 
 
 
