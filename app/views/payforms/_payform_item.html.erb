@@ -1,5 +1,5 @@
-<% type = 'deleted_item' if !payform_item.active %>
-<% if payform_item.active || payform_item.payform || current_user.is_admin_of?(current_department) %>
+<% type = 'deleted_item' if !payform_item.active && type != 'edit_item' %>
+<% if payform_item.active || current_user.is_admin_of?(current_department) %>
 <tr class="<%= type %>">
   
   <td class="date">
