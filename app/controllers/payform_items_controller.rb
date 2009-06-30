@@ -52,6 +52,9 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
     @payform_item.active = false
+    #if current_user.is_admin_of?(current_department)
+    #  payform_item_change_notification(@payform_item)
+    #end
     if @payform_item.save
       flash[:notice] = "Payform item deleted."
     else

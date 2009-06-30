@@ -27,20 +27,20 @@ class PunchClocksController < ApplicationController
   def destroy
     @punch_clock = PunchClock.find(params[:id])
     @punch_clock.destroy
-    @time = (Time.now - @punch_clock.created_at) / 3600.0
+    @time_in_hours = (Time.now - @punch_clock.created_at) / 3600.0  # sec -> hr
     flash[:notice] = "Successfully destroyed punchclock."
     @payform_item = PayformItem.new({:date => Date.today,
-                                    :category_id => 2, #2 for "shifts"
-                                    :hours => 4.0,  #should be changed to @time
+                                    :category_id => 2, # 2 for "shifts"
+                                    :hours => @time_in_hours,
                                     :description => @punch_clock.description})
     @payform = Payform.build(current_department, current_user, Date.today)
     @payform_item.payform = @payform
     @payform_item.save
     @payform.save
-    #clock deleted by admin
+    # clock deleted by admin
     if current_user.is_admin_of?(current_department)
       redirect_to punch_clocks_path
-    else  #clock deleted by user
+    else  # clock deleted by user
       redirect_to dashboard_url
     end
   end
