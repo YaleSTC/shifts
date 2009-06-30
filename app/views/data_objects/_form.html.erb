@@ -24,7 +24,6 @@
     </p>
     <p>
       <%= f.label :locations %><br />
-      <%#= select_tag 'data_object[location_ids][]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
       <%= collection_multiple_select(@data_object, :locations, 
                                      @locations_select, :id, :name, 
                                      :selected_items => @data_object.locations.map{|loc| loc.id}) %>

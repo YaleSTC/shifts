@@ -1,7 +1,6 @@
 require 'net/ldap'
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base 
   has_and_belongs_to_many :roles
-  has_one :user_config, :dependent => :destroy
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -10,13 +9,15 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :remover
   has_many :user_source_links, :as => :user_source
 
+  # New user configs are created by a user observer, after create
+  has_one :user_config, :dependent => :destroy
+
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
   validates_uniqueness_of :login
   validate :departments_not_empty
   
-  after_create :create_user_config
   
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
@@ -83,6 +84,11 @@ class User < ActiveRecord::Base
     self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
   end
 
+  # Returns all the loc grouups a user can view within a given department
+  def loc_groups(dept)
+    dept.loc_groups.delete_if{|lg| !self.can_view?(lg)}
+  end
+
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     self.is_superuser? || permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
@@ -92,12 +98,6 @@ class User < ActiveRecord::Base
   def can_signup?(loc_group)
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
-
-#   check for loc group admin, who can add locations and shifts under it
-#   DEPRECATED IN FAVOR OF EXTENDING is_admin_of? -Ben
-#  def can_admin?(loc_group)
-#    self.is_superuser? || (permission_list.include?(loc_group.admin_permission) || self.is_superuser?) && self.is_active?(loc_group.department)
-#  end
 
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
@@ -159,8 +159,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
   
-  def create_user_config
-    UserConfig.new({:user_id => self.id}).save
-  end
-    
 end

@@ -1,9 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :user_configs
-
+  map.resources :user_configs, :only => [:edit, :update]
 
   map.resources :sub_requests
-	map.resources :notices
+  map.resources :notices
   map.resources :payform_item_sets
   map.resources :payform_sets
 
