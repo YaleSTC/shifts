@@ -71,12 +71,16 @@ Then /^I should be redirected to (.+)$/ do |page_name|
   response.should redirect_to(path_to(page_name))
 end
 
-Then /^I should be able to select "([^\"]*)" as a time$/ do |arg1|
-  select_time(time).should be_valid
+Then /^I should be able to select "([^\"]*)" as a time$/ do |time|
+  select_time(time)
+#  assert_select(time)
+  assert_response :success
 end
 
-Then /^I should notbe able to select "([^\"]*)" as a time$/ do |arg1|
-  select_time(time).should_not be_valid
+Then /^I should notbe able to select "([^\"]*)" as a time$/ do |time|
+  lambda {select_time(time)}.should raise_error
+#  save_and_open_page
+#  assert_response :failure
 end
 
 Given /^"([^\"]*)" has a current payform$/ do |user_name|
