@@ -1,5 +1,6 @@
 class PayformItemsController < ApplicationController
   layout 'payforms'
+  helper 'payforms'
   
   def new
     @payform = Payform.find(params[:payform_id])
@@ -49,9 +50,13 @@ class PayformItemsController < ApplicationController
   def destroy
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
-    @payform_item.destroy
-    flash[:notice] = "Payform item deleted." # send misleading message to user :)
-    redirect_to payform_path(@payform)
+    @payform_item.active = false
+    if @payform_item.save
+      flash[:notice] = "Payform item deleted."
+    else
+      flash[:notice] = "Error deleting payform item."
+    end
+    redirect_to @payform
   end
 end
 
