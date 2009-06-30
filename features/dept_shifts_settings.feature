@@ -1,7 +1,9 @@
-Feature: department_test
-  In order to manage departments
-  As a superuser admin
-  I want to be able to create and manage departments
+@settings
+
+Feature: Shift settings
+  In order to manage shift settings
+  As an admin
+  I want to be able to configure shift settings
 
   Background:
     Given I am "Albus Dumbledore"
