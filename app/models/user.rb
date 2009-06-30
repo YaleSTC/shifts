@@ -1,5 +1,8 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
+  acts_as_authentic do |options|
+    options.maintain_sessions false
+  end
   has_and_belongs_to_many :roles
   has_one :user_config, :dependent => :destroy
   has_many :departments_users
@@ -159,6 +162,11 @@ class User < ActiveRecord::Base
 
   def notices
     Notice.active.select{|n| n.viewers.include?(self)}
+  end
+
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    AppMailer.deliver_password_reset_instructions(self)
   end
 
   memoize :name, :permission_list, :is_superuser?

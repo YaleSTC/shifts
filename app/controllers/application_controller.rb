@@ -4,9 +4,11 @@
 class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
-  before_filter CASClient::Frameworks::Rails::Filter
-  before_filter :load_user
+#  before_filter :test
+  before_filter :load_user_session
+  before_filter :login_or_register
   before_filter :load_department
+#  before_filter :load_user
 
   helper :layout # include all helpers, all the time
   helper_method :current_user
@@ -26,7 +28,15 @@ class ApplicationController < ActionController::Base
   protected
   # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
   def current_user
-    @current_user ||= User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
+#    raise @user_session.login.to_s
+    if @user_session
+      @user_session.user
+    elsif session[:cas_user]
+      User.find_by_login(session[:cas_user]) ||
+      User.import_from_ldap(session[:cas_user], true)
+    else
+      nil
+    end
   end
 
   # for department, current_department is a bit too long =),
@@ -43,37 +53,54 @@ class ApplicationController < ActionController::Base
   private
   def load_department
     # update department id in session if neccessary so that we can use shallow routes properly
-    if params[:department_id]
-      session[:department_id] = params[:department_id]
-      @department = Department.find_by_id(session[:department_id])
-    elsif session[:department_id]
-      @department = Department.find_by_id(session[:department_id])
-    elsif current_user and current_user.departments
-      @department = current_user.departments[0]
-    end
-    # load @department variable, no need ||= because it's only called once at the start of controller
+      if params[:department_id]
+        session[:department_id] = params[:department_id]
+        @department = Department.find_by_id(session[:department_id])
+      elsif session[:department_id]
+        @department = Department.find_by_id(session[:department_id])
+      elsif current_user and current_user.departments
+        @department = current_user.departments[0]
+      end
+   # load @department variable, no need ||= because it's only called once at the start of controller
   end
 
   def load_user
-    @current_user = User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
+    @current_user = @user_session.user || User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
   end
 
+  def load_user_session
+    @user_session = UserSession.find
+  end
 
-  protected
   # these are the authorization before_filters to use under controllers
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
   end
-  
+
   def require_loc_group_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@loc_group)
   end
-  
+
   def require_superuser
     unless current_user.is_superuser?
       flash[:notice] = "Only superuser can manage departments."
       redirect_to(access_denied_path)
     end
+  end
+
+  def login_or_register
+    unless current_user
+      flash[:notice] = "Please login or register"
+      redirect_to login_path
+    end
+#TODO: Something like the below functionality, b/c we've lost the whole constantly-
+#check-CAS-to-see-if-you're-still-logged-in feature. The code below would work if
+#RubyCAS weren't retarded. But, unfortunately, RubyCAS is retarded, and as such,
+#for some terrible reason, CASClient::Frameworks::Rails::Filter *only* works in
+# a before_filter. Don't believe me? Try it....
+#    if current_user && current_user.auth_type == "CAS"
+#      CASClient::Frameworks::Rails::Filter
+#    end
   end
 
   def redirect_with_flash(msg = nil, options = {:action => :index})
@@ -83,5 +110,9 @@ class ApplicationController < ActionController::Base
     end
     redirect_to options
   end
-end
 
+#  def test
+#    raise current_user.to_yaml
+#  end
+
+end
