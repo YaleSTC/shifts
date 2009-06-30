@@ -1,4 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :department_configs
+
+  map.resources :department_configs
+
+  map.resources :department_configs
+
+  map.resources :department_configs
+
 
   map.resources :sub_requests
 	map.resources :notices

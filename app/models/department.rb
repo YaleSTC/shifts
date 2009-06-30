@@ -13,7 +13,7 @@ class Department < ActiveRecord::Base
 
   has_many :payforms
   has_many :payform_sets
-  has_many :categories 
+  has_many :categories
 
   has_many :user_source_links, :as => :user_source
   has_many :location_source_links, :as => :location_source
@@ -26,6 +26,7 @@ class Department < ActiveRecord::Base
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :roles
+  has_one :department_configs
 
   private
   def create_permissions
