@@ -122,16 +122,6 @@ div.total-hours-right {
     float: right;
 }
 
-/*
-only if we need even and odd colors
-
-#payformList tr.even {
-  background-color:   #d8ddef;
-}
-#payformList tr.odd {
-  background-color:   #e8edff;
-}*/
-
 /*PRETTY BUTTONS*/
 /*Inspiration from: http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html */
 .clear { /* generic container (i.e. div) for floating buttons */
@@ -263,28 +253,6 @@ a.button:active span {
 
 #buttons {
   float: right;
-}
-
-/* PAYFORM USER SELECT WITH AUTO COMPLETE */
-#payform_user_chooser, #add_by_group, #select_container {
-  float: right;
-  width: 200px;
-}
-#payform_user_chooser #select_container {
-  background-color: #FFFFFF;
-  color: #415578;
-  margin: 5px auto;
-  border: solid 1px #AAAAFF;
-  text-align: center;
-  overflow: auto;
-}
-
-div.clock-notice {
-  background-color: #F3F3F3;
-  border: 1px solid #AAAAAA;
-  margin: 20px;
-  padding: 8px;
-  overflow-x: auto;
 }
 
 /* CATEGORIES */
