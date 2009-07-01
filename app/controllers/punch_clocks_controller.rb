@@ -30,7 +30,7 @@ class PunchClocksController < ApplicationController
     @time_in_hours = (Time.now - @punch_clock.created_at) / 3600.0  # sec -> hr
     flash[:notice] = "Successfully destroyed punchclock."
     @payform_item = PayformItem.new({:date => Date.today,
-                                    :category_id => 2, # 2 for "shifts"
+                                    :category_id => 2, # 2 for "shifts", there should be a better way
                                     :hours => @time_in_hours,
                                     :description => @punch_clock.description})
     @payform = Payform.build(current_department, current_user, Date.today)
