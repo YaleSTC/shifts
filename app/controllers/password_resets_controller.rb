@@ -50,7 +50,7 @@ private
   end
   def require_no_user
     if current_user
-      flash[:notice] = "You\'re logged in. Someone resetting their password shouldn\'t be logged in, you hacker."
+      flash[:notice] = "You\'re logged in. Someone resetting their password shouldn\'t be logged in."
       redirect_to root_url
     end
 
