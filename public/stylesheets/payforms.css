@@ -42,6 +42,7 @@ div.payform_form legend {
 	width: 100%;
 	text-align: left;
 	border-collapse: collapse;
+	border: none;
 }
 #payformList th
 {
@@ -49,6 +50,7 @@ div.payform_form legend {
 	padding: 5px;
 	background: #b9c9fe;
 	color: #039;	
+	border: none;
 }
 #payformList thead th
 {
@@ -57,13 +59,14 @@ div.payform_form legend {
 }
 #payformList tfoot th
 {
-    font-size: 14px;
-    padding: 4px 3px 2px 3px;
+  font-size: 14px;
+  padding: 4px 3px 2px 3px;
 	border-top: 2px solid #8a9cde;
 	border-bottom: 2px solid #8a9cde;
 }
 #payformList tbody td
 {
+	border: none;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
