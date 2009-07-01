@@ -7,6 +7,10 @@
   <%= submit_tag "Update" %>
 <% end -%>
 <br>
-<%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>
-<br>
-<%= link_to "New Data Object", new_data_object_path %>
+<% if DataType.first %>
+  <%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>
+  <br>
+  <%= link_to "New Data Object", new_data_object_path %>
+<% else %>
+  You must set up a <%= link_to "data type", new_data_type_path %> before you can create any data objects.
+<% end %>
