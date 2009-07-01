@@ -1,15 +1,5 @@
 ---
 locations_001:
-  id: 1
-  name: Jurassic Park Pets
-  short_name: JPP
-  useful_links: MyText
-  max_staff: 2
-  min_staff: 1
-  priority: 1
-  active: true
-  loc_group_id: 1
-locations_002:
   active: t
   created_at: 2009-06-22 17:35:10
   id: "2"
@@ -21,7 +11,7 @@ locations_002:
   short_name: io
   updated_at: 2009-06-22 17:35:10
   useful_links: ""
-locations_003:
+locations_002:
   active: t
   created_at: 2009-06-22 17:35:40
   id: "3"
@@ -33,7 +23,7 @@ locations_003:
   short_name: CT Hall
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-locations_004:
+locations_003:
   active: t
   created_at: 2009-06-22 17:36:41
   id: "4"

@@ -1,3 +1,5 @@
+@settings
+
 Feature: User settings
   In order to manage user settings
   As a regular user
@@ -39,7 +41,7 @@ Feature: User settings
     And I should see "Hermione Granger"
 
     When I go to the user settings page
-    And I select "Remainder of period" from "View Week"
+    And I select "Remainder of period" from "View week"
     And I press "Submit"
     Then I should see "Successfully updated user config."
     When I go to shifts for this week
@@ -76,4 +78,3 @@ Feature: User settings
     When I go to shifts
     Then I should see "Common Room"
     And I should not see "Potions"
-

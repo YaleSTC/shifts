@@ -1,7 +1,9 @@
-Feature: department_test
-  In order to manage departments
-  As a superuser admin
-  I want to be able to create and manage departments
+@settings
+
+Feature: Payform settings
+  In order to manage payform settings
+  As an admin
+  I want to be able to configure payform settings
 
   Background:
     Given I am "Albus Dumbledore"

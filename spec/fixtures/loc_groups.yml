@@ -1,11 +1,11 @@
 ---
-#location_groups_001:
-#  department_id: "1"
-#  id: "1"
-#  name: Outside of Hogwarts
-#  view_perm_id: 10
-#  signup_perm_id: 11
-#  admin_perm_id: 12
+location_groups_001:
+  department_id: "1"
+  id: "1"
+  name: Outside of Hogwarts
+  view_perm_id: 10
+  signup_perm_id: 11
+  admin_perm_id: 12
 location_groups_002:
   department_id: "1"
   id: "2"

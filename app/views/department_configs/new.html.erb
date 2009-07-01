@@ -1,5 +1,6 @@
 <h1>New department_config</h1>
 <fieldset>
+  <legend>Edit Shift Configuration</legend>
 <% form_for(@department_config) do |f| %>
   <%= f.error_messages %>
 
@@ -9,11 +10,11 @@
   </p>
   <p>
     <label>Schedule view start time:</label>
-    <%= f.time_select :schedule_start, :minute_step => 30, :ignore_date => true %>
+    <%= f.select :schedule_start, @time_choices %>
   </p>
   <p>
     <label>Schedule view end time:</label>
-    <%= f.time_select :schedule_end, :minute_step => 30, :ignore_date => true %>
+    <%= f.select :schedule_end, @time_choices %>
   </p>
   <p>
     <label>Shift time increment:</label>
