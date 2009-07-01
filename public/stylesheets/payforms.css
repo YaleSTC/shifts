@@ -42,12 +42,7 @@ div.payform_form legend {
 	width: 100%;
 	text-align: left;
 	border-collapse: collapse;
-	border: 0px solid transparent;
-}
-#payformList td
-{
-    border-left: 0px solid transparent;
-    border-right: 0px solid transparent;
+	border: none;
 }
 #payformList th
 {
@@ -55,39 +50,35 @@ div.payform_form legend {
 	padding: 5px;
 	background: #b9c9fe;
 	color: #039;	
+	border: none;
 }
 #payformList thead th
 {
 	border-top: 3px solid #aabcfe;
 	border-bottom: 1px solid #fff;
-	border-left: 0px solid transparent;
-	border-right: 0px solid transparent;
 }
 #payformList tfoot th
 {
-    font-size: 14px;
-    padding: 4px 3px 2px 3px;
+  font-size: 14px;
+  padding: 4px 3px 2px 3px;
 	border-top: 2px solid #8a9cde;
 	border-bottom: 2px solid #8a9cde;
-	border-left: 0px solid transparent;
-	border-right: 0px solid transparent;
 }
 #payformList tbody td
 {
+	border: none;
 	border-bottom: 1px solid #fff;
-	padding: 5px;
-}
-#payformList tbody tr.payform_item td
-{
 	color: #669;
+	border-top: 1px solid transparent;
 	background: #e8edff;
+	padding: 4px;
 }
 #payformList tbody tr.edit_item td
 {
-    font-size: 10px;
+	font-size: 10px;
 	background: #ffa;
 	color: #883;
-	padding: 1px 5px 1px 5px;
+	padding: 1px 4px 1px 4px;
 }
 #payformList tbody tr.deleted_item td
 {
