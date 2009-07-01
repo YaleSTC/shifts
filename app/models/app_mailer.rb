@@ -9,14 +9,14 @@ class AppMailer < ActionMailer::Base
   end
 
   def payform_item_change_notification(old_payform_item, new_payform_item = nil)
-    recipients  old_payform_item.payform.user.email
+    recipients  User.find(old_payform_item.user_id).email
     from        "payformitemchanged@app.stc.com"
     if new_payform_item == nil && !old_payform_item.active
-      subject   "Your payform item has been changed by #{}"
+      subject   "Your payform item has been deleted by #{old_payform_item.source}"
     else
-      subject   "" # have to think about this
+      subject   "Your payform item has been modified by #{new_payform_item.source}" 
     end
-    body        
+    body        :old_payform_item => old_payform_item, :new_payform_item => new_payform_item
   end
 
   def password_reset_instructions(user)
