@@ -49,7 +49,7 @@
   
   <% unless @bar[loc.object_id].nil? %> <%#loc.bar_no_active? %>
     <tr class="location_bar" id="<%= loc.short_name + @curr_day.to_s %>" <%# TODO: current_user.preference.show_bars? ? '' : 'style="display:none"' %>>
-      <th scope="rowgroup" rowspan="1<%#= loc.max_staff + 1 %>">
+      <th class="location_label" scope="rowgroup" rowspan="1<%#= loc.max_staff + 1 %>">
       </th>
       <%# TODO: cleanup %>
       <%= render :partial => 'shifts/schedule/loc_bar', :collection => @bar[loc.object_id], :locals => {:id => loc.id} %>

@@ -88,6 +88,17 @@ html {
   overflow-y: scroll;
 }
 
+table, td, th{
+	border:1px solid #666;
+	padding: 2px;
+	border-collapse:collapse;
+}
+
+th{
+	background: #415578;
+	border:1px solid black;
+	color: white;
+}
 
 #flash_error {
   background-color: #FCC;
@@ -379,6 +390,12 @@ ul#navigationList a:hover {
   padding: 0 0 0;
   margin-bottom: 15px;
   border-bottom: thin solid #408080;
+}
+#subtitle {
+  padding: 0 0;
+  margin-top: -8px;
+  margin-bottom: 5px;
+  color: gray;
 }
 
 /* Get rid of standard margin/padding */

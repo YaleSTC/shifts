@@ -17,7 +17,10 @@ Rails::Initializer.run do |config|
 
   #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
   config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
-
+  
+  #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
+  #ENV["HMP_DEBUG"] = 'true'
+  
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
