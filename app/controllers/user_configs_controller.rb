@@ -1,4 +1,4 @@
-class UserConfigsController < ApplicationController   
+class UserConfigsController < ApplicationController
 
   def edit
     @user_config = UserConfig.find(params[:id])
@@ -10,9 +10,9 @@ class UserConfigsController < ApplicationController
     @loc_group_select = {}
     current_user.departments.each do |dept|
       @loc_group_select.store(dept.id, current_user.loc_groups(dept))
-    end    
+    end
   end
-  
+
   def update
     @user_config = UserConfig.find(params[:id])
 #    raise params.to_yaml
@@ -20,11 +20,12 @@ class UserConfigsController < ApplicationController
 #    raise params.to_yaml
     if @user_config.update_attributes(params[:user_config])
       flash[:notice] = "Successfully updated user config."
-      raise @user_config.to_yaml
+#      raise @user_config.to_yaml
       redirect_to edit_user_config_path
     else
       render :action => 'edit'
     end
   end
-  
+
 end
+
