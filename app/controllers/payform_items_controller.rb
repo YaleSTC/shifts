@@ -28,6 +28,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.new(params[:payform_item])
     @payform_item.parent = PayformItem.find(params[:id])
     @payform = @payform_item.payform = @payform_item.parent.payform
+    @payform_item.parent.payform = nil
     @payform_item.source = current_user.name
     errors = []
     if !@payform_item.parent.save
