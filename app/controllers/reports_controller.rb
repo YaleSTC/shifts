@@ -47,6 +47,10 @@ class ReportsController < ApplicationController
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
     end
     if @report.update_attributes(params[:report])
+      #TODO: add shift to payform
+      if false
+        #TODO: add a notice to the payform page if saving fails
+      end
       flash[:notice] = "Successfully submitted report."
       redirect_to @report
     else

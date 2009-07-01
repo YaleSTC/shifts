@@ -111,7 +111,7 @@ div.next_week{
 table.day_view {
   width: 100%;
   text-align: center;
-  padding: 0;
+  padding:0;
   border-spacing: 0px;
 
   border-collapse: collapse;
@@ -124,11 +124,13 @@ table.day_view td {
 	border: 1px #fff solid;
 	border-bottom: 1px #fff solid;
 	border-top: 1px #fff solid;
+	padding: 0px;
 	/*temp*/
 }
 
 table.day_view th {
 	border: 1px #fff solid;
+	padding: 0px;
 	/*temp*/
 }
 

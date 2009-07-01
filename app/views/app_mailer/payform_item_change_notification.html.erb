@@ -1,0 +1,14 @@
+Hi <%= User.find(@new_payform_item.user_id).name %>, <%= User.find(@new_payform_item.user_id).name %> has 
+<% if @new_payform_item.active -%>
+modified
+<% else -%>
+deleted
+<% end -%>
+ your payform item for <% @new_payform_item.date %>.
+ 
+<%# User probably wants to know the reason why and that is why reasons for
+    deletions and edits should be enforced %>
+Best,
+STC
+P.S. Penguins! We thought you should know
+
