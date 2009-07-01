@@ -79,6 +79,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    #TODO: prevent params hacking w/ regard to setting roles and login
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
 

@@ -1,9 +1,12 @@
 <% form_for user do |f| %>
   <%= f.error_messages %>
+
+  <% if $user_editable_logins %>
   <p>
     <%= f.label :login %><br />
     <%= f.text_field :login %>
   </p>
+  <% end %>
   <p>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
@@ -24,14 +27,6 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </p>
-
-  <h3>Roles</h3>
-  <% for role in @department.roles -%>
-    <div>
-      <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
-      <%= role.name %>
-    </div>
-  <% end -%>
   <% if @user.auth_type == "authlogic"%>
     <p><%= render :file => "password_resets/edit.html.erb" %></p>
   <% end %>
