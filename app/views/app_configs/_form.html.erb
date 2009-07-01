@@ -1,0 +1,12 @@
+<% form_for @app_config do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :footer %><br />
+    <%= f.text_area :footer %>
+  </p>
+  <p>
+    <%= f.label :auth_types %><br />
+    <%= f.text_field :auth_types %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

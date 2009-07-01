@@ -165,7 +165,7 @@ class Shift < ActiveRecord::Base
   def shift_is_within_time_slot
     unless self.power_signed_up
       c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start <= ? AND end >= ?', self.location_id, self.start, self.end])
-      errors.add_to_base("You can only sign up for a shift druing a time slot!") if c == 0
+      errors.add_to_base("You can only sign up for a shift during a time slot!") if c == 0
     end
   end
 
@@ -181,7 +181,6 @@ class Shift < ActiveRecord::Base
   def not_in_the_past
     errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.start <= Time.now
   end
-
 
   def adjust_sub_requests
     self.sub_requests.each do |sub|

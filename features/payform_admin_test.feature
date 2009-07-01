@@ -7,7 +7,7 @@ Feature: payform admin
 
   Background:
     Given I am "Albus Dumbledore"
-    Given the user "Albus Dumbledore" has permissions "payform administrator"
+    Given the user "Albus Dumbledore" has permissions "Hogwarts payform admin"
     And I have the following payforms:
       | date       | department | user_first | user_last      | submitted | approved |printed|
       | 2009-06-13 | Hogwarts   | Harry      | Potter         | nil       | nil      | nil   |
