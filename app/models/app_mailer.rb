@@ -12,8 +12,12 @@ class AppMailer < ActionMailer::Base
     recipients  old_payform_item.payform.user.email
     from        "payformitemchanged@app.stc.com"
     if new_payform_item == nil && !old_payform_item.active
-    subject     "Your payform item has been changed by #{}"
-end
+      subject   "Your payform item has been changed by #{}"
+    else
+      subject   "" # have to think about this
+    end
+    body        
+  end
 
   def password_reset_instructions(user)
     subject       "Password Reset Instructions"
