@@ -13,11 +13,11 @@
   <%= return_to_shift_report_if_needed %>
   <br/>
   <% if current_user.punch_clock %>
-    <%= link_to "Clock out of your current shift?", current_user.punch_clock,
+    <%= link_to "Clock out?", current_user.punch_clock,
                                                   :confirm => "Are you sure",
                                                   :method => :delete %>
   <% else %>
-    <%= link_to "Clock in to a shift?", new_user_punch_clock_path(current_user.id) %>
+    <%= link_to "Clock in?", new_user_punch_clock_path(current_user.id) %>
   <% end %>
 </fieldset>
 
