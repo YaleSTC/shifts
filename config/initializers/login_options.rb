@@ -1,2 +1,2 @@
 LOGIN_OPTIONS=['CAS','authlogic']
-$user_editable_logins = false
+$user_editable_logins = true

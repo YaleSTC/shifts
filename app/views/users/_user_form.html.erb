@@ -1,12 +1,5 @@
 <% form_for user do |f| %>
   <%= f.error_messages %>
-
-  <% if $user_editable_logins %>
-  <p>
-    <%= f.label :login %><br />
-    <%= f.text_field :login %>
-  </p>
-  <% end %>
   <p>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
