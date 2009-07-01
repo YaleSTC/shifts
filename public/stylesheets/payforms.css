@@ -77,6 +77,11 @@ div.payform_form legend {
 	color: #393;
 	padding: 1px 5px 1px 5px;
 }
+#payformList tbody tr.deleted_item td
+{
+	background: #fdd0da;
+	color: #933;
+}
 #payformList td.rightside a
 {
 	color: #d8ddef;
