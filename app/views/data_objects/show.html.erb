@@ -1,50 +1,47 @@
 <% title "Data Object" %>
-
-<p>
-  <strong>Name:</strong>
-  <%=h @data_object.name %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%=h @data_object.description %>
-</p>
-<p>
-  <strong>Data Type:</strong>
-  <%= link_to @data_object.data_type.name, @data_object.data_type %>
-</p>
-<p>
-  <strong>Locations:</strong>
-  <%=h @data_object.locations.map{|l| l.short_name}.join(', ') %>
-</p>
-<p>
-  <%= link_to "Edit", edit_data_object_path(@data_object) %> |
-  <%= link_to "Destroy", @data_object,  
-  :confirm => 'Are you sure? This will destroy all data entries belonging to this object.', 
-  :method => :delete %> |
-  <%= link_to "View all data objects", data_objects_path %>
-</p>
-
-<% # This is a good candidate for partializing, esp. if rewritten as divs %>
-<%= link_to "New data entry", new_data_object_data_entry_path(@data_object) %>
-<table class="data_table">
-  <caption>Data Entries</caption>
-  <thead>
-    <tr>
-      <% @data_object.data_type.data_fields.each do |df| %>
-        <th><%= df.name %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render(:partial => "data_entry_row", 
-               :collection => @data_entries,
-               :locals => {:data_fields => @data_fields}) %>
-  </tbody>
-</table>
-    
-      
-      
-      
-      
-      
-      
+<div style="width:40%; float:left">
+  <p>
+    <strong>Name:</strong>
+    <%=h @data_object.name %>
+  </p>
+  <p>
+    <strong>Description:</strong>
+    <%=h @data_object.description %>
+  </p>
+  <p>
+    <strong>Data Type:</strong>
+    <%= link_to @data_object.data_type.name, @data_object.data_type %>
+  </p>
+  <p>
+    <strong>Locations:</strong>
+    <%=h @data_object.locations.map{|l| l.short_name}.join(', ') %>
+  </p>
+  <p>
+    <%= link_to "Edit data object", edit_data_object_path(@data_object) %> |
+    <%= link_to "Destroy", @data_object,  
+    :confirm => 'Are you sure? This will destroy all data entries belonging to this object.', 
+    :method => :delete %> |
+    <%= link_to "View all data objects", data_objects_path %>
+  </p>
+</div>
+<div style="width:60%; float:left">
+  <% # This is a good candidate for partializing, esp. if rewritten as divs %>
+  <table class="data_table">
+    <caption>Data Entries</caption>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <% @data_object.data_type.data_fields.each do |df| %>
+          <th><%= df.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render(:partial => "data_entry_row", 
+                 :collection => @data_entries.sort_by(&:updated_at).reverse,
+                 :locals => {:data_fields => @data_fields}) %>
+    </tbody>
+  </table>
+  <br>
+  <%= button_to "Add new data entry", new_data_object_data_entry_path(@data_object), :method => :get %>
+</div>

@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
+  validates_presence_of :auth_type
   validates_uniqueness_of :login
   validate :departments_not_empty
 
@@ -151,7 +152,7 @@ class User < ActiveRecord::Base
   def notices #TODO: this could probalby be optimized
     Notice.active.select{|n| n.viewers.include?(self)}
   end
-  
+
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
   end
