@@ -1,5 +1,5 @@
-<% title "Location" %>
-
+<% title @location.name %>
+<h4 id="subtitle">Location (<%= link_to @location.loc_group.name, @location.loc_group %>)</h4>
 <%= render :partial => 'summary', :locals => {:location => @location} %>
 
 <p>

@@ -380,6 +380,12 @@ ul#navigationList a:hover {
   margin-bottom: 15px;
   border-bottom: thin solid #408080;
 }
+#subtitle {
+  padding: 0 0;
+  margin-top: -8px;
+  margin-bottom: 15px;
+  color: gray;
+}
 
 /* Get rid of standard margin/padding */
 h1, h2, h3, h4, h5, h6, ul, li, ol {
