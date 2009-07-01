@@ -27,7 +27,7 @@
  <% if LOGIN_OPTIONS.size >1 %>
   <p>
     <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, LOGIN_OPTIONS, {:prompt => "Select a login type"}) %>
+    <%= f.select(:auth_type, LOGIN_OPTIONS, {:selected => "CAS"}) %>
   </p>
   <% end %>
   <h3>Roles</h3>
