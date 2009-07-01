@@ -1,13 +1,20 @@
 ---
-hogwarts_department:
+department_001:
   id: "1"
-  name: Hogwarts
+  name: STC
   admin_permission_id: "1"
-departments_002:
+  payforms_permission_id: "2"
+  shifts_permission_id: "3"
+department_002:
   id: "2"
   name: Pet Store
   admin_permission_id: "1"
-departments_003:
+  payforms_permission_id: "2"
+  shifts_permission_id: "3"
+department_003:
   id: "3"
   name: Outer Space
   admin_permission_id: "1"
+  payforms_permission_id: "2"
+  shifts_permission_id: "3"
+
