@@ -12,13 +12,13 @@ Feature: User settings
 
   Scenario: Changing the default department
     Then I should see "Default department"
-    And I should see "Hogwarts"
-    When I select "Hogwarts" from "user_config[default_dept]"
+#    And I should see "Hogwarts"
+    When I select "Hogwarts" from "Default department"
     And I press "Submit"
     And I go to the homepage
     Then the page should indicate that I am in the department "Hogwarts"
     When I go to the user settings page
-    And I select "Outer Space" from "user_config[default_dept]"
+    And I select "Outer Space" from "Default department"
     And I press "Submit"
     And I go to the homepage
     Then the page should indicate that I am in the department "Outer Space"
@@ -34,7 +34,7 @@ Feature: User settings
     Then I should see all the days of the week
     And I should see "Harry Potter"
     When I go to the user settings page
-    And I choose "Show only shift schedule for the remaining days of the week"
+    And I select "Remainder of period" from "View week"
     And I press "Submit"
     And I go to shifts for this week
     Then I should see all the days of the week
