@@ -3,7 +3,6 @@ class DepartmentConfigsController < ApplicationController
   # GET /department_configs.xml
   def index
     @department_configs = DepartmentConfig.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @department_configs }
@@ -24,7 +23,9 @@ class DepartmentConfigsController < ApplicationController
   # GET /department_configs/new
   # GET /department_configs/new.xml
   def new
-    @department_config = DepartmentConfig.new
+    #@department_config = DepartmentConfig.new
+    @department_config = DepartmentConfig.default
+    @time_choices = (0..1440).step(@department_config.time_increment).map{|t| [t.min_to_am_pm, t]}
 
     respond_to do |format|
       format.html # new.html.erb

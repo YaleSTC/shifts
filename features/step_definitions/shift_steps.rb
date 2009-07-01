@@ -15,8 +15,8 @@ Given /^there is a scheduled shift:$/ do |table|
     TimeSlot.create!(:location_id => Location.find_by_name(row[:location]).id,
                      :start       => Time.parse(row[:start_time]),
                      :end         => Time.parse(row[:end_time]))
-    @user = User.find(:first, :conditions => {:first_name => row[:user].split.first, :last_name => row[:user].split.last})
-    @that_shift = Shift.create!(:user_id     => @user.id,
+    user = User.find(:first, :conditions => {:first_name => row[:user].split.first, :last_name => row[:user].split.last})
+    @that_shift = Shift.create!(:user_id     => user.id,
                            :location_id => Location.find_by_name(row[:location]).id,
                            :start       => Time.parse(row[:start_time]),
                            :end         => Time.parse(row[:end_time]))
