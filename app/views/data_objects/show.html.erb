@@ -1,16 +1,9 @@
-<% title "Data Object" %>
-<div style="width:40%; float:left">
-  <p>
-    <strong>Name:</strong>
-    <%=h @data_object.name %>
-  </p>
+<% title "#{@data_object.name}" %>
+<h4 id="subtitle"><%= link_to @data_object.data_type.name, @data_object.data_type %></h4>
+<div style="width:35%; float:left">
   <p>
     <strong>Description:</strong>
     <%=h @data_object.description %>
-  </p>
-  <p>
-    <strong>Data Type:</strong>
-    <%= link_to @data_object.data_type.name, @data_object.data_type %>
   </p>
   <p>
     <strong>Locations:</strong>
@@ -24,10 +17,10 @@
     <%= link_to "View all data objects", data_objects_path %>
   </p>
 </div>
-<div style="width:60%; float:left">
-  <% # This is a good candidate for partializing, esp. if rewritten as divs %>
+<div style="width:65%; float:left">
+  <%# This is a good candidate for partializing, esp. if rewritten as divs %>
+  <strong>Data entries for this object:</strong>
   <table class="data_table">
-    <caption>Data Entries</caption>
     <thead>
       <tr>
         <th>Time</th>
