@@ -23,5 +23,5 @@ class UserConfig < ActiveRecord::Base
 #  def view_loc_groups
 #    read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
 #  end
-  
+
 end
