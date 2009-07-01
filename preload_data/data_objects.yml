@@ -1,0 +1,17 @@
+d_object_001:
+  data_type_id: 1
+  name: Garfield
+  description: comic book cat
+d_object_002:
+  data_type_id: 1
+  name: Crookshanks
+  description: cat owned by Hermione
+d_object_003:
+  data_type_id: 2
+  name: Millenium Falcon
+  description: Hans Solo! Chewie!
+d_object_004:
+  data_type_id: 2
+  name: Serenity
+  description: Awesome.
+
