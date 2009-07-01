@@ -9,7 +9,7 @@ Feature: Shift settings
     Given I am "Albus Dumbledore"
     And the user "Albus Dumbledore" has permissions "Hogwarts dept admin, Hogwarts shifts admin"
     And the user "Harry Potter" has permissions "Outside of Hogwarts view, Outside of Hogwarts signup"
-    And I am on the department settings page
+    And I am on the department settings page for the "Hogwarts" department
     And there is a scheduled shift:
         | start_time     | end_time       | location     | user         |
         | 12/25/2009 5pm | 12/25/2009 7pm | Diagon Alley | Harry Potter |
