@@ -7,7 +7,11 @@ class UserSessionsController < ApplicationController
 
   def create
     @user_session = UserSession.new(params[:user_session])
-    if @user_session.save
+    @user = User.find_by_login(params[:user_session][:login])
+    if @user && @user.auth_type!='authlogic'
+      flash[:notice] = "You\'re not supposed to be logging in with authlogic!"
+      render :action => 'new'
+    elsif @user_session.save
       flash[:notice] = "Successfully logged in."
       redirect_to root_url
     else
