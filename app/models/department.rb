@@ -8,7 +8,7 @@ class Department < ActiveRecord::Base
   belongs_to :admin_permission, :class_name => "Permission", :dependent => :destroy
   has_many :payforms
   has_many :payform_sets
-  has_many :categories 
+  has_many :categories
 
   before_validation_on_create :create_permissions
 # this next validation doesn't work -cmk
@@ -18,6 +18,7 @@ class Department < ActiveRecord::Base
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :roles
+  has_one :department_configs
 
   private
   def create_permissions

@@ -156,7 +156,7 @@ module ShiftsHelper
 
       if (type=="bar_active")
         if current_user.can_signup?(@loc_group) #true #@can_sign_up #TODO: implement this
-          link_name = current_user.can_admin?(@loc_group) ? "schedule" : "sign up"
+          link_name = current_user.is_admin_of?(@loc_group) ? "schedule" : "sign up"
           url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
           html_options = {:class => "sign_up_link"}
@@ -249,8 +249,8 @@ module ShiftsHelper
             link_name = "view"
             #view_action = shift_report_path(shift)#"view_float"
             #TODO: render without layout
-            url_options = {:controller => 'reports', :action => 'popup', :id => shift.report, :TB_iframe => true, :popup => true}
-            html_options = {:class => '.thickbox'}
+            url_options = {:controller => 'reports', :action => 'popup', :id => shift.report, :TB_iframe => true, :popup => true, :width => 450}
+            html_options = {:class => 'thickbox', :rel => 'shift_reports'}
           end
 
           #TODO: should this just always go to the report show action?

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  department_id: 1
+  schedule_start: 1
+  schedule_end: 1
+  time_increment: 1
+  grace_period: 1
+  edit_report: false
+
+two:
+  department_id: 1
+  schedule_start: 1
+  schedule_end: 1
+  time_increment: 1
+  grace_period: 1
+  edit_report: false
