@@ -1,8 +1,10 @@
-<% title @data_type.name.pluralize %>
+<% title @data_type.name %>
 <% subtitle "Data Type" %>
 <div style="width:35%; float:left">
-  <strong>Description:</strong>
-  <%=h @data_type.description %>
+  <p>
+    <strong>Description:</strong>
+    <%=h @data_type.description %>
+  </p>
   <p>
     <strong>Data fields:</strong>
     <ul>
