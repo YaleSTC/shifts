@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
+  
+  filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -26,9 +28,6 @@ class ApplicationController < ActionController::Base
   def using_CAS?
     !current_user || current_user.auth_type=='CAS'
   end
-
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
 
   protected
   # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer

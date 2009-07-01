@@ -1,7 +1,7 @@
 class PayformItem < ActiveRecord::Base
+  acts_as_tree
 
   belongs_to :payform
-  belongs_to :payform_item
   belongs_to :payform_item_set
 	belongs_to :category
 
