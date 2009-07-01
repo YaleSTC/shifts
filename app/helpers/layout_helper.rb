@@ -7,6 +7,10 @@ module LayoutHelper
     @content_for_title = page_title.to_s
     @show_title = show_title
   end
+  
+  def subtitle(subtitle)
+    @content_for_subtitle = subtitle.to_s
+  end
 
   def show_title?
     @show_title

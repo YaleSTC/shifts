@@ -1,7 +1,6 @@
 <% title "#{@data_object.name}" %>
+<h4 id="subtitle"><%= link_to @data_object.data_type.name, @data_object.data_type %></h4>
 <div style="width:35%; float:left">
-  <strong>Data type:</strong>
-  <%= link_to @data_object.data_type.name, @data_object.data_type %>
   <p>
     <strong>Description:</strong>
     <%=h @data_object.description %>
