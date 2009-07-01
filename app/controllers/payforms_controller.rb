@@ -99,5 +99,21 @@ class PayformsController < ApplicationController
     end
   end
 
+  def search
+    users = current_department.users
+
+    #filter results if we are searching
+    if params[:search]
+      search_result = []
+      users.each do |user|
+        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+          search_result << user
+        end
+      end
+      users = search_result.sort_by(&:last_name)
+    end
+    @payforms = users.collect{|u| u.payforms}.flatten
+  end
+
 end
 
