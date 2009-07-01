@@ -7,7 +7,7 @@ Scenario Outline: Time limit
 Given I have a time limit restriction for <res-hours> hours <res-minutes> minutes
 Given this restriction expires <res-expiration>
 # Given this restriction applies <res-department_locations_locgroups>
-Given I am logged into CAS as "alb64"
+Given I am logged into CAS as "catest"
 Given I am on the homepage
 When I follow "Departments"
 When I follow "STC"
@@ -23,8 +23,8 @@ And I select "<month>" from "shift_end_2i"
 And I select "<e_date>" from "shift_end_3i"
 And I select "<e_24hours>" from "shift_end_4i"
 And I select "<e_min>" from "shift_end_5i"
-And I select "Michael Libertin" from "shift_user_id"
-And I select "Io" from "shift_location_id"
+And I select "Harry Potter" from "shift_user_id"
+And I select "Diagon Alley" from "shift_location_id"
 And I press "Submit"
 Then I should see "<validity>"
 
