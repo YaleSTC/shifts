@@ -1,0 +1,36 @@
+<h1>New department_config</h1>
+<fieldset>
+<% form_for(@department_config) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :department_id %><br />
+    <%= f.select :department_id, Department.all.collect { |d| d.name } %>
+  </p>
+  <p>
+    <label>Schedule view start time:</label>
+    <%= f.time_select :schedule_start, :minute_step => 30, :ignore_date => true %>
+  </p>
+  <p>
+    <label>Schedule view end time:</label>
+    <%= f.time_select :schedule_end, :minute_step => 30, :ignore_date => true %>
+  </p>
+  <p>
+    <label>Shift time increment:</label>
+    <%= f.text_field :time_increment, :size => 6 %>
+  </p>
+  <p>
+    <label>Late sign-in grace period:</label>
+    <%= f.text_field :grace_period, :size => 6 %>
+  </p>
+  <p>
+    <label>Editable reports:</label>
+    <%= f.check_box :edit_report %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+</fieldset>
+<%= link_to 'Back', department_configs_path %>
+

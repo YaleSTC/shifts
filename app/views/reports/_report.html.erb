@@ -1,10 +1,10 @@
 
 
 <div id="report_view">
-  <p>
+  <!-- <p>
   <strong>Arrived:</strong>
   <%=h @report.arrived.getlocal.to_s(:short_name) %>
-</p>
+</p> -->
   <table id="report_view_table">
     <tr>
       <th class="list_header" colspan="2">
@@ -19,8 +19,8 @@
     </table>
     <p>
   <% if @report.departed %>
-    <strong>Departed:</strong>
-    <%=h @report.departed.getlocal.to_s(:short_name) %>
+    <!-- <strong>Departed:</strong>
+    <%=h @report.departed.getlocal.to_s(:short_name) %> -->
   <% elsif current_user==@report.user %>
     <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true}, {:method => :put, :onclick => 'report_submit()'} %>
   <% else %>
