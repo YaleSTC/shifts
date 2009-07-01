@@ -1,4 +1,6 @@
 class DepartmentConfigsController < ApplicationController
+before_filter :check_user
+
   # GET /department_configs
   # GET /department_configs.xml
   def index
@@ -81,6 +83,15 @@ class DepartmentConfigsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(department_configs_url) }
       format.xml  { head :ok }
+    end
+  end
+
+private
+
+  def check_user
+    unless  current_user.is_superuser?
+      flash[:error] = "You do not have the authority to edit department settings."
+      redirect_to root_path
     end
   end
 end
