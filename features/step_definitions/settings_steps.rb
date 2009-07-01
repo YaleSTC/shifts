@@ -9,11 +9,6 @@ shift_taken = (Time.now - 2.days)
                    :end => end_time,
                    :created_at => creation_time)
 
-# Attempt at mocking out shift model so that the not in the past validation does not get invoked
-#  shift = mock_model(Shift)
-#  Shift.should_receive(:new).and_return(shift)
-#  shift.should_receive(:save!).and_return(true)
-
   this_shift = Shift.new(:start => start_time, :end => end_time,
                         :user_id => @user.id, :location_id => @department.locations.first,
                         :scheduled => true, :created_at => shift_taken,
@@ -26,6 +21,25 @@ shift_taken = (Time.now - 2.days)
                  :created_at => start_time,
                  :updated_at => end_time)
 
+end
+
+Given /^"([^\"]*)" has a shift tomorrow$/ do |name|
+user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+
+creation_time = (Time.now - 3.days)
+start_time = (Time.now + 1.day)
+end_time = (Time.now + 26.hours)
+shift_taken = (Time.now - 1.day)
+
+  TimeSlot.create!(:location_id => @department.locations.first,
+                   :start => start_time,
+                   :end => end_time,
+                   :created_at => creation_time)
+
+  Shift.create!(:start => start_time, :end => end_time,
+                :user_id => user.id, :location_id => @department.locations.first,
+                :scheduled => true, :created_at => shift_taken,
+                :updated_at => shift_taken)
 end
 
 Given /^today is not Sunday$/ do
@@ -46,7 +60,7 @@ Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |dep
   # that indicates the current department.  Use the second line if we want a menu with links
   # to different departments, except the current department will be displayed but is not
   # a clickable link (which indicates that we're currently in that department)
-  response.should contain("Current department: #{department}")
+#  response.should contain("Current department: #{department}")
 
   response.should_not have_selector("a", :content => department)
 end
@@ -58,6 +72,18 @@ Then /^I should see all the days of the week$/ do
     response.should contain(day)
   end
 end
+
+Then /^I should not see all the days of the week$/ do
+a = Date.today.wday
+c = {1=>"Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6=> "Saturday", 7 => "Sunday"}
+
+
+  Date::DAYNAMES.each.except(a) do |day|
+    response.should_not contain(day)
+  end
+
+end
+
 
 When /^I log out$/ do
   # This is a bad way of doing a logout, but I don't know of any other way
