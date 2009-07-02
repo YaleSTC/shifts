@@ -1,4 +1,6 @@
 class DepartmentConfigsController < ApplicationController
+before_filter :check_user
+
   # GET /department_configs
   # GET /department_configs.xml
   def index
@@ -11,22 +13,26 @@ class DepartmentConfigsController < ApplicationController
 
   # GET /department_configs/1
   # GET /department_configs/1.xml
-  def show
-    @department_config = DepartmentConfig.find(params[:id])
+#  def show
+#    @department_config = DepartmentConfig.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @department_config }
-    end
-  end
+#    respond_to do |format|
+#      format.html # show.html.erb
+#      format.xml  { render :xml => @department_config }
+#    end
+#  end
 
   # GET /department_configs/new
   # GET /department_configs/new.xml
   def new
     #@department_config = DepartmentConfig.new
     @department_config = DepartmentConfig.default
+    if params[:department_config]
+      if @department_config.nil?
+        @department_config = DepartmentConfig.default
+      end
+    end
     @time_choices = (0..1440).step(@department_config.time_increment).map{|t| [t.min_to_am_pm, t]}
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @department_config }
@@ -40,20 +46,20 @@ class DepartmentConfigsController < ApplicationController
 
   # POST /department_configs
   # POST /department_configs.xml
-  def create
-    @department_config = DepartmentConfig.new(params[:department_config])
+#  def create
+#    @department_config = DepartmentConfig.new(params[:department_config])
 
-    respond_to do |format|
-      if @department_config.save
-        flash[:notice] = 'DepartmentConfig was successfully created.'
-        format.html { redirect_to(@department_config) }
-        format.xml  { render :xml => @department_config, :status => :created, :location => @department_config }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @department_config.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+#    respond_to do |format|
+#      if @department_config.save
+#        flash[:notice] = 'DepartmentConfig was successfully created.'
+#        format.html { redirect_to(@department_config) }
+#        format.xml  { render :xml => @department_config, :status => :created, :location => @department_config }
+#      else
+#        format.html { render :action => "new" }
+#        format.xml  { render :xml => @department_config.errors, :status => :unprocessable_entity }
+#      end
+#    end
+#  end
 
   # PUT /department_configs/1
   # PUT /department_configs/1.xml
@@ -74,13 +80,22 @@ class DepartmentConfigsController < ApplicationController
 
   # DELETE /department_configs/1
   # DELETE /department_configs/1.xml
-  def destroy
-    @department_config = DepartmentConfig.find(params[:id])
-    @department_config.destroy
+#  def destroy
+#    @department_config = DepartmentConfig.find(params[:id])
+#    @department_config.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(department_configs_url) }
-      format.xml  { head :ok }
+#    respond_to do |format|
+#      format.html { redirect_to(department_configs_url) }
+#      format.xml  { head :ok }
+#    end
+#  end
+
+private
+
+  def check_user
+    unless  current_user.is_superuser?
+      flash[:error] = "You do not have the authority to edit department settings."
+      redirect_to root_path
     end
   end
 end
