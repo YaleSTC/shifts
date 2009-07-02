@@ -5,7 +5,7 @@ Feature: Shift admin manages shifts
 
 Scenario: Create a shift with power sign up
   Given I am logged into CAS as "catest"
-#  Given I am "Adam" "Bray"
+#  Given I am "Albus Dumbledore"
 	And I am on the homepage
   When I follow "Departments"
 	When I follow "STC"
