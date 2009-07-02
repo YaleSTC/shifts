@@ -1,19 +1,46 @@
-hogwarts_admin_permission:
+permission_001:
   id: "1"
   name: Hogwarts dept admin
-
-Payform_admin_permission:
+permission_002:
   id: "2"
-  name: payform administrator
-
-Data_Permission_001:
+  name: Hogwarts payforms admin
+permission_003:
   id: "3"
-  name: user_admin/superuser
-Data_Permission_002:
+  name: Hogwarts shifts admin
+permission_004:
   id: "4"
-  name: user_admin/index
-
-Data_Permission_003:
+  name: Pet Store dept admin
+permission_005:
   id: "5"
-  name: user_admin/@Pet_Store
+  name: Pet Store payforms admin
+permission_006:
+  id: "6"
+  name: Pet Store shifts admin
+permission_007:
+  id: "7"
+  name: Outer Space dept admin
+permission_008:
+  id: "8"
+  name: Outer Space payforms admin
+permission_009:
+  id: "9"
+  name: Outer Space shifts admin
+permission_010:
+  id: "10"
+  name: Outside of Hogwarts view
+permission_011:
+  id: "11"
+  name: Outside of Hogwarts signup
+permission_012:
+  id: "12"
+  name: Outside of Hogwarts admin
+permission_013:
+  id: "13"
+  name: Inside of Hogwarts view
+permission_014:
+  id: "14"
+  name: Inside of Hogwarts signup
+permission_015:
+  id: "15"
+  name: Inside of Hogwarts admin
 

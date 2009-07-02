@@ -26,12 +26,19 @@ module NavigationHelpers
       edit_user_config_path(UserConfig.find_by_user_id(@user.id))
     when /the Application Settings page/
       application_settings_path
+    when /the department settings page for the "([^\"]*)" department/
+      edit_department_config_path(Department.find_by_name($1))
     when /the dashboard/
-      {:controller => 'dashboard', :action => 'index'}
+      url_for(:controller => 'dashboard', :action => 'index')
     when /CAS/
       "https://secure.its.yale.edu/cas/login"
-
-    # Add more mappings here.
+    when /the data types page/i
+      data_types_path
+    when /the data objects page/i
+      data_objects_path
+    when /the categories page for the "([^\"]*)" department/
+      department_categories_path(Department.find_by_name($1))
+      # Add more mappings here.
     # Here is a more fancy example:
     #
     #   when /^(.*)'s profile page$/i

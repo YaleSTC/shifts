@@ -43,12 +43,6 @@ Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id
   payform_item_2.payform_item_id.should == payform_item_1.id
 end
 
-Then /^payform item ([0-9]+) should have attribute "([^\"]*)" "([^\"]*)"$/ do |id, attribute, expected|
-  payform_item = PayformItem.find(id.to_i)
-    payform_item.send(attribute).to_s.should == expected
-end
-
-
 Then /^the payform should be submitted$/ do
   @user.payforms.first.submitted.should_not be_nil
 end
