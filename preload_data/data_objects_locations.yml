@@ -1,2 +1,13 @@
---- {}
+d_object_location_001:
+  data_object_id: 1
+  location_id: 1
+d_object_location_002:
+  data_object_id: 2
+  location_id: 3
+d_object_location_003:
+  data_object_id: 3
+  location_id: 2
+d_object_location_004:
+  data_object_id: 4
+  location_id: 4
 

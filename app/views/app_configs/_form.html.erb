@@ -7,9 +7,12 @@
     <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
   </p>
   <p>
-    <%= f.label :auth_types %><br />
-    <%#= f.text_field :auth_types %>
+    <%= f.label :user_editable_logins, text="Users are allowed to edit their logins?" %>
+    <%= f.check_box :user_editable_logins %>
   </p>
+  </p>
+    <%= f.label :ldap_address %>
+    <%= f.text_field :ldap_address %>
   <p>
     <%= f.label :auth_types, text = "Login Options" %><br />
     <%= multiple_select :app_config, :auth_types, AppConfig::LOGIN_OPTIONS, :selected_items => @selected_auth_types %>

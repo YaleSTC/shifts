@@ -1,6 +1,6 @@
 ---
 user_01:
-  id: "1"
+  id: 1
   login: ad12
   first_name: Albus
   last_name: Dumbledore
@@ -10,7 +10,7 @@ user_01:
   password_salt: gDVImevY5D5G02T9cb3x
 
 user_02:
-  id: "2"
+  id: 2
   login: hp123
   first_name: Harry
   last_name: Potter
@@ -20,7 +20,7 @@ user_02:
   password_salt: gDVImevY5D5G02T9cb3x
 
 user_03:
-  id: "3"
+  id: 3
   login: hg9
   first_name: Hermione
   last_name: Granger

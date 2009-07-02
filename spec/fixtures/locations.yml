@@ -18,7 +18,7 @@ location_002:
   min_staff: 1
   priority: 1
   active: true
-  loc_group_id: 2
+  loc_group_id: 3
 
 location_003:
   id: 3
@@ -35,6 +35,17 @@ location_004:
   id: 4
   name: Miranda
   short_name: Miranda
+  useful_links: MyText
+  max_staff: 1
+  min_staff: 1
+  priority: 1
+  active: true
+  loc_group_id: 3
+
+location_005:
+  id: 5
+  name: Potions
+  short_name: Potions
   useful_links: MyText
   max_staff: 1
   min_staff: 1
