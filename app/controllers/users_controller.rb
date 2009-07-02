@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @user.password = @user.password_confirmation = random_password
       @user.departments << @department
       if @user.save
-        @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions (n)})
+        @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
         flash[:notice] = "Successfully created user and emailed instructions for setting password."
         redirect_to @user
       else
@@ -90,7 +90,10 @@ class UsersController < ApplicationController
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
-
+    if params[:reset_password]
+      @user.password=@user.password_confirmation=random_password
+      @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions (n)})
+    end
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
       redirect_to @user
@@ -200,4 +203,3 @@ class UsersController < ApplicationController
     (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 end
-

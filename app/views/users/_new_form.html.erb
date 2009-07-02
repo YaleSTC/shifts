@@ -1,5 +1,11 @@
 <% form_for user do |f| %>
   <%= f.error_messages %>
+  <% if @user.auth_type == "authlogic" && current_user!=@user && current_user.is_admin_of?(current_department)%>
+   <h3>Reset Password?</h3>
+     <div>
+       <%= check_box_tag :reset_password -%>
+     </div>
+ <% end %>
   <p>
     <%= f.label :login %><br />
     <%= f.text_field :login %>

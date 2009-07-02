@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # feel free to skip_before_filter when desired
 #  before_filter :test
   before_filter :load_user_session
-  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && LOGIN_OPTIONS.include?('CAS')}
+  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && LOGIN_OPTIONS.include?('CAS')}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
 #  before_filter :load_user
