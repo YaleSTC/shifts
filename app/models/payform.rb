@@ -50,7 +50,7 @@ class Payform < ActiveRecord::Base
   end
   
   def hours
-    payform_items.map{|i| i.hours}.sum
+    payform_items.select{|p| p.active}.map{|i| i.hours}.sum
   end
   
   def start_date

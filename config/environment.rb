@@ -17,7 +17,10 @@ Rails::Initializer.run do |config|
 
   #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
   config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
-
+  
+  #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
+  #ENV["HMP_DEBUG"] = 'true'
+  
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -67,7 +70,7 @@ Rails::Initializer.run do |config|
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
   # Run "rake -D time" for a list of tasks for finding time zone names. Comment line to use default local time.
-  config.time_zone = 'Eastern Time (US & Canada)'
+#  config.time_zone = 'Eastern Time (US & Canada)'
 
   # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
   # All files from config/locales/*.rb,yml are added automatically.

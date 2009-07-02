@@ -19,6 +19,7 @@ class PayformsController < ApplicationController
       @payforms -= @payforms.printed
     end
     @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
+    #TODO: could this just be "@payforms = @payforms.sort_by(|payform| payform.user.last_name)"?
   end
 
   def show
