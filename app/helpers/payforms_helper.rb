@@ -33,7 +33,7 @@ module PayformsHelper
 
   def payform_update_button
     if @payform.submitted
-      if @current_user.is_admin_of?(@payform.department)
+      if current_user.is_admin_of?(@payform.department)
         if @payform.approved && !@payform.printed
           link_to "<span><strong>Print Payform</strong></span>", print_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put
         elsif !@payform.printed

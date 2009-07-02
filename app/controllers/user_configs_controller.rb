@@ -2,7 +2,6 @@ class UserConfigsController < ApplicationController
   before_filter :check_user
 
   def edit
-    @user_config = UserConfig.find(params[:id])
     @dept_select = current_user.departments.map{|d| [d.name, d.id]}
     @loc_group_select = {}
     current_user.departments.each do |dept|
@@ -12,10 +11,10 @@ class UserConfigsController < ApplicationController
   end
   
   def update
-    @user_config = UserConfig.find(params[:id])
     if @user_config.update_attributes(params[:user_config])
       flash[:notice] = "Successfully updated user config."
-      redirect_to edit_user_config_path
+      # if we came here from somewhere else, redirect us back
+      redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
     else
       render :action => 'edit'
     end
@@ -24,6 +23,7 @@ class UserConfigsController < ApplicationController
   private 
   
   def check_user
+    @user_config = UserConfig.find(params[:id])
     unless  current_user.is_superuser? || current_user == @user_config.user
       flash[:error] = "You do not have the authority to edit that user's settings."
       redirect_to root_path

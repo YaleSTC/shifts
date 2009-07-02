@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :app_configs, :only => [:edit, :update]
+
   map.resources :punch_clocks
   map.resources :restrictions
 

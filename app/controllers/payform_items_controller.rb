@@ -26,22 +26,23 @@ class PayformItemsController < ApplicationController
 
   def update
     @payform_item = PayformItem.new(params[:payform_item])
-    @payform_item.payform_item = PayformItem.find(params[:id])
-    @payform_item.payform_item.payform_item_set = nil
-    @payform_item.payform = @payform_item.payform_item.payform
-    @payform_item.payform_item.payform = nil
-    @payform_item.payform_item.active = false
-    @payform_item.payform_item.reason = params[:payform_item][:reason]
+    @payform_item.parent = PayformItem.find(params[:id])
+    @payform = @payform_item.payform = @payform_item.parent.payform
+    @payform_item.parent.payform = nil
+    @payform_item.source = current_user.name
     errors = []
-    if !@payform_item.payform_item.save
+    if !@payform_item.parent.save
       errors << "Failed to update the old payform item"
     end
     if !@payform_item.save
       errors << "Failed to create a new payform item"
     end
     if errors.length == 0
-      flash[:notice] = "Successfully edited payform item."
-      redirect_to @payform_item.payform
+      if @payform_item.user != current_user
+        AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item) 
+      end
+        flash[:notice] = "Successfully edited payform item."
+        redirect_to @payform_item.payform    
     else
       flash[:error] =  "Error: "+errors*"<br/>" 
       render :action => 'edit'
@@ -52,6 +53,10 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
     @payform_item.active = false
+    @payform_item.source = current_user.name
+    if @payform_item.user_id == current_user.id  # just for testing; should be != instead
+      AppMailer.deliver_payform_item_change_notification(@payform_item)
+    end
     if @payform_item.save
       flash[:notice] = "Payform item deleted."
     else
