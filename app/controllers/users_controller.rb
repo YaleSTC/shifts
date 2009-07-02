@@ -70,7 +70,7 @@ class UsersController < ApplicationController
            render :action => 'new'
         end
       end
-        # y @user #debug output
+#         y @user #debug output
     end
   end
 
@@ -200,3 +200,4 @@ class UsersController < ApplicationController
     (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 end
+
