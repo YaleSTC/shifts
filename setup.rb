@@ -60,7 +60,8 @@ puts "For optional parameters, just hit enter if you don't want to set them."
   end
       
   
-#  %x{rake load_fixtures}
+  %x{rake load_fixtures}
+  puts "penguins"
 
 
 

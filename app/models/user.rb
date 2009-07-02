@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
 
-  def self.import_from_ldap(login, department, should_save = false)
+  def self.import_from_ldap(login, department = nil, should_save = false)
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => "directory.yale.edu", :port => 389 )
     begin
@@ -157,9 +157,10 @@ class User < ActiveRecord::Base
     Restriction.all.select{|r| r.users.include?(self)}
   end
 
-  def deliver_password_reset_instructions!
+  def deliver_password_reset_instructions!(mailer)
     reset_perishable_token!
-    AppMailer.deliver_password_reset_instructions(self)
+    mailer.call(self)
+    #AppMailer.deliver_password_reset_instructions(self)
   end
 
   memoize :name, :permission_list, :is_superuser?
