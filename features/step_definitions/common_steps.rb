@@ -12,14 +12,19 @@ Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   role = Role.new(:name => permissions + " role")
   role.departments << user.departments.first
   permissions.split(", ").each do |permission_name|
-    #user.permissions << Permission.find_by_name(permission_name)
+    permission = Permission.find_by_name(permission_name)
+    permission.should_not be_nil
+    role.permissions << Permission.find_by_name(permission_name)
   end
+  role.save!
+  user.roles << role
 end
 
 Given /^I am "([^\"]*)"$/ do |name|
-  @user = User.find(:first, :conditions => {:first_name => name.split(" ").first, :last_name => name.split(" ").last})
-  user_id = @user.id
-  @department = @user.departments[0]
+  @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  @user.should_not be_nil
+  @department = @user.departments.first
+#  @department.should_not be_nil
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
 #    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
 #  visit departments_path
@@ -64,5 +69,32 @@ end
 
 Then /^(.+) ([0-9]+) should have attribute "([^\"]*)" "([^\"]*)"$/ do |object, id, attribute, expected|
   object.classify.constantize.find(id.to_i).send(attribute).to_s.should == expected
+end
+
+
+
+Then /^"([^\"]*)" should have ([0-9]+) (.+)$/ do |name, count, object|
+  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  begin
+    user.send(object.pluralize).should have(count.to_i).objects
+  rescue
+    begin
+      obj = user.send(object.singularize)
+    rescue
+      raise "neither #{object.singularize} nor #{object.pluralize} exist as methods for user"
+    end
+    if count == 0
+      obj.should be_nil
+    elsif count
+      obj.should_not be_nil
+    elsif count > 1
+      raise "a user cannot have more than 1 #{object.singularize}"
+    end
+  end
+end
+
+Given /^the user "([^\"]*)" is a superuser$/ do |arg1|
+  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user.superuser = true
 end
 

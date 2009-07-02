@@ -1,2 +1,16 @@
---- {}
+d_entry_001:
+  data_object_id: 1
+  content: "1::9;;2::orange;white"
+d_entry_002:
+  data_object_id: 2
+  content: "1::8;;2::tabby"
+d_entry_003:
+  data_object_id: 3
+  content: "3::YT-1300 light freighter;;4::Good"
+d_entry_004:
+  data_object_id: 4
+  content: "3::Firefly;;4::Good"
+d_entry_005:
+  data_object_id: 1
+  content: "1::8;;2::orange;white"
 
