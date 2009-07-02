@@ -1,7 +1,4 @@
-<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput', 'thickbox-compressed'  %>
-<% stylesheet 'tokeninput-facebook' %>
-
-<fieldset>
+<fieldset class = "index">
 <% form_for(@notice) do |f| %>
   <%= f.error_messages %>
   <% if current_user.is_admin_of?(@department) %>
@@ -32,15 +29,15 @@
   <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
   <p>
     For locations: <br />
-    <% if current_user.is_admin_of?(@department) %>
-      <%= check_box_tag :department_wide_locations %><%= @department.name %> (all locations)<br />
+    <% if current_user.is_admin_of?(current_department) %>
+      <%= check_box_tag :department_wide_locations, 1, dept_check, :disabled => dept_check %><%= current_department.name %> (all locations)<br />
     <% end %>
     <% for loc_group in @loc_groups do %>
       &nbsp;&nbsp;&nbsp;
-      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%= loc_group.name %>:
+      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_check(loc_group), :disabled => loc_group_check(loc_group)%><%= loc_group.name %>:
       <% for location in loc_group.locations do %>
         <% if current_user.current_shift %>
-          <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, :disabled => false %>
+          <%= check_box_tag "for_locations[]", location.id, locations_check(location), :disabled => locations_check(location) %>
         <% else %>
           <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %>
         <% end %>
@@ -54,14 +51,10 @@
 </fieldset>
 
 <p>
-  <%= f.submit 'Create/Update' %>
+  <%= f.submit 'Save',:onclick => 'self.parent.tb_remove()' %>
 </p>
 
 <% end %>
-<!--
- document.observe('dom:loaded',function(){ $('checkbox_div').hide(); });
-    document.observe('dom:loaded',function(){ $('pref_link').show(); });
--->
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){$("#advanced").hide();})
