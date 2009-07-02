@@ -27,4 +27,20 @@ class AppMailer < ActionMailer::Base
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 
+  def admin_password_reset_instructions(user)
+    subject       "Password Reset Instructions"
+    from          "Yale@yale.edu"
+    recipients    user.email
+    sent_on       Time.now
+    body          :edit_admin_password_reset_url => edit_password_reset_url(user.perishable_token)
+  end
+
+  def new_user_password_instructions(user)
+    subject       "Password Creation Instructions"
+    from          "Yale@yale.edu"
+    recipients    user.email
+    sent_on       Time.now
+    body          :edit_new_user_password_url => edit_password_reset_url(user.perishable_token)
+  end
+  
 end
