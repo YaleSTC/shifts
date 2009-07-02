@@ -84,26 +84,38 @@ class NoticesController < ApplicationController
   end
 
   def set_sources(update = false)
-    @notice.user_sources = [] if update
+#    @notice.user_sources = [] if update
+#    @notice.location_sources = [] if update
     if params[:for_users]
       params[:for_users].split(",").each do |l|
         l = l.split("||")
         @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
       end
     end
-    @notice.user_sources << @department if params[:department_wide_viewers] && !@notice.is_sticky
-    @notice.location_sources = [] if update
-    @notice.departments << @department if params[:department_wide_locations] && current_user.is_admin_of?(@department)
-    if params[:for_locations]
-      params[:for_locations].each do |loc|
-        @notice.location_sources << Location.find_by_id(loc)
+    @notice.user_sources << @department if params[:department_wide_viewers] && !@notice.is_sticky && current_user.is_admin_of?(current_department)
+    if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
+      @notice.departments << current_department
+      @notice.loc_groups << current_department.loc_groups
+      @notice.locations << current_department.loc_groups.collect {|lg| lg.locations}
+    elsif params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group|
+        @notice.loc_groups << LocGroup.find_by_id(loc_group)
+        @notice.locations << loc_group.collect{|lg| lg.locations}
       end
     end
-    if params[:for_location_groups]
-      params[:for_location_groups].each do |loc_group|
-        @notice.location_sources << LocGroup.find_by_id(loc_group)
+    if params[:for_locations]
+      params[:for_locations].each do |loc|
+        @notice.locations << Location.find_by_id(loc)
       end
     end
   end
+
+  def update_checkboxes
+    @notice = Notice.new(params[:announcement])
+    render :update do |page|
+      page.replace_html('advanced_options_div', :partial => "advanced_options")
+    end
+  end
+
 end
 

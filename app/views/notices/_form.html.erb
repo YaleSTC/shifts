@@ -19,33 +19,13 @@
 
   <p>
     <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <%= f.text_area :content, :size => "80x10" %>
   </p>
-<span id ="advanced_link" style="display:none" >
+<span id ="advanced_link" >
 <%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
 </span>
-<div id="advanced">
-  For users: <br />
-  <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
-  <p>
-    For locations: <br />
-    <% if current_user.is_admin_of?(current_department) %>
-      <%= check_box_tag :department_wide_locations, 1, dept_check, :disabled => dept_check %><%= current_department.name %> (all locations)<br />
-    <% end %>
-    <% for loc_group in @loc_groups do %>
-      &nbsp;&nbsp;&nbsp;
-      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_check(loc_group), :disabled => loc_group_check(loc_group)%><%= loc_group.name %>:
-      <% for location in loc_group.locations do %>
-        <% if current_user.current_shift %>
-          <%= check_box_tag "for_locations[]", location.id, locations_check(location), :disabled => locations_check(location) %>
-        <% else %>
-          <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %>
-        <% end %>
-        <%= location.name %> &nbsp;
-      <% end %>
-      <br />
-    <% end %>
-  </p>
+<div id="advanced_options_div">
+    <%= render :partial => 'advanced_options'%>
 </div>
 
 </fieldset>
@@ -55,6 +35,8 @@
 </p>
 
 <% end %>
+
+<%= observe_form 'form', :url => { :action => 'update_checkboxes', :id => @department.id }, :frequency => 0.5 %>
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){$("#advanced").hide();})
