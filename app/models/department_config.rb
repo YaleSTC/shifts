@@ -17,5 +17,12 @@ class DepartmentConfig < ActiveRecord::Base
     (start..self.end).step(time_increment)
   end
 
+  def calibrate_time
+    if self
+      self.end += 24*60 if self.end <= self.start
+      self.save
+    end
+  end
+
 end
 
