@@ -6,6 +6,12 @@ Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login 
   u.save!
 end
 
+Given /^I am logged into CAS as "([^\"]*)"$/ do |login|
+  @current_user = User.find_by_login(login)
+  CASClient::Frameworks::Rails::Filter.fake(login)
+end
+
+
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
