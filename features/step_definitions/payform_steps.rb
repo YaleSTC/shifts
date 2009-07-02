@@ -58,11 +58,6 @@ Then /^I should see "([^\"]*)" under "([^\"]*)" in column ([0-9]+)$/ do |expecte
   end
 end
 
-Then /^"([^\"]*)" should have ([0-9]+) (.+)$/ do |name, count, object|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  user.send(object.pluralize).should have(count.to_i).objects
-end
-
 Then /^I should have a pdf with "([^\"]*)" in it$/ do |text|
     PDF::Inspector.parse(Prawn::PdfObject(text, true)).should == text
 end

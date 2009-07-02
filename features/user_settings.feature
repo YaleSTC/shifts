@@ -10,6 +10,18 @@ Feature: User settings
     And I am "Harry Potter"
     And I am on the user settings page
 
+  Scenario: A New user has default settings
+    Given I am on the list of users
+    When I follow "Add A New User"
+    And I fill in "Login" with "rw12"
+    And I fill in "First name" with "Ron"
+    And I fill in "Last name" with "Weasley"
+    And I fill in "Email" with "rw12@hogwarts.edu"
+    And I select "CAS" from "Login type"
+    And I press "Create"
+    Then I should have a user named "Ron Weasley"
+    Then "Ron Weasley" should have 1 user_config
+
   Scenario: Changing the default department
     When I select "Hogwarts" from "Default department"
     And I press "Submit"
