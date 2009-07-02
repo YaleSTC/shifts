@@ -32,10 +32,17 @@
   <b>People who see this:</b> <br />
   <%= (@notice.viewers.collect {|v| v.name}).join("<br />")%>
 </p>
-
+<p>
+  <b>Display in these departments:</b> <br />
+  <%= (@notice.departments.collect {|d| d.name}).join("<br />") %>
+</p>
+<p>
+  <b>Display in these location groups:</b> <br />
+  <%= (@notice.loc_groups.collect {|lg| lg.name}).join("<br />") %>
+</p>
 <p>
   <b>Display in these locations:</b> <br />
-  <%= (@notice.display_locations.collect {|v| v.name}).join("<br />") %>
+  <%= (@notice.display_locations.collect {|l| l.name}).join("<br />") %>
 </p>
 
 
