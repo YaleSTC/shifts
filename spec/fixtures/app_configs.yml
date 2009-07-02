@@ -1,0 +1,7 @@
+one:
+  footer: MyString
+  auth_types: MyString
+
+two:
+  footer: MyString
+  auth_types: MyString

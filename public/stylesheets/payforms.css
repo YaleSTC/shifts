@@ -42,6 +42,7 @@ div.payform_form legend {
 	width: 100%;
 	text-align: left;
 	border-collapse: collapse;
+	border: none;
 }
 #payformList th
 {
@@ -49,6 +50,7 @@ div.payform_form legend {
 	padding: 5px;
 	background: #b9c9fe;
 	color: #039;	
+	border: none;
 }
 #payformList thead th
 {
@@ -57,25 +59,31 @@ div.payform_form legend {
 }
 #payformList tfoot th
 {
-    font-size: 14px;
-    padding: 4px 3px 2px 3px;
+  font-size: 14px;
+  padding: 4px 3px 2px 3px;
 	border-top: 2px solid #8a9cde;
 	border-bottom: 2px solid #8a9cde;
 }
 #payformList tbody td
 {
+	border: none;
 	border-bottom: 1px solid #fff;
 	color: #669;
 	border-top: 1px solid transparent;
 	background: #e8edff;
-	padding: 5px;
+	padding: 4px;
 }
 #payformList tbody tr.edit_item td
 {
-    font-size: 10px;
-	background: #d0fdda;
-	color: #393;
-	padding: 1px 5px 1px 5px;
+	font-size: 10px;
+	background: #ffa;
+	color: #883;
+	padding: 1px 4px 1px 4px;
+}
+#payformList tbody tr.deleted_item td
+{
+	background: #fdd0da;
+	color: #933;
 }
 #payformList td.rightside a
 {
@@ -113,16 +121,6 @@ div.total-hours-right {
 
     float: right;
 }
-
-/*
-only if we need even and odd colors
-
-#payformList tr.even {
-  background-color:   #d8ddef;
-}
-#payformList tr.odd {
-  background-color:   #e8edff;
-}*/
 
 /*PRETTY BUTTONS*/
 /*Inspiration from: http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html */
@@ -255,28 +253,6 @@ a.button:active span {
 
 #buttons {
   float: right;
-}
-
-/* PAYFORM USER SELECT WITH AUTO COMPLETE */
-#payform_user_chooser, #add_by_group, #select_container {
-  float: right;
-  width: 200px;
-}
-#payform_user_chooser #select_container {
-  background-color: #FFFFFF;
-  color: #415578;
-  margin: 5px auto;
-  border: solid 1px #AAAAFF;
-  text-align: center;
-  overflow: auto;
-}
-
-div.clock-notice {
-  background-color: #F3F3F3;
-  border: 1px solid #AAAAAA;
-  margin: 20px;
-  padding: 8px;
-  overflow-x: auto;
 }
 
 /* CATEGORIES */

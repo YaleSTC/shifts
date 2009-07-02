@@ -2,9 +2,15 @@
 location_groups_001:
   department_id: "1"
   id: "1"
-  name: Books
+  name: Outside of Hogwarts
+  view_perm_id: 10
+  signup_perm_id: 11
+  admin_perm_id: 12
 location_groups_002:
-  department_id: "3"
+  department_id: "1"
   id: "2"
-  name: Film
+  name: Inside of Hogwarts
+  view_perm_id: 13
+  signup_perm_id: 14
+  admin_perm_id: 15
 

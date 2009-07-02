@@ -6,7 +6,9 @@ class Payform < ActiveRecord::Base
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
   
-  validates_presence_of :department_id, :user_id
+  validates_presence_of :department_id, :user_id, :date
+  validates_presence_of :submitted, :if => :approved
+  validates_presence_of :approved,  :if => :printed
 
   named_scope :unsubmitted, {:conditions => ["submitted IS ?", nil] }
   named_scope :unapproved,  {:conditions => ["submitted IS NOT ? AND approved IS ?", nil, nil] }
@@ -48,7 +50,7 @@ class Payform < ActiveRecord::Base
   end
   
   def hours
-    payform_items.map{|i| i.hours}.sum
+    payform_items.select{|p| p.active}.map{|i| i.hours}.sum
   end
   
   def start_date

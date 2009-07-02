@@ -1,7 +1,7 @@
 <% title "Users" %>
 
 <div id="searchbox" style="display:none; margin-bottom: 1em">
-  <% form_tag (department_users_path(current_department), :method => :get) do %>
+  <% form_tag(department_users_path(current_department), :method => :get) do %>
     Search for a user: <%= text_field_tag :search %>
   <% end %>
 </div>
@@ -15,10 +15,10 @@
 
 <table>
   <tr>
-    <th>Login</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Nickname</th>
+    <th align="left">Login</th>
+    <th align="left">First Name</th>
+    <th align="left">Last Name</th>
+    <th align="left">Nickname</th>
     <th>Employee ID</th>
     <th>Email</th>
   </tr>
@@ -27,9 +27,11 @@
   </tbody>
 </table>
 
+<p>
 <% if params[:show_inactive].nil? %>
   <%= link_to "Show Inactive Users", :show_inactive => true %>
 <% else %>
   <%= link_to "Hide Inactive Users", department_users_path(@department) %>
 <% end %>
 </p>
+<p><%= link_to "Add A New User", new_user_path%></p>

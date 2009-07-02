@@ -46,7 +46,7 @@ Feature: Application settings
     # Not sure if the following step would work since webrat follows internal redirects
     Then I should be redirected to the login page
     When I fill in "login" with "hp123"
-    And I fill in "password" with "password"
+    And I fill in "password" with "secret"
     And I press "Log in"
     Then I should be redirected to the homepage
     And I should see "Successfully logged in as Harry Potter"
