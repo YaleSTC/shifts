@@ -5,16 +5,27 @@ class DataObjectsController < ApplicationController
     @data_objects = get_allowed_data_objects
     @group_type_options = options_for_group_type
     @group_by_options = []
-    if params[:view_options]
-      @selected_type = params[:view_options][:group_type]
-      if params[:view_options][:group_by]
-        unless (@selected_by = params[:view_options][:group_by]).blank?
-          @data_objects = @selected_type.classify.constantize.find(@selected_by).data_objects
-        end
+    # if params[:view_options]
+    #   @selected_type = params[:view_options][:group_type]
+    #   if params[:view_options][:group_by]
+    #     unless (@selected_by = params[:view_options][:group_by]).blank?
+    #       @data_objects = @selected_type.classify.constantize.find(@selected_by).data_objects
+    #     end
+    #   end
+    #   @group_by_options = options_for_group_by(@selected_type)
+    # end
+    if params[:group_by]
+      @selected_type = params[:group_by]
+      if params[:group_by] == "data_types"
+        @types_objects_hash = @data_objects.group_by(&:data_type)
+      elsif params[:group_by] == "locations"
+        @types_objects_hash = @data_objects.group_by{|object| object.locations[0]}
+      elsif params[:group_by] == "loc_groups"
+        @types_objects_hash = @data_objects.group_by(&:data_type)
       end
-      @group_by_options = options_for_group_by(@selected_type)
+    else #default
+      @types_objects_hash = @data_objects.group_by &:data_type
     end
-    @types_objects_hash = @data_objects.group_by &:data_type
   end
 
 # This needs its views rewritten to enable viewing a subset of all entries -ben  

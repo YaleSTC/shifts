@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
+  helper_method :app_config
   
   filter_parameter_logging :password, :password_confirmation
 
@@ -53,6 +54,11 @@ class ApplicationController < ActionController::Base
     elsif current_user and current_user.is_superuser?
       @department = Department.first
     end
+  end
+
+  # Application-wide settings are stored in the only record in the app_configs table
+  def app_config
+    AppConfig.first
   end
 
   private

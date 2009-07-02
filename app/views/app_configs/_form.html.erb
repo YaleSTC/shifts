@@ -8,7 +8,11 @@
   </p>
   <p>
     <%= f.label :auth_types %><br />
-    <%= f.text_field :auth_types %>
+    <%#= f.text_field :auth_types %>
   </p>
+  <p>
+    <%= f.label :auth_types, text = "Login Options" %><br />
+    <%= multiple_select :app_config, :auth_types, AppConfig::LOGIN_OPTIONS, :selected_items => @selected_auth_types %>
+  
   <p><%= f.submit "Submit" %></p>
 <% end %>
