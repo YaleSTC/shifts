@@ -1,7 +1,17 @@
 class AppConfig < ActiveRecord::Base
+  LOGIN_OPTIONS = [
+    # Displayed               stored in db
+    ["Central Authentication Service (CAS)",      "cas"],
+    ["Internal Authentication",                   "authlogic"]
+  ]
+  
+  def login_options
+    self.auth_types.split(', ')
+  end
 
-  def login_options_array
-    self.login_options.split(', ')
+  def auth_types=(login_options)
+    login_options = login_options.split(', ') if login_options.class == String
+    write_attribute(:auth_types, login_options.uniq.remove_blank.join(", "))
   end
 
 
