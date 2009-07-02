@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 #  before_filter :test
   before_filter :load_user_session
   before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && LOGIN_OPTIONS.include?('CAS')}
-  before_filter :login_or_register
+  before_filter :login_or_register, :except => :access_denied
   before_filter :load_department
 #  before_filter :load_user
 
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     text = "Access denied"
-    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user.departments
+    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user && current_user.departments
     render :text => text, :layout => true
   end
 
@@ -36,8 +36,7 @@ class ApplicationController < ActionController::Base
     if @user_session
       @user_session.user
     elsif session[:cas_user]
-      User.find_by_login(session[:cas_user]) ||
-      User.import_from_ldap(session[:cas_user], true)
+      User.find_by_login(session[:cas_user]) 
     else
       nil
     end
@@ -95,18 +94,14 @@ class ApplicationController < ActionController::Base
   end
 
   def login_or_register
-    unless current_user || !LOGIN_OPTIONS.include?('authlogic')
-      flash[:notice] = "Please login or register"
-      redirect_to login_path
+    unless current_user
+      if LOGIN_OPTIONS.include?('authlogic') #AppConfig.first.login_options_array.include?('authlogic')
+        flash[:notice] = "Please login or register"
+        redirect_to login_path
+      else
+        redirect_to access_denied_path
+      end
     end
-#TODO: Something like the below functionality, b/c we've lost the whole constantly-
-#check-CAS-to-see-if-you're-still-logged-in feature. The code below would work if
-#RubyCAS weren't retarded. But, unfortunately, RubyCAS is retarded, and as such,
-#for some terrible reason, CASClient::Frameworks::Rails::Filter *only* works in
-# a before_filter. Don't believe me? Try it....
-#    if current_user && current_user.auth_type == "CAS"
-#      CASClient::Frameworks::Rails::Filter
-#    end
   end
 
   def redirect_with_flash(msg = nil, options = {:action => :index})
