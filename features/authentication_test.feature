@@ -36,9 +36,8 @@ Feature: Authentication Systems
     And I fill in "Login" with "filch"
     And I fill in "Password" with "secret"
     And I press "Submit"
-    Then I should see "Password is not valid"
-    And I should see "Login"
-    And I should not see "Welcome Argus Filch"
+    Then I should see "Successfully logged in."
+    And I should see "Welcome Argus Filch"
 
   Scenario Outline: Creating a user with AuthLogic or CAS
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
@@ -62,7 +61,7 @@ Feature: Authentication Systems
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
     And I go to the page for the user "filch"
-    And I check "reset password"
+    And I check "reset_password"
     And I press "Update"
     Then I should see "Successfully updated user."
 
@@ -74,25 +73,4 @@ Feature: Authentication Systems
     Then I should see "Password is not valid"
     And I should see "Login"
     And I should not see "Welcome Argus Filch"
-
-#  Scenario Outline: Setting the authentication system
-#    Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin, application admin"
-#    And I am "Albus Dumbledore"
-#    And I am on the Application Settings page
-#    When I choose "<system>"
-#    And I press "Save"
-#    Then I should see "Authentication System preference saved."
-
-#    When I follow "logout"
-#    And I go to the homepage
-#    And I follow "Login"
-#    Then I should <register>
-#    And I should <CAS>
-#    And I should <OpenID>
-
-#    Examples:
-#      | system              | register           | CAS           | OpenID           |
-#      | Authlogic (generic) | see "Register"     | not see "CAS" | not see "OpenID" |
-#      | CAS                 | not see "Register" | see "CAS"     | not see "OpenID" |
-#      | OpenID              | not see "Register" | not see "CAS" | see "OpenID"     |
 
