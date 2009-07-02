@@ -1,4 +1,4 @@
-Given /^I have a user named "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |name, department, login|
+Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |first_name, last_name, department, login|
   d = Department.find_by_name("#{department}") or Department.create!(:name => department)
 
   u = User.new(:first_name => first_name, :last_name => last_name, :login => login)
@@ -10,22 +10,20 @@ Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
   role = Role.new(:name => permissions + " role")
-  role.departments << @department
+  role.departments << user.departments.first
   permissions.split(", ").each do |permission_name|
-    role.permissions << Permission.find_by_name(permission_name)
+    #user.permissions << Permission.find_by_name(permission_name)
   end
-  role.save!
-  user.roles << role
 end
 
 Given /^I am "([^\"]*)"$/ do |name|
   @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  user_id = @user.id
+  @user.should_not be_nil
   @department = @user.departments.first
   CASClient::Frameworks::Rails::Filter.fake(@user.login)
-    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
-  visit departments_path
-  click_link @department.name
+#    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
+#  visit departments_path
+#  click_link @department.name
 
 end
 
@@ -39,9 +37,10 @@ end
 
 Given /^I have locations "([^\"]*)" in location group "([^\"]*)" for the department "([^\"]*)"$/ do |locations, location_group, department|
   locations.split(", ").each do |location_name|
-  loc_group = LocGroup.find_by_name(location_group)
+  loc_group = LocGroup.create!(:name => location_group, :department_id => Department.find_by_name(department).id)
   Location.create!(:name => location_name, :loc_group_id => loc_group.id,
-                   :min_staff => 1, :max_staff => 3, :short_name => location_name)
+                   :min_staff => 1, :max_staff => 3, :short_name => location_name,
+                   :priority => 1)
   end
 end
 
@@ -61,5 +60,9 @@ end
 
 Then /^I should have no (.+)$/ do |class_name|
   class_name.classify.constantize.count.should == 0
+end
+
+Then /^(.+) ([0-9]+) should have attribute "([^\"]*)" "([^\"]*)"$/ do |object, id, attribute, expected|
+  object.classify.constantize.find(id.to_i).send(attribute).to_s.should == expected
 end
 

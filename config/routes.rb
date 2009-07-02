@@ -1,4 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :app_configs, :only => [:edit, :update]
+
+  map.resources :punch_clocks
+  map.resources :restrictions
+
   map.login "login", :controller => 'user_sessions', :action => 'new'
   map.logout "logout", :controller => 'user_sessions', :action => 'destroy'
 
@@ -6,11 +11,16 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :password_resets
 
+  map.resources :user_configs, :only => [:edit, :update]
+
+
 
   map.resources :sub_requests
-	 map.resources :notices
+  map.resources :notices, :collection => {:archive => :get}
+
   map.resources :payform_item_sets
   map.resources :payform_sets
+  map.resources :department_configs
 
   map.resources :payforms,
                 :collection => { :prune => :delete, :go => :get },
@@ -28,8 +38,12 @@ ActionController::Routing::Routes.draw do |map|
       report.resources :report_items
     end
     #NOTE: "sub_requests" is a clearer model name, we use subs for routing
-    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get}, 
+    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get},
                                     :as => "subs"
+  end
+
+  map.resources :users do |user|
+    user.resources :punch_clocks
   end
 
   map.resources :reports, :member => {:popup => :get} do |report|
@@ -40,15 +54,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
-    data_type.resources :data_objects, :only => :new
+    data_type.resources :data_objects, :only => [:new, :create]
   end
-  
+
   map.resources :data_objects do |data_object|
     data_object.resources :data_entries
   end
-  
+
   map.resources :departments, :shallow => true do |departments|
-    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post}, :new => {:register => :get}
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
@@ -60,6 +74,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -92,6 +107,17 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
+  # map.root :controller => "welcome"
+  map.root :controller => "dashboard"
+
+  # See how all your routes lay out with "rake routes"
+
+  # Install the default routes as the lowest priority.
+  # Note: These default routes make all actions in every controller accessible via GET requests. You should
+  # consider removing the them or commenting them out if you're using named routes and resources.
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
+
   # map.root :controller => "welcome"
   map.root :controller => "dashboard"
 

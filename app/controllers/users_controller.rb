@@ -2,15 +2,14 @@ class UsersController < ApplicationController
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
-  skip_before_filter :login_or_register, :only => [:register, :create]
-  #TODO: Plug the hole that would in theory allow one to create users through params hacking w/o logging in from above
+  helper_method :random_password
   def index
     if params[:show_inactive]
       @users = @department.users
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
-    
+
     @users = @users.sort_by(&:last_name)
   end
 
@@ -22,19 +21,18 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def register
-    @user = User.new
-  end
-
   def create
-    if true
-      @user = User.new(params[:user])
+    @user = User.new(params[:user])
+    @user.auth_type = LOGIN_OPTIONS[0] if LOGIN_OPTIONS.size == 1
+    if @user.auth_type == "authlogic"
+      @user.password = @user.password_confirmation = random_password
       @user.departments << @department
       if @user.save
-        flash[:notice] = "Successfully registered user."
+        @user.deliver_password_reset_instructions!
+        flash[:notice] = "Successfully created user and emailed instructions for setting password."
         redirect_to @user
       else
-        render :action => 'register'
+        render :action => 'new'
       end
     else
       if @user = User.find_by_login(params[:user][:login])
@@ -63,6 +61,8 @@ class UsersController < ApplicationController
         @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
         @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
         @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+        @user.password = @user.password_confirmation = random_password
+        @user.auth_type='CAS'
         if @user.save
           flash[:notice] = "Successfully created user."
           redirect_to @user
@@ -79,6 +79,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    #TODO: prevent params hacking w/ regard to setting roles and login
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
 
@@ -147,12 +148,12 @@ class UsersController < ApplicationController
     end
     redirect_to department_users_path
   end
-  
+
   def autocomplete
     departments = current_user.departments.sort_by(&:name)
     users = Department.find(params[:department_id]).users.sort_by(&:first_name)
     roles = Department.find(params[:department_id]).roles.sort_by(&:name)
-    
+
     @list = []
     users.each do |user|
       if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
@@ -176,10 +177,10 @@ class UsersController < ApplicationController
     #@users = @users.collect{|user| :id => user.id, :name => user.name}
     render :layout => false
   end
-  
+
   def search
     @users = @department.users
-    
+
     #filter results if we are searching
     if params[:search]
       @search_result = []
@@ -190,5 +191,12 @@ class UsersController < ApplicationController
       end
       @users = @search_result.sort_by(&:last_name)
     end
+  end
+
+  private
+
+  def random_password(size = 20)
+    chars = (('a'..'z').to_a + ('0'..'9').to_a)
+    (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 end

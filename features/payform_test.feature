@@ -39,7 +39,7 @@ Feature: payform
     And I press "Save"
     Then I should have 2 payform_items
     Then payform item 1 should be a child of payform item 2
-    And payform item 1 should have attribute "reason" "because I can"
+    And payform_item 1 should have attribute "reason" "because I can"
     And I should see "I edited"
     And I should see "3.0"
 
@@ -64,7 +64,7 @@ Feature: payform
     When I follow "Submit Payform"
     Then the payform should be submitted
     And I should see "Successfully submitted payform."
-    Given the user "Albus Dumbledore" has permission "payform administrator"
+    Given the user "Albus Dumbledore" has permission "Hogwarts payform admin"
     And I am "Albus Dumbledore"
     When I go to the payforms page
     Then I should see "Harry Potter"

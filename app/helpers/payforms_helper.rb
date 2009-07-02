@@ -15,6 +15,13 @@ module PayformsHelper
     subtract = (@department.monthly ? 1.month : 1.week)
     date - subtract + 1.day
   end
+  
+  
+  def days_in_period(payform)
+    start_date = start_of_period(payform.date)
+    end_date = (payform.date < Date.today ? payform.date : Date.today)
+    (start_date..end_date).to_a
+  end
 
   def time_format
     '%I:%M%p'
@@ -26,7 +33,7 @@ module PayformsHelper
 
   def payform_update_button
     if @payform.submitted
-      if @current_user.is_admin_of?(@payform.department)
+      if current_user.is_admin_of?(@payform.department)
         if @payform.approved && !@payform.printed
           link_to "<span><strong>Print Payform</strong></span>", print_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put
         elsif !@payform.printed

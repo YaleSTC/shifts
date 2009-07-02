@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # feel free to skip_before_filter when desired
 #  before_filter :test
   before_filter :load_user_session
+  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && LOGIN_OPTIONS.include?('CAS')}
   before_filter :login_or_register
   before_filter :load_department
 #  before_filter :load_user
@@ -13,6 +14,8 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
+  
+  filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -22,8 +25,9 @@ class ApplicationController < ActionController::Base
     render :text => text, :layout => true
   end
 
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  def using_CAS?
+    !current_user || current_user.auth_type=='CAS'
+  end
 
   protected
   # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
@@ -47,6 +51,8 @@ class ApplicationController < ActionController::Base
       @department ||= Department.find(params[:department_id] || session[:department_id])
     elsif current_user and current_user.departments
       @department = current_user.departments[0]
+    elsif current_user and current_user.is_superuser?
+      @department = Department.first
     end
   end
 
@@ -76,11 +82,11 @@ class ApplicationController < ActionController::Base
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
   end
-  
+
   def require_loc_group_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(@loc_group)
   end
-  
+
   def require_superuser
     unless current_user.is_superuser?
       flash[:notice] = "Only superuser can manage departments."
@@ -89,10 +95,18 @@ class ApplicationController < ActionController::Base
   end
 
   def login_or_register
-    unless @user_session || current_user
+    unless current_user || !LOGIN_OPTIONS.include?('authlogic')
       flash[:notice] = "Please login or register"
       redirect_to login_path
     end
+#TODO: Something like the below functionality, b/c we've lost the whole constantly-
+#check-CAS-to-see-if-you're-still-logged-in feature. The code below would work if
+#RubyCAS weren't retarded. But, unfortunately, RubyCAS is retarded, and as such,
+#for some terrible reason, CASClient::Frameworks::Rails::Filter *only* works in
+# a before_filter. Don't believe me? Try it....
+#    if current_user && current_user.auth_type == "CAS"
+#      CASClient::Frameworks::Rails::Filter
+#    end
   end
 
   def redirect_with_flash(msg = nil, options = {:action => :index})
@@ -103,8 +117,8 @@ class ApplicationController < ActionController::Base
     redirect_to options
   end
 
-#  def test
-#    raise current_user.to_yaml
-#  end
+  def test
+    raise "ewoks"
+  end
 
 end

@@ -1,31 +1,42 @@
 Given /^I had a shift yesterday$/ do
-creation_time = ("January 4, 2010 5pm".to_time)
-start_time = ("January 5, 2010 5pm".to_time)
-end_time = ("January 5, 2010 7pm".to_time)
-shift_taken = ("January 4, 2010 7pm".to_time)
+creation_time = (Time.now - 3.days)
+start_time = (Time.now - 1.day)
+end_time = (Time.now - 22.hours)
+shift_taken = (Time.now - 2.days)
 
   TimeSlot.create!(:location_id => @department.locations.first,
                    :start => start_time,
                    :end => end_time,
                    :created_at => creation_time)
-  shift = Shift.create!(:start => start_time, :end => end_time,
-                        :user_id => @user, :location_id => @department.locations.first,
+
+# Attempt at mocking out shift model so that the not in the past validation does not get invoked
+#  shift = mock_model(Shift)
+#  Shift.should_receive(:new).and_return(shift)
+#  shift.should_receive(:save!).and_return(true)
+
+  this_shift = Shift.new(:start => start_time, :end => end_time,
+                        :user_id => @user.id, :location_id => @department.locations.first,
                         :scheduled => true, :created_at => shift_taken,
                         :updated_at => shift_taken)
-  Report.create!(:shift_id => shift.id,
+  this_shift.save_without_validation!
+
+  Report.create!(:shift_id => this_shift.id,
                  :arrived => start_time,
                  :departed => end_time,
                  :created_at => start_time,
                  :updated_at => end_time)
+
 end
 
-Given /^today is not Sunday$/ do``
+Given /^today is not Sunday$/ do
   Date::DAYNAMES[Date.today.wday].should_not == "Sunday"
 end
+
 
 Given /^I have a LocGroup named "([^\"]*)" with location "([^\"]*)"$/ do |loc_group_name, location|
   loc_group = LocGroup.create!(:name => loc_group_name, :department_id => @department.id)
   Location.create!(:name => location, :short_name => location, :loc_group_id => loc_group.id, :max_staff => 2, :min_staff => 1, :priority => 1)
+
 end
 
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|
@@ -61,11 +72,47 @@ Then /^I should be redirected to (.+)$/ do |page_name|
   response.should redirect_to(path_to(page_name))
 end
 
-Then /^I should be able to select "([^\"]*)" as a time$/ do |arg1|
-  select_time(time).should be_valid
+Then /^I should be able to select "([^\"]*)" as a time$/ do |time|
+  select_time(time)
+#  assert_select(time)
+  assert_response :success
 end
 
-Then /^I should notbe able to select "([^\"]*)" as a time$/ do |arg1|
-  select_time(time).should_not be_valid
+Then /^I should notbe able to select "([^\"]*)" as a time$/ do |time|
+  lambda {select_time(time)}.should raise_error
+#  save_and_open_page
+#  assert_response :failure
+end
+
+Given /^"([^\"]*)" has a current payform$/ do |user_name|
+  user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
+  Payform.create!(:date => 4.days.from_now, :user_id => user, :department_id => user.departments.first)
+end
+
+Given /^"([^\"]*)" has the following current payform items?$/ do |user_name, table|
+  user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
+  table.hashes.each do |row|
+    category = Category.find_by_name(row[:category])
+    PayformItem.create!(:category_id => category,
+                        :user_id => user,
+                        :hours => row[:hours].to_f,
+                        :description => row[:description],
+                        :date => Date.today,
+                        :payform_id => Payform.first)
+  end
+end
+
+When /^I (.+) the "([^\"]*)" category$/ do |action, category|
+# action is either enable or disable
+  setting =
+    case action
+      when /enable/
+        true
+      when /disable/
+        false
+      else
+        raise("The action must be either enable or disable")
+      end
+  Category.find_by_name(category).update_attribute(:active, setting)
 end
 

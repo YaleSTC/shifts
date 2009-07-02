@@ -1,14 +1,20 @@
 ---
-hogwarts_department:
+department_001:
   id: "1"
   name: Hogwarts
-  permission_id: "1"
-departments_002:
+  admin_permission_id: "1"
+  payforms_permission_id: "2"
+  shifts_permission_id: "3"
+department_002:
   id: "2"
   name: Pet Store
-  permission_id: "2"
-departments_003:
+  admin_permission_id: "1"
+  payforms_permission_id: "2"
+  shifts_permission_id: "3"
+department_003:
   id: "3"
   name: Outer Space
-  permission_id: "3"
+  admin_permission_id: "1"
+  payforms_permission_id: "2"
+  shifts_permission_id: "3"
 
