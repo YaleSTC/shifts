@@ -13,7 +13,8 @@ class UserConfigsController < ApplicationController
   def update
     if @user_config.update_attributes(params[:user_config])
       flash[:notice] = "Successfully updated user config."
-      redirect_to edit_user_config_path
+      # if we came here from somewhere else, redirect us back
+      redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
     else
       render :action => 'edit'
     end
