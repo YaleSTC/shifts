@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @user.password = @user.password_confirmation = random_password
       @user.departments << @department
       if @user.save
-        @user.deliver_password_reset_instructions!
+        @user.deliver_new_user_password_instructions!
         flash[:notice] = "Successfully created user and emailed instructions for setting password."
         redirect_to @user
       else
