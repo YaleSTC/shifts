@@ -26,7 +26,7 @@
   </p>
  <% if LOGIN_OPTIONS.size >1 %>
   <p>
-    <%= f.label :login_type %><br />
+    <%= f.label :auth_type, text = "Login type" %><br />
     <%= f.select(:auth_type, LOGIN_OPTIONS, {:prompt => "Select a login type"}) %>
   </p>
   <% end %>

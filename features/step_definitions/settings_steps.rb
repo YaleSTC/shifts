@@ -24,12 +24,12 @@ shift_taken = (Time.now - 2.days)
 end
 
 Given /^"([^\"]*)" has a shift tomorrow$/ do |name|
-user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
 
-creation_time = (Time.now - 3.days)
-start_time = (Time.now + 1.day)
-end_time = (Time.now + 26.hours)
-shift_taken = (Time.now - 1.day)
+  creation_time = (Time.now - 3.days)
+  start_time = (Time.now + 1.day)
+  end_time = (Time.now + 26.hours)
+  shift_taken = (Time.now - 1.day)
 
   TimeSlot.create!(:location_id => @department.locations.first,
                    :start => start_time,
@@ -134,5 +134,18 @@ When /^I (.+) the "([^\"]*)" category$/ do |action, category|
         raise("The action must be either enable or disable")
       end
   Category.find_by_name(category).update_attribute(:active, setting)
+end
+
+Then /^I should have a (.+) named "([^\"]*)"$/ do |object, name|
+  if object =~ /user/
+    user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+    user.should_not be_nil
+  else
+    object.classify.constantize.find_by_name(name).should_not be_nil
+  end
+end
+
+Then /^the department "([^\"]*)" should have a department config$/ do |department|
+  Department.find_by_name(department).department_config.should_not be_nil
 end
 
