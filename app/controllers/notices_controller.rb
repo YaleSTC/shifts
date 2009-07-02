@@ -1,5 +1,6 @@
 class NoticesController < ApplicationController
-
+  layout "application"
+#  layout "new_notice", :only  => :new
   before_filter :fetch_loc_groups
 
   def index
@@ -16,6 +17,7 @@ class NoticesController < ApplicationController
 
   def new
     @notice = Notice.new
+    render :action => "new", :layout => 'new_notice'
   end
 
   def edit
@@ -23,15 +25,16 @@ class NoticesController < ApplicationController
   end
 
   def create
+    params.to_yaml
     @notice = Notice.new(params[:notice])
-    @notice.is_sticky = true unless current_user.is_admin_of?(@department)
+    @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     if @notice.save
       set_sources
-      if @notice.save
+      if @notice.saveNo
         flash[:notice] = 'Notice was successfully created.'
         redirect_to @notice
       else
@@ -74,7 +77,7 @@ class NoticesController < ApplicationController
     end
   end
 
-    protected
+  protected
 
   def fetch_loc_groups
     @loc_groups = @department.loc_groups.all
@@ -90,7 +93,7 @@ class NoticesController < ApplicationController
     end
     @notice.user_sources << @department if params[:department_wide_viewers] && !@notice.is_sticky
     @notice.location_sources = [] if update
-    @notice.location_sources << @department if params[:department_wide_locations] && current_user.is_admin_of?(@department)
+    @notice.departments << @department if params[:department_wide_locations] && current_user.is_admin_of?(@department)
     if params[:for_locations]
       params[:for_locations].each do |loc|
         @notice.location_sources << Location.find_by_id(loc)
