@@ -14,7 +14,18 @@
   @period_start ||= params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
   @days_per_period ||= 7 #TODO: make this a setting for an admin
 
-  if @show_weekends
+  if params[:date].blank? and (current_user.user_config.view_week != "" and current_user.user_config.view_week != "whole_period")
+    # only if default view and non-standard setting
+    if current_user.user_config.view_week == "current_day"
+      @day_collection = [Date.today]
+    elsif current_user.user_config.view_week == "remainder"
+      if @show_weekends
+        @day_collection = Date.today...(@period_start+@days_per_period)
+      else
+        @day_collection = Date.today...(@period_start+@days_per_period-1)
+      end
+    end
+  elsif @show_weekends
     @day_collection = @period_start...(@period_start+@days_per_period)
   else
     @day_collection = (@period_start+1)...(@period_start+@days_per_period-1)

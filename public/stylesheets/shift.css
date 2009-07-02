@@ -523,14 +523,14 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 	left: 0;
 	z-index: 3;
 	display: none;
-	background: #ffc;
+	background: #eee;
 	color: #000;
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
   font-family: Verdana, Arial, serif;
-	font-size: 10pt;
-	border: 2px dashed gray;
+	font-size: 9pt;
+	border: 1px solid gray;
 }
 .tooltip p{
 	margin: 5px 0;
