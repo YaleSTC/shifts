@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
 
-  def self.import_from_ldap(login, department, should_save = false)
+  def self.import_from_ldap(login, department = nil, should_save = false)
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => "directory.yale.edu", :port => 389 )
     begin
