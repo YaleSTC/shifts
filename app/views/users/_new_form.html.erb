@@ -27,7 +27,7 @@
  <% if LOGIN_OPTIONS.size >1 %>
   <p>
     <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, LOGIN_OPTIONS, {:selected => "CAS"}) %>
+    <%= f.select(:auth_type, LOGIN_OPTIONS, {:selected => @user.auth_type || "CAS"}) %>
   </p>
   <% end %>
   <h3>Roles</h3>

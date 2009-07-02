@@ -1,7 +1,7 @@
 <div id="login">
   <p class="login_status">
     You are currently logged in as <strong><%= current_user ? current_user.login : session[:cas_user] %>
-    <% if @user_session %>
+    <% if @user_session && @user_session.user %>
     <%= link_to "[Logout]", logout_path %>
     <% else %>
     <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
