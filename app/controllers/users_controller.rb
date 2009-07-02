@@ -184,6 +184,7 @@ class UsersController < ApplicationController
 
     #filter results if we are searching
     if params[:search]
+      params[:search] = params[:search].downcase
       @search_result = []
       @users.each do |user|
         if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])

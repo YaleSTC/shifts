@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
-
+  helper_method :app_config
+  
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -48,12 +49,17 @@ class ApplicationController < ActionController::Base
   # current_department is suitable to those methods that skip_before_filter load_department
   def current_department
     if params[:department_id] or session[:department_id]
-      @department ||= Department.find(params[:department_id] || session[:department_id])
+        @department ||= Department.find(params[:department_id] || session[:department_id])
     elsif current_user and current_user.departments
-      @department = current_user.departments[0]
+      @department = current_user.user_config.default_dept ? Department.find(current_user.user_config.default_dept) : current_user.departments[0]
     elsif current_user and current_user.is_superuser?
       @department = Department.first
     end
+  end
+
+  # Application-wide settings are stored in the only record in the app_configs table
+  def app_config
+    AppConfig.first
   end
 
   private
