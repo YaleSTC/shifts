@@ -8,7 +8,7 @@ Feature: Payform settings
   Background:
     Given I am "Albus Dumbledore"
     And the user "Albus Dumbledore" has permission "Hogwarts dept admin"
-    And I am on the department settings page for the "Hogwarts" department
+    And I am on the department settings page
 
   Scenario: Payform settings: Reminder email text and times
     Given I have the following payforms:

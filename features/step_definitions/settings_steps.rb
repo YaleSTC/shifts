@@ -9,11 +9,6 @@ shift_taken = (Time.now - 2.days)
                    :end => end_time,
                    :created_at => creation_time)
 
-# Attempt at mocking out shift model so that the not in the past validation does not get invoked
-#  shift = mock_model(Shift)
-#  Shift.should_receive(:new).and_return(shift)
-#  shift.should_receive(:save!).and_return(true)
-
   this_shift = Shift.new(:start => start_time, :end => end_time,
                         :user_id => @user.id, :location_id => @department.locations.first,
                         :scheduled => true, :created_at => shift_taken,
@@ -28,27 +23,40 @@ shift_taken = (Time.now - 2.days)
 
 end
 
+Given /^"([^\"]*)" has a shift tomorrow$/ do |name|
+  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+
+  creation_time = (Time.now - 3.days)
+  start_time = (Time.now + 1.day)
+  end_time = (Time.now + 26.hours)
+  shift_taken = (Time.now - 1.day)
+
+  TimeSlot.create!(:location_id => @department.locations.first,
+                   :start => start_time,
+                   :end => end_time,
+                   :created_at => creation_time)
+
+  Shift.create!(:start => start_time, :end => end_time,
+                :user_id => user.id, :location_id => @department.locations.first,
+                :scheduled => true, :created_at => shift_taken,
+                :updated_at => shift_taken)
+end
+
 Given /^today is not Sunday$/ do
   Date::DAYNAMES[Date.today.wday].should_not == "Sunday"
 end
 
 
 Given /^I have a LocGroup named "([^\"]*)" with location "([^\"]*)"$/ do |loc_group_name, location|
-  loc_group = LocGroup.create!(:name => loc_group_name, :department_id => @department.id)
+  loc_group = LocGroup.find_by_name(loc_group_name)
   Location.create!(:name => location, :short_name => location, :loc_group_id => loc_group.id, :max_staff => 2, :min_staff => 1, :priority => 1)
 
 end
 
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|
 
-  # ATTN: the dev team should choose one of the following lines and use it.
-  # Use the first line if we want to have something like "Current department: STC" on the page
-  # that indicates the current department.  Use the second line if we want a menu with links
-  # to different departments, except the current department will be displayed but is not
-  # a clickable link (which indicates that we're currently in that department)
-  response.should contain("Current department: #{department}")
-
-  response.should_not have_selector("a", :content => department)
+  # the following code checks to see that the select box has the correct department selected
+  field_with_id("department_id").value.should == [Department.find_by_name(department).id.to_s]
 end
 
 Then /^I should see all the days of the week$/ do
@@ -58,6 +66,18 @@ Then /^I should see all the days of the week$/ do
     response.should contain(day)
   end
 end
+
+Then /^I should not see all the days of the week$/ do
+a = Date.today.wday
+c = {1=>"Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6=> "Saturday", 7 => "Sunday"}
+
+
+  Date::DAYNAMES.each.except(a) do |day|
+    response.should_not contain(day)
+  end
+
+end
+
 
 When /^I log out$/ do
   # This is a bad way of doing a logout, but I don't know of any other way
@@ -114,5 +134,18 @@ When /^I (.+) the "([^\"]*)" category$/ do |action, category|
         raise("The action must be either enable or disable")
       end
   Category.find_by_name(category).update_attribute(:active, setting)
+end
+
+Then /^I should have a (.+) named "([^\"]*)"$/ do |object, name|
+  if object =~ /user/
+    user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+    user.should_not be_nil
+  else
+    object.classify.constantize.find_by_name(name).should_not be_nil
+  end
+end
+
+Then /^the department "([^\"]*)" should have a department config$/ do |department|
+  Department.find_by_name(department).department_config.should_not be_nil
 end
 
