@@ -1,1 +1,1 @@
-LOGIN_OPTIONS=['CAS','authlogic']
+LOGIN_OPTIONS=['CAS', 'authlogic']

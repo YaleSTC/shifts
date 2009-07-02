@@ -19,10 +19,6 @@ class Location < ActiveRecord::Base
 
   delegate :department, :to => :loc_group
 
-  def max_staff_greater_than_min_staff
-    errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff and self.max_staff and self.min_staff > self.max_staff)
-  end
-
   def admin_permission
     self.loc_group.admin_permission
   end
@@ -31,7 +27,7 @@ class Location < ActiveRecord::Base
     [self]
   end
 
-  def notices
+  def find_notices
     Notice.active.select {|n| n.display_locations.include?(self)}
   end
 
@@ -57,5 +53,13 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
+  
+  
+  protected
+  
+  def max_staff_greater_than_min_staff
+    errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff and self.max_staff and self.min_staff > self.max_staff)
+  end
+  
 end
 

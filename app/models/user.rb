@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
 
-  def self.import_from_ldap(login, department, should_save = false)
+  def self.import_from_ldap(login, department = nil, should_save = false)
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => "directory.yale.edu", :port => 389 )
     begin
@@ -104,8 +104,8 @@ class User < ActiveRecord::Base
   end
 
   # check for admin permission given a dept, location group, or location
-  def is_admin_of?(thing)
-    self.is_superuser? || (permission_list.include?(thing.admin_permission) && self.is_active?(thing))
+  def is_admin_of?(dept)
+    self.is_superuser? || (permission_list.include?(dept.admin_permission) && self.is_active?(dept))
   end
 
   # see list of superusers defined in config/initializers/superuser_list.rb
@@ -174,3 +174,4 @@ class User < ActiveRecord::Base
     UserConfig.new({:user_id => self.id}).save
   end
 end
+
