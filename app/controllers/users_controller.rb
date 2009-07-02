@@ -90,12 +90,10 @@ class UsersController < ApplicationController
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
-    if params[:reset_password]
-      @user.password=@user.password_confirmation=random_password
-      @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions (n)})
-    end
+    @user.password=@user.password_confirmation=random_password if params[:reset_password]
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
+      @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions (n)}) if params[:reset_password]
       redirect_to @user
     else
       render :action => 'edit'
