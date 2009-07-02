@@ -158,9 +158,8 @@ class User < ActiveRecord::Base
   end
 
   def deliver_password_reset_instructions!(mailer)
-    reset_perishable_token!
+    self.reset_perishable_token!
     mailer.call(self)
-    #AppMailer.deliver_password_reset_instructions(self)
   end
 
   memoize :name, :permission_list, :is_superuser?
