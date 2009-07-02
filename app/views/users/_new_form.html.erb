@@ -30,10 +30,10 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </p>
- <% if LOGIN_OPTIONS.size >1 %>
+ <% if $appconfig.login_options.size >1 %>
   <p>
     <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, LOGIN_OPTIONS, {:selected => @user.auth_type || "CAS"}) %>
+    <%= f.select(:auth_type, $appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
   </p>
   <% end %>
   <h3>Roles</h3>

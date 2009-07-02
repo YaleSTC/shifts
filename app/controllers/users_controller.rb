@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @user.auth_type = LOGIN_OPTIONS[0] if LOGIN_OPTIONS.size == 1
+    @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
     if @user.auth_type == "authlogic"
       @user.password = @user.password_confirmation = random_password
       @user.departments << @department
