@@ -31,7 +31,7 @@ class Location < ActiveRecord::Base
     [self]
   end
 
-  def notices
+  def find_notices
     Notice.active.select {|n| n.display_locations.include?(self)}
   end
 

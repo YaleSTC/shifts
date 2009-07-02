@@ -19,7 +19,7 @@ module ApplicationHelper
 
   def return_to_shift_report_if_needed
     if current_user.current_shift
-      link_to "Return to your current report", {:controller => "report", :action => "index"}
+      link_to "Return to your current report", {:controller => "report", :action => "index"} + concat("<br/>")
     end
   end
 

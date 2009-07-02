@@ -1,8 +1,13 @@
 <% stylesheet 'thickbox' %>
 <% javascript 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed' %>
 
-<h1 id="page_title"><%=h "Notices - " %><font size = -2><%= link_to 'Post a new notice', new_notice_path,{:TB_iframe => true, :popup => true}, :class => "thickbox" %></font></h1>
-
+<h1 id="page_title">
+  Notices -
+  <font size = -2>
+    <%= link_to 'Post a new notice', {:action => 'new', :TB_iframe => true}, :class => "thickbox" %>
+  </font>
+</h1>
+<div id = "for_you">
 <% unless current_user.notices.empty? %>
   <fieldset class ="index">
     <legend>For you</legend>
@@ -10,19 +15,24 @@
   </fieldset>
   <br />
 <% end %>
-
-
-<% @department.locations.each do |loc| %>
-  <% unless loc.notices.empty? %>
+</div>
+<div id = "location_notices">
+<% current_department.locations.each do |loc| %>
+  <% unless loc.find_notices.empty? %>
   <fieldset class ="index">
     <legend><%= loc.name %></legend>
-    <%= render :partial => 'notice', :collection => loc.notices %>
+    <%= render :partial => 'notice', :collection => loc.find_notices%>
   </fieldset>
   <br/>
   <% end %>
 <% end %>
+</div>
 
 <% if current_user.is_admin_of?(@department) %>
   <%= link_to 'Notice archive', 'notices/archive' %>
 <% end %>
+<script type="text/javascript" charset="utf-8">
+    page.replace_html("for_you", :partial => "for_you" );
+    page.replace_html("location_notices", :partial => "notice", :collection => "loc.notices" );
+</script>
 
