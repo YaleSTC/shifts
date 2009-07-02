@@ -26,9 +26,13 @@ before_filter :check_user
   # GET /department_configs/new.xml
   def new
     #@department_config = DepartmentConfig.new
-    @department_config = DepartmentConfig.default
+    @department_config = @department.department_config
+    if params[:department_config]
+      if @department_config.nil?
+        @department_config = DepartmentConfig.default
+      end
+    end
     @time_choices = (0..1440).step(@department_config.time_increment).map{|t| [t.min_to_am_pm, t]}
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @department_config }
