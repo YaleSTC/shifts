@@ -6,8 +6,8 @@ Feature: payform admin
   I want to be able to approve, print, and perform other administrative tasks for payforms
 
   Background:
-    Given I am "Albus Dumbledore"
     Given the user "Albus Dumbledore" has permissions "Hogwarts payform admin"
+    And I am "Albus Dumbledore"
     And I have the following payforms:
       | date       | department | user_first | user_last      | submitted | approved |printed|
       | 2009-06-13 | Hogwarts   | Harry      | Potter         | nil       | nil      | nil   |
