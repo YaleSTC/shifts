@@ -1,7 +1,7 @@
 <% if @user.auth_type == "authlogic"%>
    <h3>Reset Password?</h3>
      <div>
-       <%= check_box_tag "reset password", @user.deliver_password_reset_instructions! %>
+       <%= check_box_tag "reset password", @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions (n)}) %>
      </div>
  <% end %>
  <%= render :partial => 'new_form', :locals => {:submit => "Update", :user => @user}%>

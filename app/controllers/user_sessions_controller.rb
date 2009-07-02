@@ -1,7 +1,8 @@
 class UserSessionsController < ApplicationController
-  skip_before_filter :login_or_register
+  skip_before_filter :login_check
   skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}
   def new
+    flash[:notice] = "Please login."
     @user_session = UserSession.new
   end
 
