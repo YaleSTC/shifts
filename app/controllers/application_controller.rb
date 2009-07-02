@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # feel free to skip_before_filter when desired
 #  before_filter :test
   before_filter :load_user_session
-  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && LOGIN_OPTIONS.include?('CAS')}, :except => 'access_denied'
+  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && $appconfig.login_options.include?('CAS')}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
 #  before_filter :load_user
@@ -14,16 +14,16 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
-  
+
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
-  APP_CONFIG = AppConfig.first
+
+  $appconfig = AppConfig.first
 
   def access_denied
     text = "Access denied"
-     text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if LOGIN_OPTIONS.include?('authlogic')
+     text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('authlogic')
     text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user && current_user.departments
     render :text => text, :layout => true
   end
@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
 
   def login_check
     unless current_user
-      if LOGIN_OPTIONS==['authlogic'] #AppConfig.first.login_options_array.include?('authlogic')
+      if $appconfig.login_options==['authlogic'] #AppConfig.first.login_options_array.include?('authlogic')
         redirect_to login_path
       else
         redirect_to access_denied_path

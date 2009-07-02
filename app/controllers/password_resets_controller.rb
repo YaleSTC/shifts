@@ -2,7 +2,7 @@ class PasswordResetsController < ApplicationController
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
   before_filter :require_no_user, :only => [:edit, :update]
   skip_before_filter :login_check
-  skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && LOGIN_OPTIONS.include?('CAS')}
+  skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && $appconfig.login_options.include?('CAS')}
 
 
   def new
@@ -26,7 +26,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    @user.login = params[:user][:login] if $user_editable_logins
+    @user.login = params[:user][:login] if $appconfig.user_editable_logins
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save

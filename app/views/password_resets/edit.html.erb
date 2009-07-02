@@ -2,7 +2,7 @@
 
 <% form_for @user, :url => password_reset_path, :method => :put do |f| %>
   <%= f.error_messages %>
-  <% if $user_editable_logins %>
+  <% if $appconfig.user_editable_logins %>
   <%= f.label :login %><br />
     <%= f.text_field :login %><br />
     <% end %>
