@@ -88,6 +88,17 @@ html {
   overflow-y: scroll;
 }
 
+table, td, th{
+	border:1px solid #666;
+	padding: 2px;
+	border-collapse:collapse;
+}
+
+th{
+	background: #123456; /*415578;*/
+	border:1px solid black;
+	color: white;
+}
 
 #flash_error {
   background-color: #FCC;
@@ -380,6 +391,12 @@ ul#navigationList a:hover {
   margin-bottom: 15px;
   border-bottom: thin solid #408080;
 }
+#subtitle {
+  padding: 0 0;
+  margin-top: -8px;
+  margin-bottom: 5px;
+  color: gray;
+}
 
 /* Get rid of standard margin/padding */
 h1, h2, h3, h4, h5, h6, ul, li, ol {
@@ -534,4 +551,12 @@ span#progress_bar #other_step {
 .delete_link {
 	float: right;
 	text-align: right;
+}
+
+/* Sortable tables */
+table.sortable th:hover {
+	color:orange;
+}
+table.sortable th {
+	text-decoration: underline;
 }

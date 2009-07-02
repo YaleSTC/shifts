@@ -1,4 +1,4 @@
-<% jobs = (current_user.is_admin_of?(@payform.department) ? category.payform_items : category.payform_items) & @payform.payform_items %>
+<% jobs = (current_user.is_admin_of?(@payform.department) ? category.payform_items : category.payform_items.select{|p| p.active}) & @payform.payform_items %>
 <% unless jobs.empty? %>
 
 <thead>

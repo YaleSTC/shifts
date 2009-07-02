@@ -1,21 +1,29 @@
+<% 
+  @user_config = current_user.user_config
+  @loc_group_select = {}
+  current_user.departments.each do |dept|
+    @loc_group_select.store(dept.id, current_user.loc_groups(dept))
+  end    
+  @selected_loc_groups = @user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
+%>
 <div id="preferences" style="float:right">
-  <span id="pref_link" class="dotted_link" style="display:none"><%= link_toggle "checkbox_div", "Show/Hide Groups (TODO)", "fast" %></span>
+  <span id="pref_link" class="dotted_link" style="display:none"><%= link_toggle "checkbox_div", "Show/Hide Groups", "fast" %></span>
   <div id="checkbox_div">
+    Location groups to show:
     <%# TODO: actually make this preferences form work%>
-    <% form_tag({:action => "view_preferences"}, {:id => 'pref_form'} ) do %>
-      <% if @department.loc_groups.size > 1 %>
-        <ul>
-        <% @department.loc_groups.each do |lg| %>
-          <li><%= check_box_tag "show_groups[]", lg.id %><%# !@user.preference.hide_group?(lg) %><%= lg.name %></li>
+    <% form_for @user_config do |f| %>
+      <p>
+        <% for department in current_user.departments %>
+          <div class="multiple_select">
+            <h3><%= department.name %></h3>
+            <%= collection_multiple_select(:user_config, :view_loc_groups, 
+                                        @loc_group_select[department.id], :id, :name,
+                                        :selected_items => @selected_loc_groups) %>
+          </div>
         <% end %>
-        </ul>
-      <% end %>
-
-      <p><%= check_box_tag 'show_bars', 'all' %><%#, @user.preference.show_bars? %>Sign up bars</p>
-      <%= hidden_field_tag :date, params[:date] %>
-      <p><%= submit_tag "Show", :id => 'submit_pref' %></p>
-      <div id="cancel_pref_link" class="dotted_link" style="display:none">Cancel</div>
-
+      </p>
+      <%= hidden_field_tag :redirect_to, (shifts_path + "?date=#{params[:date]}" ) %>
+      <p><%= f.submit "Show" %></p>
     <% end %>
   </div>
   <script type="text/javascript" charset="utf-8">
