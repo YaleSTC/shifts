@@ -18,7 +18,7 @@ class Department < ActiveRecord::Base
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :roles
-  has_one :department_configs
+  has_one :department_config, :dependent => :destroy
 
   private
   def create_permissions

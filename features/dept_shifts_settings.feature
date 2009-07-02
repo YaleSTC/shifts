@@ -1,10 +1,14 @@
-Feature: department_test
-  In order to manage departments
-  As a superuser admin
-  I want to be able to create and manage departments
+@settings
+
+Feature: Shift settings
+  In order to manage shift settings
+  As an admin
+  I want to be able to configure shift settings
 
   Background:
     Given I am "Albus Dumbledore"
+    And the user "Albus Dumbledore" has permissions "Hogwarts dept admin, Hogwarts shifts admin"
+    And the user "Harry Potter" has permissions "Outside of Hogwarts view, Outside of Hogwarts signup"
     And I am on the department settings page
     And there is a scheduled shift:
         | start_time     | end_time       | location     | user         |
@@ -20,6 +24,7 @@ Feature: department_test
     And I should see "7:00"
     And I should not see "8:00"
     And I should not see "4:00"
+    And I should not see "Harry Potter"
 
   Scenario: Shifts settings: Grace Period
     When I fill in "Grace Period" with "11"
@@ -32,16 +37,16 @@ Feature: department_test
 
   Scenario Outline: Shifts settings: Time increments
     When I select "<time increment>" from "Time Increments"
-    And I go to the shifts page
+    When I am on the shifts page
     And I follow "Time Slots"
-    Then I should <1:00>be able to select "1:00" as a time
-    And I should <1:15>be able to select "1:15" as a time
-    And I should <1:30>be able to select "1:30" as a time
+    Then I should <1:00>be able to select "01:00" as a time
+    And I should <1:15>be able to select "01:15" as a time
+    And I should <1:30>be able to select "01:30" as a time
 
     When I go to the shifts page
-    And I follow "Power signups"
+    And I follow "Power sign up"
     Then I should <1:00>be able to select "1:00" as a time
-    And I should <1:15>be able to select "1:15" as a time
+    And I should <1:15>be able to select "01:15" as a time
     And I should <1:30>be able to select "1:30" as a time
 
       Examples:
@@ -78,6 +83,9 @@ Feature: department_test
     Then I should see "I love my job."
     And I should not see "I hate my job."
 
-    Given I am Dumbledore
-    And I am on the payforms page
+    Given I am "Albus Dumbledore"
+    And I am on the shifts page
+    And I follow "Harry Potter"
+    Then I should see "I love my job."
+    And I should see "I hate my job."
 

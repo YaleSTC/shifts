@@ -1,36 +1,7 @@
 <h1>Editing department_config</h1>
 
-<% form_for(@department_config) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :department_id %><br />
-    <%= f.text_field :department_id %>
-  </p>
-  <p>
-    <%= f.label :schedule_start %><br />
-    <%= f.text_field :schedule_start %>
-  </p>
-  <p>
-    <%= f.label :schedule_end %><br />
-    <%= f.text_field :schedule_end %>
-  </p>
-  <p>
-    <%= f.label :time_increment %><br />
-    <%= f.text_field :time_increment %>
-  </p>
-  <p>
-    <%= f.label :grace_period %><br />
-    <%= f.text_field :grace_period %>
-  </p>
-  <p>
-    <%= f.label :edit_report %><br />
-    <%= f.check_box :edit_report %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+<% render :partial => 'form' %>
 
 <%= link_to 'Show', @department_config %> |
 <%= link_to 'Back', department_configs_path %>
+
