@@ -2,14 +2,16 @@
 
 <% form_for @user, :url => password_reset_path, :method => :put do |f| %>
   <%= f.error_messages %>
+  <% if $user_editable_logins %>
   <%= f.label :login %><br />
     <%= f.text_field :login %><br />
+    <% end %>
   <%= f.label :password %><br />
   <%= f.password_field :password %><br />
   <br />
   <%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %><br />
   <br />
-  <%= f.submit "Update my password and log me in" %>
+  <%= f.submit "Update my password and bring me to the login page" %>
 <% end %>
 

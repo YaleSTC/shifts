@@ -26,7 +26,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    @user.login = params[:user][:login]
+    @user.login = params[:user][:login] if $user_editable_logins
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
@@ -50,7 +50,7 @@ private
   end
   def require_no_user
     if current_user
-      flash[:notice] = "You\'re logged in. Someone resetting their password shouldn\'t be logged in, you hacker."
+      flash[:notice] = "You\'re logged in. Someone resetting their password shouldn\'t be logged in."
       redirect_to root_url
     end
 
