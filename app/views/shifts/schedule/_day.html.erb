@@ -24,7 +24,8 @@
 <% render :layout => 'shifts/schedule/day_table_layout' do
 #   TODO: gather this info from preferences correctly
 #    @loc_groups ||= pref_filter(fetch_location_groups) #need this for ajax sign up
-    @loc_groups = @department.loc_groups
+    #@loc_groups = @department.loc_groups
+    @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}
 
     populate_all_locs(@loc_groups, @block_length)
 
