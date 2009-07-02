@@ -20,8 +20,8 @@ class UserConfig < ActiveRecord::Base
   
   # Currently deprecated because I'm not sure if it's a good idea -ben
   # Returns an array of loc groups, rather than the databse comma-sep string
-#  def view_loc_groups
-#    read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
-#  end
+  # def view_loc_groups
+  #   read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
+  # end
 
 end

@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
     if params[:department_id] or session[:department_id]
       @department ||= Department.find(params[:department_id] || session[:department_id])
     elsif current_user and current_user.departments
-      @department = current_user.departments[0]
+      @department = current_user.user_config.default_dept ? Department.find(current_user.user_config.default_dept) : current_user.departments[0]
     elsif current_user and current_user.is_superuser?
       @department = Department.first
     end
