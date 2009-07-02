@@ -157,16 +157,12 @@ class User < ActiveRecord::Base
     Restriction.all.select{|r| r.users.include?(self)}
   end
 
-  def deliver_password_reset_instructions!
+  def deliver_password_reset_instructions!(mailer)
     reset_perishable_token!
-    AppMailer.deliver_password_reset_instructions(self)
+    mailer.call(self)
+    #AppMailer.deliver_password_reset_instructions(self)
   end
-
-  def deliver_new_user_password_instructions!
-    reset_perishable_token!
-    AppMailer.deliver_new_user_password_instructions(self)
-  end
-  
+ 
   def deliver_admin_password_reset_instructions!
     reset_perishable_token!
     AppMailer.deliver_admin_password_reset_instructions(self)
