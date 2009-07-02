@@ -14,7 +14,7 @@ class PasswordResetsController < ApplicationController
     if @user && @user.auth_type=='authlogic'
       @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_password_reset_instructions (n)})
       flash[:notice] = "Instructions to reset the password have been emailed. "
-      redirect_to @user
+      redirect_to login_path
     else
       flash[:notice] = "No user using authlogic was found with that email address"
       render :action => :new
