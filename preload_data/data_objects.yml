@@ -1,17 +1,29 @@
-d_object_001:
-  data_type_id: 1
-  name: Garfield
-  description: comic book cat
-d_object_002:
-  data_type_id: 1
-  name: Crookshanks
-  description: cat owned by Hermione
-d_object_003:
-  data_type_id: 2
-  name: Millenium Falcon
-  description: Hans Solo! Chewie!
-d_object_004:
-  data_type_id: 2
-  name: Serenity
+--- 
+data_objects_001: 
+  created_at: 2009-07-02 22:11:55
+  data_type_id: "2"
   description: Awesome.
-
+  id: "1655178609"
+  name: Serenity
+  updated_at: 2009-07-02 22:11:55
+data_objects_002: 
+  created_at: 2009-07-02 22:11:55
+  data_type_id: "2"
+  description: Hans Solo! Chewie!
+  id: "1655178610"
+  name: Millenium Falcon
+  updated_at: 2009-07-02 22:11:55
+data_objects_003: 
+  created_at: 2009-07-02 22:11:55
+  data_type_id: "1"
+  description: cat owned by Hermione
+  id: "1655178611"
+  name: Crookshanks
+  updated_at: 2009-07-02 22:11:55
+data_objects_004: 
+  created_at: 2009-07-02 22:11:55
+  data_type_id: "1"
+  description: comic book cat
+  id: "1655178612"
+  name: Garfield
+  updated_at: 2009-07-02 22:11:55

@@ -101,7 +101,7 @@ users_007:
   crypted_password: 0dc69dbdcc7c6d310f7f8ef29914117aa25427ba628aac8ac3e46c2889c8c5b13c111bedf3e5207c5e7d1ea10c873961b33bd703e7c259bb42086e746fdd59e0
   default_department_id: 
   email: wei.yan@yale.edu
-  employee_id:
+  employee_id: 
   first_name: Wei
   id: "20"
   last_name: Yan
@@ -133,7 +133,7 @@ users_009:
   crypted_password: 031e93571245649716739bddf6d6d262b18ec42330569b931374837595d820ec1db373145cfd16700ac36ccdcaa269183988384fb6f6fe6bf578403e3763922d
   default_department_id: 
   email: kwabena.antwi-boasiako@yale.edu
-  employee_id:
+  employee_id: 
   first_name: Kwabena
   id: "22"
   last_name: Antwi-Boasiako
@@ -213,7 +213,7 @@ users_014:
   crypted_password: 7c1f14b95a1bdc749de261cc716fc3c8ed3644b1f4d5d3c3995855bdd081b70e4a06a9ae054ea800dc8081e5c646650ed159d59714bf6a8e40ddb1dc4e6b9f35
   default_department_id: 
   email: michael.libertin@yale.edu
-  employee_id:
+  employee_id: 
   first_name: Michael
   id: "28"
   last_name: Libertin
