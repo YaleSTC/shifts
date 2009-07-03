@@ -9,7 +9,14 @@ class PunchClocksController < ApplicationController
   
   def new
     @user = User.find(params[:user_id])
-    @punch_clock = PunchClock.new
+    @punch_clock = PunchClock.new(params[:user_id])
+    @punch_clock.user = @user
+    if @punch_clock.save
+      flash[:notice] = "Successfully clocked in."
+    else
+      flash[:notice] = "Could not clock in."  # why?
+    end
+    redirect_to dashboard_url
   end
   
   def create
@@ -25,6 +32,17 @@ class PunchClocksController < ApplicationController
     end
   end
 
+  def clock_out
+    PunchClock.find(params[:id])
+  end
+  
+  def cancel
+    if (clock = current_user.punch_clock) && request.post?
+      clock.destroy
+    end
+    redirect_to :controller => "/dashboard"
+  end
+  
   def destroy
     @punch_clock = PunchClock.find(params[:id])
     @punch_clock.destroy
