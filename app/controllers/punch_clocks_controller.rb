@@ -13,6 +13,7 @@ class PunchClocksController < ApplicationController
   end
   
   def create
+    raise penguins
     @punch_clock = PunchClock.new(params[:punch_clock])
     @user = User.find(params[:user_id])
     @punch_clock.user = @user
@@ -23,7 +24,7 @@ class PunchClocksController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def destroy
     @punch_clock = PunchClock.find(params[:id])
     @punch_clock.destroy

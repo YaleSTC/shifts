@@ -17,7 +17,7 @@
                                                   :confirm => "Are you sure",
                                                   :method => :delete %>
   <% else %>
-    <%= link_to "Clock in?", new_user_punch_clock_path(current_user.id) %>
+    <%= link_to "Clock in?", new_punch_clock_path(current_user) %>
   <% end %>
 </fieldset>
 
