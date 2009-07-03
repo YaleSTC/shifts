@@ -1,5 +1,5 @@
----
-user_configs_001:
+--- 
+user_configs_001: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "1"
@@ -7,7 +7,7 @@ user_configs_001:
   user_id: "13"
   view_loc_groups: ""
   view_week: ""
-user_configs_002:
+user_configs_002: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "2"
@@ -15,7 +15,7 @@ user_configs_002:
   user_id: "14"
   view_loc_groups: ""
   view_week: ""
-user_configs_003:
+user_configs_003: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "3"
@@ -23,7 +23,7 @@ user_configs_003:
   user_id: "15"
   view_loc_groups: ""
   view_week: ""
-user_configs_004:
+user_configs_004: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "4"
@@ -31,7 +31,7 @@ user_configs_004:
   user_id: "16"
   view_loc_groups: ""
   view_week: ""
-user_configs_005:
+user_configs_005: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "5"
@@ -39,7 +39,7 @@ user_configs_005:
   user_id: "17"
   view_loc_groups: ""
   view_week: ""
-user_configs_006:
+user_configs_006: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "6"
@@ -47,7 +47,7 @@ user_configs_006:
   user_id: "18"
   view_loc_groups: ""
   view_week: ""
-user_configs_007:
+user_configs_007: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "7"
@@ -55,7 +55,7 @@ user_configs_007:
   user_id: "20"
   view_loc_groups: ""
   view_week: ""
-user_configs_008:
+user_configs_008: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "8"
@@ -63,7 +63,7 @@ user_configs_008:
   user_id: "21"
   view_loc_groups: ""
   view_week: ""
-user_configs_009:
+user_configs_009: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "9"
@@ -71,7 +71,7 @@ user_configs_009:
   user_id: "22"
   view_loc_groups: ""
   view_week: ""
-user_configs_010:
+user_configs_010: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "10"
@@ -79,7 +79,7 @@ user_configs_010:
   user_id: "23"
   view_loc_groups: ""
   view_week: ""
-user_configs_011:
+user_configs_011: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "11"
@@ -87,7 +87,7 @@ user_configs_011:
   user_id: "24"
   view_loc_groups: ""
   view_week: ""
-user_configs_012:
+user_configs_012: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "12"
@@ -95,7 +95,7 @@ user_configs_012:
   user_id: "26"
   view_loc_groups: ""
   view_week: ""
-user_configs_013:
+user_configs_013: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "13"
@@ -103,7 +103,7 @@ user_configs_013:
   user_id: "27"
   view_loc_groups: ""
   view_week: ""
-user_configs_014:
+user_configs_014: 
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "14"
@@ -111,28 +111,27 @@ user_configs_014:
   user_id: "28"
   view_loc_groups: ""
   view_week: ""
-user_configs_015:
+user_configs_015: 
   created_at: 2009-06-30 19:58:09
-  default_dept:
+  default_dept: 
   id: "19"
   updated_at: 2009-06-30 19:58:09
   user_id: "49"
   view_loc_groups: ""
   view_week: ""
-user_configs_016:
+user_configs_016: 
   created_at: 2009-06-30 19:58:26
-  default_dept:
+  default_dept: 
   id: "20"
   updated_at: 2009-06-30 19:58:26
   user_id: "50"
   view_loc_groups: ""
   view_week: ""
-user_configs_017:
+user_configs_017: 
   created_at: 2009-06-30 20:23:05
-  default_dept:
+  default_dept: 
   id: "21"
   updated_at: 2009-06-30 20:23:05
   user_id: "51"
   view_loc_groups: ""
   view_week: ""
-
