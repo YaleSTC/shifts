@@ -109,13 +109,5 @@ class NoticesController < ApplicationController
       end
     end
   end
-
-  def update_checkboxes
-    @notice = Notice.new(params[:announcement])
-    render :update do |page|
-      page.replace_html('advanced_options_div', :partial => "advanced_options")
-    end
-  end
-
 end
 
