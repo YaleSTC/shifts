@@ -157,6 +157,18 @@ class User < ActiveRecord::Base
     Restriction.all.select{|r| r.users.include?(self)}
   end
 
+#TODO: A method like this might be helpful
+#  def switch_auth_type
+#    if self.auth_type=='CAS'
+#      self.auth_type='authlogic'
+#      self.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions (n)})
+#      self.save!
+#    else
+#      self.auth_type='CAS'
+#      self.save!
+#    end
+#  end
+
   def deliver_password_reset_instructions!(mailer)
     self.reset_perishable_token!
     mailer.call(self)
@@ -174,4 +186,3 @@ class User < ActiveRecord::Base
     UserConfig.new({:user_id => self.id}).save
   end
 end
-
