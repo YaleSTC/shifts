@@ -25,7 +25,8 @@ module NavigationHelpers
     when /the user settings page/
       edit_user_config_path(UserConfig.find_by_user_id(@user.id))
     when /the Application Settings page/
-      application_settings_path
+      edit_app_config_path(1)
+#      app_config_path
     when /the department settings page/
       edit_department_config_path(@department)
     when /the dashboard/
