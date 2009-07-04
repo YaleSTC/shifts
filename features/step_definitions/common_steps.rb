@@ -29,7 +29,6 @@ Given /^I am "([^\"]*)"$/ do |name|
 #    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
 #  visit departments_path
 #  click_link @department.name
-
 end
 
 Given /^I have no (.+)$/ do |class_name|
