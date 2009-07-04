@@ -11,7 +11,7 @@
         <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
       <%- end -%>
       <!-- Main Content -->
-      <%= yield(:body) || yield %>     
+      <%= yield(:body) || yield %>
       </div>
       <div id="pageAnchor">
         <a href="#top_of_page">
@@ -22,9 +22,6 @@
         <p class="footer">
           URL: <%= request.env["HTTP_HOST"] %><%= request.request_uri %><br />
           <%= AppConfig.first.footer %>
-          Certifying authority: Adam Bray, Asst. Manager, Student Technology<br />
-          Last modified: Tues Jun 9 12:08:00 EST 2009<br />
-          Questions?  Please email <a href="mailto:stc-hiring@yale.edu">stc-hiring@yale.edu</a><br />
         </p>
       </div>
     </div>
@@ -32,3 +29,4 @@
     <div id="pageboxBottom"/> <!-- do not remove this -->
   </body>
 </html>
+

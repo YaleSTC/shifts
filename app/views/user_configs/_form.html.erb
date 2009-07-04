@@ -2,20 +2,20 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :default_dept, text = "Default department" %><br />
-    <small>This is the department you will be logged into when you sign in to the 
-    application.  You can then change it through the department chooser.  If you 
+    <small>This is the department you will be logged into when you sign in to the
+    application.  You can then change it through the department chooser.  If you
     leave this blank, then it will default to your first department.</small><br />
     <%= f.select :default_dept, @dept_select %>
   </p>
   <p>
     <%= f.label :view_loc_groups %><br />
-    <small>These are the location groups you will view by default on the shift 
-    schedule.  If you leave this blank, then it will default to all of your 
+    <small>These are the location groups you will view by default on the shift
+    schedule.  If you leave this blank, then it will default to all of your
     location groups.  </small><br />
     <% for department in current_user.departments %>
       <div class="multiple_select">
         <h3><%= department.name %></h3>
-        <%= collection_multiple_select(:user_config, :view_loc_groups, 
+        <%= collection_multiple_select(:user_config, :view_loc_groups,
                                     @loc_group_select[department.id], :id, :name,
                                     :selected_items => @selected_loc_groups) %>
       </div>
@@ -29,3 +29,4 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
