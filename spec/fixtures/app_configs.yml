@@ -1,8 +1,10 @@
 ---
 app_configs_001:
+  auth_types: CAS, authlogic
   created_at: 2009-06-22 17:42:57
-  updated_at: 2009-06-22 17:56:18
-  id: "1"
   footer: ""
-  auth_types: ""
+  id: "1"
+  ldap_address:
+  updated_at: 2009-07-02 22:21:18
+  user_editable_logins: t
 

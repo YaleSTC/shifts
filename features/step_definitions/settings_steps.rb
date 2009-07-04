@@ -1,7 +1,7 @@
 Given /^I had a shift yesterday$/ do
 creation_time = (Time.now - 3.days)
-start_time = (Time.now - 1.day)
-end_time = (Time.now - 22.hours)
+start_time = (Time.now - 32.hours)
+end_time = (Time.now - 29.hours)
 shift_taken = (Time.now - 2.days)
 
   TimeSlot.create!(:location_id => @department.locations.first,
@@ -65,19 +65,35 @@ Then /^I should see all the days of the week$/ do
   Date::DAYNAMES.each do |day|
     response.should contain(day)
   end
+
+  yesterday = Date.yesterday.to_s(:Day)
+  response.should contain(yesterday)
+
 end
 
-Then /^I should not see all the days of the week$/ do
-a = Date.today.wday
-c = {1=>"Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6=> "Saturday", 7 => "Sunday"}
+Then /^I should see "([^\"]*)" on the schedule$/ do |message|
+  tomorrow = Date.tomorrow.to_s(:Day)
+  yesterday = Date.yesterday.to_s(:Day)
 
+  message = yesterday if message == "yesterday"
+  message = tomorrow if message == "tomorrow"
 
-  Date::DAYNAMES.each.except(a) do |day|
-    response.should_not contain(day)
+  assert_select("div.time_table_updated") do |div|
+    div.should contain(message)
   end
-
 end
 
+Then /^I should not see "([^\"]*)" on the schedule$/ do |message|
+  tomorrow = Date.tomorrow.to_s(:Day)
+  yesterday = Date.yesterday.to_s(:Day)
+
+  message = yesterday if message == "yesterday"
+  message = tomorrow if message == "tomorrow"
+
+  assert_select("div.time_table_updated") do |div|
+    div.should_not contain(message)
+  end
+end
 
 When /^I log out$/ do
   # This is a bad way of doing a logout, but I don't know of any other way
