@@ -1,7 +1,4 @@
-<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput', 'thickbox-compressed'  %>
-<% stylesheet 'tokeninput-facebook' %>
-
-<fieldset>
+<fieldset class = "index">
 <% form_for(@notice) do |f| %>
   <%= f.error_messages %>
   <% if current_user.is_admin_of?(@department) %>
@@ -22,46 +19,24 @@
 
   <p>
     <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <%= f.text_area :content, :size => "80x10" %>
   </p>
-<span id ="advanced_link" style="display:none" >
+<span id ="advanced_link" >
 <%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
 </span>
-<div id="advanced">
-  For users: <br />
-  <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
-  <p>
-    For locations: <br />
-    <% if current_user.is_admin_of?(@department) %>
-      <%= check_box_tag :department_wide_locations %><%= @department.name %> (all locations)<br />
-    <% end %>
-    <% for loc_group in @loc_groups do %>
-      &nbsp;&nbsp;&nbsp;
-      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%= loc_group.name %>:
-      <% for location in loc_group.locations do %>
-        <% if current_user.current_shift %>
-          <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, :disabled => false %>
-        <% else %>
-          <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %>
-        <% end %>
-        <%= location.name %> &nbsp;
-      <% end %>
-      <br />
-    <% end %>
-  </p>
+<div id="advanced_options_div">
+    <%= render :partial => 'advanced_options'%>
 </div>
 
 </fieldset>
 
 <p>
-  <%= f.submit 'Create/Update' %>
+  <%= f.submit 'Save',:onclick => 'self.parent.tb_remove()' %>
 </p>
 
 <% end %>
-<!--
- document.observe('dom:loaded',function(){ $('checkbox_div').hide(); });
-    document.observe('dom:loaded',function(){ $('pref_link').show(); });
--->
+
+<%= observe_form 'form', :url => { :action => 'update_checkboxes', :id => @department.id }, :frequency => 0.5 %>
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){$("#advanced").hide();})

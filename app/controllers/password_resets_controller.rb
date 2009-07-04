@@ -1,8 +1,8 @@
 class PasswordResetsController < ApplicationController
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
   before_filter :require_no_user, :only => [:edit, :update]
-  skip_before_filter :login_or_register
-  skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}
+  skip_before_filter :login_check
+  skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && $appconfig.login_options.include?('CAS')}
 
 
   def new
@@ -12,9 +12,9 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     if @user && @user.auth_type=='authlogic'
-      @user.deliver_password_reset_instructions!
+      @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_password_reset_instructions(n)})
       flash[:notice] = "Instructions to reset the password have been emailed. "
-      redirect_to @user
+      redirect_to login_path
     else
       flash[:notice] = "No user using authlogic was found with that email address"
       render :action => :new
@@ -26,7 +26,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    @user.login = params[:user][:login]
+    @user.login = params[:user][:login] if $appconfig.user_editable_logins
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
@@ -45,12 +45,12 @@ private
       "If you are having issues try copying and pasting the URL " +
       "from your email into your browser or restarting the " +
       "reset password process."
-      redirect_to root_url
+      redirect_to access_denied_path
     end
   end
   def require_no_user
     if current_user
-      flash[:notice] = "You\'re logged in. Someone resetting their password shouldn\'t be logged in, you hacker."
+      flash[:notice] = "You\'re logged in. Someone resetting their password shouldn\'t be logged in."
       redirect_to root_url
     end
 

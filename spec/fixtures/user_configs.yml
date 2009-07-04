@@ -28,3 +28,9 @@ Every_Man:
   view_loc_groups: 1
   view_week: whole_period
 
+Filch:
+  user_id: 6
+  default_dept: 1
+  view_loc_groups: 1
+  view_week: whole_period
+
