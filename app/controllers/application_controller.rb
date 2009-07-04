@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
 #  before_filter :test
+  $appconfig = AppConfig.first
+
   before_filter :load_user_session
   before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && $appconfig.login_options.include?('CAS')}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
@@ -19,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  $appconfig = AppConfig.first
+
 
   def access_denied
     text = "Access denied"
@@ -124,3 +126,4 @@ class ApplicationController < ActionController::Base
   end
 
 end
+

@@ -64,7 +64,7 @@ Feature: payform
     When I follow "Submit Payform"
     Then the payform should be submitted
     And I should see "Successfully submitted payform."
-    Given the user "Albus Dumbledore" has permission "Hogwarts payform admin"
+    Given the user "Albus Dumbledore" has permission "Hogwarts payforms admin"
     And I am "Albus Dumbledore"
     When I go to the payforms page
     Then I should see "Harry Potter"

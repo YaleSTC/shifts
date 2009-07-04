@@ -203,3 +203,4 @@ class UsersController < ApplicationController
     (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 end
+
