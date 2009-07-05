@@ -3,6 +3,8 @@ class CreateAppConfigs < ActiveRecord::Migration
     create_table :app_configs do |t|
       t.string :footer
       t.string :auth_types
+      t.string :ldap_address
+      t.boolean :user_editable_logins
       t.timestamps
     end
   end

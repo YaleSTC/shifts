@@ -23,12 +23,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @user.auth_type = LOGIN_OPTIONS[0] if LOGIN_OPTIONS.size == 1
+    @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
     if @user.auth_type == "authlogic"
       @user.password = @user.password_confirmation = random_password
       @user.departments << @department
       if @user.save
-        @user.deliver_password_reset_instructions!
+        @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
         flash[:notice] = "Successfully created user and emailed instructions for setting password."
         redirect_to @user
       else
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
            render :action => 'new'
         end
       end
-        # y @user #debug output
+#         y @user #debug output
     end
   end
 
@@ -79,6 +79,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    #TODO: prevent params hacking w/ regard to setting roles and login
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
 
@@ -89,9 +90,11 @@ class UsersController < ApplicationController
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
-
+    @user.password=@user.password_confirmation=random_password if params[:reset_password]
+    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions (n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='authlogic'
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
+      @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions (n)}) if params[:reset_password]
       redirect_to @user
     else
       render :action => 'edit'
@@ -182,6 +185,7 @@ class UsersController < ApplicationController
 
     #filter results if we are searching
     if params[:search]
+      params[:search] = params[:search].downcase
       @search_result = []
       @users.each do |user|
         if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])

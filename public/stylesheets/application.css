@@ -95,7 +95,7 @@ table, td, th{
 }
 
 th{
-	background: #415578;
+	background: #123456; /*415578;*/
 	border:1px solid black;
 	color: white;
 }
@@ -551,4 +551,12 @@ span#progress_bar #other_step {
 .delete_link {
 	float: right;
 	text-align: right;
+}
+
+/* Sortable tables */
+table.sortable th:hover {
+	color:orange;
+}
+table.sortable th {
+	text-decoration: underline;
 }

@@ -1,5 +1,6 @@
 class NoticesController < ApplicationController
-
+  layout "application"
+#  layout "new_notice", :only  => :new
   before_filter :fetch_loc_groups
 
   def index
@@ -16,6 +17,7 @@ class NoticesController < ApplicationController
 
   def new
     @notice = Notice.new
+    render :action => "new", :layout => 'new_notice'
   end
 
   def edit
@@ -23,15 +25,16 @@ class NoticesController < ApplicationController
   end
 
   def create
+    params.to_yaml
     @notice = Notice.new(params[:notice])
-    @notice.is_sticky = true unless current_user.is_admin_of?(@department)
+    @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     if @notice.save
       set_sources
-      if @notice.save
+      if @notice.saveNo
         flash[:notice] = 'Notice was successfully created.'
         redirect_to @notice
       else
@@ -74,31 +77,35 @@ class NoticesController < ApplicationController
     end
   end
 
-    protected
+  protected
 
   def fetch_loc_groups
     @loc_groups = @department.loc_groups.all
   end
 
   def set_sources(update = false)
-    @notice.user_sources = [] if update
+#    @notice.user_sources = [] if update
+#    @notice.location_sources = [] if update
     if params[:for_users]
       params[:for_users].split(",").each do |l|
         l = l.split("||")
         @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
       end
     end
-    @notice.user_sources << @department if params[:department_wide_viewers] && !@notice.is_sticky
-    @notice.location_sources = [] if update
-    @notice.location_sources << @department if params[:department_wide_locations] && current_user.is_admin_of?(@department)
-    if params[:for_locations]
-      params[:for_locations].each do |loc|
-        @notice.location_sources << Location.find_by_id(loc)
+    @notice.user_sources << @department if params[:department_wide_viewers] && !@notice.is_sticky && current_user.is_admin_of?(current_department)
+    if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
+      @notice.departments << current_department
+      @notice.loc_groups << current_department.loc_groups
+      @notice.locations << current_department.loc_groups.collect {|lg| lg.locations}
+    elsif params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group|
+        @notice.loc_groups << LocGroup.find_by_id(loc_group)
+        @notice.locations << loc_group.collect{|lg| lg.locations}
       end
     end
-    if params[:for_location_groups]
-      params[:for_location_groups].each do |loc_group|
-        @notice.location_sources << LocGroup.find_by_id(loc_group)
+    if params[:for_locations]
+      params[:for_locations].each do |loc|
+        @notice.locations << Location.find_by_id(loc)
       end
     end
   end

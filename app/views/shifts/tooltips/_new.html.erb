@@ -1,3 +1,4 @@
+<strong>Add New Shift</strong>
 <% form_for @shift do |f| %>
   <%= f.error_messages %>
   <p>
@@ -20,6 +21,6 @@
   </p>
   <%= f.hidden_field :power_signed_up, :value => :true if current_user.is_admin_of?(current_department) %>
   <p>
-    <%= submit_to_remote 'update', 'Submit', :url => { :action => 'create' }, :before => "$('div.tooltip').hide()" %>
+    <%= submit_to_remote 'update', 'Submit', :url => { :action => 'create' }, :after => "$('div.tooltip').hide()" %>
   </p>
 <% end %>

@@ -1,4 +1,4 @@
 Scenario: test
-  Given I am "Harry Potter"
-  And I am on the dashboard
+  Then "Harry Potter" should have 2 departments
+  And "Harry Potter" should have 1 user_config
 
