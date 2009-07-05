@@ -13,9 +13,10 @@
   <%= return_to_shift_report_if_needed %>
   <br/>
   <% if current_user.punch_clock %>
-    <%= link_to "Clock out?", edit_user_punch_clock_path(current_user.id) %>
+    <%= link_to "Clock out?",  current_user.punch_clock, :message => "Are you sure",
+                                                         :method => :delete %>
   <% else %>
-    <%= link_to "Clock in?", {:controller => "punch_clock",
+    <%= link_to "Clock in?", {:controller => "punch_clocks",
                               :action => :new },
                               :method => :create %>
   <% end %>

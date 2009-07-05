@@ -8,7 +8,7 @@ class PunchClocksController < ApplicationController
   end
   
   def new
-    @user = User.find(params[:user_id])
+    @user = User.find(current_user.id)
     @punch_clock = PunchClock.new(params[:user_id])
     @punch_clock.user = @user
     if @punch_clock.save
@@ -45,9 +45,9 @@ class PunchClocksController < ApplicationController
   
   def destroy
     @punch_clock = PunchClock.find(params[:id])
-    @punch_clock.destroy
     @time_in_hours = (Time.now - @punch_clock.created_at) / 3600.0  # sec -> hr
-    flash[:notice] = "Successfully destroyed punchclock."
+    @punch_clock.destroy
+    flash[:notice] = "Successfully clocked out."
     @payform_item = PayformItem.new({:date => Date.today,
                                     :category_id => 2, # 2 for "shifts", there should be a better way
                                     :hours => @time_in_hours,
