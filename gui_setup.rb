@@ -1,6 +1,8 @@
 require 'ftools'
 class Setup < Shoes
   @@delivery_method = ''
+  @@mail_settings = {}
+  @@CAS_Settings = {}
   url '/', :welcome
   url '/smtp', :smtp
   url '/sendmail', :sendmail
@@ -52,8 +54,8 @@ class Setup < Shoes
     para "Thank you for using our application!  This script is designed to help you set up some important configuration files. Click the button below to get started!"
     para "To begin, please select what type of mail you\'ll be using. SMTP is recommended."
     flow do
-      para link("SMTP", :click => '/smtp')
-      para link("sendmail", :click => '/sendmail')
+      button ("SMTP") {visit '/smtp'}
+      button("sendmail") {visit '/sendmail'}
       end
 
     end
@@ -61,22 +63,27 @@ class Setup < Shoes
 
   def smtp
     @@delivery_method = 'smtp'
-    stack{
-    flow :width => '100%' do
+    stack :width => '100%' do
       inscription link("Back", :click => '/')
       inscription link("Start Over", :click => '/')
+      title "SMTP Settings"
+      flow{
+      para "Please input your smpt server address: "
+      @server_box=edit_line :text => "mail.example.com"}
+      flow{
+      para "Please input your smpt server port: "
+      @port_box=edit_line :text => "444"}
+      button ("show content"){alert @server_box.text+" "+@port_box.text}
     end
-    title "SMTP Settings"}
   end
 
   def sendmail
     @@delivery_method = 'sendmail'
-    stack{
-    flow :width => '100%' do
+    stack :width => '100%' do
       inscription link("Back", :click => '/')
       inscription link("Start Over", :click => '/')
+      title "Sendmail Settings"
     end
-    title "Sendmail Settings"}
 
   end
 end
