@@ -1,5 +1,11 @@
 <% form_for user do |f| %>
   <%= f.error_messages %>
+  <% if @user.auth_type == "authlogic" && current_user!=@user && current_user.is_admin_of?(current_department)%>
+   <h3>Reset Password?</h3>
+     <div>
+       <%= check_box_tag :reset_password -%>
+     </div>
+ <% end %>
   <p>
     <%= f.label :login %><br />
     <%= f.text_field :login %>
@@ -24,10 +30,10 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </p>
- <% if LOGIN_OPTIONS.size >1 %>
+ <% if $appconfig.login_options.size >1 %>
   <p>
     <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, LOGIN_OPTIONS, {:prompt => "Select a login type"}) %>
+    <%= f.select(:auth_type, $appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
   </p>
   <% end %>
   <h3>Roles</h3>
