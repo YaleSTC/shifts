@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
-#  before_filter :test
+  before_filter :department_chooser
   before_filter :load_user_session
   before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && $appconfig.login_options.include?('CAS')}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
@@ -33,8 +33,8 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-  # NOTE: opensource rails developers are more familiar with current_user than @user and it's clearer
   def current_user
+    @current_user ||= (
 #    raise @user_session.login.to_s
     if @user_session
       @user_session.user
@@ -42,38 +42,55 @@ class ApplicationController < ActionController::Base
       User.find_by_login(session[:cas_user])
     else
       nil
-    end
+    end)
   end
 
-  # for department, current_department is a bit too long =),
-  # one can use @department or current_department
-  # current_department is suitable to those methods that skip_before_filter load_department
   def current_department
-    if params[:department_id] or session[:department_id]
-        @department ||= Department.find(params[:department_id] || session[:department_id])
-    elsif current_user and current_user.departments
-      @department = current_user.user_config.default_dept ? Department.find(current_user.user_config.default_dept) : current_user.departments[0]
-    elsif current_user and current_user.is_superuser?
-      @department = Department.first
+    unless @current_department
+      if current_user
+        @current_department = Department.find_by_id(session[:department_id])
+        unless @current_department
+          @current_department = current_user.default_department
+          session[:department_id] = @current_department.id
+        end
+      end
     end
+    @current_department
   end
+
+
+#    if params[:department_id] or session[:department_id]
+#        @department ||= Department.find(params[:department_id] || session[:department_id])
+#    elsif current_user and current_user.departments
+#      @department = current_user.user_config.default_dept ? Department.find(current_user.user_config.default_dept) : current_user.departments[0]
+#    elsif current_user and current_user.is_superuser?
+#      @department = Department.first
+#    end
+#  end
 
   # Application-wide settings are stored in the only record in the app_configs table
 #  def app_config
 #    AppConfig.first
 #  end
 
-  private
   def load_department
-    # update department id in session if neccessary so that we can use shallow routes properly
-      if params[:department_id]
+    if (params[:department_id])
+      @department = Department.find_by_id(params[:department_id])
+      if @department
         session[:department_id] = params[:department_id]
-        @department = Department.find_by_id(session[:department_id])
-      elsif session[:department_id]
-        @department = Department.find_by_id(session[:department_id])
-      elsif current_user and current_user.departments
-        @department = current_user.departments[0]
       end
+    end
+    @department ||= current_department
+
+    # update department id in session if neccessary so that we can use shallow routes properly
+#      if params[:department_id]
+#        session[:department_id] = params[:department_id]
+#        @department = Department.find_by_id(session[:department_id])
+#      elsif session[:department_id]
+#        @department = Department.find_by_id(session[:department_id])
+#      elsif current_user and current_user.departments
+#        @department = current_user.departments[0]
+#      end
    # load @department variable, no need ||= because it's only called once at the start of controller
   end
 
@@ -85,13 +102,17 @@ class ApplicationController < ActionController::Base
     @user_session = UserSession.find
   end
 
+  def require_admin_of(obj)
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(obj)
+  end
+
   # these are the authorization before_filters to use under controllers
   def require_department_admin
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(@department)
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department)
   end
 
   def require_loc_group_admin
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(@loc_group)
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_loc_group)
   end
 
   def require_superuser
@@ -123,4 +144,26 @@ class ApplicationController < ActionController::Base
     raise "ewoks"
   end
 
+  private
+
+  def department_chooser
+    if (params[:su_mode] && current_user.superuser?)
+      current_user.update_attribute(:supermode, params[:su_mode]=='ON')
+      flash[:notice] = "Supermode is now #{current_user.supermode? ? 'ON' : 'OFF'}"
+      redirect_to(root_path) and return
+    end
+    if (params["chooser"] && params["chooser"]["dept_id"])
+      session[:department_id] = params["chooser"]["dept_id"]
+      redirect_to switch_department_path and return
+    end
+  end
+
+  # overwrite this method in other controller if you wanna go to a different url after chooser submit
+  # it tries to find the index path of the current resource;
+  # for example if you're in shifts_controller then it goes to shifts_path
+  # however it won't work for some nested routes (and defaults to root_path instead) so please overwrite this method in such controller
+  def switch_department_path
+    send("#{controller_name}_path") rescue root_path
+  end
 end
+

@@ -4,8 +4,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :punch_clocks
   map.resources :restrictions
 
-  map.login "login", :controller => 'user_sessions', :action => 'new'
-  map.logout "logout", :controller => 'user_sessions', :action => 'destroy'
+  map.login "/login", :controller => 'user_sessions', :action => 'new'
+  map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
+  #TODO: get rid of sessions controller and move logout action to user_session controller and name it cas_logout
+  map.cas_logout "/cas_logout", :controller => 'sessions', :action => 'logout'
+
+  # routes for managing superusers
+  map.superusers "/superusers", :controller => 'superusers'
+  map.add_superusers "/superusers/add", :controller => 'superusers', :action => 'add'
+  map.remove_superusers "/superusers/remove", :controller => 'superusers', :action => 'remove'
 
   map.resources :user_sessions
 
@@ -25,8 +32,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :payforms,
                 :collection => { :prune => :delete, :go => :get },
                 :member => {:submit => :put, :approve => :put, :print => :put},
-                :shallow => true do |payforms|
-    payforms.resources :payform_items
+                :shallow => true do |payform|
+    payform.resources :payform_items
   end
 
   map.resources :payform_items
@@ -42,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :as => "subs"
   end
 
-  map.resources :users do |user|
+  map.resources :users, :collection => {:update_superusers => :post} do |user|
     user.resources :punch_clocks
   end
 
@@ -107,17 +114,6 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
-  map.root :controller => "dashboard"
-
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
-
   # map.root :controller => "welcome"
   map.root :controller => "dashboard"
 
