@@ -44,7 +44,7 @@ end
 Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id_1, id_2|
   payform_item_1 = PayformItem.find(id_1.to_i)
   payform_item_2 = PayformItem.find(id_2.to_i)
-  payform_item_2.payform_item_id.should == payform_item_1.id
+  payform_item_2.parent_id.should == payform_item_1.id
 end
 
 Then /^the payform should be submitted$/ do

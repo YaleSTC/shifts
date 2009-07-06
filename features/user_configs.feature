@@ -1,4 +1,4 @@
-@settings
+@configs
 
 Feature: User settings
   In order to manage user settings
@@ -53,20 +53,20 @@ Feature: User settings
     Then I should see "Successfully updated user config."
     When I go to shifts for this week
     Then I should see all the days of the week
-    And I should see "Harry Potter" on the schedule
-#    And I should see "Hermione Granger" on the schedule
-#    Then I should see "tomorrow" on the schedule
-    And I should see "yesterday" on the schedule
+#    And I should see "Harry Potter" on the schedule
+    And I should see "Hermione Granger" on the schedule
+    And I should see "tomorrow" on the schedule
+#    And I should see "yesterday" on the schedule
 
     When I go to the user settings page
     And I select "Remainder of period" from "View week"
     And I press "Submit"
     Then I should see "Successfully updated user config."
     When I go to shifts for this week
-#    Then I should see "tomorrow" on the schedule
+    Then I should see "tomorrow" on the schedule
     And I should not see "yesterday" on the schedule
     And I should not see "Harry Potter" on the schedule
-#    And I should see "Hermione Granger" on the schedule
+    And I should see "Hermione Granger" on the schedule
 
     When I go to the user settings page
     And I select "Just the current day" from "View Week"

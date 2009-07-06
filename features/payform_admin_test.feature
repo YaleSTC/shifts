@@ -70,8 +70,16 @@ Feature: payform admin
   Scenario: Printing Individual payforms
     When I follow "2009-05-23"
     And I follow "Print Payform"
-    Then I should see "Payform printing"
-    And I should not see "2009-05-23"
+    Then I should see "Successfully created payform set."
+    And I should see "Number of payforms: 1"
+    And I should see "Export CSV"
+    And I follow "Print PDF"
+    Then I should have a pdf with "Name: Harry Potter" in it
+    Then I should have a pdf with "Login: hp123" in it
+    Then I should have a pdf with "Department: Hogwarts" in it
+    Then I should have a pdf with "Week Ending: May 23, 2009" in it
+    Then I should have a pdf with "Total Hours: 0" in it
+    Then I should have a pdf with "This payform was approved by #{@current_user} at" in it
 
   Scenario: Printing Sets of Payforms
    Given I have the following payform items

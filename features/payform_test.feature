@@ -12,7 +12,7 @@ Feature: payform
   Scenario: Add a job to a payform
     Given I am on the page for the payform for the week "2009-05-23"
     When I follow "New Payform Item"
-    And I select "Monday, May 18, 2009" as the date
+    And I select "2009-05-18" from "Date"
     And I fill in "Hours" with "1.2"
     And I fill in "Description" with "Studying defense against the dark arts"
     And I select "Study" from "payform_item[category_id]"
@@ -39,7 +39,7 @@ Feature: payform
     And I press "Save"
     Then I should have 2 payform_items
     Then payform item 1 should be a child of payform item 2
-    And payform_item 1 should have attribute "reason" "because I can"
+    And payform_item 2 should have attribute "reason" "because I can"
     And I should see "I edited"
     And I should see "3.0"
 
@@ -50,8 +50,8 @@ Feature: payform
     And I am on the page for the payform for the week "2009-5-23"
     When I follow "✖"
 #    Then I should see "Are you sure?" : except that is done using java, so cucumber cannot see
-    And I fill in "Reason for deletion" with "because I lied"
-    And I press "Yes"
+#    And I fill in "Reason for deletion" with "because I lied"
+#    And I press "Yes"
     Then I should see "Payform item deleted"
     And I should have 0 payform_items
 
@@ -64,6 +64,7 @@ Feature: payform
     When I follow "Submit Payform"
     Then the payform should be submitted
     And I should see "Successfully submitted payform."
+    When I follow "Logout"
     Given the user "Albus Dumbledore" has permission "Hogwarts payforms admin"
     And I am "Albus Dumbledore"
     When I go to the payforms page
