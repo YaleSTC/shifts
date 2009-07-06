@@ -1,9 +1,20 @@
 require 'ftools'
 class Setup < Shoes
   @@delivery_method = ''
+  @@mail_settings = {}
+  @@CAS_Settings = {}
+  @@auth_type = ''
   url '/', :welcome
   url '/smtp', :smtp
   url '/sendmail', :sendmail
+  url '/authentication', :authentication
+  url '/review', :review
+  url '/done', :done
+
+  def using_cas?
+    @@auth_type=='both' || @@auth_type=='CAS'
+  end
+
   def hash_to_string(hash, brackets)
     if hash.nil?
       " "
@@ -52,8 +63,8 @@ class Setup < Shoes
     para "Thank you for using our application!  This script is designed to help you set up some important configuration files. Click the button below to get started!"
     para "To begin, please select what type of mail you\'ll be using. SMTP is recommended."
     flow do
-      para link("SMTP", :click => '/smtp')
-      para link("sendmail", :click => '/sendmail')
+      button ("SMTP") {visit '/smtp'}
+      button("sendmail") {visit '/sendmail'}
       end
 
     end
@@ -61,27 +72,167 @@ class Setup < Shoes
 
   def smtp
     @@delivery_method = 'smtp'
-    stack{
-    flow :width => '100%' do
-      inscription link("Back", :click => '/')
+    @main_box = stack :width => '100%' do
       inscription link("Start Over", :click => '/')
-    end
-    title "SMTP Settings"}
+      title "SMTP Settings"
+      flow{
+      para "Please input your smpt server address: "
+      @server_box=edit_line :text => "mail.example.com"}
+      flow{
+      para "Please input your smpt server port: "
+      @port_box=edit_line :text => "444"}
+      flow{
+      para "If your server has a HELO domain, provide it (optional): "
+      @domain_box=edit_line :text => "example.com"}
+      @submit_button = button("Continue"){@@mail_settings = {
+             :address => @server_box.text,
+             :port => @port_box.text}
+             @@mail_settings.store(:domain, @domain_box.text) if @domain_box && @domain_box.text
+             @@mail_settings.store(:authentication, @auth_box.text) if @auth_box && @auth_box.text
+             @@mail_settings.store(:user_name, @username_box.text) if @username_box && @username_box.text
+             @@mail_settings.store(:password, @pword_box.text) if @pword_box && @pword_box.text
+          visit '/authentication'}
+        end
+        @optional = stack{ button("Push here if your mail server requires authentication"){@main_box.before(@submit_button) do
+          flow{
+          para "Provide the authentication type: "
+          @auth_box=edit_line :text => "login"}
+          flow{
+          para "Provide your mail server username: "
+          @username_box=edit_line :text => "login"}
+          flow{
+          para "Provide your mail server password: "
+          @pword_box=edit_line :text => "password"}
+         end
+      @optional.clear
+      }}
   end
 
   def sendmail
     @@delivery_method = 'sendmail'
-    stack{
-    flow :width => '100%' do
-      inscription link("Back", :click => '/')
+    stack :width => '100%' do
       inscription link("Start Over", :click => '/')
+      title "Sendmail Settings"
+      flow{
+      para "Provide the location of the sendmail executable: "
+      @location_box=edit_line :text => "/usr/sbin/sendmail"}
+      flow{
+      para "Provide your executable\'s command-line arguments: "
+      @arg_box=edit_line :text => "-i -t"}
+      button ("Continue"){@@mail_settings = {
+             :location => @location_box.text,
+             :arguments => @arg_box.text
+             }
+          visit '/authentication'}
     end
-    title "Sendmail Settings"}
 
   end
+
+  def authentication
+    stack :width => '100%' do
+      inscription link("Start Over", :click => '/')
+      title "Authentication Settings"
+      @main_stack = stack {
+      para "Are you planning on using CAS, built-in authentication, or both?"
+      flow do
+        button ("CAS"){@@auth_type='CAS'
+        @main_stack.clear {stack {
+          flow{
+          para "Provide the base URL of your CAS server: "
+          @server_box=edit_line :text => ""}
+          flow{
+          para "Provide the name your CAS server uses to refer to users: "
+          @user_box=edit_line :text => "cas_user"}
+          flow{
+          para "Provide the name your CAS server users to refer to extra attributes: "
+          @extra_box=edit_line :text => "cas_extra_attributes"}
+          flow{
+          para "Provide the name your CAS logger: "
+          @logger_box=edit_line :text => "cas_logger"}
+          button("Continue"){@@CAS_Settings= {
+            :cas_base_url => @server_box.text,
+            :username_session_key => @user_box.text,
+            :extra_attributes_session_key => @extra_box.text,
+            :logger => @logger_box.text
+          }
+          visit '/review'
+
+          }
+            }
+
+          }
+        }
+        button ("Built-in"){@@auth_type='built-in'; visit '/review'}
+        button ("Both"){@@auth_type='both'
+        @main_stack.clear {stack {
+          flow{
+          para "Provide the base URL of your CAS server: "
+          @server_box=edit_line :text => ""}
+          flow{
+          para "Provide the name your CAS server uses to refer to users: "
+          @user_box=edit_line :text => "cas_user"}
+          flow{
+          para "Provide the name your CAS server users to refer to extra attributes: "
+          @extra_box=edit_line :text => "cas_extra_attributes"}
+          flow{
+          para "Provide the name your CAS logger: "
+          @logger_box=edit_line :text => "cas_logger"}
+          button("Continue"){@@CAS_Settings= {
+            :cas_base_url => @server_box.text,
+            :username_session_key => @user_box.text,
+            :extra_attributes_session_key => @extra_box.text,
+            :logger => @logger_box.text
+          }
+          visit '/review'
+
+          }
+            }
+
+          }
+        }
+
+
+        end
+}
+    end
+  end
+
+  def review
+    stack :width => '100%' do
+      inscription link("Start Over", :click => '/')
+      title "Review"
+      subtitle "Here\'s what you\'ve entered:"
+      flow { stack :width => '45%' do para "Type of mail: "+@@delivery_method
+      para "Mail settings:"+hash_to_string(@@mail_settings, false)
+    end
+      stack :width => '45%' do para "Type of authentication: "+@@auth_type
+        para "CAS settings: "+hash_to_string(@@CAS_Settings, false) if using_cas?
+    end
+      }
+      para "Are you sure everything\'s ok?"
+      flow{
+      button ("No, take me back!"){visit '/'}
+      button ("Yup, go ahead and write the files"){
+        writefiles(@@delivery_method, @@mail_settings, @@CAS_Settings, using_cas?)
+        visit '/done'
+        }
+      }
+    end
+
+  end
+
+  def done
+    stack :width => '100%' do
+      title "All Done"
+      para "You might want to check your environment.rb file and make sure it\'s still ok..."
+      button ("click here to exit"){exit}
+    end
+  end
+
+
 end
 
-Shoes.app :width=>500, :height=>500
+Shoes.app :width=>600, :height=>600
 
 
 #puts "\nThank you for using our application!  This script is designed to help you set your configuration action_mailer.  These action_mailer are things that you will probably never need to change, though if you do, all you need to do is run this script again.  If the script should fail for any reason, no changes will be saved; this prevents half-configured applications.  You will need to know a few parameters, namely the action_mailer for your mail server and your CAS (Central Authentication Service) server (if you plan on using CAS.)\n\n"

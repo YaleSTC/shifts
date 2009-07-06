@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
   # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
 
+  attr_protected :superuser
+  named_scope :superusers, :conditions => { :superuser => true }, :order => "last_name"
+  delegate :default_department, :to => 'user_config'
+
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
@@ -95,22 +99,27 @@ class User < ActiveRecord::Base
 
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
+    return false unless loc_group
     self.is_superuser? || permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
   end
 
   # check if a user can sign up for a shift in this loc group
   def can_signup?(loc_group)
+    return false unless loc_group
     self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(dept)
+    return false unless dept
     self.is_superuser? || (permission_list.include?(dept.admin_permission) && self.is_active?(dept))
   end
 
-  # see list of superusers defined in config/initializers/superuser_list.rb
+  # now superuser is an attribute of User model, we use this instead
+  # supermode lets an user turn on or off his superuser privilege
+  # user .superuser? is you wanna test superuser no matter if  supermode is on or not
   def is_superuser?
-    SUPERUSER_LIST.include?(self.login)
+    superuser? && supermode?
   end
 
   # check to make sure the user is "active" in the given dept
@@ -174,7 +183,11 @@ class User < ActiveRecord::Base
     mailer.call(self)
   end
 
-  memoize :name, :permission_list, :is_superuser?
+  memoize :name, :permission_list
+
+  def accessible_departments
+    (superuser? && supermode?) ? Department.all : departments
+  end
 
   private
 
@@ -186,3 +199,4 @@ class User < ActiveRecord::Base
     UserConfig.new({:user_id => self.id}).save
   end
 end
+
