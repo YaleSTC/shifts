@@ -16,15 +16,15 @@ permission_005:
 permission_006:
   id: "6"
   name: Pet Store shifts admin
-permission_007:
-  id: "7"
-  name: Outer Space dept admin
-permission_008:
-  id: "8"
-  name: Outer Space payforms admin
-permission_009:
-  id: "9"
-  name: Outer Space shifts admin
+#permission_007:
+#  id: "7"
+#  name: Outer Space dept admin
+#permission_008:
+#  id: "8"
+#  name: Outer Space payforms admin
+#permission_009:
+#  id: "9"
+#  name: Outer Space shifts admin
 permission_010:
   id: "10"
   name: Outside of Hogwarts view
