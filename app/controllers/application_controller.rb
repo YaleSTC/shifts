@@ -166,4 +166,3 @@ class ApplicationController < ActionController::Base
     send("#{controller_name}_path") rescue root_path
   end
 end
-
