@@ -8,6 +8,7 @@ end
 
 Given /^I am logged into CAS as "([^\"]*)"$/ do |login|
   @current_user = User.find_by_login(login)
+  @current_user.should_not be_nil
   CASClient::Frameworks::Rails::Filter.fake(login)
 end
 
