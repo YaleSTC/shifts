@@ -1,5 +1,5 @@
 class DepartmentConfigsController < ApplicationController
-before_filter :check_user
+  before_filter :require_superuser
 
   # GET /department_configs
   # GET /department_configs.xml
