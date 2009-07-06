@@ -84,13 +84,13 @@ class Setup < Shoes
       flow{
       para "If your server has a HELO domain, provide it (optional): "
       @domain_box=edit_line :text => "example.com"}
-      @submit_button = button ("Continue"){@@mail_settings = {
+      @submit_button = button("Continue"){@@mail_settings = {
              :address => @server_box.text,
              :port => @port_box.text}
-             @@mail_settings.store (:domain, @domain_box.text) if @domain_box.text
-             @@mail_settings.store (:authentication, @auth_box.text) if @auth_box.text
-             @@mail_settings.store (:user_name, @username_box.text) if @username_box.text
-             @@mail_settings.store (:password, @pword_box.text) if @pword_box.text
+             @@mail_settings.store(:domain, @domain_box.text) if @domain_box && @domain_box.text
+             @@mail_settings.store(:authentication, @auth_box.text) if @auth_box && @auth_box.text
+             @@mail_settings.store(:user_name, @username_box.text) if @username_box && @username_box.text
+             @@mail_settings.store(:password, @pword_box.text) if @pword_box && @pword_box.text
           visit '/authentication'}
         end
         @optional = stack{ button("Push here if your mail server requires authentication"){@main_box.before(@submit_button) do
@@ -201,7 +201,15 @@ class Setup < Shoes
     stack :width => '100%' do
       inscription link("Start Over", :click => '/')
       title "Review"
-      para "Are you sure everything\s ok?"
+      subtitle "Here\'s what you\'ve entered:"
+      flow { stack :width => '45%' do para "Type of mail: "+@@delivery_method
+      para "Mail settings:"+hash_to_string(@@mail_settings, false)
+    end
+      stack :width => '45%' do para "Type of authentication: "+@@auth_type
+        para "CAS settings: "+hash_to_string(@@CAS_Settings, false) if using_cas?
+    end
+      }
+      para "Are you sure everything\'s ok?"
       flow{
       button ("No, take me back!"){visit '/'}
       button ("Yup, go ahead and write the files"){
@@ -224,7 +232,7 @@ class Setup < Shoes
 
 end
 
-Shoes.app :width=>500, :height=>500
+Shoes.app :width=>600, :height=>600
 
 
 #puts "\nThank you for using our application!  This script is designed to help you set your configuration action_mailer.  These action_mailer are things that you will probably never need to change, though if you do, all you need to do is run this script again.  If the script should fail for any reason, no changes will be saved; this prevents half-configured applications.  You will need to know a few parameters, namely the action_mailer for your mail server and your CAS (Central Authentication Service) server (if you plan on using CAS.)\n\n"
