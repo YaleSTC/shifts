@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payform_item_sets
   map.resources :payform_sets
-  map.resources :department_configs
+  map.resources :department_configs, :only => [:edit, :update]
 
   map.resources :payforms,
                 :collection => { :prune => :delete, :go => :get },
