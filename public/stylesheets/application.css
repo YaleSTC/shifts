@@ -180,19 +180,23 @@ body {
   color: #FFFFFF;
 }
 
-#chooser {
+div#chooser {
   float: left;
-  width: 120px;
+  width: 60px;
   padding: 0px 0px 0px 10px;
   margin-top: 1px;
 }
-#chooser p {
+div#chooser p {
   margin: 0pt 5px 0pt 0pt;
   font-size: 12px;
   color: #FFFFFF;
   float: left;
 }
 
+div#supermode{
+    float: right;
+    width: 60px;
+}
 #login {
   float: right;
   width: 700px;
@@ -295,11 +299,11 @@ ul#navigationList {
   line-height: 1.7em;
   margin: 40px 0pt 0pt;
   padding: 0;
- 
+
   list-style-image: none;
   list-style-position: outside;
   list-style-type: square;
- 
+
   float: left;
   padding: 5px 5px 5px 17px;
 }
@@ -481,8 +485,8 @@ table.manage_table td {
   text-align: center;
 }
 
-table.manage_table th { 
-  border: 1px solid #666666; 
+table.manage_table th {
+  border: 1px solid #666666;
 }
 
 a {
@@ -560,3 +564,4 @@ table.sortable th:hover {
 table.sortable th {
 	text-decoration: underline;
 }
+
