@@ -6,6 +6,7 @@ class Setup < Shoes
   url '/', :welcome
   url '/smtp', :smtp
   url '/sendmail', :sendmail
+  url '/authentication', :authentication
   def hash_to_string(hash, brackets)
     if hash.nil?
       " "
@@ -73,7 +74,27 @@ class Setup < Shoes
       flow{
       para "Please input your smpt server port: "
       @port_box=edit_line :text => "444"}
-      button ("show content"){alert @server_box.text+" "+@port_box.text}
+      flow{
+      para "If your server has a HELO domain, provide it (optional): "
+      @domain_box=edit_line :text => "example.com"}
+      flow{
+      para "If your mail server requires authentication, provide the authentication type (optional): "
+      @auth_box=edit_line :text => "login"}
+      flow{
+      para "Provide your mail server username: "
+      @username_box=edit_line :text => "login"}
+      flow{
+      para "Provide your mail server password: "
+      @pword_box=edit_line :text => "password"}
+      button ("Continue"){@@mail_settings = {
+             :address => @server_box.text,
+             :port => @port_box.text,
+             :domain => @domain_box.text,
+             :authentication => @auth_box.text,
+             :user_name => @username_box.text,
+             :password => @pword_box.text
+             }
+          visit '/authentication'}
     end
   end
 
@@ -83,8 +104,27 @@ class Setup < Shoes
       inscription link("Back", :click => '/')
       inscription link("Start Over", :click => '/')
       title "Sendmail Settings"
+      flow{
+      para "Provide the location of the sendmail executable: "
+      @location_box=edit_line :text => "/usr/sbin/sendmail"}
+      flow{
+      para "Provide your executable\'s command-line arguments: "
+      @arg_box=edit_line :text => "-i -t"}
+      button ("Continue"){@@mail_settings = {
+             :location => @location_box.text,
+             :arguments => @arg_box.text,
+             }
+          visit '/authentication'}
     end
 
+  end
+
+  def authentication
+    stack :width => '100%' do
+      inscription link("Back", :click => '/')
+      inscription link("Start Over", :click => '/')
+      title "Authentication Settings"
+    end
   end
 end
 
