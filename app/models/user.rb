@@ -186,3 +186,4 @@ class User < ActiveRecord::Base
     UserConfig.new({:user_id => self.id}).save
   end
 end
+
