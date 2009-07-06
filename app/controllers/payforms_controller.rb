@@ -37,7 +37,7 @@ class PayformsController < ApplicationController
     if errors.length > 0
       flash[:error] = "Error: "+errors*"<br/>"
       redirect_to payforms_path
-    else 
+    else
       respond_to do |show|
         show.html #show.html.erb
         show.pdf  #show.pdf.prawn
@@ -56,7 +56,7 @@ class PayformsController < ApplicationController
     date = params[:date] ? params[:date].to_date : Date.today
     redirect_to Payform.build(current_department, current_user, date)
   end
-  
+
   def prune
     @payforms = current_department.payforms
     @payforms &= current_user.payforms unless current_user.is_admin_of?(current_department)
@@ -64,7 +64,7 @@ class PayformsController < ApplicationController
     flash[:notice] = "Successfully pruned empty payforms."
     redirect_to payforms_path
   end
-  
+
   def submit
     @payform = Payform.find(params[:id])
     @payform.submitted = Time.now
@@ -73,7 +73,7 @@ class PayformsController < ApplicationController
     end
     redirect_to @payform
   end
-  
+
   def approve
     @payform = Payform.find(params[:id])
     @payform.approved = Time.now
@@ -81,9 +81,9 @@ class PayformsController < ApplicationController
     if @payform.save
       flash[:notice] = "Successfully approved payform."
     end
-    redirect_to @payform  
+    redirect_to @payform
   end
-  
+
   def print
     @payform = Payform.find(params[:id])
     @payform.printed = Time.now
@@ -98,6 +98,5 @@ class PayformsController < ApplicationController
       redirect_to @payform
     end
   end
-
 end
 
