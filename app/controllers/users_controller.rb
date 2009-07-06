@@ -202,5 +202,9 @@ class UsersController < ApplicationController
     chars = (('a'..'z').to_a + ('0'..'9').to_a)
     (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
+
+  def switch_department_path
+    department_users_path(current_department)
+  end
 end
 

@@ -47,7 +47,7 @@ class DepartmentConfigsController < ApplicationController
     @department_config = DepartmentConfig.find(params[:id])
     @time_choices = (0..1440).step(@department_config.time_increment).map{|t| [t.min_to_am_pm, t]}
   end
-#    raise params.to_yaml
+
   # POST /department_configs
   # POST /department_configs.xml
 #  def create
@@ -106,4 +106,3 @@ private
     end
   end
 end
-

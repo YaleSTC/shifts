@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-  #before_filter :require_superuser
+  before_filter :require_superuser
   skip_before_filter :load_department
   def index
     if params[:department_id]
