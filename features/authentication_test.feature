@@ -1,3 +1,5 @@
+@auth
+
 Feature: Authentication Systems
   In order to manage users with different auth_types
   As a application admin
