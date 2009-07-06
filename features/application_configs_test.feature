@@ -1,10 +1,12 @@
-Feature: Application settings
+@configs
+
+Feature: Application Configs
   In order to manage application settings
   As a super user
   I want manage the application settings
 
   Background:
-#    Given the user "Albus Dumbledore" has permissions "superuser" is right now just in the initializer
+#    Given the user "Albus Dumbledore" is a superuser
     Given I am "Albus Dumbledore"
     And I am on the Application Settings page
 
@@ -57,8 +59,9 @@ Feature: Application settings
     And I press "Submit"
     Then I should see "Successfully updated appconfig."
 
-    When I follow "logout"
-    And I go to the homepage
+    When I follow "Logout"
+    Then I should be redirected
+    When I go to the homepage
     Then I should <action>
 
     Examples:
