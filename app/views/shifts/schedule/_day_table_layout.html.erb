@@ -1,28 +1,28 @@
-<div class="time_table updated" id="div_<%= @curr_day %>">
+<div class="time_table_updated" id="div_<%= @curr_day %>">
   <% table_id = "table_%s" % @curr_day.to_s %>
-  
+
   <div style="text-align:left">
     <h3><%= link_toggle table_id, @curr_day.to_s(:just_date_long) %></h3>
   </div>
-  
+
   <div id="<%= table_id %>">
     <div id="<%= sign_up_div_id %>" style="display:none"></div>
-    <div id="<%= sign_in_div_id %>" style="display:none"></div>    
+    <div id="<%= sign_in_div_id %>" style="display:none"></div>
     <table class="day_view">
       <thead>
         <tr class="hours">
-          <th class="location_label"></th>        
+          <th class="location_label"></th>
           <% for hour in @dept_start_hour...@dept_end_hour -%>
             <td class="hour" colspan="<%= @blocks_per_hour %>"><%= (hour-1) % 12 + 1%>:00</td>
           <% end -%>
         </tr>
-        
+
         <tr class="segments">
           <th class="location_label"></th>
           <% @blocks_per_day.times{ -%>
             <td class="min_segment" colspan="1">&nbsp;</td>
           <% } -%>
-        </tr>      
+        </tr>
       </thead>
       <tbody>
       <%= yield %>
@@ -39,3 +39,4 @@
     <% end %>
   </div>
 </div>
+
