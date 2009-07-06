@@ -4,7 +4,7 @@
     <% if @user_session && @user_session.user %>
     <%= link_to "[Logout]", logout_path %>
     <% else %>
-    <%= link_to "[Logout]", :controller => "sessions", :action => "logout" %>
+    <%= link_to "[Logout]", cas_logout_path %>
     <% end %>
     </strong>
   </p>
