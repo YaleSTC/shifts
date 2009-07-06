@@ -7,27 +7,25 @@
       <%= f.check_box :is_sticky %>
     </p>
     <p>
-      Specify a start time<br />
+      Specify a start time:<br />
       <%= f.datetime_select :start_time %>
     </p>
     <p>
-      Specify an end time<br />
+      Specify an end time:<br />
       <%= f.datetime_select :end_time %> <br /> or check here to make it indefinite:
       <%= check_box_tag :indefinite -%>
     </p>
   <% end %>
-
   <p>
     <%= f.label :content %><br />
     <%= f.text_area :content, :size => "80x10" %>
   </p>
-<span id ="advanced_link" >
-<%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
-</span>
-<div id="advanced_options_div">
+  <span id ="advanced_link" style="display:none">
+    <%= link_toggle "advanced_options_div", "Show/hide advanced options", "fast" %>
+  </span>
+  <div id="advanced_options_div">
     <%= render :partial => 'advanced_options'%>
-</div>
-
+  </div>
 </fieldset>
 
 <p>
@@ -36,10 +34,10 @@
 
 <% end %>
 
-<%= observe_form 'form', :url => { :action => 'update_checkboxes', :id => @department.id }, :frequency => 0.5 %>
+<%= observe_form 'form', :url => {:action => 'update_checkboxes'}, :frequency => 0.5 %>
 
 <script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){$("#advanced").hide();})
-    $(document).ready(function(){$("#advanced_link").show();})
+    $("#advanced_options_div").hide();
+    $("#advanced_link").show();
 </script>
 
