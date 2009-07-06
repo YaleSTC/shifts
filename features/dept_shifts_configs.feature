@@ -1,4 +1,4 @@
-@settings
+@configs
 
 Feature: Shift settings
   In order to manage shift settings
