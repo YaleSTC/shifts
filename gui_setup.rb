@@ -3,10 +3,18 @@ class Setup < Shoes
   @@delivery_method = ''
   @@mail_settings = {}
   @@CAS_Settings = {}
+  @@auth_type = ''
   url '/', :welcome
   url '/smtp', :smtp
   url '/sendmail', :sendmail
   url '/authentication', :authentication
+  url '/review', :review
+  url '/done', :done
+
+  def using_cas?
+    @@auth_type=='both' || @@auth_type=='CAS'
+  end
+
   def hash_to_string(hash, brackets)
     if hash.nil?
       " "
@@ -64,8 +72,7 @@ class Setup < Shoes
 
   def smtp
     @@delivery_method = 'smtp'
-    stack :width => '100%' do
-      inscription link("Back", :click => '/')
+    @main_box = stack :width => '100%' do
       inscription link("Start Over", :click => '/')
       title "SMTP Settings"
       flow{
@@ -77,31 +84,33 @@ class Setup < Shoes
       flow{
       para "If your server has a HELO domain, provide it (optional): "
       @domain_box=edit_line :text => "example.com"}
-      flow{
-      para "If your mail server requires authentication, provide the authentication type (optional): "
-      @auth_box=edit_line :text => "login"}
-      flow{
-      para "Provide your mail server username: "
-      @username_box=edit_line :text => "login"}
-      flow{
-      para "Provide your mail server password: "
-      @pword_box=edit_line :text => "password"}
-      button ("Continue"){@@mail_settings = {
+      @submit_button = button ("Continue"){@@mail_settings = {
              :address => @server_box.text,
-             :port => @port_box.text,
-             :domain => @domain_box.text,
-             :authentication => @auth_box.text,
-             :user_name => @username_box.text,
-             :password => @pword_box.text
-             }
+             :port => @port_box.text}
+             @@mail_settings.store (:domain, @domain_box.text) if @domain_box.text
+             @@mail_settings.store (:authentication, @auth_box.text) if @auth_box.text
+             @@mail_settings.store (:user_name, @username_box.text) if @username_box.text
+             @@mail_settings.store (:password, @pword_box.text) if @pword_box.text
           visit '/authentication'}
-    end
+        end
+        @optional = stack{ button("Push here if your mail server requires authentication"){@main_box.before(@submit_button) do
+          flow{
+          para "Provide the authentication type: "
+          @auth_box=edit_line :text => "login"}
+          flow{
+          para "Provide your mail server username: "
+          @username_box=edit_line :text => "login"}
+          flow{
+          para "Provide your mail server password: "
+          @pword_box=edit_line :text => "password"}
+         end
+      @optional.clear
+      }}
   end
 
   def sendmail
     @@delivery_method = 'sendmail'
     stack :width => '100%' do
-      inscription link("Back", :click => '/')
       inscription link("Start Over", :click => '/')
       title "Sendmail Settings"
       flow{
@@ -112,7 +121,7 @@ class Setup < Shoes
       @arg_box=edit_line :text => "-i -t"}
       button ("Continue"){@@mail_settings = {
              :location => @location_box.text,
-             :arguments => @arg_box.text,
+             :arguments => @arg_box.text
              }
           visit '/authentication'}
     end
@@ -121,11 +130,98 @@ class Setup < Shoes
 
   def authentication
     stack :width => '100%' do
-      inscription link("Back", :click => '/')
       inscription link("Start Over", :click => '/')
       title "Authentication Settings"
+      @main_stack = stack {
+      para "Are you planning on using CAS, built-in authentication, or both?"
+      flow do
+        button ("CAS"){@@auth_type='CAS'
+        @main_stack.clear {stack {
+          flow{
+          para "Provide the base URL of your CAS server: "
+          @server_box=edit_line :text => ""}
+          flow{
+          para "Provide the name your CAS server uses to refer to users: "
+          @user_box=edit_line :text => "cas_user"}
+          flow{
+          para "Provide the name your CAS server users to refer to extra attributes: "
+          @extra_box=edit_line :text => "cas_extra_attributes"}
+          flow{
+          para "Provide the name your CAS logger: "
+          @logger_box=edit_line :text => "cas_logger"}
+          button("Continue"){@@CAS_Settings= {
+            :cas_base_url => @server_box.text,
+            :username_session_key => @user_box.text,
+            :extra_attributes_session_key => @extra_box.text,
+            :logger => @logger_box.text
+          }
+          visit '/review'
+
+          }
+            }
+
+          }
+        }
+        button ("Built-in"){@@auth_type='built-in'; visit '/review'}
+        button ("Both"){@@auth_type='both'
+        @main_stack.clear {stack {
+          flow{
+          para "Provide the base URL of your CAS server: "
+          @server_box=edit_line :text => ""}
+          flow{
+          para "Provide the name your CAS server uses to refer to users: "
+          @user_box=edit_line :text => "cas_user"}
+          flow{
+          para "Provide the name your CAS server users to refer to extra attributes: "
+          @extra_box=edit_line :text => "cas_extra_attributes"}
+          flow{
+          para "Provide the name your CAS logger: "
+          @logger_box=edit_line :text => "cas_logger"}
+          button("Continue"){@@CAS_Settings= {
+            :cas_base_url => @server_box.text,
+            :username_session_key => @user_box.text,
+            :extra_attributes_session_key => @extra_box.text,
+            :logger => @logger_box.text
+          }
+          visit '/review'
+
+          }
+            }
+
+          }
+        }
+
+
+        end
+}
     end
   end
+
+  def review
+    stack :width => '100%' do
+      inscription link("Start Over", :click => '/')
+      title "Review"
+      para "Are you sure everything\s ok?"
+      flow{
+      button ("No, take me back!"){visit '/'}
+      button ("Yup, go ahead and write the files"){
+        writefiles(@@delivery_method, @@mail_settings, @@CAS_Settings, using_cas?)
+        visit '/done'
+        }
+      }
+    end
+
+  end
+
+  def done
+    stack :width => '100%' do
+      title "All Done"
+      para "You might want to check your environment.rb file and make sure it\'s still ok..."
+      button ("click here to exit"){exit}
+    end
+  end
+
+
 end
 
 Shoes.app :width=>500, :height=>500
