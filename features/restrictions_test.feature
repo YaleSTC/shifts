@@ -6,7 +6,7 @@ I want to be able to create, delete, and edit restrictions on shifts
 Scenario Outline: Time limit
 Given I have a time limit restriction for <res-hours> hours <res-minutes> minutes
 Given this restriction expires <res-expiration>
-# Given this restriction aplies <res-department_locations_locgroups>
+# Given this restriction applies <res-department_locations_locgroups>
 Given I am logged into CAS as "ad12"
 Given I am on the homepage
 When I follow "Shifts"
