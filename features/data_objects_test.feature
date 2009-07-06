@@ -25,9 +25,10 @@ Feature: data object
       And I select "Cat" from "data_object[data_type_id]"
       And I fill in "Name" with "Garfield"
       And I fill in "Description" with "he hates Mondays"
-      And I check "Cats Aisle"
+      And I check "Cat Aisle"
       And I check "Checkout"
-      And I press "Create"
+      And I press "Save and finish"
+      Then I should see "Successfully created data object"
       Then I should have 1 data_object
       And I should see "New cat created"
       And I should see "Name: Garfield"
@@ -36,24 +37,30 @@ Feature: data object
 
     Scenario: Editing data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location "Cat Aisle"
-      When I follow "Edit"
-      And I select "Cat" from "Data type"
+      When I am on the data objects page
+      And I follow "Garfield"
+      And I follow "Edit data object"
+      And I select "Cat" from "data_object[data_type_id]"
       And I fill in "Name" with "Crookshanks"
       And I fill in "Description" with "Hermione's cat"
       And I uncheck "Cat Aisle"
       And I check "Dog Aisle"
-      And I press "Edit"
-      Then I should have 1 data_object
-      And I should see "Cat edited"
-      And I should see "Name: Crookshanks"
-      And I should see "Description: Hermione's cat"
-      And I should see "Locations: Dog Aisle, Checkout"
+      And I press "Save and finish"
+      Then I should see "Successfully updated data object"
+      And I should have 1 data_object
+      And I should see "Crookshanks"
+      And I should see "Description:"
+      And I should see "Hermione's cat"
+      And I should see "Locations:"
+      And I should see "Dog Aisle"
 
     Scenario: Deleting data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location "Cat Aisle"
-      When I follow "Destroy"
-#      And I press "Yes, I am sure" again AJAX prevents this step
+      When I am on the data objects page
+      And I follow "Garfield"
+      And I follow "Destroy"
       Then I should have no data_objects
       And I should not see "Garfield"
       And I should not see "he hates Mondays"
+      And I should see "Successfully destroyed data object."
 

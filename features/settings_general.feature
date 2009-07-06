@@ -1,4 +1,4 @@
-@settings
+@configs
 
 Feature: Settings
   In order to manage Settings
