@@ -20,7 +20,7 @@ puts "For optional parameters, just hit enter if you don't want to set them."
 
   puts "MAILER CONFIGURATION"
   action_mailer = {}
-  puts "Provide your mail delivery method (smtp, sendmail, or test; smtp is recommended)"
+  puts "Provide your mail delivery method (smtp or sendmail; smtp is recommended)"
   action_mailer.store(:delivery_method, gets.chomp)
   p action_mailer[:delivery_method]
   if action_mailer[:delivery_method] == 'smtp'
@@ -62,6 +62,10 @@ puts "For optional parameters, just hit enter if you don't want to set them."
     authentication.store(:logger, gets.chomp)
   end
 
+  puts "FAVICON SELECTION"
+  puts "Please give the full path to the location of the favicon you would like to use for this app."
+  favicon_location = gets.chomp
+
   File.rename('config/environment.rb', 'config/environment.rb.backup')
 
   newtext=File.open('config/environment.rb.backup','r').collect.join()
@@ -86,6 +90,8 @@ puts "For optional parameters, just hit enter if you don't want to set them."
     end
   end
 
+  File::copy(favicon_location, "public/favicon.ico")
+
   out = File.new('config/environment.rb', "w")
   out.puts(newtext)
   out.close
@@ -94,7 +100,7 @@ puts "For optional parameters, just hit enter if you don't want to set them."
 
 
 #  %x{rake load_fixtures}
-  puts "penguins"
+  puts "All done! Check to make sure everything is ok."
 
 
 
@@ -119,4 +125,3 @@ puts "For optional parameters, just hit enter if you don't want to set them."
 #  :extra_attributes_session_key => :cas_extra_attributes,
 #  :logger => cas_logger
 #)
-
