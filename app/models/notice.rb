@@ -7,7 +7,7 @@ class Notice < ActiveRecord::Base
               :class_name => "User"
 
   belongs_to :department
-  
+
   validates_presence_of :content
   validate :presence_of_locations_or_viewers
   validate_on_create :proper_time
