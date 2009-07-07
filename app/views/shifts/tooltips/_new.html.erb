@@ -1,24 +1,22 @@
 <%= javascript_include_tag 'jquery', 'jquery-ui' %>
 <%= stylesheet_link_tag 'ui.datepicker' %>
 
-
-<script type="text/javascript">
-  $("#shift_start").datepicker('destroy');
-  $("#shift_end").datepicker('destroy');
-</script>
-
 <strong>Add New Shift</strong>
 <% form_for @shift do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
     <%= f.text_field :start, :value => ( @shift.start ? (Time.parse(params[:shift][:start]).strftime("%m/%d/%Y") or @shift.start.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :start, :minute_step => 15, :twelve_hour => true %> (specify a start time)
+    <!-- <script type="text/javascript">
+      $(this).prev().prev().datepicker()
+      alert($(this).prev().class);
+    </script> -->
+    <%= f.time_select :start, :minute_step => 15, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :end %><br />
     <%= f.text_field :end, :value => ( @shift.end ? (Time.parse(params[:shift][:end]).strftime("%m/%d/%Y") or @shift.end.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :end, :minute_step => 15, :twelve_hour => true %> (specify an end time)
+    <%= f.time_select :end, :minute_step => 15, :twelve_hour => true %>
   </p>
   <% if current_user.is_admin_of?(@department) %>
     <p>
@@ -39,4 +37,5 @@
 <script type="text/javascript">
   $("#shift_start").datepicker();
   $("#shift_end").datepicker();
+  //TODO: make this work for successive popups
 </script>

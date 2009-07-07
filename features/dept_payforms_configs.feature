@@ -1,4 +1,4 @@
-@settings
+@configs
 
 Feature: Payform settings
   In order to manage payform settings
