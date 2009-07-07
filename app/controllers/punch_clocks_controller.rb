@@ -8,11 +8,19 @@ class PunchClocksController < ApplicationController
   end
   
   def new
-    @user = User.find(params[:user_id])
-    @punch_clock = PunchClock.new
+    @user = User.find(current_user.id)
+    @punch_clock = PunchClock.new(params[:user_id])
+    @punch_clock.user = @user
+    if @punch_clock.save
+      flash[:notice] = "Successfully clocked in."
+    else
+      flash[:notice] = "Could not clock in."  # why?
+    end
+    redirect_to dashboard_url
   end
   
   def create
+    raise penguins
     @punch_clock = PunchClock.new(params[:punch_clock])
     @user = User.find(params[:user_id])
     @punch_clock.user = @user
@@ -23,12 +31,23 @@ class PunchClocksController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def clock_out
+    PunchClock.find(params[:id])
+  end
+  
+  def cancel
+    if (clock = current_user.punch_clock) && request.post?
+      clock.destroy
+    end
+    redirect_to :controller => "/dashboard"
+  end
   
   def destroy
     @punch_clock = PunchClock.find(params[:id])
-    @punch_clock.destroy
     @time_in_hours = (Time.now - @punch_clock.created_at) / 3600.0  # sec -> hr
-    flash[:notice] = "Successfully destroyed punchclock."
+    @punch_clock.destroy
+    flash[:notice] = "Successfully clocked out."
     @payform_item = PayformItem.new({:date => Date.today,
                                     :category_id => 2, # 2 for "shifts", there should be a better way
                                     :hours => @time_in_hours,

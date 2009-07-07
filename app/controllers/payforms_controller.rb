@@ -6,18 +6,7 @@ class PayformsController < ApplicationController
     else
       @payforms =  current_department.payforms && current_user.payforms
     end
-    if params[:unsubmitted]
-      @payforms = @payforms.unsubmitted
-    elsif params[:submitted]
-      @payforms = @payforms.unapproved
-    elsif params[:approved]
-      @payforms = @payforms.unprinted
-    elsif params[:printed]
-      @payforms = @payforms.printed
-    else
-      params[:unsubmitted] = params[:submitted] = params[:approved] = true
-      @payforms -= @payforms.printed
-    end
+    narrow_down(@payforms)
     @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
     #TODO: could this just be "@payforms = @payforms.sort_by(|payform| payform.user.last_name)"?
   end
@@ -98,5 +87,42 @@ class PayformsController < ApplicationController
       redirect_to @payform
     end
   end
-end
+
+  def search
+    users = current_department.users
+
+    #filter results if we are searching
+    if params[:search]
+      search_result = []
+      users.each do |user|
+        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+          search_result << user
+        end
+      end
+      users = search_result.sort_by(&:last_name)
+    end
+    @payforms = []
+    for user in users
+      @payforms += narrow_down(user.payforms)
+    end
+      
+  end
+  
+  
+  protected
+  
+  def narrow_down(payforms)
+    if params[:unsubmitted]
+      payforms = payforms.unsubmitted
+    elsif params[:submitted]
+      payforms = payforms.unapproved
+    elsif params[:approved]
+      payforms = payforms.unprinted
+    elsif params[:printed]
+      payforms = payforms.printed
+    else
+      params[:unsubmitted] = params[:submitted] = params[:approved] = true
+      payforms -= payforms.printed
+    end
+  end
 

@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :department_configs, :only => [:edit, :update]
 
   map.resources :payforms,
-                :collection => { :prune => :delete, :go => :get },
+                :collection => { :prune => :delete, :go => :get, :search => :post},
                 :member => {:submit => :put, :approve => :put, :print => :put},
                 :shallow => true do |payform|
     payform.resources :payform_items
