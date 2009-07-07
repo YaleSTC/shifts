@@ -1,0 +1,4 @@
+<%= return_to_shift_report_if_needed %>
+<%= link_to_remote "Start an unscheduled shift", {:url => unscheduled_new_shift_path, :method => :get}, :href => unscheduled_new_shift_path %>
+<%# for AJAX insert: -%>
+<div id="unscheduled" style="margin: 0; padding:0; margin-left:20px; display: none"></div>

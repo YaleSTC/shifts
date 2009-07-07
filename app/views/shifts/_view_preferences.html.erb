@@ -1,17 +1,9 @@
-<% 
-  @user_config = current_user.user_config
-  @loc_group_select = {}
-  current_user.departments.each do |dept|
-    @loc_group_select.store(dept.id, current_user.loc_groups(dept))
-  end    
-  @selected_loc_groups = @user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
-%>
 <div id="preferences" style="float:right">
   <span id="pref_link" class="dotted_link" style="display:none"><%= link_toggle "checkbox_div", "Show/Hide Groups", "fast" %></span>
   <div id="checkbox_div">
     Location groups to show:
     <%# TODO: actually make this preferences form work%>
-    <% form_for @user_config do |f| %>
+    <% form_for current_user.user_config do |f| %>
       <p>
         <% for department in current_user.departments %>
           <div class="multiple_select">
