@@ -5,12 +5,12 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
-    <%= f.text_field :start, :value => ( @shift.start ? (params[:shift][:start] or @shift.start.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
+    <%= f.text_field :start, :value => ( @shift.start ? (@shift.start.strftime("%m/%d/%Y") or params[:shift][:start]) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
     <%= f.time_select :start, :minute_step => 15, :twelve_hour => true %> (specify a start time)
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.text_field :end, :value => ( @shift.end ? (params[:shift][:end] or @shift.end.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
+    <%= f.text_field :end, :value => ( @shift.end ? (@shift.end.strftime("%m/%d/%Y") or params[:shift][:end]) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
     <%= f.time_select :end, :minute_step => 15, :twelve_hour => true %> (specify an end time)
   </p>
   <% if current_user.is_admin_of?(@department) %>
