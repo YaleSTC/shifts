@@ -56,7 +56,7 @@ end
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|
 
   # the following code checks to see that the select box has the correct department selected
-  field_with_id("department_id").value.should == [Department.find_by_name(department).id.to_s]
+  field_named("chooser[dept_id]").value.should == [Department.find_by_name(department).id.to_s]
 end
 
 Then /^I should see all the days of the week$/ do
@@ -98,6 +98,10 @@ end
 When /^I log out$/ do
   # This is a bad way of doing a logout, but I don't know of any other way
   CASClient::Frameworks::Rails::Filter.fake("invalid_login")
+end
+
+Then /^the ldap address should be "([^\"]*)"$/ do |address|
+  AppConfig.first.ldap_address.to_i.should be(address.to_i)
 end
 
 Then /^I should be redirected$/ do
@@ -161,7 +165,7 @@ Then /^I should have a (.+) named "([^\"]*)"$/ do |object, name|
   end
 end
 
-Then /^the department "([^\"]*)" should have a department config$/ do |department|
+Then /^the department "([^\"]*)" should have a department_config$/ do |department|
   Department.find_by_name(department).department_config.should_not be_nil
 end
 

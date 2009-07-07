@@ -1,5 +1,5 @@
 @payform
-
+@cw
 Feature: payform
   In order to manage my own payform
   As a regular user
@@ -47,13 +47,15 @@ Feature: payform
     Given I have the following payform item
       | category | user_login | hours | description         | date         |
       | Magic    | hp123      | 2     | doing some magic    | May 18, 2009 |
-    And I am on the page for the payform for the week "2009-5-23"
-    When I follow "✖"
+    And I am on the payforms page
+    When I follow "2009-05-23"
+    And I follow "✖"
 #    Then I should see "Are you sure?" : except that is done using java, so cucumber cannot see
 #    And I fill in "Reason for deletion" with "because I lied"
 #    And I press "Yes"
     Then I should see "Payform item deleted"
-    And I should have 0 payform_items
+    And I should have 1 payform_item
+    And that payform_item should be inactive
 
   Scenario: Submit a payform
     Given I have the following payform items

@@ -1,5 +1,5 @@
 @configs
-
+@cw
 Feature: Shift settings
   In order to manage shift settings
   As an admin
