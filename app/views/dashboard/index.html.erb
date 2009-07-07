@@ -15,9 +15,7 @@
     <%= link_to "Clock out?",  current_user.punch_clock, :message => "Are you sure",
                                                          :method => :delete %>
   <% else %>
-    <%= link_to "Clock in?", {:controller => "punch_clocks",
-                              :action => :new },
-                              :method => :create %>
+    <%= link_to "Clock in?", new_user_punch_clock_path(current_user, @punch_clock) %>
   <% end %>
 </fieldset>
 
