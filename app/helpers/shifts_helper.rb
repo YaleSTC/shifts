@@ -302,7 +302,7 @@ module ShiftsHelper
       content += user_info + br + link_to(link_name, url_options, html_options)
 
       #TODO: make this a preference
-      clickable_signup_preference = true;
+      clickable_signup_preference = false;
       clickable_signup = clickable_signup_preference
       if clickable_signup and type=="free_time" and location #bar_active"#
         #print a bunch of individual cells, so we can click and add shifts
