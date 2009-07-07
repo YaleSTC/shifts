@@ -2,7 +2,7 @@
 <%
   @bar_ids = {}
 
-  @dept_start_hour = 8
+  @dept_start_hour = 9
   @dept_end_hour = 17  #if the day ends after midnight, this should be > 24
   @blocks_per_hour = 4
   @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
