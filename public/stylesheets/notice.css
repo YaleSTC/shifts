@@ -8,16 +8,14 @@ fieldset.sticky {
   padding: 5px;
   margin: 0 0 0 0;
   background-color:#FFFF99;
-  float: left;
-  clear: right;
+
 }
 
 fieldset.announcement {
   padding: 5px;
   margin:0 0 0 0;
   background-color:#ADD8E6;
-  float: right;
-  clear: left;
+
 }
 
 fieldset.sticky .grayleft, fieldset.announcement .grayleft{

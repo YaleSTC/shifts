@@ -23,7 +23,6 @@ class NoticesController < ApplicationController
   end
 
   def create
-    params.to_yaml
     @notice = Notice.new(params[:notice])
     @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
     @notice.author = current_user
