@@ -20,6 +20,7 @@ class NoticesController < ApplicationController
 
   def edit
     @notice = Notice.find(params[:id])
+    render :action => "edit", :layout => 'new_notice'
   end
 
   def create
@@ -67,6 +68,14 @@ class NoticesController < ApplicationController
       redirect_with_flash("Notice successfully removed", :back)
     else
       redirect_with_flash "Error removing notice", :back
+    end
+  end
+
+  def update_checkboxes
+    raise params.to_yaml
+    @notice = Notice.new(params[:notice])
+    render :update do |page|
+      page.replace_html('advanced_options_div', :partial => "advanced_options")
     end
   end
 

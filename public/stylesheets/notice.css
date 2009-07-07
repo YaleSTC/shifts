@@ -1,9 +1,3 @@
-fieldset.index {
-  width: 75%;
-  padding: 5px;
-  background-color:#DDDDFF
-}
-
 fieldset.sticky {
   padding: 5px;
   margin: 0 0 0 0;
@@ -23,7 +17,7 @@ fieldset.sticky .grayleft, fieldset.announcement .grayleft{
   text-align:left;
 }
 
-fieldset.sticky .grayright, fieldset.announcement .grayright, fieldset.sticky .right, fieldset.announcement .right{
+fieldset.sticky .grayright, fieldset.sticky .right, fieldset.announcement .right{
   float:right;
   text-align:right;
 }
