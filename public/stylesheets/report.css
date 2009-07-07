@@ -36,45 +36,6 @@
   width: 69px;
   padding: 4px;
 }
-/* for announcement and sticky fieldsets */
-fieldset.notice {
-  padding: 5px;
-  margin: 0 0 0 0;
-  background-color:#FFFF99;
-}
-
-fieldset.announcement {
-  width:48%;
-  padding: 5px;
-  margin:0 0 0 0;
-  float: right;
-  clear: right;
-  background-color:#ADD8E6;
-}
-
-fieldset.notice .grayleft, fieldset.announcement .grayleft{
-  float:left;
-  text-align:left;
-}
-
-fieldset.notice .grayright, fieldset.announcement .grayright, fieldset.notice .right, fieldset.announcement .right{
-  float:right;
-  text-align:right;
-}
-
-fieldset.notice .grayleft, fieldset.notice .grayright {
-  color:SlateGray;
-  font-size: 90%;
-}
-
-fieldset.announcement .grayleft, fieldset.announcement .grayright {
-  color:DarkRed;
-  font-size: 90%;
-}
-#message_center {
-  display: inline;
-  padding: 5px;
-}
 
 #useful_links {
   padding: 5px;
@@ -83,3 +44,4 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 #useful_links li {
   display: inline;
 }
+
