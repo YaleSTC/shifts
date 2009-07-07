@@ -13,9 +13,7 @@
   </p>
     <%= f.label :ldap_address %>
     <%= f.text_field :ldap_address %>
-  <p>
-    <%= f.label :auth_types, text = "Login Options" %><br />
-    <%= multiple_select :app_config, :auth_types, AppConfig::LOGIN_OPTIONS, :selected_items => @selected_auth_types %>
-  
+
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
