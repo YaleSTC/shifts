@@ -1,5 +1,5 @@
 @data
-
+@cw
 Feature: data types
   In order to manage data types
   As an admin
@@ -26,12 +26,12 @@ Feature: data types
         And I press "Save and add another field"
         Then I should see "Successfully created data field."
         When I fill in "Name" with "Metals"
-        And I select "Check Box" from "Display Type"
+        And I select "Check Boxes" from "Display Type"
         And I fill in "Values" with "Gold, Silver, Bronze"
         And I press "Save and add another field"
         Then I should see "Successfully created data field."
         When I fill in "Name" with "Description of type of magic"
-        And I select "Text Area" from "Display Type"
+        And I select "Text Field" from "Display Type"
         And I press "Save and finish"
         Then I should see "Successfully created data field."
         And I should see "Ring"

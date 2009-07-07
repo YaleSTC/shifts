@@ -1,4 +1,5 @@
 @auth
+@cw
 
 Feature: Authentication Systems
   In order to manage users with different auth_types
