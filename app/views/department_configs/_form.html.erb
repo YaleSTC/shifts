@@ -3,10 +3,6 @@
 <% form_for @department_config do |f| %>
   <%= f.error_messages %>
   <p>
-    <label>Department:</label>
-    <%= @select_dept %>
-  </p>
-  <p>
     <label>Schedule view start time:</label>
     <%= f.select :schedule_start, @time_choices %>
   </p>

@@ -20,7 +20,7 @@ class DepartmentConfig < ActiveRecord::Base
 
   def calibrate_time
     if self
-      self.end += 24*60 if self.end <= self.start
+      self.schedule_end += 24*60 if self.schedule_end <= self.schedule_start
       self.save
     end
   end
