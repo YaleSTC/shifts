@@ -27,4 +27,16 @@
     <%= render :partial => 'shifts/upcoming_shifts_layout' %>
     </fieldset>
 <% end %>
+<% if @most_recent_payform %>
+  <br />
+  <fieldset class ="index">
+      <legend>Summary of your most recent payform</legend>
+      <%= render :partial => "mini_payform" %>
+      </fieldset>
+<%end%>
+<br />
+  <fieldset class ="index">
+      <legend>Today's schedule</legend>
+      <%= render :partial => 'shifts/schedule/day', :collection => [Date.today], :spacer_template => 'shifts/schedule/spacer'%>
+      </fieldset>
 

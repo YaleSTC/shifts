@@ -2,14 +2,14 @@ module NoticesHelper
 
   def locations_check(location)
     if current_user.current_shift
-      !@notice.departments.each{|d| d.locations.include?(location)}.empty? or
-      current_user.current_shift.location == location or
-      @notice.locations.include?(location) or
-      !@notice.loc_groups.each{lg.locations.include?(location)}.empty?
+      !@notice.departments.each{|d| d.locations.include?(location)}.empty? ||
+      current_user.current_shift.location == location ||
+      @notice.locations.include?(location) ||
+      !@notice.loc_groups.each{|lg| lg.locations.include?(location)}.empty?
     else
-      !@notice.departments.each{|d| d.locations.include?(location)}.empty? or
-      @notice.locations.include?(location) or
-      !@notice.loc_groups.each{lg.locations.include?(location)}.empty?
+      !@notice.departments.each{|d| d.locations.include?(location)}.empty? ||
+      @notice.locations.include?(location) ||
+      !@notice.loc_groups.each{|lg| lg.locations.include?(location)}.empty?
     end
   end
 
@@ -27,7 +27,7 @@ module NoticesHelper
 
   def update_checkboxes
     @notice = Notice.new(params[:notice])
-    render :new do |page|
+    render :update do |page|
       page.replace_html('advanced_options_div', :partial => "advanced_options")
     end
   end
