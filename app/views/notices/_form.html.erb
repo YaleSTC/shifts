@@ -1,17 +1,16 @@
-<fieldset class = "index">
-<% form_for(@notice) do |f| %>
+<% form_for(@notice, {:id => 'notice_form'}) do |f| %>
   <%= f.error_messages %>
-  <% if current_user.is_admin_of?(@department) %>
+  <% if current_user.is_admin_of?(current_department) %>
     <p>
       Post as sticky? (start/end time preferences will be ignored)
       <%= f.check_box :is_sticky %>
     </p>
     <p>
-      Specify a start time:<br />
+      Specify a start time:
       <%= f.datetime_select :start_time %>
     </p>
     <p>
-      Specify an end time:<br />
+      Specify an end time:
       <%= f.datetime_select :end_time %> <br /> or check here to make it indefinite:
       <%= check_box_tag :indefinite -%>
     </p>
@@ -20,24 +19,23 @@
     <%= f.label :content %><br />
     <%= f.text_area :content, :size => "80x10" %>
   </p>
-  <span id ="advanced_link" style="display:none">
+
+  <span id ="advanced_link">
     <%= link_toggle "advanced_options_div", "Show/hide advanced options", "fast" %>
   </span>
+
   <div id="advanced_options_div">
     <%= render :partial => 'advanced_options'%>
   </div>
-</fieldset>
 
-<p>
-  <%= f.submit 'Save',:onclick => 'self.parent.tb_remove()' %>
-</p>
-
+<br/>
+  <%= f.submit 'Save' %>
 <% end %>
-
-<%= observe_form 'form', :url => {:action => 'update_checkboxes'}, :frequency => 0.5 %>
-
+<%= observe_form :notice_form, :action => update_checkboxes, :update => "advanced_options_div", :frequency => 0.5 %>
+<!--
 <script type="text/javascript" charset="utf-8">
     $("#advanced_options_div").hide();
     $("#advanced_link").show();
 </script>
+-->
 
