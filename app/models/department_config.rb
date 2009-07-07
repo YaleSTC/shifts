@@ -2,6 +2,7 @@ class DepartmentConfig < ActiveRecord::Base
   belongs_to :department
 
   validates_presence_of :department_id
+  validates_uniqueness_of :department_id
   validates_numericality_of :schedule_start, :schedule_end
 
   def self.default

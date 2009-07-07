@@ -91,10 +91,10 @@ class UsersController < ApplicationController
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
     @user.password=@user.password_confirmation=random_password if params[:reset_password]
-    @user.deliver_password_reset_instructions!(Proc.new{|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='authlogic'
+    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='authlogic'
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
-      @user.deliver_password_reset_instructions!(Proc.new{|n| AppMailer.deliver_admin_password_reset_instructions(n)}) if params[:reset_password]
+      @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions(n)}) if params[:reset_password]
       redirect_to @user
     else
       render :action => 'edit'

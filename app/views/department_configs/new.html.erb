@@ -3,10 +3,9 @@
   <legend>Edit Shift Configuration</legend>
 <% form_for(@department_config) do |f| %>
   <%= f.error_messages %>
-
   <p>
-    <%= f.label :department_id %><br />
-    <%= f.select :department_id, Department.all.collect { |d| d.name } %>
+    <label>Department:</label>
+    <%= f.select :department_id, @select_dept %>
   </p>
   <p>
     <label>Schedule view start time:</label>
