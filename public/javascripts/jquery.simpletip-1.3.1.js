@@ -62,7 +62,7 @@
          { 
             if(tooltip.css('display') !== 'none')
             {
-               var check = (conf.focus) ? jQuery(event.target).parents('.tooltip').andSelf().filter(function(){ return this === tooltip.get(0) }).length : 0;
+               var check = (conf.focus) ? jQuery(event.target).parents('.tooltip').andSelf().filter(function(){ return (this === tooltip.get(0) || jQuery(event.target).parents('.ui-datepicker').length > 0) }).length : 0;
                if(check === 0) self.hide();
             };
          });
