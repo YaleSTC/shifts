@@ -26,7 +26,6 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    @user.login = params[:user][:login] if $appconfig.user_editable_logins
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
