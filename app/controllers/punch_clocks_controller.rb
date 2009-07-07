@@ -9,7 +9,7 @@ class PunchClocksController < ApplicationController
   
   def new
     @user = User.find(current_user.id)
-    @punch_clock = PunchClock.new(params[:user_id])
+    @punch_clock = PunchClock.new(params[:id])
     @punch_clock.user = @user
     if @punch_clock.save
       flash[:notice] = "Successfully clocked in."
@@ -42,12 +42,16 @@ class PunchClocksController < ApplicationController
     end
     redirect_to :controller => "/dashboard"
   end
+
+  def clock_out
+    @punch_clock = current_user.punch_clock
+  end
   
   def destroy
-    @punch_clock = PunchClock.find(params[:id])
+    @punch_clock = current_user.punch_clock
     @time_in_hours = (Time.now - @punch_clock.created_at) / 3600.0  # sec -> hr
     @punch_clock.destroy
-    flash[:notice] = "Successfully clocked out."
+    flash[:notice] = "Successfully clocked out"
     @payform_item = PayformItem.new({:date => Date.today,
                                     :category_id => 2, # 2 for "shifts", there should be a better way
                                     :hours => @time_in_hours,
@@ -56,7 +60,6 @@ class PunchClocksController < ApplicationController
     @payform_item.payform = @payform
     @payform_item.save
     @payform.save
-    # clock deleted by admin
     if current_user.is_admin_of?(current_department)
       redirect_to punch_clocks_path
     else  # clock deleted by user
