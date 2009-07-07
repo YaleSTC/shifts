@@ -7,27 +7,27 @@
     <%= @select_dept %>
   </p>
   <p>
-    <label>Schedule view start time:</label>
+    <%= f.label :schedule_start, "Schedule view start time:" %>
     <%= f.select :schedule_start, @time_choices %>
   </p>
   <p>
-    <label>Schedule view end time:</label>
+    <%= f.label :schedule_end, "Schedule view end time:" %>
     <%= f.select :schedule_end, @time_choices %>
   </p>
   <p>
-    <label>Shift time increment:</label>
+    <%= f.label :time_increment, "Shift time increment:" %>
     <%= f.text_field :time_increment, :size => 6 %>
   </p>
   <p>
-    <label>Late sign-in grace period:</label>
+    <%= f.label :grace_period, "Late sign-in grace period:" %>
     <%= f.text_field :grace_period, :size => 6 %>
   </p>
   <p>
-    <label>Editable reports:</label>
+    <%= f.label :edit_report, "Editable reports:" %>
     <%= f.check_box :edit_report %>
   </p>
   <p>
-    <%= f.submit "Submit" %>
+    <%= f.submit "Save settings" %>
   </p>
 <% end %>
 </fieldset>
