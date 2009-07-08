@@ -9,6 +9,7 @@ Cucumber::Rails.bypass_rescue # Comment out this line if you want Rails own erro
 
 require 'webrat'
 require 'spec/mocks'
+require 'email_spec/cucumber'
 
 # The following code loads all fixtures in spec/fixtures
 Before do
