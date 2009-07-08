@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
+  helper_method :random_password
 
   filter_parameter_logging :password, :password_confirmation
 
@@ -29,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def using_CAS?
-    !current_user || current_user.auth_type=='CAS'
+    !User.first && (!current_user || current_user.auth_type=='CAS')
   end
 
   protected
@@ -123,7 +124,9 @@ class ApplicationController < ActionController::Base
   end
 
   def login_check
-    unless current_user
+  if !User.first
+    redirect_to first_app_config_path
+  elsif !current_user
       if $appconfig.login_options==['authlogic'] #AppConfig.first.login_options_array.include?('authlogic')
         redirect_to login_path
       else
@@ -158,6 +161,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def random_password(size = 20)
+    chars = (('a'..'z').to_a + ('0'..'9').to_a)
+    (1..size).collect{|a| chars[rand(chars.size)] }.join
+  end
+
   # overwrite this method in other controller if you wanna go to a different url after chooser submit
   # it tries to find the index path of the current resource;
   # for example if you're in shifts_controller then it goes to shifts_path
@@ -166,4 +174,3 @@ class ApplicationController < ActionController::Base
     send("#{controller_name}_path") rescue root_path
   end
 end
-
