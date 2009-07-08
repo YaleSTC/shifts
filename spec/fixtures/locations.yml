@@ -7,7 +7,7 @@ location_001:
   min_staff: 1
   priority: 1
   active: true
-  loc_group_id: 1
+  loc_group_id: 3
 
 location_002:
   id: 2

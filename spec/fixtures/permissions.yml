@@ -43,4 +43,13 @@ permission_014:
 permission_015:
   id: "15"
   name: Inside of Hogwarts admin
+permission_013:
+  id: "16"
+  name: Comics view
+permission_014:
+  id: "17"
+  name: Comics signup
+permission_015:
+  id: "18"
+  name: Comics admin
 

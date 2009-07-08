@@ -56,7 +56,7 @@ end
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|
 
   # the following code checks to see that the select box has the correct department selected
-  field_named("chooser[dept_id]").value.should == [Department.find_by_name(department).id.to_s]
+  field_with_id("chooser_dept_id").value.should == [Department.find_by_name(department).id.to_s]
 end
 
 Then /^I should see all the days of the week$/ do
