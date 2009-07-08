@@ -1,5 +1,5 @@
 @configs
-
+@cw
 Feature: Payform settings
   In order to manage payform settings
   As an admin
