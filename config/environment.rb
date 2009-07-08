@@ -31,8 +31,7 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
   # Configure Rails Mail options
-  #config.action_mailer.delivery_method = :smtp
-  config.action_mailer.delivery_method = :activerecord
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => "mail.yale.edu",
     :port => 587,
