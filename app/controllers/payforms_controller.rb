@@ -113,8 +113,8 @@ class PayformsController < ApplicationController
     if !params[:id] or params[:id].to_i != @department.id
       redirect_to :action => :email_reminders, :id => @department.id and return
     end
-    # @default_reminder_msg = @department.payform_configuration.reminder
-    # @default_warning_msg = @department.payform_configuration.warning
+    @default_reminder_msg = "Testing default reminder message"  # @department.payform_configuration.reminder
+    @default_warning_msg = "Testing default warning message"    # @department.payform_configuration.warning
     @default_warn_start_date = 8.weeks.ago
   end
   
@@ -122,7 +122,6 @@ class PayformsController < ApplicationController
     @department = Department.first  # get_dept_from_url
     @users = @department.users.select {|u| if u.is_active?(current_department) then u.email end }
     admin_user = current_user
-    
     users_reminded = []
     for user in @users
       AppMailer.deliver(AppMailer.create_due_payform_reminder(admin_user, user, params[:post][:body]))
@@ -137,18 +136,17 @@ class PayformsController < ApplicationController
     @department = Department.first  # get_dept_from_url
     @users = @department.users.sort_by(&:name)
     users_warned = []
-    @admin_user = current_user
-    for user in @users     
-      Payform.find_or_create(Date.tomorrow.cweek, Date.tomorrow.at_beginning_of_week.year, user, @department)
-      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'year, week' ).collect { |p| p if p.get_date >= start_date }).compact
+    admin_user = current_user
+    for usr in @users     
+      Payform.build(@department, usr, Date.tomorrow)
+      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => usr.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).collect { |p| p if p.date >= start_date }).compact
       
       unless unsubmitted_payforms.blank?
         weeklist = ""
         for payform in unsubmitted_payforms
-          weeklist += payform.get_date.strftime("\t%b %d, %Y\n")
+          weeklist += payform.date.strftime("\t%b %d, %Y\n")
         end
-        email = AppMailer.create_late_payform_warning(@admin_user, user, message.gsub("@weeklist@", weeklist))
-        #TODO: Uncomment the following line
+        email = AppMailer.create_late_payform_warning(admin_user, usr, message.gsub("@weeklist@", weeklist))
         AppMailer.deliver(email)
         users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
       end
@@ -174,4 +172,4 @@ class PayformsController < ApplicationController
       payforms -= payforms.printed
     end
   end
-
+end
