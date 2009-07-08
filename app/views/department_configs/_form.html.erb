@@ -23,6 +23,14 @@
     <%= f.check_box :edit_report %>
   </p>
   <p>
+    <label>Display weekend shifts:</label>
+    <%= f.check_box :weekend_shifts %>
+  </p>
+  <p>
+    <label>Display unscheduled shifts:</label>
+    <%= f.check_box :unscheduled_shifts %>
+  </p>
+  <p>
     <%= f.submit "Submit" %>
   </p>
 <% end %>
