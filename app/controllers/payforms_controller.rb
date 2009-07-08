@@ -136,10 +136,10 @@ class PayformsController < ApplicationController
     @department = Department.first  # get_dept_from_url
     @users = @department.users.sort_by(&:name)
     users_warned = []
-    admin_user = current_user
-    for usr in @users     
-      Payform.build(@department, usr, Date.tomorrow)
-      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => usr.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).collect { |p| p if p.date >= start_date }).compact
+    @admin_user = current_user
+    for user in @users     
+      Payform.find_or_create(Date.tomorrow.cweek, Date.tomorrow.at_beginning_of_week.year, user, @department)
+      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'year, week' ).collect { |p| p if p.get_date >= start_date }).compact
       
       unless unsubmitted_payforms.blank?
         weeklist = ""
@@ -172,4 +172,5 @@ class PayformsController < ApplicationController
       payforms -= payforms.printed
     end
   end
+
 end
