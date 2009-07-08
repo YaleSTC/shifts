@@ -22,6 +22,14 @@
       <label>Editable reports:</label>
       <%= f.check_box :edit_report %>
     </p>
+  		<p>
+    		<label>Display weekends on shift schedule:</label>
+    		<%= f.check_box :weekend_shifts %>
+  		</p>
+  		<p>
+    		<label>Display unscheduled shifts:</label>
+    		<%= f.check_box :unscheduled_shifts %>
+  		</p>
   </fieldset>
   <br/>
   <fieldset>
@@ -39,4 +47,3 @@
     </p>
   </fieldset>
 <% end %>
-

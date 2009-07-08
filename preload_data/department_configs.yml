@@ -8,6 +8,8 @@ department_configs_001:
   time_increment: "60"
   grace_period: "7"
   edit_report: f
+  weekend_shifts: t
+  unscheduled_shifts: t
   updated_at: 2009-06-22 17:27:52
 department_configs_002:
   created_at: 2009-06-22 18:09:37
@@ -18,5 +20,7 @@ department_configs_002:
   time_increment: "60"
   grace_period: "0"
   edit_report: f
+  weekend_shifts: t
+  unscheduled_shifts: t
   updated_at: 2009-06-22 18:09:37
 
