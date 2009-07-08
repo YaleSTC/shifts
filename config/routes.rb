@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :punch_clocks
   map.resources :restrictions
+  map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'
 
   map.login "/login", :controller => 'user_sessions', :action => 'new'
   map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
@@ -21,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_configs, :only => [:edit, :update]
 
 
-
+  
   map.resources :sub_requests
   map.resources :notices, :collection => {:archive => :get}
 
@@ -30,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :department_configs, :only => [:edit, :update]
 
   map.resources :payforms,
-                :collection => { :prune => :delete, :go => :get },
+                :collection => { :prune => :delete, :go => :get, :search => :post},
                 :member => {:submit => :put, :approve => :put, :print => :put},
                 :shallow => true do |payform|
     payform.resources :payform_items
