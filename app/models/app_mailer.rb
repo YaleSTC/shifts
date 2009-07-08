@@ -4,13 +4,15 @@ class AppMailer < ActionMailer::Base
     recipients  sub_request.shift.user.email
     from        "subtaken@app.stc.com"
     subject     "Your sub request has been taken by #{new_shift.user.name}"
+    sent_on     Time.now
     body        :sub_request => sub_request, :new_shift => new_shift
   end
 
   def payform_item_change_notification(old_payform_item, new_payform_item = nil)
-    recipients  User.find(old_payform_item.user_id).email
+    recipients  old_payform_item.payform.user.email
     from        "payformitemchanged@app.stc.com"
-    if new_payform_item == nil && !old_payform_item.active
+    sent_on     Time.now
+    if !new_payform_item && !old_payform_item.active
       subject   "Your payform item has been deleted by #{old_payform_item.source}"
     else
       subject   "Your payform item has been modified by #{new_payform_item.source}"
