@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
-  helper_method :random_password
   def index
     if params[:show_inactive]
       @users = @department.users
@@ -198,13 +197,7 @@ class UsersController < ApplicationController
 
   private
 
-  def random_password(size = 20)
-    chars = (('a'..'z').to_a + ('0'..'9').to_a)
-    (1..size).collect{|a| chars[rand(chars.size)] }.join
-  end
-
   def switch_department_path
     department_users_path(current_department)
   end
 end
-
