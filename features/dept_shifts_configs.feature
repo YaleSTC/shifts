@@ -16,8 +16,9 @@ Feature: Shift settings
     And "Harry Potter" signs in at "12/25/2009 5:10pm"
 
   Scenario: Shifts settings: Start and end times
-    When I select "05:00AM" from "Schedule view start time:"
-    And I select "07:00AM" from "Schedule view end time:"
+    When I select "05:00 AM" from "department_config_schedule_start"
+    And I select "07:00 AM" from "department_config_schedule_end"
+    And I press "Save settings"
     And I go to the shifts page
     Then I should see "5:00"
     And I should see "6:00"
@@ -27,7 +28,8 @@ Feature: Shift settings
     And I should not see "Harry Potter"
 
   Scenario Outline: Shifts settings: Time increments
-    When I select "<time increment>" from "Time Increments"
+    When I fill in "department_config_time_increment" with "<time increment>"
+    And I press "Save settings"
     When I am on the shifts page
     And I follow "Time Slots"
     Then I should <1:00>be able to select "01:00" as a time

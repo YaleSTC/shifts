@@ -32,13 +32,13 @@ Feature: User settings
     And I go to the homepage
     Then the page should indicate that I am in the department "Hogwarts"
     When I go to the user settings page
-    And I select "Outer Space" from "Default department"
+    And I select "Pet Store" from "Default department"
     And I press "Submit"
     Then I should see "Successfully updated user config."
     When I follow "Logout"
     And I am "Harry Potter"
     And I go to the homepage
-    Then the page should indicate that I am in the department "Outer Space"
+    Then the page should indicate that I am in the department "Pet Store"
 
   Scenario: Changing the days displayed in shifts
 #     This test will not work if you happen to run it
