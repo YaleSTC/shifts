@@ -31,8 +31,6 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
   # Configure Rails Mail options
-  require "action_mailer/ar_mailer"
-  ActionMailer::Base.delivery_method = :activerecord
   #config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => "mail.yale.edu",
