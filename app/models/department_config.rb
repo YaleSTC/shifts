@@ -5,6 +5,7 @@ class DepartmentConfig < ActiveRecord::Base
   validates_uniqueness_of :department_id
   validates_numericality_of :schedule_start, :schedule_end
 
+  #TODO: this conflicts with department_observer.rb
   def self.default
     #Add payform config defaults?
     new(:time_increment => 60,

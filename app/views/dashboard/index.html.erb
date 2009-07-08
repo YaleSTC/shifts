@@ -39,6 +39,5 @@
 
 <fieldset class="index">
   <legend>Today's schedule</legend>
-  <%#= render :partial => 'shifts/schedule/day', :collection => [Date.today] %>
-  <%= render :partial => 'shifts/schedule/day', :object => Date.today, :spacer_template => 'shifts/schedule/spacer'%>
+  <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
 </fieldset>
