@@ -1,5 +1,4 @@
 class AppMailer < ActionMailer::Base
-  default_url_options[:host] = 'localhost:3000'
 
   def sub_taken_notification(sub_request, new_shift)
     recipients  sub_request.shift.user.email
@@ -50,6 +49,6 @@ class AppMailer < ActionMailer::Base
     sent_on       Time.now
     body          :edit_password_url => edit_password_reset_url(user.perishable_token)
   end
-
+  
 end
 

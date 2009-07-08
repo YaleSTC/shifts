@@ -174,7 +174,7 @@ module ShiftsHelper
           type.gsub!(/shift/, 'user') if shift.user == current_user and !current_user.is_admin_of?(@department)
           if shift.missed?
             type.gsub!(/time/, 'missed_time')
-          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + @grace_period #TODO: get grace period for department/location
+          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + @department.department_config.grace_period*60 #seconds
             type.gsub!(/time/, 'late_time')
           end
         end

@@ -1,30 +1,49 @@
-<fieldset>
-  <legend>Edit Shift Configuration</legend>
 <% form_for @department_config do |f| %>
   <%= f.error_messages %>
-  <p>
-    <label>Schedule view start time:</label>
-    <%= f.select :schedule_start, @time_choices %>
-  </p>
-  <p>
-    <label>Schedule view end time:</label>
-    <%= f.select :schedule_end, @time_choices, :selected => (@department_config.schedule_end % 1440) %>
-  </p>
-  <p>
-    <label>Shift time increment:</label>
-    <%= f.text_field :time_increment, :size => 6 %>
-  </p>
-  <p>
-    <label>Late sign-in grace period:</label>
-    <%= f.text_field :grace_period, :size => 6 %>
-  </p>
-  <p>
-    <label>Editable reports:</label>
-    <%= f.check_box :edit_report %>
-  </p>
-  <p>
-    <%= f.submit "Submit" %>
-  </p>
+  <fieldset>
+    <legend>Edit Shift Configuration</legend>
+    <p>
+      <label>Schedule view start time:</label>
+      <%= f.select :schedule_start, @time_choices %>
+    </p>
+    <p>
+      <label>Schedule view end time:</label>
+      <%= f.select :schedule_end, @time_choices %>
+    </p>
+    <p>
+      <label>Shift time increment:</label>
+      <%= f.text_field :time_increment, :size => 6 %>
+    </p>
+    <p>
+      <label>Late sign-in grace period:</label>
+      <%= f.text_field :grace_period, :size => 6 %>
+    </p>
+    <p>
+      <label>Editable reports:</label>
+      <%= f.check_box :edit_report %>
+    </p>
+  		<p>
+    		<label>Display weekends on shift schedule:</label>
+    		<%= f.check_box :weekend_shifts %>
+  		</p>
+  		<p>
+    		<label>Display unscheduled shifts:</label>
+    		<%= f.check_box :unscheduled_shifts %>
+  		</p>
+  </fieldset>
+  <br/>
+  <fieldset>
+    <legend>Edit Payform Configuration</legend>
+    <p>
+      <label>Monthly Payform Period (leave unchecked for weekly):</label>
+      <%= f.check_box :monthly %>
+    </p>
+    <p>
+      <label>Last day of payform week/month:</label>
+      <%= f.text_field :day, :size => 6 %>
+    </p>
+    <p>
+      <%= f.submit "Submit" %>
+    </p>
+  </fieldset>
 <% end %>
-</fieldset>
-
