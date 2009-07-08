@@ -7,7 +7,7 @@
   @blocks_per_hour = @department.department_config.blocks_per_hour
   @blocks_per_day = @department.department_config.blocks_per_day
   @block_length = @department.department_config.block_length
-  @display_unscheduled_shifts = true
+  @display_unscheduled_shifts = @department.department_config.unscheduled_shifts
 %>
 
 <div style="clear:both"></div>
