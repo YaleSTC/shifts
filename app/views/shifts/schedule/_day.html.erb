@@ -1,13 +1,12 @@
 <%
-@bar_ids = {}
-
+#variables are set here so that we can render this partial on the dashboard
+@bar_ids ||= {}
 @dept_start_hour ||= @department.department_config.schedule_start / 60
 @dept_end_hour ||= @department.department_config.schedule_end / 60  #if the day ends after midnight, this should be > 24
 @blocks_per_hour ||= 60 / @department.department_config.time_increment
 @blocks_per_day ||= ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
 @block_length ||= 3600 / @blocks_per_hour #seconds
 @display_unscheduled_shifts ||= true
-@grace_period ||= @department.department_config.grace_period*60 #seconds
 
 @current_day = day
 @bar_ids[day] = []
@@ -35,4 +34,3 @@
 <% end %>
 
 <%= (render :partial => 'shifts/list_of_shifts/shifts_outside_display_layout', :object => @shifts_outside_display) unless @shifts_outside_display.empty? %>
-

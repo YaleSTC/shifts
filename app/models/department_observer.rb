@@ -1,5 +1,6 @@
 class DepartmentObserver < ActiveRecord::Observer
 
+  #TODO: this conflicts with department_config.rb::default
   # Automatically create user config for a user
   def after_create(department)
     DepartmentConfig.create!({:department_id => department.id,
