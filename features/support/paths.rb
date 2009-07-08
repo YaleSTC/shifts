@@ -40,6 +40,7 @@ module NavigationHelpers
     when /the categories page for the "([^\"]*)" department/
       department_categories_path(Department.find_by_name($1))
     when /the login page/
+        $appconfig = AppConfig.first
       url_for(:controller => 'user_sessions', :action => 'new')
     when /the page for the user "([^\"]*)"/
       edit_user_path(User.find_by_login($1))

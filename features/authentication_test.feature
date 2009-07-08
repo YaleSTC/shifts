@@ -10,12 +10,13 @@ Feature: Authentication Systems
     And I fill in "Password" with "secret"
     And I press "Submit"
     Then I should see "You're not supposed to be using built in authentication. Please click the relevant link below to log in using CAS."
-    And I should see "Can't login? Maybe you want to login with CAS?"
+#    And I should see "Can't login? Maybe you want to login with CAS?"
 
     When I follow "reset your password?"
     And I fill in "email" with "hp123@hogwarts.edu"
     And I press "Reset my password"
     Then I should see "No user using authlogic was found with that email address"
+    And "hp123@hogwarts.edu" should not receive an email
 
   Scenario: Using Authlogic to login
     When I am on the login page
@@ -25,13 +26,40 @@ Feature: Authentication Systems
     Then I should see "Successfully logged in."
     And I should see "Welcome Argus Filch"
 
-  Scenario: Reseting password
+  Scenario: Reseting Password
     When I am on the login page
     And I follow "reset your password?"
     And I fill in "email" with "argus.filch@squib.com"
     And I press "Reset my password"
     Then I should see "Login"
-    And I should see "Can't login? Maybe you want to login with CAS?"
+#    And I should see "Can't login? Maybe you want to login with CAS?"
+
+    And "argus.filch@squib.com" should receive 1 email
+    When "argus.filch@squib.com" opens the email with text "A request to reset your password has been made. If you did not make this request, simply ignore this email. If you did make this request just click the link below:"
+    When I click the first link in the email
+    Then I should see "Change My Password"
+#    And I should see "filch"
+    When I fill in "Password" with "secret2"
+    And I fill in "Password Confirmation" with "secret2"
+    And I press "Update my password and bring me to the login page"
+
+    Then I should see "Please login."
+    When I fill in "Login" with "filch"
+    And I fill in "Password" with "secret"
+    And I press "Submit"
+    Then I should see "Password is not valid"
+    When I fill in "Password" with "secret2"
+    And I press "Submit"
+    Then I should see "Successfully logged in."
+
+
+  Scenario: Login Works until the password is actually reset
+    When I am on the login page
+    And I follow "reset your password?"
+    And I fill in "email" with "argus.filch@squib.com"
+    And I press "Reset my password"
+    Then I should see "Login"
+#    And I should see "Can't login? Maybe you want to login with CAS?"
 
     And I fill in "Login" with "filch"
     And I fill in "Password" with "secret"
@@ -39,23 +67,24 @@ Feature: Authentication Systems
     Then I should see "Successfully logged in."
     And I should see "Welcome Argus Filch"
 
-  Scenario Outline: Creating a user with AuthLogic or CAS
+  Scenario: Creating a user with AuthLogic or CAS
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
     And I am on the list of users
-    When I follow "Add a New User"
-    And I fill in "Login" with "<Login>"
-    And I fill in "First Name" with "<First Name>"
-    And I fill in "Last Name" with "<Last Name>"
-    And I fill in "Email" with "<Email>"
-    And I select "<auth_type>" from "user_auth_type"
+    When I follow "Add A New User"
+    And I fill in "Login" with "Peeve"
+    And I fill in "First Name" with "Peeves"
+    And I fill in "Last Name" with "the Poltergeist"
+    And I fill in "Email" with "peeves@trouble.com"
+    And I select "authlogic" from "user_auth_type"
     And I press "Create"
-    Then I should see "<message>"
+    Then I should see "Successfully created user and emailed instructions for setting password."
+    And "peeves@trouble.com" should receive 1 email
 
-  Examples:
-    | Login | First Name | Last Name      | Email              | auth_type | message |
-    | Peeve | Peeves     | the Poltergeist| peeves@trouble.com | authlogic |Successfully created user and emailed instructions for setting password. |
-    | ll66  | Luna       | Lovegood       | ll66@hogwarts.edu  | CAS       | Successfully created user.|
+#  Examples:
+#    | Login | First Name | Last Name      | Email              | auth_type | message |
+#    | Peeve | Peeves     | the Poltergeist| peeves@trouble.com | authlogic |Successfully created user and emailed instructions for setting password. |
+#    | ll66  | Luna       | Lovegood       | ll66@hogwarts.edu  | CAS       | Successfully created user.|
 
   Scenario: Admin resets user's' password
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
@@ -64,8 +93,9 @@ Feature: Authentication Systems
     And I check "reset_password"
     And I press "Update"
     Then I should see "Successfully updated user."
-
+    And "argus.filch@squib.com" should receive 1 email
     When I follow "Logout"
+
     And I go to the login page
     And I fill in "Login" with "filch"
     And I fill in "Password" with "secret"

@@ -1,9 +1,11 @@
-<%  link_name = upcoming_shift.short_display
-    if upcoming_shift.has_sub?
-      link_name << " (Sub requested)"
-    elsif upcoming_shift.signed_in?
-      link_name << " (signed in)"
-    end   %>
+<%  
+  link_name = upcoming_shift.short_display
+  if upcoming_shift.has_sub?
+    link_name << " (Sub requested)"
+  elsif upcoming_shift.signed_in?
+    link_name << " (signed in)"
+  end
+%>
 <li>
   <% if upcoming_shift.signed_in? %>
     <%= link_to link_name,  shift_report_path(upcoming_shift) %>

@@ -2,7 +2,7 @@
 <% if current_user %>
   <p class="chooser_status">
   <% ad = current_user.accessible_departments -%>
-  <% if ad.count==1 -%>
+  <% if ad.size==1 -%>
     <%= ad.first.name %>
   <% else -%>
     <% form_tag('', {:id => 'form_chooser', :method => "get"}) do %>
