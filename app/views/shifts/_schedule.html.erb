@@ -2,17 +2,27 @@
 <%
   @bar_ids = {}
 
-  @dept_start_hour = 9
-  @dept_end_hour = 17  #if the day ends after midnight, this should be > 24
-  @blocks_per_hour = 4
+  # @dept_start_hour = 9
+  # @dept_end_hour = 17  #if the day ends after midnight, this should be > 24
+  # @blocks_per_hour = 4
+  # @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
+  # @block_length = 3600 / @blocks_per_hour #seconds
+  # @display_unscheduled_shifts = true
+  # @grace_period = 5*60 #seconds
+
+  @dept_start_hour = @department.department_config.schedule_start / 60
+  @dept_end_hour = @department.department_config.schedule_end / 60  #if the day ends after midnight, this should be > 24
+  @blocks_per_hour = 60 / @department.department_config.time_increment
   @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
   @block_length = 3600 / @blocks_per_hour #seconds
   @display_unscheduled_shifts = true
-  @grace_period = 5*60 #seconds
+  @grace_period = @department.department_config.grace_period*60 #seconds
+
 
   #for now, for AJAX
   @period_start ||= params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
   @days_per_period ||= 7 #TODO: make this a setting for an admin
+
 
   if params[:date].blank? and (current_user.user_config.view_week != "" and current_user.user_config.view_week != "whole_period")
     # only if default view and non-standard setting
@@ -20,15 +30,15 @@
       @day_collection = [Date.today]
     elsif current_user.user_config.view_week == "remainder"
       if @show_weekends
-        @day_collection = Date.today...(@period_start+@days_per_period)
+        @day_collection = Date.today...(@period_start+7)
       else
-        @day_collection = Date.today...(@period_start+@days_per_period-1)
+        @day_collection = Date.today...(@period_start+6)
       end
     end
   elsif @show_weekends
-    @day_collection = @period_start...(@period_start+@days_per_period)
+    @day_collection = @period_start...(@period_start+7)
   else
-    @day_collection = (@period_start+1)...(@period_start+@days_per_period-1)
+    @day_collection = (@period_start+1)...(@period_start+6)
   end
 %>
 
