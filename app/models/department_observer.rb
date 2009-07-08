@@ -1,7 +1,6 @@
 class DepartmentObserver < ActiveRecord::Observer
 
-  #TODO: this conflicts with department_config.rb::default
-  # Automatically create user config for a user
+  # Automatically create department config for a department
   def after_create(department)
     DepartmentConfig.create!({:department_id => department.id,
                         :schedule_start => Time.parse("9:00AM"),
