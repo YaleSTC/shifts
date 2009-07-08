@@ -13,4 +13,11 @@ location_groups_002:
   view_perm_id: 13
   signup_perm_id: 14
   admin_perm_id: 15
+location_groups_002:
+  department_id: "2"
+  id: "3"
+  name: Comics
+  view_perm_id: 16
+  signup_perm_id: 17
+  admin_perm_id: 18
 
