@@ -3,6 +3,7 @@
     <%- flash.each do |name, msg| -%>
       <%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
     <%- end -%>
+    <% flash = nil # reset this so that "render :action" code does not leave flash msgs around-%>
 
     <!-- Main Content -->
 
@@ -22,6 +23,13 @@
         <p class="footer">
           URL: <%= request.env["HTTP_HOST"] %><%= request.request_uri %><br />
           <%= AppConfig.first.footer %>
+        </p>
+        <p class="footer">
+          <% if current_user.superuser? -%>
+            Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
+                {:su_mode => current_user.supermode? ? 'OFF' : 'ON'} %>
+                <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
+          <% end -%>
         </p>
       </div>
     </div>
