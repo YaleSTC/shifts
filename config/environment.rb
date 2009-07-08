@@ -12,7 +12,6 @@ TASKR4RAILS_ALLOWED_HOSTS = ['127.0.0.1']
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
-require 'action_mailer/ar_mailer'
 
 Rails::Initializer.run do |config|
 
@@ -56,7 +55,7 @@ Rails::Initializer.run do |config|
   config.gem "chronic"
   config.gem "has_many_polymorphs"
   config.gem "authlogic"
-  config.gem "adzap-ar_mailer", :lib => 'action_mailer/ar_mailer', :source => 'http://gems.github.com'
+  config.gem 'ar_mailer', :version => '1.3.1', :lib => 'action_mailer/ar_mailer'
   #make sure you remove 'ar_mailer' - sudo gem uninstall ar_mailer - this is an old version
   
   # Only load the plugins named here, in the order given. By default, all plugins
@@ -90,6 +89,8 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   config.active_record.observers = :user_observer
 end
+
+require 'action_mailer/ar_mailer'
 
 # enable detailed CAS logging
 cas_logger = CASClient::Logger.new(RAILS_ROOT+'/log/cas.log')
