@@ -9,6 +9,17 @@ class UsersController < ApplicationController
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
+    
+    if params[:search]
+      params[:search] = params[:search].downcase
+      @search_result = []
+      @users.each do |user|
+        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+          @search_result << user
+        end
+      end
+      @users = @search_result
+    end
 
     @users = @users.sort_by(&:last_name)
   end

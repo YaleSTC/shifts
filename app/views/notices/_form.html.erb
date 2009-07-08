@@ -1,4 +1,4 @@
-<% form_for(:notice ,:html => {:id => 'notice_form'}) do |f| %>
+<% form_for @notice do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -35,8 +35,6 @@
   <%= f.submit 'Save' %>
 </p>
 <% end %>
-
-<%= observe_form "notice_form",:url =>{ :action => update_checkboxes}, :update => "advanced_options_div", :frequency => 0.5 %>
 
 <% unless current_user.is_admin_of?(current_department) %>
   <script type="text/javascript" charset="utf-8">
