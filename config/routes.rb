@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :punch_clocks
   map.resources :restrictions
-  map.email_reminders "email_reminders", :controller => 'payforms', :action => 'email_reminders'
+  map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'
 
   map.login "/login", :controller => 'user_sessions', :action => 'new'
   map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
