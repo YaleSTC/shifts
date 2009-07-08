@@ -3,10 +3,10 @@
   @bar_ids = {}
 
   @dept_start_hour = @department.department_config.schedule_start / 60
-  @dept_end_hour = @department.department_config.schedule_end / 60  #if the day ends after midnight, this should be > 24
-  @blocks_per_hour = 60 / @department.department_config.time_increment
-  @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
-  @block_length = @department.department_config.time_increment * 60 #seconds
+  @dept_end_hour = @department.department_config.schedule_end / 60
+  @blocks_per_hour = @department.department_config.blocks_per_hour
+  @blocks_per_day = @department.department_config.blocks_per_day
+  @block_length = @department.department_config.block_length
   @display_unscheduled_shifts = true
 %>
 
