@@ -14,6 +14,26 @@ class ShiftsController < ApplicationController
       @loc_group_select.store(dept.id, current_user.loc_groups(dept))
     end    
     @selected_loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
+    
+    @show_weekends = true #TODO: get this from department_config
+    
+    # figure out what days to display based on user preferences
+    if params[:date].blank? and (current_user.user_config.view_week != "" and current_user.user_config.view_week != "whole_period")
+      # only if default view and non-standard setting
+      if current_user.user_config.view_week == "current_day"
+        @day_collection = [Date.today]
+      elsif current_user.user_config.view_week == "remainder"
+        if @show_weekends
+          @day_collection = Date.today...(@period_start+7)
+        else
+          @day_collection = Date.today...(@period_start+6)
+        end
+      end
+    elsif @show_weekends
+      @day_collection = @period_start...(@period_start+7)
+    else #no weekends
+      @day_collection = (@period_start+1)...(@period_start+6)
+    end
   end
 
   def show
