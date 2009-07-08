@@ -2,7 +2,7 @@
 @cw
 Feature: data object
   In order to manage data objects
-  As an admin
+  As a dept admin
   I want to be able to create and maintain data objects
 
     Background:

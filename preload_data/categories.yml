@@ -1,2 +1,19 @@
---- {}
+---
+work_category:
+  id: "1"
+  name: Magic
+  active: true
+  department_id: "1"
+
+study_category:
+  id: "2"
+  name: Study
+  active: true
+  department_id: "1"
+
+play_category:
+  id: "3"
+  name: Quidditch
+  active: true
+  department_id: "1"
 
