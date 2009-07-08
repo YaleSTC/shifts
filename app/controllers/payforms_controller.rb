@@ -124,7 +124,7 @@ class PayformsController < ApplicationController
     admin_user = current_user
     users_reminded = []
     for user in @users
-      AppMailer.deliver(AppMailer.create_due_payform_reminder(admin_user, user, params[:post][:body]))
+      AppMailer.deliver_due_payform_reminder(admin_user, user, params[:post][:body])
       users_reminded << "#{user.name} (#{user.login})"
     end
     redirect_with_flash "E-mail reminders sent to the following: #{users_reminded.to_sentence}", :action => :email_reminders, :id => @department.id
