@@ -8,6 +8,7 @@ namespace :db do
     # Edit these to change amount of data generated
     # The number of objects of any class can be either an int or a range
     number_of_users = 50..200
+    categories_per_department = 4..6
     stickies_per_department = 50
     announcements_per_department = 50
     # The following range gives start dates for stickies
@@ -55,6 +56,13 @@ namespace :db do
     end
 
     Department.all.each do |department|
+      puts "creating categories for #{department.name} department"
+      Category.populate(categories_per_department) do |category|
+        category.name = Populator.words(1..3).titleize
+        category.active = true
+        department_id = department.id
+      end
+
       puts "creating stickies and announcements for #{department.name} department"
       Notice.populate(stickies_per_department) do |sticky|
         sticky.is_sticky = true
