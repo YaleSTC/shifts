@@ -1,13 +1,13 @@
 <div class="table_title">
   <div class="shift_links">
     <div class="last_week">
-      <%= link_to "&lt;&lt; Earlier", :date => (@period_start - @days_per_period)  %>
+      <%= link_to "&lt;&lt; Earlier", :date => (@period_start - 7)  %>
     </div>
     <div class="next_week">
-      <%= link_to "Later &gt;&gt;", :date => (@period_start + @days_per_period)  %>
+      <%= link_to "Later &gt;&gt;", :date => (@period_start + 7)  %>
     </div>
   </div>
   <div class="week_title">
-    <%= @period_start.to_s(:just_date_long) %> to <%= (@period_start + @days_per_period - 1).to_s(:just_date_long) %>
+    <%= @period_start.to_s(:just_date_long) %> to <%= (@period_start + 6).to_s(:just_date_long) %>
   </div>
 </div>

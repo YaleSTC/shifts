@@ -110,5 +110,34 @@ Scenarios: Logged in as admin
 |"ad12"|"Payforms"|should     |"Edit Categories"    |
 |"ad12"|"Payforms"|should     |"Edit Configurations"|
 
-#Scenarios: Logged in as regular user
+Scenarios: Logged in as regular user
+
+|user   |page      |shouldornot|item                 |
+|"em123"|"Shifts"  |should not |"Scheduling Options" |
+|"em123"|"Shifts"  |should not |"Time Slots"         |
+|"em123"|"Shifts"  |should not |"Locations"          |
+|"em123"|"Shifts"  |should not |"Location Groups"    |
+|"em123"|"Shifts"  |should not |"Restrictions"       |
+|"em123"|"Shifts"  |should not |"Notices"            |
+|"em123"|"Shifts"  |should not |"Shift Report Links" |
+|"em123"|"Shifts"  |should not |"Export Schedule"    |
+|"em123"|"Shifts"  |should not |"Templates"          |
+|"em123"|"Shifts"  |should not |"Activate Templates" |
+|"em123"|"Shifts"  |should not |"View Options"       |
+|"em123"|"Shifts"  |should not |"Unscheduled Shifts" |
+|"em123"|"Shifts"  |should not |"Active Shifts"      |
+|"em123"|"Shifts"  |should not |"Data Objects"       |
+|"em123"|"Payforms"|should not |"Payform Admin"      |
+|"em123"|"Payforms"|should not |"View Payforms"      |
+|"em123"|"Payforms"|should not |"Submitted"          |
+|"em123"|"Payforms"|should not |"Approved"           |
+|"em123"|"Payforms"|should not |"Printed"            |
+|"em123"|"Payforms"|should not |"Print History"      |
+|"em123"|"Payforms"|should not |"Mass Add Jobs"      |
+|"em123"|"Payforms"|should not |"View Mass Jobs"     |
+|"em123"|"Payforms"|should not |"Punch Clocks"       |
+|"em123"|"Payforms"|should not |"Mass Punch Clocks"  |
+|"em123"|"Payforms"|should not |"E-mail Reminders"   |
+|"em123"|"Payforms"|should not |"Edit Categories"    |
+|"em123"|"Payforms"|should not |"Edit Configurations"|
 

@@ -1,0 +1,1 @@
+page.replace_html "payform_list", :partial => 'payform_list'

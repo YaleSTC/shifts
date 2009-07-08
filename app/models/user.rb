@@ -189,6 +189,9 @@ class User < ActiveRecord::Base
     (superuser? && supermode?) ? Department.all : departments
   end
 
+  def current_notices
+    Notice.active.select {|n| n.users.include?(self)}
+  end
   private
 
   def departments_not_empty
