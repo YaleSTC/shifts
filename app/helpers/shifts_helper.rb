@@ -2,8 +2,8 @@ module ShiftsHelper
 
   def load_variables(loc_group)
     #TODO: clean this up?
-    #@day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
-    #@day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+    #@day_start = Time.parse("0:00", @current_day) + @dept_start_hour*3600
+    #@day_end = Time.parse("0:00", @current_day)  + @dept_end_hour*3600
     #@loc_group = loc_group
 
     @can_sign_up = true #loc_group.allow_sign_up? get_user
@@ -26,8 +26,8 @@ module ShiftsHelper
     loc_groups.each do |loc_group|
       # different location groups can have different start/end times...maybe bring this down
       # further, to the individual location level?
-      @day_start = Time.parse("0:00", @curr_day) + @dept_start_hour*3600
-      @day_end = Time.parse("0:00", @curr_day)  + @dept_end_hour*3600
+      @day_start = Time.parse("0:00", @current_day) + @dept_start_hour*3600
+      @day_end = Time.parse("0:00", @current_day)  + @dept_end_hour*3600
       @prioritized_location = {}
       loc_group.locations.each do |loc|
         if loc.active?
@@ -40,7 +40,7 @@ module ShiftsHelper
 
           people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
           @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block, loc) unless @day_end < Time.now
-          @bar_ids[@curr_day] << loc.short_name + @curr_day.to_s
+          @bar_ids[@current_day] << loc.short_name + @current_day.to_s
           @people_count[loc.object_id] = people_count
         end
       end
@@ -174,7 +174,7 @@ module ShiftsHelper
           type.gsub!(/shift/, 'user') if shift.user == current_user and !current_user.is_admin_of?(@department)
           if shift.missed?
             type.gsub!(/time/, 'missed_time')
-          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + @grace_period #TODO: get grace period for department/location
+          elsif (shift.signed_in? ? shift.report.arrived : Time.now) > shift.start + @department.department_config.grace_period*60 #seconds
             type.gsub!(/time/, 'late_time')
           end
         end
@@ -327,13 +327,13 @@ module ShiftsHelper
   end
 
   def show_bar_links(name)
-    javascript_tag("$('%s').down('.%s').show()" % [@curr_day, name])
+    javascript_tag("$('%s').down('.%s').show()" % [@current_day, name])
   end
 
   #TODO: look at this and show_bars and make sure they're efficient
   def hide_bars(name)
     f = ""
-    @bar_ids[@curr_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
+    @bar_ids[@current_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
     unless f.empty?
       f << "$(this).up().hide();"
       f << "$(this).up().next().show();"
@@ -343,7 +343,7 @@ module ShiftsHelper
 
   def show_bars(name)
     f = ""
-    @bar_ids[@curr_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
+    @bar_ids[@current_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
     unless f.empty?
       f << "$(this).up().hide();"
       f << "$(this).up().previous().show();"
@@ -352,11 +352,11 @@ module ShiftsHelper
   end
 
   def sign_up_div_id
-    "quick_sign_up_%s" % @curr_day
+    "quick_sign_up_%s" % @current_day
   end
 
   def sign_in_div_id
-    "quick_sign_in_%s" % @curr_day
+    "quick_sign_in_%s" % @current_day
   end
 end
 

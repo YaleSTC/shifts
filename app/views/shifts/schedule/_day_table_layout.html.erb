@@ -1,8 +1,8 @@
-<div class="time_table_updated" id="div_<%= @curr_day %>">
-  <% table_id = "table_%s" % @curr_day.to_s %>
+<div class="time_table_updated" id="div_<%= @current_day %>">
+  <% table_id = "table_%s" % @current_day.to_s %>
 
   <div style="text-align:left">
-    <h3><%= link_toggle table_id, @curr_day.to_s(:just_date_long) %></h3>
+    <h3><%= link_toggle table_id, @current_day.to_s(:just_date_long) %></h3>
   </div>
 
   <div id="<%= table_id %>">

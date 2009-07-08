@@ -1,6 +1,6 @@
 class DepartmentObserver < ActiveRecord::Observer
 
-  # Automatically create user config for a user
+  # Automatically create department config for a department
   def after_create(department)
     DepartmentConfig.create!({:department_id => department.id,
                         :schedule_start => Time.parse("9:00AM"),
@@ -8,6 +8,8 @@ class DepartmentObserver < ActiveRecord::Observer
                         :time_increment => 15.minutes,
                         :grace_period => 7.minutes,
                         :edit_report => false
+                        :weekend_shifts => true
+                        :unscheduled_shifts => true
                         })
   end
 end

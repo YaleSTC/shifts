@@ -1,38 +1,17 @@
-<%# testing stuff, to be removed later %>
+<%# TODO: cleanup! %>
 <%
   @bar_ids = {}
 
-  @dept_start_hour = 9
-  @dept_end_hour = 17  #if the day ends after midnight, this should be > 24
-  @blocks_per_hour = 4
-  @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
-  @block_length = 3600 / @blocks_per_hour #seconds
-  @display_unscheduled_shifts = true
-  @grace_period = 5*60 #seconds
-
-  #for now, for AJAX
-  @period_start ||= params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
-  @days_per_period ||= 7 #TODO: make this a setting for an admin
-
-  if params[:date].blank? and (current_user.user_config.view_week != "" and current_user.user_config.view_week != "whole_period")
-    # only if default view and non-standard setting
-    if current_user.user_config.view_week == "current_day"
-      @day_collection = [Date.today]
-    elsif current_user.user_config.view_week == "remainder"
-      if @show_weekends
-        @day_collection = Date.today...(@period_start+@days_per_period)
-      else
-        @day_collection = Date.today...(@period_start+@days_per_period-1)
-      end
-    end
-  elsif @show_weekends
-    @day_collection = @period_start...(@period_start+@days_per_period)
-  else
-    @day_collection = (@period_start+1)...(@period_start+@days_per_period-1)
-  end
+  @dept_start_hour = @department.department_config.schedule_start / 60
+  @dept_end_hour = @department.department_config.schedule_end / 60
+  @blocks_per_hour = @department.department_config.blocks_per_hour
+  @blocks_per_day = @department.department_config.blocks_per_day
+  @block_length = @department.department_config.block_length
+  @display_unscheduled_shifts = @department.department_config.unscheduled_shifts
 %>
 
-<div style="clear:both">
+<div style="clear:both"></div>
+
 <%= render :partial => 'shifts/schedule/header' %>
 
 <% if @department.loc_groups.empty? %>
@@ -43,6 +22,5 @@
 <% else %>
   <%= render :partial => 'shifts/schedule/day', :collection => @day_collection, :spacer_template => 'shifts/schedule/spacer'%>
 <% end %>
-</div>
-<%= render :partial => 'shifts/schedule/footer' %>
 
+<%= render :partial => 'shifts/schedule/footer' %>
