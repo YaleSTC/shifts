@@ -175,3 +175,4 @@ class PayformsController < ApplicationController
     end
   end
 
+end
