@@ -31,8 +31,7 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
   # Configure Rails Mail options
-  #config.action_mailer.delivery_method = :smtp
-  config.action_mailer.delivery_method = :activerecord
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => "mail.yale.edu",
     :port => 587,
@@ -89,8 +88,6 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   config.active_record.observers = :user_observer
 end
-
-require 'action_mailer/ar_mailer'
 
 # enable detailed CAS logging
 cas_logger = CASClient::Logger.new(RAILS_ROOT+'/log/cas.log')

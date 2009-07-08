@@ -18,7 +18,6 @@ config.action_mailer.raise_delivery_errors = true
 
 # Mail format to use
 #config.action_mailer.delivery_method = :smtp
-ActionMailer::Base.delivery_method = :activerecord
 
 # SMTP configuration
 config.action_mailer.smtp_settings = {
