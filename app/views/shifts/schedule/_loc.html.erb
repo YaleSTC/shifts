@@ -1,12 +1,4 @@
-<%
-  #Shift.find(:all, :conditions => {:location_id => loc}, :order => :start) : Shift.find(:all, :conditions => {:location_id => loc, :scheduled => true}, :order => :start))
-  # shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
-  # shifts = shifts.group_by(&:scheduled)
-  # @scheduled_shifts = [shifts[true]]
-  # populate_loc(loc, shifts[true], @block_length)
-  # @unscheduled_shifts = [shifts[false]]
-  @shifts_in_row = @scheduled_shifts[loc.object_id]
-%>
+<% @shifts_in_row = @scheduled_shifts[loc.object_id] %>
 
 <!-- <tbody> -->
   <% @shifts_in_row.each_with_index do |row_shifts, i| %>

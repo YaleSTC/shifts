@@ -1,28 +1,31 @@
 <% javascript 'sorttable' %>
 <% title "Users" %>
 
-<div id="searchbox" style="display:none; margin-bottom: 1em">
+<div id="searchbox" style="margin-bottom: 1em">
   <% form_tag(department_users_path(current_department), :method => :get) do %>
     Search for a user: <%= text_field_tag :search %>
+    <%= submit_tag "Submit", :id => "search_submit" %>
   <% end %>
 </div>
 
 <script type="text/javascript">
-  $('div#searchbox').toggle();
+  //$('div#searchbox').toggle();
   $('input#search_submit').toggle();
 </script>
 
 <%= observe_field :search, :frequency => 0.2, :url => search_department_users_path(current_department), :with => :search %>
 
-<table>
-  <tr>
-    <th align="left">Login</th>
-    <th align="left">First Name</th>
-    <th align="left">Last Name</th>
-    <th align="left">Nickname</th>
-    <th>Employee ID</th>
-    <th>Email</th>
-  </tr>
+<table class="sortable">
+  <thead>
+    <tr>
+      <th align="left">Login</th>
+      <th align="left">First Name</th>
+      <th align="left">Last Name</th>
+      <th align="left">Nickname</th>
+      <th>Employee ID</th>
+      <th>Email</th>
+    </tr>
+  </thead>
   <tbody id="user_list">
     <%= render :partial => 'user_list' %>
   </tbody>
