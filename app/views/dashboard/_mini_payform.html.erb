@@ -1,0 +1,20 @@
+<table>
+
+<td>Date</td>
+<td>Description</td>
+<td>Hours</td>
+
+<% @most_recent_payform.payform_items.each do |item| %>
+<tr>
+<td><%= item.date.strftime('%b %d') %></td>
+<td><%= item.description %></td>
+<td><%= item.hours.to_s %></td>
+</tr>
+<% end %>
+<tr>
+<td><strong>Total:</strong><td>
+
+<td> <%= @most_recent_payform.hours %> </td>
+</tr>
+</table>
+
