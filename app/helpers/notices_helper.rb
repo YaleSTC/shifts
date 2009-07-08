@@ -17,13 +17,5 @@ module NoticesHelper
     @notice.departments.include?(current_department)
   end
 
-#  def update_checkboxes
-#    raise params.to_yaml
-#    @notice = Notice.new(params[:notice])
-#    render :update do |page|
-#      page.replace_html('advanced_options_div', :partial => "advanced_options")
-#    end
-#  end
-
 end
 
