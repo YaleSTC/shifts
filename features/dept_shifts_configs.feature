@@ -26,15 +26,6 @@ Feature: Shift settings
     And I should not see "4:00"
     And I should not see "Harry Potter"
 
-  Scenario: Shifts settings: Grace Period
-    When I fill in "Grace Period" with "11"
-    And I press "Save Settings"
-    Then that_shift should not be late
-
-    When I fill in "Grace Period" with "7"
-    And I press "Save Settings"
-    Then that_shift should be late
-
   Scenario Outline: Shifts settings: Time increments
     When I select "<time increment>" from "Time Increments"
     When I am on the shifts page
@@ -55,9 +46,19 @@ Feature: Shift settings
       | 30             |      | not  |      |
       | 15             |      |      |      |
 
+  Scenario: Shifts settings: Grace Period
+    When I fill in "department_config_grace_period" with "11"
+    And I press "Save settings"
+    Then that_shift should not be late
+
+    When I fill in "department_config_grace_period" with "7"
+    And I press "Save settings"
+    Then that_shift should be late
+
   Scenario: Shifts settings: Editable Reports off
     When I uncheck "Editable Reports"
-    And I press "Save Settings"
+    And I press "Save settings"
+    And I follow "Logout"
 
     And I am "Harry Potter"
     And I comment in that_report "I hate my job."
@@ -67,9 +68,9 @@ Feature: Shift settings
     And I should not see "edit"
 
   Scenario: Shifts settings: Editable Reports on
-    When I check "Editable Reports"
-    And I press "Save Settings"
-
+    When I check "department_config_edit_report"
+    And I press "Save settings"
+    And I follow "Logout"
     And I am "Harry Potter"
     And I comment in that_report "I hate my job."
     And I am on that_shift page
@@ -82,6 +83,7 @@ Feature: Shift settings
     And I press "Save"
     Then I should see "I love my job."
     And I should not see "I hate my job."
+    And I follow "Logout"
 
     Given I am "Albus Dumbledore"
     And I am on the shifts page
