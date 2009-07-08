@@ -12,6 +12,7 @@ TASKR4RAILS_ALLOWED_HOSTS = ['127.0.0.1']
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require 'action_mailer/ar_mailer'
 
 Rails::Initializer.run do |config|
 
