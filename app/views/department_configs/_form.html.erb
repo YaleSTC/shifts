@@ -1,12 +1,7 @@
 <fieldset>
   <legend>Edit Shift Configuration</legend>
-<% form_for(@department_config) do |f| %>
+<% form_for @department_config do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :department_id %><br />
-    <%= f.select :department_id, Department.all.collect { |d| d.name } %>
-  </p>
   <p>
     <label>Schedule view start time:</label>
     <%= f.select :schedule_start, @time_choices %>
@@ -28,8 +23,7 @@
     <%= f.check_box :edit_report %>
   </p>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.submit "Submit" %>
   </p>
 <% end %>
 </fieldset>
-

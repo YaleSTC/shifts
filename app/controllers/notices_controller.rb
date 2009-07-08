@@ -1,6 +1,5 @@
 class NoticesController < ApplicationController
-  layout "application"
-#  layout "new_notice", :only  => :new
+
   before_filter :fetch_loc_groups
 
   def index

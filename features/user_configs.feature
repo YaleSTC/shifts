@@ -1,4 +1,4 @@
-@settings
+@configs
 
 Feature: User settings
   In order to manage user settings
@@ -17,8 +17,9 @@ Feature: User settings
     And I fill in "First name" with "Ron"
     And I fill in "Last name" with "Weasley"
     And I fill in "Email" with "rw12@hogwarts.edu"
-    And I select "CAS" from "Login type"
+    And I select "authlogic" from "user_auth_type"
     And I press "Create"
+    Then I should see "Successfully created user"
     Then I should have a user named "Ron Weasley"
     Then "Ron Weasley" should have 1 user_config
 
@@ -26,47 +27,56 @@ Feature: User settings
     When I select "Hogwarts" from "Default department"
     And I press "Submit"
     Then I should see "Successfully updated user config."
-    When I go to the homepage
+    When I follow "Logout"
+    And I am "Harry Potter"
+    And I go to the homepage
     Then the page should indicate that I am in the department "Hogwarts"
     When I go to the user settings page
     And I select "Outer Space" from "Default department"
     And I press "Submit"
     Then I should see "Successfully updated user config."
-    When I go to the homepage
+    When I follow "Logout"
+    And I am "Harry Potter"
+    And I go to the homepage
     Then the page should indicate that I am in the department "Outer Space"
 
-#  Scenario: Changing the days displayed in shifts
-##     This test will not work if you happen to run it
-##     for the first day of the shift cycle (sunday if weekly)
-#    Given I had a shift yesterday
-#    And "Hermione Granger" has a shift tomorrow
-#    And today is not Sunday
+  Scenario: Changing the days displayed in shifts
+#     This test will not work if you happen to run it
+#     for the first day of the shift cycle (sunday if weekly)
+#     or if you run it on Friday (because the schedule is Mon-fri now) evidently
+    Given I had a shift yesterday
+    And "Hermione Granger" has a shift tomorrow
+    And today is not Sunday
 
-#    When I select "Whole pay period" from "View week"
-#    And I press "Submit"
-#    Then I should see "Successfully updated user config."
-#    When I go to shifts for this week
-#    Then I should see all the days of the week
-#    And I should see "Harry Potter"
-#    And I should see "Hermione Granger"
+    When I select "Whole pay period" from "View week"
+    And I press "Submit"
+    Then I should see "Successfully updated user config."
+    When I go to shifts for this week
+    Then I should see all the days of the week
+#    And I should see "Harry Potter" on the schedule
+    And I should see "Hermione Granger" on the schedule
+    And I should see "tomorrow" on the schedule
+#    And I should see "yesterday" on the schedule
 
-#    When I go to the user settings page
-#    And I select "Remainder of period" from "View week"
-#    And I press "Submit"
-#    Then I should see "Successfully updated user config."
-#    When I go to shifts for this week
-#    Then I should see all the days of the week
-#    And I should not see "Harry Potter"
-#    And I should see "Hermione Granger"
+    When I go to the user settings page
+    And I select "Remainder of period" from "View week"
+    And I press "Submit"
+    Then I should see "Successfully updated user config."
+    When I go to shifts for this week
+    Then I should see "tomorrow" on the schedule
+    And I should not see "yesterday" on the schedule
+    And I should not see "Harry Potter" on the schedule
+    And I should see "Hermione Granger" on the schedule
 
-#    When I go to the user settings page
-#    And I select "Just the current day" from "View Week"
-#    And I press "Submit"
-#    Then I should see "Successfully updated user config."
-#    When I go to shifts for this week
-#    Then I should not see all the days of the week
-#    And I should not see "Harry Potter"
-#    And I should not see "Hermione Granger"
+    When I go to the user settings page
+    And I select "Just the current day" from "View Week"
+    And I press "Submit"
+    Then I should see "Successfully updated user config."
+    When I go to shifts for this week
+    Then I should not see "yesterday" on the schedule
+    And I should not see "tomorrow" on the schedule
+    And I should not see "Harry Potter" on the schedule
+    And I should not see "Hermione Granger" on the schedule
 
   Scenario: What LocGroups to display on schedule view
     When I go to the user settings page

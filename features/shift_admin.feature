@@ -5,6 +5,7 @@ Feature: Shift admin manages shifts
 
 Scenario: Create a shift with power sign up
   Given I am logged into CAS as "ad12"
+#  Given I am "Adam" "Bray"
   And I am on the homepage
 	And I follow "Shifts"
 	Then I should see "Power sign up"
