@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
 
   def index
-    @notices = Notice.all
+    @notices = Notice.active
   end
 
   def archive
@@ -35,6 +35,7 @@ class NoticesController < ApplicationController
       flash[:notice] = 'Notice was successfully created.'
       redirect_to @notice
     else
+      raise params.to_yaml
       render :action => "new", :layout => 'new_notice'
     end
   end
@@ -71,16 +72,11 @@ class NoticesController < ApplicationController
     end
   end
 
-  def update_checkboxes
-    @notice = Notice.new(params[:notice])
-    @notice.save!
-    set_sources
-    render :update do |page|
-      page.replace_html('advanced_options_div', :partial => "advanced_options")
-    end
-  end
-
   protected
+
+  def update_index
+    @notice = Notice.active
+  end
 
   def set_sources(update = false)
 #    @notice.user_sources = [] if update
