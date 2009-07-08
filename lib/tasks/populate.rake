@@ -4,7 +4,6 @@ namespace :db do
   task :populate => :load_fixtures do
     require 'populator'
     require 'faker'
-    require 'yaml'
 
     # Edit these to change amount of data generated
     # The number of objects of any class can be either an int or a range
@@ -18,14 +17,17 @@ namespace :db do
     # If you don't want the priority to be set, (might create fewer shifts), then set the following to nil
     location_priority = 1..5
     max_number_of_shifts_per_time_slot = 20
+    # how many day's worth of shifts to generate
+    shifts_end_date = 4.days.from_now.to_date
 
 
     # Start of code
-
+    puts "emptying database"
     [Department, LocGroup, Location, TimeSlot, Shift, Notice].each do |model|
       model.delete_all
     end
 
+    puts "creating departments"
     Department.create(:name => "STC", :monthly => false, :complex => false,
                       :day => 6, :created_at => 2.years.ago)
     Department.create(:name => "Film studies", :monthly => true, :complex => false,
@@ -35,7 +37,7 @@ namespace :db do
 #    Department.create(:name => "Political science", :monthly => true, :complex => true,
 #                      :day => 1, :day2 => 15, :created_at => 2.years.ago)
 
-
+    puts "creating users and adding users to departments"
     User.populate(number_of_users) do |user|
       user.first_name = Faker::Name.first_name
       user.last_name = Faker::Name.last_name
@@ -53,7 +55,7 @@ namespace :db do
     end
 
     Department.all.each do |department|
-      # creates stickies
+      puts "creating stickies and announcements for #{department.name} department"
       Notice.populate(stickies_per_department) do |sticky|
         sticky.is_sticky = true
         sticky.content = Populator.sentences(1..3)
@@ -78,6 +80,7 @@ namespace :db do
         announcement.created_at = announcement.start_time
       end
 
+      puts "creating location groups and locations for #{department.name} department"
       LocGroup.populate(loc_groups_per_department) do |loc_group|
         loc_group.name = Populator.words(1..3).titleize
         loc_group.department_id = department.id
@@ -102,6 +105,7 @@ namespace :db do
       end
     end
 
+    puts "adding viewers for stickies and announcements"
     Notice.all.each do |notice|
       department = Department.find(notice.department_id)
 
@@ -132,10 +136,13 @@ namespace :db do
 
 
 # For each department, for each day from now until some time in the future, 1 time slot is created from 9AM to 11PM
+    puts "creating a timeslot from 9AM to 11PM and populating the timeslot with shifts and sub requests"
     Department.all.each do |department|
       department.loc_groups.all.each do |loc_group|
         loc_group.locations.all.each do |location|
-          (Date.today..4.days.from_now.to_date).each do |day|
+          (Date.today..shifts_end_date).each do |day|
+            puts "\tfor department #{department.name}, location #{location.name}, on #{day}"
+
             start_time = ("9AM " + day.to_s).to_time.localtime
             end_time = ("11PM " + day.to_s).to_time.localtime
             TimeSlot.create(:location_id => location.id, :start => start_time,
@@ -160,9 +167,19 @@ namespace :db do
                 mandatory_start = start_time + (15 * rand(request_chunks)).minutes
                 request_chunks_left = ((end_time - mandatory_start) / 900).round
                 mandatory_end = mandatory_start + (15 * (1 + rand(request_chunks_left))).minutes
-                SubRequest.create(:shift_id => shift.id, :reason => Populator.sentences(1..3),
-                                  :start => start_time, :end => end_time, :mandatory_start => mandatory_start,
-                                  :mandatory_end => mandatory_end)
+                sub_request = SubRequest.create(:shift_id => shift.id, :reason => Populator.sentences(1..3),
+                                                :start => start_time, :end => end_time,
+                                                :mandatory_start => mandatory_start,
+                                                :mandatory_end => mandatory_end)
+                # each sub request has 1/2 chance of being taken
+                if rand(2) == 0
+                  user = department.users[rand(department.users.length)]
+                  begin
+                    SubRequest.take(sub_request, user, rand(2) == 0 ? true : false)
+                  rescue
+                    puts "An exception was raised while trying to take the sub request\n#{$!}"
+                  end
+                end
               end
             end
           end
