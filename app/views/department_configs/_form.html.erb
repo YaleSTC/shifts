@@ -8,7 +8,7 @@
   </p>
   <p>
     <label>Schedule view end time:</label>
-    <%= f.select :schedule_end, @time_choices %>
+    <%= f.select :schedule_end, @time_choices, :selected => (@department_config.schedule_end % 1440) %>
   </p>
   <p>
     <label>Shift time increment:</label>
@@ -27,3 +27,4 @@
   </p>
 <% end %>
 </fieldset>
+
