@@ -1,3 +1,5 @@
+require 'action_mailer/ar_mailer'
+
 class AppMailer < ActionMailer::ARMailer
 
   def sub_taken_notification(sub_request, new_shift)

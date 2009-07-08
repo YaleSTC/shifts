@@ -90,8 +90,6 @@ Rails::Initializer.run do |config|
   config.active_record.observers = :user_observer
 end
 
-require 'action_mailer/ar_mailer'
-
 # enable detailed CAS logging
 cas_logger = CASClient::Logger.new(RAILS_ROOT+'/log/cas.log')
 cas_logger.level = Logger::DEBUG

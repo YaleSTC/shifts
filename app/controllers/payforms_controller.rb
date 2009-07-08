@@ -109,7 +109,6 @@ class PayformsController < ApplicationController
   end
   
   def email_reminders
-    @department = Department.first  # get_dept_from_url
     if !params[:id] or params[:id].to_i != @department.id
       redirect_to :action => :email_reminders, :id => @department.id and return
     end
@@ -119,8 +118,7 @@ class PayformsController < ApplicationController
   end
   
   def send_reminders
-    @department = Department.first  # get_dept_from_url
-    @users = @department.users.select {|u| if u.is_active?(current_department) then u.email end }
+    @users = current_department.users.select {|u| if u.is_active?(current_department) then u.email end }
     admin_user = current_user
     users_reminded = []
     for user in @users
