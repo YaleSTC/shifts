@@ -147,32 +147,28 @@ namespace :db do
               start_time = "#{start_hour}:#{start_minute}, #{day}".to_time.localtime
               end_time = start_time + (15 * (1 + rand(20))).minutes
               user = department.users[rand(department.users.length)]
-              Shift.create(:start => start_time, :end => end_time, :user_id => user.id,
-                           :location_id => location.id, :scheduled => true,
-                           :created_at => day.to_datetime + 30.minutes)
+              shift = Shift.create(:start => start_time, :end => end_time, :user_id => user.id,
+                                   :location_id => location.id, :scheduled => true,
+                                   :created_at => day.to_datetime + 30.minutes)
+              if shift.valid? && rand(20) == 0
+                # shift_chunks is the number of 15 minute chunks in the length of the shift
+                shift_chunks = ((shift.end - shift.start) / 900).round
+                start_time = shift.start + (15 * rand(shift_chunks)).minutes
+                chunks_left = ((shift.end - start_time) / 900).round
+                end_time = start_time + (15 * (1 + rand(chunks_left))).minutes
+                request_chunks = ((end_time - start_time) / 900).round
+                mandatory_start = start_time + (15 * rand(request_chunks)).minutes
+                request_chunks_left = ((end_time - mandatory_start) / 900).round
+                mandatory_end = mandatory_start + (15 * (1 + rand(request_chunks_left))).minutes
+                SubRequest.create(:shift_id => shift.id, :reason => Populator.sentences(1..3),
+                                  :start => start_time, :end => end_time, :mandatory_start => mandatory_start,
+                                  :mandatory_end => mandatory_end)
+              end
             end
           end
         end
       end
     end
-
-    Shift.all.each do |shift|
-      if rand(20) == 0
-        # shift_chunks is the number of 15 minute chunks in the length of the shift
-        shift_chunks = ((shift.end - shift.start) / 900).round
-        start_time = shift.start + (15 * rand(shift_chunks)).minutes
-        chunks_left = ((shift.end - start_time) / 900).round
-        end_time = start_time + (15 * (1 + rand(chunks_left))).minutes
-        request_chunks = ((end_time - start_time) / 900).round
-        mandatory_start = start_time + (15 * rand(request_chunks)).minutes
-        request_chunks_left = ((end_time - mandatory_start) / 900).round
-        mandatory_end = mandatory_start + (15 * (1 + rand(request_chunks_left))).minutes
-        SubRequest.create(:shift_id => shift, :reason => Populator.sentences(1..3),
-                          :start => start_time, :end => end_time, :mandatory_start => mandatory_start,
-                          :mandatory_end => mandatory_end)
-      end
-    end
-
   end
 end
 
