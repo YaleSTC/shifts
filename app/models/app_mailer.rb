@@ -1,4 +1,4 @@
-class AppMailer < ActionMailer::ARMailer
+class AppMailer < ActionMailer::Base
 
   def sub_taken_notification(sub_request, new_shift)
     recipients  sub_request.shift.user.email

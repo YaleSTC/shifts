@@ -32,6 +32,7 @@ Rails::Initializer.run do |config|
 
   # Configure Rails Mail options
   #config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :activerecord
   config.action_mailer.smtp_settings = {
     :address => "mail.yale.edu",
     :port => 587,
@@ -54,7 +55,9 @@ Rails::Initializer.run do |config|
   config.gem "chronic"
   config.gem "has_many_polymorphs"
   config.gem "authlogic"
-
+  config.gem "adzap-ar_mailer", :lib => 'action_mailer/ar_mailer', :source => 'http://gems.github.com'
+  #make sure you remove 'ar_mailer' - sudo gem uninstall ar_mailer - this is an old version
+  
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
