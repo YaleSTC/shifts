@@ -1,0 +1,22 @@
+<% title "E-mail Reminders" %>
+
+<div id="emailReminders">
+    <fieldset class="reminders">
+      <legend>Payform Reminders</legend>
+      <% form_tag( { :action => :send_reminders, :id => @department.id }, { :method => :post }) do %>
+        <%= text_area :post, :body, :size => "80x5", :value => @default_reminder_msg %>
+        <%= submit_tag "Remind Users to Submit Payforms" %>
+      <% end %>      
+    </fieldset>
+    <fieldset class="reminders">
+      <legend>Late Payform Warnings</legend>
+      <% form_tag( { :action => :send_warnings, :id => @department.id }, { :method => :post }) do %>
+        <strong>Warn from date: </strong>
+        <input type="text" id="date_select" name="post[date]" size="15" class="date_selector" value="<%= @default_warn_start_date.strftime('%Y/%m/%d') %>"></input>
+        <br/>(Default: 8 weeks)
+        <br/>
+        <%= text_area :post, :body, :size => "80x5", :value => @default_warning_msg %>
+        <%= submit_tag "Warn users with Late Payforms" %>
+      <% end %>    
+    </fieldset>
+</div>

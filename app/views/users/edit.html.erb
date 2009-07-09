@@ -1,9 +1,8 @@
 <% title "Edit User" %>
 
-<% if current_user==@user %>
+<% if current_user==@user and !current_user.is_admin_of?(current_department) %>
 <%= render :partial => 'user_form', :locals => {:submit => "Update", :user => @user} %>
-<% end %>
-<% if current_user!=@user and current_user.is_admin_of?(current_department) -%>
+<% elsif current_user.is_admin_of?(current_department) -%>
   <%= render :partial => 'new_form', :locals => {:submit => "Update", :user => @user} %>
 <% end %>
 
