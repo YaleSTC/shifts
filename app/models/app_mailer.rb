@@ -9,7 +9,9 @@ class AppMailer < ActionMailer::Base
   end
 
   def payform_item_change_notification(old_payform_item, new_payform_item = nil)
-    recipients  old_payform_item.payform.user.email
+    recipients  User.find(old_payform_item.user_id).email # Yes it's ugly but you have to make changes
+                                                          # to the model and the general design to make
+                                                          # prettier
     from        "payformitemchanged@app.stc.com"
     sent_on     Time.now
     if !new_payform_item && !old_payform_item.active
