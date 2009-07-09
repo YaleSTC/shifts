@@ -36,7 +36,10 @@
   </fieldset><br />
 <% end %>
 
+<% unless current_user.user_config.view_loc_groups.empty? %>
 <fieldset class="index">
   <legend>Today's schedule</legend>
   <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
 </fieldset>
+<% end %>
+

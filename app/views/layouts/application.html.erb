@@ -22,7 +22,9 @@
       <div id="footer">
         <p class="footer">
           URL: <%= request.env["HTTP_HOST"] %><%= request.request_uri %><br />
-          <%= AppConfig.first.footer %>
+          <%if $appconfig%>
+          <%= $appconfig.footer %>
+          <%end%>
         </p>
         <p class="footer">
           <% if current_user && current_user.superuser? -%>
