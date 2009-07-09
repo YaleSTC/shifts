@@ -1,4 +1,4 @@
-Hi <%= User.find(@old_payform_item.user_id).name %>, <%= @old_payform_item.source %> has 
+Hi <%= @old_payform_item.user ? @old_payform_item.user.name : @new_payform_item.user.name %>, <%= @old_payform_item.source %> has 
 <% if @new_payform_item && @new_payform_item.active -%>
 modified
 <% else -%>
