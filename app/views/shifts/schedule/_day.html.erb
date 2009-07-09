@@ -1,5 +1,6 @@
 <%
-  load_schedule_variables if not @bar_ids #so we can render this partial on the dashboard
+  load_schedule_variables if not @dept_start_hour #load if we haven't loaded them already
+                                          #(so we can render this partial on the dashboard)
   load_day_variables(day)
 %>
 
