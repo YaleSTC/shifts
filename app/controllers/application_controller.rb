@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # feel free to skip_before_filter when desired
   before_filter :department_chooser
   before_filter :load_user_session
-  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && $appconfig.login_options.include?('CAS')}, :except => 'access_denied'
+  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
 #  before_filter :load_user
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def using_CAS?
-    !User.first && (!current_user || current_user.auth_type=='CAS')
+    User.first && (!current_user || current_user.auth_type=='CAS') && $appconfig && $appconfig.login_options.include?('CAS')
   end
 
   protected
