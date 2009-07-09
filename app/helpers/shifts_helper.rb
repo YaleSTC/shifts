@@ -1,13 +1,27 @@
 module ShiftsHelper
 
-  def load_variables(loc_group)
-    #TODO: clean this up?
-    #@day_start = Time.parse("0:00", @current_day) + @dept_start_hour*3600
-    #@day_end = Time.parse("0:00", @current_day)  + @dept_end_hour*3600
-    #@loc_group = loc_group
+  def load_schedule_variables()
+    @bar_ids ||= {}
+    @dept_start_hour ||= @department.department_config.schedule_start / 60
+    @dept_end_hour ||= @department.department_config.schedule_end / 60
+    @blocks_per_hour ||= @department.department_config.blocks_per_hour
+    @blocks_per_day ||= @department.department_config.blocks_per_day
+    @block_length ||= @department.department_config.block_length
+    @display_unscheduled_shifts ||= @department.department_config.unscheduled_shifts
+    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}
+  end
+  
+  def load_day_variables(day)
+    @current_day = day
+    @bar_ids[day] = []
+    @shifts_outside_display = []
+    
+    #prepare all the shift data. ALL OF IT. SO MUCH INFORMATION.
+    populate_all_locs(@loc_groups, @block_length)
+  end
 
-    @can_sign_up = true #loc_group.allow_sign_up? get_user
-    @loc_group = loc_group
+  def load_loc_group_variables(loc_group)
+    #@loc_group = loc_group
   end
 
   # TODO: this shit
@@ -17,7 +31,6 @@ module ShiftsHelper
     #  -use group_by to break it up into subgroups
     #  -process the subgroups
 
-
     #creates a bunch of arrays holding all the data we'll need to write for each location today
     @scheduled_shifts = {}
     @unscheduled_shifts = {}
@@ -26,6 +39,7 @@ module ShiftsHelper
     loc_groups.each do |loc_group|
       # different location groups can have different start/end times...maybe bring this down
       # further, to the individual location level?
+        # TODO: modify this once we implement department group settings
       @day_start = Time.parse("0:00", @current_day) + @dept_start_hour*3600
       @day_end = Time.parse("0:00", @current_day)  + @dept_end_hour*3600
       @prioritized_location = {}
@@ -68,11 +82,6 @@ module ShiftsHelper
     open_at
   end
 
-
-
-
-
-
   def create_bar(day_start, day_end, people_count, min_block, location)
     bar = []
     block_start = day_start
@@ -81,16 +90,13 @@ module ShiftsHelper
 
     while (block_start < day_end)
       t = block_start
-      free_status = nil #check_status(t)
+      free_status = nil
 
       begin
 
-        if not @open_at[t.to_s(:am_pm)]
-         current_status = 'bar_inactive'
-        elsif (people_count[t.to_s(:am_pm)] >= location.max_staff)
-          current_status = 'bar_full'
-        elsif (t<Time.now)
-          current_status = 'bar_passed'
+        if not @open_at[t.to_s(:am_pm)] : current_status = 'bar_inactive'
+        elsif (people_count[t.to_s(:am_pm)] >= location.max_staff) : current_status = 'bar_full'
+        elsif (t<Time.now) : current_status = 'bar_passed'
         elsif @prioritized_location[t] and @prioritized_location[t].priority > location.priority
           # if another location has higher priority
           current_status = 'bar_pending'
@@ -113,7 +119,6 @@ module ShiftsHelper
     end
     should_return ? bar : nil
   end
-
 
   #use this instead of group_by because we want an array
   def split_to_rows(item_list)
@@ -325,12 +330,13 @@ module ShiftsHelper
       end
     end
   end
-
+  
+  #TODO: does this work in jQuery?
   def show_bar_links(name)
     javascript_tag("$('%s').down('.%s').show()" % [@current_day, name])
   end
 
-  #TODO: look at this and show_bars and make sure they're efficient
+  #TODO: make this work in jQuery
   def hide_bars(name)
     f = ""
     @bar_ids[@current_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
@@ -341,6 +347,7 @@ module ShiftsHelper
     end
   end
 
+  #TODO: make this work in jQuery
   def show_bars(name)
     f = ""
     @bar_ids[@current_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
