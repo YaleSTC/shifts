@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :punch_clocks
   map.resources :restrictions
   map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'
+  map.reminders_advanced_options "/reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options'
+  map.warnings_advanced_options  "/warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options'
 
   map.login "/login", :controller => 'user_sessions', :action => 'new'
   map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
