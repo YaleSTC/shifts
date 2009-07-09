@@ -1,10 +1,10 @@
-Hi <%= @old_payform_item.payform.user.name %>, <%= @old_payform_item.source.name %> has 
+Hi <%= User.find(@old_payform_item.user_id).name %>, <%= @old_payform_item.source %> has 
 <% if @new_payform_item && @new_payform_item.active -%>
 modified
 <% else -%>
 deleted
 <% end -%>
- your payform item for <% @new_payform_item.date %>.
+ your payform item for <% @old_payform_item.date %>.
  
 <%# User probably wants to know the reason why and that is why reasons for
     deletions and edits should be enforced %>
