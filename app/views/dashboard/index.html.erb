@@ -12,11 +12,10 @@
   <legend>Current shifts</legend>
   <%= return_to_shift_report_if_needed %>
   <% if current_user.punch_clock %>
-    <%= link_to "Clock out?", current_user.punch_clock,
-                                                  :confirm => "Are you sure",
-                                                  :method => :delete %>
+    <%= link_to "Clock out?",  current_user.punch_clock, :message => "Are you sure",
+                                                         :method => :delete %>
   <% else %>
-    <%= link_to "Clock in?", new_user_punch_clock_path(current_user.id) %>
+    <%= link_to "Clock in?", new_user_punch_clock_path(current_user, @punch_clock) %>
   <% end %>
 </fieldset><br />
 
@@ -37,7 +36,10 @@
   </fieldset><br />
 <% end %>
 
+<% unless current_user.user_config.view_loc_groups.empty? %>
 <fieldset class="index">
   <legend>Today's schedule</legend>
   <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
 </fieldset>
+<% end %>
+

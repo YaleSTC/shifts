@@ -1,50 +1,20 @@
 <%
-
-# @bar_ids = {}
-# @blocks_per_hour = 60 / @department.department_config.time_increment
-# @blocks_per_day = ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
-# @block_length = 3600 / @blocks_per_hour #seconds
-# @display_unscheduled_shifts = true
-# @grace_period = @department.department_config.grace_period*60 #seconds
-#
-# #for now, for AJAX
-# @period_start ||= params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
-# @days_per_period ||= 7 #TODO: make this a setting for an admin
-
-#variables are set here so that we can render this partial on the dashboard
-@bar_ids ||= {}
-@dept_start_hour ||= @department.department_config.schedule_start / 60
-@dept_end_hour ||= @department.department_config.schedule_end / 60  #if the day ends after midnight, this should be > 24
-@blocks_per_hour ||= 60 / @department.department_config.time_increment
-@blocks_per_day ||= ((@dept_end_hour - @dept_start_hour) * @blocks_per_hour).to_i
-@block_length ||= 3600 / @blocks_per_hour #seconds
-@display_unscheduled_shifts ||= true
-
-
-@current_day = day
-@bar_ids[day] = []
-@shifts_outside_display = []
-#populate_all_locs(loc, shifts[true], @block_length)
+  load_schedule_variables if not @bar_ids #so we can render this partial on the dashboard
+  load_day_variables(day)
 %>
 
-<% render :layout => 'shifts/schedule/day_table_layout' do
-    @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}
+<% render :layout => 'shifts/schedule/day_table_layout' do %>
+  <% @loc_groups.each do |loc_group| %>
+    <% unless loc_group.locations.empty? %>
+      <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
 
-    populate_all_locs(@loc_groups, @block_length)
-
-    @loc_groups.each do |loc_group|
-      unless loc_group.locations.empty?
-        load_variables(loc_group) %>
-        <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
-
-        <% unless loc_group == @loc_groups.last %>
-          <tr>
-            <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
-          </tr>
-        <% end %>
+      <% unless loc_group == @loc_groups.last %>
+        <tr>
+          <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
+        </tr>
       <% end %>
     <% end %>
+  <% end %>
 <% end %>
 
 <%= (render :partial => 'shifts/list_of_shifts/shifts_outside_display_layout', :object => @shifts_outside_display) unless @shifts_outside_display.empty? %>
-

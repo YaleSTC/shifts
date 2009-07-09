@@ -32,21 +32,21 @@ class Payform < ActiveRecord::Base
   end
 
   def self.default_period_date(given_date, dept)
-    if dept.monthly
+    if dept.department_config.monthly
       given_date_day = given_date.mday
-      if dept.end_of_month
-        dept.day = given_date.end_of_month
+      if dept.department_config.end_of_month
+        dept.department_config.day = given_date.end_of_month
       end
-      if dept.day < given_date_day
+      if dept.department_config.day < given_date_day
         given_date = given_date + 1.month
       end
     else
       given_date_day = given_date.wday
-      if dept.day < given_date_day
+      if dept.department_config.day < given_date_day
         given_date = given_date + 1.week
       end
     end
-    (given_date - given_date_day.days + dept.day.days).to_date
+    (given_date - given_date_day.days + dept.department_config.day.days).to_date
   end
 
   def hours
