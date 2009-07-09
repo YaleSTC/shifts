@@ -7,8 +7,8 @@ class DepartmentObserver < ActiveRecord::Observer
                         :schedule_end => Time.parse("5:00PM"),
                         :time_increment => 15.minutes,
                         :grace_period => 7.minutes,
-                        :edit_report => false
-                        :weekend_shifts => true
+                        :edit_report => false,
+                        :weekend_shifts => true,
                         :unscheduled_shifts => true
                         })
   end
