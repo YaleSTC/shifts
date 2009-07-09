@@ -1,3 +1,4 @@
+<%= render :partial => 'progress_bar', :locals => {:current_step => 2} %>
 <% title "Create the first department" %>
 <% form_for @department, :url => create_first_department_path do |f| %>
   <%= f.error_messages %>

@@ -1,3 +1,4 @@
+<%= render :partial => 'progress_bar', :locals => {:current_step => 1} %>
 <% title "Configure App Settings" %>
 <% form_for @app_config, :url => create_first_app_config_path do |f| %>
   <%= f.error_messages %>

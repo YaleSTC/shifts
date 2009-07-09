@@ -1,3 +1,4 @@
+<%= render :partial => 'progress_bar', :locals => {:current_step => 3} %>
 <% title "Create the first user" %>
 <% form_for @user, :url => create_first_user_path do |f| %>
   <%= f.error_messages %>
