@@ -153,6 +153,7 @@ class PayformsController < ApplicationController
   end
   
   def reminders_advanced_options
+    start_date = Date.parse(params[:post]["date"])
     @users = current_department.users
     @users_reminded = {}  # user => [no. of due payforms not submitted, [weeklist]]
     for user in @users
