@@ -13,4 +13,3 @@ class DepartmentObserver < ActiveRecord::Observer
                         })
   end
 end
-
