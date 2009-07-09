@@ -1,7 +1,7 @@
 module ShiftsHelper
 
   def load_schedule_variables()
-    @bar_ids ||= {}
+    #@bar_ids ||= {}
     @dept_start_hour ||= @department.department_config.schedule_start / 60
     @dept_end_hour ||= @department.department_config.schedule_end / 60
     @blocks_per_hour ||= @department.department_config.blocks_per_hour
@@ -13,7 +13,7 @@ module ShiftsHelper
   
   def load_day_variables(day)
     @current_day = day
-    @bar_ids[day] = []
+    #@bar_ids[day] = []
     @shifts_outside_display = []
     
     #prepare all the shift data. ALL OF IT. SO MUCH INFORMATION.
@@ -47,14 +47,14 @@ module ShiftsHelper
         if loc.active?
           @open_at = apply_time_slot_in(loc, @day_start, @day_end, min_block)
 
-          shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
+          shifts = Shift.find(:all, :conditions => {:location_id => loc}).select{|shift| ((shift.start < @day_end) and shift.end and (shift.end > @day_start))}.sort_by(&:start)
           shifts = shifts.group_by(&:scheduled)
           @scheduled_shifts[loc.object_id] = [shifts[true]]
           @unscheduled_shifts[loc.object_id] = [shifts[false]]
 
           people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
           @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block, loc) unless @day_end < Time.now
-          @bar_ids[@current_day] << loc.short_name + @current_day.to_s
+          #@bar_ids[@current_day] << loc.short_name + @current_day.to_s
           @people_count[loc.object_id] = people_count
         end
       end
@@ -160,7 +160,7 @@ module ShiftsHelper
       extra = "" #other stuff to html,like a hidden div, must not contain table elements
 
       if (type=="bar_active")
-        if current_user.can_signup?(@loc_group) #true #@can_sign_up #TODO: implement this
+        if current_user.can_signup?(@loc_group)
           link_name = current_user.is_admin_of?(@loc_group) ? "schedule" : "sign up"
           url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
@@ -306,7 +306,7 @@ module ShiftsHelper
 
       content += user_info + br + link_to(link_name, url_options, html_options)
 
-      #TODO: make this a preference
+      #TODO: make this a department preference
       clickable_signup_preference = false;
       clickable_signup = clickable_signup_preference
       if clickable_signup and type=="free_time" and location #bar_active"#
@@ -331,32 +331,32 @@ module ShiftsHelper
     end
   end
   
-  #TODO: does this work in jQuery?
-  def show_bar_links(name)
-    javascript_tag("$('%s').down('.%s').show()" % [@current_day, name])
-  end
-
-  #TODO: make this work in jQuery
-  def hide_bars(name)
-    f = ""
-    @bar_ids[@current_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
-    unless f.empty?
-      f << "$(this).up().hide();"
-      f << "$(this).up().next().show();"
-      link_to_function(name, f)
-    end
-  end
-
-  #TODO: make this work in jQuery
-  def show_bars(name)
-    f = ""
-    @bar_ids[@current_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
-    unless f.empty?
-      f << "$(this).up().hide();"
-      f << "$(this).up().previous().show();"
-      link_to_function(name, f)
-    end
-  end
+  # #TODO: does this work in jQuery? OR get rid of it
+  # def show_bar_links(name)
+  #   javascript_tag("$('%s').down('.%s').show()" % [@current_day, name])
+  # end
+  # 
+  # #TODO: make this work in jQuery, OR get rid of it
+  # def hide_bars(name)
+  #   f = ""
+  #   @bar_ids[@current_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
+  #   unless f.empty?
+  #     f << "$(this).up().hide();"
+  #     f << "$(this).up().next().show();"
+  #     link_to_function(name, f)
+  #   end
+  # end
+  # 
+  # #TODO: make this work in jQuery, OR get rid of it
+  # def show_bars(name)
+  #   f = ""
+  #   @bar_ids[@current_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
+  #   unless f.empty?
+  #     f << "$(this).up().hide();"
+  #     f << "$(this).up().previous().show();"
+  #     link_to_function(name, f)
+  #   end
+  # end
 
   def sign_up_div_id
     "quick_sign_up_%s" % @current_day
