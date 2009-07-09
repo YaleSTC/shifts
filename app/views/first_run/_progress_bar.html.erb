@@ -1,0 +1,8 @@
+<% current_step ||= 0 %>
+<span id="progress_bar">
+  <span id="<%= current_step == 1 ? "current_step" : "other_step"%>">Step 1: Configure App-Wide Settings</span> &#8680;
+  <span id="<%= current_step == 2 ? "current_step" : "other_step"%>">Step 2: Create the First Department</span> &#8680;
+  <span id="<%= current_step == 3 ? "current_step" : "other_step"%>">Step 3: Create the First User</span> &#8680;
+  <span id="<%= current_step == 4 ? "current_step" : "other_step"%>">Login!</span>
+</span>
+
