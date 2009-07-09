@@ -17,10 +17,10 @@ Rails::Initializer.run do |config|
 
   #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
   config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
-  
+
   #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
   #ENV["HMP_DEBUG"] = 'true'
-  
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -56,7 +56,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem 'ar_mailer', :lib => 'action_mailer/ar_mailer'
   #make sure you remove 'ar_mailer' - sudo gem uninstall ar_mailer - this is an old version
-  
+
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -86,7 +86,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
-  config.active_record.observers = :user_observer
+  config.active_record.observers = :user_observer, :department_observer
 end
 
 # enable detailed CAS logging
