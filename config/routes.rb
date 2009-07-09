@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_configs, :only => [:edit, :update]
 
 
-  
+
   map.resources :sub_requests
   map.resources :notices, :collection => {:archive => :get}
 
