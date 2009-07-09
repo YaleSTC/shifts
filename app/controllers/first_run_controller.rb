@@ -1,10 +1,11 @@
 class FirstRunController < ApplicationController
   skip_before_filter :login_check, :if => Proc.new {User.first}
   def new_app_config
-    @app_config = AppConfig.new
+    @app_config = AppConfig.first || AppConfig.new
   end
 
   def create_app_config
+    AppConfig.first.destroy if AppConfig.first
     @app_config=AppConfig.new(params[:app_config])
     if @app_config.save
       flash[:notice] = "App Settings have been configured."
@@ -15,10 +16,11 @@ class FirstRunController < ApplicationController
   end
 
   def new_department
-    @department = Department.new
+    @department = Department.first || Department.new
   end
 
   def create_department
+    Department.first.destroy if Department.first
     @department=Department.new(params[:department])
     if @department.save
       flash[:notice] = "The first department was successfully created."
@@ -27,6 +29,7 @@ class FirstRunController < ApplicationController
       render :action => 'new_department'
     end
   end
+
   def new_user
     @user = User.new
   end
