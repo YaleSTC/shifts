@@ -49,9 +49,9 @@ puts "For optional parameters, just hit enter if you don't want to set them."
 
   puts "AUTHENTICATION CONFIGURATION"
   authentication = {}
-  puts "This application has the ability to internally authenticate users (via the authlogic plugin), or to externally direct users to a CAS server (via the rubycas plugin).  You can also enable department administrators to select whether they wish to use one or both of these methods.  Which authentication types do you want to be available to admins?  Please provide 0 for CAS, 1 for internal authentication, or 2 for both."
+  puts "Do you plan on using CAS as one of your types of authentication? (enter 1 for yes and 0 for no)"
   authtypes = gets.chomp.to_i
-  if authtypes == 0 || authtypes == 2
+  if authtypes == 1
     puts "Provide the base URL of your CAS server"
     authentication.store(:cas_base_url, gets.chomp)
     puts "Provide the name your CAS server uses to refer to users (default is cas_user)"
@@ -82,7 +82,7 @@ puts "For optional parameters, just hit enter if you don't want to set them."
     newtext += "\nconfig.action_mailer.#{action_mailer[:delivery_method]}_settings = #{hash_to_string(action_mailer[:settings], true)}"
   end
 
-  if authtypes == 0 || authtypes == 2
+  if authtypes == 1
     if newtext =~ /CASClient::Frameworks::Rails::Filter[.]configure\(/
       newtext.gsub!(/CASClient::Frameworks::Rails::Filter[.]configure\(.*?\)/m, "CASClient::Frameworks::Rails::Filter.configure(#{hash_to_string(authentication, false)})\n")
     else
@@ -98,30 +98,4 @@ puts "For optional parameters, just hit enter if you don't want to set them."
 
 
 
-
-#  %x{rake load_fixtures}
   puts "All done! Check to make sure everything is ok."
-
-
-
-#  config.action_mailer.delivery_method = :smtp
-#  config.action_mailer.smtp_settings = {
-#    :address => "mail.yale.edu",
-#    :port => 587,
-#    :domain => "yale.edu",
-#    :user_name => '',
-#    :password => '',
-#    :authentication => ''
-
-#    #for some reason, :authentication => login is not working
-#    #thus, for now, the server will have to be connected to the yale network
-#    #to be able to send emails
-#  }
-
-
-#CASClient::Frameworks::Rails::Filter.configure(
-#  :cas_base_url => "https://secure.its.yale.edu/cas/",
-#  :username_session_key => :cas_user,
-#  :extra_attributes_session_key => :cas_extra_attributes,
-#  :logger => cas_logger
-#)

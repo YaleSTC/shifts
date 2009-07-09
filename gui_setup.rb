@@ -3,17 +3,13 @@ class Setup < Shoes
   @@delivery_method = ''
   @@mail_settings = {}
   @@CAS_Settings = {}
-  @@auth_type = ''
+  @@using_cas = false
   url '/', :welcome
   url '/smtp', :smtp
   url '/sendmail', :sendmail
   url '/authentication', :authentication
   url '/review', :review
   url '/done', :done
-
-  def using_cas?
-    @@auth_type=='both' || @@auth_type=='CAS'
-  end
 
   def hash_to_string(hash, brackets)
     if hash.nil?
@@ -53,7 +49,6 @@ class Setup < Shoes
     out = File.new('config/environment.rb', "w")
     out.puts(newtext)
     out.close
-    #  %x{rake load_fixtures}
   end
 
   def welcome
@@ -133,9 +128,9 @@ class Setup < Shoes
       inscription link("Start Over", :click => '/')
       title "Authentication Settings"
       @main_stack = stack {
-      para "Are you planning on using CAS, built-in authentication, or both?"
+      para "Are you planning on using CAS as one of your authentication types?"
       flow do
-        button ("CAS"){@@auth_type='CAS'
+        button ("Yes"){@@using_cas=true
         @main_stack.clear {stack {
           flow{
           para "Provide the base URL of your CAS server: "
@@ -162,34 +157,7 @@ class Setup < Shoes
 
           }
         }
-        button ("Built-in"){@@auth_type='built-in'; visit '/review'}
-        button ("Both"){@@auth_type='both'
-        @main_stack.clear {stack {
-          flow{
-          para "Provide the base URL of your CAS server: "
-          @server_box=edit_line :text => ""}
-          flow{
-          para "Provide the name your CAS server uses to refer to users: "
-          @user_box=edit_line :text => "cas_user"}
-          flow{
-          para "Provide the name your CAS server users to refer to extra attributes: "
-          @extra_box=edit_line :text => "cas_extra_attributes"}
-          flow{
-          para "Provide the name your CAS logger: "
-          @logger_box=edit_line :text => "cas_logger"}
-          button("Continue"){@@CAS_Settings= {
-            :cas_base_url => @server_box.text,
-            :username_session_key => @user_box.text,
-            :extra_attributes_session_key => @extra_box.text,
-            :logger => @logger_box.text
-          }
-          visit '/review'
-
-          }
-            }
-
-          }
-        }
+        button ("No"){@@using_cas=false; visit '/review'}
 
 
         end
@@ -205,15 +173,15 @@ class Setup < Shoes
       flow { stack :width => '45%' do para "Type of mail: "+@@delivery_method
       para "Mail settings:"+hash_to_string(@@mail_settings, false)
     end
-      stack :width => '45%' do para "Type of authentication: "+@@auth_type
-        para "CAS settings: "+hash_to_string(@@CAS_Settings, false) if using_cas?
+      stack :width => '45%' do para "Using CAS: "+@@using_cas.to_s
+        para "CAS settings: "+hash_to_string(@@CAS_Settings, false) if @@using_cas
     end
       }
       para "Are you sure everything\'s ok?"
       flow{
       button ("No, take me back!"){visit '/'}
       button ("Yup, go ahead and write the files"){
-        writefiles(@@delivery_method, @@mail_settings, @@CAS_Settings, using_cas?)
+        writefiles(@@delivery_method, @@mail_settings, @@CAS_Settings, @@using_cas)
         visit '/done'
         }
       }
@@ -316,4 +284,3 @@ Shoes.app :width=>600, :height=>600
 ##  :extra_attributes_session_key => :cas_extra_attributes,
 ##  :logger => cas_logger
 ##)
-
