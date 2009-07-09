@@ -5,7 +5,7 @@
       <legend>Payform Reminders</legend>
       <% form_tag( { :action => :send_reminders, :id => @department.id }, { :method => :post }) do %>
         <%= text_area :post, :body, :size => "80x5", :value => @default_reminder_msg %>
-        <%= submit_tag "Remind Users to Submit Payforms" %>
+        <%= link_to "Advanced Options", reminders_advanced_options_path %> <%= submit_tag "Remind users to Submit Payforms" %>
       <% end %>      
     </fieldset>
     <fieldset class="reminders">
@@ -16,7 +16,7 @@
         <br/>(Default: 8 weeks)
         <br/>
         <%= text_area :post, :body, :size => "80x5", :value => @default_warning_msg %>
-        <%= submit_tag "Warn users with Late Payforms" %>
+        <%= link_to "Advanced Options", warnings_advanced_options_path %> <%= submit_tag "Warn users with Late Payforms" %>
       <% end %>    
     </fieldset>
 </div>
