@@ -1,4 +1,5 @@
 class AppMailer < ActionMailer::Base
+  self.delivery_method = :smtp
 
   def sub_taken_notification(sub_request, new_shift)
     recipients  sub_request.shift.user.email
@@ -8,7 +9,7 @@ class AppMailer < ActionMailer::Base
   end
 
   def payform_item_change_notification(old_payform_item, new_payform_item = nil)
-    recipients  User.find(old_payform_item.user_id).email
+    recipients  old_payform_item.user.email
     from        "payformitemchanged@app.stc.com"
     if new_payform_item == nil && !old_payform_item.active
       subject   "Your payform item has been deleted by #{old_payform_item.source}"

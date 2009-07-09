@@ -38,7 +38,7 @@ class PayformItemsController < ApplicationController
       errors << "Failed to create a new payform item"
     end
     if errors.length == 0
-      if @payform_item.user != current_user
+      if @payform_item.user != current_user || current_user.is_superuser?
         AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item) 
       end
         flash[:notice] = "Successfully edited payform item."
