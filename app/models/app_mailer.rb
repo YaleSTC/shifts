@@ -1,5 +1,7 @@
 class AppMailer < ActionMailer::Base
   self.delivery_method = :smtp
+  default_url_options[:host] = 'localhost:3000'
+ 
 
   def sub_taken_notification(sub_request, new_shift)
     recipients  sub_request.shift.user.email

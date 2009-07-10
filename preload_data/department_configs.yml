@@ -1,26 +1,35 @@
----
-department_configs_001:
+--- 
+department_configs_001: 
+  complex: f
   created_at: 2009-06-22 17:27:52
-  id: "1"
+  day: "6"
+  day2: "1"
   department_id: "1"
-  schedule_start: "600"
-  schedule_end: "1020"
-  time_increment: "60"
-  grace_period: "7"
   edit_report: f
-  weekend_shifts: t
+  end_of_month: f
+  grace_period: "7"
+  id: "1"
+  monthly: f
+  schedule_end: "1020"
+  schedule_start: "600"
+  time_increment: "60"
   unscheduled_shifts: t
   updated_at: 2009-06-22 17:27:52
-department_configs_002:
-  created_at: 2009-06-22 18:09:37
-  id: "2"
-  department_id: "2"
-  schedule_start: "540"
-  schedule_end: "1020"
-  time_increment: "60"
-  grace_period: "0"
-  edit_report: f
   weekend_shifts: t
+department_configs_002: 
+  complex: f
+  created_at: 2009-06-22 18:09:37
+  day: "6"
+  day2: "1"
+  department_id: "2"
+  edit_report: f
+  end_of_month: f
+  grace_period: "0"
+  id: "2"
+  monthly: f
+  schedule_end: "1020"
+  schedule_start: "540"
+  time_increment: "60"
   unscheduled_shifts: t
   updated_at: 2009-06-22 18:09:37
-
+  weekend_shifts: t
