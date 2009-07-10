@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :app_configs, :only => [:edit, :update]
 
+  map.edit_app_config "/app_config", :controller => 'app_configs', :action => 'edit', :method => 'get'
+
   map.resources :punch_clocks
   map.resources :restrictions
   map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'

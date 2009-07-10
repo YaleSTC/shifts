@@ -1,5 +1,6 @@
 class FirstRunController < ApplicationController
   skip_before_filter :login_check, :if => Proc.new {User.first}
+  before_filter :redirect_if_not_first_run
   def new_app_config
     @app_config = AppConfig.first || AppConfig.new
   end
@@ -48,7 +49,7 @@ class FirstRunController < ApplicationController
       end
     else
       #create from LDAP if possible; otherwise just use the given information
-      @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
+      @user = User.import_from_ldap(params[:user][:login]) || User.create(params[:user])
       @user.departments << Department.first
       #if a name was given, it should override the name from LDAP
       @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
@@ -68,6 +69,14 @@ class FirstRunController < ApplicationController
            render :action => 'new_user'
         end
 #         y @user #debug output
+    end
+  end
+
+private
+  def redirect_if_not_first_run
+    if User.first
+      flash[:notice] = "The setup wizard can only be run on first launch."
+      redirect_to access_denied_path
     end
   end
 

@@ -7,8 +7,34 @@
     <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
   </p>
   </p>
-    <%= f.label :ldap_address %>
-    <%= f.text_field :ldap_address %>
+    <p>
+    <%= f.label :ldap_host_address %>
+    <%= f.text_field :ldap_host_address %>
+  </p>
+  <p>
+    <%= f.label :ldap_port %>
+    <%= f.text_field :ldap_port %>
+  </p>
+    <p>
+    <%= f.label :ldap_base %>
+    <%= f.text_field :ldap_base %>
+  </p>
+  <p>
+    <%= f.label :ldap_login %>
+    <%= f.text_field :ldap_login %>
+  </p>
+    <p>
+    <%= f.label :ldap_first_name %>
+    <%= f.text_field :ldap_first_name %>
+  </p>
+  <p>
+    <%= f.label :ldap_last_name %>
+    <%= f.text_field :ldap_last_name %>
+  </p>
+    <p>
+    <%= f.label :ldap_email %>
+    <%= f.text_field :ldap_email %>
+  </p>
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
