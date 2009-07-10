@@ -3,7 +3,13 @@ class CreateAppConfigs < ActiveRecord::Migration
     create_table :app_configs do |t|
       t.string :footer
       t.string :auth_types
-      t.string :ldap_address
+      t.string :ldap_host_address
+      t.integer :ldap_port
+      t.string :ldap_base
+      t.string :ldap_login
+      t.string :ldap_first_name
+      t.string :ldap_last_name
+      t.string :ldap_email
       t.timestamps
     end
   end
