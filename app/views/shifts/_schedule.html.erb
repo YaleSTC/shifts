@@ -1,14 +1,5 @@
 <%# TODO: cleanup! %>
-<%
-  @bar_ids = {}
-
-  @dept_start_hour = @department.department_config.schedule_start / 60
-  @dept_end_hour = @department.department_config.schedule_end / 60
-  @blocks_per_hour = @department.department_config.blocks_per_hour
-  @blocks_per_day = @department.department_config.blocks_per_day
-  @block_length = @department.department_config.block_length
-  @display_unscheduled_shifts = @department.department_config.unscheduled_shifts
-%>
+<% load_schedule_variables %>
 
 <div style="clear:both"></div>
 
