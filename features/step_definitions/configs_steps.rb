@@ -1,16 +1,17 @@
-Given /^I had a shift yesterday$/ do
+Given /^I had a shift yesterday in "([^\"]*)"$/ do |location|
 creation_time = (Time.now - 3.days)
 start_time = (Time.now - 32.hours)
 end_time = (Time.now - 29.hours)
 shift_taken = (Time.now - 2.days)
+loc = Location.find_by_name(location).id
 
-  TimeSlot.create!(:location_id => @department.locations.first,
+  TimeSlot.create!(:location_id => loc,
                    :start => start_time,
                    :end => end_time,
                    :created_at => creation_time)
 
   this_shift = Shift.new(:start => start_time, :end => end_time,
-                        :user_id => @user.id, :location_id => @department.locations.first,
+                        :user_id => @current_user.id, :location_id => loc,
                         :scheduled => true, :created_at => shift_taken,
                         :updated_at => shift_taken)
   this_shift.save_without_validation!
@@ -23,7 +24,7 @@ shift_taken = (Time.now - 2.days)
 
 end
 
-Given /^"([^\"]*)" has a shift tomorrow$/ do |name|
+Given /^"([^\"]*)" has a shift tomorrow in "([^\"]*)"$/ do |name, location|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
 
   creation_time = (Time.now - 3.days)
@@ -31,13 +32,15 @@ Given /^"([^\"]*)" has a shift tomorrow$/ do |name|
   end_time = (Time.now + 26.hours)
   shift_taken = (Time.now - 1.day)
 
-  TimeSlot.create!(:location_id => @department.locations.first,
+  loc = Location.find_by_name(location).id
+
+  TimeSlot.create!(:location_id => loc,
                    :start => start_time,
                    :end => end_time,
                    :created_at => creation_time)
 
   Shift.create!(:start => start_time, :end => end_time,
-                :user_id => user.id, :location_id => @department.locations.first,
+                :user_id => user.id, :location_id => loc,
                 :scheduled => true, :created_at => shift_taken,
                 :updated_at => shift_taken)
 end
@@ -50,7 +53,6 @@ end
 Given /^I have a LocGroup named "([^\"]*)" with location "([^\"]*)"$/ do |loc_group_name, location|
   loc_group = LocGroup.find_by_name(loc_group_name)
   Location.create!(:name => location, :short_name => location, :loc_group_id => loc_group.id, :max_staff => 2, :min_staff => 1, :priority => 1)
-
 end
 
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|
@@ -68,7 +70,6 @@ Then /^I should see all the days of the week$/ do
 
   yesterday = Date.yesterday.to_s(:Day)
   response.should contain(yesterday)
-
 end
 
 Then /^I should see "([^\"]*)" on the schedule$/ do |message|
@@ -92,6 +93,12 @@ Then /^I should not see "([^\"]*)" on the schedule$/ do |message|
 
   assert_select("div.time_table_updated") do |div|
     div.should_not contain(message)
+  end
+end
+
+Then /^I should see "([^\"]*)" in the footer$/ do |message|
+  assert_select("p.footer") do |div|
+    div.should contain(message)
   end
 end
 

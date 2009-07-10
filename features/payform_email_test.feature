@@ -49,7 +49,6 @@ Feature: payform emails
     And "hp123@hogwarts.edu" should receive 1 email
     When "hp123@hogwarts.edu" opens the email with text "Hi Harry Potter, Albus Dumbledore has deleted your payform item for June 8, 2009. Best, STC P.S. Penguins! We thought you should know"
 
-@t
   Scenario: Auto-Email when payforms have not been submitted for 2 weeks
     When I am on the department settings page
     And I fill in "Weeks until reminder" with "2"
