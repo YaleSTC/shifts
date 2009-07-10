@@ -10,9 +10,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :app_configs, :only => [:edit, :update]
 
+  map.edit_app_config "/app_config", :controller => 'app_configs', :action => 'edit', :method => 'get'
+
   map.resources :punch_clocks
   map.resources :restrictions
   map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'
+  map.reminders_advanced_options "/reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options'
+  map.warnings_advanced_options  "/warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options'
 
   map.login "/login", :controller => 'user_sessions', :action => 'new'
   map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
@@ -31,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_configs, :only => [:edit, :update]
 
 
-  
+
   map.resources :sub_requests
   map.resources :notices, :collection => {:archive => :get}
 

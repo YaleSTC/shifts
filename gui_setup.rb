@@ -53,7 +53,7 @@ class Setup < Shoes
 
   def welcome
     stack do
-      title "Welcome to the App!"
+      title "Welcome to the App!", :align => 'center'
 
     para "Thank you for using our application!  This script is designed to help you set up some important configuration files. Click the button below to get started!"
     para "To begin, please select what type of mail you\'ll be using. SMTP is recommended."
@@ -69,7 +69,7 @@ class Setup < Shoes
     @@delivery_method = 'smtp'
     @main_box = stack :width => '100%' do
       inscription link("Start Over", :click => '/')
-      title "SMTP Settings"
+      title "SMTP Settings", :align => 'center'
       flow{
       para "Please input your smpt server address: "
       @server_box=edit_line :text => "mail.example.com"}
@@ -107,7 +107,7 @@ class Setup < Shoes
     @@delivery_method = 'sendmail'
     stack :width => '100%' do
       inscription link("Start Over", :click => '/')
-      title "Sendmail Settings"
+      title "Sendmail Settings", :align => 'center'
       flow{
       para "Provide the location of the sendmail executable: "
       @location_box=edit_line :text => "/usr/sbin/sendmail"}
@@ -126,7 +126,7 @@ class Setup < Shoes
   def authentication
     stack :width => '100%' do
       inscription link("Start Over", :click => '/')
-      title "Authentication Settings"
+      title "CAS Settings", :align => 'center'
       @main_stack = stack {
       para "Are you planning on using CAS as one of your authentication types?"
       flow do
@@ -168,7 +168,7 @@ class Setup < Shoes
   def review
     stack :width => '100%' do
       inscription link("Start Over", :click => '/')
-      title "Review"
+      title "Review", :align => 'center'
       subtitle "Here\'s what you\'ve entered:"
       flow { stack :width => '45%' do para "Type of mail: "+@@delivery_method
       para "Mail settings:"+hash_to_string(@@mail_settings, false)
