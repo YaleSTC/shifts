@@ -152,29 +152,6 @@ class PayformsController < ApplicationController
     redirect_with_flash "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}", :action => :email_reminders, :id => @department.id
   end
   
-  def reminders_advanced_options
-    start_date = Date.parse(params[:post]["date"])
-    @users = current_department.users
-    @users_reminded = {}  # user => [no. of due payforms not submitted, [weeklist]]
-    for user in @users
-      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => current_department.id, :submitted => nil }, :order => 'date' ).collect { |p| p if p.date >= start_date && p.date < Date.today }).compact
-      if !unsubmitted_payforms.empty?
-        users_reminded[user] = [unsubmitted_payforms.length, unsubmitted_payforms.collect { |p| p.date }]
-      end
-    end
-  end
-  
-  def warnings_advanced_options
-    @users = current_department.users
-    @users_warned = {}  # user => [no. of due payforms not submitted, [weeklist]]
-    for user in @users
-      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => current_department.id, :submitted => nil }, :order => 'date' ).collect { |p| p if p.date >= start_date && p.date < Date.today }).compact
-      if !unsubmitted_payforms.empty?
-        users_reminded[user] = [unsubmitted_payforms.length, unsubmitted_payforms.collect { |p| p.date }]
-      end
-    end
-  end
-  
   protected
   
   def narrow_down(payforms)
