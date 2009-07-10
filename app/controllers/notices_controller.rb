@@ -15,12 +15,12 @@ class NoticesController < ApplicationController
 
   def new
     @notice = Notice.new
-    render :action => "new", :layout => 'new_notice'
+    render :action => "new", :layout => false
   end
 
   def edit
     @notice = Notice.find(params[:id])
-    render :action => "edit", :layout => 'new_notice'
+    render :action => "edit", :layout => false
   end
 
   def create
@@ -35,7 +35,6 @@ class NoticesController < ApplicationController
       flash[:notice] = 'Notice was successfully created.'
       redirect_to @notice
     else
-      raise params.to_yaml
       render :action => "new", :layout => 'new_notice'
     end
   end
@@ -73,10 +72,6 @@ class NoticesController < ApplicationController
   end
 
   protected
-
-  def update_index
-    @notice = Notice.active
-  end
 
   def set_sources(update = false)
 #    @notice.user_sources = [] if update

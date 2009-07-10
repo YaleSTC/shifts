@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag 'thickbox', 'notice', 'shift' %>
-<% javascript 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed','update_index' %>
+<% javascript 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed'%>
 
 <h1 id="page_title">
   Notices
@@ -24,9 +24,4 @@
   <% end %>
 <% end %>
 </div>
-<%= periodically_call_remote :url => {:controller => "/notice", :action => "update_index" }, :frequency => '1' %>
-<script type="text/javascript" charset="utf-8">
-    page.replace_html("for_you", :partial => "for_you" );
-    page.replace_html("location_notices", :partial => "notice", :collection => "loc.notices" );
-</script>
 
