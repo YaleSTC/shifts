@@ -8,6 +8,7 @@ class PayformItemsController < ApplicationController
   end
 
   def create
+    get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     @payform = Payform.find(params[:payform_id])
     @payform_item.payform = @payform
@@ -25,6 +26,7 @@ class PayformItemsController < ApplicationController
   end
 
   def update
+    get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     @payform_item.parent = PayformItem.find(params[:id])
     @payform = @payform_item.payform = @payform_item.parent.payform
@@ -63,6 +65,36 @@ class PayformItemsController < ApplicationController
       flash[:notice] = "Error deleting payform item."
     end
     redirect_to @payform
+  end
+  
+  protected
+  
+  def get_hours
+    if params[:calculate_hours] == 'user_input'
+      params[:payform_item][:hours] = params[:other][:hours].to_f + params[:other][:minutes].to_f/60
+    else
+      start_params = []
+      end_params = []
+      for num in (1..6)
+        start_params << params[:time_input]["start(#{num}i)"].to_i
+        end_params << params[:time_input]["end(#{num}i)"].to_i
+      end
+      start_time = convert_to_time(start_params)
+      end_time = convert_to_time(end_params)      
+      params[:payform_item][:hours] = (end_time-start_time) / 3600.0
+    end
+  end
+  
+  
+  def convert_to_time(date_array)
+    # 0 = year, 1 = month, 2 = day, 3 = hour, 4 = minute, 5 = meridiem
+    if date_array[3] == 12
+      date_array[3] -= 12
+    end
+    if date_array[5] == 1
+      date_array[3] += 12
+    end
+    Time.utc(date_array[0], nil, nil, date_array[3], date_array[4])
   end
 end
 
