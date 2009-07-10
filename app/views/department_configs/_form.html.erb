@@ -35,15 +35,48 @@
   <fieldset>
     <legend>Edit Payform Configuration</legend>
     <p>
-      <label>Monthly Payform Period (leave unchecked for weekly):</label>
-      <%= f.check_box :monthly %>
+      <label>Default Printed Payform Message:</label><br />
+      <%= f.text_area :printed_message, :size => "50x5" %>
+    </p>
+    <p>
+      <label>Default Payform Reminder:</label><br />
+      <%= f.text_area :reminder_message, :size => "50x5" %>
+    </p>
+    <p>
+      <label>Default Late Payform Warning:</label><br />
+      <%= f.text_area :warning_message, :size => "50x5" %>
+    </p>
+    <p>
+      <label>Number of weeks before admin view warning ('0' to disable):</label>
+      <%= f.text_field :warning_weeks, :size => 6 %>
+    </p>
+    <p>
+      <label>Minimum Length for Item Description (in characters; '0' to disable):</label>
+      <%= f.text_field :description_min, :size => 6 %>
+    </p>
+    <p>
+      <label>Minimum Length for Edit of Deletion Reason (in characters; '0' to disable):</label>
+      <%= f.text_field :reason_min, :size => 6 %>
     </p>
     <p>
       <label>Last day of payform week/month:</label>
       <%= f.text_field :day, :size => 6 %>
     </p>
     <p>
+      <label>Monthly Payform Period (leave unchecked for weekly):</label>
+      <%= f.check_box :monthly %>
+    </p>
+    <p>
+      <label>Include Payform Punch Clock on User Payforms:</label>
+      <%= f.check_box :punch_clock %>
+    </p>
+    <p>
+      <label>Show Disabled Categories on Payforms (rather than filing jobs under 'Miscellaneous'):</label>
+      <%= f.check_box :show_disabled_cats %>
+    </p>
+    <p>
       <%= f.submit "Submit" %>
     </p>
   </fieldset>
 <% end %>
+
