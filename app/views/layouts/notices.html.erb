@@ -4,7 +4,7 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
-    <li><%= link_to 'Post a new notice', {:action => 'new', :TB_iframe => true}, :class => "thickbox" %></li>
+    <li><%= link_to_remote 'Post a new notice', :url => {:controller =>"notices", :action =>"new"}, :html => {:class => "thickbox"}  %></li>
     <% if current_user.is_admin_of?(current_department) %>
       <li><%= link_to 'Notice archive', 'notices/archive' %></li>
     <% end %>
