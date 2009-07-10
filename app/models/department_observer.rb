@@ -12,6 +12,8 @@ class DepartmentObserver < ActiveRecord::Observer
                         :weekend_shifts => true,
                         :unscheduled_shifts => true
                         })
+
+    Category.create!(:name => "Shifts", :department_id => department.id)
   end
 end
 
