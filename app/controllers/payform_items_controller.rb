@@ -56,7 +56,7 @@ class PayformItemsController < ApplicationController
     @payform = @payform_item.payform
     @payform_item.active = false
     @payform_item.source = current_user.name
-    if @payform_item.payform.user_id == current_user.id  # just for testing; should be != instead
+    if @payform_item.payform.user == current_user  # just for testing; should be != instead
       AppMailer.deliver_payform_item_change_notification(@payform_item)
     end
     if @payform_item.save
