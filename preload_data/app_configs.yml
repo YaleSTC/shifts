@@ -8,7 +8,7 @@ app_configs_001:
   ldap_port: "389"
   auth_types: CAS, authlogic
   ldap_login: uid
-  footer: "<marquee><blink>WOOT!!!! WOOT!!!111!!!!one!!!!</blink></marquee>"
+  footer: '<marquee><blink>WOOT!!!! WOOT!!!111!!!!one!!!!</blink><br /><object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/oHg5SJYRHA0&hl=en&fs=1&autoplay=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/oHg5SJYRHA0&hl=en&fs=1&autoplay=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object></marquee>'
   ldap_last_name: sn
   ldap_email: mail
   ldap_first_name: givenname
