@@ -2,8 +2,6 @@ Hi <%= @old_payform_item.user ? @old_payform_item.user.name : @new_payform_item.
 <%= @old_payform_item.source %> has <% if @new_payform_item && @new_payform_item.active -%>
 modified<% else -%>deleted<% end -%> your payform item for <%= @old_payform_item.created_at.strftime("%A %B %d, %Y") %>.
  
-<%# User probably wants to know the reason why and that is why reasons for
-    deletions and edits should be enforced %>
 Best,
 STC
 P.S. Penguins! We thought you should know
