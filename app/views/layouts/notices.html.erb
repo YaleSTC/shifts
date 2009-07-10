@@ -1,0 +1,24 @@
+<% content_for :head do %>
+  <% stylesheet 'shift', 'report' %>
+<% end %>
+
+<% content_for :left_nav do %>
+  <ul id="navigationList">
+    <li><%= link_to 'Post a new notice', {:action => 'new', :TB_iframe => true}, :class => "thickbox" %></li>
+    <% if current_user.is_admin_of?(current_department) %>
+      <li><%= link_to 'Notice archive', 'notices/archive' %></li>
+    <% end %>
+  </ul>
+  <div id="contentNav">
+<% end %>
+
+
+<% content_for :body do %>
+
+  <%= yield %>
+
+  <div class="clear"></div>
+<% end -%>
+
+<%= render :file => "layouts/application.html.erb" %>
+
