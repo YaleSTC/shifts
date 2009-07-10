@@ -52,7 +52,7 @@ class PunchClocksController < ApplicationController
     @user = @punch_clock.user
     @time_in_hours = (Time.now - @punch_clock.created_at) / 3600.0  # sec -> hr
     @payform_item = PayformItem.new({:date => Date.today,
-                                    :category_id => Category.find_by_name("Punch Clocks"),
+                                    :category => Category.find_by_name("Punch Clocks"),
                                     :hours => @time_in_hours,
                                     :description => "Punch Clock: " + params[:punch_clock]['description']})
     @payform = Payform.build(current_department, @user, Date.today)
