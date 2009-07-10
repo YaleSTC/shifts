@@ -35,12 +35,7 @@ class NoticesController < ApplicationController
       flash[:notice] = 'Notice was successfully created.'
       redirect_to @notice
     else
-<<<<<<< HEAD:app/controllers/notices_controller.rb
-      render :action => "new", :layout => 'new_notice'
-=======
-      #raise params.to_yaml
       render :action => "new", :layout => false
->>>>>>> 0f094593d00248010eddaae176d7f2e810066614:app/controllers/notices_controller.rb
     end
   end
 
