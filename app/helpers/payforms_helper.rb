@@ -11,6 +11,14 @@ module PayformsHelper
     payforms
   end
   
+  def selected_hours(payform_item)
+    payform_item and payform_item.hours ? payform_item.hours.floor : 0
+  end
+  
+  def selected_min(payform_item)
+    payform_item and payform_item.hours ? ((payform_item.hours - payform_item.hours.floor)*60.0 ).round : 0
+  end
+  
   def start_of_period(date)
     subtract = (@department.department_config.monthly ? 1.month : 1.week)
     date - subtract + 1.day
