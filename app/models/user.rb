@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
 
+
   def self.import_from_ldap(login, department = nil, should_save = false)
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
@@ -58,6 +59,24 @@ class User < ActiveRecord::Base
 #    raise e.message # Will trigger an error, LDAP is probably down
 #    end
     new_user
+  end
+
+  def self.search_ldap(first_name, last_name)
+    first_name+='*'
+    last_name+='*'
+    # Setup our LDAP connection
+    ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
+    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name)
+    out=[]
+    ldap.open do |ldap|
+      ldap.search(:base => $appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
+      out << {:login => entry[$appconfig.ldap_login][0],
+              :email => entry[$appconfig.ldap_email][0],
+              :first_name => entry[$appconfig.ldap_first_name][0],
+              :last_name => entry[$appconfig.ldap_last_name][0]}
+      end
+    end
+    out
   end
 
   def self.mass_add(logins, department)
