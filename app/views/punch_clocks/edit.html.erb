@@ -1,0 +1,9 @@
+<% title "Clock Out" %>
+<% form_for @punch_clock, :url => {:controller=>"punch_clocks", :action=>"update"} do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
