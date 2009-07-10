@@ -1,10 +1,6 @@
-Hi <%= User.find(@new_payform_item.user_id).name %>, <%= User.find(@new_payform_item.user_id).name %> has 
-<% if @new_payform_item.active -%>
-modified
-<% else -%>
-deleted
-<% end -%>
- your payform item for <% @new_payform_item.date %>.
+Hi <%= @old_payform_item.user ? @old_payform_item.user.name : @new_payform_item.user.name %>,
+<%= @old_payform_item.source %> has <% if @new_payform_item && @new_payform_item.active -%>
+modified<% else -%>deleted<% end -%> your payform item for <%= @old_payform_item.created_at.strftime("%A %B %d, %Y") %>.
  
 <%# User probably wants to know the reason why and that is why reasons for
     deletions and edits should be enforced %>

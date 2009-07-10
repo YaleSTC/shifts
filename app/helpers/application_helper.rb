@@ -51,5 +51,17 @@ module ApplicationHelper
         });
         </script>' + text_field_tag(id)
   end
+  
+  
+  def select_integer (object, column, start, stop, default = nil)
+    output = "<select id=\"#{object}_#{column}\" name=\"#{object}[#{column}]\">"
+    for i in start..stop
+      output << "\n<option value=\"#{i}\""
+      output << " selected=\"selected\"" if i == default
+      output << ">#{i}"
+    end
+    output + "</select>"
+  end
+  
 end
 
