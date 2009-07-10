@@ -8,6 +8,7 @@ class PayformItemsController < ApplicationController
   end
 
   def create
+    get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     @payform = Payform.find(params[:payform_id])
     @payform_item.payform = @payform
@@ -25,6 +26,7 @@ class PayformItemsController < ApplicationController
   end
 
   def update
+    get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     @payform_item.parent = PayformItem.find(params[:id])
     @payform = @payform_item.payform = @payform_item.parent.payform
@@ -63,6 +65,16 @@ class PayformItemsController < ApplicationController
       flash[:notice] = "Error deleting payform item."
     end
     redirect_to @payform
+  end
+  
+  protected
+  
+  def get_hours
+    if params[:calculate_hours] == 'user_input'
+        params[:payform_item][:hours] = params[:other][:hours].to_f + params[:other][:minutes].to_f/60
+    else
+      params[:payform_item][:hours] = 100
+    end
   end
 end
 
