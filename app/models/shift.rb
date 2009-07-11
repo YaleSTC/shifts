@@ -136,6 +136,14 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  def exceeds_max_staff?
+    count = 1 # 1 because needs to count current shift
+    Shift.find(:all, :conditions => {:location_id => self.location_id, :scheduled => true}).each do |other|
+      count += 1 if (self.start..self.end).overlaps?(other.start..other.end) && self.end != other.start && self.start != other.end
+    end
+    return count > self.location.max_staff
+  end
+
 
   # ===================
   # = Display helpers =
