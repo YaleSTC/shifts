@@ -6,8 +6,8 @@ namespace :db do
     require 'faker'
 
     # Edit these to change amount of data generated
-    # The number of objects of any class can be either an int or a range
-    number_of_users = 50..200
+    # The number of objects of any class can be either an integer or a range
+    number_of_users = 10..20
     categories_per_department = 4..6
     stickies_per_department = 50
     announcements_per_department = 50
@@ -18,25 +18,28 @@ namespace :db do
     # If you don't want the priority to be set, (might create fewer shifts), then set the following to nil
     location_priority = 1..5
     max_number_of_shifts_per_time_slot = 20
+    # will generate payforms starting at the below date until current; may use relative or absolute time
+    payforms_beginning_date = 4.months.ago.to_date
+    payform_items_per_payform = 4..6
     # how many day's worth of shifts to generate
     shifts_end_date = 4.days.from_now.to_date
 
 
     # Start of code
     puts "emptying database"
-    [Department, LocGroup, Location, TimeSlot, Shift, Notice].each do |model|
+    [Department, DepartmentConfig, Category, LocGroup, Location, Payform, PayformItem, TimeSlot, Shift, SubRequest, Notice].each do |model|
       model.delete_all
     end
 
-    puts "creating departments"
-    Department.create(:name => "STC", :monthly => false, :complex => false,
-                      :day => 6, :created_at => 2.years.ago)
-    Department.create(:name => "Film studies", :monthly => true, :complex => false,
-                      :day => 1, :created_at => 2.years.ago)
-#    Department.create(:name => "Economics", :monthly => false, :complex => true,
-#                      :day => 6, :created_at => 2.years.ago)
-#    Department.create(:name => "Political science", :monthly => true, :complex => true,
-#                      :day => 1, :day2 => 15, :created_at => 2.years.ago)
+    puts "creating departments and configuring payform settings"
+    Department.create(:name => "STC", :created_at => 2.years.ago)
+      # weekly
+    dept = Department.create(:name => "Film studies", :created_at => 2.years.ago)
+      dept.department_config.update_attributes({:monthly => true, :end_of_month => true}) # monthly
+#    dept = Department.create(:name => "Economics", :created_at => 2.years.ago)
+#      dept.department_config.update_attributes({:complex => true}) # biweekly
+#    dept = Department.create(:name => "Political science", :created_at => 2.years.ago)
+#      dept.department_config.update_attributes({:monthly => true, :complex => true, :day => 16}) # semi-monthly
 
     puts "creating users and adding users to departments"
     User.populate(number_of_users) do |user|
@@ -60,7 +63,7 @@ namespace :db do
       Category.populate(categories_per_department) do |category|
         category.name = Populator.words(1..3).titleize
         category.active = true
-        department_id = department.id
+        category.department_id = department.id
       end
 
       puts "creating stickies and announcements for #{department.name} department"
@@ -142,6 +145,50 @@ namespace :db do
       end
     end
 
+    puts "creating payforms and payform items from #{payforms_beginning_date} to now"
+    User.all.each do |user|
+      puts "\tfor #{user.name}"
+      date = Date.today
+      while date > payforms_beginning_date
+        user.departments.each do |department|
+          end_date = Payform.default_period_date(date, department)
+          unless Payform.exists?({:date => end_date, :department_id => department.id, :user_id => user.id})
+            payform = Payform.build(department, user, date)
+
+            PayformItem.populate(payform_items_per_payform) do |payform_item|
+              categories = department.categories.all
+              payform_item.category_id = categories[rand(categories.length)].id
+              payform_item.user_id = user.id
+              payform_item.payform_id = payform.id
+              payform_item.active = true
+              hours = [0.5]
+              while hours.last < 7.0
+                hours << (hours.last + 0.1).round(1)
+              end
+              # each payform's hours range from 0.5 to 7.0, with increments of 0.1
+              payform_item.hours = hours
+              payform_item.date = payform.start_date..end_date
+              payform_item.description = Populator.sentences(1..3)
+            end
+
+            if payform.date < Date.today && rand(4) != 0
+              payform.update_attribute(:submitted, (payform.date + 1.day).to_time)
+              unless rand(3) == 0
+                payform.update_attributes({:approved => payform.submitted + 1.day,
+                                           :approved_by_id => department.users[rand(department.users.length)].id
+                })
+                if rand(2) == 0
+                  payform.update_attribute(:printed, payform.approved + 10.minutes)
+                end
+              end
+            end
+
+          end
+        end
+        date -= 7.days #decrements date
+      end
+    end
+
 
 # For each department, for each day from now until some time in the future, 1 time slot is created from 9AM to 11PM
     puts "creating a timeslot from 9AM to 11PM and populating the timeslot with shifts and sub requests"
@@ -151,15 +198,15 @@ namespace :db do
           (Date.today..shifts_end_date).each do |day|
             puts "\tfor department #{department.name}, location #{location.name}, on #{day}"
 
-            start_time = ("9AM " + day.to_s).to_time.localtime
-            end_time = ("11PM " + day.to_s).to_time.localtime
+            start_time = Time.parse("9AM -0400 #{day.to_s}")
+            end_time = Time.parse("5PM -0400 #{day.to_s}")
             TimeSlot.create(:location_id => location.id, :start => start_time,
                             :end => end_time, :created_at => day.to_datetime)
 
             max_number_of_shifts_per_time_slot.times do
               start_hour = 9 + rand(14)
               start_minute = 15 * rand(4)
-              start_time = "#{start_hour}:#{start_minute}, #{day}".to_time.localtime
+              start_time = "#{start_hour}:#{start_minute}, #{day}".to_time
               end_time = start_time + (15 * (1 + rand(20))).minutes
               user = department.users[rand(department.users.length)]
               shift = Shift.create(:start => start_time, :end => end_time, :user_id => user.id,
