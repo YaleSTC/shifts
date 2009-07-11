@@ -34,7 +34,7 @@ namespace :db do
             max_number_of_shifts_per_time_slot.times do
               start_hour = 9 + rand(14)
               start_minute = increment * rand(blocks_per_hour)
-              start_time = "#{start_hour}:00, #{day}".to_time
+              start_time = "#{start_hour}:#{start_minute}, #{day}".to_time
               end_time = start_time + (increment * (1 + rand(6 * blocks_per_hour))).minutes
               user = department.users[rand(department.users.length)]
               shift = Shift.new(:start => start_time, :end => end_time, :user_id => user.id,
@@ -71,8 +71,6 @@ namespace :db do
         end
       end
     end
-
-
   end
 end
 
