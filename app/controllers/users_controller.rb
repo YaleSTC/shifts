@@ -5,10 +5,10 @@ class UsersController < ApplicationController
   def index
     if params[:show_inactive]
       @users = @department.users
-    else
+  else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
-    
+
     if params[:search]
       params[:search] = params[:search].downcase
       @search_result = []
@@ -27,8 +27,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def ldap_search
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name])
+  end
+
   def new
     @user = User.new
+#    if params[:ldap_search]
+#      @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name])
+#    else
+      @results = []
+#    end
   end
 
   def create
