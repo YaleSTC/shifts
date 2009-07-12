@@ -1,7 +1,7 @@
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
   @payform = Payform.create!(:date => date,
-                             :user_id => @user.id,
+                             :user_id => @current_user.id,
                              :department_id => @department.id)
 end
 
@@ -34,7 +34,7 @@ Given /^I have the following payforms?:$/ do |table|
 
     submitted = row[:submitted] == "true" ? period_date + 2 : nil
     approved = row[:approved] == "true" ? Time.now - 120 : nil
-    approval = row[:approved] == "true" ? @user : nil
+    approval = row[:approved] == "true" ? @current_user : nil
     printed = row[:printed] == "true" ? Time.now - 60 : nil
 
     Payform.create!(:date => period_date , :department_id => department.id,
@@ -67,7 +67,7 @@ Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id
 end
 
 Then /^the payform should be submitted$/ do
-  @user.payforms.first.submitted.should_not be_nil
+  @current_user.payforms.first.submitted.should_not be_nil
 end
 
 Then /^I should see "([^\"]*)" under "([^\"]*)" in column ([0-9]+)$/ do |expected_message, header, column|
