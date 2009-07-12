@@ -323,3 +323,21 @@ users_018:
   supermode: t
   superuser: 
   updated_at: 2009-06-30 20:26:00
+users_019: 
+  auth_type: authlogic
+  created_at: 2009-07-10 12:59:25
+  crypted_password: 619a135e36e9f45c4f15ea3a02a2e0a4323ec1c603c3a31f34cc7db9ea80c104c9037e7ff227654c02f0dc986ad4d8d0b51c2852cdf35302a4b6ce8f49ab7a38
+  default_department_id: 
+  email: hikwabena@gmail.com
+  employee_id: STC
+  first_name: random
+  id: "52"
+  last_name: random
+  login: random
+  nick_name: random
+  password_salt: M4hF_TnQsAmsDi2e2Ho4
+  perishable_token: -G1Zag13259AicDzliVK
+  persistence_token: 3be99c0a38324c0758ccc99a685fb921606221cec6c60115a62a92cf1ec241ccd7176e5b42439ce604468bb0b4804cd5fe96ca7cabc7cda00ee3729f326b705b
+  supermode: t
+  superuser: 
+  updated_at: 2009-07-10 13:00:37

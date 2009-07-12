@@ -6,7 +6,8 @@ class PayformItem < ActiveRecord::Base
   belongs_to :category
 
   delegate :department, :to => :category
-  delegate :user, :to => :payform
+  delegate :user, :to => :payform  # deleted payform items don't have payforms
+                                   # and hence no users? This could lead to problems
 
   # commented out :category_id since it is not fully functional
   # and yet it tries to prevent the creation of new payform_items

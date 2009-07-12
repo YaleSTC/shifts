@@ -66,6 +66,7 @@ class ReportsController < ApplicationController
   def destroy
     @report = Report.find(params[:id])
     @report.destroy
+    #ArMailer.deliver()
     flash[:notice] = "Successfully destroyed report."
     redirect_to reports_url
   end
