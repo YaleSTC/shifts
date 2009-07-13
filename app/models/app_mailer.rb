@@ -56,3 +56,4 @@ class AppMailer < ActionMailer::Base
   end
 
 end
+
