@@ -1,11 +1,13 @@
 <% title "New User" %>
 
+<div class="form_left">
 <%= render :partial => 'new_form', :locals => {:submit => "Create", :user => [@department,@user]} %>
+</div>
+
 
 <p><%= link_to "Back to List", department_users_path(@department) %></p>
 
-
-
-
-    <%= render :partial => 'result_list' %>
+<div class="table_right">
+<%= render :partial => 'result_list' %>
+</div>
 

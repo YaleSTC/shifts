@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def ldap_search
-    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name])
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],5)
   end
 
   def new

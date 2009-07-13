@@ -1,9 +1,9 @@
+<% if @results %>
 <table id="result_list">
 <td>Login</td>
 <td>First Name</td>
 <td>Last Name</td>
 <td>Email</td>
-
 <% @results.each do |result| %>
 <tr>
 <td><%= result[:login] %></td>
@@ -13,4 +13,5 @@
 </tr>
 <% end %>
 </table>
+<% end %>
 
