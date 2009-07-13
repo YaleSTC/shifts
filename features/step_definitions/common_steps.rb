@@ -31,14 +31,11 @@ Given /^I am "([^\"]*)"$/ do |name|
 #for some reason cucumber was not seeing this global variable in the app controller.
 #remove it at your own peril.
   $appconfig = AppConfig.first
-  @user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  @user.should_not be_nil
-  @department = @user.departments.first
-#  @department.should_not be_nil
-  CASClient::Frameworks::Rails::Filter.fake(@user.login)
-#    #this seems like a clumsy way to set the department but I can't figure out any other way - wei
-#  visit departments_path
-#  click_link @department.name
+  @current_user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  @current_user.should_not be_nil
+  $department = Department.find(@current_user.user_config.default_dept)
+  $department.should_not be_nil
+  CASClient::Frameworks::Rails::Filter.fake(@current_user.login)
 end
 
 Given /^I have no (.+)$/ do |class_name|
@@ -102,8 +99,8 @@ Then /^"([^\"]*)" should have ([0-9]+) (.+)$/ do |name, count, object|
   end
 end
 
-Given /^the user "([^\"]*)" is a superuser$/ do |arg1|
+Given /^the user "([^\"]*)" is a superuser$/ do |name|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  user.superuser = true
+  user.superuser == true
 end
 

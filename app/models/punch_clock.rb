@@ -27,10 +27,6 @@ class PunchClock < ActiveRecord::Base
     self.in and !self.out
   end
   
-  def time
-    self.in ? Time.at(seconds + 60*60*5) : nil
-  end
-  
   def hours
     (((self.out-self.in) / 3600.0)*100).to_i / 100.0
   end

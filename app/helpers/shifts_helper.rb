@@ -1,13 +1,27 @@
 module ShiftsHelper
 
-  def load_variables(loc_group)
-    #TODO: clean this up?
-    #@day_start = Time.parse("0:00", @current_day) + @dept_start_hour*3600
-    #@day_end = Time.parse("0:00", @current_day)  + @dept_end_hour*3600
-    #@loc_group = loc_group
+  def load_schedule_variables()
+    #@bar_ids ||= {}
+    @dept_start_hour ||= @department.department_config.schedule_start / 60
+    @dept_end_hour ||= @department.department_config.schedule_end / 60
+    @blocks_per_hour ||= @department.department_config.blocks_per_hour
+    @blocks_per_day ||= @department.department_config.blocks_per_day
+    @block_length ||= @department.department_config.block_length
+    @display_unscheduled_shifts ||= @department.department_config.unscheduled_shifts
+    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}
+  end
+  
+  def load_day_variables(day)
+    @current_day = day
+    #@bar_ids[day] = []
+    @shifts_outside_display = []
+    
+    #prepare all the shift data. ALL OF IT. SO MUCH INFORMATION.
+    populate_all_locs(@loc_groups, @block_length)
+  end
 
-    @can_sign_up = true #loc_group.allow_sign_up? get_user
-    @loc_group = loc_group
+  def load_loc_group_variables(loc_group)
+    #@loc_group = loc_group
   end
 
   # TODO: this shit
@@ -17,7 +31,6 @@ module ShiftsHelper
     #  -use group_by to break it up into subgroups
     #  -process the subgroups
 
-
     #creates a bunch of arrays holding all the data we'll need to write for each location today
     @scheduled_shifts = {}
     @unscheduled_shifts = {}
@@ -26,6 +39,7 @@ module ShiftsHelper
     loc_groups.each do |loc_group|
       # different location groups can have different start/end times...maybe bring this down
       # further, to the individual location level?
+        # TODO: modify this once we implement department group settings
       @day_start = Time.parse("0:00", @current_day) + @dept_start_hour*3600
       @day_end = Time.parse("0:00", @current_day)  + @dept_end_hour*3600
       @prioritized_location = {}
@@ -33,14 +47,14 @@ module ShiftsHelper
         if loc.active?
           @open_at = apply_time_slot_in(loc, @day_start, @day_end, min_block)
 
-          shifts = Shift.find(:all, :conditions => {:location_id => loc}, :order => :start).select{|shift| shift.end and ((shift.start < @day_end) and (shift.end > @day_start))}
+          shifts = Shift.find(:all, :conditions => {:location_id => loc}).select{|shift| ((shift.start < @day_end) and shift.end and (shift.end > @day_start))}.sort_by(&:start)
           shifts = shifts.group_by(&:scheduled)
           @scheduled_shifts[loc.object_id] = [shifts[true]]
           @unscheduled_shifts[loc.object_id] = [shifts[false]]
 
           people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
           @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block, loc) unless @day_end < Time.now
-          @bar_ids[@current_day] << loc.short_name + @current_day.to_s
+          #@bar_ids[@current_day] << loc.short_name + @current_day.to_s
           @people_count[loc.object_id] = people_count
         end
       end
@@ -68,11 +82,6 @@ module ShiftsHelper
     open_at
   end
 
-
-
-
-
-
   def create_bar(day_start, day_end, people_count, min_block, location)
     bar = []
     block_start = day_start
@@ -81,16 +90,13 @@ module ShiftsHelper
 
     while (block_start < day_end)
       t = block_start
-      free_status = nil #check_status(t)
+      free_status = nil
 
       begin
 
-        if not @open_at[t.to_s(:am_pm)]
-         current_status = 'bar_inactive'
-        elsif (people_count[t.to_s(:am_pm)] >= location.max_staff)
-          current_status = 'bar_full'
-        elsif (t<Time.now)
-          current_status = 'bar_passed'
+        if not @open_at[t.to_s(:am_pm)] : current_status = 'bar_inactive'
+        elsif (people_count[t.to_s(:am_pm)] >= location.max_staff) : current_status = 'bar_full'
+        elsif (t<Time.now) : current_status = 'bar_passed'
         elsif @prioritized_location[t] and @prioritized_location[t].priority > location.priority
           # if another location has higher priority
           current_status = 'bar_pending'
@@ -113,7 +119,6 @@ module ShiftsHelper
     end
     should_return ? bar : nil
   end
-
 
   #use this instead of group_by because we want an array
   def split_to_rows(item_list)
@@ -155,7 +160,7 @@ module ShiftsHelper
       extra = "" #other stuff to html,like a hidden div, must not contain table elements
 
       if (type=="bar_active")
-        if current_user.can_signup?(@loc_group) #true #@can_sign_up #TODO: implement this
+        if current_user.can_signup?(@loc_group)
           link_name = current_user.is_admin_of?(@loc_group) ? "schedule" : "sign up"
           url_options = {:controller => 'shifts', :action => 'new',
                 :shift => {:start => shift.start, :end => shift.end, :location_id => shift.location_id} }
@@ -301,7 +306,7 @@ module ShiftsHelper
 
       content += user_info + br + link_to(link_name, url_options, html_options)
 
-      #TODO: make this a preference
+      #TODO: make this a department preference
       clickable_signup_preference = false;
       clickable_signup = clickable_signup_preference
       if clickable_signup and type=="free_time" and location #bar_active"#
@@ -325,31 +330,33 @@ module ShiftsHelper
       end
     end
   end
-
-  def show_bar_links(name)
-    javascript_tag("$('%s').down('.%s').show()" % [@current_day, name])
-  end
-
-  #TODO: look at this and show_bars and make sure they're efficient
-  def hide_bars(name)
-    f = ""
-    @bar_ids[@current_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
-    unless f.empty?
-      f << "$(this).up().hide();"
-      f << "$(this).up().next().show();"
-      link_to_function(name, f)
-    end
-  end
-
-  def show_bars(name)
-    f = ""
-    @bar_ids[@current_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
-    unless f.empty?
-      f << "$(this).up().hide();"
-      f << "$(this).up().previous().show();"
-      link_to_function(name, f)
-    end
-  end
+  
+  # #TODO: does this work in jQuery? OR get rid of it
+  # def show_bar_links(name)
+  #   javascript_tag("$('%s').down('.%s').show()" % [@current_day, name])
+  # end
+  # 
+  # #TODO: make this work in jQuery, OR get rid of it
+  # def hide_bars(name)
+  #   f = ""
+  #   @bar_ids[@current_day].each { |id| f << "Effect.Fade('#{id}', { duration: 0.3 });"}
+  #   unless f.empty?
+  #     f << "$(this).up().hide();"
+  #     f << "$(this).up().next().show();"
+  #     link_to_function(name, f)
+  #   end
+  # end
+  # 
+  # #TODO: make this work in jQuery, OR get rid of it
+  # def show_bars(name)
+  #   f = ""
+  #   @bar_ids[@current_day].each { |id| f << "Effect.Appear('#{id}', { duration: 0.3 });"}
+  #   unless f.empty?
+  #     f << "$(this).up().hide();"
+  #     f << "$(this).up().previous().show();"
+  #     link_to_function(name, f)
+  #   end
+  # end
 
   def sign_up_div_id
     "quick_sign_up_%s" % @current_day
