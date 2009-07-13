@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
     if @user.auth_type == "authlogic"
       @user.password = @user.password_confirmation = random_password
-      @user.departments << @department
+      @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
         @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
         flash[:notice] = "Successfully created user and emailed instructions for setting password."
