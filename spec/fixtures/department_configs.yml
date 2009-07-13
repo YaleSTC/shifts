@@ -17,12 +17,12 @@ dept_config_002:
   grace_period: 7.minutes
   edit_report: false
 
-dept_config_003:
-  id: 3
-  department_id: 3
-  schedule_start: "9:00AM"
-  schedule_end: "5:00PM"
-  time_increment: 15.minutes
-  grace_period: 7.minutes
-  edit_report: false
+#dept_config_003:
+#  id: 3
+#  department_id: 3
+#  schedule_start: "9:00AM"
+#  schedule_end: "5:00PM"
+#  time_increment: 15.minutes
+#  grace_period: 7.minutes
+#  edit_report: false
 

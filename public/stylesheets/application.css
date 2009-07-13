@@ -570,3 +570,15 @@ table.sortable th {
 	text-decoration: underline;
 }
 
+/*Forms w/ tables next to them*/
+div.form_left {
+  width:45%;
+  float:left;
+}
+
+div.table_right {
+  width:50%;
+  float:right;
+  margin:12px;
+}
+
