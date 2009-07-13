@@ -24,7 +24,7 @@
     <div class="value_fields">
       <p>
         <%= f.label :values %><br />
-        <%= f.text_field :values %><br />
+        <%= f.select :values, options=(DataField::DISPLAY_TYPE_OPTIONS) %>
         <em><small>For text field display types, values 
           should be either "integer", "decimal", or "text"<br>
           For a list of options, entries should be comma-separated</small></em>
