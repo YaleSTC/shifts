@@ -29,6 +29,7 @@ class UsersController < ApplicationController
 
   def ldap_search
     @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],5)
+
   end
 
   def new
@@ -42,7 +43,7 @@ class UsersController < ApplicationController
 
   def fill_form
     @user=User.new(params[:user])
-    render :action=>'new'
+    render :action => 'new'
   end
 
   def create

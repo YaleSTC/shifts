@@ -1,11 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def onclick_to_remote(options = {})
-    *args = remote_function(options)
-    function = args[0] || ''
-    function = update_page(block) if block_given?
-    "onclick=\"#{function}; return false;\""
-  end
 
   def make_popup(hash)
     hash[:width] ||= 600
@@ -58,8 +52,8 @@ module ApplicationHelper
         });
         </script>' + text_field_tag(id)
   end
-  
-  
+
+
   def select_integer (object, column, start, stop, default = nil)
     output = "<select id=\"#{object}_#{column}\" name=\"#{object}[#{column}]\">"
     for i in start..stop
@@ -69,5 +63,5 @@ module ApplicationHelper
     end
     output + "</select>"
   end
-  
+
 end
