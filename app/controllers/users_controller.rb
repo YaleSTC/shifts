@@ -40,6 +40,11 @@ class UsersController < ApplicationController
 #    end
   end
 
+  def fill_form
+    @user=User.new(params[:user])
+    render :action=>'new'
+  end
+
   def create
     @user = User.new(params[:user])
     @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1

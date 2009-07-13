@@ -571,15 +571,14 @@ table.sortable th {
 }
 
 /*Forms w/ tables next to them*/
-.form_left {
-  width:45%
-  float:left
-  clear:right
+div.form_left {
+  width:45%;
+  float:left;
 }
 
-.table_right {
-  width:45%
-  float:right
-  clear:left
+div.table_right {
+  width:50%;
+  float:right;
+  margin:12px;
 }
 
