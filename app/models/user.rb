@@ -61,12 +61,14 @@ class User < ActiveRecord::Base
     new_user
   end
 
-  def self.search_ldap(first_name, last_name)
+  def self.search_ldap(first_name, last_name, email, login, limit)
     first_name+='*'
     last_name+='*'
+    email+='*'
+    login+='*'
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
-    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name)
+    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email) & Net::LDAP::Filter.eq($appconfig.ldap_login, login)
     out=[]
     ldap.open do |ldap|
       ldap.search(:base => $appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
@@ -74,6 +76,7 @@ class User < ActiveRecord::Base
               :email => entry[$appconfig.ldap_email][0],
               :first_name => entry[$appconfig.ldap_first_name][0],
               :last_name => entry[$appconfig.ldap_last_name][0]}
+       break if out.length>=limit
       end
     end
     out
