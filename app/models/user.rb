@@ -214,6 +214,7 @@ class User < ActiveRecord::Base
   def current_notices
     Notice.active.select {|n| n.users.include?(self)}
   end
+  
   private
 
   def departments_not_empty
