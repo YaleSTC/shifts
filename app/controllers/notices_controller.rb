@@ -15,11 +15,16 @@ class NoticesController < ApplicationController
 
   def new
     @notice = Notice.new
-    render :action => "new", :layout => false
+    @legend = "New Notice"
+    respond_to do |format|
+      format.html
+      format.js {page.replace_html('TB_ajaxContent', :partial => "form")}
+    end
   end
 
   def edit
     @notice = Notice.find(params[:id])
+    @legend = "Edit Notice"
     render :action => "edit", :layout => false
   end
 
@@ -30,12 +35,16 @@ class NoticesController < ApplicationController
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    if @notice.save
-      set_sources
-      flash[:notice] = 'Notice was successfully created.'
-      redirect_to @notice
-    else
-      render :action => "new", :layout => false
+    respond_to do |format|
+      if @notice.save
+        set_sources
+        flash[:notice] = 'Notice was successfully created.'
+        format.html {redirect_to :action => "index"}
+        format.js
+      else
+        format.html {redirect_to :action => "new"}
+        format.js
+      end
     end
   end
 
@@ -67,7 +76,7 @@ class NoticesController < ApplicationController
     if @notice.remove(current_user) && (@notice.save)
       redirect_with_flash("Notice successfully removed", :back)
     else
-      redirect_with_flash "Error removing notice", :back
+      redirect_with_flash("Error removing notice", :back)
     end
   end
 
