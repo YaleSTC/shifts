@@ -1,12 +1,12 @@
 @data
-
+@cw
 Feature: data types
   In order to manage data types
   As an admin
   I want to be able to create and maintain data types
 
     Background:
-        Given the user "John Arbuckle" has permissions "Pet Store dept admin, Outer Space dept admin"
+        Given the user "John Arbuckle" has permissions "Pet Store dept admin"
         And I am "John Arbuckle"
 
     Scenario: Create a Data type
@@ -15,19 +15,39 @@ Feature: data types
         When I follow "New Data Type"
         And I fill in "Name" with "Ring"
         And I fill in "Description" with "The Rings of Power"
-        And I fill in "data_type[data_fields_attributes][0][name]" with "Evil"
-        And I select "Multiple Choice" from "Display Type"
-        And I fill in "data_type[data_fields_attributes][0][values]" with "yes, no"
-        And I follow "New data field"
-        And I fill in "Data Field Name" with "Metals"
-        And I select "Check Box" from "Display Type"
-        And I follow "New data field"
-        And I fill in "Data Field Name" with "Description of type of magic"
-        And I select "Text Area" from "Display Type"
-        And I press "Create"
-        Then I should see "New data type created."
+        And I follow "Add a data field"
+        And I press "Submit"
+        Then I should see "Successfully created data type."
+
+        And I should see "Add fields"
+        When I fill in "Name" with "Evil"
+        And I select "Multiple Choice" from "Display type"
+        And I fill in "Values" with "yes, no"
+        And I press "Save and add another field"
+        Then I should see "Successfully created data field."
+        When I fill in "Name" with "Metals"
+        And I select "Check Boxes" from "Display Type"
+        And I fill in "Values" with "Gold, Silver, Bronze"
+        And I press "Save and add another field"
+        Then I should see "Successfully created data field."
+        When I fill in "Name" with "Description of type of magic"
+        And I select "Text Field" from "Display Type"
+        And I press "Save and finish"
+        Then I should see "Successfully created data field."
         And I should see "Ring"
         And I should see "The Rings of Power"
+        And I should see "Evil"
+        And I should see "Metals"
+        And I should see "Description of type of magic"
+
+        And I should see "New Data Object"
+        When I fill in "Name" with "the one ring"
+        And I fill in "Description" with "to rule them all"
+        And I check "Jurassic Park Pets"
+        And I press "Save and finish"
+
+        Then I should see "Successfully created data object."
+        And I should see "the one ring"
 
     Scenario: Edit a Data type
         Given I have a data type with name "Cat", description "they're animals", for the department "Pet Store", with the following data fields

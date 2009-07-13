@@ -15,7 +15,7 @@
 
 module EmailHelpers
   def current_email_address
-    @user.email
+    @current_user.email
   end
 end
 World(EmailHelpers)
