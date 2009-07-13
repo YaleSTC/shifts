@@ -4,7 +4,7 @@ class DepartmentConfig < ActiveRecord::Base
   validates_presence_of :department_id
   validates_uniqueness_of :department_id
   validates_numericality_of :schedule_start, :schedule_end, :description_min,
-                            :reason_min, :weeks
+                            :reason_min, :warning_weeks
 
   def calibrate_time
     #allow the schedule for a day to end at, say, 2:00am
