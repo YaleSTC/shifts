@@ -32,11 +32,11 @@ class Location < ActiveRecord::Base
   end
 
   def stickys
-    self.notices.select {|n| n.is_sticky}
+    self.find_notices.select {|n| n.is_sticky}
   end
 
   def announcements
-    self.notices.select {|n| !(n.is_sticky)}
+    self.find_notices.select {|n| !(n.is_sticky)}
   end
   
   def restrictions #TODO: this could probalby be optimized
