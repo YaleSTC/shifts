@@ -21,3 +21,12 @@ Given /^I have a data object of data_type "([^\"]*)", named "([^\"]*)", descript
 
 end
 
+When /^I select "([^\"]*)" as the "([^\"]*)"$/ do |value, field_name|
+  select(value)
+end
+
+When /^I put "([^\"]*)" in "([^\"]*)"$/ do |value, field_name|
+  field = "data_fields_" + field_name + "_" + DataField.find_by_name(field_name).id.to_s
+  fill_in(field, :with => value)
+end
+
