@@ -31,7 +31,7 @@
 <% if @most_recent_payform %>
   <fieldset class="index">
     <legend>Summary of your most recent payform</legend>
-    <%= render :partial => "mini_payform" %>
+    <%= render :partial => "mini_payform", :object => @most_recent_payform %>
   </fieldset><br />
 <% end %>
 
