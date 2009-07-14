@@ -1,6 +1,5 @@
 <% form_for payform_item do |f| %>
   <%= f.error_messages %>
-  <% unless submit == "Delete" %>
   <p>
     <%= f.label :date %><br />
     <%= f.collection_select :date, days_in_period(@payform), :to_s, :to_s, {:selected => Date.today.to_s} %>
@@ -22,8 +21,7 @@
     <%= f.label :description %><br />
     <%= f.text_area :description, :cols => 80, :rows => 5 %>
   </p>
-  <% end %>
-  <% if submit == "Save" || submit == "Delete" %>
+  <% if submit == "Save" %>
     <%= f.label :reason %><br />
     <%= f.text_area :reason, :cols => 80, :rows => 5 %>
   <% end %>
