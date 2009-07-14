@@ -590,6 +590,6 @@ th.possible{
 }
 
 span#loading_icon{
-  visibility:hidden;
+  display:none;
 }
 

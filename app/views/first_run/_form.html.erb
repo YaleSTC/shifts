@@ -45,5 +45,5 @@
   <h4>After clicking "Submit", you be redirected to a login page, after which you may use the app normally.</h4>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-<%= observe_form :first_user_form, :url => { :action => 'ldap_search' }, :frequency => 0.25, :loading=> "$('#loading_icon').css({'visibility' : 'visible'})"%>
+<%= observe_form :first_user_form, :url => { :action => 'ldap_search' }, :frequency => 0.25, :loading=> "$('#loading_icon').css({'display' : 'inline'})"%>
 
