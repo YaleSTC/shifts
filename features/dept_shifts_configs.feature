@@ -56,39 +56,3 @@ Feature: Shift settings
     And I press "Submit"
     Then that_shift should be late
 
-  Scenario: Shifts settings: Editable Reports off
-    When I uncheck "department_config_edit_report"
-    And I press "Submit"
-    And I follow "Logout"
-
-    And I am "Harry Potter"
-    And I comment in that_report "I hate my job."
-    And I am on that_shift page
-    And I follow "View Report"
-    Then I should see "I hate my job."
-    And I should not see "edit"
-
-  Scenario: Shifts settings: Editable Reports on
-    When I check "department_config_edit_report"
-    And I press "Submit"
-    And I follow "Logout"
-    And I am "Harry Potter"
-    And I comment in that_report "I hate my job."
-    And I am on that_shift page
-    And I follow "View Report"
-    Then I should see "I hate my job."
-    And I should see "edit"
-
-    When I follow "edit"
-    And I fill in "comment" with "I love my job."
-    And I press "Save"
-    Then I should see "I love my job."
-    And I should not see "I hate my job."
-    And I follow "Logout"
-
-    Given I am "Albus Dumbledore"
-    And I am on the shifts page
-    And I follow "Harry Potter"
-    Then I should see "I love my job."
-    And I should see "I hate my job."
-

@@ -9,5 +9,9 @@ class Report < ActiveRecord::Base
     all_notices = self.shift.location.notices + self.shift.user.notices
     all_notices.uniq
   end
+
+  def get_data_objects
+    all_data_objects = self.shift.location.data_objects
+  end
 end
 
