@@ -41,7 +41,7 @@ class FirstRunController < ApplicationController
     @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
     @user.departments << Department.first
     @user.superuser = true
-    @user.password = @user.password_confirmation = random_password
+    @user.set_random_password if @user.auth_type=='CAS'
     if @user.save
       flash[:notice] = "Successfully set up application."
       redirect_to @user
