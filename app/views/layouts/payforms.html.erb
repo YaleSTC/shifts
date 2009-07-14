@@ -1,3 +1,10 @@
+<% content_for :head do %>
+  <%= javascript 'jquery', 'jquery-ui', 'jrails', 'thickbox-compressed' %>
+  <%= stylesheet 'thickbox', 'payforms' %>
+
+<% end %>
+
+
 <% if current_user.is_admin_of?(current_department) %>
   <% content_for :left_nav do %>
       <ul id="navigationList">
@@ -29,12 +36,6 @@
       </ul>
     <div id="contentNav">
   <% end %>
-<% end %>
-
-<% content_for :head do %>
-  <%= javascript 'jquery', 'jquery-ui', 'jrails', 'thickbox-compressed' %>
-  <%= stylesheet 'thickbox', 'payforms' %>
-
 <% end %>
 
 <% content_for :body do %>
