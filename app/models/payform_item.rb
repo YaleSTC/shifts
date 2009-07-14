@@ -5,7 +5,7 @@ class PayformItem < ActiveRecord::Base
   #     /\
   #    / .\
   #   / . .\
-  #  /______\     
+  #  /______\
   #    |__|
 
   belongs_to :payform
@@ -20,12 +20,13 @@ class PayformItem < ActiveRecord::Base
   validates_length_of :reason, :minimum => 10, :unless => :active
   validates_numericality_of :hours
 
-  named_scope :active,   lambda { |*args| { :conditions => ['active = ?',  true] } }
+  named_scope :active, :conditions => {:active =>  true}
   
   protected
-  
+
   def validate
     errors.add(:date, "cannot be in the future") if date > Date.today
   end
 
 end
+
