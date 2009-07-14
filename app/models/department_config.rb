@@ -6,6 +6,16 @@ class DepartmentConfig < ActiveRecord::Base
   validates_numericality_of :schedule_start, :schedule_end, :description_min,
                             :reason_min, :warning_weeks
 
+  WEEK_DAY_SELECT = [
+    [Date::DAYNAMES[0], 0],
+    [Date::DAYNAMES[1], 1],
+    [Date::DAYNAMES[2], 2],
+    [Date::DAYNAMES[3], 3],
+    [Date::DAYNAMES[4], 4],
+    [Date::DAYNAMES[5], 5],
+    [Date::DAYNAMES[6], 6]
+  ]
+
   def calibrate_time
     #allow the schedule for a day to end at, say, 2:00am
     if self
