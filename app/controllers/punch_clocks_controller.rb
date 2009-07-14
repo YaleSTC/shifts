@@ -14,7 +14,7 @@ class PunchClocksController < ApplicationController
     if @punch_clock.save
       flash[:notice] = "Successfully clocked in."
     else
-      flash[:notice] = "Could not clock in."  # why?
+      flash[:notice] = "Could not clock in."
     end
     redirect_to dashboard_url
   end
@@ -49,16 +49,13 @@ class PunchClocksController < ApplicationController
   
   def update  # I really want this method to be called 'destroy'
     @punch_clock = PunchClock.find(params[:id])
-    @user = @punch_clock.user
-    @time_in_hours = (Time.now - @punch_clock.created_at) / 3600.0  # sec -> hr
-    @payform_item = PayformItem.new({:date => Date.today,
+    payform_item = PayformItem.new({:date => Date.today,
                                     :category => Category.find_by_name("Punch Clocks"),
-                                    :hours => @time_in_hours,
-                                    :description => params[:punch_clock]['description']})
-    @payform = Payform.build(current_department, @user, Date.today)
-    @payform_item.payform = @payform
+                                    :hours => (Time.now - @punch_clock.created_at) / 3600.0, # sec -> hr
+                                    :description => params[:punch_clock][:description]})
+    payform_item.payform = Payform.build(current_department, @punch_clock.user, Date.today)
     # @payform_item.save
-    if @payform_item.save && @punch_clock.destroy
+    if payform_item.save && @punch_clock.destroy
       flash[:notice] = "Successfully clocked out"
     else
       flash[:notice] = "Could not clock out"
