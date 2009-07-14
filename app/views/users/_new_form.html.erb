@@ -45,5 +45,5 @@
   <% end -%>
   <p><%= f.submit submit %></p>
 <% end %>
-<%= observe_form :user_form, :url => { :action => 'ldap_search' }, :frequency => 2, :with=>'ldap_search' %>
+<%= observe_form :user_form, :url => { :action => 'ldap_search' }, :frequency => 0.25, :loading=> "$('#loading_icon').css({'display' : 'inline'})" %>
 
