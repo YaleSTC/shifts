@@ -35,16 +35,9 @@ class PunchClock < ActiveRecord::Base
     self.out.to_date
   end
   
-  def h
-    time ? time.strftime("%H") : 0
-  end
-  
-  def m
-    time ? time.strftime("%M") : 0
-  end
-  
-  def s
-    time ? time.strftime("%S") : 0
+  def running_time
+    no_of_sec = Time.now - self.created_at
+    [ no_of_sec / 3600, no_of_sec / 60 % 60, no_of_sec % 60 ].map{ |t| t.to_i.to_s.rjust(2, '0') }.join(':')
   end
   
   def time_string

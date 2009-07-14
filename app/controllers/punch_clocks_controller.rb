@@ -42,7 +42,7 @@ class PunchClocksController < ApplicationController
     end
     redirect_to :controller => "/dashboard"
   end
-
+  
   def edit
     @punch_clock = current_user.punch_clock
   end
