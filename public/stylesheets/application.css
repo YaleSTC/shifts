@@ -580,5 +580,16 @@ div.table_right {
   width:50%;
   float:right;
   margin:12px;
+  visibility:hidden;
+}
+
+th.possible{
+	background: #f9ab02;
+	border:1px solid black;
+	color: #123456;
+}
+
+span#loading_icon{
+  visibility:hidden;
 }
 
