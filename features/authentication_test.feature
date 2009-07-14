@@ -109,7 +109,8 @@ Feature: Authentication Systems
     And I fill in "Email" with "ll66@hogwarts.edu"
     And I select "CAS" from "user_auth_type"
     And I press "Create"
-    Then I should see "Successfully created user."
+    Then I should see "Successfully created user"
+    And "ll66@hogwarts.edu" should not receive an email
     When I follow "Logout"
     Given I am "Luna Lovegood"
     And I am on the homepage
