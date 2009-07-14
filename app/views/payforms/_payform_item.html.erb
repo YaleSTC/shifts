@@ -17,7 +17,9 @@
     <%= number_with_precision(payform_item.hours,1) %>
   </td>
   <td class="rightside" id="edit">
-    <%= link_to "edit", edit_payform_item_path(payform_item) if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+    <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+      <%= link_to 'edit', edit_payform_item_path(payform_item, :height => "500", :width => "600", :layout => "false"), :title => "Edit Payform Item", :class => "thickbox" %>
+    <% end %>
   </td>
   <td class="rightside" id="delete">
     <%= link_to "&#x2716;", payform_item, :confirm => 'Are you sure?', :method => :delete  if payform_item.active && payform_item.payform && !payform_item.payform.approved%>

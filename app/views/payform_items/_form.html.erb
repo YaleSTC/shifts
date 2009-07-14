@@ -19,11 +19,11 @@
   </p>
   <p>
     <%= f.label :description %><br />
-    <%= f.text_area :description, :cols => 80, :rows => 13 %>
+    <%= f.text_area :description, :cols => 80, :rows => 5 %>
   </p>
   <% if submit == "Save" %>
     <%= f.label :reason %><br />
-    <%= f.text_area :reason %>
+    <%= f.text_area :reason, :cols => 80, :rows => 5 %>
   <% end %>
   <p><%= f.submit submit %></p>
 <% end %>
