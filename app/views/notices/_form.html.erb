@@ -1,5 +1,10 @@
-<% form_for(@notice, {:id => 'notice_form'}) do |f| %>
+<% form_for @notice do |f| %>
   <%= f.error_messages %>
+
+  <p>
+    <%= f.text_area :content, :size => "80x10" %>
+  </p>
+
   <% if current_user.is_admin_of?(current_department) %>
     <p>
       Post as sticky? (start/end time preferences will be ignored)
@@ -15,27 +20,26 @@
       <%= check_box_tag :indefinite -%>
     </p>
   <% end %>
-  <p>
-    <%= f.label :content %><br />
-    <%= f.text_area :content, :size => "80x10" %>
-  </p>
 
-  <span id ="advanced_link">
-    <%= link_toggle "advanced_options_div", "Show/hide advanced options", "fast" %>
-  </span>
+  <% unless current_user.is_admin_of?(current_department) %>
+    <span id ="advanced_link">
+      <%= link_toggle "advanced_options_div", "Show/hide advanced options", "fast" %>
+    </span>
+  <%end%>
 
   <div id="advanced_options_div">
     <%= render :partial => 'advanced_options'%>
   </div>
 
-<br/>
+<p>
   <%= f.submit 'Save' %>
+</p>
 <% end %>
-<%= observe_form :notice_form, :action => update_checkboxes, :update => "advanced_options_div", :frequency => 0.5 %>
-<!--
-<script type="text/javascript" charset="utf-8">
-    $("#advanced_options_div").hide();
-    $("#advanced_link").show();
-</script>
--->
+
+<% unless current_user.is_admin_of?(current_department) %>
+  <script type="text/javascript" charset="utf-8">
+      $("#advanced_options_div").hide();
+      $("#advanced_link").show();
+  </script>
+<% end %>
 

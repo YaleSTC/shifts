@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     @report_item = ReportItem.new
   end
-  
+
   def popup
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     render :layout => false
@@ -47,11 +47,16 @@ class ReportsController < ApplicationController
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
     end
     if @report.update_attributes(params[:report])
-      #TODO: add shift to payform
-      if false
-        #TODO: add a notice to the payform page if saving fails
+      @payform_item=PayformItem.new("hours"=>(@report.departed-@report.arrived)/3600,
+                                    "category"=>Category.find_by_name("Shifts"),
+                                    "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
+                                    "date"=>Date.today,
+                                    "description"=>"Shift in the #{@report.shift.location.name}")
+      if @payform_item.save
+        flash[:notice] = "Successfully submitted report and updated payform."
+      else
+        flash[:notice] = "Successfully submitted report, but payform did not update. Please manually add the job to your payform."
       end
-      flash[:notice] = "Successfully submitted report."
       redirect_to @report
     else
       render :action => 'edit'
@@ -61,6 +66,7 @@ class ReportsController < ApplicationController
   def destroy
     @report = Report.find(params[:id])
     @report.destroy
+    #ArMailer.deliver()
     flash[:notice] = "Successfully destroyed report."
     redirect_to reports_url
   end

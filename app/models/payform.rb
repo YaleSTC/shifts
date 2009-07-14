@@ -5,7 +5,7 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
-  
+
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
@@ -32,35 +32,35 @@ class Payform < ActiveRecord::Base
   end
 
   def self.default_period_date(given_date, dept)
-    if dept.monthly
+    if dept.department_config.monthly
       given_date_day = given_date.mday
-      if dept.end_of_month 
-        dept.day = given_date.end_of_month
+      if dept.department_config.end_of_month
+        dept.department_config.day = given_date.end_of_month
       end
-      if dept.day < given_date_day
+      if dept.department_config.day < given_date_day
         given_date = given_date + 1.month
       end
     else
       given_date_day = given_date.wday
-      if dept.day < given_date_day
+      if dept.department_config.day < given_date_day
         given_date = given_date + 1.week
       end
     end
-    given_date - given_date_day.days + dept.day.days
+    (given_date - given_date_day.days + dept.department_config.day.days).to_date
   end
-  
+
   def hours
     payform_items.select{|p| p.active}.map{|i| i.hours}.sum
   end
-  
+
   def start_date
-    subtract = (department.monthly ? 1.month : 1.week)
-    date - subtract + 1.day  
+    subtract = (department.department_config.monthly ? 1.month : 1.week)
+    date - subtract + 1.day
   end
-  
-  
+
+
   protected
-  
+
   def validate
     if (approved or printed) and !submitted
       errors.add("Cannot approve or print unsubmitted payform, so the submitted field")

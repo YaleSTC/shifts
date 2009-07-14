@@ -497,24 +497,11 @@ div#preferences {
   padding: 5px;
   padding-left: 15px;
 }
-/* ANNOUNCEMENT */
-fieldset.announcement {
-  width:50%;
-  padding: 5px;
-  margin:0 0 0 0;
-  background-color:#ADD8E6;
-}
-fieldset.announcement .grayleft, fieldset.announcement .grayright {
-  color:DarkRed;
-  font-size: 90%;
-}
 
 .early_late_info{
   font-style: italic;
   color: #949494;
 }
-
-
 
 /*style for SimpleTip*/
 .tooltip{
@@ -535,3 +522,4 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 .tooltip p{
 	margin: 5px 0;
 }
+

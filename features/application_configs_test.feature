@@ -15,15 +15,15 @@ Feature: Application Configs
     And I press "Submit"
     Then I should see "Successfully updated appconfig."
     When I go to the homepage
-    Then I should see "Hogwarts University"
+    Then I should see "Hogwarts University" in the footer
 
     When I go to the Application Settings page
     And I fill in "Footer" with "Jedi Academy /n <a href= 'www.jediAcad.edu'> Jedi Rule </a>"
     And I press "Submit"
     Then I should see "Successfully updated appconfig."
     When I go to the homepage
-    Then I should see "Jedi Academy"
-    And I should see "Jedi Rule"
+    Then I should see "Jedi Academy" in the footer
+    And I should see "Jedi Rule" in the footer
 
   Scenario: LDAP Settings
     When I fill in "Ldap address" with "2222"

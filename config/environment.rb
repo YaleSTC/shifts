@@ -54,6 +54,8 @@ Rails::Initializer.run do |config|
   config.gem "chronic"
   config.gem "has_many_polymorphs"
   config.gem "authlogic"
+  config.gem 'ar_mailer', :lib => 'action_mailer/ar_mailer'
+  #make sure you remove 'ar_mailer' - sudo gem uninstall ar_mailer - this is an old version
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
@@ -70,7 +72,7 @@ Rails::Initializer.run do |config|
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
   # Run "rake -D time" for a list of tasks for finding time zone names. Comment line to use default local time.
-#  config.time_zone = 'Eastern Time (US & Canada)'
+  config.time_zone = 'Eastern Time (US & Canada)'
 
   # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
   # All files from config/locales/*.rb,yml are added automatically.

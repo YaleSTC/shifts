@@ -5,7 +5,7 @@
   <tr class="category">
     <th scope="col" id="<%=h category.name %>" colspan=6>
       <div class="hours-right">
-        <%= (@payform.payform_items & category.payform_items).map{|i| i.hours}.sum %>
+        <%= number_with_precision((@payform.payform_items.active & category.payform_items).map{|i| i.hours}.sum, 1) %>
       </div>
       <%=h category.name %>
     </th>

@@ -1,12 +1,37 @@
 class ShiftsController < ApplicationController
   def index
-    @shifts = Shift.all
-    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
-    @days_per_period = 7 #TODO: make this a setting for an admin
-    @show_weekends = false
+    
+    # for lists of shifts
+    @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
+    @subs_you_requested = SubRequest.all.select{|sub| sub.shift.user == current_user}.sort_by(&:start)
     @subs_you_can_take = current_user.available_sub_requests
+    
+    # for user view preferences partial
+    @loc_group_select = {}
+    current_user.departments.each do |dept|
+      @loc_group_select.store(dept.id, current_user.loc_groups(dept))
+    end    
+    @selected_loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
+    
+    # figure out what days to display based on user preferences
+    if params[:date].blank? and (current_user.user_config.view_week != "" and current_user.user_config.view_week != "whole_period")
+      # only if default view and non-standard setting
+      if current_user.user_config.view_week == "current_day"
+        @day_collection = [Date.today]
+      elsif current_user.user_config.view_week == "remainder"
+        if @department.department_config.weekend_shifts #show weekends
+          @day_collection = Date.today...(@period_start+7)
+        else
+          @day_collection = Date.today...(@period_start+6)
+        end
+      end
+    elsif @department.department_config.weekend_shifts #show weekends
+      @day_collection = @period_start...(@period_start+7)
+    else #no weekends
+      @day_collection = (@period_start+1)...(@period_start+6)
+    end
   end
 
   def show

@@ -1,8 +1,22 @@
 ActionController::Routing::Routes.draw do |map|
+  map.with_options :controller => 'first_run' do |f|
+    f.first_app_config 'firstrun/first_app_config', :action => 'new_app_config', :method => 'get'
+    f.first_department 'firstrun/first_department', :action => 'new_department', :method => 'get'
+    f.first_user 'firstrun/first_user', :action => 'new_user', :method => 'get'
+    f.create_first_app_config 'firstrun/create_first_app_config', :action => 'create_app_config', :method => 'post'
+    f.create_first_department 'firstrun/create_first_department', :action => 'create_department', :method => 'post'
+    f.create_first_user 'firstrun/create_first_user', :action => 'create_user', :method => 'post'
+  end
+
   map.resources :app_configs, :only => [:edit, :update]
+
+  map.edit_app_config "/app_config", :controller => 'app_configs', :action => 'edit', :method => 'get'
 
   map.resources :punch_clocks
   map.resources :restrictions
+  map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'
+  map.reminders_advanced_options "/reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options'
+  map.warnings_advanced_options  "/warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options'
 
   map.login "/login", :controller => 'user_sessions', :action => 'new'
   map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
@@ -30,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :department_configs, :only => [:edit, :update]
 
   map.resources :payforms,
-                :collection => { :prune => :delete, :go => :get },
+                :collection => { :prune => :delete, :go => :get, :search => :post},
                 :member => {:submit => :put, :approve => :put, :print => :put},
                 :shallow => true do |payform|
     payform.resources :payform_items
@@ -125,4 +139,3 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
-

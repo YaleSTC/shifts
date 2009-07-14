@@ -2,12 +2,22 @@ class UsersController < ApplicationController
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
-  helper_method :random_password
   def index
     if params[:show_inactive]
       @users = @department.users
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
+    end
+
+    if params[:search]
+      params[:search] = params[:search].downcase
+      @search_result = []
+      @users.each do |user|
+        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+          @search_result << user
+        end
+      end
+      @users = @search_result
     end
 
     @users = @users.sort_by(&:last_name)
@@ -26,7 +36,7 @@ class UsersController < ApplicationController
     @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
     if @user.auth_type == "authlogic"
       @user.password = @user.password_confirmation = random_password
-      @user.departments << @department
+      @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
         @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
         flash[:notice] = "Successfully created user and emailed instructions for setting password."
@@ -198,13 +208,7 @@ class UsersController < ApplicationController
 
   private
 
-  def random_password(size = 20)
-    chars = (('a'..'z').to_a + ('0'..'9').to_a)
-    (1..size).collect{|a| chars[rand(chars.size)] }.join
-  end
-
   def switch_department_path
     department_users_path(current_department)
   end
 end
-
