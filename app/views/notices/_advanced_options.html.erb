@@ -1,0 +1,20 @@
+For users: <br /> <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
+
+For locations: <br />
+<ul id="dept">
+  <% if current_user.is_admin_of?(current_department) %>
+    <%= check_box_tag :department_wide_locations %><label><%= current_department.name %> (all locations)</label>
+  <% end %>
+
+  <% for loc_group in current_department.loc_groups do %>
+    <li>
+      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :class => "group" %><label><%= loc_group.name %></label>:
+
+      <% for location in loc_group.locations do %>
+        <%= check_box_tag "for_locations[]" %><label><%= location.short_name %></label>
+        <% unless location == loc_group.locations.last %> , <%end%>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+

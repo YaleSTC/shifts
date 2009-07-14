@@ -2,7 +2,7 @@ module PayformsHelper
 
   def last_10_dates
     payforms = []
-    subtract = (@department.monthly ? 1.month : 1.week)
+    subtract = (@department.department_config.monthly ? 1.month : 1.week)
     date = Date.today
     for i in 0..9
       payforms << Payform.default_period_date(date, @department)
@@ -11,8 +11,16 @@ module PayformsHelper
     payforms
   end
   
+  def selected_hours(payform_item)
+    payform_item and payform_item.hours ? payform_item.hours.floor : 0
+  end
+  
+  def selected_min(payform_item)
+    payform_item and payform_item.hours ? ((payform_item.hours - payform_item.hours.floor)*60.0 ).round : 0
+  end
+  
   def start_of_period(date)
-    subtract = (@department.monthly ? 1.month : 1.week)
+    subtract = (@department.department_config.monthly ? 1.month : 1.week)
     date - subtract + 1.day
   end
   

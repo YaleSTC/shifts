@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
 
   def index
-    @notices = Notice.all
+    @notices = Notice.active
   end
 
   def archive
@@ -15,15 +15,15 @@ class NoticesController < ApplicationController
 
   def new
     @notice = Notice.new
-    render :action => "new", :layout => 'new_notice'
+    render :action => "new", :layout => false
   end
 
   def edit
     @notice = Notice.find(params[:id])
+    render :action => "edit", :layout => false
   end
 
   def create
-    params.to_yaml
     @notice = Notice.new(params[:notice])
     @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
     @notice.author = current_user
@@ -35,7 +35,8 @@ class NoticesController < ApplicationController
       flash[:notice] = 'Notice was successfully created.'
       redirect_to @notice
     else
-      render :action => "new", :layout => 'new_notice'
+      #raise params.to_yaml
+      render :action => "new", :layout => false
     end
   end
 
@@ -52,7 +53,7 @@ class NoticesController < ApplicationController
       flash[:notice] = 'Notice was successfully updated.'
       redirect_to @notice
     else
-      render :action => "edit"
+      render :action => "edit", :layout => false
     end
   end
 
@@ -73,6 +74,10 @@ class NoticesController < ApplicationController
 
   protected
 
+  def update_index
+    @notice = Notice.active
+  end
+
   def set_sources(update = false)
 #    @notice.user_sources = [] if update
 #    @notice.location_sources = [] if update
@@ -82,7 +87,6 @@ class NoticesController < ApplicationController
         @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
       end
     end
-    @notice.user_sources << current_department if params[:department_wide_viewers] && !@notice.is_sticky && current_user.is_admin_of?(current_department)
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
       @notice.departments << current_department
       @notice.loc_groups << current_department.loc_groups

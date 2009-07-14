@@ -1,23 +1,24 @@
-fieldset.index {
-  width: 75%;
-  padding: 5px;
-  background-color:#DDDDFF
+/* THESE BREAK THE LEFT NAV BAR:
+ul {
+    list-style-type: none;
 }
+li {
+    padding-left: 1em;
+}
+*/
 
 fieldset.sticky {
   padding: 5px;
   margin: 0 0 0 0;
   background-color:#FFFF99;
-  float: left
-  clear: right
+
 }
 
 fieldset.announcement {
   padding: 5px;
   margin:0 0 0 0;
   background-color:#ADD8E6;
-  float: right
-  clear: left
+
 }
 
 fieldset.sticky .grayleft, fieldset.announcement .grayleft{
@@ -25,7 +26,7 @@ fieldset.sticky .grayleft, fieldset.announcement .grayleft{
   text-align:left;
 }
 
-fieldset.sticky .grayright, fieldset.announcement .grayright, fieldset.sticky .right, fieldset.announcement .right{
+fieldset.sticky .grayright, fieldset.sticky .right, fieldset.announcement .right{
   float:right;
   text-align:right;
 }
