@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     else
       @user = User.new(params[:user])
       @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
-      @user.password = @user.password_confirmation = random_password
+      @user.set_random_password
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
         if @user.auth_type=='authlogic'
@@ -94,7 +94,7 @@ class UsersController < ApplicationController
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
-    @user.password=@user.password_confirmation=random_password if params[:reset_password]
+    @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='authlogic'
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
@@ -141,6 +141,15 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:notice] = "Successfully destroyed user."
     redirect_to department_users_path(current_department)
+  end
+
+  def import
+  end
+
+  def save_import
+    file=params[:file]
+    users = User.from_csv(file, :default)
+    raise users.to_yaml
   end
 
   def mass_add

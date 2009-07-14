@@ -1,5 +1,6 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
+  acts_as_csv_importable :default, ['First Name' => :first_name, 'Login' => :login]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
@@ -59,6 +60,11 @@ class User < ActiveRecord::Base
 #    raise e.message # Will trigger an error, LDAP is probably down
 #    end
     new_user
+  end
+
+  def set_random_password(size=20)
+    chars = (('a'..'z').to_a + ('0'..'9').to_a)
+    self.password=self.password_confirmation=(1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 
   def self.search_ldap(first_name, last_name, email, login, limit)

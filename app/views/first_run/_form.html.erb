@@ -10,20 +10,20 @@
     <%= f.text_field :first_name %>
   </p>
   <p>
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </p>
-  <p>
     <%= f.label :nick_name %><br />
     <%= f.text_field :nick_name %>
   </p>
   <p>
-    <%= f.label :employee_id %><br />
-    <%= f.text_field :employee_id %>
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
   </p>
   <p>
     <%= f.label :email %><br />
     <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :employee_id %><br />
+    <%= f.text_field :employee_id %>
   </p>
  <% if $appconfig.login_options.size >1 %>
   <p>
