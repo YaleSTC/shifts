@@ -27,9 +27,3 @@ class DepartmentObserver < ActiveRecord::Observer
   end
 end
 
-                        })
-
-    Category.create!(:name => "Shifts", :department_id => department.id)
-  end
-end
-
