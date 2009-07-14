@@ -60,7 +60,7 @@
     </p>
     <p>
       <label>Last day of payform week/month:</label>
-      <%= f.select :day, @week %>
+      <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
     </p>
     <p>
       <label>Monthly Payform Period (leave unchecked for weekly):</label>
