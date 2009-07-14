@@ -44,6 +44,7 @@ class PayformsController < ApplicationController
   def go
     date = params[:date] ? params[:date].to_date : Date.today
     redirect_to Payform.build(current_department, current_user, date)
+  raise Payform.all.to_yaml
   end
 
   def prune
