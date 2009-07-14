@@ -1,2 +1,0 @@
-page.replace_html('TB_ajaxContent', :partial => "form", :object => @notice, :layout => false);
-

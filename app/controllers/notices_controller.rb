@@ -10,16 +10,12 @@ class NoticesController < ApplicationController
 
   def show
     @notice = Notice.find(params[:id])
-    render :action => "show", :layout => false
   end
 
   def new
     @notice = Notice.new
     @legend = "New Notice"
-    respond_to do |format|
-      format.html
-      format.js {page.replace_html('TB_ajaxContent', :partial => "form")}
-    end
+    render :action => "new", :layout => false
   end
 
   def edit
@@ -43,7 +39,7 @@ class NoticesController < ApplicationController
         format.js
       else
         format.html {redirect_to :action => "new"}
-        format.js
+        format.js {page.replace_html('TB_ajaxContent', :partial => "form")}
       end
     end
   end
