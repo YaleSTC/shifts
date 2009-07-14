@@ -101,6 +101,6 @@ end
 
 Given /^the user "([^\"]*)" is a superuser$/ do |name|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  user.superuser == true
+  user.update_attributes!(:superuser => true, :supermode => true)
 end
 
