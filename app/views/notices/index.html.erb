@@ -1,18 +1,7 @@
 <h1 id="page_title">
   Notices
 </h1>
-<div id = "for_you">
-    <%= render :partial => 'for_you' %>
-</div>
-<div id = "location_notices">
-<% current_department.locations.each do |loc| %>
-  <% unless loc.find_notices.empty? %>
-  <fieldset class ="index">
-    <legend><%= loc.name %></legend>
-    <%= render :partial => 'notice', :collection => loc.find_notices%>
-  </fieldset>
-  <br/>
-  <% end %>
-<% end %>
+<div id = "all_notices">
+  <%= render :partial => 'all_notices' %>
 </div>
 
