@@ -12,7 +12,7 @@ department_configs_001:
   monthly: f
   schedule_end: "1020"
   schedule_start: "600"
-  time_increment: "60"
+  time_increment: "15"
   unscheduled_shifts: t
   updated_at: 2009-06-22 17:27:52
   weekend_shifts: t
