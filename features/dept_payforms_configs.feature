@@ -20,7 +20,6 @@ Feature: Payform settings
       | 2009-05-16 | Hogwarts   | Hermione   | Granger        | true      | true     | true  |
 
 
-@t
   Scenario: Payform settings: Min Length for Item description
     When I fill in "department_config_description_min" with "7"
     And I press "Submit"
@@ -32,7 +31,7 @@ Feature: Payform settings
     And I follow "Payforms"
 
     And I follow "New Payform Item"
-    And I select "calculate_hours_user_input" from "payform_item_hours"
+    And I select "2" from "other_hours"
     And I select "Study" from "Category"
     And I fill in "Description" with "hello"
     And I press "Create"
@@ -76,37 +75,19 @@ Feature: Payform settings
     Then I should see "Payform item destroyed"
     And I should have 1 payform_item
     And payform item 1 should have attribute "active" "false"
-
-
-  Scenario: Payform settings: Punchclock for users
-    When I check "department_config_punch_clock"
-    And I press "Submit"
-    And I follow "Logout"
-    Given I am "Harry Potter"
-    And I am on the payforms page
-    Then I should see "Punch clock"
-
-    Given I am "Albus Dumbledore"
-    And I am on the department settings page
-    When I uncheck "department_config_punch_clock"
-    And I press "Submit"
-    And I follow "Logout"
-    Given I am "Harry Potter"
-    And I am on the payforms page
-    Then I should not see "Punch clock"
-
-
+@t
   Scenario: Payform settings: Disabled Categories vs Miscellaneous
-    Given "Harry Potter" has a current payform
-    And "Harry Potter" has the following current payform item
+#    Given "Harry Potter" has a current payform
+    Given "Harry Potter" has the following current payform item
       | category  | hours | description   |
       | Quidditch | 2     | played a game |
+    Then I should have 1 payform
     When I check "department_config_show_disabled_cats"
     And I press "Submit"
-    And I disable the "Work" category
+    And I disable the "Quidditch" category
     And I follow "Logout"
     Given I am "Harry Potter"
-    And I am on the payforms page
+    And I am on the payform for this week
     Then I should see "Quidditch"
 
     When I follow "Logout"
