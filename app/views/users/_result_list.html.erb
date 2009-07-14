@@ -1,0 +1,19 @@
+<% if @results %>
+<table id="result_list">
+<tr><th colspan="5">LDAP Search Results</th></tr>
+<td>Login</td>
+<td>First Name</td>
+<td>Last Name</td>
+<td>Email</td>
+<% @results.each do |result| %>
+<tr>
+<td><%= result[:login] %></td>
+<td><%= result[:first_name] %></td>
+<td><%= result[:last_name] %></td>
+<td><%= result[:email] %></td>
+<td><%= button_to "Add Me!", :action => "fill_form", :params => {:user=>result}%></td>
+</tr>
+<% end %>
+</table>
+<% end %>
+
