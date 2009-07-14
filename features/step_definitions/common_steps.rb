@@ -33,8 +33,8 @@ Given /^I am "([^\"]*)"$/ do |name|
   $appconfig = AppConfig.first
   @current_user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   @current_user.should_not be_nil
-  $department = Department.find(@current_user.user_config.default_dept)
-  $department.should_not be_nil
+  @department = Department.find(@current_user.user_config.default_dept)
+  @department.should_not be_nil
   CASClient::Frameworks::Rails::Filter.fake(@current_user.login)
 end
 
