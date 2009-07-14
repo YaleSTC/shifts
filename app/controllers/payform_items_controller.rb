@@ -5,6 +5,7 @@ class PayformItemsController < ApplicationController
   def new
     @payform = Payform.find(params[:payform_id])
     @payform_item = PayformItem.new
+    render :action => "new", :layout => false
   end
 
   def create
