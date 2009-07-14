@@ -20,18 +20,18 @@ Feature: Payform settings
       | 2009-05-16 | Hogwarts   | Hermione   | Granger        | true      | true     | true  |
 
 
-  Scenario: Payform settings: Weeks before Admin view warning
-
-
   Scenario: Payform settings: Min Length for Item description
-    Given "Harry Potter" has a current payform
-    And I have no payform_items
-    When I fill in "Minimum Length for payform item description" with "7"
-    And I press "Save"
+    When I fill in "department_config_description_min" with "7"
+    And I press "Submit"
+    And I follow "Logout"
     Given I am "Harry Potter"
-    When I go to the payforms page
+    And "Harry Potter" has a current payform
+    And I have no payform_items
+    When I go to the homepage
+    And I follow "Payforms"
+
     And I follow "New Payform Item"
-    And I fill in "Hours" with "2"
+    And I select "2" from "other_hours"
     And I select "Study" from "Category"
     And I fill in "Description" with "hello"
     And I press "Create"
@@ -74,40 +74,27 @@ Feature: Payform settings
     Then I should see "Payform item destroyed"
     And I should have 1 payform_item
     And payform item 1 should have attribute "active" "false"
-
-
-  Scenario: Payform settings: Punchclock
-    When I choose "Make punch clock available to users"
-    And I press "Save"
-    Given I am "Harry Potter"
-    And I am on the payforms page
-    Then I should see "Punch clock"
-
-    Given I am "Albus Dumbledore"
-    And I am on the department settings page
-    When I choose "Do not make punch clock available to users"
-    And I press "Save"
-    Given I am "Harry Potter"
-    And I am on the payforms page
-    Then I should not see "Punch clock"
-
-
+@t
   Scenario: Payform settings: Disabled Categories vs Miscellaneous
-    Given "Harry Potter" has a current payform
-    And "Harry Potter" has the following current payform item
+#    Given "Harry Potter" has a current payform
+    Given "Harry Potter" has the following current payform item
       | category  | hours | description   |
       | Quidditch | 2     | played a game |
-    When I choose "Show disabled categories on old payforms"
-    And I press "Save"
-    And I disable the "Work" category
+    Then I should have 1 payform
+    When I check "department_config_show_disabled_cats"
+    And I press "Submit"
+    And I disable the "Quidditch" category
+    And I follow "Logout"
     Given I am "Harry Potter"
-    And I am on the payforms page
+    And I am on the payform for this week
     Then I should see "Quidditch"
 
+    When I follow "Logout"
     Given I am "Albus Dumbledore"
     And I am on the department settings page
-    When I choose "Do not show disabled categories on old payforms"
-    And I press "Save"
+    When I uncheck "department_config_show_disabled_cats"
+    And I press "Submit"
+    And I follow "Logout"
     Given I am "Harry Potter"
     And I am on the payforms page
     Then I should not see "Quidditch"
