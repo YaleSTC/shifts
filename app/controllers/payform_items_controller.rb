@@ -5,7 +5,7 @@ class PayformItemsController < ApplicationController
   def new
     @payform = Payform.find(params[:payform_id])
     @payform_item = PayformItem.new
-    render :action => "new", :layout => false
+    layout_check
   end
 
   def create
@@ -24,6 +24,7 @@ class PayformItemsController < ApplicationController
   def edit
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
+    layout_check
   end
 
   def update

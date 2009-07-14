@@ -32,13 +32,13 @@
 <% end %>
 
 <% content_for :head do %>
-  <% stylesheet 'thickbox', 'payforms' %>
-  <% javascript 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed' %>
+  <%= javascript 'jquery', 'jquery-ui', 'jrails', 'thickbox-compressed' %>
+  <%= stylesheet 'thickbox', 'payforms' %>
+
 <% end %>
 
 <% content_for :body do %>
 
-  <%# put payform specific body content here %>
   <%= yield %>
 
 <% end %>

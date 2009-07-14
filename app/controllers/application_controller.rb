@@ -161,6 +161,13 @@ class ApplicationController < ActionController::Base
     chars = (('a'..'z').to_a + ('0'..'9').to_a)
     (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
+  
+  #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
+  def layout_check(action = action_name, controller = controller_name)
+     if params[:layout] == "false"
+      render :controller => controller, :action => action, :layout => false
+    end
+  end
 
   # overwrite this method in other controller if you wanna go to a different url after chooser submit
   # it tries to find the index path of the current resource;
