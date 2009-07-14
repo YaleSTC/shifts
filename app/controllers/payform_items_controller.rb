@@ -52,6 +52,12 @@ class PayformItemsController < ApplicationController
       render :action => 'edit'
     end
   end
+  
+  def delete
+    @payform_item = PayformItem.find(params[:id])
+    @payform = @payform_item.payform
+    layout_check
+  end
 
   def destroy
     @payform_item = PayformItem.find(params[:id])

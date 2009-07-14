@@ -22,7 +22,9 @@
     <% end %>
   </td>
   <td class="rightside" id="delete">
-    <%= link_to "&#x2716;", payform_item, :confirm => 'Are you sure?', :method => :delete  if payform_item.active && payform_item.payform && !payform_item.payform.approved%>
+    <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+      <%= link_to "&#x2716;", delete_payform_item_path(payform_item, :height => "180", :width => "600", :layout => "false"), :title => "Delete Payform Item", :class => "thickbox" %>
+    <% end %>
   </td>
 </tr>
 <% end %>
