@@ -1,9 +1,13 @@
 <% title "New User" %>
-<div class="form_left">
+<div class="form_left" id="user_form_div">
 <%= render :partial => 'new_form', :locals => {:submit => "Create", :user => [@department,@user]} %>
 <p><%= link_to "Back to List", department_users_path(@department) %></p>
 </div>
-<div class="table_right">
+<div class="table_right" id="result_list">
 <%= render :partial => 'result_list' %>
 </div>
+<script type="text/javascript">
+  //hide unless javascript works
+  $('.table_right').css({'visibility' : 'visible'})
+</script>
 
