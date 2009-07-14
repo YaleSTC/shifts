@@ -1,16 +1,17 @@
 class Notice < ActiveRecord::Base
 
-  belongs_to  :author,
-              :class_name => "User"
-
-  belongs_to :remover,
-              :class_name => "User"
+  belongs_to :author, :class_name => "User"
+  belongs_to :remover, :class_name => "User"
 
   belongs_to :department
 
   validates_presence_of :content
   validate :presence_of_locations_or_viewers
   validate_on_create :proper_time
+  
+  named_scope :inactive, lambda {{ :conditions => ["end_time < ?", Time.now] }}
+  named_scope :active,   lambda {{ :conditions => ["(start_time < ? and end_time > ? ) or is_sticky = ?", Time.now, Time.now, true ]}}
+  named_scope :upcoming, lambda {{ :conditions => [" start_time > ?", Time.now ]}}
 
   def display_for
     display_for = []
@@ -18,29 +19,13 @@ class Notice < ActiveRecord::Base
     display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.join(", ")}" unless self.display_locations.empty?
     display_for.join "<br/>"
   end
-
-  def self.active
-    Notice.all.select{|n| n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
-  end
-
-  def self.inactive
-    Notice.all.select{|n| !n.is_current?}.sort_by{|note| note.is_sticky ? 1 : 0}
-  end
-
+  
   def viewers
     self.user_sources.collect{|s| s.users}.flatten.uniq
   end
 
   def display_locations
     self.location_sources.collect{|s| s.locations}.flatten.uniq
-  end
-
-  def is_current?
-    self.end_time.nil? ? Time.now > self.start_time : Time.now > self.start_time && Time.now < self.end_time
-  end
-
-  def is_upcoming?
-    return Time.now < self.start_time
   end
 
   def remove(user)
