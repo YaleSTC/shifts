@@ -15,7 +15,10 @@ class NoticesController < ApplicationController
   def new
     @notice = Notice.new
     @legend = "New Notice"
-    render :action => "new", :layout => false
+    respond_to do |format|
+      format.html {render :layout => 'application'}
+      format.js {render :layout => false}
+    end
   end
 
   def edit
