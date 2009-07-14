@@ -46,11 +46,11 @@ Feature: Shift settings
       | 60             |      | not  | not  |
       | 30             |      | not  |      |
       | 15             |      |      |      |
-@t
+
   Scenario: Shifts settings: Grace Period
-#    When I fill in "department_config_grace_period" with "11"
-#    And I press "Submit"
-#    Then that_shift should not be late
+    When I fill in "department_config_grace_period" with "11"
+    And I press "Submit"
+    Then that_shift should not be late
 
     When I fill in "department_config_grace_period" with "7"
     And I press "Submit"
