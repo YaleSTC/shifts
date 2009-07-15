@@ -10,17 +10,17 @@ class NoticesController < ApplicationController
 
   def show
     @notice = Notice.find(params[:id])
-    render :action => "show", :layout => false
+    layout_check
   end
 
   def new
     @notice = Notice.new
-    render :action => "new", :layout => false
+    layout_check
   end
 
   def edit
     @notice = Notice.find(params[:id])
-    render :action => "edit", :layout => false
+    layout_check
   end
 
   def create
@@ -30,13 +30,20 @@ class NoticesController < ApplicationController
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    if @notice.save
-      set_sources
-      flash[:notice] = 'Notice was successfully created.'
-      redirect_to @notice
-    else
-      render :action => "new", :layout => false
-    end
+    respond_to do |format|
+      if @notice.save
+        set_sources
+        flash[:notice] = 'Notice was successfully created.'
+        format.html {redirect_to :action => "index"}
+        format.js
+      else
+        format.html {render :action => "new"}
+        format.js {render :update do |page|
+                    page.replace_html('TB_ajaxContent', :partial => "form")
+                    page.replace_html('notice_form', :partial => "form")
+                    end
+                  }
+      end
   end
 
   def update
@@ -52,7 +59,7 @@ class NoticesController < ApplicationController
       flash[:notice] = 'Notice was successfully updated.'
       redirect_to @notice
     else
-      render :action => "edit", :layout => false
+      render :action => "edit"
     end
   end
 

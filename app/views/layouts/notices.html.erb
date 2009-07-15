@@ -5,11 +5,11 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
-
-    <li><%= link_to 'Post a new notice', new_notice_path + "?height=500&width=600", :title => "Create New Notice", :class => "thickbox" %>
+ <li><%= link_to_remote 'Post a new notice',:url => new_notice_path + '?height=700&width=600', :title => "Create New Notice",
+                                               :html => {:class => "thickbox", :href => url_for(new_notice_path)} %>
   </li>
     <% if current_user.is_admin_of?(current_department) %>
-      <li><%= link_to 'Notice archive', 'notices/archive' %></li>
+      <li><%= link_to 'Notice archive', archive_notices_path %></li>
     <% end %>
   </ul>
   <div id="contentNav">

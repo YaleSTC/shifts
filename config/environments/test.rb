@@ -23,4 +23,5 @@ config.action_mailer.delivery_method = :test
 
 #CASClient::Frameworks::Rails::Filter.should_receive(:find).and_return(post)
 #:ticket
+config.gem 'bmabey-email_spec', :lib => 'email_spec'
 

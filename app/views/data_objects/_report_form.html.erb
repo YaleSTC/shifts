@@ -1,0 +1,28 @@
+
+<div style="width: 60%; float:left">
+  <% form_for report_form do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label :data_type %><br />
+      <% if params[:data_type_id] %>
+        <strong><%= DataType.find(params[:data_type_id]).name %></strong>
+        <%= hidden_field_tag :data_type_id, params[:data_type_id] %>
+      <% else %>
+        <%= f.select :data_type_id, @department.data_types.map{|dt| [dt.name, dt.id]} %>
+      <% end %>
+    </p>
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :description %><br />
+      <%= f.text_field :description %>
+    </p>
+
+    <p>
+      <%= f.submit "Save and finish", :name => "submit" %>
+    </p>
+  <% end %>
+</div>
+
