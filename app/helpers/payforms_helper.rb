@@ -55,7 +55,7 @@ module PayformsHelper
   
   def payform_add_button
     unless @payform.approved
-      link_to "<span>New Payform Item</span>", new_payform_payform_item_path(@payform), :class => "button", :onclick => "this.blur();"
+      link_to '<span>New Payform Item</span>', new_payform_payform_item_path(@payform, :height => "400", :width => "600", :layout => "false"), :title => "Create New Payform Item", :class => "thickbox button", :onclick => "this.blur();"
     end
   end
 
