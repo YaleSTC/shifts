@@ -146,10 +146,15 @@ class UsersController < ApplicationController
   def import
   end
 
-  def save_import
+  def verify_import
     file=params[:file]
-    users = User.from_csv(file, :default)
-    raise users.to_yaml
+    @users = User.from_csv(file, :normal)
+    render :action=>'import'
+  end
+
+  def save_import
+    @users=params[:users_to_import].collect{|i| params[:user][i]}
+    raise @users.to_yaml
   end
 
   def mass_add

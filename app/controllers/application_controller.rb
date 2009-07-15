@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
-  helper_method :random_password
 
   filter_parameter_logging :password, :password_confirmation
 
@@ -159,11 +158,6 @@ class ApplicationController < ActionController::Base
       session[:department_id] = params["chooser"]["dept_id"]
       redirect_to switch_department_path and return
     end
-  end
-
-  def random_password(size = 20)
-    chars = (('a'..'z').to_a + ('0'..'9').to_a)
-    (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 
   # overwrite this method in other controller if you wanna go to a different url after chooser submit
