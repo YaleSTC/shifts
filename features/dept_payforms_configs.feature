@@ -81,13 +81,19 @@ Feature: Payform settings
     Given "Harry Potter" has the following current payform item
       | category  | hours | description   |
       | Quidditch | 2     | played a game |
-    Then I should have 1 payform
+    Then test test test 1
     When I check "department_config_show_disabled_cats"
+    Then test test test 1
     And I press "Submit"
+    Then test test test 1
     And I disable the "Quidditch" category
+    Then test test test 1
     And I follow "Logout"
+    Then test test test 1
     Given I am "Harry Potter"
+    Then test test test 1
     And I am on the payform for this week
+    Then test test test 1
     Then I should see "Quidditch"
 
     When I follow "Logout"

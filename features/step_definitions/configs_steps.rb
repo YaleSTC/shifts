@@ -142,7 +142,7 @@ Given /^"([^\"]*)" has the following current payform items?$/ do |user_name, tab
   table.hashes.each do |row|
     category = Category.find_by_name(row[:category])
 
-      p = Payform.build(@department, user, Date.today)
+      p = Payform.build(user.departments.first, user, Date.today)
 
     PayformItem.create!(:category_id => category,
                         :user_id => user,
@@ -178,5 +178,11 @@ end
 
 Then /^the department "([^\"]*)" should have a department_config$/ do |department|
   Department.find_by_name(department).department_config.should_not be_nil
+end
+
+Then /^test test test 1$/ do
+  dept = User.find_by_last_name("Potter").departments.first
+  dept.department_config.day.should == 6
+  Payform.default_period_date(Date.today, dept).should == Date.parse("July 18, 2009")
 end
 
