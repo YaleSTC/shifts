@@ -9,6 +9,7 @@ module NavigationHelpers
     case page_name
 
     when /the homepage/
+  $appconfig = AppConfig.first
       root_path
     when /the list of users/
       department_users_path(@department)
@@ -23,7 +24,7 @@ module NavigationHelpers
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/
-      edit_user_config_path(UserConfig.find_by_user_id(@user.id))
+      edit_user_config_path(UserConfig.find_by_user_id(@current_user.id))
     when /the Application Settings page/
       edit_app_config_path(1)
 #      app_config_path

@@ -11,6 +11,10 @@
 <fieldset class="index">
   <legend>Current shifts</legend>
   <%= return_to_shift_report_if_needed %>
+</fieldset><br />
+
+<fieldset class="index">
+  <legend>Punch Clock</legend>
   <% if current_user.punch_clock %>
     <%= link_to "Clock out?",  edit_punch_clock_path(current_user.punch_clock) %>
   <% else %>
@@ -31,7 +35,7 @@
 <% if @most_recent_payform %>
   <fieldset class="index">
     <legend>Summary of your most recent payform</legend>
-    <%= render :partial => "mini_payform" %>
+    <%= render :partial => "mini_payform", :object => @most_recent_payform %>
   </fieldset><br />
 <% end %>
 

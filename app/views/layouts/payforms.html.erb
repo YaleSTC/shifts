@@ -1,3 +1,10 @@
+<% content_for :head do %>
+  <%= javascript 'jquery', 'jquery-ui', 'jrails', 'thickbox-compressed' %>
+  <%= stylesheet 'thickbox', 'payforms' %>
+
+<% end %>
+
+
 <% if current_user.is_admin_of?(current_department) %>
   <% content_for :left_nav do %>
       <ul id="navigationList">
@@ -22,25 +29,17 @@
                 <li><%= link_to "Mass Punch Clocks", '#' %></li>
               </ul>
           </li>
-          
+
         <li><%= link_to "E-mail Reminders", email_reminders_path %></li>
         <li><%= link_to "Edit Categories", department_categories_path(current_department) %></li>
-        <li><%= link_to "Edit Configurations", '#' %></li>
+        <li><%= link_to "Edit Configurations", edit_department_config_path(@department.department_config) %></li>
       </ul>
     <div id="contentNav">
   <% end %>
 <% end %>
 
-<% content_for :head do %>
-
-  <%# put payform specific head info here %>
-  <% stylesheet 'payforms', :media => 'all' %>
-
-<% end %>
-
 <% content_for :body do %>
 
-  <%# put payform specific body content here %>
   <%= yield %>
 
 <% end %>
