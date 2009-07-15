@@ -19,12 +19,16 @@ class ReportItemsController < ApplicationController
     previous_report_items = Report.find(params[:report_id]).report_items
     @report_item.content += " [IP Address changed to #{@report_item.ip_address}]" if(previous_report_items and previous_report_items[-1].ip_address != @report_item.ip_address)
     @report_item.report = params[:report_id] ? Report.find(params[:report_id]) : Shift.find(params[:shift_id]).report
-    if current_user==@report_item.user && @report_item.save
-      flash[:notice] = "Successfully added event."
-      redirect_to Report.find(@report_item[:report_id])
-    else
-      flash[:notice] = "You can't add things to someone else\'s report!" if @report_item.user != current_user
-      redirect_to @report_item.report
+    respond_to do |format|
+      if current_user==@report_item.user && @report_item.save
+        flash[:notice] = "Successfully added event."
+        @report = Report.find(@report_item.report_id)
+        format.html {redirect_to @report}
+        format.js
+      else
+        flash[:notice] = "You can\'t add things to someone else\'s report!" if @report_item.user != current_user
+        redirect_to @report_item.report
+      end
     end
   end
 
@@ -49,3 +53,4 @@ class ReportItemsController < ApplicationController
     redirect_to shift_report_report_items_url(@report_item.report.shift)
   end
 end
+
