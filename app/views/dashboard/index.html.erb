@@ -11,6 +11,10 @@
 <fieldset class="index">
   <legend>Current shifts</legend>
   <%= return_to_shift_report_if_needed %>
+</fieldset><br />
+
+<fieldset class="index">
+  <legend>Punch Clock</legend>
   <% if current_user.punch_clock %>
     <%= link_to "Clock out?",  edit_punch_clock_path(current_user.punch_clock) %>
   <% else %>
