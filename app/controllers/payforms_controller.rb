@@ -112,8 +112,8 @@ class PayformsController < ApplicationController
     if !params[:id] or params[:id].to_i != @department.id
       redirect_to :action => :email_reminders, :id => @department.id and return
     end
-    @default_reminder_msg = "Testing default reminder message"  # @department.payform_configuration.reminder
-    @default_warning_msg = "Testing default warning message"    # @department.payform_configuration.warning
+    @default_reminder_msg = current_department.department_config.reminder_message
+    @default_warning_msg = current_department.department_config.warning_message
     @default_warn_start_date = 8.weeks.ago
   end
 
