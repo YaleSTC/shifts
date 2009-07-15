@@ -1,5 +1,7 @@
 class LocGroupsController < ApplicationController
-  before_filter :require_department_admin
+  before_filter :require_department_admin, :except => [:show, :edit, :update]
+  before_filter :find_loc_group_and_check_admin, :only => [:show, :edit, :update]
+  # Show, edit, and update will allow the loc_group_admin as well
 
   def index
     @loc_groups = @department.loc_groups.select { |lg| current_user.is_admin_of?(lg) }
@@ -7,7 +9,6 @@ class LocGroupsController < ApplicationController
   end
 
   def show
-    @loc_group = LocGroup.find(params[:id])
   end
 
   def new
@@ -24,12 +25,10 @@ class LocGroupsController < ApplicationController
     end
   end
 
-  def edit
-    @loc_group = LocGroup.find(params[:id])
+  def edit     
   end
 
   def update
-    @loc_group = LocGroup.find(params[:id])
     if @loc_group.update_attributes(params[:loc_group])
       flash[:notice] = "Successfully updated loc group."
       redirect_to @loc_group
@@ -43,6 +42,14 @@ class LocGroupsController < ApplicationController
     @loc_group.destroy
     flash[:notice] = "Successfully destroyed loc group."
     redirect_to department_loc_groups_path(current_department)
+  end    
+      
+private
+  
+  def find_loc_group_and_check_admin
+    @loc_group = LocGroup.find(params[:id])
+    require_loc_group_admin(@loc_group)
   end
+  
 end
 
