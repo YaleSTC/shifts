@@ -339,5 +339,5 @@ users_019:
   perishable_token: -G1Zag13259AicDzliVK
   persistence_token: 3be99c0a38324c0758ccc99a685fb921606221cec6c60115a62a92cf1ec241ccd7176e5b42439ce604468bb0b4804cd5fe96ca7cabc7cda00ee3729f326b705b
   supermode: t
-  superuser: 
+  superuser: t
   updated_at: 2009-07-10 13:00:37
