@@ -6,6 +6,11 @@ class DepartmentConfig < ActiveRecord::Base
   validates_numericality_of :time_increment, :grace_period, :schedule_start,
                             :schedule_end, :description_min, :reason_min, :warning_weeks
 
+  PAYFORM_PERIOD = [
+    ["Weekly",  false],
+    ["Monthly", true ]
+  ]
+
   WEEK_DAY_SELECT = [
     [Date::DAYNAMES[0], 0],
     [Date::DAYNAMES[1], 1],
