@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
 
-  attr_protected :superuser
+  attr_protected :superusercreate_
   named_scope :superusers, :conditions => { :superuser => true }, :order => "last_name"
   delegate :default_department, :to => 'user_config'
 
@@ -172,6 +172,7 @@ class User < ActiveRecord::Base
     [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
+  # originally intended to enable polymorphism; is this still needed, guys? -ben
   def users
     [self]
   end
@@ -221,7 +222,4 @@ class User < ActiveRecord::Base
     errors.add("User must have at least one department.", "") if departments.empty?
   end
 
-  def create_user_config
-    UserConfig.new({:user_id => self.id}).save
-  end
 end

@@ -30,6 +30,5 @@
   </table>
 <% end -%>  
 <br />
-<% if current_user.is_admin_of?(@department) %>
-  <%= render :partial => 'form', :locals => {:title => "Create a new location"} %>
-<% end %>
+<%= render :partial => 'form', :locals => {:title => "Create a new location"} %>
+
