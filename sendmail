@@ -1,0 +1,2 @@
+*/5 * * * * /usr/local/bin/ruby /usr/local/bin/ar_sendmail -o --batch-size 20 --chdir /home/myusername/myapplication --environment production
+
