@@ -69,7 +69,7 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Successfully logged in."
     And I should see "Welcome Argus Filch"
-
+@t
   Scenario: Creating a user with AuthLogic
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
