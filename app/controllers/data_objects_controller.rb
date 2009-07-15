@@ -79,7 +79,7 @@ class DataObjectsController < ApplicationController
    
 private
 
-  # Returns all the data objects that the user is permitted to administer
+#   Returns all the data objects that the user is permitted to administer
   def get_allowed_data_objects
     return @department.data_objects if current_user.is_admin_of?(@department)
     unless (@loc_groups = current_user.loc_groups_to_admin(@department)).empty?
