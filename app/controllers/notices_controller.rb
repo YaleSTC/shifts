@@ -24,7 +24,7 @@ class NoticesController < ApplicationController
   def edit
     @notice = Notice.find(params[:id])
     @legend = "Edit Notice"
-    render :action => "edit", :layout => false
+    render :layout => false
   end
 
   def create

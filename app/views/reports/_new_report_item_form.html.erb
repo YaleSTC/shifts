@@ -1,4 +1,4 @@
-<% form_for [@report, @report_item] do |f| %>
+<% remote_form_for([@report, @report_item]) do |f| %>
 <p>
     <%= f.error_messages %>
 </p>
@@ -32,3 +32,4 @@
     reportDone = true;
   }
 </script>
+
