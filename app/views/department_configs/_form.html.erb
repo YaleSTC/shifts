@@ -60,8 +60,8 @@
       <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
     </p>
     <p>
-      <label>Monthly Payform Period (leave unchecked for weekly):</label>
-      <%= f.check_box :monthly %>
+      <label>Payform Period:</label>
+      <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
     <p>
       <label>Show Disabled Categories on Payforms (rather than filing jobs under 'Miscellaneous'):</label>
