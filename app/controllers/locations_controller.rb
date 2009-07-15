@@ -1,22 +1,27 @@
 class LocationsController < ApplicationController
   #TODO: add loc group authorization before filters here
+  before_filter :find_allowed_locations
 
   def index
-    @locations = @department.locations.select { |lg| current_user.is_admin_of?(lg.loc_group) }
+    redirect_to access_denied_path if @locations.empty?
     @location = Location.new #for embedded form at page bottom
   end
 
   def show
     @location = Location.find(params[:id])
+    redirect_to access_denied_path unless @locations.include?(@location)
   end
 
   def new
     @location = Location.new
-  end
+  end 
 
   def create
     @location = Location.new(params[:location])
-    if @location.save
+    if !current_user.loc_groups_to_admin(@department).include?(@location.loc_group)  
+      flash[:error] = "You do not have permission to create locations in that location group."
+      redirect_to :action => "new"   
+    elsif @location.save
       flash[:notice] = "Successfully created location."
       redirect_to @location
     else
@@ -26,10 +31,12 @@ class LocationsController < ApplicationController
 
   def edit
     @location = Location.find(params[:id])
+    redirect_to access_denied_path unless @locations.include?(@location)
   end
 
   def update
     @location = Location.find(params[:id])
+    redirect_to access_denied_path unless @locations.include?(@location)
     if @location.update_attributes(params[:location])
       flash[:notice] = "Successfully updated location."
       redirect_to @location
@@ -40,9 +47,17 @@ class LocationsController < ApplicationController
 
   def destroy
     @location = Location.find(params[:id])
+    redirect_to access_denied_path unless @locations.include?(@location)
     @location.destroy
     flash[:notice] = "Successfully destroyed location."
     redirect_to department_locations_path(current_department)
   end
+  
+private
+
+  def find_allowed_locations
+    @locations = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
+  end
+
 end
 
