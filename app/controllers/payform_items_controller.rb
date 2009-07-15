@@ -31,6 +31,8 @@ class PayformItemsController < ApplicationController
     get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     @payform_item.parent = PayformItem.find(params[:id])
+    @payform_item.parent.reason = @payform_item.reason
+    @payform_item.reason = nil
     @payform = @payform_item.payform = @payform_item.parent.payform
     @payform_item.parent.payform = nil  # this line caused headache!
     @payform_item.source = current_user.name
@@ -61,6 +63,7 @@ class PayformItemsController < ApplicationController
 
   def destroy
     @payform_item = PayformItem.find(params[:id])
+    @payform_item.reason = params[:payform_item][:reason]
     @payform = @payform_item.payform
     @payform_item.active = false
     @payform_item.source = current_user.name
