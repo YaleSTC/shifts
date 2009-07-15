@@ -1,6 +1,7 @@
 class DataObjectsController < ApplicationController
   #User admin methods will need to be rewritten in move to other codebase
   
+  # not at all sure what's going on here anymore, will ask ryan about it -ben
   def index   
     @data_objects = get_allowed_data_objects
     @group_type_options = options_for_group_type
@@ -38,16 +39,17 @@ class DataObjectsController < ApplicationController
   def new
     @data_object = DataObject.new
     @data_object.data_type_id = params[:data_type_id] if params[:data_type_id]
-    @locations_select = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
+    @locations_select = options_for_location_select
   end
   
   def create
     @data_object = DataObject.new(params[:data_object])
-    @data_object.data_type_id = params[:data_type_id]
+    @data_object.data_type_id = params[:data_type_id] if params[:data_type_id]
     if @data_object.save
       flash[:notice] = "Successfully created data object."
       redirect_to (params[:add_another] ? new_data_type_data_object_path(@data_object.data_type) : data_objects_path)
     else
+      @locations_select = options_for_location_select
       render :action => 'new'
     end
   end
@@ -79,13 +81,14 @@ private
 
   # Returns all the data objects that the user is permitted to administer
   def get_allowed_data_objects
+    return @department.data_objects if current_user.is_admin_of?(@department)
     unless (@loc_groups = current_user.loc_groups_to_admin(@department)).empty?
       @loc_groups.map{|lg| DataObject.by_location_group(lg)}.flatten    
+    else
+      flash[:error] = "You do not have the permissions necessary to view any
+                      data objects."
+      redirect_to access_denied_path
     end
-    return @department.data_objects if current_user.is_admin_of?(@department)
-    flash[:error] = "You do not have the permissions necessary to view any
-                    data objects."
-    redirect_to access_denied_path
   end
   
   def options_for_group_type
@@ -103,5 +106,10 @@ private
     end
     @options.map{|t| [t.name, t.id]} << []
   end
+
+  def options_for_location_select
+    current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
+  end
+  
 
 end

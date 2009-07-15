@@ -1,5 +1,5 @@
 class DepartmentConfigsController < ApplicationController
-  before_filter :require_superuser
+  before_filter :require_department_admin
 
   def edit
     @department_config = DepartmentConfig.find(params[:id])
