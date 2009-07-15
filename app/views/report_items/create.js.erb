@@ -1,2 +1,7 @@
+$('#page_title').before('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $('#all_report_items').html("<%= escape_javascript(render :partial => 'reports/report_item', :collection => @report.report_items) %>");
+$('#report_item_content').val("");
+$('#flash_notice').fadeOut(5000, function(){
+  $(this).remove();
+});
 
