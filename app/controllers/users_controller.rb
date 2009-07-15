@@ -149,12 +149,43 @@ class UsersController < ApplicationController
   def verify_import
     file=params[:file]
     @users = User.from_csv(file, :normal)
-    render :action=>'import'
   end
 
   def save_import
-    @users=params[:users_to_import].collect{|i| params[:user][i]}
-    raise @users.to_yaml
+    @users=params[:users_to_import].collect{|i| params[:user][i].merge(params[i])}
+    failures = []
+    @users.each do |u|
+      if @user = User.find_by_login(u[:login])
+        if @user.departments.include? @department #if user is already in this department
+          #don't modify any data, as this is probably a mistake
+          failures << {:user=>u, :reason => "User already exists in this department!"}
+        else
+          department_roles = @user.roles.select{|role| role.departments.include? @department}
+          @user.roles -= department_roles
+          #add user to new department
+          @user.departments << @department unless @user.departments.include?(@department)
+        end
+      else
+        @user = User.new(u)
+        @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+        @user.set_random_password
+        @user.departments << @department unless @user.departments.include?(@department)
+        if @user.save
+          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='authlogic'
+        else
+          failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
+        end
+      end
+    end
+    if failures.empty?
+      flash[:notice] = "All users successfully added!"
+      redirect_to department_users_path(@department)
+    else
+      @users=failures.collect{|e| User.new(e[:user])}
+      flash[:notice] = "The users below failed for the following reasons:<br />"
+      failures.each{|e| flash[:notice]+="#{e[:user][:login]}: #{e[:reason]}<br />"}
+      render :action=> 'verify_import'
+    end
   end
 
   def mass_add

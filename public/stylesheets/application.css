@@ -587,19 +587,3 @@ span#loading_icon{
   display:none;
 }
 
-.table_field{
-  border:none;
-  width:60px;
-  background:white;
-  color:black;
-  font-size:10px;
-}
-
-#email_table_field{
-  width:180px;
-}
-
-#lname_table_field{
-  width:80px;
-}
-

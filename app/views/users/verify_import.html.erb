@@ -1,0 +1,50 @@
+<% stylesheet 'verify_import' %>
+<% title 'Verify Users to Import' %>
+<div id="form_div">
+<% if @users%>
+<p><h3>Please examine what was uploaded and make changes as necessary.</h3></p>
+<p><h5><strong>Note:</strong> The cells in this table are editable </h5></p>
+<table id="form_table">
+<tr>
+<th>Username</th>
+<th>First Name</th>
+<th>Nick Name</th>
+<th>Last Name</th>
+<th>Email</th>
+<th>Employee ID</th>
+<%unless $appconfig.login_options.length==1%>
+<th colspan=<%=$appconfig.login_options.length %>>Authentication Type</th>
+<%end%>
+<th>Import?</th>
+</tr>
+<% form_tag url_for(:action=>'save_import') do%>
+<% for @user in @users %>
+<% fields_for @user do |f| %>
+<tr>
+<td><%=f.text_field(:login, "index"=>@users.index(@user), :class => "table_field") %></td>
+<td><%=f.text_field(:first_name, "index"=>@users.index(@user), :class => "table_field")%></td>
+<td><%=f.text_field(:nick_name, "index"=>@users.index(@user), :class => "table_field")%></td>
+<td><%=f.text_field(:last_name, "index"=>@users.index(@user), :class => "table_field", :id=>"lname_table_field")%></td>
+<td><%=f.text_field(:email, "index"=>@users.index(@user), :class => "table_field", :id => "email_table_field")%></td>
+<td><%=f.text_field(:employee_id, "index"=>@users.index(@user), :class => "table_field")%></td>
+<%unless $appconfig.login_options.length==1%>
+<% $appconfig.login_options.each do |l| %>
+<td>
+<% o= (l=='CAS' ? {:checked => :true} : {}) %>
+<%=l%>: <%= radio_button(@users.index(@user), "auth_type", l, o) %>
+</td>
+<% end %>
+<%end%>
+<td> <%= check_box_tag "users_to_import[]", @users.index(@user), true %> </td>
+</tr>
+<%end%>
+<%end%>
+</table><br />
+<div><p>
+<%= submit_tag "Save!", :id=>"right_submit" %> <%end%>
+<%= button_to "Cancel", url_for(:action=>'import'), {:id=>"cancel"} %>
+</p>
+</div>
+<% end %>
+</div>
+
