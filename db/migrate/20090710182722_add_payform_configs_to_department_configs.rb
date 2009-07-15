@@ -21,3 +21,4 @@ class AddPayformConfigsToDepartmentConfigs < ActiveRecord::Migration
     remove_column :department_configs, :printed_message
   end
 end
+
