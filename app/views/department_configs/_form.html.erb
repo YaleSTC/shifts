@@ -18,10 +18,6 @@
       <label>Late sign-in grace period:</label>
       <%= f.text_field :grace_period, :size => 6 %>
     </p>
-    <p>
-      <label>Editable reports:</label>
-      <%= f.check_box :edit_report %>
-    </p>
       <p>
         <label>Display weekends on shift schedule:</label>
         <%= f.check_box :weekend_shifts %>
@@ -65,10 +61,6 @@
     <p>
       <label>Monthly Payform Period (leave unchecked for weekly):</label>
       <%= f.check_box :monthly %>
-    </p>
-    <p>
-      <label>Include Payform Punch Clock on User Payforms:</label>
-      <%= f.check_box :punch_clock %>
     </p>
     <p>
       <label>Show Disabled Categories on Payforms (rather than filing jobs under 'Miscellaneous'):</label>

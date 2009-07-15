@@ -1,10 +1,10 @@
 class DepartmentConfig < ActiveRecord::Base
   belongs_to :department
 
-  validates_presence_of :department_id
+  validates_presence_of :department_id, :printed_message, :reminder_message, :warning_message
   validates_uniqueness_of :department_id
-  validates_numericality_of :schedule_start, :schedule_end, :description_min,
-                            :reason_min, :warning_weeks
+  validates_numericality_of :time_increment, :grace_period, :schedule_start,
+                            :schedule_end, :description_min, :reason_min, :warning_weeks
 
   WEEK_DAY_SELECT = [
     [Date::DAYNAMES[0], 0],
