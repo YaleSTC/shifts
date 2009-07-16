@@ -8,9 +8,9 @@ class Notice < ActiveRecord::Base
   validates_presence_of :content
   validate :presence_of_locations_or_viewers
   validate_on_create :proper_time
-  
+
   named_scope :inactive, lambda {{ :conditions => ["end_time < ?", Time.now] }}
-  named_scope :active,   lambda {{ :conditions => ["(start_time < ? and end_time > ? ) or is_sticky = ?", Time.now, Time.now, true ]}}
+  named_scope :active,   lambda {{ :conditions => ["start_time < ? and end_time > ?", Time.now, Time.now]}}
   named_scope :upcoming, lambda {{ :conditions => [" start_time > ?", Time.now ]}}
 
   def display_for
@@ -19,7 +19,11 @@ class Notice < ActiveRecord::Base
     display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.join(", ")}" unless self.display_locations.empty?
     display_for.join "<br/>"
   end
-  
+
+  def is_current?
+    self.start_time < Time.now && (self.end_time > Time.now if self.end_time)
+  end
+
   def viewers
     self.user_sources.collect{|s| s.users}.flatten.uniq
   end

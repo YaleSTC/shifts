@@ -17,7 +17,10 @@ class NoticesController < ApplicationController
     @legend = "New Notice"
     respond_to do |format|
       format.html {render :layout => 'application'}
-      format.js {render :layout => false}
+      format.js {render :update do |page|
+                  page.replace_html("TB_ajaxContent", :partial => "form", :layout => false)
+                end
+      }
     end
   end
 
@@ -49,6 +52,7 @@ class NoticesController < ApplicationController
         format.js {
           render :update do |page|
             page.replace_html('TB_ajaxContent', :partial => "form") #because thickbox drops the div
+                                                                    #This is because I directly render the form into the div
             page.replace_html('notice_form', :partial => "form")
           end
         }
