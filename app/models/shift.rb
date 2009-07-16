@@ -9,9 +9,6 @@ class Shift < ActiveRecord::Base
 
   has_many :sub_requests, :dependent => :destroy
 
-  delegate :loc_group, :to => 'location'
-  delegate :department, :to => 'location'
-
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
@@ -26,6 +23,7 @@ class Shift < ActiveRecord::Base
   validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
+  validate :restrictions
   before_save :adjust_sub_requests
   before_save :combine_with_surrounding_shifts
 
@@ -158,6 +156,12 @@ class Shift < ActiveRecord::Base
   # ======================
   # = Validation helpers =
   # ======================
+  def restrictions
+    location_restrictions = location.restrictions
+    user_restrictions = user.restrictions
+    #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
+  end
+  
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end < start)
   end

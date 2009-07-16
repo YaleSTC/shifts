@@ -60,5 +60,8 @@ class DataEntry < ActiveRecord::Base
     content_hash
   end
 
-end
+  def self.atlocation (location)
+    DataEntry.all.select{|dataentry| dataentry.location == location }
+  end
 
+end
