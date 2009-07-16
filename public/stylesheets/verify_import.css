@@ -37,3 +37,12 @@
   font-size:7px;
 }
 
+.active {
+  background:#343661;
+  border:3px groove black;
+}
+
+.active input{
+  color:white;
+}
+
