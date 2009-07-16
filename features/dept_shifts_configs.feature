@@ -15,6 +15,7 @@ Feature: Shift settings
         | 12/25/2009 5pm | 12/25/2009 7pm | Diagon Alley | Harry Potter |
     And "Harry Potter" signs in at "12/25/2009 5:10pm"
 
+@passed
   Scenario: Shifts settings: Start and end times
     When I select "05:00 AM" from "department_config_schedule_start"
     And I select "07:00 AM" from "department_config_schedule_end"

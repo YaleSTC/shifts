@@ -26,7 +26,9 @@ class DepartmentObserver < ActiveRecord::Observer
                         :punch_clock => false
                         })
 
-    Category.create!(:name => "Shifts", :department_id => department.id)
+    Category.create!(:name => "Shifts",        :department_id => department.id, :built_in => true)
+    Category.create!(:name => "Punch Clocks",  :department_id => department.id, :built_in => true)
+    Category.create!(:name => "Miscellaneous", :department_id => department.id, :built_in => true)
   end
 end
 
