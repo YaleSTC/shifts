@@ -28,74 +28,53 @@ class UsersController < ApplicationController
   end
 
   def ldap_search
-    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],5)
-
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],3)
   end
 
   def new
     @user = User.new
-#    if params[:ldap_search]
-#      @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name])
-#    else
       @results = []
-#    end
   end
 
   def fill_form
     @user=User.new(params[:user])
-    render :action => 'new'
   end
 
   def create
-    @user = User.new(params[:user])
-    @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
-    if @user.auth_type == "authlogic"
-      @user.password = @user.password_confirmation = random_password
+    if @user = User.find_by_login(params[:user][:login])
+      if @user.departments.include? @department #if user is already in this department
+        #don't modify any data, as this is probably a mistake
+        flash[:notice] = "This user already exists in this department!"
+        redirect_to @user
+      else
+        #make sure not to lose roles in other departments
+        #remove all roles associated with this department
+        department_roles = @user.roles.select{|role| role.departments.include? @department}
+        @user.roles -= department_roles
+        #now add back all checked roles associated with this department
+        @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+
+        #add user to new department
+        @user.departments << @department unless @user.departments.include?(@department)
+        flash[:notice] = "User successfully added to new department."
+        redirect_to @user
+      end
+    else
+      @user = User.new(params[:user])
+      @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+      @user.set_random_password
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
-        @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
-        flash[:notice] = "Successfully created user and emailed instructions for setting password."
+        if @user.auth_type=='built-in'
+          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
+          flash[:notice] = "Successfully created user and emailed instructions for setting password."
+        else
+          flash[:notice] = "Successfully created user and emailed instructions for setting password."
+        end
         redirect_to @user
       else
         render :action => 'new'
       end
-    else
-      if @user = User.find_by_login(params[:user][:login])
-        if @user.departments.include? @department #if user is already in this department
-          #don't modify any data, as this is probably a mistake
-          flash[:notice] = "This user already exists in this department!"
-          redirect_to @user
-        else
-          #make sure not to lose roles in other departments
-          #remove all roles associated with this department
-          department_roles = @user.roles.select{|role| role.departments.include? @department}
-          @user.roles -= department_roles
-          #now add back all checked roles associated with this department
-          @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-
-          #add user to new department
-          @user.departments << @department
-          flash[:notice] = "User successfully added to new department."
-          redirect_to @user
-        end
-      else #user is a new user
-        #create from LDAP if possible; otherwise just use the given information
-        @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
-
-        #if a name was given, it should override the name from LDAP
-        @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
-        @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
-        @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-        @user.password = @user.password_confirmation = random_password
-        @user.auth_type='CAS'
-        if @user.save
-          flash[:notice] = "Successfully created user."
-          redirect_to @user
-        else
-           render :action => 'new'
-        end
-      end
-#         y @user #debug output
     end
   end
 
@@ -115,8 +94,8 @@ class UsersController < ApplicationController
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
-    @user.password=@user.password_confirmation=random_password if params[:reset_password]
-    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='authlogic'
+    @user.set_random_password if params[:reset_password]
+    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
       @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions(n)}) if params[:reset_password]
@@ -164,16 +143,57 @@ class UsersController < ApplicationController
     redirect_to department_users_path(current_department)
   end
 
-  def mass_add
-    #just a view
+  def import
   end
 
-  def mass_create
-    errors = User.mass_add(params[:logins], @department)
-    unless errors.empty?
-      flash[:error] = "Import of the following users failed:<br /> "+(errors.join "<br />")
+  def verify_import
+    file=params[:file]
+    begin
+      @users = User.from_csv(file, :normal)
+    rescue Exception => e
+      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+      render :action => 'import'
     end
-    redirect_to department_users_path
+  end
+
+  def save_import
+    if params[:commit]=="Cancel"
+      redirect_to import_department_users_path(@department) and return
+    end
+    @users=params[:users_to_import].collect{|i| params[:user][i]}
+    failures = []
+    @users.each do |u|
+      if @user = User.find_by_login(u[:login])
+        if @user.departments.include? @department #if user is already in this department
+          #don't modify any data, as this is probably a mistake
+          failures << {:user=>u, :reason => "User already exists in this department!"}
+        else
+          department_roles = @user.roles.select{|role| role.departments.include? @department}
+          @user.roles -= department_roles
+          #add user to new department
+          @user.departments << @department unless @user.departments.include?(@department)
+        end
+      else
+        @user = User.new(u)
+        @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+        @user.set_random_password
+        @user.departments << @department unless @user.departments.include?(@department)
+        if @user.save
+          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
+        else
+          failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
+        end
+      end
+    end
+    if failures.empty?
+      flash[:notice] = "All users successfully added!"
+      redirect_to department_users_path(@department)
+    else
+      @users=failures.collect{|e| User.new(e[:user])}
+      flash[:notice] = "The users below failed for the following reasons:<br />"
+      failures.each{|e| flash[:notice]+="#{e[:user][:login]}: #{e[:reason]}<br />"}
+      render :action=> 'verify_import'
+    end
   end
 
   def autocomplete

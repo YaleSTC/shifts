@@ -20,12 +20,11 @@ Feature: data entries
     And I am on the data objects page
     When I follow "The One Ring"
     And I press "Add new data entry"
-
-    And I select "Gold" as the "Metal"
     And I check "Invisibility"
     And I check "Flight"
-    And I put "It drove Frodo mad." in "Comments"
     And I put "1" in "Number"
+    And I put "It drove Frodo mad." in "Comments"
+    And I select "Gold" as the "Metal"
     And I press "Submit"
 
     Then I should see "Successfully created data entry."

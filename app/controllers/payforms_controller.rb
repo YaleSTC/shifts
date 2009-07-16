@@ -118,11 +118,12 @@ class PayformsController < ApplicationController
   end
   
   def send_reminders
+    message = params[:post]["body"]
     @users = current_department.users.select {|u| if u.is_active?(current_department) then u.email end }
     admin_user = current_user
     users_reminded = []
     for user in @users
-      ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, params[:post][:body]))
+      ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, message))
       users_reminded << "#{user.name} (#{user.login})"
     end
     redirect_with_flash "E-mail reminders sent to the following: #{users_reminded.to_sentence}", :action => :email_reminders, :id => @department.id
@@ -137,7 +138,7 @@ class PayformsController < ApplicationController
     @admin_user = current_user
     for user in @users     
       Payform.build(@department, user, Date.today)
-      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).collect { |p| p if p.date >= start_date && p.date < Date.today }).compact
+      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
       
       unless unsubmitted_payforms.blank?
         weeklist = ""

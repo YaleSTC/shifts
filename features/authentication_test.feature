@@ -6,6 +6,7 @@ Feature: Authentication Systems
   As a application admin
   I want manage the authentication settings
 
+@passed
   Scenario: Using Authlogic to login if CAS is supposed to be your authtype
 
     When I am on the login page
@@ -18,9 +19,9 @@ Feature: Authentication Systems
     When I follow "reset your password?"
     And I fill in "email" with "hp123@hogwarts.edu"
     And I press "Reset my password"
-    Then I should see "No user using authlogic was found with that email address"
+    Then I should see "No user using built-in authentication was found with that email address"
     And "hp123@hogwarts.edu" should not receive an email
-
+@passed
   Scenario: Using Authlogic to login
     When I am on the login page
     And I fill in "Login" with "filch"
@@ -55,7 +56,7 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Successfully logged in."
 
-
+@passed
   Scenario: Login Works until the password is actually reset
     When I am on the login page
     And I follow "reset your password?"
@@ -69,7 +70,7 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Successfully logged in."
     And I should see "Welcome Argus Filch"
-@t
+
   Scenario: Creating a user with AuthLogic
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
@@ -79,7 +80,7 @@ Feature: Authentication Systems
     And I fill in "First Name" with "Peeves"
     And I fill in "Last Name" with "the Poltergeist"
     And I fill in "Email" with "peeves@trouble.com"
-    And I select "authlogic" from "user_auth_type"
+    And I select "built-in" from "user_auth_type"
     And I press "Create"
     Then I should see "Successfully created user and emailed instructions for setting password."
     And "peeves@trouble.com" should receive 1 email
@@ -109,7 +110,8 @@ Feature: Authentication Systems
     And I fill in "Email" with "ll66@hogwarts.edu"
     And I select "CAS" from "user_auth_type"
     And I press "Create"
-    Then I should see "Successfully created user."
+    Then I should see "Successfully created user"
+    And "ll66@hogwarts.edu" should not receive an email
     When I follow "Logout"
     Given I am "Luna Lovegood"
     And I am on the homepage

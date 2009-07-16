@@ -5,7 +5,7 @@
     <%= f.text_field :nick_name %>
   </p>
     <p><%= f.submit submit %></p>
-  <% if @user.auth_type == "authlogic"%>
+  <% if @user.auth_type == "built-in"%>
     <p><%= render :file => "password_resets/edit.html.erb" %></p>
   <% end %>
 <% end %>
