@@ -17,6 +17,7 @@ every :sunday, :at => "9am" do
 end
 
 every 2.minutes do
-  command "/usr/bin/ar_sendmail -o --batch-size 20"
+  runner "AutoMailer"
+  command "cd /home/kwabena/work/newstc" && "/usr/bin/ar_sendmail -o --batch-size 20"
 end
 
