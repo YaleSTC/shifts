@@ -32,36 +32,6 @@ class User < ActiveRecord::Base
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
 
-
-  def self.import_from_ldap(login, department = nil, should_save = false)
-    # Setup our LDAP connection
-    ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
-#    begin
-      # We filter results based on login
-      filter = Net::LDAP::Filter.eq($appconfig.ldap_login, login)
-      new_user = User.new(:login => login)
-      ldap.open do |ldap|
-        # Search, limiting results to yale domain and people
-        ldap.search(:base => $appconfig.ldap_base, :filter => filter, :return_result => false ) do |entry|
-          # Make sure only 1 record is found
-          Rails.logger.info(entry)
-          raise "LDAP: more than one result is found" if entry[$appconfig.ldap_first_name].size > 1
-
-          new_user.first_name = entry[$appconfig.ldap_first_name].first
-          new_user.last_name  = entry[$appconfig.ldap_last_name].first
-          new_user.email = entry[$appconfig.ldap_email].first
-
-        end
-        #add the user to the currently selected department
-        new_user.departments << department if department
-      end
-      new_user.save if should_save
-#    rescue Exception => e
-#    raise e.message # Will trigger an error, LDAP is probably down
-#    end
-    new_user
-  end
-
   def set_random_password(size=20)
     chars = (('a'..'z').to_a + ('0'..'9').to_a)
     self.password=self.password_confirmation=(1..size).collect{|a| chars[rand(chars.size)] }.join
@@ -220,7 +190,7 @@ class User < ActiveRecord::Base
   def current_notices
     Notice.active.select {|n| n.users.include?(self)}
   end
-  
+
   private
 
   def departments_not_empty
