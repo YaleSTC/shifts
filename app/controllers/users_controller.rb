@@ -148,11 +148,16 @@ class UsersController < ApplicationController
 
   def verify_import
     file=params[:file]
-    @users = User.from_csv(file, :normal)
+    begin
+      @users = User.from_csv(file, :normal)
+    rescue Exception => e
+      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+      render :action => 'import'
+    end
   end
 
   def save_import
-    @users=params[:users_to_import].collect{|i| params[:user][i].merge(params[i])}
+    @users=params[:users_to_import].collect{|i| params[:user][i]}
     failures = []
     @users.each do |u|
       if @user = User.find_by_login(u[:login])
