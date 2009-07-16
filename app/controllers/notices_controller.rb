@@ -17,7 +17,10 @@ class NoticesController < ApplicationController
     @legend = "New Notice"
     respond_to do |format|
       format.html {render :layout => 'application'}
-      format.js
+      format.js {render :update do |page|
+                  page.replace_html("TB_ajaxContent", :partial => "form", :layout => false)
+                end
+      }
     end
   end
 
