@@ -4,7 +4,7 @@ class PayformsController < ApplicationController
     if current_user.is_admin_of?(current_department)
       @payforms =  current_department.payforms
     else
-      @payforms =  current_department.payforms && current_user.payforms
+      @payforms =  current_department.payforms && current_user.payforms #UNION. Ben, UNIIIOOON. BEN. UNION. && = Union. MM..... onions.
     end
     narrow_down(@payforms)
     @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
