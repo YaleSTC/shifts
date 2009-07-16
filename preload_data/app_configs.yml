@@ -6,7 +6,7 @@ app_configs_001:
   updated_at: 2009-07-09 18:39:41
   id: "2"
   ldap_port: "389"
-  auth_types: CAS, authlogic
+  auth_types: CAS, built-in
   ldap_login: uid
   footer: 'Certifying authority: Adam Bray, Asst. Manager, Student Technology<br/>Last modified: Wed Feb 28 00:17:00 EST 2007'
   ldap_last_name: sn

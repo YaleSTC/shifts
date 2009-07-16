@@ -11,12 +11,12 @@ class PasswordResetsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:email])
-    if @user && @user.auth_type=='authlogic'
+    if @user && @user.auth_type=='built-in'
       @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_password_reset_instructions(n)})
       flash[:notice] = "Instructions to reset the password have been emailed. "
       redirect_to login_path
     else
-      flash[:notice] = "No user using authlogic was found with that email address"
+      flash[:notice] = "No user using built-in authentication was found with that email address"
       render :action => :new
     end
   end

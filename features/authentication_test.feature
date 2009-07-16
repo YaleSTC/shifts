@@ -19,7 +19,7 @@ Feature: Authentication Systems
     When I follow "reset your password?"
     And I fill in "email" with "hp123@hogwarts.edu"
     And I press "Reset my password"
-    Then I should see "No user using authlogic was found with that email address"
+    Then I should see "No user using built-in authentication was found with that email address"
     And "hp123@hogwarts.edu" should not receive an email
 @passed
   Scenario: Using Authlogic to login
@@ -80,7 +80,7 @@ Feature: Authentication Systems
     And I fill in "First Name" with "Peeves"
     And I fill in "Last Name" with "the Poltergeist"
     And I fill in "Email" with "peeves@trouble.com"
-    And I select "authlogic" from "user_auth_type"
+    And I select "built-in" from "user_auth_type"
     And I press "Create"
     Then I should see "Successfully created user and emailed instructions for setting password."
     And "peeves@trouble.com" should receive 1 email

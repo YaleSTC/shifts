@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     text = "Access denied"
-    text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('authlogic')
+    text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('built-in')
     text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user && current_user.departments
     render :text => text, :layout => true
   end
@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
   if !User.first
     redirect_to first_app_config_path
   elsif !current_user
-      if $appconfig.login_options==['authlogic'] #AppConfig.first.login_options_array.include?('authlogic')
+      if $appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
         redirect_to login_path
       else
         redirect_to access_denied_path
