@@ -6,12 +6,8 @@ dept_config_001:
   schedule_end: "1700"
   time_increment: "15"
   grace_period: "7"
-  edit_report: false
-  complex: false
   created_at: 2009-06-22 17:27:52
   day: "6"
-  day2: "1"
-  edit_report: false
   end_of_month: false
   monthly: false
   time_increment: "15"
@@ -21,7 +17,6 @@ dept_config_001:
   warning_weeks: "2"
   description_min: "7"
   reason_min: "7"
-  punch_clock: true
   show_disabled_cats: false
   printed_message:  "This payform has already been printed and may no longer be edited by you.\n If there is a problem that needs to be addressed, please talk to the administration."
   reminder_message: "Please remember to submit your payform for this week."
@@ -34,12 +29,8 @@ dept_config_002:
   schedule_end: "1700"
   time_increment: "15"
   grace_period: "7"
-  edit_report: false
-  complex: false
   created_at: 2009-06-22 17:27:52
   day: "6"
-  day2: "1"
-  edit_report: false
   end_of_month: false
   monthly: false
   time_increment: "15"
@@ -49,7 +40,6 @@ dept_config_002:
   warning_weeks: "2"
   description_min: "7"
   reason_min: "7"
-  punch_clock: true
   show_disabled_cats: false
   printed_message:  "This payform has already been printed and may no longer be edited by you.\n If there is a problem that needs to be addressed, please talk to the administration."
   reminder_message: "Please remember to submit your payform for this week."

@@ -65,7 +65,7 @@ class UsersController < ApplicationController
       @user.set_random_password
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
-        if @user.auth_type=='authlogic'
+        if @user.auth_type=='built-in'
           @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
         else
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
     @user.set_random_password if params[:reset_password]
-    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='authlogic'
+    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
       @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions(n)}) if params[:reset_password]
@@ -179,7 +179,7 @@ class UsersController < ApplicationController
         @user.set_random_password
         @user.departments << @department unless @user.departments.include?(@department)
         if @user.save
-          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='authlogic'
+          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
         else
           failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
         end

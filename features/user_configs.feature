@@ -17,7 +17,7 @@ Feature: User settings
     And I fill in "First name" with "Ron"
     And I fill in "Last name" with "Weasley"
     And I fill in "Email" with "rw12@hogwarts.edu"
-    And I select "authlogic" from "user_auth_type"
+    And I select "built-in" from "user_auth_type"
     And I press "Create"
     Then I should see "Successfully created user"
     Then I should have a user named "Ron Weasley"

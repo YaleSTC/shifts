@@ -168,7 +168,7 @@ class User < ActiveRecord::Base
 #TODO: A method like this might be helpful
 #  def switch_auth_type
 #    if self.auth_type=='CAS'
-#      self.auth_type='authlogic'
+#      self.auth_type='built-in'
 #      self.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions (n)})
 #      self.save!
 #    else
