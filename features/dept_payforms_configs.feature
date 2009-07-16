@@ -71,28 +71,3 @@ Feature: Payform settings
     And I should have 1 payform_item
     And payform item 1 should have attribute "active" "false"
 
-
-  Scenario: Payform settings: Disabled Categories vs Miscellaneous
-    Given "Harry Potter" has a current payform
-    And "Harry Potter" has the following current payform item
-      | category  | hours | description   |
-      | Quidditch | 2     | played a game |
-    When I check "department_config_show_disabled_cats"
-    And I press "Submit"
-    And I disable the "Work" category
-    And I follow "Logout"
-    Given I am "Harry Potter"
-    And I am on the payforms page
-    Then I should see "Quidditch"
-
-    When I follow "Logout"
-    Given I am "Albus Dumbledore"
-    And I am on the department settings page
-    When I uncheck "department_config_show_disabled_cats"
-    And I press "Submit"
-    And I follow "Logout"
-    Given I am "Harry Potter"
-    And I am on the payforms page
-    Then I should not see "Quidditch"
-    And I should see "Miscellaneous"
-

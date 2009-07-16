@@ -1,10 +1,7 @@
 <% title "Welcome #{current_user.name}" %>
 
 <% unless current_user.notices.empty? %>
-  <fieldset class ="index">
-    <legend>Notices for you</legend>
     <%= render :partial => 'notices/for_you' %>
-  </fieldset>
   <br/>
 <% end %>
 

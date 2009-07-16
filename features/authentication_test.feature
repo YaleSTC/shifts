@@ -6,7 +6,7 @@ Feature: Authentication Systems
   As a application admin
   I want manage the authentication settings
 
-@passed
+@passing
   Scenario: Using Authlogic to login if CAS is supposed to be your authtype
 
     When I am on the login page
@@ -21,7 +21,7 @@ Feature: Authentication Systems
     And I press "Reset my password"
     Then I should see "No user using built-in authentication was found with that email address"
     And "hp123@hogwarts.edu" should not receive an email
-@passed
+@passing
   Scenario: Using Authlogic to login
     When I am on the login page
     And I fill in "Login" with "filch"
@@ -56,7 +56,7 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Successfully logged in."
 
-@passed
+@passing
   Scenario: Login Works until the password is actually reset
     When I am on the login page
     And I follow "reset your password?"
@@ -70,7 +70,7 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Successfully logged in."
     And I should see "Welcome Argus Filch"
-
+@passing
   Scenario: Creating a user with AuthLogic
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
@@ -98,7 +98,7 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Successfully logged in."
     And I should see "Welcome Peeves the Poltergeist"
-
+@passing
   Scenario: Creating a user with CAS
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
@@ -116,7 +116,7 @@ Feature: Authentication Systems
     Given I am "Luna Lovegood"
     And I am on the homepage
     Then I should see "Welcome Luna Lovegood"
-
+@passing
   Scenario: Admin resets user's' password
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
