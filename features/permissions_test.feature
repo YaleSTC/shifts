@@ -4,7 +4,7 @@ Feature: Permissions test
     I want to be able to create and manage permissions
 
   Scenario: creating a permission
-  Given I am a superuser admin
+#  Given I am a superuser admin
   And I am on the list of permissions
   When I follow "Add Permission"
   And I fill in "Name" with "Free Willy"
@@ -16,9 +16,9 @@ Feature: Permissions test
   And I should have 1 permission
 
   Scenario: Editing a permission
-  Given I am a superuser admin
+#  Given I am a superuser admin
   And I am on the list of permissions
-  And there is a permission called "Extraneous" with "the ability to be superfluous"
+#  And there is a permission called "Extraneous" with "the ability to be superfluous"
   When I follow "Edit"
   And I fill in "Name" with "Charlie"
   And I fill in "Info" with "and the Chocolate Factory"
@@ -29,9 +29,9 @@ Feature: Permissions test
   And I should have 1 permission
 
   Scenario: Deleting a permission
-  Given I am a superuser admin
+#  Given I am a superuser admin
   And I am on the list of permissions
-  And there is a permission called "Extraneous" with "the ability to be superfluous"
+#  And there is a permission called "Extraneous" with "the ability to be superfluous"
   When I follow "Delete"
   And I follow "ok"
   Then I should see "Permission was successfully deleted"
