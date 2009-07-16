@@ -2,6 +2,8 @@ class PayformSetsController < ApplicationController
   helper :payforms
   layout "payforms"
   
+  before_filter :require_department_admin
+  
   def index
     @payform_sets = PayformSet.all
   end
