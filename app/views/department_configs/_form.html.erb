@@ -63,10 +63,6 @@
       <label>Payform Period:</label>
       <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
-    <p>
-      <label>Show Disabled Categories on Payforms (rather than filing jobs under 'Miscellaneous'):</label>
-      <%= f.check_box :show_disabled_cats %>
-    </p>
       <%= submit_tag "Save" %>
   </fieldset>
 <% end %>
