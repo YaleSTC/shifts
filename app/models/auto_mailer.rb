@@ -1,15 +1,7 @@
 class AutoMailer < ActiveRecord::Base
 
-  departments_that_want_users_warned = Department.all.select { |d| d.auto_warn }
-  departments_that_want_users_reminded = Department.all.select { |d| d.auto_remind }
-  
-  for department in departments_that_want_users_reminded
-    send_reminders(department)
-  end
-
-  for dept in departments_that_want_users_warned
-    send_warnings(department)
-  end
+  departments_that_want_users_warned = Department.all.select { |d| d.department_config.auto_warn }
+  departments_that_want_users_reminded = Department.all.select { |d| d.department_config.auto_remind }
   
   def send_reminders(department)
     message = department.department_config.reminder_message
@@ -46,5 +38,13 @@ class AutoMailer < ActiveRecord::Base
     end  # currently I am not doing anything with the list of users, it should be displayed somewhere
     puts "#{users_reminded.length} users in the #{department.name} department "  +
          "have been warned to submit their late payforms."
+  end
+
+  for dept in departments_that_want_users_warned
+    send_warnings(dept)
+  end
+  
+  for dept in departments_that_want_users_reminded
+    send_reminders(dept)
   end
 end
