@@ -6,6 +6,7 @@ Feature: Authentication Systems
   As a application admin
   I want manage the authentication settings
 
+@passed
   Scenario: Using Authlogic to login if CAS is supposed to be your authtype
 
     When I am on the login page
@@ -20,7 +21,7 @@ Feature: Authentication Systems
     And I press "Reset my password"
     Then I should see "No user using authlogic was found with that email address"
     And "hp123@hogwarts.edu" should not receive an email
-
+@passed
   Scenario: Using Authlogic to login
     When I am on the login page
     And I fill in "Login" with "filch"
@@ -55,7 +56,7 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Successfully logged in."
 
-
+@passed
   Scenario: Login Works until the password is actually reset
     When I am on the login page
     And I follow "reset your password?"

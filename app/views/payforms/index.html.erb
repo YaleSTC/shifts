@@ -1,13 +1,13 @@
 <% title "Payforms" %>
 
-<div id="searchbox" style="display:none; margin-bottom: 1em">
+<div id="searchbox" style="margin-bottom: 1em">
   <% form_tag(payforms_path, :method => :get) do %>
     Search for a user: <%= text_field_tag :search %>
+    <%= submit_tag "Submit", :id => "search_submit" %>
   <% end %>
 </div>
 
 <script type="text/javascript">
-  $('div#searchbox').toggle();
   $('input#search_submit').toggle();
 </script>
 
