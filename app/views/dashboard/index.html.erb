@@ -15,7 +15,7 @@
   <% if current_user.punch_clock %>
     <%= link_to "Clock out?",  edit_punch_clock_path(current_user.punch_clock) %>
   <% else %>
-    <%= link_to "Clock in?", new_user_punch_clock_path(current_user, @punch_clock) %>
+    <%= link_to "Clock in?", user_punch_clocks_path(current_user), :method => :post %>
   <% end %>
 </fieldset><br />
 
