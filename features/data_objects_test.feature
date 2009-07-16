@@ -1,6 +1,6 @@
 @data
 @cw
-@passed
+@passing
 Feature: data object
   In order to manage data objects
   As a dept admin
