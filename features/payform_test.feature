@@ -8,7 +8,7 @@ Feature: payform
   Background:
     Given I am "Harry Potter"
     And I have a payform for the week "2009-5-23"
-@t
+
   Scenario: Add a job to a payform
     Given I am on the page for the payform for the week "2009-05-23"
     When I follow "New Payform Item"
@@ -61,7 +61,7 @@ Feature: payform
     Then I should see "Payform item deleted"
     And I should have 1 payform_item
     And that payform_item should be inactive
-@passed
+@passing
   Scenario: Submit a payform
     Given I have the following payform items
       | category  | user_login | hours | description         | date         |
