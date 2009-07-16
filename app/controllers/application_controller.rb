@@ -129,6 +129,15 @@ class ApplicationController < ActionController::Base
       redirect_to access_denied_path if redirect
     end
   end
+  
+  # DRAFT IMPROVED VERSION
+#  def require_owner(object)
+#    unless current_user.is_owner_of?(object)
+#      flash[:error] = "You are not the owner of this #{object.class.humanize}"
+#      redirect_to access_denied_path if redirect
+#    end
+#  end
+  
 
   def require_owner_or_dept_admin(thing, message, redirect = true)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(@department)
