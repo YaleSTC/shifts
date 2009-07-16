@@ -1,13 +1,12 @@
 class DepartmentConfigsController < ApplicationController
-  before_filter :require_superuser
+  before_filter :require_department_admin
 
   def edit
+    @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
     @department_config = DepartmentConfig.find(params[:id])
     @select_dept = @department_config.department.name
     #@time_choices = (0..1440).step(@department_config.time_increment).map{|t| [t.min_to_am_pm, t]}
     #I'm hardcoding this as an hourly step, at least for now. -ryan
-    @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
-    @week = Date::DAYNAMES
   end
 
   def update
@@ -17,6 +16,7 @@ class DepartmentConfigsController < ApplicationController
       flash[:notice] = "Successfully updated department settings."
       redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_department_config_path)
     else
+      @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
       render :action => 'edit'
     end
   end

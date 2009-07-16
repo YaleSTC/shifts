@@ -157,6 +157,9 @@ class UsersController < ApplicationController
   end
 
   def save_import
+    if params[:commit]=="Cancel"
+      redirect_to import_department_users_path(@department) and return
+    end
     @users=params[:users_to_import].collect{|i| params[:user][i]}
     failures = []
     @users.each do |u|

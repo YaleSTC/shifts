@@ -24,11 +24,11 @@ module NavigationHelpers
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/
-      edit_user_config_path(UserConfig.find_by_user_id(@user.id))
+      edit_user_config_path(UserConfig.find_by_user_id(@current_user.id))
     when /the Application Settings page/
-      edit_app_config_path(1)
-#      app_config_path
+      edit_app_config_path
     when /the department settings page/
+       $department = @department
       edit_department_config_path(@department)
     when /the dashboard/
       url_for(:controller => 'dashboard', :action => 'index')
