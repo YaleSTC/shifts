@@ -586,5 +586,10 @@ div.table_right {
   width:50%;
   float:right;
   margin:12px;
+  visibility:hidden;
+}
+
+span#loading_icon{
+  display:none;
 }
 

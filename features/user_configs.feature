@@ -9,7 +9,7 @@ Feature: User settings
     Given I am "Harry Potter"
     And the user "Harry Potter" has permissions "Outside of Hogwarts view, Outside of Hogwarts signup, Inside of Hogwarts view"
     And I am on the user settings page
-
+@passed
   Scenario: A New user has default settings
     Given I am on the list of users
     When I follow "Add A New User"
@@ -17,12 +17,12 @@ Feature: User settings
     And I fill in "First name" with "Ron"
     And I fill in "Last name" with "Weasley"
     And I fill in "Email" with "rw12@hogwarts.edu"
-    And I select "authlogic" from "user_auth_type"
+    And I select "built-in" from "user_auth_type"
     And I press "Create"
     Then I should see "Successfully created user"
     Then I should have a user named "Ron Weasley"
     Then "Ron Weasley" should have 1 user_config
-
+@passed
   Scenario: Changing the default department
     When I select "Hogwarts" from "Default department"
     And I press "Submit"
@@ -55,9 +55,9 @@ Feature: User settings
     Then I should see "Successfully updated user config."
     When I go to shifts for this week
     Then I should see all the days of the week
-#    And I should see "Upcoming shifts"
-#    And I should see "Harry Potter" on the schedule
-#    And I should see "Hermione Granger" on the schedule
+    And I should see "Upcoming shifts"
+    And I should see "Harry Potter" on the schedule
+    And I should see "Hermione Granger" on the schedule
     And I should see "tomorrow" on the schedule
     And I should see "yesterday" on the schedule
 
@@ -68,8 +68,8 @@ Feature: User settings
     When I go to shifts for this week
     Then I should see "tomorrow" on the schedule
     And I should not see "yesterday" on the schedule
-#    And I should not see "Harry Potter" on the schedule
-#    And I should see "Hermione Granger" on the schedule
+    And I should not see "Harry Potter" on the schedule
+    And I should see "Hermione Granger" on the schedule
 
     When I go to the user settings page
     And I select "Just the current day" from "View Week"
@@ -78,9 +78,9 @@ Feature: User settings
     When I go to shifts for this week
     Then I should not see "yesterday" on the schedule
     And I should not see "tomorrow" on the schedule
-#    And I should not see "Harry Potter" on the schedule
-#    And I should not see "Hermione Granger" on the schedule
-
+    And I should not see "Harry Potter" on the schedule
+    And I should not see "Hermione Granger" on the schedule
+@passed
   Scenario: What LocGroups to display on schedule view
     Given the user "Harry Potter" has permissions "Inside of Hogwarts view, Outside of Hogwarts view"
     When I go to the user settings page
