@@ -16,7 +16,7 @@ class NoticesController < ApplicationController
     @notice = Notice.new
     @legend = "New Notice"
     respond_to do |format|
-      format.html {render :layout => false}
+      format.html {render :layout => 'application'}
       format.js
     end
   end
