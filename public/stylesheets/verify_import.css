@@ -46,3 +46,12 @@
   color:white;
 }
 
+.button_row{
+  border:none;
+  background:#75729c;
+}
+
+.button_row td{
+  border:none
+}
+

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     text = "Access denied"
-     text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('authlogic')
+    text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('authlogic')
     text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user && current_user.departments
     render :text => text, :layout => true
   end
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
       nil
     end)
   end
-
+  
   def current_department
     unless @current_department
       if current_user
@@ -111,13 +111,13 @@ class ApplicationController < ActionController::Base
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department)
   end
 
-  def require_loc_group_admin
+  def require_loc_group_admin(current_loc_group)
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_loc_group)
   end
 
   def require_superuser
     unless current_user.is_superuser?
-      flash[:notice] = "Only superuser can manage departments."
+      flash[:notice] = "That action is only available to superusers."
       redirect_to(access_denied_path)
     end
   end
@@ -153,6 +153,15 @@ class ApplicationController < ActionController::Base
     if (params["chooser"] && params["chooser"]["dept_id"])
       session[:department_id] = params["chooser"]["dept_id"]
       redirect_to switch_department_path and return
+    end
+  end
+
+
+  
+  #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
+  def layout_check(action = action_name, controller = controller_name)
+     if params[:layout] == "false"
+      render :controller => controller, :action => action, :layout => false
     end
   end
 
