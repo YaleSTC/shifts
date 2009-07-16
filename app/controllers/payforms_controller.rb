@@ -1,4 +1,6 @@
 class PayformsController < ApplicationController
+  before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit]
+
 
   def index
     if current_user.is_admin_of?(current_department)
@@ -13,18 +15,10 @@ class PayformsController < ApplicationController
 
   def show
     @payform = Payform.find(params[:id])
-    errors = []
-    if !@payform
-      errors << "Payform does not exist."
-    end
-    if !(@payform.user == current_user || current_user.is_admin_of?(current_department))
-      errors << "You do not own this payform, and are not an admin of this deparment."
-    end
-    if @payform.department != current_department
-      errors << "The payform (from "+@payform.department.name+") is not in this department ("+current_department.name+")."
-    end
-    if errors.length > 0
-      flash[:error] = "Error: "+errors*"<br/>"
+    flash[:error] = "Payform does not exist." unless @payform
+    flash[:error] = "The payform (from #{@payform.department.name}) is not in this department (#{current_department.name})." unless @payform.department == current_department
+    require_owner_or_dept_admin(@payform, "You do not own this payform, and are not an admin of this deparment.")   
+    if flash[:error]
       redirect_to payforms_path
     else
       respond_to do |show|
@@ -56,6 +50,7 @@ class PayformsController < ApplicationController
 
   def submit
     @payform = Payform.find(params[:id])
+    require_owner_or_dept_admin(@payform, "You do not own this payform, and are not an admin of this deparment.")
     @payform.submitted = Time.now
     if @payform.save
       flash[:notice] = "Successfully submitted payform."
