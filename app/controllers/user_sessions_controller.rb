@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     @user = User.find_by_login(params[:user_session][:login])
-    if @user && @user.auth_type!='authlogic'
+    if @user && @user.auth_type!='built-in'
       flash[:notice] = "You\'re not supposed to be using built in authentication. Please click the relevant link below to log in using CAS."
       render :action => 'new'
     elsif @user_session.save
