@@ -193,18 +193,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def mass_add
-    #just a view
-  end
-
-  def mass_create
-    errors = User.mass_add(params[:logins], @department)
-    unless errors.empty?
-      flash[:error] = "Import of the following users failed:<br /> "+(errors.join "<br />")
-    end
-    redirect_to department_users_path
-  end
-
   def autocomplete
     departments = current_user.departments.sort_by(&:name)
     users = Department.find(params[:department_id]).users.sort_by(&:first_name)
