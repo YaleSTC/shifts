@@ -36,6 +36,7 @@ class NoticesController < ApplicationController
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
+    @notice.active_sticky = true if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     respond_to do |format|
       if @notice.save

@@ -2,6 +2,7 @@ class CreateNotices < ActiveRecord::Migration
   def self.up
     create_table :notices do |t|
       t.boolean :is_sticky
+      t.boolean :active_sticky
       t.string :content
       t.references :author
       t.datetime :start_time
@@ -17,3 +18,4 @@ class CreateNotices < ActiveRecord::Migration
     drop_table :notices
   end
 end
+
