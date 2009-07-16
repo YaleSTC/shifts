@@ -157,6 +157,7 @@ class UsersController < ApplicationController
   end
 
   def save_import
+    raise params.to_yaml
     if params[:commit]=="Cancel"
       redirect_to import_department_users_path(@department) and return
     end
