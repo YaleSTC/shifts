@@ -13,7 +13,6 @@ department_configs_001:
   reminder_message: "Please remember to submit your payform for the week."
   schedule_end: "1020"
   schedule_start: "600"
-  show_disabled_cats: f
   time_increment: "15"
   unscheduled_shifts: t
   updated_at: 2009-06-22 17:27:52
@@ -34,7 +33,6 @@ department_configs_002:
   reminder_message: "Please remember to submit your payform for the week."
   schedule_end: "1020"
   schedule_start: "540"
-  show_disabled_cats: f
   time_increment: "60"
   unscheduled_shifts: t
   updated_at: 2009-06-22 18:09:37

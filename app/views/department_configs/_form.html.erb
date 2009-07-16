@@ -52,7 +52,7 @@
       <%= f.text_field :description_min, :size => 6 %>
     </p>
     <p>
-      <label>Minimum Length for Edit of Deletion Reason (in characters; '0' to disable):</label>
+      <label>Minimum Length for Edit or Deletion Reason (in characters; '0' to disable):</label>
       <%= f.text_field :reason_min, :size => 6 %>
     </p>
     <p>
@@ -63,13 +63,7 @@
       <label>Payform Period:</label>
       <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
-    <p>
-      <label>Show Disabled Categories on Payforms (rather than filing jobs under 'Miscellaneous'):</label>
-      <%= f.check_box :show_disabled_cats %>
-    </p>
-    <p>
-      <%= f.submit "Submit" %>
-    </p>
+      <%= submit_tag "Save" %>
   </fieldset>
 <% end %>
 </div>
