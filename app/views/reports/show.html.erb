@@ -10,6 +10,11 @@
   </fieldset>
 </fieldset>
 <p>
+  <fieldset>
+  <legend>Data Objects</legend>
+  <%= render :partial => 'data_objects/report_form', :collection => @report.get_data_objects %>
+  </fieldset>
+</p>
 <% unless @report.departed || current_user!=@report.user %>
   <%= render :partial => 'new_report_item_form' %>
 <% end %>

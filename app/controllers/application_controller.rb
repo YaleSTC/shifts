@@ -142,10 +142,6 @@ class ApplicationController < ActionController::Base
     redirect_to options
   end
 
-  def test
-    raise "ewoks"
-  end
-
   private
 
   def department_chooser

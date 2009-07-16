@@ -1,0 +1,24 @@
+<% javascript 'sorttable' %>
+
+<% title "Data Objects" %>
+<% form_tag '/data_objects/index' do %>
+  <!-- Group by 
+  <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @selected_type) %>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <%#= select_tag "view_options[group_by]", options_for_select(@group_by_options, @selected_by) %>
+  <%= submit_tag "Update" %>
+  TODO: make this dropdown work -->
+  Group by 
+  <%= select_tag :group_by, options_for_select(@group_type_options, @selected_type) %>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <%#= select_tag "view_options[group_by]", options_for_select(@group_by_options, @selected_by) %>
+  <%= submit_tag "Update" %>
+<% end -%>
+<br>
+<% if DataType.first %>
+  <%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>
+  <br>
+  <%= link_to "New Data Object", new_data_object_path %>
+<% else %>
+  You must set up a <%= link_to "data type", new_data_type_path %> before you can create any data objects.
+<% end %>

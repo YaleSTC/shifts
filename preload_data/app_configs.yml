@@ -8,7 +8,7 @@ app_configs_001:
   ldap_port: "389"
   auth_types: CAS, authlogic
   ldap_login: uid
-  footer: '<h1>This could be an exciting rickroll, but Adam vetoed that : (</h1>'
+  footer: 'Certifying authority: Adam Bray, Asst. Manager, Student Technology<br/>Last modified: Wed Feb 28 00:17:00 EST 2007'
   ldap_last_name: sn
   ldap_email: mail
   ldap_first_name: givenname
