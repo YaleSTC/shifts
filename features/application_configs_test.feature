@@ -10,7 +10,7 @@ Feature: Application Configs
     And I am "Albus Dumbledore"
     And I am on the Application Settings page
 
-@passed
+@passing
   Scenario: Footer
     When I fill in "Footer" with "Hogwarts University"
     And I press "Submit"
@@ -26,7 +26,7 @@ Feature: Application Configs
     Then I should see "Jedi Academy" in the footer
     And I should see "Jedi Rule" in the footer
 
-@passed
+@passing
   Scenario: LDAP Settings
     When I fill in "Ldap host address" with "directory.yale.edu"
     And I fill in "Ldap port" with "389"
