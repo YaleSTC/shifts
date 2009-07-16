@@ -32,5 +32,13 @@ describe Payform do
     end
   end
 
+  describe "approval, printing"
+    before(:each) do
+      @payform = Payform.new
+      @payform.attributes = valid_payform_attributes
+      @payform.save!
+
+    it "should be approved after submission"
+      @payform.
 end
 

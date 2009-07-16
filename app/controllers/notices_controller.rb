@@ -37,12 +37,15 @@ class NoticesController < ApplicationController
         format.html {redirect_to :action => "index"}
         format.js
       else
-        format.html {render :action => "new"}
-        format.js {render :update do |page|
-                    page.replace_html('TB_ajaxContent', :partial => "form")
-                    page.replace_html('notice_form', :partial => "form")
-                    end
-                  }
+        format.html {
+          render :action => "new"
+        }
+        format.js {
+          render :update do |page|
+            page.replace_html('TB_ajaxContent', :partial => "form") #because thickbox drops the div
+            page.replace_html('notice_form', :partial => "form")
+          end
+        }
       end
     end
   end

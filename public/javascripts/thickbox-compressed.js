@@ -235,7 +235,7 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
             $("#TB_window").css({display:"block"});
           }
         }else{
-          $("#TB_ajaxContent").load(url += "&random=" + (new Date().getTime()),function(){//to do a post change this load method
+              $("#TB_ajaxContent").load(url += "?layout=false&random=" + (new Date().getTime()),function(){//to do a post change this load method
             tb_position();
             $("#TB_load").remove();
             tb_init("#TB_ajaxContent a.thickbox");
