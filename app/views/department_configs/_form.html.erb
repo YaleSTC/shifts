@@ -1,3 +1,4 @@
+<div class="shift_admin_form">
 <% form_for @department_config do |f| %>
   <%= f.error_messages %>
   <fieldset>
@@ -18,10 +19,6 @@
       <label>Late sign-in grace period:</label>
       <%= f.text_field :grace_period, :size => 6 %>
     </p>
-    <p>
-      <label>Editable reports:</label>
-      <%= f.check_box :edit_report %>
-    </p>
       <p>
         <label>Display weekends on shift schedule:</label>
         <%= f.check_box :weekend_shifts %>
@@ -35,15 +32,15 @@
   <fieldset>
     <legend>Edit Payform Configuration</legend>
     <p>
-      <label>Default Printed Payform Message:</label><br />
+      <label>Default Printed Payform Message:</label>
       <%= f.text_area :printed_message, :size => "50x5" %>
     </p>
     <p>
-      <label>Default Payform Reminder:</label><br />
+      <label>Default Payform Reminder:</label>
       <%= f.text_area :reminder_message, :size => "50x5" %>
     </p>
     <p>
-      <label>Default Late Payform Warning:</label><br />
+      <label>Default Late Payform Warning:</label>
       <%= f.text_area :warning_message, :size => "50x5" %>
     </p>
     <p>
@@ -63,12 +60,8 @@
       <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
     </p>
     <p>
-      <label>Monthly Payform Period (leave unchecked for weekly):</label>
-      <%= f.check_box :monthly %>
-    </p>
-    <p>
-      <label>Include Payform Punch Clock on User Payforms:</label>
-      <%= f.check_box :punch_clock %>
+      <label>Payform Period:</label>
+      <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
     <p>
       <label>Show Disabled Categories on Payforms (rather than filing jobs under 'Miscellaneous'):</label>
@@ -79,4 +72,5 @@
     </p>
   </fieldset>
 <% end %>
+</div>
 
