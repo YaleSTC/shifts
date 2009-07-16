@@ -1,6 +1,7 @@
 class DepartmentsController < ApplicationController
   before_filter :require_superuser
   skip_before_filter :load_department
+  
   def index
     if params[:department_id]
       redirect_to Department.find(params[:department_id])
