@@ -27,4 +27,3 @@ class DepartmentObserver < ActiveRecord::Observer
     Category.create!(:name => "Miscellaneous", :department_id => department.id, :built_in => true)
   end
 end
-
