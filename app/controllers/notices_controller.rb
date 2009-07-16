@@ -44,6 +44,7 @@ class NoticesController < ApplicationController
                     end
                   }
       end
+    end
   end
 
   def update
