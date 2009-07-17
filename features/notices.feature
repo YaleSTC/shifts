@@ -8,6 +8,7 @@ Feature: Notices
     And I am "Harry Potter"
     And I am on the homepage
 
+@passing
   Scenario: A regular user should not be able to create announcements
     When I follow "Notices"
     And I follow "Post a new notice"
@@ -17,6 +18,7 @@ Feature: Notices
     And I should not see "or check here to make it indefinite"
     And I should not see "Hogwarts (all locations)"
 
+@passing
   Scenario: An admin should be able to create announcements
     Given I am "Albus Dumbledore"
     And I am on the homepage
@@ -33,7 +35,6 @@ Feature: Notices
     And I follow "Post a new notice"
     And I fill in "notice_content" with "Hello world!"
     And I fill in "For users" with "Albus Dumbledore, hp123"
-    And I should not see "Hogwarts (all locations)"
     And I press "Save"
     Then I should see "Notice was successfully created"
     And I should have 1 notice
@@ -141,7 +142,7 @@ Feature: Notices
     When I follow "Notices"
     And I follow "Post a new notice"
     And I fill in "notice_content" with "Everybody should see this!"
-    And I check "Hogwarts (all locations)"
+    And I check "Hogwarts"
     And I press "Save"
     Then I should see "Notice was successfully created"
     And I should have 1 notice
