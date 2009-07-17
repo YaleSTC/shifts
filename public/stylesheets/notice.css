@@ -1,11 +1,11 @@
-/* THESE BREAK THE LEFT NAV BAR:
-ul {
+
+ul#notice_ul {
     list-style-type: none;
 }
-li {
+li#notice_li {
     padding-left: 1em;
 }
-*/
+
 
 fieldset.sticky {
   padding: 5px;

@@ -3,7 +3,7 @@
 
 Feature: Authentication Systems
   In order to manage users with different auth_types
-  As a application admin
+  As an application admin
   I want manage the authentication settings
 
 @passing

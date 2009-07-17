@@ -3,14 +3,10 @@ class PayformsController < ApplicationController
 
 
   def index
-    if current_user.is_admin_of?(current_department)
-      @payforms =  current_department.payforms
-    else
-      @payforms =  current_department.payforms && current_user.payforms #UNION. Ben, UNIIIOOON. BEN. UNION. && = Union. MM..... onions.
-    end
-    narrow_down(@payforms)
-    @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
-    #TODO: could this just be "@payforms = @payforms.sort_by(|payform| payform.user.last_name)"?
+    @payforms = narrow_down(current_user.is_admin_of?(current_department) ? 
+                            current_department.payforms : 
+                            current_department.payforms && current_user.payforms)
+    @payforms = @payforms.sort_by{|payform| payform.user.last_name}
   end
 
   def show
@@ -55,7 +51,10 @@ class PayformsController < ApplicationController
     if @payform.save
       flash[:notice] = "Successfully submitted payform."
     end
-    redirect_to @payform
+    respond_to do |format|
+      format.html {redirect_to @payform }
+      format.js
+    end
   end
 
   def approve
@@ -100,9 +99,9 @@ class PayformsController < ApplicationController
     for user in users
       @payforms += narrow_down(user.payforms)
     end
-      
+
   end
-  
+
   def email_reminders
     if !params[:id] or params[:id].to_i != @department.id
       redirect_to :action => :email_reminders, :id => @department.id and return
@@ -111,7 +110,7 @@ class PayformsController < ApplicationController
     @default_warning_msg = current_department.department_config.warning_message
     @default_warn_start_date = 8.weeks.ago
   end
-  
+
   def send_reminders
     message = params[:post]["body"]
     @users = current_department.users.select {|u| if u.is_active?(current_department) then u.email end }
@@ -123,7 +122,7 @@ class PayformsController < ApplicationController
     end
     redirect_with_flash "E-mail reminders sent to the following: #{users_reminded.to_sentence}", :action => :email_reminders, :id => @department.id
   end
-  
+
   def send_warnings
     message = params[:post]["body"]
     start_date = Date.parse(params[:post]["date"])
@@ -131,7 +130,7 @@ class PayformsController < ApplicationController
     @users = @department.users.sort_by(&:name)
     users_warned = []
     @admin_user = current_user
-    for user in @users     
+    for user in @users
       Payform.build(@department, user, Date.today)
       unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
       
@@ -147,22 +146,28 @@ class PayformsController < ApplicationController
     end
     redirect_with_flash "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}", :action => :email_reminders, :id => @department.id
   end
-  
+
   protected
-  
+
   def narrow_down(payforms)
-    if params[:unsubmitted]
-      payforms = payforms.unsubmitted
-    elsif params[:submitted]
-      payforms = payforms.unapproved
-    elsif params[:approved]
-      payforms = payforms.unprinted
-    elsif params[:printed]
-      payforms = payforms.printed
-    else
+    if (!params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed])
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
-      payforms -= payforms.printed
     end
+    scope = [] 
+    if params[:unsubmitted]
+      scope += payforms.unsubmitted
+    end
+    if params[:submitted]
+      scope += payforms.unapproved
+    end
+    if params[:approved]
+      scope += payforms.unprinted
+    end
+    if params[:printed]
+      scope += payforms.printed
+    end
+    scope
   end
 
 end
+
