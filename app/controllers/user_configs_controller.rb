@@ -1,5 +1,5 @@
 class UserConfigsController < ApplicationController
-  before_filter :check_user
+  before_filter :set_var_and_check_owner
 
   def edit
     @dept_select = current_user.departments.map{|d| [d.name, d.id]}
@@ -21,14 +21,11 @@ class UserConfigsController < ApplicationController
   end
 
   private
-
-  def check_user
+  
+  def set_var_and_check_owner
     @user_config = UserConfig.find(params[:id])
-    unless  current_user.is_superuser? || current_user == @user_config.user
-      flash[:error] = "You do not have the authority to edit that user's settings."
-      redirect_to root_path
-    end
-  end
+    require_owner(@user_config, "You do not have the authority to edit that user's settings.")
+  end    
 
 end
 

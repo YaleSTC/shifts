@@ -7,11 +7,9 @@ class AddPayformConfigsToDepartmentConfigs < ActiveRecord::Migration
     add_column :department_configs, :description_min, :integer
     add_column :department_configs, :reason_min, :integer
     add_column :department_configs, :punch_clock, :boolean
-    add_column :department_configs, :show_disabled_cats, :boolean
   end
 
   def self.down
-    remove_column :department_configs, :show_disabled_cats
     remove_column :department_configs, :punch_clock
     remove_column :department_configs, :reason_min
     remove_column :department_configs, :description_min
@@ -21,3 +19,4 @@ class AddPayformConfigsToDepartmentConfigs < ActiveRecord::Migration
     remove_column :department_configs, :printed_message
   end
 end
+

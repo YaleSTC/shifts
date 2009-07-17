@@ -13,7 +13,7 @@
       </p>
       <p>
         <%= f.label :loc_group %>
-        <%= f.collection_select(:loc_group_id, @department.loc_groups, :id, :name, {:prompt => "Select a location group"}) %>
+        <%= f.collection_select(:loc_group_id, current_user.loc_groups_to_admin(@department), :id, :name, {:prompt => "Select a location group"}) %>
       </p>
       <p>
         <%= f.label :useful_links %>
