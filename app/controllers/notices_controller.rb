@@ -74,7 +74,7 @@ class NoticesController < ApplicationController
     if @notice.remove(current_user) && (@notice.save)
       redirect_with_flash("Notice successfully removed", :back)
     else
-      redirect_with_flash "Error removing notice", :back
+      redirect_with_flash("Error removing notice", :back)
     end
   end
 
