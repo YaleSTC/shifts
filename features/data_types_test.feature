@@ -1,5 +1,6 @@
 @data
 @cw
+@passing
 Feature: data types
   In order to manage data types
   As an admin

@@ -7,3 +7,4 @@ Rakefile
 .project
 *.orig
 *.sqlite3
+cleangit

@@ -13,7 +13,12 @@ Feature: payform
     Given I am on the page for the payform for the week "2009-05-23"
     When I follow "New Payform Item"
     And I select "2009-05-18" from "Date"
-    And I fill in "Hours" with "1.2"
+    And I select "03" from "time_input_start_4i"
+    And I select "00" from "time_input_start_5i"
+    And I select "PM" from "time_input_start_7i"
+    And I select "04" from "time_input_end_4i"
+    And I select "12" from "time_input_end_5i"
+    And I select "PM" from "time_input_end_7i"
     And I fill in "Description" with "Studying defense against the dark arts"
     And I select "Study" from "payform_item[category_id]"
     And I press "Create"
@@ -56,7 +61,7 @@ Feature: payform
     Then I should see "Payform item deleted"
     And I should have 1 payform_item
     And that payform_item should be inactive
-
+@passing
   Scenario: Submit a payform
     Given I have the following payform items
       | category  | user_login | hours | description         | date         |

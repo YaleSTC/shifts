@@ -107,28 +107,12 @@ When /^I log out$/ do
   CASClient::Frameworks::Rails::Filter.fake("invalid_login")
 end
 
-Then /^the ldap address should be "([^\"]*)"$/ do |address|
-  AppConfig.first.ldap_address.to_i.should be(address.to_i)
-end
-
 Then /^I should be redirected$/ do
   response.should be_redirect
 end
 
 Then /^I should be redirected to (.+)$/ do |page_name|
   response.should redirect_to(path_to(page_name))
-end
-
-Then /^I should be able to select "([^\"]*)" as a time$/ do |time|
-  select_time(time)
-#  assert_select(time)
-  assert_response :success
-end
-
-Then /^I should notbe able to select "([^\"]*)" as a time$/ do |time|
-  lambda {select_time(time)}.should raise_error
-#  save_and_open_page
-#  assert_response :failure
 end
 
 Given /^"([^\"]*)" has a current payform$/ do |user_name|
@@ -180,9 +164,7 @@ Then /^the department "([^\"]*)" should have a department_config$/ do |departmen
   Department.find_by_name(department).department_config.should_not be_nil
 end
 
-Then /^test test test 1$/ do
-  dept = User.find_by_last_name("Potter").departments.first
-  dept.department_config.day.should == 6
-  Payform.default_period_date(Date.today, dept).should == Date.parse("July 18, 2009")
+Then /^the "([^\"]*)" should be "([^\"]*)"$/ do |attribute, value|
+  $appconfig.send(attribute.to_s).to_s.should == value.to_s
 end
 

@@ -4,7 +4,7 @@ Feature: department_test
   I want to be able to create and manage departments
 
   Scenario: Add department
-    Given that I am a superuser
+#    Given that I am a superuser
     And I have no departments
     And I am on the list of departments
     When I follow "New Department"
@@ -14,10 +14,10 @@ Feature: department_test
     And I should have 1 department
 
   Scenario: Department list
-    Given that I am a superuser
+#    Given that I am a superuser
     And I have a department named "STC"
     And I have a department named "Film Studies"
-    And I have a user named "Bob Qu" in the department "STC" with login "bq9"
+#    And I have a user named "Bob Qu" in the department "STC" with login "bq9"
     And I am on the list of departments
     Then I should see "STC"
     And I should see "Film Studies"
