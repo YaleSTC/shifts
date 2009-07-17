@@ -99,9 +99,9 @@ class PayformsController < ApplicationController
     for user in users
       @payforms += narrow_down(user.payforms)
     end
-      
+
   end
-  
+
   def email_reminders
     if !params[:id] or params[:id].to_i != @department.id
       redirect_to :action => :email_reminders, :id => @department.id and return
@@ -110,7 +110,7 @@ class PayformsController < ApplicationController
     @default_warning_msg = current_department.department_config.warning_message
     @default_warn_start_date = 8.weeks.ago
   end
-  
+
   def send_reminders
     message = params[:post]["body"]
     @users = current_department.users.select {|u| if u.is_active?(current_department) then u.email end }
@@ -122,7 +122,7 @@ class PayformsController < ApplicationController
     end
     redirect_with_flash "E-mail reminders sent to the following: #{users_reminded.to_sentence}", :action => :email_reminders, :id => @department.id
   end
-  
+
   def send_warnings
     message = params[:post]["body"]
     start_date = Date.parse(params[:post]["date"])
@@ -130,7 +130,7 @@ class PayformsController < ApplicationController
     @users = @department.users.sort_by(&:name)
     users_warned = []
     @admin_user = current_user
-    for user in @users     
+    for user in @users
       Payform.build(@department, user, Date.today)
       unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
       
@@ -146,9 +146,9 @@ class PayformsController < ApplicationController
     end
     redirect_with_flash "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}", :action => :email_reminders, :id => @department.id
   end
-  
+
   protected
-  
+
   def narrow_down(payforms)
     if (!params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed])
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
@@ -170,3 +170,4 @@ class PayformsController < ApplicationController
   end
 
 end
+
