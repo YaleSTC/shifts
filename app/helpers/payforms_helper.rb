@@ -49,7 +49,7 @@ module PayformsHelper
         end
       end
     else
-      link_to "<span><strong>Submit Payform</strong></span>", submit_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put
+      link_to_remote "<span><strong>Submit Payform</strong></span>", :url => submit_payform_path(@payform), :method => :put, :html => {:href => submit_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put}
     end
   end
   

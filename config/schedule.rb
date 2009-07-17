@@ -13,11 +13,11 @@
 #   rake "some:great:rake:task"
 # end
 every :sunday, :at => "9am" do
-  #
+  rake "auto_remind"
 end
 
-every 2.minutes do
-  runner "AutoMailer"
-  command "cd /home/kwabena/work/newstc" && "/usr/bin/ar_sendmail -o --batch-size 20"
+every 20.minutes do
+  rake "auto_warn"
+  command "/usr/bin/ar_sendmail -o --batch-size 20 --chdir /home/kwabena/work/newstc"
 end
 
