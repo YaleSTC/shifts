@@ -9,7 +9,7 @@ end
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
-  role = Role.new(:name => permissions + " role")
+  role = Role.find_by_name(permissions + " role") || Role.new(:name => permissions + " role")
   role.departments << user.departments.first
   permissions.split(", ").each do |permission_name|
     permission = Permission.find_by_name(permission_name)
