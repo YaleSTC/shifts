@@ -6,7 +6,7 @@ class Notice < ActiveRecord::Base
   belongs_to :department
 
   validates_presence_of :content
-  validate :presence_of_locations_or_viewers
+  validate :presence_of_locations_or_viewers, :unless => :new_record?
   validate_on_create :proper_time
 
   named_scope :inactive, lambda {{ :conditions => ["end_time < ?", Time.now] }}

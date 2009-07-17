@@ -38,9 +38,10 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.active_sticky = true if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
+    @notice.save!
+    set_sources
     respond_to do |format|
       if @notice.save
-        set_sources
         flash[:notice] = 'Notice was successfully created.'
         format.html {
           redirect_to :action => "index"
@@ -96,12 +97,15 @@ class NoticesController < ApplicationController
   protected
 
   def set_sources(update = false)
-#    @notice.user_sources = [] if update
-#    @notice.location_sources = [] if update
     if params[:for_users]
       params[:for_users].split(",").each do |l|
-        l = l.split("||")
-        @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+        if l == l.split("||").first #This is for if javascript is disabled
+          l.strip
+          @notice.viewers << Department.find_by_name(l)
+        else
+          l = l.split("||")
+          @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+        end
       end
     end
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
