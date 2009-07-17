@@ -14,7 +14,7 @@ Feature: Notices
     Then I should not see "Post as sticky?"
     And I should not see "Specify a start time"
     And I should not see "Specify an end time"
-    And I should not see "or click here to make it indefinite"
+    And I should not see "or check here to make it indefinite"
     And I should not see "Hogwarts (all locations)"
 
   Scenario: An admin should be able to create announcements
@@ -25,7 +25,7 @@ Feature: Notices
     Then I should see "Post as sticky?"
     And I should see "Specify a start time"
     And I should see "Specify an end time"
-    And I should see "or click here to make it indefinite"
+    And I should see "or check here to make it indefinite"
     And I should see "Hogwarts (all locations)"
 
   Scenario: Creating a sticky from the dashboard for users
