@@ -1,6 +1,13 @@
-<% inside_layout 'application' do %>
-    <%= yield %>
+<% content_for :head do %>
+  <% stylesheet 'loc_groups' %>
+<% end %>
 
-    <div class="clear"></div>
+
+<% content_for :body do %>
+  
+  <%= yield %>
+
+  <div class="clear"></div>
 <% end -%>
 
+<%= render :file => "layouts/application.html.erb" %>

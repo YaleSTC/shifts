@@ -7,6 +7,8 @@ class CreateDepartmentConfigs < ActiveRecord::Migration
       t.integer :time_increment
       t.integer :grace_period
       t.boolean :edit_report
+      t.boolean :auto_remind, :default => true
+      t.boolean :auto_warn, :default => true
 
       #Payform Period Config
       #=========================
