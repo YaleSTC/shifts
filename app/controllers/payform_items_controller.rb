@@ -15,7 +15,8 @@ class PayformItemsController < ApplicationController
     @payform = Payform.find(params[:payform_id])
     require_owner_or_dept_admin(@payform, "You do not have permission to edit this payform")
     @payform_item.payform = @payform
-    if @payform_item.save
+    @payform.submitted = nil
+    if @payform_item.save and @payform.save
       flash[:notice] = "Successfully created payform item."
       redirect_to @payform
     else
@@ -47,6 +48,10 @@ class PayformItemsController < ApplicationController
     if !@payform_item.save
       errors << "Failed to create a new payform item"
     end
+    @payform.submitted = nil
+    if !@payform.save
+      errors << "Failed to unsubmit payform"
+    end 
     if errors.length == 0
       if @payform_item.user == current_user  # just for testing; should be != instead
         AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
@@ -77,9 +82,13 @@ class PayformItemsController < ApplicationController
       AppMailer.deliver_payform_item_change_notification(@payform_item)
     end
     if @payform_item.save
-      flash[:notice] = "Payform item deleted."
+      @payform_item.payform.submitted = false
+      flash[:notice] = "Payform item deleted. "
+      if !@payform_item.payform.save
+        flash[:error] = "Error unsumbitting payform. "
+      end
     else
-      flash[:notice] = "Error deleting payform item."
+      flash[:error] = "Error deleting payform item."
     end
     redirect_to @payform
   end

@@ -9,7 +9,9 @@
     </div>
     <br /><br />
   <% end -%>
-  <%= render :partial => "status" %>
+  <div id="payform_status">
+    <%= render :partial => "status" %>
+  </div>
   <br /><br />
 
 <div id="payform">
@@ -23,5 +25,6 @@
   </table>
   <br/>
 </div>
-<%= payform_update_button %>
-<%= payform_add_button %>
+<div id="payform_buttons">
+  <%= render :partial => "payform_buttons" %>
+</div>
