@@ -1,0 +1,22 @@
+<h1>Listing punch_clock_sets</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Running Time</th>
+  </tr>
+
+<% @punch_clock_sets.each do |punch_clock_set| %>
+  <tr>
+    <td><%=h punch_clock_set.description %></td>
+    <td><%= punch_clock_set.running_time %></td>
+    <td><%= link_to 'Show', punch_clock_set %></td>
+    <td><%= link_to 'Edit', edit_punch_clock_set_path(punch_clock_set) %></td>
+    <td><%= link_to 'Destroy', punch_clock_set, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New punch_clock_set', new_punch_clock_set_path %>
