@@ -4,7 +4,7 @@ For locations: <br />
 <ul id = "notice_ul">
   <% if current_user.is_admin_of?(current_department) %>
     <%= check_box_tag :department_wide_locations %>
-    <label for="department_wide_locations"><%= current_department.name %> (all locations)</label>
+    <label for="department_wide_locations"><%= current_department.name %></label> (all locations)
   <% end %>
 
   <% for loc_group in current_department.loc_groups do %>
