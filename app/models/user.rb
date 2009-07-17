@@ -155,6 +155,10 @@ class User < ActiveRecord::Base
     [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
+  def self.find_by_names(name)
+    User.all.select{|u| u.name == name || u.proper_name == name || u.awesome_name == name}
+  end
+
   # originally intended to enable polymorphism; is this still needed, guys? -ben
   def users
     [self]

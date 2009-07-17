@@ -5,7 +5,7 @@
 <% current_department.locations.each do |loc| %>
   <% unless loc.find_notices.empty? %>
   <fieldset class ="index">
-    <legend><%= loc.name %></legend>
+    <legend id ="blue_fieldset"><%= loc.name %></legend>
     <%= render :partial => 'notice', :collection => loc.find_notices%>
   </fieldset>
   <br/>
