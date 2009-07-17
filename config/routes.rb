@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :punch_clock_sets
+
   map.with_options :controller => 'first_run' do |f|
     f.first_app_config 'firstrun/first_app_config', :action => 'new_app_config', :method => 'get'
     f.first_department 'firstrun/first_department', :action => 'new_department', :method => 'get'
