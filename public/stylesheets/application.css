@@ -81,7 +81,7 @@ fieldset.index {
 }
 /*this is used for the department_config form*/
 .shift_admin_form label {
-  width: 20em;
+  width: 30em;
   float: left;
   text-align: right;
   margin-right: 0.5em;
@@ -586,5 +586,10 @@ div.table_right {
   width:50%;
   float:right;
   margin:12px;
+  visibility:hidden;
+}
+
+span#loading_icon{
+  display:none;
 }
 

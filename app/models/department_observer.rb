@@ -18,9 +18,7 @@ class DepartmentObserver < ActiveRecord::Observer
                         :warning_message => "You have not submitted payforms for the weeks ending on the following dates:\n \n@weeklist@\n Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform.",
                         :warning_weeks => 2,
                         :description_min => 4,
-                        :show_disabled_cats => true,
-                        :reason_min => 4,
-                        :punch_clock => false
+                        :reason_min => 4
                         })
 
     Category.create!(:name => "Shifts",        :department_id => department.id, :built_in => true)
