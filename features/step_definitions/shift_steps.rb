@@ -33,7 +33,7 @@ When /^I comment in that_report "([^\"]*)"$/ do |content|
 end
 
 Then /^that_shift should not be late$/ do
-  @that_shift.should_not be_late
+   @that_shift.should_not be_late
 end
 
 Then /^that_shift should be late$/ do

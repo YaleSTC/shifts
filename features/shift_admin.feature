@@ -47,7 +47,7 @@ Scenario: Destroy a shift
   When I follow "Shifts"
   And I follow "Destroy"
   Then I should see "Successfully destroyed shift."
-@passed
+@passing
 Scenario Outline: See more choices when logged in as admin
 Given I am logged into CAS as <user>
 Given I am on the homepage
@@ -70,7 +70,7 @@ Scenarios: Logged in as normal user
 |"em123"|should     |"Payforms"   |
 |"em123"|should not |"Departments"|
 |"em123"|should not |"Users"      |
-@passed
+@passing
 Scenario Outline: See control panel on certain pages depending on how logged in
 Given I am logged into CAS as <user>
 Given I am on the homepage

@@ -7,7 +7,7 @@ Feature: Settings
 
   Background:
     Given I am "Albus Dumbledore"
-@passed
+@passing
   Scenario: Department settings should be created when a new department is created
 #    Given the user "Albus Dumbledore" is a superuser
     And I am on the list of departments

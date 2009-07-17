@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
-  helper_method :random_password
 
   filter_parameter_logging :password, :password_confirmation
 
@@ -24,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied
     text = "Access denied"
-    text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('authlogic')
+    text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('built-in')
     text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user && current_user.departments
     render :text => text, :layout => true
   end
@@ -118,8 +117,32 @@ class ApplicationController < ActionController::Base
 
   def require_superuser
     unless current_user.is_superuser?
-      flash[:notice] = "That action is only available to superusers."
+      flash[:error] = "That action is only available to superusers."
       redirect_to(access_denied_path)
+    end
+  end
+
+  # Takes any object that has a user method and checks against current_user
+  def require_owner(object, message, redirect = true)
+    unless current_user.is_owner_of?(object)
+      flash[:error] = message
+      redirect_to access_denied_path if redirect
+    end
+  end
+  
+  # DRAFT IMPROVED VERSION
+#  def require_owner(object)
+#    unless current_user.is_owner_of?(object)
+#      flash[:error] = "You are not the owner of this #{object.class.humanize}"
+#      redirect_to access_denied_path if redirect
+#    end
+#  end
+  
+
+  def require_owner_or_dept_admin(thing, message, redirect = true)
+    unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(@department)
+      flash[:error] = message
+      redirect_to access_denied_path if redirect
     end
   end
 
@@ -127,7 +150,7 @@ class ApplicationController < ActionController::Base
   if !User.first
     redirect_to first_app_config_path
   elsif !current_user
-      if $appconfig.login_options==['authlogic'] #AppConfig.first.login_options_array.include?('authlogic')
+      if $appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
         redirect_to login_path
       else
         redirect_to access_denied_path
@@ -155,11 +178,6 @@ class ApplicationController < ActionController::Base
       session[:department_id] = params["chooser"]["dept_id"]
       redirect_to switch_department_path and return
     end
-  end
-
-  def random_password(size = 20)
-    chars = (('a'..'z').to_a + ('0'..'9').to_a)
-    (1..size).collect{|a| chars[rand(chars.size)] }.join
   end
   
   #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
