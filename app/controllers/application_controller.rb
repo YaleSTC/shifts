@@ -122,15 +122,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Takes any object that has a user method and checks against current_user
-#  def require_owner(object, message, redirect = true)
-#    unless current_user.is_owner_of?(object)
-#      flash[:error] = message
-#      redirect_to access_denied_path if redirect
-#    end
-#  end
-  
-#   DRAFT IMPROVED VERSION
+# Takes any object that has a user method and checks against current_user
   def require_owner(thing)
     unless current_user.is_owner_of?(thing)
       flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}"
@@ -144,13 +136,6 @@ class ApplicationController < ActionController::Base
       redirect_to access_denied_path
     end
   end
-
-#  def require_owner_or_dept_admin(thing, message, redirect = true)
-#    unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(@department)
-#      flash[:error] = message
-#      redirect_to access_denied_path if redirect
-#    end
-#  end
 
   def login_check
   if !User.first
