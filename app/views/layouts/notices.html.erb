@@ -5,9 +5,9 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
-
-    <li><%= link_to_remote 'Post a new notice',:url => new_notice_path + '?height=700&width=600', :title => "Create New Notice",
-                                               :html => {:class => "thickbox", :href => url_for(new_notice_path)} %>
+ <li><%= link_to_remote 'Post a new notice', :url => new_notice_path + '?height=700&width=600', 
+                                             :title => "Create New Notice",
+                                             :html => {:class => "thickbox", :href => new_notice_path} %>
   </li>
     <% if current_user.is_admin_of?(current_department) %>
       <li><%= link_to 'Notice archive', archive_notices_path %></li>

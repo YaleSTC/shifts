@@ -58,8 +58,7 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
-  
-  
+    
   protected
   
   def max_staff_greater_than_min_staff
