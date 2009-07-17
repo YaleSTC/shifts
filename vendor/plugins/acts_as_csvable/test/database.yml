@@ -1,0 +1,18 @@
+sqlite:
+  :adapter: sqlite
+  :dbfile: acts_as_csvable.sqlite
+sqlite3:
+  :adapter: sqlite3
+  :dbfile: acts_as_csvable.sqlite3
+postgresql:
+  :adapter: postgresql
+  :username: postgres
+  :password: postgres
+  :database: acts_as_csvable_test
+  :min_messages: ERROR
+mysql:
+  :adapter: mysql
+  :host: 127.0.0.1
+  :username: root
+  :password: root
+  :database: acts_as_csvable_test
