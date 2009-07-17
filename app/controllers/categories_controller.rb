@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   layout "payforms"
   
+  before_filter :require_department_admin
+  
   def index
     @categories = current_department.categories
     @category = Category.new

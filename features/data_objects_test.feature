@@ -34,7 +34,7 @@ Feature: data object
       And I should see "Name: Garfield"
       And I should see "Description: he hates Mondays"
       And I should see "Locations: Cats aisle, Checkout"
-
+@passed
     Scenario: Editing data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location "Cat Aisle"
       When I am on the data objects page
@@ -53,7 +53,7 @@ Feature: data object
       And I should see "Hermione's cat"
       And I should see "Locations:"
       And I should see "Dog Aisle"
-
+@passed
     Scenario: Deleting data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location "Cat Aisle"
       When I am on the data objects page
