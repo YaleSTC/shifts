@@ -15,13 +15,17 @@ class Notice < ActiveRecord::Base
 
   def display_for
     display_for = []
-    display_for.push "for users #{self.viewers.collect{|n| n.name}.join(", ")}" unless self.viewers.empty?
-    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.join(", ")}" unless self.display_locations.empty?
+    display_for.push "for users #{self.viewers.collect{|n| n.name}.to_sentence}" unless self.viewers.empty?
+    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.to_sentence}" unless self.display_locations.empty?
     display_for.join "<br/>"
   end
 
   def is_current?
-    self.start_time < Time.now && (self.end_time > Time.now if self.end_time)
+    if self.end_time
+      self.start_time < Time.now && self.end_time > Time.now
+    else
+      self.start_time < Time.now
+    end
   end
 
   def viewers
@@ -37,13 +41,16 @@ class Notice < ActiveRecord::Base
     self.active_sticky = false if self.is_sticky
     self.end_time = Time.now
     self.remover = user
-    true
+    if self.save!
+      true
+    end
+    false
   end
 
   private
   #Validations
   def presence_of_locations_or_viewers
-    errors.add_to_base "Your notice must display somewhere or for someone." if self.display_locations.empty? && self.viewers.empty? && !self.new_record?
+    errors.add_to_base "Your notice must display somewhere or for someone." if self.locations.empty? && self.viewers.empty?
   end
 
   def proper_time

@@ -5,6 +5,7 @@ class NoticesController < ApplicationController
   end
 
   def archive
+    require_department_admin
     @notices = Notice.inactive
   end
 
@@ -19,6 +20,7 @@ class NoticesController < ApplicationController
   end
 
   def edit
+    require_department_admin
     @notice = Notice.find(params[:id])
     @legend = "Edit Notice"
     layout_check
@@ -28,24 +30,17 @@ class NoticesController < ApplicationController
     @notice = Notice.new(params[:notice])
     @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
     @notice.author = current_user
-    @notice.department = @department
+    @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.active_sticky = true if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    @notice.save!
+    @notice.save
     set_sources
     respond_to do |format|
       if @notice.save
-<<<<<<< HEAD:app/controllers/notices_controller.rb
-        flash[:notice] = 'Notice was successfully created.'
         format.html {
-          redirect_to :action => "index"
-=======
-        set_sources
-        format.html { 
           flash[:notice] = 'Notice was successfully created.'
-          redirect_to :action => "index" 
->>>>>>> 1b192958de6090ee59e5950d714b10c017d622b8:app/controllers/notices_controller.rb
+          redirect_to :action => "index"
         }
       else
         format.html { render :action => "new" }
@@ -73,7 +68,7 @@ class NoticesController < ApplicationController
 
   def destroy
     @notice = Notice.find(params[:id])
-    unless @notice.is_sticky || current_user.is_admin_of?(@notice.department)
+    unless @notice.is_sticky || current_user.is_admin_of?(current_department)
       redirect_with_flash("You are not authorized to remove this notice", :back) and return
     end
     unless @notice.is_current?
@@ -82,13 +77,14 @@ class NoticesController < ApplicationController
     if @notice.remove(current_user) && (@notice.save)
       redirect_with_flash("Notice successfully removed", :back)
     else
-      redirect_with_flash "Error removing notice", :back
+      redirect_with_flash("Error removing notice", :back)
     end
   end
 
   protected
 
-  def set_sources(update = false)
+  def set_sources
+
     if params[:for_users]
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
@@ -100,6 +96,7 @@ class NoticesController < ApplicationController
         end
       end
     end
+
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
       @notice.departments << current_department
       @notice.loc_groups << current_department.loc_groups
