@@ -1,6 +1,6 @@
 class PunchClocksController < ApplicationController
   def index
-    @punch_clocks = PunchClock.find_all_by_department(@department)
+    @punch_clocks = PunchClock.find_all_by_department_id(@department.id)
   end
   
   def show
@@ -8,22 +8,10 @@ class PunchClocksController < ApplicationController
     require_owner(@punch_clock)
   end
   
-  # slated for removal -ben
-#  def new
-##    @user = current_user
-#    @punch_clock = PunchClock.new(params[:id])
-#    @punch_clock.user = current_user
-#    if @punch_clock.save
-#      flash[:notice] = "Successfully clocked in."
-#    else
-#      flash[:notice] = "Could not clock in."
-#    end
-#    redirect_to dashboard_url
-#  end
-  
   def create
     @punch_clock = PunchClock.new
     @punch_clock.user = current_user
+    @punch_clock.department = @department
     @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in."
     redirect_to dashboard_url
   end
@@ -32,23 +20,15 @@ class PunchClocksController < ApplicationController
     PunchClock.find(params[:id])
   end
   
-  # Currently not implemented
-#  def cancel
-#    if (clock = current_user.punch_clock) && request.post?
-#      clock.destroy
-#    end
-#    redirect_to :controller => "/dashboard"
-#  end
-  
   def edit
-    @punch_clock = current_user.punch_clock
-    require_owner(@punch_clock, "You are not the owner of this punch clock.")
+    @punch_clock = PunchClock.find_by_id(params[:id])
+    require_owner_or_dept_admin(@punch_clock)
   end
   
   # Clocks out the punch clock
-  def update  # I really want this method to be called 'destroy'
+  def update
     @punch_clock = PunchClock.find(params[:id])
-    require_owner_or_dept_admin(@punch_clock, "You are not the owner of this punch clock.")
+    require_owner_or_dept_admin(@punch_clock)
     payform_item = PayformItem.new({:date => Date.today,
                                     :category => Category.find_by_name("Punch Clocks"),
                                     :hours => (Time.now - @punch_clock.created_at) / 3600.0, # sec -> hr
@@ -61,16 +41,14 @@ class PunchClocksController < ApplicationController
       flash[:notice] = "Could not clock out."
       render(:action => :edit)
     end
-#    if payform_item.save && @punch_clock.destroy
-#      flash[:notice] = "Successfully clocked out"
-#    else
-#      flash[:notice] = "Could not clock out"
-#      redirect_to dashboard_path and return
+  end  
+  
+    # Currently not implemented - cancels out the punch clock w/o adding time to payform
+#  def destroy
+#    if (clock = current_user.punch_clock) && request.post?
+#      clock.destroy
 #    end
-#    if current_user == @punch_clock.user
-#      redirect_to dashboard_path
-#    else
-#      redirect_to punch_clocks_path
-#    end
-  end
+#    redirect_to :controller => "/dashboard"
+#  end
+  
 end

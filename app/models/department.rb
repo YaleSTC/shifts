@@ -9,6 +9,7 @@ class Department < ActiveRecord::Base
   has_many :payforms
   has_many :payform_sets
   has_many :categories
+  has_many :punch_clocks
 
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
