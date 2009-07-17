@@ -54,7 +54,7 @@ class Payform < ActiveRecord::Base
   end
 
   def start_date
-    subtract = (department.monthly ? 1.month : 1.week)
+    subtract = (department.department_config.monthly ? 1.month : 1.week)
     date - subtract + 1.day
   end
 
