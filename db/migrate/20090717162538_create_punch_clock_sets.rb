@@ -2,7 +2,7 @@ class CreatePunchClockSets < ActiveRecord::Migration
   def self.up
     create_table :punch_clock_sets do |t|
       t.string :description
-      t.
+      t.references :department
 
       t.timestamps
     end
