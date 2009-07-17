@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
     return false unless thing.user == self
     true
   end
-    
+
   # now superuser is an attribute of User model, we use this instead
   # supermode lets an user turn on or off his superuser privilege
   # user .superuser? is you wanna test superuser no matter if  supermode is on or not
@@ -161,10 +161,6 @@ class User < ActiveRecord::Base
 
   def available_sub_requests #TODO: this could probalby be optimized
     SubRequest.all.select{|sr| sr.substitutes.include?(self)}
-  end
-
-  def notices #TODO: this could probalby be optimized
-    Notice.active.select{|n| n.viewers.include?(self)}
   end
 
   def restrictions #TODO: this could probalby be optimized
