@@ -1,7 +1,6 @@
 class PayformsController < ApplicationController
   before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit]
 
-
   def index
     @payforms = narrow_down(current_user.is_admin_of?(current_department) ? 
                             current_department.payforms : 
@@ -13,7 +12,7 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     flash[:error] = "Payform does not exist." unless @payform
     flash[:error] = "The payform (from #{@payform.department.name}) is not in this department (#{current_department.name})." unless @payform.department == current_department
-    require_owner_or_dept_admin(@payform, "You do not own this payform, and are not an admin of this deparment.")   
+    require_owner_or_dept_admin(@payform)   
     if flash[:error]
       redirect_to payforms_path
     else
@@ -46,7 +45,7 @@ class PayformsController < ApplicationController
 
   def submit
     @payform = Payform.find(params[:id])
-    require_owner_or_dept_admin(@payform, "You do not own this payform, and are not an admin of this deparment.")
+    require_owner_or_dept_admin(@payform)
     @payform.submitted = Time.now
     if @payform.save
       flash[:notice] = "Successfully submitted payform."

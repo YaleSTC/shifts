@@ -1,5 +1,4 @@
 class DataTypesController < ApplicationController
-
   before_filter :require_department_admin
 
   def index

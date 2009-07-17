@@ -140,7 +140,7 @@ class ApplicationController < ActionController::Base
   
   def require_owner_or_dept_admin(thing)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(@department)
-      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}"
+      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
       redirect_to access_denied_path
     end
   end
