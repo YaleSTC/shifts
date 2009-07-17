@@ -1,5 +1,6 @@
 class DataObjectsController < ApplicationController
   #User admin methods will need to be rewritten in move to other codebase
+  #Not yet permission-locked!!!
   
   # not at all sure what's going on here anymore, will ask ryan about it -ben
   def index   
