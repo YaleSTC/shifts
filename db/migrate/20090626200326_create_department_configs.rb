@@ -9,6 +9,7 @@ class CreateDepartmentConfigs < ActiveRecord::Migration
       t.boolean :edit_report
       t.boolean :auto_remind, :default => true
       t.boolean :auto_warn, :default => true
+      t.string  :from_address_for_auto_reminders
 
       #Payform Period Config
       #=========================
