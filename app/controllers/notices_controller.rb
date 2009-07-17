@@ -15,19 +15,13 @@ class NoticesController < ApplicationController
   def new
     @notice = Notice.new
     @legend = "New Notice"
-    respond_to do |format|
-      format.html {render :layout => 'application'}
-      format.js {render :update do |page|
-                  page.replace_html("TB_ajaxContent", :partial => "form", :layout => false)
-                end
-      }
-    end
+    layout_check
   end
 
   def edit
     @notice = Notice.find(params[:id])
     @legend = "Edit Notice"
-    render :layout => false
+    layout_check
   end
 
   def create
@@ -36,27 +30,19 @@ class NoticesController < ApplicationController
     @notice.author = current_user
     @notice.department = @department
     @notice.start_time = Time.now if @notice.is_sticky
+    @notice.active_sticky = true if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     respond_to do |format|
       if @notice.save
         set_sources
-        flash[:notice] = 'Notice was successfully created.'
-        format.html {
-          redirect_to :action => "index"
+        format.html { 
+          flash[:notice] = 'Notice was successfully created.'
+          redirect_to :action => "index" 
         }
-        format.js
       else
-        format.html {
-          render :action => "new"
-        }
-        format.js {
-          render :update do |page|
-            page.replace_html('TB_ajaxContent', :partial => "form") #because thickbox drops the div
-                                                                    #This is because I directly render the form into the div
-            page.replace_html('notice_form', :partial => "form")
-          end
-        }
+        format.html { render :action => "new" }
       end
+      format.js #create.js.erb
     end
   end
 
