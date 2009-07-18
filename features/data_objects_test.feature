@@ -1,5 +1,6 @@
 @data
 @cw
+@passing
 Feature: data object
   In order to manage data objects
   As a dept admin
@@ -30,11 +31,10 @@ Feature: data object
       And I press "Save and finish"
       Then I should see "Successfully created data object"
       Then I should have 1 data_object
-      And I should see "New cat created"
-      And I should see "Name: Garfield"
-      And I should see "Description: he hates Mondays"
-      And I should see "Locations: Cats aisle, Checkout"
-@passed
+      And I should see "Successfully created data object."
+      And I should see "Garfield"
+      And I should see "he hates Mondays"
+
     Scenario: Editing data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location "Cat Aisle"
       When I am on the data objects page
@@ -53,7 +53,7 @@ Feature: data object
       And I should see "Hermione's cat"
       And I should see "Locations:"
       And I should see "Dog Aisle"
-@passed
+
     Scenario: Deleting data objects
       Given I have a data object of data_type "Cat", named "Garfield", description "he hates Mondays", in location "Cat Aisle"
       When I am on the data objects page

@@ -1,5 +1,7 @@
- class PayformItemSetsController < ApplicationController
-layout "payforms"
+class PayformItemSetsController < ApplicationController
+  layout "payforms"
+  
+  before_filter :require_department_admin
   
   def index
     @payform_item_sets = PayformItemSet.all

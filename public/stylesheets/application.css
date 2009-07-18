@@ -74,14 +74,10 @@ a {
 */
 
 
-fieldset.index {
-  width: 75%;
-  padding: 5px;
-  background-color:#DDDDFF
-}
+
 /*this is used for the department_config form*/
 .shift_admin_form label {
-  width: 20em;
+  width: 30em;
   float: left;
   text-align: right;
   margin-right: 0.5em;
@@ -516,15 +512,23 @@ a:hover{
   display: block;
 }
 
+/* FIELDSET DESIGN -- Get this unified! */
+
 fieldset#warning {
   background: #C0C0C0;
 }
 
-fieldset {
+fieldset.index {
+  width: 75%;
+  padding: 5px;
+  background-color:#DDDDFF
+}
+
+#blue_fieldset fieldset {
   background: #ddf;
 }
 
-legend {
+#blue_fieldset fieldset legend {
   color: #eef;
   background: #123456;
   font-family: sans-serif;

@@ -1,4 +1,4 @@
-<% form_for [@report, @report_item] do |f| %>
+<% remote_form_for [@report, @report_item] do |f| %>
 <p>
     <%= f.error_messages %>
 </p>
@@ -6,29 +6,6 @@
     <%= f.text_area :content, {:size => '80x3', :wrap => 'hard'} %>
 </p>
 <p>
-    <%= f.submit "Add this event", :onclick => 'report_submit()' %>
+    <%= f.submit "Add this event" %>
 </p>
 <% end -%>
-
-
-
-<%# javascript to prompt the user before leaving the page: did you remember to submit? %>
-<script type="text/javascript">
-  var reportDone = false;
-
-  window.onbeforeunload = confirmLeavingPage;
-
-  function confirmLeavingPage()
-  {
-    if (!reportDone) {
-      return "Your report has not yet been submitted.";
-    }
-  }
-
-  function report_submit()
-  {
-    // The user has finished their work, so we don't
-    // need a warning anymore!
-    reportDone = true;
-  }
-</script>

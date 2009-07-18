@@ -1,2 +1,0 @@
-# include this line in /etc/crontab
-*/5 * * * * kwabena /usr/bin/ar_sendmail -ov --batch-size 20 --chdir /home/kwabena/work/newstc
