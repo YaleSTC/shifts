@@ -4,13 +4,10 @@ class DepartmentObserver < ActiveRecord::Observer
   # Automatically create department config for a department
   def after_create(department)
     DepartmentConfig.create!({:department_id => department.id,
-                        :schedule_start => "900",
-                        :schedule_end => "1700",
-                        :time_increment => "15",
-                        :grace_period => "7",
-                        :complex => false,
-                        :day => "6",
-                        :day2 => "1",
+                        :schedule_start => 9*60,
+                        :schedule_end => 17*60,
+                        :time_increment => 15,
+                        :grace_period => 7,
                         :edit_report => false,
                         :end_of_month => false,
                         :monthly => false,
@@ -21,9 +18,7 @@ class DepartmentObserver < ActiveRecord::Observer
                         :warning_message => "You have not submitted payforms for the weeks ending on the following dates:\n \n@weeklist@\n Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform.",
                         :warning_weeks => 2,
                         :description_min => 4,
-                        :show_disabled_cats => true,
-                        :reason_min => 4,
-                        :punch_clock => false
+                        :reason_min => 4
                         })
 
     Category.create!(:name => "Shifts",        :department_id => department.id, :built_in => true)

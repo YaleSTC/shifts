@@ -4,6 +4,7 @@ class PayformItemsController < ApplicationController
   
   def new
     @payform = Payform.find(params[:payform_id])
+    require_owner_or_dept_admin(@payform)
     @payform_item = PayformItem.new
     layout_check
   end
@@ -12,8 +13,10 @@ class PayformItemsController < ApplicationController
     get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     @payform = Payform.find(params[:payform_id])
+    require_owner_or_dept_admin(@payform)
     @payform_item.payform = @payform
-    if @payform_item.save
+    @payform.submitted = nil
+    if @payform_item.save and @payform.save
       flash[:notice] = "Successfully created payform item."
       redirect_to @payform
     else
@@ -24,6 +27,7 @@ class PayformItemsController < ApplicationController
   def edit
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
+    require_owner_or_dept_admin(@payform)
     layout_check
   end
 
@@ -37,12 +41,17 @@ class PayformItemsController < ApplicationController
     @payform_item.parent.payform = nil  # this line caused headache!
     @payform_item.source = current_user.name
     errors = []
+    require_owner_or_dept_admin(@payform)
     if !@payform_item.parent.save
       errors << "Failed to update the old payform item"
     end
     if !@payform_item.save
       errors << "Failed to create a new payform item"
     end
+    @payform.submitted = nil
+    if !@payform.save
+      errors << "Failed to unsubmit payform"
+    end 
     if errors.length == 0
       if @payform_item.user == current_user  # just for testing; should be != instead
         AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
@@ -58,6 +67,7 @@ class PayformItemsController < ApplicationController
   def delete
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
+    require_owner_or_dept_admin(@payform)    
     layout_check
   end
 
@@ -65,15 +75,20 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     @payform_item.reason = params[:payform_item][:reason]
     @payform = @payform_item.payform
+    require_owner_or_dept_admin(@payform)
     @payform_item.active = false
     @payform_item.source = current_user.name
     if @payform_item.payform.user == current_user  # just for testing; should be != instead
       AppMailer.deliver_payform_item_change_notification(@payform_item)
     end
     if @payform_item.save
-      flash[:notice] = "Payform item deleted."
+      @payform_item.payform.submitted = false
+      flash[:notice] = "Payform item deleted. "
+      if !@payform_item.payform.save
+        flash[:error] = "Error unsumbitting payform. "
+      end
     else
-      flash[:notice] = "Error deleting payform item."
+      flash[:error] = "Error deleting payform item."
     end
     redirect_to @payform
   end
@@ -106,6 +121,7 @@ class PayformItemsController < ApplicationController
       date_array[3] += 12
     end
     Time.utc(date_array[0], nil, nil, date_array[3], date_array[4])
-  end
+  end   
+  
 end
 

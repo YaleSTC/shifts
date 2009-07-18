@@ -13,7 +13,7 @@
       </th>
     </tr>
 
-    <tbody>
+    <tbody id = "all_report_items">
     <%= render :partial => 'report_item', :collection => @report.report_items %>
     </tbody>
     </table>
@@ -28,4 +28,27 @@
   <% end %>
   </p>
 </div>
+
+
+
+<%# javascript to prompt the user before leaving the page: did you remember to submit? %>
+<script type="text/javascript">
+  var reportDone = false;
+
+  window.onbeforeunload = confirmLeavingPage;
+
+  function confirmLeavingPage()
+  {
+    if (!reportDone) {
+      return "Your report has not yet been submitted.";
+    }
+  }
+
+  function report_submit()
+  {
+    // The user has finished their work, so we don't
+    // need a warning anymore!
+    reportDone = true;
+  }
+</script>
 

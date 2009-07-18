@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
     options.maintain_sessions false
   end
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :punch_clock_sets
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -121,6 +122,12 @@ class User < ActiveRecord::Base
     self.is_superuser? || (permission_list.include?(dept.admin_permission) && self.is_active?(dept))
   end
 
+  # Can only be called on objects which have a user method
+  def is_owner_of?(thing)
+    return false unless thing.user == self
+    true
+  end
+
   # now superuser is an attribute of User model, we use this instead
   # supermode lets an user turn on or off his superuser privilege
   # user .superuser? is you wanna test superuser no matter if  supermode is on or not
@@ -165,10 +172,6 @@ class User < ActiveRecord::Base
     SubRequest.all.select{|sr| sr.substitutes.include?(self)}
   end
 
-  def notices #TODO: this could probalby be optimized
-    Notice.active.select{|n| n.viewers.include?(self)}
-  end
-
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
   end
@@ -207,3 +210,4 @@ class User < ActiveRecord::Base
   end
 
 end
+
