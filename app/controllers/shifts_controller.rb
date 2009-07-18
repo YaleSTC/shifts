@@ -36,6 +36,7 @@ class ShiftsController < ApplicationController
 
   def show
     @shift = Shift.find(params[:id])
+    require_department_membership(@shift.department)
   end
 
   def show_active
