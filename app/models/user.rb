@@ -1,6 +1,6 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
-  acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id]
+  acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
@@ -32,6 +32,14 @@ class User < ActiveRecord::Base
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
+
+  def role=(name)
+    self.roles << Role.find_by_name(name) if name
+  end
+
+  def role
+    self.roles.first.name if self.roles.first
+  end
 
   def set_random_password(size=20)
     chars = (('a'..'z').to_a + ('0'..'9').to_a)
