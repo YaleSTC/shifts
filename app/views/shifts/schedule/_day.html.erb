@@ -6,6 +6,7 @@
 
 <% render :layout => 'shifts/schedule/day_table_layout' do %>
   <% @loc_groups.each do |loc_group| %>
+    <% @loc_group = loc_group %><% #This hack is needed to make print_cell work and enable shift signup -ben %>
     <% unless loc_group.locations.empty? %>
       <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
 

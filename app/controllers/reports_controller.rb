@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   #AJAX requests will be returned without layout
   layout proc{ |c| c.params[:format] == "js" ? false : "application" }
+  
 
   def index
     @reports = Report.find(:all, :order => :arrived)
