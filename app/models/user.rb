@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
     options.maintain_sessions false
   end
   has_and_belongs_to_many :roles
-  has_and_belongs_to_many :punch_clock_sets
+#TODO:There's no joined table here yet, so I've commented this out
+#  has_and_belongs_to_many :punch_clock_sets
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
