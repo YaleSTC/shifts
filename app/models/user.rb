@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   def role=(name)
-    self.roles << Role.find_by_name(name) if name
+    self.roles << Role.find_by_name(name) if name && Role.find_by_name(name)
   end
 
   def role
@@ -214,4 +214,3 @@ class User < ActiveRecord::Base
   end
 
 end
-
