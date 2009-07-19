@@ -524,6 +524,13 @@ fieldset.index {
   background-color:#DDDDFF
 }
 
+legend {
+  color: #eef;
+  background: #123456;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}
+
 #blue_fieldset fieldset {
   background: #ddf;
 }
