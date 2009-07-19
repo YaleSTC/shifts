@@ -34,6 +34,7 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.active_sticky = true if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
+    @notice.active = true
     @notice.save!
     set_sources
     respond_to do |format|
@@ -57,6 +58,7 @@ class NoticesController < ApplicationController
     @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
+    @notice.save
     set_sources
     if current_user.is_admin_of?(current_department) && @notice.save
       flash[:notice] = 'Notice was successfully updated.'
