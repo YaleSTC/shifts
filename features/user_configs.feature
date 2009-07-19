@@ -39,14 +39,14 @@ Feature: User settings
     And I am "Harry Potter"
     And I go to the homepage
     Then the page should indicate that I am in the department "Pet Store"
-
+@t
   Scenario: Changing the days displayed in shifts
 #     This test will not work if you happen to run it
 #     for the first day of the shift cycle (sunday if weekly)
 #     or if you run it on Friday (because the schedule is Mon-fri now) evidently
-#    Given I had a shift yesterday in "Diagon Alley"
-#    And the user "Hermione Granger" has permissions "Outside of Hogwarts signup, Outside of Hogwarts view, Outside of Hogwarts admin"
-#    And "Hermione Granger" has a shift tomorrow in "Diagon Alley"
+    Given "Hermione Granger" had a shift yesterday in "Diagon Alley"
+    And the user "Hermione Granger" has permissions "Outside of Hogwarts signup, Outside of Hogwarts view, Outside of Hogwarts admin"
+    And I have a shift tomorrow in "Diagon Alley"
     Given today is not Sunday
 
     When I select "Whole pay period" from "View week"

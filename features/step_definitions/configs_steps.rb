@@ -1,9 +1,11 @@
-Given /^I had a shift yesterday in "([^\"]*)"$/ do |location|
-creation_time = (Time.now - 3.days)
-start_time = (Time.now - 32.hours)
-end_time = (Time.now - 29.hours)
-shift_taken = (Time.now - 2.days)
-loc = Location.find_by_name(location).id
+Given /^"([^\"]*)" had a shift yesterday in "([^\"]*)"$/ do |name, location|
+  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+
+  creation_time = ((Date.today - 3.days).to_time + 13.hours)
+  start_time = ((Date.today - 1.day).to_time + 13.hours)
+  end_time = ((Date.today - 1.day).to_time + 15.hours)
+  shift_taken = (Time.now - 2.days)
+  loc = Location.find_by_name(location).id
 
   TimeSlot.create!(:location_id => loc,
                    :start => start_time,
@@ -11,7 +13,7 @@ loc = Location.find_by_name(location).id
                    :created_at => creation_time)
 
   this_shift = Shift.new(:start => start_time, :end => end_time,
-                        :user_id => @current_user.id, :location_id => loc,
+                        :user_id => user.id, :location_id => loc,
                         :scheduled => true, :created_at => shift_taken,
                         :updated_at => shift_taken)
   this_shift.save_without_validation!
@@ -24,12 +26,12 @@ loc = Location.find_by_name(location).id
 
 end
 
-Given /^"([^\"]*)" has a shift tomorrow in "([^\"]*)"$/ do |name, location|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+Given /^I have a shift tomorrow in "([^\"]*)"$/ do |location|
+
 
   creation_time = (Time.now - 3.days)
-  start_time = (Time.now + 1.day)
-  end_time = (Time.now + 26.hours)
+  start_time =  ((Date.today + 1.day).to_time + 13.hours)
+  end_time =  ((Date.today + 1.day).to_time + 15.hours)
   shift_taken = (Time.now - 1.day)
 
   loc = Location.find_by_name(location).id
@@ -40,7 +42,7 @@ Given /^"([^\"]*)" has a shift tomorrow in "([^\"]*)"$/ do |name, location|
                    :created_at => creation_time)
 
   Shift.create!(:start => start_time, :end => end_time,
-                :user_id => user.id, :location_id => loc,
+                :user_id => @current_user.id, :location_id => loc,
                 :scheduled => true, :created_at => shift_taken,
                 :updated_at => shift_taken)
 end
