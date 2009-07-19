@@ -18,12 +18,12 @@
   </td>
   <td class="rightside" id="edit">
     <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
-      <%= link_to 'edit', edit_payform_item_path(payform_item, :height => "500", :width => "600", :layout => "false"), :title => "Edit Payform Item", :class => "thickbox" %>
+      <%= link_to 'edit', edit_payform_item_path(payform_item, :height => "500", :width => "600"), :title => "Edit Payform Item", :class => "thickbox" %>
     <% end %>
   </td>
   <td class="rightside" id="delete">
     <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
-      <%= link_to "&#x2716;", delete_payform_item_path(payform_item, :height => "180", :width => "600", :layout => "false"), :title => "Delete Payform Item", :class => "thickbox" %>
+      <%= link_to "&#x2716;", delete_payform_item_path(payform_item, :height => "180", :width => "600"), :title => "Delete Payform Item", :class => "thickbox" %>
     <% end %>
   </td>
 </tr>

@@ -6,13 +6,11 @@ class Shift < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   has_one :report, :dependent => :destroy
-
   has_many :sub_requests, :dependent => :destroy
-
+  
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
-
 
   #validate :a_bunch_of_shit
 
@@ -30,8 +28,6 @@ class Shift < ActiveRecord::Base
   #
   # Class methods
   #
-
-
 
   def self.delete_part_of_shift(shift, start_of_delete, end_of_delete)
     #Used for taking sub requests
@@ -64,11 +60,6 @@ class Shift < ActiveRecord::Base
     end
   end
 
-
-
-
-
-
   # ==================
   # = Object methods =
   # ==================
@@ -95,7 +86,6 @@ class Shift < ActiveRecord::Base
   def submitted?
     self.report and self.report.departed
   end
-
 
   #TODO: subs!
   #check if a shift has a *pending* sub request and that sub is not taken yet

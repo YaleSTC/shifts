@@ -35,7 +35,6 @@
   <%= f.submit 'Save' %>
 </p>
 <% end %>
-
 <% unless current_user.is_admin_of?(current_department) %>
   <script type="text/javascript" charset="utf-8">
       $("#advanced_options_div").hide();
