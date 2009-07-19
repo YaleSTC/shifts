@@ -49,13 +49,14 @@ module PayformsHelper
         end
       end
     else
-      link_to "<span><strong>Submit Payform</strong></span>", submit_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put
+      link_to_remote "<span><strong>Submit Payform</strong></span>", :url => submit_payform_path(@payform), :method => :put, :html => {:href => submit_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put}
     end
   end
   
   def payform_add_button
     unless @payform.approved
-      link_to '<span>New Payform Item</span>', new_payform_payform_item_path(@payform, :height => "400", :width => "600", :layout => "false"), :title => "Create New Payform Item", :class => "thickbox button", :onclick => "this.blur();"
+      link_to '<span>New Payform Item</span>', new_payform_payform_item_path(@payform, :height => "400", :width => "600"), 
+                     :title => "Create New Payform Item", :class => "thickbox button", :onclick => "this.blur();"
     end
   end
 

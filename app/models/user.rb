@@ -1,10 +1,11 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
-  acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id]
+  acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :punch_clock_sets
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -31,6 +32,14 @@ class User < ActiveRecord::Base
   # memoize allows more powerful caching of instance variable in methods
   # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
+
+  def role=(name)
+    self.roles << Role.find_by_name(name) if name
+  end
+
+  def role
+    self.roles.first.name if self.roles.first
+  end
 
   def set_random_password(size=20)
     chars = (('a'..'z').to_a + ('0'..'9').to_a)
@@ -118,7 +127,7 @@ class User < ActiveRecord::Base
     return false unless thing.user == self
     true
   end
-    
+
   # now superuser is an attribute of User model, we use this instead
   # supermode lets an user turn on or off his superuser privilege
   # user .superuser? is you wanna test superuser no matter if  supermode is on or not
@@ -154,6 +163,10 @@ class User < ActiveRecord::Base
     [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
+  def self.find_by_names(name)
+    User.all.select{|u| u.name == name || u.proper_name == name || u.awesome_name == name}
+  end
+
   # originally intended to enable polymorphism; is this still needed, guys? -ben
   def users
     [self]
@@ -161,10 +174,6 @@ class User < ActiveRecord::Base
 
   def available_sub_requests #TODO: this could probalby be optimized
     SubRequest.all.select{|sr| sr.substitutes.include?(self)}
-  end
-
-  def notices #TODO: this could probalby be optimized
-    Notice.active.select{|n| n.viewers.include?(self)}
   end
 
   def restrictions #TODO: this could probalby be optimized

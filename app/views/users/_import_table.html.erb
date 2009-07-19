@@ -6,6 +6,7 @@
 <th>Last Name</th>
 <th>Email</th>
 <th>Employee ID</th>
+<th>Role</th>
 <%unless $appconfig.login_options.length==1%>
 <th colspan=<%=$appconfig.login_options.length %>>Authentication Type</th>
 <%end%>
@@ -15,7 +16,7 @@
 <%= render :partial => "import_table_form" %>
 <tr class="button_row">
 <td colspan=2><%= submit_tag "Cancel"%></td>
-<td colspan=<%= $appconfig.login_options.length==1 ? 3 : $appconfig.login_options.length+3 %>></td>
+<td colspan=<%= $appconfig.login_options.length==1 ? 4 : $appconfig.login_options.length+4 %>></td>
 <td colspan=2 align="right"><%= submit_tag "Save!"%></td></tr>
 <%end%>
 </table>

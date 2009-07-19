@@ -4,11 +4,10 @@ class DepartmentObserver < ActiveRecord::Observer
   # Automatically create department config for a department
   def after_create(department)
     DepartmentConfig.create!({:department_id => department.id,
-                        :schedule_start => "900",
-                        :schedule_end => "1700",
-                        :time_increment => "15",
-                        :grace_period => "7",
-                        :day => "6",
+                        :schedule_start => 9*60,
+                        :schedule_end => 17*60,
+                        :time_increment => 15,
+                        :grace_period => 7,
                         :end_of_month => false,
                         :monthly => false,
                         :weekend_shifts => true,
@@ -26,4 +25,3 @@ class DepartmentObserver < ActiveRecord::Observer
     Category.create!(:name => "Miscellaneous", :department_id => department.id, :built_in => true)
   end
 end
-

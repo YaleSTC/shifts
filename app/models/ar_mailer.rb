@@ -5,7 +5,7 @@ class ArMailer < ActionMailer::ARMailer
   
     # beginning of payform notification methods 
   def due_payform_reminder(admin_user, user, message)
-    subject     'Payform Reminder'
+    subject     'Due Payform Reminder'
     recipients  "#{user.name} <#{user.email}>"
     from        "#{admin_user.name} <#{admin_user.email}>"
     reply_to    "#{admin_user.name} <#{admin_user.email}>"
