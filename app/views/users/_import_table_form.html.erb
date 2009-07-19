@@ -1,6 +1,6 @@
 <% for @user in @users %>
 <% fields_for @user do |f| %>
-<tr>
+<tr class=<%= determine_class(@user) %>>
 <td class="activable"><%=f.text_field(:login, "index"=>@users.index(@user), :class => "table_field") %></td>
 <td class="activable"><%=f.text_field(:first_name, "index"=>@users.index(@user), :class => "table_field")%></td>
 <td class="activable"><%=f.text_field(:nick_name, "index"=>@users.index(@user), :class => "table_field")%></td>
@@ -15,7 +15,7 @@
 </td>
 <% end %>
 <%end%>
-<td> <%= check_box_tag "users_to_import[]", @users.index(@user), true %> </td>
+<td> <%= check_box_tag "users_to_import[]", @users.index(@user), should_be_checked(@user) %> </td>
 </tr>
 <%end%>
 <%end%>
