@@ -69,7 +69,7 @@ class UsersController < ApplicationController
           @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
         else
-          flash[:notice] = "Successfully created user and emailed instructions for setting password."
+          flash[:notice] = "Successfully created user."
         end
         redirect_to @user
       else
@@ -247,3 +247,4 @@ class UsersController < ApplicationController
     department_users_path(current_department)
   end
 end
+
