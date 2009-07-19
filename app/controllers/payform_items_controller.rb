@@ -4,7 +4,7 @@ class PayformItemsController < ApplicationController
   
   def new
     @payform = Payform.find(params[:payform_id])
-    require_owner_or_dept_admin(@payform, "You do not have permission to edit this payform")
+    require_owner_or_dept_admin(@payform)
     @payform_item = PayformItem.new
     layout_check
   end
@@ -13,7 +13,7 @@ class PayformItemsController < ApplicationController
     get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     @payform = Payform.find(params[:payform_id])
-    require_owner_or_dept_admin(@payform, "You do not have permission to edit this payform")
+    require_owner_or_dept_admin(@payform)
     @payform_item.payform = @payform
     @payform.submitted = nil
     if @payform_item.save and @payform.save
@@ -27,7 +27,7 @@ class PayformItemsController < ApplicationController
   def edit
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
-    require_owner_or_dept_admin(@payform, "You do not have permission to edit this payform")
+    require_owner_or_dept_admin(@payform)
     layout_check
   end
 
@@ -41,7 +41,7 @@ class PayformItemsController < ApplicationController
     @payform_item.parent.payform = nil  # this line caused headache!
     @payform_item.source = current_user.name
     errors = []
-    require_owner_or_dept_admin(@payform, "You do not have permission to edit this payform")
+    require_owner_or_dept_admin(@payform)
     if !@payform_item.parent.save
       errors << "Failed to update the old payform item"
     end
@@ -67,7 +67,7 @@ class PayformItemsController < ApplicationController
   def delete
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
-    require_owner_or_dept_admin(@payform, "You do not have permission to edit this payform")    
+    require_owner_or_dept_admin(@payform)    
     layout_check
   end
 
@@ -75,7 +75,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     @payform_item.reason = params[:payform_item][:reason]
     @payform = @payform_item.payform
-    require_owner_or_dept_admin(@payform, "You do not have permission to edit this payform")
+    require_owner_or_dept_admin(@payform)
     @payform_item.active = false
     @payform_item.source = current_user.name
     if @payform_item.payform.user == current_user  # just for testing; should be != instead

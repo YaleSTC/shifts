@@ -148,12 +148,12 @@ class UsersController < ApplicationController
 
   def verify_import
     file=params[:file]
-    begin
+#    begin
       @users = User.from_csv(file, :normal)
-    rescue Exception => e
-      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
-      render :action => 'import'
-    end
+#    rescue Exception => e
+#      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+#      render :action => 'import'
+#    end
   end
 
   def save_import
@@ -168,10 +168,13 @@ class UsersController < ApplicationController
           #don't modify any data, as this is probably a mistake
           failures << {:user=>u, :reason => "User already exists in this department!"}
         else
+          #TODO: Improve this, think about what should actually happen.
           department_roles = @user.roles.select{|role| role.departments.include? @department}
           @user.roles -= department_roles
+          @user.role = u[:role]
           #add user to new department
           @user.departments << @department unless @user.departments.include?(@department)
+          @user.save
         end
       else
         @user = User.new(u)

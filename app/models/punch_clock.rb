@@ -1,5 +1,6 @@
 class PunchClock < ActiveRecord::Base
   belongs_to :user
+  belongs_to :department
   belongs_to :punch_clock_set
   
   def running_time
