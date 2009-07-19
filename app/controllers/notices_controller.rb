@@ -34,7 +34,8 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.active_sticky = true if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    @notice.save
+    @notice.active = true
+    @notice.save!
     set_sources
     respond_to do |format|
       if @notice.save
@@ -57,7 +58,8 @@ class NoticesController < ApplicationController
     @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    set_sources(true)
+    @notice.save
+    set_sources
     if current_user.is_admin_of?(current_department) && @notice.save
       flash[:notice] = 'Notice was successfully updated.'
       redirect_to @notice
@@ -84,12 +86,14 @@ class NoticesController < ApplicationController
   protected
 
   def set_sources
-
+#    raise params.to_yaml
     if params[:for_users]
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
-          l.strip
-          @notice.viewers << Department.find_by_name(l)
+          l = l.strip
+          @notice.user_sources << Department.find_by_name(l)
+          @notice.user_sources << User.find_by_names(l).first
+          @notice.user_sources << User.find_by_login(l)
         else
           l = l.split("||")
           @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
@@ -98,7 +102,7 @@ class NoticesController < ApplicationController
     end
 
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
-      @notice.departments << current_department
+      @notice.location_sources << current_department
       @notice.loc_groups << current_department.loc_groups
       @notice.locations << current_department.loc_groups.collect {|lg| lg.locations}
     elsif params[:for_location_groups]
