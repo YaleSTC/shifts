@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   #AJAX requests will be returned without layout
   layout proc{ |c| c.params[:format] == "js" ? false : "application" }
-  
+
   # unsecured for now; are we getting rid of this action? -ben
   # this should discriminate by department
   def index
@@ -60,7 +60,10 @@ class ReportsController < ApplicationController
       else
         flash[:notice] = "Successfully submitted report, but payform did not update. Please manually add the job to your payform."
       end
-      redirect_to @report
+      respond_to do |format|
+        format.html {redirect_to @report}
+        format.js
+      end
     else
       render :action => 'edit'
     end
@@ -74,3 +77,4 @@ class ReportsController < ApplicationController
     redirect_to reports_url
   end
 end
+
