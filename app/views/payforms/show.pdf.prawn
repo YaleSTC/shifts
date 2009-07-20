@@ -14,7 +14,7 @@
   for category in current_department.categories do
     payform_items = category.payform_items & @payform.payform_items
     unless payform_items.empty?
-      table_items = payform_items.map do |table_item|
+      table_items = payform_items.map do |table_item|precision
         [table_item.date, table_item.description, table_item.hours]
       end
       pdf.table table_items, :border_style => :grid,
@@ -26,5 +26,5 @@
   
   pdf.move_down(10)
 
-  pdf.text "Total Hours: #{number_with_precision(@payform.hours,1)}", :size => 16, :style => :bold
+  pdf.text "Total Hours: #{number_with_precision(@payform.hours, :precision => 1)}", :size => 16, :style => :bold
   pdf.text "This payform was approved by #{@payform.approved_by.name} at #{@payform.approved.strftime(time_format + ' on ' + date_format)}"

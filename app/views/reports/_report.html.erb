@@ -22,33 +22,30 @@
     <!-- <strong>Departed:</strong>
     <%=h @report.departed.getlocal.to_s(:short_name) %> -->
   <% elsif current_user==@report.user %>
-    <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true}, {:method => :put, :onclick => 'report_submit()'} %>
+  <div id = "submit_button_div">
+    <%= button_to_remote "End shift", :url => {:action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
+  </div>
   <% else %>
     This report is still in progress.
   <% end %>
   </p>
 </div>
 
-
-
 <%# javascript to prompt the user before leaving the page: did you remember to submit? %>
 <script type="text/javascript">
-  var reportDone = false;
-
-  window.onbeforeunload = confirmLeavingPage;
-
-  function confirmLeavingPage()
-  {
-    if (!reportDone) {
-      return "Your report has not yet been submitted.";
-    }
+  function setConfirmUnload(on) {
+    window.onbeforeunload = (on) ? unloadMessage : null;
   }
 
-  function report_submit()
-  {
-    // The user has finished their work, so we don't
-    // need a warning anymore!
-    reportDone = true;
+  function unloadMessage() {
+    return "Your report has not yet been submitted.";
   }
+
+  $(document).ready(function() {
+    setConfirmUnload(true);
+    $("#submit_button_div :button").click(function(){
+      setConfirmUnload(false);
+    });
+  });
 </script>
 
