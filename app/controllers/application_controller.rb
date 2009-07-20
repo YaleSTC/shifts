@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
       redirect_to(access_denied_path)
     end
   end
-
+  
 # Takes any object that has a user method and checks against current_user
   def require_owner(thing)
     unless current_user.is_owner_of?(thing)
@@ -135,6 +135,11 @@ class ApplicationController < ActionController::Base
       flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
       redirect_to access_denied_path
     end
+  end
+
+  # Takes a department; intended to be passed some_thing.department
+  def require_department_membership(dept)
+    redirect_to(access_denied_path) unless current_user.departments.include?(dept)
   end
 
   def login_check
