@@ -17,14 +17,3 @@ Given /^"([^\"]*)" are only in the department "([^\"]*)"$/ do |users_list, dept|
   end
 end
 
-When /^I should have selector$/ do
-  response.should have_selector("body") do
-    response.should have_selector("jak")
-  end
-end
-
-Then /^the last notice created should have location "([^\"]*)"$/ do |loc|
-  location = Location.find_by_name(loc)
-  Notice.last.locations.should include(location)
-end
-
