@@ -90,14 +90,9 @@ Rails::Initializer.run do |config|
   config.active_record.observers = :user_observer, :department_observer
 end
 
-# enable detailed CAS logging
-cas_logger = CASClient::Logger.new(RAILS_ROOT+'/log/cas.log')
-cas_logger.level = Logger::DEBUG
-
 CASClient::Frameworks::Rails::Filter.configure(
   :cas_base_url => "https://secure.its.yale.edu/cas/",
   :username_session_key => :cas_user,
-  :extra_attributes_session_key => :cas_extra_attributes,
-  :logger => cas_logger
+  :extra_attributes_session_key => :cas_extra_attributes
 )
 
