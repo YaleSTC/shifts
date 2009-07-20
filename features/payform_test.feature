@@ -70,7 +70,7 @@ Feature: payform
       | Magic     | hp123      | 2     | fighting Voldemort  | May 18, 2009 |
     And I am on the page for the payform for the week "2009-5-23"
     When I follow "Submit Payform"
-#    Then the payform should be submitted : THIS IS AJAXED -- SHOULD IT STILL WORK?
+    Then the payform should be submitted
     And I should see "Successfully submitted payform."
     When I follow "Logout"
     Given the user "Albus Dumbledore" has permission "Hogwarts payforms admin"
