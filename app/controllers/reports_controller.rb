@@ -2,13 +2,15 @@ class ReportsController < ApplicationController
   #AJAX requests will be returned without layout
   layout proc{ |c| c.params[:format] == "js" ? false : "application" }
   
-
+  # unsecured for now; are we getting rid of this action? -ben
+  # this should discriminate by department
   def index
     @reports = Report.find(:all, :order => :arrived)
   end
 
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
+    require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
   end
 
