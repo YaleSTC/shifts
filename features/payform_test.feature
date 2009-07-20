@@ -55,7 +55,7 @@ Feature: payform
     And I am on the payforms page
     When I follow "2009-05-23"
     And I follow "✖"
-#    Then I should see "Are you sure?" : except that is done using java, so cucumber cannot see
+#    Then I should see "Are you sure?" : except that is done using javascript (NOT JAVA), so cucumber cannot see
 #    And I fill in "Reason for deletion" with "because I lied"
 #    And I press "Yes"
     Then I should see "Payform item deleted"
