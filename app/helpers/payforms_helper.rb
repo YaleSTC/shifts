@@ -43,13 +43,13 @@ module PayformsHelper
     if @payform.submitted
       if current_user.is_admin_of?(@payform.department)
         if @payform.approved && !@payform.printed
-          link_to "<span><strong>Print Payform</strong></span>", print_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put
+          link_to "<span><strong>Print Payform</strong></span>", print_payform_path(@payform), :class => "button", :onclick => "this.blur();"
         elsif !@payform.printed
-          link_to "<span><strong>Approve Payform</strong></span>", approve_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put
+          link_to "<span><strong>Approve Payform</strong></span>", approve_payform_path(@payform), :class => "button", :onclick => "this.blur();"
         end
       end
     else
-      link_to_remote "<span><strong>Submit Payform</strong></span>", :url => submit_payform_path(@payform), :method => :put, :html => {:href => submit_payform_path(@payform), :class => "button", :onclick => "this.blur();", :method => :put}
+      link_to_remote "<span><strong>Submit Payform</strong></span>", :url => submit_payform_path(@payform), :method => :get, :html => {:href => submit_payform_path(@payform), :class => "button", :onclick => "this.blur();"}
     end
   end
   
