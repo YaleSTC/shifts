@@ -1,0 +1,10 @@
+TODO
+
+Permissions for data and below (controllers)
+	skipped data entries and data objects, and locations
+Fix shift report data entry form
+fix data object validations: locations, data type FIXED
+	data type is a problem with non-nested routes	FIXED
+	location select checkboxes disappear after validation errors are thrown - problem is create -> render :action	FIXED
+DEPRECATION WARNING: number_with_precision takes an option hash instead of a separate precision argument.. (called from _run_erb_app47views47payforms47show46html46erb at /home/ben/code/newstc/app/views/payforms/show.html.erb:20)
+

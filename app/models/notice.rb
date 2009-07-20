@@ -10,8 +10,13 @@ class Notice < ActiveRecord::Base
   validate_on_create :proper_time
 
   named_scope :inactive, lambda {{ :conditions => ["end_time < ?", Time.now] }}
-  named_scope :active,   lambda {{ :conditions => ["start_time > ? and end_time < ? or active = ?", Time.now, Time.now, true]}}
+  named_scope :active_with_end, lambda {{ :conditions => ["start_time < ? and end_time > ?", Time.now, Time.now]}}
+  named_scope :active_without_end, lambda {{ :conditions => ["start_time < ?", Time.now]}}
   named_scope :upcoming, lambda {{ :conditions => ["start_time > ?", Time.now ]}}
+
+  def self.active
+    (self.active_with_end + self.active_without_end).uniq
+  end
 
   def display_for
     display_for = []

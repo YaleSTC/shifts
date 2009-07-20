@@ -67,7 +67,7 @@ Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id
 end
 
 Then /^the payform should be submitted$/ do
-  @current_user.payforms.first.submitted.should_not be_nil
+  @payform.submitted.should_not be_nil
 end
 
 Then /^I should see "([^\"]*)" under "([^\"]*)" in column ([0-9]+)$/ do |expected_message, header, column|
