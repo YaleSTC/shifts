@@ -61,6 +61,7 @@ Feature: payform
     Then I should see "Payform item deleted"
     And I should have 1 payform_item
     And that payform_item should be inactive
+
 @passing
   Scenario: Submit a payform
     Given I have the following payform items

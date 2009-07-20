@@ -160,6 +160,7 @@ class UsersController < ApplicationController
 
   def verify_import
     file=params[:file]
+    flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
 #    begin
       @users = User.from_csv(file, :normal)
 #    rescue Exception => e
@@ -194,7 +195,7 @@ class UsersController < ApplicationController
         @user.set_random_password
         @user.departments << @department unless @user.departments.include?(@department)
         if @user.save
-          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
+#          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
         else
           failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
         end
