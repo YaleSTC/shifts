@@ -37,9 +37,11 @@ class ReportsController < ApplicationController
     end
   end
 
-  def edit
-    @report = Report.find(params[:id])
-  end
+# No view template exists for this - do we need this action? -ben
+#  def edit
+#    @report = Report.find(params[:id])
+##    require_owner(@report.shift)
+#  end
 
   def update
     @report = Report.find(params[:id])
