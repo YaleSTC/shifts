@@ -1,20 +1,14 @@
-<div id="payform_status">
-  <div class="payform_form">
-    <fieldset> 
-      <legend><font size=3><strong>Status:</strong> <%=h @payform.status.capitalize %></font></legend>
-      <strong>Created:</strong> <%=h @payform.created_at.strftime(date_format + " at " + time_format) %><br/>
-    <% if @payform.submitted -%>
-      <strong>Submitted:</strong> <%=h @payform.submitted.strftime(date_format + " at " + time_format) %><br/>
-    <% end -%>
-    <% if @payform.approved and current_user.is_admin_of?(@payform.department) -%>
-      <strong>Approved:</strong> <%=h @payform.approved.strftime(date_format + " at " + time_format) %> by <%=h @payform.approved_by.name %><br/>
-    <% end -%>
-    <% if @payform.printed -%>
-      <strong>Printed:</strong> <%= @payform.printed.strftime(date_format + " at " + time_format) %><br/>
-      <em>Printed text goes here.</em><br/>
-    <%end -%>
-    </fieldset>
-  </div>
-</div>
-
-
+<fieldset> 
+  <legend><font size=3><strong>Status:</strong> <%=h @payform.status.capitalize %></font></legend>
+  <strong>Created:</strong> <%=h @payform.created_at.strftime(date_format + " at " + time_format) %><br/>
+<% if @payform.submitted -%>
+  <strong>Submitted:</strong> <%=h @payform.submitted.strftime(date_format + " at " + time_format) %><br/>
+<% end -%>
+<% if @payform.approved and current_user.is_admin_of?(@payform.department) -%>
+  <strong>Approved:</strong> <%=h @payform.approved.strftime(date_format + " at " + time_format) %> by <%=h @payform.approved_by.name %><br/>
+<% end -%>
+<% if @payform.printed -%>
+  <strong>Printed:</strong> <%= @payform.printed.strftime(date_format + " at " + time_format) %><br/>
+  <em>Printed text goes here.</em><br/>
+<%end -%>
+</fieldset>

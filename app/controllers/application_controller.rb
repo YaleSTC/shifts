@@ -121,29 +121,25 @@ class ApplicationController < ActionController::Base
       redirect_to(access_denied_path)
     end
   end
-
-  # Takes any object that has a user method and checks against current_user
-  def require_owner(object, message, redirect = true)
-    unless current_user.is_owner_of?(object)
-      flash[:error] = message
-      redirect_to access_denied_path if redirect
+  
+# Takes any object that has a user method and checks against current_user
+  def require_owner(thing)
+    unless current_user.is_owner_of?(thing)
+      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}"
+      redirect_to access_denied_path
     end
   end
   
-  # DRAFT IMPROVED VERSION
-#  def require_owner(object)
-#    unless current_user.is_owner_of?(object)
-#      flash[:error] = "You are not the owner of this #{object.class.humanize}"
-#      redirect_to access_denied_path if redirect
-#    end
-#  end
-  
-
-  def require_owner_or_dept_admin(thing, message, redirect = true)
+  def require_owner_or_dept_admin(thing)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(@department)
-      flash[:error] = message
-      redirect_to access_denied_path if redirect
+      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
+      redirect_to access_denied_path
     end
+  end
+
+  # Takes a department; intended to be passed some_thing.department
+  def require_department_membership(dept)
+    redirect_to(access_denied_path) unless current_user.departments.include?(dept)
   end
 
   def login_check

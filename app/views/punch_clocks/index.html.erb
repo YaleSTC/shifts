@@ -12,7 +12,7 @@ There are currently no punch clocks running.
     <tr>
       <td><%= punch_clock.user.name %></td>
       <td><%= punch_clock.running_time %></td>
-      <td><%= link_to "Sign Out", punch_clock, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Clock out", edit_punch_clock_path(punch_clock) %></td>
     </tr>
   <% end %>
 </table>
