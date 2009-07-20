@@ -1,6 +1,6 @@
 $('#page_title').before('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $("#submit_button_div :button").attr("disabled", "disabled");
 $("#add_event_button :button").attr("disabled", "disabled");
-$("#submit_button_div").hide();
-$("#add_event_button").hide();
+$("#submit_button_div").fadeOut();
+$("#add_event_button").fadeOut();
 
