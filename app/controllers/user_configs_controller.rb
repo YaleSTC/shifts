@@ -21,11 +21,10 @@ class UserConfigsController < ApplicationController
   end
 
   private
-  
+
   def set_var_and_check_owner
     @user_config = UserConfig.find(params[:id])
-    require_owner(@user_config, "You do not have the authority to edit that user's settings.")
+    require_owner(@user_config)
   end    
 
 end
-

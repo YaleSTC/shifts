@@ -148,12 +148,13 @@ class UsersController < ApplicationController
 
   def verify_import
     file=params[:file]
-    begin
+    flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
+#    begin
       @users = User.from_csv(file, :normal)
-    rescue Exception => e
-      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
-      render :action => 'import'
-    end
+#    rescue Exception => e
+#      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+#      render :action => 'import'
+#    end
   end
 
   def save_import
@@ -168,10 +169,13 @@ class UsersController < ApplicationController
           #don't modify any data, as this is probably a mistake
           failures << {:user=>u, :reason => "User already exists in this department!"}
         else
+          #TODO: Improve this, think about what should actually happen.
           department_roles = @user.roles.select{|role| role.departments.include? @department}
           @user.roles -= department_roles
+          @user.role = u[:role]
           #add user to new department
           @user.departments << @department unless @user.departments.include?(@department)
+          @user.save
         end
       else
         @user = User.new(u)
@@ -179,7 +183,7 @@ class UsersController < ApplicationController
         @user.set_random_password
         @user.departments << @department unless @user.departments.include?(@department)
         if @user.save
-          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
+#          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
         else
           failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
         end

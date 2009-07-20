@@ -1,23 +1,18 @@
 class PayformsController < ApplicationController
   before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit]
 
-
   def index
-    if current_user.is_admin_of?(current_department)
-      @payforms =  current_department.payforms
-    else
-      @payforms =  current_department.payforms && current_user.payforms #UNION. Ben, UNIIIOOON. BEN. UNION. && = Union. MM..... onions.
-    end
-    narrow_down(@payforms)
-    @payforms.sort! { |a,b| a.user.last_name <=> b.user.last_name }
-    #TODO: could this just be "@payforms = @payforms.sort_by(|payform| payform.user.last_name)"?
+    @payforms = narrow_down(current_user.is_admin_of?(current_department) ? 
+                            current_department.payforms : 
+                            current_department.payforms && current_user.payforms)
+    @payforms = @payforms.sort_by{|payform| payform.user.last_name}
   end
 
   def show
     @payform = Payform.find(params[:id])
     flash[:error] = "Payform does not exist." unless @payform
     flash[:error] = "The payform (from #{@payform.department.name}) is not in this department (#{current_department.name})." unless @payform.department == current_department
-    require_owner_or_dept_admin(@payform, "You do not own this payform, and are not an admin of this deparment.")   
+    require_owner_or_dept_admin(@payform)   
     if flash[:error]
       redirect_to payforms_path
     else
@@ -50,12 +45,15 @@ class PayformsController < ApplicationController
 
   def submit
     @payform = Payform.find(params[:id])
-    require_owner_or_dept_admin(@payform, "You do not own this payform, and are not an admin of this deparment.")
+    require_owner_or_dept_admin(@payform)
     @payform.submitted = Time.now
     if @payform.save
       flash[:notice] = "Successfully submitted payform."
     end
-    redirect_to @payform
+    respond_to do |format|
+      format.html {redirect_to @payform }
+      format.js
+    end
   end
 
   def approve
@@ -151,18 +149,23 @@ class PayformsController < ApplicationController
   protected
 
   def narrow_down(payforms)
-    if params[:unsubmitted]
-      payforms = payforms.unsubmitted
-    elsif params[:submitted]
-      payforms = payforms.unapproved
-    elsif params[:approved]
-      payforms = payforms.unprinted
-    elsif params[:printed]
-      payforms = payforms.printed
-    else
+    if (!params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed])
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
-      payforms -= payforms.printed
     end
+    scope = [] 
+    if params[:unsubmitted]
+      scope += payforms.unsubmitted
+    end
+    if params[:submitted]
+      scope += payforms.unapproved
+    end
+    if params[:approved]
+      scope += payforms.unprinted
+    end
+    if params[:printed]
+      scope += payforms.printed
+    end
+    scope
   end
 
 end
