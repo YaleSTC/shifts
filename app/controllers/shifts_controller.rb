@@ -36,7 +36,7 @@ class ShiftsController < ApplicationController
 
   def show
     @shift = Shift.find(params[:id])
-    require_department_membership(@shift.department)
+    return unless require_department_membership(@shift.department)
   end
 
   def show_active
@@ -73,6 +73,7 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(params[:shift])
+    return unless require_department_membership(@shift.department)
     @shift.start = Time.now unless @shift.start
     unless current_user.is_admin_of?(@department) && @shift.scheduled?
       @shift.power_signed_up = false
@@ -85,7 +86,6 @@ class ShiftsController < ApplicationController
         @report.report_items << ReportItem.new(:time => Time.now, :content => @shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
         redirect_to @report and return if @report.save
       end
-      #combine with any compatible shifts (if the shift is scheduled)
       respond_to do |format|
         format.html{ flash[:notice] = "Successfully created shift."; redirect_to(@shift.scheduled ? @shift : new_shift_report_path(@shift))}
         format.js
@@ -97,11 +97,13 @@ class ShiftsController < ApplicationController
 
   def edit
     @shift = Shift.find(params[:id])
+    return unless require_owner_or_dept_admin(@shift, @shift.department)
     (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
 
   def update
     @shift = Shift.find(params[:id])
+    return unless require_owner_or_dept_admin(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
       respond_to do |format|
@@ -112,11 +114,12 @@ class ShiftsController < ApplicationController
       render :action => 'edit'
     end
   end
-
-  def destroy
-    @shift = Shift.find(params[:id])
-    @shift.destroy
-    flash[:notice] = "Successfully destroyed shift."
-    redirect_to shifts_url
-  end
+  
+# unnecessary -ben
+#  def destroy
+#    @shift = Shift.find(params[:id])
+#    @shift.destroy
+#    flash[:notice] = "Successfully destroyed shift."
+#    redirect_to shifts_url
+#  end
 end
