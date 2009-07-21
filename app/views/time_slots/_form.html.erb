@@ -1,16 +1,12 @@
 <% form_for @time_slot do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :location %><br />
-    <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location ? @time_slot.location.id : nil)%><br />
-  </p>
-  <p>
     <%= f.label :start %><br />
-    <%= time_select :start_in_minutes, {:minute_step => 15} %>
+    <%= select_time Time.now, :minute_step => current_department.department_config.time_increment, :ignore_date => true %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= time_select :end, {:minute_step => 15} %>
+    <%= select_time Time.now+1.hour, :minute_step => current_department.department_config.time_increment, :ignore_date => true %>
   </p>
   <% @department.loc_groups.each do |loc_group| %>
     <% unless loc_group.locations.empty? %>
