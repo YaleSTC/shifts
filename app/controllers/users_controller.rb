@@ -32,10 +32,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    if current_user.is_superuser? || !current_user.is_admin_of?(current_department)
-      flash[:error] = "That action is only available to department administrators."
-      redirect_to(access_denied_path)
-    else
     @user = User.new
       @results = []
     end
