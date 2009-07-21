@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :require_department_admin
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
@@ -32,8 +33,13 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user.is_superuser? || !current_user.is_admin_of?(current_department)
+      flash[:error] = "That action is only available to department administrators."
+      redirect_to(access_denied_path)
+    else
     @user = User.new
       @results = []
+    end
   end
 
   def fill_form
@@ -76,10 +82,12 @@ class UsersController < ApplicationController
         render :action => 'new'
       end
     end
+    require_department_admin
   end
 
   def edit
     @user = User.find(params[:id])
+    require_department_admin
   end
 
   def update
@@ -103,6 +111,7 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+    require_department_admin
   end
 
   def destroy #the preferred action. really only disables the user for that department.
@@ -118,6 +127,7 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+    require_department_admin
   end
 
   def restore #reactivates the user
@@ -134,6 +144,7 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+    require_department_admin
   end
 
   def really_destroy #if we ever need an action that actually destroys users.
@@ -141,6 +152,7 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:notice] = "Successfully destroyed user."
     redirect_to department_users_path(current_department)
+    require_department_admin
   end
 
   def import
@@ -251,3 +263,4 @@ class UsersController < ApplicationController
     department_users_path(current_department)
   end
 end
+
