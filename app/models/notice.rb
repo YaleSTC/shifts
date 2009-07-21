@@ -15,7 +15,7 @@ class Notice < ActiveRecord::Base
   named_scope :upcoming, lambda {{ :conditions => ["start_time > ?", Time.now ]}}
 
   def self.active
-    (self.active_with_end + self.active_without_end).uniq
+    (self.active_with_end + self.active_without_end).uniq.sort_by{|n| n.start_time}.reverse
   end
 
   def display_for
@@ -43,13 +43,9 @@ class Notice < ActiveRecord::Base
 
   def remove(user)
     self.errors.add_to_base "This notice has already been removed by #{remover.name}" and return if self.remover && self.end_time
-    self.active = false
     self.end_time = Time.now
     self.remover = user
-    if self.save!
-      true
-    end
-    false
+    true if self.save
   end
 
   private
