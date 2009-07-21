@@ -17,6 +17,7 @@ class TimeSlotsController < ApplicationController
 
   def create
     @time_slot = TimeSlot.new
+    
     for date in params[:days]
       if @time_slot.save
         flash[:notice] = "Successfully created timeslot."

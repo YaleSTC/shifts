@@ -12,11 +12,11 @@
     </p>
     <p>
       Specify a start time:
-      <%= f.datetime_select :start_time %>
+      <%= f.datetime_select :start_time, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
     </p>
     <p>
       Specify an end time:
-      <%= f.datetime_select :end_time %> <br /> or check here to make it indefinite:
+      <%= f.datetime_select :end_time, :minute_step => @department.department_config.time_increment, :twelve_hour => true %> <br /> or check here to make it indefinite:
       <%= check_box_tag :indefinite -%>
     </p>
   <% end %>
