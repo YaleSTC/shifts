@@ -1,0 +1,28 @@
+<% title "User Profile Field" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @user_profile_field.name %>
+</p>
+<p>
+  <strong>Display Type:</strong>
+  <%=h @user_profile_field.display_type %>
+</p>
+<p>
+  <strong>Values:</strong>
+  <%=h @user_profile_field.values %>
+</p>
+<p>
+  <strong>Public:</strong>
+  <%=h @user_profile_field.public %>
+</p>
+<p>
+  <strong>User Editable:</strong>
+  <%=h @user_profile_field.user_editable %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_user_profile_field_path(@user_profile_field) %> |
+  <%= link_to "Destroy", @user_profile_field, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", user_profile_fields_path %>
+</p>

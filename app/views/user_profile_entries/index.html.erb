@@ -1,0 +1,17 @@
+<% title "User Profile Entries" %>
+
+<table>
+  <tr>
+    <th>Content</th>
+  </tr>
+  <% for user_profile_entry in @user_profile_entries %>
+    <tr>
+      <td><%=h user_profile_entry.content %></td>
+      <td><%= link_to "Show", user_profile_entry %></td>
+      <td><%= link_to "Edit", edit_user_profile_entry_path(user_profile_entry) %></td>
+      <td><%= link_to "Destroy", user_profile_entry, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New User Profile Entry", new_user_profile_entry_path %></p>

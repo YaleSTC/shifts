@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :shifts
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
+  has_many :user_profile_entries
   has_one  :punch_clock
 
   # New user configs are created by a user observer, after create

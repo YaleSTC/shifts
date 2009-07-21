@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :punch_clock_sets
-
   map.with_options :controller => 'first_run' do |f|
     f.first_app_config 'firstrun/first_app_config', :action => 'new_app_config', :method => 'get'
     f.first_department 'firstrun/first_department', :action => 'new_department', :method => 'get'
@@ -91,6 +89,11 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :roles
     departments.resources :categories
   end
+  map.resources :user_profile_entries
+
+  map.resources :user_profile_fields
+
+  map.resources :punch_clock_sets
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
@@ -141,3 +144,4 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+
