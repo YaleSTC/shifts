@@ -10,13 +10,13 @@ class ReportsController < ApplicationController
 
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
-    require_department_membership(@report.shift.department)
+    return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
   end
 
   def popup
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
-    require_owner(@report.shift)
+    return unless require_owner(@report.shift)
     render :layout => false
   end
 
@@ -42,12 +42,12 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    require_owner_or_dept_admin(@report.shift)
+    return unless require_owner_or_dept_admin(@report.shift, @report.shift.department)
   end
 
   def update
     @report = Report.find(params[:id])
-#    require_owner(@report.shift) # Won't work because of a multiple redirect error
+    return unless require_owner_or_dept_admin(@report.shift, @report.shift.department)
     if (params[:sign_out])
       @report.departed = Time.now
       # add a report item about logging out
