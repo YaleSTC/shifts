@@ -4,9 +4,7 @@ class TimeSlotsController < ApplicationController
 
   def index
     @time_slots = TimeSlot.all
-    #TODO: figure out where this should go...
-    @period_start = Time.parse("last Sunday")
-    @days_per_period = 7
+    @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
   end
 
   def show
@@ -18,12 +16,14 @@ class TimeSlotsController < ApplicationController
   end
 
   def create
-    @time_slot = TimeSlot.new(params[:time_slot])
-    if @time_slot.save
-      flash[:notice] = "Successfully created timeslot."
-      redirect_to @time_slot
-    else
-      render :action => 'new'
+    @time_slot = TimeSlot.new
+    for date in params[:days]
+      if @time_slot.save
+        flash[:notice] = "Successfully created timeslot."
+        redirect_to @time_slot
+      else
+        render :action => 'new'
+      end
     end
   end
 
@@ -40,11 +40,6 @@ class TimeSlotsController < ApplicationController
       render :action => 'edit'
     end
   end
-
-#TODO We probably don't need this, it'll be handled by templates....
-#  def mass_create
-#    TimeSlot.mass_create(slot_start, slot_end, days, locations, range_start, range_end)
-#  end
 
   def destroy
     @time_slot = TimeSlot.find(params[:id])
