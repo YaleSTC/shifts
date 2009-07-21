@@ -34,7 +34,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
       @results = []
-    end
   end
 
   def fill_form
