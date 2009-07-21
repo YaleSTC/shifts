@@ -6,7 +6,7 @@
 <% content_for :left_nav do %>
   <ul id="navigationList">
   <li>
-    <%= link_to_unless_current 'Post a new notice', new_notice_path(:height => 500, :width => 530), :title => "Create New Notice", :class => "thickbox" %>
+    <%= link_to_post_a_new_notice %>
   </li>
     <% if current_user.is_admin_of?(current_department) %>
       <li><%= link_to 'Notice archive', archive_notices_path %></li>
