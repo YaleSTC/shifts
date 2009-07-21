@@ -1,0 +1,12 @@
+<% title "User Profile Entry" %>
+
+<p>
+  <strong>Content:</strong>
+  <%=h @user_profile_entry.content %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_user_profile_entry_path(@user_profile_entry) %> |
+  <%= link_to "Destroy", @user_profile_entry, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", user_profile_entries_path %>
+</p>
