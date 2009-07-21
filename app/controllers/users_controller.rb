@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_filter :require_department_admin
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
@@ -33,13 +32,8 @@ class UsersController < ApplicationController
   end
 
   def new
-    if current_user.is_superuser? || !current_user.is_admin_of?(current_department)
-      flash[:error] = "That action is only available to department administrators."
-      redirect_to(access_denied_path)
-    else
     @user = User.new
       @results = []
-    end
   end
 
   def fill_form
