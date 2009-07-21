@@ -6,12 +6,30 @@
   </p>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start %>
+    <%= time_select :start_in_minutes, {:minute_step => 15} %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
+    <%= time_select :end, {:minute_step => 15} %>
   </p>
-  <p><%= f.submit "Submit" %></p>
+  <% @department.loc_groups.each do |loc_group| %>
+    <% unless loc_group.locations.empty? %>
+      <p>
+        <strong><%= loc_group.name %></strong><br/>
+        <% loc_group.locations.each do |loc| %>
+          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= loc.short_name %>
+        <% end %>
+      </p>
+    <% end %>
+  <%- end -%>
+  </p>
+  <p>
+    <strong>Days:</strong><br />
+    <% WEEK_DAYS.each_with_index do |day, i| %>
+      <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+      <%= day %>
+    <% end %>
+  </p>
+  <p><%= f.submit "Add" %></p>
 <% end %>
-
