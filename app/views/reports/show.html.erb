@@ -5,7 +5,7 @@
 <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
 <fieldset class="sticky" style="width: 48%">
   <div class="left">
-  <%= link_to_remote 'Post a new notice',:url=>new_notice_path + "?height=500&width=600", :title => "Create New Notice", :html => {:class => "thickbox"} %>
+    <%= link_to_post_a_new_notice %>
   </div>
   </fieldset>
 </fieldset>
