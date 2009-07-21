@@ -45,7 +45,7 @@ class PayformsController < ApplicationController
 
   def submit
     @payform = Payform.find(params[:id])
-#    return unless require_owner_or_dept_admin(@payform, @payform.department)    
+    return unless require_owner_or_dept_admin(@payform, @payform.department)    
     @payform.submitted = Time.now
     if @payform.save
       flash[:notice] = "Successfully submitted payform."
