@@ -1,3 +1,5 @@
+<% unobtrusive_datepicker_includes %>
+
 <% form_for @time_slot do |f| %>
   <%= f.error_messages %>
   <p>
@@ -6,11 +8,11 @@
   </p>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
+    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
+    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>  
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
