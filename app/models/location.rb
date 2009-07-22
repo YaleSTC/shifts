@@ -27,7 +27,7 @@ class Location < ActiveRecord::Base
     [self]
   end
 
-  def find_notices
+  def current_notices
     Notice.active.select {|n| n.display_locations.include?(self)}
   end
 
@@ -38,11 +38,11 @@ class Location < ActiveRecord::Base
   def announcements
     self.find_notices.select {|n| !(n.is_sticky)}
   end
-  
+
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.locations.include?(self)}
   end
-  
+
 
   def count_people_for(shift_list, min_block)
     people_count = {}
@@ -58,12 +58,12 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
-    
+
   protected
-  
+
   def max_staff_greater_than_min_staff
     errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff and self.max_staff and self.min_staff > self.max_staff)
   end
-  
+
 end
 

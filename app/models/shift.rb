@@ -147,8 +147,8 @@ class Shift < ActiveRecord::Base
   # = Validation helpers =
   # ======================
   def restrictions
-    location_restrictions = location.restrictions
-    user_restrictions = user.restrictions
+    #location_restrictions = location.restrictions
+    #user_restrictions = user.restrictions
     #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
   end
 

@@ -35,7 +35,7 @@ class NoticesController < ApplicationController
     @notice.active_sticky = true if @notice.is_sticky
     @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
     @notice.active = true
-    @notice.save!
+    @notice.save
     set_sources
     respond_to do |format|
       if @notice.save
