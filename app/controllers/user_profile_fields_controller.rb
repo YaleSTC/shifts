@@ -13,7 +13,7 @@ class UserProfileFieldsController < ApplicationController
 
   def create
     @user_profile_field = UserProfileField.new(params[:user_profile_field])
-    @user_profile_field.department = @department
+    @user_profile_field.department_id = @department.id
     if @user_profile_field.save
       flash[:notice] = "Successfully created user profile field."
       redirect_to @user_profile_field

@@ -1,17 +1,19 @@
 <% title "User Profile Entries" %>
 
-<table>
-  <tr>
-    <th>Content</th>
-  </tr>
-  <% for user_profile_entry in @user_profile_entries %>
+<% @user_profile_fields.each do |profile_field| %>
+    <% profile_field.name %>
+  <table>
     <tr>
-      <td><%=h user_profile_entry.content %></td>
-      <td><%= link_to "Show", user_profile_entry %></td>
-      <td><%= link_to "Edit", edit_user_profile_entry_path(user_profile_entry) %></td>
-      <td><%= link_to "Destroy", user_profile_entry, :confirm => 'Are you sure?', :method => :delete %></td>
+      <th>User</th>
+      <th>Contents</th>
     </tr>
-  <% end %>
-</table>
-
+    <% UserProfileEntry.find(:all, :conditions => {:user_profile_field_id => profile_field.id}).each do |profile_entry| %>
+      <tr>
+        <td><%=h User.find(profile_entry.user_id).proper_name %>
+        <td><%= profile_entry.content %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 <p><%= link_to "New User Profile Entry", new_user_profile_entry_path %></p>
+

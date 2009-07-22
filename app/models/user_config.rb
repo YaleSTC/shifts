@@ -29,5 +29,23 @@ class UserConfig < ActiveRecord::Base
   def default_department
     Department.find_by_id(default_dept) || (user.departments.empty? ? nil : user.departments.first)
   end
+
+def prepare_form_helpers
+    if display_type == "text_field"
+      return ["data_fields", id, {:id => id}]
+    elsif display_type == "text_area"
+      return ["data_fields", id]
+    elsif display_type == "select"
+      options = values.split(',').each{|opt| opt.squish!}
+      return ["data_fields", id, options.map{|opt| [opt, opt]}]
+    elsif display_type == "check_box"
+      options = values.split(',').each{|opt| opt.squish!}
+      return options.map{|v| ["data_fields[#{id}]", v]}
+    elsif display_type == "radio_button"
+      options = values.split(',').each{|opt| opt.squish!}
+      return options.map{|v| ["data_fields[#{id}]", 1, v]}
+    end
+  end
+
 end
 
