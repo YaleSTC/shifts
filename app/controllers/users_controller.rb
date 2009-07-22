@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def index
     if params[:show_inactive]
       @users = @department.users
-  else
+    else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
 
@@ -34,11 +34,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-      @results = []
+    @results = []
   end
 
   def fill_form
-    @user=User.new(params[:user])
+    @user = User.new(params[:user])
   end
 
   def create
