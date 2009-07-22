@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def index
     if params[:show_inactive]
       @users = @department.users
-  else
+    else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
 
@@ -33,11 +33,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-      @results = []
+    @results = []
   end
 
   def fill_form
-    @user=User.new(params[:user])
+    @user = User.new(params[:user])
   end
 
   def create
@@ -80,6 +80,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    require_department_admin
   end
 
   def update
@@ -103,6 +104,7 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+    require_department_admin
   end
 
   def destroy #the preferred action. really only disables the user for that department.
@@ -118,6 +120,7 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+    require_department_admin
   end
 
   def restore #reactivates the user
@@ -134,6 +137,7 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+    require_department_admin
   end
 
   def really_destroy #if we ever need an action that actually destroys users.
@@ -141,6 +145,7 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:notice] = "Successfully destroyed user."
     redirect_to department_users_path(current_department)
+    require_department_admin
   end
 
   def import
