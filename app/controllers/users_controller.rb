@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
+  before_filter :require_admin_or_superuser
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
   def index
     if params[:show_inactive]
       @users = @department.users
-  else
+    else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
 
@@ -33,11 +34,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-      @results = []
+    @results = []
   end
 
   def fill_form
-    @user=User.new(params[:user])
+    @user = User.new(params[:user])
   end
 
   def create
@@ -250,4 +251,9 @@ class UsersController < ApplicationController
   def switch_department_path
     department_users_path(current_department)
   end
+
+  def require_admin_or_superuser
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
+  end
 end
+

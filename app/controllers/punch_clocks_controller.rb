@@ -5,7 +5,7 @@ class PunchClocksController < ApplicationController
   
   def show
     @punch_clock = PunchClock.find(params[:id])
-    require_owner(@punch_clock)
+    return unless require_owner(@punch_clock)
   end
   
   def create
@@ -22,13 +22,13 @@ class PunchClocksController < ApplicationController
   
   def edit
     @punch_clock = PunchClock.find_by_id(params[:id])
-    require_owner_or_dept_admin(@punch_clock)
+    return unless require_owner_or_dept_admin(@punch_clock)
   end
   
   # Clocks out the punch clock
   def update
     @punch_clock = PunchClock.find(params[:id])
-    require_owner_or_dept_admin(@punch_clock)
+    return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
     payform_item = PayformItem.new({:date => Date.today,
                                     :category => Category.find_by_name("Punch Clocks"),
                                     :hours => (Time.now - @punch_clock.created_at) / 3600.0, # sec -> hr

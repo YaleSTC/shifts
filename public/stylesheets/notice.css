@@ -1,4 +1,6 @@
-
+p {
+    margin: 0;
+}
 ul#notice_ul {
     list-style-type: none;
 }
