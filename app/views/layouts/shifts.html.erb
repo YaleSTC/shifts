@@ -1,6 +1,6 @@
 <% content_for :head do %>
   <% stylesheet 'shift', 'report', 'notice', 'thickbox' %>
-  <% javascript 'sortable', 'jrails', 'jquery', 'jquery-ui', 'thickbox-compressed', 'jquery.simpletip-1.3.1' %>
+  <% javascript 'sortable', 'jquery.simpletip-1.3.1' %>
 <% end %>
 
 <!-- Admin Menu -->
@@ -21,7 +21,7 @@
           <ul><li><%= link_to_unless_current "Activate Templates", { :controller => '/shift_admin', :action => 'activate_templates' } %></li></ul>
         </li>
         <%# if @user.authorized?("shift_admin/@" + @department.name.decamelize + "/department_admin")%>
-          <li><%#= link_to_unless_current "Edit Configuration", { :controller => '/shift_admin', :action => 'config' } %></li>        
+          <li><%#= link_to_unless_current "Edit Configuration", { :controller => '/shift_admin', :action => 'config' } %></li>
         <%# end %>
       </ul>
       <h3>View Options</h3>
@@ -31,18 +31,19 @@
         <li><%= link_to_unless_current "Data Objects", data_objects_path %></li>
         <li><%#= link_to "Shift Stats", stats_path %></li>
         <li><%#= link_to "Missed Shifts", {:controller => '/shift_admin', :action => 'view_missed_shifts'} %></li>
-      </ul>  
+      </ul>
    </ul>
-   
+
     <div id="contentNav">
   <% end %>
 <% end %>
 
 <% content_for :body do %>
-  
+
   <%= yield %>
 
   <div class="clear"></div>
 <% end -%>
 
 <%= render :file => "layouts/application.html.erb" %>
+
