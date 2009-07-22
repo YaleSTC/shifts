@@ -6,8 +6,8 @@ class Notice < ActiveRecord::Base
   belongs_to :department
 
   validates_presence_of :content
-  validate :presence_of_locations_or_viewers, :unless => :new_record?
   validate_on_create :proper_time
+  validate :presence_of_locations_or_viewers
 
   named_scope :inactive, lambda {{ :conditions => ["end_time < ?", Time.now] }}
   named_scope :active_with_end, lambda {{ :conditions => ["start_time < ? and end_time > ?", Time.now, Time.now]}}
@@ -21,7 +21,7 @@ class Notice < ActiveRecord::Base
   def display_for
     display_for = []
     display_for.push "for users #{self.viewers.collect{|n| n.name}.to_sentence}" unless self.viewers.empty?
-    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.to_sentence}" unless self.display_locatidons.empty?
+    display_for.push "for locations #{self.display_locations.collect{|l| l.short_name}.to_sentence}" unless self.display_locations.empty?
     display_for.join "<br/>"
   end
 
@@ -34,11 +34,11 @@ class Notice < ActiveRecord::Base
   end
 
   def viewers
-    self.user_sources.collect{|s| s.users}.flatten.uniq
+    self.user_sources.collect{|us| us.users}.flatten.uniq
   end
 
   def display_locations
-    self.location_sources.collect{|s| s.locations}.flatten.uniq
+    self.location_sources.collect{|ls| ls.locations}.flatten.uniq
   end
 
   def remove(user)
@@ -51,11 +51,13 @@ class Notice < ActiveRecord::Base
   private
   #Validations
   def presence_of_locations_or_viewers
-    errors.add_to_base "Your notice must display somewhere or for someone." if self.locations.empty? && self.viewers.empty?
+    unless self.new_record?
+      errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
+    end
   end
 
   def proper_time
-    errors.add_to_base "Start/end time combination is invalid." if self.start_time > self.end_time if self.end_time || Time.now > self.end_time if self.end_time
+    errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time || Time.now >= self.end_time if self.end_time
   end
 end
 

@@ -1,4 +1,4 @@
-<label for="for_users">For users:</label> <br /> <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
+<label for="for_users">Display for the following users, roles, or departments:</label> <br /> <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
 <br/>
 For locations: <br />
 <ul id = "notice_ul">
@@ -6,9 +6,9 @@ For locations: <br />
     <%= check_box_tag :department_wide_locations %>
     <label for="department_wide_locations"><%= current_department.name %></label> (all locations)
   <% end %>
-
+<div id = "loc_groups">
   <% for loc_group in current_department.loc_groups do %>
-    <li id = "notice_li">
+<li>
       <%= check_box_tag "for_location_groups[]", loc_group.id, false %>
       <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 
@@ -17,7 +17,8 @@ For locations: <br />
         <%= label_tag "location_#{location.id}", text = location.name %>
         <% unless location == loc_group.locations.last %> , <%end%>
       <% end %>
-    </li>
+</li>
   <% end %>
+  </div>
 </ul>
 

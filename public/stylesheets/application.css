@@ -573,7 +573,9 @@ span#loading_icon{
 /* styling for errors */
 errorExplanation {
   width: 400px;
-  border: 2px solid #CF0000;
+  border-style: solid;
+  border-color: #CF0000;
+  border-width:2px;
   padding: 0px;
   padding-bottom: 12px;
   margin-bottom: 20px;
