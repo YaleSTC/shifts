@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_admin_or_superuser
-  #TODO: add authorization before_filter here and update the action code accordingly
-  # a superuser can view all users while a department admin can manage a department's users
-  # depending on the dept chooser
+
   def index
     if params[:show_inactive]
       @users = @department.users

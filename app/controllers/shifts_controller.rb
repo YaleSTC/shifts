@@ -115,11 +115,12 @@ class ShiftsController < ApplicationController
     end
   end
   
-# unnecessary -ben
-#  def destroy
-#    @shift = Shift.find(params[:id])
-#    @shift.destroy
-#    flash[:notice] = "Successfully destroyed shift."
-#    redirect_to shifts_url
-#  end
+#unnecessary -ben
+#yes neccessary! see: canceling a shift, etc. -ryan
+  def destroy
+    @shift = Shift.find(params[:id])
+    @shift.destroy
+    flash[:notice] = "Successfully destroyed shift."
+    redirect_to shifts_url
+  end
 end
