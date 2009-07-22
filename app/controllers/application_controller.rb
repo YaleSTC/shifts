@@ -107,6 +107,7 @@ class ApplicationController < ActionController::Base
   end
 
   # these are the authorization before_filters to use under controllers
+  # these all return nil
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department)
   end
@@ -122,24 +123,32 @@ class ApplicationController < ActionController::Base
     end
   end
   
+# These three methods all return true/false, so they can be tested to trigger return statements
 # Takes any object that has a user method and checks against current_user
   def require_owner(thing)
     unless current_user.is_owner_of?(thing)
       flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}"
-      redirect_to access_denied_path
+      redirect_to access_denied_path and return false
     end
+    return true
   end
   
-  def require_owner_or_dept_admin(thing)
-    unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(@department)
+# Takes any object that has a user method and its department
+  def require_owner_or_dept_admin(thing, dept)
+    unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(dept)
       flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
-      redirect_to access_denied_path
+      render :template => access_denied_path and return false
     end
+    return true
   end
 
   # Takes a department; intended to be passed some_thing.department
   def require_department_membership(dept)
-    redirect_to(access_denied_path) unless current_user.departments.include?(dept)
+    unless current_user.departments.include?(dept) 
+      flash[:error] = "You are not a member of the appropriate department."
+      redirect_to(access_denied_path) and return false
+    end
+    return true
   end
 
   def login_check

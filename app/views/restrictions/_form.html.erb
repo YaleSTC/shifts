@@ -1,12 +1,12 @@
 <% form_for @restriction do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :starts %><br />
-    <%= f.datetime_select :starts %>
+    <%= f.label :starts, :minute_step => @department.department_config.time_increment, :twelve_hour => true %><br />
+    <%= f.datetime_select :starts, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
-    <%= f.label :expires %><br />
-    <%= f.datetime_select :expires %>
+    <%= f.label :expires, :minute_step => @department.department_config.time_increment, :twelve_hour => true %><br />
+    <%= f.datetime_select :expires, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :max_subs %><br />
