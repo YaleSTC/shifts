@@ -9,10 +9,10 @@ class Notice < ActiveRecord::Base
   validate_on_create :proper_time
   validate :presence_of_locations_or_viewers
 
-  named_scope :inactive, lambda {{ :conditions => ["end_time < ?", Time.now] }}
-  named_scope :active_with_end, lambda {{ :conditions => ["start_time < ? and end_time > ?", Time.now, Time.now]}}
-  named_scope :active_without_end, lambda {{ :conditions => ["start_time < ?", Time.now]}}
-  named_scope :upcoming, lambda {{ :conditions => ["start_time > ?", Time.now ]}}
+  named_scope :inactive, lambda {{ :conditions => ["end_time < ?", Time.now.utc] }}
+  named_scope :active_with_end, lambda {{ :conditions => ["start_time < ? and end_time > ?", Time.now.utc, Time.now.utc]}}
+  named_scope :active_without_end, lambda {{ :conditions => ["start_time < ?", Time.now.utc]}}
+  named_scope :upcoming, lambda {{ :conditions => ["start_time > ?", Time.now.utc]}}
 
   def self.active
     (self.active_with_end + self.active_without_end).uniq.sort_by{|n| n.start_time}.reverse

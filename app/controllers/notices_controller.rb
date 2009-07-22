@@ -27,9 +27,10 @@ class NoticesController < ApplicationController
   end
 
   def create
-  raise params.to_yaml
+#  raise params.to_yaml
     @notice = Notice.new(params[:notice])
-    @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
+    @notice.is_sticky = true
+    @notice.is_sticky = false if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
