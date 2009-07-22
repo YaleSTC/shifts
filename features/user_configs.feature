@@ -11,7 +11,9 @@ Feature: User settings
     And I am on the user settings page
 @passing
   Scenario: A New user has default settings
-    Given I am on the list of users
+    When I follow "Logout"
+    Given I am "Albus Dumbledore"
+    And I am on the list of users
     When I follow "Add A New User"
     And I fill in "Login" with "rw12"
     And I fill in "First name" with "Ron"
@@ -44,9 +46,9 @@ Feature: User settings
 #     This test will not work if you happen to run it
 #     for the first day of the shift cycle (sunday if weekly)
 #     or if you run it on Friday (because the schedule is Mon-fri now) evidently
-#    Given I had a shift yesterday in "Diagon Alley"
-#    And the user "Hermione Granger" has permissions "Outside of Hogwarts signup, Outside of Hogwarts view, Outside of Hogwarts admin"
-#    And "Hermione Granger" has a shift tomorrow in "Diagon Alley"
+    Given "Hermione Granger" had a shift yesterday in "Diagon Alley"
+    And the user "Hermione Granger" has permissions "Outside of Hogwarts signup, Outside of Hogwarts view, Outside of Hogwarts admin"
+    And I have a shift tomorrow in "Diagon Alley"
     Given today is not Sunday
 
     When I select "Whole pay period" from "View week"
