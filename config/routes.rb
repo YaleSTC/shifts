@@ -89,9 +89,9 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :roles
     departments.resources :categories
   end
-  map.resources :user_profile_entries
 
   map.resources :user_profile_fields
+  map.resources :user_profile_entries
 
   map.resources :punch_clock_sets
 

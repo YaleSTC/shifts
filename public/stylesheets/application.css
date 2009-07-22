@@ -593,6 +593,12 @@ div.form_left {
   float:left;
 }
 
+div.form_right {
+  position:absolute;
+  width:25%;
+  top:500;
+  right:450px;
+}
 div.table_right {
   width:50%;
   float:right;

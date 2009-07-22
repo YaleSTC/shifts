@@ -9,10 +9,10 @@ class UserObserver < ActiveRecord::Observer
                         :default_dept => user.departments.first.id
                         })
 # does user.departments.first suffice here? for some reason @department isn't calling anything
-    if !user.departments.first.user_profile_fields.empty?
+    unless user.departments.first.user_profile_fields.empty?
       user.departments.first.user_profile_fields.each do |field|
-        UserProfileEntry.create!(:user_id => user.id,
-                                 :user_profile_field_id => field.id)
+        UserProfileEntry.create!({:user_id => user.id,
+                                 :user_profile_field_id => field.id})
       end
     end
   end
