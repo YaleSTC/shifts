@@ -18,7 +18,7 @@ Given /^I have the following payform items?$/ do |table|
                     :hours => row[:hours].to_f,
                     :description => row[:description],
                     :date => date,
-                    :payform_id => @payform)
+                    :payform_id => Payform.find_by_date(period_date).id)
   end
 end
 

@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       else
         #make sure not to lose roles in other departments
         #remove all roles associated with this department
-        department_roles = @user.roles.select{|role| role.departments.include? @department}
+        department_roles = @user.roles.select{|role| role.department == @department}
         @user.roles -= department_roles
         #now add back all checked roles associated with this department
         @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
           @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
         else
-          flash[:notice] = "Successfully created user and emailed instructions for setting password."
+          flash[:notice] = "Successfully created user."
         end
         redirect_to @user
       else
@@ -169,7 +169,7 @@ class UsersController < ApplicationController
           failures << {:user=>u, :reason => "User already exists in this department!"}
         else
           #TODO: Improve this, think about what should actually happen.
-          department_roles = @user.roles.select{|role| role.departments.include? @department}
+          department_roles = @user.roles.select{|role| role.department == @department}
           @user.roles -= department_roles
           @user.role = u[:role]
           #add user to new department
