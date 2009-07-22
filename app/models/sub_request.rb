@@ -1,6 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-  
+
   validates_presence_of :reason
   validates_presence_of :shift
   validate :start_and_end_are_within_shift
@@ -51,7 +51,7 @@ class SubRequest < ActiveRecord::Base
 
 
   private
-  
+
   def start_and_end_are_within_shift
     unless self.start.between?(self.shift.start, self.shift.end) && self.end.between?(self.shift.start, self.shift.end)
       errors.add_to_base("Sub Request must be within shift.")
@@ -82,3 +82,4 @@ class SubRequest < ActiveRecord::Base
   end
 
 end
+
