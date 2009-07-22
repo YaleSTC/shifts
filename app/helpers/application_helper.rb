@@ -1,5 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include FormHelper
+
+  def link_to_post_a_new_notice
+    link_to_unless_current('Post a new notice', new_notice_path(:height => 530, :width => 530), :class => "thickbox")
+  end
 
   def make_popup(hash)
     hash[:width] ||= 600
@@ -63,5 +68,5 @@ module ApplicationHelper
     end
     output + "</select>"
   end
-
 end
+

@@ -1,15 +1,14 @@
 Given /^I have a payform for the week "([^\"]*)"$/ do |week|
   date = week.to_date
-  @payform = Payform.create!(:date => date,
-                             :user_id => @current_user.id,
-                             :department_id => @department.id)
+  @current_user.should_not be_nil
+  @payform = Payform.build(@current_user.departments.first, @current_user, date)
+  @payform.should_not be_new_record
 end
 
 Given /^I have the following payform items?$/ do |table|
   table.hashes.each do |row|
     category = Category.find_by_name(row[:category])
     user = User.find_by_login(row[:user_login])
-    payform = @payform ? @payform.id : nil
     date = Date.parse(row[:date])
 
     period_date = Payform.default_period_date(date, @department)
@@ -67,6 +66,7 @@ Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id
 end
 
 Then /^the payform should be submitted$/ do
+  @payform = Payform.find(@payform)
   @payform.submitted.should_not be_nil
 end
 

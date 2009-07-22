@@ -206,7 +206,7 @@ class User < ActiveRecord::Base
   end
 
   def current_notices
-    (Notice.active_with_end.select {|n| n.users.include?(self)} + Notice.active_without_end.select {|n| n.users.include?(self)}).uniq
+    Notice.active.select {|n| n.users.include?(self)}
   end
 
   private

@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
+  before_filter :require_admin_or_superuser
   #TODO: add authorization before_filter here and update the action code accordingly
   # a superuser can view all users while a department admin can manage a department's users
   # depending on the dept chooser
   def index
     if params[:show_inactive]
       @users = @department.users
-  else
+    else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
 
@@ -33,11 +34,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-      @results = []
+    @results = []
   end
 
   def fill_form
-    @user=User.new(params[:user])
+    @user = User.new(params[:user])
   end
 
   def create
@@ -49,7 +50,7 @@ class UsersController < ApplicationController
       else
         #make sure not to lose roles in other departments
         #remove all roles associated with this department
-        department_roles = @user.roles.select{|role| role.departments.include? @department}
+        department_roles = @user.roles.select{|role| role.department == @department}
         @user.roles -= department_roles
         #now add back all checked roles associated with this department
         @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
@@ -89,7 +90,7 @@ class UsersController < ApplicationController
 
     #store role changes, or else they'll overwrite roles in other departments
     #remove all roles associated with this department
-    department_roles = @user.roles.select{|role| role.departments.include? @department}
+    department_roles = @user.roles.select{|role| role.department == @department}
     updated_roles = @user.roles - department_roles
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
@@ -170,7 +171,7 @@ class UsersController < ApplicationController
           failures << {:user=>u, :reason => "User already exists in this department!"}
         else
           #TODO: Improve this, think about what should actually happen.
-          department_roles = @user.roles.select{|role| role.departments.include? @department}
+          department_roles = @user.roles.select{|role| role.department == @department}
           @user.roles -= department_roles
           @user.role = u[:role]
           #add user to new department
@@ -249,6 +250,10 @@ class UsersController < ApplicationController
 
   def switch_department_path
     department_users_path(current_department)
+  end
+
+  def require_admin_or_superuser
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end
 
