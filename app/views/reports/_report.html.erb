@@ -1,10 +1,4 @@
-
-
 <div id="report_view">
-  <!-- <p>
-  <strong>Arrived:</strong>
-  <%=h @report.arrived.getlocal.to_s(:short_name) %>
-</p> -->
   <table id="report_view_table">
     <tr>
       <th class="list_header" colspan="2">
@@ -12,40 +6,21 @@
         <%= @report.shift.user.name %> @ <%= @report.shift.location.name %></h3>
       </th>
     </tr>
-
     <tbody id = "all_report_items">
-    <%= render :partial => 'report_item', :collection => @report.report_items %>
+      <%= render :partial => 'report_item', :collection => @report.report_items %>
     </tbody>
-    </table>
-    <p>
-  <% if @report.departed %>
-    <!-- <strong>Departed:</strong>
-    <%=h @report.departed.getlocal.to_s(:short_name) %> -->
-  <% elsif current_user==@report.user %>
-  <div id = "submit_button_div">
-    <%= button_to_remote "End shift", :url => {:action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
-  </div>
-  <% else %>
-    This report is still in progress.
-  <% end %>
+  </table>
+  <p>
+    <% if @report.departed %>
+      <!-- <strong>Departed:</strong>
+      <%#=h @report.departed.getlocal.to_s(:short_name) %> -->
+    <% elsif current_user == @report.user %>
+      <div id="submit_button_div">
+        <%= button_to_remote "End shift", :url => {:action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
+      </div>
+    <% else %>
+      This report is still in progress.
+    <% end %>
   </p>
+  <%= params[:popup] %>
 </div>
-
-<%# javascript to prompt the user before leaving the page: did you remember to submit? %>
-<script type="text/javascript">
-  function setConfirmUnload(on) {
-    window.onbeforeunload = (on) ? unloadMessage : null;
-  }
-
-  function unloadMessage() {
-    return "Your report has not yet been submitted.";
-  }
-
-  $(document).ready(function() {
-    setConfirmUnload(true);
-    $("#submit_button_div :button").click(function(){
-      setConfirmUnload(false);
-    });
-  });
-</script>
-

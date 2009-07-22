@@ -1,21 +1,21 @@
 <% stylesheet 'report', 'notice' %>
 <% title "Shift Report at the #{@report.shift.location.name}" %>
-<fieldset>
-<legend>Message Center</legend>
-<%= render :partial => 'notices/notice', :collection => @report.get_notices %>
-<fieldset class="sticky" style="width: 48%">
-  <div class="left">
-  <%= link_to_remote 'Post a new notice',:url=>new_notice_path + "?height=500&width=600", :title => "Create New Notice", :html => {:class => "thickbox"} %>
-  </div>
-  </fieldset>
-</fieldset>
-<p>
+<% unless @report.departed || current_user != @report.user %>
   <fieldset>
-  <legend>Data Objects</legend>
-  <%= render :partial => 'data_objects/report_form', :collection => @report.get_data_objects %>
+    <legend>Message Center</legend>
+    <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
+    <fieldset class="sticky" style="width: 48%">
+      <div class="left">
+        <%= link_to_post_a_new_notice %>
+      </div>
+    </fieldset>
   </fieldset>
-</p>
-<% unless @report.departed || current_user!=@report.user %>
+
+    <fieldset style="margin-top: 8px">
+      <legend>Data Objects</legend>
+      <%= render :partial => 'data_objects/report_form', :collection => @report.get_data_objects %>
+    </fieldset>
+
   <%= render :partial => 'new_report_item_form' %>
 <% end %>
   <h2>Report:</h2>

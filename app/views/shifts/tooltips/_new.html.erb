@@ -11,12 +11,12 @@
       $(this).prev().prev().datepicker()
       alert($(this).prev().class);
     </script> -->
-    <%= f.time_select :start, :minute_step => 15, :twelve_hour => true %>
+    <%= f.time_select :start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :end %><br />
     <%= f.text_field :end, :value => ( @shift.end ? (Time.parse(params[:shift][:end]).strftime("%m/%d/%Y") or @shift.end.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :end, :minute_step => 15, :twelve_hour => true %>
+    <%= f.time_select :end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <% if current_user.is_admin_of?(@department) %>
     <p>
