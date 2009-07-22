@@ -20,14 +20,14 @@
     <p>
       <%= radio_button_tag 'start_time_choice', 'now', true %> Now <br/>
       <%= radio_button_tag 'start_time_choice', 'date' %>
-      <%= f.datetime_select :start_time %>
+      <%= f.datetime_select :start_time, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
     </p>
     <br />
     End time:
     <p>
       <%= radio_button_tag 'end_time_choice', 'indefinite', true %> Never <br/>
       <%= radio_button_tag 'end_time_choice', 'date' %>
-      <%= f.datetime_select :end_time %>
+      <%= f.datetime_select :end_time, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
     </p>
     <br />
   <% end %>

@@ -4,20 +4,20 @@
   <p><h3>Time that you need someone to take for this sub request:</h3></p>
   <p>
     <%= f.label "Start" %><br />
-    <%= f.datetime_select :mandatory_start, :default => @sub_request.shift.start %>
+    <%= f.datetime_select :mandatory_start, :default => @sub_request.shift.start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label "End" %><br />
-    <%= f.datetime_select :mandatory_end, :default => @sub_request.shift.end %>
+    <%= f.datetime_select :mandatory_end, :default => @sub_request.shift.end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p><h3>Maximum amount of time you're willing to give up (bribe):</h3></p>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start, :default => @sub_request.shift.start %>
+    <%= f.datetime_select :start, :default => @sub_request.shift.start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end, :default => @sub_request.shift.end %>
+    <%= f.datetime_select :end, :default => @sub_request.shift.end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= label_tag "People/groups eligible for this sub" %><br />

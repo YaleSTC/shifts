@@ -6,11 +6,11 @@
   </p>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start %>
+    <%= f.datetime_select :start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
+    <%= f.datetime_select :end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
