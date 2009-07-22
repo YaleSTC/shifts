@@ -11,7 +11,9 @@ Feature: User settings
     And I am on the user settings page
 @passing
   Scenario: A New user has default settings
-    Given I am on the list of users
+    When I follow "Logout"
+    Given I am "Albus Dumbledore"
+    And I am on the list of users
     When I follow "Add A New User"
     And I fill in "Login" with "rw12"
     And I fill in "First name" with "Ron"
@@ -39,7 +41,7 @@ Feature: User settings
     And I am "Harry Potter"
     And I go to the homepage
     Then the page should indicate that I am in the department "Pet Store"
-@t
+
   Scenario: Changing the days displayed in shifts
 #     This test will not work if you happen to run it
 #     for the first day of the shift cycle (sunday if weekly)
