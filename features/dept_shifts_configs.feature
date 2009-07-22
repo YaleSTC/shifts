@@ -22,7 +22,7 @@ Feature: Shift settings
     And I should see "7:00"
     And I should not see "8:00"
     And I should not see "4:00"
-@t
+
   Scenario: Shifts settings: Time increments (1 hour)
     When I fill in "department_config_time_increment" with "60"
     And I press "Save"
