@@ -5,11 +5,6 @@ module ApplicationHelper
     link_to_unless_current('Post a new notice', new_notice_path(:height => 530, :width => 530), :class => "thickbox")
   end
 
-  def make_popup(hash)
-    hash[:width] ||= 600
-    "Modalbox.show(this.href, {title: '#{hash[:title]}', width: #{hash[:width]}}); return false;"
-  end
-
   def link_toggle(id, name, speed = "medium")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"

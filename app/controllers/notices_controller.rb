@@ -27,15 +27,14 @@ class NoticesController < ApplicationController
   end
 
   def create
+  raise params.to_yaml
     @notice = Notice.new(params[:notice])
     @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = current_department
-    @notice.start_time = Time.now if @notice.is_sticky
-    @notice.active_sticky = true if @notice.is_sticky
-    @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
-    @notice.active = true
-    @notice.save
+    @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
+    @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    @notice.save(false)
     set_sources
     respond_to do |format|
       if @notice.save
@@ -86,7 +85,6 @@ class NoticesController < ApplicationController
   protected
 
   def set_sources
-#    raise params.to_yaml
     if params[:for_users]
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
