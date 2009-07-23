@@ -6,6 +6,10 @@
     or you may produce broken pages.</small><br/>
     <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
   </p>
+  <p>
+    <%= f.label "Use LDAP?" %> <br />
+    <%= f.check_box :use_ldap %>
+  </p>
   </p>
     <p>
     <%= f.label :ldap_host_address %> <br />

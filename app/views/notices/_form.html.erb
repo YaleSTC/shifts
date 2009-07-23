@@ -10,7 +10,7 @@
   <% if current_user.is_admin_of?(current_department) %>
     Type of notice:
     <p>
-      <%= radio_button_tag 'type', :is_sticky %> Sticky <br />
+      <%= radio_button_tag 'type', 'sticky' %> Sticky <br />
       <%= radio_button_tag 'type', 'announcement', true %> Announcement
     </p>
     <br />
@@ -46,9 +46,5 @@
 
 <% end %>
 
-<% unless current_user.is_admin_of?(current_department) %>
-  <script type="text/javascript" charset="utf-8">
-      $("#advanced_options_div").hide();
-      $("#advanced_link").show();
-  </script>
-<% end %>
+<%= javascript_include_tag 'notices' %>
+

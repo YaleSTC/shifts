@@ -4,21 +4,22 @@ For locations: <br />
 <ul id = "notice_ul">
   <% if current_user.is_admin_of?(current_department) %>
     <%= check_box_tag :department_wide_locations %>
-    <label for="department_wide_locations"><%= current_department.name %></label> (all locations)
+    <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)" %>
   <% end %>
-<div id = "loc_groups">
-  <% for loc_group in current_department.loc_groups do %>
-<li>
-      <%= check_box_tag "for_location_groups[]", loc_group.id, false %>
-      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 
+  <% for loc_group in current_department.loc_groups do %>
+    <li id = "notice_li">
+      <span class = "loc_group_checkboxes">
+        <%= check_box_tag "for_location_groups[]", loc_group.id, false %>
+        <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
+      </span>
       <% for location in loc_group.locations do %>
         <%= check_box_tag "for_locations[]", location.id, false %>
         <%= label_tag "location_#{location.id}", text = location.name %>
         <% unless location == loc_group.locations.last %> , <%end%>
       <% end %>
-</li>
+
+    </li>
   <% end %>
-  </div>
 </ul>
 
