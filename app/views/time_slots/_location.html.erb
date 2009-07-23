@@ -13,7 +13,7 @@
 
 
 
-<h2><%= link_toggle location.short_name, location.name %></h2>
+<h2 style="clear: both;"><%= link_toggle location.short_name, location.name %></h2>
 <div class="edit_times_location" id="<%= location.short_name %>">
   <% slots = location.time_slots.sort_by(&:start) %><%#.select(@week_days.first, @week_days.last) %>
   <% @location = location %>
@@ -77,3 +77,33 @@
   </div>
 
 </div>
+
+
+    <%= stylesheet_link_tag 'timeline' %>
+    
+    <h1>Experimental View (in progress)</h1>
+
+<div class="timeline">
+    <ul style="width: 450px;" class="intervals">
+        <li class="first" style="width: 55px;" >9:00</li>
+        <li style="width: 55px;">10:00</li>
+        <li style="width: 55px;">11:00</li>
+        <li style="width: 55px;">12:00</li>
+        <li style="width: 55px;">1:00</li>
+        <li style="width: 55px;">2:00</li>
+        <li style="width: 55px;">3:00</li>
+        <li class="last" style="width: 54px;">4:00</li>
+    </ul> <!-- end .intervals -->        
+    <ul style="width: 450px;" class="events">
+        <li style="width: 25%; left: 50%;">1:00-3:00</li>
+        <li style="width: 25%; left: 75%;">3:00-5:00</li>
+        <li style="width: 25%; left: 25%;">11:00-1:00</li>
+        <li style="width: 25%; left: 0;">9:00-11:00</li>
+    </ul> <!-- end .events -->
+      <ul style="width: 450px;" class="events">
+        <li style="width: 50%; left: 50%;">1:00-5:00</li>
+        <li style="width: 25%; left: 25%;">11:00-1:00</li>
+        <li style="width: 25%; left: 0;">9:00-11:00</li>
+    </ul> <!-- end .events -->
+</div> <!-- end .timeline -->
+
