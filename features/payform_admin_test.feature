@@ -104,15 +104,13 @@ Feature: payform admin
     Then I should have a pdf with "This payform was approved by #{@current_user} at" in it
 @passing
   Scenario: Pruning Empty Payforms
-    Given I am "Albus Dumbledore"
-    And I have the following payform items
-      | category  | user_login | hours | description                   | date          |
-      | Quidditch | hp123      | 2     | fighting Voldemort nine times | May 21, 2009  |
-      | Quidditch | hp123      | 1.5   | caught the snitch             | June 10, 2009 |
-    And I should see "2009-06-13"
+   Given I have the following payform items
+      | category  | user_login | hours | description        | date          |
+      | Magic     | hg9        | 2     | fighting Voldemort | May 18, 2009  |
+      | Quidditch | hp123      | 1.5   | caught the snitch  | June 10, 2009 |
+      Then I should see "2009-06-13"
     And I should see "2009-06-06"
-    And I should see "2009-05-09"
-    And I should see "2009-05-23"
+    And I should see "2009-05-16"
     When I follow "Prune all empty payforms"
     Then I should see "Successfully pruned empty payforms."
     And I should see "Harry Potter"

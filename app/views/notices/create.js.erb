@@ -2,5 +2,6 @@
   $('#all_notices').html("<%= escape_javascript(render :partial => 'all_notices') %>");
   tb_remove();
 <% else %>
-  $('#notice_form').html("<%= escape_javascript(render :partial => 'form') %>");
+  $('#notice_form').html("<%= escape_javascript(render :partial => 'notices/form') %>");
 <% end %>
+
