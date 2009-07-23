@@ -72,6 +72,5 @@ class SubRequestsController < ApplicationController
       redirect_to(get_take_info_sub_request_path(@sub_request))
     end
   end
-
 end
 
