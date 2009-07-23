@@ -6,7 +6,7 @@
   </div>
   <%= sticky.content %>
   <br />
-  <%= " TESTING PURPOSES: notice id: #{sticky.id}, is_current?: #{sticky.is_current?}"%> <!-- REMOVE ME WHEN DONE -->
+  <%= " TESTING PURPOSES: notice id: #{sticky.id}, is_current?: #{sticky.is_current?} Start time: #{sticky.start_time}"%> <!-- REMOVE ME WHEN DONE -->
   <div class="grayleft">
     <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start_time, Time.now, true)} ago" %>
   </div>
