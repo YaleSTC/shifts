@@ -6,7 +6,7 @@
 </p>
 <p>
   <strong>End:</strong>
-  <%=h @shift.end.to_s(:short_name) %>
+  <%=h @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
 </p>
 <p>
   <strong>User:</strong>
