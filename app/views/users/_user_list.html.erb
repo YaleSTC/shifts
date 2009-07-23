@@ -1,5 +1,5 @@
 <% for user in @users %>
-  <tr<%= " class='disabled'" if !user.is_active?(@department) %>>
+  <tr<%= " class='disabled'" if !user.is_active?(@department) %> id="user<%= user.id %>">
     <td><%= link_to user.login, user %></td>
     <td><%=h user.first_name %></td>
     <td><%=h user.last_name %></td>

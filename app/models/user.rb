@@ -180,6 +180,15 @@ class User < ActiveRecord::Base
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
   end
+  
+  def toggle_active(department)
+    new_entry = DepartmentsUser.new();
+    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    new_entry.attributes = old_entry.attributes
+    new_entry.active = !old_entry.active
+    DepartmentsUser.delete_all( :user_id => self, :department_id => department)
+    new_entry.save
+  end
 
 #TODO: A method like this might be helpful
 #  def switch_auth_type
