@@ -24,10 +24,10 @@ Feature: Notices
     And I am on the homepage
     When I follow "Notices"
     And I follow "Post a new notice"
-    Then I should see "Post as sticky?"
-    And I should see "Specify a start time"
-    And I should see "Specify an end time"
-    And I should see "or check here to make it indefinite"
+    Then I should see "Sticky"
+    And I should see "Start time"
+    And I should see "End time"
+    And I should see "Never"
     And I should see "Hogwarts (all locations)"
 
   Scenario: Creating a sticky from the dashboard for users
