@@ -37,19 +37,6 @@ class NoticesController < ApplicationController
     @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.save(false)
     set_sources
-    if params[:for_users]
-      params[:for_users].split(",").each do |l|
-        if l == l.split("||").first #This is for if javascript is disabled
-          l = l.strip
-          @notice.user_sources << Department.find_by_name(l)
-          @notice.user_sources << User.find_by_names(l).first
-          @notice.user_sources << User.find_by_login(l)
-        else
-          l = l.split("||")
-          @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
-        end
-      end
-    end
     respond_to do |format|
       if @notice.save
         format.html {
@@ -105,8 +92,12 @@ class NoticesController < ApplicationController
           l = l.strip
           @notice.save(false)
           @notice.user_sources << Department.find_by_name(l)
-          @notice.user_sources << User.find_by_names(l).first
-          @notice.user_sources << User.find_by_login(l)
+          a = User.find_by_names(l).first
+          a.save
+          @notice.user_sources << a
+          b = User.find_by_login(l)
+          b.save
+          @notice.user_sources << b
         else
           l = l.split("||")
           @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
