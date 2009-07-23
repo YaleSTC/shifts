@@ -2,11 +2,11 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
-    <%= select_time Time.now, :minute_step => current_department.department_config.time_increment, :ignore_date => true, :twelve_hour => true %>
+    <%= f.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= select_time Time.now+1.hour, :minute_step => current_department.department_config.time_increment, :ignore_date => true, :twelve_hour => true %>
+    <%= f.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <% @department.loc_groups.each do |loc_group| %>
     <% unless loc_group.locations.empty? %>

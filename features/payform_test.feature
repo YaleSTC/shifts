@@ -26,7 +26,6 @@ Feature: payform
     And I should see "Study"
     And I should see "May 18"
     And I should see "Studying defense against the dark arts"
-#   if it could be 1.2 hours that would be great, but it doesn't pass that way'
     And I should see "1.2"
 
 
@@ -55,9 +54,9 @@ Feature: payform
     And I am on the payforms page
     When I follow "2009-05-23"
     And I follow "✖"
-#    Then I should see "Are you sure?" : except that is done using javascript (NOT JAVA), so cucumber cannot see
-#    And I fill in "Reason for deletion" with "because I lied"
-#    And I press "Yes"
+    Then I should see "Destroy Payform Item"
+    And I fill in "Reason" with "because I lied"
+    And I press "Delete"
     Then I should see "Payform item deleted"
     And I should have 1 payform_item
     And that payform_item should be inactive

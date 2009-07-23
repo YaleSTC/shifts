@@ -6,8 +6,8 @@
   @dept_start_minute = @dept_start_hour * 60
   @dept_end_minute = @dept_end_hour * 60
   
-  @blocks_per_hour = 4
-  @block_length = 60 / @blocks_per_hour
+  @blocks_per_hour = 60/15
+  @block_length = 15
   @blocks_per_day = (@dept_end_hour - @dept_start_hour) * @blocks_per_hour
 %>
 
@@ -39,7 +39,7 @@
     <% day = 0; slot_index = 0 %>
     <% begin %>
       <tr>
-        <%# TODO: HOLY MOTHER OF GOD THIS FUNCTION  -rjl %>
+        <%# TODO: HOLY MOTHER OF GOD THIS FUNCTION  -rjl (agreed -njg) %>
         <th class="location_label"><%= WEEK_DAYS[day][0..2] %></th>
         <% day_start = (day * 1440) + @dept_start_minute %>
         <% day_end = (day * 1440) + @dept_end_minute %>
