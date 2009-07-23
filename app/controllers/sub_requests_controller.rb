@@ -57,6 +57,8 @@ class SubRequestsController < ApplicationController
     @sub_request = SubRequest.find(params[:id])
     return unless require_owner_or_dept_admin(@sub_request.shift, current_department)
     @sub_request.destroy
+    flash[:notice] = "Successfully destroyed sub request."
+    redirect_to shifts_url
   end
 
   def get_take_info
