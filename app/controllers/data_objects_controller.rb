@@ -1,35 +1,26 @@
 class DataObjectsController < ApplicationController
-  #User admin methods will need to be rewritten in move to other codebase
-  #Not yet permission-locked!!!
-  
-  # not at all sure what's going on here anymore, will ask ryan about it -ben
+  #Not yet secured!
+
   def index   
     @data_objects = get_allowed_data_objects
     @group_type_options = options_for_group_type
     @group_by_options = []
-    # if params[:view_options]
-    #   @selected_type = params[:view_options][:group_type]
-    #   if params[:view_options][:group_by]
-    #     unless (@selected_by = params[:view_options][:group_by]).blank?
-    #       @data_objects = @selected_type.classify.constantize.find(@selected_by).data_objects
-    #     end
-    #   end
-    #   @group_by_options = options_for_group_by(@selected_type)
-    # end
-    if params[:group_by]
-      @selected_type = params[:group_by]
-      if params[:group_by] == "data_types"
-        @types_objects_hash = @data_objects.group_by(&:data_type)
-      elsif params[:group_by] == "locations"
-        @types_objects_hash = @data_objects.group_by{|object| object.locations[0]}
-      elsif params[:group_by] == "loc_groups"
-        @types_objects_hash = @data_objects.group_by(&:data_type)
+    @selected_type = "departments"
+    if params[:group_type]
+      @selected_type = params[:group_type]
+      if params[:group_by] && !params[:group_by].blank?
+        @selected_by = params[:group_by]
+        @data_objects &= @selected_type.classify.constantize.find(@selected_by).data_objects
       end
-    else #default
-      @types_objects_hash = @data_objects.group_by &:data_type
+      @group_by_options = options_for_group_by(@selected_type)
+    end
+    @types_objects_hash = @data_objects.group_by &:data_type
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
-
+  
 # This needs its views rewritten to enable viewing a subset of all entries -ben  
   def show
     @data_object = DataObject.find(params[:id])   
@@ -80,7 +71,8 @@ class DataObjectsController < ApplicationController
    
 private
 
-#   Returns all the data objects that the user is permitted to administer
+# Returns all the data objects that the user is permitted to administer
+# other methods should grab these objects, and narrow them down
   def get_allowed_data_objects
     return @department.data_objects if current_user.is_admin_of?(@department)
     unless (@loc_groups = current_user.loc_groups_to_admin(@department)).empty?
