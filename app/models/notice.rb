@@ -13,9 +13,12 @@ class Notice < ActiveRecord::Base
   named_scope :active_with_end, lambda {{ :conditions => ["start_time < ? and end_time > ?", Time.now.utc, Time.now.utc]}}
   named_scope :active_without_end, lambda {{ :conditions => ["start_time < ?", Time.now.utc]}}
   named_scope :upcoming, lambda {{ :conditions => ["start_time > ?", Time.now.utc]}}
+  named_scope :stickies, lambda {{ :conditions => ["is_sticky = ?", true]}}
+  named_scope :announcements, lambda {{ :conditions => ["is_sticky = ?", false]}}
 
   def self.active
-    (self.active_with_end + self.active_without_end).uniq.sort_by{|n| n.start_time}.reverse
+    (self.announcements.active_with_end + self.announcements.active_without_end).uniq.sort_by{|n| n.start_time}.reverse +
+    (self.stickies.active_with_end + self.stickies.active_without_end).uniq.sort_by{|n| n.start_time}.reverse
   end
 
   def display_for
