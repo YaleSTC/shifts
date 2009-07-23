@@ -62,12 +62,12 @@ module ApplicationHelper
     end
     output + "</select>"
   end
-  
+
   def unobtrusive_datepicker_includes
     javascript 'datepicker'
     stylesheet 'datepicker'
   end
-  
+
   def unobtrusive_datepicker_include_tags
     (javascript_include_tag 'datepicker') + (stylesheet_link_tag 'datepicker')
   end
