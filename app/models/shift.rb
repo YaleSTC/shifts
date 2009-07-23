@@ -147,8 +147,8 @@ class Shift < ActiveRecord::Base
   # = Validation helpers =
   # ======================
   def restrictions
-    location_restrictions = location.restrictions
-    user_restrictions = user.restrictions
+    #location_restrictions = location.restrictions
+    #user_restrictions = user.restrictions
     #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
   end
 
@@ -187,6 +187,13 @@ class Shift < ActiveRecord::Base
         sub.mandatory_end = self.end if sub.mandatory_end > self.end
         sub.save!
       end
+    end
+  end
+  
+  
+  class << columns_hash['start']
+    def type
+      :datetime
     end
   end
 end

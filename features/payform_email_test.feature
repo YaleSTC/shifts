@@ -51,12 +51,12 @@ Feature: payform emails
 
   Scenario: Auto-Email when payforms have not been submitted for 2 weeks
     When I am on the department settings page
-    And I fill in "Weeks until reminder" with "2"
-    And I fill in "Reminder email text:" with "Dear #name, /n You have an unsubmitted payform more than 2 weeks old. Please submit it as soon as possible. /n Thanks, A. Dumbledore"
+    And I fill in "warning_weeks" with "2"
+    And I fill in "reminder_message" with "Dear #name, /n You have an unsubmitted payform more than 2 weeks old. Please submit it as soon as possible. /n Thanks, A. Dumbledore"
     And I press "Save"
     Then I should see "Successfully updated department config."
 
-    Given "Harry Potter" has an unsubmitted payform from "2" weeks ago with 1 payform_item
+    Given "Harry Potter" has an unsubmitted payform from "3" weeks ago with 1 payform_item
     Then "hp123@hogwarts.edu" should receive 1 email
     When "hp123@hogwarts.edu" opens the email with text "Dear Harry Potter, /n You have an unsubmitted payform more than 2 weeks old. Please submit it as soon as possible. /n Thanks, A. Dumbledore"
 

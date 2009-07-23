@@ -1,17 +1,14 @@
-<% javascript 'jquery', 'jquery-ui' %>
-<% stylesheet 'ui.datepicker' %>
+<% unobtrusive_datepicker_includes %>
 
 <% form_for @shift do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :start %><br />
-    <%= f.text_field :start, :value => ( @shift.start ? (params[:shift][:start] or @shift.start.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %> (specify a start time)
+    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.text_field :end, :value => ( @shift.end ? (params[:shift][:end] or @shift.end.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %> (specify an end time)
+    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :user %><br />
@@ -24,8 +21,3 @@
   <%= f.hidden_field :power_signed_up, :value => :true %>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-
-<script type="text/javascript">
-  $("#shift_start").datepicker();
-  $("#shift_end").datepicker();
-</script>

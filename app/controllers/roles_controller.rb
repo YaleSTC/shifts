@@ -16,7 +16,7 @@ class RolesController < ApplicationController
 
   def create
     @role = Role.new(params[:role])
-    @role.departments << @department
+    @role.department = @department
     if @role.save
       flash[:notice] = "Successfully created role."
       redirect_to @role
@@ -44,7 +44,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     @role.destroy
     flash[:notice] = "Successfully destroyed role."
-    redirect_to department_roles_path(current_department)
+    redirect_to department_roles_path(@department)
   end
 end
 
