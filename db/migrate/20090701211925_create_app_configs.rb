@@ -10,6 +10,7 @@ class CreateAppConfigs < ActiveRecord::Migration
       t.string :ldap_first_name
       t.string :ldap_last_name
       t.string :ldap_email
+      t.boolean :use_ldap
       t.timestamps
     end
   end

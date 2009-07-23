@@ -9,6 +9,7 @@ class FirstRunController < ApplicationController
   def create_app_config
     AppConfig.first.destroy if AppConfig.first
     @app_config=AppConfig.new(params[:app_config])
+    @appconfig.use_ldap = params[:use_ldap] ? true : false
     if @app_config.save
       flash[:notice] = "App Settings have been configured."
       redirect_to first_department_path
