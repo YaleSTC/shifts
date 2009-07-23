@@ -3,14 +3,17 @@
 <% form_for @time_slot do |f| %>
   <%= f.error_messages %>
   <p>
+      <strong>Days:</strong><br />
+    <% WEEK_DAYS.each_with_index do |day, i| %>
+      <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+      <%= day %>
+    <% end %>
+  </p>
+  <p>
     <%= f.label :start %><br />
     <%= f.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
-    <%= f.label :end %><br />
-    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>  
-  </p>
-  <p><%= f.submit "Submit" %></p>
     <%= f.label :end %><br />
     <%= f.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
