@@ -3,7 +3,7 @@ div.timeline {
     position:relative;
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
-    margin: 0 20px;
+    margin: 0px 0px 30px 0px;
     width: 100%;
 }
 div.timeline-data {
