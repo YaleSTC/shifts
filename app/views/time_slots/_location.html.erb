@@ -79,63 +79,45 @@
 </div>
 
 
-    <%= stylesheet_link_tag 'timeline' %>
-    
-    <h1>Experimental View (in progress)</h1>
-<% dc = 0%>
+<%= stylesheet_link_tag 'timeline' %>
+<% date = Date.today %>
+<h1>Experimental View (in progress)</h1>
+  <% dc = 1%>
 <div style="width: 100%;" class="timeline">
-  <% for day in ["","","Sun:","Mon:","Tue:","Wed:","Thu:","Fri:","Sat:"] do %>
-  <div class="day" style="top:<%= 18*dc-1 %>px"><%= day %></div><% dc+=1 %>
+<div class="day" style="top:<%= 18*dc %>px"></div><% dc+=1 %>
+<% for day in (date.beginning_of_week-1.day)...date.end_of_week do %>
+  <div class="day" style="top:<%= 18*dc %>px"><%= day.strftime("%a:") %></div><% dc+=1 %>
   <% end %>
   <div class="timeline-data" style="width: 90%;">
+
     <ul class="intervals">
-      <% pos = 0 %>
-      <% pos2 = 0 %>
-      <% incr = 1 %>
-      <% incr2 = 1 %>
+      <% incr = 0 %>
       <% for hour in 8...16 do %>
-        <li style="width: <%= 100/8.0 %>%; left: <%=pos%>%;" >
-          <%=hour%>:00
+        <li style="width: <%= 100/8.0 %>%; left: <%=incr*100/8.0%>%;" >
+          <div class="inside-li">
+            <div class="hours" ><%=hour%>:00</div>
+            <% incr2 = 0 %>
+            <%for part in 0...3 do %>
+              <div class="minutes" style="width: 25%; left:<%=incr2*25 %>%;"></div>
+              <% incr2 += 1 %>
+            <% end %>
+          </div>
         </li>
-        
-        <% for parts in 0...4 do %>
-          <li style="width: <%= (100/8.0)/(60.0/15.0) %>%;left: <%=pos2%>%;top:50%;"></li>
-          
-          <% pos2 = incr2*100/8.0/(60.0/15.0) %>
-          <% incr2 += 1 %>
-        <% end %>
-        
-        <% pos = incr*100/8.0 %>
         <% incr += 1 %>
       <% end %>
-    </ul> <!-- end .intervals -->  
-    <ul class="events">
-      <li style="width: 25%; left: 50%;"><div>1:00-3:00</div></li>
-      <li style="width: 25%; left: 75%;"><div>3:00-5:00</div></li>
-    </ul> <!-- end .events -->
+    </ul>
+    
 
+  <% for day in (date.beginning_of_week-1.day)...date.end_of_week do %>
     <ul class="events">
-      <li style="width: 50%; left: 50%;"><div>1:00-5:00</div></li>
-      <li style="width: 25%; left: 25%;"><div>11:00-1:00</div></li>
-      <li style="width: 25%; left: 0;"><div>9:00-11:00</div></li>
-    </ul> <!-- end .events -->
-    <ul class="events">
-      <li style="width: 50%; left: 50%;"><div>1:00-5:00</div></li>
-      <li style="width: 25%; left: 0;"><div>9:00-11:00</div></li>
-    </ul> <!-- end .events -->
-    <ul class="events">
-    </ul> <!-- end .events -->
-    <ul class="events">
-      <li style="width: 25%; left: 25%;"><div>11:00-1:00</div></li>
-      <li style="width: 25%; left: 0;"><div>9:00-11:00</div></li>
-    </ul> <!-- end .events -->
-    <ul class="events">
-      <li style="width: 50%; left: 50%;"><div>1:00-5:00</div></li>
-      <li style="width: 25%; left: 25%;"><div>11:00-1:00</div></li>
-    </ul> <!-- end .events -->
-    <ul class="events">
-
-    </ul> <!-- end .events -->
+      <% for timeslot in TimeSlot.all(:conditions => ['start > ? and start < ? and location_id = ?', day.beginning_of_day, day.end_of_day, location.id]) do %>
+      <% left = timeslot.start %>
+      <li style="width: <%=timeslot.duration / 8.0 * 100 %>%; left: 50%;">
+        <div><%=timeslot.start.strftime("%l:%M") %> - <%=timeslot.end.strftime("%l:%M") %></div>
+      </li>
+      <% end %>
+    </ul>
+  <% end %>
   </div>
 </div> <!-- end .timeline -->
 

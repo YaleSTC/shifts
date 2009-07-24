@@ -30,7 +30,7 @@ ul.intervals {
     padding: 0;
     display: block;
     float: right;
-    height: 35px;
+    height: 36px;
     position:relative;
     width: 100%;
     border-right: 1px solid #ccc;
@@ -50,8 +50,25 @@ ul.intervals li {
     border-right: 1px solid #ccc;
     position: absolute;
     text-align: center;
-    height: 17px;
+    height:36px;
+}
+
+ul.intervals li div.inside-li{
+    position:relative;
+    width: auto;
+    height: 100%;
+}
+
+ul.intervals li div.hours{
     border-bottom: 1px solid #ccc;
+    height:18px;
+}
+
+ul.intervals li div.minutes{
+    border-right: 1px solid #ccc;
+    position: absolute;
+    float:left;
+    height:18px;
 }
 
 ul.events {
