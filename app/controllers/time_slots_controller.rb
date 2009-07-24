@@ -4,7 +4,7 @@ class TimeSlotsController < ApplicationController
 
   def index
     @time_slots = TimeSlot.all
-    @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
+    @period_start = params[:date] ? Date.parse(params[:date])+1.day : Date.today
   end
 
   def show
