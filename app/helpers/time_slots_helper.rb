@@ -6,9 +6,12 @@ module TimeSlotsHelper
     if left < 0 
       width -= left
       left = 0 
-    end  
-    if 100-left + width > 100
-      width = 100-left
+    elsif left < 0 
+      left=0
+      width=100/@hours_per_day
+    end
+    if left + width > 100
+      width -= (left+width)-100
     end
     "width: #{width}%; left: #{left}%;"
   end

@@ -1,6 +1,8 @@
+<% height = 300 %>
+
 <h2><%= link_toggle location.short_name, location.name %></h2>
 
-<div class="timeline" style="height:150px;">
+<div class="timeline" style="height:<%= height %>px;">
   <div class="days">
     <div class="day" style="top:11%; height: 22%;"></div>
     <%= render :partial => "left_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week %>
@@ -9,6 +11,6 @@
     <ul class="intervals" style="height: 22%;">
       <%= render :partial => "hour", :collection =>  @dept_start_hour.to_i...@dept_end_hour.to_i %>
     </ul>
-    <%= render :partial => "time_slot_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week, :locals => {:location => location}  %>
+    <%= render :partial => "time_slot_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week, :locals => {:location => location, :height => height}  %>
   </div>
 </div>
