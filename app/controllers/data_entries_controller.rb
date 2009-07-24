@@ -1,5 +1,5 @@
 class DataEntriesController < ApplicationController
-  #Not yet permission-locked!!!
+  #Not yet secured
   
   before_filter :check_for_data_object
   
