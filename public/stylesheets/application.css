@@ -485,6 +485,7 @@ fieldset#warning {
 fieldset.index {
   width: 90%;
   padding: 5px;
+  border: 1px solid gray;
   background-color:#DDDDFF
 }
 
