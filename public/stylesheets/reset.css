@@ -1,5 +1,5 @@
 /* a simple CSS reset for cross-browser prettiness */
-/* http://meyerweb.com/eric/tools/css/reset/index.html */
+/* based on http://meyerweb.com/eric/tools/css/reset/index.html */
 /* v1.0 | 20080212 */
 
 html, body, div, span, applet, object, iframe,
@@ -22,8 +22,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
 	line-height: 1;
 }
+p{
+	margin: 1em 0;
+}
 ol, ul {
-	list-style: none;
+/*	list-style: circle;*/
 }
 blockquote, q {
 	quotes: none;
