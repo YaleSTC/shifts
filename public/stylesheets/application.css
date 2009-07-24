@@ -279,7 +279,7 @@ ul#navigationList {
   list-style-type: square;
 
   float: left;
-  padding: 5px 0px 5px 17px;
+  padding: 5px 0px 5px 10px;
 }
 ul#navigationList li {
   list-style-type: none;
