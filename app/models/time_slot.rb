@@ -1,6 +1,8 @@
 class TimeSlot < ActiveRecord::Base
   belongs_to :location
   has_many :shifts, :through => :location
+  
+  validates_presence_of :start, :end, :location_id
 
 #TODO: This half-written method will probably never be used : (
 #  def self.mass_create(slot_start, slot_end, days, locations, range_start, range_end)
@@ -21,6 +23,9 @@ class TimeSlot < ActiveRecord::Base
 
 #  end
 
+  def duration
+    (self.end-self.start)/3600.0
+  end
 
   private
 
