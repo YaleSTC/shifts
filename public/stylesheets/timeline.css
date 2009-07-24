@@ -63,14 +63,14 @@ ul.intervals li div.inside-li{
 
 ul.intervals li div.hours{
     border-bottom: 1px solid #ccc;
-    height:18px;
+    height:50%;
 }
 
 ul.intervals li div.minutes{
     border-right: 1px solid #ccc;
     position: absolute;
     float:left;
-    height:18px;
+    height:50%;
 }
 
 ul.events {
