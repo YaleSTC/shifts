@@ -1,0 +1,111 @@
+div.timeline {
+    float:right;
+    position:relative;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    margin: 0 20px;
+    width: 100%;
+}
+div.timeline-data {
+    float:right;
+    position:relative;
+    width: 90%;
+}
+
+div.timeline div.day {
+    position: absolute;
+    left: 0;
+    border-bottom: 1px solid #ccc;
+    height: 18px;
+    width: 10%;
+    padding: 0px;
+    text-align: center;
+}
+div.timeline div.first {
+    border-top: 1px solid #ccc;
+    height: 17px;
+}
+
+ul.intervals {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    display: block;
+    float: right;
+    height: 36px;
+    position:relative;
+    width: 100%;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+div.timeline div.day,
+ul.intervals li {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    color: #999;
+}
+
+ul.intervals li {
+    border-right: 1px solid #ccc;
+    position: absolute;
+    text-align: center;
+    height:36px;
+}
+
+ul.intervals li div.inside-li{
+    position:relative;
+    width: auto;
+    height: 100%;
+}
+
+ul.intervals li div.hours{
+    border-bottom: 1px solid #ccc;
+    height:50%;
+}
+
+ul.intervals li div.minutes{
+    border-right: 1px solid #ccc;
+    position: absolute;
+    float:left;
+    height:50%;
+}
+
+ul.events {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0px;
+    height: 17px;
+    display: block;
+    position:relative;
+    float: right;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    width: 100%;
+}
+
+ul.events li {
+    background: #eee;
+    color: #707070;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0px 0px;
+    height: 17px;
+    padding: 0px 0px;
+    position: absolute;
+    text-align: center;
+    border-left: 1px solid #ccc;
+}
+ul.events li div {
+    width: auto;
+    height: 100%;
+
+    border-right: 1px solid #ccc;
+}
+
+ul.events li:hover {
+    background: #ddd;
+}
