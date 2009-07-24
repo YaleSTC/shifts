@@ -1,11 +1,10 @@
-<%= error_messages_for 'time_slot' %>
-<%# time_options = time_select_for(time_slot.date + @dept_start_hour.hours, time_slot.date + @dept_end_hour.hours) %>
-<% html_options = {:disabled => time_slot.start < Date.today}%>
-<tr class="<%= time_slot %>"> <%# <tr class="<%= label_slot time_slot >"> %>
-  <% fields_for "time_slots[#{time_slot.id}]", time_slot do |f|%>
-  <%= f.error_messages %>
-  <td><%= time_slot.start.to_s(:short_name) %><%#= f.time_select :start, {:minute_step => 15} %></td>
-  <td><%= time_slot.end.to_s(:short_name) %><%#= f.time_select :end, {:minute_step => 15} %></td>
-  <td><%= check_box_tag 'delete_ids[]', time_slot.id, false, html_options %></td>
-  <% end %>
-</tr>
+<li id="timeslot<%=time_slot.id%>" style="<%=time_slot_style(time_slot)%>" onclick="alert($('#timeslot<%=time_slot.id%>').html()); <%= remote_function :url => root_path %>">
+  <div class="time-slot">
+    <div class="center_container">
+      <div class="center_content">
+        <%= link_to "x", time_slot, :confirm => 'Are you sure?', :method => :delete, :style => "float:right;margin-right:3px" %>
+        <%= link_to "#{time_slot.start.strftime("%l:%M%p")} - #{time_slot.end.strftime("%l:%M%p")}", edit_time_slot_path(time_slot) %>
+      </div>
+    </div>
+  </div>
+</li>

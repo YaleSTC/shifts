@@ -20,6 +20,11 @@ class UsersController < ApplicationController
     end
 
     @users = @users.sort_by(&:last_name)
+
+    respond_to do |wants|
+      wants.html
+      wants.csv { render :text => @users.to_csv(:template => :normal) }
+    end
   end
 
   def show
@@ -263,4 +268,3 @@ class UsersController < ApplicationController
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end
-
