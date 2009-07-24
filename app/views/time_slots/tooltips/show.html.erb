@@ -1,0 +1,20 @@
+<p>
+  <strong>Location:</strong>
+  <%=h @time_slot.location.name %>
+</p>
+<p>
+  <strong>Start:</strong>
+  <%=h @time_slot.start.to_s(:short_name) %>
+</p>
+<p>
+  <strong>End:</strong>
+  <%=h @time_slot.end.to_s(:short_name) %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_time_slot_path(@time_slot) %> |
+  <%= link_to "Destroy", @time_slot, :confirm => 'Are you sure?', :method => :delete %>
+</p>
+
+
+<%# TODO: jEditable? %>
