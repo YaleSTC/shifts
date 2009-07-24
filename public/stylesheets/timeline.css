@@ -1,57 +1,91 @@
 div.timeline {
     float:right;
-}
-ul.events {
-    list-style-type: none;
-    margin: 0 20px;
-    padding: 0 0 0px 0px;
-    height: 18px;
     position:relative;
-  float: right;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    margin: 0 20px;
+}
+div.timeline-data {
+    float:right;
+    position:relative;
 }
 
-ul.events li {
-    background: #eee;
-    border: 1px solid #ddd;
-    color: #707070;
-    font-size: 1em;
-    font-weight: bold;
-    margin: 0px;
-    height: 14px;
-    padding: 1px 0;
+div.timeline div.day {
     position: absolute;
+    left: 0;
+    border-bottom: 1px solid #ccc;
+    height: 18px;
+    width: 10%;
+    padding: 0px;
     text-align: center;
 }
-
-ul.events li em {
-
-    color: #aaa;
-    font-weight: normal;
-    font-size: 0.9em;
+div.timeline div.first {
+    border-top: 1px solid #ccc;
+    height: 17px;
 }
 
 ul.intervals {
-    margin: 0 20px;
+    margin: 0;
     list-style-type: none;
     padding: 0;
     display: block;
     float: right;
-    height: 18px;
+    height: 35px;
     position:relative;
-}
-
-/* The width depends on the number of intervals. For example 100 / 7 = 14.29% -- then subtract a little bit for room for the borders */
-ul.intervals li {
+    width: 100%;
     border-right: 1px solid #ccc;
-    color: #999;
-    font-size: 1em;
-    margin: 0;
-    padding: 0px 0;
-    position: absolute;
-    text-align: center;
-}
-
-ul.intervals li.first {
+    border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
 }
 
+div.timeline div.day,
+ul.intervals li {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    color: #999;
+}
+
+ul.intervals li {
+    border-right: 1px solid #ccc;
+    position: absolute;
+    text-align: center;
+    height: 18px;
+}
+
+ul.events {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0px;
+    height: 17px;
+    display: block;
+    position:relative;
+    float: right;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    width: 100%;
+}
+
+ul.events li {
+    background: #eee;
+    color: #707070;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0px 0px;
+    height: 17px;
+    padding: 0px 0px;
+    position: absolute;
+    text-align: center;
+    border-left: 1px solid #ccc;
+}
+ul.events li div {
+    width: auto;
+    height: 100%;
+
+    border-right: 1px solid #ccc;
+}
+
+ul.events li:hover {
+    background: #ddd;
+}

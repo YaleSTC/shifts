@@ -82,30 +82,48 @@
     <%= stylesheet_link_tag 'timeline' %>
     
     <h1>Experimental View (in progress)</h1>
-
-<div style="width: 500px;" class="timeline">
-  <div id="intervals">
-    <ul style="width: 450px;" class="intervals">
-        <li class="first" style="width: 12.5%; left: 0%" >9:00</li>
-        <li style="width: 12.5%; left: 12.5%; ">10:00</li>
-        <li style="width: 12.5%; left: 25%;">11:00</li>
-        <li style="width: 12.5%; left: 37.5%;">12:00</li>
-        <li style="width: 12.5%; left: 50%;">1:00</li>
-        <li style="width: 12.5%; left: 62.5%; ">2:00</li>
-        <li style="width: 12.5%; left: 75%;">3:00</li>
-        <li class="last" style="width: 12.5%; left: 87.5%;">4:00</li>
+<% dc = 0%>
+<div style="width: 100%;" class="timeline">
+  <% for day in ["","","Sun:","Mon:","Tue:","Wed:","Thu:","Fri:","Sat:"] do %>
+  <div class="day" style="top:<%= 18*dc-1 %>px"><%= day %></div><% dc+=1 %>
+  <% end %>
+  <div class="timeline-data" style="width: 90%;">
+    <ul class="intervals">
+      <% pos = 0 %>
+      <% for hour in 8...16 do %>
+        <li style="width: <%= 100/8.0 %>%; left: <%=pos%>%" >
+          <%=hour%>:00
+        </li>
+        <% pos += 100/8.0 %>
+      <% end %>
     </ul> <!-- end .intervals -->  
-  </div>      
-    <ul style="width: 450px" class="events">
-      <li style="width: 25%; left: 50%;">1:00-3:00</li>
-      <li style="width: 25%; left: 75%;">3:00-5:00</li>
-      <li style="width: 25%; left: 25%;">11:00-1:00</li>
-      <li style="width: 25%; left: 0;">9:00-11:00</li>
+    <ul class="events">
+      <li style="width: 25%; left: 50%;"><div>1:00-3:00</div></li>
+      <li style="width: 25%; left: 75%;"><div>3:00-5:00</div></li>
     </ul> <!-- end .events -->
-    <ul style="width: 450px;" class="events">
-      <li style="width: 50%; left: 50%;">1:00-5:00</li>
-      <li style="width: 25%; left: 25%;">11:00-1:00</li>
-      <li style="width: 25%; left: 0;">9:00-11:00</li>
+
+    <ul class="events">
+      <li style="width: 50%; left: 50%;"><div>1:00-5:00</div></li>
+      <li style="width: 25%; left: 25%;"><div>11:00-1:00</div></li>
+      <li style="width: 25%; left: 0;"><div>9:00-11:00</div></li>
     </ul> <!-- end .events -->
+    <ul class="events">
+      <li style="width: 50%; left: 50%;"><div>1:00-5:00</div></li>
+      <li style="width: 25%; left: 0;"><div>9:00-11:00</div></li>
+    </ul> <!-- end .events -->
+    <ul class="events">
+    </ul> <!-- end .events -->
+    <ul class="events">
+      <li style="width: 25%; left: 25%;"><div>11:00-1:00</div></li>
+      <li style="width: 25%; left: 0;"><div>9:00-11:00</div></li>
+    </ul> <!-- end .events -->
+    <ul class="events">
+      <li style="width: 50%; left: 50%;"><div>1:00-5:00</div></li>
+      <li style="width: 25%; left: 25%;"><div>11:00-1:00</div></li>
+    </ul> <!-- end .events -->
+    <ul class="events">
+
+    </ul> <!-- end .events -->
+  </div>
 </div> <!-- end .timeline -->
 
