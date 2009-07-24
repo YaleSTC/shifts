@@ -14,7 +14,7 @@
   for category in current_department.categories do
     payform_items = category.payform_items & @payform.payform_items
     unless payform_items.empty?
-      table_items = payform_items.map do |table_item|precision
+      table_items = payform_items.map do |table_item|
         [table_item.date, table_item.description, table_item.hours]
       end
       pdf.table table_items, :border_style => :grid,

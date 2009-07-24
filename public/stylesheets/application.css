@@ -37,7 +37,7 @@ a {
 
 .disabled {
   color: #888;
-  background-color: #ddd;
+  background-color: #ddd !important;
 }
 
 
@@ -65,6 +65,7 @@ table, td, th{
 	border:1px solid #666;
 	padding: 2px;
 	border-collapse:collapse;
+	background: #fff;
 }
 
 th{
@@ -278,7 +279,7 @@ ul#navigationList {
   list-style-type: square;
 
   float: left;
-  padding: 5px 5px 5px 17px;
+  padding: 5px 0px 5px 20px;
 }
 ul#navigationList li {
   list-style-type: none;
@@ -477,6 +478,10 @@ a:hover{
 
 /* FIELDSET DESIGN -- Get this unified! */
 
+fieldset{
+	border: 1px solid #333;
+}
+
 fieldset#warning {
   background: #C0C0C0;
 }
@@ -515,6 +520,10 @@ div.note {
   color: #556677;
 }
 
+ul{
+	/*these guys are overflowing left for some reason*/
+	margin-left: 20px;
+}
 
 span#progress_bar {
 	/*border: 1px black solid;*/
