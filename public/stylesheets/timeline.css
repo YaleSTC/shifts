@@ -104,17 +104,6 @@ ul.events li div.time-slot {
     height: 100%;
     border-right: 1px solid #ccc;
 }
-/* hack for vertical centering*/
-div.center_container {
-		display: table;
-		width: 100%;
-		height: 100%;
-}
-div.center_content {
-		display: table-cell;
-		vertical-align: middle;
-		width: 100%;
-}
 ul.events li a {
     color: #999;
 }
@@ -126,4 +115,16 @@ ul.events li:hover {
 }
 ul.events li:hover a {
     color: #707070;
+}
+
+/* hack for vertical centering*/
+div.center_container {
+		display: table;
+		width: 100%;
+		height: 100%;
+}
+div.center_content {
+		display: table-cell;
+		vertical-align: middle;
+		width: 100%;
 }

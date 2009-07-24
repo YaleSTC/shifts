@@ -1,4 +1,10 @@
 <li style="width: <%= 100/@hours_per_day %>%; left: <%= hour_counter*100/@hours_per_day%>%;" >
-  <div class="hours" ><%=(Time.now.beginning_of_day + hour.hours).strftime("%l:%M%p")%></div>
+  <div class="hours" >
+    <div class="center_container">
+      <div class="center_content">
+        <%=(Time.now.beginning_of_day + hour.hours).strftime("%l:%M%p")%>
+      </div>
+    </div>
+  </div>
   <%= render :partial => "minutes", :collection => 0...(@blocks_per_hour-1) %>
 </li>
