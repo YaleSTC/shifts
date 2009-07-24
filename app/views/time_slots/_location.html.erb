@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'timeline' %>
+<% end %>
+
 <%
   #TODO: major cleanup, similar to the ongoing shifts cleanup
   @dept_start_hour = 9.0
@@ -13,16 +17,15 @@
   @blocks_per_day = @hours_per_day * @blocks_per_hour
 %>
 
-<h2 style="clear: both;"><%= link_toggle location.short_name, location.name %></h2>
+<h2><%= link_toggle location.short_name, location.name %></h2>
 
-<%= stylesheet_link_tag 'timeline' %>
-<%  %>
-
-<div class="timeline">
-  <div class="day" style="top:18px"></div>
-  <%= render :partial => "left_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week %>
+<div class="timeline" style="height:170px;">
+  <div class="days">
+    <div class="day" style="top:11%; height: 22%;"></div>
+    <%= render :partial => "left_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week %>
+  </div>
   <div class="timeline-data">
-    <ul class="intervals">
+    <ul class="intervals" style="height: 22%;">
       <%= render :partial => "hour", :collection =>  @dept_start_hour.to_i...@dept_end_hour.to_i %>
     </ul>
     <%= render :partial => "time_slot_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week, :locals => {:location => location}  %>
