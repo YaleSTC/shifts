@@ -477,6 +477,10 @@ a:hover{
 
 /* FIELDSET DESIGN -- Get this unified! */
 
+fieldset{
+	border: 1px solid #333;
+}
+
 fieldset#warning {
   background: #C0C0C0;
 }
@@ -515,6 +519,9 @@ div.note {
   color: #556677;
 }
 
+#data_type_display ul{
+	margin-left: 20px;
+}
 
 span#progress_bar {
 	/*border: 1px black solid;*/
