@@ -1,6 +1,10 @@
 <li style="<%=time_slot_style(time_slot)%>">
   <div class="time-slot">
-      <%= link_to "x", time_slot, :confirm => 'Are you sure?', :method => :delete, :style => "float:right;margin-right:3px" %>
-      <%= link_to "#{time_slot.start.strftime("%l:%M%p")} - #{time_slot.end.strftime("%l:%M%p")}", edit_time_slot_path(time_slot) %>
+    <div class="center_container">
+      <div class="center_content">
+        <%= link_to "x", time_slot, :confirm => 'Are you sure?', :method => :delete, :style => "float:right;margin-right:3px" %>
+        <%= link_to "#{time_slot.start.strftime("%l:%M%p")} - #{time_slot.end.strftime("%l:%M%p")}", edit_time_slot_path(time_slot) %>
+      </div>
+    </div>
   </div>
 </li>
