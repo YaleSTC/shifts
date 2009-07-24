@@ -17,13 +17,13 @@ class TimeSlotsController < ApplicationController
 
   def create
     errors = []
+    date = params[:date] ? Time.parse(params[:date]) : Time.now.beginning_of_week - 1.day
     for location_id in params[:location_ids]
       for day in params[:days]
-        week = Date.today.beginning_of_week - 1 #go back to sunday
         time_slot = TimeSlot.new(params[:time_slot])
         time_slot.location_id = location_id
-        time_slot.start = week + day.to_i + time_slot.start.seconds_since_midnight
-        time_slot.end = week + day.to_i + time_slot.end.seconds_since_midnight
+        time_slot.start = date + day.to_i.days + time_slot.start.seconds_since_midnight
+        time_slot.end = date + day.to_i.days + time_slot.end.seconds_since_midnight
         if !time_slot.save
           errors << "Error saving timeslot for #{WEEK_DAYS[day]}"
         end
@@ -31,10 +31,10 @@ class TimeSlotsController < ApplicationController
     end
     if errors.empty?
       flash[:notice] = "Successfully created timeslot(s)."
-      redirect_to time_slots_path
     else
       flash[:error] =  "Error: "+errors*"<br/>" 
     end
+    redirect_to time_slots_path
   end
 
   def edit
