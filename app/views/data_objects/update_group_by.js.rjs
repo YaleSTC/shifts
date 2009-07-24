@@ -1,2 +1,0 @@
-page.replace_html "group_by", :partial => "group_by"
-page[:group_by].visual_effect :drop_in
