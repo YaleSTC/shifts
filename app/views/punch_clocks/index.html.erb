@@ -5,16 +5,14 @@ There are currently no punch clocks running.
 <% else %>
 <table>
   <tr>
-    <th>Description</th>
     <th>User</th>
     <th>Has been running for</th>
   </tr>
   <% for punch_clock in @punch_clocks %>
     <tr>
-      <td><%=h punch_clock.description %></td>
-      <td><%= User.find(punch_clock.user_id).name %></td>
-      <td><%= Time.now - punch_clock.created_at %></td>
-      <td><%= link_to "Sign Out", punch_clock, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= punch_clock.user.name %></td>
+      <td><%= punch_clock.running_time %></td>
+      <td><%= link_to "Clock out", edit_punch_clock_path(punch_clock) %></td>
     </tr>
   <% end %>
 </table>

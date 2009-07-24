@@ -1,16 +1,19 @@
-Given /^I had a shift yesterday$/ do
-creation_time = (Time.now - 3.days)
-start_time = (Time.now - 32.hours)
-end_time = (Time.now - 29.hours)
-shift_taken = (Time.now - 2.days)
+Given /^"([^\"]*)" had a shift yesterday in "([^\"]*)"$/ do |name, location|
+  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
 
-  TimeSlot.create!(:location_id => @department.locations.first,
+  creation_time = ((Date.today - 3.days).to_time + 13.hours)
+  start_time = ((Date.today - 1.day).to_time + 13.hours)
+  end_time = ((Date.today - 1.day).to_time + 15.hours)
+  shift_taken = (Time.now - 2.days)
+  loc = Location.find_by_name(location).id
+
+  TimeSlot.create!(:location_id => loc,
                    :start => start_time,
                    :end => end_time,
                    :created_at => creation_time)
 
   this_shift = Shift.new(:start => start_time, :end => end_time,
-                        :user_id => @user.id, :location_id => @department.locations.first,
+                        :user_id => user.id, :location_id => loc,
                         :scheduled => true, :created_at => shift_taken,
                         :updated_at => shift_taken)
   this_shift.save_without_validation!
@@ -23,21 +26,23 @@ shift_taken = (Time.now - 2.days)
 
 end
 
-Given /^"([^\"]*)" has a shift tomorrow$/ do |name|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+Given /^I have a shift tomorrow in "([^\"]*)"$/ do |location|
+
 
   creation_time = (Time.now - 3.days)
-  start_time = (Time.now + 1.day)
-  end_time = (Time.now + 26.hours)
+  start_time =  ((Date.today + 1.day).to_time + 13.hours)
+  end_time =  ((Date.today + 1.day).to_time + 15.hours)
   shift_taken = (Time.now - 1.day)
 
-  TimeSlot.create!(:location_id => @department.locations.first,
+  loc = Location.find_by_name(location).id
+
+  TimeSlot.create!(:location_id => loc,
                    :start => start_time,
                    :end => end_time,
                    :created_at => creation_time)
 
   Shift.create!(:start => start_time, :end => end_time,
-                :user_id => user.id, :location_id => @department.locations.first,
+                :user_id => @current_user.id, :location_id => loc,
                 :scheduled => true, :created_at => shift_taken,
                 :updated_at => shift_taken)
 end
@@ -50,7 +55,6 @@ end
 Given /^I have a LocGroup named "([^\"]*)" with location "([^\"]*)"$/ do |loc_group_name, location|
   loc_group = LocGroup.find_by_name(loc_group_name)
   Location.create!(:name => location, :short_name => location, :loc_group_id => loc_group.id, :max_staff => 2, :min_staff => 1, :priority => 1)
-
 end
 
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|
@@ -68,7 +72,6 @@ Then /^I should see all the days of the week$/ do
 
   yesterday = Date.yesterday.to_s(:Day)
   response.should contain(yesterday)
-
 end
 
 Then /^I should see "([^\"]*)" on the schedule$/ do |message|
@@ -95,13 +98,15 @@ Then /^I should not see "([^\"]*)" on the schedule$/ do |message|
   end
 end
 
+Then /^I should see "([^\"]*)" in the footer$/ do |message|
+  assert_select("p.footer") do |div|
+    div.should contain(message)
+  end
+end
+
 When /^I log out$/ do
   # This is a bad way of doing a logout, but I don't know of any other way
   CASClient::Frameworks::Rails::Filter.fake("invalid_login")
-end
-
-Then /^the ldap address should be "([^\"]*)"$/ do |address|
-  AppConfig.first.ldap_address.to_i.should be(address.to_i)
 end
 
 Then /^I should be redirected$/ do
@@ -112,33 +117,25 @@ Then /^I should be redirected to (.+)$/ do |page_name|
   response.should redirect_to(path_to(page_name))
 end
 
-Then /^I should be able to select "([^\"]*)" as a time$/ do |time|
-  select_time(time)
-#  assert_select(time)
-  assert_response :success
-end
-
-Then /^I should notbe able to select "([^\"]*)" as a time$/ do |time|
-  lambda {select_time(time)}.should raise_error
-#  save_and_open_page
-#  assert_response :failure
-end
-
 Given /^"([^\"]*)" has a current payform$/ do |user_name|
   user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
-  Payform.create!(:date => 4.days.from_now, :user_id => user, :department_id => user.departments.first)
+  period_date = Payform.default_period_date(Date.today, @department)
+  Payform.create!(:date => period_date, :user_id => user, :department_id => user.departments.first)
 end
 
 Given /^"([^\"]*)" has the following current payform items?$/ do |user_name, table|
   user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
   table.hashes.each do |row|
     category = Category.find_by_name(row[:category])
+
+      p = Payform.build(user.departments.first, user, Date.today)
+
     PayformItem.create!(:category_id => category,
                         :user_id => user,
                         :hours => row[:hours].to_f,
                         :description => row[:description],
                         :date => Date.today,
-                        :payform_id => Payform.first)
+                        :payform_id => p.id)
   end
 end
 
@@ -167,5 +164,9 @@ end
 
 Then /^the department "([^\"]*)" should have a department_config$/ do |department|
   Department.find_by_name(department).department_config.should_not be_nil
+end
+
+Then /^the "([^\"]*)" should be "([^\"]*)"$/ do |attribute, value|
+  $appconfig.send(attribute.to_s).to_s.should == value.to_s
 end
 

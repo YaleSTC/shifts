@@ -11,7 +11,7 @@
     <% if @department.loc_groups.empty? -%>
       <p>No location groups, hence no corresponding permissions.</p>
     <% end -%>
-    <% for lg in @role.departments.collect{|dept| dept.loc_groups}.flatten -%>
+    <% for lg in @role.department.loc_groups -%>
         <li><%= lg.name %></li>
           <ul>
           <% for perm in lg.permissions -%>

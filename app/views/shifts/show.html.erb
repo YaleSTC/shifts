@@ -2,11 +2,11 @@
 
 <p>
   <strong>Start:</strong>
-  <%=h @shift.start %>
+  <%=h @shift.start.to_s(:short_name) %>
 </p>
 <p>
   <strong>End:</strong>
-  <%=h @shift.end %>
+  <%=h @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
 </p>
 <p>
   <strong>User:</strong>

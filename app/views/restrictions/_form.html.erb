@@ -1,15 +1,14 @@
-<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput', 'thickbox-compressed'  %>
-<% stylesheet 'tokeninput-facebook' %>
+<% unobtrusive_datepicker_includes %>
 
 <% form_for @restriction do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :starts %><br />
-    <%= f.datetime_select :starts %>
+    <%= f.label :starts, :minute_step => @department.department_config.time_increment, :twelve_hour => true %><br />
+    <%= f.unobtrusive_datetime_picker :starts, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
-    <%= f.label :expires %><br />
-    <%= f.datetime_select :expires %>
+    <%= f.label :expires, :minute_step => @department.department_config.time_increment, :twelve_hour => true %><br />
+    <%= f.unobtrusive_datetime_picker :expires, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :max_subs %><br />
@@ -55,3 +54,4 @@
     $(document).ready(function(){$("#advanced").hide();})
     $(document).ready(function(){$("#advanced_link").show();})
 </script>
+

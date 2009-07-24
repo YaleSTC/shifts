@@ -1,17 +1,14 @@
-<% javascript 'jquery', 'jquery-ui' %>
-<% stylesheet 'ui.datepicker' %>
+<%= unobtrusive_datepicker_include_tags %>
 
 <% form_for @shift do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :start %><br />
-    <%= f.text_field :start, :value => ( @shift.start ? (@shift.start.strftime("%m/%d/%Y") or params[:shift][:start]) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %> (specify a start time)
+    <%= f.label :start_time %><br />
+    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
-    <%= f.label :end %><br />
-    <%= f.text_field :end, :value => ( @shift.end ? (@shift.end.strftime("%m/%d/%Y") or params[:shift][:end]) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %> (specify an end time)
+    <%= f.label :end_time %><br />
+    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
   </p>
   <% if current_user.is_admin_of?(@department) %>
   <p>
@@ -25,8 +22,3 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-
-<script type="text/javascript">
-  $("#shift_start").datepicker();
-  $("#shift_end").datepicker();
-</script>

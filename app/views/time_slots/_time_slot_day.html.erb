@@ -1,0 +1,5 @@
+<%# we can vertically center text by changing the line-height %>
+<ul class="events" style="height: 11%;">
+  <% timeslots = TimeSlot.all(:conditions => ['start > ? and start < ? and location_id = ?',time_slot_day.beginning_of_day,time_slot_day.end_of_day,location.id]) -%>
+  <%= render :partial => "time_slot", :collection => timeslots -%>
+</ul>

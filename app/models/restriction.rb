@@ -5,5 +5,9 @@ class Restriction < ActiveRecord::Base
   def users
     self.user_sources.collect{|s| s.users}.flatten.uniq
   end
+  
+  def locations
+    self.location_sources.collect{|s| s.locations}.flatten.uniq
+  end
 
 end

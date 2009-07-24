@@ -1,14 +1,13 @@
 class UsersController < ApplicationController
-  #TODO: add authorization before_filter here and update the action code accordingly
-  # a superuser can view all users while a department admin can manage a department's users
-  # depending on the dept chooser
+  before_filter :require_admin_or_superuser
+
   def index
     if params[:show_inactive]
       @users = @department.users
     else
       @users = @department.users.select{|user| user.is_active?(@department)}
     end
-    
+
     if params[:search]
       params[:search] = params[:search].downcase
       @search_result = []
@@ -21,66 +20,65 @@ class UsersController < ApplicationController
     end
 
     @users = @users.sort_by(&:last_name)
+
+    respond_to do |wants|
+      wants.html
+      wants.csv { render :text => @users.to_csv(:template => :normal) }
+    end
   end
 
   def show
     @user = User.find(params[:id])
   end
 
+  def ldap_search
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],3)
+  end
+
   def new
     @user = User.new
+    @results = []
+  end
+
+  def fill_form
+    @user = User.new(params[:user])
   end
 
   def create
-    @user = User.new(params[:user])
-    @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
-    if @user.auth_type == "authlogic"
-      @user.password = @user.password_confirmation = random_password
-      @user.departments << @department
+    if @user = User.find_by_login(params[:user][:login])
+      if @user.departments.include? @department #if user is already in this department
+        #don't modify any data, as this is probably a mistake
+        flash[:notice] = "This user already exists in this department!"
+        redirect_to @user
+      else
+        #make sure not to lose roles in other departments
+        #remove all roles associated with this department
+        department_roles = @user.roles.select{|role| role.department == @department}
+        @user.roles -= department_roles
+        #now add back all checked roles associated with this department
+        @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+
+        #add user to new department
+        @user.departments << @department unless @user.departments.include?(@department)
+        flash[:notice] = "User successfully added to new department."
+        redirect_to @user
+      end
+    else
+      @user = User.new(params[:user])
+      @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+      @user.set_random_password
+      @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
-        @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
-        flash[:notice] = "Successfully created user and emailed instructions for setting password."
+        if @user.auth_type=='built-in'
+          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
+          flash[:notice] = "Successfully created user and emailed instructions for setting password."
+        else
+          flash[:notice] = "Successfully created user."
+        end
         redirect_to @user
       else
         render :action => 'new'
       end
-    else
-      if @user = User.find_by_login(params[:user][:login])
-        if @user.departments.include? @department #if user is already in this department
-          #don't modify any data, as this is probably a mistake
-          flash[:notice] = "This user already exists in this department!"
-          redirect_to @user
-        else
-          #make sure not to lose roles in other departments
-          #remove all roles associated with this department
-          department_roles = @user.roles.select{|role| role.departments.include? @department}
-          @user.roles -= department_roles
-          #now add back all checked roles associated with this department
-          @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-
-          #add user to new department
-          @user.departments << @department
-          flash[:notice] = "User successfully added to new department."
-          redirect_to @user
-        end
-      else #user is a new user
-        #create from LDAP if possible; otherwise just use the given information
-        @user = User.import_from_ldap(params[:user][:login], @department) || User.create(params[:user])
-
-        #if a name was given, it should override the name from LDAP
-        @user.first_name = (params[:user][:first_name]) unless params[:user][:first_name]==""
-        @user.last_name = (params[:user][:last_name]) unless params[:user][:last_name]==""
-        @user.roles = (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-        @user.password = @user.password_confirmation = random_password
-        @user.auth_type='CAS'
-        if @user.save
-          flash[:notice] = "Successfully created user."
-          redirect_to @user
-        else
-           render :action => 'new'
-        end
-      end
-#         y @user #debug output
     end
   end
 
@@ -95,13 +93,13 @@ class UsersController < ApplicationController
 
     #store role changes, or else they'll overwrite roles in other departments
     #remove all roles associated with this department
-    department_roles = @user.roles.select{|role| role.departments.include? @department}
+    department_roles = @user.roles.select{|role| role.department == @department}
     updated_roles = @user.roles - department_roles
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
-    @user.password=@user.password_confirmation=random_password if params[:reset_password]
-    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='authlogic'
+    @user.set_random_password if params[:reset_password]
+    @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
       @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions(n)}) if params[:reset_password]
@@ -113,12 +111,12 @@ class UsersController < ApplicationController
 
   def destroy #the preferred action. really only disables the user for that department.
     @user = User.find(params[:id])
-    new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-    new_entry.attributes = old_entry.attributes
-    new_entry.active = false
-    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
-    if new_entry.save
+    # new_entry = DepartmentsUser.new();
+    # old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
+    # new_entry.attributes = old_entry.attributes
+    # new_entry.active = false
+    # DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+    if @user.toggle_active(@department) #new_entry.save
       flash[:notice] = "Successfully deactivated user."
       redirect_to @user
     else
@@ -149,16 +147,61 @@ class UsersController < ApplicationController
     redirect_to department_users_path(current_department)
   end
 
-  def mass_add
-    #just a view
+  def import
   end
 
-  def mass_create
-    errors = User.mass_add(params[:logins], @department)
-    unless errors.empty?
-      flash[:error] = "Import of the following users failed:<br /> "+(errors.join "<br />")
+  def verify_import
+    file=params[:file]
+    flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
+#    begin
+      @users = User.from_csv(file, :normal)
+#    rescue Exception => e
+#      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+#      render :action => 'import'
+#    end
+  end
+
+  def save_import
+    if params[:commit]=="Cancel"
+      redirect_to import_department_users_path(@department) and return
     end
-    redirect_to department_users_path
+    @users=params[:users_to_import].collect{|i| params[:user][i]}
+    failures = []
+    @users.each do |u|
+      if @user = User.find_by_login(u[:login])
+        if @user.departments.include? @department #if user is already in this department
+          #don't modify any data, as this is probably a mistake
+          failures << {:user=>u, :reason => "User already exists in this department!"}
+        else
+          #TODO: Improve this, think about what should actually happen.
+          department_roles = @user.roles.select{|role| role.department == @department}
+          @user.roles -= department_roles
+          @user.role = u[:role]
+          #add user to new department
+          @user.departments << @department unless @user.departments.include?(@department)
+          @user.save
+        end
+      else
+        @user = User.new(u)
+        @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+        @user.set_random_password
+        @user.departments << @department unless @user.departments.include?(@department)
+        if @user.save
+#          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
+        else
+          failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
+        end
+      end
+    end
+    if failures.empty?
+      flash[:notice] = "All users successfully added!"
+      redirect_to department_users_path(@department)
+    else
+      @users=failures.collect{|e| User.new(e[:user])}
+      flash[:notice] = "The users below failed for the following reasons:<br />"
+      failures.each{|e| flash[:notice]+="#{e[:user][:login]}: #{e[:reason]}<br />"}
+      render :action=> 'verify_import'
+    end
   end
 
   def autocomplete
@@ -205,10 +248,23 @@ class UsersController < ApplicationController
       @users = @search_result.sort_by(&:last_name)
     end
   end
+  
+  def toggle #for ajax deactivation/restore
+    @user = User.find(params[:id])
+    @user.toggle_active(@department)
+    respond_to do |format|
+      format.html {redirect_to user_path(@user)}
+      format.js {render :nothing => true}
+    end
+  end
 
   private
 
   def switch_department_path
     department_users_path(current_department)
+  end
+
+  def require_admin_or_superuser
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end

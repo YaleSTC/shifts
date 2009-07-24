@@ -33,54 +33,22 @@ a {
   display: inline;
 }
 
-#errorExplanation {
-  width: 400px;
-  border: 2px solid #CF0000;
-  padding: 0px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-}
-
-#errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: 0;
-  background-color: #c00;
-  color: #fff;
-}
-
-#errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 8px;
-}
-
-#errorExplanation ul {
-  margin: 2px 24px;
-}
-
-#errorExplanation ul li {
-  font-size: 12px;
-  list-style: disc;
-}
-
-.disabled {
-  color: #999;
-}
-
 */
 
-
-fieldset.index {
-  width: 75%;
-  padding: 5px;
-  background-color:#DDDDFF
+.disabled {
+  color: #888;
+  background-color: #ddd !important;
 }
 
 
+/*this is used for the department_config form*/
+.shift_admin_form label {
+  width: 30em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
 
 
 
@@ -302,7 +270,8 @@ ul#navigationList {
   font-size: 11px;
   font-weight: bold;
   line-height: 1.7em;
-  margin: 40px 0pt 0pt;
+  margin: 40px 0 0;
+  margin-left: -5px;
   padding: 0;
 
   list-style-image: none;
@@ -310,7 +279,7 @@ ul#navigationList {
   list-style-type: square;
 
   float: left;
-  padding: 5px 5px 5px 17px;
+  padding: 5px 0px 5px 20px;
 }
 ul#navigationList li {
   list-style-type: none;
@@ -341,9 +310,6 @@ ul#navigationList a:hover {
 }
 #contentNav h1, #contentNoNav h1 {
   padding: 0px 0px 5px 0px;
-}
-#contentNav li, #contentNoNav li {
-  margin: 0pt 0pt 0pt 20px;
 }
 #contentNav {
   float: right;
@@ -510,15 +476,31 @@ a:hover{
   display: block;
 }
 
+/* FIELDSET DESIGN -- Get this unified! */
+
 fieldset#warning {
   background: #C0C0C0;
 }
 
-fieldset {
-  background: #ddf;
+fieldset.index {
+  width: 90%;
+  padding: 5px;
+  border: 1px solid gray;
+  background-color:#DDDDFF
 }
 
 legend {
+  color: #eef;
+  background: #123456;
+  font-family: sans-serif;
+  padding: 0.2em 1em;
+}
+
+#blue_fieldset fieldset {
+  background: #ddf;
+}
+
+#blue_fieldset fieldset legend {
   color: #eef;
   background: #123456;
   font-family: sans-serif;
@@ -535,6 +517,10 @@ div.note {
   color: #556677;
 }
 
+ul{
+	/*these guys are overflowing left for some reason*/
+	margin-left: 20px;
+}
 
 span#progress_bar {
 	/*border: 1px black solid;*/
@@ -568,5 +554,67 @@ table.sortable th:hover {
 }
 table.sortable th {
 	text-decoration: underline;
+}
+
+/* Sortable tables hack for AJAX */
+table.sortable_style th:hover {
+	color:orange;
+}
+table.sortable_style th {
+	text-decoration: underline;
+}
+
+/*Forms w/ tables next to them*/
+div.form_left {
+  width:45%;
+  float:left;
+}
+
+div.table_right {
+  width:50%;
+  float:right;
+  margin:12px;
+  visibility:hidden;
+}
+
+span#loading_icon{
+  display:none;
+}
+
+/* styling for errors */
+errorExplanation {
+  width: 400px;
+  border-style: solid;
+  border-color: #CF0000;
+  border-width:2px;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+#errorExplanation ul {
+  margin: 2px 24px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: disc;
 }
 

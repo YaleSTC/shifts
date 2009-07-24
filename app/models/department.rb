@@ -2,6 +2,8 @@ class Department < ActiveRecord::Base
   has_many :loc_groups, :dependent => :destroy
   has_many :departments_users, :dependent => :destroy
   has_many :users, :through => :departments_users
+  has_many :roles, :dependent => :destroy
+#  has_and_belongs_to_many :roles  
   has_many :locations, :through => :loc_groups
   has_many :data_types, :dependent => :destroy
   has_many :data_objects, :through => :data_types
@@ -9,6 +11,7 @@ class Department < ActiveRecord::Base
   has_many :payforms
   has_many :payform_sets
   has_many :categories
+  has_many :punch_clocks
 
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
@@ -16,7 +19,6 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :admin_permission_id
 
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :roles
   has_one :department_config, :dependent => :destroy
 
   private

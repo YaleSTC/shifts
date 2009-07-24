@@ -1,0 +1,31 @@
+<% if current_user.is_admin_of?(current_department) %>
+<div id = "upcoming">
+  <fieldset class = "index">
+    <legend>Upcoming</legend>
+    <%= render :partial => 'notice', :collection => Notice.upcoming %>
+  </fieldset>
+</div>
+<% end %>
+<br />
+<div id = "for_you">
+    <%= render :partial => 'for_you' %>
+</div>
+<% if current_user.user_config.view_loc_groups.blank? %>
+  <p>You have not selected any location groups to view! Fix that in your
+    <%= link_to "User settings", edit_user_config_path(current_user.user_config) %>.</p>
+<% end %>
+<div id = "location_notices">
+  <% current_user.user_config.view_loc_groups.split(",").map{|lg| LocGroup.find(lg)}.each do |loc_group| %>
+    <% loc_group.locations.each do |loc| %>
+      <% @loc_current_notices = loc.current_notices %>
+      <% unless @loc_current_notices.empty? || current_user.user_config.view_loc_groups.include?(loc.id) %>
+        <fieldset class ="index">
+          <legend id ="blue_fieldset"><%= loc.name %></legend>
+          <%= render :partial => 'notice', :collection => @loc_current_notices%>
+        </fieldset>
+        <br/>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+

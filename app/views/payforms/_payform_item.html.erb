@@ -14,13 +14,17 @@
     <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
   </td>
   <td class="rightside" id="hours" >
-    <%=h payform_item.hours %>
+    <%= number_with_precision(payform_item.hours, :precision => 1) %>
   </td>
   <td class="rightside" id="edit">
-    <%= link_to "edit", edit_payform_item_path(payform_item) if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+    <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+      <%= link_to 'edit', edit_payform_item_path(payform_item, :height => "500", :width => "600"), :title => "Edit Payform Item", :class => "thickbox" %>
+    <% end %>
   </td>
   <td class="rightside" id="delete">
-    <%= link_to "&#x2716;", payform_item, :confirm => 'Are you sure?', :method => :delete  if payform_item.active && payform_item.payform && !payform_item.payform.approved%>
+    <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+      <%= link_to "&#x2716;", delete_payform_item_path(payform_item, :height => "180", :width => "600"), :title => "Delete Payform Item", :class => "thickbox" %>
+    <% end %>
   </td>
 </tr>
 <% end %>

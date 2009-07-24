@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time
   helper_method :current_user
   helper_method :current_department
-  helper_method :random_password
 
   filter_parameter_logging :password, :password_confirmation
 
@@ -22,9 +21,10 @@ class ApplicationController < ActionController::Base
 
   $appconfig = AppConfig.first
 
+  # We should improve this page, probably on the actual template -ben
   def access_denied
     text = "Access denied"
-     text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('authlogic')
+    text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('built-in')
     text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user && current_user.departments
     render :text => text, :layout => true
   end
@@ -103,31 +103,68 @@ class ApplicationController < ActionController::Base
     @user_session = UserSession.find
   end
 
-  def require_admin_of(obj)
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(obj)
-  end
-
-  # these are the authorization before_filters to use under controllers
+# These are the authorization before_filters to use under controllers
+# These all return nil
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department)
   end
 
-  def require_loc_group_admin
+  def require_loc_group_admin(current_loc_group)
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_loc_group)
   end
 
   def require_superuser
     unless current_user.is_superuser?
-      flash[:notice] = "Only superuser can manage departments."
+      flash[:error] = "That action is only available to superusers."
       redirect_to(access_denied_path)
     end
+  end
+
+# These three methods all return true/false, so they can be tested to trigger return statements
+# Takes a department, location, or loc_group
+  def require_admin_of(thing)
+    unless current_user.is_admin_of?(thing)
+      flash[:error] = "You are not authorized to administer this #{thing.class.name.decamelize}"
+      redirect_to(access_denied_path) and return false
+    end
+    return true
+  end
+
+
+# Takes any object that has a user method and checks against current_user
+  def require_owner(thing)
+    unless current_user.is_owner_of?(thing)
+      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}"
+      redirect_to access_denied_path and return false
+    end
+    return true
+  end
+
+# Takes any object that has a user method and its department
+  def require_owner_or_dept_admin(thing, dept)
+    unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(dept)
+      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
+      redirect_to access_denied_path and return false
+#      will probably use render instead of redirect_to later --Laura
+#      render :template => access_denied_path and return false
+    end
+    return true
+  end
+
+# Takes a department; intended to be passed some_thing.department
+  def require_department_membership(dept)
+    unless current_user.departments.include?(dept)
+      flash[:error] = "You are not a member of the appropriate department."
+      redirect_to(access_denied_path) and return false
+    end
+    return true
   end
 
   def login_check
   if !User.first
     redirect_to first_app_config_path
   elsif !current_user
-      if $appconfig.login_options==['authlogic'] #AppConfig.first.login_options_array.include?('authlogic')
+      if $appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
         redirect_to login_path
       else
         redirect_to access_denied_path
@@ -141,10 +178,6 @@ class ApplicationController < ActionController::Base
       flash[:notice] = msg
     end
     redirect_to options
-  end
-
-  def test
-    raise "ewoks"
   end
 
   private
@@ -161,9 +194,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def random_password(size = 20)
-    chars = (('a'..'z').to_a + ('0'..'9').to_a)
-    (1..size).collect{|a| chars[rand(chars.size)] }.join
+  #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
+  def layout_check(action = action_name, controller = controller_name)
+     if params[:layout] == "false"
+      render :controller => controller, :action => action, :layout => false
+    end
   end
 
   # overwrite this method in other controller if you wanna go to a different url after chooser submit
@@ -174,3 +209,4 @@ class ApplicationController < ActionController::Base
     send("#{controller_name}_path") rescue root_path
   end
 end
+

@@ -1,0 +1,19 @@
+<% if @results %>
+<table>
+<tr><th colspan="5"><span id="loading_icon"><%= image_tag("loading.gif", :align=>:left) %></span>LDAP Search Results</th></tr>
+<td>Login</td>
+<td>First Name</td>
+<td>Last Name</td>
+<td>Email</td>
+<% @results.each do |result| %>
+<tr>
+<td><%= result[:login] %></td>
+<td><%= result[:first_name] %></td>
+<td><%= result[:last_name] %></td>
+<td><%= result[:email] %></td>
+<td><%= button_to_remote "Add Me!", :url=> {:action => "fill_form", :params => {:user=>result}}%></td>
+</tr>
+<% end %>
+</table>
+<% end %>
+

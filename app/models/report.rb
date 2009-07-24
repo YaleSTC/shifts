@@ -6,8 +6,11 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    all_notices = self.shift.location.notices + self.shift.user.notices
-    all_notices.uniq
+    (self.shift.location.current_notices + self.shift.user.current_notices).uniq.sort_by{|n| n.start_time}.reverse
+  end
+
+  def get_data_objects
+    all_data_objects = self.shift.location.data_objects
   end
 end
 

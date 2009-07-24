@@ -1,4 +1,6 @@
 class RestrictionsController < ApplicationController
+  before_filter :require_department_admin
+
   def index
     @restrictions = Restriction.all
   end

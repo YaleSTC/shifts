@@ -1,22 +1,23 @@
-ul {
+ul#notice_ul {
     list-style-type: none;
 }
-li {
+li#notice_li {
     padding-left: 1em;
 }
+
 
 fieldset.sticky {
   padding: 5px;
   margin: 0 0 0 0;
+  border:1px solid gray;
   background-color:#FFFF99;
-
 }
 
 fieldset.announcement {
   padding: 5px;
   margin:0 0 0 0;
+  border:1px solid gray;
   background-color:#ADD8E6;
-
 }
 
 fieldset.sticky .grayleft, fieldset.announcement .grayleft{

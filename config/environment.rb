@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.3' unless defined? RAILS_GEM_VERSION
 
 TASKR4RAILS_AUTH = "stc_493"
 TASKR4RAILS_ALLOWED_HOSTS = ['127.0.0.1']
@@ -16,7 +16,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
 
   #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
-  config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
+    config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
 
   #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
   #ENV["HMP_DEBUG"] = 'true'
@@ -55,6 +55,7 @@ Rails::Initializer.run do |config|
   config.gem "has_many_polymorphs"
   config.gem "authlogic"
   config.gem 'ar_mailer', :lib => 'action_mailer/ar_mailer'
+  config.gem "javan-whenever", :lib => false, :source => "http://gems.github.com"
   #make sure you remove 'ar_mailer' - sudo gem uninstall ar_mailer - this is an old version
 
   # Only load the plugins named here, in the order given. By default, all plugins
@@ -89,14 +90,9 @@ Rails::Initializer.run do |config|
   config.active_record.observers = :user_observer, :department_observer
 end
 
-# enable detailed CAS logging
-cas_logger = CASClient::Logger.new(RAILS_ROOT+'/log/cas.log')
-cas_logger.level = Logger::DEBUG
-
 CASClient::Frameworks::Rails::Filter.configure(
   :cas_base_url => "https://secure.its.yale.edu/cas/",
   :username_session_key => :cas_user,
-  :extra_attributes_session_key => :cas_extra_attributes,
-  :logger => cas_logger
+  :extra_attributes_session_key => :cas_extra_attributes
 )
 

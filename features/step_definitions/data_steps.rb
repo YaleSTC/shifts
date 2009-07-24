@@ -26,7 +26,7 @@ When /^I select "([^\"]*)" as the "([^\"]*)"$/ do |value, field_name|
 end
 
 When /^I put "([^\"]*)" in "([^\"]*)"$/ do |value, field_name|
-  field = "data_fields_" + field_name + "_" + DataField.find_by_name(field_name).id.to_s
+  field = "data_fields_"+ DataField.find_by_name(field_name).id.to_s + "_" + field_name
   fill_in(field, :with => value)
 end
 

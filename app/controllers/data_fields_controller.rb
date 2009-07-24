@@ -1,6 +1,5 @@
 class DataFieldsController < ApplicationController
-  # Hack to provide a consistent department within the data controller
-  before_filter :set_department_for_data   #department is STC
+  before_filter :require_department_admin
   before_filter :check_for_data_type
   
   def index
@@ -49,10 +48,6 @@ class DataFieldsController < ApplicationController
   end
   
   private
-  
-  def set_department_for_data
-    @department = Department.find_by_name("STC")
-  end
   
   # Intercept and redirect if no data type id provided
   def check_for_data_type

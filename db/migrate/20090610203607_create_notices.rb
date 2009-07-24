@@ -17,3 +17,4 @@ class CreateNotices < ActiveRecord::Migration
     drop_table :notices
   end
 end
+

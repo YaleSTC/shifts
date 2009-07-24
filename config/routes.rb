@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :punch_clock_sets
+
   map.with_options :controller => 'first_run' do |f|
     f.first_app_config 'firstrun/first_app_config', :action => 'new_app_config', :method => 'get'
     f.first_department 'firstrun/first_department', :action => 'new_department', :method => 'get'
@@ -15,6 +17,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :punch_clocks
   map.resources :restrictions
   map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'
+  map.reminders_advanced_options "/reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options'
+  map.warnings_advanced_options  "/warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options'
 
   map.login "/login", :controller => 'user_sessions', :action => 'new'
   map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
@@ -43,9 +47,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payforms,
                 :collection => { :prune => :delete, :go => :get, :search => :post},
-                :member => {:submit => :put, :approve => :put, :print => :put},
+                :member => {:submit => :get, :approve => :get, :print => :get},
                 :shallow => true do |payform|
-    payform.resources :payform_items
+    payform.resources :payform_items, :member => {:delete => :get}
   end
 
   map.resources :payform_items
@@ -61,7 +65,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :as => "subs"
   end
 
-  map.resources :users, :collection => {:update_superusers => :post} do |user|
+  map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
 
@@ -81,7 +85,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :departments, :shallow => true do |departments|
-    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post}
+    departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post, :import => :get, :save_import => :post}
     departments.resources :loc_groups
     departments.resources :locations
     departments.resources :roles
