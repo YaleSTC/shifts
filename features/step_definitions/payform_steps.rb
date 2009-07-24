@@ -10,15 +10,14 @@ Given /^I have the following payform items?$/ do |table|
     category = Category.find_by_name(row[:category])
     user = User.find_by_login(row[:user_login])
     date = Date.parse(row[:date])
-
-    period_date = Payform.default_period_date(date, @department)
+    payform = Payform.build(user.departments.first, user, date)
 
     PayformItem.create!(:category_id => category.id,
                     :user_id => user.id,
                     :hours => row[:hours].to_f,
                     :description => row[:description],
                     :date => date,
-                    :payform_id => Payform.find_by_date(period_date).id)
+                    :payform_id => payform)
   end
 end
 

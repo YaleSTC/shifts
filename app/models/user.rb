@@ -1,6 +1,7 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
   acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
+  acts_as_csv_exportable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
@@ -224,4 +225,3 @@ class User < ActiveRecord::Base
   end
 
 end
-

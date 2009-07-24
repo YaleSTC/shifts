@@ -1,19 +1,21 @@
 <%
   #TODO: major cleanup, similar to the ongoing shifts cleanup
-  @dept_start_hour = 9
-  @dept_end_hour = 17
+  @dept_start_hour = 9.0
+  @dept_end_hour = 17.0
+  @hours_per_day = (@dept_end_hour - @dept_start_hour)
   
   @dept_start_minute = @dept_start_hour * 60
   @dept_end_minute = @dept_end_hour * 60
   
-  @blocks_per_hour = 4
-  @block_length = 60 / @blocks_per_hour
-  @blocks_per_day = (@dept_end_hour - @dept_start_hour) * @blocks_per_hour
+  @block_length = 15.0
+  @blocks_per_hour = 60.0/@block_length
+  
+  @blocks_per_day = @hours_per_day * @blocks_per_hour
 %>
 
 
 
-<h2><%= link_toggle location.short_name, location.name %></h2>
+<h2 style="clear: both;"><%= link_toggle location.short_name, location.name %></h2>
 <div class="edit_times_location" id="<%= location.short_name %>">
   <% slots = location.time_slots.sort_by(&:start) %><%#.select(@week_days.first, @week_days.last) %>
   <% @location = location %>
@@ -39,7 +41,7 @@
     <% day = 0; slot_index = 0 %>
     <% begin %>
       <tr>
-        <%# TODO: HOLY MOTHER OF GOD THIS FUNCTION  -rjl %>
+        <%# TODO: HOLY MOTHER OF GOD THIS FUNCTION  -rjl (agreed -njg) %>
         <th class="location_label"><%= WEEK_DAYS[day][0..2] %></th>
         <% day_start = (day * 1440) + @dept_start_minute %>
         <% day_end = (day * 1440) + @dept_end_minute %>
@@ -76,4 +78,52 @@
   <% end %>
   </div>
 
+</div>
+
+
+<%= stylesheet_link_tag 'timeline' %>
+<% date = Date.today %>
+<h1>Experimental View (in progress)</h1>
+
+<div class="timeline">
+  <% dc = 1%> 
+  <div class="day" style="top:<%= 18*dc %>px"></div><% dc+=1 %>
+  <% for day in (date.beginning_of_week-1.day)...date.end_of_week do %>
+    <div class="day" style="top:<%= 18*dc %>px"><%= day.strftime("%a:") %></div><% dc+=1 %>
+  <% end %>
+  <div class="timeline-data">
+    <ul class="intervals">
+      <% incr = 0 %>
+      <% for hour in @dept_start_hour.to_i...@dept_end_hour.to_i do %>
+        <li style="width: <%= 100/@hours_per_day %>%; left: <%=incr*100/@hours_per_day%>%;" >
+          <div class="inside-li">
+            <div class="hours" ><%=hour%>:00</div>
+            <% incr2 = 0 %>
+            <%for part in 0...(@blocks_per_hour-1) do %>
+              <div class="minutes" style="width: <%= 100.0/@blocks_per_hour%>%; left:<%=incr2*(100.0/@blocks_per_hour) %>%;"></div>
+              <% incr2 += 1 %>
+            <% end %>
+          </div>
+        </li>
+        <% incr += 1 %>
+      <% end %>
+    </ul>
+    <% for day in (date.beginning_of_week-1.day)...date.end_of_week do %>
+      <ul class="events">
+        <% timeslots = TimeSlot.all(:conditions => ['start > ? and start < ? and location_id = ?', day.beginning_of_day, day.end_of_day, location.id]) %>
+        <% for timeslot in timeslots do %>
+        <% left = ((timeslot.start - (timeslot.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100 %>
+        <li style="width: <%= (timeslot.duration/3600.0) / @hours_per_day * 100 %>%; left: <%=left %>%;">
+          <div>
+            <span style="float:right;padding:0px 5px;">
+              <%= link_to "edit", edit_time_slot_path(timeslot) %>
+              <%= link_to "x", timeslot, :confirm => 'Are you sure?', :method => :delete %>
+            </span>
+            <%=timeslot.start.strftime("%l:%M") %> - <%=timeslot.end.strftime("%l:%M") %>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 </div>
