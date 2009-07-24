@@ -1,8 +1,8 @@
 <% title "User Profile Entries" %>
 
 <% @user_profile_fields.each do |profile_field| %>
-    <% profile_field.name %>
-  <table>
+    <h2><%= link_to "#{profile_field.name}", profile_field.name %></h2>
+      <table>
     <tr>
       <th>User</th>
       <th>Contents</th>
@@ -13,7 +13,7 @@
         <td><%= profile_entry.content %>
       </tr>
     <% end %>
-  </table>
+  </table><br />
 <% end %>
 <p><%= link_to "New User Profile Entry", new_user_profile_entry_path %></p>
 

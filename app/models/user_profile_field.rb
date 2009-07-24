@@ -12,5 +12,6 @@ class UserProfileField < ActiveRecord::Base
                           "Multiple Choice" => "radio_button",
                           "Check Boxes" => "check_box"}
 
+
 end
 

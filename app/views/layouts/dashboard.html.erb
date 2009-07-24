@@ -7,6 +7,7 @@
   <ul id="navigationList">
     <li><%= link_to_unless_current "Notices", notices_path %></li>
     <li><%= link_to_unless_current "User settings", edit_user_config_path(current_user.user_config) %></li>
+    <li><%= link_to_unless_current "User Profile", user_profile_entry_path(current_user.login) %></li>
     <br/>
     <h3>Useful Links</h3>
     <li><%=link_to "Weke", "http://weke.its.yale.edu/" %></li>
