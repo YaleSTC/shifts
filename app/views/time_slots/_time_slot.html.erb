@@ -1,4 +1,4 @@
-<li style="<%=time_slot_style(time_slot)%>">
+<li id="timeslot<%=time_slot.id%>" style="<%=time_slot_style(time_slot)%>" onclick="alert($('#timeslot<%=time_slot.id%>').html()); <%= remote_function :url => root_path %>">
   <div class="time-slot">
     <div class="center_container">
       <div class="center_content">
