@@ -1,5 +1,5 @@
   page.replace_html "data_objects", :partial => "data_objects" if @selected_by
-  if @selected_type == "departments"
+  if @selected_type.include? ("departments")
     page[:group_by].visual_effect :blind_up
   elsif @selected_type
     page.replace_html "group_by", :partial => "group_by"
