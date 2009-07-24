@@ -4,10 +4,12 @@ div.timeline {
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
     margin: 0 20px;
+    width: 100%;
 }
 div.timeline-data {
     float:right;
     position:relative;
+    width: 90%;
 }
 
 div.timeline div.day {

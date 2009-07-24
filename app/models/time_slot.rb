@@ -24,7 +24,7 @@ class TimeSlot < ActiveRecord::Base
 #  end
 
   def duration
-    (self.end-self.start)/3600.0
+    self.end-self.start
   end
 
   private
