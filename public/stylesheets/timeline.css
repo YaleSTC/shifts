@@ -21,13 +21,11 @@ div.timeline div.days {
     left: 0;
     width: 10%;
     height: 100%;
-    padding: 0px;
 }
 div.timeline div.day {
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ddd;
     width: 100%;
-    padding: 0px;
     text-align: center;
 }
 
@@ -102,7 +100,7 @@ ul.events li {
     border-left: 1px solid #ccc;
     height: 100%;
 }
-ul.events li div {
+ul.events li div.time-slot {
     width: auto;
     height: 100%;
     border-right: 1px solid #ccc;

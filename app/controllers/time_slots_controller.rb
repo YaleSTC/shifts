@@ -5,6 +5,16 @@ class TimeSlotsController < ApplicationController
   def index
     @time_slots = TimeSlot.all
     @period_start = params[:date] ? Date.parse(params[:date])+1.day : Date.today
+    
+    #TODO:simplify this stuff:
+    @dept_start_hour = 9.0
+    @dept_end_hour = 17.0
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    @dept_start_minute = @dept_start_hour * 60
+    @dept_end_minute = @dept_end_hour * 60
+    @block_length = 15.0
+    @blocks_per_hour = 60.0/@block_length
+    @blocks_per_day = @hours_per_day * @blocks_per_hour
   end
 
   def show
