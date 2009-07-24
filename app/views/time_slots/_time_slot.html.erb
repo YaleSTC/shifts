@@ -1,5 +1,4 @@
-<% left = ((time_slot.start - (time_slot.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100 %>
-<li style="width: <%= (time_slot.duration/3600.0) / @hours_per_day * 100 %>%; left: <%=left %>%;">
+<li style="<%=time_slot_style(time_slot)%>">
   <div class="time-slot">
       <%= link_to "x", time_slot, :confirm => 'Are you sure?', :method => :delete, :style => "float:right;margin-right:3px" %>
       <%= link_to "#{time_slot.start.strftime("%l:%M%p")} - #{time_slot.end.strftime("%l:%M%p")}", edit_time_slot_path(time_slot) %>
