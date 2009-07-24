@@ -7,6 +7,10 @@
   <%= multiple_select :app_config, :auth_types, AppConfig::LOGIN_OPTIONS %>
   </p>
   <p>
+    <%= f.label "Use LDAP?" %> <br />
+    <%= f.check_box :use_ldap %>
+  </p>
+  <p>
     <%= f.label :ldap_host_address %> <br />
     <%= f.text_field :ldap_host_address %>
   </p>

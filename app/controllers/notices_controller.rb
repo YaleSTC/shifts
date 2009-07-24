@@ -27,9 +27,10 @@ class NoticesController < ApplicationController
   end
 
   def create
-  raise params.to_yaml
+#  raise params.to_yaml
     @notice = Notice.new(params[:notice])
-    @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
+    @notice.is_sticky = true
+    @notice.is_sticky = false if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
@@ -89,9 +90,14 @@ class NoticesController < ApplicationController
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
+          @notice.save(false)
           @notice.user_sources << Department.find_by_name(l)
-          @notice.user_sources << User.find_by_names(l).first
-          @notice.user_sources << User.find_by_login(l)
+          a = User.find_by_names(l).first
+          a.save
+          @notice.user_sources << a
+          b = User.find_by_login(l)
+          b.save
+          @notice.user_sources << b
         else
           l = l.split("||")
           @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
