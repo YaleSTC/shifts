@@ -37,7 +37,7 @@ a {
 
 .disabled {
   color: #888;
-  background-color: #ddd;
+  background-color: #ddd !important;
 }
 
 
@@ -65,6 +65,7 @@ table, td, th{
 	border:1px solid #666;
 	padding: 2px;
 	border-collapse:collapse;
+	background: #fff;
 }
 
 th{
@@ -519,7 +520,8 @@ div.note {
   color: #556677;
 }
 
-#data_type_display ul{
+ul{
+	/*these guys are overflowing left for some reason*/
 	margin-left: 20px;
 }
 
