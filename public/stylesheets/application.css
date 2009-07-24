@@ -478,10 +478,6 @@ a:hover{
 
 /* FIELDSET DESIGN -- Get this unified! */
 
-fieldset{
-	border: 1px solid #333;
-}
-
 fieldset#warning {
   background: #C0C0C0;
 }
