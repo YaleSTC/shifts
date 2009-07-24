@@ -1,7 +1,6 @@
 <% title @loc_group.name %>
 <h4 id="subtitle">Location Group (<%= link_to @loc_group.department.name, @loc_group.department %>)</h4>
 
-
 <p>
   <%= link_to "Edit", edit_loc_group_path(@loc_group) %> |
   <%= link_to "Destroy", @loc_group, :confirm => 'Are you sure?', :method => :delete %> |

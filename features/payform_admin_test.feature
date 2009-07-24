@@ -109,10 +109,13 @@ Feature: payform admin
       | Magic     | hg9        | 2     | fighting Voldemort | May 18, 2009  |
       | Quidditch | hp123      | 1.5   | caught the snitch  | June 10, 2009 |
       Then I should see "2009-06-13"
+    And I should see "2009-06-06"
     When I follow "Prune all empty payforms"
     Then I should see "Successfully pruned empty payforms."
+    And I should see "Harry Potter"
     And I should see "2009-06-13"
-    And I should see "2009-05-23"
+    And I should not see "Hermione Granger"
+    And I should not see "2009-05-23"
     And I should not see "2009-06-06"
     And I should not see "2009-05-16"
 

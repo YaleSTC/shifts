@@ -37,7 +37,7 @@ a {
 
 .disabled {
   color: #888;
-  background-color: #ddd;
+  background-color: #ddd !important;
 }
 
 
@@ -270,7 +270,8 @@ ul#navigationList {
   font-size: 11px;
   font-weight: bold;
   line-height: 1.7em;
-  margin: 40px 0pt 0pt;
+  margin: 40px 0 0;
+  margin-left: -5px;
   padding: 0;
 
   list-style-image: none;
@@ -278,7 +279,7 @@ ul#navigationList {
   list-style-type: square;
 
   float: left;
-  padding: 5px 5px 5px 17px;
+  padding: 5px 0px 5px 20px;
 }
 ul#navigationList li {
   list-style-type: none;
@@ -309,9 +310,6 @@ ul#navigationList a:hover {
 }
 #contentNav h1, #contentNoNav h1 {
   padding: 0px 0px 5px 0px;
-}
-#contentNav li, #contentNoNav li {
-  margin: 0pt 0pt 0pt 20px;
 }
 #contentNav {
   float: right;
@@ -487,6 +485,7 @@ fieldset#warning {
 fieldset.index {
   width: 90%;
   padding: 5px;
+  border: 1px solid gray;
   background-color:#DDDDFF
 }
 
@@ -518,6 +517,10 @@ div.note {
   color: #556677;
 }
 
+ul{
+	/*these guys are overflowing left for some reason*/
+	margin-left: 20px;
+}
 
 span#progress_bar {
 	/*border: 1px black solid;*/
@@ -550,6 +553,14 @@ table.sortable th:hover {
 	color:orange;
 }
 table.sortable th {
+	text-decoration: underline;
+}
+
+/* Sortable tables hack for AJAX */
+table.sortable_style th:hover {
+	color:orange;
+}
+table.sortable_style th {
 	text-decoration: underline;
 }
 
