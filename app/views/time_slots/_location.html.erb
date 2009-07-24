@@ -1,6 +1,6 @@
 <h2><%= link_toggle location.short_name, location.name %></h2>
 
-<div class="timeline" style="height:300px;">
+<div class="timeline" style="height:150px;">
   <div class="days">
     <div class="day" style="top:11%; height: 22%;"></div>
     <%= render :partial => "left_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week %>
