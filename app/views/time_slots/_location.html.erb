@@ -13,52 +13,18 @@
   @blocks_per_day = @hours_per_day * @blocks_per_hour
 %>
 
-
-
 <h2 style="clear: both;"><%= link_toggle location.short_name, location.name %></h2>
 
 <%= stylesheet_link_tag 'timeline' %>
-<% date = Date.today %>
+<%  %>
 
 <div class="timeline">
-  <% dc = 1%> 
-  <div class="day" style="top:<%= 18*dc %>px"></div><% dc+=1 %>
-  <% for day in (date.beginning_of_week-1.day)...date.end_of_week do %>
-    <div class="day" style="top:<%= 18*dc %>px"><%= day.strftime("%a:") %></div><% dc+=1 %>
-  <% end %>
+  <div class="day" style="top:18px"></div>
+  <%= render :partial => "left_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week %>
   <div class="timeline-data">
     <ul class="intervals">
-      <% incr = 0 %>
-      <% for hour in @dept_start_hour.to_i...@dept_end_hour.to_i do %>
-        <li style="width: <%= 100/@hours_per_day %>%; left: <%=incr*100/@hours_per_day%>%;" >
-          <div class="inside-li">
-            <div class="hours" ><%=hour%>:00</div>
-            <% incr2 = 0 %>
-            <%for part in 0...(@blocks_per_hour-1) do %>
-              <div class="minutes" style="width: <%= 100.0/@blocks_per_hour%>%; left:<%=incr2*(100.0/@blocks_per_hour) %>%;"></div>
-              <% incr2 += 1 %>
-            <% end %>
-          </div>
-        </li>
-        <% incr += 1 %>
-      <% end %>
+      <%= render :partial => "hour", :collection =>  @dept_start_hour.to_i...@dept_end_hour.to_i %>
     </ul>
-    <% for day in (date.beginning_of_week-1.day)...date.end_of_week do %>
-      <ul class="events">
-        <% timeslots = TimeSlot.all(:conditions => ['start > ? and start < ? and location_id = ?', day.beginning_of_day, day.end_of_day, location.id]) %>
-        <% for timeslot in timeslots do %>
-        <% left = ((timeslot.start - (timeslot.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100 %>
-        <li style="width: <%= (timeslot.duration/3600.0) / @hours_per_day * 100 %>%; left: <%=left %>%;">
-          <div>
-            <span style="float:right;padding:0px 5px;">
-              <%= link_to "edit", edit_time_slot_path(timeslot) %>
-              <%= link_to "x", timeslot, :confirm => 'Are you sure?', :method => :delete %>
-            </span>
-            <%=timeslot.start.strftime("%l:%M") %> - <%=timeslot.end.strftime("%l:%M") %>
-          </div>
-        </li>
-        <% end %>
-      </ul>
-    <% end %>
+    <%= render :partial => "time_slot_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week, :locals => {:location => location}  %>
   </div>
 </div>
