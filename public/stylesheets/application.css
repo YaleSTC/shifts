@@ -559,6 +559,14 @@ table.sortable th {
 	text-decoration: underline;
 }
 
+/* Sortable tables hack for AJAX */
+table.sortable_style th:hover {
+	color:orange;
+}
+table.sortable_style th {
+	text-decoration: underline;
+}
+
 /*Forms w/ tables next to them*/
 div.form_left {
   width:45%;
