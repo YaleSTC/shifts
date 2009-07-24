@@ -65,7 +65,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :as => "subs"
   end
 
-  map.resources :users, :collection => {:update_superusers => :post} do |user|
+  map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
 
