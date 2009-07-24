@@ -5,14 +5,16 @@ class DataObjectsController < ApplicationController
     @data_objects = @department.data_objects
     @group_type_options = options_for_group_type
     @group_by_options = []
-    @selected_type = "departments"
+    @selected_type = ["Department", "departments"]
     if params[:group_type]
-      @selected_type = params[:group_type]
+      @group_by_options = options_for_group_by(params[:group_type])
       if params[:group_by] && !params[:group_by].blank?
-        @selected_by = params[:group_by]
-        @data_objects &= @selected_type.classify.constantize.find(@selected_by).data_objects
+        @data_objects &= params[:group_type].classify.constantize.find(params[:group_by]).data_objects
+        @selected_by = @group_by_options.select{|opt| opt.include? params[:group_by].to_i}.flatten
+      else 
+        @selected_by = @group_by_options.first
       end
-      @group_by_options = options_for_group_by(@selected_type)
+      @selected_type = @group_type_options.select{|a|a.include? params[:group_type]}.flatten
     end
     @types_objects_hash = @data_objects.group_by &:data_type
     respond_to do |format|
@@ -94,7 +96,7 @@ private
   def options_for_group_type
     options = [["Location","locations"],["Location Group","loc_groups"]]
     if current_user.is_admin_of?(@department)
-      options.push(["Data type", "data_types"], ["Department", "departments"])
+      options.push(["Data type", "data_types"], ["Department", "departments"]).sort
     end
   end 
 
@@ -102,10 +104,7 @@ private
   def options_for_group_by(group_type)
     return [] if group_type == "departments"
     @options = @department.send(group_type)
-    if group_type == "locations" || group_type == "loc_groups" 
-      @options.delete_if{|opt| !current_user.is_admin_of?(opt)}
-    end
-    @options.map{|t| [t.name, t.id]} << []
+    @options.map{|t| [t.name, t.id]}.sort
   end
 
   #These three options should probably be refactored into helper methods -ben

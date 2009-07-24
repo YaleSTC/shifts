@@ -5,7 +5,7 @@
   <div id="selection_menu">
     
     <div id="group_type">
-      <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @group_type_options.select{|a|a.include?@selected_type}) %>
+      <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @selected_type) %>
     
     <%= observe_field('view_options_group_type',
         :url => { :controller => :data_objects,
@@ -20,7 +20,7 @@
       <%# empty div for the ajax call to act on %>
     </div>
        
-    <%#= submit_tag "Update" %>
+    <%= submit_tag "Update", :id => 'submit' %>
   </div>
   
 <% end -%>
