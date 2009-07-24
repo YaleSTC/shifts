@@ -33,12 +33,12 @@ a {
   display: inline;
 }
 
-.disabled {
-  color: #999;
-}
-
 */
 
+.disabled {
+  color: #888;
+  background-color: #ddd;
+}
 
 
 /*this is used for the department_config form*/
