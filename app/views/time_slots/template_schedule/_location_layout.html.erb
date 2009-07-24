@@ -2,14 +2,14 @@
   <thead width=100%>
     <tr id="hours">
       <th class = "location_label"></th>
-      <% for hour in @dept_start_hour...@dept_end_hour-%>
+      <% for hour in @dept_start_hour.to_i...@dept_end_hour.to_i -%>
         <td class="hour" colspan="<%= @blocks_per_hour %>"><%= (hour-1) % 12 + 1%><%= ':00' -%></td>
       <% end -%>
     </tr>
   
     <tr id="segments">
       <th class="location_label"></th>
-      <% @blocks_per_day.times{ -%>
+      <% @blocks_per_day.to_i.times{ -%>
         <td class="min_segment" colspan="1">&nbsp;</td>
       <% } -%>
     </tr>

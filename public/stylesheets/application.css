@@ -33,12 +33,12 @@ a {
   display: inline;
 }
 
-.disabled {
-  color: #999;
-}
-
 */
 
+.disabled {
+  color: #888;
+  background-color: #ddd;
+}
 
 
 /*this is used for the department_config form*/
@@ -309,9 +309,6 @@ ul#navigationList a:hover {
 }
 #contentNav h1, #contentNoNav h1 {
   padding: 0px 0px 5px 0px;
-}
-#contentNav li, #contentNoNav li {
-  margin: 0pt 0pt 0pt 20px;
 }
 #contentNav {
   float: right;

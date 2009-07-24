@@ -111,12 +111,12 @@ class UsersController < ApplicationController
 
   def destroy #the preferred action. really only disables the user for that department.
     @user = User.find(params[:id])
-    new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-    new_entry.attributes = old_entry.attributes
-    new_entry.active = false
-    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
-    if new_entry.save
+    # new_entry = DepartmentsUser.new();
+    # old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
+    # new_entry.attributes = old_entry.attributes
+    # new_entry.active = false
+    # DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+    if @user.toggle_active(@department) #new_entry.save
       flash[:notice] = "Successfully deactivated user."
       redirect_to @user
     else
@@ -246,6 +246,15 @@ class UsersController < ApplicationController
         end
       end
       @users = @search_result.sort_by(&:last_name)
+    end
+  end
+  
+  def toggle #for ajax deactivation/restore
+    @user = User.find(params[:id])
+    @user.toggle_active(@department)
+    respond_to do |format|
+      format.html {redirect_to user_path(@user)}
+      format.js {render :nothing => true}
     end
   end
 
