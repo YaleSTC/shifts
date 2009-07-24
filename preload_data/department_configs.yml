@@ -11,7 +11,7 @@ department_configs_001:
   printed_message: "This payform has already been printed and may no longer be edited by you. If there is a problem that needs to be addressed, please talk to the administration."
   reason_min: 10
   reminder_message: "Please remember to submit your payform for the week."
-  schedule_end: "1020"
+  schedule_end: "1380"
   schedule_start: "600"
   time_increment: "15"
   unscheduled_shifts: t
