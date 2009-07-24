@@ -1,8 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def make_popup(hash)
-    hash[:width] ||= 600
-    "Modalbox.show(this.href, {title: '#{hash[:title]}', width: #{hash[:width]}}); return false;"
+
+  def link_to_post_a_new_notice
+    link_to_unless_current('Post a new notice', new_notice_path(:height => 530, :width => 530), :class => "thickbox")
   end
 
   def link_toggle(id, name, speed = "medium")
@@ -50,6 +50,26 @@ module ApplicationHelper
             });
         });
         </script>' + text_field_tag(id)
+  end
+
+
+  def select_integer (object, column, start, stop, default = nil)
+    output = "<select id=\"#{object}_#{column}\" name=\"#{object}[#{column}]\">"
+    for i in start..stop
+      output << "\n<option value=\"#{i}\""
+      output << " selected=\"selected\"" if i == default
+      output << ">#{i}"
+    end
+    output + "</select>"
+  end
+
+  def unobtrusive_datepicker_includes
+    javascript 'datepicker'
+    stylesheet 'datepicker'
+  end
+
+  def unobtrusive_datepicker_include_tags
+    (javascript_include_tag 'datepicker') + (stylesheet_link_tag 'datepicker')
   end
 end
 

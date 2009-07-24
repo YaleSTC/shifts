@@ -1,4 +1,5 @@
 class DataTypesController < ApplicationController
+  before_filter :require_department_admin
 
   def index
     @data_types = DataType.find_all_by_department_id(current_department)

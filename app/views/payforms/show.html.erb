@@ -9,21 +9,22 @@
     </div>
     <br /><br />
   <% end -%>
-  <%= render :partial => "status" %>
-  <br /><br />
-  <div id="add_job_div" style="display: none">
+  <div id="payform_status">
+    <%= render :partial => "status" %>
   </div>
+  <br /><br />
 
 <div id="payform">
   <h1>Payform Items</h1>
   <table id="payformList" width="100%">
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
     <tfoot><tr> <th scope="col" id="hours" colspan=6>
-      <div class="total-hours-right"><%= @payform.hours %></div>
+      <div class="total-hours-right"><%= number_with_precision(@payform.hours, :precision => 1) %></div>
       Total Hours:
     </th></tr> </tfoot>
   </table>
   <br/>
 </div>
-<%= payform_update_button %>
-<%= payform_add_button %>
+<div id="payform_buttons">
+  <%= render :partial => "payform_buttons" %>
+</div>

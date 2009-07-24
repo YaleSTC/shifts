@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActsAsCSVExportable::ActiveRecord::Exporting::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActsAsCSVExportable::ActiveRecord::Exporting::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/lib/acts_as_csv_exportable_rb.html">lib/acts_as_csv_exportable.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><h2>CSV Exporting</h2>
+<p>
+ActsAsCSVExportable is to facilitate the easy exporting of ActiceRecord
+Objects by means of CSV without the need for messy CSV building and
+streaming in your controller. With the simple, easy to use, ActiveRecord
+extension, you can succinctly define reusable export templates, that are
+accessible anywhere in your application that your model is!
+</p>
+<h3>Usage</h3>
+<pre>
+    #project.rb
+    class Project &lt; ActiveRecord::Base
+      acts_as_csv_exportable :default, [:id, :name, :description, { :client =&gt; &quot;client.name&quot;}]
+      acts_as_csv_exportable :detailed, [:id, :name. :description, { :client =&gt; &quot;client.name}, :projected_cost, :projected_profit, :formatted_proposed_completion_date]
+     #...
+    end
+</pre>
+<p>
+We will use the Project model outlined above in the examples to follow:
+</p>
+<p>
+Simply, using the <a
+href="ClassMethods.html#M000005">acts_as_csv_exportable</a> templates
+defined in our Project model, we export our subset of Project instances to
+csv based on user input from a form
+</p>
+<pre>
+  #clients_controllers.rb
+  def projects
+    @client = Client.find(params[:id])
+    @projects = @client.projects
+    template = params[:export_template]
+
+    responds_to do |wants|
+      wants.html
+      wants.csv { render :text =&gt; @projects.to_csv(:template =&gt; template) }
+    end
+  end
+</pre>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000005">acts_as_csv_exportable</a></li>
+  <li><a href="#M000006">to_csv</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000005"></a><b>acts_as_csv_exportable</b>(template, column_array)
+[&nbsp;<a href="ClassMethods.src/M000005.html" target="SOURCE_CODE" onclick="javascript:openCode('ClassMethods.src/M000005.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+Call this method in the model of which you would like to override default
+export functionality. The default template returns all content columns
+(<tt>content_columns</tt>)
+</p>
+<p>
+Arrays are used to maintain order.
+</p>
+<pre>
+    #proposal.rb
+    class Proposal &lt; ActiveRecord::Base
+      acts_as_csv_exportable :default, [:id, :name, :description, { :client =&gt; &quot;client.name&quot;}]
+      acts_as_csv_exportable :detailed, [:id, :name. :description, { :client =&gt; &quot;client.name}, :projected_cost, :projected_profit, :formatted_proposed_completion_date]
+     #...
+    end
+
+ You can define an unlimited number of csv export templates
+</pre>
+<h4>Specifying Columns</h4>
+<p>
+You can specify your column in multiple ways:
+</p>
+<ul>
+<li>As a symbol: The symbol will be used as both a column header and a method
+to call
+
+</li>
+<li>As a string: Same as symbol, but this allows you to do method chaining
+(&quot;client.name&quot;)
+
+</li>
+<li>As a hash: Allows you to specify both a column header and a method (
+[{:a_name =&gt; :a_method}, {:another_name =&gt;
+&quot;some.chained.method&quot;}] )
+
+</li>
+</ul>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000006"></a><b>to_csv</b>(*args)
+[&nbsp;<a href="ClassMethods.src/M000006.html" target="SOURCE_CODE" onclick="javascript:openCode('ClassMethods.src/M000006.html'); return false;">source</a>&nbsp;]
+  </div>
+  <div class="description">
+  <p>
+Simpy a shortcut allowing you to call
+</p>
+<pre>
+  Project.to_csv(:tempate =&gt; :everything)
+</pre>
+<p>
+rather than doing
+</p>
+<pre>
+  Project.find(:all).to_csv(:template =&gt; :everything)
+</pre>
+  </div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

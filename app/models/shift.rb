@@ -6,16 +6,11 @@ class Shift < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   has_one :report, :dependent => :destroy
-
   has_many :sub_requests, :dependent => :destroy
-
-  delegate :loc_group, :to => 'location'
-  delegate :department, :to => 'location'
-
+  
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
-
 
   #validate :a_bunch_of_shit
 
@@ -26,14 +21,13 @@ class Shift < ActiveRecord::Base
   validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
+  validate :restrictions
   before_save :adjust_sub_requests
   before_save :combine_with_surrounding_shifts
 
   #
   # Class methods
   #
-
-
 
   def self.delete_part_of_shift(shift, start_of_delete, end_of_delete)
     #Used for taking sub requests
@@ -66,11 +60,6 @@ class Shift < ActiveRecord::Base
     end
   end
 
-
-
-
-
-
   # ==================
   # = Object methods =
   # ==================
@@ -84,8 +73,8 @@ class Shift < ActiveRecord::Base
   end
 
   def late?
-    #TODO: tie this to an actual admin preference
-    self.signed_in? && (self.report.arrived - self.start > 7)
+    self.signed_in? && (self.report.arrived - self.start > $department.department_config.grace_period*60)
+    #seconds
   end
 
   #a shift has been signed in to if it has a report
@@ -97,7 +86,6 @@ class Shift < ActiveRecord::Base
   def submitted?
     self.report and self.report.departed
   end
-
 
   #TODO: subs!
   #check if a shift has a *pending* sub request and that sub is not taken yet
@@ -166,6 +154,12 @@ class Shift < ActiveRecord::Base
   # ======================
   # = Validation helpers =
   # ======================
+  def restrictions
+    #location_restrictions = location.restrictions
+    #user_restrictions = user.restrictions
+    #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
+  end
+
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end < start)
   end
@@ -201,6 +195,13 @@ class Shift < ActiveRecord::Base
         sub.mandatory_end = self.end if sub.mandatory_end > self.end
         sub.save!
       end
+    end
+  end
+  
+  
+  class << columns_hash['start']
+    def type
+      :datetime
     end
   end
 end

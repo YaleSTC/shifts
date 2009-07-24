@@ -7,6 +7,11 @@
   <%= multiple_select :app_config, :auth_types, AppConfig::LOGIN_OPTIONS %>
   </p>
   <p>
+    <%= f.label "Use LDAP?" %> <br />
+    <%= f.check_box :use_ldap %>
+  </p>
+<div class ="ldap_options"
+  <p>
     <%= f.label :ldap_host_address %> <br />
     <%= f.text_field :ldap_host_address %>
   </p>
@@ -34,6 +39,7 @@
     <%= f.label :ldap_email %> <br />
     <%= f.text_field :ldap_email %>
   </p>
+  </div>
   <p>
     <%= f.label :footer %><br />
     <small>You can edit this footer with HTML.  Be careful to close your tags,

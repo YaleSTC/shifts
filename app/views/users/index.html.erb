@@ -1,4 +1,3 @@
-<% javascript 'sorttable' %>
 <% title "Users" %>
 
 <div id="searchbox" style="margin-bottom: 1em">
@@ -33,9 +32,11 @@
 
 <p>
 <% if params[:show_inactive].nil? %>
-  <%= link_to "Show Inactive Users", :show_inactive => true %>
+  <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true) %>
 <% else %>
   <%= link_to "Hide Inactive Users", department_users_path(@department) %>
 <% end %>
 </p>
 <p><%= link_to "Add A New User", new_user_path%></p>
+<p><%= link_to "Import Users From CSV", import_department_users_path%></p>
+

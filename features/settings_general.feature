@@ -1,5 +1,6 @@
 @configs
 @cw
+@passing
 Feature: Settings
   In order to manage Settings
   As an admin

@@ -6,8 +6,8 @@ class UserConfig < ActiveRecord::Base
 
   VIEW_WEEK_OPTIONS = [
     # Displayed               stored in db
-    ["Whole pay period",      "whole_period"],
-    ["Remainder of period",   "remainder"],
+    ["Whole week",      "whole_period"],
+    ["Remainder of week",   "remainder"],
     ["Just the current day",  "current_day"]
   ]
 

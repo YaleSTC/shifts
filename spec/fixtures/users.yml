@@ -6,6 +6,7 @@ user_01:
   last_name: Dumbledore
   nick_name: "Albus"
   email: ad12@hogwarts.edu
+  auth_type: CAS
   crypted_password: 72065f776f0902c24d4a9f7b2803f58ba7e22829ce90efbb691eb803aa25d6e6f995b9ae4b17f45e10ce6aa02c6853ec26a773c645cadc8f23206e7efbaa734c
   password_salt: gDVImevY5D5G02T9cb3x
   superuser: true
@@ -17,6 +18,7 @@ user_02:
   last_name: Potter
   nick_name: "Harry"
   email: hp123@hogwarts.edu
+  auth_type: CAS
   crypted_password: 72065f776f0902c24d4a9f7b2803f58ba7e22829ce90efbb691eb803aa25d6e6f995b9ae4b17f45e10ce6aa02c6853ec26a773c645cadc8f23206e7efbaa734c
   password_salt: gDVImevY5D5G02T9cb3x
   superuser: false
@@ -28,6 +30,7 @@ user_03:
   last_name: Granger
   nick_name: "Hermione"
   email: hg9@hogwarts.edu
+  auth_type: CAS
   crypted_password: 72065f776f0902c24d4a9f7b2803f58ba7e22829ce90efbb691eb803aa25d6e6f995b9ae4b17f45e10ce6aa02c6853ec26a773c645cadc8f23206e7efbaa734c
   password_salt: gDVImevY5D5G02T9cb3x
   superuser: false
@@ -39,6 +42,7 @@ users_04:
   last_name: Arbuckle
   nick_name: "John"
   email: ja@garfield.com
+  auth_type: CAS
   crypted_password: 72065f776f0902c24d4a9f7b2803f58ba7e22829ce90efbb691eb803aa25d6e6f995b9ae4b17f45e10ce6aa02c6853ec26a773c645cadc8f23206e7efbaa734c
   password_salt: gDVImevY5D5G02T9cb3x
   superuser: false
@@ -50,6 +54,7 @@ users_05:
   first_name: Every
   last_name: Man
   email: em132@example.com
+  auth_type: CAS
   crypted_password: 72065f776f0902c24d4a9f7b2803f58ba7e22829ce90efbb691eb803aa25d6e6f995b9ae4b17f45e10ce6aa02c6853ec26a773c645cadc8f23206e7efbaa734c
   password_salt: gDVImevY5D5G02T9cb3x
   superuser: false
@@ -61,7 +66,7 @@ users_06:
   first_name: Argus
   last_name: Filch
   email: argus.filch@squib.com
-  auth_type: authlogic
+  auth_type: built-in
   crypted_password: 72065f776f0902c24d4a9f7b2803f58ba7e22829ce90efbb691eb803aa25d6e6f995b9ae4b17f45e10ce6aa02c6853ec26a773c645cadc8f23206e7efbaa734c
   password_salt: gDVImevY5D5G02T9cb3x
   superuser: false

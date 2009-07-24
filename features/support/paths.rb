@@ -9,6 +9,7 @@ module NavigationHelpers
     case page_name
 
     when /the homepage/
+  $appconfig = AppConfig.first
       root_path
     when /the list of users/
       department_users_path(@department)
@@ -16,6 +17,8 @@ module NavigationHelpers
       departments_path
     when /the page for the payform for the week "([^\"]*)"/i
       payform_path(Payform.find_by_date($1.to_date))
+    when /the payform for this week/
+      go_payforms_path
     when /the payforms page/
       payforms_path
     when /shifts/
@@ -23,11 +26,11 @@ module NavigationHelpers
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/
-      edit_user_config_path(UserConfig.find_by_user_id(@user.id))
+      edit_user_config_path(UserConfig.find_by_user_id(@current_user.id))
     when /the Application Settings page/
-      edit_app_config_path(1)
-#      app_config_path
+      edit_app_config_path
     when /the department settings page/
+       $department = @department
       edit_department_config_path(@department)
     when /the dashboard/
       url_for(:controller => 'dashboard', :action => 'index')

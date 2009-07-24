@@ -2,27 +2,44 @@
 dept_config_001:
   id: 1
   department_id: 1
-  schedule_start: "9:00AM"
-  schedule_end: "5:00PM"
-  time_increment: 15.minutes
-  grace_period: 7.minutes
-  edit_report: false
+  schedule_start: "900"
+  schedule_end: "1700"
+  time_increment: "15"
+  grace_period: "7"
+  created_at: 2009-06-22 17:27:52
+  day: "6"
+  end_of_month: false
+  monthly: false
+  time_increment: "15"
+  unscheduled_shifts: true
+  updated_at: 2009-06-22 17:27:52
+  weekend_shifts: true
+  warning_weeks: "2"
+  description_min: "7"
+  reason_min: "7"
+  printed_message:  "This payform has already been printed and may no longer be edited by you.\n If there is a problem that needs to be addressed, please talk to the administration."
+  reminder_message: "Please remember to submit your payform for this week."
+  warning_message: "You have not submitted payforms for the weeks ending on the following dates:\n \n@weeklist@\n Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform."
 
 dept_config_002:
   id: 2
   department_id: 2
-  schedule_start: "9:00AM"
-  schedule_end: "5:00PM"
-  time_increment: 15.minutes
-  grace_period: 7.minutes
-  edit_report: false
-
-#dept_config_003:
-#  id: 3
-#  department_id: 3
-#  schedule_start: "9:00AM"
-#  schedule_end: "5:00PM"
-#  time_increment: 15.minutes
-#  grace_period: 7.minutes
-#  edit_report: false
+  schedule_start: "900"
+  schedule_end: "1700"
+  time_increment: "15"
+  grace_period: "7"
+  created_at: 2009-06-22 17:27:52
+  day: "6"
+  end_of_month: false
+  monthly: false
+  time_increment: "15"
+  unscheduled_shifts: true
+  updated_at: 2009-06-22 17:27:52
+  weekend_shifts: true
+  warning_weeks: "2"
+  description_min: "7"
+  reason_min: "7"
+  printed_message:  "This payform has already been printed and may no longer be edited by you.\n If there is a problem that needs to be addressed, please talk to the administration."
+  reminder_message: "Please remember to submit your payform for this week."
+  warning_message: "You have not submitted payforms for the weeks ending on the following dates:\n \n@weeklist@\n Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform."
 

@@ -1,17 +1,33 @@
+<% unobtrusive_datepicker_includes %>
+
 <% form_for @time_slot do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :location %><br />
-    <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location ? @time_slot.location.id : nil)%><br />
+      <strong>Days:</strong><br />
+    <% WEEK_DAYS.each_with_index do |day, i| %>
+      <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+      <%= day %>
+    <% end %>
   </p>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start %>
+    <%= f.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
+    <%= f.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
-  <p><%= f.submit "Submit" %></p>
+  <% @department.loc_groups.each do |loc_group| %>
+    <% unless loc_group.locations.empty? %>
+      <p>
+        <strong><%= loc_group.name %></strong><br/>
+        <% loc_group.locations.each do |loc| %>
+          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= loc.short_name %>
+        <% end %>
+      </p>
+    <% end %>
+  <%- end -%>
+  </p>
+  <p><%= f.submit "Add" %></p>
 <% end %>
-

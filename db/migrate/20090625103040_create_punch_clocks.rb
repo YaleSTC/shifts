@@ -3,6 +3,8 @@ class CreatePunchClocks < ActiveRecord::Migration
     create_table :punch_clocks do |t|
       t.string     :description
       t.references :user
+      t.references :department
+      t.decimal    :time
       t.timestamps
     end
   end

@@ -14,15 +14,26 @@
 }
 
 /* PAYFORM FORM FIELDSET AND LEGEND: */
-div.payform_form fieldset {
-  background: #ddf;
+#payform_status fieldset {
+	background-color:#e8edff;
+	border-width:2px 2px 2px 10px;
+	border-style:solid;
+	border-color:#aabcfe;
+	margin:0px 0px 0px 0px;
+	padding: 0px 5px 5px 10px;
 }
 
-div.payform_form legend {
-  color: #eef;
-  background: #114;
-  font-family: sans-serif;
-  padding: 0.2em 1em;
+#payform_status legend {
+	background-color:#e8edff;
+	border-width:1px 1px 1px 10px;
+	border-color:#8a9cde;
+	border-style:solid;
+	color:#039;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:90%;
+	padding:3px 3px;
+	margin:0px 0px 10px -30px;
 }
 
 /* MORE PAYFORM: */
@@ -59,8 +70,8 @@ div.payform_form legend {
 }
 #payformList tfoot th
 {
-  font-size: 14px;
-  padding: 4px 3px 2px 3px;
+    font-size: 14px;
+    padding: 4px 3px 2px 3px;
 	border-top: 2px solid #8a9cde;
 	border-bottom: 2px solid #8a9cde;
 }

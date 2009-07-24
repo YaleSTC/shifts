@@ -1,6 +1,6 @@
-<% form_for user do |f| %>
+<% form_for user, :html=>{:id=>"user_form"} do |f| %>
   <%= f.error_messages %>
-  <% if @user.auth_type == "authlogic" && current_user!=@user && current_user.is_admin_of?(current_department)%>
+  <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
    <h3>Reset Password?</h3>
      <div>
        <%= check_box_tag :reset_password -%>
@@ -15,20 +15,20 @@
     <%= f.text_field :first_name %>
   </p>
   <p>
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </p>
-  <p>
     <%= f.label :nick_name %><br />
     <%= f.text_field :nick_name %>
   </p>
   <p>
-    <%= f.label :employee_id %><br />
-    <%= f.text_field :employee_id %>
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
   </p>
   <p>
     <%= f.label :email %><br />
     <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :employee_id %><br />
+    <%= f.text_field :employee_id %>
   </p>
  <% if $appconfig.login_options.size >1 %>
   <p>
@@ -44,5 +44,8 @@
     </div>
   <% end -%>
   <p><%= f.submit submit %></p>
+<% end %>
+<% if $appconfig.use_ldap %>
+<%= observe_form :user_form, :url => { :action => 'ldap_search' }, :frequency => 0.25, :loading=> "$('#loading_icon').css({'display' : 'inline'})" %>
 <% end %>
 

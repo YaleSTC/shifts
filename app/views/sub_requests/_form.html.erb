@@ -1,5 +1,4 @@
-<% javascript 'jrails', 'jquery', 'jquery-ui', 'jquery.tokeninput' %>
-<% stylesheet 'tokeninput-facebook' %>
+<% unobtrusive_datepicker_includes %>
 
 <% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
   <%= f.error_messages %>
@@ -7,20 +6,20 @@
   <p><h3>Time that you need someone to take for this sub request:</h3></p>
   <p>
     <%= f.label "Start" %><br />
-    <%= f.datetime_select :mandatory_start, :default => @sub_request.shift.start %>
+    <%= f.unobtrusive_datetime_picker :mandatory_start, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label "End" %><br />
-    <%= f.datetime_select :mandatory_end, :default => @sub_request.shift.end %>
+    <%= f.unobtrusive_datetime_picker :mandatory_end, :minute_step => @department.department_config.time_increment %>
   </p>
   <p><h3>Maximum amount of time you're willing to give up (bribe):</h3></p>
   <p>
     <%= f.label :start %><br />
-    <%= f.datetime_select :start, :default => @sub_request.shift.start %>
+    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.datetime_select :end, :default => @sub_request.shift.end %>
+    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= label_tag "People/groups eligible for this sub" %><br />
