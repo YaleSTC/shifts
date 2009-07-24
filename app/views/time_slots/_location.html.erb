@@ -90,11 +90,23 @@
   <div class="timeline-data" style="width: 90%;">
     <ul class="intervals">
       <% pos = 0 %>
+      <% pos2 = 0 %>
+      <% incr = 1 %>
+      <% incr2 = 1 %>
       <% for hour in 8...16 do %>
-        <li style="width: <%= 100/8.0 %>%; left: <%=pos%>%" >
+        <li style="width: <%= 100/8.0 %>%; left: <%=pos%>%;" >
           <%=hour%>:00
         </li>
-        <% pos += 100/8.0 %>
+        
+        <% for parts in 0...4 do %>
+          <li style="width: <%= (100/8.0)/(60.0/15.0) %>%;left: <%=pos2%>%;top:50%;"></li>
+          
+          <% pos2 = incr2*100/8.0/(60.0/15.0) %>
+          <% incr2 += 1 %>
+        <% end %>
+        
+        <% pos = incr*100/8.0 %>
+        <% incr += 1 %>
       <% end %>
     </ul> <!-- end .intervals -->  
     <ul class="events">
