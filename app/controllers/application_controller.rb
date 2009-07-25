@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
 
   $appconfig = AppConfig.first
 
+  # We should improve this page, probably on the actual template -ben
   def access_denied
     text = "Access denied"
     text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('built-in')
@@ -44,7 +45,7 @@ class ApplicationController < ActionController::Base
       nil
     end)
   end
-  
+
   def current_department
     unless @current_department
       if current_user
@@ -102,12 +103,8 @@ class ApplicationController < ActionController::Base
     @user_session = UserSession.find
   end
 
-  def require_admin_of(obj)
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(obj)
-  end
-
-  # these are the authorization before_filters to use under controllers
-  # these all return nil
+# These are the authorization before_filters to use under controllers
+# These all return nil
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department)
   end
@@ -122,8 +119,18 @@ class ApplicationController < ActionController::Base
       redirect_to(access_denied_path)
     end
   end
-  
+
 # These three methods all return true/false, so they can be tested to trigger return statements
+# Takes a department, location, or loc_group
+  def require_admin_of(thing)
+    unless current_user.is_admin_of?(thing)
+      flash[:error] = "You are not authorized to administer this #{thing.class.name.decamelize}"
+      redirect_to(access_denied_path) and return false
+    end
+    return true
+  end
+
+
 # Takes any object that has a user method and checks against current_user
   def require_owner(thing)
     unless current_user.is_owner_of?(thing)
@@ -132,19 +139,21 @@ class ApplicationController < ActionController::Base
     end
     return true
   end
-  
+
 # Takes any object that has a user method and its department
   def require_owner_or_dept_admin(thing, dept)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(dept)
       flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
-      render :template => access_denied_path and return false
+      redirect_to access_denied_path and return false
+#      will probably use render instead of redirect_to later --Laura
+#      render :template => access_denied_path and return false
     end
     return true
   end
 
-  # Takes a department; intended to be passed some_thing.department
+# Takes a department; intended to be passed some_thing.department
   def require_department_membership(dept)
-    unless current_user.departments.include?(dept) 
+    unless current_user.departments.include?(dept)
       flash[:error] = "You are not a member of the appropriate department."
       redirect_to(access_denied_path) and return false
     end
@@ -184,7 +193,7 @@ class ApplicationController < ActionController::Base
       redirect_to switch_department_path and return
     end
   end
-  
+
   #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
   def layout_check(action = action_name, controller = controller_name)
      if params[:layout] == "false"
@@ -200,3 +209,4 @@ class ApplicationController < ActionController::Base
     send("#{controller_name}_path") rescue root_path
   end
 end
+

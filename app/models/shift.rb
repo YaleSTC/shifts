@@ -189,5 +189,12 @@ class Shift < ActiveRecord::Base
       end
     end
   end
+  
+  
+  class << columns_hash['start']
+    def type
+      :datetime
+    end
+  end
 end
 

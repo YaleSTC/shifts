@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_admin_or_superuser
-  #TODO: add authorization before_filter here and update the action code accordingly
-  # a superuser can view all users while a department admin can manage a department's users
-  # depending on the dept chooser
+
   def index
     if params[:show_inactive]
       @users = @department.users
@@ -22,6 +20,11 @@ class UsersController < ApplicationController
     end
 
     @users = @users.sort_by(&:last_name)
+
+    respond_to do |wants|
+      wants.html
+      wants.csv { render :text => @users.to_csv(:template => :normal) }
+    end
   end
 
   def show
@@ -108,12 +111,12 @@ class UsersController < ApplicationController
 
   def destroy #the preferred action. really only disables the user for that department.
     @user = User.find(params[:id])
-    new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-    new_entry.attributes = old_entry.attributes
-    new_entry.active = false
-    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
-    if new_entry.save
+    # new_entry = DepartmentsUser.new();
+    # old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
+    # new_entry.attributes = old_entry.attributes
+    # new_entry.active = false
+    # DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+    if @user.toggle_active(@department) #new_entry.save
       flash[:notice] = "Successfully deactivated user."
       redirect_to @user
     else
@@ -245,6 +248,15 @@ class UsersController < ApplicationController
       @users = @search_result.sort_by(&:last_name)
     end
   end
+  
+  def toggle #for ajax deactivation/restore
+    @user = User.find(params[:id])
+    @user.toggle_active(@department)
+    respond_to do |format|
+      format.html {redirect_to user_path(@user)}
+      format.js {render :nothing => true}
+    end
+  end
 
   private
 
@@ -256,4 +268,3 @@ class UsersController < ApplicationController
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end
-

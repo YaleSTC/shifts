@@ -1,8 +1,10 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'timeline' %>
+<% end %>
+
 <% title "Time Slots" %>
 
-<p><%= link_to "New Time Slot", new_time_slot_path %></p>
-
-<h1>Nothing Below Here Works. Use the link above</h1>
+<p><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path %></p>
 
 <div class="note">
   <strong>Notes</strong>
@@ -10,42 +12,6 @@
     <li>Time slots in the past cannot be changed or deleted.</li>
     <li>Click on any location name to toggle the schedule display for that location</li>
   </ol>
-</div>
-
-<div class="admin_form">
-  <% form_for :mass_create do |f|%>
-  <fieldset>
-    <legend>Add new time slots to the week (TODO: make this work)</legend>
-
-    <p>
-      Start: <%= f.time_select :start_in_minute, :minute_step => @department.department_config.time_increment, :twelve_hour => true %><%#= f.select :start_in_minute, @time_choices_select %>
-      End: <%= f.time_select :start_in_minute, :minute_step => @department.department_config.time_increment, :twelve_hour => true %><%#= f.select :end_in_minute, @time_choices_select, {:selected => @time_choices_select.last[1]} %>
-    </p>
-
-    <p>in Locations:
-      <% @department.loc_groups.each do |loc_group| %>
-      <fieldset>
-        <legend><%= loc_group.name %></legend>
-        <% loc_group.locations.each do |loc| %>
-          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
-          <%= loc.short_name %>
-        <% end %>
-      </fieldset>
-      <%- end -%>
-    </p>
-
-    <p>for Days:
-      <% WEEK_DAYS.each_with_index do |day, i| %>
-        <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %> <%#>, :disabled => i < Date.today} %>
-        <%= day %>
-      <% end %>
-    </p>
-
-      <%= hidden_field_tag :date, params[:date]%>
-      <%= submit_tag 'Add' %>
-
-    <% end %>
-  </fieldset>
 </div>
 
 <div>
@@ -56,23 +22,3 @@
     <%= submit_tag 'Update' %>
   <% end %>
 </div>
-
-
-<table>
-  <tr>
-    <th>Location</th>
-    <th>Start</th>
-    <th>End</th>
-  </tr>
-  <% for time_slot in @time_slots %>
-    <tr>
-      <td><%=h time_slot.location.short_name %></td>
-      <td><%=h time_slot.start %></td>
-      <td><%=h time_slot.end %></td>
-      <td><%= link_to "Show", time_slot %></td>
-      <td><%= link_to "Edit", edit_time_slot_path(time_slot) %></td>
-      <td><%= link_to "Destroy", time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
-

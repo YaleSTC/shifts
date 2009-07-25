@@ -158,7 +158,7 @@ th.location_label {
   color: white;
   font-size: small;
   border:1px #fff solid;
-  /*temp*/
+  vertical-align: middle;
 }
 
 th.unscheduled_label {
