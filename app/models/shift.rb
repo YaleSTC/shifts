@@ -7,7 +7,7 @@ class Shift < ActiveRecord::Base
   belongs_to :location
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
-  
+
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
@@ -125,11 +125,22 @@ class Shift < ActiveRecord::Base
   end
 
   def exceeds_max_staff?
-    count = 1 # 1 because needs to count current shift
-    Shift.find(:all, :conditions => {:location_id => self.location_id, :scheduled => true}).each do |other|
-      count += 1 if (self.start..self.end).overlaps?(other.start..other.end) && self.end != other.start && self.start != other.end
+    count = 0
+    shifts_in_period = []
+    Shift.find(:all, :conditions => {:location_id => self.location_id, :scheduled => true}).each do |shift|
+      shifts_in_period << shift if (self.start..self.end).overlaps?(other.start..other.end) && self.end != other.start && self.start != other.end
     end
-    return count > self.location.max_staff
+    increment = self.department.department_config.time_increment
+    time = self.start + (increment / 2)
+    while (self.start..self.end).include?(time)
+      concurrent_shifts = 0
+      shifts_in_period.each do |shift|
+        concurrent_shifts += 1 if (shift.start..shift.end).include?(time)
+      end
+      count = concurrent_shifts if concurrent_shifts > count
+      time += increment
+    end
+    count + 1 > self.location.max_staff
   end
 
 
@@ -197,8 +208,8 @@ class Shift < ActiveRecord::Base
       end
     end
   end
-  
-  
+
+
   class << columns_hash['start']
     def type
       :datetime
