@@ -208,5 +208,5 @@ class ApplicationController < ActionController::Base
   def switch_department_path
     send("#{controller_name}_path") rescue root_path
   end
-end
 
+end
