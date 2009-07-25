@@ -1,6 +1,7 @@
 require 'net/ldap'
 class User < ActiveRecord::Base
   acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
+  acts_as_csv_exportable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
@@ -181,6 +182,15 @@ class User < ActiveRecord::Base
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
   end
+  
+  def toggle_active(department)
+    new_entry = DepartmentsUser.new();
+    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    new_entry.attributes = old_entry.attributes
+    new_entry.active = !old_entry.active
+    DepartmentsUser.delete_all( :user_id => self, :department_id => department)
+    new_entry.save
+  end
 
 #TODO: A method like this might be helpful
 #  def switch_auth_type
@@ -216,4 +226,3 @@ class User < ActiveRecord::Base
   end
 
 end
-

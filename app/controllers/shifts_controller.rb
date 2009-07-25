@@ -12,7 +12,7 @@ class ShiftsController < ApplicationController
     @loc_group_select = {}
     current_user.departments.each do |dept|
       @loc_group_select.store(dept.id, current_user.loc_groups(dept))
-    end    
+    end
     @selected_loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
     
     # figure out what days to display based on user preferences
@@ -115,11 +115,12 @@ class ShiftsController < ApplicationController
     end
   end
   
-# unnecessary -ben
-#  def destroy
-#    @shift = Shift.find(params[:id])
-#    @shift.destroy
-#    flash[:notice] = "Successfully destroyed shift."
-#    redirect_to shifts_url
-#  end
+#unnecessary -ben
+#yes neccessary! see: canceling a shift, etc. -ryan
+  def destroy
+    @shift = Shift.find(params[:id])
+    @shift.destroy
+    flash[:notice] = "Successfully destroyed shift."
+    redirect_to shifts_url
+  end
 end

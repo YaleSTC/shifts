@@ -32,7 +32,7 @@
 
 <p>
 <% if params[:show_inactive].nil? %>
-  <%= link_to "Show Inactive Users", :show_inactive => true %>
+  <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true) %>
 <% else %>
   <%= link_to "Hide Inactive Users", department_users_path(@department) %>
 <% end %>

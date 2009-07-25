@@ -21,11 +21,12 @@ class ReportsController < ApplicationController
   end
 
 # Do we need this action?  -ben
-#  def new
-#    #TODO: this doesn't work, because we can't redirect with post. bah.
-#    @report = Report.new
-#    #post_via_redirect :action => 'create'
-#  end
+# uncommented for now -- it's the default redirect after creating a shift. -ryan
+ def new
+   #TODO: this doesn't work, because we can't redirect with post. bah.
+   @report = Report.new
+   #post_via_redirect :action => 'create'
+ end
 
 # Already secured by @report.user == current_user -ben
   def create
