@@ -9,9 +9,6 @@ namespace :db do
 
     Shift.delete_all
 
-    # This rake task is not very flexible
-    # Consult me before making changes - wei
-
 
 # For each department, for each day from now until some time in the future, 1 time slot is created from 9AM to 11PM
     puts "creating a timeslot from 9AM to 11PM and populating the timeslot with shifts and sub requests"
