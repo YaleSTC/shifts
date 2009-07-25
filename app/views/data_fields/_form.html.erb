@@ -3,6 +3,7 @@
   <%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
 </div>
 <div style="width: 60%; float:left">
+  <%= javascript_include_tag 'data_field_input'%>
   <% form_for (params[:id] ? [DataType.find(params[:data_type_id]), @data_field] : [:data_type, @data_field]) do |f| %>
     <%= f.error_messages %>
     <p>
@@ -11,25 +12,16 @@
     </p>
     <p>
       <%= f.label :display_type %><br />
-      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {},
-                   :onchange => "//$(this).parent().parent().find('.value_fields').toggle()" %><br/>
+      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
+          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>   
     </p>
-    
-    <script type="text/javascript">
-      // $(document).ready ( function () {
-      //   $(this).find('.value_fields').toggle();    
-      // });
-    </script>
-    
-    <div class="value_fields">
-      <p>
+    <p>
+      <div class="value_field">
         <%= f.label :values %><br />
-        <%= f.select :values, options=(DataField::DISPLAY_TYPE_OPTIONS) %>
-        <em><small>For text field display types, values 
-          should be either "integer", "decimal", or "text"<br>
-          For a list of options, entries should be comma-separated</small></em>
-      </p>
-    </div>
+        <%= f.text_field :values %><br />
+        <em><small>Value should be either 'integer', 'decimal', or 'text'</small></em>
+      </div>
+    </p>
     <p>
       <%= f.submit "Save and add another field", :name => "add_another" %>
       <%= f.submit "Save and finish", :name => "submit" %>

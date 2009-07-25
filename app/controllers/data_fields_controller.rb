@@ -1,5 +1,4 @@
 class DataFieldsController < ApplicationController
-  # Hack to provide a consistent department within the data controller
   before_filter :require_department_admin
   before_filter :check_for_data_type
   

@@ -11,3 +11,7 @@ data_objects_locations_003:
 data_objects_locations_004: 
   data_object_id: "4"
   location_id: "4"
+data_objects_locations_005: 
+  data_object_id: "1"
+  location_id: "2"
+

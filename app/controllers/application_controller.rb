@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
 
   $appconfig = AppConfig.first
 
+  # We should improve this page, probably on the actual template -ben
   def access_denied
     text = "Access denied"
     text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if $appconfig.login_options.include?('built-in')
@@ -102,12 +103,8 @@ class ApplicationController < ActionController::Base
     @user_session = UserSession.find
   end
 
-  def require_admin_of(obj)
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(obj)
-  end
-
-  # these are the authorization before_filters to use under controllers
-  # these all return nil
+# These are the authorization before_filters to use under controllers
+# These all return nil
   def require_department_admin
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department)
   end
@@ -124,6 +121,16 @@ class ApplicationController < ActionController::Base
   end
 
 # These three methods all return true/false, so they can be tested to trigger return statements
+# Takes a department, location, or loc_group
+  def require_admin_of(thing)
+    unless current_user.is_admin_of?(thing)
+      flash[:error] = "You are not authorized to administer this #{thing.class.name.decamelize}"
+      redirect_to(access_denied_path) and return false
+    end
+    return true
+  end
+
+
 # Takes any object that has a user method and checks against current_user
   def require_owner(thing)
     unless current_user.is_owner_of?(thing)
@@ -144,7 +151,7 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-  # Takes a department; intended to be passed some_thing.department
+# Takes a department; intended to be passed some_thing.department
   def require_department_membership(dept)
     unless current_user.departments.include?(dept)
       flash[:error] = "You are not a member of the appropriate department."
