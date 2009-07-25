@@ -53,11 +53,11 @@ class FirstRunController < ApplicationController
   end
 
   def ldap_search
-    #@results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],5)
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],5)
   end
 
   def fill_form
-    #@user=User.new(params[:user])
+    @user=User.new(params[:user])
   end
 
 private
