@@ -2,32 +2,7 @@
   <fieldset>
   <% fields_for_data_field(data_field) do |df_form| %>
   
-    <script type="text/javascript">
-      function description(type)
-      {
-        var return_value = "";
-        // <% DataField::DISPLAY_TYPE_OPTIONS.each do |name, value| %>
-        // if(type.match("<%= value %>")){
-        //   return "<%#= escape_javascript(render :partial => "data_fields/data_field_types/#{value}") %>";
-        // }
-        // <% end %>
-        if(type == "text_area") return "";
-        else
-        {
-          return_value = "<%= escape_javascript(df_form.label :values) %><br /><%= escape_javascript(df_form.text_field :values) %><br /><em><small>";
-          if(type == "check_box" || type == "select" || type == "radio_button")
-          {
-            return_value += "Enter a comma-separated list of choices";
-          }
-          else if(type == "text_field")
-          {
-            return_value += "Value should be either 'integer', 'decimal', or 'text'";
-          }
-          return_value += "</small></em>";
-          return return_value;
-        }
-      }
-    </script>
+    <%= javascript_include_tag 'data_field_input'%>
   
     <div class="delete_link">
       <%= link_to_function "remove this data field [x]", "$(this).closest('.data_field').remove()"%>

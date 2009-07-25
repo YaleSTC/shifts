@@ -1,22 +1,32 @@
 <% javascript 'sorttable' %>
 
 <% title "Data Objects" %>
-<% form_tag '/data_objects/index' do %>
-  <!-- Group by 
-  <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @selected_type) %>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <%#= select_tag "view_options[group_by]", options_for_select(@group_by_options, @selected_by) %>
-  <%= submit_tag "Update" %>
-  TODO: make this dropdown work -->
-  Group by 
-  <%= select_tag :group_by, options_for_select(@group_type_options, @selected_type) %>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <%#= select_tag "view_options[group_by]", options_for_select(@group_by_options, @selected_by) %>
-  <%= submit_tag "Update" %>
+<% form_tag '/data_objects/index', :id => "view_options" do %>
+  <div id="selection_menu">
+    
+    <div id="group_type">
+      <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @selected_type) %>
+    
+    <%= observe_field('view_options_group_type',
+        :url => { :controller => :data_objects,
+                  :action => :index, 
+                  :layout => false},
+        :method => :get,
+        :with => "'group_type=' + escape(value)",           
+        :on => "change") %>
+        </div>
+
+    <div id='group_by' style='display:none'>
+      <%# empty div for the ajax call to act on %>
+    </div>
+       
+    <%= submit_tag "Update", :id => 'submit' %>
+  </div>
+  
 <% end -%>
 <br>
 <% if DataType.first %>
-  <%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>
+  <%= render :partial => "data_objects" %>
   <br>
   <%= link_to "New Data Object", new_data_object_path %>
 <% else %>
