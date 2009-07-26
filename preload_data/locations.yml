@@ -4,7 +4,7 @@ locations_001:
   created_at: 2009-06-22 17:35:10
   id: "2"
   loc_group_id: "2"
-  max_staff: "100"
+  max_staff: "3"
   min_staff: "1"
   name: Io
   priority: "100"
@@ -16,7 +16,7 @@ locations_002:
   created_at: 2009-06-22 17:35:40
   id: "3"
   loc_group_id: "3"
-  max_staff: "4"
+  max_staff: "2"
   min_staff: "1"
   name: Connecticut Hall
   priority: "100"
@@ -28,7 +28,7 @@ locations_003:
   created_at: 2009-06-22 17:36:41
   id: "4"
   loc_group_id: "3"
-  max_staff: "5"
+  max_staff: "4"
   min_staff: "1"
   name: Technology Troubleshooting Office
   priority: "100"
