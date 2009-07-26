@@ -1,0 +1,16 @@
+<% title "User Profile" %>
+
+<p>
+  <strong>User:</strong>
+  <%=h @user_profile.user %>
+</p>
+<p>
+  <strong>User Profile Entry:</strong>
+  <%=h @user_profile.user_profile_entry %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_user_profile_path(@user_profile) %> |
+  <%= link_to "Destroy", @user_profile, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", user_profiles_path %>
+</p>
