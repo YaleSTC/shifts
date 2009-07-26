@@ -5,8 +5,15 @@ class UserProfileEntry < ActiveRecord::Base
 
   validates_presence_of :user_id
 
-  def prepare_form_helpers
-    display_type = @user_profile_entry.user_profile_field.display_type
+  def field_name
+    field_name = UserProfileField.find(self.user_profile_field_id).name
+  end
+
+  def display_type
+    display_type = UserProfileField.find(self.user_profile_field_id).display_type
+  end
+
+  def making_form
     if display_type == "text_field"
       return ["user_profile_fields", id, {:id => id}]
     elsif display_type == "text_area"

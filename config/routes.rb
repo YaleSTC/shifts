@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :user_profiles
+
   map.with_options :controller => 'first_run' do |f|
     f.first_app_config 'firstrun/first_app_config', :action => 'new_app_config', :method => 'get'
     f.first_department 'firstrun/first_department', :action => 'new_department', :method => 'get'
@@ -7,6 +9,9 @@ ActionController::Routing::Routes.draw do |map|
     f.create_first_department 'firstrun/create_first_department', :action => 'create_department', :method => 'post'
     f.create_first_user 'firstrun/create_first_user', :action => 'create_user', :method => 'post'
   end
+
+  map.login "/login", :controller => 'user_sessions', :action => 'new'
+  map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
 
   map.resources :app_configs, :only => [:edit, :update]
 
@@ -18,8 +23,6 @@ ActionController::Routing::Routes.draw do |map|
   map.reminders_advanced_options "/reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options'
   map.warnings_advanced_options  "/warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options'
 
-  map.login "/login", :controller => 'user_sessions', :action => 'new'
-  map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
   #TODO: get rid of sessions controller and move logout action to user_session controller and name it cas_logout
   map.cas_logout "/cas_logout", :controller => 'sessions', :action => 'logout'
 
@@ -90,8 +93,11 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :categories
   end
 
-  map.resources :user_profile_fields, :path_names => { :edit => 'profile' }
-  map.resources :user_profile_entries
+  map.resources :user_profile_fields do |fields|
+    fields.profile "/user_profile/:user_login", :controller => 'user_profile_fields', :action => 'profile', :path_prefix => ""
+    fields.resources :user_profile_entries
+  end
+
 
   map.resources :punch_clock_sets
 

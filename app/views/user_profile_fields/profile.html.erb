@@ -1,26 +1,22 @@
-<% title "#{current_user.awesome_name}'s Profile" %>
+<% title "#{current_user.proper_name}'s Profile" %>
 
-  <% @user_profile_entries.each do |@user_profile_entry| %>
-
-  <% form_for @user_profile_entry do |f| %>
+<% form_for [:user_profile_field, @user_profile_entries] do |f| %>
   <%= f.error_messages %>
+    <%# @user_profile_entries.each do |@user_profile_entry| %>
 
-    <% args = @user_profile_entry.prepare_form_helpers %>
+    <%# args = @user_profile_entry.making_form %>
     <p>
-      <%= label "user_profile_entries[#{@user_profile_entry.id}]", "#{@user_profile_entry.name}" %><br/>
+      <%#= label "user_profile_entries[#{@user_profile_entry.id}]", "#{@user_profile_entry.field_name}" %><br/>
 
-      <% if ["text_field", "select", "text_area"].include? @user_profile_entry.display_type %>
-        <%= send(@user_profile_entry.display_type, *args) %>
-      <% elsif ["check_box", "radio_button"].include? @user_profile_entry.display_type %>
-        <% args.each do |options| %>
-          <%= send(entry.display_type, *options) %>
-          <%= label "user_profile_entries[#{@user_profile_entry.id}]", "#{options.last}" %>
-        <% end %>
-      <% end %>
-
+      <%# if ["text_field", "select", "text_area"].include? field.display_type %>
+        <%#= send(field.display_type, *args) %>
+      <%# elsif ["check_box", "radio_button"].include? field.display_type %>
+        <%# args.each do |options| %>
+          <%#= send(field.display_type, *options) %>
+          <%#= label "user_profile_fields[#{field.id}]", "#{options.last}" %>
+        <%# end %>
+      <%# end %>
     </p>
-  <% end %>
-
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
