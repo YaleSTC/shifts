@@ -32,6 +32,21 @@ class ShiftsController < ApplicationController
     else #no weekends
       @day_collection = (@period_start+1)...(@period_start+6)
     end
+    
+    
+    
+    @time_slots = TimeSlot.all
+    @period_start = params[:date] ? Date.parse(params[:date])+1.day : Date.today
+    
+    #TODO:simplify this stuff:
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    @dept_start_minute = @dept_start_hour * 60
+    @dept_end_minute = @dept_end_hour * 60
+    @block_length = 15
+    @blocks_per_hour = 60/@block_length
+    @blocks_per_day = @hours_per_day * @blocks_per_hour
   end
 
   def show
