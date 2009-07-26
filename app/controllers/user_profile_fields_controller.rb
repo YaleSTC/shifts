@@ -54,7 +54,7 @@ before_filter :load_profile_using_user_login
 
   private
   def load_profile_using_user_login
-       @user_profile_entries = UserProfileEntry.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
+       @user_profile_entries = UserProfileEntry.find(:all, :conditions => {:user_id => User.find_by_login(params[:user_login])})
   end
 end
 
