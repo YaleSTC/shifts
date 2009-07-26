@@ -12,5 +12,5 @@ app_configs_001:
   ldap_last_name: sn
   ldap_email: mail
   ldap_first_name: givenname
-  use_ldap: f
+  use_ldap: t
 
