@@ -14,11 +14,5 @@
   </ol>
 </div>
 
-<div>
 <%= render :partial => 'shifts/schedule/header' %>
-
-  <% form_tag do %>
-    <%= render :partial => 'location', :collection => @department.locations %>
-    <%= submit_tag 'Update' %>
-  <% end %>
-</div>
+<%= render :partial => 'location', :collection => @department.locations %>

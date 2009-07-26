@@ -1,9 +1,24 @@
 module ShiftsHelper
+  
+  #WILL BE CHANGED TO SHIFTS:
+  def shift_style(shift)
+    left = ((shift.start - (shift.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
+    width = (shift.duration/3600.0) / @hours_per_day * 100
+    if left < 0 
+      width -= left
+      left = 0 
+    elsif left < 0 
+      left=0
+      width=100/@hours_per_day
+    end
+    if left + width > 100
+      width -= (left+width)-100
+    end
+    "width: #{width}%; left: #{left}%;"
+  end
 
   def load_schedule_variables()
     #@bar_ids ||= {}
-    @dept_start_hour ||= @department.department_config.schedule_start / 60
-    @dept_end_hour ||= @department.department_config.schedule_end / 60
     @blocks_per_hour ||= @department.department_config.blocks_per_hour
     @blocks_per_day ||= @department.department_config.blocks_per_day
     @block_length ||= @department.department_config.block_length
