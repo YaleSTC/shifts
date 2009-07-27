@@ -15,17 +15,23 @@ class DataEntriesController < ApplicationController
   def new
     @data_entry = DataEntry.new
     @data_object = DataObject.find(params[:data_object_id])
+    layout_check
   end
   
   def create
     @data_entry = DataEntry.new({:data_object_id => params[:data_object_id]})
     @data_entry.write_content(params[:data_fields]) 
     if @data_entry.save
-      flash[:notice] = "Successfully created data entry."
-      redirect_to data_object_path(params[:data_object_id])
+      flash[:notice] = "Successfully updated #{@data_entry.data_object.name}."
+      redirect_to 
+#      redirect_to data_object_path(params[:data_object_id]) #Maybe useful?  not removing yet -ben
     else
       render :action => 'new'
     end
+#    respond_to do |format|
+#      format.html
+#      format.js
+#    end
   end
   
   def edit
