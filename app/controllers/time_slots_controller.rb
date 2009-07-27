@@ -3,10 +3,15 @@ class TimeSlotsController < ApplicationController
   layout 'shifts'
 
   def index
-    @time_slots = TimeSlot.all
-    #TODO: figure out where this should go...
-    @period_start = Time.parse("last Sunday")
-    @days_per_period = 7
+    @period_start = params[:date] ? Date.parse(params[:date])+1.day : Date.today
+    #TODO:simplify this stuff:
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    @block_length = current_department.department_config.time_increment
+    @blocks_per_hour = 60/@block_length.to_f
+    @blocks_per_day = @hours_per_day * @blocks_per_hour
+    @hidden_timeslots = [] #for timeslots that don't show up on the view
   end
 
   def show
@@ -18,13 +23,25 @@ class TimeSlotsController < ApplicationController
   end
 
   def create
-    @time_slot = TimeSlot.new(params[:time_slot])
-    if @time_slot.save
-      flash[:notice] = "Successfully created timeslot."
-      redirect_to @time_slot
-    else
-      render :action => 'new'
+    errors = []
+    date = params[:date] ? Time.parse(params[:date]) : Time.now.beginning_of_week - 1.day
+    for location_id in params[:location_ids]
+      for day in params[:days]
+        time_slot = TimeSlot.new(params[:time_slot])
+        time_slot.location_id = location_id
+        time_slot.start = date + day.to_i.days + time_slot.start.seconds_since_midnight
+        time_slot.end = date + day.to_i.days + time_slot.end.seconds_since_midnight
+        if !time_slot.save
+          errors << "Error saving timeslot for #{WEEK_DAYS[day]}"
+        end
+      end
     end
+    if errors.empty?
+      flash[:notice] = "Successfully created timeslot(s)."
+    else
+      flash[:error] =  "Error: "+errors*"<br/>" 
+    end
+    redirect_to time_slots_path
   end
 
   def edit
@@ -40,11 +57,6 @@ class TimeSlotsController < ApplicationController
       render :action => 'edit'
     end
   end
-
-#TODO We probably don't need this, it'll be handled by templates....
-#  def mass_create
-#    TimeSlot.mass_create(slot_start, slot_end, days, locations, range_start, range_end)
-#  end
 
   def destroy
     @time_slot = TimeSlot.find(params[:id])

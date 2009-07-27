@@ -9,7 +9,7 @@ class FirstRunController < ApplicationController
   def create_app_config
     AppConfig.first.destroy if AppConfig.first
     @app_config=AppConfig.new(params[:app_config])
-    @appconfig.use_ldap = params[:use_ldap] ? true : false
+    @app_config.use_ldap = params[:app_config][:use_ldap] ? true : false
     if @app_config.save
       flash[:notice] = "App Settings have been configured."
       redirect_to first_department_path
@@ -53,11 +53,11 @@ class FirstRunController < ApplicationController
   end
 
   def ldap_search
-    #@results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],5)
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],5)
   end
 
   def fill_form
-    #@user=User.new(params[:user])
+    @user=User.new(params[:user])
   end
 
 private
