@@ -7,7 +7,6 @@ div.timeline {
     position:relative;
     border-top: 1px solid #ddd;
     margin: 0px 0px 30px 0px;
-    width: 100%;
     color: #707070;
 }
 div.timeline-data {
@@ -115,4 +114,16 @@ ul.events li:hover {
 }
 ul.events li:hover a {
     color: #707070;
+}
+
+/* hack for vertical centering*/
+div.center_container {
+		display: table;
+		width: 100%;
+		height: 100%;
+}
+div.center_content {
+		display: table-cell;
+		vertical-align: middle;
+		width: 100%;
 }

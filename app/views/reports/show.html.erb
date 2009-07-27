@@ -1,7 +1,7 @@
 <% stylesheet 'thickbox', 'report', 'notice' %>
 <% title "Shift Report at the #{@report.shift.location.name}" %>
 <% unless @report.departed || current_user != @report.user %>
-  <fieldset>
+  <fieldset class='index'>
     <legend>Message Center</legend>
     <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
     <fieldset class="sticky" style="width: 48%">
@@ -10,8 +10,8 @@
       </div>
     </fieldset>
   </fieldset>
-
-    <fieldset class="data_entries_update">
+  <br/>
+    <fieldset class='index'>
       <legend>Data Objects</legend>
         <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
     </fieldset>
