@@ -1,10 +1,11 @@
 <div class="tooltip">
+  <%= javascript_include_tag 'jeditable' %>
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
   <p>
     <strong>Location:</strong>
-    <%=h @time_slot.location.name %>
+    <span id="time_slot_location"><%=h @time_slot.location.name %></span>
   </p>
   <p>
     <strong>Start:</strong>
@@ -19,6 +20,18 @@
     <%= link_to "Edit", edit_time_slot_path(@time_slot) %> |
     <%= link_to "Destroy", @time_slot, :confirm => 'Are you sure?', :method => :delete %>
   </p>
+  
+  <script type="text/javascript">
+    $('#time_slot_location').editable( <%= time_slot_path(@time_slot).to_json %>, {
+      name: 'time_slot[location]',
+      method: 'PUT',
+      submitdata: {
+        authenticity_token: <%= form_authenticity_token.to_json %>,
+        wants: 'location'
+      },
+      tooltip   : 'Click to edit...'
+    });
+  </script>
 </div>
 
 <%# TODO: jEditable? %>
