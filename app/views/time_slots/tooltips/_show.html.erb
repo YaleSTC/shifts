@@ -3,6 +3,7 @@
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
+  <span style="font-size:10px">click field value to edit</span>
   <p>
     <strong>Location:</strong>
     <span id="time_slot_location"><%=h @time_slot.location.name %></span>
@@ -36,10 +37,11 @@
         cancel: 'Cancel',
         submit: 'OK',
         indicator: '<img src="../images/loading.gif">',
-        tooltip: 'Click to edit...'// ,
-        //         callback: function(value, settings) {
-        //           update_display("time_slot");
-        //         }
+        tooltip: 'Click to edit...',
+        callback: function(value, settings) {
+          update_display("location<%= @time_slot.location.id %>");  // = location before edit
+          // if necessary, update another location
+        }
       }
     );
     
