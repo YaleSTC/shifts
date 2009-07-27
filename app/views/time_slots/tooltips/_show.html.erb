@@ -9,11 +9,11 @@
   </p>
   <p>
     <strong>Start:</strong>
-    <%=h @time_slot.start.to_s(:short_name) %>
+    <span id="time_slot_start"><%=h @time_slot.start.to_s(:short_name) %></span>
   </p>
   <p>
     <strong>End:</strong>
-    <%=h @time_slot.end.to_s(:short_name) %>
+    <span id="time_slot_end"><%=h @time_slot.end.to_s(:short_name) %></span>
   </p>
 
   <p>
@@ -22,14 +22,51 @@
   </p>
   
   <script type="text/javascript">
-    $('#time_slot_location').editable( <%= time_slot_path(@time_slot).to_json %>, {
-      name: 'time_slot[location]',
+    $('#time_slot_location').editable(
+      <%= time_slot_path(@time_slot).to_json %>,
+      {
+        name: 'time_slot[location_id]',
+        type: 'select',
+        data: {<%= Location.all.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
+        method: 'PUT',
+        submitdata: {
+          authenticity_token: <%= form_authenticity_token.to_json %>,
+          wants: 'location'
+        },
+        cancel: 'Cancel',
+        submit: 'OK',
+        indicator: '<img src="../images/loading.gif">',
+        tooltip: 'Click to edit...'// ,
+        //         callback: function(value, settings) {
+        //           update_display("time_slot");
+        //         }
+      }
+    );
+    
+    $('#time_slot_start').editable( <%= time_slot_path(@time_slot).to_json %>, {
+      name: 'time_slot[start]',
       method: 'PUT',
       submitdata: {
         authenticity_token: <%= form_authenticity_token.to_json %>,
-        wants: 'location'
+        wants: 'start'
       },
-      tooltip   : 'Click to edit...'
+      cancel: 'Cancel',
+      submit: 'OK',
+      indicator: '<img src="../images/loading.gif">',
+      tooltip: 'Click to edit...'
+    });
+    
+    $('#time_slot_end').editable( <%= time_slot_path(@time_slot).to_json %>, {
+      name: 'time_slot[end]',
+      method: 'PUT',
+      submitdata: {
+        authenticity_token: <%= form_authenticity_token.to_json %>,
+        wants: 'end'
+      },
+      cancel: 'Cancel',
+      submit: 'OK',
+      indicator: '<img src="../images/loading.gif">',
+      tooltip: 'Click to edit...'
     });
   </script>
 </div>
