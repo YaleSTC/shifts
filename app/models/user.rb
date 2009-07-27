@@ -48,14 +48,13 @@ class User < ActiveRecord::Base
     self.password=self.password_confirmation=(1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 
-  def self.search_ldap(first_name, last_name, email, login, limit)
+  def self.search_ldap(first_name, last_name, email, limit)
     first_name+='*'
     last_name+='*'
     email+='*'
-    login+='*'
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
-    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email) & Net::LDAP::Filter.eq($appconfig.ldap_login, login)
+    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email)
     out=[]
     ldap.open do |ldap|
       ldap.search(:base => $appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
@@ -181,7 +180,7 @@ class User < ActiveRecord::Base
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
   end
-  
+
   def toggle_active(department)
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})

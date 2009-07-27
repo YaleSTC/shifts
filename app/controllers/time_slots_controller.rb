@@ -3,18 +3,15 @@ class TimeSlotsController < ApplicationController
   layout 'shifts'
 
   def index
-    @time_slots = TimeSlot.all
     @period_start = params[:date] ? Date.parse(params[:date])+1.day : Date.today
-    
     #TODO:simplify this stuff:
-    @dept_start_hour = 9.0
-    @dept_end_hour = 17.0
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
-    @dept_start_minute = @dept_start_hour * 60
-    @dept_end_minute = @dept_end_hour * 60
-    @block_length = 15.0
-    @blocks_per_hour = 60.0/@block_length
+    @block_length = current_department.department_config.time_increment
+    @blocks_per_hour = 60/@block_length.to_f
     @blocks_per_day = @hours_per_day * @blocks_per_hour
+    @hidden_timeslots = [] #for timeslots that don't show up on the view
   end
 
   def show
