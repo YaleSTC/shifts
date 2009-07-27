@@ -1,5 +1,5 @@
 <% unless @notice.new_record? %>
-  $('#all_notices').html("<%= escape_javascript(render :partial => 'all_notices') %>");
+  $('#all_notices').html("<%= escape_javascript(render :partial => 'notices/all_notices') %>");
   tb_remove();
 <% else %>
   $('#notice_form').html("<%= escape_javascript(render :partial => 'notices/form') %>");
