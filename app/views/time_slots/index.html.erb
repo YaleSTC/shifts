@@ -4,7 +4,7 @@
 
 <% title "Time Slots" %>
 
-<p><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path %></p>
+<p><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path(:date => params[:date]) %></p>
 
 <div class="note">
   <strong>Notes</strong>
