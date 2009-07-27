@@ -504,7 +504,7 @@ div#preferences {
 }
 
 /*style for SimpleTip*/
-.tooltip{
+/*.tooltip{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -518,8 +518,7 @@ div#preferences {
   font-family: Verdana, Arial, serif;
 	font-size: 9pt;
 	border: 1px solid gray;
-}
-.tooltip p{
+}*/
+/*.tooltip p{
 	margin: 5px 0;
-}
-
+}*/
