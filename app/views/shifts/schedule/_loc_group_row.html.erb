@@ -1,0 +1,4 @@
+<%= render :partial => "shifts/schedule/location_row", :collection => loc_group_row.locations %>
+<% unless loc_group_row.locations.empty? %>
+  <ul class="events" style="height: 11%;"></ul>
+<% end %>
