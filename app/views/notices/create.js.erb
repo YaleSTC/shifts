@@ -1,5 +1,5 @@
 <% unless @notice.new_record? %>
-  $('#all_notices').html("<%= escape_javascript(render :partial => 'all_notices') %>");
+  $('#all_notices').html("<%= escape_javascript(render :partial => 'notices/all_notices') %>");
   $('#message_center').html("<%= escape_javascript(render :partial => 'notices/message_center', :object => @report = current_user.current_shift.report) %>");
   tb_remove();
 <% else %>
