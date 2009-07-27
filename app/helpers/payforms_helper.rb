@@ -31,14 +31,6 @@ module PayformsHelper
     (start_date..end_date).to_a
   end
 
-  def time_format
-    '%I:%M%p'
-  end
-  
-  def date_format
-    '%B %d, %Y'
-  end
-
   def payform_update_button
     if @payform.submitted
       if current_user.is_admin_of?(@payform.department)
