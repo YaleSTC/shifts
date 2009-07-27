@@ -56,14 +56,18 @@ class NoticesController < ApplicationController
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
-    @notice.end_time = nil if params[:indefinite] || @notice.is_sticky
+    @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.save
     set_sources
-    if current_user.is_admin_of?(current_department) && @notice.save
-      flash[:notice] = 'Notice was successfully updated.'
-      redirect_to @notice
-    else
-      render :action => "edit"
+    respond_to do |format|
+      if current_user.is_admin_of?(current_department) && @notice.save
+        format.html {
+          flash[:notice] = 'Notice was successfully updated.'
+          redirect_to :action => "index"
+        }
+      else
+        render :action => "edit"
+      end
     end
   end
 
@@ -75,7 +79,7 @@ class NoticesController < ApplicationController
     unless @notice.is_current?
       redirect_with_flash("This notice was already removed on #{@notice.end_time}", :back) and return
     end
-    if @notice.remove(current_user) && (@notice.save)
+    if @notice.remove(current_user) && @notice.save
       redirect_with_flash("Notice successfully removed", :back)
     else
       redirect_with_flash("Error removing notice", :back)
@@ -89,21 +93,15 @@ class NoticesController < ApplicationController
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
-          @notice.save(false)
-          @notice.user_sources << Department.find_by_name(l)
-          a = User.find_by_names(l).first
-          a.save
-          @notice.user_sources << a
-          b = User.find_by_login(l)
-          b.save
-          @notice.user_sources << b
+          user_source = User.find_by_names(l).first || User.find_by_login(l) || Role.find_by_name(l)
+          user_source = Department.find_by_name(l) if current_user.is_admin_of(current_department)
+          @notice.user_sources << user_source if user_source
         else
           l = l.split("||")
           @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
         end
       end
     end
-
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
       @notice.location_sources << current_department
       @notice.loc_groups << current_department.loc_groups
