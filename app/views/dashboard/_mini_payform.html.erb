@@ -9,12 +9,13 @@
       <tr>
         <td><%= item.date.strftime('%b %d') %></td>
         <td><%= item.description %></td>
-        <td><%= item.hours.round(1).to_s %></td>
+        <td><%= item.hours.round.to_s %></td>
       </tr>
     <% end %>
   <% end %>
   <tr>
     <td><strong>Total:</strong><td>
-    <td><%= mini_payform.hours.round(1) %></td>
+    <td><%= mini_payform.hours.round %></td>
   </tr>
 </table>
+

@@ -5,6 +5,7 @@ class DepartmentConfig < ActiveRecord::Base
   validates_uniqueness_of :department_id
   validates_numericality_of :time_increment, :grace_period, :schedule_start,
                             :schedule_end, :description_min, :reason_min, :warning_weeks
+  validate :increment_factor_of_60
 
   PAYFORM_PERIOD = [
     ["Weekly",  false],
@@ -41,6 +42,12 @@ class DepartmentConfig < ActiveRecord::Base
 
   def block_length
     self.time_increment * 60 #seconds
+  end
+
+protected
+
+  def increment_factor_of_60
+    errors.add(:time_increment, "must divide evenly into 60") unless 60 % self.time_increment == 0
   end
 
 end

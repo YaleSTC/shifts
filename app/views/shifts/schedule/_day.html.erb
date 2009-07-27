@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'timeline' %>
+<% end %>
+
 <%
   load_schedule_variables if not @dept_start_hour #load if we haven't loaded them already
                                           #(so we can render this partial on the dashboard)
@@ -20,3 +24,19 @@
 <% end %>
 
 <%= (render :partial => 'shifts/list_of_shifts/shifts_outside_display_layout', :object => @shifts_outside_display) unless @shifts_outside_display.empty? %>
+
+
+<h1>Experimental Schedule (in progress):</h1>
+
+<div class="timeline" style="height:250px; width: 100%;">
+  <div class="days">
+    <div class="day" style="height: 11%;"></div>
+    <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups %>
+  </div>
+  <div class="timeline-data">
+    <ul class="intervals" style="height: 11%;">
+      <%= render :partial => "shifts/schedule/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
+    </ul>
+    <%= render :partial => "shifts/schedule/loc_group_row", :collection => @loc_groups  %>
+  </div>
+</div>

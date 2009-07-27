@@ -1,0 +1,4 @@
+<%# we can vertically center text by changing the line-height %>
+<ul class="events" style="height: 11%;">
+  <%= render :partial => "time_slot", :collection => fetch_timeslots(time_slot_day,location) -%>
+</ul>

@@ -20,6 +20,11 @@ class UsersController < ApplicationController
     end
 
     @users = @users.sort_by(&:last_name)
+
+    respond_to do |wants|
+      wants.html
+      wants.csv { render :text => @users.to_csv(:template => :normal) }
+    end
   end
 
   def show
@@ -27,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def ldap_search
-    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],3)
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],5)
   end
 
   def new
@@ -106,12 +111,12 @@ class UsersController < ApplicationController
 
   def destroy #the preferred action. really only disables the user for that department.
     @user = User.find(params[:id])
-    new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-    new_entry.attributes = old_entry.attributes
-    new_entry.active = false
-    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
-    if new_entry.save
+    # new_entry = DepartmentsUser.new();
+    # old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
+    # new_entry.attributes = old_entry.attributes
+    # new_entry.active = false
+    # DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+    if @user.toggle_active(@department) #new_entry.save
       flash[:notice] = "Successfully deactivated user."
       redirect_to @user
     else
@@ -148,12 +153,13 @@ class UsersController < ApplicationController
   def verify_import
     file=params[:file]
     flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
-#    begin
+    begin
       @users = User.from_csv(file, :normal)
-#    rescue Exception => e
-#      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
-#      render :action => 'import'
-#    end
+      @no_nav=true
+    rescue Exception => e
+      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+      render :action => 'import'
+    end
   end
 
   def save_import
@@ -244,6 +250,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle #for ajax deactivation/restore
+    @user = User.find(params[:id])
+    @user.toggle_active(@department)
+    respond_to do |format|
+      format.html {redirect_to user_path(@user)}
+      format.js {render :nothing => true}
+    end
+  end
+
   private
 
   def switch_department_path
@@ -254,4 +269,3 @@ class UsersController < ApplicationController
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end
-

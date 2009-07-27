@@ -3,14 +3,14 @@
 <div id = "message_center">
   <%= render :partial => 'notices/message_center', :object => @report %>
 </div>
-    <fieldset style="margin-top: 8px">
+  <br/>
+    <fieldset class='index'>
       <legend>Data Objects</legend>
-      <%= render :partial => 'data_objects/report_form', :collection => @report.get_data_objects %>
+        <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
     </fieldset>
 
   <%= render :partial => 'new_report_item_form' %>
 <% end %>
-  <h2>Report:</h2>
   </p>
 <%= render :partial => 'report'%>
 
