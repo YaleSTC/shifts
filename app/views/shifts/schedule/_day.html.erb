@@ -1,7 +1,3 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag 'timeline' %>
-<% end %>
-
 <%
   load_schedule_variables if not @dept_start_hour #load if we haven't loaded them already
                                           #(so we can render this partial on the dashboard)
