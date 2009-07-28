@@ -3,23 +3,22 @@
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
-  <span style="font-size:10px">click field value to edit</span>
   <p>
     <strong>Location:</strong>
-    <span id="time_slot_location"><%=h @time_slot.location.name %></span>
+    <span id="time_slot_location" class="jeditable"><%=h @time_slot.location.name %></span>
   </p>
   <p>
     <strong>Start:</strong>
-    <span id="time_slot_start"><%=h @time_slot.start.to_s(:short_name) %></span>
+    <span id="time_slot_start" class="jeditable"><%=h @time_slot.start.to_s(:short_name) %></span>
   </p>
   <p>
     <strong>End:</strong>
-    <span id="time_slot_end"><%=h @time_slot.end.to_s(:short_name) %></span>
+    <span id="time_slot_end" class="jeditable"><%=h @time_slot.end.to_s(:short_name) %></span>
   </p>
 
   <p>
-    <%= link_to "Edit", edit_time_slot_path(@time_slot) %> |
-    <%= link_to "Destroy", @time_slot, :confirm => 'Are you sure?', :method => :delete %>
+    <%#= link_to "Edit", edit_time_slot_path(@time_slot) %>
+    <%= link_to_remote "Destroy", :url => @time_slot, :confirm => 'Are you sure?', :method => :delete, :success => "$('.tooltip').hide();" %>
   </p>
   
   <script type="text/javascript">
@@ -39,8 +38,7 @@
         indicator: '<img src="../images/loading.gif">',
         tooltip: 'Click to edit...',
         callback: function(value, settings) {
-          update_display("location<%= @time_slot.location.id %>");  // = location before edit
-          // if necessary, update another location
+          rerender_timeslot();
         }
       }
     );
@@ -55,7 +53,10 @@
       cancel: 'Cancel',
       submit: 'OK',
       indicator: '<img src="../images/loading.gif">',
-      tooltip: 'Click to edit...'
+      tooltip: 'Click to edit...',
+      callback: function(value, settings) {
+        rerender_timeslot();
+      }
     });
     
     $('#time_slot_end').editable( <%= time_slot_path(@time_slot).to_json %>, {
@@ -68,8 +69,17 @@
       cancel: 'Cancel',
       submit: 'OK',
       indicator: '<img src="../images/loading.gif">',
-      tooltip: 'Click to edit...'
+      tooltip: 'Click to edit...',
+      callback: function(value, settings) {
+        rerender_timeslot();
+      }
     });
+    
+    function rerender_timeslot(){
+      $("#timeslot<%= @time_slot.id %>").remove();  // = time slot before edit
+      // add new time slot to view
+      $.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= rerender_time_slot_path(@time_slot) %>'});
+    }
   </script>
 </div>
 

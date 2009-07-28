@@ -173,3 +173,13 @@ div.tooltip div.close_link{
 	font-size: 10px;
 	padding: 2px;
 }
+
+span.jeditable{
+	background: #bbb;
+}
+
+span.jeditable:hover{
+	background: #ccc;
+	cursor: hand;
+	cursor: pointer;
+}
