@@ -52,12 +52,13 @@ class TimeSlotsController < ApplicationController
   def update
     @time_slot = TimeSlot.find(params[:id])
     if @time_slot.update_attributes(params[:time_slot])
-      respond_to do |format|
-        format.html {
-          flash[:notice] = "Successfully updated timeslot."
-          redirect_to @time_slot
-        }
-        format.js
+      if params[:wants] #AJAX (jEditable)
+        respond_to do |format|
+          format.js
+        end
+      else
+        flash[:notice] = "Successfully updated timeslot."
+        redirect_to @time_slot
       end
     else
       render :action => 'edit'
