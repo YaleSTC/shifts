@@ -1,0 +1,3 @@
+page.insert_html :after, "timeslot#{params[:id]}", :partial => "time_slots/tooltips/show", :object => @time_slot
+#page << 'currentFocus = "test"'
+#page.hide "timeslot#{params[:id]}"
