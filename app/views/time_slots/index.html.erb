@@ -13,16 +13,14 @@
 <%= render :partial => 'shifts/schedule/header' %>
 <%= render :partial => 'location', :collection => @department.locations %>
 
-<script>
-  $('li.click_to_edit').click(function (e) {
-    popup_edit($(this));
+<script>  
+  $('li.click_to_add_new').click(function (e) {
+    popup_new($(this));
     return false;
   });
   
-  $('.events').click(function (e) {
-    if ($(".tooltip").length == 0){
-      popup_new($(this));
-    }
+  $('li.click_to_edit').click(function (e) {
+    popup_edit($(this));
     return false;
   });
   

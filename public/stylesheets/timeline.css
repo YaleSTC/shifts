@@ -98,6 +98,17 @@ ul.events li {
     border-left: 1px solid #ccc;
     height: 100%;
 }
+ul.events li.click_to_add_new {
+		z-index: 0;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+}
+ul.events li.click_to_add_new:hover {
+    background: #fff3f3;
+    position: absolute;
+    height: 100%;
+}
 ul.events li div.time-slot {
     width: auto;
     height: 100%;
