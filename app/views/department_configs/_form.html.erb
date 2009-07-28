@@ -60,8 +60,12 @@
       <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
     <p>
-      <label>Last day of payform week/month:</label>
+      <label>Last day of payform week:</label>
       <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
+    </p>
+    <p>
+      <label>Last day of payform month:</label>
+      <%= f.select :day, (1..31).step %>
     </p>
 
       <%= submit_tag "Save" %>
