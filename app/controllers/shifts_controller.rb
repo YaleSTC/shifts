@@ -3,7 +3,7 @@ class ShiftsController < ApplicationController
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
     
     # for lists of shifts
-    @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
+    @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
     @subs_you_requested = SubRequest.all.select{|sub| sub.shift.user == current_user}.sort_by(&:start)
     @subs_you_can_take = current_user.available_sub_requests
@@ -96,9 +96,9 @@ class ShiftsController < ApplicationController
     end
     if @shift.save
       if !@shift.scheduled
-        @report = Report.new(:shift_id => @shift, :arrived => Time.now)
+        @report = Report.new(:shift => @shift, :arrived => Time.now)
         # add a report item about logging in
-        @report.report_items << ReportItem.new(:time => Time.now, :content => @shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+        @report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
         redirect_to @report and return if @report.save
       end
       respond_to do |format|
@@ -131,9 +131,11 @@ class ShiftsController < ApplicationController
   end
   
 #unnecessary -ben
-#yes neccessary! see: canceling a shift, etc. -ryan
+#yes necessary! see: canceling a shift, etc. -ryan
+#okay then -ben
   def destroy
     @shift = Shift.find(params[:id])
+    return unless require_owner(@shift)
     @shift.destroy
     flash[:notice] = "Successfully destroyed shift."
     redirect_to shifts_url

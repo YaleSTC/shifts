@@ -5,7 +5,7 @@
 
 <%= render :partial => 'shifts/schedule/header' %>
 
-<% if @department.loc_groups.empty? %>
+<% if current_department.loc_groups.empty? %>
   <p>Sorry, there are no location groups to view!</p>
 <% elsif current_user.user_config.view_loc_groups.blank? %>
   <p>You have not selected any location groups to view! Fix that in your
