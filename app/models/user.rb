@@ -15,11 +15,11 @@ class User < ActiveRecord::Base
   has_many :shifts
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
-  has_many :user_profile_entries
   has_one  :punch_clock
 
   # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
+  has_one :user_profile, :dependent => :destroy
 
   attr_protected :superusercreate_
   named_scope :superusers, :conditions => { :superuser => true }, :order => "last_name"
@@ -182,7 +182,7 @@ class User < ActiveRecord::Base
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
   end
-  
+
   def toggle_active(department)
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
@@ -226,3 +226,4 @@ class User < ActiveRecord::Base
   end
 
 end
+

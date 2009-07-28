@@ -1,9 +1,7 @@
 class UserProfileEntry < ActiveRecord::Base
 
   has_one :user_profile_field
-  has_one :user
-
-  validates_presence_of :user_id
+  belongs_to :user_profile
 
   def field_name
     field_name = UserProfileField.find(self.user_profile_field_id).name
