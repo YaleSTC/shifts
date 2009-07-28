@@ -16,6 +16,7 @@
 <script>
   $('li.click_to_edit').click(function (e) {
     popup_edit($(this));
+    return false;
   });
   
   function popup_edit(parent_element){
@@ -23,13 +24,9 @@
     parent_element.append("<div class='loading'>Loading...</div>");
     
     var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
-    // var x = e.pageX;
-    // var y = e.pageY
-    // alert("clicked timeslot #"+id+" @ ["+x+", "+y+"]");
     <%#= remote_function :url => root_path, :test => 5 %>
-    $.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    $.ajax({dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
     
     $(".loading").remove();
-    return false;
   }
 </script>
