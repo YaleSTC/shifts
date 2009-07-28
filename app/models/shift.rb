@@ -12,6 +12,10 @@ class Shift < ActiveRecord::Base
   validates_presence_of :location
   validates_presence_of :start
 
+  named_scope :on_day, lambda {|day| { :conditions => ['start > ? and start < ?', day.beginning_of_day, day.end_of_day]}}
+  named_scope :in_location, lambda {|loc| {:conditions => ['location_id = ?', loc.id]}}
+  named_scope :scheduled, lambda {{ :conditions => ['scheduled = ?', true]}}
+
   #validate :a_bunch_of_shit
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
@@ -107,9 +111,9 @@ class Shift < ActiveRecord::Base
     self.start < Time.now
   end
 
+  # If new shift runs up against another compatible shift, combine them and save,
+  # preserving the earlier shift's information
   def combine_with_surrounding_shifts
-    # if new shift runs up against another compatible shift, combine them and save,
-    # preserving the earlier shift's information
     if (shift_later = Shift.find(:first, :conditions => {:start => self.end, :user_id => self.user_id, :location_id => self.location_id}))
       self.end = shift_later.end
       shift_later.sub_requests.each { |s| s.shift = self }

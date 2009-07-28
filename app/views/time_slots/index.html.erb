@@ -18,8 +18,6 @@
 <%= render :partial => 'location', :collection => @department.locations %>
 
 <script>
-  //currentFocus = null;
-
   $('li.click_to_edit').click(function (e) {
     $(".tooltip").remove();
     $(this).append("<div class='loading'>Loading...</div>");
@@ -29,9 +27,13 @@
     // var y = e.pageY
     // alert("clicked timeslot #"+id+" @ ["+x+", "+y+"]");
     <%#= remote_function :url => root_path, :test => 5 %>
-    $.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'/time_slots/'+id+'/edit', async: false});
+    $.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
     
     $(".loading").remove();
     return false;
   });
+  
+  function update_display(location_id){
+    //$.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+  };
 </script>
