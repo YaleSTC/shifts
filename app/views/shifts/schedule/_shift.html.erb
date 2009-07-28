@@ -3,6 +3,7 @@
     <div class="center_container">
       <div class="center_content">
         <%= link_to "x", shift, :confirm => 'Are you sure?', :method => :delete, :style => "float:right;margin-right:3px" %>
+        <%= shift.user.name %><br/>
         <%= "#{shift.start.strftime("%l:%M%p")} - #{shift.end.strftime("%l:%M%p")}" %>
       </div>
     </div>

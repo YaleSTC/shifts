@@ -1,4 +1,4 @@
-<ul class="events" style="height: 11%;">
-  <% shifts = Shift.all(:conditions => ['start > ? and start < ? and location_id = ?',Time.now.beginning_of_day,Time.now.end_of_day,location_row.id]) -%>
+<ul class="events" style="height: <%= 100 / (@table_height)%>%;">
+  <% shifts = Shift.all(:conditions => ['start > ? and start < ? and location_id = ?',day.beginning_of_day,day.end_of_day,location_row.id]) -%>
   <%= render :partial => "shifts/schedule/shift", :collection => shifts -%>
 </ul>
