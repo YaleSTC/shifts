@@ -59,11 +59,11 @@
       <label>Payform Period:</label>
       <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
-    <p>
+    <p id = "week">
       <label>Last day of payform week:</label>
       <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
     </p>
-    <p>
+    <p id = "month">
       <label>Last day of payform month:</label>
       <%= f.select :day, (1..31).step %>
     </p>

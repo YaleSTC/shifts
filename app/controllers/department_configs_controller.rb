@@ -10,6 +10,7 @@ class DepartmentConfigsController < ApplicationController
   end
 
   def update
+    raise params.to_yaml
     @department_config = DepartmentConfig.find(params[:id])
     if @department_config.update_attributes(params[:department_config])
       @department_config.calibrate_time
