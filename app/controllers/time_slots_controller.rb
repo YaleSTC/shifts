@@ -3,7 +3,7 @@ class TimeSlotsController < ApplicationController
   layout 'shifts'
 
   def index
-    @period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
     #TODO:simplify this stuff:
     @dept_start_hour = current_department.department_config.schedule_start / 60
     @dept_end_hour = current_department.department_config.schedule_end / 60
