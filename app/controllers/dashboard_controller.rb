@@ -12,9 +12,9 @@ class DashboardController < ApplicationController
     @block_length = 15
     @blocks_per_hour = 60/@block_length
     @blocks_per_day = @hours_per_day * @blocks_per_hour
-
+    @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    @table_height = @loc_groups.map{|l| l.locations }.flatten.uniq.length + @loc_groups.length * 0.25 + 1
     @display_unscheduled_shifts ||= @department.department_config.unscheduled_shifts
-    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}
   end
 
 end
