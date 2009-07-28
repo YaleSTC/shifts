@@ -24,6 +24,7 @@ class TimeSlotsController < ApplicationController
   end
 
   def create
+    @time_slots = []
     errors = []
     date = params[:date] ? Time.parse(params[:date]) : Time.now.beginning_of_week - 1.day
     for location_id in params[:location_ids]
@@ -34,15 +35,26 @@ class TimeSlotsController < ApplicationController
         time_slot.end = date + day.to_i.days + time_slot.end.seconds_since_midnight
         if !time_slot.save
           errors << "Error saving timeslot for #{WEEK_DAYS[day]}"
+        else
+          @time_slots << time_slot
         end
       end
     end
-    if errors.empty?
-      flash[:notice] = "Successfully created timeslot(s)."
-    else
-      flash[:error] =  "Error: "+errors*"<br/>" 
+    respond_to do |format|
+      format.html do
+        if errors.empty?
+          flash[:notice] = "Successfully created timeslot(s)."
+        else
+          flash[:error] =  "Error: "+errors*"<br/>" 
+        end
+        redirect_to time_slots_path
+      end
+      format.js do
+        @dept_start_hour = current_department.department_config.schedule_start / 60
+        @dept_end_hour = current_department.department_config.schedule_end / 60
+        @hours_per_day = (@dept_end_hour - @dept_start_hour)
+      end
     end
-    redirect_to time_slots_path
   end
 
   def edit
