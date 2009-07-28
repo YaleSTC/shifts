@@ -1,5 +1,5 @@
 <div class="tooltip">
-  <% form_for @time_slot do |f| %>
+  <% remote_form_for @time_slot do |f| %>
     <%= f.error_messages %>
     <p>
         <strong>Days:</strong><br />
@@ -28,6 +28,6 @@
       <% end %>
     <%- end -%>
     </p>
-    <p><%= f.submit "Add" %></p>
+    <p><%= f.submit_to_remote "Add" %></p>
   <% end %>
 </div>
