@@ -5,7 +5,7 @@
 
   <fieldset class = "index">
     <legend>Content:</legend>
-    <%= f.text_area :content, :size => "70x10" %>
+    <%= f.text_area :content, :size => "60x10" %>
   </fieldset>
   <br />
   <% if current_user.is_admin_of?(current_department) %>
@@ -14,20 +14,22 @@
       <%= radio_button_tag 'type', 'sticky' %> Sticky <br />
       <%= radio_button_tag 'type', 'announcement', true %> Announcement
     </fieldset>
-    <br />
-    <fieldset class = "index">
-    <legend>Start time:</legend>
-      <%= radio_button_tag 'start_time_choice', 'now', true %> Now <br/>
-      <%= radio_button_tag 'start_time_choice', 'date' %>
-      <%= f.unobtrusive_datetime_picker :start_time, :minute_step => @department.department_config.time_increment %>
-    </fieldset>
-    <br />
-    <fieldset class = "index">
-      <legend>End time:</legend>
-      <%= radio_button_tag 'end_time_choice', 'indefinite', true %> Never <br/>
-      <%= radio_button_tag 'end_time_choice', 'date' %>
-      <%= f.unobtrusive_datetime_picker :end_time, :minute_step => @department.department_config.time_increment %>
-    </fieldset>
+    <div id = "time_choices">
+      <br />
+      <fieldset class = "index">
+      <legend>Start time:</legend>
+        <%= radio_button_tag 'start_time_choice', 'now', true %> Now <br/>
+        <%= radio_button_tag 'start_time_choice', 'date' %>
+        <%= f.unobtrusive_datetime_picker :start_time, :minute_step => @department.department_config.time_increment %>
+      </fieldset>
+      <br />
+      <fieldset class = "index">
+        <legend>End time:</legend>
+        <%= radio_button_tag 'end_time_choice', 'indefinite', true %> Never <br/>
+        <%= radio_button_tag 'end_time_choice', 'date' %>
+        <%= f.unobtrusive_datetime_picker :end_time, :minute_step => @department.department_config.time_increment %>
+      </fieldset>
+    </div>
     <br />
   <% end %>
 

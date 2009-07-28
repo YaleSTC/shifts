@@ -1,12 +1,12 @@
-<% if current_user.is_admin_of?(current_department) %>
-<div id = "upcoming">
-  <fieldset class = "index">
-    <legend>Upcoming</legend>
-    <%= render :partial => 'notice', :collection => Notice.upcoming %>
-  </fieldset>
-</div>
+<% if current_user.is_admin_of?(current_department) && !Notice.upcoming.empty? %>
+  <div id = "upcoming">
+    <fieldset class = "index">
+      <legend>Upcoming</legend>
+      <%= render :partial => 'notice', :collection => Notice.upcoming %>
+    </fieldset>
+  </div>
+  <br />
 <% end %>
-<br />
 <div id = "for_you">
     <%= render :partial => 'for_you' %>
 </div>
