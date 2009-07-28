@@ -87,6 +87,9 @@ class NoticesController < ApplicationController
     end
   end
 
+  def update_message_center
+  end
+
   protected
 
   def set_sources
