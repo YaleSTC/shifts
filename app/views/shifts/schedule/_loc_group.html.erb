@@ -1,4 +1,2 @@
 <%= render :partial => "shifts/schedule/location", :collection => loc_group.locations %>
-<% unless loc_group.locations.empty? %>
-  <div class="day" style="height: 11%;"></div>
-<% end %>
+<div class="day" style="height: <%= 0.25 * 100 / (@table_height)%>%;"></div>

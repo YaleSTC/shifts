@@ -1,7 +1,10 @@
 class ShiftsController < ApplicationController
+
+    helper :shifts
+
   def index
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
-    
+
     # for lists of shifts
     @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
@@ -47,6 +50,11 @@ class ShiftsController < ApplicationController
     @block_length = 15
     @blocks_per_hour = 60/@block_length
     @blocks_per_day = @hours_per_day * @blocks_per_hour
+
+    @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    
+    @table_height = @loc_groups.map{|l| l.locations }.flatten.uniq.length + @loc_groups.length * 0.25 + 1
+
   end
 
   def show
