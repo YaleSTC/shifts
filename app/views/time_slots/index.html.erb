@@ -19,6 +19,21 @@
     return false;
   });
   
+  $('.events').click(function (e) {
+    popup_new($(this));
+    return false;
+  });
+  
+  function popup_new(parent_element){
+    $(".tooltip").remove();
+    parent_element.append("<div class='loading'>Loading...</div>");
+    
+    var elementId = parent_element.attr('id');//.substring(8); //remove "timeslot" from id
+    $.ajax({data:"elementID="+elementId, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    
+    $(".loading").remove();
+  }
+  
   function popup_edit(parent_element){
     $(".tooltip").remove();
     parent_element.append("<div class='loading'>Loading...</div>");

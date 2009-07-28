@@ -70,7 +70,7 @@ class TimeSlotsController < ApplicationController
     @time_slot.destroy
     respond_to do |format|
       format.html {flash[:notice] = "Successfully destroyed timeslot."; redirect_to time_slots_url}
-      format.js
+      format.js #remove partial from view
     end
   end
   
