@@ -3,7 +3,7 @@ class TimeSlotsController < ApplicationController
   layout 'shifts'
 
   def index
-    @period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
     #TODO:simplify this stuff:
     @dept_start_hour = current_department.department_config.schedule_start / 60
     @dept_end_hour = current_department.department_config.schedule_end / 60
@@ -24,6 +24,7 @@ class TimeSlotsController < ApplicationController
   end
 
   def create
+    @time_slots = []
     errors = []
     date = params[:date] ? Time.parse(params[:date]) : Time.now.beginning_of_week - 1.day
     for location_id in params[:location_ids]
@@ -34,15 +35,26 @@ class TimeSlotsController < ApplicationController
         time_slot.end = date + day.to_i.days + time_slot.end.seconds_since_midnight
         if !time_slot.save
           errors << "Error saving timeslot for #{WEEK_DAYS[day]}"
+        else
+          @time_slots << time_slot
         end
       end
     end
-    if errors.empty?
-      flash[:notice] = "Successfully created timeslot(s)."
-    else
-      flash[:error] =  "Error: "+errors*"<br/>" 
+    respond_to do |format|
+      format.html do
+        if errors.empty?
+          flash[:notice] = "Successfully created timeslot(s)."
+        else
+          flash[:error] =  "Error: "+errors*"<br/>" 
+        end
+        redirect_to time_slots_path
+      end
+      format.js do
+        @dept_start_hour = current_department.department_config.schedule_start / 60
+        @dept_end_hour = current_department.department_config.schedule_end / 60
+        @hours_per_day = (@dept_end_hour - @dept_start_hour)
+      end
     end
-    redirect_to time_slots_path
   end
 
   def edit
@@ -68,8 +80,26 @@ class TimeSlotsController < ApplicationController
   def destroy
     @time_slot = TimeSlot.find(params[:id])
     @time_slot.destroy
-    flash[:notice] = "Successfully destroyed timeslot."
-    redirect_to time_slots_url
+    respond_to do |format|
+      format.html {flash[:notice] = "Successfully destroyed timeslot."; redirect_to time_slots_url}
+      format.js #remove partial from view
+    end
+  end
+  
+  def rerender
+    #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+    #TODO:simplify this stuff:
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    #@block_length = current_department.department_config.time_increment
+    #@blocks_per_hour = 60/@block_length.to_f
+    #@blocks_per_day = @hours_per_day * @blocks_per_hour
+    #@hidden_timeslots = [] #for timeslots that don't show up on the view
+    @time_slot = TimeSlot.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 end
 

@@ -98,6 +98,17 @@ ul.events li {
     border-left: 1px solid #ccc;
     height: 100%;
 }
+ul.events li.click_to_add_new {
+		z-index: 0;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+}
+ul.events li.click_to_add_new:hover {
+    background: #fff3f3;
+    position: absolute;
+    height: 100%;
+}
 ul.events li div.time-slot {
     width: auto;
     height: 100%;
@@ -126,6 +137,13 @@ div.center_content {
 		display: table-cell;
 		vertical-align: middle;
 		width: 100%;
+}
+
+img.right_arrow {
+    float:right; 
+}
+img.left_arrow {
+    float:left;
 }
 
 div.loading{
@@ -172,4 +190,14 @@ div.tooltip div.close_link{
 	right: 3px;	
 	font-size: 10px;
 	padding: 2px;
+}
+
+span.jeditable{
+	background: #bbb;
+}
+
+span.jeditable:hover{
+	background: #ccc;
+	cursor: hand;
+	cursor: pointer;
 }
