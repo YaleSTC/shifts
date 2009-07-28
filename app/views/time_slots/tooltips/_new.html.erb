@@ -1,80 +1,33 @@
 <div class="tooltip">
-  <%= javascript_include_tag 'jeditable' %>
-  <div class="close_link">
-    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
-  </div>
-  <p>
-    <strong>Location:</strong>
-    <span id="time_slot_location" class="jeditable">Enter location</span>
-  </p>
-  <p>
-    <strong>Start:</strong>
-    <span id="time_slot_start" class="jeditable">Enter start time</span>
-  </p>
-  <p>
-    <strong>End:</strong>
-    <span id="time_slot_end" class="jeditable">Enter end time</span>
-  </p>
-  
-  <script type="text/javascript">
-    $('#time_slot_location').editable(
-      <%= time_slots_path.to_json %>,
-      {
-        name: 'time_slot[location_id]',
-        type: 'select',
-        data: {<%= Location.all.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
-        method: 'POST',
-        submitdata: {
-          authenticity_token: <%= form_authenticity_token.to_json %>,
-          wants: 'location'
-        },
-        cancel: 'Cancel',
-        submit: 'OK',
-        indicator: '<img src="../images/loading.gif">',
-        tooltip: 'Click to edit...',
-        callback: function() {
-          rerender_timeslot();
-        }
-      }
-    );
-    
-    $('#time_slot_start').editable( <%= time_slots_path.to_json %>, {
-      name: 'time_slot[start]',
-      method: 'POST',
-      submitdata: {
-        authenticity_token: <%= form_authenticity_token.to_json %>,
-        wants: 'start'
-      },
-      cancel: 'Cancel',
-      submit: 'OK',
-      indicator: '<img src="../images/loading.gif">',
-      tooltip: 'Click to edit...',
-      callback: function() {
-        rerender_timeslot();
-      }
-    });
-    
-    $('#time_slot_end').editable(
-      <%= time_slots_path.to_json %>, {
-      name: 'time_slot[end]',
-      method: 'POST',
-      submitdata: {
-        authenticity_token: <%= form_authenticity_token.to_json %>,
-        wants: 'end'
-      },
-      cancel: 'Cancel',
-      submit: 'OK',
-      indicator: '<img src="../images/loading.gif">',
-      tooltip: 'Click to edit...',
-      callback: function() {
-        rerender_timeslot();
-      }
-    });
-    
-    function rerender_timeslot(){
-      $("#timeslot<%= @time_slot.id %>").remove();  // = time slot before edit
-      // add new time slot to view
-      //$.ajax({dataType:'script', type:'get', url:'<%#= rerender_time_slot_path(@time_slot) %>'});
-    }
-  </script>
+  <% form_for @time_slot do |f| %>
+    <%= f.error_messages %>
+    <p>
+        <strong>Days:</strong><br />
+      <% WEEK_DAYS.each_with_index do |day, i| %>
+        <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+        <%= day %>
+      <% end %>
+    </p>
+    <p>
+      <%= f.label :start %><br />
+      <%= f.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    </p>
+    <p>
+      <%= f.label :end %><br />
+      <%= f.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    </p>
+    <% @department.loc_groups.each do |loc_group| %>
+      <% unless loc_group.locations.empty? %>
+        <p>
+          <strong><%= loc_group.name %></strong><br/>
+          <% loc_group.locations.each do |loc| %>
+            <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+            <%= loc.short_name %>
+          <% end %>
+        </p>
+      <% end %>
+    <%- end -%>
+    </p>
+    <p><%= f.submit "Add" %></p>
+  <% end %>
 </div>
