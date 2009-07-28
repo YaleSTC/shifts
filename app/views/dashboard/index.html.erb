@@ -1,15 +1,15 @@
 <% title "Welcome #{current_user.name}" %>
 
 <% unless current_user.notices.empty? %>
-    <%= render :partial => 'notices/for_you' %>
+  <%= render :partial => 'notices/for_you' %>
   <br/>
 <% end %>
 
 <fieldset class="index">
   <legend>Current shifts</legend>
   <%= return_to_shift_report_if_needed %>
-</fieldset><br />
-
+</fieldset>
+<br />
 <fieldset class="index">
   <legend>Punch Clock</legend>
   <% if current_user.punch_clock %>
@@ -17,7 +17,7 @@
   <% else %>
     <%= link_to "Clock in?", user_punch_clocks_path(current_user), :method => :post %>
   <% end %>
-</fieldset><br />
+</fieldset>
 
 <% unless @upcoming_shifts.empty? %>
   <br/>
@@ -26,10 +26,11 @@
     <ul>
       <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
     </ul>
-  </fieldset><br />
+  </fieldset>
 <% end %>
 
 <% if @most_recent_payform %>
+  <br />
   <fieldset class="index">
     <legend>Summary of your most recent payform</legend>
     <%= render :partial => "mini_payform", :object => @most_recent_payform %>
