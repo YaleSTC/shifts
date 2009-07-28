@@ -1,7 +1,3 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag 'timeline' %>
-<% end %>
-
 <% title "Time Slots" %>
 
 <p><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path(:date => params[:date]) %></p>
@@ -17,23 +13,35 @@
 <%= render :partial => 'shifts/schedule/header' %>
 <%= render :partial => 'location', :collection => @department.locations %>
 
-<script>
-  $('li.click_to_edit').click(function (e) {
-    $(".tooltip").remove();
-    $(this).append("<div class='loading'>Loading...</div>");
-    
-    var id = $(this).attr('id').substring(8); //remove "timeslot" from id
-    // var x = e.pageX;
-    // var y = e.pageY
-    // alert("clicked timeslot #"+id+" @ ["+x+", "+y+"]");
-    <%#= remote_function :url => root_path, :test => 5 %>
-    $.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
-    
-    $(".loading").remove();
+<script>  
+  $('li.click_to_add_new').click(function (e) {
+    popup_new($(this));
     return false;
   });
   
-  function update_display(location_id){
-    //$.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
-  };
+  $('li.click_to_edit').click(function (e) {
+    popup_edit($(this));
+    return false;
+  });
+  
+  function popup_new(parent_element){
+    $(".tooltip").remove();
+    parent_element.append("<div class='loading'>Loading...</div>");
+    
+    var elementId = parent_element.attr('id');//.substring(8); //remove "timeslot" from id
+    $.ajax({data:"elementID="+elementId, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    
+    $(".loading").remove();
+  }
+  
+  function popup_edit(parent_element){
+    $(".tooltip").remove();
+    parent_element.append("<div class='loading'>Loading...</div>");
+    
+    var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
+    <%#= remote_function :url => root_path, :test => 5 %>
+    $.ajax({dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    
+    $(".loading").remove();
+  }
 </script>
