@@ -128,6 +128,13 @@ div.center_content {
 		width: 100%;
 }
 
+img.right_arrow {
+    float:right; 
+}
+img.left_arrow {
+    float:left;
+}
+
 div.loading{
 	position: absolute;
 	top: 0;

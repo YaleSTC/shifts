@@ -7,12 +7,11 @@ module ShiftsHelper
     if left < 0 
       width -= left
       left = 0 
-    elsif left < 0 
-      left=0
-      width=100/@hours_per_day
+      @left_overflow = true
     end
     if left + width > 100
       width -= (left+width)-100
+      @right_overflow = true
     end
     "width: #{width}%; left: #{left}%;"
   end
