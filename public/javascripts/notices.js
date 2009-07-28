@@ -1,14 +1,26 @@
 jQuery(document).ready(function(){
     $("#department_wide_locations").click(function(){
-    var check_status = $(this).attr('checked');
-        $("ul#notice_ul :checkbox").each(function(){
-            $(this).attr('checked', check_status);
+    var dept_status = $(this).attr('checked');
+        $("div#all_locations :checkbox").each(function(){
+            $(this).attr('checked', dept_status);
+           if(dept_status) {
+                $(this).attr('disabled', 'disabled');
+            } else {
+                $(this).removeAttr('disabled');
+            }
         });
     });
 
-    $(".loc_group_checkboxes :checkbox").click(function(){
+    $("input[name^='for_location_group']").click(function(){
         var locgroup_status = $(this).attr('checked');
-        $(this).siblings('input[type=checkbox]').attr('checked', locgroup_status);
+        $(this).siblings('input[type=checkbox]').each(function(){
+            $(this).attr('checked', locgroup_status);
+            if(locgroup_status) {
+                $(this).attr('disabled', 'disabled');
+            } else {
+                $(this).removeAttr('disabled');
+            }
+        });
     });
 
     $("#type_sticky").click(function(){
