@@ -5,30 +5,25 @@
   </div>
   <p>
     <strong>Location:</strong>
-    <span id="time_slot_location" class="jeditable"><%=h @time_slot.location.name %></span>
+    <span id="time_slot_location" class="jeditable">Enter location</span>
   </p>
   <p>
     <strong>Start:</strong>
-    <span id="time_slot_start" class="jeditable"><%=h @time_slot.start.to_s(:short_name) %></span>
+    <span id="time_slot_start" class="jeditable">Enter start time</span>
   </p>
   <p>
     <strong>End:</strong>
-    <span id="time_slot_end" class="jeditable"><%=h @time_slot.end.to_s(:short_name) %></span>
-  </p>
-
-  <p>
-    <%#= link_to "Edit", edit_time_slot_path(@time_slot) %>
-    <%= link_to_remote "Destroy", :url => @time_slot, :confirm => 'Are you sure?', :method => :delete, :success => "$('.tooltip').hide();" %>
+    <span id="time_slot_end" class="jeditable">Enter end time</span>
   </p>
   
   <script type="text/javascript">
     $('#time_slot_location').editable(
-      <%= time_slot_path(@time_slot).to_json %>,
+      <%= time_slots_path.to_json %>,
       {
         name: 'time_slot[location_id]',
         type: 'select',
         data: {<%= Location.all.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
-        method: 'PUT',
+        method: 'POST',
         submitdata: {
           authenticity_token: <%= form_authenticity_token.to_json %>,
           wants: 'location'
@@ -43,9 +38,9 @@
       }
     );
     
-    $('#time_slot_start').editable( <%= time_slot_path(@time_slot).to_json %>, {
+    $('#time_slot_start').editable( <%= time_slots_path.to_json %>, {
       name: 'time_slot[start]',
-      method: 'PUT',
+      method: 'POST',
       submitdata: {
         authenticity_token: <%= form_authenticity_token.to_json %>,
         wants: 'start'
@@ -59,9 +54,10 @@
       }
     });
     
-    $('#time_slot_end').editable( <%= time_slot_path(@time_slot).to_json %>, {
+    $('#time_slot_end').editable(
+      <%= time_slots_path.to_json %>, {
       name: 'time_slot[end]',
-      method: 'PUT',
+      method: 'POST',
       submitdata: {
         authenticity_token: <%= form_authenticity_token.to_json %>,
         wants: 'end'
@@ -78,7 +74,7 @@
     function rerender_timeslot(){
       $("#timeslot<%= @time_slot.id %>").remove();  // = time slot before edit
       // add new time slot to view
-      $.ajax({dataType:'script', type:'get', url:'<%= rerender_time_slot_path(@time_slot) %>'});
+      //$.ajax({dataType:'script', type:'get', url:'<%#= rerender_time_slot_path(@time_slot) %>'});
     }
   </script>
 </div>
