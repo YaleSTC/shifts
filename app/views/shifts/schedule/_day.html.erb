@@ -1,6 +1,4 @@
 <%
-  load_schedule_variables if not @dept_start_hour #load if we haven't loaded them already
-                                          #(so we can render this partial on the dashboard)
   load_day_variables(day)
 %>
 
@@ -24,15 +22,15 @@
 
 <h1>Experimental Schedule (in progress):</h1>
 
-<div class="timeline" style="height:250px; width: 100%;">
+<div class="timeline" style="height:116px; width: 100%;">
   <div class="days">
-    <div class="day" style="height: 11%;"></div>
+    <div class="day" style="height: <%= 100 / (@table_height)%>%;"></div>
     <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups %>
   </div>
   <div class="timeline-data">
-    <ul class="intervals" style="height: 11%;">
+    <ul class="intervals" style="height: <%= 100 / (@table_height)%>%;">
       <%= render :partial => "shifts/schedule/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
     </ul>
-    <%= render :partial => "shifts/schedule/loc_group_row", :collection => @loc_groups  %>
+    <%= render :partial => "shifts/schedule/loc_group_row", :collection => @loc_groups, :locals => {:day => day}  %>
   </div>
 </div>

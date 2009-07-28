@@ -4,13 +4,13 @@
   <div class="timeline" style="height:150px; width: 100%;">
     <div class="days">
       <div class="day" style="height: 22%;"></div>
-      <%= render :partial => "left_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week %>
+      <%= render :partial => "left_day", :collection => @period_start...(@period_start+1.day).end_of_week %>
     </div>
     <div class="timeline-data">
       <ul class="intervals" style="height: 22%;">
         <%= render :partial => "hour", :collection =>  @dept_start_hour...@dept_end_hour %>
       </ul>
-      <%= render :partial => "time_slot_day", :collection => (@period_start.beginning_of_week-1.day)...@period_start.end_of_week, :locals => {:location => location}  %>
+      <%= render :partial => "time_slot_day", :collection => @period_start...(@period_start+1.day).end_of_week, :locals => {:location => location}  %>
     </div>
   </div>
   <% unless @hidden_timeslots.empty? %>

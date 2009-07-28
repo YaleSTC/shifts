@@ -14,7 +14,10 @@ class Fixnum
 end
 
 class Date
-  def sunday
+  def sunday  #let's stop using this because it is unclear
+    self - wday
+  end
+  def previous_sunday
     self - wday
   end
 end
@@ -27,8 +30,12 @@ class Date
 end
 
 class Time
-  def sunday_of_week
+  def sunday_of_week #let's stop using this because it is unclear
     (self - self.wday.days).midnight
+  end
+  
+  def previous_sunday
+    (self - wday).midnight
   end
 end
 

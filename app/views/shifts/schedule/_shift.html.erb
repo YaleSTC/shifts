@@ -1,8 +1,15 @@
-<li id="timeslot<%=shift.id%>" style="<%#=shift_style(time_slot)%>">
+<li id="timeslot<%=shift.id%>" style="<%=shift_style(shift)%>">
   <div class="time-slot">
+    <div class="center_container" style="float:right">
+      <div class="center_content">
+        <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => 116.0 / @table_height } if @right_overflow %>
+        <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => 116.0 / @table_height } if @left_overflow %>
+      </div>
+    </div>
     <div class="center_container">
       <div class="center_content">
         <%= link_to "x", shift, :confirm => 'Are you sure?', :method => :delete, :style => "float:right;margin-right:3px" %>
+        <%= shift.user.name %><br/>
         <%= "#{shift.start.strftime("%l:%M%p")} - #{shift.end.strftime("%l:%M%p")}" %>
       </div>
     </div>

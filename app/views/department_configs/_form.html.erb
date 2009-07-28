@@ -1,7 +1,7 @@
 <div class="shift_admin_form">
 <% form_for @department_config do |f| %>
   <%= f.error_messages %>
-  <fieldset>
+  <fieldset class = "index">
     <legend>Edit Shift Configuration</legend>
     <p>
       <label>Schedule view start time:</label>
@@ -29,7 +29,7 @@
       </p>
   </fieldset>
   <br/>
-  <fieldset>
+  <fieldset class = "index">
     <legend>Edit Payform Configuration</legend>
     <p>
       <label>Default Printed Payform Message:</label>
@@ -56,13 +56,18 @@
       <%= f.text_field :reason_min, :size => 6 %>
     </p>
     <p>
-      <label>Last day of payform week/month:</label>
-      <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
-    </p>
-    <p>
       <label>Payform Period:</label>
       <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
+    <p id = "week">
+      <label>Last day of payform week:</label>
+      <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
+    </p>
+    <p id = "month">
+      <label>Last day of payform month:</label>
+      <%= f.select :day, (1..31).step %>
+    </p>
+
       <%= submit_tag "Save" %>
   </fieldset>
 <% end %>

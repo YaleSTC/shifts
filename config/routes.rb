@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payform_items
 
-  map.resources :time_slots #TODO: What should this be nested under, if anything?
+  map.resources :time_slots, :member => {:rerender => :get} #TODO: What should this be nested under, if anything?
 
   map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get, :ajax_create => :post}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
