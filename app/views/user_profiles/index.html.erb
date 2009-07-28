@@ -3,17 +3,13 @@
 <table>
   <tr>
     <th>User</th>
-    <th>User Profile Entry</th>
   </tr>
   <% for user_profile in @user_profiles %>
     <tr>
-      <td><%=h user_profile.user %></td>
-      <td><%=h user_profile.user_profile_entry %></td>
+      <td><%=h user_profile.user.proper_name %></td>
       <td><%= link_to "Show", user_profile %></td>
       <td><%= link_to "Edit", edit_user_profile_path(user_profile) %></td>
-      <td><%= link_to "Destroy", user_profile, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New User Profile", new_user_profile_path %></p>

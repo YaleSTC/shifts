@@ -1,6 +1,4 @@
 class UserProfileEntriesController < ApplicationController
-  before_filter :load_profile_using_user_login
-
   def index
     @user_profile_entries = UserProfileEntry.all
     @user_profile_fields = UserProfileField.find(:all, :conditions => {:department_id => @department.id})
@@ -47,10 +45,6 @@ class UserProfileEntriesController < ApplicationController
     @user_profile_entry.destroy
     flash[:notice] = "Successfully destroyed user profile entry."
     redirect_to user_profile_entries_url
-  end
-private
-  def load_profile_using_user_login
-       @user_profile_entries = UserProfileEntry.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
   end
 end
 

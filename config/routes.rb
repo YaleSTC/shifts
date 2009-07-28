@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :user_profiles
 
   map.with_options :controller => 'first_run' do |f|
     f.first_app_config 'firstrun/first_app_config', :action => 'new_app_config', :method => 'get'
@@ -93,11 +92,11 @@ ActionController::Routing::Routes.draw do |map|
     departments.resources :categories
   end
 
-  map.resources :user_profile_fields do |fields|
-    fields.profile "/user_profile/:user_login", :controller => 'user_profile_fields', :action => 'profile', :path_prefix => ""
-    fields.resources :user_profile_entries
+  map.resources :user_profile_fields
+#  map.connect "user_profile/:user_login", :controller => 'user_profiles', :action => "show"
+  map.resources :user_profiles do |profile|
+    profile.resources :user_profile_entries
   end
-
 
   map.resources :punch_clock_sets
 

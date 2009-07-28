@@ -9,13 +9,13 @@ class UserObserver < ActiveRecord::Observer
                         :view_week => "",
                         :default_dept => user.departments.first.id
                         })
-# does user.departments.first suffice here? for some reason @department isn't calling anything
-    unless user.departments.first.user_profile_fields.empty?
-      user.departments.first.user_profile_fields.each do |field|
-        UserProfileEntry.create!({:user_id => user.id,
-                                 :user_profile_field_id => field.id})
+
+    profile = UserProfile.new({:user_id => user.id})
+      UserProfileField.find(:all, :conditions => {:department_id => user.departments.first.id}).each do |field|
+        UserProfileEntry.create!({:user_profile_id => profile.id,
+                                  :user_profile_field_id => field.id})
       end
-    end
+    profile.save!
   end
 
 end
