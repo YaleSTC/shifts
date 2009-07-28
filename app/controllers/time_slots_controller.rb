@@ -3,7 +3,7 @@ class TimeSlotsController < ApplicationController
   layout 'shifts'
 
   def index
-    @period_start = params[:date] ? Date.parse(params[:date])+1.day : Date.today
+    @period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
     #TODO:simplify this stuff:
     @dept_start_hour = current_department.department_config.schedule_start / 60
     @dept_end_hour = current_department.department_config.schedule_end / 60
@@ -20,6 +20,7 @@ class TimeSlotsController < ApplicationController
 
   def new
     @time_slot = TimeSlot.new
+    @period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
   end
 
   def create
@@ -51,8 +52,14 @@ class TimeSlotsController < ApplicationController
   def update
     @time_slot = TimeSlot.find(params[:id])
     if @time_slot.update_attributes(params[:time_slot])
-      flash[:notice] = "Successfully updated timeslot."
-      redirect_to @time_slot
+      if params[:wants] #AJAX (jEditable)
+        respond_to do |format|
+          format.js
+        end
+      else
+        flash[:notice] = "Successfully updated timeslot."
+        redirect_to @time_slot
+      end
     else
       render :action => 'edit'
     end

@@ -71,5 +71,14 @@ module ApplicationHelper
   def unobtrusive_datepicker_include_tags
     (javascript_include_tag 'datepicker') + (stylesheet_link_tag 'datepicker')
   end
+  
+  def time_format
+    '%I:%M%p'
+  end
+  
+  def date_format
+    '%B %d, %Y'
+  end
+
 end
 

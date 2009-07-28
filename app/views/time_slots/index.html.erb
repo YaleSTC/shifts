@@ -4,7 +4,7 @@
 
 <% title "Time Slots" %>
 
-<p><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path %></p>
+<p><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path(:date => params[:date]) %></p>
 
 <div class="note">
   <strong>Notes</strong>
@@ -16,3 +16,24 @@
 
 <%= render :partial => 'shifts/schedule/header' %>
 <%= render :partial => 'location', :collection => @department.locations %>
+
+<script>
+  $('li.click_to_edit').click(function (e) {
+    $(".tooltip").remove();
+    $(this).append("<div class='loading'>Loading...</div>");
+    
+    var id = $(this).attr('id').substring(8); //remove "timeslot" from id
+    // var x = e.pageX;
+    // var y = e.pageY
+    // alert("clicked timeslot #"+id+" @ ["+x+", "+y+"]");
+    <%#= remote_function :url => root_path, :test => 5 %>
+    $.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    
+    $(".loading").remove();
+    return false;
+  });
+  
+  function update_display(location_id){
+    //$.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+  };
+</script>
