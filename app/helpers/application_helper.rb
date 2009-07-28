@@ -2,7 +2,7 @@
 module ApplicationHelper
 
   def link_to_post_a_new_notice
-    link_to_unless_current('Post a new notice', new_notice_path(:height => 530, :width => 530), :class => "thickbox")
+    link_to_unless_current('Post a new notice', new_notice_path(:height => 530, :width => 530), :title => "Post a new notice", :class => "thickbox")
   end
 
   def link_toggle(id, name, speed = "medium")
@@ -71,11 +71,11 @@ module ApplicationHelper
   def unobtrusive_datepicker_include_tags
     (javascript_include_tag 'datepicker') + (stylesheet_link_tag 'datepicker')
   end
-  
+
   def time_format
     '%I:%M%p'
   end
-  
+
   def date_format
     '%B %d, %Y'
   end
