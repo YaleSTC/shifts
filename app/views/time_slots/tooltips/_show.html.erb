@@ -37,7 +37,7 @@
         submit: 'OK',
         indicator: '<img src="../images/loading.gif">',
         tooltip: 'Click to edit...',
-        callback: function(value, settings) {
+        callback: function() {
           rerender_timeslot();
         }
       }
@@ -54,7 +54,7 @@
       submit: 'OK',
       indicator: '<img src="../images/loading.gif">',
       tooltip: 'Click to edit...',
-      callback: function(value, settings) {
+      callback: function() {
         rerender_timeslot();
       }
     });
@@ -70,7 +70,7 @@
       submit: 'OK',
       indicator: '<img src="../images/loading.gif">',
       tooltip: 'Click to edit...',
-      callback: function(value, settings) {
+      callback: function() {
         rerender_timeslot();
       }
     });
@@ -78,7 +78,7 @@
     function rerender_timeslot(){
       $("#timeslot<%= @time_slot.id %>").remove();  // = time slot before edit
       // add new time slot to view
-      $.ajax({data:'authenticity_token=' + encodeURIComponent('aeLDKLwnw+Ktsb4040QxMv64f/1ibv4fXzIH4SN9Ars='), dataType:'script', type:'get', url:'<%= rerender_time_slot_path(@time_slot) %>'});
+      $.ajax({dataType:'script', type:'get', url:'<%= rerender_time_slot_path(@time_slot) %>'});
     }
   </script>
 </div>
