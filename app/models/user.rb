@@ -83,15 +83,6 @@ class User < ActiveRecord::Base
     failed
   end
 
-  def self.search(search_string)
-    self.all.each do |u|
-      if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
-        @found_user =  u
-      end
-    end
-    @found_user
-  end
-
   def permission_list
     roles.collect { |r| r.permissions }.flatten
   end
@@ -164,8 +155,8 @@ class User < ActiveRecord::Base
     [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
-  def self.find_by_names(name)
-    User.all.select{|u| u.name == name || u.proper_name == name || u.awesome_name == name}
+  def self.search(search_string)
+    User.all.select{|u| u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string}
   end
 
   # originally intended to enable polymorphism; is this still needed, guys? -ben
@@ -224,3 +215,4 @@ class User < ActiveRecord::Base
   end
 
 end
+
