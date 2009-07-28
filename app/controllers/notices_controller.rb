@@ -57,6 +57,7 @@ class NoticesController < ApplicationController
     @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.save
     set_sources
     respond_to do |format|
