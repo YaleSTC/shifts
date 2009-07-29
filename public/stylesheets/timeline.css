@@ -105,7 +105,7 @@ ul.events li.click_to_add_new {
     height: 100%;
 }
 ul.events li.click_to_add_new:hover {
-    background: #fff3f3;
+    background: #fffff3;
     position: absolute;
     height: 100%;
 }
@@ -113,17 +113,18 @@ ul.events li div.time-slot {
     width: auto;
     height: 100%;
     border-right: 1px solid #ccc;
+		overflow:hidden;
 }
-ul.events li a {
+ul.events li div.time-slot a {
     color: #999;
 }
-ul.events li:hover a:hover {
+ul.events li:hover div.time-slot a:hover {
     color: #999;
 }
 ul.events li:hover {
     background: #ddd;
 }
-ul.events li:hover a {
+ul.events li:hover div.time-slot a {
     color: #707070;
 }
 
@@ -148,7 +149,7 @@ img.left_arrow {
 
 div.loading{
 	position: absolute;
-	top: 0;
+	top: 100%;
 	left: 0;
 	z-index: 3;
 	display: block;
@@ -163,8 +164,9 @@ div.loading{
 }
 
 div.tooltip{
+	text-align: left;
 	position: absolute;
-	top: 0;
+	top: 100%;
 	left: 0;
 	z-index: 3;
 	display: block;
@@ -177,6 +179,10 @@ div.tooltip{
 	font-size: 12px;
 	border: 1px solid gray;
 }
+/*
+div.tooltip a{
+	color: #104e8b !important;
+}*/
 
 div.tooltip strong{
 	border: 0;
@@ -189,7 +195,7 @@ div.tooltip div.close_link{
 	top: 3px;
 	right: 3px;	
 	font-size: 10px;
-	padding: 2px;
+	margin: 0px;
 }
 
 span.jeditable{
@@ -200,4 +206,21 @@ span.jeditable:hover{
 	background: #ccc;
 	cursor: hand;
 	cursor: pointer;
+}
+
+div#AJAX_status{
+	position: fixed;
+	right: 5px;
+	top: 5px;
+	z-index: 1000;
+}
+
+div.AJAX_alert{
+	background: #fff;
+	padding: 5px;
+	border: 1px solid black;
+	font-size: 10pt;
+	text-align: center;
+	width: 150px;
+	z-index: 1000;
 }

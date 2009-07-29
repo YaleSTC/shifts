@@ -1,1 +1,1 @@
-page.insert_html :after, "timeslot#{params[:id]}", :partial => "time_slots/tooltips/show", :object => @time_slot
+page.insert_html :bottom, "timeslot#{params[:id]}", :partial => "time_slots/tooltips/show", :object => @time_slot
