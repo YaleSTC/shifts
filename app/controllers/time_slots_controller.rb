@@ -20,13 +20,13 @@ class TimeSlotsController < ApplicationController
 
   def new
     @time_slot = TimeSlot.new
-    @period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
   end
 
   def create
     @time_slots = []
     errors = []
-    date = params[:date] ? Time.parse(params[:date]) : Time.now.beginning_of_week - 1.day
+    date = (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
     for location_id in params[:location_ids]
       for day in params[:days]
         time_slot = TimeSlot.new(params[:time_slot])
@@ -63,6 +63,21 @@ class TimeSlotsController < ApplicationController
 
   def update
     @time_slot = TimeSlot.find(params[:id])
+    
+    # from AJAX edit view
+    # if start time is pushed forward beyond end time, preserve duration
+    if params[:wants] == 'start'
+      new_start = Time.parse(params[:time_slot][:start])
+      if new_start > @time_slot.end
+        params[:time_slot][:end] = new_start + @time_slot.duration
+      end
+    elsif params[:wants] == 'end'
+      new_end = Time.parse(params[:time_slot][:end])
+      if new_end < @time_slot.start
+        params[:time_slot][:start] = new_end - @time_slot.duration
+      end
+    end
+    
     if @time_slot.update_attributes(params[:time_slot])
       if params[:wants] #AJAX (jEditable)
         respond_to do |format|
