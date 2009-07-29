@@ -3,6 +3,7 @@ class TimeSlot < ActiveRecord::Base
   has_many :shifts, :through => :location
   
   validates_presence_of :start, :end, :location_id
+  validate :start_less_than_end
 
 #TODO: This half-written method will probably never be used : (
 #  def self.mass_create(slot_start, slot_end, days, locations, range_start, range_end)
@@ -29,5 +30,8 @@ class TimeSlot < ActiveRecord::Base
 
   private
 
+  def start_less_than_end
+    errors.add(:start, "must be earlier than end time") if (self.end <= start)
+  end
 
 end
