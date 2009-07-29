@@ -1,10 +1,14 @@
 <div class="tooltip">
+  <div class="close_link">
+    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+  </div>
   <% remote_form_for @time_slot do |f| %>
     <%= f.error_messages %>
     <p>
-        <strong>Days:</strong><br />
-      <% WEEK_DAYS.each_with_index do |day, i| %>
-        <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+      <% weekday = Time.parse(params[:date]).wday %>
+      <strong>Days:</strong><br />
+      <% SHORT_WEEK_DAYS.each_with_index do |day, i| %>
+        <%= check_box_tag "days[]", i, weekday == i, {:id => "days_#{i}"} %>
         <%= day %>
       <% end %>
     </p>
@@ -21,13 +25,14 @@
         <p>
           <strong><%= loc_group.name %></strong><br/>
           <% loc_group.locations.each do |loc| %>
-            <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+            <%= check_box_tag "location_ids[]", loc.id, params[:location_id] == loc.id.to_s, {:id => "location_#{loc.id}"} %>
             <%= loc.short_name %>
           <% end %>
         </p>
       <% end %>
     <%- end -%>
     </p>
+    <%= (hidden_field_tag 'date', params[:date]) if params[:date]%>
     <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create' } %></p>
   <% end %>
 </div>

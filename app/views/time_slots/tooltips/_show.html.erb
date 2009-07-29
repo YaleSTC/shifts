@@ -22,6 +22,11 @@
   </p>
   
   <script type="text/javascript">
+    // don't retrigger the action when clicking the tooltip :P
+    $(".tooltip").click(function(e){
+      e.stopPropagation();
+    });
+  
     $('#time_slot_location').editable(
       <%= time_slot_path(@time_slot).to_json %>,
       {

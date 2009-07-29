@@ -1,46 +1,17 @@
 /* New Shifts CSS (here for now, will be copied over once I remove old shifts stuff) */
 
-ul.events li.user {
-  background: #94C2F0;
-}
-ul.events li.user:hover {
-    background: #2985E0;
-}
-
-ul.events li.user_late {
-  background: #F0C294;
-}
-ul.events li.user_late:hover {
-    background: #E08529;
-}
-
-ul.events li.user_missed {
-  background: #E85E5E;
-}
-ul.events li.user_missed:hover {
-    background: #E02929;
-}
-
-ul.events li.shift {
-  background: #C2F094;
-}
-ul.events li.shift:hover {
-    background: #85E029;
-}
-
-ul.events li.shift_late {
-  background: #F0F094;
-}
-ul.events li.shift_late:hover {
-    background: #E0E029;
-}
-
-ul.events li.shift_missed {
-  background: #F09494;
-}
-ul.events li.shift_missed:hover {
-    background: #E85E5E;
-}
+ul.events li.user {                 background: #94C2F0; }
+ul.events li.user:hover {           background: #2985E0; }
+ul.events li.user_late {            background: #F0C294; }
+ul.events li.user_late:hover {      background: #E08529; }
+ul.events li.user_missed {          background: #E85E5E; }
+ul.events li.user_missed:hover {    background: #E02929; }
+ul.events li.shift {                background: #C2F094; }
+ul.events li.shift:hover {          background: #85E029; }
+ul.events li.shift_late {           background: #F0F094; }
+ul.events li.shift_late:hover {     background: #E0E029; }
+ul.events li.shift_missed {         background: #F09494; }
+ul.events li.shift_missed:hover {   background: #E85E5E; }
 
 
 
@@ -176,7 +147,7 @@ ul.events li.click_to_add_new {
     height: 100%;
 }
 ul.events li.click_to_add_new:hover {
-    background: #fff3f3;
+    background: #fffff3;
     position: absolute;
     height: 100%;
 }
@@ -184,6 +155,7 @@ ul.events li div.time-slot {
     width: auto;
     height: 100%;
     border-right: 1px solid #ccc;
+		overflow:hidden;
 }
 
 /* hack for vertical centering*/
@@ -207,7 +179,7 @@ img.left_arrow {
 
 div.loading{
 	position: absolute;
-	top: 0;
+	top: 100%;
 	left: 0;
 	z-index: 3;
 	display: block;
@@ -216,14 +188,15 @@ div.loading{
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
-  font-family: Verdana, Arial, serif;
+    font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }
 
 div.tooltip{
+	text-align: left;
 	position: absolute;
-	top: 0;
+	top: 100%;
 	left: 0;
 	z-index: 3;
 	display: block;
@@ -232,10 +205,14 @@ div.tooltip{
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
-  font-family: Verdana, Arial, serif;
+    font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }
+/*
+div.tooltip a{
+	color: #104e8b !important;
+}*/
 
 div.tooltip strong{
 	border: 0;
@@ -248,7 +225,7 @@ div.tooltip div.close_link{
 	top: 3px;
 	right: 3px;	
 	font-size: 10px;
-	padding: 2px;
+	margin: 0px;
 }
 
 span.jeditable{
