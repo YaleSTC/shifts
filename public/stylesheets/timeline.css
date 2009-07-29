@@ -113,6 +113,7 @@ ul.events li div.time-slot {
     width: auto;
     height: 100%;
     border-right: 1px solid #ccc;
+		overflow:hidden;
 }
 ul.events li div.time-slot a {
     color: #999;
