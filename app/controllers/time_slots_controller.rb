@@ -20,12 +20,12 @@ class TimeSlotsController < ApplicationController
 
   def new
     @time_slot = TimeSlot.new
-    @period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
   end
 
   def create
     errors = []
-    date = params[:date] ? Time.parse(params[:date]) : Time.now.beginning_of_week - 1.day
+    date = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
     for location_id in params[:location_ids]
       for day in params[:days]
         time_slot = TimeSlot.new(params[:time_slot])
