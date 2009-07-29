@@ -22,4 +22,3 @@ class DepartmentConfigsController < ApplicationController
   end
 
 end
-
