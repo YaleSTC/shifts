@@ -33,9 +33,7 @@
   <% end %>
 
   <% unless current_user.is_admin_of?(current_department) %>
-    <span id ="advanced_link">
-      <%= link_toggle "advanced_options_div", "Show/hide advanced options", "fast" %>
-    </span>
+      <%= link_to "Hide advanced options","#", :id => "toggle_link" %>
   <%end%>
 
   <div id="advanced_options_div">
