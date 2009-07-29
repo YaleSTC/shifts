@@ -29,7 +29,7 @@
     parent_element.append("<div class='loading'>Loading...</div>");
     
     var elementId = parent_element.attr('id');//.substring(8); //remove "timeslot" from id
-    $.ajax({data:"elementID="+elementId, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    $.ajax({data:"elementID="+elementId+"&time_slot[location_id]="+"2", dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
     
     $(".loading").remove();
   }

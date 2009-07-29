@@ -1,9 +1,12 @@
 <div class="tooltip">
+  <div class="close_link">
+    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+  </div>
   <% remote_form_for @time_slot do |f| %>
     <%= f.error_messages %>
     <p>
-        <strong>Days:</strong><br />
-      <% WEEK_DAYS.each_with_index do |day, i| %>
+      <strong>Days:</strong><br />
+      <% SHORT_WEEK_DAYS.each_with_index do |day, i| %>
         <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
         <%= day %>
       <% end %>
@@ -27,6 +30,7 @@
         </p>
       <% end %>
     <%- end -%>
+    <%= @time_slot.location%>
     </p>
     <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create' } %></p>
   <% end %>
