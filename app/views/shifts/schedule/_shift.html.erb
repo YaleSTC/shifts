@@ -1,9 +1,9 @@
-<li id="timeslot<%=shift.id%>" style="<%=shift_style(shift)%>">
+<li id="shift<%=shift.id%>" style="<%=shift_style(shift)%>" class="<%= shift.css_class(current_user) %>">
   <div class="time-slot">
     <div class="center_container" style="float:right">
       <div class="center_content">
-        <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => 116.0 / @table_height } if @right_overflow %>
-        <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => 116.0 / @table_height } if @left_overflow %>
+        <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => 116.0 / @table_height + 1 } if @right_overflow %>
+        <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => 116.0 / @table_height + 1 } if @left_overflow %>
       </div>
     </div>
     <div class="center_container">
