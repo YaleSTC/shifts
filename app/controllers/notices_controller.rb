@@ -97,7 +97,7 @@ class NoticesController < ApplicationController
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
-          user_source = User.find_by_names(l).first || User.find_by_login(l) || Role.find_by_name(l)
+          user_source = User.search(l).first || Role.find_by_name(l)
           user_source = Department.find_by_name(l) if current_user.is_admin_of(current_department)
           @notice.user_sources << user_source if user_source
         else

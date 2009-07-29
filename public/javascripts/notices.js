@@ -1,4 +1,5 @@
 jQuery(document).ready(function(){
+
     $("#department_wide_locations").click(function(){
     var dept_status = $(this).attr('checked');
         $("div#all_locations :checkbox").each(function(){
