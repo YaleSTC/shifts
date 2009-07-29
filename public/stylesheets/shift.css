@@ -218,27 +218,27 @@ tr.location_row a, tr.location_bar a{
   color: #104E8B;
 }
 
-td.user_time {
+td.user {
   background: #009ACD;
 }
 
-td.user_late_time {
+td.user_late {
   background: #ffcc00;
 }
 
-td.user_missed_time {
+td.user_missed {
   background: #a30013;
 }
 
-td.shift_time {
+td.shift {
   background: #7ac5cd;
 }
 
-td.shift_late_time {
+td.shift_late {
   background: #ffff66;
 }
 
-td.shift_missed_time {
+td.shift_missed {
   background: #ff3333;
 }
 
