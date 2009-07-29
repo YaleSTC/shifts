@@ -18,24 +18,40 @@
   </p>
 </div>
 <div style="width:65%; float:left">
-  <%# This is a good candidate for partializing, esp. if rewritten as divs %>
-  <strong>Data entries for this object:</strong>
-  <table class="data_table">
-    <%# this requires some rewriting, since data fields may change over time %>
-    <thead>
-      <tr>
-        <th>Time</th>
-        <% @data_object.data_type.data_fields.each do |df| %>
-          <th><%= df.name %></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render(:partial => "data_entry_row", 
-                 :collection => @data_entries.sort_by(&:updated_at).reverse,
-                 :locals => {:data_fields => @data_fields}) %>
-    </tbody>
-  </table>
-  <br>
-  <%= button_to "Add new data entry", new_data_object_data_entry_path(@data_object), :method => :get %>
+  <% unless @data_entries.empty? %>
+
+    <%= form_tag data_object_path(@data_object), :method => :get %>
+      Viewing 
+      <%= select_date(@data_entries.last.created_at, :prefix => 'start') %> 
+      to 
+      <%= select_date(@data_entries.first.created_at, :prefix => 'end') %>
+    <%= submit_tag 'Select Date Range' %><br/>
+    
+    
+    <p>
+      <strong>Data entries for this object:</strong><br/>
+      <br/>
+      <table class="data_table">
+        <%# this requires some rewriting, since data fields may change over time %>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <% @data_object.data_type.data_fields.each do |df| %>
+              <th><%= df.name %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render(:partial => "data_entry_row", 
+                     :collection => @data_entries,
+                     :locals => {:data_fields => @data_fields}) %>
+        </tbody>
+      </table>
+      <br>
+      <%= link_to "Add new data entry", new_data_object_data_entry_path(@data_object) %>
+    </p>
+
+  <% else %>
+    There are no data entries to view.
+  <% end %>
 </div>

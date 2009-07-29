@@ -1,1 +1,4 @@
 page.remove "timeslot#{params[:id]}"
+
+# display alert
+ajax_alert(page, "timeslot destroyed");
