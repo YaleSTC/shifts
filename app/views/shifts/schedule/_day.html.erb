@@ -1,26 +1,4 @@
-<%
-  load_day_variables(day)
-%>
-
-<% render :layout => 'shifts/schedule/day_table_layout' do %>
-  <% @loc_groups.each do |loc_group| %>
-    <% @loc_group = loc_group %><% #This hack is needed to make print_cell work and enable shift signup -ben %>
-    <% unless loc_group.locations.empty? %>
-      <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
-
-      <% unless loc_group == @loc_groups.last %>
-        <tr>
-          <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
-        </tr>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<%= (render :partial => 'shifts/list_of_shifts/shifts_outside_display_layout', :object => @shifts_outside_display) unless @shifts_outside_display.empty? %>
-
-
-<h1>Experimental Schedule (in progress):</h1>
+<h2><a name="<%= day.to_s %>"><%= day.to_s(:just_date_long) %></a></h2>
 
 <div class="timeline" style="height:116px; width: 100%;">
   <div class="days">

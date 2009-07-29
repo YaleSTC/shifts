@@ -17,65 +17,6 @@ module ShiftsHelper
     "width: #{width}%; left: #{left}%;"
   end
 
-  def load_schedule_variables()
-    #@bar_ids ||= {}
-    @blocks_per_hour ||= @department.department_config.blocks_per_hour
-    @blocks_per_day ||= @department.department_config.blocks_per_day
-    @block_length ||= @department.department_config.block_length
-    @display_unscheduled_shifts ||= @department.department_config.unscheduled_shifts
-    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}
-  end
-  
-  def load_day_variables(day)
-    @current_day = day
-    #@bar_ids[day] = []
-    @shifts_outside_display = []
-    
-    #prepare all the shift data. ALL OF IT. SO MUCH INFORMATION.
-    populate_all_locs(@loc_groups, @block_length)
-  end
-
-  def load_loc_group_variables(loc_group)
-    #@loc_group = loc_group
-  end
-
-  # TODO: this shit
-  def populate_all_locs(loc_groups, min_block)
-    #TODO: drastic optimization. we might try something like this:
-    #  -grab data from the database in large chunks
-    #  -use group_by to break it up into subgroups
-    #  -process the subgroups
-
-    #creates a bunch of arrays holding all the data we'll need to write for each location today
-    @scheduled_shifts = {}
-    @unscheduled_shifts = {}
-    @bar = {}
-    @people_count = {}
-    loc_groups.each do |loc_group|
-      # different location groups can have different start/end times...maybe bring this down
-      # further, to the individual location level?
-        # TODO: modify this once we implement department group settings
-      @day_start = Time.parse("0:00", @current_day) + @dept_start_hour*3600
-      @day_end = Time.parse("0:00", @current_day)  + @dept_end_hour*3600
-      @prioritized_location = {}
-      loc_group.locations.each do |loc|
-        if loc.active?
-          @open_at = apply_time_slot_in(loc, @day_start, @day_end, min_block)
-
-          shifts = Shift.find(:all, :conditions => {:location_id => loc}).select{|shift| ((shift.start < @day_end) and shift.end and (shift.end > @day_start))}.sort_by(&:start)
-          shifts = shifts.group_by(&:scheduled)
-          @scheduled_shifts[loc.object_id] = [shifts[true]]
-          @unscheduled_shifts[loc.object_id] = [shifts[false]]
-
-          people_count = loc.count_people_for(shifts[true], min_block)#count number of people working concurrently for each time block
-          @bar[loc.object_id] = create_bar(@day_start, @day_end, people_count, min_block, loc) unless @day_end < Time.now
-          #@bar_ids[@current_day] << loc.short_name + @current_day.to_s
-          @people_count[loc.object_id] = people_count
-        end
-      end
-    end
-  end
-
 
 
 
