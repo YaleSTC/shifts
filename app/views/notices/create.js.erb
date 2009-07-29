@@ -1,7 +1,6 @@
 <% if @notice.errors.empty? %>
   $('#all_notices').html("<%= escape_javascript(render :partial => 'all_notices') %>");
   <% if current_user.current_shift %>
-    alert("bloop");
     $('#message_center').html("<%= escape_javascript(render :partial => 'notices/message_center', :object => @report = current_user.current_shift.report) %>");
   <% end %>
   tb_remove();
