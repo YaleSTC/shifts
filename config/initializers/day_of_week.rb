@@ -1,4 +1,5 @@
 WEEK_DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+SHORT_WEEK_DAYS = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
 HOURS = Array.new(12){|i| i + 1}
 AM_PM = [["AM",0],["PM",1]]
 

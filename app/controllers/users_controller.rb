@@ -174,9 +174,6 @@ class UsersController < ApplicationController
           #don't modify any data, as this is probably a mistake
           failures << {:user=>u, :reason => "User already exists in this department!"}
         else
-          #TODO: Improve this, think about what should actually happen.
-          department_roles = @user.roles.select{|role| role.department == @department}
-          @user.roles -= department_roles
           @user.role = u[:role]
           #add user to new department
           @user.departments << @department unless @user.departments.include?(@department)
