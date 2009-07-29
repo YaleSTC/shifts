@@ -4,6 +4,8 @@ class DataEntry < ActiveRecord::Base
   validates_presence_of :data_object_id
   validates_presence_of :content
   
+  named_scope :on_day, lambda {|day| { :conditions => ['created_at > ? and created_at < ?', day.beginning_of_day, day.end_of_day]}}
+  named_scope :between_days, lambda {|first, last| { :conditions => ['created_at > ? and created_at < ?', first.beginning_of_day, last.end_of_day]}}
   
   # Write DataEntry content as a string with the following delimiters:
   #   Double semicolon between each datafield
@@ -15,7 +17,6 @@ class DataEntry < ActiveRecord::Base
   def write_content(fields)
     content = ""
     fields.each_pair do |key, value|
-#      DataField.find(key).validate_content(value)    # awaiting implementation
       if value.class == HashWithIndifferentAccess || value.class == Hash
         content << key.to_s + "::"
         value.each_pair do |k,v|
@@ -33,6 +34,7 @@ class DataEntry < ActiveRecord::Base
   end
 
 ### Virtual attributes ###
+
   # Returns all the data fields referenced by a given data entry
   def data_fields
     self.content.split(';;').map{|str| str.split('::')}.map{|a| a.first}.sort
@@ -60,8 +62,9 @@ class DataEntry < ActiveRecord::Base
     content_hash
   end
 
-  def self.atlocation (location)
-    DataEntry.all.select{|dataentry| dataentry.location == location }
-  end
+# Not only is this not in use, but it won't work, either -ben
+#  def self.atlocation (location)
+#    DataEntry.all.select{|dataentry| dataentry.location == location }
+#  end
 
 end

@@ -207,3 +207,20 @@ span.jeditable:hover{
 	cursor: hand;
 	cursor: pointer;
 }
+
+div#AJAX_status{
+	position: fixed;
+	right: 5px;
+	top: 5px;
+	z-index: 1000;
+}
+
+div.AJAX_alert{
+	background: #fff;
+	padding: 5px;
+	border: 1px solid black;
+	font-size: 10pt;
+	text-align: center;
+	width: 150px;
+	z-index: 1000;
+}
