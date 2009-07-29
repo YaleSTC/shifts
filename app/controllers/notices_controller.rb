@@ -33,7 +33,7 @@ class NoticesController < ApplicationController
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
-    @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    @notice.end_time = nil && @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.save(false)
     set_sources
     respond_to do |format|
@@ -56,9 +56,7 @@ class NoticesController < ApplicationController
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
-    @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-    @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-    @notice.save
+    @notice.end_time = nil && @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     set_sources
     respond_to do |format|
       if current_user.is_admin_of?(current_department) && @notice.save
