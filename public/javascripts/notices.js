@@ -35,5 +35,16 @@ jQuery(document).ready(function(){
         $("#start_time_choice_date, #notice_start_time, #notice_start_time-mm, #notice_start_time-dd, #notice_start_time_4i, #notice_start_time_5i, #notice_start_time_7i, #notice_end_time, #end_time_choice_date, #notice_end_time-mm, #notice_end_time-dd, #notice_end_time_4i, #notice_end_time_5i, #notice_end_time_7i").removeAttr("disabled");
         $("#time_choices").slideDown();
     });
+
+    $("#toggle_link").click(function(){
+        $("#advanced_options_div").toggle(function(){
+            if($(this).css("display")=="none") {
+                $("#toggle_link").html('Show advanced options');
+            } else {
+                $("#toggle_link").html('Hide advanced options');
+            }
+        });
+    });
+
 });
 
