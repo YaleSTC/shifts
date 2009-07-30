@@ -1,5 +1,7 @@
 jQuery(document).ready(function(){
 
+    $("#advanced_options_div").hide();
+
     $("#department_wide_locations").click(function(){
     var dept_status = $(this).attr('checked');
         $("div#all_locations :checkbox").each(function(){
