@@ -1,41 +1,39 @@
-<%= javascript_include_tag 'jquery', 'jquery-ui' %>
-<%= stylesheet_link_tag 'ui.datepicker' %>
+<div class="tooltip">
+  <div class="close_link">
+    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+  </div>
+  <%= unobtrusive_datepicker_include_tags %>
 
-<strong>Add New Shift</strong>
-<% form_for @shift do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :start %><br />
-    <%= f.text_field :start, :value => ( @shift.start ? (Time.parse(params[:shift][:start]).strftime("%m/%d/%Y") or @shift.start.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <!-- <script type="text/javascript">
-      $(this).prev().prev().datepicker()
-      alert($(this).prev().class);
-    </script> -->
-    <%= f.time_select :start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
-  </p>
-  <p>
-    <%= f.label :end %><br />
-    <%= f.text_field :end, :value => ( @shift.end ? (Time.parse(params[:shift][:end]).strftime("%m/%d/%Y") or @shift.end.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :end, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
-  </p>
-  <% if current_user.is_admin_of?(@department) %>
+  <% remote_form_for @shift do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%
+        start_time = (params[:date] ? Time.parse(params[:date]) : Date.today.to_time)
+      
+        if params[:xPercentage]
+          @dept_start_hour = current_department.department_config.schedule_start / 60
+          @dept_end_hour = current_department.department_config.schedule_end / 60
+          @hours_per_day = (@dept_end_hour - @dept_start_hour)
+          start_time += @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f) * 3600
+        end
+      %>
+      <%= f.label :start_time %><br />
+      <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => @department.department_config.time_increment %>
+    </p>
+    <p>
+      <%= f.label :end_time %><br />
+      <%= f.unobtrusive_datetime_picker :end, :default => start_time + 1.hour, :minute_step => @department.department_config.time_increment %>
+    </p>
+    <% if current_user.is_admin_of?(@department) %>
     <p>
       <%= f.label :user %><br />
       <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
     </p>
+    <% end %>
+    <p>
+      <%= f.label :location %><br />
+      <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, params[:location_id].to_i)%><br />
+    </p>
+    <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create' } %></p>
   <% end %>
-  <p>
-    <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
-  </p>
-  <%= f.hidden_field :power_signed_up, :value => :true if current_user.is_admin_of?(current_department) %>
-  <p>
-    <%= submit_to_remote 'update', 'Submit', :url => { :action => 'create' }, :after => "$('div.tooltip').hide()" %>
-  </p>
-<% end %>
-
-<script type="text/javascript">
-  $("#shift_start").datepicker();
-  $("#shift_end").datepicker();
-  //TODO: make this work for successive popups
-</script>
+</div>

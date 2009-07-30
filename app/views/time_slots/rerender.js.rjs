@@ -1,4 +1,5 @@
 page.insert_html :bottom, "location#{@time_slot.location.id}_#{@time_slot.start.strftime("%Y-%m-%d")}_events", :partial => "time_slots/time_slot", :object => @time_slot
+page["#timeslot#{@time_slot.id}"].visual_effect :highlight
 page << "$('.tooltip').remove();"
 page << "$('#timeslot#{@time_slot.id}').click(function (e) {popup_edit($(this)); return false;});"
 
