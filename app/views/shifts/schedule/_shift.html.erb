@@ -4,8 +4,8 @@
     <div style="float:right; width:100%;">
       <div class="center_container">
         <div class="center_content">
-          <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => 116.0 / @table_height + 1 } if @right_overflow %>
-          <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => 116.0 / @table_height + 1 } if @left_overflow %>
+          <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => @table_pixels / @table_height + 1 } if @right_overflow %>
+          <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => @table_pixels / @table_height + 1 } if @left_overflow %>
         </div>
       </div>
     </div>
