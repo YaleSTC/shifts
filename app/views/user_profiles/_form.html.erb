@@ -2,18 +2,18 @@
   <%= f.error_messages %>
   <p>
     <% if @user_profile_entries %>
-      <% @user_profile_entries.each do |@user_profile_entry| %>
+      <% @user_profile_entries.each do |entry| %>
 
-      <% args = @user_profile_entry.making_form %>
+      <% args = entry.making_form %>
       <p>
-        <%= label "user_profile_entries[#{@user_profile_entry.id}]", "#{@user_profile_entry.field_name}" %><br/>
+        <%= label "user_profile_entries[#{entry.id}]", "#{entry.field_name}" %><br/>
 
-        <% if ["text_field", "select", "text_area"].include? field.display_type %>
-          <%= send(field.display_type, *args) %>
-        <% elsif ["check_box", "radio_button"].include? field.display_type %>
+        <% if ["text_field", "select", "text_area"].include? entry.display_type %>
+          <%= send(entry.display_type, *args) %>
+        <% elsif ["check_box", "radio_button"].include? entry.display_type %>
           <% args.each do |options| %>
-            <%= send(field.display_type, *options) %>
-            <%= label "user_profile_fields[#{field.id}]", "#{options.last}" %>
+            <%= send(entry.display_type, *options) %>
+            <%= label "user_profile_entries[#{entry.id}]", "#{options.last}" %>
           <% end %>
         <% end %>
       <% end %>

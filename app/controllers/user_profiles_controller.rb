@@ -6,7 +6,7 @@ before_filter :user_login
   end
 
   def show
-    @user_profile = UserProfile.find(params[:user_login])
+    @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
   end
 
   def new
@@ -24,18 +24,19 @@ before_filter :user_login
   end
 
   def edit
-    @user_profile = UserProfile.find(params[:id])
-    @user_profile_entries = UserProfileEntry.find_by_user_profile_id(params[:id])
+    @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
+    @user_profile_entries = UserProfileEntry.find(:all, :conditions => { :user_profile_id => @user_profile.id})
   end
 
   def update
     @user_profile = UserProfile.find(params[:id])
-    if @user_profile.update_attributes(params[:user_profile])
-      flash[:notice] = "Successfully updated user profile."
-      redirect_to @user_profile
-    else
-      render :action => 'edit'
+    @user_profile_entries = params[:user_profile_entries]
+    @user_profile_entries.each do |entry_id, entry_content|
+      entry = UserProfileEntry.find(entry_id)
+      entry.content = entry_content[entry_id]
+      entry.save
     end
+      redirect_to user_profiles_path
   end
 
   def destroy
@@ -47,7 +48,7 @@ before_filter :user_login
 
 private
   def user_login
-    @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:user_login])})
+    @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
   end
 end
 
