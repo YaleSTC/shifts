@@ -12,8 +12,6 @@ class ReportsController < ApplicationController
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
-    #The following code is for data entries
-#    @report.data_objects.each{|obj| obj.data_entries.build}
   end
 
   def popup
@@ -35,7 +33,7 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
     # add a report item about logging in
-    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+    @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
     if @report.user==current_user && @report.save
       redirect_to @report
     else

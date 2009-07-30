@@ -2,12 +2,18 @@ class ShiftsController < ApplicationController
 
     helper :shifts
 
+
+#Currently broken if there are no locations in the department
   def index
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
 
     # for lists of shifts
-    @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
-    @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
+    unless current_department.locations.empty?
+      @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
+      @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
+    else
+      @active_shifts = @upcoming_shifts = []
+    end
     @subs_you_requested = SubRequest.all.select{|sub| sub.shift.user == current_user}.sort_by(&:start)
     @subs_you_can_take = current_user.available_sub_requests
 
@@ -57,10 +63,11 @@ class ShiftsController < ApplicationController
 
   end
 
-  def show
-    @shift = Shift.find(params[:id])
-    return unless require_department_membership(@shift.department)
-  end
+# Necessary? -ben
+#  def show
+#    @shift = Shift.find(params[:id])
+#    return unless require_department_membership(@shift.department)
+#  end
 
   def show_active
     @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
@@ -110,7 +117,7 @@ class ShiftsController < ApplicationController
         redirect_to @report and return if @report.save
       end
       respond_to do |format|
-        format.html{ flash[:notice] = "Successfully created shift."; redirect_to(@shift.scheduled ? @shift : new_shift_report_path(@shift))}
+        format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
         format.js
       end
     else
