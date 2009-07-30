@@ -66,6 +66,21 @@ class Shift < ActiveRecord::Base
   # = Object methods =
   # ==================
 
+  def css_class(current_user = nil)
+    if current_user and user == current_user
+      css_class = "user"
+    else
+      css_class = "shift"
+    end
+    if missed?
+      css_class += "_missed"
+    elsif (signed_in? ? report.arrived : Time.now) > start + department.department_config.grace_period*60 #seconds
+      css_class += "_late"
+    end
+    css_class
+  end
+
+
   def too_early?
     self.start > 30.minutes.from_now
   end

@@ -1,28 +1,41 @@
 <%
-  load_day_variables(day)
+rowcount = 1
+@location_rows = {}
+for location in @loc_groups.map{|lg| lg.locations }.flatten.uniq
+  shifts = Shift.on_day(day).in_location(location).scheduled.sort_by{|s| s.start }
+  rejected = []
+  @location_rows[location] = []
+  @location_rows[location][0] = []
+  location_row = 0
+  until shifts.empty?
+    shift = shifts.shift #get first shift. shift... haha. (array.shift is a function)
+    @location_rows[location][location_row] = [shift]
+    (0...shifts.length).each do
+      if shift.end > shifts.first.start
+        rejected << shifts.shift
+      else
+        shift = shifts.shift
+        @location_rows[location][location_row] << shift
+      end
+    end
+    location_row += 1
+    shifts = rejected
+  end
+  if location_row > 0
+    rowcount += location_row
+  else
+    rowcount += 1
+  end
+end
+
+@table_height = rowcount + @loc_groups.length * 0.25
+
 %>
 
-<% render :layout => 'shifts/schedule/day_table_layout' do %>
-  <% @loc_groups.each do |loc_group| %>
-    <% @loc_group = loc_group %><% #This hack is needed to make print_cell work and enable shift signup -ben %>
-    <% unless loc_group.locations.empty? %>
-      <%= render :partial => 'shifts/schedule/loc', :collection => loc_group.locations.select{|l| l.active}.sort_by(&:priority).reverse %>
 
-      <% unless loc_group == @loc_groups.last %>
-        <tr>
-          <td class="between_groups" colspan="<%=@blocks_per_day+1%>"></td>
-        </tr>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
+<h2><a name="<%= day.to_s %>"><%= day.to_s(:just_date_long) %></a></h2>
 
-<%= (render :partial => 'shifts/list_of_shifts/shifts_outside_display_layout', :object => @shifts_outside_display) unless @shifts_outside_display.empty? %>
-
-
-<h1>Experimental Schedule (in progress):</h1>
-
-<div class="timeline" style="height:116px; width: 100%;">
+<div class="timeline" style="height:<%= 26 * rowcount + rowcount*2 %>px; width: 100%;">
   <div class="days">
     <div class="day" style="height: <%= 100 / (@table_height)%>%;"></div>
     <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups %>
