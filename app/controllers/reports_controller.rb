@@ -12,8 +12,6 @@ class ReportsController < ApplicationController
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
-    #The following code is for data entries
-#    @report.data_objects.each{|obj| obj.data_entries.build}
   end
 
   def popup
