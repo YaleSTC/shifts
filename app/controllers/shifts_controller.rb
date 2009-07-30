@@ -7,7 +7,8 @@ class ShiftsController < ApplicationController
   def index
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
 
-    # for lists of shifts
+    # For lists of shifts
+    # Should probably optimize by swapping out Ruby sorts & queries for SQL s-ben
     unless current_department.locations.empty?
       @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
       @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]

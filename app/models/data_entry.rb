@@ -40,6 +40,7 @@ class DataEntry < ActiveRecord::Base
     self.content.split(';;').map{|str| str.split('::')}.map{|a| a.first}.sort
   end
 
+  # Good candidate for refactoring *shudder* -ben
   # Returns the data fields and user content in a set of {field => content} hashes
   def data_fields_with_contents
     content_arrays = self.content.split(';;').map{|str| str.split('::')}

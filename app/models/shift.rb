@@ -66,6 +66,10 @@ class Shift < ActiveRecord::Base
   # = Object methods =
   # ==================
 
+  def duration
+    self.end - self.start
+  end
+
   def css_class(current_user = nil)
     if current_user and user == current_user
       css_class = "user"
@@ -80,7 +84,6 @@ class Shift < ActiveRecord::Base
     css_class
   end
 
-
   def too_early?
     self.start > 30.minutes.from_now
   end
@@ -94,12 +97,12 @@ class Shift < ActiveRecord::Base
     #seconds
   end
 
-  #a shift has been signed in to if it has a report
+  # A shift has been signed in to if it has a report
   def signed_in?
     self.report
   end
 
-  #a shift has been signed in to if its shift report has been submitted
+  # A shift has been signed in to if its shift report has been submitted
   def submitted?
     self.report and self.report.departed
   end

@@ -23,10 +23,21 @@
   </p>
   <p>
     <%= f.label :view_week %><br />
-    <small>This controls what portion of the shift schedule you see, relative to
-    your pay period.  Your pay period is defined by your administrator.</small><br />
+    <small>This controls what portion of the shift schedule you see.</small><br />
     <%= f.select :view_week, UserConfig::VIEW_WEEK_OPTIONS %>
   </p>
+  <p>
+    <%= f.label :watched_data_objects %><br />
+    <small>This controls which data objects you will see updates for on your 
+    dashboard.</small><br />
+    <%= collection_multiple_select( :user_config, :watched_data_objects,
+                                    @data_objects, :id, :name,
+                                    :selected_items => @selected_data_objects) %>
+    <%#= tree_multiple_select( :user_config, :watched_data_objects, 
+                              :data_fields, :id, :name, 
+                              :child_method => :data_fields) %>
+    
+    
   <p><%= f.submit "Submit" %></p>
 <% end %>
 

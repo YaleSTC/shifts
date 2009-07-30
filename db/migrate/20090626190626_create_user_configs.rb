@@ -5,6 +5,7 @@ class CreateUserConfigs < ActiveRecord::Migration
       t.integer     :default_dept
       t.string      :view_loc_groups
       t.string      :view_week
+      t.string      :watched_data_objects
       t.timestamps
     end
   end
