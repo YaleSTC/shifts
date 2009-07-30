@@ -1,0 +1,4 @@
+<%= render :partial => "shifts/schedule/location", :locals => {:location => location_set } %>
+<%(0...(@location_rows[location_set].length-1)).each do %>
+  <div class="day" style="height: <%= 100 / (@table_height)%>%;"></div>
+<% end %>
