@@ -50,9 +50,15 @@ class TimeSlotsController < ApplicationController
         redirect_to time_slots_path
       end
       format.js do
-        @dept_start_hour = current_department.department_config.schedule_start / 60
-        @dept_end_hour = current_department.department_config.schedule_end / 60
-        @hours_per_day = (@dept_end_hour - @dept_start_hour)
+        if errors.empty?
+          @dept_start_hour = current_department.department_config.schedule_start / 60
+          @dept_end_hour = current_department.department_config.schedule_end / 60
+          @hours_per_day = (@dept_end_hour - @dept_start_hour)
+        else
+          render :update do |page|
+            ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors)
+          end
+        end
       end
     end
   end
@@ -88,7 +94,14 @@ class TimeSlotsController < ApplicationController
         redirect_to @time_slot
       end
     else
-      render :action => 'edit'
+      respond_to do |format|
+        format.html{render :action => 'edit'}
+        format.js do
+          render :update do |page|
+            ajax_alert(page, "<strong>error:</strong> updated timeslot could not be saved")
+          end
+        end
+      end
     end
   end
 
