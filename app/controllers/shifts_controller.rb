@@ -138,8 +138,10 @@ class ShiftsController < ApplicationController
     @shift = Shift.find(params[:id])
     return unless require_owner(@shift)
     @shift.destroy
-    flash[:notice] = "Successfully destroyed shift."
-    redirect_to shifts_url
+    respond_to do |format|
+      format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}
+      format.js #remove partial from view
+    end
   end
 end
 

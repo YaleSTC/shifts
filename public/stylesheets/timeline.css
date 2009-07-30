@@ -171,7 +171,7 @@ div.center_content {
 }
 
 img.right_arrow {
-    float:right; 
+    float:right;
 }
 img.left_arrow {
     float:left;
@@ -188,7 +188,7 @@ div.loading{
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
-    font-family: Verdana, Arial, serif;
+  font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }
@@ -196,16 +196,18 @@ div.loading{
 div.tooltip{
 	text-align: left;
 	position: absolute;
+	float: left;
 	top: 100%;
 	left: 0;
-	z-index: 3;
+	z-index: 50;
 	display: block;
 	background: #ddd;
 	color: #000;
 	padding: 5px;
+	min-width: 200px;
 	font-style: normal;
 	font-weight: normal;
-    font-family: Verdana, Arial, serif;
+  font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }

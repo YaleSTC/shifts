@@ -1,0 +1,1 @@
+page.insert_html :bottom, "shift#{params[:id]}", :partial => "shifts/tooltips/show", :object => @shift
