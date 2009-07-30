@@ -5,7 +5,7 @@
   <br />
   <fieldset class = "index">
     <legend>Content:</legend>
-    <%= f.text_area :content, :size => "60x10" %>
+    <%= f.text_area :content, :size => "60x5" %>
   </fieldset>
   <% if current_user.is_admin_of?(current_department) %>
     <br />
@@ -33,12 +33,14 @@
   <% end %>
 
   <% unless current_user.is_admin_of?(current_department) %>
-      <%= link_to "Hide advanced options","#", :id => "toggle_link" %>
-  <%end%>
+      <%= link_to "Show advanced options","#", :id => "toggle_link" %>
 
-  <div id="advanced_options_div">
-    <%= render :partial => 'advanced_options'%>
+      <div id="advanced_options_div">
+  <%end%>
+      <%= render :partial => 'advanced_options'%>
+  <% unless current_user.is_admin_of?(current_department) %>
   </div>
+  <% end %>
 
   <br />
   <%= f.submit 'Save' %>
