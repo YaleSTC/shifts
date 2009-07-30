@@ -37,6 +37,14 @@
   </fieldset><br />
 <% end %>
 
+<% unless @watched_objects.empty? %>
+  <br />
+  <fieldset class="index">
+    <legend>Recent updates for your watched data objects</legend>
+      <%= render :partial => 'data_objects/watched_object', :collection => @watched_objects %>
+  </fieldset><br />
+<% end %>
+
 <% unless current_user.user_config.view_loc_groups.empty? %>
 <fieldset class="index">
   <legend>Today's schedule</legend>

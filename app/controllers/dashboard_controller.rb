@@ -4,6 +4,8 @@ class DashboardController < ApplicationController
   def index
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
     @most_recent_payform= current_user.payforms.sort_by(&:date).last
+    @watched_objects = current_user.user_config.watched_data_objects.split(", ").map{|id| DataObject.find(id)}.flatten
+
     @dept_start_hour = current_department.department_config.schedule_start / 60
     @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day = (@dept_end_hour - @dept_start_hour)

@@ -1,0 +1,23 @@
+<div>
+  <table id=<%= "watched_objects_#{watched_object.id}" %> class="data_table"> 
+    <thead>
+      <tr>
+        <th>Name</th>
+        <% watched_object.data_fields.each do |df| %>
+          <th><%= df.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% entry = watched_object.data_entries.last.data_fields_with_contents unless watched_object.data_entries.empty? %>
+      <tr>
+        <td><%= link_to watched_object.name, watched_object %></td>
+        <% watched_object.data_fields.each do |df| %>
+          <td>
+            <%= entry[df.id.to_s] if entry %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
