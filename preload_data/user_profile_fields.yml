@@ -1,0 +1,37 @@
+---
+user_profile_field_01:
+  id: 01
+  name: "Phone Number"
+  display_type: "text_field"
+  values: "text"
+  public: t
+  user_editable: t
+user_profile_field_02:
+  id: 02
+  name: "About Me"
+  display_type: "text_area"
+  values:
+  public: t
+  user_editable: t
+user_profile_field_03:
+  id: 03
+  name: "Primary Operating system"
+  display_type: "select"
+  values: "Mac, Windows, Linux"
+  public: t
+  user_editable: t
+user_profile_field_04:
+  id: 04
+  name: "Likes Peas?"
+  display_type: "radio_button"
+  values: "yes, no"
+  public: t
+  user_editable: t
+user_profile_field_05:
+  id: 05
+  name: "Favorite Fruits"
+  display_type: "check_box"
+  values: "Apples, Bananas, Strawberries, Mangos"
+  public: t
+  user_editable: t
+
