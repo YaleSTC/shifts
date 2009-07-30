@@ -1,4 +1,3 @@
 <ul class="events" style="height: <%= 100 / (@table_height)%>%;">
-  <% shifts = Shift.on_day(day).in_location(location_row).scheduled -%>
-  <%= render :partial => "shifts/schedule/shift", :collection => shifts -%>
+  <%= render :partial => "shifts/schedule/shift", :collection => location_row -%>
 </ul>
