@@ -1,6 +1,7 @@
 # Add commonly used time format here. Usage: time_object.to_s(:am_pm) or :short_name, or etc. -H
 my_formats = {
   :am_pm => "%I:%M %p",
+  :am_pm_long => "%b %d, %Y %I:%M %p",
   :twelve_hour => "%I:%M",
   :short_name => "%a, %b %d, %I:%M %p",
   :just_date => "%a, %b %d",

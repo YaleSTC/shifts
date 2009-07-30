@@ -8,9 +8,9 @@
   </p>
   <p>
     <%= f.label "Use LDAP?" %> <br />
-    <%= f.check_box :use_ldap %>
+    <%= f.check_box :use_ldap, {:id => "ldap_check_box"} %>
   </p>
-<div class ="ldap_options"
+<div class="ldap_fields" <%unless @app_config.use_ldap%>id="hide"<%end%>>
   <p>
     <%= f.label :ldap_host_address %> <br />
     <%= f.text_field :ldap_host_address %>
@@ -48,4 +48,11 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
+<script>
+$('#hide').toggle();
+$('#ldap_check_box').click(function () {
+  $('.ldap_fields').toggle();
+});
+</script>
 
