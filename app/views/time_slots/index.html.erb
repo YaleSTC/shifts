@@ -74,4 +74,14 @@
     }
     return x;    
   }
+  
+  //hide tooltip upon hitting escape
+  $(document).keypress(
+    function (e){
+      if (e.which == 0)
+      {
+        $(".tooltip").remove();
+      }
+    }
+  );
 </script>
