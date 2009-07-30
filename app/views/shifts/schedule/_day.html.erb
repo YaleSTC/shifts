@@ -61,7 +61,7 @@ end
 
 <% unless @hidden_shifts.empty? %>
   <h3>Hidden Shifts On <%= day.to_s(:just_date_long) %>:</h3>
-  <ul>
+  <ul class="events">
     <%= render :partial => "shifts/schedule/hidden_shift", :collection => @hidden_shifts %>
   </ul>
 <% end %>
