@@ -51,7 +51,7 @@
     
     var elementID = parent_element.attr('id');
     var params = elementID.split("_", 2);
-    var locationID = params[0].substring(5); //remove "shift" from id
+    var locationID = params[0].substring(8); //remove "location" from id
     
     //cursor position magic
     var relX = e.pageX - getXOffset(raw_element);
