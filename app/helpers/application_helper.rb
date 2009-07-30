@@ -2,7 +2,9 @@
 module ApplicationHelper
 
   def link_to_post_a_new_notice
-    link_to_unless_current('Post a new notice', new_notice_path(:height => 530, :width => 530), :title => "Post a new notice", :class => "thickbox")
+    height = 200
+    height = 540 if current_user.is_admin_of?(current_department)
+    link_to_unless_current('Post a new notice', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
   end
 
   def link_toggle(id, name, speed = "medium")
