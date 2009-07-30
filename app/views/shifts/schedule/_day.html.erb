@@ -1,19 +1,36 @@
 <%
-for loc_group in @loc_groups do
-  for location in loc_group.locations
-    
-  
-  
+rowcount = 1
+@location_rows = {}
+for location in @loc_groups.map{|lg| lg.locations }.flatten.uniq
+  shifts = Shift.on_day(day).in_location(location).scheduled.sort_by{|s| s.start }
+  rejected = []
+  @location_rows[location] = []
+  location_row = 0
+  until shifts.empty?
+    shift = shifts.shift #get first shift. shift... haha. (array.shift is a function)
+    @location_rows[location][location_row] = [shift]
+    (0...shifts.length).each do
+      if shift.end > shifts.first.start
+        rejected << shifts.shift
+      else
+        shift = shifts.shift
+        @location_rows[location][location_row] << shift
+      end
+    end
+    location_row += 1
+    shifts = rejected
   end
+  rowcount += location_row
 end
 
+@table_height = rowcount + @loc_groups.length * 0.25
 
 %>
 
 
 <h2><a name="<%= day.to_s %>"><%= day.to_s(:just_date_long) %></a></h2>
 
-<div class="timeline" style="height:116px; width: 100%;">
+<div class="timeline" style="height:<%= 26 * rowcount %>px; width: 100%;">
   <div class="days">
     <div class="day" style="height: <%= 100 / (@table_height)%>%;"></div>
     <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups %>
