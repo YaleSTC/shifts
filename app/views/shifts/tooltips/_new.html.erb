@@ -1,59 +1,26 @@
-<%= stylesheet_link_tag 'ui.datepicker' %>
+<div class="tooltip">
+  <%= unobtrusive_datepicker_include_tags %>
 
-<strong>Add New Shift</strong>
-<% form_for @shift do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :start %><br />
-    <%= f.text_field :start, :value => ( @shift.start ? (Time.parse(params[:shift][:start]).strftime("%m/%d/%Y") or @shift.start.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :start, :minute_step => @department.department_config.time_increment, :twelve_hour => true %>
-  </p>
-  <p>
-    <%= f.label :end %><br />
-    <%= f.text_field :end, :value => ( @shift.end ? (Time.parse(params[:shift][:end]).strftime("%m/%d/%Y") or @shift.end.strftime("%m/%d/%Y")) : Time.now.strftime("%m/%d/%Y")), :size => 10 %>
-    <%= f.time_select :end, :minute_step => @department.department_config.time_increment, :twelve_hour => true<%= unobtrusive_datepicker_include_tags %>
-
-    <% form_for @shift do |f| %>
-      <%= f.error_messages %>
-      <p>
-        <%= f.label :start_time %><br />
-        <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment %>
-      </p>
-      <p>
-        <%= f.label :end_time %><br />
-        <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
-      </p>
-      <% if current_user.is_admin_of?(@department) %>
-      <p>
-        <%= f.label :user %><br />
-        <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
-      </p>
-      <% end %>
-      <p>
-        <%= f.label :location %><br />
-        <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
-      </p>
-      <p><%= f.submit "Submit" %></p>
-    <% end %> %>
-  </p>
-  <% if current_user.is_admin_of?(@department) %>
+  <% form_for @shift do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label :start_time %><br />
+      <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment %>
+    </p>
+    <p>
+      <%= f.label :end_time %><br />
+      <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
+    </p>
+    <% if current_user.is_admin_of?(@department) %>
     <p>
       <%= f.label :user %><br />
-      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
     </p>
+    <% end %>
+    <p>
+      <%= f.label :location %><br />
+      <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
+    </p>
+    <p><%= f.submit "Submit" %></p>
   <% end %>
-  <p>
-    <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
-  </p>
-  <%= f.hidden_field :power_signed_up, :value => :true if current_user.is_admin_of?(current_department) %>
-  <p>
-    <%= submit_to_remote 'update', 'Submit', :url => { :action => 'create' }, :after => "$('div.tooltip').hide()" %>
-  </p>
-<% end %>
-
-<script type="text/javascript">
-  $("#shift_start").datepicker();
-  $("#shift_end").datepicker();
-  //TODO: make this work for successive popups
-</script>
+</div>
