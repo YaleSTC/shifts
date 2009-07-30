@@ -1,3 +1,3 @@
-<ul class="events" style="height: <%= 100 / (@table_height)%>%;">
+<ul class="events" style="height: <%= @table_pixels / (@table_height)%>px;">
   <%= render :partial => "shifts/schedule/shift", :collection => location_row -%>
 </ul>
