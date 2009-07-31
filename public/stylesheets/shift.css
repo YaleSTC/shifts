@@ -12,19 +12,20 @@ ul li.shift_late:hover {     background: #E8E85E; }
 ul li.shift_missed {         background: #F09494; }
 ul li.shift_missed:hover {   background: #E85E5E; }
 
+/* HIDDEN SHIFTS */
 ul.hidden_shifts {
     list-style-type: none;
-    border: 1px solid #ccc;
-    border-bottom: 0px solid #ccc;
     margin: 0px 0px 30px 0px;
     width: 100%;
+    display: block;
 }
 ul.hidden_shifts li {
     font-size: 1em;
     margin: 0px 0px;
-    padding: 0px 0px;
-    border-bottom: 1px solid #ccc;
-    width:auto;
+    padding: 2px 2px;
+    border: 1px solid #ccc;
+    width:24%;
+    float:left;
 }
 
 
