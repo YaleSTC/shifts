@@ -1,18 +1,3 @@
-/* New Shifts CSS (here for now, will be copied over once I remove old shifts stuff) */
-
-ul.events li.user {                 background: #94C2F0; }
-ul.events li.user:hover {           background: #2985E0; }
-ul.events li.user_late {            background: #F0C294; }
-ul.events li.user_late:hover {      background: #E08529; }
-ul.events li.user_missed {          background: #E85E5E; }
-ul.events li.user_missed:hover {    background: #E02929; }
-ul.events li.shift {                background: #C2F094; }
-ul.events li.shift:hover {          background: #85E029; }
-ul.events li.shift_late {           background: #F0F094; }
-ul.events li.shift_late:hover {     background: #E0E029; }
-ul.events li.shift_missed {         background: #F09494; }
-ul.events li.shift_missed:hover {   background: #E85E5E; }
-
 
 ul.events li {                        color: #000; }
 ul.events li.timeslot {
