@@ -1,6 +1,6 @@
 @data
 @cw
-@passing
+#@passing
 @breaking
 Feature: data object
   In order to manage data objects

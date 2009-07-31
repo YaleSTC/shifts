@@ -17,7 +17,7 @@ Feature: payform admin
       | 2009-05-23 | Hogwarts   | Hermione   | Granger        | true      | true     | nil   |
       | 2009-05-16 | Hogwarts   | Hermione   | Granger        | true      | true     | true  |
     And I am on the payforms page
-@passing
+#@passing
   Scenario: Viewing payforms
     Then I should see "Harry Potter" under "User" in column 1
     And I should see "2009-06-13" under "Unsubmitted" in column 2
@@ -59,7 +59,7 @@ Feature: payform admin
     Then I should see "1 active clock"
     And I should see "Harry Potter"
     And I should see "Hermione Granger"
-@passing
+#@passing
   Scenario: Approving payforms
     When I follow "2009-06-06"
     And I follow "Approve Payform"
@@ -67,7 +67,7 @@ Feature: payform admin
     And I should not see "not"
     When I am on the payforms page
     Then I should see "2009-06-06" under "Approved" in column 4
-@passing
+#@passing
   Scenario: Printing Individual payforms
     When I follow "2009-05-23"
     And I follow "Print Payform"
@@ -81,7 +81,7 @@ Feature: payform admin
     Then I should have a pdf with "Week Ending: May 23, 2009" in it
     Then I should have a pdf with "Total Hours: 0" in it
     Then I should have a pdf with "This payform was approved by #{@current_user} at" in it
-@passing
+#@passing
   Scenario: Printing Sets of Payforms
    Given I have the following payform items
       | category  | user_login | hours | description        | date        |
@@ -103,7 +103,7 @@ Feature: payform admin
     Then I should have a pdf with "caught the snitch" in it
     Then I should have a pdf with "Total Hours: 1.5" in it
     Then I should have a pdf with "This payform was approved by #{@current_user} at" in it
-@passing
+#@passing
   Scenario: Pruning Empty Payforms
    Given I have the following payform items
       | category  | user_login | hours | description        | date          |
