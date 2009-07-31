@@ -1,4 +1,4 @@
-<li id="shift<%=hidden_shift.id%>" class="click_to_show">
+<li id="shift<%=hidden_shift.id%>" class="<%= hidden_shift.css_class(current_user) %> click_to_show">
   <strong><%= hidden_shift.user.name %>:</strong>
   <%= hidden_shift.start.to_s(:am_pm) %> - <%= hidden_shift.end.to_s(:am_pm) %>
   (<%= hidden_shift.location.short_name %>)
