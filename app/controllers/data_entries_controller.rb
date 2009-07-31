@@ -28,7 +28,17 @@ class DataEntriesController < ApplicationController
       redirect_to(access_denied_path) and return false
     end
     @data_entry.write_content(params[:data_fields]) 
-    flash[:notice] = @data_entry.save ? "Successfully updated #{@data_entry.data_object.name}." : "Could not update #{@data_entry.data_object.name}."
+    if @data_entry.save
+      flash[:notice] = "Successfully updated #{@data_entry.data_object.name}."
+      if report = current_user.current_shift.report
+        content = "Updated #{@data_entry.data_object.name}."
+        @data_entry.data_fields_with_contents.each {|entry| content += "  #{DataField.find(entry.first).name.humanize}: #{entry.second}."}
+        report.report_items << ReportItem.new(:time => Time.now, :content => content, :ip_address => request.remote_ip)
+      else
+      end
+    else
+      flash[:error] = "Could not update #{@data_entry.data_object.name}."
+    end
     redirect_to params[:thickbox] == "true" ? report_path(current_user.current_shift.report) : data_object_path(@data_entry.data_object)
   end
   
