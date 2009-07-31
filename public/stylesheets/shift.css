@@ -1,16 +1,34 @@
 /*SHIFT COLORS*/
-ul.events li.user {                 background: #94C2F0; font-weight: bold; }
-ul.events li.user:hover {           background: #2985E0; }
-ul.events li.user_late {            background: #FFCA7A; font-weight: bold;}
-ul.events li.user_late:hover {      background: #FFB13D; }
-ul.events li.user_missed {          background: #E85E5E; font-weight: bold;}
-ul.events li.user_missed:hover {    background: #E02929; }
-ul.events li.shift {                background: #C2F094; }
-ul.events li.shift:hover {          background: #85E029; }
-ul.events li.shift_late {           background: #F0F094; }
-ul.events li.shift_late:hover {     background: #E8E85E; }
-ul.events li.shift_missed {         background: #F09494; }
-ul.events li.shift_missed:hover {   background: #E85E5E; }
+ul li.user {                 background: #94C2F0; font-weight: bold; }
+ul li.user:hover {           background: #2985E0; }
+ul li.user_late {            background: #FFCA7A; font-weight: bold;}
+ul li.user_late:hover {      background: #FFB13D; }
+ul li.user_missed {          background: #E85E5E; font-weight: bold;}
+ul li.user_missed:hover {    background: #E02929; }
+ul li.shift {                background: #C2F094; }
+ul li.shift:hover {          background: #85E029; }
+ul li.shift_late {           background: #F0F094; }
+ul li.shift_late:hover {     background: #E8E85E; }
+ul li.shift_missed {         background: #F09494; }
+ul li.shift_missed:hover {   background: #E85E5E; }
+
+/* HIDDEN SHIFTS */
+ul.hidden_shifts {
+    list-style-type: none;
+    margin: 0px 0px 30px 0px;
+    width: 100%;
+    display: block;
+}
+ul.hidden_shifts li {
+    font-size: 1em;
+    margin: 0px 0px;
+    padding: 2px 2px;
+    border: 1px solid #ccc;
+    text-align: center;
+    width:24%;
+    float:left;
+}
+
 
 /* HEADERS AND FOOTERS*/
 div.shifts_bottom {

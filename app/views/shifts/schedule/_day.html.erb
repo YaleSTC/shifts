@@ -1,48 +1,4 @@
-<%
-rowcount = 1
-@hidden_shifts = []
-@location_rows = {}
-for location in @loc_groups.map{|lg| lg.locations }.flatten.uniq
-  shifts = Shift.on_day(day).in_location(location).scheduled.sort_by{|s| s.start }
-  rejected = []
-  @location_rows[location] = []
-  @location_rows[location][0] = []
-  location_row = 0
-  until shifts.empty?
-    shift = shifts.shift #get first shift. shift... haha. (array.shift is a function)
-    @location_rows[location][location_row] = []
-    if ((shift.start < day.beginning_of_day + @dept_start_hour.hours) && (shift.end < day.beginning_of_day + @dept_start_hour.hours)) ||
-       ((shift.start > day.beginning_of_day + @dept_end_hour.hours)   && (shift.end > day.beginning_of_day + @dept_end_hour.hours))
-      @hidden_shifts << shift
-    else
-      @location_rows[location][location_row] << shift
-    end
-    (0...shifts.length).each do
-      if ((shifts.first.start < day.beginning_of_day + @dept_start_hour.hours) && (shifts.first.end < day.beginning_of_day + @dept_start_hour.hours)) ||
-         ((shifts.first.start > day.beginning_of_day + @dept_end_hour.hours)   && (shifts.first.end > day.beginning_of_day + @dept_end_hour.hours))
-        shift = shifts.shift
-        @hidden_shifts << shift
-      elsif shift.end > shifts.first.start
-        rejected << shifts.shift
-      else
-        shift = shifts.shift
-        @location_rows[location][location_row] << shift
-      end
-    end
-    location_row += 1
-    shifts = rejected
-  end
-  if location_row > 0
-    rowcount += location_row
-  else
-    rowcount += 1
-  end
-end
-
-@table_height = rowcount + @loc_groups.length * 0.25
-@table_pixels = 26 * rowcount + rowcount+1
-%>
-
+<% day_preprocessing(day) %>
 
 <h2><a name="<%= day.to_s %>"><%= day.to_s(:just_date_long) %></a></h2>
 
@@ -61,7 +17,7 @@ end
 
 <% unless @hidden_shifts.empty? %>
   <h3>Hidden Shifts On <%= day.to_s(:just_date_long) %>:</h3>
-  <ul class="events">
+  <ul class="hidden_shifts">
     <%= render :partial => "shifts/schedule/hidden_shift", :collection => @hidden_shifts %>
   </ul>
 <% end %>

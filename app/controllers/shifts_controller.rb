@@ -45,7 +45,8 @@ class ShiftsController < ApplicationController
     @dept_start_hour = current_department.department_config.schedule_start / 60
     @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
-    @blocks_per_hour = 60/current_department.department_config.time_increment.to_f
+    @time_increment = current_department.department_config.time_increment
+    @blocks_per_hour = 60/@time_increment.to_f
 
     @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
   end
