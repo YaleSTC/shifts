@@ -33,7 +33,8 @@ class NoticesController < ApplicationController
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
-    @notice.end_time = nil && @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.save(false)
     set_sources
     respond_to do |format|
@@ -56,7 +57,8 @@ class NoticesController < ApplicationController
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
-    @notice.end_time = nil && @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     set_sources
     respond_to do |format|
       if current_user.is_admin_of?(current_department) && @notice.save
@@ -110,8 +112,9 @@ class NoticesController < ApplicationController
       @notice.locations << current_department.loc_groups.collect {|lg| lg.locations}
     elsif params[:for_location_groups]
       params[:for_location_groups].each do |loc_group|
-        @notice.loc_groups << LocGroup.find_by_id(loc_group)
-        @notice.locations << loc_group.collect{|lg| lg.locations}
+        lg = LocGroup.find_by_id(loc_group)
+        @notice.loc_groups << lg
+        @notice.locations << lg.locations
       end
     end
     if params[:for_locations]
