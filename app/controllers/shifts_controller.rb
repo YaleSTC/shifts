@@ -165,5 +165,21 @@ class ShiftsController < ApplicationController
       format.js #remove partial from view
     end
   end
+  
+  def rerender
+    #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+    #TODO:simplify this stuff:
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    #@block_length = current_department.department_config.time_increment
+    #@blocks_per_hour = 60/@block_length.to_f
+    #@blocks_per_day = @hours_per_day * @blocks_per_hour
+    #@hidden_timeslots = [] #for timeslots that don't show up on the view
+    @shift = Shift.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
 end
 
