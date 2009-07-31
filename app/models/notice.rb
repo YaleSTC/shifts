@@ -17,11 +17,7 @@ class Notice < ActiveRecord::Base
   named_scope :stickies, lambda {{ :conditions => ["is_sticky = ?", true]}}
   named_scope :announcements, lambda {{ :conditions => ["is_sticky = ?", false]}}
 
-  #named_scope :active, lambda {{ :conditions => ["start_time < ? AND (end_time > ? OR indefinite = ?)", Time.now.utc, Time.now.utc, true] }}
-
   def self.active
-    #self.find(:all, :conditions => ["start_time <= ? AND (end_time > ? OR indefinite = ?)", Time.now.utc, Time.now.utc, true])
-    #self.all
     (self.announcements.active_with_end + self.announcements.active_without_end).uniq.sort_by{|n| n.start_time}.reverse +
     (self.stickies.active_with_end + self.stickies.active_without_end).uniq.sort_by{|n| n.start_time}.reverse
   end

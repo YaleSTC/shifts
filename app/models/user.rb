@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
   end
 
   def current_shift
-    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
+    Shift.find(:first, :conditions=>{:user_id => self.id, :signed_in => true})
   end
 
   # Returns all the loc groups a user can view within a given department
