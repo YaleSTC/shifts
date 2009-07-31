@@ -1,6 +1,7 @@
 class DataObjectsController < ApplicationController
 
 # Needs views revised for non-ajax degradeability -ben
+# Note: there are good reasons not to do this by merely hiding the group_by divs
   def index   
     @data_objects = @department.data_objects
     @group_type_options = options_for_group_type
@@ -18,17 +19,25 @@ class DataObjectsController < ApplicationController
     end
     @types_objects_hash = @data_objects.group_by &:data_type
     respond_to do |format|
-      format.html
+      format.html #{ update_page{|page| page.hide 'submit'}}
       format.js
     end
   end
   
-# This needs its views rewritten to enable viewing a subset of all entries -ben  
   def show
     @data_object = DataObject.find(params[:id])   
     require_department_membership(@data_object.department)
-    @data_fields = @data_object.data_type.data_fields
-    @data_entries = @data_object.data_entries
+    @data_fields = @data_object.data_type.data_fields    
+    offset = params[:offset] || 0
+    if params[:start] && params[:end]
+      startdate = Date.civil(params[:start][:year].to_i, params[:start][:month].to_i, params[:start][:day].to_i)
+      enddate = Date.civil(params[:end][:year].to_i, params[:end][:month].to_i, params[:end][:day].to_i)
+      @data_entries = DataEntry.between_days(startdate, enddate)
+    else
+      @data_entries = DataEntry.find(:all, :conditions => {:data_object_id => @data_object.id}, 
+                                           :limit => 50, :offset => offset, 
+                                           :order => 'created_at DESC')
+    end
   end
   
   def new
@@ -93,6 +102,7 @@ private
 #  end
   
   #These three options should probably be refactored into helper methods -ben
+  #This would require also refactoring the @selected_type & @selected_by vars
   def options_for_group_type
     options = [["Location","locations"],["Location Group","loc_groups"]]
     if current_user.is_admin_of?(@department)

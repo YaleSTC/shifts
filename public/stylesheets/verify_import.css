@@ -63,3 +63,7 @@
   background:#ff0000;
 }
 
+.small_select select{
+  font-size: 10px;
+}
+

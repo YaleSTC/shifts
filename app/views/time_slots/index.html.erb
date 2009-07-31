@@ -1,24 +1,87 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag 'timeline' %>
-<% end %>
-
 <% title "Time Slots" %>
 
-<p><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path %></p>
+<p id="new_time_slot_link"><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path(:date => params[:date]) %></p>
+
+<%# HIDE the new timeslot link when javascript is enabled.%>
+<script type='text/javascript' charset='utf-8'>
+  $('#new_time_slot_link').toggle(); 
+</script>
 
 <div class="note">
   <strong>Notes</strong>
   <ol>
-    <li>Time slots in the past cannot be changed or deleted.</li>
+    <li>Time slots in the past cannot be changed or deleted.</li><%# TODO: make this actually true. %>
     <li>Click on any location name to toggle the schedule display for that location</li>
   </ol>
 </div>
 
-<div>
-<%= render :partial => 'shifts/schedule/header' %>
+<div id="AJAX_status"></div><%# to display status messages in top right corner %>
 
-  <% form_tag do %>
-    <%= render :partial => 'location', :collection => @department.locations %>
-    <%= submit_tag 'Update' %>
-  <% end %>
-</div>
+<%= render :partial => 'shifts/schedule/header' %>
+<%= render :partial => 'location', :collection => @department.locations %>
+
+<script>  
+  $('li.click_to_add_new').click(function (e) {
+    popup_new($(this), e, this);
+    return false;
+  });
+  
+  $('li.click_to_edit').click(function (e) {
+    popup_edit($(this));
+    return false;
+  });
+  
+  //don't stop links from firing
+  $('li.click_to_edit a').click(function (e) {
+    e.stopPropagation();
+  });
+  
+  function popup_new(parent_element, e, raw_element){
+    $(".tooltip").remove();
+    parent_element.append("<div class='loading'>Loading...</div>");
+    
+    var elementID = parent_element.attr('id');
+    var params = elementID.split("_", 2);
+    var locationID = params[0].substring(8); //remove "location" from id
+    
+    //cursor position magic
+    var relX = e.pageX - getXOffset(raw_element);
+    var widthPercentage = relX / parent_element.width();
+    
+    var date = params[1];
+    $.ajax({data:"elementID="+elementID+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    
+    $(".loading").remove();
+    $("div.tooltip").css("left",relX+"px")
+  }
+  
+  function popup_edit(parent_element){
+    $(".tooltip").remove();
+    parent_element.append("<div class='loading'>Loading...</div>");
+    
+    var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
+    <%#= remote_function :url => root_path, :test => 5 %>
+    $.ajax({dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    
+    $(".loading").remove();
+  }
+  
+  function getXOffset(element){
+    var x = 0
+    while(element){
+        x += element.offsetLeft;
+        element = element.offsetParent;
+    }
+    return x;    
+  }
+  
+  //hide tooltip upon hitting escape
+  $(document).keypress(
+    function (e){
+      if (e.which == 0)
+      {
+        $(".tooltip").remove();
+      }
+    }
+  );
+</script>
