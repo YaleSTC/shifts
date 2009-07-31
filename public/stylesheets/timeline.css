@@ -14,37 +14,22 @@ ul.events li.shift_missed {         background: #F09494; }
 ul.events li.shift_missed:hover {   background: #E85E5E; }
 
 
-
+ul.events li {                        color: #000; }
 ul.events li.timeslot {
     background: #eee;
     color: #707070;
     font-weight: bold;
 }
-ul.events li {
-    color: #000;
-}
-
-ul.events li.timeslot a {
-    color: #999;
-}
-ul.events li.timeslot:hover a:hover {
-    color: #999;
-}
-ul.events li.timeslot:hover {
-    background: #ddd;
-}
-ul.events li.timeslot:hover a {
-    color: #707070;
-}
+ul.events li.timeslot a {             color: #999; }
+ul.events li.timeslot:hover a:hover { color: #999; }
+ul.events li.timeslot:hover a {       color: #707070; }
+ul.events li.timeslot:hover {         background: #ddd; }
 
 
 
 
 
-
-h2 {
-    clear: both;
-}
+h2 { clear: both; }
 
 div.timeline {
     float:right;
@@ -141,7 +126,7 @@ ul.events li {
     height: 100%;
 }
 ul.events li.click_to_add_new {
-		z-index: 0;
+	z-index: 0;
     background: transparent;
     position: absolute;
     height: 100%;
@@ -155,27 +140,23 @@ ul.events li div.time-slot {
     width: auto;
     height: 100%;
     border-right: 1px solid #ccc;
-		overflow:hidden;
+	overflow:hidden;
 }
 
 /* hack for vertical centering*/
 div.center_container {
-		display: table;
-		width: 100%;
-		height: 100%;
+	display: table;
+	width: 100%;
+	height: 100%;
 }
 div.center_content {
-		display: table-cell;
-		vertical-align: middle;
-		width: 100%;
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
 }
 
-img.right_arrow {
-    float:right;
-}
-img.left_arrow {
-    float:left;
-}
+img.right_arrow { float:right; }
+img.left_arrow {  float:left;  }
 
 div.loading{
 	position: absolute;
@@ -188,7 +169,7 @@ div.loading{
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
-  font-family: Verdana, Arial, serif;
+    font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }
