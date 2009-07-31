@@ -3,6 +3,7 @@ class PayformItemSetsController < ApplicationController
   
   before_filter :require_department_admin
   
+  # Shouldn't this filter by department?
   def index
     @payform_item_sets = PayformItemSet.all
   end

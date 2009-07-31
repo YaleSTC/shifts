@@ -22,6 +22,7 @@ class ReportsController < ApplicationController
 
 # Do we need this action?  -ben
 # uncommented for now -- it's the default redirect after creating a shift. -ryan
+# When we clean the interface, then we can take it out -ben
  def new
    #TODO: this doesn't work, because we can't redirect with post. bah.
    @report = Report.new

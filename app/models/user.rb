@@ -48,14 +48,13 @@ class User < ActiveRecord::Base
     self.password=self.password_confirmation=(1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 
-  def self.search_ldap(first_name, last_name, email, login, limit)
+  def self.search_ldap(first_name, last_name, email, limit)
     first_name+='*'
     last_name+='*'
     email+='*'
-    login+='*'
     # Setup our LDAP connection
     ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
-    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email) & Net::LDAP::Filter.eq($appconfig.ldap_login, login)
+    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email)
     out=[]
     ldap.open do |ldap|
       ldap.search(:base => $appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
@@ -82,15 +81,6 @@ class User < ActiveRecord::Base
     end
 
     failed
-  end
-
-  def self.search(search_string)
-    self.all.each do |u|
-      if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
-        @found_user =  u
-      end
-    end
-    @found_user
   end
 
   def permission_list
@@ -165,8 +155,8 @@ class User < ActiveRecord::Base
     [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
   end
 
-  def self.find_by_names(name)
-    User.all.select{|u| u.name == name || u.proper_name == name || u.awesome_name == name}
+  def self.search(search_string)
+    User.all.select{|u| u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string}
   end
 
   # originally intended to enable polymorphism; is this still needed, guys? -ben
@@ -181,7 +171,7 @@ class User < ActiveRecord::Base
   def restrictions #TODO: this could probalby be optimized
     Restriction.all.select{|r| r.users.include?(self)}
   end
-  
+
   def toggle_active(department)
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
@@ -225,3 +215,4 @@ class User < ActiveRecord::Base
   end
 
 end
+

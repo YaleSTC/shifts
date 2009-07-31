@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def ldap_search
-    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],params[:user][:login],3)
+    @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],5)
   end
 
   def new
@@ -153,12 +153,13 @@ class UsersController < ApplicationController
   def verify_import
     file=params[:file]
     flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
-#    begin
+    begin
       @users = User.from_csv(file, :normal)
-#    rescue Exception => e
-#      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
-#      render :action => 'import'
-#    end
+      @no_nav=true
+    rescue Exception => e
+      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+      render :action => 'import'
+    end
   end
 
   def save_import
@@ -173,9 +174,6 @@ class UsersController < ApplicationController
           #don't modify any data, as this is probably a mistake
           failures << {:user=>u, :reason => "User already exists in this department!"}
         else
-          #TODO: Improve this, think about what should actually happen.
-          department_roles = @user.roles.select{|role| role.department == @department}
-          @user.roles -= department_roles
           @user.role = u[:role]
           #add user to new department
           @user.departments << @department unless @user.departments.include?(@department)
@@ -248,7 +246,7 @@ class UsersController < ApplicationController
       @users = @search_result.sort_by(&:last_name)
     end
   end
-  
+
   def toggle #for ajax deactivation/restore
     @user = User.find(params[:id])
     @user.toggle_active(@department)

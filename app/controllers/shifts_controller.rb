@@ -1,20 +1,23 @@
 class ShiftsController < ApplicationController
+
+    helper :shifts
+
   def index
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
-    
+
     # for lists of shifts
-    @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
+    @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
     @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
     @subs_you_requested = SubRequest.all.select{|sub| sub.shift.user == current_user}.sort_by(&:start)
     @subs_you_can_take = current_user.available_sub_requests
-    
+
     # for user view preferences partial
     @loc_group_select = {}
     current_user.departments.each do |dept|
       @loc_group_select.store(dept.id, current_user.loc_groups(dept))
     end
     @selected_loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
-    
+
     # figure out what days to display based on user preferences
     if params[:date].blank? and (current_user.user_config.view_week != "" and current_user.user_config.view_week != "whole_period")
       # only if default view and non-standard setting
@@ -32,6 +35,19 @@ class ShiftsController < ApplicationController
     else #no weekends
       @day_collection = (@period_start+1)...(@period_start+6)
     end
+
+
+
+    @time_slots = TimeSlot.all
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
+
+    #TODO:simplify this stuff:
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    @blocks_per_hour = 60/current_department.department_config.time_increment.to_f
+
+    @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
   end
 
   def show
@@ -81,9 +97,9 @@ class ShiftsController < ApplicationController
     end
     if @shift.save
       if !@shift.scheduled
-        @report = Report.new(:shift_id => @shift, :arrived => Time.now)
+        @report = Report.new(:shift => @shift, :arrived => Time.now)
         # add a report item about logging in
-        @report.report_items << ReportItem.new(:time => Time.now, :content => @shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+        @report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
         redirect_to @report and return if @report.save
       end
       respond_to do |format|
@@ -91,7 +107,18 @@ class ShiftsController < ApplicationController
         format.js
       end
     else
-      @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
+      respond_to do |format|
+        format.html{ @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new') }
+        format.js do
+          render :update do |page|
+            error_string = ""
+            @shift.errors.each do |attr_name, message|
+              error_string += "<br>#{attr_name}: #{message}"
+            end
+            ajax_alert(page, "<strong>error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+          end
+        end
+      end
     end
   end
 
@@ -111,16 +138,32 @@ class ShiftsController < ApplicationController
         format.js
       end
     else
-      render :action => 'edit'
+      respond_to do |format|
+        format.html{render :action => 'edit'}
+        format.js do
+          render :update do |page|
+            error_string = ""
+            @shift.errors.each do |attr_name, message|
+              error_string += "<br>#{attr_name}: #{message}"
+            end
+            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+          end
+        end
+      end
     end
   end
-  
+
 #unnecessary -ben
-#yes neccessary! see: canceling a shift, etc. -ryan
+#yes necessary! see: canceling a shift, etc. -ryan
+#okay then -ben
   def destroy
     @shift = Shift.find(params[:id])
+    return unless require_owner(@shift)
     @shift.destroy
-    flash[:notice] = "Successfully destroyed shift."
-    redirect_to shifts_url
+    respond_to do |format|
+      format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}
+      format.js #remove partial from view
+    end
   end
 end
+

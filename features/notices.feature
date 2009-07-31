@@ -12,10 +12,9 @@ Feature: Notices
   Scenario: A regular user should not be able to create announcements
     When I follow "Notices"
     And I follow "Post a new notice"
-    Then I should not see "Post as sticky?"
-    And I should not see "Specify a start time"
-    And I should not see "Specify an end time"
-    And I should not see "or check here to make it indefinite"
+    Then I should not see "Type of notice:"
+    And I should not see "Start time:"
+    And I should not see "End time:"
     And I should not see "Hogwarts (all locations)"
 
 @passing
@@ -24,17 +23,16 @@ Feature: Notices
     And I am on the homepage
     When I follow "Notices"
     And I follow "Post a new notice"
-    Then I should see "Sticky"
-    And I should see "Start time"
-    And I should see "End time"
-    And I should see "Never"
+    Then I should see "Type of notice:"
+    And I should see "Start time:"
+    And I should see "End time:"
     And I should see "Hogwarts (all locations)"
 
   Scenario: Creating a sticky from the dashboard for users
     When I follow "Notices"
     And I follow "Post a new notice"
     And I fill in "notice_content" with "Hello world!"
-    And I fill in "For users" with "Albus Dumbledore, hp123"
+    And I fill in "Display for the following users, roles, or departments" with "Albus Dumbledore, hp123"
     And I press "Save"
     Then I should see "Notice was successfully created"
     And I should have 1 notice
