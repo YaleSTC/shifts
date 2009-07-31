@@ -24,6 +24,7 @@ ul.hidden_shifts li {
     margin: 0px 0px;
     padding: 2px 2px;
     border: 1px solid #ccc;
+    text-align: center;
     width:24%;
     float:left;
 }
