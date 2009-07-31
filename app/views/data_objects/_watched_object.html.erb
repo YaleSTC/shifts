@@ -11,6 +11,9 @@
     <tbody>
       <% entry = watched_object.data_entries.last.data_fields_with_contents unless watched_object.data_entries.empty? %>
       <tr>
+        <td>
+          <%= watched_object.data_entries.last.updated_at.to_s(:am_pm_long) %>
+        </td>
         <td><%= link_to watched_object.name, watched_object %></td>
         <% watched_object.data_fields.each do |df| %>
           <td>

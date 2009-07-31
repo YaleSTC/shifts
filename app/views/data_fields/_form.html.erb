@@ -19,10 +19,15 @@
       <div class="value_field">
         <%= f.label :values %><br />
         <%= f.text_field :values %><br />
-        <em><small>Value should be either 'integer', 'decimal', or 'text'</small></em>
       </div>
     </p>
     <p>
+      <%= f.label :upper_alert, text = "Alerts" %><br />
+      Upper: <%= f.text_field :upper_alert %><br />
+      Lower: <%= f.text_field :lower_alert %><br />
+      <small><em>You will receive a warning when a value is above or below these bounds</small></em>
+    </p>
+    <p>     
       <%= f.submit "Save and add another field", :name => "add_another" %>
       <%= f.submit "Save and finish", :name => "submit" %>
     </p>
