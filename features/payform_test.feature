@@ -67,7 +67,7 @@ Feature: payform
     And I should have 1 payform_item
     And that payform_item should be inactive
 
-@passing
+#@passing
   Scenario: Submit a payform
     Given I have the following payform items
       | category  | user_login | hours | description         | date         |
