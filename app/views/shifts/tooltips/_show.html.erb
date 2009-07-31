@@ -1,16 +1,17 @@
-<div class="tooltip">
-  <%#= javascript_include_tag 'jeditable' %>
+<div class="edit tooltip">
+  <%= javascript_include_tag 'jeditable' %>
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
-  <h2><% @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
+  
+  <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
   <p>
     <strong>Start:</strong>
-    <%=h @shift.start.to_s(:short_name) %>
+    <%= @shift.scheduled? ? "<span id='shift_start' class='jeditable'>#{@shift.start.to_s(:short_name)}</span>" : @shift.start.to_s(:short_name) %>
   </p>
   <p>
     <strong>End:</strong>
-    <%=h @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
+    <%= @shift.scheduled? ? "<span id='shift_end' class='jeditable'>#{@shift.end.to_s(:short_name)}</span>" : "unscheduled" %>
   </p>
   <p>
     <strong>User:</strong>
@@ -42,5 +43,43 @@
     $(".tooltip").click(function(e){
       e.stopPropagation();
     });
+    
+    $('#shift_start').editable( <%= shift_path(@shift).to_json %>, {
+      name: 'shift[start]',
+      method: 'PUT',
+      submitdata: {
+        authenticity_token: <%= form_authenticity_token.to_json %>,
+        wants: 'start'
+      },
+      cancel: 'Cancel',
+      submit: 'OK',
+      indicator: '<img src="../images/loading.gif">',
+      tooltip: 'Click to edit...',
+      callback: function() {
+        rerender_shift();
+      }
+    });
+    
+    $('#shift_end').editable( <%= shift_path(@shift).to_json %>, {
+      name: 'shift[end]',
+      method: 'PUT',
+      submitdata: {
+        authenticity_token: <%= form_authenticity_token.to_json %>,
+        wants: 'end'
+      },
+      cancel: 'Cancel',
+      submit: 'OK',
+      indicator: '<img src="../images/loading.gif">',
+      tooltip: 'Click to edit...',
+      callback: function() {
+        rerender_shift();
+      }
+    });
+    
+    function rerender_shift(){
+      $("#shift<%= @shift.id %>").remove();  // = shift before edit
+      // add new shift to view
+      $.ajax({dataType:'script', type:'get', url:'<%= rerender_shift_path(@shift) %>'});
+    }
   </script>
 </div>
