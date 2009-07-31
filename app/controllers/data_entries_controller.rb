@@ -2,17 +2,6 @@ class DataEntriesController < ApplicationController
   #Not yet secured
   
   before_filter :check_for_data_object
-  
-# Probably not needed
-#  def index
-#    @data_object = DataObject.find(params[:data_object_id])
-#    @data_entries = DataEntry.find_all_by_data_object_id(params[:data_object_id])
-#  end
-
-# Probably not needed  
-#  def show
-#    @data_entry = DataEntry.find(params[:id])
-#  end
 
   def new
     @data_entry = DataEntry.new
