@@ -36,17 +36,21 @@ module ShiftsHelper
       until shifts.empty?
         shift = shifts.shift #get first shift. shift... haha. (array.shift is a function)
         @location_rows[location][location_row] = []
-        if ((shift.start < day.beginning_of_day + @dept_start_hour.hours) && (shift.end < day.beginning_of_day + @dept_start_hour.hours)) ||
-           ((shift.start > day.beginning_of_day + @dept_end_hour.hours)   && (shift.end > day.beginning_of_day + @dept_end_hour.hours))
-          @hidden_shifts << shift
-        else
-          @location_rows[location][location_row] << shift
+        found_first = false
+        while !found_first
+          if (shift.end < day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes) ||
+             (shift.start > day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes)
+            @hidden_shifts << shift
+            shift = shifts.shift
+          else
+            @location_rows[location][location_row] << shift
+            found_first = true
+          end
         end
         (0...shifts.length).each do
-          if ((shifts.first.start < day.beginning_of_day + @dept_start_hour.hours) && (shifts.first.end < day.beginning_of_day + @dept_start_hour.hours)) ||
-             ((shifts.first.start > day.beginning_of_day + @dept_end_hour.hours)   && (shifts.first.end > day.beginning_of_day + @dept_end_hour.hours))
-            shift = shifts.shift
-            @hidden_shifts << shift
+          if (shifts.first.end < day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes) ||
+             (shifts.first.start > day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes)
+            @hidden_shifts << shifts.shift
           elsif shift.end > shifts.first.start
             rejected << shifts.shift
           else

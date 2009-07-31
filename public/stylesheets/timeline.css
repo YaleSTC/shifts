@@ -115,6 +115,7 @@ ul.events li.click_to_add_new {
     background: transparent;
     position: absolute;
     height: 100%;
+    border-left: 0px solid #fff;
 }
 ul.events li.click_to_add_new:hover {
     background: #fffff3;
