@@ -9,7 +9,7 @@ module NavigationHelpers
     case page_name
 
     when /the homepage/
-  $appconfig = AppConfig.first
+      $appconfig = AppConfig.first
       root_path
     when /the list of users/
       department_users_path(@department)
@@ -30,8 +30,12 @@ module NavigationHelpers
     when /the Application Settings page/
       edit_app_config_path
     when /the department settings page/
-       $department = @department
+      $department = @department
       edit_department_config_path(@department)
+    when /the roles page/
+      department_roles_path(:department_id => Department.find(@current_user.user_config.default_dept))
+    when /the new role page/
+      new_department_role_path(:department_id => Department.find(@current_user.user_config.default_dept))
     when /the dashboard/
       url_for(:controller => 'dashboard', :action => 'index')
     when /CAS/
