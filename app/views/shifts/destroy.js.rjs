@@ -1,0 +1,4 @@
+page.remove "shift#{params[:id]}"
+
+# display alert
+ajax_alert(page, "shift destroyed");

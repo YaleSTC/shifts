@@ -7,13 +7,15 @@ class Shift < ActiveRecord::Base
   belongs_to :location
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
-  
+
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
 
-  #validate :a_bunch_of_shit
-
+  named_scope :on_day, lambda {|day| { :conditions => ['start > ? and start < ?', day.beginning_of_day, day.end_of_day]}}
+  named_scope :in_location, lambda {|loc| {:conditions => ['location_id = ?', loc.id]}}
+  named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
+  
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validates_presence_of :user
@@ -64,6 +66,21 @@ class Shift < ActiveRecord::Base
   # = Object methods =
   # ==================
 
+  def css_class(current_user = nil)
+    if current_user and user == current_user
+      css_class = "user"
+    else
+      css_class = "shift"
+    end
+    if missed?
+      css_class += "_missed"
+    elsif (signed_in? ? report.arrived : Time.now) > start + department.department_config.grace_period*60 #seconds
+      css_class += "_late"
+    end
+    css_class
+  end
+
+
   def too_early?
     self.start > 30.minutes.from_now
   end
@@ -107,9 +124,9 @@ class Shift < ActiveRecord::Base
     self.start < Time.now
   end
 
+  # If new shift runs up against another compatible shift, combine them and save,
+  # preserving the earlier shift's information
   def combine_with_surrounding_shifts
-    # if new shift runs up against another compatible shift, combine them and save,
-    # preserving the earlier shift's information
     if (shift_later = Shift.find(:first, :conditions => {:start => self.end, :user_id => self.user_id, :location_id => self.location_id}))
       self.end = shift_later.end
       shift_later.sub_requests.each { |s| s.shift = self }
@@ -122,6 +139,25 @@ class Shift < ActiveRecord::Base
       shift_earlier.destroy
       self.save!
     end
+  end
+
+  def exceeds_max_staff?
+    count = 0
+    shifts_in_period = []
+    Shift.find(:all, :conditions => {:location_id => self.location_id, :scheduled => true}).each do |shift|
+      shifts_in_period << shift if (self.start..self.end).overlaps?(shift.start..shift.end) && self.end != shift.start && self.start != shift.end
+    end
+    increment = self.department.department_config.time_increment
+    time = self.start + (increment / 2)
+    while (self.start..self.end).include?(time)
+      concurrent_shifts = 0
+      shifts_in_period.each do |shift|
+        concurrent_shifts += 1 if (shift.start..shift.end).include?(time)
+      end
+      count = concurrent_shifts if concurrent_shifts > count
+      time += increment
+    end
+    count + 1 > self.location.max_staff
   end
 
 
@@ -189,8 +225,8 @@ class Shift < ActiveRecord::Base
       end
     end
   end
-  
-  
+
+
   class << columns_hash['start']
     def type
       :datetime
