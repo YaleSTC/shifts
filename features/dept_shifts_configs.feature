@@ -1,5 +1,7 @@
 @configs
 @cw
+@breaking
+@wip
 Feature: Shift settings
   In order to manage shift settings
   As an admin
@@ -16,7 +18,7 @@ Feature: Shift settings
     When I select "05:00 AM" from "department_config_schedule_start"
     And I select "07:00 AM" from "department_config_schedule_end"
     And I press "Save"
-    And I go to the shifts page
+    And I go to shifts
     Then I should see "5:00"
     And I should see "6:00"
     And I should see "7:00"
@@ -26,7 +28,7 @@ Feature: Shift settings
   Scenario: Shifts settings: Time increments (1 hour)
     When I fill in "department_config_time_increment" with "60"
     And I press "Save"
-    When I am on the shifts page
+    When I am on shifts
     And I follow "Power sign up"
     And the "shift[start]" field should contain "00"
     And the "Start" field should not contain "15"
@@ -41,7 +43,7 @@ Feature: Shift settings
   Scenario: Shifts settings: Time increments (half hour)
     When I fill in "department_config_time_increment" with "30"
     And I press "Save"
-    When I am on the shifts page
+    When I am on shifts
     And I follow "Power sign up"
     And the "Start" field should contain "00"
     And the "Start" field should not contain "15"
