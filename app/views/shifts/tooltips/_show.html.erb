@@ -19,7 +19,7 @@
   </p>
   <p>
     <strong>Location:</strong>
-    <%=h @shift.location.name %>
+    <span id="shift_location" class="jeditable"><%=h @shift.location.name %></span>
   </p>
   <p>
     <% if @shift.report %>
@@ -43,6 +43,27 @@
     $(".tooltip").click(function(e){
       e.stopPropagation();
     });
+    
+    $('#shift_location').editable(
+      <%= shift_path(@shift).to_json %>,
+      {
+        name: 'shift[location_id]',
+        type: 'select',
+        data: {<%= Location.all.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
+        method: 'PUT',
+        submitdata: {
+          authenticity_token: <%= form_authenticity_token.to_json %>,
+          wants: 'location'
+        },
+        cancel: 'Cancel',
+        submit: 'OK',
+        indicator: '<img src="../images/loading.gif">',
+        tooltip: 'Click to edit...',
+        callback: function() {
+          rerender_shift();
+        }
+      }
+    );
     
     $('#shift_start').editable( <%= shift_path(@shift).to_json %>, {
       name: 'shift[start]',

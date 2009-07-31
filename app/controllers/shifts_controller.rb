@@ -134,9 +134,13 @@ class ShiftsController < ApplicationController
     return unless require_owner_or_dept_admin(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
-      respond_to do |format|
-        format.html { flash[:notice] = "Successfully updated shift."; redirect_to @shift }
-        format.js
+      if params[:wants] #AJAX (jEditable)
+        respond_to do |format|
+          format.js
+        end
+      else
+        flash[:notice] = "Successfully updated shift."
+        redirect_to @shift
       end
     else
       respond_to do |format|
