@@ -40,7 +40,7 @@ for location in @loc_groups.map{|lg| lg.locations }.flatten.uniq
 end
 
 @table_height = rowcount + @loc_groups.length * 0.25
-@table_pixels = 26 * rowcount + rowcount*2
+@table_pixels = 26 * rowcount + rowcount+1
 %>
 
 
