@@ -1,5 +1,6 @@
 @payform
 @cw
+@breaking
 Feature: payform admin
   In order to manage payforms
   As an admin

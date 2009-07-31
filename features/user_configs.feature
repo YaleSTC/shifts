@@ -1,5 +1,6 @@
 @configs
 @cw
+@breaking
 Feature: User settings
   In order to manage user settings
   As a regular user
