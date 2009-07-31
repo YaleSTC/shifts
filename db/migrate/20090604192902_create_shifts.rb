@@ -6,6 +6,7 @@ class CreateShifts < ActiveRecord::Migration
       t.references :user
       t.references :location
       t.boolean :scheduled, :default => true
+      t.boolean :signed_in, :default => false
       t.boolean :power_signed_up, :default => false
       t.timestamps
     end
@@ -15,3 +16,4 @@ class CreateShifts < ActiveRecord::Migration
     drop_table :shifts
   end
 end
+

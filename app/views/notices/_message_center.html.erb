@@ -1,10 +1,1 @@
-<fieldset class = "index" >
-  <legend><%= "Message Center for the #{current_user.current_shift.location.short_name}"%></legend>
-  <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
-  <fieldset class="sticky" style="width: 48%">
-    <div class="left">
-      <%= link_to_post_a_new_notice %>
-    </div>
-  </fieldset>
-</fieldset>
 

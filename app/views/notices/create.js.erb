@@ -2,6 +2,7 @@
   $('#all_notices').html("<%= escape_javascript(render :partial => 'all_notices') %>");
   <% if current_user.current_shift %>
     $('#message_center').html("<%= escape_javascript(render :partial => 'notices/message_center', :object => @report = current_user.current_shift.report) %>");
+    alert(<%= @report.get_notices.count %>)
   <% end %>
   tb_remove();
 <% else %>
