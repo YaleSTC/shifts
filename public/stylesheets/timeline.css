@@ -136,6 +136,9 @@ ul.events li.click_to_add_new:hover {
     position: absolute;
     height: 100%;
 }
+ul.events li div {
+	position: relative;
+}
 ul.events li div.time-slot {
     width: auto;
     height: 100%;
@@ -155,8 +158,8 @@ div.center_content {
 	width: 100%;
 }
 
-img.right_arrow { float:right; }
-img.left_arrow {  float:left;  }
+img.right_arrow { position:absolute; right:0; }
+img.left_arrow {  position:absolute; left:0;  }
 
 div.loading{
 	position: absolute;
