@@ -115,8 +115,20 @@ class ApplicationController < ActionController::Base
 
   def require_superuser
     unless current_user.is_superuser?
-      flash[:error] = "That action is only available to superusers."
-      redirect_to(access_denied_path)
+      error_message = "That action is only available to superusers."
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
     end
   end
 
@@ -124,8 +136,20 @@ class ApplicationController < ActionController::Base
 # Takes a department, location, or loc_group
   def require_admin_of(thing)
     unless current_user.is_admin_of?(thing)
-      flash[:error] = "You are not authorized to administer this #{thing.class.name.decamelize}"
-      redirect_to(access_denied_path) and return false
+      error_message = "You are not authorized to administer this #{thing.class.name.decamelize}"
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path and return false
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
     end
     return true
   end
@@ -133,9 +157,21 @@ class ApplicationController < ActionController::Base
 
 # Takes any object that has a user method and checks against current_user
   def require_owner(thing)
-    unless current_user.is_owner_of?(thing)
-      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}"
-      redirect_to access_denied_path and return false
+    unless current_user.is_owner_of?(thing)      
+      error_message = "You are not the owner of this #{thing.class.name.decamelize}"
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path and return false
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
     end
     return true
   end
@@ -143,10 +179,20 @@ class ApplicationController < ActionController::Base
 # Takes any object that has a user method and its department
   def require_owner_or_dept_admin(thing, dept)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(dept)
-      flash[:error] = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
-      redirect_to access_denied_path and return false
-#      will probably use render instead of redirect_to later --Laura
-#      render :template => access_denied_path and return false
+      error_message = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path and return false
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
     end
     return true
   end
@@ -154,8 +200,20 @@ class ApplicationController < ActionController::Base
 # Takes a department; intended to be passed some_thing.department
   def require_department_membership(dept)
     unless current_user.departments.include?(dept)
-      flash[:error] = "You are not a member of the appropriate department."
-      redirect_to(access_denied_path) and return false
+      error_message = "You are not a member of the appropriate department."
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path and return false
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
     end
     return true
   end
@@ -208,5 +266,6 @@ class ApplicationController < ActionController::Base
   def switch_department_path
     send("#{controller_name}_path") rescue root_path
   end
-end
 
+
+end

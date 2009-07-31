@@ -1,0 +1,46 @@
+<div class="tooltip">
+  <%#= javascript_include_tag 'jeditable' %>
+  <div class="close_link">
+    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+  </div>
+  <h2><% @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
+  <p>
+    <strong>Start:</strong>
+    <%=h @shift.start.to_s(:short_name) %>
+  </p>
+  <p>
+    <strong>End:</strong>
+    <%=h @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
+  </p>
+  <p>
+    <strong>User:</strong>
+    <%=h @shift.user.name %>
+  </p>
+  <p>
+    <strong>Location:</strong>
+    <%=h @shift.location.name %>
+  </p>
+  <p>
+    <% if @shift.report %>
+      <%= link_to "View report", shift_report_path(@shift) %>
+    <% elsif current_user==@shift.user %>
+      <p>
+      <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+      </p>
+      <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+    <% else %>
+      <small>This shift has not yet been signed in to.</small>
+    <% end %>
+  </p>
+  <p>
+    <%= link_to "Edit", edit_shift_path(@shift) %> |
+    <%= link_to_remote "Destroy", {:url => @shift, :confirm => 'Are you sure?', :method => :delete} %>
+  </p>
+ 
+  <script type="text/javascript">
+    // don't retrigger the action when clicking the tooltip :P
+    $(".tooltip").click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+</div>

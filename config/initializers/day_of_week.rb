@@ -1,4 +1,5 @@
 WEEK_DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+SHORT_WEEK_DAYS = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
 HOURS = Array.new(12){|i| i + 1}
 AM_PM = [["AM",0],["PM",1]]
 
@@ -14,7 +15,10 @@ class Fixnum
 end
 
 class Date
-  def sunday
+  def sunday  #let's stop using this because it is unclear
+    self - wday
+  end
+  def previous_sunday
     self - wday
   end
 end
@@ -27,8 +31,12 @@ class Date
 end
 
 class Time
-  def sunday_of_week
+  def sunday_of_week #let's stop using this because it is unclear
     (self - self.wday.days).midnight
+  end
+  
+  def previous_sunday
+    (self - wday).midnight
   end
 end
 
