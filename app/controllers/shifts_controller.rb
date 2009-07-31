@@ -45,7 +45,8 @@ class ShiftsController < ApplicationController
     @dept_start_hour = current_department.department_config.schedule_start / 60
     @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
-    @blocks_per_hour = 60/current_department.department_config.time_increment.to_f
+    @time_increment = current_department.department_config.time_increment
+    @blocks_per_hour = 60/@time_increment.to_f
 
     @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
   end
@@ -107,7 +108,18 @@ class ShiftsController < ApplicationController
         format.js
       end
     else
-      @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new')
+      respond_to do |format|
+        format.html{ @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new') }
+        format.js do
+          render :update do |page|
+            error_string = ""
+            @shift.errors.each do |attr_name, message|
+              error_string += "<br>#{attr_name}: #{message}"
+            end
+            ajax_alert(page, "<strong>error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+          end
+        end
+      end
     end
   end
 
@@ -127,7 +139,18 @@ class ShiftsController < ApplicationController
         format.js
       end
     else
-      render :action => 'edit'
+      respond_to do |format|
+        format.html{render :action => 'edit'}
+        format.js do
+          render :update do |page|
+            error_string = ""
+            @shift.errors.each do |attr_name, message|
+              error_string += "<br>#{attr_name}: #{message}"
+            end
+            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+          end
+        end
+      end
     end
   end
 
@@ -138,8 +161,10 @@ class ShiftsController < ApplicationController
     @shift = Shift.find(params[:id])
     return unless require_owner(@shift)
     @shift.destroy
-    flash[:notice] = "Successfully destroyed shift."
-    redirect_to shifts_url
+    respond_to do |format|
+      format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}
+      format.js #remove partial from view
+    end
   end
 end
 

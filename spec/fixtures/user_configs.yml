@@ -34,3 +34,9 @@ Filch:
   view_loc_groups: 1
   view_week: whole_period
 
+Slughorn:
+  user_id: 7
+  default_dept: 1
+  view_loc_groups: 1
+  view_week: whole_period
+
