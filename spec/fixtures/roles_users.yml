@@ -2,3 +2,7 @@ roles_users_001:
   user_id: "1"
   role_id: "1"
 
+roles_users_002:
+  user_id: "1"
+  role_id: "7"
+
