@@ -15,7 +15,7 @@ class Shift < ActiveRecord::Base
   named_scope :on_day, lambda {|day| { :conditions => ['start >= ? and start < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => ['location_id = ?', loc.id]}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
-  
+
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validates_presence_of :user
@@ -94,14 +94,15 @@ class Shift < ActiveRecord::Base
     #seconds
   end
 
-  #a shift has been signed in to if it has a report
-  def signed_in?
-    self.report
-  end
+# => There is now a signed_in attribute
+#  #a shift has been signed in to if it has a report
+#  def signed_in?
+#    self.report
+#  end
 
   #a shift has been signed in to if its shift report has been submitted
   def submitted?
-    self.report and self.report.departed
+    self.signed_in? and self.report.departed
   end
 
   #TODO: subs!

@@ -1,6 +1,6 @@
 <% if notice.is_sticky %>
-  <%= render :partial => 'notices/sticky', :collection => [notice] %>
+  <%= render :partial => 'notices/sticky', :object => notice %>
 <% else %>
-  <%= render :partial => 'notices/announcement', :collection => [notice] %>
+  <%= render :partial => 'notices/announcement', :object => notice %>
 <% end %>
 
