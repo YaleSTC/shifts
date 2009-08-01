@@ -12,7 +12,7 @@ class Shift < ActiveRecord::Base
   validates_presence_of :location
   validates_presence_of :start
 
-  named_scope :on_day, lambda {|day| { :conditions => ['start > ? and start < ?', day.beginning_of_day, day.end_of_day]}}
+  named_scope :on_day, lambda {|day| { :conditions => ['start >= ? and start < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => ['location_id = ?', loc.id]}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
   
