@@ -6,9 +6,10 @@ class ShiftsController < ApplicationController
     @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
 
     # for lists of shifts
-    @active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
-    @upcoming_shifts = current_user.shifts.select{|shift| !(shift.submitted?) and shift.scheduled? and shift.end > Time.now and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
-    @subs_you_requested = SubRequest.all.select{|sub| sub.shift.user == current_user}.sort_by(&:start)
+    #@active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
+    @active_shifts = Report.find(:all, :conditions => {:departed => nil}).collect{|r| s = r.shift; current_department.locations.include?(s.location) ? s : nil}.compact.sort_by(&:start)
+    @upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
+    @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ?",Time.now]).select{|sub| sub.shift.user == current_user}.sort_by(&:start)
     @subs_you_can_take = current_user.available_sub_requests
 
     # for user view preferences partial
@@ -134,9 +135,13 @@ class ShiftsController < ApplicationController
     return unless require_owner_or_dept_admin(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
-      respond_to do |format|
-        format.html { flash[:notice] = "Successfully updated shift."; redirect_to @shift }
-        format.js
+      if params[:wants] #AJAX (jEditable)
+        respond_to do |format|
+          format.js
+        end
+      else
+        flash[:notice] = "Successfully updated shift."
+        redirect_to @shift
       end
     else
       respond_to do |format|
@@ -164,6 +169,22 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}
       format.js #remove partial from view
+    end
+  end
+  
+  def rerender
+    #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+    #TODO:simplify this stuff:
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    #@block_length = current_department.department_config.time_increment
+    #@blocks_per_hour = 60/@block_length.to_f
+    #@blocks_per_day = @hours_per_day * @blocks_per_hour
+    #@hidden_timeslots = [] #for timeslots that don't show up on the view
+    @shift = Shift.find(params[:id])
+    respond_to do |format|
+      format.js
     end
   end
 end

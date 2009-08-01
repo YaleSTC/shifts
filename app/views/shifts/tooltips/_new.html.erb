@@ -3,6 +3,7 @@
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
   <%= unobtrusive_datepicker_include_tags %>
+  <h2>New Shift</h2>
 
   <% remote_form_for @shift do |f| %>
     <%= f.error_messages %>

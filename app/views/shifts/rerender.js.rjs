@@ -1,0 +1,7 @@
+page.insert_html :bottom, "location#{@shift.location.id}_#{@shift.start.strftime("%Y-%m-%d")}_events", :partial => "shifts/schedule/shift", :object => @shift
+page["#shift#{@shift.id}"].visual_effect :highlight
+page << "$('.tooltip').remove();"
+page << "$('#shift#{@shift.id}').click(function (e) {popup_show($(this)); return false;});"
+
+# display alert
+ajax_alert(page, "shift updated");
