@@ -7,6 +7,8 @@ before_filter :user_login
 
   def show
     @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
+    @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
+
   end
 
   def new
@@ -16,7 +18,7 @@ before_filter :user_login
   def create
     @user_profile = UserProfile.new(params[:user_profile])
     if @user_profile.save
-      flash[:notice] = "Successfully created user profile."
+      flash[:noticcurrent_user.is_admin_of(@department)] = "Successfully created user profile."
       redirect_to @user_profile
     else
       render :action => 'new'
@@ -25,7 +27,17 @@ before_filter :user_login
 
   def edit
     @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
-    @user_profile_entries = UserProfileEntry.find(:all, :conditions => { :user_profile_id => @user_profile.id})
+
+    if @user_profile.user == current_user && current_user.is_admin_of?(@department)
+       @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
+     elsif @user_profile.user == current_user
+      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.user_editable }
+     elsif current_user.is_admin_of?(@department)
+      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && !entry.user_profile_field.user_editable }
+    else
+      flash[:error] = "You are not allowed to access that profile."
+      redirect_to access_denied_path
+    end
   end
 
   def update
@@ -36,7 +48,8 @@ before_filter :user_login
       entry.content = entry_content[entry_id]
       entry.save
     end
-      redirect_to user_profiles_path
+      flash[:notice] = "Successfully edited user profile."
+      redirect_to :controller => "user_profiles", :action => "show", :params => {:id => @user_profile.user.login}
   end
 
   def destroy

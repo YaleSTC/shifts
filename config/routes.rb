@@ -91,10 +91,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :user_profile_fields
-#  map.connect "user_profile/:user_login", :controller => 'user_profiles', :action => "show"
-  map.resources :user_profiles do |profile|
-    profile.resources :user_profile_entries
-  end
+  map.resources :user_profiles
 
   map.resources :punch_clock_sets
 
