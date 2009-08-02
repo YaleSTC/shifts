@@ -1,4 +1,5 @@
 class UserProfileFieldsController < ApplicationController
+  before_filter :require_department_admin
   def index
     @user_profile_fields = UserProfileField.all
   end

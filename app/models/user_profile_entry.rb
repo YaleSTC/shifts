@@ -15,9 +15,9 @@ class UserProfileEntry < ActiveRecord::Base
     values = UserProfileField.find(self.user_profile_field_id).values
   end
 
-  def making_form
+  def prepare_form_helpers
     if display_type == "text_field"
-      return ["user_profile_entries[#{id}]", id, {:id => id}]
+      return ["user_profile_entries[#{id}]", id]
     elsif display_type == "text_area"
       return ["user_profile_entries[#{id}]", id, {:id => id}]
     elsif display_type == "select"

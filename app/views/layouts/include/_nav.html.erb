@@ -13,6 +13,7 @@
     <% if current_user.departments.include?(current_department) || current_user.is_superuser? %>
       <li class="<%= tab('shifts') %>"><%= link_to "Shifts", shifts_path %></li>
       <li class="<%= tab('payforms') %>"><%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %></li>
+      <li class="<%= tab('user_profiles') %>"><%= link_to "User Profiles", user_profiles_path %></li>
     <% end %>
   <%# end %>
 </ul>

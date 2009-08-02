@@ -3,22 +3,23 @@
   <p>
     <% if @user_profile_entries %>
       <% @user_profile_entries.each do |entry| %>
+        <% args = entry.prepare_form_helpers %>
+        <p>
+          <%= label "user_profile_entries[#{entry.id}]", "#{entry.field_name}" %><br/>
 
-      <% args = entry.making_form %>
-      <p>
-        <%= label "user_profile_entries[#{entry.id}]", "#{entry.field_name}" %><br/>
+          <% if ["text_field", "select", "text_area"].include? entry.display_type %>
+            <%= send(entry.display_type, *args) %>
+          <% elsif ["check_box", "radio_button"].include? entry.display_type %>
+            <% args.each do |options| %>
+              <%= send(entry.display_type, *options) %>
+              <%= label "user_profile_entries[#{entry.id}]", "#{options.last}" %>
 
-        <% if ["text_field", "select", "text_area"].include? entry.display_type %>
-          <%= send(entry.display_type, *args) %>
-        <% elsif ["check_box", "radio_button"].include? entry.display_type %>
-          <% args.each do |options| %>
-            <%= send(entry.display_type, *options) %>
-            <%= label "user_profile_entries[#{entry.id}]", "#{options.last}" %>
           <% end %>
         <% end %>
       <% end %>
+    <% end %>
   </p>
   <p><%= f.submit "Submit" %></p>
-<% end %>
+
 <% end %>
 
