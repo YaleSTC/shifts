@@ -27,7 +27,7 @@
   });
   
   $('div.click_to_add_new').click(function (e) {
-    popup_new($(this), e, this);
+    popup_generic_new($(this), e);
     return false;
   });
   
@@ -70,6 +70,25 @@
     $(".loading").remove();
   }
   
+  function popup_generic_new(parent_element, e){
+    $(".tooltip").remove();
+    
+    var elementID = parent_element.attr('id');
+    var params = elementID.split("_", 2);
+    var locationID = params[0];//.substring(8); //remove "location" from id
+    
+    //cursor position magic
+    var relX = e.pageX - getXOffset(raw_element);
+    var widthPercentage = relX / parent_element.width();
+    
+    parent_element.append("<div class='loading' style='left:"+relX+"px'>Loading...</div>");
+    
+    var date = params[1];
+    $.ajax({data:"elementID="+elementID+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
+    
+    $("div.tooltip").css("left",relX+"px")
+    $(".loading").remove();
+  }
   function popup_show(parent_element){
     $(".tooltip").remove();
     parent_element.append("<div class='loading'>Loading...</div>");
