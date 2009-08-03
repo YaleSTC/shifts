@@ -9,7 +9,7 @@ class ShiftsController < ApplicationController
     #@active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
     @active_shifts = Report.find(:all, :conditions => {:departed => nil}).collect{|r| s = r.shift; current_department.locations.include?(s.location) ? s : nil}.compact.sort_by(&:start)
     @upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
-    @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ?",Time.now]).select{|sub| sub.shift.user == current_user}.sort_by(&:start)
+    @subs_you_requested = SubRequest.find(:all, :conditions => ["'end' > ?",Time.now]).select{|sub| sub.shift.user == current_user}.sort_by(&:start)
     @subs_you_can_take = current_user.available_sub_requests
 
     # for user view preferences partial
