@@ -1,2 +1,2 @@
-$('#message_center').html("<%= escape_javascript(render :partial => 'notices/message_center', :object => @report = current_user.current_shift.report) %>");
+$('#message_center').html("<%= escape_javascript(render :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices) %>");
 

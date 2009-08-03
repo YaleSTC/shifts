@@ -48,3 +48,8 @@
   user_id: 6
   active: true
 
+11:
+  department_id: 1
+  user_id: 7
+  active: true
+
