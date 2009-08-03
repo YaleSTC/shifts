@@ -57,27 +57,24 @@ Scenario Outline: Create a new role as an admin
 Given I am "<user>"
 And I am on the new role page
 When I fill in "Name" with "Assistant Boss"
-And I check "Inside of Hogwarts signup"
-And I check "14"
+And I choose "Inside of Hogwarts signup"
+And I choose "Outside of Hogwarts signup"
 And I press "Create"
 Then I should see "Successfully created role."
 And I should have 2 roles.
 
-
-#Scenarios: Succeeding as an admin
-
-#|user            |
-#|Albus Dumbledore|
-#|Horace Slughorn |
-
 Scenario Outline: Assigning roles via edit user
 
 Given I am "<superuser>"
+#Given I have
 And I am on the list of users
-When I click "<login>"
-Then I should see "<firstname>"
-And I should see "<lastname>"
-And I should see "<email>"
-When I click "Edit"
+When I follow "<login>"
 Then I should see "Edit User"
+And I should see "Roles"
+
+Scenarios: Successfully assigning some roles
+
+|superuser       |login|firstname|lastname|email             |
+|Albus Dumbledore|hp123|Harry    |Potter  |hp123@hogwarts.edu|
+|Horace Slughorn |hp123|Harry    |Potter  |hp123@hogwarts.edu|
 
