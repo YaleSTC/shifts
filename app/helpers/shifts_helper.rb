@@ -30,7 +30,7 @@ module ShiftsHelper
     @hidden_shifts = []
     @location_rows = {}
     for location in @loc_groups.map{|lg| lg.locations }.flatten.uniq
-      shifts = Shift.on_day(day).in_location(location).scheduled.sort_by{|s| s.start }
+      shifts = Shift.super_search(day,location)
       rejected = []
       @location_rows[location] = []
       @location_rows[location][0] = []

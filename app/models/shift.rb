@@ -15,6 +15,7 @@ class Shift < ActiveRecord::Base
   named_scope :on_day, lambda {|day| { :conditions => ['start >= ? and start < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => ['location_id = ?', loc.id]}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
+  named_scope :super_search, lambda {|day, loc| {:conditions => ['start >= ? and start < ? and location_id = ? and scheduled = ?', day.beginning_of_day.utc, day.end_of_day.utc, loc.id, true], :order => :start }}
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
