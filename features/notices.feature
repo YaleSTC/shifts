@@ -1,3 +1,4 @@
+@notices
 Feature: Notices
 
   Background:
@@ -31,7 +32,7 @@ Feature: Notices
   Scenario: Creating a sticky from the dashboard for users
     When I follow "Notices"
     And I follow "Post a new notice"
-    And I fill in "notice_content" with "Hello world!"
+    And I fill in "notice[content]" with "Hello world!"
     And I fill in "Display for the following users, roles, or departments" with "Albus Dumbledore, hp123"
     And I press "Save"
     Then I should see "Notice was successfully created"
@@ -57,7 +58,7 @@ Feature: Notices
   Scenario: Creaing a sticky from the dashboard for locations
     When I follow "Notices"
     And I follow "Post a new notice"
-    And I fill in "notice_content" with "Hello again!"
+    And I fill in "notice[content]" with "Hello again!"
     And I check "Diagon Alley"
     And I press "Save"
     Then I should see "Notice was successfully created"
@@ -86,7 +87,7 @@ Feature: Notices
   Scenario: Creaing a sticky from the dashboard for location groups
     When I follow "Notices"
     And I follow "Post a new notice"
-    And I fill in "notice_content" with "Another sticky!"
+    And I fill in "notice[content]" with "Another sticky!"
     And I check "Inside of Hogwarts"
     And I press "Save"
     Then I should see "Notice was successfully created"
@@ -115,7 +116,7 @@ Feature: Notices
   Scenario: Creating a sticky from the report page without advanced settings
     When I sign into an unscheduled shift in "Potions"
     And I follow "Post a new notice"
-    And I fill in "notice_content" with "I should only see this in the Potions location"
+    And I fill in "notice[content]" with "I should only see this in the Potions location"
     And I press "Save"
     Then I should see "Notice was successfully created"
     And I should have 1 notice
@@ -139,7 +140,7 @@ Feature: Notices
     And I am on the homepage
     When I follow "Notices"
     And I follow "Post a new notice"
-    And I fill in "notice_content" with "Everybody should see this!"
+    And I fill in "notice[content]" with "Everybody should see this!"
     And I check "Hogwarts"
     And I press "Save"
     Then I should see "Notice was successfully created"
