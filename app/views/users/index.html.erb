@@ -11,7 +11,7 @@
   //$('div#searchbox').toggle();
   $('input#search_submit').toggle();
 </script>
-
+<p><%= link_to "Add A New User", new_user_path%></p>
 <%= observe_field :search, :frequency => 0.2, :url => search_department_users_path(current_department), :with => :search %>
 
 <table class="sortable">
@@ -37,7 +37,4 @@
   <%= link_to "Hide Inactive Users", department_users_path(@department) %>
 <% end %>
 </p>
-<p><%= link_to "Add A New User", new_user_path%></p>
-<p><%= link_to "Import Users From CSV", import_department_users_path(@department)%></p>
-<p><%= link_to "Export Users to CSV", :action => 'index', :format => 'csv' %></p>
 
