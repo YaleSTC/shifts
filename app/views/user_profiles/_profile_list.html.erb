@@ -1,0 +1,12 @@
+<br/>
+<table>
+  <tr>
+    <th>User</th>
+  </tr>
+  <% for user_profile in @user_profiles %>
+    <tr>
+      <td><%= link_to "#{user_profile.user.proper_name}", user_profile_path(user_profile.user.login) %></td>
+    </tr>
+  <% end %>
+</table>
+
