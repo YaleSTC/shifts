@@ -31,7 +31,7 @@ class DataEntriesController < ApplicationController
     redirect_to params[:thickbox] == "true" ? report_path(current_user.current_shift.report) : data_object_path(@data_entry.data_object)
   end
   
-# Are we removing this feature?
+## Are we removing this feature?
 #  def edit
 #    @data_entry = DataEntry.find(params[:id])
 #    @data_object = DataObject.find(params[:data_object_id])

@@ -1,10 +1,8 @@
-<% form_for [:data_object, @data_entry] do |f| %>
+<% form_for [@data_entry] do |f| %>
   <%= f.error_messages %>
   
   <h2><%= @data_object.name %></h2>
-  <%#= hidden_field_tag :data_object_id, @data_object.id %>
-  <%= hidden_field_tag :thickbox, @thickbox %>
-  
+  <%= hidden_field_tag :thickbox, @thickbox %>  
   
   <% @data_object.data_type.data_fields.each do |field| %>
     <% args = field.prepare_form_helpers %>

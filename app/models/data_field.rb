@@ -33,10 +33,24 @@ class DataField < ActiveRecord::Base
     end
   end
 
+# Placeholder -ben
+  def alert_upper_bound
+    "cookies"
+  end
+
+# Placeholder -ben  
+  def alert_lower_bound
+    "cake"
+  end
+
+# Placeholder -ben  
+  def alert_exact
+    "pie"
+  end
+
   # TODO: Write the validations, probably with a string-parsing method similar
   # to that used in DataEntry.rb write_content.  Also needs associated view
-  # written for it, in terms of new options added to the data type form.  I may
-  # or may not work on this alongside other work. -ben
+  # written for it, in terms of new options added to the data type form.
   # Used to check validations and alerts on data field values.
 #  def validate_content(content)
 #    if self.display_type == "text_field"

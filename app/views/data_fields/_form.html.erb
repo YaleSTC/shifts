@@ -12,20 +12,22 @@
     </p>
     <p>
       <%= f.label :display_type %><br />
-      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
-          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>   
+      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type" %><br/>   
     </p>
+    <%= observe_field('data_field_display_type',
+        :url => { :controller => :data_fields,
+                  :action => :update_form, 
+                  :layout => false},
+        :method => :get,   
+        :with => 'display_type',        
+        :on => "change") %>
     <p>
-      <div class="value_field">
-        <%= f.label :values %><br />
-        <%= f.text_field :values %><br />
+      <div class="optional_fields">
+        <div class="value_field">
+        </div>
+        <div class="alert_field">
+        </div>
       </div>
-    </p>
-    <p>
-      <%= f.label :upper_alert, text = "Alerts" %><br />
-      Upper: <%= f.text_field :upper_alert %><br />
-      Lower: <%= f.text_field :lower_alert %><br />
-      <small><em>You will receive a warning when a value is above or below these bounds</small></em>
     </p>
     <p>     
       <%= f.submit "Save and add another field", :name => "add_another" %>
