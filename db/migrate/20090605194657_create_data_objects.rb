@@ -7,7 +7,7 @@ class CreateDataObjects < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :data_objects_locations, :id => false do |t|
+    create_table :data_objects_locations do |t|
       t.integer :data_object_id
       t.integer :location_id
     end
