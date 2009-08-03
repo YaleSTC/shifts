@@ -11,6 +11,7 @@ require 'spec/mocks'
 require 'email_spec/cucumber'
 require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'
+#require 'culerity'
 
 # The following code loads all fixtures in spec/fixtures
 Before do

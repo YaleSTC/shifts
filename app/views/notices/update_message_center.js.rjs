@@ -1,0 +1,2 @@
+page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
+

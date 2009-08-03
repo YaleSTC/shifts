@@ -167,6 +167,6 @@ Then /^the department "([^\"]*)" should have a department_config$/ do |departmen
 end
 
 Then /^the "([^\"]*)" should be "([^\"]*)"$/ do |attribute, value|
-  $appconfig.send(attribute.to_s).to_s.should == value.to_s
+  @appconfig.send(attribute.to_s).to_s.should == value.to_s
 end
 
