@@ -117,6 +117,9 @@ ul.events li.click_to_add_new {
     height: 100%;
     border-left: 0px solid #fff;
 }
+div.click_to_add_new:hover {
+		background: #fffff3;
+}
 ul.events li.click_to_add_new:hover {
     background: #fffff3;
     position: absolute;
@@ -149,16 +152,18 @@ img.left_arrow {  position:absolute; left:0;  }
 
 div.loading{
 	position: absolute;
-	top: 100%;
+	float: left;
+	top: 0;
 	left: 0;
-	z-index: 3;
+	z-index: 50;
 	display: block;
 	background: #ddd;
 	color: #000;
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
-    font-family: Verdana, Arial, serif;
+  font-family: Verdana, Arial, serif;
+	width: 100px;
 	font-size: 12px;
 	border: 1px solid gray;
 }
@@ -169,7 +174,7 @@ div.tooltip{
 	float: left;
 	top: 100%;
 	left: 0;
-	z-index: 50;
+	z-index: 51;
 	display: block;
 	background: #ddd;
 	color: #000;
@@ -180,6 +185,10 @@ div.tooltip{
   font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
+}
+
+div.tooltip.edit{
+	top:0%;
 }
 /*
 div.tooltip a{
