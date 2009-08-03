@@ -12,7 +12,7 @@
 
 
 if @notice.errors.empty?
-  page.replace_html "all_notices", :partial => 'all_notices'
+  page.replace_html "all_notices", :partial => 'notices/all_notices'
   if current_user.current_shift
     page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
   end
