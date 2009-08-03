@@ -96,3 +96,7 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes
 )
 
+if "irb" == $0
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+end
+
