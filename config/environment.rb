@@ -18,7 +18,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
 
   #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
-    config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
+    #config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
 
   #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
   #ENV["HMP_DEBUG"] = 'true'
