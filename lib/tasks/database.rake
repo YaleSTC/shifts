@@ -1,6 +1,6 @@
 #for heroku: enable 'heroku rake db:purge'
 require 'rake'
-  
+
 namespace :db do
   desc "Purges the tables of a postgres DB" 
   task :purge do
