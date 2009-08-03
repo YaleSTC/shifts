@@ -15,7 +15,7 @@ ul li.shift_missed:hover {   background: #E85E5E; }
 /* HIDDEN SHIFTS */
 ul.hidden_shifts {
     list-style-type: none;
-    margin: 0px 0px 30px 0px;
+    margin: 0px 0px 20px 0px;
     width: 100%;
     display: block;
 }
