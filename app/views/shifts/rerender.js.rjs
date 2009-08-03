@@ -1,0 +1,9 @@
+page.replace_html @shift.start.strftime("%Y-%m-%d"), :partial => "shifts/schedule/day", :object => @shift.start.to_date
+page["#shift#{@shift.id}"].visual_effect :highlight
+page << "$('.tooltip').remove();"
+
+#TODO:this! and port the above functionality (full day redraw) to create and destroy, as well.
+page << "$('##{@shift.start.strftime("%Y-%m-%d")} > #shift#{@shift.id}').click(function (e) {popup_show($(this)); return false;});"
+
+# display alert
+ajax_alert(page, "shift updated");

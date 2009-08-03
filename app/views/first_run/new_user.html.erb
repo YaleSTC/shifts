@@ -3,7 +3,7 @@
 <div class="form_left" id="new_user_form">
 <%= render :partial => 'form'%>
 </div>
-<% if $appconfig.use_ldap %>
+<% if @appconfig.use_ldap %>
 <div class="table_right" id="result_list">
 <%= render :partial => 'users/result_list' %>
 </div>

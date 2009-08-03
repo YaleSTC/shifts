@@ -1,50 +1,20 @@
-/* New Shifts CSS (here for now, will be copied over once I remove old shifts stuff) */
 
-ul.events li.user {                 background: #94C2F0; }
-ul.events li.user:hover {           background: #2985E0; }
-ul.events li.user_late {            background: #F0C294; }
-ul.events li.user_late:hover {      background: #E08529; }
-ul.events li.user_missed {          background: #E85E5E; }
-ul.events li.user_missed:hover {    background: #E02929; }
-ul.events li.shift {                background: #C2F094; }
-ul.events li.shift:hover {          background: #85E029; }
-ul.events li.shift_late {           background: #F0F094; }
-ul.events li.shift_late:hover {     background: #E0E029; }
-ul.events li.shift_missed {         background: #F09494; }
-ul.events li.shift_missed:hover {   background: #E85E5E; }
-
-
-
+ul.events li {                        color: #000; }
 ul.events li.timeslot {
     background: #eee;
     color: #707070;
     font-weight: bold;
 }
-ul.events li {
-    color: #000;
-}
-
-ul.events li.timeslot a {
-    color: #999;
-}
-ul.events li.timeslot:hover a:hover {
-    color: #999;
-}
-ul.events li.timeslot:hover {
-    background: #ddd;
-}
-ul.events li.timeslot:hover a {
-    color: #707070;
-}
+ul.events li.timeslot a {             color: #999; }
+ul.events li.timeslot:hover a:hover { color: #999; }
+ul.events li.timeslot:hover a {       color: #707070; }
+ul.events li.timeslot:hover {         background: #ddd; }
 
 
 
 
 
-
-h2 {
-    clear: both;
-}
+h2 { clear: both; }
 
 div.timeline {
     float:right;
@@ -141,47 +111,51 @@ ul.events li {
     height: 100%;
 }
 ul.events li.click_to_add_new {
-		z-index: 0;
+	z-index: 0;
     background: transparent;
     position: absolute;
     height: 100%;
+    border-left: 0px solid #fff;
+}
+div.click_to_add_new:hover {
+		background: #fffff3;
 }
 ul.events li.click_to_add_new:hover {
     background: #fffff3;
     position: absolute;
     height: 100%;
 }
+ul.events li div {
+	position: relative;
+}
 ul.events li div.time-slot {
     width: auto;
     height: 100%;
     border-right: 1px solid #ccc;
-		overflow:hidden;
+	overflow:hidden;
 }
 
 /* hack for vertical centering*/
 div.center_container {
-		display: table;
-		width: 100%;
-		height: 100%;
+	display: table;
+	width: 100%;
+	height: 100%;
 }
 div.center_content {
-		display: table-cell;
-		vertical-align: middle;
-		width: 100%;
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
 }
 
-img.right_arrow {
-    float:right;
-}
-img.left_arrow {
-    float:left;
-}
+img.right_arrow { position:absolute; right:0; }
+img.left_arrow {  position:absolute; left:0;  }
 
 div.loading{
 	position: absolute;
-	top: 100%;
+	float: left;
+	top: 0;
 	left: 0;
-	z-index: 3;
+	z-index: 50;
 	display: block;
 	background: #ddd;
 	color: #000;
@@ -189,6 +163,7 @@ div.loading{
 	font-style: normal;
 	font-weight: normal;
   font-family: Verdana, Arial, serif;
+	width: 100px;
 	font-size: 12px;
 	border: 1px solid gray;
 }
@@ -199,7 +174,7 @@ div.tooltip{
 	float: left;
 	top: 100%;
 	left: 0;
-	z-index: 50;
+	z-index: 51;
 	display: block;
 	background: #ddd;
 	color: #000;
@@ -210,6 +185,10 @@ div.tooltip{
   font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
+}
+
+div.tooltip.edit{
+	top:0%;
 }
 /*
 div.tooltip a{
