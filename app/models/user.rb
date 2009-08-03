@@ -54,19 +54,23 @@ class User < ActiveRecord::Base
     last_name+='*'
     email+='*'
     # Setup our LDAP connection
-    ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
-    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email)
+    begin
+    ldap = Net::LDAP.new( :host => @appconfig.ldap_host_address, :port => @appconfig.ldap_port )
+    filter = Net::LDAP::Filter.eq(@appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq(@appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq(@appconfig.ldap_email, email)
     out=[]
     ldap.open do |ldap|
-      ldap.search(:base => $appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
-      out << {:login => entry[$appconfig.ldap_login][0],
-              :email => entry[$appconfig.ldap_email][0],
-              :first_name => entry[$appconfig.ldap_first_name][0],
-              :last_name => entry[$appconfig.ldap_last_name][0]}
+      ldap.search(:base => @appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
+      out << {:login => entry[@appconfig.ldap_login][0],
+              :email => entry[@appconfig.ldap_email][0],
+              :first_name => entry[@appconfig.ldap_first_name][0],
+              :last_name => entry[@appconfig.ldap_last_name][0]}
        break if out.length>=limit
       end
     end
     out
+  rescue Exception => e
+    []
+  end
   end
 
   def self.mass_add(logins, department)
@@ -89,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def current_shift
-    self.shifts.select{|shift| shift.signed_in? and !shift.submitted?}[0]
+    Shift.find(:first, :conditions=>{:user_id => self.id, :signed_in => true})
   end
 
   # Returns all the loc groups a user can view within a given department

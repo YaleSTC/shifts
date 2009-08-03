@@ -3,7 +3,7 @@
 <%= render :partial => 'new_form', :locals => {:submit => "Create", :user => [@department,@user]} %>
 <p><%= link_to "Back to List", department_users_path(@department) %></p>
 </div>
-<% if $appconfig.use_ldap %>
+<% if @appconfig.use_ldap %>
 <div class="table_right" id="result_list">
 <%= render :partial => 'result_list' %>
 </div>
