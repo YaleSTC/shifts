@@ -6,6 +6,9 @@ Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login 
   u.save!
 end
 
+Given /^I have a role named "([^\"]*)" with permission "([^\"]*)"$/ do |role, permission|
+end
+
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
@@ -30,7 +33,7 @@ end
 Given /^I am "([^\"]*)"$/ do |name|
 #for some reason cucumber was not seeing this global variable in the app controller.
 #remove it at your own peril.
-  $appconfig = AppConfig.first
+  @appconfig = AppConfig.first
   @current_user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   @current_user.should_not be_nil
   @department = Department.find(@current_user.user_config.default_dept)
