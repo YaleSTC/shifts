@@ -6,6 +6,9 @@ Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login 
   u.save!
 end
 
+Given /^I have a role named "([^\"]*)" with permission "([^\"]*)"$/ do |role, permission|
+end
+
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
