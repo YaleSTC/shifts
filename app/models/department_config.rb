@@ -12,6 +12,10 @@ class DepartmentConfig < ActiveRecord::Base
     ["Monthly", true ]
   ]
 
+  LAST_DAY_SELECT = [
+    ["Last day of month", Time.now.end_of_month.day]
+  ]
+
   WEEK_DAY_SELECT = [
     [Date::DAYNAMES[0], 0],
     [Date::DAYNAMES[1], 1],

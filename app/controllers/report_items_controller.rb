@@ -22,7 +22,6 @@ class ReportItemsController < ApplicationController
     @report_item.report = params[:report_id] ? Report.find(params[:report_id]) : Shift.find(params[:shift_id]).report
     respond_to do |format|
       if current_user==@report_item.user && @report_item.save
-        flash[:notice] = "Successfully added event."
         @report = Report.find(@report_item.report_id)
         format.html {redirect_to @report}
         format.js
