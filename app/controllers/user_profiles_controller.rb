@@ -1,8 +1,7 @@
 class UserProfilesController < ApplicationController
 before_filter :user_login
   def index
-    @user_profiles = UserProfile.all
-    @user_profile_entries = UserProfileEntry.all
+    @user_profiles = UserProfile.all.select{|profile| profile.user.departments.include?(@department) }
   end
 
   def show
@@ -57,6 +56,26 @@ before_filter :user_login
     @user_profile.destroy
     flash[:notice] = "Successfully destroyed user profile."
     redirect_to user_profiles_url
+  end
+
+  def search
+    users = current_department.users
+    raise @user_profiles.to_yaml
+    #filter results if we are searching
+    if params[:search]
+      params[:search] = params[:search].downcase
+      @search_result = []
+      users.each do |user|
+        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+          search_result << user
+        end
+      end
+      users = @search_result.sort_by(&:last_name)
+    end
+    @user_profiles = []
+    for user in users
+      @user_profiles += UserProfile.find_by_user_id(user.id)
+    end
   end
 
 private

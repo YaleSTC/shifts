@@ -91,7 +91,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :user_profile_fields
-  map.resources :user_profiles
+  map.resources :user_profiles, :collection => {:search => :post}
 
   map.resources :punch_clock_sets
 
