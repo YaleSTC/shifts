@@ -60,7 +60,7 @@ class UsersController < ApplicationController
       end
     else
       @user = User.new(params[:user])
-      @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+      @user.auth_type = @appconfig.login_options[0] if @appconfig.login_options.size == 1
       @user.set_random_password
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
@@ -176,7 +176,7 @@ class UsersController < ApplicationController
         end
       else
         @user = User.new(u)
-        @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+        @user.auth_type = @appconfig.login_options[0] if @appconfig.login_options.size == 1
         @user.set_random_password
         @user.departments << @department unless @user.departments.include?(@department)
         if @user.save

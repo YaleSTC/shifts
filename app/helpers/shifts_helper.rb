@@ -29,6 +29,14 @@ module ShiftsHelper
     rowcount = 1
     @hidden_shifts = []
     @location_rows = {}
+    
+    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    @dept_start_hour ||= current_department.department_config.schedule_start / 60
+    @dept_end_hour ||= current_department.department_config.schedule_end / 60
+    @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
+    @time_increment ||= current_department.department_config.time_increment
+    @blocks_per_hour ||= 60/@time_increment.to_f
+    
     for location in @loc_groups.map{|lg| lg.locations }.flatten.uniq
       shifts = Shift.on_day(day).in_location(location).scheduled.sort_by{|s| s.start }
       rejected = []
