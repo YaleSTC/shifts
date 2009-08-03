@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
     last_name+='*'
     email+='*'
     # Setup our LDAP connection
+    begin
     ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
     filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email)
     out=[]
@@ -66,6 +67,9 @@ class User < ActiveRecord::Base
       end
     end
     out
+  rescue Exception => e
+    []
+  end
   end
 
   def self.mass_add(logins, department)
@@ -215,4 +219,3 @@ class User < ActiveRecord::Base
   end
 
 end
-
