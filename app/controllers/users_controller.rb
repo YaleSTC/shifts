@@ -51,12 +51,7 @@ class UsersController < ApplicationController
         flash[:notice] = "This user already exists in this department!"
         redirect_to @user
       else
-        #make sure not to lose roles in other departments
-        #remove all roles associated with this department
-        department_roles = @user.roles.select{|role| role.department == @department}
-        @user.roles -= department_roles
-        #now add back all checked roles associated with this department
-        @user.roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+        @user.roles += (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
 
         #add user to new department
         @user.departments << @department unless @user.departments.include?(@department)
@@ -185,7 +180,7 @@ class UsersController < ApplicationController
         @user.set_random_password
         @user.departments << @department unless @user.departments.include?(@department)
         if @user.save
-#          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
+          @user.deliver_password_reset_instructions!(Proc.new {|n| ArMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
         else
           failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
         end
