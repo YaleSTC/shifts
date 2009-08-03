@@ -44,8 +44,22 @@ before_filter :user_login
     @user_profile_entries = params[:user_profile_entries]
     @user_profile_entries.each do |entry_id, entry_content|
       entry = UserProfileEntry.find(entry_id)
-      entry.content = entry_content[entry_id]
-      entry.save
+      @content = ""
+        if entry.display_type == "check_box"
+          UserProfileEntry.find(entry_id).values.split(", ").each do |value|
+            c = entry_content[value]
+            @content += value + ", " if c == "1"
+          end
+          @content.gsub!(/, \Z/, "")
+          entry.content = @content
+          entry.save
+        elsif entry.display_type == "radio_button"
+          entry.content = entry_content["1"]
+          entry.save
+        else
+          entry.content = entry_content[entry_id]
+          entry.save
+        end
     end
       flash[:notice] = "Successfully edited user profile."
       redirect_to :controller => "user_profiles", :action => "show", :params => {:id => @user_profile.user.login}
