@@ -66,19 +66,15 @@ And I should have 2 roles.
 Scenario Outline: Assigning roles via edit user
 
 Given I am "<superuser>"
+#Given I have
 And I am on the list of users
 When I follow "<login>"
-Then I should see "blah blah blah"
-And I follow "Edit"
-Then I should see "<firstname>"
-And I should see "<lastname>"
-And I should see "<email>"
-When I click "Edit"
 Then I should see "Edit User"
+And I should see "Roles"
 
-#Scenarios: Successfully assigning some roles
+Scenarios: Successfully assigning some roles
 
-#|superuser       |login|firstname|lastname|email             |
-#|Albus Dumbledore|hp123|Harry    |Potter  |hp123@hogwarts.edu|
-#|Horace Slughorn |hp123|Harry    |Potter  |hp123@hogwarts.edu|
+|superuser       |login|firstname|lastname|email             |
+|Albus Dumbledore|hp123|Harry    |Potter  |hp123@hogwarts.edu|
+|Horace Slughorn |hp123|Harry    |Potter  |hp123@hogwarts.edu|
 
