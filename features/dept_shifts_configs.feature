@@ -12,9 +12,10 @@ Feature: Shift settings
     And the user "Albus Dumbledore" has permissions "Hogwarts dept admin, Hogwarts shifts admin"
     And the user "Harry Potter" has permissions "Outside of Hogwarts view, Outside of Hogwarts signup"
     And I am on the department settings page for the "Hogwarts" department
+    Then I should see "blah blah blah"
 
-#@passing
   Scenario: Shifts settings: Start and end times
+    Given I am "Albus Dumbledore"
     When I select "05:00 AM" from "department_config_schedule_start"
     And I select "07:00 AM" from "department_config_schedule_end"
     And I press "Save"
@@ -30,10 +31,9 @@ Feature: Shift settings
     And I press "Save"
     When I am on shifts
     And I follow "Power sign up"
-    And the "shift[start]" field should contain "00"
+    And the "shift[start(5i)]" field should contain "00"
     And the "Start" field should not contain "15"
     And the "Start" field should not contain "30"
-
     When I go to the shifts page
     And I follow "Time Slots"
     And the "mass_create_start_in_minute_5i" field should contain "00"
@@ -55,7 +55,7 @@ Feature: Shift settings
     And the "Start" field should not contain "15"
     And the "Start" field should contain "15"
 
-#@passing
+
   Scenario: Shifts settings: Grace Period part 1
 #  (in 2 parts because webrat interacts buggily with global vars)
     Given there is a scheduled shift:
@@ -66,7 +66,6 @@ Feature: Shift settings
     And I press "Save"
     Then that_shift should not be late
 
-#@passing
   Scenario: Shifts settings: Grace Period part 2
     Given there is a scheduled shift:
         | start_time     | end_time       | location     | user         |
