@@ -483,10 +483,15 @@ fieldset#warning {
 }
 
 fieldset.index {
-  width: 90%;
+  width: 95%;
   padding: 5px;
   border: 1px solid gray;
   background-color:#DDDDFF
+}
+
+textarea#content {
+    width: 95%;
+    height:90%;
 }
 
 legend {

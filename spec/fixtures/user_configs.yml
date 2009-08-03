@@ -40,3 +40,9 @@ Filch:
   view_week: whole_period
   watched_data_objects: ""
 
+Slughorn:
+  user_id: 7
+  default_dept: 1
+  view_loc_groups: 1
+  view_week: whole_period
+

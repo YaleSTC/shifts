@@ -19,6 +19,10 @@ When /^I follow "([^\"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^I click "([^\"]*)"$/ do |link|
+  click_link(link)
+end
+
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
@@ -94,20 +98,34 @@ Then /^I should see "([^\"]*)"$/ do |text|
   response.should contain(text)
 end
 
+Then /^I should see \/([^\/]*)\/$/ do |regexp|
+  regexp = Regexp.new(regexp)
+  response.should contain(regexp)
+end
+
 Then /^I should not see "([^\"]*)"$/ do |text|
   response.should_not contain(text)
 end
 
+Then /^I should not see \/([^\/]*)\/$/ do |regexp|
+  regexp = Regexp.new(regexp)
+  response.should_not contain(regexp)
+end
+
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
-  field_labeled(field).value.should =~ /#{value}/
+  field_named(field).value.should =~ /#{value}/
 end
 
 Then /^the "([^\"]*)" field should not contain "([^\"]*)"$/ do |field, value|
-  field_labeled(field).value.should_not =~ /#{value}/
+  field_named(field).value.should_not =~ /#{value}/
 end
 
 Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
   field_labeled(label).should be_checked
+end
+
+Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
+  field_labeled(label).should_not be_checked
 end
 
 Then /^I should be on (.+)$/ do |page_name|
