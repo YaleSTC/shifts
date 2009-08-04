@@ -13,9 +13,9 @@ before_filter :user_login
 
   end
 
-  def new
-    @user_profile = UserProfile.new
-  end
+#  def new
+#    @user_profile = UserProfile.new
+#  end
 
   def create
     @user_profile = UserProfile.new(params[:user_profile])
