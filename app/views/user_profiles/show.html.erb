@@ -1,16 +1,4 @@
 <% title "#{@user_profile.user.proper_name}'s Profile" %>
 
-<p></p>
-    <% if @user_profile_entries.empty? %>
-
-    <strong><h3> This user does not have any publicly viewable information for this department </h3></strong>
-    <% else %>
-      <% @user_profile_entries.each do |entry| %>
-
-      <p>
-        <strong><%=h "#{entry.field_name}: " %></strong>
-        <%=h entry.content %>
-      </p>
-      <% end %>
-    <% end %>
+    <%= render :partial => 'user_profile_entries' %>
 
