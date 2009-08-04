@@ -25,22 +25,27 @@ module ShiftsHelper
     "width: #{width}%; left: #{left}%;"
   end
   
+  
+  
   def day_preprocessing(day)
-
+    @location_rows = {}
+    for location in Location.all
+      @location_rows[location] = []
+    end
+    
     @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
                                          day.beginning_of_day, day.end_of_day)
     shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
                                 day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes)
 
-    @location_rows = {}
+
     rowcount = 0
     rejected = []
     location_row = 0
     
     until shifts.empty?
       shift = shifts.shift
-      @location_rows[shift.location] ||= []
       @location_rows[shift.location][location_row] = [shift]
       (0...shifts.length).each do |i| 
         if shift.location == shifts.first.location
@@ -52,7 +57,6 @@ module ShiftsHelper
           end
         else
           shift = shifts.shift
-          @location_rows[shift.location] ||= []
           @location_rows[shift.location][location_row] = [shift]
         end
       end
