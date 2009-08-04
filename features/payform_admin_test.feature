@@ -25,7 +25,7 @@ Feature: payform admin
     And I should see "Hermione Granger" under "User" in column 1
     And I should see "2009-05-23" under "Approved" in column 4
     And I should not see "2009-05-16"
-@t
+
   Scenario: Creating a Mass Job
     Given I have no payform_item_sets
     When I follow "Mass Add Jobs"
@@ -114,8 +114,8 @@ Feature: payform admin
     Then I should see "Successfully pruned empty payforms."
     And I should see "Harry Potter"
     And I should see "2009-06-13"
-    And I should not see "Hermione Granger"
-    And I should not see "2009-05-23"
+    And I should see "Hermione Granger"
+    And I should see "2009-05-23"
     And I should not see "2009-06-06"
     And I should not see "2009-05-16"
 
