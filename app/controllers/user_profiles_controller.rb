@@ -87,7 +87,7 @@ before_filter :user_login
     end
     @user_profiles = []
     for user in users
-      @user_profiles << UserProfile.find_by_user_id(user.id)
+      @user_profiles << UserProfile.find_by_user_id(user.user_id)
     end
   end
 private
@@ -95,3 +95,4 @@ private
     @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
   end
 end
+

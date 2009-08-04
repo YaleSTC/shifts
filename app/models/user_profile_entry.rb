@@ -25,10 +25,10 @@ class UserProfileEntry < ActiveRecord::Base
       return ["user_profile_entries[#{id}]", id, options.map{|opt| [opt, opt]}, {:selected => content}]
     elsif display_type == "check_box"
       options = values.split(',').each{|opt| opt.squish!}
-      return options.map{|v| ["user_profile_entries[#{id}]", v, v.include?(content) ? {v => '', :checked => true} : {v => ''}]}
+      return options.map{|v| ["user_profile_entries[#{id}]", v, content.include?(v) ? {v => '', :checked => true} : {v => ''}]}
     elsif display_type == "radio_button"
       options = values.split(',').each{|opt| opt.squish!}
-      return options.map{|v| ["user_profile_entries[#{id}]", 1, v, v==content ? {v => '', :checked => true} : {v => ''}]}
+      return options.map{|v| ["user_profile_entries[#{id}]", 1, v, content==v ? {v => '', :checked => true} : {v => ''}]}
     end
   end
 
