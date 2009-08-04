@@ -12,7 +12,7 @@ Feature: Payform settings
 
   Scenario: Payform settings: Min Length for Item description
     When I fill in "department_config_description_min" with "12"
-    And I press "Submit"
+    And I press "Save"
     And I follow "Logout"
     Given I am "Harry Potter"
     And "Harry Potter" has a current payform
@@ -37,21 +37,28 @@ Feature: Payform settings
     Then I should see "Successfully created payform item."
     And I should have 1 payform_item
 
-
+@t
   Scenario: Payform settings: Min Length for edit and deletion of reason
     Given "Harry Potter" has a current payform
     And "Harry Potter" has the following current payform item
       | category  | hours | description   |
       | Quidditch | 2     | played a game |
     When I fill in "department_config[reason_min]" with "7"
-    And I press "Submit"
+    And I press "Save"
     And I follow "Logout"
     Given I am "Harry Potter"
     And I am on the payforms page
+    And I follow "2009-08-08"
     And I follow "edit"
-    And I fill in "Hours" with "3"
+    And I choose "calculate_hours_time_input"
+    And I select "03" from "time_input_start_4i"
+    And I select "00" from "time_input_start_5i"
+    And I select "PM" from "time_input_start_7i"
+    And I select "05" from "time_input_end_4i"
+    And I select "00" from "time_input_end_5i"
+    And I select "PM" from "time_input_end_7i"
     And I fill in "Reason" with "edited"
-    And I press "Submit"
+    And I press "Save"
     Then I should see "Reason seems too short"
     And I should have 1 payform_item
     Given I fill in "Reason" with "a longer reason"
