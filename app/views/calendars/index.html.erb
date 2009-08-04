@@ -8,14 +8,16 @@
     <th>Active</th>
   </tr>
   <% for calendar in @calendars %>
-    <tr>
+    <tr<%= " class='disabled'" if !calendar.active? %>>
       <td><%=h calendar.name %></td>
-      <td><%=h calendar.start_date %></td>
-      <td><%=h calendar.end_date %></td>
+      <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
+      <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.active %></td>
       <td><%= link_to "Show", calendar %></td>
-      <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
-      <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% unless calendar.default? %>
+        <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
+        <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
