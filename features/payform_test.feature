@@ -9,11 +9,12 @@ Feature: payform
   Background:
     Given I am "Harry Potter"
     And I have a payform for the week "2009-5-23"
-
+@passing
   Scenario: Add a job to a payform
     Given I am on the page for the payform for the week "2009-05-23"
     When I follow "New Payform Item"
     And I select "2009-05-18" from "Date"
+    And I choose "calculate_hours_time_input"
     And I select "03" from "time_input_start_4i"
     And I select "00" from "time_input_start_5i"
     And I select "PM" from "time_input_start_7i"
@@ -28,7 +29,6 @@ Feature: payform
     And I should see "May 18"
     And I should see "Studying defense against the dark arts"
     And I should see "1.2"
-
 
   Scenario: Edit a job on a payform
     Given I have the following payform item
@@ -53,6 +53,7 @@ Feature: payform
     And I should see "I edited"
     And I should see "3.0"
 
+@passing
   Scenario: Delete a job on a payform
     Given I have the following payform item
       | category | user_login | hours | description         | date         |
@@ -67,7 +68,7 @@ Feature: payform
     And I should have 1 payform_item
     And that payform_item should be inactive
 
-#@passing
+@passing
   Scenario: Submit a payform
     Given I have the following payform items
       | category  | user_login | hours | description         | date         |

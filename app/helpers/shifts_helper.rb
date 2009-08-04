@@ -25,44 +25,43 @@ module ShiftsHelper
     "width: #{width}%; left: #{left}%;"
   end
   
+  
+  
   def day_preprocessing(day)
-    rowcount = 1
-    @hidden_shifts = []
     @location_rows = {}
-    for location in @loc_groups.map{|lg| lg.locations }.flatten.uniq
-      shifts = Shift.on_day(day).in_location(location).scheduled.sort_by{|s| s.start }
-      rejected = []
+    for location in Location.all
       @location_rows[location] = []
-      @location_rows[location][0] = []
-      location_row = 0
-      until shifts.empty?
-        shift = shifts.shift #get first shift. shift... haha. (array.shift is a function)
-        @location_rows[location][location_row] = []
-        found_first = false
-        while !found_first
-          if (shift.end < day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes) ||
-             (shift.start > day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes)
-            @hidden_shifts << shift
-            shift = shifts.shift
-          else
-            @location_rows[location][location_row] << shift
-            found_first = true
-          end
-        end
-        (0...shifts.length).each do
-          if (shifts.first.end < day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes) ||
-             (shifts.first.start > day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes)
-            @hidden_shifts << shifts.shift
-          elsif shift.end > shifts.first.start
+    end
+    
+    @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
+                                         day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
+                                         day.beginning_of_day, day.end_of_day)
+    shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
+                                day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes)
+
+
+    rowcount = 0
+    rejected = []
+    location_row = 0
+    
+    until shifts.empty?
+      shift = shifts.shift
+      @location_rows[shift.location][location_row] = [shift]
+      (0...shifts.length).each do |i| 
+        if shift.location == shifts.first.location
+          if shift.end > shifts.first.start
             rejected << shifts.shift
           else
             shift = shifts.shift
-            @location_rows[location][location_row] << shift
+            @location_rows[shift.location][location_row] << shift
           end
+        else
+          shift = shifts.shift
+          @location_rows[shift.location][location_row] = [shift]
         end
-        location_row += 1
-        shifts = rejected
       end
+      location_row += 1
+      shifts = rejected
       if location_row > 0
         rowcount += location_row
       else
