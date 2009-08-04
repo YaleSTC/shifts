@@ -5,8 +5,12 @@
   <div id = "message_center">
     <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
   </div>
-    <%= link_to_post_a_new_notice %>
+  <fieldset class="sticky" style="width: 48%">
+    <div class="left">
+      <%= link_to_post_a_new_notice(true) %>
+    </div>
 </fieldset>
+
 <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
   <br/>
     <fieldset class='index'>

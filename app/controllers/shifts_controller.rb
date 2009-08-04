@@ -94,6 +94,9 @@ class ShiftsController < ApplicationController
     if @shift.save
       if !@shift.scheduled
         @report = Report.new(:shift => @shift, :arrived => Time.now)
+        #Mark shift as signed in, since we are bypassing the report create controller
+        @shift.signed_in = true
+        @shift.save
         # add a report item about logging in
         @report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
         redirect_to @report and return if @report.save

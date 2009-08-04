@@ -1,8 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  def link_to_post_a_new_notice
-    height = 200
+  def link_to_post_a_new_notice(report = false)
+    report == true ? height = 200 : height = 445
     height = 540 if current_user.is_admin_of?(current_department)
     link_to_unless_current('Post a new notice', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
   end
@@ -21,7 +21,7 @@ module ApplicationHelper
 
   def return_to_shift_report_if_needed
     if (current_shift = current_user.current_shift)
-      (link_to "Return to your current shift", shift_path(current_shift)) + "<br/>"
+      (link_to "Return to your current shift", report_path(current_shift.report)) + "<br/>"
     end
   end
 
@@ -93,4 +93,3 @@ module ApplicationHelper
     end
   end
 end
-

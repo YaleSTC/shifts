@@ -1,4 +1,5 @@
-<% if current_user.is_admin_of?(current_department) && !Notice.upcoming.empty? %>
+<% if current_user.is_admin_of?(current_department) %>
+  <% unless Notice.upcoming.empty? %>
   <div id = "upcoming">
     <fieldset class = "index">
       <legend>Upcoming</legend>
@@ -6,6 +7,10 @@
     </fieldset>
   </div>
   <br />
+  <% end %>
+  <div id = "for_others">
+    <%= render :partial => 'for_others' %>
+  </div>
 <% end %>
 <div id = "for_you">
     <%= render :partial => 'for_you' %>
