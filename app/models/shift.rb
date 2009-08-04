@@ -13,7 +13,9 @@ class Shift < ActiveRecord::Base
   validates_presence_of :start
 
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
+  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
+  named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
   named_scope :super_search, lambda {|start,stop, incr| {:conditions => ['(("start" >= ? and "start" < ?) or ("end" > ? and "end" <= ?)) and "scheduled" = ?', start.utc, stop.utc - incr, start.utc + incr, stop.utc, true], :order => '"location_id", "start"' }}
   named_scope :hidden_search, lambda {|start,stop,day_start,day_end| {:conditions => ['(("start" >= ? and "end" < ?) or ("start" >= ? and "start" < ?)) and "scheduled" = ?', day_start.utc, start.utc, stop.utc, day_end.utc, true], :order => '"location_id", "start"' }}

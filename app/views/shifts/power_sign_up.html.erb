@@ -12,8 +12,12 @@
     <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
+    <%= f.label :calendar %><br />
+    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+  </p>
+  <p>
     <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
+    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
   </p>
   <p>
     <%= f.label :location %><br />

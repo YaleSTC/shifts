@@ -5,6 +5,11 @@ class CalendarsController < ApplicationController
   
   def show
     @calendar = Calendar.find(params[:id])
+    
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
+    @visible_locations = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.collect{|l| l.locations}.flatten.uniq
+    @shifts = @calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled
+    @time_slots = @calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6)
   end
   
   def new
@@ -13,6 +18,7 @@ class CalendarsController < ApplicationController
   
   def create
     @calendar = Calendar.new(params[:calendar])
+    @calendar.department = @department
     if @calendar.save
       flash[:notice] = "Successfully created calendar."
       redirect_to @calendar
