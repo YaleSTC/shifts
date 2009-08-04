@@ -1,0 +1,23 @@
+<% title "Calendars" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Active</th>
+  </tr>
+  <% for calendar in @calendars %>
+    <tr>
+      <td><%=h calendar.name %></td>
+      <td><%=h calendar.start_date %></td>
+      <td><%=h calendar.end_date %></td>
+      <td><%=h calendar.active %></td>
+      <td><%= link_to "Show", calendar %></td>
+      <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
+      <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Calendar", new_calendar_path %></p>
