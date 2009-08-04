@@ -7,7 +7,7 @@ module ApplicationHelper
     link_to_unless_current('Post a new notice', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
   end
 
-  def link_toggle(id, name, speed = "medium")
+  def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
     # link_to_function name, "Effect.toggle('#{id}', 'appear', { duration: 0.3 });"
