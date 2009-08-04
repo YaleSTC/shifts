@@ -17,18 +17,18 @@ class UserProfileEntry < ActiveRecord::Base
 
   def prepare_form_helpers
     if display_type == "text_field"
-      return ["user_profile_entries[#{id}]", id]
+      return ["user_profile_entries[#{id}]", id, {:value => content}]
     elsif display_type == "text_area"
-      return ["user_profile_entries[#{id}]", id, {:id => id}]
+      return ["user_profile_entries[#{id}]", id, {:id => id, :value => content}]
     elsif display_type == "select"
       options = values.split(',').each{|opt| opt.squish!}
-      return ["user_profile_entries[#{id}]", id, options.map{|opt| [opt, opt]}]
+      return ["user_profile_entries[#{id}]", id, options.map{|opt| [opt, opt]}, {:selected => content}]
     elsif display_type == "check_box"
       options = values.split(',').each{|opt| opt.squish!}
-      return options.map{|v| ["user_profile_entries[#{id}]", v]}
+      return options.map{|v| ["user_profile_entries[#{id}]", v, content.include?(v) ? {v => '', :checked => true} : {v => ''}]}
     elsif display_type == "radio_button"
       options = values.split(',').each{|opt| opt.squish!}
-      return options.map{|v| ["user_profile_entries[#{id}]", 1, v]}
+      return options.map{|v| ["user_profile_entries[#{id}]", 1, v, content==v ? {v => '', :checked => true} : {v => ''}]}
     end
   end
 

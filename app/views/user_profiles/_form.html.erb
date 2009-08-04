@@ -9,13 +9,18 @@
 
           <% if ["text_field", "select", "text_area"].include? entry.display_type %>
             <%= send(entry.display_type, *args) %>
-          <% elsif ["check_box", "radio_button"].include? entry.display_type %>
+          <% elsif ["radio_button"].include? entry.display_type %>
             <% args.each do |options| %>
               <%= send(entry.display_type, *options) %>
-              <%= label "user_profile_entries[#{entry.id}]", "#{options.last}" %>
-
+              <%= label "user_profile_entries[#{entry.id}]", "#{options.third}" %>
+            <% end %>
+          <% elsif ["check_box"].include? entry.display_type %>
+            <% args.each do |options| %>
+              <%= send(entry.display_type, *options) %>
+              <%= label "user_profile_entries[#{entry.id}]", "#{options.second}" %>
           <% end %>
         <% end %>
+
       <% end %>
     <% end %>
   </p>

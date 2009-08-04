@@ -74,24 +74,22 @@ before_filter :user_login
 
   def search
     users = current_department.users
-    raise @user_profiles.to_yaml
     #filter results if we are searching
     if params[:search]
       params[:search] = params[:search].downcase
       @search_result = []
       users.each do |user|
         if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
-          search_result << user
+          @search_result << user
         end
       end
       users = @search_result.sort_by(&:last_name)
     end
     @user_profiles = []
     for user in users
-      @user_profiles += UserProfile.find_by_user_id(user.id)
+      @user_profiles << UserProfile.find_by_user_id(user.user_id)
     end
   end
-
 private
   def user_login
     @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
