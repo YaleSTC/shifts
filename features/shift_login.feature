@@ -1,12 +1,14 @@
+@shift
 Feature: Regular user logs into a shift
   As a regular user
   I want to log into a shift
   So that I can begin updating my report
 
+Background:
+    Given I am "Harry Potter"
+
 Scenario: Log into an unscheduled shift
-  Given I am logged into CAS as "studcomp"
-    #Let us make studcomp the default regular user
-  And I am not logged into a shift
+  Given I am not logged into a shift
   When I am on the homepage
   And I follow "Here"
   #"Here" refers to a link within a redirect error message
@@ -33,8 +35,7 @@ Scenario: Log into an unscheduled shift
 #Then I should see "You are already signed into a shift!"
 
 Scenario: End shift
-  Given I am logged into CAS as "studcomp"
-  And I am on the homepage
+    Given I am on the homepage
   And I am logged into a shift
   When I follow "Here"
   And I follow "Shifts"
