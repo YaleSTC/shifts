@@ -40,7 +40,7 @@ class FirstRunController < ApplicationController
 
   def create_user
     @user = User.new(params[:user])
-    @user.auth_type = $appconfig.login_options[0] if $appconfig.login_options.size == 1
+    @user.auth_type = @appconfig.login_options[0] if @appconfig.login_options.size == 1
     @user.departments << Department.first
     @user.superuser = true
     @user.set_random_password if @user.auth_type=='CAS'

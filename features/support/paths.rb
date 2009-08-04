@@ -9,7 +9,7 @@ module NavigationHelpers
     case page_name
 
     when /the homepage/
-      $appconfig = AppConfig.first
+      @appconfig = AppConfig.first
       root_path
     when /the list of users/
       department_users_path(@department)
@@ -47,7 +47,7 @@ module NavigationHelpers
     when /the categories page for the "([^\"]*)" department/
       department_categories_path(Department.find_by_name($1))
     when /the login page/
-        $appconfig = AppConfig.first
+        @appconfig = AppConfig.first
       url_for(:controller => 'user_sessions', :action => 'new')
     when /the page for the user "([^\"]*)"/
       edit_user_path(User.find_by_login($1))
