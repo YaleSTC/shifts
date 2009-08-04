@@ -1,5 +1,6 @@
 @configs
 @cw
+@breaking
 Feature: User settings
   In order to manage user settings
   As a regular user
@@ -9,7 +10,7 @@ Feature: User settings
     Given I am "Harry Potter"
     And the user "Harry Potter" has permissions "Outside of Hogwarts view, Outside of Hogwarts signup, Inside of Hogwarts view"
     And I am on the user settings page
-@passing
+#@passing
   Scenario: A New user has default settings
     When I follow "Logout"
     Given I am "Albus Dumbledore"
@@ -24,7 +25,7 @@ Feature: User settings
     Then I should see "Successfully created user"
     Then I should have a user named "Ron Weasley"
     Then "Ron Weasley" should have 1 user_config
-@passing
+#@passing
   Scenario: Changing the default department
     When I select "Hogwarts" from "Default department"
     And I press "Submit"
@@ -82,7 +83,7 @@ Feature: User settings
     And I should not see "tomorrow" on the schedule
     And I should not see "Harry Potter" on the schedule
     And I should not see "Hermione Granger" on the schedule
-@passing
+#@passing
   Scenario: What LocGroups to display on schedule view
     Given the user "Harry Potter" has permissions "Inside of Hogwarts view, Outside of Hogwarts view"
     When I go to the user settings page

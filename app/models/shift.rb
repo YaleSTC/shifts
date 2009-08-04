@@ -12,10 +12,10 @@ class Shift < ActiveRecord::Base
   validates_presence_of :location
   validates_presence_of :start
 
-  named_scope :on_day, lambda {|day| { :conditions => ['start > ? and start < ?', day.beginning_of_day, day.end_of_day]}}
+  named_scope :on_day, lambda {|day| { :conditions => ['start >= ? and start < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => ['location_id = ?', loc.id]}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
-  
+
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validates_presence_of :user
@@ -35,7 +35,7 @@ class Shift < ActiveRecord::Base
     #Used for taking sub requests
     if !(start_of_delete.between?(shift.start, shift.end) && end_of_delete.between?(shift.start, shift.end))
       raise "You can\'t delete more than the entire shift"
-    elsif start_of_delete >= end_of_delete
+  elsif start_of_delete >= end_of_delete
       raise "Start of the deletion should be before end of deletion"
     elsif start_of_delete == shift.start && end_of_delete == shift.end
       shift.destroy
@@ -101,7 +101,7 @@ class Shift < ActiveRecord::Base
 
   #a shift has been signed in to if its shift report has been submitted
   def submitted?
-    self.report and self.report.departed
+    self.signed_in? and self.report.departed
   end
 
   #TODO: subs!
@@ -110,11 +110,6 @@ class Shift < ActiveRecord::Base
     #note: if the later part of a shift has been taken, self.sub still returns true so we also need to check self.sub.new_user.nil?
     !self.sub_requests.empty? #and sub.new_user.nil? #new_user in sub is only set after sub is taken.  shouldn't check new_shift bcoz a shift can be deleted from db. -H
   end
-  #
-  # def has_sub_at_start?
-  #   has_sub? and start == sub.start
-  # end
-
 
   def has_passed?
     self.end < Time.now
