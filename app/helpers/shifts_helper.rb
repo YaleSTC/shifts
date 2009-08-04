@@ -58,7 +58,11 @@ module ShiftsHelper
       end
       location_row += 1
       shifts = rejected
-      rowcount += location_row
+      if location_row > 0
+        rowcount += location_row
+      else
+        rowcount += 1
+      end
     end
 
     @table_height = rowcount + @loc_groups.length * 0.25

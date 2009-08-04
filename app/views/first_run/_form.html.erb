@@ -25,13 +25,13 @@
     <%= f.label :employee_id %><br />
     <%= f.text_field :employee_id %>
   </p>
- <% if $appconfig.login_options.size >1 %>
+ <% if @appconfig.login_options.size >1 %>
   <p>
     <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, $appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
+    <%= f.select(:auth_type, @appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
   </p>
   <% end %>
-  <% if $appconfig.login_options.include?('built-in') %>
+  <% if @appconfig.login_options.include?('built-in') %>
 <h4> If you plan on using built-in authentication for this user, please provide a password. If you're just using CAS, feel free to leave in blank. </h4>
   <p>
     <%= f.label :password %><br />
@@ -45,7 +45,7 @@
   <h4>After clicking "Submit", you be redirected to a login page, after which you may use the app normally.</h4>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-<% if $appconfig.use_ldap %>
+<% if @appconfig.use_ldap %>
 <%= observe_form :first_user_form, :url => { :action => 'ldap_search' }, :frequency => 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})"%>
 <% end %>
 
