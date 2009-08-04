@@ -48,27 +48,27 @@ class User < ActiveRecord::Base
     self.password=self.password_confirmation=(1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 
-  def self.search_ldap(first_name, last_name, email, limit)
+ def self.search_ldap(first_name, last_name, email, limit)
     first_name+='*'
     last_name+='*'
     email+='*'
     # Setup our LDAP connection
     begin
-    ldap = Net::LDAP.new( :host => $appconfig.ldap_host_address, :port => $appconfig.ldap_port )
-    filter = Net::LDAP::Filter.eq($appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq($appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq($appconfig.ldap_email, email)
+    ldap = Net::LDAP.new( :host => @appconfig.ldap_host_address, :port => @appconfig.ldap_port )
+    filter = Net::LDAP::Filter.eq(@appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq(@appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq(@appconfig.ldap_email, email)
     out=[]
     ldap.open do |ldap|
-      ldap.search(:base => $appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
-      out << {:login => entry[$appconfig.ldap_login][0],
-              :email => entry[$appconfig.ldap_email][0],
-              :first_name => entry[$appconfig.ldap_first_name][0],
-              :last_name => entry[$appconfig.ldap_last_name][0]}
+      ldap.search(:base => @appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
+      out << {:login => entry[@appconfig.ldap_login][0],
+              :email => entry[@appconfig.ldap_email][0],
+              :first_name => entry[@appconfig.ldap_first_name][0],
+              :last_name => entry[@appconfig.ldap_last_name][0]}
        break if out.length>=limit
       end
     end
     out
   rescue Exception => e
-    []
+    false
   end
   end
 
