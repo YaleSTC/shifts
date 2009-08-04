@@ -11,7 +11,7 @@
   <% for user_profile_field in @user_profile_fields %>
     <tr>
       <td><%=h user_profile_field.name %></td>
-      <td><%=h user_profile_field.display_type %></td>
+      <td><%=h UserProfileField::DISPLAY_TYPE_VIEW[user_profile_field.display_type] %></td>
       <td><%=h user_profile_field.values %></td>
       <td><%=h user_profile_field.public %></td>
       <td><%=h user_profile_field.user_editable %></td>
@@ -23,3 +23,4 @@
 </table>
 
 <p><%= link_to "New User Profile Field", new_user_profile_field_path %></p>
+

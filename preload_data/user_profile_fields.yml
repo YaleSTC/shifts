@@ -39,4 +39,12 @@ user_profile_field_05:
   public: t
   user_editable: t
   department_id: 1
+#user_profile_field_06:
+#  id: 06
+#  name: "Profile Picture"
+#  display_type: "picture_link"
+#  values:
+#  public: t
+#  user_editable: t
+#  department_id: 1
 
