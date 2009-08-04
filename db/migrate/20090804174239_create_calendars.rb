@@ -5,10 +5,11 @@ class CreateCalendars < ActiveRecord::Migration
       t.datetime :start_date
       t.datetime :end_date
       t.boolean :active
+      t.references :department
       t.timestamps
     end
   end
-  
+
   def self.down
     drop_table :calendars
   end
