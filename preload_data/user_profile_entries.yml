@@ -19,6 +19,7 @@ user_profile_entry_05:
   id: 5
   user_profile_id: 5
   user_profile_field_id: 1
+  content: "00000000"
 user_profile_entry_06:
   id: 6
   user_profile_id: 6
@@ -95,6 +96,7 @@ user_profile_entry_24:
   id: 24
   user_profile_id: 5
   user_profile_field_id: 2
+  content: "me me me him her"
 user_profile_entry_25:
   id: 25
   user_profile_id: 6
@@ -171,6 +173,7 @@ user_profile_entry_43:
   id: 43
   user_profile_id: 5
   user_profile_field_id: 3
+  content: "Linux"
 user_profile_entry_44:
   id: 44
   user_profile_id: 6
@@ -247,6 +250,7 @@ user_profile_entry_65:
   id: 65
   user_profile_id: 5
   user_profile_field_id: 4
+  content: "no"
 user_profile_entry_66:
   id: 66
   user_profile_id: 6
@@ -323,6 +327,7 @@ user_profile_entry_85:
   id: 85
   user_profile_id: 5
   user_profile_field_id: 5
+  content: "Apples, Bananas"
 user_profile_entry_86:
   id: 86
   user_profile_id: 6
