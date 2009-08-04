@@ -208,6 +208,10 @@ class User < ActiveRecord::Base
     Notice.active.select {|n| n.users.include?(self)}
   end
 
+  def other_notices
+    Notice.active.select {|n| !n.users.include?(self) && n.locations.empty?}
+  end
+
   private
 
   def departments_not_empty
