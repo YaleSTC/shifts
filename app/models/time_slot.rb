@@ -1,7 +1,8 @@
 class TimeSlot < ActiveRecord::Base
   belongs_to :location
+  belongs_to :calendar
   has_many :shifts, :through => :location
-  
+
   validates_presence_of :start, :end, :location_id
   validate :start_less_than_end
 
