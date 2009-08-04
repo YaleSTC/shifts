@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
     self.password=self.password_confirmation=(1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 
-  def self.search_ldap(first_name, last_name, email, limit)
+ def self.search_ldap(first_name, last_name, email, limit)
     first_name+='*'
     last_name+='*'
     email+='*'
@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
     end
     out
   rescue Exception => e
-    []
+    false
   end
   end
 
