@@ -1,6 +1,6 @@
 class CalendarsController < ApplicationController
   def index
-    @calendars = Calendar.all
+    @calendars = @department.calendars
   end
   
   def show
