@@ -3,7 +3,8 @@ page["#shift#{@shift.id}"].visual_effect :highlight
 page << "$('.tooltip').remove();"
 
 #TODO:this! and port the above functionality (full day redraw) to create and destroy, as well.
-page << "$('##{@shift.start.strftime("%Y-%m-%d")} > #shift#{@shift.id}').click(function (e) {popup_show($(this)); return false;});"
+page << "initialize('##{@shift.start.strftime("%Y-%m-%d")}');"
+
 
 # display alert
 ajax_alert(page, "shift updated");
