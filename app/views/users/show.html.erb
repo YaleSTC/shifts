@@ -1,5 +1,5 @@
-<% title "User" %>
-
+<% title "#{@user.proper_name}" %>
+<p><h2>User Info</h2></p>
 <p>
   <strong>Login:</strong>
   <%=h @user.login %>
@@ -30,7 +30,12 @@
 </p>
 
 <p>
+    <h2>User Profile</h2>
+    <%= render :partial => 'user_profiles/user_profile_entries' %>
+</p>
+<p>
   <%= link_to "Edit", edit_user_path(@user) %> |
+  <%= link_to "Edit Profile", edit_user_profile_path(@user.login) %> |
   <%= deactivate_link(@user) %> |
   <%= link_to "Destroy", :action => :really_destroy, :id => @user %> |
   <%= link_to "View All", department_users_path(@department) %>

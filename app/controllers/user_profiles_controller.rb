@@ -5,7 +5,7 @@ before_filter :user_login
   end
 
   def show
-    @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
+    @user_profile = UserProfile.find_by_user_id(@current_user.id)
     @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
 
   end
