@@ -11,7 +11,7 @@
 <%unless @appconfig.login_options.length==1%>
 <% @appconfig.login_options.each do |l| %>
 <td>
-<%=l%>: <%= f.radio_button( "auth_type", l, l=='CAS' ? {:index=>@users.index(@user), :checked => true} : {:index=>@users.index(@user)} ) %>
+<%=l%>: <%= f.radio_button( "auth_type", l,{:index=>@users.index(@user), :checked => determine_auth_type(@user,l)} ) %>
 </td>
 <% end %>
 <%end%>
