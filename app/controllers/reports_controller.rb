@@ -34,10 +34,17 @@ class ReportsController < ApplicationController
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
     # add a report item about logging in
     @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
-    if @report.user==current_user && @report.save
+    if @report.user==current_user && @report.save && !current_user.current_shift
+      current_shift = @report.shift
+      current_shift.signed_in = true
+      current_shift.save
       redirect_to @report
     else
-      flash[:notice] = "You can\'t sign into someone else's report!" unless @report.shift.user==current_user
+      if current_user.current_shift
+        flash[:notice] = "You can't sign into two shifts!"
+      else
+        flash[:notice] = "You can\'t sign into someone else's report!" unless @report.shift.user==current_user
+      end
       redirect_to shifts_path
     end
   end
@@ -57,6 +64,7 @@ class ReportsController < ApplicationController
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
     end
     if @report.update_attributes(params[:report]) && @report.user == current_user
+      @report.shift.signed_in = false
       @payform_item=PayformItem.new("hours"=>(@report.departed-@report.arrived)/3600,
                                     "category"=>Category.find_by_name("Shifts"),
                                     "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),

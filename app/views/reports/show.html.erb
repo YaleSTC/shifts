@@ -1,8 +1,14 @@
 <% title "Shift Report at the #{@report.shift.location.name}" %>
 <% unless @report.departed || current_user != @report.user %>
-<div id = "message_center">
-  <%= render :partial => 'notices/message_center', :object => @report %>
-</div>
+<fieldset class = "index" >
+  <legend><%= "Message Center for the #{current_user.current_shift.location.short_name}"%></legend>
+  <div id = "message_center">
+    <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
+  </div>
+    <div class="left">
+      <%= link_to_post_a_new_notice %>
+    </div>
+</fieldset>
 <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
   <br/>
     <fieldset class='index'>
