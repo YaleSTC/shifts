@@ -28,8 +28,8 @@ module ShiftsHelper
   
   
   def day_preprocessing(day)
-        @location_rows = {}
-    for location in @loc_groups
+    @location_rows = {}
+    for location in Location.all
       @location_rows[location] = []
     end
     
