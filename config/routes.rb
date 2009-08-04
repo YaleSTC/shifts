@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :calendars
+
   map.resources :punch_clock_sets
 
   map.with_options :controller => 'first_run' do |f|
