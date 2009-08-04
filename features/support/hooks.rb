@@ -1,5 +1,5 @@
 #Runs a Mongrel test server
-#$appconfig = AppConfig.first
+#@appconfig = AppConfig.first
 #'mongrel_rails start -e test -p 3001 -P log/mongrel.pid -d'
 
 #Spawns a Celerity Jruby process

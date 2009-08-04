@@ -56,11 +56,11 @@
 }
 
 .caution {
-  background:#ffff00;
+  background:#ffff00 !important;
 }
 
 .stop {
-  background:#ff0000;
+  background:#ff0000 !important;
 }
 
 .small_select select{
