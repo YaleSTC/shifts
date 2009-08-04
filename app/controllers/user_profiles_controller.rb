@@ -6,6 +6,9 @@ before_filter :user_login
 
   def show
     @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
+    unless @user_profile.user.departments.include?(@department)
+      flash[:error] = "This user does not have a profile in this department"
+    end
     @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
 
   end
@@ -26,13 +29,13 @@ before_filter :user_login
 
   def edit
     @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
-
+#The dept admin can edit all parts of any profile in their department, and a regular user can only edit their own profile entries that are user editable
     if @user_profile.user == current_user && current_user.is_admin_of?(@department)
        @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
      elsif @user_profile.user == current_user
       @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.user_editable }
      elsif current_user.is_admin_of?(@department)
-      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && !entry.user_profile_field.user_editable }
+      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id}
     else
       flash[:error] = "You are not allowed to access that profile."
       redirect_to access_denied_path
