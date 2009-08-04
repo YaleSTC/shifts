@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if params[:show_inactive]
       @users = @department.users
     else
-      @users = @department.users.select{|user| user.is_active?(@department)}
+      @users = @department.users.select{|a| a.is_active?(@department)}
     end
 
     if params[:search]
@@ -261,3 +261,4 @@ class UsersController < ApplicationController
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end
+
