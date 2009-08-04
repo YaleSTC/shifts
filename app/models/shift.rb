@@ -1,8 +1,8 @@
 class Shift < ActiveRecord::Base
 
   delegate :loc_group, :to => 'location'
-  delegate :department, :to => 'location'
 
+  belongs_to :department
   belongs_to :user
   belongs_to :location
   has_one :report, :dependent => :destroy
