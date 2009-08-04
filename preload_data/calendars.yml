@@ -1,19 +1,22 @@
---- 
-calendars_001: 
+---
+calendars_001:
   active: t
+  default: t
   created_at: 2009-08-04 19:49:35
   department_id: "1"
-  end_date: 
+  end_date:
   id: "1"
-  name: Default
-  start_date: 
+  name: STC Default Calendar
+  start_date: 2000-07-11 13:00:00
   updated_at: 2009-08-04 19:49:35
-calendars_002: 
+calendars_002:
   active: t
+  default: t
   created_at: 2009-08-04 19:49:35
   department_id: "2"
-  end_date: 
+  end_date:
   id: "2"
-  name: Default
-  start_date: 
+  name: DOJ Default Calendar
+  start_date: 2000-07-11 13:00:00
   updated_at: 2009-08-04 19:49:35
+
