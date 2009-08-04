@@ -35,9 +35,9 @@ module ShiftsHelper
     
     @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
-                                         day.beginning_of_day, day.end_of_day)
+                                         day.beginning_of_day, day.end_of_day, current_department)
     shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
-                                day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes)
+                                day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, current_department)
 
 
     rowcount = 0

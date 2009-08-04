@@ -8,7 +8,6 @@ class ShiftsController < ApplicationController
     # for lists of shifts
     #@active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
     @active_shifts = Shift.find(:all, :conditions => {:signed_in => true, :department_id => current_department.id}, :order => :start)
-    
     #@upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
     @upcoming_shifts = Shift.find(:all, :conditions => ['"user_id" = ? and "end" > ? and "department_id" = ?', current_user.id, Time.now, current_department.id], :order => :start, :limit => 5)
     @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ?",Time.now]).select{|sub| sub.shift.user == current_user}.sort_by(&:start)
