@@ -1,6 +1,7 @@
 ---
 calendars_001:
   active: t
+  default: t
   created_at: 2009-08-04 19:49:35
   department_id: "1"
   end_date:
@@ -10,6 +11,7 @@ calendars_001:
   updated_at: 2009-08-04 19:49:35
 calendars_002:
   active: t
+  default: t
   created_at: 2009-08-04 19:49:35
   department_id: "2"
   end_date:
