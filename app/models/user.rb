@@ -133,7 +133,11 @@ class User < ActiveRecord::Base
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
-    self.departments_users[0].active
+    unless self.departments_users[0].nil?
+      self.departments_users[0].active
+    else
+      return false
+    end
   end
 
   # Given a department, check to see if the user can admin any loc groups in it
