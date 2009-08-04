@@ -4,7 +4,7 @@ jQuery(document).ready(function(){
     $("#toggle_link").show();
 
     $("#department_wide_locations").click(function(){
-    var dept_status = $(this).attr('checked');
+        var dept_status = $(this).attr('checked');
         $("div#all_locations :checkbox").each(function(){
             $(this).attr('checked', dept_status);
            if(dept_status) {
