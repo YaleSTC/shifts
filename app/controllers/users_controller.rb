@@ -29,6 +29,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user_profile = UserProfile.find_by_user_id(@current_user.id)
+    @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
   end
 
   def ldap_search
