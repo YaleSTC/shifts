@@ -7,8 +7,10 @@ class ShiftsController < ApplicationController
 
     # for lists of shifts
     #@active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
-    @active_shifts = Report.find(:all, :conditions => {:departed => nil}).collect{|r| s = r.shift; current_department.locations.include?(s.location) ? s : nil}.compact.sort_by(&:start)
-    @upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
+    @active_shifts = Shift.find(:all, :conditions => {:signed_in => true, :department_id => current_department.id}, :order => :start)
+    
+    #@upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
+    @upcoming_shifts = Shift.find(:all, :conditions => ['"user_id" = ? and "end" > ? and "department_id" = ?', current_user.id, Time.now, current_department.id], :order => :start, :limit => 5)
     @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ?",Time.now]).select{|sub| sub.shift.user == current_user}.sort_by(&:start)
     @subs_you_can_take = current_user.available_sub_requests
 
@@ -91,9 +93,10 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(params[:shift])
+    @shift.department = @shift.location.department #assign it a department based off of its location. shifts will never change to a location in a diff. dept, so this is okay.
     return unless require_department_membership(@shift.department)
     @shift.start = Time.now unless @shift.start
-    unless current_user.is_admin_of?(@department) && @shift.scheduled?
+    unless current_user.is_admin_of?(current_department) && @shift.scheduled?
       @shift.power_signed_up = false
       @shift.user = current_user
     end
