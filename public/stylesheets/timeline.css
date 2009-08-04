@@ -20,7 +20,7 @@ div.timeline {
     float:right;
     position:relative;
     border-top: 1px solid #ddd;
-    margin: 0px 0px 30px 0px;
+    margin-bottom: 30px;
     color: #707070;
 }
 div.timeline-data {

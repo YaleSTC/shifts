@@ -7,7 +7,7 @@ module ApplicationHelper
     link_to_unless_current('Post a new notice', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
   end
 
-  def link_toggle(id, name, speed = "medium")
+  def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
     # link_to_function name, "Effect.toggle('#{id}', 'appear', { duration: 0.3 });"
@@ -21,7 +21,7 @@ module ApplicationHelper
 
   def return_to_shift_report_if_needed
     if (current_shift = current_user.current_shift)
-      (link_to "Return to your current shift", shift_path(current_shift)) + "<br/>"
+      (link_to "Return to your current shift", report_path(current_shift.report)) + "<br/>"
     end
   end
 
@@ -93,4 +93,3 @@ module ApplicationHelper
     end
   end
 end
-
