@@ -15,8 +15,8 @@ class Shift < ActiveRecord::Base
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
-  named_scope :super_search, lambda {|start,stop, incr, dept| {:conditions => ['(("start" >= ? and "start" < ?) or ("end" > ? and "end" <= ?)) and "scheduled" = ? and "department_id" = ?', start.utc, stop.utc - incr, start.utc + incr, stop.utc, true, dept.id], :order => '"location_id", "start"' }}
-  named_scope :hidden_search, lambda {|start,stop,day_start,day_end, dept| {:conditions => ['(("start" >= ? and "end" < ?) or ("start" >= ? and "start" < ?)) and "scheduled" = ? and "department_id" = ?', day_start.utc, start.utc, stop.utc, day_end.utc, true, dept.id], :order => '"location_id", "start"' }}
+  named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ['(("start" >= ? and "start" < ?) or ("end" > ? and "end" <= ?)) and "scheduled" = ? and "location_id" IN (?)', start.utc, stop.utc - incr, start.utc + incr, stop.utc, true, locs], :order => '"location_id", "start"' }}
+  named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ['(("start" >= ? and "end" < ?) or ("start" >= ? and "start" < ?)) and "scheduled" = ? and "location_id" IN (?)', day_start.utc, start.utc, stop.utc, day_end.utc, true, locs], :order => '"location_id", "start"' }}
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}

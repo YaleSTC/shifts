@@ -3,15 +3,7 @@ class ShiftsController < ApplicationController
     helper :shifts
 
   def index
-    @period_start = params[:date].blank? ? Date.parse("last Sunday") : Date.parse(params[:date])
-
-    # for lists of shifts
-    #@active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
-    @active_shifts = Shift.find(:all, :conditions => {:signed_in => true, :department_id => current_department.id}, :order => :start)
-    #@upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
-    @upcoming_shifts = Shift.find(:all, :conditions => ['"user_id" = ? and "end" > ? and "department_id" = ?', current_user.id, Time.now, current_department.id], :order => :start, :limit => 5)
-    @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ?",Time.now]).select{|sub| sub.shift.user == current_user}.sort_by(&:start)
-    @subs_you_can_take = current_user.available_sub_requests
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
 
     # for user view preferences partial
     @loc_group_select = {}
@@ -41,7 +33,7 @@ class ShiftsController < ApplicationController
 
 
     @time_slots = TimeSlot.all
-    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
+
 
     #TODO:simplify this stuff:
     @dept_start_hour = current_department.department_config.schedule_start / 60

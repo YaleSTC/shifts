@@ -1,23 +1,14 @@
 <% title "Welcome #{current_user.name}" %>
 
-<% unless current_user.notices.empty? %>
-  <%= render :partial => 'notices/for_you' %>
-  <br/>
-<% end %>
-
 <fieldset class="index">
   <legend>Current shifts</legend>
   <%= return_to_shift_report_if_needed %>
 </fieldset>
-<br />
-<fieldset class="index">
-  <legend>Punch Clock</legend>
-  <% if current_user.punch_clock %>
-    <%= link_to "Clock out?",  edit_punch_clock_path(current_user.punch_clock) %>
-  <% else %>
-    <%= link_to "Clock in?", user_punch_clocks_path(current_user), :method => :post %>
-  <% end %>
-</fieldset>
+
+<% unless current_user.notices.empty? %>
+  <%= render :partial => 'notices/for_you' %>
+  <br/>
+<% end %>
 
 <% unless @upcoming_shifts.empty? %>
   <br/>
@@ -28,6 +19,35 @@
     </ul>
   </fieldset>
 <% end %>
+<% unless @subs_you_requested.empty? %>
+  <br/>
+  <fieldset class="index">
+    <legend>Subs You Reqeusted</legend>
+    <ul>
+      <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
+    </ul>
+  </fieldset>
+<% end %>
+<% unless @subs_you_can_take.empty? %>
+  <br/>
+  <fieldset class="index">
+    <legend>Subs You Reqeusted</legend>
+    <ul>
+          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+    </ul>
+  </fieldset>
+<% end %>
+
+
+
+<fieldset class="index">
+  <legend>Punch Clock</legend>
+  <% if current_user.punch_clock %>
+    <%= link_to "Clock out",  edit_punch_clock_path(current_user.punch_clock) %>
+  <% else %>
+    <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
+  <% end %>
+</fieldset>
 
 <% if @most_recent_payform %>
   <br />
