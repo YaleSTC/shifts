@@ -44,11 +44,12 @@
 
   <div class='clear'>
   </div>
+    <p>
+      <%= link_to "Edit", edit_user_path(@user) %> |
+      <%= deactivate_link(@user) %> |
+      <%= link_to "Destroy", :action => :really_destroy, :id => @user %> |
+      <%= link_to "View All", department_users_path(@department) %>
+    </p>
+
 </div>
 
-<p>
-  <%= link_to "Edit", edit_user_path(@user) %> |
-  <%= deactivate_link(@user) %> |
-  <%= link_to "Destroy", :action => :really_destroy, :id => @user %> |
-  <%= link_to "View All", department_users_path(@department) %>
-</p>
