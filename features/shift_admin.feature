@@ -69,7 +69,7 @@ Scenarios: Logged in as normal user
 |"em123"|should     |"Shifts"     |
 |"em123"|should     |"Payforms"   |
 |"em123"|should not |"Departments"|
-|"em123"|should not |"Users"      |
+
 @passing
 Scenario Outline: See control panel on certain pages depending on how logged in
 Given I am logged into CAS as <user>
