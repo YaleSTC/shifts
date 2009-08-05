@@ -1,0 +1,15 @@
+<li id="timeslot<%=time_slot.id%>" style="<%=time_slot_style(time_slot)%><%= " display:none" if !time_slot.calendar.active? %>"<%#; height: <%= @table_pixels / (@table_height) * (@location_rows[location].length) + @location_rows[location].length - 1) px;"%> class="click_to_edit timeslot">
+  <div class="time-slot">
+    <% if @right_overflow or @left_overflow %>
+      <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => 17 } if @right_overflow %>
+      <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => 17 } if @left_overflow %>
+    <% end %>
+    <div class="center_container">
+      <div class="center_content">
+        <%= link_to_remote "x", {:url => time_slot, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:5px" %>
+        <%#= link_to "x", time_slot, :confirm => 'Are you sure?', :method => :delete, :style => "float:right;margin-right:3px" %>
+        <%= link_to "#{time_slot.start.strftime("%l:%M%p")} - #{time_slot.end.strftime("%l:%M%p")}", edit_time_slot_path(time_slot) %>
+      </div>
+    </div>
+  </div>
+</li>
