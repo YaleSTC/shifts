@@ -4,6 +4,7 @@ class CreateShifts < ActiveRecord::Migration
       t.datetime :start
       t.datetime :end
       t.references :calendar
+      t.references :repeating_event
       t.references :user
       t.references :location
       t.references :department #SPEEDS UP DATABASE QUERIES!

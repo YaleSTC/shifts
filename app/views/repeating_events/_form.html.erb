@@ -1,3 +1,4 @@
+<%= unobtrusive_datepicker_include_tags %>
 <% form_for @repeating_event do |f| %>
   <%= f.error_messages %>
   <p>
@@ -15,10 +16,70 @@
   <p>
       <strong>Days:</strong><br />
     <% WEEK_DAYS.each_with_index do |day, i| %>
-      <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+      <%= check_box_tag "days[]", i, @repeating_event.days && @repeating_event.days.include?(day), {:id => "days_#{i}"} %>
       <%= day %>
     <% end %>
   </p>
+  <p>
+  <strong>Time Slot or Shift?</strong> <br />
+  <%= f.label :time_slot %>
+  <%= f.radio_button( :slot_or_shift, "time_slot" ) %>
+  <%= f.label :shift %>
+  <%= f.radio_button( :slot_or_shift, "shift" ) %>
+  </p>
+<div id = "time_slot_fields">
+  <% fields_for @time_slot do |t| %>
+  <h3> Time Slot </h3>
+  <%= t.error_messages %>
+  <p>
+    <%= t.label :start %><br />
+    <%= t.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+  <p>
+    <%= t.label :end %><br />
+    <%= t.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+  <% @department.loc_groups.each do |loc_group| %>
+    <% unless loc_group.locations.empty? %>
+      <p>
+        <strong><%= loc_group.name %></strong><br/>
+        <% loc_group.locations.each do |loc| %>
+          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= loc.short_name %>
+        <% end %>
+      </p>
+    <% end %>
+  <%- end -%>
+  </p>
+  <% end %>
+</div>
+<div id = "shift_fields">
+
+<% fields_for @shift do |s| %>
+<h3> Shift </h3>
+  <%= s.error_messages %>
+  <p>
+    <%= t.label :start %><br />
+    <%= t.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+  <p>
+    <%= t.label :end %><br />
+    <%= t.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+    <p>
+      <%= s.label :user %><br />
+      <%= s.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
+  <p>
+    <%= s.label :location %><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
+  </p>
+<% end %>
+
+</div
+
+
+
   <p><%= f.submit "Submit" %></p>
 <% end %>
 

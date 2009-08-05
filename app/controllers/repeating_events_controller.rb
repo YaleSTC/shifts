@@ -9,12 +9,29 @@ class RepeatingEventsController < ApplicationController
 
   def new
     @repeating_event = RepeatingEvent.new
+    @time_slot = TimeSlot.new
+    @shift = Shift.new
   end
 
   def create
     params[:repeating_event][:days] = params[:days]
+    params[:time_slot]["end(1i)"] = params[:shift]["end(1i)"] = params[:time_slot]["start(1i)"] = params[:shift]["start(1i)"] =  params[:repeating_event]["start_date(1i)"]
+    params[:time_slot]["end(2i)"] = params[:shift]["end(2i)"] = params[:time_slot]["start(2i)"] = params[:shift]["start(2i)"] =  params[:repeating_event]["start_date(2i)"]
+    params[:time_slot]["end(3i)"] = params[:shift]["end(3i)"] = params[:time_slot]["start(3i)"] = params[:shift]["start(3i)"] =  params[:repeating_event]["start_date(3i)"]
     @repeating_event = RepeatingEvent.new(params[:repeating_event])
+    @time_slot = TimeSlot.new(params[:time_slot])
+    @shift = Shift.new(params[:shift])
     if @repeating_event.save
+      if @repeating_event.has_time_slots?
+        @time_slot.repeating_event = @repeating_event
+        @time_slot.calendar = @repeating_event.calendar
+        timeslots = params[:location_ids].collect{|id| out = @time_slot.clone; out.location=Location.find(id); out}
+        timeslots.each{|time_slot| @repeating_event.days.each{|d| RepeatingEvent.make_future(@repeating_event.end_date, d, time_slot)}}
+      else
+        @shift.repeating_event = @repeating_event
+        @shift.calendar = @repeating_event.calendar
+        @repeating_event.days.each{|d| RepeatingEvent.make_future(@repeating_event.end_date, d, @shift)}
+      end
       flash[:notice] = "Successfully created repeating event."
       redirect_to @repeating_event
     else
@@ -24,6 +41,8 @@ class RepeatingEventsController < ApplicationController
 
   def edit
     @repeating_event = RepeatingEvent.find(params[:id])
+    @time_slot = TimeSlot.new
+    @shift = Shift.new
   end
 
   def update
