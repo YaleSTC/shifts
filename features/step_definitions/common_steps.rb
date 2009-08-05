@@ -7,6 +7,13 @@ Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login 
 end
 
 Given /^I have a role named "([^\"]*)" with permission "([^\"]*)"$/ do |role, permission|
+  u = Role.new(:name => role)
+  u.save!
+  Role.find_by_name(role).permissions << Permission.find_by_name(permission)
+end
+
+Given /^the role named "([^\"]*)" has permission "([^\"]*)"$/ do |role, permission|
+  Role.find_by_name(role).permissions << Permission.find_by_name(permission)
 end
 
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
