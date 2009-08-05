@@ -22,6 +22,16 @@
       <li><%= link_to_unless_current "Your Profile", edit_user_path(current_user) %></li>    <br/>
     </ul>
     <div id="contentNav">
+    <% end -%>
+<% else -%>
+  <% content_for :left_nav do -%>
+    <ul id="navigationList">
+      <h3>User Profiles</h3>
+      <li><%= link_to_unless_current "Show All Profiles", user_profiles_path %></li>
+      <li><%= link_to_unless_current "New Profile Field", new_user_profile_field_path %></li>
+      <li><%= link_to_unless_current "Manage Profile Fields", user_profile_fields_path %></li>
+    </ul>
+    <div id="contentNav">
   <% end -%>
 <% end -%>
 
