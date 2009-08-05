@@ -59,12 +59,12 @@
 <h3> Shift </h3>
   <%= s.error_messages %>
   <p>
-    <%= t.label :start %><br />
-    <%= t.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    <%= s.label :start %><br />
+    <%= s.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
-    <%= t.label :end %><br />
-    <%= t.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    <%= s.label :end %><br />
+    <%= s.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
     <p>
       <%= s.label :user %><br />
