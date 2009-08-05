@@ -2,6 +2,8 @@ class ShiftsController < ApplicationController
 
     helper :shifts
 
+
+#Currently broken if there are no locations in the department
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
 
@@ -44,10 +46,11 @@ class ShiftsController < ApplicationController
     @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
   end
 
-  def show
-    @shift = Shift.find(params[:id])
-    return unless require_department_membership(@shift.department)
-  end
+# Necessary? -ben
+#  def show
+#    @shift = Shift.find(params[:id])
+#    return unless require_department_membership(@shift.department)
+#  end
 
   def show_active
     @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
@@ -101,7 +104,7 @@ class ShiftsController < ApplicationController
         redirect_to @report and return if @report.save
       end
       respond_to do |format|
-        format.html{ flash[:notice] = "Successfully created shift."; redirect_to(@shift.scheduled ? @shift : new_shift_report_path(@shift))}
+        format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
         format.js
       end
     else
