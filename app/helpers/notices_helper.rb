@@ -1,7 +1,10 @@
 module NoticesHelper
 
   def department_check(dept)
-    @notice.departments.include?(dept)
+    @notice.location_sources.all.each do |ls|
+      return true if ls == dept
+    end
+    false
   end
 
   def loc_group_check(loc_group)
@@ -15,7 +18,7 @@ module NoticesHelper
     @notice.locations.each do |loc|
       return true if loc == location
     end
-    current_user.current_shift.location == location if current_user.current_shift
+    @current_shift_location == location if current_user.current_shift
     false
   end
 
