@@ -9,10 +9,8 @@
 
           <% if ["text_field", "select", "text_area"].include? entry.display_type %>
             <%= send(entry.display_type, *args) %>
-          <% elsif ["profile_link"].include? entry.display_type %>
-                        <% raise args.to_yaml %>
-                                    <% text_field_tag("user_profile_entries[#{entry.id}]", id) %>
-                        <%= send(entry.display_type, *args) %>
+          <% elsif entry.display_type == "picture_link" %>
+            <%= send("text_field", *args) %>
           <% elsif ["radio_button"].include? entry.display_type %>
             <% args.each do |options| %>
               <%= send(entry.display_type, *options) %>
