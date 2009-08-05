@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   helper :shifts
+  helper :data_entries
 
   def index
     # for lists of shifts
@@ -11,6 +12,8 @@ class DashboardController < ApplicationController
     @subs_you_can_take = current_user.available_sub_requests
 
     @most_recent_payform= current_user.payforms.sort_by(&:date).last
+    @watched_objects = current_user.user_config.watched_data_objects.split(", ").map{|id| DataObject.find(id)}.flatten
+
     @dept_start_hour = current_department.department_config.schedule_start / 60
     @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
