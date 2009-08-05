@@ -18,7 +18,7 @@ module NoticesHelper
     @notice.locations.each do |loc|
       return true if loc == location
     end
-    @current_shift_location == location if current_user.current_shift
+    @current_shift_location == location if @current_shift_location
     false
   end
 
