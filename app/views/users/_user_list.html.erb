@@ -7,6 +7,7 @@
     <td><%=h user.employee_id %></td>
     <td><%=h user.email %></td>
     <td><%= deactivate_link(user) %></td>
+    <td><%= link_to 'Show', user_path(user.id) %></td>
   </tr>
 <% end %>
 
