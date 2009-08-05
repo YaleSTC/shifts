@@ -1,0 +1,24 @@
+<% form_for @repeating_event do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :start_date %><br />
+    <%= f.datetime_select :start_date %>
+  </p>
+  <p>
+    <%= f.label :end_date %><br />
+    <%= f.datetime_select :end_date %>
+  </p>
+  <p>
+    <%= f.label :calendar %><br />
+    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+  </p>
+  <p>
+      <strong>Days:</strong><br />
+    <% WEEK_DAYS.each_with_index do |day, i| %>
+      <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+      <%= day %>
+    <% end %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
