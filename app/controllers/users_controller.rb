@@ -29,7 +29,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @user_profile = UserProfile.find_by_user_id(@current_user.id)
+    @user_profile = UserProfile.find_by_user_id((params[:id]))
+    unless @user_profile.user.departments.include?(@department)
+      flash[:error] = "This user does not have a profile in this department"
+    end
     @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
   end
 
@@ -81,12 +84,43 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+
+    @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
+    @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
+
+# User Profiles
+      @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
+      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
+
   end
 
   def update
     #TODO: prevent params hacking w/ regard to setting roles and login
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
+
+  # So that the User Profile can be updated as well
+      @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
+      @user_profile_entries = params[:user_profile_entries]
+      @user_profile_entries.each do |entry_id, entry_content|
+        entry = UserProfileEntry.find(entry_id)
+        @content = ""
+          if entry.display_type == "check_box"
+            UserProfileEntry.find(entry_id).values.split(", ").each do |value|
+              c = entry_content[value]
+              @content += value + ", " if c == "1"
+            end
+            @content.gsub!(/, \Z/, "")
+            entry.content = @content
+            entry.save
+          elsif entry.display_type == "radio_button"
+            entry.content = entry_content["1"]
+            entry.save
+          else
+            entry.content = entry_content[entry_id]
+            entry.save
+          end
+      end
 
     #store role changes, or else they'll overwrite roles in other departments
     #remove all roles associated with this department

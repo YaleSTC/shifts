@@ -1,9 +1,9 @@
 <% title "User Profiles" %>
 
-<p><%= link_to "Edit Your Profile", edit_user_profile_path(current_user.login) %></td>
+<p><%= link_to "Edit Your Profile", edit_user_profile_path(current_user.login) %></p>
 <div id="searchbox" style="margin-bottom: 1em">
   <% form_tag(user_profiles_path, :method => :get) do %>
-    Search for a user: <%= text_field_tag :search %>
+    Search for a user by name or login: <%= text_field_tag :search %>
     <%= submit_tag "Submit", :id => "search_submit" %>
   <% end %>
 </div>

@@ -1,0 +1,13 @@
+.whole {
+  position: relative;
+}
+
+.information {
+  float:left;
+  width:350px;
+}
+.profile {
+  float:left;
+  width:350px;
+}
+
