@@ -28,7 +28,7 @@ Feature: Authentication Systems
     And I fill in "Password" with "secret"
     And I press "Submit"
     Then I should see "Successfully logged in."
-    And I should see "Welcome Argus Filch"
+    And I should see "Welcome, Argus Filch"
 
   Scenario: Reseting Password
     When I am on the login page
@@ -69,7 +69,7 @@ Feature: Authentication Systems
     And I fill in "Password" with "secret"
     And I press "Submit"
     Then I should see "Successfully logged in."
-    And I should see "Welcome Argus Filch"
+    And I should see "Welcome, Argus Filch"
 @passing
   Scenario: Creating a user with AuthLogic
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
@@ -97,7 +97,7 @@ Feature: Authentication Systems
     And I fill in "Password" with "secret"
     And I press "Submit"
     Then I should see "Successfully logged in."
-    And I should see "Welcome Peeves the Poltergeist"
+    And I should see "Welcome, Peeves the Poltergeist"
 @passing
   Scenario: Creating a user with CAS
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
@@ -115,7 +115,7 @@ Feature: Authentication Systems
     When I follow "Logout"
     Given I am "Luna Lovegood"
     And I am on the homepage
-    Then I should see "Welcome Luna Lovegood"
+    Then I should see "Welcome, Luna Lovegood"
 @passing
   Scenario: Admin resets user's' password
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
@@ -133,5 +133,5 @@ Feature: Authentication Systems
     And I press "Submit"
     Then I should see "Password is not valid"
     And I should see "Login"
-    And I should not see "Welcome Argus Filch"
+    And I should not see "Welcome, Argus Filch"
 
