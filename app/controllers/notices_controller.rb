@@ -14,14 +14,14 @@ class NoticesController < ApplicationController
   end
 
   def new
-    @current_shift_location = current_user.current_shift.location
+    @current_shift_location = current_user.current_shift.location if current_user.current_shift
     @notice = Notice.new
     layout_check
   end
 
   def edit
     require_department_admin
-    @current_shift_location = current_user.current_shift.location
+    @current_shift_location = current_user.current_shift.location if current_user.current_shift
     @notice = Notice.find(params[:id])
     layout_check
   end
