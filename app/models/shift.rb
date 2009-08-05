@@ -1,8 +1,8 @@
 class Shift < ActiveRecord::Base
 
   delegate :loc_group, :to => 'location'
-  delegate :department, :to => 'location'
 
+  belongs_to :department
   belongs_to :user
   belongs_to :location
   has_one :report, :dependent => :destroy
@@ -12,9 +12,11 @@ class Shift < ActiveRecord::Base
   validates_presence_of :location
   validates_presence_of :start
 
-  named_scope :on_day, lambda {|day| { :conditions => ['start >= ? and start < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
-  named_scope :in_location, lambda {|loc| {:conditions => ['location_id = ?', loc.id]}}
+  named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
+  named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
+  named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ['(("start" >= ? and "start" < ?) or ("end" > ? and "end" <= ?)) and "scheduled" = ? and "location_id" IN (?)', start.utc, stop.utc - incr, start.utc + incr, stop.utc, true, locs], :order => '"location_id", "start"' }}
+  named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ['(("start" >= ? and "end" < ?) or ("start" >= ? and "start" < ?)) and "scheduled" = ? and "location_id" IN (?)', day_start.utc, start.utc, stop.utc, day_end.utc, true, locs], :order => '"location_id", "start"' }}
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
@@ -66,6 +68,10 @@ class Shift < ActiveRecord::Base
   # = Object methods =
   # ==================
 
+  def duration
+    self.end - self.start
+  end
+
   def css_class(current_user = nil)
     if current_user and user == current_user
       css_class = "user"
@@ -80,7 +86,6 @@ class Shift < ActiveRecord::Base
     css_class
   end
 
-
   def too_early?
     self.start > 30.minutes.from_now
   end
@@ -94,7 +99,7 @@ class Shift < ActiveRecord::Base
     #seconds
   end
 
-  #a shift has been signed in to if its shift report has been submitted
+  #a shift has been signed into and its shift report has been submitted
   def submitted?
     self.signed_in? and self.report.departed
   end

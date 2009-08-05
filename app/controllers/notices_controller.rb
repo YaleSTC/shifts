@@ -14,15 +14,15 @@ class NoticesController < ApplicationController
   end
 
   def new
+    @current_shift_location = current_user.current_shift.location if current_user.current_shift
     @notice = Notice.new
-    @legend = "New Notice"
     layout_check
   end
 
   def edit
     require_department_admin
+    @current_shift_location = current_user.current_shift.location if current_user.current_shift
     @notice = Notice.find(params[:id])
-    @legend = "Edit Notice"
     layout_check
   end
 
@@ -35,26 +35,39 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
     @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-    @notice.save(false)
-    set_sources
-    if @notice.save
-      respond_to do |format|
+    begin
+      Notice.transaction do
+        @notice.save(false)
+        set_sources
+        @notice.save!
+      end
+      rescue
+        respond_to do |format|
+          format.html { render :action => "new" }
+          format.js  #create.js.rjs
+        end
+      else
+         respond_to do |format|
         format.html {
           flash[:notice] = 'Notice was successfully created.'
           redirect_to :action => "index"
         }
         format.js  #create.js.rjs
       end
-    else
-      respond_to do |format|
-        format.html { render :action => "new" }
-        format.js  #create.js.rjs
-      end
     end
+
+#    if rescued
+#      respond_to do |format|
+#        format.html {
+#          flash[:notice] = 'Notice was successfully created.'
+#          redirect_to :action => "index"
+#        }
+#        format.js  #create.js.rjs
+#      end
   end
 
   def update
-    @notice = Notice.find(params[:id])
+    @notice = Notice.find_by_id(params[:id]) || Notice.new
     @notice.update_attributes(params[:notice])
     @notice.is_sticky = true unless current_user.is_admin_of?(current_department)
     @notice.author = current_user
@@ -62,17 +75,39 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-    set_sources
-    respond_to do |format|
-      if current_user.is_admin_of?(current_department) && @notice.save
+    begin
+      Notice.transaction do
+        @notice.save(false)
+        set_sources
+        @notice.save!
+      end
+      rescue
+        respond_to do |format|
+          format.html { render :action => "edit" }
+          format.js  #update.js.rjs
+        end
+      else
+        respond_to do |format|
         format.html {
-          flash[:notice] = 'Notice was successfully updated.'
+          flash[:notice] = 'Notice was successfully saved.'
           redirect_to :action => "index"
         }
-      else
-        render :action => "edit"
+        format.js  #update.js.rjs
       end
     end
+
+#    @notice.save(false)
+#    set_sources
+#    respond_to do |format|
+#      if current_user.is_admin_of?(current_department) && @notice.save
+#        format.html {
+#          flash[:notice] = 'Notice was successfully updated.'
+#          redirect_to :action => "index"
+#        }
+#      else
+#        render :action => "edit"
+#      end
+#    end
   end
 
   def destroy
@@ -103,7 +138,7 @@ class NoticesController < ApplicationController
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
-          user_source = User.search(l).first || Role.find_by_name(l)
+          user_source = User.search(l) || Role.find_by_name(l)
           user_source = Department.find_by_name(l) if current_user.is_admin_of(current_department)
           @notice.user_sources << user_source if user_source
         else
@@ -115,7 +150,7 @@ class NoticesController < ApplicationController
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
       @notice.location_sources << current_department
       @notice.loc_groups << current_department.loc_groups
-      @notice.locations << current_department.loc_groups.collect {|lg| lg.locations}
+      @notice.locations << current_department.locations
     elsif params[:for_location_groups]
       params[:for_location_groups].each do |loc_group|
         lg = LocGroup.find_by_id(loc_group)
