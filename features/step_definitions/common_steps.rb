@@ -6,8 +6,8 @@ Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login 
   u.save!
 end
 
-Given /^I have a role named "([^\"]*)" with permission "([^\"]*)"$/ do |role, permission|
-  u = Role.new(:name => role)
+Given /^I have a role named "([^\"]*)" with permission "([^\"]*)" in the department "([^\"]*)"$/ do |role, permission, department|
+  u = Role.new(:name => role, :department => Department.find_by_name(department))
   u.save!
   Role.find_by_name(role).permissions << Permission.find_by_name(permission)
 end
