@@ -4,6 +4,7 @@ ul.events li.timeslot {
     background: #eee;
     color: #707070;
     font-weight: bold;
+		z-index: 1;
 }
 ul.events li.timeslot a {             color: #999; }
 ul.events li.timeslot:hover a:hover { color: #999; }
@@ -11,7 +12,7 @@ ul.events li.timeslot:hover a {       color: #707070; }
 ul.events li.timeslot:hover {         background: #ddd; }
 
 
-
+ul.timeslot_group li{border-top:1px solid #ccc; border-bottom:1px solid #ccc;}
 
 
 h2 { clear: both; }

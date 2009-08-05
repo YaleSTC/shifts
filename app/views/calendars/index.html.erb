@@ -1,4 +1,6 @@
 <% title "Calendars" %>
+<div id="AJAX_status"></div><%# to display status messages in top right corner %>
+<%= render :partial => 'shifts/view_preferences' %>
 
 <table>
   <tr>
@@ -13,7 +15,8 @@
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.active %></td>
-      <td><%= link_to "Show", calendar %></td>
+      <td><%= link_to "View Individual Calendar", calendar %></td>
+      <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled')"%></td>
       <% unless calendar.default? %>
         <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -23,3 +26,96 @@
 </table>
 
 <p><%= link_to "New Calendar", new_calendar_path %></p>
+
+<p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
+
+<%# HIDE the new timeslot link when javascript is enabled.%>
+<script type='text/javascript' charset='utf-8'>
+  $('#new_time_slot_link').toggle(); 
+</script>
+
+<%= render :partial => 'shifts/schedule/header' %>
+<%= render :partial => 'calendars/schedule/day', :collection => @day_collection %>
+
+
+<!-- <h2>Shifts:</h2>
+<ul>
+  <%# @shifts.each_pair do |day, shifts| %>
+    <li><strong>DAY: <%#=day%></strong></li>
+    <%# shifts.each do |s| %>
+      <li class="calendar<%#=s.calendar_id%>"<%#= " style='display:none'" if !s.calendar.active? %>><%#= s.short_name %></li>
+    <%# end %>
+  <%# end %>
+</ul>
+
+<h2>Timeslots:</h2>
+<ul>
+  <%# @time_slots.each_pair do |day, time_slots| %>
+  <li><strong>DAY: <%#=day%></strong></li>
+    <%# time_slots.each do |t| %>
+      <li class="calendar<%#=t.calendar_id%>"<%#= " style='display:none'" if !t.calendar.active? %>><%#= t.to_s %></li>
+    <%# end %>
+  </span>
+  <%# end %>
+</ul> -->
+
+
+<script>  
+  initialize("body");
+  
+  function initialize(element){
+    $(element+' li.click_to_add_new').click(function (e) {
+      popup_new($(this), e, this);
+      return false;
+    });
+
+    $(element+' li.click_to_edit').click(function (e) {
+      popup_edit($(this));
+      return false;
+    });
+
+    //don't stop links from firing
+    $(element+' li.click_to_edit a').click(function (e) {
+      e.stopPropagation();
+    });
+  }
+  
+  function popup_new(parent_element, e, raw_element){
+    $(".tooltip").remove();
+    parent_element.append("<div class='loading'>Loading...</div>");
+    
+    var elementID = parent_element.attr('id');
+    var params = elementID.split("_", 2);
+    var locationID = params[0].substring(8); //remove "location" from id
+    
+    //cursor position magic
+    var relX = e.pageX - getXOffset(raw_element);
+    var widthPercentage = relX / parent_element.width();
+    
+    var date = params[1];
+    $.ajax({data:"elementID="+elementID+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    
+    $(".loading").remove();
+    $("div.tooltip").css("left",relX+"px")
+  }
+  
+  function popup_edit(parent_element){
+    $(".tooltip").remove();
+    parent_element.append("<div class='loading'>Loading...</div>");
+    
+    var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
+    <%#= remote_function :url => root_path, :test => 5 %>
+    $.ajax({dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    
+    $(".loading").remove();
+  }
+  
+  function getXOffset(element){
+    var x = 0
+    while(element){
+        x += element.offsetLeft;
+        element = element.offsetParent;
+    }
+    return x;    
+  }
+</script>
