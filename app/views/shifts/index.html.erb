@@ -6,12 +6,6 @@
     <%= render :partial => 'admin_options' if current_user.is_admin_of?(@department) %>
     <%= render :partial => 'user_options' %>
   </div>
-  <div id="lists_of_shifts">
-    <%= (render :partial => 'shifts/list_of_shifts/upcoming_shifts_layout', :object => @upcoming_shifts) unless @upcoming_shifts.empty? %>
-    <%= (render :partial => 'shifts/list_of_shifts/subs_you_requested_layout', :object => @subs_you_requested) unless @subs_you_requested.empty? %>
-    <%= (render :partial => 'shifts/list_of_shifts/subs_you_can_take_layout', :collection => @subs_you_can_take) unless @subs_you_can_take.empty? %>
-    <%= (render :partial => 'shifts/list_of_shifts/active_shift_layout', :object => @active_shifts) unless @active_shifts.empty? %>
-  </div>
 </div>
 
 <div id="schedule">

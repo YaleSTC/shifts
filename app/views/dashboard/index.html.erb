@@ -1,15 +1,15 @@
 <% title "Welcome #{current_user.name}" %>
 
-<% unless current_user.notices.empty? %>
-  <%= render :partial => 'notices/for_you' %>
+<% if current_user.current_shift %>
+		<fieldset class="index">
+	 	 <legend>Your Current Shift</legend>
+	 	 <%= return_to_shift_report_if_needed %>
+		</fieldset>
 <% end %>
 
-<% if current_user.current_shift %>
+<% unless current_user.notices.empty? %>
+  <%= render :partial => 'notices/for_you' %>
   <br/>
-  <fieldset class="index">
-    <legend>Your Current Shift </legend>
-    <%= return_to_shift_report_if_needed %>
-  </fieldset>
 <% end %>
 
 <% unless @upcoming_shifts.empty? %>
@@ -21,15 +21,33 @@
     </ul>
   </fieldset>
 <% end %>
+<% unless @subs_you_requested.empty? %>
+  <br/>
+  <fieldset class="index">
+    <legend>Subs You Reqeusted</legend>
+    <ul>
+      <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
+    </ul>
+  </fieldset>
+<% end %>
+<% unless @subs_you_can_take.empty? %>
+  <br/>
+  <fieldset class="index">
+    <legend>Subs You Reqeusted</legend>
+    <ul>
+          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+    </ul>
+  </fieldset>
+<% end %>
 
-<br />
+
 
 <fieldset class="index">
   <legend>Punch Clock</legend>
   <% if current_user.punch_clock %>
-    <%= link_to "Clock out?",  edit_punch_clock_path(current_user.punch_clock) %>
+    <%= link_to "Clock out",  edit_punch_clock_path(current_user.punch_clock) %>
   <% else %>
-    <%= link_to "Clock in?", user_punch_clocks_path(current_user), :method => :post %>
+    <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
   <% end %>
 </fieldset>
 
@@ -42,7 +60,6 @@
 <% end %>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
-<br />
 <fieldset class="index">
   <legend>Today's schedule</legend>
   <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
