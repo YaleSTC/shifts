@@ -1,5 +1,8 @@
 <% form_for @user_profile do |f| %>
   <%= f.error_messages %>
+
+<%= render :partial => 'user_info' %>
+
   <p>
     <% if @user_profile_entries %>
       <% @user_profile_entries.each do |entry| %>
@@ -28,6 +31,7 @@
       <% end %>
     <% end %>
   </p>
+
   <p><%= f.submit "Update" %></p>
 
 <% end %>
