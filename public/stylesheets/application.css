@@ -483,7 +483,7 @@ fieldset#warning {
 }
 
 fieldset.index {
-  width: 95%;
+  width: 98.6%;
   padding: 5px;
   border: 1px solid gray;
   background-color:#DDDDFF
@@ -567,6 +567,11 @@ table.sortable_style th:hover {
 }
 table.sortable_style th {
 	text-decoration: underline;
+}
+
+/* Data tables - should probably get its own stylesheet */
+table tr.alert_entry {
+  background-color:#ff0033;
 }
 
 /*Forms w/ tables next to them*/

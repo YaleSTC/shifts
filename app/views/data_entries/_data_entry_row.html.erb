@@ -1,4 +1,4 @@
-    <tr>
+    <tr class=<%= data_entry_class(data_entry_row) %>>
       <td>
         <%= data_entry_row.updated_at.to_s(:am_pm_long) %>
       </td>
@@ -8,4 +8,3 @@
         </td>
       <% end %>
     </tr>
-
