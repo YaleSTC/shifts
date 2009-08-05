@@ -48,8 +48,9 @@ class DataFieldsController < ApplicationController
   end
   
   #For ajax only -ben
-  def update_form(@display_type)
-    @display_type = params[:display_type] if params
+  def update_form(data_field_id = nil)
+    @data_field = DataField.find(data_field_id) if data_field_id
+    @display_type = params[:display_type] ? params[:display_type] : @data_field.display_type
     respond_to do |format|
       format.js
     end

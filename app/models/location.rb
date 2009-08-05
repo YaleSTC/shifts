@@ -28,7 +28,7 @@ class Location < ActiveRecord::Base
   end
 
   def current_notices
-    Notice.active.select {|n| n.display_locations.include?(self)}
+    Notice.active.select {|n| n.locations.include?(self)}
   end
 
   def stickys

@@ -20,14 +20,9 @@
                   :layout => false},
         :method => :get,   
         :with => 'display_type',        
-        :on => "change") %>
+        :on => "click") %>
     <p>
-      <div class="optional_fields">
-        <div class="value_field">
-        </div>
-        <div class="alert_field">
-        </div>
-      </div>
+      <div id="optional_fields"></div>
     </p>
     <p>     
       <%= f.submit "Save and add another field", :name => "add_another" %>

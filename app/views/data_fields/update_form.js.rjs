@@ -1,9 +1,9 @@
   if @display_type == "text_field"
-    
-  page.replace_html "optional_fields", :partial => "data_objects" if @selected_by
-  if @selected_type.include? ("departments")
-    page[:group_by].visual_effect :blind_up
-  elsif @selected_type
-    page.replace_html "group_by", :partial => "group_by"
-    page[:group_by].visual_effect :blind_down
+    page.replace_html "optional_fields", :partial => "alert_bounds"
+    page.insert_html :bottom, "optional_fields", :partial => "alert_exact"
+  elsif @display_type != "text_area"
+    page.replace_html "optional_fields", :partial => "alert_exact"
+    page.insert_html :top, "optional_fields", :partial => "value_field"    
+  else
+    page.replace_html "optional_fields", :text => ""
   end

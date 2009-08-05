@@ -1,15 +1,16 @@
 <% title "Welcome, #{current_user.name}" %>
 
+<% if current_user.current_shift %>
+		<fieldset class="index">
+	 	 <legend>Your Current Shift</legend>
+	 	 <%= return_to_shift_report_if_needed %>
+		</fieldset>
+<% end %>
+
 <% unless current_user.notices.empty? %>
   <%= render :partial => 'notices/for_you' %>
   <br/>
 <% end %>
-
-  <fieldset class="index">
-    <legend>Current shift</legend>
-    <%= return_to_shift_report_if_needed %>
-  </fieldset>
-  <br />
 
   <fieldset class="index">
     <legend>Punch Clock</legend>
@@ -19,17 +20,45 @@
       <%= link_to "Clock in?", user_punch_clocks_path(current_user), :method => :post %>
     <% end %>
   </fieldset>
-  <br />
 
 <% unless @upcoming_shifts.empty? %>
   <fieldset class="index">
-    <legend>Upcoming shifts</legend>
+    <legend>Your Upcoming shifts</legend>
     <ul>
       <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
     </ul>
   </fieldset>
   <br/>
 <% end %>
+<% unless @subs_you_requested.empty? %>
+  <br/>
+  <fieldset class="index">
+    <legend>Subs You Reqeusted</legend>
+    <ul>
+      <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
+    </ul>
+  </fieldset>
+<% end %>
+<% unless @subs_you_can_take.empty? %>
+  <br/>
+  <fieldset class="index">
+    <legend>Subs You Reqeusted</legend>
+    <ul>
+          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+    </ul>
+  </fieldset>
+<% end %>
+
+
+
+<fieldset class="index">
+  <legend>Punch Clock</legend>
+  <% if current_user.punch_clock %>
+    <%= link_to "Clock out",  edit_punch_clock_path(current_user.punch_clock) %>
+  <% else %>
+    <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
+  <% end %>
+</fieldset>
 
 <% if @most_recent_payform %>
   <fieldset class="index">
@@ -48,10 +77,9 @@
 <% end %>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
-  <fieldset class="index">
-    <legend>Today's schedule</legend>
-    <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
-  </fieldset>
-  <br />
+<fieldset class="index">
+  <legend>Today's schedule</legend>
+  <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
+</fieldset>
 <% end %>
 
