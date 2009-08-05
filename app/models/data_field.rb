@@ -33,5 +33,17 @@ class DataField < ActiveRecord::Base
     end
   end
 
+  def check_alerts?(string)
+    if string == self.exact_alert
+      return false
+    elsif self.lower_bound && string.to_f < self.lower_bound
+      return false
+    elsif self.upper_bound && string.to_f > self.upper_bound
+      return false
+    else
+      return true
+    end
+  end
+
 end
 
