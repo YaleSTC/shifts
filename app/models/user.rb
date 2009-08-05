@@ -164,7 +164,10 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search_string)
-    User.all.select{|u| u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string}
+    User.all.each do |u|
+      return u if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+    end
+    nil
   end
 
   # originally intended to enable polymorphism; is this still needed, guys? -ben
