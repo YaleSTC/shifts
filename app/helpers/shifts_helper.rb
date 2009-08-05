@@ -29,18 +29,18 @@ module ShiftsHelper
   
   def day_preprocessing(day)
     @location_rows = {}
-    for location in Location.all
-      @location_rows[location] = []
+    
+    locations = @loc_groups.map{|lg| lg.locations}.flatten
+    for location in locations
+      @location_rows[location] = [] #initialize rows
     end
     
     @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
-                                         day.beginning_of_day, day.end_of_day)
+                                         day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
     shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
-                                day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes)
+                                day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
-
-    rowcount = 0
     rejected = []
     location_row = 0
     
@@ -62,11 +62,11 @@ module ShiftsHelper
       end
       location_row += 1
       shifts = rejected
-      if location_row > 0
-        rowcount += location_row
-      else
-        rowcount += 1
-      end
+    end
+    
+    rowcount = 1 #starts with the bar on top
+    for location in locations
+      rowcount += @location_rows[location].length
     end
 
     @table_height = rowcount + @loc_groups.length * 0.25
