@@ -66,11 +66,13 @@ And I should have 2 roles.
 Scenario Outline: Assigning roles via edit user
 
 Given I am "<superuser>"
-#Given I have
+Given I have a role named "Assistant Boss" with permission "Inside of Hogwarts signup"
+Given the role named "Assistant Boss" has permission "Outside of Hogwarts signup"
 And I am on the list of users
 When I follow "<login>"
 Then I should see "Edit User"
 And I should see "Roles"
+And I should see "Assistant Boss"
 
 Scenarios: Successfully assigning some roles
 
