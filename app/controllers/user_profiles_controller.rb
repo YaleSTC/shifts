@@ -51,39 +51,27 @@ before_filter :user_login
 
     @failed = []
     @user_profile_entries = params[:user_profile_entries]
-    @user_profile_entries.each do |entry_id, entry_content|
-      entry = UserProfileEntry.find(entry_id)
-      @content = ""
-        if entry.display_type == "check_box"
-          UserProfileEntry.find(entry_id).values.split(", ").each do |value|
-            c = entry_content[value]
-            @content += value + ", " if c == "1"
+      @user_profile_entries = params[:user_profile_entries]
+      @user_profile_entries.each do |entry_id, entry_content|
+        entry = UserProfileEntry.find(entry_id)
+        @content = ""
+          if entry.display_type == "check_box"
+            UserProfileEntry.find(entry_id).values.split(", ").each do |value|
+              c = entry_content[value]
+              @content += value + ", " if c == "1"
+            end
+            @content.gsub!(/, \Z/, "")
+            entry.content = @content
+            entry.save
+          elsif entry.display_type == "radio_button"
+            entry.content = entry_content["1"]
+            entry.save
+          else
+            entry.content = entry_content[entry_id]
+            entry.save
           end
-          @content.gsub!(/, \Z/, "")
-          entry.content = @content
-          unless entry.save
-            @failed << entry.field_name
-          end
-        elsif entry.display_type == "radio_button"
-          entry.content = entry_content["1"]
-          unless entry.save
-            @failed << entry.field_name
-          end
-        else
-          entry.content = entry_content[entry_id]
-          unless entry.save
-            @failed << entry.field_name
-          end
-        end
-    end
-
-    if @user.update_attributes(params[:user]) && @failed==[]
-      flash[:notice] = "Successfully edited user profile."
-      redirect_to :controller => "user_profiles", :action => "show", :params => {:id => @user_profile.user.login}
-    else
-      flash[:error] = "The following profile entries did not save: #{@failed}"
-      render :action => 'edit'
-    end
+      end
+      redirect_to user_profile_path(@user.login)
   end
 
   def destroy
