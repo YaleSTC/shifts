@@ -2,6 +2,7 @@ class Shift < ActiveRecord::Base
 
   delegate :loc_group, :to => 'location'
   belongs_to :calendar
+  belongs_to :repeating_event
   belongs_to :department
   belongs_to :user
   belongs_to :location

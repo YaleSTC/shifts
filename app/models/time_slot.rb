@@ -1,11 +1,12 @@
 class TimeSlot < ActiveRecord::Base
   belongs_to :location
   belongs_to :calendar
+  belongs_to :repeating_event
   has_many :shifts, :through => :location
 
   validates_presence_of :start, :end, :location_id
   validate :start_less_than_end
-  
+
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
 
