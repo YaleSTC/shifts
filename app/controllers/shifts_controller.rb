@@ -25,7 +25,7 @@ class ShiftsController < ApplicationController
           @day_collection = Date.today...(@period_start+6)
         end
       end
-    elsif @department.department_config.weekend_shifts #show weekends
+elsif @department.department_config.weekend_shifts #show weekends
       @day_collection = @period_start...(@period_start+7)
     else #no weekends
       @day_collection = (@period_start+1)...(@period_start+6)
@@ -47,10 +47,11 @@ class ShiftsController < ApplicationController
   end
 
 # Necessary? -ben
-#  def show
-#    @shift = Shift.find(params[:id])
-#    return unless require_department_membership(@shift.department)
-#  end
+# No, but since the shifts view is broken,i'm using this.
+  def show
+    @shift = Shift.find(params[:id])
+    return unless require_department_membership(@shift.department)
+  end
 
   def show_active
     @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
