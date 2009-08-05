@@ -1,26 +1,17 @@
 <% title "Welcome, #{current_user.name}" %>
-
+ 
 <% if current_user.current_shift %>
-		<fieldset class="index">
-	 	 <legend>Your Current Shift</legend>
-	 	 <%= return_to_shift_report_if_needed %>
-		</fieldset>
+  <fieldset class="index">
+    <legend>Your Current Shift</legend>
+    <%= return_to_shift_report_if_needed %>
+  </fieldset>
 <% end %>
-
+ 
 <% unless current_user.notices.empty? %>
   <%= render :partial => 'notices/for_you' %>
   <br/>
 <% end %>
-
-  <fieldset class="index">
-    <legend>Punch Clock</legend>
-    <% if current_user.punch_clock %>
-      <%= link_to "Clock out?",  edit_punch_clock_path(current_user.punch_clock) %>
-    <% else %>
-      <%= link_to "Clock in?", user_punch_clocks_path(current_user), :method => :post %>
-    <% end %>
-  </fieldset>
-
+ 
 <% unless @upcoming_shifts.empty? %>
   <fieldset class="index">
     <legend>Your Upcoming shifts</legend>
@@ -28,10 +19,9 @@
       <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
     </ul>
   </fieldset>
-  <br/>
 <% end %>
+
 <% unless @subs_you_requested.empty? %>
-  <br/>
   <fieldset class="index">
     <legend>Subs You Reqeusted</legend>
     <ul>
@@ -39,8 +29,15 @@
     </ul>
   </fieldset>
 <% end %>
+
+<% unless @watched_objects.empty? %>
+  <fieldset class="index">
+    <legend>Recent updates for your watched data objects</legend>
+      <%= render :partial => 'data_objects/watched_object', :collection => @watched_objects %>
+  </fieldset>
+<% end %>
+
 <% unless @subs_you_can_take.empty? %>
-  <br/>
   <fieldset class="index">
     <legend>Subs You Reqeusted</legend>
     <ul>
@@ -48,38 +45,30 @@
     </ul>
   </fieldset>
 <% end %>
-
-
-
+ 
+ 
+ 
 <fieldset class="index">
   <legend>Punch Clock</legend>
   <% if current_user.punch_clock %>
-    <%= link_to "Clock out",  edit_punch_clock_path(current_user.punch_clock) %>
+    <%= link_to "Clock out", edit_punch_clock_path(current_user.punch_clock) %>
   <% else %>
     <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
   <% end %>
 </fieldset>
-
+ 
 <% if @most_recent_payform %>
   <fieldset class="index">
     <legend>Summary of your most recent payform</legend>
     <%= render :partial => "mini_payform", :object => @most_recent_payform %>
-  </fieldset><br />
-  <br />
-<% end %>
-
-<% unless @watched_objects.empty? %>
-  <fieldset class="index">
-    <legend>Recent updates for your watched data objects</legend>
-      <%= render :partial => 'data_objects/watched_object', :collection => @watched_objects %>
   </fieldset>
-  <br />
 <% end %>
-
+ 
 <% unless current_user.user_config.view_loc_groups.empty? %>
 <fieldset class="index">
   <legend>Today's schedule</legend>
   <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
 </fieldset>
 <% end %>
-
+ 
+ 

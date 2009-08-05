@@ -1,4 +1,5 @@
 class DataObjectsController < ApplicationController
+  helper :data_entries
 
 # Needs views revised for non-ajax degradeability -ben
 # Note: there are good reasons not to do this by merely hiding the group_by divs
