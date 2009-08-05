@@ -569,6 +569,11 @@ table.sortable_style th {
 	text-decoration: underline;
 }
 
+/* Data tables - should probably get its own stylesheet */
+table tr.alert_entry {
+  background-color:#ff0033;
+}
+
 /*Forms w/ tables next to them*/
 div.form_left {
   width:45%;

@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
     # add a report item about logging in
-    @report.report_items << ReportItem.new(:time => Time.now, :content => @report.shift.user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+    @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
     if @report.user==current_user && @report.save && !current_user.current_shift
       a = @report.shift
       a.signed_in = true
