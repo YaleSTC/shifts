@@ -1,4 +1,5 @@
 /*SHIFT COLORS*/
+ul li{ z-index: 100;}
 ul li.user {                 background: #94C2F0; font-weight: bold; }
 ul li.user:hover {           background: #2985E0; }
 ul li.user_late {            background: #FFCA7A; font-weight: bold;}

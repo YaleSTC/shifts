@@ -18,7 +18,7 @@ class Role < ActiveRecord::Base
   def must_have_unique_name_in_dept
     #get a list of roles in the same department as this role, excluding this role
 #    associated_roles = self.departments.collect{|dept| dept.roles}.flatten - [self]
-    associated_roles = self.department.roles - [self]    
+    associated_roles = self.department.roles - [self]
     errors.add("Name must be unique in a department.", "") unless associated_roles.select{ |role| role.name == self.name }.empty?
   end
 end
