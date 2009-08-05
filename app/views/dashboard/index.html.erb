@@ -9,11 +9,9 @@
 
 <% unless current_user.notices.empty? %>
   <%= render :partial => 'notices/for_you' %>
-  <br/>
 <% end %>
 
 <% unless @upcoming_shifts.empty? %>
-  <br/>
   <fieldset class="index">
     <legend>Your Upcoming shifts</legend>
     <ul>
@@ -21,17 +19,17 @@
     </ul>
   </fieldset>
 <% end %>
+
 <% unless @subs_you_requested.empty? %>
-  <br/>
   <fieldset class="index">
-    <legend>Subs You Reqeusted</legend>
+    <legend>Subs You Requested</legend>
     <ul>
       <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
     </ul>
   </fieldset>
 <% end %>
+
 <% unless @subs_you_can_take.empty? %>
-  <br/>
   <fieldset class="index">
     <legend>Subs You Reqeusted</legend>
     <ul>
@@ -52,11 +50,10 @@
 </fieldset>
 
 <% if @most_recent_payform %>
-  <br />
   <fieldset class="index">
     <legend>Summary of your most recent payform</legend>
     <%= render :partial => "mini_payform", :object => @most_recent_payform %>
-  </fieldset><br />
+  </fieldset>
 <% end %>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
