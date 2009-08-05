@@ -1,13 +1,14 @@
-<% title "Edit User" %>
+<% stylesheet 'user_profile' %>
+<% title "#{@user.proper_name}" %>
 
-<% if current_user==@user and !current_user.is_admin_of?(current_department) %>
-<%= render :partial => 'user_form', :locals => {:submit => "Update", :user => @user} %>
-<% elsif current_user.is_admin_of?(current_department) -%>
-  <%= render :partial => 'new_form', :locals => {:submit => "Update", :user => @user} %>
-<% end %>
+<div class='whole'>
+      <%= render :partial => 'edit_form', :locals => {:submit => "Update", :user => @user} %>
+  </div>
 
-<p>
-  <%= link_to "Show", @user %> |
-  <%= link_to "View All", department_users_path(@department) %>
-</p>
+<div class='clear'>
+</div>
+  <p>
+    <%= link_to "Show", @user %>
+  </p>
+</div>
 
