@@ -28,6 +28,8 @@ before_filter :user_login
   end
 
   def edit
+    @user = User.find_by_login(params[:id])
+
     @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
 #The dept admin can edit all parts of any profile in their department, and a regular user can only edit their own profile entries that are user editable
     if @user_profile.user == current_user && current_user.is_admin_of?(@department)
@@ -44,6 +46,10 @@ before_filter :user_login
 
   def update
     @user_profile = UserProfile.find(params[:id])
+
+    @user = User.find(@user_profile.user_id)
+
+    @failed = []
     @user_profile_entries = params[:user_profile_entries]
     @user_profile_entries.each do |entry_id, entry_content|
       entry = UserProfileEntry.find(entry_id)
@@ -55,17 +61,29 @@ before_filter :user_login
           end
           @content.gsub!(/, \Z/, "")
           entry.content = @content
-          entry.save
+          unless entry.save
+            @failed << entry.field_name
+          end
         elsif entry.display_type == "radio_button"
           entry.content = entry_content["1"]
-          entry.save
+          unless entry.save
+            @failed << entry.field_name
+          end
         else
           entry.content = entry_content[entry_id]
-          entry.save
+          unless entry.save
+            @failed << entry.field_name
+          end
         end
     end
+
+    if @user.update_attributes(params[:user]) && @failed==[]
       flash[:notice] = "Successfully edited user profile."
       redirect_to :controller => "user_profiles", :action => "show", :params => {:id => @user_profile.user.login}
+    else
+      flash[:error] = "The following profile entries did not save: #{@failed}"
+      render :action => 'edit'
+    end
   end
 
   def destroy
