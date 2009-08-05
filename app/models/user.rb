@@ -133,7 +133,11 @@ class User < ActiveRecord::Base
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
-    self.departments_users[0].active
+    unless self.departments_users[0].nil?
+      self.departments_users[0].active
+    else
+      return false
+    end
   end
 
   # Given a department, check to see if the user can admin any loc groups in it
@@ -160,7 +164,10 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search_string)
-    User.all.select{|u| u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string}
+    User.all.each do |u|
+      return u if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+    end
+    nil
   end
 
   # originally intended to enable polymorphism; is this still needed, guys? -ben
@@ -212,6 +219,10 @@ class User < ActiveRecord::Base
     Notice.active.select {|n| n.users.include?(self)}
   end
 
+  def other_notices
+    Notice.active.select {|n| !n.users.include?(self) && n.locations.empty?}
+  end
+
   private
 
   def departments_not_empty
@@ -219,3 +230,4 @@ class User < ActiveRecord::Base
   end
 
 end
+
