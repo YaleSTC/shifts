@@ -18,7 +18,16 @@
         <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
     </fieldset>
     <br/>
-      <%= render :partial => 'report'%>
       <%= render :partial => 'new_report_item_form' %>
 <% end %>
+<div id="report_view">
 
+      <%= render :partial => 'report'%>
+</div>
+
+
+    <% if current_user == @report.user %>
+      <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true, :method => :put} %>
+    <% else %>
+      This report is still in progress.
+    <% end %> 

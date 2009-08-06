@@ -2,12 +2,6 @@ class ReportsController < ApplicationController
   #AJAX requests will be returned without layout
   layout proc{ |c| c.params[:format] == "js" ? false : "application" }
 
-# unsecured for now; are we getting rid of this action? -ben
-# this should discriminate by department
-#  def index
-#    @reports = Report.find(:all, :order => :arrived)
-#  end
-
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
     return unless require_department_membership(@report.shift.department)
@@ -43,7 +37,7 @@ class ReportsController < ApplicationController
       if current_user.current_shift
         flash[:notice] = "You can't sign into two shifts!"
       else
-        flash[:notice] = "You can\'t sign into someone else's report!" unless @report.shift.user==current_user
+        flash[:notice] = "You can't sign into someone else's report!" unless @report.shift.user==current_user
       end
       redirect_to shifts_path
     end
@@ -76,7 +70,7 @@ class ReportsController < ApplicationController
         flash[:notice] = "Successfully submitted report, but payform did not update. Please manually add the job to your payform."
       end
       respond_to do |format|
-        format.html {redirect_to @report}
+        format.html {redirect_to dashboard_path}
         format.js
       end
     else
