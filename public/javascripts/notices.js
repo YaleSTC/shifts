@@ -1,7 +1,13 @@
 jQuery(document).ready(function(){
 
-    $("#advanced_options_div").hide();
-    $("#toggle_link").show();
+    if($("#page_title").text() != "Notices") {
+        $("#advanced_options_div").hide();
+        $("#toggle_link").html('Show advanced options');
+        $("#toggle_link").show();
+    } else {
+        $("#advanced_options_div").show();
+        $("#toggle_link").show();
+    }
 
     $("#department_wide_locations").click(function(){
         var dept_status = $(this).attr('checked');

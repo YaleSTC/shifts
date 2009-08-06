@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def return_to_shift_report_if_needed
-    if (current_shift = current_user.current_shift)
+    if (current_user.current_shift)
       (link_to "Return to your current shift report", report_path(current_shift.report)) + "<br/>"
     end
   end
@@ -93,3 +93,4 @@ module ApplicationHelper
     end
   end
 end
+
