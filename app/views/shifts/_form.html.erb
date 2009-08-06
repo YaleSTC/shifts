@@ -10,15 +10,19 @@
     <%= f.label :end_time %><br />
     <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
   </p>
-  <% if current_user.is_admin_of?(@department) %>
-  <p>
-    <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %> (only the admin should see this)
-  </p>
-  <% end %>
   <p>
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
   </p>
+  <% if current_user.is_admin_of?(current_department) %>
+    <p>
+      <%= f.label :user %><br />
+      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
+    <p>
+      <%= f.label :power_signed_up %><br/>
+      <%= f.check_box :power_signed_up %> (Ignore restrictions and time slots)
+    </p>
+  <% end %>
   <p><%= f.submit "Submit" %></p>
 <% end %>
