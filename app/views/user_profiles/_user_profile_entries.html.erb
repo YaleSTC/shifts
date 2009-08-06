@@ -6,7 +6,7 @@
       <% for entry in @user_profile_entries %>
       <p>
 
-        <% if entry.display_type == "picture_link" %>
+        <% unless entry.content.nil? && entry.display_type != "picture_link" || entry.display_type != "upload_pic" %>
           <div class='pic_box'>
             <%= image_tag(entry.content, {:alt => @user_profile.user.proper_name, :class => "profile_pic"}) %>
           </div>
@@ -17,4 +17,5 @@
       </p>
       <% end %>
     <% end %>
+<%raise @user_profile_entries.to_yaml %>
 
