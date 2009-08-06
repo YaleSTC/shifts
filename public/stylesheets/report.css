@@ -26,11 +26,13 @@
   border-collapse: collapse;
   border-color: gray;
   padding: 5px;
+  margin: 5px;
   border-spacing: 2px;
   width: 100%;
 }
 
 #report_item_area{
+  margin: 5px;
   border-collapse: collapse;
   width: 49%;
 }
@@ -62,7 +64,17 @@
 }
 
 textarea#item {
-    width: 99%;
-    height:90%;
+  width: 99%;
+  height:90%;
+}
+
+fieldset.data_objects {
+  width: 48%;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid gray;
+  background-color:#DDDDFF
+}
+
 }
 
