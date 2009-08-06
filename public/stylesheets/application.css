@@ -61,6 +61,16 @@ html {
   overflow-y: scroll;
 }
 
+a.action_with_icon{
+	vertical-align: middle;
+}
+
+img.mini_icon {
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+}
+
 table, td, th{
 	border:1px solid #666;
 	padding: 2px;
@@ -485,6 +495,7 @@ fieldset#warning {
 fieldset.index {
   width: 98.6%;
   padding: 5px;
+  margin: 5px;  
   border: 1px solid gray;
   background-color:#DDDDFF
 }
