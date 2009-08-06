@@ -6,7 +6,7 @@
 <% end %>
 
 <%# Admin Menu %>
-<% if @user && @user.is_admin_of?(@department) && !@no_nav || current_user.is_superuser? -%>
+<% if current_user && current_user.is_admin_of?(@department) && !@no_nav || current_user.is_superuser? -%>
   <% content_for :left_nav do -%>
     <ul id="navigationList">
       <h3>User Actions</h3>
