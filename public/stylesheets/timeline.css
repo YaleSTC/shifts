@@ -41,7 +41,9 @@ div.timeline div.day {
     border-left: 1px solid #ddd;
     width: 100%;
     text-align: center;
-    background: #fff;
+    color: #fff;
+    font-weight: bold;
+    background: #888;
 }
 
 ul.intervals {
@@ -55,7 +57,16 @@ ul.intervals {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
-    background: #fff;
+    background: #559;
+    color: #fff;
+}
+
+ul.intervals div.hours {
+    background: #888;
+    border-left: 1px solid #ccc;
+}
+ul.intervals div#first {
+    border-left: 1px solid #888;
 }
 
 div.timeline div.day,
