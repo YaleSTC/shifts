@@ -30,6 +30,15 @@ module ShiftsHelper
   def day_preprocessing(day)
     @location_rows = {}
     
+    #for AJAX; needs cleanup if we have time
+    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    @dept_start_hour ||= current_department.department_config.schedule_start / 60
+    @dept_end_hour ||= current_department.department_config.schedule_end / 60
+    @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
+    @time_increment ||= current_department.department_config.time_increment
+    @blocks_per_hour ||= 60/@time_increment.to_f
+    
+    
     locations = @loc_groups.map{|lg| lg.locations}.flatten
     for location in locations
       @location_rows[location] = [] #initialize rows

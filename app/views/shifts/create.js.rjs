@@ -1,4 +1,4 @@
-page << "$('.tooltip').remove();"
+page << "$('#tooltip').remove();"
 #page.insert_html :bottom, "location#{@shift.location.id}_#{@shift.start.strftime("%Y-%m-%d")}_events", :partial => "shifts/schedule/shift", :object => @shift
 #page["#shift#{@shift.id}"].visual_effect :highlight
 page.replace_html @shift.start.strftime("%Y-%m-%d"), :partial => "shifts/schedule/day", :object => @shift.start.to_date
