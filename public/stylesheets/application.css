@@ -61,6 +61,16 @@ html {
   overflow-y: scroll;
 }
 
+a.action_with_icon{
+	vertical-align: middle;
+}
+
+img.mini_icon {
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+}
+
 table, td, th{
 	border:1px solid #666;
 	padding: 2px;
@@ -483,8 +493,9 @@ fieldset#warning {
 }
 
 fieldset.index {
-  width: 95%;
+  width: 98.6%;
   padding: 5px;
+  margin: 5px;  
   border: 1px solid gray;
   background-color:#DDDDFF
 }
@@ -567,6 +578,11 @@ table.sortable_style th:hover {
 }
 table.sortable_style th {
 	text-decoration: underline;
+}
+
+/* Data tables - should probably get its own stylesheet */
+table tr.alert_entry {
+  background-color:#ff0033;
 }
 
 /*Forms w/ tables next to them*/
