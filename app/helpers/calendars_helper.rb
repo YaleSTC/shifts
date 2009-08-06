@@ -84,13 +84,14 @@ module CalendarsHelper
     end
     
     # insert an extra empty row for timeslots in calendar view
-    for location in @visible_locations
-      @location_rows[location][@location_rows[location].length] = [nil]
-    end
+    # for location in @visible_locations
+    #   @location_rows[location][@location_rows[location].length] = [nil]
+    # end
     
     rowcount = 1 #starts with the bar on top
     for location in @visible_locations
       rowcount += @location_rows[location].length
+      rowcount += 0.5 #timeslot bar
     end
     
     @table_height = rowcount + @visible_loc_groups.length * 0.25
