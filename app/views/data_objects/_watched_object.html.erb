@@ -1,0 +1,28 @@
+<div>
+  <table id=<%= "watched_objects_#{watched_object.id}" %> class="data_table"> 
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Time</th>
+        <% watched_object.data_type.data_fields.each do |df| %>
+          <th><%= df.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% entry = watched_object.data_entries.last %>
+      <tr class=<%= data_entry_class(entry) %>>
+        <td>
+          <%= link_to "#{watched_object.name}", watched_object %>
+        <td>
+          <%= entry.updated_at.to_s(:am_pm_long) %>
+        </td>
+        <% watched_object.data_type.data_fields.each do |df| %>
+          <td>
+            <%= entry.data_fields_with_contents[df.id.to_s] %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
