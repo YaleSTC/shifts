@@ -41,16 +41,16 @@ user_profile_field_05:
   department_id: 1
 user_profile_field_06:
   id: 06
-  name: "Profile Picture"
-  display_type: "upload_pic"
+  name: "Profile Picture Link"
+  display_type: "picture_link"
   values:
   public: t
   user_editable: t
   department_id: 1
 user_profile_field_07:
   id: 07
-  name: "Profile Picture"
-  display_type: "picture_link"
+  name: "Profile Picture Upload"
+  display_type: "upload_pic"
   values:
   public: t
   user_editable: t

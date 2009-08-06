@@ -48,7 +48,8 @@ before_filter :user_login
     @user_profile = UserProfile.find(params[:id])
 
     @user = User.find(@user_profile.user_id)
-
+  begin
+  UserProfile.transaction do
     @failed = []
     @user_profile_entries = params[:user_profile_entries]
       @user_profile_entries = params[:user_profile_entries]
@@ -62,19 +63,27 @@ before_filter :user_login
             end
             @content.gsub!(/, \Z/, "")
             entry.content = @content
-            entry.save
+
+            @failed << entry.field_name unless entry.save
+
           elsif entry.display_type == "radio_button"
             entry.content = entry_content["1"]
-            entry.save
+            @failed << entry.field_name unless entry.save
           elsif entry.display_type == "upload_pic"
             entry.content = entry_content.read
-            entry.save
+            @failed << entry.field_name unless entry.save
           else
             entry.content = entry_content[entry_id]
-            entry.save
+            @failed << entry.field_name unless entry.save
           end
       end
+      end
+  rescue
+    flash[:error] = @failed.to_sentence + " all failed to save."
+  else
       redirect_to user_profile_path(@user.login)
+  end
+
   end
 
   def destroy
