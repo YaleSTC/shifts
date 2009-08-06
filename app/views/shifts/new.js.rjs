@@ -1,1 +1,1 @@
-page.insert_html :after, params[:elementID], :partial => "shifts/tooltips/new", :object => @shift
+page.replace_html "tooltip", :partial => "shifts/tooltips/new", :object => @shift

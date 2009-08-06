@@ -1,4 +1,4 @@
-<div class="tooltip">
+
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
@@ -37,4 +37,3 @@
     </p>
     <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create' } %></p>
   <% end %>
-</div>

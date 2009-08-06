@@ -3,6 +3,10 @@
 <% form_for @time_slot do |f| %>
   <%= f.error_messages %>
   <p>
+    <%= f.label :calendar %><br />
+    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+  </p>
+  <p>
       <strong>Days:</strong><br />
     <% WEEK_DAYS.each_with_index do |day, i| %>
       <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>

@@ -7,13 +7,13 @@
     <div class="timeline" style="height:<%= @table_pixels %>px; width: 100%;">
       <div class="days">
         <div class="day" style="height: <%= @table_pixels / (@table_height)%>px;"></div>
-        <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups %>
+        <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups, :locals => {:day => day} %>
       </div>
       <div class="timeline-data">
         <ul class="intervals" style="height: <%= 100 / (@table_height)%>%;">
           <%= render :partial => "shifts/schedule/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
         </ul>
-        <%= render :partial => "shifts/schedule/loc_group_row", :collection => @loc_groups, :locals => {:day => day}  %>
+        <%= render :partial => "shifts/schedule/loc_group_row", :collection => @loc_groups, :locals => {:day => day} %>
       </div>
     </div>
 

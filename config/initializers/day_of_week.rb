@@ -4,11 +4,11 @@ HOURS = Array.new(12){|i| i + 1}
 AM_PM = [["AM",0],["PM",1]]
 
 class Fixnum
-  
+
   def day_of_week
     WEEK_DAYS[self]
   end
-  
+
   def min_to_am_pm
     (Date.new + self.minutes).to_s(:am_pm)
   end
@@ -34,9 +34,16 @@ class Time
   def sunday_of_week #let's stop using this because it is unclear
     (self - self.wday.days).midnight
   end
-  
+
   def previous_sunday
     (self - wday).midnight
   end
-end
 
+  def next(day)
+    day_int = WEEK_DAYS.index(day)
+    out = self-self.wday.days+day_int.days
+    out += 1.weeks if out <= self
+    out
+  end
+
+end
