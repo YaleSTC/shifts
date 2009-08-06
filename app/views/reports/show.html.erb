@@ -12,13 +12,13 @@
 </fieldset>
 
 <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
-  <br/>
-    <fieldset class='index'>
+    <br/>
+      <%= render :partial => 'report'%>
+    <fieldset class='data_objects'>
       <legend>Data Objects</legend>
         <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
     </fieldset>
     <br/>
-      <%= render :partial => 'report'%>
       <%= render :partial => 'new_report_item_form' %>
 <% end %>
 
