@@ -25,7 +25,7 @@ class DataEntry < ActiveRecord::Base
         end
         content.chomp!(";")          #strip off the last semicolon
         content << ";;"
-      else
+      elsif !value.empty?                                         #Should protect against empty values
         content << key.to_s + "::"
         content << value.to_s.gsub(";","**semicolon**").gsub(":","**colon**") + ";;"
       end
@@ -40,6 +40,7 @@ class DataEntry < ActiveRecord::Base
     self.content.split(';;').map{|str| str.split('::')}.map{|a| a.first}.sort
   end
 
+  # Good candidate for refactoring *shudder* -ben
   # Returns the data fields and user content in a set of {field => content} hashes
   def data_fields_with_contents
     content_arrays = self.content.split(';;').map{|str| str.split('::')}
@@ -60,6 +61,13 @@ class DataEntry < ActiveRecord::Base
     content_hash = {}
     content_arrays.each{|array| content_hash.store(array.first,array.second.gsub("**semicolon**",";").gsub("**colon**",":"))}     
     content_hash
+  end
+
+  def passes_field_validation?
+    self.data_fields_with_contents.each_pair do |field_id, content|
+      return false unless DataField.find(field_id).check_alerts?(content)
+    end
+    return true
   end
 
 # Not only is this not in use, but it won't work, either -ben

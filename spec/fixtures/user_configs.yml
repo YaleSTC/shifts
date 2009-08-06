@@ -3,12 +3,15 @@ Dumbledore:
   default_dept: 1
   view_loc_groups: 1
   view_week: whole_period
+  watched_data_objects: ""
+
 
 Potter:
   user_id: 2
   default_dept: 1
   view_loc_groups: 1
   view_week: whole_period
+  watched_data_objects: ""
 
 Granger:
   user_id: 3
@@ -21,18 +24,21 @@ Garfield_owner:
   default_dept: 2
   view_loc_groups: 3
   view_week: whole_period
+  watched_data_objects: ""
 
 Every_Man:
   user_id: 5
   default_dept: 1
   view_loc_groups: 1
   view_week: whole_period
+  watched_data_objects: ""
 
 Filch:
   user_id: 6
   default_dept: 1
   view_loc_groups: 1
   view_week: whole_period
+  watched_data_objects: ""
 
 Slughorn:
   user_id: 7

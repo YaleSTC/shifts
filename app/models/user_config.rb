@@ -6,12 +6,22 @@ class UserConfig < ActiveRecord::Base
 
   VIEW_WEEK_OPTIONS = [
     # Displayed               stored in db
-    ["Whole week",      "whole_period"],
-    ["Remainder of week",   "remainder"],
+    ["Whole week",            "whole_period"],
+    ["Remainder of week",     "remainder"],
     ["Just the current day",  "current_day"]
   ]
 
-  # Custom accessor, so you can assign loc groups by passing in either an array
+### CUSTOM ACCESSORS ###
+# Incidentally, these two are identical, but I don't know where I could refactor
+# them out to.  So they're not DRY for now. We can improve it later, once we
+# come up with a good place to do so. -ben
+
+  def watched_data_objects=(data_objects)
+    data_objects = data_objects.split(',') if data_objects.class == String
+    write_attribute(:watched_data_objects, data_objects.uniq.remove_blank.join(", "))
+  end
+
+  # Loc Groups can be assigned either by passing in an array 
   # of ids or a comma-separated string.
   def view_loc_groups=(loc_groups)
     loc_groups = loc_groups.split(', ') if loc_groups.class == String
