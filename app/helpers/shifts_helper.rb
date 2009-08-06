@@ -33,6 +33,7 @@ module ShiftsHelper
     locations = @loc_groups.map{|lg| lg.locations}.flatten
     for location in locations
       @location_rows[location] = [] #initialize rows
+      @location_rows[location][0] = [] #initialize rows
     end
     
     @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
@@ -66,7 +67,7 @@ module ShiftsHelper
     
     rowcount = 1 #starts with the bar on top
     for location in locations
-      rowcount += @location_rows[location].length
+      rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
     end
 
     @table_height = rowcount + @loc_groups.length * 0.25

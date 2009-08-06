@@ -15,4 +15,10 @@ class DataObject < ActiveRecord::Base
     loc_group.locations.map{|loc| loc.data_objects}.flatten.compact
   end
     
+  ### Virtual Attributes ###
+    
+  def data_fields
+    self.data_type.data_fields
+  end
+    
 end
