@@ -1,0 +1,20 @@
+<% day_preprocessing(day) %>
+
+<div id="<%= day.to_s %>" class="day_partial">
+  <h2><%= link_to_function day.to_s(:just_date_long), "$(this).parent().next().toggle()", :name => day.to_s %></h2>
+  <div>
+
+    <div class="timeline" style="height:<%= @table_pixels %>px; width: 100%;">
+      <div class="days">
+        <div class="day" style="height: <%= @table_pixels / (@table_height)%>px;"></div>
+        <%= render :partial => "calendars/schedule/loc_group", :collection => @visible_loc_groups %>
+      </div>
+      <div class="timeline-data">
+        <ul class="intervals" style="height: <%= 100 / (@table_height)%>%;">
+          <%= render :partial => "calendars/schedule/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
+        </ul>
+        <%= render :partial => "calendars/schedule/loc_group_row", :collection => @visible_loc_groups, :locals => {:day => day}  %>
+      </div>
+    </div>    
+  </div>
+</div>
