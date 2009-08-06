@@ -36,7 +36,7 @@ class CalendarsController < ApplicationController
       #@shifts.store(calendar, calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled.group_by{|t| t.start.strftime("%Y-%m-%d")})
       #@time_slots.store(calendar, calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6).group_by{|t| t.start.strftime("%Y-%m-%d")})
       @time_slots += calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6)
-    end 
+    end
     @shifts = @shifts.group_by{|s| s.start.strftime("%Y-%m-%d")}
     @time_slots = @time_slots.group_by{|t| t.start.strftime("%Y-%m-%d")}
     

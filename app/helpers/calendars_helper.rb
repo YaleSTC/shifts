@@ -52,7 +52,9 @@ module CalendarsHelper
     #                                      day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
     # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
-    shifts = @shifts[day.to_s("%Y-%m-%d")].sort_by{|s| [s.location_id, s.start]}
+    shifts = @shifts[day.to_s("%Y-%m-%d")]
+    shifts ||= []
+    shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 
     rejected = []
     location_row = 0
