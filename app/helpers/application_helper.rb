@@ -25,6 +25,10 @@ module ApplicationHelper
     end
   end
 
+  def user_has_active_shift?
+    current_user.current_shift
+  end
+
   def tokenized_users_autocomplete(object, field, id)
     json_string = ""
     unless object.nil? or field.nil?
