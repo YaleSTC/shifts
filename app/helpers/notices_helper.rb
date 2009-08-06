@@ -29,5 +29,10 @@ module NoticesHelper
       !@notice.is_sticky
     end
   end
+
+  def stime_check(not_time_choice)
+    if not_time_choice
+  end
+end
 end
 

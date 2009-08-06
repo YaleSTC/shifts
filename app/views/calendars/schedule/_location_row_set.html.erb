@@ -1,0 +1,4 @@
+<ul class="events timeslot_group" style="margin-top: -1px; margin-bottom: -<%= (@table_pixels / (@table_height) + 1) * @location_rows[location_row_set].length - 1%>px; height: <%= (@table_pixels / (@table_height) + 1) * @location_rows[location_row_set].length - 1 %>px">
+  <%= render :partial => "calendars/schedule/time_slot", :collection => @time_slots[day.to_s("%Y-%m-%d")].select{|t|t.location == location_row_set}, :locals => {:location => location_row_set} -%>
+</ul>
+<%= render :partial => "calendars/schedule/location_row", :collection => @location_rows[location_row_set], :locals => {:day => day, :location => location_row_set} -%>

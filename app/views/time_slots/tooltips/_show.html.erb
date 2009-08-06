@@ -1,4 +1,4 @@
-<div class="edit tooltip">
+
   <%= javascript_include_tag 'jeditable' %>
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
@@ -86,4 +86,3 @@
       $.ajax({dataType:'script', type:'get', url:'<%= rerender_time_slot_path(@time_slot) %>'});
     }
   </script>
-</div>
