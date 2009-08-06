@@ -79,8 +79,10 @@ module CalendarsHelper
       shifts = rejected
     end
     
-    # an extra empty row?
-    #@location_rows[shift.location][location_row] = [] #not working...
+    # insert an extra empty row for calendar view
+    for location in @visible_locations
+      @location_rows[location][@location_rows[location].length] = [nil]
+    end
     
     rowcount = 1 #starts with the bar on top
     for location in @visible_locations
