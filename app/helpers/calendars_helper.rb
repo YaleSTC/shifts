@@ -55,6 +55,10 @@ module CalendarsHelper
     shifts = @shifts[day.to_s("%Y-%m-%d")]
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
+    
+    timeslots = @time_slots[day.to_s("%Y-%m-%d")]
+    timeslots ||= []
+    timeslots = timeslots.sort_by{|t| [t.location_id, t.start]}
 
     rejected = []
     location_row = 0
@@ -79,7 +83,7 @@ module CalendarsHelper
       shifts = rejected
     end
     
-    # insert an extra empty row for calendar view
+    # insert an extra empty row for timeslots in calendar view
     for location in @visible_locations
       @location_rows[location][@location_rows[location].length] = [nil]
     end
