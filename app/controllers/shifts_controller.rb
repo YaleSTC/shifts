@@ -2,6 +2,8 @@ class ShiftsController < ApplicationController
 
     helper :shifts
 
+
+#Currently broken if there are no locations in the department
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
 
@@ -10,7 +12,6 @@ class ShiftsController < ApplicationController
     current_user.departments.each do |dept|
       @loc_group_select.store(dept.id, current_user.loc_groups(dept))
     end
-    @selected_loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
 
     # figure out what days to display based on user preferences
     if params[:date].blank? and (current_user.user_config.view_week != "" and current_user.user_config.view_week != "whole_period")
@@ -24,7 +25,7 @@ class ShiftsController < ApplicationController
           @day_collection = Date.today...(@period_start+6)
         end
       end
-    elsif @department.department_config.weekend_shifts #show weekends
+elsif @department.department_config.weekend_shifts #show weekends
       @day_collection = @period_start...(@period_start+7)
     else #no weekends
       @day_collection = (@period_start+1)...(@period_start+6)
@@ -45,6 +46,8 @@ class ShiftsController < ApplicationController
     @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
   end
 
+# Necessary? -ben
+# No, but since the shifts view is broken,i'm using this.
   def show
     @shift = Shift.find(params[:id])
     return unless require_department_membership(@shift.department)
@@ -103,7 +106,7 @@ class ShiftsController < ApplicationController
         redirect_to @report and return if @report.save
       end
       respond_to do |format|
-        format.html{ flash[:notice] = "Successfully created shift."; redirect_to(@shift.scheduled ? @shift : new_shift_report_path(@shift))}
+        format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
         format.js
       end
     else

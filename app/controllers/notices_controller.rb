@@ -14,15 +14,15 @@ class NoticesController < ApplicationController
   end
 
   def new
+    @current_shift_location = current_user.current_shift.location if current_user.current_shift
     @notice = Notice.new
-    @legend = "New Notice"
     layout_check
   end
 
   def edit
     require_department_admin
+    @current_shift_location = current_user.current_shift.location if current_user.current_shift
     @notice = Notice.find(params[:id])
-    @legend = "Edit Notice"
     layout_check
   end
 
@@ -138,7 +138,7 @@ class NoticesController < ApplicationController
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
-          user_source = User.search(l).first || Role.find_by_name(l)
+          user_source = User.search(l) || Role.find_by_name(l)
           user_source = Department.find_by_name(l) if current_user.is_admin_of(current_department)
           @notice.user_sources << user_source if user_source
         else
@@ -148,7 +148,7 @@ class NoticesController < ApplicationController
       end
     end
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
-      @notice.departments << current_department
+      @notice.location_sources << current_department
       @notice.loc_groups << current_department.loc_groups
       @notice.locations << current_department.locations
     elsif params[:for_location_groups]
