@@ -1,9 +1,10 @@
 <% title "Shift Report at the #{@report.shift.location.name}" %>
+<div id="AJAX_status"></div>
 <% unless @report.departed || current_user != @report.user %>
 <fieldset class = "index" >
   <legend><%= "Message Center for the #{current_user.current_shift.location.short_name}"%></legend>
   <div>
-    <%= link_to_post_a_new_notice %>
+    <%= link_to_post_a_new_notice(true) %>
   </div>
   <br>
   <div id = "message_center">
