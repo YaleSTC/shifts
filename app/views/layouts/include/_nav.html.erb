@@ -7,7 +7,7 @@
   <% end -%>
   <% # the line after this was commented out because I think it's not necessary -%>
   <%# if !current_user.new_record? && !current_department.new_record? %>
-    <% if current_user.is_admin_of?(@current_department) -%>
+    <% if @user && @user.is_admin_of?(@department) && @user.is_active?(@department) || current_user.is_superuser? -%>
       <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
       <% else %>
       <li class="<%= tab('user_profiles') %>"><%= link_to "Users", user_profiles_path %></li>

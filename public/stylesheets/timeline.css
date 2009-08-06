@@ -26,14 +26,14 @@ div.timeline {
 div.timeline-data {
     float:right;
     position:relative;
-    width: 90%;
+    width: 93%;
     height: 100%;
 }
 
 div.timeline div.days {
     position: absolute;
     left: 0;
-    width: 10%;
+    width: 7%;
     height: 100%;
 }
 div.timeline div.day {
@@ -41,6 +41,7 @@ div.timeline div.day {
     border-left: 1px solid #ddd;
     width: 100%;
     text-align: center;
+    background: #fff;
 }
 
 ul.intervals {
@@ -54,6 +55,7 @@ ul.intervals {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
+    background: #fff;
 }
 
 div.timeline div.day,
@@ -98,6 +100,7 @@ ul.events {
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;
     border-left: 1px solid #ccc;
+    background: #fff;
     width: 100%;
 }
 
@@ -118,10 +121,10 @@ ul.events li.click_to_add_new {
     border-left: 0px solid #fff;
 }
 div.click_to_add_new:hover {
-		background: #fffff3;
+    background: #efefe3;
 }
 ul.events li.click_to_add_new:hover {
-    background: #fffff3;
+    background: #efefe3;
     position: absolute;
     height: 100%;
 }

@@ -5,7 +5,9 @@ class CreateDataFields < ActiveRecord::Migration
       t.string     :name
       t.string     :display_type
       t.string     :values
-      t.string     :validations
+      t.float      :upper_bound
+      t.float      :lower_bound
+      t.string     :exact_alert
       t.timestamps
     end
   end
