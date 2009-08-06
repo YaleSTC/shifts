@@ -90,7 +90,7 @@ elsif @department.department_config.weekend_shifts #show weekends
     @shift.department = @shift.location.department #assign it a department based off of its location. shifts will never change to a location in a diff. dept, so this is okay.
     return unless require_department_membership(@shift.department)
     @shift.start = Time.now unless @shift.start
-    @shift.calendar = @department.calendars.default unless @shift.calendar
+    @shift.calendar = @department.calendars.default.first unless @shift.calendar
     unless current_user.is_admin_of?(@department) && @shift.scheduled?
       @shift.power_signed_up = false
       @shift.user = current_user

@@ -1,6 +1,6 @@
 page.replace_html @shift.start.strftime("%Y-%m-%d"), :partial => "shifts/schedule/day", :object => @shift.start.to_date
 page["#shift#{@shift.id}"].visual_effect :highlight
-page << "$('.tooltip').remove();"
+page.remove "#tooltip"
 
 #TODO:this! and port the above functionality (full day redraw) to create and destroy, as well.
 page << "initialize('##{@shift.start.strftime("%Y-%m-%d")}');"
