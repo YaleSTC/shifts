@@ -1,16 +1,3 @@
-#<% if @notice.errors.empty? %>
-#  $('#all_notices').html("<%= escape_javascript(render :partial => 'all_notices') %>");
-#  <% if current_user.current_shift %>
-#  alert(<%= current_user.current_shift.report.get_notices.count%>);
-#    $('#message_center').html("<%= escape_javascript(render :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices) %>");
-#    alert(<%= current_user.current_shift.report.get_notices.count%>);
-#  <% end %>
-#  tb_remove();
-#<% else %>
-#  $('#notice_form').html("<%= escape_javascript(render :partial => 'notices/form') %>");
-#<% end %>
-
-
 if @notice.errors.empty?
   page.replace_html "all_notices", :partial => 'notices/all_notices'
   if current_user.current_shift
