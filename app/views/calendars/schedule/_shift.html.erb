@@ -6,7 +6,7 @@
     <% end %>
     <div class="center_container">
       <div class="center_content">
-        <%#= link_to_remote "x", {:url => shift, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px" %>
+        <%= link_to_remote "x", {:url => shift, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px" %>
         <%# TODO: write code to shorten text when div is small %>
         <%# (text could also be dynamically shrunk by javascript after page loading, to make sure the contents fit) %>
         <%= shift.user.name %><br/>
