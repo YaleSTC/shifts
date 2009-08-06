@@ -41,14 +41,14 @@ class NoticesController < ApplicationController
         set_sources
         @notice.save!
       end
-      rescue
+    rescue Exception
         respond_to do |format|
           format.html { render :action => "new" }
           format.js  #create.js.rjs
         end
       else
-         respond_to do |format|
-        format.html {
+        respond_to do |format|
+          format.html {
           flash[:notice] = 'Notice was successfully created.'
           redirect_to :action => "index"
         }
@@ -82,7 +82,7 @@ class NoticesController < ApplicationController
         set_sources
         @notice.save!
       end
-      rescue
+    rescue Exception
         respond_to do |format|
           format.html { render :action => "edit" }
           format.js  #update.js.rjs
@@ -140,7 +140,7 @@ class NoticesController < ApplicationController
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
           user_source = User.search(l) || Role.find_by_name(l)
-          user_source = Department.find_by_name(l) if current_user.is_admin_of(current_department)
+          user_source = Department.find_by_name(l) if current_user.is_admin_of?(current_department)
           @notice.user_sources << user_source if user_source
         else
           l = l.split("||")
