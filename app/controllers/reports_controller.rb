@@ -55,10 +55,9 @@ class ReportsController < ApplicationController
       @report.departed = Time.now
       # add a report item about logging out
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.login} logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
-      @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
+      @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?      
     end
-    if @report.update_attributes(params[:report]) && @report.user == current_user
-      @report.shift.signed_in = false
+    if @report.update_attributes(params[:report]) && @report.user == current_user && @report.shift.update_attribute(:signed_in, false)
       @payform_item=PayformItem.new("hours"=>(@report.departed-@report.arrived)/3600,
                                     "category"=>Category.find_by_name("Shifts"),
                                     "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),

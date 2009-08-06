@@ -1,6 +1,11 @@
-#report_view  {
-  width: 49%;
+#report_relative_size {
+  width: 48%;
   float: right;
+}
+
+#report_view  {
+  float: left;
+  width: 100%;
 }
 
 #report_view .list_report_item_even {
@@ -22,7 +27,6 @@
 }
 
 #report_view_table{
-  clear: right;
   border-collapse: collapse;
   border-color: gray;
   padding: 5px;
@@ -34,8 +38,11 @@
 #report_item_area{
   margin: 5px;
   border-collapse: collapse;
-  width: 49%;
+  width: 45%;
+  clear: left;
+  float: left;
 }
+
 
 #report_view_table tr{
   padding: 4px;
@@ -68,12 +75,21 @@ textarea#item {
   height:90%;
 }
 
-fieldset.data_objects {
+#report_data_objects {
   width: 48%;
+  float: left;
+}
+
+#report_data_objects fieldset {
+  width: 100%;
   padding: 5px;
   margin: 5px;
   border: 1px solid gray;
   background-color:#DDDDFF
+}
+
+#submit_button {
+  float: right;
 }
 
 }

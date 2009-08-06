@@ -1,34 +1,36 @@
 <% title "Shift Report at the #{@report.shift.location.name}" %>
-<% unless @report.departed || current_user != @report.user %>
-<fieldset class = "index" >
-  <legend><%= "Message Center for the #{current_user.current_shift.location.short_name}"%></legend>
-  <div>
-    <%= link_to_post_a_new_notice %>
-  </div>
-  <br>
-  <div id = "message_center">
-    <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
-  </div>
-</fieldset>
+<% if current_user == @report.user && !@report.departed %>
+  <fieldset class = "index" >
+    <legend><%= "Message Center for the #{current_user.current_shift.location.short_name}"%></legend>
+    <div>
+      <%= link_to_post_a_new_notice %>
+    </div>
+    <div id = "message_center">
+      <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
+    </div>
+  </fieldset>
 
-<%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
-    <br/>
-      <%= render :partial => 'report'%>
-    <fieldset class='data_objects'>
-      <legend>Data Objects</legend>
-        <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
-    </fieldset>
-    <br/>
-      <%= render :partial => 'new_report_item_form' %>
+  <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
+      <div id="report_data_objects"
+        <fieldset class='data_objects'>
+          <legend>Data Objects</legend>
+          <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
+        </fieldset>
+      </div>
+
+  <div id="report_relative_size">
 <% end %>
-<div id="report_view">
 
-      <%= render :partial => 'report'%>
+<div id="report_view">
+  <%= render :partial => 'report'%>
 </div>
 
+<% if current_user == @report.user && !@report.departed %>
+  </div>
+  
+  <%= render :partial => 'new_report_item_form' %>
 
-    <% if current_user == @report.user %>
-      <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true, :method => :put} %>
-    <% else %>
-      This report is still in progress.
-    <% end %> 
+  <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'} %>
+<% elsif !@report.departed %>
+  This report is still in progress.
+<% end %> 
