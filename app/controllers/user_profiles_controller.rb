@@ -66,6 +66,9 @@ before_filter :user_login
           elsif entry.display_type == "radio_button"
             entry.content = entry_content["1"]
             entry.save
+          elsif entry.display_type == "upload_pic"
+            entry.content = entry_content.read
+            entry.save
           else
             entry.content = entry_content[entry_id]
             entry.save
