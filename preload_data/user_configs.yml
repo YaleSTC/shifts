@@ -21,9 +21,9 @@ user_configs_003:
   created_at: 2009-06-22 17:42:57
   default_dept: "1"
   id: "3"
-  updated_at: 2009-06-22 17:56:18
+  updated_at: 2009-08-06 16:56:41
   user_id: "15"
-  view_loc_groups: ""
+  view_loc_groups: 2, 3
   view_week: ""
   watched_data_objects: ""
 user_configs_004: 

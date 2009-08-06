@@ -20,22 +20,22 @@
       <br />
       <fieldset class = "index">
       <legend>Start time:</legend>
-        <%= radio_button_tag 'start_time_choice', 'now', true %> Now <br/>
-        <%= radio_button_tag 'start_time_choice', 'date' %>
+        <%= radio_button_tag 'start_time_choice', 'now',start_time_check(true) %> Now <br/>
+        <%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
         <%= f.unobtrusive_datetime_picker :start_time, :minute_step => @department.department_config.time_increment %>
       </fieldset>
       <br />
       <fieldset class = "index">
         <legend>End time:</legend>
-        <%= radio_button_tag 'end_time_choice', 'indefinite', true %> Indefinite <br/>
-        <%= radio_button_tag 'end_time_choice', 'date' %>
+        <%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
+        <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
         <%= f.unobtrusive_datetime_picker :end_time, :minute_step => @department.department_config.time_increment %>
       </fieldset>
     </div>
   <% end %>
 
   <% unless current_user.is_admin_of?(current_department) %>
-      <%= link_to "Show advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
+      <%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
 
       <div id="advanced_options_div">
   <%end%>

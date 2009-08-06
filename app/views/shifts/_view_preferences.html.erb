@@ -14,7 +14,7 @@
           </div>
         <% end %>
       </p>
-      <%= hidden_field_tag :redirect_to, (shifts_path + (params[:date] ? "?date=#{params[:date]}" : "") ) %>
+      <%= hidden_field_tag :redirect_to, request.path %>
       <p><%= f.submit "Show" %></p>
     <% end %>
   </div>

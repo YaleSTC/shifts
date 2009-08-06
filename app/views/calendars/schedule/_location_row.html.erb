@@ -1,0 +1,6 @@
+<% unless location_row.nil? or location_row.compact.empty? %>
+<ul id="location<%=location.id%>_<%=day%>_events" class="events" style="height:<%= @table_pixels / (@table_height)%>px;">
+  <li id="location<%=location.id%>_<%=day%>_free_time" style="width:100%" class="click_to_add_new"></li>
+  <%= render :partial => "calendars/schedule/shift", :collection => location_row -%>
+</ul>
+<% end %>
