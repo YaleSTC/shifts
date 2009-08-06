@@ -1,0 +1,14 @@
+<div class="day" style="height: <%= @table_pixels / (@table_height) * (@location_rows[location].length) + @location_rows[location].length - 1 %>px;">
+  <div class="center_container click_to_add_new">
+    <div class="center_content">
+      <%= location.short_name %>
+    </div>
+  </div>
+</div>
+<div class="day" style="height: <%= @table_pixels / (@table_height) * (0.5) %>px;">
+  <div class="center_container click_to_add_new">
+    <div class="center_content">
+      timeslots
+    </div>
+  </div>
+</div>

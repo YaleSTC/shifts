@@ -8,7 +8,7 @@
 <% unless current_user.notices.empty? %>
   <%= render :partial => 'notices/for_you' %>
 <% end %>
- 
+
 <% unless @upcoming_shifts.empty? %>
   <fieldset class="index">
     <legend>Your Upcoming shifts</legend>
@@ -42,9 +42,9 @@
     </ul>
   </fieldset>
 <% end %>
- 
- 
- 
+
+
+
 <fieldset class="index">
   <legend>Punch Clock</legend>
   <% if current_user.punch_clock %>
@@ -53,19 +53,18 @@
     <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
   <% end %>
 </fieldset>
- 
+
 <% if @most_recent_payform %>
   <fieldset class="index">
     <legend>Summary of your most recent payform</legend>
     <%= render :partial => "mini_payform", :object => @most_recent_payform %>
   </fieldset>
 <% end %>
- 
+
 <% unless current_user.user_config.view_loc_groups.empty? %>
 <fieldset class="index">
   <legend>Today's schedule</legend>
   <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
 </fieldset>
 <% end %>
- 
- 
+
