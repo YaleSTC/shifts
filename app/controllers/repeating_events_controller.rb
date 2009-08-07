@@ -52,7 +52,7 @@ class RepeatingEventsController < ApplicationController
 
   def destroy
     @repeating_event = RepeatingEvent.find(params[:id])
-    @repeating_event.destroy
+    RepeatingEvent.destroy_self_and_future(@repeating_event)
     flash[:notice] = "Successfully destroyed repeating event."
     redirect_to repeating_events_url
   end
