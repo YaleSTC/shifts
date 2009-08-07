@@ -115,7 +115,14 @@ ul.events li {
     height: 100%;
 }
 ul.events li.click_to_add_new {
-	z-index: 0;
+		z-index: 0;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+    border-left: 0px solid #fff;
+}
+ul.events li.click_to_add_new_timeslot {
+		z-index: 0;
     background: transparent;
     position: absolute;
     height: 100%;

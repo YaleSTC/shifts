@@ -55,6 +55,10 @@ module CalendarsHelper
     shifts = @shifts[day.to_s("%Y-%m-%d")]
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
+    
+    timeslots = @time_slots[day.to_s("%Y-%m-%d")]
+    timeslots ||= []
+    timeslots = timeslots.sort_by{|t| [t.location_id, t.start]}
 
     rejected = []
     location_row = 0
@@ -79,12 +83,15 @@ module CalendarsHelper
       shifts = rejected
     end
     
-    # an extra empty row?
-    #@location_rows[shift.location][location_row] = [] #not working...
+    # insert an extra empty row for timeslots in calendar view
+    # for location in @visible_locations
+    #   @location_rows[location][@location_rows[location].length] = [nil]
+    # end
     
     rowcount = 1 #starts with the bar on top
     for location in @visible_locations
       rowcount += @location_rows[location].length
+      rowcount += 0.5 #timeslot bar
     end
     
     @table_height = rowcount + @visible_loc_groups.length * 0.25

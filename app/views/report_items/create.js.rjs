@@ -1,0 +1,3 @@
+page.replace_html "all_report_items", :partial => 'reports/report_item', :collection => @report.report_items
+page << "$('#item').val("");"
+
