@@ -10,7 +10,8 @@ class UserConfigsController < ApplicationController
       @data_objects << dept.data_objects
       @data_objects.flatten!
     end
-    @selected_loc_groups = @user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg).id}
+    @selected_loc_groups = @user_config.view_loc_groups.split(', ').map{|a| a.to_i}
+#    raise @selected_loc_groups.to_yaml
     @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj|DataObject.find(obj).id}
   end
 
