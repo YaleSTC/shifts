@@ -29,9 +29,13 @@ class TimeSlot < ActiveRecord::Base
 
 #  end
 
+  #This method creates the multitude of shifts required for repeating_events to work
+  #in order to work efficiently, it makes a few GIANT sql insert calls
   def self.make_future(end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time)
+    #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
     outer = []
     inner = []
+    #Take each location and day and build an array containing the pieces of the sql query
     loc_ids.each do |loc_id|
       days.each do |day|
         seed_start_time = start_time
@@ -40,13 +44,19 @@ class TimeSlot < ActiveRecord::Base
           seed_start_time = seed_start_time.next(day)
           seed_end_time = seed_end_time.next(day)
           inner.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\""
+          #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
+          #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
+          #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
           if inner.length > 450
             outer.push inner
             inner = []
           end
         end
+        #handle leftovers or the case where there are less than 450 rows to be inserted
+        outer.push inner
       end
     end
+    #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
     ActiveRecord::Base.transaction do
       outer.each do |s|
         sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at') SELECT #{s.join(" UNION ALL SELECT ")};"
