@@ -124,6 +124,8 @@ class UsersController < ApplicationController
           end
       end
 
+    @user_profile = UserProfile.find_by_user_id(@user.id)
+    @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
     params[:user][:role_ids] = updated_roles
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
@@ -293,4 +295,3 @@ class UsersController < ApplicationController
     redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end
-
