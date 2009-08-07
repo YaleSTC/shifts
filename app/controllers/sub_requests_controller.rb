@@ -22,6 +22,7 @@ class SubRequestsController < ApplicationController
   def create
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
+    @sub_request.user = @sub_request.shift.user
     @sub_request.save! #TODO: need to save before adding polymorphisms -- sorry!
     params[:list_of_logins].split(",").each do |l|
       l = l.split("||")
@@ -40,7 +41,7 @@ class SubRequestsController < ApplicationController
     #TODO This should probably be in a transaction, so that
     #if the update fails all sub sources don't get deleted...
     return unless require_owner_or_dept_admin(@sub_request.shift, current_department)
-    @sub_request.user_sources = []
+    UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{@sub_request.id}\"")
     params[:list_of_logins].split(",").each do |l|
       l = l.split("||")
       @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
@@ -75,4 +76,3 @@ class SubRequestsController < ApplicationController
     end
   end
 end
-

@@ -7,6 +7,7 @@ class CreateSubRequests < ActiveRecord::Migration
       t.datetime :mandatory_end
       t.string :reason
       t.references :shift
+      t.references :user #Speeds up database queries!
 
 
       t.timestamps
