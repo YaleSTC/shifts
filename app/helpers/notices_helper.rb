@@ -29,5 +29,21 @@ module NoticesHelper
       !@notice.is_sticky
     end
   end
+
+  def end_time_check(indefinite)
+    if indefinite
+      return true unless @notice.end_time
+    else
+      return true if @notice.end_time
+    end
+  end
+
+  def start_time_check(now)
+    if now
+      !@notice.is_upcoming?
+    else
+      @notice.is_upcoming?
+    end
+  end
 end
 

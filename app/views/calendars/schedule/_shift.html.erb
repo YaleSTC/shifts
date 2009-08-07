@@ -1,4 +1,4 @@
-<li id="shift<%=shift.id%>" style="<%=shift_style(shift)%><%= " display:none" if !shift.calendar.active? %>" class="<%= shift.css_class(current_user) %> click_to_show calendar<%=shift.calendar_id%>">
+<li id="shift<%=shift.id%>" style="<%=shift_style(shift)%><%= " display:none" if !shift.calendar.active? %>" class="<%= shift.css_class(current_user) %> click_to_edit_shift calendar<%=shift.calendar_id%>">
   <div class="time-slot">
     <% if @right_overflow or @left_overflow %>
       <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => @table_pixels / @table_height + 1 } if @right_overflow %>
@@ -6,7 +6,7 @@
     <% end %>
     <div class="center_container">
       <div class="center_content">
-        <%#= link_to_remote "x", {:url => shift, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px" %>
+        <%= link_to_remote "x", {:url => shift, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px" %>
         <%# TODO: write code to shorten text when div is small %>
         <%# (text could also be dynamically shrunk by javascript after page loading, to make sure the contents fit) %>
         <%= shift.user.name %><br/>
