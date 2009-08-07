@@ -6,11 +6,13 @@
     <%= f.submit "Add this event" %>
     <!--</p>-->
   <div id = "submit_button">
+ <!--
     <% if current_user == @report.user %>
-      <%= button_to_remote "End shift", :url => {:action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
+      <%= button_to "End shift", :url => {:action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
     <% else %>
       This report is still in progress.
-    <% end %>
+    <% end %> 
+-->
   <%= params[:popup] %>
   </div>
   <% end -%>
