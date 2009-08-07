@@ -147,17 +147,22 @@ elsif @department.department_config.weekend_shifts #show weekends
         redirect_to @shift
       end
     else
-      respond_to do |format|
-        format.html{render :action => 'edit'}
-        format.js do
-          render :update do |page|
-            error_string = ""
-            @shift.errors.each do |attr_name, message|
-              error_string += "<br>#{attr_name}: #{message}"
-            end
-            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+      if params[:wants]
+        respond_to do |format|
+          format.js do
+            render :text => "failed to update"
+            # render :update do |page|
+            #   error_string = ""
+            #   @shift.errors.each do |attr_name, message|
+            #     error_string += "<br>#{attr_name}: #{message}"
+            #   end
+            #   page << "FAIL: ";
+            #   ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            # end
           end
         end
+      else
+        render :action => 'edit'
       end
     end
   end

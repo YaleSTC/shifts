@@ -39,8 +39,7 @@ class Time
     (self - wday).midnight
   end
 
-  def next(day)
-    day_int = WEEK_DAYS.index(day)
+  def next(day_int)
     out = self-self.wday.days+day_int.days
     out += 1.weeks if out <= self
     out
