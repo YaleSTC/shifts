@@ -87,20 +87,23 @@ class UsersController < ApplicationController
     @user_profile = UserProfile.find_by_user_id(@user.id)
     @user_profile_entries = @user.user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
 
-# User Profiles
-#      @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
-#      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
-
   end
 
   def update
     #TODO: prevent params hacking w/ regard to setting roles and login
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
+    #store role changes, or else they'll overwrite roles in other departments
+    #remove all roles associated with this department
+    department_roles = @user.roles.select{|role| role.department == @department}
+    updated_roles = @user.roles - department_roles
+    #now add back all checked roles associated with this department
+    updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
 
   # So that the User Profile can be updated as well
       @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
       @user_profile_entries = params[:user_profile_entries]
+
       @user_profile_entries.each do |entry_id, entry_content|
         entry = UserProfileEntry.find(entry_id)
         @content = ""
@@ -121,12 +124,6 @@ class UsersController < ApplicationController
           end
       end
 
-    #store role changes, or else they'll overwrite roles in other departments
-    #remove all roles associated with this department
-    department_roles = @user.roles.select{|role| role.department == @department}
-    updated_roles = @user.roles - department_roles
-    #now add back all checked roles associated with this department
-    updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
     params[:user][:role_ids] = updated_roles
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
