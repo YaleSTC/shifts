@@ -182,8 +182,8 @@ class User < ActiveRecord::Base
     b = departments.collect do |department|
       UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Department\" AND user_source_id = \"#{department.id}\""])
     end
-    c = self.roles.collect do |role|
-      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Role\" AND user_source_id = \"#{role.id}\""])
+    c = self.roles.select{|role| departments.include?(role.department)}.collect do |role|
+        UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Role\" AND user_source_id = \"#{role.id}\""])
     end
     (a+b.flatten+c.flatten).collect {|u| SubRequest.find(u.user_sink_id)}
     end
