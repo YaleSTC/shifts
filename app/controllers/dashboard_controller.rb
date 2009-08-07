@@ -8,8 +8,8 @@ class DashboardController < ApplicationController
     #@upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
     @active_shifts = Shift.find(:all, :conditions => {:signed_in => true, :department_id => current_department.id}, :order => :start)
     @upcoming_shifts = Shift.find(:all, :conditions => ['"user_id" = ? and "end" > ? and "department_id" = ?', current_user.id, Time.now, current_department.id], :order => :start, :limit => 5)
-    @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ?",Time.now]).select{|sub| sub.shift.user == current_user}.sort_by(&:start)
-    @subs_you_can_take = current_user.available_sub_requests
+    @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ? AND user_id = ?", Time.now, current_user.id]).sort_by(&:start)
+    @subs_you_can_take = current_user.available_sub_requests([@department])
 
     @most_recent_payform= current_user.payforms.sort_by(&:date).last
     @watched_objects = current_user.user_config.watched_data_objects.split(", ").map{|id| DataObject.find(id)}.flatten

@@ -42,8 +42,8 @@
         submit: 'OK',
         indicator: '<img src="../images/loading.gif">',
         tooltip: 'Click to edit...',
-        callback: function(value) {
-          update_schedule_view(value);
+        callback: function() {
+          rerender_timeslot();
         }
       }
     );
@@ -59,8 +59,8 @@
       submit: 'OK',
       indicator: '<img src="../images/loading.gif">',
       tooltip: 'Click to edit...',
-      callback: function(value) {
-        update_schedule_view(value);
+      callback: function() {
+        rerender_timeslot();
       }
     });
     
@@ -75,23 +75,10 @@
       submit: 'OK',
       indicator: '<img src="../images/loading.gif">',
       tooltip: 'Click to edit...',
-      callback: function(value) {
-        update_schedule_view(value);
-      }
-    });
-    
-    function update_schedule_view(value){
-      if(value.substring(0,4) == "fail"){
-        error_message();
-      }
-      else{
+      callback: function() {
         rerender_timeslot();
       }
-    }
-    
-    function error_message(){
-      alert("Sorry, but the updated timeslot could not be saved.");
-    }
+    });
     
     function rerender_timeslot(){
       $("#timeslot<%= @time_slot.id %>").remove();  // = time slot before edit
