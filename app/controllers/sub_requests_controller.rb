@@ -24,9 +24,11 @@ class SubRequestsController < ApplicationController
     @sub_request.shift = Shift.find(params[:shift_id])
     @sub_request.user = @sub_request.shift.user
     @sub_request.save! #TODO: need to save before adding polymorphisms -- sorry!
+
     params[:list_of_logins].split(",").each do |l|
       l = l.split("||")
       @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+      @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
     end
     if @sub_request.save
       flash[:notice] = 'Sub request was successfully created.'
@@ -45,6 +47,7 @@ class SubRequestsController < ApplicationController
     params[:list_of_logins].split(",").each do |l|
       l = l.split("||")
       @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+      @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
     end
     if @sub_request.update_attributes(params[:sub_request])
       flash[:notice] = 'SubRequest was successfully updated.'
