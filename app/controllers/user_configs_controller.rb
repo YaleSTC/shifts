@@ -10,9 +10,8 @@ class UserConfigsController < ApplicationController
       @data_objects << dept.data_objects
       @data_objects.flatten!
     end
-    @selected_loc_groups = @user_config.view_loc_groups.split(', ').map{|a| a.to_i}
-#    raise @selected_loc_groups.to_yaml
-    @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj|DataObject.find(obj).id}
+    @selected_loc_groups = @user_config.view_loc_groups.collect{|lg| lg.id }
+    @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj| obj.to_i }
   end
 
   def update
@@ -30,6 +29,7 @@ class UserConfigsController < ApplicationController
   def set_var_and_check_owner
     @user_config = UserConfig.find(params[:id])
     return unless require_owner(@user_config)
-  end    
+  end
 
 end
+
