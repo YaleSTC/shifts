@@ -23,14 +23,9 @@ class RepeatingEventsController < ApplicationController
     @shift = Shift.new(params[:shift])
     if @repeating_event.save
       if @repeating_event.has_time_slots?
-        @time_slot.repeating_event = @repeating_event
-        @time_slot.calendar = @repeating_event.calendar
-        timeslots = params[:location_ids].collect{|id| out = @time_slot.clone; out.location=Location.find(id); out}
-        timeslots.each{|time_slot| @repeating_event.days.each{|d| RepeatingEvent.make_future(@repeating_event.end_date, d, time_slot)}}
+        TimeSlot.make_future(@repeating_event.end_date, @repeating_event.calendar.id, @repeating_event.id, @repeating_event.days_int, params[:location_ids], @time_slot.start, @time_slot.end)
       else
-        @shift.repeating_event = @repeating_event
-        @shift.calendar = @repeating_event.calendar
-        @repeating_event.days.each{|d| RepeatingEvent.make_future(@repeating_event.end_date, d, @shift)}
+        Shift.make_future(@repeating_event.end_date, @repeating_event.calendar.id, @repeating_event.id, @repeating_event.days_int, @shift.location.id, @shift.start, @shift.end, @shift.user.id, @department.id)
       end
       flash[:notice] = "Successfully created repeating event."
       redirect_to @repeating_event
@@ -57,7 +52,7 @@ class RepeatingEventsController < ApplicationController
 
   def destroy
     @repeating_event = RepeatingEvent.find(params[:id])
-    @repeating_event.destroy
+    RepeatingEvent.destroy_self_and_future(@repeating_event)
     flash[:notice] = "Successfully destroyed repeating event."
     redirect_to repeating_events_url
   end
