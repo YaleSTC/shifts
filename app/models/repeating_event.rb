@@ -3,18 +3,12 @@ class RepeatingEvent < ActiveRecord::Base
   has_many :time_slots
   has_many :shifts
 
-  def self.make_future(end_date, day, time_slot_or_shift)
-    seed = time_slot_or_shift.clone
-    while seed.end <= end_date
-      seed.start = seed.start.next(day)
-      seed.end = seed.end.next(day)
-      seed.save! if seed.end <= end_date
-      seed = seed.clone
-    end
-  end
-
   def days
     self.days_of_week.split(",").collect{|d| d.to_i.day_of_week} if self.days_of_week
+  end
+
+  def days_int
+    self.days_of_week.split(",").collect{|d| d.to_i}
   end
 
   def days=(array_of_days)

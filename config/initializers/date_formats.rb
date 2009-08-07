@@ -8,7 +8,8 @@ my_formats = {
   :just_date_long => "%A, %B %d",
   :day => "%a",
   :Day => "%A",
-  :gg => "%a %m/%d"
+  :gg => "%a %m/%d",
+  :sql => "%Y-%m-%d %H:%M:%S"
 }
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(my_formats)

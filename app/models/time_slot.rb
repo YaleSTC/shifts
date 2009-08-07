@@ -29,6 +29,32 @@ class TimeSlot < ActiveRecord::Base
 
 #  end
 
+  def self.make_future(end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time)
+    outer = []
+    inner = []
+    loc_ids.each do |loc_id|
+      days.each do |day|
+        seed_start_time = start_time
+        seed_end_time = end_time
+        while seed_end_time <= end_date
+          seed_start_time = seed_start_time.next(day)
+          seed_end_time = seed_end_time.next(day)
+          inner.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\""
+          if inner.length > 450
+            outer.push inner
+            inner = []
+          end
+        end
+      end
+    end
+    ActiveRecord::Base.transaction do
+      outer.each do |s|
+        sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at') SELECT #{s.join(" UNION ALL SELECT ")};"
+        ActiveRecord::Base.connection.execute sql
+      end
+    end
+  end
+
   def duration
     self.end-self.start
   end
