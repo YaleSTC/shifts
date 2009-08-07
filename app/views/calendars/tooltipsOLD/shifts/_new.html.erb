@@ -26,14 +26,10 @@
       <%= f.unobtrusive_datetime_picker :end, :default => start_time + 1.hour, :minute_step => @department.department_config.time_increment %>
     </p>
     <% if current_user.is_admin_of?(@department) %>
-      <p>
-        <%= f.label :calendar %><br />
-        <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
-      </p>
-      <p>
-        <%= f.label :user %><br />
-        <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
-      </p>
+    <p>
+      <%= f.label :user %><br />
+      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
     <% end %>
     <p>
       <%= f.label :location %><br />
