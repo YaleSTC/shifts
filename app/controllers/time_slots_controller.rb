@@ -95,14 +95,32 @@ class TimeSlotsController < ApplicationController
         redirect_to @time_slot
       end
     else
-      respond_to do |format|
-        format.html{render :action => 'edit'}
-        format.js do
-          render :update do |page|
-            ajax_alert(page, "<strong>error:</strong> updated timeslot could not be saved")
+      if params[:wants]
+        respond_to do |format|
+          format.js do
+            render :text => "failed to update"
+            # render :update do |page|
+            #   error_string = ""
+            #   @shift.errors.each do |attr_name, message|
+            #     error_string += "<br>#{attr_name}: #{message}"
+            #   end
+            #   page << "FAIL: ";
+            #   ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            # end
           end
         end
-      end
+      else
+        render :action => 'edit'
+      end      
+      # 
+      # respond_to do |format|
+      #   format.html{render :action => 'edit'}
+      #   format.js do
+      #     render :update do |page|
+      #       ajax_alert(page, "<strong>error:</strong> updated timeslot could not be saved")
+      #     end
+      #   end
+      # end
     end
   end
 
