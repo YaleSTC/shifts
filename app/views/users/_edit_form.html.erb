@@ -5,7 +5,8 @@
     <h2>User Information</h2>
 
 <% form_for user, :html=>{:id=>"user_form"} do |f| %>
-  <%= f.error_messages %>
+  <%= f.error_messages :object => [@user, @user_profile_entries] %>
+
   <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
    <h3>Reset Password?</h3>
      <div>
@@ -56,10 +57,9 @@
     <%= render :partial => 'user_profile' %>
   </div>
 
-  <p><%= f.submit submit %></p>
+  <p><%= f.submit "Update" %></p>
 <% end %>
 
 <% if @appconfig.use_ldap %>
 <%= observe_form :user_form, :url => { :action => 'ldap_search' }, :frequency => 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})" %>
 <% end %>
-
