@@ -96,19 +96,6 @@ class NoticesController < ApplicationController
         format.js  #update.js.rjs
       end
     end
-
-#    @notice.save(false)
-#    set_sources
-#    respond_to do |format|
-#      if current_user.is_admin_of?(current_department) && @notice.save
-#        format.html {
-#          flash[:notice] = 'Notice was successfully updated.'
-#          redirect_to :action => "index"
-#        }
-#      else
-#        render :action => "edit"
-#      end
-#    end
   end
 
   def destroy

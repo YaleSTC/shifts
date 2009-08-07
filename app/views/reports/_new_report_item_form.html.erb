@@ -7,7 +7,7 @@
     <!--</p>-->
   <div id = "submit_button">
     <% if current_user == @report.user %>
-      <%= button_to_remote "End shift", :url => {:action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
+      <%= button_to "End shift", {:controller => 'report', :action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
     <% else %>
       This report is still in progress.
     <% end %>
@@ -16,24 +16,5 @@
   <% end -%>
 </div>
 
-<!-- this javascript should go in a different location, not in this partial
-  also, until it's working properly, it's annoying -ben
-
-<%# javascript to prompt the user before leaving the page: did you remember to submit? %>
-<script type="text/javascript">
-  function setConfirmUnload(on) {
-    window.onbeforeunload = (on) ? unloadMessage : null;
-  }
-
-  function unloadMessage() {
-    return "Your report has not yet been submitted.";
-  }
-
-  $(document).ready(function() {
-    setConfirmUnload(true);
-    $("#submit_button_div :button").click(function(){
-      setConfirmUnload(false);
-    });
-  });
-</script> -->
 <%= javascript_include_tag 'leave_confirm' %>
+
