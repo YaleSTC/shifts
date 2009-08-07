@@ -1,4 +1,4 @@
-<li id="shift<%=shift.id%>" style="<%=shift_style(shift)%><%= " display:none" if !shift.calendar.active? %>" class="<%= shift.css_class(current_user) %> click_to_show calendar<%=shift.calendar_id%>">
+<li id="shift<%=shift.id%>" style="<%=shift_style(shift)%><%= " display:none" if !shift.calendar.active? %>" class="<%= shift.css_class(current_user) %> click_to_edit_shift calendar<%=shift.calendar_id%>">
   <div class="time-slot">
     <% if @right_overflow or @left_overflow %>
       <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => @table_pixels / @table_height + 1 } if @right_overflow %>
