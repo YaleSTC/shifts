@@ -1,10 +1,10 @@
 <% title "Welcome, #{current_user.name}" %>
- 
+
   <fieldset class="index">
     <legend>Current shifts</legend>
     <%= render :partial => "shifts/user_options" %>
   </fieldset>
- 
+
 <% unless current_user.notices.empty? %>
   <%= render :partial => 'notices/for_you' %>
 <% end %>
@@ -36,7 +36,7 @@
 
 <% unless @subs_you_can_take.empty? %>
   <fieldset class="index">
-    <legend>Subs You Reqeusted</legend>
+    <legend>Subs You Can Take</legend>
     <ul>
           <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
     </ul>
