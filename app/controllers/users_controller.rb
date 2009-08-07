@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @user_profile = UserProfile.find_by_user_id(@user.id)
-    @user_profile_entries = @user.user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
+    @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
 
 # User Profiles
 #      @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
