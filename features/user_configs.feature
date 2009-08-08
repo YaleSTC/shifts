@@ -1,7 +1,7 @@
 @configs
 @cw
 @breaking
-Feature: User settings
+Feature: User configs
   In order to manage user settings
   As a regular user
   I want manage my own settings
@@ -27,7 +27,7 @@ Feature: User settings
     Then "Ron Weasley" should have 1 user_config
 @passing
   Scenario: Changing the default department
-    When I select "Hogwarts" from "Default department"
+    When I select "Hogwarts" from "user_config[default_dept]"
     And I press "Submit"
     Then I should see "Successfully updated user config."
     When I follow "Logout"
@@ -35,7 +35,7 @@ Feature: User settings
     And I go to the homepage
     Then the page should indicate that I am in the department "Hogwarts"
     When I go to the user settings page
-    And I select "Pet Store" from "Default department"
+    And I select "Pet Store" from "user_config[default_dept]"
     And I press "Submit"
     Then I should see "Successfully updated user config."
     When I follow "Logout"
