@@ -16,6 +16,10 @@
   </p>
   <% if current_user.is_admin_of?(current_department) %>
     <p>
+      <%= f.label :calendar %><br />
+      <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+    </p>
+    <p>
       <%= f.label :user %><br />
       <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
     </p>

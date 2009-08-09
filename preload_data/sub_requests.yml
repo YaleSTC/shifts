@@ -350,16 +350,6 @@ sub_requests_035:
   start: 2009-08-06 17:00:00
   updated_at: 2009-07-11 08:35:02
 sub_requests_036: 
-  created_at: 2009-07-11 08:35:02
-  end: 2009-08-06 21:00:00
-  id: "37"
-  mandatory_end: 2009-08-06 21:00:00
-  mandatory_start: 2009-08-06 20:00:00
-  reason: Ut ad temporibus sunt voluptas pariatur doloribus aliquid atque
-  shift_id: "319"
-  start: 2009-08-06 20:00:00
-  updated_at: 2009-07-11 08:35:02
-sub_requests_037: 
   created_at: 2009-07-11 08:35:09
   end: 2009-08-06 16:00:00
   id: "38"
@@ -369,7 +359,7 @@ sub_requests_037:
   shift_id: "329"
   start: 2009-08-06 15:00:00
   updated_at: 2009-07-11 08:35:09
-sub_requests_038: 
+sub_requests_037: 
   created_at: 2009-07-11 08:35:33
   end: 2009-08-08 23:00:00
   id: "39"
@@ -379,7 +369,7 @@ sub_requests_038:
   shift_id: "348"
   start: 2009-08-08 22:00:00
   updated_at: 2009-07-11 08:35:33
-sub_requests_039: 
+sub_requests_038: 
   created_at: 2009-07-11 08:35:35
   end: 2009-08-08 17:00:00
   id: "40"
@@ -389,7 +379,7 @@ sub_requests_039:
   shift_id: "354"
   start: 2009-08-08 16:00:00
   updated_at: 2009-07-11 08:35:35
-sub_requests_040: 
+sub_requests_039: 
   created_at: 2009-07-11 08:35:46
   end: 2009-08-08 21:00:00
   id: "41"
@@ -399,7 +389,7 @@ sub_requests_040:
   shift_id: "357"
   start: 2009-08-08 20:00:00
   updated_at: 2009-07-11 08:35:46
-sub_requests_041: 
+sub_requests_040: 
   created_at: 2009-07-11 08:35:51
   end: 2009-08-09 18:00:00
   id: "42"
@@ -409,7 +399,7 @@ sub_requests_041:
   shift_id: "364"
   start: 2009-08-09 17:00:00
   updated_at: 2009-07-11 08:35:51
-sub_requests_042: 
+sub_requests_041: 
   created_at: 2009-07-11 08:36:25
   end: 2009-08-12 00:00:00
   id: "43"
@@ -419,7 +409,7 @@ sub_requests_042:
   shift_id: "390"
   start: 2009-08-11 22:00:00
   updated_at: 2009-07-11 08:36:25
-sub_requests_043: 
+sub_requests_042: 
   created_at: 2009-07-11 08:36:29
   end: 2009-08-11 20:00:00
   id: "44"
@@ -429,7 +419,7 @@ sub_requests_043:
   shift_id: "398"
   start: 2009-08-11 19:00:00
   updated_at: 2009-07-11 08:36:29
-sub_requests_044: 
+sub_requests_043: 
   created_at: 2009-07-11 08:36:30
   end: 2009-08-11 17:00:00
   id: "45"
@@ -439,7 +429,7 @@ sub_requests_044:
   shift_id: "399"
   start: 2009-08-11 16:00:00
   updated_at: 2009-07-11 08:36:30
-sub_requests_045: 
+sub_requests_044: 
   created_at: 2009-07-11 08:36:55
   end: 2009-08-12 22:00:00
   id: "46"
@@ -449,7 +439,7 @@ sub_requests_045:
   shift_id: "412"
   start: 2009-08-12 21:00:00
   updated_at: 2009-07-11 08:36:55
-sub_requests_046: 
+sub_requests_045: 
   created_at: 2009-07-11 08:37:25
   end: 2009-08-14 21:00:00
   id: "47"
@@ -459,7 +449,7 @@ sub_requests_046:
   shift_id: "433"
   start: 2009-08-14 20:00:00
   updated_at: 2009-07-11 08:37:25
-sub_requests_047: 
+sub_requests_046: 
   created_at: 2009-07-11 08:38:13
   end: 2009-08-16 17:00:00
   id: "49"
@@ -469,7 +459,7 @@ sub_requests_047:
   shift_id: "466"
   start: 2009-08-16 16:00:00
   updated_at: 2009-07-11 08:38:13
-sub_requests_048: 
+sub_requests_047: 
   created_at: 2009-07-11 08:38:54
   end: 2009-08-18 17:00:00
   id: "50"
@@ -479,7 +469,7 @@ sub_requests_048:
   shift_id: "495"
   start: 2009-08-18 15:00:00
   updated_at: 2009-07-11 08:38:54
-sub_requests_049: 
+sub_requests_048: 
   created_at: 2009-07-11 08:40:02
   end: 2009-08-21 16:00:00
   id: "51"
@@ -489,7 +479,7 @@ sub_requests_049:
   shift_id: "532"
   start: 2009-08-21 15:00:00
   updated_at: 2009-07-11 08:40:02
-sub_requests_050: 
+sub_requests_049: 
   created_at: 2009-07-11 08:40:21
   end: 2009-08-21 15:00:00
   id: "52"
@@ -499,7 +489,7 @@ sub_requests_050:
   shift_id: "537"
   start: 2009-08-21 13:00:00
   updated_at: 2009-07-11 08:40:21
-sub_requests_051: 
+sub_requests_050: 
   created_at: 2009-07-11 08:41:54
   end: 2009-08-26 00:00:00
   id: "53"
@@ -509,7 +499,7 @@ sub_requests_051:
   shift_id: "590"
   start: 2009-08-25 22:00:00
   updated_at: 2009-07-11 08:41:54
-sub_requests_052: 
+sub_requests_051: 
   created_at: 2009-07-11 08:41:56
   end: 2009-08-25 15:00:00
   id: "54"
@@ -519,7 +509,7 @@ sub_requests_052:
   shift_id: "591"
   start: 2009-08-25 14:00:00
   updated_at: 2009-07-11 08:41:56
-sub_requests_053: 
+sub_requests_052: 
   created_at: 2009-07-11 08:44:00
   end: 2009-08-29 18:00:00
   id: "56"
@@ -529,7 +519,7 @@ sub_requests_053:
   shift_id: "644"
   start: 2009-08-29 17:00:00
   updated_at: 2009-07-11 08:44:00
-sub_requests_054: 
+sub_requests_053: 
   created_at: 2009-07-11 08:44:02
   end: 2009-08-30 18:00:00
   id: "57"
@@ -539,7 +529,7 @@ sub_requests_054:
   shift_id: "646"
   start: 2009-08-30 17:00:00
   updated_at: 2009-07-11 08:44:02
-sub_requests_055: 
+sub_requests_054: 
   created_at: 2009-07-11 08:44:17
   end: 2009-08-30 17:00:00
   id: "58"
@@ -549,7 +539,7 @@ sub_requests_055:
   shift_id: "656"
   start: 2009-08-30 16:00:00
   updated_at: 2009-07-11 08:44:17
-sub_requests_056: 
+sub_requests_055: 
   created_at: 2009-07-11 08:44:22
   end: 2009-08-30 22:00:00
   id: "59"
@@ -559,7 +549,7 @@ sub_requests_056:
   shift_id: "657"
   start: 2009-08-30 21:00:00
   updated_at: 2009-07-11 08:44:22
-sub_requests_057: 
+sub_requests_056: 
   created_at: 2009-07-11 08:44:36
   end: 2009-08-31 14:00:00
   id: "60"
@@ -569,7 +559,7 @@ sub_requests_057:
   shift_id: "667"
   start: 2009-08-31 13:00:00
   updated_at: 2009-07-11 08:44:36
-sub_requests_058: 
+sub_requests_057: 
   created_at: 2009-07-11 08:45:33
   end: 2009-09-03 00:00:00
   id: "61"
@@ -579,7 +569,7 @@ sub_requests_058:
   shift_id: "684"
   start: 2009-09-02 21:00:00
   updated_at: 2009-07-11 08:45:33
-sub_requests_059: 
+sub_requests_058: 
   created_at: 2009-07-11 08:45:36
   end: 2009-09-02 23:00:00
   id: "62"
@@ -589,7 +579,7 @@ sub_requests_059:
   shift_id: "689"
   start: 2009-09-02 22:00:00
   updated_at: 2009-07-11 08:45:36
-sub_requests_060: 
+sub_requests_059: 
   created_at: 2009-07-11 08:46:16
   end: 2009-09-03 18:00:00
   id: "63"
@@ -599,7 +589,7 @@ sub_requests_060:
   shift_id: "702"
   start: 2009-09-03 17:00:00
   updated_at: 2009-07-11 08:46:16
-sub_requests_061: 
+sub_requests_060: 
   created_at: 2009-07-11 08:46:38
   end: 2009-09-04 17:00:00
   id: "65"
@@ -609,7 +599,7 @@ sub_requests_061:
   shift_id: "711"
   start: 2009-09-04 13:00:00
   updated_at: 2009-07-11 08:46:38
-sub_requests_062: 
+sub_requests_061: 
   created_at: 2009-07-11 08:46:39
   end: 2009-09-05 00:00:00
   id: "66"
@@ -619,7 +609,7 @@ sub_requests_062:
   shift_id: "712"
   start: 2009-09-04 23:00:00
   updated_at: 2009-07-11 08:46:39
-sub_requests_063: 
+sub_requests_062: 
   created_at: 2009-07-11 08:47:14
   end: 2009-09-06 00:00:00
   id: "68"
@@ -629,7 +619,7 @@ sub_requests_063:
   shift_id: "728"
   start: 2009-09-05 22:00:00
   updated_at: 2009-07-11 08:47:14
-sub_requests_064: 
+sub_requests_063: 
   created_at: 2009-07-11 08:47:45
   end: 2009-09-07 00:00:00
   id: "69"
@@ -639,7 +629,7 @@ sub_requests_064:
   shift_id: "740"
   start: 2009-09-06 23:00:00
   updated_at: 2009-07-11 08:47:45
-sub_requests_065: 
+sub_requests_064: 
   created_at: 2009-07-11 08:48:51
   end: 2009-09-08 22:00:00
   id: "70"
@@ -649,7 +639,7 @@ sub_requests_065:
   shift_id: "762"
   start: 2009-09-08 21:00:00
   updated_at: 2009-07-11 08:48:51
-sub_requests_066: 
+sub_requests_065: 
   created_at: 2009-07-11 08:48:53
   end: 2009-09-09 00:00:00
   id: "71"
@@ -659,7 +649,7 @@ sub_requests_066:
   shift_id: "765"
   start: 2009-09-08 21:00:00
   updated_at: 2009-07-11 08:48:53
-sub_requests_067: 
+sub_requests_066: 
   created_at: 2009-07-11 08:48:53
   end: 2009-09-09 00:00:00
   id: "72"
@@ -669,7 +659,7 @@ sub_requests_067:
   shift_id: "766"
   start: 2009-09-08 23:00:00
   updated_at: 2009-07-11 08:48:53
-sub_requests_068: 
+sub_requests_067: 
   created_at: 2009-07-11 08:49:00
   end: 2009-09-08 18:00:00
   id: "73"
@@ -679,7 +669,7 @@ sub_requests_068:
   shift_id: "771"
   start: 2009-09-08 17:00:00
   updated_at: 2009-07-11 08:49:00
-sub_requests_069: 
+sub_requests_068: 
   created_at: 2009-07-11 08:49:28
   end: 2009-09-09 17:00:00
   id: "74"
@@ -689,7 +679,7 @@ sub_requests_069:
   shift_id: "778"
   start: 2009-09-09 15:00:00
   updated_at: 2009-07-11 08:49:28
-sub_requests_070: 
+sub_requests_069: 
   created_at: 2009-07-11 08:49:37
   end: 2009-09-09 14:00:00
   id: "75"
@@ -699,7 +689,7 @@ sub_requests_070:
   shift_id: "784"
   start: 2009-09-09 13:00:00
   updated_at: 2009-07-11 08:49:37
-sub_requests_071: 
+sub_requests_070: 
   created_at: 2009-07-11 08:50:41
   end: 2009-09-11 17:00:00
   id: "76"
@@ -709,7 +699,7 @@ sub_requests_071:
   shift_id: "808"
   start: 2009-09-11 15:00:00
   updated_at: 2009-07-11 08:50:41
-sub_requests_072: 
+sub_requests_071: 
   created_at: 2009-07-11 08:51:16
   end: 2009-09-12 18:00:00
   id: "77"
@@ -719,7 +709,7 @@ sub_requests_072:
   shift_id: "817"
   start: 2009-09-12 16:00:00
   updated_at: 2009-07-11 08:51:16
-sub_requests_073: 
+sub_requests_072: 
   created_at: 2009-07-11 08:51:21
   end: 2009-09-12 18:00:00
   id: "78"
@@ -729,7 +719,7 @@ sub_requests_073:
   shift_id: "822"
   start: 2009-09-12 16:00:00
   updated_at: 2009-07-11 08:51:21
-sub_requests_074: 
+sub_requests_073: 
   created_at: 2009-07-11 08:51:34
   end: 2009-09-12 14:00:00
   id: "79"
@@ -739,7 +729,7 @@ sub_requests_074:
   shift_id: "826"
   start: 2009-09-12 13:00:00
   updated_at: 2009-07-11 08:51:34
-sub_requests_075: 
+sub_requests_074: 
   created_at: 2009-07-11 08:52:07
   end: 2009-09-13 18:00:00
   id: "80"
@@ -749,7 +739,7 @@ sub_requests_075:
   shift_id: "841"
   start: 2009-09-13 16:00:00
   updated_at: 2009-07-11 08:52:07
-sub_requests_076: 
+sub_requests_075: 
   created_at: 2009-07-11 08:52:35
   end: 2009-09-14 19:00:00
   id: "81"
@@ -759,7 +749,7 @@ sub_requests_076:
   shift_id: "847"
   start: 2009-09-14 15:00:00
   updated_at: 2009-07-11 08:52:35
-sub_requests_077: 
+sub_requests_076: 
   created_at: 2009-07-11 08:52:35
   end: 2009-09-14 22:00:00
   id: "82"
@@ -769,7 +759,7 @@ sub_requests_077:
   shift_id: "848"
   start: 2009-09-14 21:00:00
   updated_at: 2009-07-11 08:52:35
-sub_requests_078: 
+sub_requests_077: 
   created_at: 2009-07-11 08:53:10
   end: 2009-09-16 02:00:00
   id: "83"
@@ -779,7 +769,7 @@ sub_requests_078:
   shift_id: "856"
   start: 2009-09-15 20:00:00
   updated_at: 2009-07-11 08:53:10
-sub_requests_079: 
+sub_requests_078: 
   created_at: 2009-07-11 08:53:23
   end: 2009-09-15 14:00:00
   id: "84"
@@ -789,7 +779,7 @@ sub_requests_079:
   shift_id: "862"
   start: 2009-09-15 13:00:00
   updated_at: 2009-07-11 08:53:23
-sub_requests_080: 
+sub_requests_079: 
   created_at: 2009-07-11 08:53:35
   end: 2009-09-15 23:00:00
   id: "85"
@@ -799,7 +789,7 @@ sub_requests_080:
   shift_id: "864"
   start: 2009-09-15 19:00:00
   updated_at: 2009-07-11 08:53:35
-sub_requests_081: 
+sub_requests_080: 
   created_at: 2009-07-11 08:53:52
   end: 2009-09-16 18:00:00
   id: "86"
@@ -809,7 +799,7 @@ sub_requests_081:
   shift_id: "873"
   start: 2009-09-16 17:00:00
   updated_at: 2009-07-11 08:53:52
-sub_requests_082: 
+sub_requests_081: 
   created_at: 2009-07-11 08:54:02
   end: 2009-09-16 21:00:00
   id: "87"
@@ -819,7 +809,7 @@ sub_requests_082:
   shift_id: "877"
   start: 2009-09-16 20:00:00
   updated_at: 2009-07-11 08:54:02
-sub_requests_083: 
+sub_requests_082: 
   created_at: 2009-07-11 08:54:08
   end: 2009-09-17 01:00:00
   id: "88"
@@ -829,7 +819,7 @@ sub_requests_083:
   shift_id: "880"
   start: 2009-09-16 22:00:00
   updated_at: 2009-07-11 08:54:08
-sub_requests_084: 
+sub_requests_083: 
   created_at: 2009-07-11 08:54:28
   end: 2009-09-17 22:00:00
   id: "89"
@@ -839,7 +829,7 @@ sub_requests_084:
   shift_id: "885"
   start: 2009-09-17 19:00:00
   updated_at: 2009-07-11 08:54:28
-sub_requests_085: 
+sub_requests_084: 
   created_at: 2009-07-11 08:54:47
   end: 2009-09-17 20:00:00
   id: "90"
@@ -849,7 +839,7 @@ sub_requests_085:
   shift_id: "894"
   start: 2009-09-17 19:00:00
   updated_at: 2009-07-11 08:54:47
-sub_requests_086: 
+sub_requests_085: 
   created_at: 2009-07-11 08:55:10
   end: 2009-09-18 18:00:00
   id: "91"
@@ -859,7 +849,7 @@ sub_requests_086:
   shift_id: "896"
   start: 2009-09-18 16:00:00
   updated_at: 2009-07-11 08:55:10
-sub_requests_087: 
+sub_requests_086: 
   created_at: 2009-07-11 08:55:12
   end: 2009-09-18 20:00:00
   id: "92"
@@ -869,7 +859,7 @@ sub_requests_087:
   shift_id: "898"
   start: 2009-09-18 18:00:00
   updated_at: 2009-07-11 08:55:12
-sub_requests_088: 
+sub_requests_087: 
   created_at: 2009-07-11 08:56:18
   end: 2009-09-19 18:00:00
   id: "93"
@@ -879,7 +869,7 @@ sub_requests_088:
   shift_id: "919"
   start: 2009-09-19 17:00:00
   updated_at: 2009-07-11 08:56:18
-sub_requests_089: 
+sub_requests_088: 
   created_at: 2009-07-11 08:56:50
   end: 2009-09-20 17:00:00
   id: "94"
@@ -889,7 +879,7 @@ sub_requests_089:
   shift_id: "929"
   start: 2009-09-20 16:00:00
   updated_at: 2009-07-11 08:56:50
-sub_requests_090: 
+sub_requests_089: 
   created_at: 2009-07-11 08:57:19
   end: 2009-09-21 22:00:00
   id: "95"
@@ -899,7 +889,7 @@ sub_requests_090:
   shift_id: "933"
   start: 2009-09-21 20:00:00
   updated_at: 2009-07-11 08:57:19
-sub_requests_091: 
+sub_requests_090: 
   created_at: 2009-07-11 08:58:52
   end: 2009-09-24 02:00:00
   id: "96"
@@ -909,7 +899,7 @@ sub_requests_091:
   shift_id: "961"
   start: 2009-09-24 01:00:00
   updated_at: 2009-07-11 08:58:52
-sub_requests_092: 
+sub_requests_091: 
   created_at: 2009-07-11 08:59:36
   end: 2009-09-24 17:00:00
   id: "97"
@@ -919,7 +909,7 @@ sub_requests_092:
   shift_id: "971"
   start: 2009-09-24 16:00:00
   updated_at: 2009-07-11 08:59:36
-sub_requests_093: 
+sub_requests_092: 
   created_at: 2009-07-11 09:00:21
   end: 2009-09-25 20:00:00
   id: "98"
@@ -929,7 +919,7 @@ sub_requests_093:
   shift_id: "985"
   start: 2009-09-25 17:00:00
   updated_at: 2009-07-11 09:00:21
-sub_requests_094: 
+sub_requests_093: 
   created_at: 2009-07-11 09:02:02
   end: 2009-09-27 17:00:00
   id: "99"
@@ -939,7 +929,7 @@ sub_requests_094:
   shift_id: "1018"
   start: 2009-09-27 16:00:00
   updated_at: 2009-07-11 09:02:02
-sub_requests_095: 
+sub_requests_094: 
   created_at: 2009-07-11 09:02:03
   end: 2009-09-27 15:00:00
   id: "100"
@@ -949,7 +939,7 @@ sub_requests_095:
   shift_id: "1019"
   start: 2009-09-27 14:00:00
   updated_at: 2009-07-11 09:02:03
-sub_requests_096: 
+sub_requests_095: 
   created_at: 2009-07-11 09:02:28
   end: 2009-09-27 15:00:00
   id: "101"
@@ -959,7 +949,7 @@ sub_requests_096:
   shift_id: "1026"
   start: 2009-09-27 14:00:00
   updated_at: 2009-07-11 09:02:28
-sub_requests_097: 
+sub_requests_096: 
   created_at: 2009-07-11 09:05:18
   end: 2009-10-01 21:00:00
   id: "103"
@@ -969,7 +959,7 @@ sub_requests_097:
   shift_id: "1071"
   start: 2009-10-01 19:00:00
   updated_at: 2009-07-11 09:05:18
-sub_requests_098: 
+sub_requests_097: 
   created_at: 2009-07-11 09:06:59
   end: 2009-10-03 19:00:00
   id: "104"
@@ -979,7 +969,7 @@ sub_requests_098:
   shift_id: "1094"
   start: 2009-10-03 18:00:00
   updated_at: 2009-07-11 09:06:59
-sub_requests_099: 
+sub_requests_098: 
   created_at: 2009-07-11 09:09:37
   end: 2009-10-06 21:00:00
   id: "105"
@@ -989,7 +979,7 @@ sub_requests_099:
   shift_id: "1132"
   start: 2009-10-06 20:00:00
   updated_at: 2009-07-11 09:09:37
-sub_requests_100: 
+sub_requests_099: 
   created_at: 2009-07-11 09:11:14
   end: 2009-10-07 19:00:00
   id: "106"
@@ -999,7 +989,7 @@ sub_requests_100:
   shift_id: "1161"
   start: 2009-10-07 18:00:00
   updated_at: 2009-07-11 09:11:14
-sub_requests_101: 
+sub_requests_100: 
   created_at: 2009-07-11 09:11:25
   end: 2009-10-08 17:00:00
   id: "107"
@@ -1009,7 +999,7 @@ sub_requests_101:
   shift_id: "1163"
   start: 2009-10-08 15:00:00
   updated_at: 2009-07-11 09:11:25
-sub_requests_102: 
+sub_requests_101: 
   created_at: 2009-07-11 09:11:27
   end: 2009-10-09 00:00:00
   id: "108"
@@ -1019,7 +1009,7 @@ sub_requests_102:
   shift_id: "1165"
   start: 2009-10-08 23:00:00
   updated_at: 2009-07-11 09:11:27
-sub_requests_103: 
+sub_requests_102: 
   created_at: 2009-07-11 09:12:24
   end: 2009-10-10 00:00:00
   id: "109"
@@ -1029,7 +1019,7 @@ sub_requests_103:
   shift_id: "1174"
   start: 2009-10-09 23:00:00
   updated_at: 2009-07-11 09:12:24
-sub_requests_104: 
+sub_requests_103: 
   created_at: 2009-07-11 09:14:13
   end: 2009-10-11 21:00:00
   id: "111"
@@ -1039,7 +1029,7 @@ sub_requests_104:
   shift_id: "1195"
   start: 2009-10-11 20:00:00
   updated_at: 2009-07-11 09:14:13
-sub_requests_105: 
+sub_requests_104: 
   created_at: 2009-07-11 09:15:08
   end: 2009-07-11 14:00:00
   id: "112"
@@ -1049,7 +1039,7 @@ sub_requests_105:
   shift_id: "1210"
   start: 2009-07-11 13:00:00
   updated_at: 2009-07-11 09:15:08
-sub_requests_106: 
+sub_requests_105: 
   created_at: 2009-07-11 09:15:09
   end: 2009-07-12 22:00:00
   id: "113"
@@ -1059,7 +1049,7 @@ sub_requests_106:
   shift_id: "1217"
   start: 2009-07-12 21:00:00
   updated_at: 2009-07-11 09:15:09
-sub_requests_107: 
+sub_requests_106: 
   created_at: 2009-07-11 09:15:12
   end: 2009-07-13 19:00:00
   id: "114"
@@ -1069,7 +1059,7 @@ sub_requests_107:
   shift_id: "1233"
   start: 2009-07-13 18:00:00
   updated_at: 2009-07-11 09:15:12
-sub_requests_108: 
+sub_requests_107: 
   created_at: 2009-07-11 09:15:17
   end: 2009-07-15 17:00:00
   id: "115"
@@ -1079,7 +1069,7 @@ sub_requests_108:
   shift_id: "1242"
   start: 2009-07-15 16:00:00
   updated_at: 2009-07-11 09:15:17
-sub_requests_109: 
+sub_requests_108: 
   created_at: 2009-07-11 09:15:18
   end: 2009-07-16 03:00:00
   id: "116"
@@ -1089,7 +1079,7 @@ sub_requests_109:
   shift_id: "1249"
   start: 2009-07-16 02:00:00
   updated_at: 2009-07-11 09:15:18
-sub_requests_110: 
+sub_requests_109: 
   created_at: 2009-07-11 09:15:23
   end: 2009-07-17 23:00:00
   id: "118"
@@ -1099,7 +1089,7 @@ sub_requests_110:
   shift_id: "1260"
   start: 2009-07-17 21:00:00
   updated_at: 2009-07-11 09:15:23
-sub_requests_111: 
+sub_requests_110: 
   created_at: 2009-07-11 09:15:27
   end: 2009-07-18 16:00:00
   id: "119"
@@ -1109,7 +1099,7 @@ sub_requests_111:
   shift_id: "1268"
   start: 2009-07-18 13:00:00
   updated_at: 2009-07-11 09:15:27
-sub_requests_112: 
+sub_requests_111: 
   created_at: 2009-07-11 09:15:27
   end: 2009-07-18 23:00:00
   id: "120"
@@ -1119,7 +1109,7 @@ sub_requests_112:
   shift_id: "1270"
   start: 2009-07-18 22:00:00
   updated_at: 2009-07-11 09:15:27
-sub_requests_113: 
+sub_requests_112: 
   created_at: 2009-07-11 09:15:28
   end: 2009-07-18 19:00:00
   id: "121"
@@ -1129,7 +1119,7 @@ sub_requests_113:
   shift_id: "1272"
   start: 2009-07-18 18:00:00
   updated_at: 2009-07-11 09:15:28
-sub_requests_114: 
+sub_requests_113: 
   created_at: 2009-07-11 09:15:29
   end: 2009-07-18 16:00:00
   id: "122"
@@ -1139,7 +1129,7 @@ sub_requests_114:
   shift_id: "1275"
   start: 2009-07-18 15:00:00
   updated_at: 2009-07-11 09:15:29
-sub_requests_115: 
+sub_requests_114: 
   created_at: 2009-07-11 09:15:31
   end: 2009-07-18 21:00:00
   id: "123"
@@ -1149,7 +1139,7 @@ sub_requests_115:
   shift_id: "1280"
   start: 2009-07-18 20:00:00
   updated_at: 2009-07-11 09:15:31
-sub_requests_116: 
+sub_requests_115: 
   created_at: 2009-07-11 09:15:44
   end: 2009-07-21 15:00:00
   id: "124"
@@ -1159,7 +1149,7 @@ sub_requests_116:
   shift_id: "1307"
   start: 2009-07-21 14:00:00
   updated_at: 2009-07-11 09:15:44
-sub_requests_117: 
+sub_requests_116: 
   created_at: 2009-07-11 09:15:56
   end: 2009-07-23 18:00:00
   id: "125"
@@ -1169,7 +1159,7 @@ sub_requests_117:
   shift_id: "1324"
   start: 2009-07-23 17:00:00
   updated_at: 2009-07-11 09:15:56
-sub_requests_118: 
+sub_requests_117: 
   created_at: 2009-07-11 09:16:32
   end: 2009-07-27 21:00:00
   id: "126"
@@ -1179,7 +1169,7 @@ sub_requests_118:
   shift_id: "1360"
   start: 2009-07-27 20:00:00
   updated_at: 2009-07-11 09:16:32
-sub_requests_119: 
+sub_requests_118: 
   created_at: 2009-07-11 09:16:34
   end: 2009-07-28 17:00:00
   id: "127"
@@ -1189,7 +1179,7 @@ sub_requests_119:
   shift_id: "1362"
   start: 2009-07-28 16:00:00
   updated_at: 2009-07-11 09:16:34
-sub_requests_120: 
+sub_requests_119: 
   created_at: 2009-07-11 09:16:35
   end: 2009-07-28 21:00:00
   id: "128"
@@ -1199,7 +1189,7 @@ sub_requests_120:
   shift_id: "1364"
   start: 2009-07-28 20:00:00
   updated_at: 2009-07-11 09:16:35
-sub_requests_121: 
+sub_requests_120: 
   created_at: 2009-07-11 09:16:45
   end: 2009-07-30 01:00:00
   id: "129"
@@ -1209,7 +1199,7 @@ sub_requests_121:
   shift_id: "1374"
   start: 2009-07-30 00:00:00
   updated_at: 2009-07-11 09:16:45
-sub_requests_122: 
+sub_requests_121: 
   created_at: 2009-07-11 09:16:58
   end: 2009-07-30 17:00:00
   id: "130"
@@ -1219,7 +1209,7 @@ sub_requests_122:
   shift_id: "1384"
   start: 2009-07-30 16:00:00
   updated_at: 2009-07-11 09:16:58
-sub_requests_123: 
+sub_requests_122: 
   created_at: 2009-07-11 09:17:13
   end: 2009-08-01 17:00:00
   id: "131"
@@ -1229,7 +1219,7 @@ sub_requests_123:
   shift_id: "1397"
   start: 2009-08-01 16:00:00
   updated_at: 2009-07-11 09:17:13
-sub_requests_124: 
+sub_requests_123: 
   created_at: 2009-07-11 09:17:15
   end: 2009-08-01 22:00:00
   id: "132"
@@ -1239,7 +1229,7 @@ sub_requests_124:
   shift_id: "1398"
   start: 2009-08-01 19:00:00
   updated_at: 2009-07-11 09:17:15
-sub_requests_125: 
+sub_requests_124: 
   created_at: 2009-07-11 09:17:34
   end: 2009-08-03 23:00:00
   id: "133"
@@ -1249,7 +1239,7 @@ sub_requests_125:
   shift_id: "1411"
   start: 2009-08-03 22:00:00
   updated_at: 2009-07-11 09:17:34
-sub_requests_126: 
+sub_requests_125: 
   created_at: 2009-07-11 09:17:44
   end: 2009-08-04 19:00:00
   id: "134"
@@ -1259,7 +1249,7 @@ sub_requests_126:
   shift_id: "1419"
   start: 2009-08-04 18:00:00
   updated_at: 2009-07-11 09:17:44
-sub_requests_127: 
+sub_requests_126: 
   created_at: 2009-07-11 09:17:44
   end: 2009-08-04 23:00:00
   id: "135"
@@ -1269,7 +1259,7 @@ sub_requests_127:
   shift_id: "1421"
   start: 2009-08-04 22:00:00
   updated_at: 2009-07-11 09:17:44
-sub_requests_128: 
+sub_requests_127: 
   created_at: 2009-07-11 09:18:20
   end: 2009-08-07 14:00:00
   id: "136"
@@ -1279,7 +1269,7 @@ sub_requests_128:
   shift_id: "1446"
   start: 2009-08-07 13:00:00
   updated_at: 2009-07-11 09:18:20
-sub_requests_129: 
+sub_requests_128: 
   created_at: 2009-07-11 09:18:48
   end: 2009-08-09 22:00:00
   id: "138"
@@ -1289,7 +1279,7 @@ sub_requests_129:
   shift_id: "1467"
   start: 2009-08-09 21:00:00
   updated_at: 2009-07-11 09:18:48
-sub_requests_130: 
+sub_requests_129: 
   created_at: 2009-07-11 09:18:52
   end: 2009-08-09 21:00:00
   id: "139"
@@ -1299,7 +1289,7 @@ sub_requests_130:
   shift_id: "1468"
   start: 2009-08-09 20:00:00
   updated_at: 2009-07-11 09:18:52
-sub_requests_131: 
+sub_requests_130: 
   created_at: 2009-07-11 09:19:06
   end: 2009-08-10 17:00:00
   id: "140"
@@ -1309,7 +1299,7 @@ sub_requests_131:
   shift_id: "1479"
   start: 2009-08-10 16:00:00
   updated_at: 2009-07-11 09:19:06
-sub_requests_132: 
+sub_requests_131: 
   created_at: 2009-07-11 09:19:13
   end: 2009-08-11 14:00:00
   id: "141"
@@ -1319,7 +1309,7 @@ sub_requests_132:
   shift_id: "1480"
   start: 2009-08-11 13:00:00
   updated_at: 2009-07-11 09:19:13
-sub_requests_133: 
+sub_requests_132: 
   created_at: 2009-07-11 09:19:28
   end: 2009-08-12 23:00:00
   id: "142"
@@ -1329,7 +1319,7 @@ sub_requests_133:
   shift_id: "1490"
   start: 2009-08-12 20:00:00
   updated_at: 2009-07-11 09:19:28
-sub_requests_134: 
+sub_requests_133: 
   created_at: 2009-07-11 09:19:58
   end: 2009-08-15 01:00:00
   id: "143"
@@ -1339,7 +1329,7 @@ sub_requests_134:
   shift_id: "1505"
   start: 2009-08-14 22:00:00
   updated_at: 2009-07-11 09:19:58
-sub_requests_135: 
+sub_requests_134: 
   created_at: 2009-07-11 09:20:16
   end: 2009-08-15 16:00:00
   id: "144"
@@ -1349,7 +1339,7 @@ sub_requests_135:
   shift_id: "1515"
   start: 2009-08-15 15:00:00
   updated_at: 2009-07-11 09:20:16
-sub_requests_136: 
+sub_requests_135: 
   created_at: 2009-07-11 09:20:45
   end: 2009-08-17 20:00:00
   id: "145"
@@ -1359,7 +1349,7 @@ sub_requests_136:
   shift_id: "1532"
   start: 2009-08-17 19:00:00
   updated_at: 2009-07-11 09:20:45
-sub_requests_137: 
+sub_requests_136: 
   created_at: 2009-07-11 09:20:49
   end: 2009-08-17 15:00:00
   id: "146"
@@ -1369,7 +1359,7 @@ sub_requests_137:
   shift_id: "1536"
   start: 2009-08-17 14:00:00
   updated_at: 2009-07-11 09:20:49
-sub_requests_138: 
+sub_requests_137: 
   created_at: 2009-07-11 09:21:07
   end: 2009-08-18 23:00:00
   id: "147"
@@ -1379,7 +1369,7 @@ sub_requests_138:
   shift_id: "1545"
   start: 2009-08-18 22:00:00
   updated_at: 2009-07-11 09:21:07
-sub_requests_139: 
+sub_requests_138: 
   created_at: 2009-07-11 09:21:23
   end: 2009-08-19 21:00:00
   id: "148"
@@ -1389,7 +1379,7 @@ sub_requests_139:
   shift_id: "1555"
   start: 2009-08-19 20:00:00
   updated_at: 2009-07-11 09:21:23
-sub_requests_140: 
+sub_requests_139: 
   created_at: 2009-07-11 09:21:37
   end: 2009-08-20 22:00:00
   id: "149"
@@ -1399,7 +1389,7 @@ sub_requests_140:
   shift_id: "1558"
   start: 2009-08-20 21:00:00
   updated_at: 2009-07-11 09:21:37
-sub_requests_141: 
+sub_requests_140: 
   created_at: 2009-07-11 09:21:43
   end: 2009-08-20 18:00:00
   id: "150"
@@ -1409,7 +1399,7 @@ sub_requests_141:
   shift_id: "1563"
   start: 2009-08-20 17:00:00
   updated_at: 2009-07-11 09:21:43
-sub_requests_142: 
+sub_requests_141: 
   created_at: 2009-07-11 09:22:13
   end: 2009-08-22 20:00:00
   id: "152"
@@ -1419,7 +1409,7 @@ sub_requests_142:
   shift_id: "1581"
   start: 2009-08-22 19:00:00
   updated_at: 2009-07-11 09:22:13
-sub_requests_143: 
+sub_requests_142: 
   created_at: 2009-07-11 09:22:32
   end: 2009-08-23 23:00:00
   id: "153"
@@ -1429,7 +1419,7 @@ sub_requests_143:
   shift_id: "1586"
   start: 2009-08-23 22:00:00
   updated_at: 2009-07-11 09:22:32
-sub_requests_144: 
+sub_requests_143: 
   created_at: 2009-07-11 09:22:32
   end: 2009-08-23 21:00:00
   id: "154"
@@ -1439,7 +1429,7 @@ sub_requests_144:
   shift_id: "1587"
   start: 2009-08-23 17:00:00
   updated_at: 2009-07-11 09:22:32
-sub_requests_145: 
+sub_requests_144: 
   created_at: 2009-07-11 09:23:11
   end: 2009-08-25 20:00:00
   id: "155"
@@ -1449,7 +1439,7 @@ sub_requests_145:
   shift_id: "1605"
   start: 2009-08-25 19:00:00
   updated_at: 2009-07-11 09:23:11
-sub_requests_146: 
+sub_requests_145: 
   created_at: 2009-07-11 09:24:57
   end: 2009-08-30 18:00:00
   id: "157"
@@ -1459,7 +1449,7 @@ sub_requests_146:
   shift_id: "1649"
   start: 2009-08-30 17:00:00
   updated_at: 2009-07-11 09:24:57
-sub_requests_147: 
+sub_requests_146: 
   created_at: 2009-07-11 09:25:15
   end: 2009-08-31 21:00:00
   id: "158"
@@ -1469,7 +1459,7 @@ sub_requests_147:
   shift_id: "1655"
   start: 2009-08-31 20:00:00
   updated_at: 2009-07-11 09:25:15
-sub_requests_148: 
+sub_requests_147: 
   created_at: 2009-07-11 09:25:41
   end: 2009-09-01 17:00:00
   id: "159"
@@ -1479,7 +1469,7 @@ sub_requests_148:
   shift_id: "1668"
   start: 2009-09-01 16:00:00
   updated_at: 2009-07-11 09:25:41
-sub_requests_149: 
+sub_requests_148: 
   created_at: 2009-07-11 09:26:14
   end: 2009-09-02 20:00:00
   id: "160"
@@ -1489,7 +1479,7 @@ sub_requests_149:
   shift_id: "1681"
   start: 2009-09-02 19:00:00
   updated_at: 2009-07-11 09:26:14
-sub_requests_150: 
+sub_requests_149: 
   created_at: 2009-07-11 09:28:12
   end: 2009-09-08 19:00:00
   id: "161"
@@ -1499,7 +1489,7 @@ sub_requests_150:
   shift_id: "1727"
   start: 2009-09-08 18:00:00
   updated_at: 2009-07-11 09:28:12
-sub_requests_151: 
+sub_requests_150: 
   created_at: 2009-07-11 09:28:13
   end: 2009-09-09 00:00:00
   id: "162"
@@ -1509,7 +1499,7 @@ sub_requests_151:
   shift_id: "1729"
   start: 2009-09-08 23:00:00
   updated_at: 2009-07-11 09:28:13
-sub_requests_152: 
+sub_requests_151: 
   created_at: 2009-07-11 09:28:16
   end: 2009-09-08 17:00:00
   id: "163"
@@ -1519,7 +1509,7 @@ sub_requests_152:
   shift_id: "1731"
   start: 2009-09-08 15:00:00
   updated_at: 2009-07-11 09:28:16
-sub_requests_153: 
+sub_requests_152: 
   created_at: 2009-07-11 09:28:21
   end: 2009-09-08 15:00:00
   id: "164"
@@ -1529,7 +1519,7 @@ sub_requests_153:
   shift_id: "1733"
   start: 2009-09-08 14:00:00
   updated_at: 2009-07-11 09:28:21
-sub_requests_154: 
+sub_requests_153: 
   created_at: 2009-07-11 09:28:37
   end: 2009-09-09 19:00:00
   id: "165"
@@ -1539,7 +1529,7 @@ sub_requests_154:
   shift_id: "1739"
   start: 2009-09-09 18:00:00
   updated_at: 2009-07-11 09:28:37
-sub_requests_155: 
+sub_requests_154: 
   created_at: 2009-07-11 09:28:59
   end: 2009-09-10 14:00:00
   id: "166"
@@ -1549,7 +1539,7 @@ sub_requests_155:
   shift_id: "1747"
   start: 2009-09-10 13:00:00
   updated_at: 2009-07-11 09:28:59
-sub_requests_156: 
+sub_requests_155: 
   created_at: 2009-07-11 09:29:07
   end: 2009-09-10 20:00:00
   id: "167"
@@ -1559,7 +1549,7 @@ sub_requests_156:
   shift_id: "1753"
   start: 2009-09-10 19:00:00
   updated_at: 2009-07-11 09:29:07
-sub_requests_157: 
+sub_requests_156: 
   created_at: 2009-07-11 09:29:57
   end: 2009-09-12 15:00:00
   id: "169"
@@ -1569,7 +1559,7 @@ sub_requests_157:
   shift_id: "1769"
   start: 2009-09-12 13:00:00
   updated_at: 2009-07-11 09:29:57
-sub_requests_158: 
+sub_requests_157: 
   created_at: 2009-07-11 09:30:13
   end: 2009-09-12 19:00:00
   id: "170"
@@ -1579,7 +1569,7 @@ sub_requests_158:
   shift_id: "1773"
   start: 2009-09-12 18:00:00
   updated_at: 2009-07-11 09:30:13
-sub_requests_159: 
+sub_requests_158: 
   created_at: 2009-07-11 09:30:17
   end: 2009-09-13 16:00:00
   id: "171"
@@ -1589,7 +1579,7 @@ sub_requests_159:
   shift_id: "1776"
   start: 2009-09-13 14:00:00
   updated_at: 2009-07-11 09:30:17
-sub_requests_160: 
+sub_requests_159: 
   created_at: 2009-07-11 09:30:18
   end: 2009-09-13 17:00:00
   id: "172"
@@ -1599,7 +1589,7 @@ sub_requests_160:
   shift_id: "1777"
   start: 2009-09-13 16:00:00
   updated_at: 2009-07-11 09:30:18
-sub_requests_161: 
+sub_requests_160: 
   created_at: 2009-07-11 09:30:20
   end: 2009-09-13 20:00:00
   id: "173"
@@ -1609,7 +1599,7 @@ sub_requests_161:
   shift_id: "1778"
   start: 2009-09-13 19:00:00
   updated_at: 2009-07-11 09:30:20
-sub_requests_162: 
+sub_requests_161: 
   created_at: 2009-07-11 09:30:43
   end: 2009-09-14 18:00:00
   id: "174"
@@ -1619,7 +1609,7 @@ sub_requests_162:
   shift_id: "1787"
   start: 2009-09-14 15:00:00
   updated_at: 2009-07-11 09:30:43
-sub_requests_163: 
+sub_requests_162: 
   created_at: 2009-07-11 09:31:38
   end: 2009-09-16 19:00:00
   id: "175"
@@ -1629,7 +1619,7 @@ sub_requests_163:
   shift_id: "1805"
   start: 2009-09-16 18:00:00
   updated_at: 2009-07-11 09:31:38
-sub_requests_164: 
+sub_requests_163: 
   created_at: 2009-07-11 09:31:43
   end: 2009-09-16 18:00:00
   id: "176"
@@ -1639,7 +1629,7 @@ sub_requests_164:
   shift_id: "1810"
   start: 2009-09-16 17:00:00
   updated_at: 2009-07-11 09:31:43
-sub_requests_165: 
+sub_requests_164: 
   created_at: 2009-07-11 09:33:32
   end: 2009-09-20 14:00:00
   id: "177"
@@ -1649,7 +1639,7 @@ sub_requests_165:
   shift_id: "1838"
   start: 2009-09-20 13:00:00
   updated_at: 2009-07-11 09:33:32
-sub_requests_166: 
+sub_requests_165: 
   created_at: 2009-07-11 09:34:01
   end: 2009-09-21 19:00:00
   id: "178"
@@ -1659,7 +1649,7 @@ sub_requests_166:
   shift_id: "1846"
   start: 2009-09-21 18:00:00
   updated_at: 2009-07-11 09:34:01
-sub_requests_167: 
+sub_requests_166: 
   created_at: 2009-07-11 09:34:29
   end: 2009-09-22 17:00:00
   id: "179"
@@ -1669,7 +1659,7 @@ sub_requests_167:
   shift_id: "1852"
   start: 2009-09-22 16:00:00
   updated_at: 2009-07-11 09:34:29
-sub_requests_168: 
+sub_requests_167: 
   created_at: 2009-07-11 09:34:41
   end: 2009-09-22 17:00:00
   id: "180"
@@ -1679,7 +1669,7 @@ sub_requests_168:
   shift_id: "1862"
   start: 2009-09-22 16:00:00
   updated_at: 2009-07-11 09:34:41
-sub_requests_169: 
+sub_requests_168: 
   created_at: 2009-07-11 09:34:42
   end: 2009-09-22 19:00:00
   id: "181"
@@ -1689,7 +1679,7 @@ sub_requests_169:
   shift_id: "1863"
   start: 2009-09-22 18:00:00
   updated_at: 2009-07-11 09:34:42
-sub_requests_170: 
+sub_requests_169: 
   created_at: 2009-07-11 09:35:36
   end: 2009-09-25 03:00:00
   id: "183"
@@ -1699,7 +1689,7 @@ sub_requests_170:
   shift_id: "1879"
   start: 2009-09-25 02:00:00
   updated_at: 2009-07-11 09:35:36
-sub_requests_171: 
+sub_requests_170: 
   created_at: 2009-07-11 09:36:05
   end: 2009-09-26 00:00:00
   id: "184"
@@ -1709,7 +1699,7 @@ sub_requests_171:
   shift_id: "1888"
   start: 2009-09-25 23:00:00
   updated_at: 2009-07-11 09:36:05
-sub_requests_172: 
+sub_requests_171: 
   created_at: 2009-07-11 09:36:54
   end: 2009-09-26 14:00:00
   id: "185"
@@ -1719,7 +1709,7 @@ sub_requests_172:
   shift_id: "1899"
   start: 2009-09-26 13:00:00
   updated_at: 2009-07-11 09:36:54
-sub_requests_173: 
+sub_requests_172: 
   created_at: 2009-07-11 09:37:06
   end: 2009-09-27 17:00:00
   id: "186"
@@ -1729,7 +1719,7 @@ sub_requests_173:
   shift_id: "1901"
   start: 2009-09-27 16:00:00
   updated_at: 2009-07-11 09:37:06
-sub_requests_174: 
+sub_requests_173: 
   created_at: 2009-07-11 09:37:07
   end: 2009-09-27 15:00:00
   id: "187"
@@ -1739,7 +1729,7 @@ sub_requests_174:
   shift_id: "1904"
   start: 2009-09-27 14:00:00
   updated_at: 2009-07-11 09:37:07
-sub_requests_175: 
+sub_requests_174: 
   created_at: 2009-07-11 09:37:12
   end: 2009-09-27 18:00:00
   id: "188"
@@ -1749,7 +1739,7 @@ sub_requests_175:
   shift_id: "1908"
   start: 2009-09-27 17:00:00
   updated_at: 2009-07-11 09:37:12
-sub_requests_176: 
+sub_requests_175: 
   created_at: 2009-07-11 09:37:21
   end: 2009-09-27 20:00:00
   id: "189"
@@ -1759,7 +1749,7 @@ sub_requests_176:
   shift_id: "1910"
   start: 2009-09-27 19:00:00
   updated_at: 2009-07-11 09:37:21
-sub_requests_177: 
+sub_requests_176: 
   created_at: 2009-07-11 09:38:12
   end: 2009-09-29 20:00:00
   id: "190"
@@ -1769,7 +1759,7 @@ sub_requests_177:
   shift_id: "1920"
   start: 2009-09-29 19:00:00
   updated_at: 2009-07-11 09:38:12
-sub_requests_178: 
+sub_requests_177: 
   created_at: 2009-07-11 09:38:42
   end: 2009-09-29 17:00:00
   id: "191"
@@ -1779,7 +1769,7 @@ sub_requests_178:
   shift_id: "1929"
   start: 2009-09-29 16:00:00
   updated_at: 2009-07-11 09:38:42
-sub_requests_179: 
+sub_requests_178: 
   created_at: 2009-07-11 09:39:18
   end: 2009-10-01 17:00:00
   id: "192"
@@ -1789,7 +1779,7 @@ sub_requests_179:
   shift_id: "1939"
   start: 2009-10-01 16:00:00
   updated_at: 2009-07-11 09:39:18
-sub_requests_180: 
+sub_requests_179: 
   created_at: 2009-07-11 09:39:54
   end: 2009-10-02 22:00:00
   id: "193"
@@ -1799,7 +1789,7 @@ sub_requests_180:
   shift_id: "1951"
   start: 2009-10-02 21:00:00
   updated_at: 2009-07-11 09:39:54
-sub_requests_181: 
+sub_requests_180: 
   created_at: 2009-07-11 09:40:43
   end: 2009-10-03 19:00:00
   id: "194"
@@ -1809,7 +1799,7 @@ sub_requests_181:
   shift_id: "1962"
   start: 2009-10-03 18:00:00
   updated_at: 2009-07-11 09:40:43
-sub_requests_182: 
+sub_requests_181: 
   created_at: 2009-07-11 09:40:55
   end: 2009-10-03 14:00:00
   id: "195"
@@ -1819,7 +1809,7 @@ sub_requests_182:
   shift_id: "1964"
   start: 2009-10-03 13:00:00
   updated_at: 2009-07-11 09:40:55
-sub_requests_183: 
+sub_requests_182: 
   created_at: 2009-07-11 09:43:30
   end: 2009-10-08 16:00:00
   id: "196"
@@ -1829,7 +1819,7 @@ sub_requests_183:
   shift_id: "1999"
   start: 2009-10-08 15:00:00
   updated_at: 2009-07-11 09:43:30
-sub_requests_184: 
+sub_requests_183: 
   created_at: 2009-07-11 09:43:45
   end: 2009-10-08 21:00:00
   id: "197"
@@ -1839,7 +1829,7 @@ sub_requests_184:
   shift_id: "2003"
   start: 2009-10-08 20:00:00
   updated_at: 2009-07-11 09:43:45
-sub_requests_185: 
+sub_requests_184: 
   created_at: 2009-07-11 09:44:26
   end: 2009-10-09 23:00:00
   id: "198"
@@ -1849,7 +1839,7 @@ sub_requests_185:
   shift_id: "2012"
   start: 2009-10-09 22:00:00
   updated_at: 2009-07-11 09:44:26
-sub_requests_186: 
+sub_requests_185: 
   created_at: 2009-07-11 09:45:17
   end: 2009-10-11 17:00:00
   id: "199"
@@ -1859,7 +1849,7 @@ sub_requests_186:
   shift_id: "2025"
   start: 2009-10-11 15:00:00
   updated_at: 2009-07-11 09:45:17
-sub_requests_187: 
+sub_requests_186: 
   created_at: 2009-07-11 09:45:50
   end: 2009-07-11 23:00:00
   id: "200"
@@ -1869,7 +1859,7 @@ sub_requests_187:
   shift_id: "2034"
   start: 2009-07-11 20:00:00
   updated_at: 2009-07-11 09:45:50
-sub_requests_188: 
+sub_requests_187: 
   created_at: 2009-07-11 09:45:51
   end: 2009-07-13 02:00:00
   id: "201"
@@ -1879,7 +1869,7 @@ sub_requests_188:
   shift_id: "2045"
   start: 2009-07-13 01:00:00
   updated_at: 2009-07-11 09:45:51
-sub_requests_189: 
+sub_requests_188: 
   created_at: 2009-07-11 09:45:51
   end: 2009-07-13 03:00:00
   id: "202"
@@ -1889,7 +1879,7 @@ sub_requests_189:
   shift_id: "2048"
   start: 2009-07-13 00:00:00
   updated_at: 2009-07-11 09:45:51
-sub_requests_190: 
+sub_requests_189: 
   created_at: 2009-07-11 09:45:53
   end: 2009-07-12 15:00:00
   id: "203"
@@ -1899,7 +1889,7 @@ sub_requests_190:
   shift_id: "2057"
   start: 2009-07-12 14:00:00
   updated_at: 2009-07-11 09:45:53
-sub_requests_191: 
+sub_requests_190: 
   created_at: 2009-07-11 09:45:54
   end: 2009-07-13 23:00:00
   id: "204"
@@ -1909,7 +1899,7 @@ sub_requests_191:
   shift_id: "2069"
   start: 2009-07-13 22:00:00
   updated_at: 2009-07-11 09:45:54
-sub_requests_192: 
+sub_requests_191: 
   created_at: 2009-07-11 09:45:57
   end: 2009-07-14 22:00:00
   id: "205"
@@ -1919,7 +1909,7 @@ sub_requests_192:
   shift_id: "2075"
   start: 2009-07-14 20:00:00
   updated_at: 2009-07-11 09:45:57
-sub_requests_193: 
+sub_requests_192: 
   created_at: 2009-07-11 09:45:59
   end: 2009-07-14 17:00:00
   id: "207"
@@ -1929,7 +1919,7 @@ sub_requests_193:
   shift_id: "2088"
   start: 2009-07-14 16:00:00
   updated_at: 2009-07-11 09:45:59
-sub_requests_194: 
+sub_requests_193: 
   created_at: 2009-07-11 09:46:01
   end: 2009-07-15 22:00:00
   id: "209"
@@ -1939,7 +1929,7 @@ sub_requests_194:
   shift_id: "2097"
   start: 2009-07-15 21:00:00
   updated_at: 2009-07-11 09:46:01
-sub_requests_195: 
+sub_requests_194: 
   created_at: 2009-07-11 09:46:05
   end: 2009-07-16 17:00:00
   id: "210"
@@ -1949,7 +1939,7 @@ sub_requests_195:
   shift_id: "2108"
   start: 2009-07-16 16:00:00
   updated_at: 2009-07-11 09:46:05
-sub_requests_196: 
+sub_requests_195: 
   created_at: 2009-07-11 09:46:11
   end: 2009-07-17 19:00:00
   id: "211"
@@ -1959,7 +1949,7 @@ sub_requests_196:
   shift_id: "2128"
   start: 2009-07-17 18:00:00
   updated_at: 2009-07-11 09:46:11
-sub_requests_197: 
+sub_requests_196: 
   created_at: 2009-07-11 09:46:11
   end: 2009-07-17 21:00:00
   id: "212"
@@ -1969,7 +1959,7 @@ sub_requests_197:
   shift_id: "2131"
   start: 2009-07-17 19:00:00
   updated_at: 2009-07-11 09:46:11
-sub_requests_198: 
+sub_requests_197: 
   created_at: 2009-07-11 09:46:11
   end: 2009-07-17 17:00:00
   id: "213"
@@ -1979,7 +1969,7 @@ sub_requests_198:
   shift_id: "2132"
   start: 2009-07-17 16:00:00
   updated_at: 2009-07-11 09:46:11
-sub_requests_199: 
+sub_requests_198: 
   created_at: 2009-07-11 09:46:16
   end: 2009-07-19 00:00:00
   id: "214"
@@ -1989,7 +1979,7 @@ sub_requests_199:
   shift_id: "2143"
   start: 2009-07-18 23:00:00
   updated_at: 2009-07-11 09:46:16
-sub_requests_200: 
+sub_requests_199: 
   created_at: 2009-07-11 09:46:21
   end: 2009-07-20 02:00:00
   id: "215"
@@ -1999,7 +1989,7 @@ sub_requests_200:
   shift_id: "2151"
   start: 2009-07-19 22:00:00
   updated_at: 2009-07-11 09:46:21
-sub_requests_201: 
+sub_requests_200: 
   created_at: 2009-07-11 09:46:24
   end: 2009-07-20 01:00:00
   id: "216"
@@ -2009,7 +1999,7 @@ sub_requests_201:
   shift_id: "2157"
   start: 2009-07-19 22:00:00
   updated_at: 2009-07-11 09:46:24
-sub_requests_202: 
+sub_requests_201: 
   created_at: 2009-07-11 09:46:28
   end: 2009-07-20 20:00:00
   id: "217"
@@ -2019,7 +2009,7 @@ sub_requests_202:
   shift_id: "2162"
   start: 2009-07-20 19:00:00
   updated_at: 2009-07-11 09:46:28
-sub_requests_203: 
+sub_requests_202: 
   created_at: 2009-07-11 09:46:34
   end: 2009-07-21 18:00:00
   id: "218"
@@ -2029,7 +2019,7 @@ sub_requests_203:
   shift_id: "2174"
   start: 2009-07-21 17:00:00
   updated_at: 2009-07-11 09:46:34
-sub_requests_204: 
+sub_requests_203: 
   created_at: 2009-07-11 09:46:42
   end: 2009-07-22 23:00:00
   id: "219"
@@ -2039,7 +2029,7 @@ sub_requests_204:
   shift_id: "2192"
   start: 2009-07-22 22:00:00
   updated_at: 2009-07-11 09:46:42
-sub_requests_205: 
+sub_requests_204: 
   created_at: 2009-07-11 09:47:01
   end: 2009-07-24 21:00:00
   id: "220"
@@ -2049,7 +2039,7 @@ sub_requests_205:
   shift_id: "2226"
   start: 2009-07-24 20:00:00
   updated_at: 2009-07-11 09:47:01
-sub_requests_206: 
+sub_requests_205: 
   created_at: 2009-07-11 09:47:02
   end: 2009-07-24 18:00:00
   id: "221"
@@ -2059,7 +2049,7 @@ sub_requests_206:
   shift_id: "2229"
   start: 2009-07-24 17:00:00
   updated_at: 2009-07-11 09:47:02
-sub_requests_207: 
+sub_requests_206: 
   created_at: 2009-07-11 09:47:28
   end: 2009-07-26 14:00:00
   id: "223"
@@ -2069,7 +2059,7 @@ sub_requests_207:
   shift_id: "2261"
   start: 2009-07-26 13:00:00
   updated_at: 2009-07-11 09:47:28
-sub_requests_208: 
+sub_requests_207: 
   created_at: 2009-07-11 09:47:44
   end: 2009-07-28 17:00:00
   id: "224"
@@ -2079,7 +2069,7 @@ sub_requests_208:
   shift_id: "2284"
   start: 2009-07-28 15:00:00
   updated_at: 2009-07-11 09:47:44
-sub_requests_209: 
+sub_requests_208: 
   created_at: 2009-07-11 09:47:46
   end: 2009-07-28 17:00:00
   id: "226"
@@ -2089,7 +2079,7 @@ sub_requests_209:
   shift_id: "2288"
   start: 2009-07-28 16:00:00
   updated_at: 2009-07-11 09:47:46
-sub_requests_210: 
+sub_requests_209: 
   created_at: 2009-07-11 09:47:47
   end: 2009-07-28 21:00:00
   id: "227"
@@ -2099,7 +2089,7 @@ sub_requests_210:
   shift_id: "2289"
   start: 2009-07-28 20:00:00
   updated_at: 2009-07-11 09:47:47
-sub_requests_211: 
+sub_requests_210: 
   created_at: 2009-07-11 09:48:06
   end: 2009-07-30 20:00:00
   id: "228"
@@ -2109,7 +2099,7 @@ sub_requests_211:
   shift_id: "2307"
   start: 2009-07-30 18:00:00
   updated_at: 2009-07-11 09:48:06
-sub_requests_212: 
+sub_requests_211: 
   created_at: 2009-07-11 09:48:35
   end: 2009-08-02 01:00:00
   id: "229"
@@ -2119,7 +2109,7 @@ sub_requests_212:
   shift_id: "2335"
   start: 2009-08-01 23:00:00
   updated_at: 2009-07-11 09:48:35
-sub_requests_213: 
+sub_requests_212: 
   created_at: 2009-07-11 09:49:06
   end: 2009-08-03 22:00:00
   id: "230"
@@ -2129,7 +2119,7 @@ sub_requests_213:
   shift_id: "2365"
   start: 2009-08-03 21:00:00
   updated_at: 2009-07-11 09:49:06
-sub_requests_214: 
+sub_requests_213: 
   created_at: 2009-07-11 09:49:10
   end: 2009-08-03 21:00:00
   id: "231"
@@ -2139,7 +2129,7 @@ sub_requests_214:
   shift_id: "2371"
   start: 2009-08-03 19:00:00
   updated_at: 2009-07-11 09:49:10
-sub_requests_215: 
+sub_requests_214: 
   created_at: 2009-07-11 09:49:35
   end: 2009-08-04 23:00:00
   id: "232"
@@ -2149,7 +2139,7 @@ sub_requests_215:
   shift_id: "2382"
   start: 2009-08-04 22:00:00
   updated_at: 2009-07-11 09:49:35
-sub_requests_216: 
+sub_requests_215: 
   created_at: 2009-07-11 09:49:55
   end: 2009-08-06 22:00:00
   id: "233"
@@ -2159,7 +2149,7 @@ sub_requests_216:
   shift_id: "2398"
   start: 2009-08-06 19:00:00
   updated_at: 2009-07-11 09:49:55
-sub_requests_217: 
+sub_requests_216: 
   created_at: 2009-07-11 09:50:00
   end: 2009-08-07 00:00:00
   id: "234"
@@ -2169,7 +2159,7 @@ sub_requests_217:
   shift_id: "2408"
   start: 2009-08-06 21:00:00
   updated_at: 2009-07-11 09:50:00
-sub_requests_218: 
+sub_requests_217: 
   created_at: 2009-07-11 09:50:32
   end: 2009-08-08 19:00:00
   id: "235"
@@ -2179,7 +2169,7 @@ sub_requests_218:
   shift_id: "2433"
   start: 2009-08-08 18:00:00
   updated_at: 2009-07-11 09:50:32
-sub_requests_219: 
+sub_requests_218: 
   created_at: 2009-07-11 09:50:34
   end: 2009-08-08 15:00:00
   id: "236"
@@ -2189,7 +2179,7 @@ sub_requests_219:
   shift_id: "2436"
   start: 2009-08-08 14:00:00
   updated_at: 2009-07-11 09:50:34
-sub_requests_220: 
+sub_requests_219: 
   created_at: 2009-07-11 09:50:52
   end: 2009-08-09 21:00:00
   id: "237"
@@ -2199,7 +2189,7 @@ sub_requests_220:
   shift_id: "2446"
   start: 2009-08-09 20:00:00
   updated_at: 2009-07-11 09:50:52
-sub_requests_221: 
+sub_requests_220: 
   created_at: 2009-07-11 09:50:52
   end: 2009-08-09 23:00:00
   id: "238"
@@ -2209,7 +2199,7 @@ sub_requests_221:
   shift_id: "2447"
   start: 2009-08-09 22:00:00
   updated_at: 2009-07-11 09:50:52
-sub_requests_222: 
+sub_requests_221: 
   created_at: 2009-07-11 09:50:53
   end: 2009-08-09 22:00:00
   id: "239"
@@ -2219,7 +2209,7 @@ sub_requests_222:
   shift_id: "2448"
   start: 2009-08-09 21:00:00
   updated_at: 2009-07-11 09:50:53
-sub_requests_223: 
+sub_requests_222: 
   created_at: 2009-07-11 09:51:29
   end: 2009-08-11 19:00:00
   id: "240"
@@ -2229,7 +2219,7 @@ sub_requests_223:
   shift_id: "2471"
   start: 2009-08-11 18:00:00
   updated_at: 2009-07-11 09:51:29
-sub_requests_224: 
+sub_requests_223: 
   created_at: 2009-07-11 09:51:30
   end: 2009-08-11 15:00:00
   id: "241"
@@ -2239,7 +2229,7 @@ sub_requests_224:
   shift_id: "2472"
   start: 2009-08-11 14:00:00
   updated_at: 2009-07-11 09:51:30
-sub_requests_225: 
+sub_requests_224: 
   created_at: 2009-07-11 09:51:32
   end: 2009-08-11 17:00:00
   id: "242"
@@ -2249,7 +2239,7 @@ sub_requests_225:
   shift_id: "2475"
   start: 2009-08-11 13:00:00
   updated_at: 2009-07-11 09:51:32
-sub_requests_226: 
+sub_requests_225: 
   created_at: 2009-07-11 09:51:37
   end: 2009-08-11 21:00:00
   id: "243"
@@ -2259,7 +2249,7 @@ sub_requests_226:
   shift_id: "2478"
   start: 2009-08-11 20:00:00
   updated_at: 2009-07-11 09:51:37
-sub_requests_227: 
+sub_requests_226: 
   created_at: 2009-07-11 09:51:37
   end: 2009-08-11 17:00:00
   id: "244"
@@ -2269,7 +2259,7 @@ sub_requests_227:
   shift_id: "2479"
   start: 2009-08-11 16:00:00
   updated_at: 2009-07-11 09:51:37
-sub_requests_228: 
+sub_requests_227: 
   created_at: 2009-07-11 09:52:11
   end: 2009-08-13 21:00:00
   id: "245"
@@ -2279,7 +2269,7 @@ sub_requests_228:
   shift_id: "2498"
   start: 2009-08-13 20:00:00
   updated_at: 2009-07-11 09:52:11
-sub_requests_229: 
+sub_requests_228: 
   created_at: 2009-07-11 09:52:16
   end: 2009-08-13 18:00:00
   id: "246"
@@ -2289,7 +2279,7 @@ sub_requests_229:
   shift_id: "2503"
   start: 2009-08-13 17:00:00
   updated_at: 2009-07-11 09:52:16
-sub_requests_230: 
+sub_requests_229: 
   created_at: 2009-07-11 09:52:28
   end: 2009-08-13 16:00:00
   id: "247"
@@ -2299,7 +2289,7 @@ sub_requests_230:
   shift_id: "2507"
   start: 2009-08-13 15:00:00
   updated_at: 2009-07-11 09:52:28
-sub_requests_231: 
+sub_requests_230: 
   created_at: 2009-07-11 09:52:31
   end: 2009-08-14 18:00:00
   id: "248"
@@ -2309,7 +2299,7 @@ sub_requests_231:
   shift_id: "2510"
   start: 2009-08-14 14:00:00
   updated_at: 2009-07-11 09:52:31
-sub_requests_232: 
+sub_requests_231: 
   created_at: 2009-07-11 09:53:42
   end: 2009-08-18 01:00:00
   id: "249"
@@ -2319,7 +2309,7 @@ sub_requests_232:
   shift_id: "2557"
   start: 2009-08-17 22:00:00
   updated_at: 2009-07-11 09:53:42
-sub_requests_233: 
+sub_requests_232: 
   created_at: 2009-07-11 09:53:58
   end: 2009-08-17 17:00:00
   id: "250"
@@ -2329,7 +2319,7 @@ sub_requests_233:
   shift_id: "2566"
   start: 2009-08-17 16:00:00
   updated_at: 2009-07-11 09:53:58
-sub_requests_234: 
+sub_requests_233: 
   created_at: 2009-07-11 09:54:10
   end: 2009-08-18 23:00:00
   id: "251"
@@ -2339,7 +2329,7 @@ sub_requests_234:
   shift_id: "2577"
   start: 2009-08-18 22:00:00
   updated_at: 2009-07-11 09:54:10
-sub_requests_235: 
+sub_requests_234: 
   created_at: 2009-07-11 09:54:41
   end: 2009-08-19 18:00:00
   id: "252"
@@ -2349,7 +2339,7 @@ sub_requests_235:
   shift_id: "2589"
   start: 2009-08-19 17:00:00
   updated_at: 2009-07-11 09:54:41
-sub_requests_236: 
+sub_requests_235: 
   created_at: 2009-07-11 09:55:26
   end: 2009-08-22 00:00:00
   id: "253"
@@ -2359,7 +2349,7 @@ sub_requests_236:
   shift_id: "2615"
   start: 2009-08-21 22:00:00
   updated_at: 2009-07-11 09:55:26
-sub_requests_237: 
+sub_requests_236: 
   created_at: 2009-07-11 09:55:36
   end: 2009-08-21 16:00:00
   id: "254"
@@ -2369,7 +2359,7 @@ sub_requests_237:
   shift_id: "2618"
   start: 2009-08-21 15:00:00
   updated_at: 2009-07-11 09:55:36
-sub_requests_238: 
+sub_requests_237: 
   created_at: 2009-07-11 09:55:59
   end: 2009-08-22 20:00:00
   id: "255"
@@ -2379,7 +2369,7 @@ sub_requests_238:
   shift_id: "2630"
   start: 2009-08-22 19:00:00
   updated_at: 2009-07-11 09:55:59
-sub_requests_239: 
+sub_requests_238: 
   created_at: 2009-07-11 09:56:13
   end: 2009-08-22 17:00:00
   id: "256"
@@ -2389,7 +2379,7 @@ sub_requests_239:
   shift_id: "2633"
   start: 2009-08-22 16:00:00
   updated_at: 2009-07-11 09:56:13
-sub_requests_240: 
+sub_requests_239: 
   created_at: 2009-07-11 09:56:14
   end: 2009-08-22 20:00:00
   id: "257"
@@ -2399,7 +2389,7 @@ sub_requests_240:
   shift_id: "2634"
   start: 2009-08-22 19:00:00
   updated_at: 2009-07-11 09:56:14
-sub_requests_241: 
+sub_requests_240: 
   created_at: 2009-07-11 09:56:33
   end: 2009-08-23 18:00:00
   id: "258"
@@ -2409,7 +2399,7 @@ sub_requests_241:
   shift_id: "2647"
   start: 2009-08-23 17:00:00
   updated_at: 2009-07-11 09:56:33
-sub_requests_242: 
+sub_requests_241: 
   created_at: 2009-07-11 09:57:14
   end: 2009-08-25 16:00:00
   id: "259"
@@ -2419,7 +2409,7 @@ sub_requests_242:
   shift_id: "2665"
   start: 2009-08-25 15:00:00
   updated_at: 2009-07-11 09:57:14
-sub_requests_243: 
+sub_requests_242: 
   created_at: 2009-07-11 09:57:17
   end: 2009-08-25 20:00:00
   id: "260"
@@ -2429,7 +2419,7 @@ sub_requests_243:
   shift_id: "2668"
   start: 2009-08-25 19:00:00
   updated_at: 2009-07-11 09:57:17
-sub_requests_244: 
+sub_requests_243: 
   created_at: 2009-07-11 09:57:28
   end: 2009-08-25 22:00:00
   id: "261"
@@ -2439,7 +2429,7 @@ sub_requests_244:
   shift_id: "2678"
   start: 2009-08-25 21:00:00
   updated_at: 2009-07-11 09:57:28
-sub_requests_245: 
+sub_requests_244: 
   created_at: 2009-07-11 09:57:57
   end: 2009-08-26 16:00:00
   id: "262"
@@ -2449,7 +2439,7 @@ sub_requests_245:
   shift_id: "2688"
   start: 2009-08-26 15:00:00
   updated_at: 2009-07-11 09:57:57
-sub_requests_246: 
+sub_requests_245: 
   created_at: 2009-07-11 09:57:59
   end: 2009-08-27 02:00:00
   id: "263"
@@ -2459,7 +2449,7 @@ sub_requests_246:
   shift_id: "2690"
   start: 2009-08-26 23:00:00
   updated_at: 2009-07-11 09:57:59
-sub_requests_247: 
+sub_requests_246: 
   created_at: 2009-07-11 09:58:14
   end: 2009-08-28 01:00:00
   id: "264"
@@ -2469,7 +2459,7 @@ sub_requests_247:
   shift_id: "2695"
   start: 2009-08-27 22:00:00
   updated_at: 2009-07-11 09:58:14
-sub_requests_248: 
+sub_requests_247: 
   created_at: 2009-07-11 09:58:43
   end: 2009-08-27 19:00:00
   id: "265"
@@ -2479,7 +2469,7 @@ sub_requests_248:
   shift_id: "2706"
   start: 2009-08-27 18:00:00
   updated_at: 2009-07-11 09:58:43
-sub_requests_249: 
+sub_requests_248: 
   created_at: 2009-07-11 09:58:53
   end: 2009-08-28 15:00:00
   id: "266"
@@ -2489,7 +2479,7 @@ sub_requests_249:
   shift_id: "2715"
   start: 2009-08-28 14:00:00
   updated_at: 2009-07-11 09:58:53
-sub_requests_250: 
+sub_requests_249: 
   created_at: 2009-07-11 09:59:11
   end: 2009-08-28 21:00:00
   id: "267"
@@ -2499,7 +2489,7 @@ sub_requests_250:
   shift_id: "2720"
   start: 2009-08-28 20:00:00
   updated_at: 2009-07-11 09:59:11
-sub_requests_251: 
+sub_requests_250: 
   created_at: 2009-07-11 10:00:01
   end: 2009-08-30 23:00:00
   id: "268"
@@ -2509,7 +2499,7 @@ sub_requests_251:
   shift_id: "2741"
   start: 2009-08-30 22:00:00
   updated_at: 2009-07-11 10:00:01
-sub_requests_252: 
+sub_requests_251: 
   created_at: 2009-07-11 10:00:34
   end: 2009-08-31 16:00:00
   id: "269"
@@ -2519,7 +2509,7 @@ sub_requests_252:
   shift_id: "2757"
   start: 2009-08-31 15:00:00
   updated_at: 2009-07-11 10:00:34
-sub_requests_253: 
+sub_requests_252: 
   created_at: 2009-07-11 10:00:53
   end: 2009-09-01 16:00:00
   id: "270"
@@ -2529,7 +2519,7 @@ sub_requests_253:
   shift_id: "2763"
   start: 2009-09-01 15:00:00
   updated_at: 2009-07-11 10:00:53
-sub_requests_254: 
+sub_requests_253: 
   created_at: 2009-07-11 10:01:00
   end: 2009-09-02 02:00:00
   id: "271"
@@ -2539,7 +2529,7 @@ sub_requests_254:
   shift_id: "2767"
   start: 2009-09-02 01:00:00
   updated_at: 2009-07-11 10:01:00
-sub_requests_255: 
+sub_requests_254: 
   created_at: 2009-07-11 10:01:08
   end: 2009-09-01 17:00:00
   id: "272"
@@ -2549,7 +2539,7 @@ sub_requests_255:
   shift_id: "2770"
   start: 2009-09-01 16:00:00
   updated_at: 2009-07-11 10:01:08
-sub_requests_256: 
+sub_requests_255: 
   created_at: 2009-07-11 10:01:48
   end: 2009-09-02 21:00:00
   id: "273"
@@ -2559,7 +2549,7 @@ sub_requests_256:
   shift_id: "2790"
   start: 2009-09-02 19:00:00
   updated_at: 2009-07-11 10:01:48
-sub_requests_257: 
+sub_requests_256: 
   created_at: 2009-07-11 10:02:07
   end: 2009-09-03 20:00:00
   id: "274"
@@ -2569,7 +2559,7 @@ sub_requests_257:
   shift_id: "2798"
   start: 2009-09-03 19:00:00
   updated_at: 2009-07-11 10:02:07
-sub_requests_258: 
+sub_requests_257: 
   created_at: 2009-07-11 10:02:11
   end: 2009-09-03 17:00:00
   id: "275"
@@ -2579,7 +2569,7 @@ sub_requests_258:
   shift_id: "2799"
   start: 2009-09-03 15:00:00
   updated_at: 2009-07-11 10:02:11
-sub_requests_259: 
+sub_requests_258: 
   created_at: 2009-07-11 10:02:17
   end: 2009-09-03 15:00:00
   id: "276"
@@ -2589,7 +2579,7 @@ sub_requests_259:
   shift_id: "2802"
   start: 2009-09-03 14:00:00
   updated_at: 2009-07-11 10:02:17
-sub_requests_260: 
+sub_requests_259: 
   created_at: 2009-07-11 10:02:41
   end: 2009-09-04 15:00:00
   id: "277"
@@ -2599,7 +2589,7 @@ sub_requests_260:
   shift_id: "2817"
   start: 2009-09-04 14:00:00
   updated_at: 2009-07-11 10:02:41
-sub_requests_261: 
+sub_requests_260: 
   created_at: 2009-07-11 10:03:18
   end: 2009-09-05 18:00:00
   id: "278"
@@ -2609,7 +2599,7 @@ sub_requests_261:
   shift_id: "2835"
   start: 2009-09-05 17:00:00
   updated_at: 2009-07-11 10:03:18
-sub_requests_262: 
+sub_requests_261: 
   created_at: 2009-07-11 10:03:19
   end: 2009-09-06 00:00:00
   id: "279"
@@ -2619,7 +2609,7 @@ sub_requests_262:
   shift_id: "2836"
   start: 2009-09-05 23:00:00
   updated_at: 2009-07-11 10:03:19
-sub_requests_263: 
+sub_requests_262: 
   created_at: 2009-07-11 10:03:25
   end: 2009-09-05 18:00:00
   id: "280"
@@ -2629,7 +2619,7 @@ sub_requests_263:
   shift_id: "2839"
   start: 2009-09-05 17:00:00
   updated_at: 2009-07-11 10:03:25
-sub_requests_264: 
+sub_requests_263: 
   created_at: 2009-07-11 10:03:56
   end: 2009-09-06 15:00:00
   id: "281"
@@ -2639,7 +2629,7 @@ sub_requests_264:
   shift_id: "2849"
   start: 2009-09-06 14:00:00
   updated_at: 2009-07-11 10:03:56
-sub_requests_265: 
+sub_requests_264: 
   created_at: 2009-07-11 10:04:28
   end: 2009-09-07 14:00:00
   id: "282"
@@ -2649,7 +2639,7 @@ sub_requests_265:
   shift_id: "2864"
   start: 2009-09-07 13:00:00
   updated_at: 2009-07-11 10:04:28
-sub_requests_266: 
+sub_requests_265: 
   created_at: 2009-07-11 10:07:15
   end: 2009-09-11 15:00:00
   id: "284"
@@ -2659,7 +2649,7 @@ sub_requests_266:
   shift_id: "2918"
   start: 2009-09-11 14:00:00
   updated_at: 2009-07-11 10:07:15
-sub_requests_267: 
+sub_requests_266: 
   created_at: 2009-07-11 10:07:16
   end: 2009-09-11 18:00:00
   id: "285"
@@ -2669,7 +2659,7 @@ sub_requests_267:
   shift_id: "2919"
   start: 2009-09-11 17:00:00
   updated_at: 2009-07-11 10:07:16
-sub_requests_268: 
+sub_requests_267: 
   created_at: 2009-07-11 10:07:40
   end: 2009-09-12 23:00:00
   id: "286"
@@ -2679,7 +2669,7 @@ sub_requests_268:
   shift_id: "2922"
   start: 2009-09-12 21:00:00
   updated_at: 2009-07-11 10:07:40
-sub_requests_269: 
+sub_requests_268: 
   created_at: 2009-07-11 10:07:48
   end: 2009-09-12 19:00:00
   id: "287"
@@ -2689,7 +2679,7 @@ sub_requests_269:
   shift_id: "2927"
   start: 2009-09-12 17:00:00
   updated_at: 2009-07-11 10:07:48
-sub_requests_270: 
+sub_requests_269: 
   created_at: 2009-07-11 10:07:51
   end: 2009-09-13 01:00:00
   id: "288"
@@ -2699,7 +2689,7 @@ sub_requests_270:
   shift_id: "2929"
   start: 2009-09-13 00:00:00
   updated_at: 2009-07-11 10:07:51
-sub_requests_271: 
+sub_requests_270: 
   created_at: 2009-07-11 10:08:05
   end: 2009-09-12 20:00:00
   id: "289"
@@ -2709,7 +2699,7 @@ sub_requests_271:
   shift_id: "2936"
   start: 2009-09-12 19:00:00
   updated_at: 2009-07-11 10:08:05
-sub_requests_272: 
+sub_requests_271: 
   created_at: 2009-07-11 10:09:46
   end: 2009-09-15 17:00:00
   id: "290"
@@ -2719,7 +2709,7 @@ sub_requests_272:
   shift_id: "2968"
   start: 2009-09-15 16:00:00
   updated_at: 2009-07-11 10:09:46
-sub_requests_273: 
+sub_requests_272: 
   created_at: 2009-07-11 10:09:54
   end: 2009-09-16 02:00:00
   id: "291"
@@ -2729,7 +2719,7 @@ sub_requests_273:
   shift_id: "2972"
   start: 2009-09-15 23:00:00
   updated_at: 2009-07-11 10:09:54
-sub_requests_274: 
+sub_requests_273: 
   created_at: 2009-07-11 10:10:01
   end: 2009-09-15 18:00:00
   id: "292"
@@ -2739,7 +2729,7 @@ sub_requests_274:
   shift_id: "2974"
   start: 2009-09-15 14:00:00
   updated_at: 2009-07-11 10:10:01
-sub_requests_275: 
+sub_requests_274: 
   created_at: 2009-07-11 10:11:06
   end: 2009-09-18 02:00:00
   id: "293"
@@ -2749,7 +2739,7 @@ sub_requests_275:
   shift_id: "2992"
   start: 2009-09-18 01:00:00
   updated_at: 2009-07-11 10:11:06
-sub_requests_276: 
+sub_requests_275: 
   created_at: 2009-07-11 10:11:08
   end: 2009-09-17 17:00:00
   id: "294"
@@ -2759,7 +2749,7 @@ sub_requests_276:
   shift_id: "2994"
   start: 2009-09-17 16:00:00
   updated_at: 2009-07-11 10:11:08
-sub_requests_277: 
+sub_requests_276: 
   created_at: 2009-07-11 10:12:04
   end: 2009-09-18 15:00:00
   id: "295"
@@ -2769,7 +2759,7 @@ sub_requests_277:
   shift_id: "3016"
   start: 2009-09-18 14:00:00
   updated_at: 2009-07-11 10:12:04
-sub_requests_278: 
+sub_requests_277: 
   created_at: 2009-07-11 10:12:06
   end: 2009-09-18 15:00:00
   id: "296"
@@ -2779,7 +2769,7 @@ sub_requests_278:
   shift_id: "3017"
   start: 2009-09-18 14:00:00
   updated_at: 2009-07-11 10:12:06
-sub_requests_279: 
+sub_requests_278: 
   created_at: 2009-07-11 10:12:13
   end: 2009-09-18 20:00:00
   id: "297"
@@ -2789,7 +2779,7 @@ sub_requests_279:
   shift_id: "3018"
   start: 2009-09-18 19:00:00
   updated_at: 2009-07-11 10:12:13
-sub_requests_280: 
+sub_requests_279: 
   created_at: 2009-07-11 10:12:30
   end: 2009-09-18 16:00:00
   id: "298"
@@ -2799,7 +2789,7 @@ sub_requests_280:
   shift_id: "3021"
   start: 2009-09-18 15:00:00
   updated_at: 2009-07-11 10:12:30
-sub_requests_281: 
+sub_requests_280: 
   created_at: 2009-07-11 10:12:38
   end: 2009-09-19 15:00:00
   id: "299"
@@ -2809,7 +2799,7 @@ sub_requests_281:
   shift_id: "3025"
   start: 2009-09-19 14:00:00
   updated_at: 2009-07-11 10:12:38
-sub_requests_282: 
+sub_requests_281: 
   created_at: 2009-07-11 10:12:44
   end: 2009-09-19 22:00:00
   id: "300"
@@ -2819,7 +2809,7 @@ sub_requests_282:
   shift_id: "3029"
   start: 2009-09-19 21:00:00
   updated_at: 2009-07-11 10:12:44
-sub_requests_283: 
+sub_requests_282: 
   created_at: 2009-07-11 10:12:55
   end: 2009-09-19 23:00:00
   id: "301"
@@ -2829,7 +2819,7 @@ sub_requests_283:
   shift_id: "3034"
   start: 2009-09-19 22:00:00
   updated_at: 2009-07-11 10:12:55
-sub_requests_284: 
+sub_requests_283: 
   created_at: 2009-07-11 10:13:29
   end: 2009-09-21 00:00:00
   id: "302"
@@ -2839,7 +2829,7 @@ sub_requests_284:
   shift_id: "3044"
   start: 2009-09-20 23:00:00
   updated_at: 2009-07-11 10:13:29
-sub_requests_285: 
+sub_requests_284: 
   created_at: 2009-07-11 10:14:49
   end: 2009-09-23 00:00:00
   id: "303"
@@ -2849,7 +2839,7 @@ sub_requests_285:
   shift_id: "3072"
   start: 2009-09-22 21:00:00
   updated_at: 2009-07-11 10:14:49
-sub_requests_286: 
+sub_requests_285: 
   created_at: 2009-07-11 10:14:51
   end: 2009-09-22 20:00:00
   id: "304"
@@ -2859,7 +2849,7 @@ sub_requests_286:
   shift_id: "3073"
   start: 2009-09-22 19:00:00
   updated_at: 2009-07-11 10:14:51
-sub_requests_287: 
+sub_requests_286: 
   created_at: 2009-07-11 10:15:00
   end: 2009-09-23 00:00:00
   id: "305"
@@ -2869,7 +2859,7 @@ sub_requests_287:
   shift_id: "3078"
   start: 2009-09-22 22:00:00
   updated_at: 2009-07-11 10:15:00
-sub_requests_288: 
+sub_requests_287: 
   created_at: 2009-07-11 10:15:49
   end: 2009-09-23 15:00:00
   id: "306"
@@ -2879,7 +2869,7 @@ sub_requests_288:
   shift_id: "3094"
   start: 2009-09-23 14:00:00
   updated_at: 2009-07-11 10:15:49
-sub_requests_289: 
+sub_requests_288: 
   created_at: 2009-07-11 10:17:09
   end: 2009-09-26 03:00:00
   id: "307"
@@ -2889,7 +2879,7 @@ sub_requests_289:
   shift_id: "3112"
   start: 2009-09-26 01:00:00
   updated_at: 2009-07-11 10:17:09
-sub_requests_290: 
+sub_requests_289: 
   created_at: 2009-07-11 10:17:17
   end: 2009-09-25 17:00:00
   id: "308"
@@ -2899,7 +2889,7 @@ sub_requests_290:
   shift_id: "3118"
   start: 2009-09-25 16:00:00
   updated_at: 2009-07-11 10:17:17
-sub_requests_291: 
+sub_requests_290: 
   created_at: 2009-07-11 10:17:24
   end: 2009-09-25 20:00:00
   id: "309"
@@ -2909,7 +2899,7 @@ sub_requests_291:
   shift_id: "3121"
   start: 2009-09-25 19:00:00
   updated_at: 2009-07-11 10:17:24
-sub_requests_292: 
+sub_requests_291: 
   created_at: 2009-07-11 10:18:05
   end: 2009-09-27 00:00:00
   id: "310"
@@ -2919,7 +2909,7 @@ sub_requests_292:
   shift_id: "3127"
   start: 2009-09-26 23:00:00
   updated_at: 2009-07-11 10:18:05
-sub_requests_293: 
+sub_requests_292: 
   created_at: 2009-07-11 10:18:43
   end: 2009-09-26 17:00:00
   id: "311"
@@ -2929,7 +2919,7 @@ sub_requests_293:
   shift_id: "3137"
   start: 2009-09-26 15:00:00
   updated_at: 2009-07-11 10:18:43
-sub_requests_294: 
+sub_requests_293: 
   created_at: 2009-07-11 10:19:02
   end: 2009-09-27 18:00:00
   id: "312"
@@ -2939,7 +2929,7 @@ sub_requests_294:
   shift_id: "3146"
   start: 2009-09-27 17:00:00
   updated_at: 2009-07-11 10:19:02
-sub_requests_295: 
+sub_requests_294: 
   created_at: 2009-07-11 10:19:49
   end: 2009-09-28 19:00:00
   id: "313"
@@ -2949,7 +2939,7 @@ sub_requests_295:
   shift_id: "3161"
   start: 2009-09-28 18:00:00
   updated_at: 2009-07-11 10:19:49
-sub_requests_296: 
+sub_requests_295: 
   created_at: 2009-07-11 10:19:51
   end: 2009-09-29 01:00:00
   id: "314"
@@ -2959,7 +2949,7 @@ sub_requests_296:
   shift_id: "3163"
   start: 2009-09-28 22:00:00
   updated_at: 2009-07-11 10:19:51
-sub_requests_297: 
+sub_requests_296: 
   created_at: 2009-07-11 10:20:30
   end: 2009-09-30 00:00:00
   id: "315"
@@ -2969,7 +2959,7 @@ sub_requests_297:
   shift_id: "3172"
   start: 2009-09-29 23:00:00
   updated_at: 2009-07-11 10:20:30
-sub_requests_298: 
+sub_requests_297: 
   created_at: 2009-07-11 10:20:34
   end: 2009-09-29 16:00:00
   id: "316"
@@ -2979,7 +2969,7 @@ sub_requests_298:
   shift_id: "3174"
   start: 2009-09-29 14:00:00
   updated_at: 2009-07-11 10:20:34
-sub_requests_299: 
+sub_requests_298: 
   created_at: 2009-07-11 10:20:36
   end: 2009-09-29 22:00:00
   id: "317"
@@ -2989,7 +2979,7 @@ sub_requests_299:
   shift_id: "3176"
   start: 2009-09-29 21:00:00
   updated_at: 2009-07-11 10:20:36
-sub_requests_300: 
+sub_requests_299: 
   created_at: 2009-07-11 10:20:42
   end: 2009-09-29 19:00:00
   id: "318"
@@ -2999,7 +2989,7 @@ sub_requests_300:
   shift_id: "3180"
   start: 2009-09-29 16:00:00
   updated_at: 2009-07-11 10:20:42
-sub_requests_301: 
+sub_requests_300: 
   created_at: 2009-07-11 10:22:13
   end: 2009-10-01 16:00:00
   id: "319"
@@ -3009,7 +2999,7 @@ sub_requests_301:
   shift_id: "3201"
   start: 2009-10-01 14:00:00
   updated_at: 2009-07-11 10:22:13
-sub_requests_302: 
+sub_requests_301: 
   created_at: 2009-07-11 10:23:53
   end: 2009-10-02 18:00:00
   id: "320"
@@ -3019,7 +3009,7 @@ sub_requests_302:
   shift_id: "3227"
   start: 2009-10-02 16:00:00
   updated_at: 2009-07-11 10:23:53
-sub_requests_303: 
+sub_requests_302: 
   created_at: 2009-07-11 10:24:17
   end: 2009-10-03 19:00:00
   id: "321"
@@ -3029,7 +3019,7 @@ sub_requests_303:
   shift_id: "3235"
   start: 2009-10-03 18:00:00
   updated_at: 2009-07-11 10:24:17
-sub_requests_304: 
+sub_requests_303: 
   created_at: 2009-07-11 10:24:19
   end: 2009-10-03 18:00:00
   id: "322"
@@ -3039,7 +3029,7 @@ sub_requests_304:
   shift_id: "3237"
   start: 2009-10-03 17:00:00
   updated_at: 2009-07-11 10:24:19
-sub_requests_305: 
+sub_requests_304: 
   created_at: 2009-07-11 10:24:28
   end: 2009-10-03 14:00:00
   id: "323"
@@ -3049,7 +3039,7 @@ sub_requests_305:
   shift_id: "3239"
   start: 2009-10-03 13:00:00
   updated_at: 2009-07-11 10:24:28
-sub_requests_306: 
+sub_requests_305: 
   created_at: 2009-07-11 10:25:05
   end: 2009-10-04 15:00:00
   id: "324"
@@ -3059,7 +3049,7 @@ sub_requests_306:
   shift_id: "3251"
   start: 2009-10-04 14:00:00
   updated_at: 2009-07-11 10:25:05
-sub_requests_307: 
+sub_requests_306: 
   created_at: 2009-07-11 10:25:21
   end: 2009-10-04 17:00:00
   id: "325"
@@ -3069,7 +3059,7 @@ sub_requests_307:
   shift_id: "3253"
   start: 2009-10-04 16:00:00
   updated_at: 2009-07-11 10:25:21
-sub_requests_308: 
+sub_requests_307: 
   created_at: 2009-07-11 10:26:20
   end: 2009-10-05 23:00:00
   id: "326"
@@ -3079,7 +3069,7 @@ sub_requests_308:
   shift_id: "3267"
   start: 2009-10-05 22:00:00
   updated_at: 2009-07-11 10:26:20
-sub_requests_309: 
+sub_requests_308: 
   created_at: 2009-07-11 10:27:02
   end: 2009-10-06 21:00:00
   id: "329"
@@ -3089,7 +3079,7 @@ sub_requests_309:
   shift_id: "3283"
   start: 2009-10-06 20:00:00
   updated_at: 2009-07-11 10:27:02
-sub_requests_310: 
+sub_requests_309: 
   created_at: 2009-07-11 10:28:11
   end: 2009-10-07 14:00:00
   id: "330"
@@ -3099,7 +3089,7 @@ sub_requests_310:
   shift_id: "3298"
   start: 2009-10-07 13:00:00
   updated_at: 2009-07-11 10:28:11
-sub_requests_311: 
+sub_requests_310: 
   created_at: 2009-07-11 10:29:44
   end: 2009-10-09 21:00:00
   id: "331"
@@ -3109,7 +3099,7 @@ sub_requests_311:
   shift_id: "3326"
   start: 2009-10-09 20:00:00
   updated_at: 2009-07-11 10:29:44
-sub_requests_312: 
+sub_requests_311: 
   created_at: 2009-07-11 10:30:27
   end: 2009-10-10 23:00:00
   id: "332"
@@ -3119,7 +3109,7 @@ sub_requests_312:
   shift_id: "3337"
   start: 2009-10-10 22:00:00
   updated_at: 2009-07-11 10:30:27
-sub_requests_313: 
+sub_requests_312: 
   created_at: 2009-07-11 10:30:43
   end: 2009-10-10 14:00:00
   id: "333"

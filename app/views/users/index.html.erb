@@ -7,7 +7,7 @@
   <% end %>
 </div>
 
-<p><%= image_tag("icons/icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%></p>
+<p><%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%></p>
 
 <table class="sortable">
   <thead>
@@ -27,9 +27,9 @@
 
 <p>
 <% if params[:show_inactive].nil? %>
-  <%= image_tag("icons/icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true, :class => "action_with_icon") %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true, :class => "action_with_icon") %>
 <% else %>
-  <%= image_tag("icons/icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department, :class => "action_with_icon") %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department, :class => "action_with_icon") %>
 <% end %>
 </p>
 

@@ -1,0 +1,11 @@
+one:
+  name: MyString
+  start_date: 2009-08-04 13:42:39
+  end_date: 2009-08-04 13:42:39
+  active: false
+
+two:
+  name: MyString
+  start_date: 2009-08-04 13:42:39
+  end_date: 2009-08-04 13:42:39
+  active: false
