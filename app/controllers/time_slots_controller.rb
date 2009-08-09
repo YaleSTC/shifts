@@ -33,6 +33,7 @@ class TimeSlotsController < ApplicationController
         time_slot.location_id = location_id
         time_slot.start = date + day.to_i.days + time_slot.start.seconds_since_midnight
         time_slot.end = date + day.to_i.days + time_slot.end.seconds_since_midnight
+        time_slot.calendar = @department.calendars.default.first unless time_slot.calendar
         if !time_slot.save
           errors << "Error saving timeslot for #{WEEK_DAYS[day]}"
         else
