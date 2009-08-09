@@ -21,6 +21,7 @@ Scenario: Create a shift with power sign up
   And I select "00" from "shift[end(5i)]"
   And I select "Harry Potter" from "shift_user_id"
   And I select "Diagon Alley" from "shift_location_id"
+  And I check "shift[power_signed_up]"
   When I press "Submit"
   Then I should see "Successfully created shift."
 
