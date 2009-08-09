@@ -36,6 +36,11 @@ class Notice < ActiveRecord::Base
     end
   end
 
+  def is_upcoming?
+    return self.start_time > Time.now if self.start_time
+    false
+  end
+
   def viewers
     self.user_sources.collect{|us| us.users}.flatten.uniq
   end

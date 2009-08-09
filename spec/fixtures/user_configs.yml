@@ -5,7 +5,6 @@ Dumbledore:
   view_week: whole_period
   watched_data_objects: ""
 
-
 Potter:
   user_id: 2
   default_dept: 1
@@ -18,7 +17,8 @@ Granger:
   default_dept: 1
   view_loc_groups: 1
   view_week: whole_period
-
+  watched_data_objects: ""
+  
 Garfield_owner:
   user_id: 4
   default_dept: 2

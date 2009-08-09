@@ -1,5 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
+  belongs_to :user
 
   validates_presence_of :reason
   validates_presence_of :shift
@@ -85,4 +86,3 @@ class SubRequest < ActiveRecord::Base
   end
 
 end
-
