@@ -178,6 +178,7 @@ class User < ActiveRecord::Base
   end
 
   def available_sub_requests(departments = self.departments) #TODO: this could probalby be optimized even more
+    #Wrap it in a transaction speeds things up....
     ActiveRecord::Base.transaction do
     a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"User\" AND user_source_id = \"#{self.id}\""])
     b = departments.collect do |department|
