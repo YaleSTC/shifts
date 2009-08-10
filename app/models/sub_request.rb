@@ -46,7 +46,8 @@ class SubRequest < ActiveRecord::Base
   end
 
   def substitutes
-    self.user_sources.collect{|s| s.users}.flatten.uniq
+    temp = self.user_sources
+    temp.empty? ? [self.shift.department] : temp.collect{|s| s.users}.flatten.uniq
   end
 
   def has_started?

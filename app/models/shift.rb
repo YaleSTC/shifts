@@ -136,9 +136,14 @@ class Shift < ActiveRecord::Base
     #seconds
   end
 
-  #a shift has been signed into and its shift report has been submitted
+  #a shift has been signed in to if it has a report
+  def signed_in?
+    self.report
+  end
+
+  #a shift has been signed in to if its shift report has been submitted
   def submitted?
-    self.signed_in? and self.report.departed
+    self.report and self.report.departed
   end
 
   #TODO: subs!
@@ -241,7 +246,7 @@ class Shift < ActiveRecord::Base
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.start <= Time.now
+    errors.add_to_base("Can't sign up for a shift that has already passed!") if self.start <= Time.now
   end
 
   def adjust_sub_requests

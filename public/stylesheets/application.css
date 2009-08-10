@@ -14,12 +14,6 @@ a {
   color: #0000FF;
 }
 
-.clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
-}
-
 #container {
   width: 75%;
   margin: 0 auto;
@@ -34,6 +28,12 @@ a {
 }
 
 */
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
 
 .disabled {
   color: #888;
@@ -152,7 +152,7 @@ body {
   padding: 0px;
 }
 #identityHeader h1 {
-  float: left;
+  float: left;f
   font-size: 12px;
   height: 0pt;
   margin: 0pt;
@@ -495,7 +495,7 @@ fieldset#warning {
 fieldset.index {
   width: 98.6%;
   padding: 5px;
-  margin: 0px;
+  margin: 0px 0px 5px 0px;
   border: 1px solid gray;
   background-color:#DDDDFF
 }
@@ -591,6 +591,12 @@ div.form_left {
   float:left;
 }
 
+div.form_right {
+  position:absolute;
+  width:25%;
+  top:500;
+  right:450px;
+}
 div.table_right {
   width:50%;
   float:right;

@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
+  has_one :user_profile, :dependent => :destroy
 
   attr_protected :superusercreate_
   named_scope :superusers, :conditions => { :superuser => true }, :order => "last_name"
@@ -177,6 +178,7 @@ class User < ActiveRecord::Base
   end
 
   def available_sub_requests(departments = self.departments) #TODO: this could probalby be optimized even more
+    #Wrap it in a transaction speeds things up....
     ActiveRecord::Base.transaction do
     a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"User\" AND user_source_id = \"#{self.id}\""])
     b = departments.collect do |department|

@@ -10,7 +10,7 @@ Scenario Outline: Seeing the roles page
 Given I am "<user>"
 And I am on the roles page
 Then I <shouldornot> see "New Role"
-And I <shouldornot> see "All Roles"
+And I <shouldornot> see "Show all Roles"
 And I <shouldornot2> see "Access denied"
 
 Scenarios: Not being able to because not an admin user
@@ -74,9 +74,9 @@ Then I should see "Edit User"
 And I should see "Roles"
 And I should see "Assistant Boss"
 
-Scenarios: Successfully assigning some roles
+#Scenarios: Successfully assigning some roles
 
-|superuser       |login|firstname|lastname|email             |
-|Albus Dumbledore|hp123|Harry    |Potter  |hp123@hogwarts.edu|
-|Horace Slughorn |hp123|Harry    |Potter  |hp123@hogwarts.edu|
+#|superuser       |login|firstname|lastname|email             |
+#|Albus Dumbledore|hp123|Harry    |Potter  |hp123@hogwarts.edu|
+#|Horace Slughorn |hp123|Harry    |Potter  |hp123@hogwarts.edu|
 

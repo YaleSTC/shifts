@@ -31,7 +31,7 @@ module ShiftsHelper
     @location_rows = {}
     
     #for AJAX; needs cleanup if we have time
-    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    @loc_groups = current_user.user_config.view_loc_groups.select{|l| !l.locations.empty?}
     @dept_start_hour ||= current_department.department_config.schedule_start / 60
     @dept_end_hour ||= current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
@@ -79,8 +79,12 @@ module ShiftsHelper
       rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
     end
 
-    @table_height = rowcount + @loc_groups.length * 0.25
+
+
+    @table_height = rowcount
     @table_pixels = 26 * rowcount + rowcount+1
+    
+    @divider_height = 0.25 * @table_pixels / (@table_height)
   end
   
 end
