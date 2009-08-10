@@ -2,8 +2,8 @@ class RepeatingEvent < ActiveRecord::Base
   belongs_to :calendar
   has_many :time_slots
   has_many :shifts
-  validates_presence_of :loc_ids, :message => "You must select at least one location"
-  validates_presence_of :days_of_week, :message => "You must select at least on day of the week"
+  validate :loc_ids_present
+  validate :days_of_week_present
   validates_presence_of :user, :if => Proc.new{|repeating_event| repeating_event.has_shifts?}
   validate_on_create :not_in_the_past
   validate :start_date_less_than_end_date
@@ -71,8 +71,16 @@ class RepeatingEvent < ActiveRecord::Base
 
   private
 
+  def days_of_week_present
+    errors.add_to_base("You must select at least one day of the week!") unless days_of_week
+  end
+
+  def loc_ids_present
+    errors.add_to_base("You must select at least one location!") unless loc_ids
+  end
+
   def not_in_the_past
-    errors.add_to_base("Can\'t create a repeating event that starts in the past!") if self.start_time <= Time.now
+    errors.add_to_base("Can't create a repeating event that starts in the past!") if self.start_time <= Time.now
   end
 
   def start_date_less_than_end_date
