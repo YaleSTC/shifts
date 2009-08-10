@@ -43,7 +43,7 @@ elsif @department.department_config.weekend_shifts #show weekends
     @time_increment = current_department.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
 
-    @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    @loc_groups = current_user.user_config.view_loc_groups
   end
 
 # Necessary? -ben
@@ -95,13 +95,15 @@ elsif @department.department_config.weekend_shifts #show weekends
       @shift.power_signed_up = false
       @shift.user = current_user
     end
+    if !@shift.scheduled && current_user.current_shift
+      flash[:notice] = "You can't sign into two shifts!"
+      redirect_to shifts_path and return
+    end
     if @shift.save
       if !@shift.scheduled
         @report = Report.new(:shift => @shift, :arrived => Time.now)
-        #Mark shift as signed in, since we are bypassing the report create controller
         @shift.signed_in = true
         @shift.save
-        # add a report item about logging in
         @report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
         redirect_to @report and return if @report.save
       end
@@ -145,17 +147,22 @@ elsif @department.department_config.weekend_shifts #show weekends
         redirect_to @shift
       end
     else
-      respond_to do |format|
-        format.html{render :action => 'edit'}
-        format.js do
-          render :update do |page|
-            error_string = ""
-            @shift.errors.each do |attr_name, message|
-              error_string += "<br>#{attr_name}: #{message}"
-            end
-            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+      if params[:wants]
+        respond_to do |format|
+          format.js do
+            render :text => "failed to update"
+            # render :update do |page|
+            #   error_string = ""
+            #   @shift.errors.each do |attr_name, message|
+            #     error_string += "<br>#{attr_name}: #{message}"
+            #   end
+            #   page << "FAIL: ";
+            #   ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            # end
           end
         end
+      else
+        render :action => 'edit'
       end
     end
   end
@@ -172,7 +179,7 @@ elsif @department.department_config.weekend_shifts #show weekends
       format.js #remove partial from view
     end
   end
-  
+
   def rerender
     #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
     #TODO:simplify this stuff:
