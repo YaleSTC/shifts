@@ -1,0 +1,2 @@
+module UserProfileEntriesHelper
+end

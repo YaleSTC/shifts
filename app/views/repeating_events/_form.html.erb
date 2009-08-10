@@ -3,11 +3,11 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :start_date %><br />
-    <%= f.datetime_select :start_date %>
+    <%= f.date_select :start_date %>
   </p>
   <p>
     <%= f.label :end_date %><br />
-    <%= f.datetime_select :end_date %>
+    <%= f.date_select :end_date %>
   </p>
   <p>
     <%= f.label :calendar %><br />
@@ -21,24 +21,23 @@
     <% end %>
   </p>
   <p>
+    <%= f.label :start_time %><br />
+    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+  <p>
+    <%= f.label :end_time %><br />
+    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+  <p>
   <strong>Time Slot or Shift?</strong> <br />
   <%= f.label :time_slot %>
-  <%= f.radio_button( :slot_or_shift, "time_slot" ) %>
+  <%= f.radio_button( :slot_or_shift, "time_slot", :checked => @repeating_event.has_time_slots? ) %>
   <%= f.label :shift %>
-  <%= f.radio_button( :slot_or_shift, "shift" ) %>
+  <%= f.radio_button( :slot_or_shift, "shift", :checked => @repeating_event.has_shifts? ) %>
   </p>
 <div id = "time_slot_fields">
-  <% fields_for @time_slot do |t| %>
   <h3> Time Slot </h3>
-  <%= t.error_messages %>
-  <p>
-    <%= t.label :start %><br />
-    <%= t.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-  </p>
-  <p>
-    <%= t.label :end %><br />
-    <%= t.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-  </p>
+
   <% @department.loc_groups.each do |loc_group| %>
     <% unless loc_group.locations.empty? %>
       <p>
@@ -51,32 +50,19 @@
     <% end %>
   <%- end -%>
   </p>
-  <% end %>
 </div>
 <div id = "shift_fields">
-
-<% fields_for @shift do |s| %>
 <h3> Shift </h3>
-  <%= s.error_messages %>
-  <p>
-    <%= s.label :start %><br />
-    <%= s.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-  </p>
-  <p>
-    <%= s.label :end %><br />
-    <%= s.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-  </p>
     <p>
-      <%= s.label :user %><br />
-      <%= s.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+      <%= f.label :user %><br />
+      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
     </p>
   <p>
-    <%= s.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
+    <%= f.label :location %><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @repeating_event.location_ids ? @repeating_event.location_ids[0] : nil)%><br />
   </p>
-<% end %>
 
-</div
+</div>
 
 
 

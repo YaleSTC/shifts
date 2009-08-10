@@ -1,0 +1,26 @@
+---
+user_profile_01:
+  id: 1
+  user_id: 1
+user_profile_02:
+  id: 2
+  user_id: 2
+user_profile_03:
+  id: 3
+  user_id: 3
+user_profile_04:
+  id: 4
+  user_id: 4
+user_profile_05:
+  id: 5
+  user_id: 5
+user_profile_06:
+  id: 6
+  user_id: 6
+user_profile_07:
+  id: 7
+  user_id: 7
+user_profile_08:
+  id: 8
+  user_id: 8
+

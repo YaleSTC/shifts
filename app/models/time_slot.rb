@@ -10,24 +10,6 @@ class TimeSlot < ActiveRecord::Base
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
 
-#TODO: This half-written method will probably never be used : (
-#  def self.mass_create(slot_start, slot_end, days, locations, range_start, range_end)
-#    weeklist = []
-#    range_start = range_start.yesterday
-#    until range_start > range_end
-#      weeklist << range_start
-#      range_start = Chronic("One week from now", :now=>range_start)
-#    end
-
-#    weeklist.each do |week|
-#      locations.each do |loc|
-#        days.each do |d|
-#          t = TimeSlot.new
-#          t.start = Chronic.parse("#{slot_start} on #{d}", :now => week)
-#          t.end = Chronic.parse("#{slot_end} on #{d}", :now => week)
-#          t.location = loc
-
-#  end
 
   #This method creates the multitude of shifts required for repeating_events to work
   #in order to work efficiently, it makes a few GIANT sql insert calls
