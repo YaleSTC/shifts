@@ -47,6 +47,9 @@ ul.hidden_shifts li {
     width:24%;
     float:left;
 }
+ul.hidden_shifts li:hover {
+    cursor: pointer;
+}
 
 
 /* HEADERS AND FOOTERS*/
