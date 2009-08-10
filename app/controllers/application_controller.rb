@@ -160,7 +160,7 @@ class ApplicationController < ActionController::Base
 
 # Takes any object that has a user method and checks against current_user
   def require_owner(thing)
-    unless current_user.is_owner_of?(thing)      
+    unless current_user.is_owner_of?(thing)
       error_message = "You are not the owner of this #{thing.class.name.decamelize}"
       respond_to do |format|
         format.html do
@@ -271,3 +271,4 @@ class ApplicationController < ActionController::Base
 
 
 end
+

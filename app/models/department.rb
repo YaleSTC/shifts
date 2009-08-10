@@ -18,6 +18,7 @@ class Department < ActiveRecord::Base
       find(:all, :conditions => ["\"default\" = ?", true])
     end
   end
+  has_many :user_profile_fields
 
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
