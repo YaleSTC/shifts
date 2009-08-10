@@ -39,5 +39,6 @@ class UserConfig < ActiveRecord::Base
   def default_department
     Department.find_by_id(default_dept) || (user.departments.empty? ? nil : user.departments.first)
   end
+
 end
 

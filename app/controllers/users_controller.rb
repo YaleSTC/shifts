@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if params[:show_inactive]
       @users = @department.users
     else
-      @users = @department.users.select{|user| user.is_active?(@department)}
+      @users = @department.users.select{|a| a.is_active?(@department)}
     end
 
     if params[:search]
@@ -29,6 +29,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user_profile = UserProfile.find_by_user_id((params[:id]))
+    unless @user_profile.user.departments.include?(@department)
+      flash[:error] = "This user does not have a profile in this department"
+    end
+    @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
   end
 
   def ldap_search
@@ -79,19 +84,48 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @user_profile = UserProfile.find_by_user_id(@user.id)
+    @user_profile_entries = @user.user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
+
   end
 
   def update
     #TODO: prevent params hacking w/ regard to setting roles and login
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
-
     #store role changes, or else they'll overwrite roles in other departments
     #remove all roles associated with this department
     department_roles = @user.roles.select{|role| role.department == @department}
     updated_roles = @user.roles - department_roles
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+
+  # So that the User Profile can be updated as well
+      @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
+      @user_profile_entries = params[:user_profile_entries]
+
+      @user_profile_entries.each do |entry_id, entry_content|
+        entry = UserProfileEntry.find(entry_id)
+        @content = ""
+          if entry.display_type == "check_box"
+            UserProfileEntry.find(entry_id).values.split(", ").each do |value|
+              c = entry_content[value]
+              @content += value + ", " if c == "1"
+            end
+            @content.gsub!(/, \Z/, "")
+            entry.content = @content
+            entry.save
+          elsif entry.display_type == "radio_button"
+            entry.content = entry_content["1"]
+            entry.save
+          else
+            entry.content = entry_content[entry_id]
+            entry.save
+          end
+      end
+
+    @user_profile = UserProfile.find_by_user_id(@user.id)
+    @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
     params[:user][:role_ids] = updated_roles
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
