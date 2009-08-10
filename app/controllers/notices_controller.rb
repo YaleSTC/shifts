@@ -35,6 +35,7 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
     @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+#    raise params.to_yaml
     begin
       Notice.transaction do
         @notice.save(false)
@@ -46,13 +47,13 @@ class NoticesController < ApplicationController
           format.html { render :action => "new" }
           format.js  #create.js.rjs
         end
-      else
-        respond_to do |format|
-          format.html {
-          flash[:notice] = 'Notice was successfully created.'
-          redirect_to :action => "index"
-        }
-        format.js  #create.js.rjs
+    else
+      respond_to do |format|
+        format.html {
+        flash[:notice] = 'Notice was successfully created.'
+        redirect_to :action => "index"
+      }
+      format.js  #create.js.rjs
       end
     end
 
@@ -76,6 +77,7 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+#    raise params.to_yaml
     begin
       Notice.transaction do
         @notice.save(false)
@@ -127,7 +129,8 @@ class NoticesController < ApplicationController
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
           user_source = User.search(l) || Role.find_by_name(l)
-          user_source = Department.find_by_name(l) if current_user.is_admin_of?(current_department)
+          find_dept = Department.find_by_name(l)
+          user_source = find_dept if find_dept && current_user.is_admin_of?(find_dept)
           @notice.user_sources << user_source if user_source
         else
           l = l.split("||")
