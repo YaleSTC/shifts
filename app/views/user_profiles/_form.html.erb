@@ -16,7 +16,10 @@
             
             
           <% elsif entry.display_type == "upload_pic" %>
-            File to Upload <%= file_field_tag "user_profile_entries[#{entry.id}]" %>
+            page.insert_html :bottom, :user_profile_pics, :partial => 'user_profile_pic', :object => UserProfilePics.new
+            <%#= send("text_field", *args) %>
+            <%= render :partial => "user_profile_pic", :object => UserProfilePics.new >
+          
             
             
             
