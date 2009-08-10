@@ -3,6 +3,8 @@ class CreateShifts < ActiveRecord::Migration
     create_table :shifts do |t|
       t.datetime :start
       t.datetime :end
+      t.references :calendar
+      t.references :repeating_event
       t.references :user
       t.references :location
       t.references :department #SPEEDS UP DATABASE QUERIES!
@@ -17,4 +19,3 @@ class CreateShifts < ActiveRecord::Migration
     drop_table :shifts
   end
 end
-

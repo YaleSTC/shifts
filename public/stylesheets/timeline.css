@@ -4,6 +4,7 @@ ul.events li.timeslot {
     background: #eee;
     color: #707070;
     font-weight: bold;
+		z-index: 1;
 }
 ul.events li.timeslot a {             color: #999; }
 ul.events li.timeslot:hover a:hover { color: #999; }
@@ -11,7 +12,7 @@ ul.events li.timeslot:hover a {       color: #707070; }
 ul.events li.timeslot:hover {         background: #ddd; }
 
 
-
+ul.timeslot_group li{border-top:1px solid #ccc; border-bottom:1px solid #ccc;}
 
 
 h2 { clear: both; }
@@ -41,7 +42,9 @@ div.timeline div.day {
     border-left: 1px solid #ddd;
     width: 100%;
     text-align: center;
-    background: #fff;
+    color: #fff;
+    font-weight: bold;
+    background: #888;
 }
 
 ul.intervals {
@@ -55,7 +58,16 @@ ul.intervals {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
-    background: #fff;
+    background: #559;
+    color: #fff;
+}
+
+ul.intervals div.hours {
+    background: #888;
+    border-left: 1px solid #ccc;
+}
+ul.intervals div#first {
+    border-left: 1px solid #888;
 }
 
 div.timeline div.day,
@@ -114,7 +126,14 @@ ul.events li {
     height: 100%;
 }
 ul.events li.click_to_add_new {
-	z-index: 0;
+		z-index: 0;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+    border-left: 0px solid #fff;
+}
+ul.events li.click_to_add_new_timeslot {
+		z-index: 0;
     background: transparent;
     position: absolute;
     height: 100%;
@@ -153,31 +172,9 @@ div.center_content {
 img.right_arrow { position:absolute; right:0; }
 img.left_arrow {  position:absolute; left:0;  }
 
-div.loading{
-	position: absolute;
-	float: left;
-	top: 0;
-	left: 0;
-	z-index: 50;
-	display: block;
-	background: #ddd;
-	color: #000;
-	padding: 5px;
-	font-style: normal;
-	font-weight: normal;
-  font-family: Verdana, Arial, serif;
-	width: 100px;
-	font-size: 12px;
-	border: 1px solid gray;
-}
-
-div.tooltip{
+div#tooltip{
 	text-align: left;
-	position: absolute;
-	float: left;
-	top: 100%;
-	left: 0;
-	z-index: 51;
+	z-index: 1000;
 	display: block;
 	background: #ddd;
 	color: #000;
@@ -190,21 +187,13 @@ div.tooltip{
 	border: 1px solid gray;
 }
 
-div.tooltip.edit{
-	top:0%;
-}
-/*
-div.tooltip a{
-	color: #104e8b !important;
-}*/
-
-div.tooltip strong{
+div#tooltip strong{
 	border: 0;
 	margin: 0;
 	padding: 0;
 }
 
-div.tooltip div.close_link{
+div#tooltip div.close_link{
 	position: absolute;
 	top: 3px;
 	right: 3px;	

@@ -10,7 +10,7 @@ Feature: Settings
     Given I am "Albus Dumbledore"
 
   Scenario: Department settings should be created when a new department is created
-#    Given the user "Albus Dumbledore" is a superuser
+    Given the user "Albus Dumbledore" is a superuser
     And I am on the list of departments
     And I follow "New Department"
     And I fill in "Name" with "Outer Space"
