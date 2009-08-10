@@ -21,6 +21,8 @@ class UserProfileEntry < ActiveRecord::Base
       return ["user_profile_entries[#{id}]", id, {:value => content}]
     elsif display_type == "picture_link"
       return ["user_profile_entries[#{id}]", id, {:value => content}]
+    elseif display_type == "upload_pic"
+      return ["user_profile_entries[#{id}]", id, {:value => content}]
     elsif display_type == "text_area"
       return ["user_profile_entries[#{id}]", id, {:id => id, :value => content}]
     elsif display_type == "select"
