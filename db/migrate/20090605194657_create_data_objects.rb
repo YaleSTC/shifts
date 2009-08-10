@@ -7,13 +7,15 @@ class CreateDataObjects < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :data_objects_locations do |t|
-      t.integer :data_object_id
-      t.integer :location_id
+    # Create the join table
+    create_table :data_objects_locations, :id => false do |t|
+      t.references :data_object
+      t.references :location
     end
   end
   
   def self.down
     drop_table :data_objects
+    drop_table :data_objects_locations
   end
 end
