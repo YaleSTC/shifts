@@ -1,7 +1,7 @@
 class SubRequestsController < ApplicationController
 
   def index
-    @sub_requests = SubRequest.all
+    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
   end
 
   def show
