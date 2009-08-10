@@ -14,12 +14,6 @@ a {
   color: #0000FF;
 }
 
-.clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
-}
-
 #container {
   width: 75%;
   margin: 0 auto;
@@ -34,6 +28,12 @@ a {
 }
 
 */
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
 
 .disabled {
   color: #888;
@@ -591,6 +591,12 @@ div.form_left {
   float:left;
 }
 
+div.form_right {
+  position:absolute;
+  width:25%;
+  top:500;
+  right:450px;
+}
 div.table_right {
   width:50%;
   float:right;

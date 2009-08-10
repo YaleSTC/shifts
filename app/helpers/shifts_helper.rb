@@ -31,7 +31,7 @@ module ShiftsHelper
     @location_rows = {}
     
     #for AJAX; needs cleanup if we have time
-    @loc_groups ||= current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    @loc_groups = current_user.user_config.view_loc_groups.select{|l| !l.locations.empty?}
     @dept_start_hour ||= current_department.department_config.schedule_start / 60
     @dept_end_hour ||= current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
