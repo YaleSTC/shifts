@@ -21,7 +21,7 @@ div.timeline {
     float:right;
     position:relative;
     border-top: 1px solid #ddd;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     color: #707070;
 }
 div.timeline-data {
@@ -51,8 +51,6 @@ ul.intervals {
     margin: 0;
     list-style-type: none;
     padding: 0;
-    display: block;
-    float: right;
     position:relative;
     width: 100%;
     border-right: 1px solid #ccc;
@@ -98,17 +96,15 @@ ul.intervals li div.hours{
 ul.intervals li div.minutes{
     border-right: 1px solid #ccc;
     position: absolute;
-    float:left;
+
     height:50%;
 }
 
 ul.events {
     list-style-type: none;
     padding: 0;
-    margin: 0 0px;
-    display: block;
+    margin: 0;
     position:relative;
-    float: right;
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;
     border-left: 1px solid #ccc;
