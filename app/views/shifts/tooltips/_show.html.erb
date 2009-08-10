@@ -28,23 +28,28 @@
     <span id="shift_location" class="jeditable"><%=h @shift.location.name %></span>
   </p>
   <p>
-    <% if current_user == @shift.user %>
-      <% if @shift.report %>
-        <%= link_to "View report", shift_report_path(@shift) %>
-      <% else %>
-        <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %><br>
-        <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+    <% if @shift.report %>
+      <%= link_to "View report", shift_report_path(@shift) %><br>
+    <% elsif current_user == @shift.user and !@shift.has_passed? %>
+      <%= button_to "Sign in", shift_report_path(@shift), :method => :post %><br>
+    <% end %>
+    
+    <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
+      <% @shift.sub_requests.each do |sub| %>
+        <%= button_to "Take sub", sub_request_path(sub), :method => :get %><br>
       <% end %>
-    <% elsif current_user.is_admin_of?(@department) %>
-      <% if @shift.report %>
-        <%= link_to "View report", shift_report_path(@shift) %>
-      <% else %>
-        <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %>
-      <% end %><br>
+    <% end %>
+    
+    <% if current_user.is_admin_of?(@department) %>
+      <% if !@shift.has_passed? and !@shift.submitted? %>
+        <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
+      <% end %>
       <%= link_to "Edit", edit_shift_path(@shift) %> |
       <%= link_to_remote "Destroy", {:url => @shift, :confirm => 'Are you sure?', :method => :delete} %>
-    <% elsif @shift.report %>
-      <%= link_to "View report", shift_report_path(@shift) %>
+    <% elsif current_user == @shift.user %>
+      <% unless @shift.has_passed? or @shift.submitted? %>
+        <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+      <% end %>
     <% end %>
   </p>
  
@@ -132,14 +137,13 @@
       function update_schedule_view(value){
         if(value.substring(0,4) == "fail"){
           error_message();
-        }
-        else{
-          alert(value.substring(0,3));
+        }else{
           rerender_shift();
         }
       }
       
       function error_message(){
+        $("#shift<%= @shift.id %>").remove();
         alert("Sorry, but the updated shift could not be saved.");
       }
     

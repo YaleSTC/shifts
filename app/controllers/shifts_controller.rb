@@ -44,6 +44,7 @@ elsif @department.department_config.weekend_shifts #show weekends
     @blocks_per_hour = 60/@time_increment.to_f
 
     @loc_groups = current_user.user_config.view_loc_groups
+    @selected_loc_groups = current_user.user_config.view_loc_groups.collect{|l| l.id}
   end
 
 # Necessary? -ben
