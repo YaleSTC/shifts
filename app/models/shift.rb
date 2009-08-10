@@ -241,7 +241,7 @@ class Shift < ActiveRecord::Base
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't sign up for a time slot that has already passed!") if self.start <= Time.now
+    errors.add_to_base("Can't sign up for a shift that has already passed!") if self.start <= Time.now
   end
 
   def adjust_sub_requests
