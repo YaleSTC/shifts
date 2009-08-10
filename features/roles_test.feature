@@ -10,7 +10,7 @@ Scenario Outline: Seeing the roles page
 Given I am "<user>"
 And I am on the roles page
 Then I <shouldornot> see "New Role"
-And I <shouldornot> see "All Roles"
+And I <shouldornot> see "Show all Roles"
 And I <shouldornot2> see "Access denied"
 
 Scenarios: Not being able to because not an admin user
