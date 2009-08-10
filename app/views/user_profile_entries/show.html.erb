@@ -1,0 +1,26 @@
+<% title "#{current_user.awesome_name}'s Profile" %>
+
+  <% @user_profile_entries.each do |@user_profile_entry| %>
+
+  <% form_for @user_profile_entry do |f| %>
+  <%= f.error_messages %>
+
+    <% args = @user_profile_entry.prepare_form_helpers %>
+    <p>
+      <%= label "user_profile_entries[#{@user_profile_entry.id}]", "#{@user_profile_entry.name}" %><br/>
+
+      <% if ["text_field", "select", "text_area"].include? @user_profile_entry.display_type %>
+        <%= send(@user_profile_entry.display_type, *args) %>
+      <% elsif ["check_box", "radio_button"].include? @user_profile_entry.display_type %>
+        <% args.each do |options| %>
+          <%= send(entry.display_type, *options) %>
+          <%= label "user_profile_entries[#{@user_profile_entry.id}]", "#{options.last}" %>
+        <% end %>
+      <% end %>
+
+    </p>
+  <% end %>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+

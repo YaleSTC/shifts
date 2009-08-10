@@ -2,8 +2,8 @@ class PayformsController < ApplicationController
   before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit]
 
   def index
-    @payforms = narrow_down(current_user.is_admin_of?(current_department) ? 
-                            current_department.payforms : 
+    @payforms = narrow_down(current_user.is_admin_of?(current_department) ?
+                            current_department.payforms :
                             current_department.payforms && current_user.payforms)
     @payforms = @payforms.sort_by{|payform| payform.user.last_name}
   end
@@ -12,7 +12,7 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     flash[:error] = "Payform does not exist." unless @payform
     flash[:error] = "The payform (from #{@payform.department.name}) is not in this department (#{current_department.name})." unless @payform.department == current_department
-    return unless require_owner_or_dept_admin(@payform, @payform.department)    
+    return unless require_owner_or_dept_admin(@payform, @payform.department)
     if flash[:error]
       redirect_to payforms_path
     else
@@ -45,7 +45,7 @@ class PayformsController < ApplicationController
 
   def submit
     @payform = Payform.find(params[:id])
-    return unless require_owner_or_dept_admin(@payform, @payform.department)    
+    return unless require_owner_or_dept_admin(@payform, @payform.department)
     @payform.submitted = Time.now
     if @payform.save
       flash[:notice] = "Successfully submitted payform."
@@ -132,7 +132,7 @@ class PayformsController < ApplicationController
     for user in @users
       Payform.build(@department, user, Date.today)
       unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
-      
+
       unless unsubmitted_payforms.blank?
         weeklist = ""
         for payform in unsubmitted_payforms
@@ -152,7 +152,7 @@ class PayformsController < ApplicationController
     if (!params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed])
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
     end
-    scope = [] 
+    scope = []
     if params[:unsubmitted]
       scope += payforms.unsubmitted
     end

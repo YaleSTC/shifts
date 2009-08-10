@@ -74,9 +74,9 @@ Then I should see "Edit User"
 And I should see "Roles"
 And I should see "Assistant Boss"
 
-Scenarios: Successfully assigning some roles
+#Scenarios: Successfully assigning some roles
 
-|superuser       |login|firstname|lastname|email             |
-|Albus Dumbledore|hp123|Harry    |Potter  |hp123@hogwarts.edu|
-|Horace Slughorn |hp123|Harry    |Potter  |hp123@hogwarts.edu|
+#|superuser       |login|firstname|lastname|email             |
+#|Albus Dumbledore|hp123|Harry    |Potter  |hp123@hogwarts.edu|
+#|Horace Slughorn |hp123|Harry    |Potter  |hp123@hogwarts.edu|
 
