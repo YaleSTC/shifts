@@ -20,6 +20,14 @@ class RepeatingEvent < ActiveRecord::Base
     self.days_of_week.split(",").collect{|d| d.to_i.day_of_week} if self.days_of_week
   end
 
+  def location_ids=(ids)
+    self.loc_ids=ids.join(",")
+  end
+
+  def location_ids
+    self.loc_ids.split(",").collect{|d| d.to_i}
+  end
+
   def days_int
     self.days_of_week.split(",").collect{|d| d.to_i}
   end
@@ -43,6 +51,8 @@ class RepeatingEvent < ActiveRecord::Base
       self.is_set_of_timeslots = false
     end
   end
+
+
 
   def slot_or_shift
     if self.is_set_of_timeslots = true
