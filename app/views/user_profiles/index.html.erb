@@ -1,0 +1,20 @@
+<% title "User Profiles" %>
+
+<p><%= link_to "Edit Your Profile", edit_user_profile_path(current_user.login) %></p>
+<div id="searchbox" style="margin-bottom: 1em">
+  <% form_tag(user_profiles_path, :method => :get) do %>
+    Search for a user by name or login: <%= text_field_tag :search %>
+    <%= submit_tag "Submit", :id => "search_submit" %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $('input#search_submit').toggle();
+</script>
+
+<%= observe_field :search, :frequency => 0.2, :url => search_user_profiles_path, :with => :search %>
+
+<div id="profile_list">
+  <%= render :partial => "profile_list" %>
+</div>
+

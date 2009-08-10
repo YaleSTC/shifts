@@ -1,3 +1,6 @@
 page.replace_html "all_report_items", :partial => 'reports/report_item', :collection => @report.report_items
-page << "$('#item').val("");"
+page[:current_report_item].visual_effect(:highlight, 
+                                         :startcolor => '#3bcc77') #currently doesn't accept any options
+                                                                   #so startcolor is actually default
+page[:new_report_item].reset
 

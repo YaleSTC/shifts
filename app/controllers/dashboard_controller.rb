@@ -19,10 +19,11 @@ class DashboardController < ApplicationController
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
     @dept_start_minute = @dept_start_hour * 60
     @dept_end_minute = @dept_end_hour * 60
-    @loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.select{|l| !l.locations.empty?}
+    @loc_groups = current_user.user_config.view_loc_groups
     @display_unscheduled_shifts = @department.department_config.unscheduled_shifts
     @time_increment = current_department.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
   end
 
 end
+

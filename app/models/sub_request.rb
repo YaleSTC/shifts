@@ -49,6 +49,9 @@ class SubRequest < ActiveRecord::Base
     self.user_sources.collect{|s| s.users}.flatten.uniq
   end
 
+  def has_started?
+    self.start < Time.now
+  end
 
 
   private

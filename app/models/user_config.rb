@@ -21,7 +21,7 @@ class UserConfig < ActiveRecord::Base
     write_attribute(:watched_data_objects, data_objects.uniq.remove_blank.join(", "))
   end
 
-  # Loc Groups can be assigned either by passing in an array 
+  # Loc Groups can be assigned either by passing in an array
   # of ids or a comma-separated string.
   def view_loc_groups=(loc_groups)
     loc_groups = loc_groups.split(', ') if loc_groups.class == String
@@ -30,14 +30,15 @@ class UserConfig < ActiveRecord::Base
 
   # Currently deprecated because I'm not sure if it's a good idea -ben
   # Returns an array of loc groups, rather than the databse comma-sep string
-  # def view_loc_groups
-  #   read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
-  # end
+  def view_loc_groups
+    read_attribute(:view_loc_groups).empty? ? self.default_department.loc_groups : read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
+  end
 
   # if default_dept is not specified, returns first department;
   # but if the user does not belong to any department, returns nil
   def default_department
     Department.find_by_id(default_dept) || (user.departments.empty? ? nil : user.departments.first)
   end
+
 end
 

@@ -1,4 +1,5 @@
-  <%= javascript_include_tag 'jeditable' %>
+<%= javascript_include_tag 'jeditable' %>
+
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
@@ -16,25 +17,40 @@
     <strong>User:</strong>
     <%=h @shift.user.name %>
   </p>
+  <% if current_user.is_admin_of?(@department) %>
+    <p>
+      <strong>Calendar:</strong>
+      <span id='shift_calendar' class='jeditable'><%= @shift.calendar.name %></span>
+    </p>
+  <% end %>
   <p>
     <strong>Location:</strong>
     <span id="shift_location" class="jeditable"><%=h @shift.location.name %></span>
   </p>
   <p>
     <% if @shift.report %>
-      <%= link_to "View report", shift_report_path(@shift) %>
-    <% elsif current_user==@shift.user %>
-      <p>
-      <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
-      </p>
-      <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
-    <% else %>
-      <small>This shift has not yet been signed in to.</small>
+      <%= link_to "View report", shift_report_path(@shift) %><br>
+    <% elsif current_user == @shift.user and !@shift.has_passed? %>
+      <%= button_to "Sign in", shift_report_path(@shift), :method => :post %><br>
     <% end %>
-  </p>
-  <p>
-    <%= link_to "Edit", edit_shift_path(@shift) %> |
-    <%= link_to_remote "Destroy", {:url => @shift, :confirm => 'Are you sure?', :method => :delete} %>
+    
+    <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
+      <% @shift.sub_requests.each do |sub| %>
+        <%= button_to "Take sub", sub_request_path(sub), :method => :get %><br>
+      <% end %>
+    <% end %>
+    
+    <% if current_user.is_admin_of?(@department) %>
+      <% if !@shift.has_passed? and !@shift.submitted? %>
+        <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
+      <% end %>
+      <%= link_to "Edit", edit_shift_path(@shift) %> |
+      <%= link_to_remote "Destroy", {:url => @shift, :confirm => 'Are you sure?', :method => :delete} %>
+    <% elsif current_user == @shift.user %>
+      <% unless @shift.has_passed? or @shift.submitted? %>
+        <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+      <% end %>
+    <% end %>
   </p>
  
   <script type="text/javascript">
@@ -42,63 +58,99 @@
     $(".tooltip").click(function(e){
       e.stopPropagation();
     });
+      
+    <% if current_user.is_admin_of?(@department) %>
+      $('#shift_location').editable(
+        <%= shift_path(@shift).to_json %>,
+        {
+          name: 'shift[location_id]',
+          type: 'select',
+          data: {<%= @department.locations.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
+          method: 'PUT',
+          submitdata: {
+            authenticity_token: <%= form_authenticity_token.to_json %>,
+            wants: 'location'
+          },
+          cancel: 'Cancel',
+          submit: 'OK',
+          indicator: '<img src="../images/loading.gif">',
+          tooltip: 'Click to edit...',
+          callback: function(value) {
+            update_schedule_view(value);
+          }
+        }
+      );
+      
+      $('#shift_calendar').editable(
+        <%= shift_path(@shift).to_json %>,
+        {
+          name: 'shift[calendar_id]',
+          type: 'select',
+          data: {<%= @department.calendars.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
+          method: 'PUT',
+          submitdata: {
+            authenticity_token: <%= form_authenticity_token.to_json %>,
+            wants: 'calendar'
+          },
+          cancel: 'Cancel',
+          submit: 'OK',
+          indicator: '<img src="../images/loading.gif">',
+          tooltip: 'Click to edit...',
+          callback: function(value) {
+            update_schedule_view(value);
+          }
+        }
+      );
     
-    $('#shift_location').editable(
-      <%= shift_path(@shift).to_json %>,
-      {
-        name: 'shift[location_id]',
-        type: 'select',
-        data: {<%= Location.all.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
+      $('#shift_start').editable( <%= shift_path(@shift).to_json %>, {
+        name: 'shift[start]',
         method: 'PUT',
         submitdata: {
           authenticity_token: <%= form_authenticity_token.to_json %>,
-          wants: 'location'
+          wants: 'start'
         },
         cancel: 'Cancel',
         submit: 'OK',
         indicator: '<img src="../images/loading.gif">',
         tooltip: 'Click to edit...',
-        callback: function() {
+        callback: function(value) {
+          update_schedule_view(value);
+        }
+      });
+    
+      $('#shift_end').editable( <%= shift_path(@shift).to_json %>, {
+        name: 'shift[end]',
+        method: 'PUT',
+        submitdata: {
+          authenticity_token: <%= form_authenticity_token.to_json %>,
+          wants: 'end'
+        },
+        cancel: 'Cancel',
+        submit: 'OK',
+        indicator: '<img src="../images/loading.gif">',
+        tooltip: 'Click to edit...',
+        callback: function(value) {
+          update_schedule_view(value);
+        }
+      });
+    
+      function update_schedule_view(value){
+        if(value.substring(0,4) == "fail"){
+          error_message();
+        }else{
           rerender_shift();
         }
       }
-    );
-    
-    $('#shift_start').editable( <%= shift_path(@shift).to_json %>, {
-      name: 'shift[start]',
-      method: 'PUT',
-      submitdata: {
-        authenticity_token: <%= form_authenticity_token.to_json %>,
-        wants: 'start'
-      },
-      cancel: 'Cancel',
-      submit: 'OK',
-      indicator: '<img src="../images/loading.gif">',
-      tooltip: 'Click to edit...',
-      callback: function() {
-        rerender_shift();
+      
+      function error_message(){
+        $("#shift<%= @shift.id %>").remove();
+        alert("Sorry, but the updated shift could not be saved.");
       }
-    });
     
-    $('#shift_end').editable( <%= shift_path(@shift).to_json %>, {
-      name: 'shift[end]',
-      method: 'PUT',
-      submitdata: {
-        authenticity_token: <%= form_authenticity_token.to_json %>,
-        wants: 'end'
-      },
-      cancel: 'Cancel',
-      submit: 'OK',
-      indicator: '<img src="../images/loading.gif">',
-      tooltip: 'Click to edit...',
-      callback: function() {
-        rerender_shift();
+      function rerender_shift(){
+        $("#shift<%= @shift.id %>").remove();  // = shift before edit
+        // add new shift to view
+        $.ajax({dataType:'script', type:'get', url:'<%= rerender_shift_path(@shift) %>'});
       }
-    });
-    
-    function rerender_shift(){
-      $("#shift<%= @shift.id %>").remove();  // = shift before edit
-      // add new shift to view
-      $.ajax({dataType:'script', type:'get', url:'<%= rerender_shift_path(@shift) %>'});
-    }
+    <% end %>
   </script>

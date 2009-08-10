@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
+  has_one :user_profile, :dependent => :destroy
 
   attr_protected :superusercreate_
   named_scope :superusers, :conditions => { :superuser => true }, :order => "last_name"
