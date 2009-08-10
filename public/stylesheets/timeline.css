@@ -120,6 +120,7 @@ ul.events li {
     text-align: center;
     border-left: 1px solid #fff;
     height: 100%;
+		cursor: pointer !important;
 }
 ul.events li.click_to_add_new {
 		z-index: 0;
@@ -127,6 +128,7 @@ ul.events li.click_to_add_new {
     position: absolute;
     height: 100%;
     border-left: 0px solid #fff;
+		cursor: pointer;
 }
 ul.events li.click_to_add_new_timeslot {
 		z-index: 0;
@@ -134,14 +136,17 @@ ul.events li.click_to_add_new_timeslot {
     position: absolute;
     height: 100%;
     border-left: 0px solid #fff;
+		cursor: pointer;
 }
 div.click_to_add_new:hover {
-    background: #efefe3;
+    background: #666;
+		cursor: pointer;
 }
 ul.events li.click_to_add_new:hover {
     background: #efefe3;
     position: absolute;
     height: 100%;
+		cursor: pointer;
 }
 ul.events li div {
 	position: relative;
