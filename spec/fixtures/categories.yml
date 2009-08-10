@@ -20,3 +20,9 @@ play_category:
   department_id: "1"
   built_in: f
 
+shifts_category:
+  id: "4"
+  name: Shifts
+  active: true
+  department_id: "1"
+  built_in: f

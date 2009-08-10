@@ -37,7 +37,6 @@ Feature: Payform settings
     Then I should see "Successfully created payform item."
     And I should have 1 payform_item
 
-@t
   Scenario: Payform settings: Min Length for edit and deletion of reason
     Given "Harry Potter" has a current payform
     And "Harry Potter" has the following current payform item

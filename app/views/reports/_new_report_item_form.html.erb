@@ -2,17 +2,8 @@
   <% remote_form_for [@report, @report_item] do |f| %>
     <%= f.error_messages %>
     <%= f.text_area :content, :id => 'item', :size => '55x3', :wrap => 'hard' %>
-    <!--<p id = "add_event_button">-->
     <%= f.submit "Add this event" %>
-    <!--</p>-->
   <div id = "submit_button">
- <!--
-    <% if current_user == @report.user %>
-      <%= button_to "End shift", :url => {:action => :update, :id => @report, :sign_out => true}, :html => {:method => :put} %>
-    <% else %>
-      This report is still in progress.
-    <% end %> 
--->
   <%= params[:popup] %>
   </div>
   <% end -%>

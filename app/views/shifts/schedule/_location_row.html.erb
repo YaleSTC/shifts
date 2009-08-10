@@ -2,3 +2,4 @@
   <li id="location<%=location.id%>_<%=day%>_free_time" style="width:100%" class="click_to_add_new">
   <%= render :partial => "shifts/schedule/shift", :collection => location_row -%>
 </ul>
+<% @location_row += 1 %>
