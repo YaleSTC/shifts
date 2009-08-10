@@ -1,5 +1,6 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
+  belongs_to :user
 
   validates_presence_of :reason
   validates_presence_of :shift
@@ -48,6 +49,9 @@ class SubRequest < ActiveRecord::Base
     self.user_sources.collect{|s| s.users}.flatten.uniq
   end
 
+  def has_started?
+    self.start < Time.now
+  end
 
 
   private
@@ -82,4 +86,3 @@ class SubRequest < ActiveRecord::Base
   end
 
 end
-
