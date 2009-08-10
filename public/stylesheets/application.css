@@ -152,7 +152,7 @@ body {
   padding: 0px;
 }
 #identityHeader h1 {
-  float: left;
+  float: left;f
   font-size: 12px;
   height: 0pt;
   margin: 0pt;
@@ -495,7 +495,7 @@ fieldset#warning {
 fieldset.index {
   width: 98.6%;
   padding: 5px;
-  margin: 0px;
+  margin: 0px 0px 5px 0px;
   border: 1px solid gray;
   background-color:#DDDDFF
 }
