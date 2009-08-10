@@ -31,9 +31,9 @@
   <p>
   <strong>Time Slot or Shift?</strong> <br />
   <%= f.label :time_slot %>
-  <%= f.radio_button( :slot_or_shift, "time_slot" ) %>
+  <%= f.radio_button( :slot_or_shift, "time_slot", :checked => @repeating_event.has_time_slots? ) %>
   <%= f.label :shift %>
-  <%= f.radio_button( :slot_or_shift, "shift" ) %>
+  <%= f.radio_button( :slot_or_shift, "shift", :checked => @repeating_event.has_shifts? ) %>
   </p>
 <div id = "time_slot_fields">
   <h3> Time Slot </h3>
@@ -59,7 +59,7 @@
     </p>
   <p>
     <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @repeating_event.location_ids ? @repeating_event.location_ids[0] : nil)%><br />
   </p>
 
 </div>
