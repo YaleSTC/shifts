@@ -79,8 +79,12 @@ module ShiftsHelper
       rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
     end
 
-    @table_height = rowcount + @loc_groups.length * 0.25
+
+
+    @table_height = rowcount
     @table_pixels = 26 * rowcount + rowcount+1
+    
+    @divider_height = 0.25 * @table_pixels / (@table_height)
   end
   
 end
