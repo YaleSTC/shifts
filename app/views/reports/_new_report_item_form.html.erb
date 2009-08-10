@@ -9,5 +9,24 @@
   <% end -%>
 </div>
 
-<%= javascript_include_tag 'leave_confirm' %>
+<!-- this javascript should go in a different location, not in this partial
+  also, until it's working properly, it's annoying -ben
 
+<%# javascript to prompt the user before leaving the page: did you remember to submit? %>
+<script type="text/javascript">
+  function setConfirmUnload(on) {
+    window.onbeforeunload = (on) ? unloadMessage : null;
+  }
+
+  function unloadMessage() {
+    return "Your report has not yet been submitted.";
+  }
+
+  $(document).ready(function() {
+    setConfirmUnload(true);
+    $("#submit_button_div :button").click(function(){
+      setConfirmUnload(false);
+    });
+  });
+</script> -->
+<%= javascript_include_tag 'leave_confirm' %>
