@@ -197,4 +197,3 @@ elsif @department.department_config.weekend_shifts #show weekends
     end
   end
 end
-
