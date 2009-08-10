@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
     @active_shifts = Shift.find(:all, :conditions => {:signed_in => true, :department_id => current_department.id}, :order => :start)
     @upcoming_shifts = Shift.find(:all, :conditions => ['"user_id" = ? and "end" > ? and "department_id" = ?', current_user.id, Time.now, current_department.id], :order => :start, :limit => 5)
     @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ? AND user_id = ?", Time.now, current_user.id]).sort_by(&:start)
-    @subs_you_can_take = current_user.available_sub_requests([@department])
+    @subs_you_can_take = current_user.available_sub_requests([@department]).select{|sub| sub.end > Time.now}.sort_by(&:start)
 
     @most_recent_payform= current_user.payforms.sort_by(&:date).last
     @watched_objects = current_user.user_config.watched_data_objects.split(", ").map{|id| DataObject.find(id)}.flatten
