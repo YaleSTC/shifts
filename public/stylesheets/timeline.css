@@ -141,7 +141,7 @@ div.click_to_add_new:hover {
 		cursor: pointer;
 }
 ul.events li.click_to_add_new:hover {
-    background: #efefe3;
+    background: #ddd;
     position: absolute;
     height: 100%;
 		cursor: pointer;
