@@ -138,7 +138,7 @@ class Shift < ActiveRecord::Base
 
   #a shift has been signed into and its shift report has been submitted
   def submitted?
-    self.signed_in? and self.report.departed
+    self.report and self.report.departed
   end
 
   #TODO: subs!
