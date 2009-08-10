@@ -42,7 +42,11 @@
     
     <% if current_user.is_admin_of?(@department) %>
       <% if !@shift.has_passed? and !@shift.submitted? %>
-        <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
+        <% if @shift.has_sub? %>
+          <%= link_to "Manage sub requests for this shift", shift_sub_requests_path(@shift) %><br>
+        <% else %>
+          <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
+        <% end %>
       <% end %>
       <%= link_to "Edit", edit_shift_path(@shift) %> |
       <%= link_to_remote "Destroy", {:url => @shift, :confirm => 'Are you sure?', :method => :delete} %>
