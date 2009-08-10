@@ -25,9 +25,9 @@ class CalendarsController < ApplicationController
     
     @loc_group_select = {}
     @loc_group_select[@department.id] = @department.loc_groups #{}
-    @visible_loc_groups = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}
+    @visible_loc_groups = current_user.user_config.view_loc_groups
     @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
-    @visible_locations = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.collect{|l| l.locations}.flatten.uniq
+    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
     
     @shifts = []
     @time_slots = []

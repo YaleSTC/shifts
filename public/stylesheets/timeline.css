@@ -42,7 +42,9 @@ div.timeline div.day {
     border-left: 1px solid #ddd;
     width: 100%;
     text-align: center;
-    background: #fff;
+    color: #fff;
+    font-weight: bold;
+    background: #888;
 }
 
 ul.intervals {
@@ -56,7 +58,16 @@ ul.intervals {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-left: 1px solid #ccc;
-    background: #fff;
+    background: #559;
+    color: #fff;
+}
+
+ul.intervals div.hours {
+    background: #888;
+    border-left: 1px solid #ccc;
+}
+ul.intervals div#first {
+    border-left: 1px solid #888;
 }
 
 div.timeline div.day,
@@ -183,6 +194,93 @@ div#tooltip strong{
 }
 
 div#tooltip div.close_link{
+	position: absolute;
+	top: 3px;
+	right: 3px;	
+	font-size: 10px;
+	margin: 0px;
+}
+
+span.jeditable{
+	background: #bbb;
+}
+
+span.jeditable:hover{
+	background: #ccc;
+	cursor: hand;
+	cursor: pointer;
+}
+
+div#AJAX_status{
+	position: fixed;
+	right: 5px;
+	top: 5px;
+	z-index: 1000;
+}
+
+div.AJAX_alert{
+	background: #fff;
+	padding: 5px;
+	border: 1px solid black;
+	font-size: 10pt;
+	text-align: center;
+	width: 150px;
+	z-index: 1000;
+}
+
+img.right_arrow {
+    float:right;
+}
+img.left_arrow {
+    float:left;
+}
+
+div.loading{
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 3;
+	display: block;
+	background: #ddd;
+	color: #000;
+	padding: 5px;
+	font-style: normal;
+	font-weight: normal;
+  font-family: Verdana, Arial, serif;
+	font-size: 12px;
+	border: 1px solid gray;
+}
+
+div.tooltip{
+	text-align: left;
+	position: absolute;
+	float: left;
+	top: 100%;
+	left: 0;
+	z-index: 50;
+	display: block;
+	background: #ddd;
+	color: #000;
+	padding: 5px;
+	min-width: 200px;
+	font-style: normal;
+	font-weight: normal;
+  font-family: Verdana, Arial, serif;
+	font-size: 12px;
+	border: 1px solid gray;
+}
+/*
+div.tooltip a{
+	color: #104e8b !important;
+}*/
+
+div.tooltip strong{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+div.tooltip div.close_link{
 	position: absolute;
 	top: 3px;
 	right: 3px;	

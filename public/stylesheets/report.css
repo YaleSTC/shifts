@@ -30,7 +30,7 @@
   border-collapse: collapse;
   border-color: gray;
   padding: 5px;
-  margin: 5px;
+  margin: 0px;
   border-spacing: 2px;
   width: 100%;
 }
@@ -66,9 +66,6 @@
   display: inline;
 }
 
-#submit_button{
-  float: right;
-}
 
 textarea#item {
   width: 99%;
@@ -83,14 +80,11 @@ textarea#item {
 #report_data_objects fieldset {
   width: 100%;
   padding: 5px;
-  margin: 5px;
   border: 1px solid gray;
   background-color:#DDDDFF
 }
 
 #submit_button {
   float: right;
+  clear: right;
 }
-
-}
-

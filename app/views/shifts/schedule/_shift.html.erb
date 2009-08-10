@@ -1,32 +1,19 @@
 <li id="shift<%=shift.id%>" style="<%=shift_style(shift)%>" class="<%= shift.css_class(current_user) %> click_to_show">
+  <div class="shift-time-overlay" style="position: absolute; top:-<%= @table_pixels / (@table_height) * @location_row + @location_row + @location_group_row + @location_group_row * 0.25 * @table_pixels / (@table_height) %>px;"> </div>
   <div class="time-slot">
+    <%= render :partial => "shifts/schedule/sub", :collection => shift.sub_requests %>
 
-        <% unless shift.signed_in? or shift.has_passed? %>
-            <% for sub in shift.sub_requests %>
-                <% width = (sub.end - sub.start).to_f/(shift.end - shift.start).to_f * 100 %>
-                <% left = (sub.start - shift.start).to_f/(shift.end - shift.start).to_f * 100 %>
-                <div style="background:#ddaadd;height:100%;width:<%= width %>%;position:absolute;left:<%= left %>%;">
-                    <% width = (sub.mandatory_end - sub.mandatory_start).to_f/(sub.end - sub.start).to_f * 100 %>
-                    <% left = (sub.mandatory_start - sub.start).to_f/(sub.end - sub.start).to_f * 100 %>
-                    <div style="background:#aa77aa;height:100%;width:<%= width %>%;position:absolute;left:<%= left %>%;">
-                    
-                    </div>
-                </div>
-            <% end %>
-        <% end %>
 
-        <% if @right_overflow or @left_overflow %>
-            <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => @table_pixels / @table_height + 1 } if @right_overflow %>
-            <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => @table_pixels / @table_height + 1 } if @left_overflow %>
-        <% end %>
-        <div class="center_container">
-        <div class="center_content">
-            <%#= link_to_remote "x", {:url => shift, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px" %>
-            <%# TODO: write code to shorten text when div is small %>
-            <%# (text could also be dynamically shrunk by javascript after page loading, to make sure the contents fit) %>
-            <%= shift.user.name %><br/>
-            <%= "#{shift.start.strftime("%l:%M%p")} - #{shift.end.strftime("%l:%M%p")}" %>
-        </div>
+
+
+    <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => @table_pixels / @table_height + 1 } if @right_overflow %>
+    <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => @table_pixels / @table_height + 1 } if @left_overflow %>
+
+    <div class="center_container">
+      <div class="center_content">
+        <%= shift.user.name %>
+        <%#= "#{shift.start.strftime("%l:%M%p")} - #{shift.end.strftime("%l:%M%p")}" %>
+      </div>
     </div>
   </div>
 </li>

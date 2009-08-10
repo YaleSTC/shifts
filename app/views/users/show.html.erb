@@ -1,38 +1,55 @@
-<% title "User" %>
+<% stylesheet 'user_profile' %>
 
-<p>
-  <strong>Login:</strong>
-  <%=h @user.login %>
-</p>
-<p>
-  <strong>Active:</strong>
-  <%=h @user.is_active?(@department) %>
-</p>
-<p>
-  <strong>First Name:</strong>
-  <%=h @user.first_name %>
-</p>
-<p>
-  <strong>Last Name:</strong>
-  <%=h @user.last_name %>
-</p>
-<p>
-  <strong>Nickname:</strong>
-  <%=h @user.nick_name %>
-</p>
-<p>
-  <strong>Employee ID:</strong>
-  <%=h @user.employee_id %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%=h @user.email %>
-</p>
+<% title "#{@user.proper_name}" %>
 
-<p>
-  <%= link_to "Edit", edit_user_path(@user) %> |
-  <%= deactivate_link(@user) %> |
-  <%= link_to "Destroy", :action => :really_destroy, :id => @user %> |
-  <%= link_to "View All", department_users_path(@department) %>
-</p>
+<div class='whole'>
+  <div class='information'>
+    <p><h2>User Info</h2></p>
+    <p>
+      <strong>Login:</strong>
+      <%=h @user.login %>
+    </p>
+    <p>
+      <strong>Active:</strong>
+      <%=h @user.is_active?(@department) %>
+    </p>
+    <p>
+      <strong>First Name:</strong>
+      <%=h @user.first_name %>
+    </p>
+    <p>
+      <strong>Last Name:</strong>
+      <%=h @user.last_name %>
+    </p>
+    <p>
+      <strong>Nickname:</strong>
+      <%=h @user.nick_name %>
+    </p>
+    <p>
+      <strong>Employee ID:</strong>
+      <%=h @user.employee_id %>
+    </p>
+    <p>
+      <strong>Email:</strong>
+      <%=h @user.email %>
+    </p>
+  </div>
+
+  <div class='profile'>
+  <p>
+      <h2>User Profile</h2>
+      <%= render :partial => 'user_profiles/user_profile_entries' %>
+  </p>
+  </div>
+
+  <div class='clear'>
+  </div>
+    <p>
+      <%= link_to "Edit", edit_user_path(@user) %> |
+      <%= deactivate_link(@user) %> |
+      <%= link_to "Destroy", :action => :really_destroy, :id => @user %> |
+      <%= link_to "View All", department_users_path(@department) %>
+    </p>
+
+</div>
 
