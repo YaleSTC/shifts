@@ -13,6 +13,11 @@ class Department < ActiveRecord::Base
   has_many :payform_sets
   has_many :categories
   has_many :punch_clocks
+  has_many :calendars, :dependent => :destroy do
+    def default
+      find(:all, :conditions => ["\"default\" = ?", true])
+    end
+  end
   has_many :user_profile_fields
 
   before_validation_on_create :create_permissions
@@ -34,4 +39,3 @@ class Department < ActiveRecord::Base
   end
 
 end
-

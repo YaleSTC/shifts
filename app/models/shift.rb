@@ -1,7 +1,8 @@
 class Shift < ActiveRecord::Base
 
   delegate :loc_group, :to => 'location'
-
+  belongs_to :calendar
+  belongs_to :repeating_event
   belongs_to :department
   belongs_to :user
   belongs_to :location
@@ -13,7 +14,9 @@ class Shift < ActiveRecord::Base
   validates_presence_of :start
 
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
+  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
+  named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
   named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ['(("start" >= ? and "start" < ?) or ("end" > ? and "end" <= ?)) and "scheduled" = ? and "location_id" IN (?)', start.utc, stop.utc - incr, start.utc + incr, stop.utc, true, locs], :order => '"location_id", "start"' }}
   named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ['(("start" >= ? and "end" < ?) or ("start" >= ? and "start" < ?)) and "scheduled" = ? and "location_id" IN (?)', day_start.utc, start.utc, stop.utc, day_end.utc, true, locs], :order => '"location_id", "start"' }}
@@ -60,6 +63,40 @@ class Shift < ActiveRecord::Base
           s.shift = later_shift
           s.save!
         end
+      end
+    end
+  end
+
+  #This method creates the multitude of shifts required for repeating_events to work
+  #in order to work efficiently, it makes a few GIANT sql insert calls
+  def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id)
+    #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
+    outer = []
+    inner = []
+    #Take each day and build an array containing the pieces of the sql query
+    days.each do |day|
+      seed_start_time = start_time
+      seed_end_time = end_time
+      while seed_end_time <= end_date
+        seed_start_time = seed_start_time.next(day)
+        seed_end_time = seed_end_time.next(day)
+        inner.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{user_id}\", \"#{department_id}\""
+        #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
+        #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
+        #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
+        if inner.length > 450
+          outer.push inner
+          inner = []
+        end
+      end
+      #handle leftovers or the case where there are less than 450 rows to be inserted
+      outer.push inner
+    end
+    #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
+    ActiveRecord::Base.transaction do
+      outer.each do |s|
+        sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id') SELECT #{s.join(" UNION ALL SELECT ")};"
+        ActiveRecord::Base.connection.execute sql
       end
     end
   end
@@ -233,4 +270,3 @@ class Shift < ActiveRecord::Base
     end
   end
 end
-

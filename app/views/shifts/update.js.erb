@@ -3,7 +3,8 @@
     when 'location' then h( @shift.location.name )
     # add other attributes if you have more inline forms for this model
 		when 'start' then h( @shift.start.to_s(:short_name) )
-		when 'end' then h( @shift.end.to_s(:short_name) )
+		when 'end' then h( @shift.end.to_s(:short_name) )	
+		when 'calendar' then h( @shift.calendar.name )
     else ""
     end
 %>
