@@ -1,5 +1,7 @@
 <li id="shift<%=shift.id%>" style="<%=shift_style(shift)%>" class="<%= shift.css_class(current_user) %> click_to_show">
-  <div class="shift-time-overlay" style="position: absolute; left: -1px; top:-<%= @table_pixels / (@table_height) * @location_row + @location_row + @location_group_row + @location_group_row * 0.25 * @table_pixels / (@table_height) %>px;"> </div>
+  <div class="shift-time-overlay" style="position: absolute; left: -1px; top:-<%= @table_pixels / (@table_height) * @location_row + @location_row + @location_group_row + @location_group_row * 0.25 * @table_pixels / (@table_height) %>px;">
+    <%#= "#{shift.start.strftime("%l:%M%p")} - #{shift.end.strftime("%l:%M%p")}" %>
+  </div>
   <div class="time-slot">
     <%= render :partial => "shifts/schedule/sub", :collection => shift.sub_requests %>
 
@@ -12,7 +14,6 @@
     <div class="center_container">
       <div class="center_content">
         <%= shift.user.name %>
-        <%#= "#{shift.start.strftime("%l:%M%p")} - #{shift.end.strftime("%l:%M%p")}" %>
       </div>
     </div>
   </div>
