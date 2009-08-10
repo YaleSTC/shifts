@@ -60,9 +60,7 @@ class Notice < ActiveRecord::Base
   private
   #Validations
   def presence_of_locations_or_viewers
-    unless self.new_record?
-      errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
-    end
+    errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
   end
 
   def proper_time
