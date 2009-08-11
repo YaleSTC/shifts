@@ -37,6 +37,8 @@ class UsersController < ApplicationController
   end
 
   def ldap_search
+    @results=[]
+    return @results unless params[:user][:first_name] || params[:user][:last_name] || params[:user][:email]
     @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],5)
   end
 
