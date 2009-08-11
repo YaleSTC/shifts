@@ -10,7 +10,7 @@
     </fieldset>
   <% end %>
   <fieldset class = "index">
-  <legend>Location Preferences</legend>
+  <legend>Location Groups</legend>
     <small>These are the location groups you will view by default on the shift
     schedule and on the notice index page.  If you leave this blank, then it will default to all of your
     location groups.  </small><br />
@@ -25,12 +25,12 @@
   </fieldset>
 
   <fieldset class = "index">
-    <legend>Time Preferences</legend>
+    <legend>Schedule View</legend>
     <small>This controls what portion of the shift schedule you see.</small><br />
     <%= f.select :view_week, UserConfig::VIEW_WEEK_OPTIONS %>
   </fieldset>
   <fieldset class = "index">
-    <legend>Watch Prefences</legend>
+    <legend>Data</legend>
     <small>This controls which data objects you will see updates for on your
     dashboard.</small><br />
     <%= collection_multiple_select( :user_config, :watched_data_objects,
