@@ -2,5 +2,6 @@ page.replace_html "all_report_items", :partial => 'reports/report_item', :collec
 page[:current_report_item].visual_effect(:highlight, 
                                          :startcolor => '#3bcc77') #currently doesn't accept any options
                                                                    #so startcolor is actually default
+                                                                   #instead of a pleasant pale green
 page[:new_report_item].reset
-
+#page << "tb_remove();"
