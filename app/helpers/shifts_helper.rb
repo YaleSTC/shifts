@@ -64,7 +64,7 @@ module ShiftsHelper
                                          day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
     
     #timeslots = @time_slots[day.to_s("%Y-%m-%d")]
-    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day) #TODO: .active
+    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day).after_now #TODO: .active
 
     timeslots ||= {}
     timeslots = timeslots.group_by(&:location)
@@ -107,7 +107,7 @@ module ShiftsHelper
       rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
     end
 
-
+    @timeslot_rows = 0 #counter
 
     @table_height = rowcount
     @table_pixels = 26 * rowcount + rowcount+1
