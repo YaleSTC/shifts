@@ -4,13 +4,17 @@
   <% elsif day == Date.today %>
     <%#TODO: finish this%>
     <li id="location<%=location.id%>_<%=day%>_free_time" style="width:100%; z-index: -100" class="no_signups"></li>
-    <% @location_rows_timeslots[location].each do |timeslot| %>
-      <li id="location<%=location.id%>_<%=day%>_timeslot<%=timeslot.id%>" style="<%=shift_style(timeslot, Time.now)%>" class="click_to_add_new"></li>
+    <% unless @location_rows_timeslots[location].nil? %>
+      <% @location_rows_timeslots[location].each do |timeslot| %>
+        <li id="location<%=location.id%>_<%=day%>_timeslot<%=timeslot.id%>" style="<%=shift_style(timeslot, Time.now)%>" class="click_to_add_new"></li>
+      <% end %>
     <% end %>
   <% else %>
     <li id="location<%=location.id%>_<%=day%>_free_time" style="width:100%; z-index: -100" class="no_signups"></li>
-    <% @location_rows_timeslots[location].each do |timeslot| %>
-      <li id="location<%=location.id%>_<%=day%>_timeslot<%=timeslot.id%>" style="<%=shift_style(timeslot)%>" class="click_to_add_new"></li>
+    <% unless @location_rows_timeslots[location].nil? %>
+      <% @location_rows_timeslots[location].each do |timeslot| %>
+        <li id="location<%=location.id%>_<%=day%>_timeslot<%=timeslot.id%>" style="<%=shift_style(timeslot)%>" class="click_to_add_new"></li>
+      <% end %>
     <% end %>
   <% end %>
   <%= render :partial => "shifts/schedule/shift", :collection => location_row -%>

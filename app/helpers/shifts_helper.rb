@@ -51,7 +51,11 @@ module ShiftsHelper
     # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
-    shifts = @shifts[day.to_s("%Y-%m-%d")]
+    #shifts = @shifts[day.to_s("%Y-%m-%d")]
+
+    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten   
+    
+    shifts = Shift.in_locations(@visible_locations).on_day(day).scheduled #TODO: .active
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
     # TODO: FIX ME
@@ -59,7 +63,9 @@ module ShiftsHelper
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
                                          day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
     
-    timeslots = @time_slots[day.to_s("%Y-%m-%d")]
+    #timeslots = @time_slots[day.to_s("%Y-%m-%d")]
+    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day) #TODO: .active
+
     timeslots ||= {}
     timeslots = timeslots.group_by(&:location)
     
@@ -69,6 +75,9 @@ module ShiftsHelper
     #raise timeslots.to_json
     #timeslots = timeslots.sort_by{|t| [t.location_id, t.start]}
     @location_rows_timeslots = timeslots
+    
+    #@location_rows_timeslots ||= []
+    #raise @location_rows_timeslots.to_yaml
 
     rejected = []
     location_row = 0
