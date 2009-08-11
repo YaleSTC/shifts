@@ -1,0 +1,9 @@
+#This is almost a line-for-line copy of report_items/create.js.rjs
+#Should be improved at a later date -ben
+page << "tb_remove();"
+page.replace_html "all_report_items", :partial => 'reports/report_item', :collection => @report.report_items
+page[:current_report_item].visual_effect(:highlight, 
+                                         :startcolor => '#3bcc77') #currently doesn't accept any options
+                                                                   #so startcolor is actually default
+                                                                   #instead of a pleasant pale green
+page[:new_report_item].reset

@@ -2,6 +2,7 @@ class DataEntriesController < ApplicationController
   #Not yet secured
   
   before_filter :check_for_data_object
+  
 
   def new
     @data_entry = DataEntry.new
@@ -20,23 +21,18 @@ class DataEntriesController < ApplicationController
 
     if @data_entry.save
       flash[:notice] = "Successfully updated #{@data_entry.data_object.name}."
-      if report = current_user.current_shift.report
+      if @report = current_user.current_shift.report
         content = []
         @data_entry.data_fields_with_contents.each {|entry| content.push("#{DataField.find(entry.first).name.humanize}: #{entry.second}")}
-        report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}.  #{content.join(', ')}.", :ip_address => request.remote_ip)
-      end
-      respond_to do |format|
-        format.html {redirect_to data_object_path(@data_entry.data_object)}
-        format.js {raise "warning"}
+        @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}.  #{content.join(', ')}.", :ip_address => request.remote_ip)
       end
     else
       flash[:error] = "Could not update #{@data_entry.data_object.name}."
-      respond_to do |format|
-        format.html { render :action => "new"}
-        format.js {}
-      end
     end    
-#    redirect_to data_object_path(@data_entry.data_object) unless request.referrer.match('reports')
+    respond_to do |format|
+      format.js
+      format.html {redirect_to @report ? @report : @data_entry.data_object}
+    end
   end
   
 ## Are we removing this feature?
