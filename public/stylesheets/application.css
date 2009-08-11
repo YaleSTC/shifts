@@ -604,9 +604,19 @@ div.table_right {
   visibility:hidden;
 }
 
-span#loading_icon{
-  display:none;
+
+tr#loading_row{
+	display:none;
 }
+
+img.loading_icon {
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+	margin-right: 5px;
+}
+
+
 
 /* styling for errors */
 errorExplanation {
