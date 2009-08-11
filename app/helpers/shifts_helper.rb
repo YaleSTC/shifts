@@ -51,9 +51,7 @@ module ShiftsHelper
     # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
-    #shifts = @shifts[day.to_s("%Y-%m-%d")]
-
-    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten   
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten   
     
     shifts = Shift.in_locations(@visible_locations).on_day(day).scheduled #TODO: .active
     shifts ||= []
@@ -63,8 +61,7 @@ module ShiftsHelper
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
                                          day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
     
-    #timeslots = @time_slots[day.to_s("%Y-%m-%d")]
-    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day) #TODO: .active
+    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day).after_now #TODO: .active
 
     timeslots ||= {}
     timeslots = timeslots.group_by(&:location)
@@ -72,15 +69,21 @@ module ShiftsHelper
     timeslots.each_key do |location|
       timeslots[location] = timeslots[location].sort_by(&:start)
     end
-    #raise timeslots.to_json
-    #timeslots = timeslots.sort_by{|t| [t.location_id, t.start]}
     @location_rows_timeslots = timeslots
     
-    #@location_rows_timeslots ||= []
-    #raise @location_rows_timeslots.to_yaml
 
     rejected = []
     location_row = 0
+    
+    @open_at = {}
+    
+    #priority
+    shifts.each do |shift|
+      t = shift.start
+#      while t < shift.end
+    end
+        
+    
     
     until shifts.empty?
       shift = shifts.shift
@@ -106,8 +109,15 @@ module ShiftsHelper
     for location in locations
       rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
     end
+    
+    #TODO: priority processing
+    @priority = []
+    @times = @dept_start_hour..@dept_end_hour
+    @times.step(@time_increment) do |time|
+      @priority[time]
+    end
 
-
+    @timeslot_rows = 0 #counter
 
     @table_height = rowcount
     @table_pixels = 26 * rowcount + rowcount+1

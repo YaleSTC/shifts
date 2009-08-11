@@ -23,11 +23,8 @@ module NoticesHelper
   end
 
   def type_check(sticky)
-    if sticky
-      @notice.is_sticky
-    else
-      !@notice.is_sticky
-    end
+    return @notice.sticky if sticky
+    return true if !sticky
   end
 
   def end_time_check(indefinite)
