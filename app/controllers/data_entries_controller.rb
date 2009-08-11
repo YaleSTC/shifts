@@ -27,13 +27,13 @@ class DataEntriesController < ApplicationController
       end
       respond_to do |format|
         format.html {redirect_to data_object_path(@data_entry.data_object)}
-        format.js
+        format.js {raise "warning"}
       end
     else
       flash[:error] = "Could not update #{@data_entry.data_object.name}."
       respond_to do |format|
         format.html { render :action => "new"}
-        format.js
+        format.js {}
       end
     end    
 #    redirect_to data_object_path(@data_entry.data_object) unless request.referrer.match('reports')

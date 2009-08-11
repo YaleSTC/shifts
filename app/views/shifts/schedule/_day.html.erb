@@ -7,13 +7,13 @@
   <h2><%= link_to_function day.to_s(:just_date_long), "$(this).parent().next().toggle()", :name => day.to_s %></h2>
   <div>
 
-    <div class="timeline" style="height:<%= @table_pixels %>px; width: 100%;">
+    <div class="timeline" style="width: 100%;">
       <div class="days">
         <div class="day" style="height: <%= @table_pixels / (@table_height)%>px;"></div>
         <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups, :locals => {:day => day} %>
       </div>
       <div class="timeline-data">
-        <ul class="intervals" style="height: <%= 100 / (@table_height)%>%;">
+        <ul class="intervals" style="height: <%= @table_pixels / (@table_height)%>px;">
           <%= render :partial => "shifts/schedule/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
         </ul>
         <%= render :partial => "shifts/schedule/loc_group_row", :collection => @loc_groups, :locals => {:day => day} %>
