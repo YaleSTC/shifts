@@ -3,7 +3,7 @@ Feature: Sidebars
   In order to make sure people see the correct side bars
   As an application admin, or regular user
   I want to see more choices when logged in as an admin
-@t
+
     Scenario:
         Given I am "Albus Dumbledore"
         And I am on the homepage
