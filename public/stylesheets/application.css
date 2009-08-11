@@ -273,6 +273,9 @@ ul#miniTabs a:hover {
   line-height: 1.75em;
 }
 
+li#useful_links {
+    list-style-type: none;
+}
 
 ul#navigationList {
   color: #415578;
