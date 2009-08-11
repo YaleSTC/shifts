@@ -18,8 +18,6 @@
           start_time += @dept_start_hour.minutes + (@minutes_per_day.minutes * params[:xPercentage].to_f)
         end
       %>
-      hours: <%= @dept_start_hour %><br/>
-      plus:  <%= start_time %><br/>
       <%= f.label :start_time %><br />
       <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => @department.department_config.time_increment %>
     </p>
