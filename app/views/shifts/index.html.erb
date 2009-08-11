@@ -27,6 +27,11 @@
       popup_show($(this), e);
       return false;
     });
+    
+    // $(div+'div.click_to_show_sub').click(function (e) {
+    //   popup_show_sub($(this), e);
+    //   return false;
+    // });
 
     $(div+' div.click_to_add_new').click(function (e) {
       popup_generic_new($(this), e);
@@ -84,6 +89,15 @@
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
+  
+  // function popup_show_sub(parent_element, e){
+  //   $("#tooltip").remove();
+  //   
+  //   var id = parent_element.attr('id').substring(3); //remove "shift" from id
+  //   alert('testing');
+  //   //loading_tooltip(e.pageX, e.pageY);
+  //   //$.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+  // }
   
   // function popup_edit(parent_element, e){
   //   $("#tooltip").remove();
