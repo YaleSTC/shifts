@@ -9,15 +9,17 @@
     <%= f.error_messages %>
     <p>
       <%
-        start_time = (params[:date] ? Time.parse(params[:date]) : Date.today.to_time)
+        start_time = (params[:date] ? Time.parse(params[:date]).beginning_of_day : Time.beginning_of_day)
       
         if params[:xPercentage]
-          @dept_start_hour = current_department.department_config.schedule_start / 60
-          @dept_end_hour = current_department.department_config.schedule_end / 60
-          @hours_per_day = (@dept_end_hour - @dept_start_hour)
-          start_time += @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f) * 3600
+          @dept_start_hour = current_department.department_config.schedule_start
+          @dept_end_hour = current_department.department_config.schedule_end
+          @minutes_per_day = (@dept_end_hour - @dept_start_hour)
+          start_time += @dept_start_hour.minutes + (@minutes_per_day.minutes * params[:xPercentage].to_f)
         end
       %>
+      hours: <%= @dept_start_hour %><br/>
+      plus:  <%= start_time %><br/>
       <%= f.label :start_time %><br />
       <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => @department.department_config.time_increment %>
     </p>

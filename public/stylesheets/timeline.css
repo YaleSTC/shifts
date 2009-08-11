@@ -106,7 +106,7 @@ ul.events {
     border-bottom: 1px solid #fff;
     border-right: 1px solid #fff;
     border-left: 1px solid #fff;
-    background: #ccc;
+    background: #bbb;
     width: 100%;
 }
 
@@ -119,6 +119,10 @@ ul.events li {
     border-left: 1px solid #fff;
     height: 100%;
 }
+ul.events li.no_signups {
+		z-index: 0;/*
+				background: #b0b0b0 !important;*/
+}
 ul.events li.click_to_add_new {
 		z-index: 0;
     background: transparent;
@@ -126,6 +130,7 @@ ul.events li.click_to_add_new {
     height: 100%;
     border-left: 0px solid #fff;
 		cursor: pointer;
+		background: #d6d6d6;
 }
 ul.events li.click_to_add_new_timeslot {
 		z-index: 0;

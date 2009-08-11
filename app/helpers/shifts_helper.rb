@@ -1,7 +1,7 @@
 module ShiftsHelper
   
   #WILL BE CHANGED TO SHIFTS:
-  def shift_style(shift, start = nil)
+  def shift_style(shift, after = nil)
     @right_overflow = @left_overflow = false
     
     #necessary for AJAX rerendering
@@ -11,8 +11,8 @@ module ShiftsHelper
     @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
     
-    left = (((start ? start : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
-    width = ((shift.end - (start ? start : shift.start))/3600.0) / @hours_per_day * 100
+    left = (((after ? after : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
+    width = ((shift.end - (after ? after : shift.start))/3600.0) / @hours_per_day * 100
     if left < 0 
       width += left
       left = 0 
