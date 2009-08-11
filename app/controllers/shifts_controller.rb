@@ -173,7 +173,7 @@ elsif @department.department_config.weekend_shifts #show weekends
 #okay then -ben
   def destroy
     @shift = Shift.find(params[:id])
-    return unless require_owner(@shift)
+    return unless require_department_admin(@shift.department)
     @shift.destroy
     respond_to do |format|
       format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}
