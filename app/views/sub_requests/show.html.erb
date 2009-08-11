@@ -39,6 +39,9 @@
 </p>
 
 <%= link_to 'Take', get_take_info_sub_request_path(@sub_request) %> |
+<% if current_user.is_admin_of?(@department) or current_user == @sub_request.user %>
+  <%= link_to 'Cancel', @sub_request, :confirm => 'Are you sure?', :method => :delete %> |
+<% end %>
 <%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
 <%= link_to 'Back', sub_requests_path %>
 
