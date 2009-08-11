@@ -33,6 +33,18 @@
       <strong>Email:</strong>
       <%=h @user.email %>
     </p>
+    <p>
+      <strong>Roles:</strong><br />
+      <ul>
+        <% if @user.roles.empty? %>
+          <li>none</li>
+        <% else %>
+          <% @user.roles.each do |role| %>
+            <li><%= role.name %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </p>
   </div>
 
   <div class='profile'>
