@@ -180,7 +180,7 @@ class Shift < ActiveRecord::Base
   end
 
   def css_class(current_user = nil)
-    if current_user and user == current_user
+    if current_user and self.user == current_user
       css_class = "user"
     else
       css_class = "shift"
