@@ -1,6 +1,6 @@
-<% if notice.is_sticky %>
+<% if notice.sticky %>
   <%= render :partial => 'notices/sticky', :object => notice %>
-<% else %>
+<% elsif notice.announcement %>
   <%= render :partial => 'notices/announcement', :object => notice %>
 <% end %>
 
