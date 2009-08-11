@@ -117,7 +117,6 @@ Feature: Authentication Systems
     And I am on the homepage
     Then I should see "Welcome, Luna Lovegood"
 @wip2
-@t
   Scenario: Admin resets user's' password
     Given the user "Albus Dumbledore" has permissions "Hogwarts dept admin"
     And I am "Albus Dumbledore"
