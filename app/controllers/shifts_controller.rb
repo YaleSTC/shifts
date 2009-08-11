@@ -31,9 +31,24 @@ elsif @department.department_config.weekend_shifts #show weekends
       @day_collection = (@period_start+1)...(@period_start+6)
     end
 
+    @loc_groups = current_user.user_config.view_loc_groups
+    @visible_loc_groups = current_user.user_config.view_loc_groups
+    @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
+    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
 
+    @calendars = @department.calendars
+    @shifts = []
+    @time_slots = []
+    @calendars.each do |calendar|
+      @shifts += calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled
+      #@shifts.store(calendar, calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled.group_by{|t| t.start.strftime("%Y-%m-%d")})
+      #@time_slots.store(calendar, calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6).group_by{|t| t.start.strftime("%Y-%m-%d")})
+      @time_slots += calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6)
+    end
+    @shifts = @shifts.group_by{|s| s.start.strftime("%Y-%m-%d")}
+    @time_slots = @time_slots.group_by{|t| t.start.strftime("%Y-%m-%d")}
 
-    @time_slots = TimeSlot.all
+    #@time_slots = TimeSlot.all
 
 
     #TODO:simplify this stuff:
@@ -43,8 +58,7 @@ elsif @department.department_config.weekend_shifts #show weekends
     @time_increment = current_department.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
 
-    @loc_groups = current_user.user_config.view_loc_groups
-    @selected_loc_groups = current_user.user_config.view_loc_groups.collect{|l| l.id}
+
   end
 
 # Necessary? -ben
