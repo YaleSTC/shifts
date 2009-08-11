@@ -12,7 +12,7 @@ class UserProfileField < ActiveRecord::Base
                           "Multiple Choice" => "radio_button",
                           "Check Boxes" => "check_box",
                           "Profile Picture (hyperlink)" => "picture_link",
-#                          "Profile Picture (on the server)" => "upload_pic"
+                          "Profile Picture (on the server)" => "photo"
                           }
 
   DISPLAY_TYPE_VIEW = {"text_field"   => "Text Field",
@@ -21,7 +21,7 @@ class UserProfileField < ActiveRecord::Base
                         "radio_button" => "Multiple Choice",
                         "check_box" => "Check Boxes",
                         "picture_link" => "Profile Picture (hyperlink)",
-#                        "upload_pic" => "Profile Picture (on the server)"
+                        "photo" => "Profile Picture (on the server)"
                           }
 
 end
