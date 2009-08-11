@@ -62,8 +62,9 @@
     var date = params[1];
     
     //cursor position magic
-    var relX = e.pageX - getXOffset(raw_element);
-    var widthPercentage = relX / parent_element.width();
+    var relX = e.pageX - getXOffset(parent_element.closest('.events').get(0));
+    var widthPercentage = relX / parent_element.closest('.events').width();
+    alert(widthPercentage);
     
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
