@@ -1,4 +1,5 @@
 <% title "Sub Request" %>
+<% if @sub_request.mandatory_start != @sub_request.start && @sub_request.mandatory_end != @sub_request.end %>
 <h3> What must be taken: </h3>
 <p>
   <b>Start:</b>
@@ -37,11 +38,17 @@
   <b>Reason:</b>
   <%=h @sub_request.reason %>
 </p>
-
 <%= link_to 'Take', get_take_info_sub_request_path(@sub_request) %> |
 <% if current_user.is_admin_of?(@department) or current_user == @sub_request.user %>
   <%= link_to 'Cancel', @sub_request, :confirm => 'Are you sure?', :method => :delete %> |
 <% end %>
 <%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
 <%= link_to 'Back', sub_requests_path %>
+
+<% else %>
+<p>From <%= @sub_request.mandatory_start %> to
+   <%= @sub_request.mandatory_end %>
+   <%= button_to "Take this!", {:action => :take, :id => @sub_request, :just_mandatory => :true} %>
+</p>
+<% end %>
 

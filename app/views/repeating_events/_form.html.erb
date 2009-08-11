@@ -53,6 +53,10 @@
 </div>
 <div id = "shift_fields">
 <h3> Shift </h3>
+  <p>
+    <%= f.label "wipe_conflicting_shifts" %><br />
+    <%= check_box_tag "wipe", "1", true %>
+  </p>
     <p>
       <%= f.label :user %><br />
       <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>

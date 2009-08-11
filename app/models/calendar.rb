@@ -9,4 +9,6 @@ class Calendar < ActiveRecord::Base
   validates_presence_of :end_date, :if => Proc.new{|calendar| !calendar.default?}
 
   validates_uniqueness_of :name, :scope => :department_id
+  
+  named_scope :active, lambda {{ :conditions => {:active => true}}}
 end

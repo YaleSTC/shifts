@@ -1,5 +1,5 @@
 #report_relative_size {
-  width: 48%;
+  width: 49.5%;
   float: right;
 }
 
@@ -36,9 +36,8 @@
 }
 
 #report_item_area{
-  margin: 5px;
   border-collapse: collapse;
-  width: 45%;
+  width: 49.5%;
   clear: left;
   float: left;
 }
@@ -58,14 +57,16 @@
 }
 
 #useful_links {
+  width: 49.5%;
+  float: right;
+  margin-bottom: 5px
+}
+
+#useful_links fieldset {
   padding: 5px;
-  clear: both;
+  border: 1px solid gray;
+  background-color:#DDDDFF
 }
-
-#useful_links li {
-  display: inline;
-}
-
 
 textarea#item {
   width: 99%;
@@ -73,12 +74,12 @@ textarea#item {
 }
 
 #report_data_objects {
-  width: 48%;
+  width: 49.5%;
   float: left;
+  margin-bottom: 5px
 }
 
 #report_data_objects fieldset {
-  width: 100%;
   padding: 5px;
   border: 1px solid gray;
   background-color:#DDDDFF
@@ -88,3 +89,4 @@ textarea#item {
   float: right;
   clear: right;
 }
+
