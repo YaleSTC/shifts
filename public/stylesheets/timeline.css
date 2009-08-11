@@ -63,7 +63,7 @@ ul.intervals div.hours {
     border-left: 1px solid #fff;
 
 }
-ul.intervals div#first {
+ul.intervals:first-child li:first-child div.hours:first-child {
     border-left: 1px solid #888;
 }
 
@@ -121,6 +121,11 @@ ul.events li {
     height: 100%;
 	cursor: pointer !important;
 }
+div.timeline div.days div.divider,
+div.timeline ul.divider {
+    background: #fff;
+}
+
 ul.events li.click_to_add_new {
 	z-index: 0;
     background: transparent;
