@@ -1,7 +1,7 @@
 class SubRequestsController < ApplicationController
 
   def index
-    @sub_requests = SubRequest.all
+    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
   end
 
   def show
@@ -61,6 +61,7 @@ class SubRequestsController < ApplicationController
     @sub_request = SubRequest.find(params[:id])
     return unless require_owner_or_dept_admin(@sub_request.shift, current_department)
     @sub_request.destroy
+    UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{params[:id]}\"")
     flash[:notice] = "Successfully destroyed sub request."
     redirect_to shifts_url
   end
