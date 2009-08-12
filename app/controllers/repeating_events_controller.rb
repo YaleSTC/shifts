@@ -9,8 +9,6 @@ class RepeatingEventsController < ApplicationController
 
   def new
     @repeating_event = RepeatingEvent.new
-    @time_slot = TimeSlot.new
-    @shift = Shift.new
   end
 
   def create
@@ -24,12 +22,22 @@ class RepeatingEventsController < ApplicationController
     params[:repeating_event]["end_time(2i)"]=  params[:repeating_event]["start_time(2i)"] =  params[:repeating_event]["start_date(2i)"]
     params[:repeating_event]["end_time(3i)"]=  params[:repeating_event]["start_time(3i)"] =  params[:repeating_event]["start_date(3i)"]
     @repeating_event = RepeatingEvent.new(params[:repeating_event])
-    @repeating_event.wipe = true if params[:wipe]
-    if @repeating_event.save
+    wipe = params[:wipe] ? true : false
+    begin
+      ActiveRecord::Base.transaction do
+        @repeating_event.save!
+        @failed = @repeating_event.make_future(wipe)
+        raise @failed if @failed
+      end
+    rescue Exception => e
+      @errors = e.message
+    end
+    if @errors
+      @repeating_event = @repeating_event.clone
+      render :action => 'new'
+    else
       flash[:notice] = "Successfully created repeating event."
       redirect_to @repeating_event
-    else
-      render :action => 'new'
     end
   end
 
