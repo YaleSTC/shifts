@@ -8,10 +8,11 @@ Feature: Regular user logs into a shift
         Given I am "Harry Potter"
         And the user "Harry Potter" has permissions "Outside of Hogwarts signup"
 @passing
+@t
     Scenario: Log into an unscheduled shift
         Given I am not logged into a shift
         When I am on shifts page
-        Then I should not see "Return to current shift"
+        Then I should not see "Return to your current shift report"
         When I follow "Start an unscheduled shift"
         And I select "Diagon Alley" from "shift_location_id"
         And I press "Submit"
@@ -24,7 +25,14 @@ Feature: Regular user logs into a shift
         Then the current time should appear 
         And I should see "Hey, I am here!"
 
-        When I press "End shift"
+        When I go to the homepage
+        And I follow "Start an unscheduled shift"
+        And I select "Diagon Alley" from "shift_location_id"
+        And I press "Submit"
+        Then I should see "You can't sign into two shifts!"
+        When I go to the homepage
+        And I follow "Return to your current shift report"
+        And I press "End shift"
         Then I should see "Successfully submitted report and updated payform."
         And "Harry Potter" should have 1 payform_item
 

@@ -9,11 +9,7 @@ There are currently no punch clocks running.
     <th>Has been running for</th>
   </tr>
   <% for punch_clock in @punch_clocks %>
-    <tr>
-      <td><%= punch_clock.user.name %></td>
-      <td><%= punch_clock.running_time %></td>
-      <td><%= link_to "Clock out", edit_punch_clock_path(punch_clock) %></td>
-    </tr>
+<%= render :partial => "punch_clock_row" %>
   <% end %>
 </table>
 <% end %>

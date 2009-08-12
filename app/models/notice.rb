@@ -6,8 +6,7 @@ class Notice < ActiveRecord::Base
   belongs_to :department
 
   validates_presence_of :content
-  validate_on_create :proper_time
-  validate :presence_of_locations_or_viewers
+  validate :presence_of_locations_or_viewers, :proper_time
 
   named_scope :inactive, lambda {{ :conditions => ["end_time <= ?", Time.now.utc] }}
   named_scope :active_with_end, lambda {{ :conditions => ["start_time <= ? and end_time > ?", Time.now.utc, Time.now.utc]}}
@@ -29,11 +28,7 @@ class Notice < ActiveRecord::Base
   end
 
   def is_current?
-    if self.end_time
-      self.start_time < Time.now && self.end_time > Time.now
-    else
-      self.start_time < Time.now
-    end
+    self.end_time ? self.start_time < Time.now && self.end_time > Time.now : self.start_time < Time.now
   end
 
   def is_upcoming?
@@ -60,13 +55,11 @@ class Notice < ActiveRecord::Base
   private
   #Validations
   def presence_of_locations_or_viewers
-    unless self.new_record?
-      errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
-    end
+    errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
   end
 
   def proper_time
-    errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time || Time.now >= self.end_time if self.end_time
+    errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time
   end
 end
 

@@ -18,7 +18,6 @@
               <div>
                 <%= check_box_tag "role[permission_ids][]", perm.id, @role.permissions.include?(perm) %>
                 <%= label_tag "permission_#{perm.id}", text = perm.name %>
-                <%#= perm.name %>
               </div>
           <% end -%>
     <% end -%>

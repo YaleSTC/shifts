@@ -1,6 +1,7 @@
 class PunchClocksController < ApplicationController
   def index
-    @punch_clocks = PunchClock.find_all_by_department_id(@department.id)
+    require_department_admin
+    @punch_clocks = PunchClock.find_all_by_department_id(current_department.id)
   end
   
   def show
@@ -43,12 +44,12 @@ class PunchClocksController < ApplicationController
     end
   end  
   
-    # Currently not implemented - cancels out the punch clock w/o adding time to payform
-#  def destroy
-#    if (clock = current_user.punch_clock) && request.post?
-#      clock.destroy
-#    end
-#    redirect_to :controller => "/dashboard"
-#  end
+# Cancels out the punch clock w/o adding time to payform
+  def destroy
+    @punch_clock = PunchClock.find(params[:id])
+    return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
+    @punch_clock.destroy if (@punch_clock = current_user.punch_clock) && request.post?
+    redirect_to :controller => "/dashboard"
+  end
   
 end

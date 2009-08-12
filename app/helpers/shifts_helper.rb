@@ -1,7 +1,7 @@
 module ShiftsHelper
   
   #WILL BE CHANGED TO SHIFTS:
-  def shift_style(shift)
+  def shift_style(shift, after = nil)
     @right_overflow = @left_overflow = false
     
     #necessary for AJAX rerendering
@@ -11,8 +11,8 @@ module ShiftsHelper
     @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
     
-    left = ((shift.start - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
-    width = ((shift.end - shift.start)/3600.0) / @hours_per_day * 100
+    left = (((after ? after : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
+    width = ((shift.end - (after ? after : shift.start))/3600.0) / @hours_per_day * 100
     if left < 0 
       width += left
       left = 0 
@@ -45,11 +45,39 @@ module ShiftsHelper
       @location_rows[location][0] = [] #initialize rows
     end
     
+    # @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
+    #                                      day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
+    #                                      day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
+    # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
+    #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
+
+    #shifts = @shifts[day.to_s("%Y-%m-%d")]
+
+    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten   
+    
+    shifts = Shift.in_locations(@visible_locations).on_day(day).scheduled #TODO: .active
+    shifts ||= []
+    shifts = shifts.sort_by{|s| [s.location_id, s.start]}
+    # TODO: FIX ME
     @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
                                          day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
-    shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
-                                day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
+    
+    #timeslots = @time_slots[day.to_s("%Y-%m-%d")]
+    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day).after_now #TODO: .active
+
+    timeslots ||= {}
+    timeslots = timeslots.group_by(&:location)
+    
+    timeslots.each_key do |location|
+      timeslots[location] = timeslots[location].sort_by(&:start)
+    end
+    #raise timeslots.to_json
+    #timeslots = timeslots.sort_by{|t| [t.location_id, t.start]}
+    @location_rows_timeslots = timeslots
+    
+    #@location_rows_timeslots ||= []
+    #raise @location_rows_timeslots.to_yaml
 
     rejected = []
     location_row = 0
@@ -79,7 +107,7 @@ module ShiftsHelper
       rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
     end
 
-
+    @timeslot_rows = 0 #counter
 
     @table_height = rowcount
     @table_pixels = 26 * rowcount + rowcount+1
