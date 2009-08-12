@@ -123,7 +123,7 @@ class Shift < ActiveRecord::Base
           end
         return false
       end
-      return out.collect{|t| "The shift"+t.to_s.gsub(",",";")+"conflict. Use wipe to fix."}.join(",")
+      return out.collect{|t| "The shift\'"+t.to_s.gsub(",",";")+"\'conflict. Use wipe to fix."}.join(",")
     end
   end
 
@@ -134,13 +134,14 @@ class Shift < ActiveRecord::Base
     #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
     outer = []
     inner = []
+    diff = end_time - start_time
     #Take each day and build an array containing the pieces of the sql query
     days.each do |day|
       seed_start_time = start_time
       seed_end_time = end_time
       while seed_end_time <= end_date
         seed_start_time = seed_start_time.next(day)
-        seed_end_time = seed_end_time.next(day)
+        seed_end_time = seed_start_time + diff
         inner.push "(user_id = \"#{user_id}\" AND department_id = \"#{department_id}\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed

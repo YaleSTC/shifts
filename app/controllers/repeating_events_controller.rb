@@ -18,11 +18,13 @@ class RepeatingEventsController < ApplicationController
     else
       params[:repeating_event][:location_ids] = [params[:shift][:location_id]]
     end
-    params[:repeating_event]["end_time(1i)"]=  params[:repeating_event]["start_time(1i)"] =  params[:repeating_event]["start_date(1i)"]
-    params[:repeating_event]["end_time(2i)"]=  params[:repeating_event]["start_time(2i)"] =  params[:repeating_event]["start_date(2i)"]
-    params[:repeating_event]["end_time(3i)"]=  params[:repeating_event]["start_time(3i)"] =  params[:repeating_event]["start_date(3i)"]
     @repeating_event = RepeatingEvent.new(params[:repeating_event])
     wipe = params[:wipe] ? true : false
+    if params[:whole_calendar] && !@repeating_event.calendar.default
+      @repeating_event.start_date = @repeating_event.calendar.start_date
+      @repeating_event.end_date = @repeating_event.calendar.end_date
+    end
+    warn = @repeating_event.start_time <= Time.now
     begin
       ActiveRecord::Base.transaction do
         @repeating_event.save!
@@ -30,6 +32,7 @@ class RepeatingEventsController < ApplicationController
         raise @failed if @failed
       end
       flash[:notice] = "Successfully created repeating event."
+      flash[:notice] += "Please note that some events were not created because they started in the past."
       redirect_to @repeating_event
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
