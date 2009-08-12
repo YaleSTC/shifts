@@ -43,11 +43,12 @@
   <fieldset class="index" id="punch_clock">
   <legend>Punch Clock</legend>
   <% if current_user.punch_clock %>
-      <%= image_tag("icons/clock_stop.png", :class => "mini_icon") %>
-      <%= link_to "Clock out", edit_punch_clock_path(current_user.punch_clock), :class => "action_with_icon" %>
+    <%= render :partial => 'punch_clocks/punch_clock_timer', :object => current_user.punch_clock %>
+    <%= image_tag("icons/clock_stop.png", :class => "mini_icon") %>
+    <%= link_to "Clock out", edit_punch_clock_path(current_user.punch_clock), :class => "action_with_icon" %>
   <% else %>
-  <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
-    <%= link_to "Clock in", user_punch_clocks_path(current_user),:class => "action_with_icon", :method => :post %>
+    <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
+    <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
   <% end %>
 </fieldset>
 
