@@ -28,13 +28,13 @@ class PunchClocksController < ApplicationController
   def update
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
-    @punch_clock.last_touched = Time.now
     if params[:pause]
       @punch_clock.paused = true
       @punch_clock.runtime += Time.now - @punch_clock.last_touched
     elsif params[:unpause]
       @punch_clock.paused = false
     elsif params[:submit_clock]    
+      raise "yellow"
       payform_item = PayformItem.new({:date => Date.today,
                                       :category => Category.find_by_name("Punch Clocks"),
                                       :hours => (@punch_clock.runtime/3600), # sec -> hr
@@ -42,8 +42,9 @@ class PunchClocksController < ApplicationController
       payform_item.payform = Payform.build(@punch_clock.department, @punch_clock.user, Date.today)
       flash[:notice] = "Successfully clocked out." if payform_item.save && @punch_clock.destroy  
     end
+    @punch_clock.last_touched = Time.now
     flash[:notice] = @punch_clock && @punch_clock.save ? "Successfully modified punch clock." : "Could not modify punch clock."
-    redirect_to dashboard_path
+    redirect_to current_user == @punch_clock.user ? dashboard_path : punch_clocks_path
   end  
   
 # Cancels out the punch clock w/o adding time to payform
