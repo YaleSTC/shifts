@@ -6,7 +6,8 @@
       <% for entry in @user_profile_entries %>
       <p>
 
-        <% unless entry.content.nil? && entry.display_type != "picture_link" || entry.display_type != "upload_pic" %>
+        <% if entry.content.nil? %>
+        <% elsif entry.display_type == "picture_link" && entry.content != '' %>
           <div class='pic_box'>
             <%= image_tag(entry.content, {:alt => @user_profile.user.proper_name, :class => "profile_pic"}) %>
           </div>
