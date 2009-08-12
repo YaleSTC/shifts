@@ -11,6 +11,7 @@ ul.events li.timeslot:hover a:hover { color: #999; }
 ul.events li.timeslot:hover a {       color: #707070; }
 ul.events li.timeslot:hover {         background: #ddd; }
 
+ul.events li.bar a {             color: #999; }
 
 ul.timeslot_group li{border-top:1px solid #ccc; border-bottom:1px solid #ccc;}
 
@@ -119,7 +120,6 @@ ul.events li {
     text-align: center;
     border-left: 1px solid #fff;
     height: 100%;
-	cursor: pointer !important;
 }
 div.timeline div.days div.divider,
 div.timeline ul.divider {
