@@ -13,8 +13,6 @@
             <%= send(entry.display_type, *args) %>
           <% elsif entry.display_type == "picture_link" %>
             <%= send("text_field", *args) %>
-          <% elsif entry.display_type == "upload_pic" %>
-            File to Upload <%= file_field_tag "user_profile_entries[#{entry.id}]" %>
           <% elsif ["radio_button"].include? entry.display_type %>
             <% args.each do |options| %>
               <%= send(entry.display_type, *options) %>
