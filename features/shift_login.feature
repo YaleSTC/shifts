@@ -8,7 +8,6 @@ Feature: Regular user logs into a shift
         Given I am "Harry Potter"
         And the user "Harry Potter" has permissions "Outside of Hogwarts signup"
 @passing
-@t
     Scenario: Log into an unscheduled shift
         Given I am not logged into a shift
         When I am on shifts page
@@ -24,12 +23,10 @@ Feature: Regular user logs into a shift
         #this step might fail if done at exactly the wrong moment 
         Then the current time should appear 
         And I should see "Hey, I am here!"
-
         When I go to the homepage
-        And I follow "Start an unscheduled shift"
-        And I select "Diagon Alley" from "shift_location_id"
-        And I press "Submit"
-        Then I should see "You can't sign into two shifts!"
+        And I follow "Clock in"
+        Then I should see "Could not clock in."
+
         When I go to the homepage
         And I follow "Return to your current shift report"
         And I press "End shift"
@@ -52,7 +49,7 @@ Feature: Regular user logs into a shift
         | start_time     | end_time       | location     | user         |
         | 12/25/2009 5pm | 12/25/2009 9pm | Diagon Alley | Harry Potter |
         And I am on the homepage
-        Then I should see "Your Upcoming shifts"
+        Then I should see "Upcoming Shifts"
         When I follow "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM"
         And I follow "Request a sub for this shift"
         And I select "2009" from "sub_request[mandatory_start(1i)]"
@@ -85,8 +82,8 @@ Feature: Regular user logs into a shift
         And the user "Hermione Granger" has permissions "Outside of Hogwarts signup"
         And I am on the homepage
         Then I should see "Subs You Can Take"
-        When I follow "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM (I need to eat dinner)"
-        And I follow "Take"
+        Then I should see "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM"
+        When I follow "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM"
         And I press "Take this!"
         Then "Hermione Granger" should have "one" shift 
         And "Harry Potter" should have "no" shift 
