@@ -1,16 +1,35 @@
 /*SHIFT COLORS*/
-ul li.user {                 background: #94C2F0; font-weight: bold; }
-ul li.user:hover {           background: #2985E0; }
-ul li.user_late {            background: #FFCA7A; font-weight: bold;}
+ul li{ z-index: 100;}
+ul li.user {                 background: #C2F094; font-weight: bold; }
+ul li.user:hover {           background: #85E029; }
+ul li.user_late {            background: #FFCA7A; font-weight: bold; }
 ul li.user_late:hover {      background: #FFB13D; }
-ul li.user_missed {          background: #E85E5E; font-weight: bold;}
+ul li.user_missed {          background: #E85E5E; font-weight: bold; }
 ul li.user_missed:hover {    background: #E02929; }
-ul li.shift {                background: #C2F094; }
-ul li.shift:hover {          background: #85E029; }
+ul li.shift {                background: #94C2F0; }
+ul li.shift:hover {          background: #2985E0; }
 ul li.shift_late {           background: #F0F094; }
 ul li.shift_late:hover {     background: #E8E85E; }
 ul li.shift_missed {         background: #F09494; }
 ul li.shift_missed:hover {   background: #E85E5E; }
+
+
+div.sub-bribe {     background: #fcf; height:100%; }
+div.sub-mandatory { background: #eae; height:100%; }
+
+div.shift-time-overlay {
+    width: 100%; 
+    height: 100%;
+    visibility: hidden;
+}
+
+ul.events li:hover div.shift-time-overlay {
+    visibility: visible;
+    background: white; 
+    opacity:0.4;filter:alpha(opacity=40)
+}
+
+
 
 /* HIDDEN SHIFTS */
 ul.hidden_shifts {
@@ -28,6 +47,9 @@ ul.hidden_shifts li {
     text-align: center;
     width:24%;
     float:left;
+}
+ul.hidden_shifts li:hover {
+    cursor: pointer;
 }
 
 

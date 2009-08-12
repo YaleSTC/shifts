@@ -152,7 +152,7 @@ body {
   padding: 0px;
 }
 #identityHeader h1 {
-  float: left;
+  float: left;f
   font-size: 12px;
   height: 0pt;
   margin: 0pt;
@@ -273,6 +273,9 @@ ul#miniTabs a:hover {
   line-height: 1.75em;
 }
 
+li#useful_links {
+    list-style-type: none;
+}
 
 ul#navigationList {
   color: #415578;
@@ -495,9 +498,34 @@ fieldset#warning {
 fieldset.index {
   width: 98.6%;
   padding: 5px;
-  margin: 5px;  
+  margin: 0px 0px 5px 0px;
   border: 1px solid gray;
   background-color:#DDDDFF
+}
+
+fieldset#shifts {
+  width: 47%;
+  float: left;
+}
+
+fieldset#subs {
+  width: 47%;
+  float: right;
+}
+
+fieldset#payform {
+  width: 47%;
+  clear: both;
+  float: left;
+}
+
+fieldset#punch_clock {
+  width: 47%;
+  float: right;
+}
+
+fieldset#schedule{
+	clear: both;
 }
 
 textarea#content {
@@ -604,9 +632,18 @@ div.table_right {
   visibility:hidden;
 }
 
-span#loading_icon{
-  display:none;
+tr#loading_row{
+	display:none;
 }
+
+img.loading_icon {
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+	margin-right: 5px;
+}
+
+
 
 /* styling for errors */
 errorExplanation {

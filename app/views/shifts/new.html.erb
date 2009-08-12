@@ -1,5 +1,9 @@
 <% title "New Shift" %>
 
-<%= render :partial => 'form' %>
+<% form_for @shift do |f| %>
+  <%= f.error_messages %>
+    <%= render :partial => 'form', :locals => {:f => f} %>
+      <p><%= f.submit "Submit" %></p>
+<% end %>
 
 <p><%= link_to "Back to List", shifts_path %></p>

@@ -1,0 +1,2 @@
+<%= render :partial => "calendars/schedule/location", :collection => loc_group.locations.sort_by(&:priority).reverse %>
+<div class="day" style="height: <%= 0.25 * 100 / (@table_height)%>%;"></div>

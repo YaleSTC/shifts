@@ -1,0 +1,75 @@
+<%= unobtrusive_datepicker_include_tags %>
+<% form_for @repeating_event do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+  </p>
+  <p>
+    <%= f.label :end_date %><br />
+    <%= f.date_select :end_date %>
+  </p>
+  <p>
+    <%= f.label :calendar %><br />
+    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+  </p>
+  <p>
+      <strong>Days:</strong><br />
+    <% WEEK_DAYS.each_with_index do |day, i| %>
+      <%= check_box_tag "days[]", i, @repeating_event.days && @repeating_event.days.include?(day), {:id => "days_#{i}"} %>
+      <%= day %>
+    <% end %>
+  </p>
+  <p>
+    <%= f.label :start_time %><br />
+    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+  <p>
+    <%= f.label :end_time %><br />
+    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+  </p>
+  <p>
+  <strong>Time Slot or Shift?</strong> <br />
+  <%= f.label :time_slot %>
+  <%= f.radio_button( :slot_or_shift, "time_slot", :checked => @repeating_event.has_time_slots? ) %>
+  <%= f.label :shift %>
+  <%= f.radio_button( :slot_or_shift, "shift", :checked => @repeating_event.has_shifts? ) %>
+  </p>
+<div id = "time_slot_fields">
+  <h3> Time Slot </h3>
+
+  <% @department.loc_groups.each do |loc_group| %>
+    <% unless loc_group.locations.empty? %>
+      <p>
+        <strong><%= loc_group.name %></strong><br/>
+        <% loc_group.locations.each do |loc| %>
+          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= loc.short_name %>
+        <% end %>
+      </p>
+    <% end %>
+  <%- end -%>
+  </p>
+</div>
+<div id = "shift_fields">
+<h3> Shift </h3>
+  <p>
+    <%= f.label "wipe_conflicting_shifts" %><br />
+    <%= check_box_tag "wipe", "1", true %>
+  </p>
+    <p>
+      <%= f.label :user %><br />
+      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @repeating_event.location_ids ? @repeating_event.location_ids[0] : nil)%><br />
+  </p>
+
+</div>
+
+
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
