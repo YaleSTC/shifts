@@ -1,10 +1,10 @@
-Class PunchClocksController < ApplicationController
+class PunchClocksController < ApplicationController
 
   def index
     require_department_admin
     @punch_clocks = PunchClock.find_all_by_department_id(current_department.id)
   end
-  
+
   def create
     @punch_clock = PunchClock.new({:user => current_user, :department => current_department, :runtime => 0, :last_touched => Time.now})
     @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in."
@@ -45,11 +45,6 @@ Class PunchClocksController < ApplicationController
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
     flash[:notice] = @punch_clock.destroy ? "Successfully canceled punch clock." : "Could not cancel punch clock."
     redirect_to :controller => "/dashboard"
-  end
-  
-  # Ajax method
-  def update_time
-    render :layout => false
   end
   
 end
