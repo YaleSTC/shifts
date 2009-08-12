@@ -1,9 +1,8 @@
 class ShiftsController < ApplicationController
 
     helper :shifts
+    before_filter :require_department_admin, :only => [:destroy]
 
-
-#Currently broken if there are no locations in the department
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
 
@@ -178,12 +177,8 @@ elsif @department.department_config.weekend_shifts #show weekends
     end
   end
 
-#unnecessary -ben
-#yes necessary! see: canceling a shift, etc. -ryan
-#okay then -ben
   def destroy
     @shift = Shift.find(params[:id])
-    return unless require_admin_of(@department)
     @shift.destroy
     respond_to do |format|
       format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}

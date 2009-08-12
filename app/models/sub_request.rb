@@ -14,6 +14,7 @@ class SubRequest < ActiveRecord::Base
   #
 
   def self.take(sub_request, user, just_mandatory)
+
     if sub_request.user_is_eligible?(user)
       SubRequest.transaction do
         if just_mandatory

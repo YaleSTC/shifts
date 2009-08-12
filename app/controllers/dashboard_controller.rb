@@ -1,6 +1,7 @@
 class DashboardController < ApplicationController
   helper :shifts
   helper :data_entries
+  helper :punch_clocks
 
   def index
     # for lists of shifts
