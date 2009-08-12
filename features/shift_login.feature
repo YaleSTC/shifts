@@ -39,6 +39,7 @@ Feature: Regular user logs into a shift
         | 12/25/2009 5pm | 12/25/2009 7pm | Diagon Alley | Harry Potter |
         And "Harry Potter" signs in at "12/25/2009 5:10pm"
         And I am on shifts page
+        Then I should see "oogabooga"
         And I follow "Start an unscheduled shift"
         And I select "Diagon Alley" from "shift_location_id"
         And I press "Submit"
@@ -84,6 +85,8 @@ Feature: Regular user logs into a shift
         Then I should see "Subs You Can Take"
         Then I should see "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM"
         When I follow "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM"
+        When I follow "Take"
+        And I choose "sub_request[mandatory_start]"
         And I press "Take this!"
         Then "Hermione Granger" should have "one" shift 
         And "Harry Potter" should have "no" shift 
