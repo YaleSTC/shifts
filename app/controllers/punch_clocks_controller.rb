@@ -1,9 +1,10 @@
 class PunchClocksController < ApplicationController
+
   def index
     require_department_admin
     @punch_clocks = PunchClock.find_all_by_department_id(current_department.id)
   end
-  
+
   def create
     @punch_clock = PunchClock.new({:user => current_user, :department => current_department, :runtime => 0, :last_touched => Time.now})
     @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in."
@@ -15,7 +16,7 @@ class PunchClocksController < ApplicationController
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
   end
   
-  # Stops, restarts, or submits the punch clock depending on params
+# Stops, restarts, or submits the punch clock depending on params
   def update
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
