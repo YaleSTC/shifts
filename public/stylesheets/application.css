@@ -273,6 +273,9 @@ ul#miniTabs a:hover {
   line-height: 1.75em;
 }
 
+li#useful_links {
+    list-style-type: none;
+}
 
 ul#navigationList {
   color: #415578;
@@ -500,6 +503,31 @@ fieldset.index {
   background-color:#DDDDFF
 }
 
+fieldset#shifts {
+  width: 47%;
+  float: left;
+}
+
+fieldset#subs {
+  width: 47%;
+  float: right;
+}
+
+fieldset#payform {
+  width: 47%;
+  clear: both;
+  float: left;
+}
+
+fieldset#punch_clock {
+  width: 47%;
+  float: right;
+}
+
+fieldset#schedule{
+	clear: both;
+}
+
 textarea#content {
     width: 95%;
     height:90%;
@@ -603,7 +631,6 @@ div.table_right {
   margin:12px;
   visibility:hidden;
 }
-
 
 tr#loading_row{
 	display:none;

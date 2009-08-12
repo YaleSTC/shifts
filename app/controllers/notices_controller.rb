@@ -14,6 +14,7 @@ class NoticesController < ApplicationController
   end
 
   def new
+    @notice_type = params[:type]
     @current_shift_location = current_user.current_shift.location if current_user.current_shift
     @notice = Notice.new
     layout_check
@@ -28,43 +29,41 @@ class NoticesController < ApplicationController
 
   def create
     @notice = Notice.new(params[:notice])
-    @notice.is_sticky = true
-    @notice.is_sticky = false if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
+    @notice.sticky = true if params[:type] == "sticky"
+    @notice.announcement = true if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = current_department
-    @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
-    @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-    @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-#    raise params.to_yaml
+    if params[:type] == "link"
+      @notice.useful_link = true if params[:type] == "link"
+      @notice.content = params[:link_label] + "|$|" + params[:url]
+      @notice.start_time = Time.now
+      @notice.end_time = nil
+      @notice.indefinite = true
+    else
+      @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
+      @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+      @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+    end
     begin
       Notice.transaction do
-        @notice.save(false)
-        set_sources
-        @notice.save!
+        @notice.save(false) #polymorphic associations require a saved database record
+        set_sources #setting polymorphic user and location sources
+        @notice.save! #saving again to run validations
       end
     rescue Exception
-        respond_to do |format|
-          format.html { render :action => "new" }
-          format.js  #create.js.rjs
-        end
+      respond_to do |format|
+        format.html { render :action => "new" }
+        format.js  #create.js.rjs
+      end
     else
       respond_to do |format|
         format.html {
         flash[:notice] = 'Notice was successfully created.'
         redirect_to :action => "index"
-      }
-      format.js  #create.js.rjs
+        }
+        format.js  #create.js.rjs
       end
     end
-
-#    if rescued
-#      respond_to do |format|
-#        format.html {
-#          flash[:notice] = 'Notice was successfully created.'
-#          redirect_to :action => "index"
-#        }
-#        format.js  #create.js.rjs
-#      end
   end
 
   def update
@@ -156,3 +155,4 @@ class NoticesController < ApplicationController
     end
   end
 end
+

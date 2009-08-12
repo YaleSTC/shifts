@@ -1,14 +1,21 @@
 <%= unobtrusive_datepicker_include_tags %>
-
-<% form_for @shift do |f| %>
-  <%= f.error_messages %>
   <p>
+  <%
+        start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
+      
+        if params[:xPercentage]
+          @dept_start_hour = current_department.department_config.schedule_start
+          @dept_end_hour = current_department.department_config.schedule_end
+          @minutes_per_day = (@dept_end_hour - @dept_start_hour)
+          start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f)
+        end
+      %>
     <%= f.label :start_time %><br />
-    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment %>
+    <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :end_time %><br />
-    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment %>
+    <%= f.unobtrusive_datetime_picker :end, :default => start_time + 1.hour, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :location %><br />
@@ -28,5 +35,3 @@
       <%= f.check_box :power_signed_up %> (Ignore restrictions and time slots)
     </p>
   <% end %>
-  <p><%= f.submit "Submit" %></p>
-<% end %>
