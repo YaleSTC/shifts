@@ -504,24 +504,23 @@ fieldset.index {
 }
 
 fieldset#shifts {
-  width: 47%;
+  width: 47.5%;
   float: left;
 }
 
 fieldset#subs {
-  width: 47%;
+  width: 47.5%;
   float: right;
 }
 
 fieldset#payform {
-  width: 47%;
-  clear: both;
+  width: 47.5%;
   float: left;
 }
 
 fieldset#punch_clock {
-  width: 47%;
-  float: right;
+  width: 47.5%;
+  float: left;
 }
 
 fieldset#schedule{
