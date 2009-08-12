@@ -22,6 +22,7 @@ div.timeline {
     position:relative;
     margin-bottom: 10px;
     color: #707070;
+    width: 100%;
 }
 div.timeline-data {
     float:right;
@@ -62,7 +63,7 @@ ul.intervals div.hours {
     border-left: 1px solid #fff;
 
 }
-ul.intervals div#first {
+ul.intervals:first-child li:first-child div.hours:first-child {
     border-left: 1px solid #888;
 }
 
@@ -74,7 +75,7 @@ ul.intervals li {
 }
 
 ul.intervals li {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #fff;
     position: absolute;
     text-align: center;
     height:100%;
@@ -87,14 +88,14 @@ ul.intervals li div.inside-li{
 }
 
 ul.intervals li div.hours{
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #888;
     height:50%;
 }
 
 ul.intervals li div.minutes{
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #fff;
     position: absolute;
-
     height:50%;
 }
 
@@ -104,7 +105,7 @@ ul.events {
     margin: 0;
     position:relative;
     border-bottom: 1px solid #fff;
-    border-right: 1px solid #fff;
+
     border-left: 1px solid #fff;
     background: #bbb;
     width: 100%;
@@ -118,13 +119,20 @@ ul.events li {
     text-align: center;
     border-left: 1px solid #fff;
     height: 100%;
+	cursor: pointer !important;
 }
+div.timeline div.days div.divider,
+div.timeline ul.divider {
+    background: #fff;
+}
+
 ul.events li.no_signups {
 		z-index: 0;/*
 				background: #b0b0b0 !important;*/
 }
+
 ul.events li.click_to_add_new {
-		z-index: 0;
+	z-index: 0;
     background: transparent;
     position: absolute;
     height: 100%;
@@ -133,7 +141,7 @@ ul.events li.click_to_add_new {
 		background: #d6d6d6;
 }
 ul.events li.click_to_add_new_timeslot {
-		z-index: 0;
+	z-index: 0;
     background: transparent;
     position: absolute;
     height: 100%;
@@ -145,13 +153,13 @@ ul.events li.click_to_show {
 }
 div.click_to_add_new:hover {
     background: #666;
-		cursor: pointer;
+	cursor: pointer;
 }
 ul.events li.click_to_add_new:hover {
     background: #ddd;
     position: absolute;
     height: 100%;
-		cursor: pointer;
+	cursor: pointer;
 }
 ul.events li div {
 	position: relative;
@@ -188,7 +196,7 @@ div#tooltip{
 	min-width: 200px;
 	font-style: normal;
 	font-weight: normal;
-  font-family: Verdana, Arial, serif;
+    font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }
@@ -252,7 +260,7 @@ div.loading{
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
-  font-family: Verdana, Arial, serif;
+    font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }
@@ -271,7 +279,7 @@ div.tooltip{
 	min-width: 200px;
 	font-style: normal;
 	font-weight: normal;
-  font-family: Verdana, Arial, serif;
+    font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
 }

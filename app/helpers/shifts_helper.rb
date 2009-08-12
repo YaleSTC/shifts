@@ -119,10 +119,11 @@ module ShiftsHelper
 
     @timeslot_rows = 0 #counter
 
+    @row_height = 24 #pixels - this could be user-configurable
+    @divider_height = 3 #pixels - this could be user-configurable
     @table_height = rowcount
-    @table_pixels = 26 * rowcount + rowcount+1
+    @table_pixels = @row_height * rowcount + rowcount+1
     
-    @divider_height = 0.25 * @table_pixels / (@table_height)
   end
   
 end

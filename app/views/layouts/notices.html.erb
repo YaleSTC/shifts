@@ -4,11 +4,10 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
-  <li>
-    <%= link_to_post_a_new_notice %>
-  </li>
+    <h3>Notice Actions</h3>
+      <li><%= link_to_post_a_new_notice %></li>
     <% if current_user.is_admin_of?(current_department) %>
-      <li><%= link_to 'Notice archive', archive_notices_path %></li>
+      <li><%= link_to 'View All Notices', archive_notices_path %></li>
     <% end %>
   </ul>
   <div id="contentNav">

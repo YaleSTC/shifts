@@ -1,0 +1,11 @@
+    <tr id=<%="punch_clock_#{punch_clock_row.id}"%> class=<%= punch_clock_class(punch_clock_row) %> >
+      <td><%= punch_clock_row.user.name %></td>
+      <td><%= punch_clock_row.created_at.to_s(:am_pm_long) %></td>
+      <td id="time"><%= punch_clock_row.running_time %></td>
+      <% unless punch_clock_row.paused? %>
+        <td><%= link_to "Pause clock", punch_clock_path(punch_clock_row, :pause => true), :method => :put %></td>
+      <% else %>
+        <td><%= link_to "Unpause clock", punch_clock_path(punch_clock_row, :unpause => true), :method => :put %></td>
+      <% end %>
+      <td><%= link_to "Clock out", edit_punch_clock_path(punch_clock_row) %></td>
+    </tr>
