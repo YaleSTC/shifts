@@ -39,31 +39,49 @@ class RepeatingEventsController < ApplicationController
       @repeating_event = @repeating_event.clone
       render :action => 'new'
     end
-    if @errors
-
-    else
-    end
   end
 
   def edit
     @repeating_event = RepeatingEvent.find(params[:id])
-    @time_slot = TimeSlot.new
-    @shift = Shift.new
   end
 
   def update
-    @repeating_event = RepeatingEvent.find(params[:id])
-    if @repeating_event.update_attributes(params[:repeating_event])
-      flash[:notice] = "Successfully updated repeating event."
-      redirect_to @repeating_event
+    @old_repeating_event = RepeatingEvent.find(params[:id])
+    params[:repeating_event][:days] = params[:days]
+    if params[:repeating_event][:slot_or_shift] == "time_slot"
+      params[:repeating_event][:location_ids] = params[:location_ids]
     else
+      params[:repeating_event][:location_ids] = [params[:shift][:location_id]]
+    end
+    @repeating_event = RepeatingEvent.new(params[:repeating_event])
+    wipe = params[:wipe] ? true : false
+    if params[:whole_calendar] && !@repeating_event.calendar.default
+      @repeating_event.start_date = @repeating_event.calendar.start_date
+      @repeating_event.end_date = @repeating_event.calendar.end_date
+    end
+    warn = @repeating_event.start_time <= Time.now
+    begin
+      ActiveRecord::Base.transaction do
+        RepeatingEvent.destroy_self_and_future(@old_repeating_event)
+        @repeating_event.save!
+        @failed = @repeating_event.make_future(wipe)
+        raise @failed if @failed
+      end
+      flash[:notice] = "Successfully edited repeating event."
+      flash[:notice] += "Please note that some events were not created because they started in the past."
+      redirect_to @repeating_event
+    rescue Exception => e
+      @errors = e.message.gsub("Validation failed:", "").split(",")
+      @repeating_event = @repeating_event.clone
       render :action => 'edit'
     end
   end
 
   def destroy
     @repeating_event = RepeatingEvent.find(params[:id])
-    RepeatingEvent.destroy_self_and_future(@repeating_event)
+    ActiveRecord::Base.transaction do
+      RepeatingEvent.destroy_self_and_future(@repeating_event)
+    end
     flash[:notice] = "Successfully destroyed repeating event."
     redirect_to repeating_events_url
   end
