@@ -25,7 +25,75 @@ module ShiftsHelper
     "width: #{width}%; left: #{left}%;"
   end
   
+  def loc_group_preprocessing
+    @unfilled_priority = {}
+    @unfilled_priority.default = false
+  end
   
+  def location_preprocessing(location, day)
+    timeslots = @location_rows_timeslots[location]
+    shifts = @location_rows[location].flatten
+    
+    #what times is this location open?
+    @open_at = {}
+    @open_at.default = false
+    unless timeslots.nil?
+      timeslots.each do |timeslot|
+        time = timeslot.start
+        time = time.hour*60+time.min
+        end_time = timeslot.end
+        end_time = end_time.hour*60+end_time.min
+        while (time < end_time)
+          @open_at[time] = true
+          time += @time_increment          
+        end
+      end
+    end
+
+    #how many people are in this location?
+    people_count = {}
+    people_count.default = 0
+    unless shifts.nil?
+      shifts.each do |shift|
+        time = shift.start
+        time = time.hour*60+time.min
+        end_time = shift.end
+        end_time = end_time.hour*60+end_time.min
+        while (time < end_time)
+          people_count[time] += 1
+          time += @time_increment
+        end
+      end
+    end
+
+    #what should the bar display?
+    @signup_bar = []
+    @total_blocks = @blocks_per_hour * @hours_per_day
+    now = Time.now
+    now = now.hour*60+now.min
+    today = day.today?
+    (0...@total_blocks).each do |block|
+      time = @dept_start_hour*60 + block*@time_increment
+      if !@open_at[time]
+        @signup_bar[block] = "bar_closed no_signups"
+      elsif people_count[time] >= location.max_staff
+        @signup_bar[block] = "bar_full no_signups"
+      elsif today and time < now
+        @signup_bar[block] = "bar_passed no_signups"
+      elsif @unfilled_priority[time] and location.priority < @unfilled_priority[time]
+        @signup_bar[block] = "bar_pending no_signups"
+      else
+        @signup_bar[block] = "bar_open click_to_add_new"
+        if(people_count[time] < location.min_staff)
+          @unfilled_priority[time] ||= location.priority
+        end
+      end
+    end
+  end
+  
+  def min_staff_not_met?(time, location)
+    @open_at[time.to_s(:am_pm)] && people_count[time.to_s(:am_pm)] < location.min_staff
+  end
   
   def day_preprocessing(day)
     @location_rows = {}
@@ -74,17 +142,7 @@ module ShiftsHelper
 
     rejected = []
     location_row = 0
-    
-    @open_at = {}
-    
-    #priority
-    shifts.each do |shift|
-      t = shift.start
-#      while t < shift.end
-    end
-        
-    
-    
+          
     until shifts.empty?
       shift = shifts.shift
       @location_rows[shift.location][location_row] = [shift]
