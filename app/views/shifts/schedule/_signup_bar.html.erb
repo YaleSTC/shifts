@@ -13,7 +13,7 @@
       <div class="time-slot">
         <div class="center_container">
           <div class="center_content">
-            <% if show_text %>
+            <% if show_text and length >= 3 %>
               <%= style == "bar_open click_to_add_new" ? (link_to "sign up", new_shift_path) : "" %>
             <% end %>
           </div>
