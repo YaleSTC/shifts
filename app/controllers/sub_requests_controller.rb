@@ -87,10 +87,10 @@ class SubRequestsController < ApplicationController
 
   def take
     @sub_request = SubRequest.find(params[:id])
-    if SubRequest.take(@sub_request, current_user, params[:just_mandatory])
+    if SubRequest.take(@sub_request, current_user, params[:sub_request]["mandatory_start"])
       redirect_to(shifts_path)
     else
-      flash[:notice] = 'You are not authorized to take this shift'
+      flash[:error] = 'You are not authorized to take this shift' if !@sub_request.user_is_eligible?(current_user)
       redirect_to(get_take_info_sub_request_path(@sub_request))
     end
   end
