@@ -106,7 +106,7 @@ ul.events {
     border-bottom: 1px solid #fff;
     border-right: 1px solid #fff;
     border-left: 1px solid #fff;
-    background: #ccc;
+    background: #bbb;
     width: 100%;
 }
 
@@ -118,7 +118,10 @@ ul.events li {
     text-align: center;
     border-left: 1px solid #fff;
     height: 100%;
-		cursor: pointer !important;
+}
+ul.events li.no_signups {
+		z-index: 0;/*
+				background: #b0b0b0 !important;*/
 }
 ul.events li.click_to_add_new {
 		z-index: 0;
@@ -127,6 +130,7 @@ ul.events li.click_to_add_new {
     height: 100%;
     border-left: 0px solid #fff;
 		cursor: pointer;
+		background: #d6d6d6;
 }
 ul.events li.click_to_add_new_timeslot {
 		z-index: 0;
@@ -134,6 +138,9 @@ ul.events li.click_to_add_new_timeslot {
     position: absolute;
     height: 100%;
     border-left: 0px solid #fff;
+		cursor: pointer;
+}
+ul.events li.click_to_show {
 		cursor: pointer;
 }
 div.click_to_add_new:hover {
