@@ -70,7 +70,7 @@ class TimeSlot < ActiveRecord::Base
           end
         return false
       end
-      return "<p>"+out.collect{|t| t.to_s}.join("</p><p>")+"</p>"
+      return out.collect{|t| "The timeslot "+t.to_s.gsub(",",";")+" conflicts. Use wipe to fix."}.join(",")
     end
   end
 
