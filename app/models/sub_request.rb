@@ -27,7 +27,7 @@ class SubRequest < ActiveRecord::Base
         new_shift.user = user
         new_shift.start = sub_request.start
         new_shift.end = sub_request.end
-        UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{params[:id]}\"")
+        UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{sub_request.id}\"")
         sub_request.destroy
         Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
         new_shift.save!
