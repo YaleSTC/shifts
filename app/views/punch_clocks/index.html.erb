@@ -3,14 +3,5 @@
 <% if @punch_clocks.empty? %>
 There are currently no punch clocks running.
 <% else %>
-<table id="clock">
-  <tr>
-    <th>User</th>
-    <th>Start Time</th>
-    <th>Runtime</th>
-    <th></th>
-    <th></th>
-  </tr>
-  <%= render :partial => "punch_clock_row", :collection => @punch_clocks %>
-</table>
+<%= render :partial => "clocks", :object => @punch_clocks %>
 <% end %>
