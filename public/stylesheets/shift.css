@@ -30,6 +30,7 @@ ul.events li:hover div.shift-time-overlay {
 }
 
 
+
 /* HIDDEN SHIFTS */
 ul.hidden_shifts {
     list-style-type: none;
@@ -46,6 +47,9 @@ ul.hidden_shifts li {
     text-align: center;
     width:24%;
     float:left;
+}
+ul.hidden_shifts li:hover {
+    cursor: pointer;
 }
 
 

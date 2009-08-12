@@ -109,11 +109,43 @@ class ApplicationController < ActionController::Base
 # These are the authorization before_filters to use under controllers
 # These all return nil
   def require_department_admin
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department)
+    unless current_user.is_admin_of?(current_department)
+      error_message = "That action is restricted to department administrators."
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
+    end
+    return true
   end
 
   def require_loc_group_admin(current_loc_group)
-    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_loc_group)
+    unless current_user.is_admin_of?(current_loc_group)
+      error_message = "That action is restricted to location group administrators."
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
+    end
+    return true
   end
 
   def require_superuser
@@ -133,6 +165,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+    return true
   end
 
 # These three methods all return true/false, so they can be tested to trigger return statements

@@ -2,11 +2,11 @@
   <p>
     <%= image_tag("icons/asterisk_orange.png", :class => "mini_icon") %> <%=link_to "Return to your current shift report", report_path(current_user.current_shift.report) %>
   </p>
+<% else %>
+  <p>
+    <%= image_tag("icons/add.png", :class => "mini_icon") %> <%= link_to_remote "Start an unscheduled shift", {:url => unscheduled_new_shift_path, :method => :get}, :href => unscheduled_new_shift_path, :class => "action_with_icon" %>
+  </p>
 <% end %>
-
-<p>
-  <%= image_tag("icons/add.png", :class => "mini_icon") %> <%= link_to_remote "Start an unscheduled shift", {:url => unscheduled_new_shift_path, :method => :get}, :href => unscheduled_new_shift_path, :class => "action_with_icon" %>
-</p>
 
 <%# for AJAX insert: -%>
 <div id="unscheduled" style="margin: 0; padding:0; margin-left:20px; display: none"></div>
