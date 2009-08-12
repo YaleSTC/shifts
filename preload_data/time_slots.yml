@@ -1,5 +1,6 @@
 --- 
 time_slots_001: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-11 00:00:00
   end: 2009-07-12 03:00:00
@@ -9,6 +10,7 @@ time_slots_001:
   start: 2009-07-11 13:00:00
   updated_at: 2009-07-11 08:31:28
 time_slots_002: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-12 00:00:00
   end: 2009-07-13 03:00:00
@@ -18,6 +20,7 @@ time_slots_002:
   start: 2009-07-12 13:00:00
   updated_at: 2009-07-11 08:31:29
 time_slots_003: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-13 00:00:00
   end: 2009-07-14 03:00:00
@@ -27,6 +30,7 @@ time_slots_003:
   start: 2009-07-13 13:00:00
   updated_at: 2009-07-11 08:31:32
 time_slots_004: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-14 00:00:00
   end: 2009-07-15 03:00:00
@@ -36,6 +40,7 @@ time_slots_004:
   start: 2009-07-14 13:00:00
   updated_at: 2009-07-11 08:31:34
 time_slots_005: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-15 00:00:00
   end: 2009-07-16 03:00:00
@@ -45,6 +50,7 @@ time_slots_005:
   start: 2009-07-15 13:00:00
   updated_at: 2009-07-11 08:31:37
 time_slots_006: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-16 00:00:00
   end: 2009-07-17 03:00:00
@@ -54,6 +60,7 @@ time_slots_006:
   start: 2009-07-16 13:00:00
   updated_at: 2009-07-11 08:31:40
 time_slots_007: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-17 00:00:00
   end: 2009-07-18 03:00:00
@@ -63,6 +70,7 @@ time_slots_007:
   start: 2009-07-17 13:00:00
   updated_at: 2009-07-11 08:31:44
 time_slots_008: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-18 00:00:00
   end: 2009-07-19 03:00:00
@@ -72,6 +80,7 @@ time_slots_008:
   start: 2009-07-18 13:00:00
   updated_at: 2009-07-11 08:31:49
 time_slots_009: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-19 00:00:00
   end: 2009-07-20 03:00:00
@@ -81,6 +90,7 @@ time_slots_009:
   start: 2009-07-19 13:00:00
   updated_at: 2009-07-11 08:31:54
 time_slots_010: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-20 00:00:00
   end: 2009-07-21 03:00:00
@@ -90,6 +100,7 @@ time_slots_010:
   start: 2009-07-20 13:00:00
   updated_at: 2009-07-11 08:32:00
 time_slots_011: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-21 00:00:00
   end: 2009-07-22 03:00:00
@@ -99,6 +110,7 @@ time_slots_011:
   start: 2009-07-21 13:00:00
   updated_at: 2009-07-11 08:32:06
 time_slots_012: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-22 00:00:00
   end: 2009-07-23 03:00:00
@@ -108,6 +120,7 @@ time_slots_012:
   start: 2009-07-22 13:00:00
   updated_at: 2009-07-11 08:32:12
 time_slots_013: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-23 00:00:00
   end: 2009-07-24 03:00:00
@@ -117,6 +130,7 @@ time_slots_013:
   start: 2009-07-23 13:00:00
   updated_at: 2009-07-11 08:32:20
 time_slots_014: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-24 00:00:00
   end: 2009-07-25 03:00:00
@@ -126,6 +140,7 @@ time_slots_014:
   start: 2009-07-24 13:00:00
   updated_at: 2009-07-11 08:32:28
 time_slots_015: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-25 00:00:00
   end: 2009-07-26 03:00:00
@@ -135,6 +150,7 @@ time_slots_015:
   start: 2009-07-25 13:00:00
   updated_at: 2009-07-11 08:32:36
 time_slots_016: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-26 00:00:00
   end: 2009-07-27 03:00:00
@@ -144,6 +160,7 @@ time_slots_016:
   start: 2009-07-26 13:00:00
   updated_at: 2009-07-11 08:32:45
 time_slots_017: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-27 00:00:00
   end: 2009-07-28 03:00:00
@@ -153,6 +170,7 @@ time_slots_017:
   start: 2009-07-27 13:00:00
   updated_at: 2009-07-11 08:32:55
 time_slots_018: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-28 00:00:00
   end: 2009-07-29 03:00:00
@@ -162,6 +180,7 @@ time_slots_018:
   start: 2009-07-28 13:00:00
   updated_at: 2009-07-11 08:33:05
 time_slots_019: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-29 00:00:00
   end: 2009-07-30 03:00:00
@@ -171,6 +190,7 @@ time_slots_019:
   start: 2009-07-29 13:00:00
   updated_at: 2009-07-11 08:33:16
 time_slots_020: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-30 00:00:00
   end: 2009-07-31 03:00:00
@@ -180,6 +200,7 @@ time_slots_020:
   start: 2009-07-30 13:00:00
   updated_at: 2009-07-11 08:33:27
 time_slots_021: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-31 00:00:00
   end: 2009-08-01 03:00:00
@@ -189,6 +210,7 @@ time_slots_021:
   start: 2009-07-31 13:00:00
   updated_at: 2009-07-11 08:33:39
 time_slots_022: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-01 00:00:00
   end: 2009-08-02 03:00:00
@@ -198,6 +220,7 @@ time_slots_022:
   start: 2009-08-01 13:00:00
   updated_at: 2009-07-11 08:33:51
 time_slots_023: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-05 00:00:00
   end: 2009-08-06 03:00:00
@@ -207,6 +230,7 @@ time_slots_023:
   start: 2009-08-05 13:00:00
   updated_at: 2009-07-11 08:34:46
 time_slots_024: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-06 00:00:00
   end: 2009-08-07 03:00:00
@@ -216,6 +240,7 @@ time_slots_024:
   start: 2009-08-06 13:00:00
   updated_at: 2009-07-11 08:35:00
 time_slots_025: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-07 00:00:00
   end: 2009-08-08 03:00:00
@@ -225,6 +250,7 @@ time_slots_025:
   start: 2009-08-07 13:00:00
   updated_at: 2009-07-11 08:35:16
 time_slots_026: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-08 00:00:00
   end: 2009-08-09 03:00:00
@@ -234,6 +260,7 @@ time_slots_026:
   start: 2009-08-08 13:00:00
   updated_at: 2009-07-11 08:35:32
 time_slots_027: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-09 00:00:00
   end: 2009-08-10 03:00:00
@@ -243,6 +270,7 @@ time_slots_027:
   start: 2009-08-09 13:00:00
   updated_at: 2009-07-11 08:35:48
 time_slots_028: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-10 00:00:00
   end: 2009-08-11 03:00:00
@@ -252,6 +280,7 @@ time_slots_028:
   start: 2009-08-10 13:00:00
   updated_at: 2009-07-11 08:36:06
 time_slots_029: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-11 00:00:00
   end: 2009-08-12 03:00:00
@@ -261,6 +290,7 @@ time_slots_029:
   start: 2009-08-11 13:00:00
   updated_at: 2009-07-11 08:36:24
 time_slots_030: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-12 00:00:00
   end: 2009-08-13 03:00:00
@@ -270,6 +300,7 @@ time_slots_030:
   start: 2009-08-12 13:00:00
   updated_at: 2009-07-11 08:36:45
 time_slots_031: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-13 00:00:00
   end: 2009-08-14 03:00:00
@@ -279,6 +310,7 @@ time_slots_031:
   start: 2009-08-13 13:00:00
   updated_at: 2009-07-11 08:37:04
 time_slots_032: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-14 00:00:00
   end: 2009-08-15 03:00:00
@@ -288,6 +320,7 @@ time_slots_032:
   start: 2009-08-14 13:00:00
   updated_at: 2009-07-11 08:37:24
 time_slots_033: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-15 00:00:00
   end: 2009-08-16 03:00:00
@@ -297,6 +330,7 @@ time_slots_033:
   start: 2009-08-15 13:00:00
   updated_at: 2009-07-11 08:37:45
 time_slots_034: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-16 00:00:00
   end: 2009-08-17 03:00:00
@@ -306,6 +340,7 @@ time_slots_034:
   start: 2009-08-16 13:00:00
   updated_at: 2009-07-11 08:38:05
 time_slots_035: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-17 00:00:00
   end: 2009-08-18 03:00:00
@@ -315,6 +350,7 @@ time_slots_035:
   start: 2009-08-17 13:00:00
   updated_at: 2009-07-11 08:38:27
 time_slots_036: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-18 00:00:00
   end: 2009-08-19 03:00:00
@@ -324,6 +360,7 @@ time_slots_036:
   start: 2009-08-18 13:00:00
   updated_at: 2009-07-11 08:38:49
 time_slots_037: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-19 00:00:00
   end: 2009-08-20 03:00:00
@@ -333,6 +370,7 @@ time_slots_037:
   start: 2009-08-19 13:00:00
   updated_at: 2009-07-11 08:39:12
 time_slots_038: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-20 00:00:00
   end: 2009-08-21 03:00:00
@@ -342,6 +380,7 @@ time_slots_038:
   start: 2009-08-20 13:00:00
   updated_at: 2009-07-11 08:39:35
 time_slots_039: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-21 00:00:00
   end: 2009-08-22 03:00:00
@@ -351,6 +390,7 @@ time_slots_039:
   start: 2009-08-21 13:00:00
   updated_at: 2009-07-11 08:39:59
 time_slots_040: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-22 00:00:00
   end: 2009-08-23 03:00:00
@@ -360,6 +400,7 @@ time_slots_040:
   start: 2009-08-22 13:00:00
   updated_at: 2009-07-11 08:40:24
 time_slots_041: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-23 00:00:00
   end: 2009-08-24 03:00:00
@@ -369,6 +410,7 @@ time_slots_041:
   start: 2009-08-23 13:00:00
   updated_at: 2009-07-11 08:40:49
 time_slots_042: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-24 00:00:00
   end: 2009-08-25 03:00:00
@@ -378,6 +420,7 @@ time_slots_042:
   start: 2009-08-24 13:00:00
   updated_at: 2009-07-11 08:41:14
 time_slots_043: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-25 00:00:00
   end: 2009-08-26 03:00:00
@@ -387,6 +430,7 @@ time_slots_043:
   start: 2009-08-25 13:00:00
   updated_at: 2009-07-11 08:41:41
 time_slots_044: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-26 00:00:00
   end: 2009-08-27 03:00:00
@@ -396,6 +440,7 @@ time_slots_044:
   start: 2009-08-26 13:00:00
   updated_at: 2009-07-11 08:42:07
 time_slots_045: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-27 00:00:00
   end: 2009-08-28 03:00:00
@@ -405,6 +450,7 @@ time_slots_045:
   start: 2009-08-27 13:00:00
   updated_at: 2009-07-11 08:42:35
 time_slots_046: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-28 00:00:00
   end: 2009-08-29 03:00:00
@@ -414,6 +460,7 @@ time_slots_046:
   start: 2009-08-28 13:00:00
   updated_at: 2009-07-11 08:43:03
 time_slots_047: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-29 00:00:00
   end: 2009-08-30 03:00:00
@@ -423,6 +470,7 @@ time_slots_047:
   start: 2009-08-29 13:00:00
   updated_at: 2009-07-11 08:43:31
 time_slots_048: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-30 00:00:00
   end: 2009-08-31 03:00:00
@@ -432,6 +480,7 @@ time_slots_048:
   start: 2009-08-30 13:00:00
   updated_at: 2009-07-11 08:44:00
 time_slots_049: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-31 00:00:00
   end: 2009-09-01 03:00:00
@@ -441,6 +490,7 @@ time_slots_049:
   start: 2009-08-31 13:00:00
   updated_at: 2009-07-11 08:44:30
 time_slots_050: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-01 00:00:00
   end: 2009-09-02 03:00:00
@@ -450,6 +500,7 @@ time_slots_050:
   start: 2009-09-01 13:00:00
   updated_at: 2009-07-11 08:45:01
 time_slots_051: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-02 00:00:00
   end: 2009-09-03 03:00:00
@@ -459,6 +510,7 @@ time_slots_051:
   start: 2009-09-02 13:00:00
   updated_at: 2009-07-11 08:45:32
 time_slots_052: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-03 00:00:00
   end: 2009-09-04 03:00:00
@@ -468,6 +520,7 @@ time_slots_052:
   start: 2009-09-03 13:00:00
   updated_at: 2009-07-11 08:46:04
 time_slots_053: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-04 00:00:00
   end: 2009-09-05 03:00:00
@@ -477,6 +530,7 @@ time_slots_053:
   start: 2009-09-04 13:00:00
   updated_at: 2009-07-11 08:46:36
 time_slots_054: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-05 00:00:00
   end: 2009-09-06 03:00:00
@@ -486,6 +540,7 @@ time_slots_054:
   start: 2009-09-05 13:00:00
   updated_at: 2009-07-11 08:47:09
 time_slots_055: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-06 00:00:00
   end: 2009-09-07 03:00:00
@@ -495,6 +550,7 @@ time_slots_055:
   start: 2009-09-06 13:00:00
   updated_at: 2009-07-11 08:47:42
 time_slots_056: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-07 00:00:00
   end: 2009-09-08 03:00:00
@@ -504,6 +560,7 @@ time_slots_056:
   start: 2009-09-07 13:00:00
   updated_at: 2009-07-11 08:48:16
 time_slots_057: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-08 00:00:00
   end: 2009-09-09 03:00:00
@@ -513,6 +570,7 @@ time_slots_057:
   start: 2009-09-08 13:00:00
   updated_at: 2009-07-11 08:48:51
 time_slots_058: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-09 00:00:00
   end: 2009-09-10 03:00:00
@@ -522,6 +580,7 @@ time_slots_058:
   start: 2009-09-09 13:00:00
   updated_at: 2009-07-11 08:49:26
 time_slots_059: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-10 00:00:00
   end: 2009-09-11 03:00:00
@@ -531,6 +590,7 @@ time_slots_059:
   start: 2009-09-10 13:00:00
   updated_at: 2009-07-11 08:50:02
 time_slots_060: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-11 00:00:00
   end: 2009-09-12 03:00:00
@@ -540,6 +600,7 @@ time_slots_060:
   start: 2009-09-11 13:00:00
   updated_at: 2009-07-11 08:50:38
 time_slots_061: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-12 00:00:00
   end: 2009-09-13 03:00:00
@@ -549,6 +610,7 @@ time_slots_061:
   start: 2009-09-12 13:00:00
   updated_at: 2009-07-11 08:51:15
 time_slots_062: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-13 00:00:00
   end: 2009-09-14 03:00:00
@@ -558,6 +620,7 @@ time_slots_062:
   start: 2009-09-13 13:00:00
   updated_at: 2009-07-11 08:51:52
 time_slots_063: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-14 00:00:00
   end: 2009-09-15 03:00:00
@@ -567,6 +630,7 @@ time_slots_063:
   start: 2009-09-14 13:00:00
   updated_at: 2009-07-11 08:52:30
 time_slots_064: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-15 00:00:00
   end: 2009-09-16 03:00:00
@@ -576,6 +640,7 @@ time_slots_064:
   start: 2009-09-15 13:00:00
   updated_at: 2009-07-11 08:53:08
 time_slots_065: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-16 00:00:00
   end: 2009-09-17 03:00:00
@@ -585,6 +650,7 @@ time_slots_065:
   start: 2009-09-16 13:00:00
   updated_at: 2009-07-11 08:53:47
 time_slots_066: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-17 00:00:00
   end: 2009-09-18 03:00:00
@@ -594,6 +660,7 @@ time_slots_066:
   start: 2009-09-17 13:00:00
   updated_at: 2009-07-11 08:54:27
 time_slots_067: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-18 00:00:00
   end: 2009-09-19 03:00:00
@@ -603,6 +670,7 @@ time_slots_067:
   start: 2009-09-18 13:00:00
   updated_at: 2009-07-11 08:55:09
 time_slots_068: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-19 00:00:00
   end: 2009-09-20 03:00:00
@@ -612,6 +680,7 @@ time_slots_068:
   start: 2009-09-19 13:00:00
   updated_at: 2009-07-11 08:55:51
 time_slots_069: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-20 00:00:00
   end: 2009-09-21 03:00:00
@@ -621,6 +690,7 @@ time_slots_069:
   start: 2009-09-20 13:00:00
   updated_at: 2009-07-11 08:56:34
 time_slots_070: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-21 00:00:00
   end: 2009-09-22 03:00:00
@@ -630,6 +700,7 @@ time_slots_070:
   start: 2009-09-21 13:00:00
   updated_at: 2009-07-11 08:57:18
 time_slots_071: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-22 00:00:00
   end: 2009-09-23 03:00:00
@@ -639,6 +710,7 @@ time_slots_071:
   start: 2009-09-22 13:00:00
   updated_at: 2009-07-11 08:58:03
 time_slots_072: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-23 00:00:00
   end: 2009-09-24 03:00:00
@@ -648,6 +720,7 @@ time_slots_072:
   start: 2009-09-23 13:00:00
   updated_at: 2009-07-11 08:58:48
 time_slots_073: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-24 00:00:00
   end: 2009-09-25 03:00:00
@@ -657,6 +730,7 @@ time_slots_073:
   start: 2009-09-24 13:00:00
   updated_at: 2009-07-11 08:59:34
 time_slots_074: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-25 00:00:00
   end: 2009-09-26 03:00:00
@@ -666,6 +740,7 @@ time_slots_074:
   start: 2009-09-25 13:00:00
   updated_at: 2009-07-11 09:00:21
 time_slots_075: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-26 00:00:00
   end: 2009-09-27 03:00:00
@@ -675,6 +750,7 @@ time_slots_075:
   start: 2009-09-26 13:00:00
   updated_at: 2009-07-11 09:01:08
 time_slots_076: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-27 00:00:00
   end: 2009-09-28 03:00:00
@@ -684,6 +760,7 @@ time_slots_076:
   start: 2009-09-27 13:00:00
   updated_at: 2009-07-11 09:01:56
 time_slots_077: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-28 00:00:00
   end: 2009-09-29 03:00:00
@@ -693,6 +770,7 @@ time_slots_077:
   start: 2009-09-28 13:00:00
   updated_at: 2009-07-11 09:02:44
 time_slots_078: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-29 00:00:00
   end: 2009-09-30 03:00:00
@@ -702,6 +780,7 @@ time_slots_078:
   start: 2009-09-29 13:00:00
   updated_at: 2009-07-11 09:03:34
 time_slots_079: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-30 00:00:00
   end: 2009-10-01 03:00:00
@@ -711,6 +790,7 @@ time_slots_079:
   start: 2009-09-30 13:00:00
   updated_at: 2009-07-11 09:04:24
 time_slots_080: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-01 00:00:00
   end: 2009-10-02 03:00:00
@@ -720,6 +800,7 @@ time_slots_080:
   start: 2009-10-01 13:00:00
   updated_at: 2009-07-11 09:05:14
 time_slots_081: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-02 00:00:00
   end: 2009-10-03 03:00:00
@@ -729,6 +810,7 @@ time_slots_081:
   start: 2009-10-02 13:00:00
   updated_at: 2009-07-11 09:06:05
 time_slots_082: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-03 00:00:00
   end: 2009-10-04 03:00:00
@@ -738,6 +820,7 @@ time_slots_082:
   start: 2009-10-03 13:00:00
   updated_at: 2009-07-11 09:06:57
 time_slots_083: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-04 00:00:00
   end: 2009-10-05 03:00:00
@@ -747,6 +830,7 @@ time_slots_083:
   start: 2009-10-04 13:00:00
   updated_at: 2009-07-11 09:07:50
 time_slots_084: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-05 00:00:00
   end: 2009-10-06 03:00:00
@@ -756,6 +840,7 @@ time_slots_084:
   start: 2009-10-05 13:00:00
   updated_at: 2009-07-11 09:08:42
 time_slots_085: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-06 00:00:00
   end: 2009-10-07 03:00:00
@@ -765,6 +850,7 @@ time_slots_085:
   start: 2009-10-06 13:00:00
   updated_at: 2009-07-11 09:09:35
 time_slots_086: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-07 00:00:00
   end: 2009-10-08 03:00:00
@@ -774,6 +860,7 @@ time_slots_086:
   start: 2009-10-07 13:00:00
   updated_at: 2009-07-11 09:10:29
 time_slots_087: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-08 00:00:00
   end: 2009-10-09 03:00:00
@@ -783,6 +870,7 @@ time_slots_087:
   start: 2009-10-08 13:00:00
   updated_at: 2009-07-11 09:11:24
 time_slots_088: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-09 00:00:00
   end: 2009-10-10 03:00:00
@@ -792,6 +880,7 @@ time_slots_088:
   start: 2009-10-09 13:00:00
   updated_at: 2009-07-11 09:12:19
 time_slots_089: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-10 00:00:00
   end: 2009-10-11 03:00:00
@@ -801,6 +890,7 @@ time_slots_089:
   start: 2009-10-10 13:00:00
   updated_at: 2009-07-11 09:13:15
 time_slots_090: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-11 00:00:00
   end: 2009-10-12 03:00:00
@@ -810,6 +900,7 @@ time_slots_090:
   start: 2009-10-11 13:00:00
   updated_at: 2009-07-11 09:14:11
 time_slots_091: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-11 00:00:00
   end: 2009-07-12 03:00:00
@@ -819,6 +910,7 @@ time_slots_091:
   start: 2009-07-11 13:00:00
   updated_at: 2009-07-11 09:15:08
 time_slots_092: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-12 00:00:00
   end: 2009-07-13 03:00:00
@@ -828,6 +920,7 @@ time_slots_092:
   start: 2009-07-12 13:00:00
   updated_at: 2009-07-11 09:15:09
 time_slots_093: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-13 00:00:00
   end: 2009-07-14 03:00:00
@@ -837,6 +930,7 @@ time_slots_093:
   start: 2009-07-13 13:00:00
   updated_at: 2009-07-11 09:15:11
 time_slots_094: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-14 00:00:00
   end: 2009-07-15 03:00:00
@@ -846,6 +940,7 @@ time_slots_094:
   start: 2009-07-14 13:00:00
   updated_at: 2009-07-11 09:15:14
 time_slots_095: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-15 00:00:00
   end: 2009-07-16 03:00:00
@@ -855,6 +950,7 @@ time_slots_095:
   start: 2009-07-15 13:00:00
   updated_at: 2009-07-11 09:15:16
 time_slots_096: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-16 00:00:00
   end: 2009-07-17 03:00:00
@@ -864,6 +960,7 @@ time_slots_096:
   start: 2009-07-16 13:00:00
   updated_at: 2009-07-11 09:15:19
 time_slots_097: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-17 00:00:00
   end: 2009-07-18 03:00:00
@@ -873,6 +970,7 @@ time_slots_097:
   start: 2009-07-17 13:00:00
   updated_at: 2009-07-11 09:15:23
 time_slots_098: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-18 00:00:00
   end: 2009-07-19 03:00:00
@@ -882,6 +980,7 @@ time_slots_098:
   start: 2009-07-18 13:00:00
   updated_at: 2009-07-11 09:15:27
 time_slots_099: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-19 00:00:00
   end: 2009-07-20 03:00:00
@@ -891,6 +990,7 @@ time_slots_099:
   start: 2009-07-19 13:00:00
   updated_at: 2009-07-11 09:15:32
 time_slots_100: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-20 00:00:00
   end: 2009-07-21 03:00:00
@@ -900,6 +1000,7 @@ time_slots_100:
   start: 2009-07-20 13:00:00
   updated_at: 2009-07-11 09:15:37
 time_slots_101: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-21 00:00:00
   end: 2009-07-22 03:00:00
@@ -909,6 +1010,7 @@ time_slots_101:
   start: 2009-07-21 13:00:00
   updated_at: 2009-07-11 09:15:42
 time_slots_102: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-22 00:00:00
   end: 2009-07-23 03:00:00
@@ -918,6 +1020,7 @@ time_slots_102:
   start: 2009-07-22 13:00:00
   updated_at: 2009-07-11 09:15:48
 time_slots_103: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-23 00:00:00
   end: 2009-07-24 03:00:00
@@ -927,6 +1030,7 @@ time_slots_103:
   start: 2009-07-23 13:00:00
   updated_at: 2009-07-11 09:15:55
 time_slots_104: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-24 00:00:00
   end: 2009-07-25 03:00:00
@@ -936,6 +1040,7 @@ time_slots_104:
   start: 2009-07-24 13:00:00
   updated_at: 2009-07-11 09:16:02
 time_slots_105: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-25 00:00:00
   end: 2009-07-26 03:00:00
@@ -945,6 +1050,7 @@ time_slots_105:
   start: 2009-07-25 13:00:00
   updated_at: 2009-07-11 09:16:09
 time_slots_106: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-26 00:00:00
   end: 2009-07-27 03:00:00
@@ -954,6 +1060,7 @@ time_slots_106:
   start: 2009-07-26 13:00:00
   updated_at: 2009-07-11 09:16:17
 time_slots_107: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-27 00:00:00
   end: 2009-07-28 03:00:00
@@ -963,6 +1070,7 @@ time_slots_107:
   start: 2009-07-27 13:00:00
   updated_at: 2009-07-11 09:16:26
 time_slots_108: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-28 00:00:00
   end: 2009-07-29 03:00:00
@@ -972,6 +1080,7 @@ time_slots_108:
   start: 2009-07-28 13:00:00
   updated_at: 2009-07-11 09:16:34
 time_slots_109: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-29 00:00:00
   end: 2009-07-30 03:00:00
@@ -981,6 +1090,7 @@ time_slots_109:
   start: 2009-07-29 13:00:00
   updated_at: 2009-07-11 09:16:43
 time_slots_110: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-30 00:00:00
   end: 2009-07-31 03:00:00
@@ -990,6 +1100,7 @@ time_slots_110:
   start: 2009-07-30 13:00:00
   updated_at: 2009-07-11 09:16:52
 time_slots_111: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-31 00:00:00
   end: 2009-08-01 03:00:00
@@ -999,6 +1110,7 @@ time_slots_111:
   start: 2009-07-31 13:00:00
   updated_at: 2009-07-11 09:17:02
 time_slots_112: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-01 00:00:00
   end: 2009-08-02 03:00:00
@@ -1008,6 +1120,7 @@ time_slots_112:
   start: 2009-08-01 13:00:00
   updated_at: 2009-07-11 09:17:12
 time_slots_113: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-02 00:00:00
   end: 2009-08-03 03:00:00
@@ -1017,6 +1130,7 @@ time_slots_113:
   start: 2009-08-02 13:00:00
   updated_at: 2009-07-11 09:17:22
 time_slots_114: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-03 00:00:00
   end: 2009-08-04 03:00:00
@@ -1026,6 +1140,7 @@ time_slots_114:
   start: 2009-08-03 13:00:00
   updated_at: 2009-07-11 09:17:32
 time_slots_115: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-04 00:00:00
   end: 2009-08-05 03:00:00
@@ -1035,6 +1150,7 @@ time_slots_115:
   start: 2009-08-04 13:00:00
   updated_at: 2009-07-11 09:17:43
 time_slots_116: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-05 00:00:00
   end: 2009-08-06 03:00:00
@@ -1044,6 +1160,7 @@ time_slots_116:
   start: 2009-08-05 13:00:00
   updated_at: 2009-07-11 09:17:55
 time_slots_117: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-06 00:00:00
   end: 2009-08-07 03:00:00
@@ -1053,6 +1170,7 @@ time_slots_117:
   start: 2009-08-06 13:00:00
   updated_at: 2009-07-11 09:18:07
 time_slots_118: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-07 00:00:00
   end: 2009-08-08 03:00:00
@@ -1062,6 +1180,7 @@ time_slots_118:
   start: 2009-08-07 13:00:00
   updated_at: 2009-07-11 09:18:19
 time_slots_119: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-08 00:00:00
   end: 2009-08-09 03:00:00
@@ -1071,6 +1190,7 @@ time_slots_119:
   start: 2009-08-08 13:00:00
   updated_at: 2009-07-11 09:18:32
 time_slots_120: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-09 00:00:00
   end: 2009-08-10 03:00:00
@@ -1080,6 +1200,7 @@ time_slots_120:
   start: 2009-08-09 13:00:00
   updated_at: 2009-07-11 09:18:45
 time_slots_121: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-10 00:00:00
   end: 2009-08-11 03:00:00
@@ -1089,6 +1210,7 @@ time_slots_121:
   start: 2009-08-10 13:00:00
   updated_at: 2009-07-11 09:18:59
 time_slots_122: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-11 00:00:00
   end: 2009-08-12 03:00:00
@@ -1098,6 +1220,7 @@ time_slots_122:
   start: 2009-08-11 13:00:00
   updated_at: 2009-07-11 09:19:13
 time_slots_123: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-12 00:00:00
   end: 2009-08-13 03:00:00
@@ -1107,6 +1230,7 @@ time_slots_123:
   start: 2009-08-12 13:00:00
   updated_at: 2009-07-11 09:19:27
 time_slots_124: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-13 00:00:00
   end: 2009-08-14 03:00:00
@@ -1116,6 +1240,7 @@ time_slots_124:
   start: 2009-08-13 13:00:00
   updated_at: 2009-07-11 09:19:42
 time_slots_125: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-14 00:00:00
   end: 2009-08-15 03:00:00
@@ -1125,6 +1250,7 @@ time_slots_125:
   start: 2009-08-14 13:00:00
   updated_at: 2009-07-11 09:19:57
 time_slots_126: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-15 00:00:00
   end: 2009-08-16 03:00:00
@@ -1134,6 +1260,7 @@ time_slots_126:
   start: 2009-08-15 13:00:00
   updated_at: 2009-07-11 09:20:12
 time_slots_127: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-16 00:00:00
   end: 2009-08-17 03:00:00
@@ -1143,6 +1270,7 @@ time_slots_127:
   start: 2009-08-16 13:00:00
   updated_at: 2009-07-11 09:20:28
 time_slots_128: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-17 00:00:00
   end: 2009-08-18 03:00:00
@@ -1152,6 +1280,7 @@ time_slots_128:
   start: 2009-08-17 13:00:00
   updated_at: 2009-07-11 09:20:45
 time_slots_129: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-18 00:00:00
   end: 2009-08-19 03:00:00
@@ -1161,6 +1290,7 @@ time_slots_129:
   start: 2009-08-18 13:00:00
   updated_at: 2009-07-11 09:21:02
 time_slots_130: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-19 00:00:00
   end: 2009-08-20 03:00:00
@@ -1170,6 +1300,7 @@ time_slots_130:
   start: 2009-08-19 13:00:00
   updated_at: 2009-07-11 09:21:19
 time_slots_131: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-20 00:00:00
   end: 2009-08-21 03:00:00
@@ -1179,6 +1310,7 @@ time_slots_131:
   start: 2009-08-20 13:00:00
   updated_at: 2009-07-11 09:21:36
 time_slots_132: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-21 00:00:00
   end: 2009-08-22 03:00:00
@@ -1188,6 +1320,7 @@ time_slots_132:
   start: 2009-08-21 13:00:00
   updated_at: 2009-07-11 09:21:54
 time_slots_133: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-22 00:00:00
   end: 2009-08-23 03:00:00
@@ -1197,6 +1330,7 @@ time_slots_133:
   start: 2009-08-22 13:00:00
   updated_at: 2009-07-11 09:22:13
 time_slots_134: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-23 00:00:00
   end: 2009-08-24 03:00:00
@@ -1206,6 +1340,7 @@ time_slots_134:
   start: 2009-08-23 13:00:00
   updated_at: 2009-07-11 09:22:31
 time_slots_135: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-24 00:00:00
   end: 2009-08-25 03:00:00
@@ -1215,6 +1350,7 @@ time_slots_135:
   start: 2009-08-24 13:00:00
   updated_at: 2009-07-11 09:22:50
 time_slots_136: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-25 00:00:00
   end: 2009-08-26 03:00:00
@@ -1224,6 +1360,7 @@ time_slots_136:
   start: 2009-08-25 13:00:00
   updated_at: 2009-07-11 09:23:09
 time_slots_137: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-26 00:00:00
   end: 2009-08-27 03:00:00
@@ -1233,6 +1370,7 @@ time_slots_137:
   start: 2009-08-26 13:00:00
   updated_at: 2009-07-11 09:23:29
 time_slots_138: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-27 00:00:00
   end: 2009-08-28 03:00:00
@@ -1242,6 +1380,7 @@ time_slots_138:
   start: 2009-08-27 13:00:00
   updated_at: 2009-07-11 09:23:50
 time_slots_139: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-28 00:00:00
   end: 2009-08-29 03:00:00
@@ -1251,6 +1390,7 @@ time_slots_139:
   start: 2009-08-28 13:00:00
   updated_at: 2009-07-11 09:24:10
 time_slots_140: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-29 00:00:00
   end: 2009-08-30 03:00:00
@@ -1260,6 +1400,7 @@ time_slots_140:
   start: 2009-08-29 13:00:00
   updated_at: 2009-07-11 09:24:30
 time_slots_141: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-30 00:00:00
   end: 2009-08-31 03:00:00
@@ -1269,6 +1410,7 @@ time_slots_141:
   start: 2009-08-30 13:00:00
   updated_at: 2009-07-11 09:24:50
 time_slots_142: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-31 00:00:00
   end: 2009-09-01 03:00:00
@@ -1278,6 +1420,7 @@ time_slots_142:
   start: 2009-08-31 13:00:00
   updated_at: 2009-07-11 09:25:11
 time_slots_143: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-01 00:00:00
   end: 2009-09-02 03:00:00
@@ -1287,6 +1430,7 @@ time_slots_143:
   start: 2009-09-01 13:00:00
   updated_at: 2009-07-11 09:25:32
 time_slots_144: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-02 00:00:00
   end: 2009-09-03 03:00:00
@@ -1296,6 +1440,7 @@ time_slots_144:
   start: 2009-09-02 13:00:00
   updated_at: 2009-07-11 09:25:53
 time_slots_145: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-03 00:00:00
   end: 2009-09-04 03:00:00
@@ -1305,6 +1450,7 @@ time_slots_145:
   start: 2009-09-03 13:00:00
   updated_at: 2009-07-11 09:26:15
 time_slots_146: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-04 00:00:00
   end: 2009-09-05 03:00:00
@@ -1314,6 +1460,7 @@ time_slots_146:
   start: 2009-09-04 13:00:00
   updated_at: 2009-07-11 09:26:37
 time_slots_147: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-05 00:00:00
   end: 2009-09-06 03:00:00
@@ -1323,6 +1470,7 @@ time_slots_147:
   start: 2009-09-05 13:00:00
   updated_at: 2009-07-11 09:27:00
 time_slots_148: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-06 00:00:00
   end: 2009-09-07 03:00:00
@@ -1332,6 +1480,7 @@ time_slots_148:
   start: 2009-09-06 13:00:00
   updated_at: 2009-07-11 09:27:23
 time_slots_149: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-07 00:00:00
   end: 2009-09-08 03:00:00
@@ -1341,6 +1490,7 @@ time_slots_149:
   start: 2009-09-07 13:00:00
   updated_at: 2009-07-11 09:27:46
 time_slots_150: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-08 00:00:00
   end: 2009-09-09 03:00:00
@@ -1350,6 +1500,7 @@ time_slots_150:
   start: 2009-09-08 13:00:00
   updated_at: 2009-07-11 09:28:10
 time_slots_151: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-09 00:00:00
   end: 2009-09-10 03:00:00
@@ -1359,6 +1510,7 @@ time_slots_151:
   start: 2009-09-09 13:00:00
   updated_at: 2009-07-11 09:28:34
 time_slots_152: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-10 00:00:00
   end: 2009-09-11 03:00:00
@@ -1368,6 +1520,7 @@ time_slots_152:
   start: 2009-09-10 13:00:00
   updated_at: 2009-07-11 09:28:59
 time_slots_153: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-11 00:00:00
   end: 2009-09-12 03:00:00
@@ -1377,6 +1530,7 @@ time_slots_153:
   start: 2009-09-11 13:00:00
   updated_at: 2009-07-11 09:29:24
 time_slots_154: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-12 00:00:00
   end: 2009-09-13 03:00:00
@@ -1386,6 +1540,7 @@ time_slots_154:
   start: 2009-09-12 13:00:00
   updated_at: 2009-07-11 09:29:50
 time_slots_155: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-13 00:00:00
   end: 2009-09-14 03:00:00
@@ -1395,6 +1550,7 @@ time_slots_155:
   start: 2009-09-13 13:00:00
   updated_at: 2009-07-11 09:30:16
 time_slots_156: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-14 00:00:00
   end: 2009-09-15 03:00:00
@@ -1404,6 +1560,7 @@ time_slots_156:
   start: 2009-09-14 13:00:00
   updated_at: 2009-07-11 09:30:42
 time_slots_157: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-15 00:00:00
   end: 2009-09-16 03:00:00
@@ -1413,6 +1570,7 @@ time_slots_157:
   start: 2009-09-15 13:00:00
   updated_at: 2009-07-11 09:31:09
 time_slots_158: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-16 00:00:00
   end: 2009-09-17 03:00:00
@@ -1422,6 +1580,7 @@ time_slots_158:
   start: 2009-09-16 13:00:00
   updated_at: 2009-07-11 09:31:36
 time_slots_159: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-17 00:00:00
   end: 2009-09-18 03:00:00
@@ -1431,6 +1590,7 @@ time_slots_159:
   start: 2009-09-17 13:00:00
   updated_at: 2009-07-11 09:32:04
 time_slots_160: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-18 00:00:00
   end: 2009-09-19 03:00:00
@@ -1440,6 +1600,7 @@ time_slots_160:
   start: 2009-09-18 13:00:00
   updated_at: 2009-07-11 09:32:32
 time_slots_161: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-19 00:00:00
   end: 2009-09-20 03:00:00
@@ -1449,6 +1610,7 @@ time_slots_161:
   start: 2009-09-19 13:00:00
   updated_at: 2009-07-11 09:33:00
 time_slots_162: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-20 00:00:00
   end: 2009-09-21 03:00:00
@@ -1458,6 +1620,7 @@ time_slots_162:
   start: 2009-09-20 13:00:00
   updated_at: 2009-07-11 09:33:30
 time_slots_163: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-21 00:00:00
   end: 2009-09-22 03:00:00
@@ -1467,6 +1630,7 @@ time_slots_163:
   start: 2009-09-21 13:00:00
   updated_at: 2009-07-11 09:33:59
 time_slots_164: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-22 00:00:00
   end: 2009-09-23 03:00:00
@@ -1476,6 +1640,7 @@ time_slots_164:
   start: 2009-09-22 13:00:00
   updated_at: 2009-07-11 09:34:28
 time_slots_165: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-23 00:00:00
   end: 2009-09-24 03:00:00
@@ -1485,6 +1650,7 @@ time_slots_165:
   start: 2009-09-23 13:00:00
   updated_at: 2009-07-11 09:34:58
 time_slots_166: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-24 00:00:00
   end: 2009-09-25 03:00:00
@@ -1494,6 +1660,7 @@ time_slots_166:
   start: 2009-09-24 13:00:00
   updated_at: 2009-07-11 09:35:31
 time_slots_167: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-25 00:00:00
   end: 2009-09-26 03:00:00
@@ -1503,6 +1670,7 @@ time_slots_167:
   start: 2009-09-25 13:00:00
   updated_at: 2009-07-11 09:36:02
 time_slots_168: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-26 00:00:00
   end: 2009-09-27 03:00:00
@@ -1512,6 +1680,7 @@ time_slots_168:
   start: 2009-09-26 13:00:00
   updated_at: 2009-07-11 09:36:34
 time_slots_169: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-27 00:00:00
   end: 2009-09-28 03:00:00
@@ -1521,6 +1690,7 @@ time_slots_169:
   start: 2009-09-27 13:00:00
   updated_at: 2009-07-11 09:37:06
 time_slots_170: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-28 00:00:00
   end: 2009-09-29 03:00:00
@@ -1530,6 +1700,7 @@ time_slots_170:
   start: 2009-09-28 13:00:00
   updated_at: 2009-07-11 09:37:38
 time_slots_171: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-29 00:00:00
   end: 2009-09-30 03:00:00
@@ -1539,6 +1710,7 @@ time_slots_171:
   start: 2009-09-29 13:00:00
   updated_at: 2009-07-11 09:38:11
 time_slots_172: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-30 00:00:00
   end: 2009-10-01 03:00:00
@@ -1548,6 +1720,7 @@ time_slots_172:
   start: 2009-09-30 13:00:00
   updated_at: 2009-07-11 09:38:44
 time_slots_173: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-01 00:00:00
   end: 2009-10-02 03:00:00
@@ -1557,6 +1730,7 @@ time_slots_173:
   start: 2009-10-01 13:00:00
   updated_at: 2009-07-11 09:39:18
 time_slots_174: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-02 00:00:00
   end: 2009-10-03 03:00:00
@@ -1566,6 +1740,7 @@ time_slots_174:
   start: 2009-10-02 13:00:00
   updated_at: 2009-07-11 09:39:52
 time_slots_175: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-03 00:00:00
   end: 2009-10-04 03:00:00
@@ -1575,6 +1750,7 @@ time_slots_175:
   start: 2009-10-03 13:00:00
   updated_at: 2009-07-11 09:40:26
 time_slots_176: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-04 00:00:00
   end: 2009-10-05 03:00:00
@@ -1584,6 +1760,7 @@ time_slots_176:
   start: 2009-10-04 13:00:00
   updated_at: 2009-07-11 09:41:01
 time_slots_177: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-05 00:00:00
   end: 2009-10-06 03:00:00
@@ -1593,6 +1770,7 @@ time_slots_177:
   start: 2009-10-05 13:00:00
   updated_at: 2009-07-11 09:41:35
 time_slots_178: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-06 00:00:00
   end: 2009-10-07 03:00:00
@@ -1602,6 +1780,7 @@ time_slots_178:
   start: 2009-10-06 13:00:00
   updated_at: 2009-07-11 09:42:11
 time_slots_179: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-07 00:00:00
   end: 2009-10-08 03:00:00
@@ -1611,6 +1790,7 @@ time_slots_179:
   start: 2009-10-07 13:00:00
   updated_at: 2009-07-11 09:42:46
 time_slots_180: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-08 00:00:00
   end: 2009-10-09 03:00:00
@@ -1620,6 +1800,7 @@ time_slots_180:
   start: 2009-10-08 13:00:00
   updated_at: 2009-07-11 09:43:22
 time_slots_181: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-09 00:00:00
   end: 2009-10-10 03:00:00
@@ -1629,6 +1810,7 @@ time_slots_181:
   start: 2009-10-09 13:00:00
   updated_at: 2009-07-11 09:43:58
 time_slots_182: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-10 00:00:00
   end: 2009-10-11 03:00:00
@@ -1638,6 +1820,7 @@ time_slots_182:
   start: 2009-10-10 13:00:00
   updated_at: 2009-07-11 09:44:35
 time_slots_183: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-11 00:00:00
   end: 2009-10-12 03:00:00
@@ -1647,6 +1830,7 @@ time_slots_183:
   start: 2009-10-11 13:00:00
   updated_at: 2009-07-11 09:45:12
 time_slots_184: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-11 00:00:00
   end: 2009-07-12 03:00:00
@@ -1656,6 +1840,7 @@ time_slots_184:
   start: 2009-07-11 13:00:00
   updated_at: 2009-07-11 09:45:49
 time_slots_185: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-12 00:00:00
   end: 2009-07-13 03:00:00
@@ -1665,6 +1850,7 @@ time_slots_185:
   start: 2009-07-12 13:00:00
   updated_at: 2009-07-11 09:45:51
 time_slots_186: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-13 00:00:00
   end: 2009-07-14 03:00:00
@@ -1674,6 +1860,7 @@ time_slots_186:
   start: 2009-07-13 13:00:00
   updated_at: 2009-07-11 09:45:53
 time_slots_187: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-14 00:00:00
   end: 2009-07-15 03:00:00
@@ -1683,6 +1870,7 @@ time_slots_187:
   start: 2009-07-14 13:00:00
   updated_at: 2009-07-11 09:45:56
 time_slots_188: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-15 00:00:00
   end: 2009-07-16 03:00:00
@@ -1692,6 +1880,7 @@ time_slots_188:
   start: 2009-07-15 13:00:00
   updated_at: 2009-07-11 09:46:00
 time_slots_189: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-16 00:00:00
   end: 2009-07-17 03:00:00
@@ -1701,6 +1890,7 @@ time_slots_189:
   start: 2009-07-16 13:00:00
   updated_at: 2009-07-11 09:46:04
 time_slots_190: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-17 00:00:00
   end: 2009-07-18 03:00:00
@@ -1710,6 +1900,7 @@ time_slots_190:
   start: 2009-07-17 13:00:00
   updated_at: 2009-07-11 09:46:09
 time_slots_191: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-18 00:00:00
   end: 2009-07-19 03:00:00
@@ -1719,6 +1910,7 @@ time_slots_191:
   start: 2009-07-18 13:00:00
   updated_at: 2009-07-11 09:46:14
 time_slots_192: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-19 00:00:00
   end: 2009-07-20 03:00:00
@@ -1728,6 +1920,7 @@ time_slots_192:
   start: 2009-07-19 13:00:00
   updated_at: 2009-07-11 09:46:20
 time_slots_193: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-20 00:00:00
   end: 2009-07-21 03:00:00
@@ -1737,6 +1930,7 @@ time_slots_193:
   start: 2009-07-20 13:00:00
   updated_at: 2009-07-11 09:46:27
 time_slots_194: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-21 00:00:00
   end: 2009-07-22 03:00:00
@@ -1746,6 +1940,7 @@ time_slots_194:
   start: 2009-07-21 13:00:00
   updated_at: 2009-07-11 09:46:33
 time_slots_195: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-22 00:00:00
   end: 2009-07-23 03:00:00
@@ -1755,6 +1950,7 @@ time_slots_195:
   start: 2009-07-22 13:00:00
   updated_at: 2009-07-11 09:46:41
 time_slots_196: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-23 00:00:00
   end: 2009-07-24 03:00:00
@@ -1764,6 +1960,7 @@ time_slots_196:
   start: 2009-07-23 13:00:00
   updated_at: 2009-07-11 09:46:49
 time_slots_197: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-24 00:00:00
   end: 2009-07-25 03:00:00
@@ -1773,6 +1970,7 @@ time_slots_197:
   start: 2009-07-24 13:00:00
   updated_at: 2009-07-11 09:46:58
 time_slots_198: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-25 00:00:00
   end: 2009-07-26 03:00:00
@@ -1782,6 +1980,7 @@ time_slots_198:
   start: 2009-07-25 13:00:00
   updated_at: 2009-07-11 09:47:07
 time_slots_199: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-26 00:00:00
   end: 2009-07-27 03:00:00
@@ -1791,6 +1990,7 @@ time_slots_199:
   start: 2009-07-26 13:00:00
   updated_at: 2009-07-11 09:47:18
 time_slots_200: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-27 00:00:00
   end: 2009-07-28 03:00:00
@@ -1800,6 +2000,7 @@ time_slots_200:
   start: 2009-07-27 13:00:00
   updated_at: 2009-07-11 09:47:29
 time_slots_201: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-28 00:00:00
   end: 2009-07-29 03:00:00
@@ -1809,6 +2010,7 @@ time_slots_201:
   start: 2009-07-28 13:00:00
   updated_at: 2009-07-11 09:47:40
 time_slots_202: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-29 00:00:00
   end: 2009-07-30 03:00:00
@@ -1818,6 +2020,7 @@ time_slots_202:
   start: 2009-07-29 13:00:00
   updated_at: 2009-07-11 09:47:53
 time_slots_203: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-30 00:00:00
   end: 2009-07-31 03:00:00
@@ -1827,6 +2030,7 @@ time_slots_203:
   start: 2009-07-30 13:00:00
   updated_at: 2009-07-11 09:48:06
 time_slots_204: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-07-31 00:00:00
   end: 2009-08-01 03:00:00
@@ -1836,6 +2040,7 @@ time_slots_204:
   start: 2009-07-31 13:00:00
   updated_at: 2009-07-11 09:48:19
 time_slots_205: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-01 00:00:00
   end: 2009-08-02 03:00:00
@@ -1845,6 +2050,7 @@ time_slots_205:
   start: 2009-08-01 13:00:00
   updated_at: 2009-07-11 09:48:33
 time_slots_206: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-03 00:00:00
   end: 2009-08-04 03:00:00
@@ -1854,6 +2060,7 @@ time_slots_206:
   start: 2009-08-03 13:00:00
   updated_at: 2009-07-11 09:49:03
 time_slots_207: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-04 00:00:00
   end: 2009-08-05 03:00:00
@@ -1863,6 +2070,7 @@ time_slots_207:
   start: 2009-08-04 13:00:00
   updated_at: 2009-07-11 09:49:19
 time_slots_208: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-06 00:00:00
   end: 2009-08-07 03:00:00
@@ -1872,6 +2080,7 @@ time_slots_208:
   start: 2009-08-06 13:00:00
   updated_at: 2009-07-11 09:49:52
 time_slots_209: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-07 00:00:00
   end: 2009-08-08 03:00:00
@@ -1881,6 +2090,7 @@ time_slots_209:
   start: 2009-08-07 13:00:00
   updated_at: 2009-07-11 09:50:10
 time_slots_210: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-08 00:00:00
   end: 2009-08-09 03:00:00
@@ -1890,6 +2100,7 @@ time_slots_210:
   start: 2009-08-08 13:00:00
   updated_at: 2009-07-11 09:50:28
 time_slots_211: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-09 00:00:00
   end: 2009-08-10 03:00:00
@@ -1899,6 +2110,7 @@ time_slots_211:
   start: 2009-08-09 13:00:00
   updated_at: 2009-07-11 09:50:47
 time_slots_212: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-10 00:00:00
   end: 2009-08-11 03:00:00
@@ -1908,6 +2120,7 @@ time_slots_212:
   start: 2009-08-10 13:00:00
   updated_at: 2009-07-11 09:51:06
 time_slots_213: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-11 00:00:00
   end: 2009-08-12 03:00:00
@@ -1917,6 +2130,7 @@ time_slots_213:
   start: 2009-08-11 13:00:00
   updated_at: 2009-07-11 09:51:26
 time_slots_214: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-12 00:00:00
   end: 2009-08-13 03:00:00
@@ -1926,6 +2140,7 @@ time_slots_214:
   start: 2009-08-12 13:00:00
   updated_at: 2009-07-11 09:51:47
 time_slots_215: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-13 00:00:00
   end: 2009-08-14 03:00:00
@@ -1935,6 +2150,7 @@ time_slots_215:
   start: 2009-08-13 13:00:00
   updated_at: 2009-07-11 09:52:08
 time_slots_216: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-14 00:00:00
   end: 2009-08-15 03:00:00
@@ -1944,6 +2160,7 @@ time_slots_216:
   start: 2009-08-14 13:00:00
   updated_at: 2009-07-11 09:52:30
 time_slots_217: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-15 00:00:00
   end: 2009-08-16 03:00:00
@@ -1953,6 +2170,7 @@ time_slots_217:
   start: 2009-08-15 13:00:00
   updated_at: 2009-07-11 09:52:53
 time_slots_218: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-16 00:00:00
   end: 2009-08-17 03:00:00
@@ -1962,6 +2180,7 @@ time_slots_218:
   start: 2009-08-16 13:00:00
   updated_at: 2009-07-11 09:53:16
 time_slots_219: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-17 00:00:00
   end: 2009-08-18 03:00:00
@@ -1971,6 +2190,7 @@ time_slots_219:
   start: 2009-08-17 13:00:00
   updated_at: 2009-07-11 09:53:40
 time_slots_220: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-18 00:00:00
   end: 2009-08-19 03:00:00
@@ -1980,6 +2200,7 @@ time_slots_220:
   start: 2009-08-18 13:00:00
   updated_at: 2009-07-11 09:54:05
 time_slots_221: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-19 00:00:00
   end: 2009-08-20 03:00:00
@@ -1989,6 +2210,7 @@ time_slots_221:
   start: 2009-08-19 13:00:00
   updated_at: 2009-07-11 09:54:30
 time_slots_222: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-20 00:00:00
   end: 2009-08-21 03:00:00
@@ -1998,6 +2220,7 @@ time_slots_222:
   start: 2009-08-20 13:00:00
   updated_at: 2009-07-11 09:54:56
 time_slots_223: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-21 00:00:00
   end: 2009-08-22 03:00:00
@@ -2007,6 +2230,7 @@ time_slots_223:
   start: 2009-08-21 13:00:00
   updated_at: 2009-07-11 09:55:22
 time_slots_224: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-22 00:00:00
   end: 2009-08-23 03:00:00
@@ -2016,6 +2240,7 @@ time_slots_224:
   start: 2009-08-22 13:00:00
   updated_at: 2009-07-11 09:55:49
 time_slots_225: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-23 00:00:00
   end: 2009-08-24 03:00:00
@@ -2025,6 +2250,7 @@ time_slots_225:
   start: 2009-08-23 13:00:00
   updated_at: 2009-07-11 09:56:17
 time_slots_226: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-24 00:00:00
   end: 2009-08-25 03:00:00
@@ -2034,6 +2260,7 @@ time_slots_226:
   start: 2009-08-24 13:00:00
   updated_at: 2009-07-11 09:56:45
 time_slots_227: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-25 00:00:00
   end: 2009-08-26 03:00:00
@@ -2043,6 +2270,7 @@ time_slots_227:
   start: 2009-08-25 13:00:00
   updated_at: 2009-07-11 09:57:14
 time_slots_228: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-26 00:00:00
   end: 2009-08-27 03:00:00
@@ -2052,6 +2280,7 @@ time_slots_228:
   start: 2009-08-26 13:00:00
   updated_at: 2009-07-11 09:57:43
 time_slots_229: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-27 00:00:00
   end: 2009-08-28 03:00:00
@@ -2061,6 +2290,7 @@ time_slots_229:
   start: 2009-08-27 13:00:00
   updated_at: 2009-07-11 09:58:13
 time_slots_230: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-28 00:00:00
   end: 2009-08-29 03:00:00
@@ -2070,6 +2300,7 @@ time_slots_230:
   start: 2009-08-28 13:00:00
   updated_at: 2009-07-11 09:58:44
 time_slots_231: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-29 00:00:00
   end: 2009-08-30 03:00:00
@@ -2079,6 +2310,7 @@ time_slots_231:
   start: 2009-08-29 13:00:00
   updated_at: 2009-07-11 09:59:15
 time_slots_232: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-30 00:00:00
   end: 2009-08-31 03:00:00
@@ -2088,6 +2320,7 @@ time_slots_232:
   start: 2009-08-30 13:00:00
   updated_at: 2009-07-11 09:59:46
 time_slots_233: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-08-31 00:00:00
   end: 2009-09-01 03:00:00
@@ -2097,6 +2330,7 @@ time_slots_233:
   start: 2009-08-31 13:00:00
   updated_at: 2009-07-11 10:00:19
 time_slots_234: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-01 00:00:00
   end: 2009-09-02 03:00:00
@@ -2106,6 +2340,7 @@ time_slots_234:
   start: 2009-09-01 13:00:00
   updated_at: 2009-07-11 10:00:51
 time_slots_235: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-02 00:00:00
   end: 2009-09-03 03:00:00
@@ -2115,6 +2350,7 @@ time_slots_235:
   start: 2009-09-02 13:00:00
   updated_at: 2009-07-11 10:01:25
 time_slots_236: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-03 00:00:00
   end: 2009-09-04 03:00:00
@@ -2124,6 +2360,7 @@ time_slots_236:
   start: 2009-09-03 13:00:00
   updated_at: 2009-07-11 10:01:59
 time_slots_237: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-04 00:00:00
   end: 2009-09-05 03:00:00
@@ -2133,6 +2370,7 @@ time_slots_237:
   start: 2009-09-04 13:00:00
   updated_at: 2009-07-11 10:02:34
 time_slots_238: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-05 00:00:00
   end: 2009-09-06 03:00:00
@@ -2142,6 +2380,7 @@ time_slots_238:
   start: 2009-09-05 13:00:00
   updated_at: 2009-07-11 10:03:10
 time_slots_239: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-06 00:00:00
   end: 2009-09-07 03:00:00
@@ -2151,6 +2390,7 @@ time_slots_239:
   start: 2009-09-06 13:00:00
   updated_at: 2009-07-11 10:03:46
 time_slots_240: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-07 00:00:00
   end: 2009-09-08 03:00:00
@@ -2160,6 +2400,7 @@ time_slots_240:
   start: 2009-09-07 13:00:00
   updated_at: 2009-07-11 10:04:22
 time_slots_241: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-08 00:00:00
   end: 2009-09-09 03:00:00
@@ -2169,6 +2410,7 @@ time_slots_241:
   start: 2009-09-08 13:00:00
   updated_at: 2009-07-11 10:05:00
 time_slots_242: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-09 00:00:00
   end: 2009-09-10 03:00:00
@@ -2178,6 +2420,7 @@ time_slots_242:
   start: 2009-09-09 13:00:00
   updated_at: 2009-07-11 10:05:39
 time_slots_243: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-10 00:00:00
   end: 2009-09-11 03:00:00
@@ -2187,6 +2430,7 @@ time_slots_243:
   start: 2009-09-10 13:00:00
   updated_at: 2009-07-11 10:06:17
 time_slots_244: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-11 00:00:00
   end: 2009-09-12 03:00:00
@@ -2196,6 +2440,7 @@ time_slots_244:
   start: 2009-09-11 13:00:00
   updated_at: 2009-07-11 10:06:56
 time_slots_245: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-12 00:00:00
   end: 2009-09-13 03:00:00
@@ -2205,6 +2450,7 @@ time_slots_245:
   start: 2009-09-12 13:00:00
   updated_at: 2009-07-11 10:07:36
 time_slots_246: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-13 00:00:00
   end: 2009-09-14 03:00:00
@@ -2214,6 +2460,7 @@ time_slots_246:
   start: 2009-09-13 13:00:00
   updated_at: 2009-07-11 10:08:16
 time_slots_247: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-14 00:00:00
   end: 2009-09-15 03:00:00
@@ -2223,6 +2470,7 @@ time_slots_247:
   start: 2009-09-14 13:00:00
   updated_at: 2009-07-11 10:08:57
 time_slots_248: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-15 00:00:00
   end: 2009-09-16 03:00:00
@@ -2232,6 +2480,7 @@ time_slots_248:
   start: 2009-09-15 13:00:00
   updated_at: 2009-07-11 10:09:38
 time_slots_249: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-16 00:00:00
   end: 2009-09-17 03:00:00
@@ -2241,6 +2490,7 @@ time_slots_249:
   start: 2009-09-16 13:00:00
   updated_at: 2009-07-11 10:10:20
 time_slots_250: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-17 00:00:00
   end: 2009-09-18 03:00:00
@@ -2250,6 +2500,7 @@ time_slots_250:
   start: 2009-09-17 13:00:00
   updated_at: 2009-07-11 10:11:03
 time_slots_251: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-18 00:00:00
   end: 2009-09-19 03:00:00
@@ -2259,6 +2510,7 @@ time_slots_251:
   start: 2009-09-18 13:00:00
   updated_at: 2009-07-11 10:11:46
 time_slots_252: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-19 00:00:00
   end: 2009-09-20 03:00:00
@@ -2268,6 +2520,7 @@ time_slots_252:
   start: 2009-09-19 13:00:00
   updated_at: 2009-07-11 10:12:30
 time_slots_253: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-20 00:00:00
   end: 2009-09-21 03:00:00
@@ -2277,6 +2530,7 @@ time_slots_253:
   start: 2009-09-20 13:00:00
   updated_at: 2009-07-11 10:13:15
 time_slots_254: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-21 00:00:00
   end: 2009-09-22 03:00:00
@@ -2286,6 +2540,7 @@ time_slots_254:
   start: 2009-09-21 13:00:00
   updated_at: 2009-07-11 10:14:00
 time_slots_255: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-22 00:00:00
   end: 2009-09-23 03:00:00
@@ -2295,6 +2550,7 @@ time_slots_255:
   start: 2009-09-22 13:00:00
   updated_at: 2009-07-11 10:14:46
 time_slots_256: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-23 00:00:00
   end: 2009-09-24 03:00:00
@@ -2304,6 +2560,7 @@ time_slots_256:
   start: 2009-09-23 13:00:00
   updated_at: 2009-07-11 10:15:33
 time_slots_257: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-24 00:00:00
   end: 2009-09-25 03:00:00
@@ -2313,6 +2570,7 @@ time_slots_257:
   start: 2009-09-24 13:00:00
   updated_at: 2009-07-11 10:16:21
 time_slots_258: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-25 00:00:00
   end: 2009-09-26 03:00:00
@@ -2322,6 +2580,7 @@ time_slots_258:
   start: 2009-09-25 13:00:00
   updated_at: 2009-07-11 10:17:09
 time_slots_259: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-26 00:00:00
   end: 2009-09-27 03:00:00
@@ -2331,6 +2590,7 @@ time_slots_259:
   start: 2009-09-26 13:00:00
   updated_at: 2009-07-11 10:17:57
 time_slots_260: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-27 00:00:00
   end: 2009-09-28 03:00:00
@@ -2340,6 +2600,7 @@ time_slots_260:
   start: 2009-09-27 13:00:00
   updated_at: 2009-07-11 10:18:47
 time_slots_261: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-28 00:00:00
   end: 2009-09-29 03:00:00
@@ -2349,6 +2610,7 @@ time_slots_261:
   start: 2009-09-28 13:00:00
   updated_at: 2009-07-11 10:19:37
 time_slots_262: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-29 00:00:00
   end: 2009-09-30 03:00:00
@@ -2358,6 +2620,7 @@ time_slots_262:
   start: 2009-09-29 13:00:00
   updated_at: 2009-07-11 10:20:27
 time_slots_263: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-09-30 00:00:00
   end: 2009-10-01 03:00:00
@@ -2367,6 +2630,7 @@ time_slots_263:
   start: 2009-09-30 13:00:00
   updated_at: 2009-07-11 10:21:18
 time_slots_264: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-01 00:00:00
   end: 2009-10-02 03:00:00
@@ -2376,6 +2640,7 @@ time_slots_264:
   start: 2009-10-01 13:00:00
   updated_at: 2009-07-11 10:22:10
 time_slots_265: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-02 00:00:00
   end: 2009-10-03 03:00:00
@@ -2385,6 +2650,7 @@ time_slots_265:
   start: 2009-10-02 13:00:00
   updated_at: 2009-07-11 10:23:02
 time_slots_266: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-03 00:00:00
   end: 2009-10-04 03:00:00
@@ -2394,6 +2660,7 @@ time_slots_266:
   start: 2009-10-03 13:00:00
   updated_at: 2009-07-11 10:23:55
 time_slots_267: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-04 00:00:00
   end: 2009-10-05 03:00:00
@@ -2403,6 +2670,7 @@ time_slots_267:
   start: 2009-10-04 13:00:00
   updated_at: 2009-07-11 10:24:49
 time_slots_268: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-05 00:00:00
   end: 2009-10-06 03:00:00
@@ -2412,6 +2680,7 @@ time_slots_268:
   start: 2009-10-05 13:00:00
   updated_at: 2009-07-11 10:25:43
 time_slots_269: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-06 00:00:00
   end: 2009-10-07 03:00:00
@@ -2421,6 +2690,7 @@ time_slots_269:
   start: 2009-10-06 13:00:00
   updated_at: 2009-07-11 10:26:37
 time_slots_270: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-07 00:00:00
   end: 2009-10-08 03:00:00
@@ -2430,6 +2700,7 @@ time_slots_270:
   start: 2009-10-07 13:00:00
   updated_at: 2009-07-11 10:27:32
 time_slots_271: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-08 00:00:00
   end: 2009-10-09 03:00:00
@@ -2439,6 +2710,7 @@ time_slots_271:
   start: 2009-10-08 13:00:00
   updated_at: 2009-07-11 10:28:28
 time_slots_272: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-09 00:00:00
   end: 2009-10-10 03:00:00
@@ -2448,6 +2720,7 @@ time_slots_272:
   start: 2009-10-09 13:00:00
   updated_at: 2009-07-11 10:29:25
 time_slots_273: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-10 00:00:00
   end: 2009-10-11 03:00:00
@@ -2457,6 +2730,7 @@ time_slots_273:
   start: 2009-10-10 13:00:00
   updated_at: 2009-07-11 10:30:22
 time_slots_274: 
+  active: "true"
   calendar_id: "1"
   created_at: 2009-10-11 00:00:00
   end: 2009-10-12 03:00:00
