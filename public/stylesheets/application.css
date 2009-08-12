@@ -681,3 +681,6 @@ errorExplanation h2 {
   list-style: disc;
 }
 
+#timer{
+	font-size: 20px;
+}
