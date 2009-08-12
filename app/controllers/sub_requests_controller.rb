@@ -87,6 +87,7 @@ class SubRequestsController < ApplicationController
 
   def take
     @sub_request = SubRequest.find(params[:id])
+    return unless require_department_membership(@sub_request.shift.department)
     if SubRequest.take(@sub_request, current_user, params[:just_mandatory])
       redirect_to(shifts_path)
     else
