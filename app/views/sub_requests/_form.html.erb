@@ -2,7 +2,9 @@
 
 <% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
   <% @shift = Shift.find(params[:shift_id]) if params[:shift_id] %>
-  <%= f.error_messages %>
+  <div id ="errors">
+    <%= render :partial => "error_messages", :locals => {:f => f} %>
+  </div>
 
   <p><h3>Time that you need someone to take for this sub request:</h3></p>
   <p>
