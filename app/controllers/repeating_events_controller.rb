@@ -24,12 +24,8 @@ class RepeatingEventsController < ApplicationController
     params[:repeating_event]["end_time(2i)"]=  params[:repeating_event]["start_time(2i)"] =  params[:repeating_event]["start_date(2i)"]
     params[:repeating_event]["end_time(3i)"]=  params[:repeating_event]["start_time(3i)"] =  params[:repeating_event]["start_date(3i)"]
     @repeating_event = RepeatingEvent.new(params[:repeating_event])
+    @repeating_event.wipe = true if params[:wipe]
     if @repeating_event.save
-      if @repeating_event.has_time_slots?
-        TimeSlot.make_future(@repeating_event.end_date, @repeating_event.calendar.id, @repeating_event.id, @repeating_event.days_int, @repeating_event.location_ids, @repeating_event.start_time, @repeating_event.end_time)
-      else
-        Shift.make_future(@repeating_event.end_date, @repeating_event.calendar.id, @repeating_event.id, @repeating_event.days_int, @repeating_event.location_ids.first, @repeating_event.start_time, @repeating_event.start_time, @repeating_event.user_id, @department.id)
-      end
       flash[:notice] = "Successfully created repeating event."
       redirect_to @repeating_event
     else

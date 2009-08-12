@@ -9,6 +9,10 @@ class Report < ActiveRecord::Base
     (self.shift.location.current_notices + self.shift.user.current_notices).uniq
   end
 
+  def get_links
+    self.shift.location.links
+  end
+
   def data_objects
     self.shift.location.data_objects
   end

@@ -4,10 +4,10 @@
         start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
       
         if params[:xPercentage]
-          @dept_start_hour = current_department.department_config.schedule_start / 60
-          @dept_end_hour = current_department.department_config.schedule_end / 60
-          @hours_per_day = (@dept_end_hour - @dept_start_hour)
-          start_time += @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f) * 3600
+          @dept_start_hour = current_department.department_config.schedule_start
+          @dept_end_hour = current_department.department_config.schedule_end
+          @minutes_per_day = (@dept_end_hour - @dept_start_hour)
+          start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f)
         end
       %>
     <%= f.label :start_time %><br />

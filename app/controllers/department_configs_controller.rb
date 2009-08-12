@@ -1,5 +1,7 @@
 class DepartmentConfigsController < ApplicationController
   before_filter :require_department_admin
+  layout proc{ |c| c.params[:format] == "js" ? false : "department_configs" }
+
 
   def edit
     @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
