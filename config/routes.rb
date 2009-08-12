@@ -66,7 +66,7 @@ ActionController::Routing::Routes.draw do |map|
       report.resources :report_items
     end
     #NOTE: "sub_requests" is a clearer model name, we use subs for routing
-    shifts.resources :sub_requests, :member => {:take => :post, :get_take_info => :get},
+    shifts.resources :sub_requests, :member => {:take => :put, :get_take_info => :get},
                                     :as => "subs"
   end
 
