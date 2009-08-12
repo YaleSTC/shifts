@@ -3,6 +3,7 @@ class CreateShifts < ActiveRecord::Migration
     create_table :shifts do |t|
       t.datetime :start
       t.datetime :end
+      t.boolean :active
       t.references :calendar
       t.references :repeating_event
       t.references :user

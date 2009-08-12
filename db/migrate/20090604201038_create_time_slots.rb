@@ -6,6 +6,7 @@ class CreateTimeSlots < ActiveRecord::Migration
       t.references :repeating_event
       t.datetime :start
       t.datetime :end
+      t.boolean :active
       t.timestamps
     end
   end
