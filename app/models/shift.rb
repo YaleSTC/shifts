@@ -12,6 +12,7 @@ class Shift < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
+  before_save :set_active
 
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
@@ -71,7 +72,7 @@ class Shift < ActiveRecord::Base
 
   #This method creates the multitude of shifts required for repeating_events to work
   #in order to work efficiently, it makes a few GIANT sql insert calls
-  def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, wipe)
+  def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, active, wipe)
     #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
     outer_make = []
     inner_make = []
@@ -84,8 +85,8 @@ class Shift < ActiveRecord::Base
       while seed_end_time <= end_date
         seed_start_time = seed_start_time.next(day)
         seed_end_time = seed_end_time.next(day)
-        inner_test.push "(user_id = \"#{user_id}\" AND department_id = \"#{department_id}\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
-        inner_make.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{user_id}\", \"#{department_id}\""
+        inner_test.push "(user_id = \"#{user_id}\" AND active = \"true\" AND department_id = \"#{department_id}\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
+        inner_make.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{user_id}\", \"#{department_id}\", \"#{active}\""
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
         #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -102,33 +103,27 @@ class Shift < ActiveRecord::Base
     end
     #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
     if wipe
-      ActiveRecord::Base.transaction do
         outer_test.each do |s|
           Shift.delete_all(s.join(" OR "))
         end
         outer_make.each do |s|
-          sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id') SELECT #{s.join(" UNION ALL SELECT ")};"
+          sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
           ActiveRecord::Base.connection.execute sql
         end
-      end
       return false
     else
       out = []
-      ActiveRecord::Base.transaction do
         outer_test.each do |s|
           out += Shift.find(:all, :conditions => [s.join(" OR ")])
         end
-      end
-      if out.empty?
-        ActiveRecord::Base.transaction do
+      if out.empty? || !active
           outer_make.each do |s|
-            sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id') SELECT #{s.join(" UNION ALL SELECT ")};"
+            sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
           end
-        end
         return false
       end
-      return out
+      return "<p>"+out.collect{|t| t.to_s}.join("</p><p>")+"</p>"
     end
   end
 
@@ -275,6 +270,10 @@ class Shift < ActiveRecord::Base
      self.location.short_name + ', ' + self.start.to_s(:just_date) + ' ' + self.time_string
   end
 
+  def to_s
+    self.short_display
+  end
+
   def short_name
     self.location.short_name + ', ' + self.user.name + ', ' + self.time_string + ", " + self.start.to_s(:just_date)
   end
@@ -308,7 +307,7 @@ class Shift < ActiveRecord::Base
 
   def user_does_not_have_concurrent_shift
 
-    c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ?', self.user_id, self.end, self.start])
+    c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ? AND department_id =?', self.user_id, self.end, self.start, self.department])
     unless c.zero?
       errors.add_to_base("#{self.user.name} has an overlapping shift in that period") unless (self.id and c==1)
     end
@@ -331,6 +330,10 @@ class Shift < ActiveRecord::Base
         sub.save!
       end
     end
+  end
+
+  def set_active
+    self.active = self.calendar.active
   end
 
 
