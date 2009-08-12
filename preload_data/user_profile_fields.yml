@@ -1,71 +1,58 @@
---- 
-user_profile_fields_001: 
-  created_at: 2009-08-11 22:13:35
-  department_id: "1"
-  display_type: text_field
-  id: "1"
-  name: Phone Number
+---
+user_profile_field_01:
+  id: 01
+  name: "Phone Number"
+  display_type: "text_field"
+  values: "text"
   public: t
-  updated_at: 2009-08-11 22:13:35
   user_editable: t
-  values: text
-user_profile_fields_002: 
-  created_at: 2009-08-11 22:13:35
-  department_id: "1"
-  display_type: text_area
-  id: "2"
-  name: About Me
+  department_id: 1
+user_profile_field_02:
+  id: 02
+  name: "About Me"
+  display_type: "text_area"
+  values:
   public: t
-  updated_at: 2009-08-11 22:13:35
   user_editable: t
-  values: 
-user_profile_fields_003: 
-  created_at: 2009-08-11 22:13:35
-  department_id: "1"
-  display_type: select
-  id: "3"
-  name: Primary Operating system
+  department_id: 1
+user_profile_field_03:
+  id: 03
+  name: "Primary Operating system"
+  display_type: "select"
+  values: "Mac, Windows, Linux"
   public: t
-  updated_at: 2009-08-11 22:13:35
   user_editable: t
-  values: Mac, Windows, Linux
-user_profile_fields_004: 
-  created_at: 2009-08-11 22:13:35
-  department_id: "1"
-  display_type: radio_button
-  id: "4"
-  name: Likes Peas?
+  department_id: 1
+user_profile_field_04:
+  id: 04
+  name: "Likes Peas?"
+  display_type: "radio_button"
+  values: "yes, no"
   public: t
-  updated_at: 2009-08-11 22:13:35
   user_editable: t
-  values: yes, no
-user_profile_fields_005: 
-  created_at: 2009-08-11 22:13:35
-  department_id: "1"
-  display_type: check_box
-  id: "5"
-  name: Favorite Fruits
+  department_id: 1
+user_profile_field_05:
+  id: 05
+  name: "Favorite Fruits"
+  display_type: "check_box"
+  values: "Apples, Bananas, Strawberries, Mangos"
   public: t
-  updated_at: 2009-08-11 22:13:35
   user_editable: t
-  values: Apples, Bananas, Strawberries, Mangos
-user_profile_fields_006: 
-  created_at: 2009-08-11 22:13:35
-  department_id: "1"
-  display_type: picture_link
-  id: "6"
-  name: Profile Picture Link
+  department_id: 1
+user_profile_field_06:
+  id: 06
+  name: "Profile Picture Link"
+  display_type: "picture_link"
+  values:
   public: t
-  updated_at: 2009-08-11 22:13:35
   user_editable: t
-  values: 
-user_profile_fields_007: 
-  created_at: 2009-08-11 22:13:35
-  department_id: "1"
-  display_type: upload_pic
-  id: "7"
-  name: Profile Picture Upload
-  public: t
-  updated_at: 2009-08-11 22:13:35
-  user_editable: t
-  values: 
+  department_id: 1
+#user_profile_field_07:
+#  id: 07
+#  name: "Profile Picture Upload"
+#  display_type: "upload_pic"
+#  values:
+#  public: t
+#  user_editable: t
+#  department_id: 1
+

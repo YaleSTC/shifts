@@ -3,6 +3,7 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :calendar
   belongs_to :repeating_event
   has_many :shifts, :through => :location
+  before_save :set_active
 
   validates_presence_of :start, :end, :location_id
   validate :start_less_than_end
@@ -16,10 +17,12 @@ class TimeSlot < ActiveRecord::Base
 
   #This method creates the multitude of shifts required for repeating_events to work
   #in order to work efficiently, it makes a few GIANT sql insert calls
-  def self.make_future(end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time)
+  def self.make_future(end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
     #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
-    outer = []
-    inner = []
+    outer_make = []
+    inner_make = []
+    outer_test = []
+    inner_test = []
     #Take each location and day and build an array containing the pieces of the sql query
     loc_ids.each do |loc_id|
       days.each do |day|
@@ -28,25 +31,46 @@ class TimeSlot < ActiveRecord::Base
         while seed_end_time <= end_date
           seed_start_time = seed_start_time.next(day)
           seed_end_time = seed_end_time.next(day)
-          inner.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\""
+          inner_test.push "(location_id = \"#{loc_id}\" AND active = \"true\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
+          inner_make.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{active}\""
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
           #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
-          if inner.length > 450
-            outer.push inner
-            inner = []
-          end
+        if inner_make.length > 450
+          outer_make.push inner_make
+          inner_make = []
+          outer_test.push inner_test
+          inner_test = []
+        end
         end
         #handle leftovers or the case where there are less than 450 rows to be inserted
-        outer.push inner
+      outer_make.push inner_make
+      outer_test.push inner_test
       end
     end
     #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
-    ActiveRecord::Base.transaction do
-      outer.each do |s|
-        sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at') SELECT #{s.join(" UNION ALL SELECT ")};"
-        ActiveRecord::Base.connection.execute sql
+    if wipe
+        outer_test.each do |s|
+          TimeSlot.delete_all(s.join(" OR "))
+        end
+        outer_make.each do |s|
+          sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
+          ActiveRecord::Base.connection.execute sql
+        end
+      return false
+    else
+      out = []
+        outer_test.each do |s|
+          out += TimeSlot.find(:all, :conditions => [s.join(" OR ")])
+        end
+      if out.empty? || !active
+          outer_make.each do |s|
+            sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
+            ActiveRecord::Base.connection.execute sql
+          end
+        return false
       end
+      return "<p>"+out.collect{|t| t.to_s}.join("</p><p>")+"</p>"
     end
   end
 
@@ -59,6 +83,10 @@ class TimeSlot < ActiveRecord::Base
   end
 
   private
+
+  def set_active
+    self.active = self.calendar.active
+  end
 
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= start)

@@ -8,8 +8,6 @@ class RepeatingEvent < ActiveRecord::Base
   validate_on_create :not_in_the_past
   validate :start_date_less_than_end_date
   validate :start_time_less_than_end_time
-  validate :check_make_future
-  @wipe = false
 
 
   #This method takes a repeating event, destroys all future timeslots/shifts associated with it,
@@ -25,15 +23,11 @@ class RepeatingEvent < ActiveRecord::Base
     repeating_event.destroy
   end
 
-  def wipe=(value)
-    @wipe=value
-  end
-
-  def make_future
+  def make_future(wipe)
     if self.has_time_slots?
-      TimeSlot.make_future(self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids, self.start_time, self.end_time)
+      TimeSlot.make_future(self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids, self.start_time, self.end_time, self.calendar.active, wipe)
     else
-      Shift.make_future(self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids.first, self.start_time, self.end_time, self.user_id, Location.find(self.location_ids.first).loc_group.department.id, @wipe)
+      Shift.make_future(self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids.first, self.start_time, self.end_time, self.user_id, Location.find(self.location_ids.first).loc_group.department.id, self.calendar.active, wipe)
     end
   end
 
@@ -85,13 +79,14 @@ class RepeatingEvent < ActiveRecord::Base
 
   private
 
-  def check_make_future
-    if failed = self.make_future
-      failed.each do |f|
-        errors.add_to_base("#{f.short_name} conflicts. Apply with wipe to fix this.")
-      end
-    end
-  end
+#  def check_make_future
+#    if failed = self.make_future
+#      failed.each do |f|
+#        errors.add_to_base("#{f.to_s} conflicts. Apply with wipe to fix this.")
+#      end
+#      self.destroy
+#    end
+#  end
 
   def days_of_week_present
     errors.add_to_base("You must select at least one day of the week!") unless days_of_week

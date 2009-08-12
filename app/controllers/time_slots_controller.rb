@@ -46,7 +46,7 @@ class TimeSlotsController < ApplicationController
         if errors.empty?
           flash[:notice] = "Successfully created timeslot(s)."
         else
-          flash[:error] =  "Error: "+errors*"<br/>" 
+          flash[:error] =  "Error: "+errors*"<br/>"
         end
         redirect_to time_slots_path
       end
@@ -70,7 +70,7 @@ class TimeSlotsController < ApplicationController
 
   def update
     @time_slot = TimeSlot.find(params[:id])
-    
+
     # from AJAX edit view
     # if start time is pushed forward beyond end time, preserve duration
     if params[:wants] == 'start'
@@ -84,7 +84,7 @@ class TimeSlotsController < ApplicationController
         params[:time_slot][:start] = new_end - @time_slot.duration
       end
     end
-    
+
     if @time_slot.update_attributes(params[:time_slot])
       if params[:wants] #AJAX (jEditable)
         respond_to do |format|
@@ -111,8 +111,8 @@ class TimeSlotsController < ApplicationController
         end
       else
         render :action => 'edit'
-      end      
-      # 
+      end
+      #
       # respond_to do |format|
       #   format.html{render :action => 'edit'}
       #   format.js do
@@ -132,7 +132,7 @@ class TimeSlotsController < ApplicationController
       format.js #remove partial from view
     end
   end
-  
+
   def rerender
     #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
     #TODO:simplify this stuff:
@@ -149,4 +149,3 @@ class TimeSlotsController < ApplicationController
     end
   end
 end
-
