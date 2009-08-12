@@ -75,7 +75,7 @@ Feature: Regular user logs into a shift
         And I select "PM" from "sub_request[end(7i)]"
         And I fill in "list_of_logins" with "hg9"
         And I fill in "Reason" with "I need to eat dinner"
-        And I press "Create"
+        And I press "Submit"
         Then I should see "Sub request was successfully created."
         
         When I follow "Logout"
