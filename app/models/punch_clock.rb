@@ -7,7 +7,7 @@ class PunchClock < ActiveRecord::Base
   validate_on_create :conflicting_shifts_or_clocks?
   
   def running_time
-    no_of_sec = self.paused ? self.runtime : Time.now - self.created_at + runtime
+    no_of_sec = self.paused ? self.runtime : (Time.now - self.last_touched + runtime)
     [no_of_sec/3600, no_of_sec/60 % 60, no_of_sec % 60].map{|t| t.to_i.to_s.rjust(2, '0')}.join(':')
   end
   
