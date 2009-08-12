@@ -14,26 +14,26 @@ ActionController::Routing::Routes.draw do |map|
     f.create_first_user 'firstrun/create_first_user', :action => 'create_user', :method => 'post'
   end
 
-  map.login "/login", :controller => 'user_sessions', :action => 'new'
-  map.logout "/logout", :controller => 'user_sessions', :action => 'destroy'
+  map.login "login", :controller => 'user_sessions', :action => 'new'
+  map.logout "logout", :controller => 'user_sessions', :action => 'destroy'
 
   map.resources :app_configs, :only => [:edit, :update]
 
-  map.edit_app_config "/app_config", :controller => 'app_configs', :action => 'edit', :method => 'get'
+  map.edit_app_config "app_config", :controller => 'app_configs', :action => 'edit', :method => 'get'
 
   map.resources :punch_clocks
   map.resources :restrictions
-  map.email_reminders "/email_reminders", :controller => 'payforms', :action => 'email_reminders'
-  map.reminders_advanced_options "/reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options'
-  map.warnings_advanced_options  "/warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options'
+  map.email_reminders "email_reminders", :controller => 'payforms', :action => 'email_reminders'
+  map.reminders_advanced_options "reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options'
+  map.warnings_advanced_options  "warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options'
 
   #TODO: get rid of sessions controller and move logout action to user_session controller and name it cas_logout
-  map.cas_logout "/cas_logout", :controller => 'sessions', :action => 'logout'
+  map.cas_logout "cas_logout", :controller => 'sessions', :action => 'logout'
 
   # routes for managing superusers
-  map.superusers "/superusers", :controller => 'superusers'
-  map.add_superusers "/superusers/add", :controller => 'superusers', :action => 'add'
-  map.remove_superusers "/superusers/remove", :controller => 'superusers', :action => 'remove'
+  map.superusers "superusers", :controller => 'superusers'
+  map.add_superusers "superusers/add", :controller => 'superusers', :action => 'add'
+  map.remove_superusers "superusers/remove", :controller => 'superusers', :action => 'remove'
 
   map.resources :user_sessions
 
@@ -61,7 +61,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :time_slots, :member => {:rerender => :get} #TODO: What should this be nested under, if anything?
 
-  map.resources :shifts, :new => {:unscheduled => :get, :power_sign_up => :get, :ajax_create => :post}, :member => {:rerender => :get}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
+  map.resources :shifts, :new => {:unscheduled => :get, :ajax_create => :post}, :member => {:rerender => :get}, :collection => {:show_active => :get, :show_unscheduled => :get}, :shallow => true do |shifts|
     shifts.resource :report do |report|
       report.resources :report_items
     end
