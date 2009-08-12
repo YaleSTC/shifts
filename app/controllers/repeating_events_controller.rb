@@ -29,15 +29,16 @@ class RepeatingEventsController < ApplicationController
         @failed = @repeating_event.make_future(wipe)
         raise @failed if @failed
       end
-    rescue Exception => e
-      @errors = e.message
-    end
-    if @errors
-      @repeating_event = @repeating_event.clone
-      render :action => 'new'
-    else
       flash[:notice] = "Successfully created repeating event."
       redirect_to @repeating_event
+    rescue Exception => e
+      @errors = e.message.gsub("Validation failed:", "").split(",")
+      @repeating_event = @repeating_event.clone
+      render :action => 'new'
+    end
+    if @errors
+
+    else
     end
   end
 
