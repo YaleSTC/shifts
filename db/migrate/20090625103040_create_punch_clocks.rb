@@ -4,7 +4,9 @@ class CreatePunchClocks < ActiveRecord::Migration
       t.string     :description
       t.references :user
       t.references :department
-      t.decimal    :time
+      t.integer    :runtime
+      t.datetime   :last_touched
+      t.boolean    :paused
       t.timestamps
     end
   end

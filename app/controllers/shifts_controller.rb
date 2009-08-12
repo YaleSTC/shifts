@@ -96,10 +96,6 @@ elsif @department.department_config.weekend_shifts #show weekends
     end
   end
 
-  def power_sign_up
-    @shift = Shift.new
-  end
-
   def create
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department #assign it a department based off of its location. shifts will never change to a location in a diff. dept, so this is okay.
@@ -187,7 +183,7 @@ elsif @department.department_config.weekend_shifts #show weekends
 #okay then -ben
   def destroy
     @shift = Shift.find(params[:id])
-    return unless require_owner(@shift)
+    return unless require_admin_of(@department)
     @shift.destroy
     respond_to do |format|
       format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}

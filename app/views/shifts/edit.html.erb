@@ -1,8 +1,12 @@
 <% title "Edit Shift" %>
-
-<%= render :partial => 'form' %>
-
+<% form_for @shift do |f| %>
+  <%= f.error_messages %>
+    <%= render :partial => 'form', :locals => {:f => f} %>
+      <p><%= f.submit "Submit" %></p>
+<% end %>
 <p>
   <%= link_to "Show", @shift %> |
   <%= link_to "View All", shifts_path %>
 </p>
+
+

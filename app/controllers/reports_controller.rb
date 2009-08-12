@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   #AJAX requests will be returned without layout
-  layout proc{ |c| c.params[:format] == "js" ? false : "application" }
+  layout proc{ |c| c.params[:format] == "js" ? false : "reports" }
 
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
