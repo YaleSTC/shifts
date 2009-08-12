@@ -2,7 +2,7 @@ class PunchClocksController < ApplicationController
 
   def index
     require_department_admin
-    @punch_clocks = PunchClock.find_all_by_department_id(current_department.id)
+    @punch_clocks = (params[:user_id] ? [current_user.punch_clock].compact : PunchClock.find_all_by_department_id(current_department.id))
   end
 
   def create
@@ -31,7 +31,7 @@ class PunchClocksController < ApplicationController
                                       :hours => (@punch_clock.runtime/3600), # sec -> hr
                                       :description => params[:punch_clock][:description]})
       payform_item.payform = Payform.build(@punch_clock.department, @punch_clock.user, Date.today)
-      flash[:notice] = "Successfully clocked out." if payform_item.save && @punch_clock.destroy  
+      flash[:notice] = "Successfully clocked out." if (payform_item.save && @punch_clock.destroy)
       redirect_to dashboard_path and return
     end
     @punch_clock.last_touched = Time.now

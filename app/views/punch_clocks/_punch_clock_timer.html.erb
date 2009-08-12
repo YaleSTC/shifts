@@ -1,0 +1,5 @@
+<%= javascript_include_tag 'jquery.jCountr.1.2' %>
+<script type='text/javascript'>$('#timer').counter({min:"0",sec:"0",direction:"up"})</script>
+<div id="timer">
+  <noscript><%= punch_clock_timer.running_time %></noscript>
+</div>
