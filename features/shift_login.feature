@@ -52,7 +52,7 @@ Feature: Regular user logs into a shift
         | start_time     | end_time       | location     | user         |
         | 12/25/2009 5pm | 12/25/2009 9pm | Diagon Alley | Harry Potter |
         And I am on the homepage
-        Then I should see "Your Upcoming shifts"
+        Then I should see "Upcoming shifts"
         When I follow "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM"
         And I follow "Request a sub for this shift"
         And I select "2009" from "sub_request[mandatory_start(1i)]"
