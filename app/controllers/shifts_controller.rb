@@ -82,10 +82,6 @@ elsif @department.department_config.weekend_shifts #show weekends
     end
   end
 
-  def power_sign_up
-    @shift = Shift.new
-  end
-
   def create
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department #assign it a department based off of its location. shifts will never change to a location in a diff. dept, so this is okay.
