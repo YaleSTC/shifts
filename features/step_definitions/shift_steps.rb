@@ -14,13 +14,15 @@ Given /^there is a scheduled shift:$/ do |table|
   table.hashes.each do |row|
     TimeSlot.create!(:location_id => Location.find_by_name(row[:location]).id,
                      :start       => Time.parse(row[:start_time]),
-                     :end         => Time.parse(row[:end_time]))
+                     :end         => Time.parse(row[:end_time]),
+                     :calendar_id => Calendar.find(1))
     user = User.find(:first, :conditions => {:first_name => row[:user].split.first, :last_name => row[:user].split.last})
     @that_shift = Shift.create!(:user_id     => user.id,
                            :location_id => Location.find_by_name(row[:location]).id,
                            :start       => Time.parse(row[:start_time]),
                            :end         => Time.parse(row[:end_time]),
-                           :department_id => user.departments.first)
+                           :department_id => user.departments.first,
+                           :calendar_id => Calendar.find(1))
   end
 end
 
