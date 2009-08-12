@@ -1,4 +1,5 @@
-class PunchClocksController < ApplicationController
+Class PunchClocksController < ApplicationController
+
   def index
     require_department_admin
     @punch_clocks = PunchClock.find_all_by_department_id(current_department.id)
@@ -15,7 +16,7 @@ class PunchClocksController < ApplicationController
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
   end
   
-  # Stops, restarts, or submits the punch clock depending on params
+# Stops, restarts, or submits the punch clock depending on params
   def update
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
@@ -44,6 +45,11 @@ class PunchClocksController < ApplicationController
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
     flash[:notice] = @punch_clock.destroy ? "Successfully canceled punch clock." : "Could not cancel punch clock."
     redirect_to :controller => "/dashboard"
+  end
+  
+  # Ajax method
+  def update_time
+    render :layout => false
   end
   
 end
