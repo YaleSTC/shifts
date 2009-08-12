@@ -1,4 +1,4 @@
-<h1>New punch_clock_set</h1>
+<h1>New Mass Punch Clock</h1>
 
 <% form_for(@punch_clock_set) do |f| %>
   <%= f.error_messages %>
@@ -7,6 +7,9 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </p>
+  <p>
+    <%= f.label :users %><br />
+    <%= collection_multiple_select_tag(:users, @users_select, :id, :name, :selected_items => @punch_clock_set.users.map{|u| u.id}) %>
   <p>
     <%= f.submit 'Create' %>
   </p>

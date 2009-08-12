@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
+  has_many :sub_requests
 
   # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
@@ -50,27 +51,28 @@ class User < ActiveRecord::Base
   end
 
  def self.search_ldap(first_name, last_name, email, limit)
+    appconfig = AppConfig.first
     first_name+='*'
     last_name+='*'
     email+='*'
     # Setup our LDAP connection
     begin
-    ldap = Net::LDAP.new( :host => @appconfig.ldap_host_address, :port => @appconfig.ldap_port )
-    filter = Net::LDAP::Filter.eq(@appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq(@appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq(@appconfig.ldap_email, email)
-    out=[]
-    ldap.open do |ldap|
-      ldap.search(:base => @appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
-      out << {:login => entry[@appconfig.ldap_login][0],
-              :email => entry[@appconfig.ldap_email][0],
-              :first_name => entry[@appconfig.ldap_first_name][0],
-              :last_name => entry[@appconfig.ldap_last_name][0]}
-       break if out.length>=limit
+      ldap = Net::LDAP.new( :host => appconfig.ldap_host_address, :port => appconfig.ldap_port )
+      filter = Net::LDAP::Filter.eq(appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq(appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq(appconfig.ldap_email, email)
+      out=[]
+      ldap.open do |ldap|
+        ldap.search(:base => appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
+        out << {:login => entry[appconfig.ldap_login][0],
+                :email => entry[appconfig.ldap_email][0],
+                :first_name => entry[appconfig.ldap_first_name][0],
+                :last_name => entry[appconfig.ldap_last_name][0]}
+         break if out.length>=limit
       end
     end
     out
-  rescue Exception => e
-    false
-  end
+    rescue Exception => e
+      false
+    end
   end
 
   def self.mass_add(logins, department)
@@ -176,8 +178,18 @@ class User < ActiveRecord::Base
     [self]
   end
 
-  def available_sub_requests #TODO: this could probalby be optimized
-    SubRequest.all.select{|sr| sr.substitutes.include?(self)}
+  def available_sub_requests(departments = self.departments) #TODO: this could probalby be optimized even more
+    #Wrap it in a transaction speeds things up....
+    ActiveRecord::Base.transaction do
+    a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"User\" AND user_source_id = \"#{self.id}\""])
+    b = departments.collect do |department|
+      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Department\" AND user_source_id = \"#{department.id}\""])
+    end
+    c = self.roles.select{|role| departments.include?(role.department)}.collect do |role|
+        UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Role\" AND user_source_id = \"#{role.id}\""])
+    end
+    (a+b.flatten+c.flatten).collect {|u| SubRequest.find(u.user_sink_id)}
+    end
   end
 
   def restrictions #TODO: this could probalby be optimized
@@ -231,4 +243,3 @@ class User < ActiveRecord::Base
   end
 
 end
-

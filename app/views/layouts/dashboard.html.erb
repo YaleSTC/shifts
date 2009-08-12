@@ -4,17 +4,18 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
-    <li><%= link_to_unless_current "Notices", notices_path %></li>
-    <li><%= link_to_unless_current "Your preferences", edit_user_config_path(current_user.user_config) %></li>
-    <% if current_user.is_admin_of?(@department) %>
-      <li><%= link_to "Your Profile", edit_user_path(current_user) %></li>    <br/>
-    <% else %>
-      <li><%= link_to "Your Profile", edit_user_profile_path(current_user.login) %></li>    <br/>
-    <% end %>
+    <h3>User Links</h3>
+      <li><%= link_to_unless_current "Notices", notices_path %></li>
+      <li><%= link_to_unless_current "Your preferences", edit_user_config_path(current_user.user_config) %></li>
+      <% if current_user.is_admin_of?(@department) %>
+        <li><%= link_to "Your Profile", edit_user_path(current_user) %></li>    <br/>
+        <% else %>
+        <li><%= link_to "Your Profile", edit_user_profile_path(current_user.login) %></li>    <br/>
+        <% end %>
     <h3>Useful Links</h3>
-    <li><%=link_to "Weke", "http://weke.its.yale.edu/" %></li>
-    <li><%=link_to "RT", "http://uhu.its.yale.edu/" %></li>
-    <li><%=link_to "STC Terms of Service", "http://www.yale.edu/its/stc/terms.html" %></li>
+      <li><%=link_to "Weke", "http://weke.its.yale.edu/" %></li>
+      <li><%=link_to "RT", "http://uhu.its.yale.edu/" %></li>
+      <li><%=link_to "STC Terms of Service", "http://www.yale.edu/its/stc/terms.html" %></li>
   </ul>
   <div id="contentNav">
 <% end %>

@@ -9,8 +9,8 @@
 <% if current_user && current_user.is_admin_of?(@department) && !@no_nav -%>
   <% content_for :left_nav do -%>
     <ul id="navigationList">
-      <h3>User Actions</h3>
-      <li><%= link_to_unless_current "Show All", department_users_path(@department) %></li>
+      <h3>Manage Users</h3>
+      <li><%= link_to_unless_current "Show All Users", department_users_path(@department) %></li>
       <li><%= link_to_unless_current "Add a User", new_department_user_path(@department) %></li>
       <li><%= link_to_unless_current "Import from CSV", import_department_users_path(@department) %></li>
       <li><%= link_to_unless_current "Export to CSV", :action => 'index', :format => 'csv' %></li>
@@ -19,7 +19,11 @@
       <li><%= link_to_unless_current "Show All Profiles", user_profiles_path %></li>
       <li><%= link_to_unless_current "New Profile Field", new_user_profile_field_path %></li>
       <li><%= link_to_unless_current "Manage Profile Fields", user_profile_fields_path %></li>
-      <li><%= link_to_unless_current "Your Profile", edit_user_path(current_user) %></li>    <br/>
+      <li><%= link_to_unless_current "Your Profile", edit_user_path(current_user) %></li>    <p></p>
+      <h3>Manage Permissions</h3>
+      <li><%= link_to_unless_current "Show all Roles", department_roles_path(@department) %></li>
+      <li><%= link_to_unless_current "Add a Role", new_department_role_path(@department) %></li>
+
     </ul>
     <div id="contentNav">
     <% end -%>
@@ -30,7 +34,10 @@
       <li><%= link_to_unless_current "Show All Profiles", user_profiles_path %></li>
       <li><%= link_to_unless_current "New Profile Field", new_user_profile_field_path %></li>
       <li><%= link_to_unless_current "Manage Profile Fields", user_profile_fields_path %></li>
-    </ul>
+      <h3>Manage Permissions</h3>
+      <li><%= link_to_unless_current "Show all Roles", department_roles_path(@department) %></li>
+      <li><%= link_to_unless_current "Add a Role", new_department_role_path(@department) %></li>
+>>>>    </ul>
     <div id="contentNav">
   <% end -%>
 <% end -%>

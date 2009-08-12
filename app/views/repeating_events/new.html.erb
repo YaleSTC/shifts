@@ -1,0 +1,13 @@
+<% title "New Repeating Event" %>
+
+<%if @failed_shifts%>
+<strong>The repeating event could not be applied because of the following shifts:</strong>
+<% @failed_shifts.each do |s|%>
+<p><%= s.short_name %></p>
+<%end%>
+<%end%>
+
+<%= render :partial => 'form' %>
+
+<p><%= link_to "Back to List", repeating_events_path %></p>
+

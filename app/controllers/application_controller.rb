@@ -211,7 +211,6 @@ class ApplicationController < ActionController::Base
         end
         format.js do
           render :update do |page|
-            # display alert
             ajax_alert(page, "<strong>error:</strong> "+error_message);
           end
           return false

@@ -1,0 +1,4 @@
+<% prioritized_locations = loc_group_row.locations.sort_by(&:priority).reverse %>
+<% @priority_one = prioritized_locations.first.priority %>
+<%= render :partial => "calendars/schedule/location_row_set", :collection => prioritized_locations, :locals => {:day => day} %>
+<ul class="events" style="height: <%= 0.25 * @table_pixels / (@table_height) %>px;"></ul>

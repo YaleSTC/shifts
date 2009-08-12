@@ -18,15 +18,28 @@ module NoticesHelper
     @notice.locations.each do |loc|
       return true if loc == location
     end
-    @current_shift_location == location if @current_shift_location
+    return @current_shift_location == location if @current_shift_location
     false
   end
 
   def type_check(sticky)
-    if sticky
-      @notice.is_sticky
+    return @notice.sticky if sticky
+    return true if !sticky
+  end
+
+  def end_time_check(indefinite)
+    if indefinite
+      return true unless @notice.end_time
     else
-      !@notice.is_sticky
+      return true if @notice.end_time
+    end
+  end
+
+  def start_time_check(now)
+    if now
+      !@notice.is_upcoming?
+    else
+      @notice.is_upcoming?
     end
   end
 end

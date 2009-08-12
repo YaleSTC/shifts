@@ -1,31 +1,37 @@
 <table>
-<tr><th colspan="5"><span id="loading_icon"><%= image_tag("loading.gif", :align=>:left) %></span>LDAP Search Results</th></tr>
-<% if @results && !@results.empty? %>
-<td>Login</td>
-<td>First Name</td>
-<td>Last Name</td>
-<td>Email</td>
-<% @results.each do |result| %>
-<tr>
-<td><%= result[:login] %></td>
-<td><%= result[:first_name] %></td>
-<td><%= result[:last_name] %></td>
-<td><%= result[:email] %></td>
-<td><%= button_to_remote "Add Me!", :url=> {:action => "fill_form", :params => {:user=>result}}%></td>
-</tr>
-<% end %>
-<% elsif @results.empty? %>
-<tr>
-<td colspan="5">
-<strong>No resultsrelated to the information you have entered were found.</strong>
-</td>
-</tr>
-<% else %>
-<tr>
-<td colspan="5">
-<strong>Oops! Something appears to be wrong with your LDAP settings. Please talk to the application administrator.</strong>
-</td>
-</tr>
-<% end %>
+  <tr><th colspan="5">LDAP Search Results</th></tr>
+  <td>Login</td>
+  <td>First Name</td>
+  <td>Last Name</td>
+  <td>Email</td>
+  <td>Add</td>
+  <tr id="loading_row">
+    <td colspan="5">
+      <center><%= image_tag("loading.gif", :align=>:center, :class => "loading_icon") %>Searching...</center>
+    </td>
+  </tr>
+  <% if @results && !@results.empty? %>
+    <% @results.each do |result| %>
+      <tr class="result">
+        <td><%= result[:login] %></td>
+        <td><%= result[:first_name] %></td>
+        <td><%= result[:last_name] %></td>
+        <td><%= result[:email] %></td>
+        <td><%= button_to_remote "Add Me!", :url=> {:action => "fill_form", :params => {:user=>result}}%></td>
+      </tr>
+    <% end %>
+  <% elsif @results && @results.empty? %>
+    <tr class="result">
+      <td colspan="5">
+      <strong>No results related to the information you have entered were found.</strong>
+      </td>
+    </tr>
+  <% else %>
+    <tr>
+      <td colspan="5">
+      <strong>Oops! Something went wrong. Please try again, or talk to your application administrator if you continue to experience problems.</strong>
+      </td>
+    </tr>
+  <% end %>
 </table>
 

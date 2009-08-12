@@ -1,5 +1,6 @@
 class RolesController < ApplicationController
   before_filter :require_department_admin
+  layout 'users'
 
   def index
     @roles = @department.roles
@@ -19,7 +20,7 @@ class RolesController < ApplicationController
     @role.department = @department
     if @role.save
       flash[:notice] = "Successfully created role."
-      redirect_to @role
+      redirect_to department_roles_path(@department)
     else
       render :action => 'new'
     end

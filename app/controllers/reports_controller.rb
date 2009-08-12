@@ -1,12 +1,6 @@
 class ReportsController < ApplicationController
   #AJAX requests will be returned without layout
-  layout proc{ |c| c.params[:format] == "js" ? false : "application" }
-
-# unsecured for now; are we getting rid of this action? -ben
-# this should discriminate by department
-#  def index
-#    @reports = Report.find(:all, :order => :arrived)
-#  end
+  layout proc{ |c| c.params[:format] == "js" ? false : "reports" }
 
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
@@ -43,7 +37,7 @@ class ReportsController < ApplicationController
       if current_user.current_shift
         flash[:notice] = "You can't sign into two shifts!"
       else
-        flash[:notice] = "You can\'t sign into someone else's report!" unless @report.shift.user==current_user
+        flash[:notice] = "You can't sign into someone else's report!" unless @report.shift.user==current_user
       end
       redirect_to shifts_path
     end
@@ -61,10 +55,9 @@ class ReportsController < ApplicationController
       @report.departed = Time.now
       # add a report item about logging out
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.login} logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
-      @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
+      @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?      
     end
-    if @report.update_attributes(params[:report]) && @report.user == current_user
-      @report.shift.signed_in = false
+    if @report.update_attributes(params[:report]) && @report.user == current_user && @report.shift.update_attribute(:signed_in, false)
       @payform_item=PayformItem.new("hours"=>(@report.departed-@report.arrived)/3600,
                                     "category"=>Category.find_by_name("Shifts"),
                                     "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
@@ -76,7 +69,7 @@ class ReportsController < ApplicationController
         flash[:notice] = "Successfully submitted report, but payform did not update. Please manually add the job to your payform."
       end
       respond_to do |format|
-        format.html {redirect_to @report}
+        format.html {redirect_to dashboard_path}
         format.js
       end
     else
