@@ -15,7 +15,7 @@ class Department < ActiveRecord::Base
   has_many :punch_clocks
   has_many :calendars, :dependent => :destroy do
     def default
-      find(:all, :conditions => ["\"default\" = ?", true])
+      find(:first, :conditions => {:default => true})
     end
   end
   has_many :user_profile_fields
