@@ -74,12 +74,12 @@ module ShiftsHelper
     today = day.today?
     (0...@total_blocks).each do |block|
       time = @dept_start_hour*60 + block*@time_increment
-      if !@open_at[time]
+      if today and time < now
+        @signup_bar[block] = "bar_passed no_signups"
+      elsif !@open_at[time]
         @signup_bar[block] = "bar_closed no_signups"
       elsif people_count[time] >= location.max_staff
         @signup_bar[block] = "bar_full no_signups"
-      elsif today and time < now
-        @signup_bar[block] = "bar_passed no_signups"
       elsif @unfilled_priority[time] and location.priority < @unfilled_priority[time]
         @signup_bar[block] = "bar_pending no_signups"
       else
@@ -106,9 +106,9 @@ module ShiftsHelper
     @time_increment ||= current_department.department_config.time_increment
     @blocks_per_hour ||= 60/@time_increment.to_f
     
-    
-    locations = @loc_groups.map{|lg| lg.locations}.flatten
-    for location in locations
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten   
+    #locations = @loc_groups.map{|lg| lg.locations}.flatten
+    for location in @visible_locations
       @location_rows[location] = [] #initialize rows
       @location_rows[location][0] = [] #initialize rows
     end
@@ -124,10 +124,11 @@ module ShiftsHelper
     shifts = Shift.in_locations(@visible_locations).on_day(day).scheduled #TODO: .active
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
+    
     # TODO: FIX ME
     @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
-                                         day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
+                                         day.beginning_of_day, day.end_of_day, @visible_locations.map{|l| l.id})
     
     timeslots = TimeSlot.in_locations(@visible_locations).on_day(day).after_now #TODO: .active
 
@@ -138,7 +139,6 @@ module ShiftsHelper
       timeslots[location] = timeslots[location].sort_by(&:start)
     end
     @location_rows_timeslots = timeslots
-    
 
     rejected = []
     location_row = 0
@@ -164,15 +164,8 @@ module ShiftsHelper
     end
     
     rowcount = 1 #starts with the bar on top
-    for location in locations
+    for location in @visible_locations
       rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
-    end
-    
-    #TODO: priority processing
-    @priority = []
-    @times = @dept_start_hour..@dept_end_hour
-    @times.step(@time_increment) do |time|
-      @priority[time]
     end
 
     @timeslot_rows = 0 #counter
@@ -180,8 +173,107 @@ module ShiftsHelper
     @row_height = 24 #pixels - this could be user-configurable
     @divider_height = 3 #pixels - this could be user-configurable
     @table_height = rowcount
-    @table_pixels = @row_height * rowcount + rowcount+1
+    @table_pixels = @row_height * rowcount + rowcount+1  
+  end
+  
+  
+  #this is super-un-DRY, but AJAX calls to the shifts controller from the calendar controller
+  #try to rerender the calendar view, and fail if they can't find this function. if there's
+  #time, this could probably be cleaned up somehow.
+  def calendar_day_preprocessing(day)
+    @location_rows = {}
+    @location_rows_timeslots = {}
     
+    #different calendars are different colors
+    unless defined? @color
+      @color_array ||= ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
+      @color ||= {}
+      @calendars ||= @department.calendars
+      @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i]}
+    end
+    
+    #for AJAX; needs cleanup if we have time
+    @loc_groups = current_user.user_config.view_loc_groups.select{|l| !l.locations.empty?}
+    @dept_start_hour ||= current_department.department_config.schedule_start / 60
+    @dept_end_hour ||= current_department.department_config.schedule_end / 60
+    @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
+    @time_increment ||= current_department.department_config.time_increment
+    @blocks_per_hour ||= 60/@time_increment.to_f
+    
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten   
+    #locations = @loc_groups.map{|lg| lg.locations}.flatten
+    for location in @visible_locations
+      @location_rows[location] = [] #initialize rows
+      @location_rows[location][0] = [] #initialize rows
+      @location_rows_timeslots[location] = []
+    end
+    
+    # @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
+    #                                      day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
+    #                                      day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
+    # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
+    #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
+
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten   
+    
+    shifts = Shift.in_locations(@visible_locations).on_day(day).scheduled
+    shifts ||= []
+    shifts = shifts.sort_by{|s| [s.location_id, s.start]}
+    
+    # TODO: FIX ME
+    @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
+                                         day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
+                                         day.beginning_of_day, day.end_of_day, @visible_locations.map{|l| l.id})
+    
+    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day)
+
+    timeslots ||= {}
+    timeslots = timeslots.group_by(&:location)
+    
+    timeslots.each_key do |location|
+      timeslots[location] = timeslots[location].sort_by(&:start)
+    end
+    @location_rows_timeslots = timeslots
+
+    rejected = []
+    location_row = 0
+          
+    until shifts.empty?
+      shift = shifts.shift
+      @location_rows[shift.location][location_row] = [shift]
+      (0...shifts.length).each do |i| 
+        if shift.location == shifts.first.location
+          if shift.end > shifts.first.start
+            rejected << shifts.shift
+          else
+            shift = shifts.shift
+            @location_rows[shift.location][location_row] << shift
+          end
+        else
+          shift = shifts.shift
+          @location_rows[shift.location][location_row] = [shift]
+        end
+      end
+      location_row += 1
+      shifts = rejected
+    end
+    
+    # insert an extra empty row for timeslots in calendar view
+    for location in @visible_locations
+      @location_rows[location][@location_rows[location].length] = [nil]
+    end
+    
+    rowcount = 1 #starts with the bar on top
+    for location in @visible_locations
+      rowcount += (@location_rows[location].length > 0 ? @location_rows[location].length : 1)
+    end
+
+    @timeslot_rows = 0 #counter
+
+    @row_height = 24 #pixels - this could be user-configurable
+    @divider_height = 3 #pixels - this could be user-configurable
+    @table_height = rowcount
+    @table_pixels = @row_height * rowcount + rowcount+1  
   end
   
 end
