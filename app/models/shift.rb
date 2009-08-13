@@ -14,6 +14,7 @@ class Shift < ActiveRecord::Base
   validates_presence_of :start
   before_save :set_active
 
+  named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
   named_scope :between, lambda {|start, stop| { :conditions => ['"start" >= ? and "start" < ?', start.utc, stop.utc]}}
@@ -292,21 +293,26 @@ class Shift < ActiveRecord::Base
   def restrictions
     unless self.power_signed_up
       self.user.restrictions.each do |restriction|
-        relevant_shifts = Shift.between(restriction.start,restriction.expires)
         if restriction.max_hours
-          sub_sum = relevant_shifts.map{|shift| shift.sub_requests}.flatten.length
-          errors.add(:max_hours, "have been exceeded for ")
+          relevant_shifts = Shift.between(restriction.start,restriction.expires).for_user(self.user)
+          hours_sum = relevant_shifts.map{|shift| shift.end_time - shift.start_time}.flatten.sum / 3600.0
+          hours_sum += (self.end_time - self.start_time) / 3600.0
+          if hours_sum > restriction.max_hours
+            errors.add(:max_hours, "have been exceeded for #{restriction.start} to #{restriction.expires}: #{hours_sum} hours")
+          end
         end
       end
       self.location.restrictions.each do |restriction|
         if restriction.max_hours
-            
+          relevant_shifts = Shift.between(restriction.start,restriction.expires).in_location(self.location)
+          hours_sum = relevant_shifts.map{|shift| shift.end_time - shift.start_time}.flatten.sum / 3600.0
+          hours_sum += (self.end_time - self.start_time) / 3600.0
+          if hours_sum > restriction.max_hours
+            errors.add(:max_hours, "have been exceeded for #{restriction.start} to #{restriction.expires}: #{hours_sum} hours")
+          end
         end
       end
     end
-    #location_restrictions = location.restrictions
-    #user_restrictions = user.restrictions
-    #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
   end
 
   def start_less_than_end
