@@ -9,6 +9,8 @@
 <li>
   <% if upcoming_shift.signed_in? %>
     <%= link_to link_name,  shift_report_path(upcoming_shift) %>
+  <% elsif upcoming_shift.has_sub? %>
+    <%= link_to link_name,  sub_request_path(upcoming_shift.sub_request) %>
   <% else %>
     <%= link_to link_name, upcoming_shift %>
   <% end %>
