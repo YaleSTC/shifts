@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
     nil
   end
 
-  # originally intended to enable polymorphism; is this still needed, guys? -ben
+  #We do still need this for polymorphism. I want to be able to call @user.users.
   def users
     [self]
   end
