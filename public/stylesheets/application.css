@@ -500,16 +500,16 @@ a:hover{
 
 /* FIELDSET DESIGN -- Get this unified! */
 
-fieldset#warning {
-  background: #C0C0C0;
-}
-
 fieldset.index {
   width: 98.6%;
   padding: 5px;
   margin: 0px 0px 5px 0px;
   border: 1px solid gray;
   background-color:#DDDDFF
+}
+
+fieldset#warning {
+  background: #C0C0C0;
 }
 
 fieldset#shifts {
