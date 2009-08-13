@@ -51,4 +51,6 @@
   This report is still in progress.
 <% end %> 
 
-<%= javascript_include_tag 'leave_confirm' %>
+<% if !@report.departed %>
+<%= javascript_include_tag 'leave_confirm'%>
+<% end %>
