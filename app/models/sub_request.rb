@@ -27,6 +27,7 @@ class SubRequest < ActiveRecord::Base
         new_shift.user = user
         new_shift.start = sub_request.start
         new_shift.end = sub_request.end
+        UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{sub_request.id}\"")
         sub_request.destroy
         Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
         new_shift.save!
@@ -43,7 +44,7 @@ class SubRequest < ActiveRecord::Base
   #
 
   def user_is_eligible?(user)
-    self.substitutes.include?(user)
+    self.substitutes.include?(user) && self.user != user
   end
 
   def substitutes
@@ -51,6 +52,23 @@ class SubRequest < ActiveRecord::Base
     temp.empty? ? [self.shift.department] : temp.collect{|s| s.users}.flatten.uniq
   end
 
+  def sub_name
+    sub_class = self.user_source_type.classify
+    sub_name = sub_class.find(self.user_source_id).name.to_s
+  end
+  
+  def who_can_take
+    self.user_sinks_user_sources.each do |substitute|
+      if substitute.user_source_type == "Department"
+        "Users in the department:" #+ substitute.name.to_s
+      elsif substitute.user_source_type == "Role"
+        "Users who have the role: " #+ substitute.name.to_s
+      else
+        return "this user" #+ substitute.name.to_s
+      end
+    end
+  end
+  
   def has_started?
     self.start < Time.now
   end

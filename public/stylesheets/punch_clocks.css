@@ -1,1 +1,6 @@
+#clocks .running {
+}
 
+#clocks .paused {
+  background: #eecb35;
+}
