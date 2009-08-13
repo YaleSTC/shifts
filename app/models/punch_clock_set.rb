@@ -1,6 +1,4 @@
 class PunchClockSet < ActiveRecord::Base
-#TODO:There's no join table here yet, so I've commented this out
-#  has_and_belongs_to_many :users
   has_many :punch_clocks
 
   validates_presence_of :description
