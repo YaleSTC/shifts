@@ -25,13 +25,14 @@ class PunchClockSetsController < ApplicationController
       PunchClock.transaction do  
         @punch_clock_set = PunchClockSet.new(params[:punch_clock_set])
         @punch_clock_set.department_id = current_department.id
-        params[:users].remove_blank.each{|uid| PunchClock.create!(:description => @punch_clock_set.description, :user_id => uid, :department => current_department) }
-        flash[:notice] = 'Mass punch clock was successfully created.' if @punch_clock_set.save
+        @punch_clock_set.save!
+        params[:users].remove_blank.each{|uid| PunchClock.create!(:description => @punch_clock_set.description, :department => current_department, :user_id => uid, :runtime => 0, :last_touched => Time.now) }
+        flash[:notice] = 'Mass punch clock was successfully created.'
       end
       redirect_to punch_clock_sets_path
     rescue Exception => e
       flash[:error] = e.message
-      render :action => "new"
+      redirect_to :action => "new"
     end
   end
 

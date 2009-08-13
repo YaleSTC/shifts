@@ -174,7 +174,7 @@ class Shift < ActiveRecord::Base
 
   #a shift has been signed in to if it has a report
   def signed_in?
-    self.report
+    self.report && !self.report.departed
   end
 
   #a shift has been signed in to if its shift report has been submitted
@@ -253,6 +253,9 @@ class Shift < ActiveRecord::Base
     self.scheduled? ? self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm) : "unscheduled"
   end
 
+  def sub_request
+    SubRequest.find_by_shift_id(self.id)
+  end
 
   private
 

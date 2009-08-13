@@ -23,25 +23,24 @@ class SubRequestsController < ApplicationController
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
     @sub_request.user = @sub_request.shift.user
-    @sub_request.save! #TODO: need to save before adding polymorphisms -- sorry!
-    params[:list_of_logins].split(",").each do |l|
-      l = l.split("||")
-      @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
-      @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
-    end
-    
-    SubRequest.transaction do
-      @sub_request.save
-      flash[:notice] = 'Sub request was successfully created.'
-      redirect_to :action => :show, :id => @sub_request
-    end
-    
-    rescue 
-      respond_to do |format|
-        format.html { render :action => "new" }
-        format.js  #create.js.rjs
+    begin
+      SubRequest.transaction do
+        @sub_request.save(false) #TODO: need to save before adding polymorphisms -- sorry!
+        params[:list_of_logins].split(",").each do |l|
+          l = l.split("||")
+          @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+          @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
+        end
+        
+        @sub_request.save!
       end
+        flash[:notice] = 'Sub request was successfully created.'
+        redirect_to :action => :show, :id => @sub_request
 
+    rescue Exception => e
+      flash[:error] = "something is wrong"
+      render :action => "new"
+    end
       #redirect_to :action => :new, :id => @sub_request.shift
 
 
@@ -78,7 +77,7 @@ class SubRequestsController < ApplicationController
     @sub_request.destroy
     UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{params[:id]}\"")
     flash[:notice] = "Successfully destroyed sub request."
-    redirect_to shifts_url
+    redirect_to dashboard_url
   end
 
   def get_take_info

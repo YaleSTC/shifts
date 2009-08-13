@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <%- group.locations.each do |loc| -%>
+      <%- group.locations.sort_by{ |loc| [- loc.priority, loc.name] }.each do |loc| -%>
         <tr>
           <td><%= link_to loc.name, edit_location_path(loc) %></td>
           <td><%= loc.short_name %></td>

@@ -31,10 +31,13 @@ class PunchClocksController < ApplicationController
                                       :hours => (@punch_clock.runtime/3600), # sec -> hr
                                       :description => params[:punch_clock][:description]})
       payform_item.payform = Payform.build(@punch_clock.department, @punch_clock.user, Date.today)
-      if (payform_item.save && @punch_clock.destroy)
-        flash[:notice] = "Successfully clocked out."
-        redirect_to dashboard_path and return
-      else
+      begin
+        if (payform_item.save! && @punch_clock.destroy)
+          flash[:notice] = "Successfulrly clocked out."
+          redirect_to dashboard_path and return
+        end
+      rescue Exception => e
+        flash[:notice] = e.message
         render :edit and return
       end
     end
