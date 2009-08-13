@@ -75,6 +75,14 @@ class TimeSlot < ActiveRecord::Base
     end
   end
 
+  def self.check_for_conflicts(time_slots)
+    if time_slots.empty?
+      ""
+    else
+      TimeSlot.find(:all, :conditions => [time_slots.collect{|t| "(location_id = \"#{t.location_id}\" AND active = \"true\" AND start <= \"#{t.end.to_s(:sql)}\" AND end >= \"#{t.start.to_s(:sql)}\")"}.join(" OR ")]).collect{|t| "The timeslot \'"+t.to_s.gsub(",",";")+"\' conflicts. Use wipe to fix."}.join(",")
+    end
+  end
+
   def duration
     self.end-self.start
   end

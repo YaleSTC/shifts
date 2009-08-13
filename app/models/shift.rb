@@ -127,43 +127,11 @@ class Shift < ActiveRecord::Base
     end
   end
 
-  #This method creates the multitude of shifts required for repeating_events to work
-  #in order to work efficiently, it makes a few GIANT sql insert calls
-  def self.check_for_failures(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id)
-    out = []
-    #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
-    outer = []
-    inner = []
-    diff = end_time - start_time
-    #Take each day and build an array containing the pieces of the sql query
-    days.each do |day|
-      seed_start_time = start_time
-      seed_end_time = end_time
-      while seed_end_time <= end_date
-        seed_start_time = seed_start_time.next(day)
-        seed_end_time = seed_start_time + diff
-        inner.push "(user_id = \"#{user_id}\" AND department_id = \"#{department_id}\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
-        #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
-        #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
-        #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
-        if inner.length > 450
-          outer.push inner
-          inner = []
-        end
-      end
-      #handle leftovers or the case where there are less than 450 rows to be inserted
-      outer.push inner
-    end
-    #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
-    ActiveRecord::Base.transaction do
-      a = outer.collect do |s|
-        out += Shift.find(:all, :conditions => [s.join(" OR ")])
-      end
-    end
-    if out == []
-      nil
+  def self.check_for_conflicts(shifts)
+    if shifts.empty?
+      ""
     else
-      out
+      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = \"#{s.user_id}\" AND active = \"true\" AND department_id = \"#{s.department_id}\" AND start <= \"#{s.end.to_s(:sql)}\" AND end >= \"#{s.start.to_s(:sql)}\")"}.join(" OR ")]).collect{|t| "The shift \'"+t.to_s.gsub(",",";")+"\' conflicts. Use wipe to fix."}.join(",")
     end
   end
 
@@ -272,7 +240,7 @@ class Shift < ActiveRecord::Base
   end
 
   def to_s
-    self.short_display
+    self.short_name
   end
 
   def short_name

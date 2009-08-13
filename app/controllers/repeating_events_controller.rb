@@ -32,7 +32,7 @@ class RepeatingEventsController < ApplicationController
         raise @failed if @failed
       end
       flash[:notice] = "Successfully created repeating event."
-      flash[:notice] += "Please note that some events were not created because they started in the past."
+      flash[:notice] += " Please note that some events were not created because they started in the past."
       redirect_to @repeating_event
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
@@ -68,7 +68,7 @@ class RepeatingEventsController < ApplicationController
         raise @failed if @failed
       end
       flash[:notice] = "Successfully edited repeating event."
-      flash[:notice] += "Please note that some events were not created because they started in the past."
+      flash[:notice] += " Please note that some events were not created because they started in the past."
       redirect_to @repeating_event
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
