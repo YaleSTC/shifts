@@ -87,9 +87,15 @@ th{
   background-color: #FCC;
   border: solid 1px #C66;
 }
-#flash_notice {
+
+#flash_warning {
   background-color:#FFF0AA;
   border:1px solid #908C99;
+}
+
+#flash_notice {
+  background-color:#98EEC3;
+  border:1px solid #21A454;
   font-size:11px;
   margin-top:10px;
   padding:5px 8px;
