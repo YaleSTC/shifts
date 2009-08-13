@@ -4,6 +4,7 @@ class PunchClockSet < ActiveRecord::Base
   has_many :punch_clocks
 
   validates_presence_of :description
+  validates_length_of   :description, :minimum => 10
 
   def users
     self.punch_clocks.map{|pc| pc.users}.flatten
