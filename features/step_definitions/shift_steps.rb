@@ -54,9 +54,9 @@ end
 
 Then /^"([^\"]*)" should have "([^\"]*)" shift$/ do |name, count|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  if count = "one"
+  if count == "one"
     Shift.find_by_user_id(user.id).should_not be_nil
-  elsif count = "no"
+  elsif count == "no"
     Shift.find_by_user_id(user.id).should be_nil
   end
 end

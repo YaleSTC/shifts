@@ -29,16 +29,17 @@ class CalendarsController < ApplicationController
     @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
     @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
 
-    @shifts = []
-    @time_slots = []
-    @calendars.each do |calendar|
-      @shifts += calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled
-      #@shifts.store(calendar, calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled.group_by{|t| t.start.strftime("%Y-%m-%d")})
-      #@time_slots.store(calendar, calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6).group_by{|t| t.start.strftime("%Y-%m-%d")})
-      @time_slots += calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6)
-    end
-    @shifts = @shifts.group_by{|s| s.start.strftime("%Y-%m-%d")}
-    @time_slots = @time_slots.group_by{|t| t.start.strftime("%Y-%m-%d")}
+    # now all this stuff is collected in day_preprocessing helper
+    # @shifts = []
+    # @time_slots = []
+    # @calendars.each do |calendar|
+    #   #@shifts += calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled
+    #   #@shifts.store(calendar, calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled.group_by{|t| t.start.strftime("%Y-%m-%d")})
+    #   #@time_slots.store(calendar, calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6).group_by{|t| t.start.strftime("%Y-%m-%d")})
+    #   @time_slots += calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6)
+    # end
+    # #@shifts = @shifts.group_by{|s| s.start.strftime("%Y-%m-%d")}
+    # #@time_slots = @time_slots.group_by{|t| t.start.strftime("%Y-%m-%d")}
 
 
     @dept_start_hour = current_department.department_config.schedule_start / 60
@@ -46,15 +47,15 @@ class CalendarsController < ApplicationController
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
     @time_increment = current_department.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
+    
+    #get calendar colors
+    @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
+    @color = {}
+    @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i]}
   end
 
   def show
     @calendar = Calendar.find(params[:id])
-
-    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
-    @visible_locations = current_user.user_config.view_loc_groups.split(', ').map{|lg|LocGroup.find(lg)}.collect{|l| l.locations}.flatten.uniq
-    @shifts = @calendar.shifts.in_locations(@visible_locations).on_days(@period_start, @period_start+6).scheduled
-    @time_slots = @calendar.time_slots.in_locations(@visible_locations).on_days(@period_start, @period_start+6)
   end
 
   def new
