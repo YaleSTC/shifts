@@ -1,9 +1,10 @@
 class PunchClocksController < ApplicationController
+
   def index
     require_department_admin
-    @punch_clocks = PunchClock.find_all_by_department_id(current_department.id)
+    @punch_clocks = (params[:user_id] ? [current_user.punch_clock].compact : PunchClock.find_all_by_department_id(current_department.id))
   end
-  
+
   def create
     @punch_clock = PunchClock.new({:user => current_user, :department => current_department, :runtime => 0, :last_touched => Time.now})
     @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in."
@@ -15,7 +16,7 @@ class PunchClocksController < ApplicationController
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
   end
   
-  # Stops, restarts, or submits the punch clock depending on params
+# Stops, restarts, or submits the punch clock depending on params
   def update
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
@@ -30,8 +31,12 @@ class PunchClocksController < ApplicationController
                                       :hours => (@punch_clock.runtime/3600), # sec -> hr
                                       :description => params[:punch_clock][:description]})
       payform_item.payform = Payform.build(@punch_clock.department, @punch_clock.user, Date.today)
-      flash[:notice] = "Successfully clocked out." if payform_item.save && @punch_clock.destroy  
-      redirect_to dashboard_path and return
+      if (payform_item.save && @punch_clock.destroy)
+        flash[:notice] = "Successfully clocked out."
+        redirect_to dashboard_path and return
+      else
+        render :edit and return
+      end
     end
     @punch_clock.last_touched = Time.now
     flash[:notice] = @punch_clock && @punch_clock.save ? "Successfully modified punch clock." : "Could not modify punch clock."

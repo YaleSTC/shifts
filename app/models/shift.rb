@@ -124,7 +124,7 @@ class Shift < ActiveRecord::Base
           end
         return false
       end
-      return "<p>"+out.collect{|t| t.to_s}.join("</p><p>")+"</p>"
+      return out.collect{|t| "The shift"+t.to_s.gsub(",",";")+"conflict. Use wipe to fix."}.join(",")
     end
   end
 

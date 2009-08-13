@@ -1,15 +1,14 @@
 <%= unobtrusive_datepicker_include_tags %>
   <p>
-  <%
-        start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
-      
-        if params[:xPercentage]
-          @dept_start_hour = current_department.department_config.schedule_start
-          @dept_end_hour = current_department.department_config.schedule_end
-          @minutes_per_day = (@dept_end_hour - @dept_start_hour)
-          start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f)
-        end
-      %>
+    <%
+      start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
+      if params[:xPercentage]
+        @dept_start_hour ||= current_department.department_config.schedule_start
+        @dept_end_hour ||= current_department.department_config.schedule_end
+        @minutes_per_day ||= (@dept_end_hour - @dept_start_hour)
+        start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f) * 60
+      end
+    %>
     <%= f.label :start_time %><br />
     <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => @department.department_config.time_increment %>
   </p>
@@ -19,7 +18,7 @@
   </p>
   <p>
     <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : nil)%><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
   <% if current_user.is_admin_of?(current_department) %>
     <p>
