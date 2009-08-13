@@ -1,6 +1,6 @@
 class CreateUserProfileFields < ActiveRecord::Migration
   def self.up
-    create_table :user_profile_fields do |t|
+    create_table :user_profile_fields, :id => false do |t|
       t.string :name
       t.string :display_type
       t.string :values
