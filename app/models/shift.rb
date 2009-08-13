@@ -16,6 +16,7 @@ class Shift < ActiveRecord::Base
 
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
+  named_scope :between, lambda {|start, stop| { :conditions => ['"start" >= ? and "start" < ?', start.utc, stop.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
@@ -289,6 +290,20 @@ class Shift < ActiveRecord::Base
   # = Validation helpers =
   # ======================
   def restrictions
+    unless self.power_signed_up
+      self.user.restrictions.each do |restriction|
+        relevant_shifts = Shift.between(restriction.start,restriction.expires)
+        if restriction.max_hours
+          sub_sum = relevant_shifts.map{|shift| shift.sub_requests}.flatten.length
+          errors.add(:max_hours, "have been exceeded for ")
+        end
+      end
+      self.location.restrictions.each do |restriction|
+        if restriction.max_hours
+            
+        end
+      end
+    end
     #location_restrictions = location.restrictions
     #user_restrictions = user.restrictions
     #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
