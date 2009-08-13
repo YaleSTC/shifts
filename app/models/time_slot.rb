@@ -23,6 +23,7 @@ class TimeSlot < ActiveRecord::Base
     inner_make = []
     outer_test = []
     inner_test = []
+    diff = end_time - start_time
     #Take each location and day and build an array containing the pieces of the sql query
     loc_ids.each do |loc_id|
       days.each do |day|
@@ -30,7 +31,7 @@ class TimeSlot < ActiveRecord::Base
         seed_end_time = end_time
         while seed_end_time <= end_date
           seed_start_time = seed_start_time.next(day)
-          seed_end_time = seed_end_time.next(day)
+          seed_end_time = seed_start_time + diff
           inner_test.push "(location_id = \"#{loc_id}\" AND active = \"true\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
           inner_make.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{active}\""
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
@@ -70,7 +71,15 @@ class TimeSlot < ActiveRecord::Base
           end
         return false
       end
-      return out.collect{|t| "The timeslot "+t.to_s.gsub(",",";")+" conflicts. Use wipe to fix."}.join(",")
+      return out.collect{|t| "The timeslot \'"+t.to_s.gsub(",",";")+"\' conflicts. Use wipe to fix."}.join(",")
+    end
+  end
+
+  def self.check_for_conflicts(time_slots)
+    if time_slots.empty?
+      ""
+    else
+      TimeSlot.find(:all, :conditions => [time_slots.collect{|t| "(location_id = \"#{t.location_id}\" AND active = \"true\" AND start <= \"#{t.end.to_s(:sql)}\" AND end >= \"#{t.start.to_s(:sql)}\")"}.join(" OR ")]).collect{|t| "The timeslot \'"+t.to_s.gsub(",",";")+"\' conflicts. Use wipe to fix."}.join(",")
     end
   end
 

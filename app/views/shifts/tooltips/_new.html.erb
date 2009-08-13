@@ -1,11 +1,10 @@
+<div class="close_link">
+  <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+</div>
+<h2>New Shift</h2>
 
-  <div class="close_link">
-    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
-  </div>
-  <h2>New Shift</h2>
-
-  <% remote_form_for @shift do |f| %>
-    <%= f.error_messages %>
-     <%= render :partial => 'shifts/form', :locals => {:f => f} %>
-    <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create' } %></p>
-  <% end %>
+<% remote_form_for @shift do |f| %>
+  <%= f.error_messages %>
+   <%= render :partial => 'shifts/form', :locals => {:f => f} %>
+  <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
+<% end %>
