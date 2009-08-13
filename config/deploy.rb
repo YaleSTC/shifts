@@ -45,21 +45,18 @@ EOF
       put database_configuration, "#{shared_path}/config/database.yml"
     end
 
-      
-      run "mkdir -p #{shared_path}/log"
-      run "mkdir -p #{shared_path}/pids"
-      run "mkdir -p #{shared_path}/sessions"
-      run "ln -nsfF #{shared_path}/log/ #{current_path}/log"
-      run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"      
-      run "ln -nsfF #{shared_path}/sessions/ #{current_path}/tmp/sessions"
-
-    end
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
       %w[database.yml].each do |f|
         run "ln -nsf #{shared_path}/config/#{f} #{current_path}/config/#{f}"
       end
+      run "mkdir -p #{shared_path}/log"
+      run "mkdir -p #{shared_path}/pids"
+      run "mkdir -p #{shared_path}/sessions"
+      run "ln -nsfF #{shared_path}/log/ #{current_path}/log"
+      run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"      
+      run "ln -nsfF #{shared_path}/sessions/ #{current_path}/tmp/sessions"
     end    
   end  
 end
@@ -84,6 +81,20 @@ end
 #=====================================================================
 
 #before "deploy:migrate", "db:backup"
+namespace :deploy do
+  task :start, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+
+  task :stop, :roles => :app do
+    # Do nothing.
+  end
+
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+end
 
 after "deploy", "deploy:cleanup"
 after "deploy:migrations", "deploy:cleanup"
