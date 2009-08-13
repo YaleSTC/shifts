@@ -1,4 +1,6 @@
 class TimeSlot < ActiveRecord::Base
+#  default_scope :conditions => {:active => true}
+#  named_scope :all_including_inactive
   belongs_to :location
   belongs_to :calendar
   belongs_to :repeating_event
@@ -32,8 +34,8 @@ class TimeSlot < ActiveRecord::Base
         while seed_end_time <= end_date
           seed_start_time = seed_start_time.next(day)
           seed_end_time = seed_start_time + diff
-          inner_test.push "(location_id = \"#{loc_id}\" AND active = \"true\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
-          inner_make.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{active}\""
+          inner_test.push "(location_id = \"#{loc_id}\" AND active = \"true\" AND start <= \"#{seed_end_time.utc.to_s(:sql)}\" AND end >= \"#{seed_start_time.utc.to_s(:sql)}\")"
+          inner_make.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.utc.to_s(:sql)}\", \"#{seed_end_time.utc.to_s(:sql)}\", \"#{Time.now.utc.to_s(:sql)}\", \"#{Time.now.utc.to_s(:sql)}\", \"#{active}\""
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
           #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -71,7 +73,7 @@ class TimeSlot < ActiveRecord::Base
           end
         return false
       end
-      return out.collect{|t| "The timeslot \'"+t.to_s.gsub(",",";")+"\' conflicts. Use wipe to fix."}.join(",")
+      return out.collect{|t| "The timeslot "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
 
@@ -79,7 +81,7 @@ class TimeSlot < ActiveRecord::Base
     if time_slots.empty?
       ""
     else
-      TimeSlot.find(:all, :conditions => [time_slots.collect{|t| "(location_id = \"#{t.location_id}\" AND active = \"true\" AND start <= \"#{t.end.to_s(:sql)}\" AND end >= \"#{t.start.to_s(:sql)}\")"}.join(" OR ")]).collect{|t| "The timeslot \'"+t.to_s.gsub(",",";")+"\' conflicts. Use wipe to fix."}.join(",")
+      TimeSlot.find(:all, :conditions => [time_slots.collect{|t| "(location_id = \"#{t.location_id}\" AND active = \"true\" AND start <= \"#{t.end.utc.to_s(:sql)}\" AND end >= \"#{t.start.utc.to_s(:sql)}\")"}.join(" OR ")]).collect{|t| "The timeslot "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
 
@@ -89,6 +91,10 @@ class TimeSlot < ActiveRecord::Base
 
   def to_s
     self.location.short_name + ', ' + self.start.to_s(:am_pm_long) + " - " + self.end.to_s(:am_pm_long)
+  end
+
+  def to_message_name
+    "in "+self.location.short_name + ' from ' + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma)
   end
 
   private
