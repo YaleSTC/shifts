@@ -9,6 +9,7 @@ class SubRequest < ActiveRecord::Base
   validate :start_less_than_end
   validate :not_in_the_past
   validate :user_does_not_have_concurrent_sub_request
+  validate :has_user_sources
   #
   # Class methods
   #
@@ -76,6 +77,12 @@ class SubRequest < ActiveRecord::Base
 
   private
 
+  def has_user_sources 
+    if self.user_sources.empty?
+      errors.add_to_base("Someone must be able to take this sub request. Add a person, department and/or role to 'People/groups eligible for this sub'")
+    end
+  end
+  
   def start_and_end_are_within_shift
     unless self.start.between?(self.shift.start, self.shift.end) && self.end.between?(self.shift.start, self.shift.end)
       errors.add_to_base("Sub Request must be within shift.")

@@ -45,6 +45,7 @@ Feature: Regular user logs into a shift
         And I press "Submit"
         Then I should see "You are already signed into a shift!"
 @passing
+@t
     Scenario: Sub Requests
         Given there is a scheduled shift:
         | start_time     | end_time       | location     | user         |
@@ -52,6 +53,7 @@ Feature: Regular user logs into a shift
         And I am on the homepage
         Then I should see "Upcoming Shifts"
         When I follow "Diagon Alley, Fri, Dec 25 05:00 PM-09:00 PM"
+        Then I should see "Request a sub for this shift"
         And I follow "Request a sub for this shift"
         And I select "2009" from "sub_request[mandatory_start(1i)]"
         And I select "December" from "sub_request[mandatory_start(2i)]"

@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
     nil
   end
 
-  # originally intended to enable polymorphism; is this still needed, guys? -ben
+  #We do still need this for polymorphism. I want to be able to call @user.users.
   def users
     [self]
   end
@@ -188,7 +188,7 @@ class User < ActiveRecord::Base
     c = self.roles.select{|role| departments.include?(role.department)}.collect do |role|
         UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Role\" AND user_source_id = \"#{role.id}\""])
     end
-    (a+b.flatten+c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }
+    (a+b.flatten+c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }.select{ |subs| subs.user != self }
     end
   end
 

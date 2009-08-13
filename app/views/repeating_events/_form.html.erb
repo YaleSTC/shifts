@@ -1,6 +1,13 @@
 <%= unobtrusive_datepicker_include_tags %>
 <% form_for @repeating_event do |f| %>
-  <%= f.error_messages %>
+  <%if @errors%>
+<strong>The repeating event could not be applied for the following reasons</strong>
+<ul>
+<% @errors.each do |error| %>
+<li><%=error%></li>
+<%end%>
+</ul>
+<%end%>
   <p>
     <%= f.label :start_date %><br />
     <%= f.date_select :start_date %>
@@ -12,6 +19,11 @@
   <p>
     <%= f.label :calendar %><br />
     <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+  </p>
+
+  <p>
+    <%= f.label "Apply to entire calendar?" %><br />
+    <%= check_box_tag "whole_calendar", "1", false %>
   </p>
   <p>
       <strong>Days:</strong><br />
@@ -46,7 +58,7 @@
       <p>
         <strong><%= loc_group.name %></strong><br/>
         <% loc_group.locations.each do |loc| %>
-          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= check_box_tag "location_ids[]", loc.id, @repeating_event.location_ids && @repeating_event.location_ids.include?(loc.id), {:id => "location_#{loc.id}"} %>
           <%= loc.short_name %>
         <% end %>
       </p>
