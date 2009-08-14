@@ -10,16 +10,20 @@ class AppMailer < ActionMailer::Base
     body        :sub_request => sub_request, :new_shift => new_shift
   end
 
-  def payform_item_change_notification(old_payform_item, new_payform_item = nil)
-    recipients  new_payform_item ? new_payform_item.user.email : old_payform_item.user.email
+  def payform_item_change_notification(old_payform_item, new_payform_item)
+    recipients  new_payform_item.user.email
     from        "payformitemchanged@app.stc.com"
     sent_on     Time.now
-    if !new_payform_item && !old_payform_item.active
-      subject   "Your payform item has been deleted by #{old_payform_item.source}"
-    else
-      subject   "Your payform item has been modified by #{new_payform_item.source}"
-    end
+    subject     "Your payform item has been modified by #{new_payform_item.source}"
     body        :old_payform_item => old_payform_item, :new_payform_item => new_payform_item
+  end
+
+  def payform_item_deletion_notification(old_payform_item)
+    recipients  old_payform_item.user.email
+    from        "payformitemchanged@app.stc.com"
+    sent_on     Time.now
+    subject   "Your payform item has been deleted by #{old_payform_item.source}"
+    body        :old_payform_item => old_payform_item
   end
 
   def password_reset_instructions(user)
