@@ -1,5 +1,4 @@
 class TimeSlot < ActiveRecord::Base
-#  default_scope :conditions => {:active => true}
   belongs_to :location
   belongs_to :calendar
   belongs_to :repeating_event
