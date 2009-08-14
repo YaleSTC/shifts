@@ -266,21 +266,21 @@ class Shift < ActiveRecord::Base
     unless self.power_signed_up
       self.user.restrictions.each do |restriction|
         if restriction.max_hours
-          relevant_shifts = Shift.between(restriction.start,restriction.expires).for_user(self.user)
-          hours_sum = relevant_shifts.map{|shift| shift.end_time - shift.start_time}.flatten.sum / 3600.0
-          hours_sum += (self.end_time - self.start_time) / 3600.0
+          relevant_shifts = Shift.between(restriction.starts,restriction.expires).for_user(self.user)
+          hours_sum = relevant_shifts.map{|shift| shift.end - shift.start}.flatten.sum / 3600.0
+          hours_sum += (self.end - self.start) / 3600.0
           if hours_sum > restriction.max_hours
-            errors.add(:max_hours, "have been exceeded for #{restriction.start} to #{restriction.expires}: #{hours_sum} hours")
+            errors.add(:max_hours, "have been exceeded by #{hours_sum - restriction.max_hours}.")
           end
         end
       end
       self.location.restrictions.each do |restriction|
         if restriction.max_hours
-          relevant_shifts = Shift.between(restriction.start,restriction.expires).in_location(self.location)
-          hours_sum = relevant_shifts.map{|shift| shift.end_time - shift.start_time}.flatten.sum / 3600.0
-          hours_sum += (self.end_time - self.start_time) / 3600.0
+          relevant_shifts = Shift.between(restriction.starts,restriction.expires).in_location(self.location)
+          hours_sum = relevant_shifts.map{|shift| shift.end - shift.start}.flatten.sum / 3600.0
+          hours_sum += (self.end - self.start) / 3600.0
           if hours_sum > restriction.max_hours
-            errors.add(:max_hours, "have been exceeded for #{restriction.start} to #{restriction.expires}: #{hours_sum} hours")
+            errors.add(:max_hours, "have been exceeded by #{hours_sum - restriction.max_hours}.")
           end
         end
       end
