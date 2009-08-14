@@ -1,5 +1,6 @@
 <% title "Calendars" %>
 <div id="AJAX_status"></div><%# to display status messages in top right corner %>
+<script>var calendar_visible = {};</script>
 <%= render :partial => 'shifts/view_preferences' %>
 
 <table>
@@ -15,12 +16,13 @@
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.active %></td>
-      <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled')"%></td>
+      <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled'); calendar_visible[#{calendar.id}] = !calendar_visible[#{calendar.id}]"%></td>
       <% unless calendar.default? %>
         <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
+    <script>calendar_visible[<%=calendar.id%>] = <%= calendar.active? %>;</script>
   <% end %>
 </table>
 
@@ -93,6 +95,9 @@
     $(element+' li.click_to_edit_shift a').click(function (e) {
       e.stopPropagation();
     });
+    
+    show_visible(element);
+    
   }
   
   function popup_new_timeslot(parent_element, e, raw_element){
@@ -156,5 +161,17 @@
         element = element.offsetParent;
     }
     return x;    
+  }
+  
+  //show all calendars that are currently visible, even after rerender
+  function show_visible(element){    
+    for (calendar_id in calendar_visible) {
+      if (calendar_visible[calendar_id] == true) {
+        $(element+' .calendar'+calendar_id).show();
+      }
+      else {
+        $(element+' .calendar'+calendar_id).hide();
+      }
+    }
   }
 </script>
