@@ -123,14 +123,15 @@ elsif @department.department_config.weekend_shifts #show weekends
       end
     else
       respond_to do |format|
-        format.html{ @shift.power_signed_up ? (render :action => 'power_sign_up') : (render :action => 'new') }
+        format.html{  flash[:error] = "Shift could not be saved"
+                      render :action => 'new' }
         format.js do
           render :update do |page|
             error_string = ""
             @shift.errors.each do |attr_name, message|
               error_string += "<br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            ajax_alert(page, "<strong>Error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
           end
         end
       end
