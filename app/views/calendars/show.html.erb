@@ -1,24 +1,12 @@
 <% title @calendar.name + (@calendar.active? ? " (active)" : " (inactive)") %>
 <% subtitle "("+@calendar.start_date.strftime("%b %d, %Y")+" - "+(@calendar.default? ? "forever" : @calendar.end_date.strftime("%b %d, %Y") )+")"%>
 
-<h2>Shifts:</h2>
-<ul>
-  <% @shifts.each do |s| %>
-   <li><%= s.short_name %></li>
-  <% end %>
-</ul>
-
-<h2>Timeslots:</h2>
-<ul>
-  <% @time_slots.each do |t| %>
-   <li><%= t.to_s %></li>
-  <% end %>
-</ul>
-
 <p>
   <% unless @calendar.default? %>
     <%= link_to "Edit", edit_calendar_path(@calendar) %> |
     <%= link_to "Destroy", @calendar, :confirm => 'Are you sure?', :method => :delete %> |
+  <% else %>
+    <p>This is the default calendar, and cannot be edited or deleted.</p>
   <% end %>
-  <%= link_to "View All", calendars_path %>
+  <%= link_to "View All Calendars", calendars_path %>
 </p>

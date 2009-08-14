@@ -154,7 +154,7 @@
       function rerender_shift(){
         $("#shift<%= @shift.id %>").remove();  // = shift before edit
         // add new shift to view
-        $.ajax({dataType:'script', type:'get', url:'<%= rerender_shift_path(@shift) %>'});
+        $.ajax({data:'<%= params[:calendar] ? "calendar=true" : "" %>', dataType:'script', type:'get', url:'<%= rerender_shift_path(@shift) %>'});
       }
     <% end %>
   </script>

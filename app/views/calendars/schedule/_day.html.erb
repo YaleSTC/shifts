@@ -1,20 +1,30 @@
-<% day_preprocessing(day) %>
+<% calendar_day_preprocessing(day) %>
+
+<% @location_row = 1 %>
+<% @location_group_row = 0 %>
 
 <div id="<%= day.to_s %>" class="day_partial">
-  <h2><%= link_to_function day.to_s(:just_date_long), "$(this).parent().next().toggle()", :name => day.to_s %></h2>
+  <h2><%= link_to_function day.to_s(:just_date_long), "$(this).parent().next().toggle(600)", :name => day.to_s %></h2>
   <div>
-
-    <div class="timeline" style="height:<%= @table_pixels %>px; width: 100%;">
+    <div class="timeline">
       <div class="days">
         <div class="day" style="height: <%= @table_pixels / (@table_height)%>px;"></div>
-        <%= render :partial => "calendars/schedule/loc_group", :collection => @visible_loc_groups %>
+        <%= render :partial => "calendars/schedule/loc_group", :collection => @loc_groups, :locals => {:day => day} %>
       </div>
       <div class="timeline-data">
-        <ul class="intervals" style="height: <%= 100 / (@table_height)%>%;">
-          <%= render :partial => "calendars/schedule/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
+        <ul class="intervals" style="height: <%= @table_pixels / (@table_height)%>px;">
+          <%= render :partial => "shifts/schedule/hour", :collection =>  (@dept_start_hour...@dept_end_hour).map{ |hour| (Time.now.beginning_of_day + hour.hours).strftime("%l%p")} %>
         </ul>
-        <%= render :partial => "calendars/schedule/loc_group_row", :collection => @visible_loc_groups, :locals => {:day => day}  %>
+        <%= render :partial => "calendars/schedule/loc_group_row", :collection => @loc_groups, :locals => {:day => day} %>
       </div>
-    </div>    
+    </div>
+
+    <% unless @hidden_shifts.empty? %>
+      <h3> Shifts outside of schedule:</h3>
+      <ul class="hidden_shifts">
+        <%= render :partial => "calendars/schedule/hidden_shift", :collection => @hidden_shifts %>
+      </ul>
+    <% end %>
+
   </div>
 </div>

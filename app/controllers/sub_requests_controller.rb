@@ -31,14 +31,13 @@ class SubRequestsController < ApplicationController
           @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
           @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
         end
-        
         @sub_request.save!
       end
         flash[:notice] = 'Sub request was successfully created.'
-        redirect_to :action => :show, :id => @sub_request
-
+        redirect_to :action => "show", :id => @sub_request
     rescue Exception => e
-      flash[:error] = "something is wrong"
+      @sub_request = @sub_request.clone
+      @sub_request.add_errors(e.message)
       render :action => "new"
     end
       #redirect_to :action => :new, :id => @sub_request.shift
@@ -87,11 +86,18 @@ class SubRequestsController < ApplicationController
   def take
     @sub_request = SubRequest.find(params[:id])
     return unless require_department_membership(@sub_request.shift.department)
-    if SubRequest.take(@sub_request, current_user, params[:just_mandatory])
-      redirect_to(shifts_path)
-    else
-      flash[:error] = 'You are not authorized to take this shift' if !@sub_request.user_is_eligible?(current_user)
-      redirect_to(get_take_info_sub_request_path(@sub_request))
-    end
+    begin  
+      SubRequest.take(@sub_request, current_user, params[:just_mandatory])
+        flash[:notice] = 'Sub request was successfully taken.'
+        redirect_to :action => "index"
+
+    rescue Exception => e
+      if !@sub_request.user_is_eligible?(current_user)
+        flash[:error] = 'You are not authorized to take this shift' 
+      else 
+        flash[:error] = e.message.gsub("Validation failed: ", "")
+      end
+      render :action => "get_take_info"
+     end
   end
 end

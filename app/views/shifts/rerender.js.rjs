@@ -1,4 +1,4 @@
-page.replace_html @shift.start.strftime("%Y-%m-%d"), :partial => "shifts/schedule/day", :object => @shift.start.to_date
+page.replace_html @shift.start.strftime("%Y-%m-%d"), :partial => (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), :object => @shift.start.to_date
 page["#shift#{@shift.id}"].visual_effect :highlight
 page.remove "#tooltip"
 

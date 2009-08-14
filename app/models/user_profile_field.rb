@@ -4,7 +4,6 @@ class UserProfileField < ActiveRecord::Base
 
   validates_presence_of :department_id
   validates_presence_of :display_type
-  validates_presence_of :values, :if => Proc.new{|field| field.display_type != "text_area" || "picture_link"}
 
   DISPLAY_TYPE_OPTIONS = {"Text Field"   => "text_field",
                           "Paragraph Text"    => "text_area",
