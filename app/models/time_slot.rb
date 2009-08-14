@@ -1,5 +1,4 @@
 class TimeSlot < ActiveRecord::Base
-#  default_scope :conditions => {:active => true}
   belongs_to :location
   belongs_to :calendar
   belongs_to :repeating_event
@@ -8,12 +7,14 @@ class TimeSlot < ActiveRecord::Base
 
   validates_presence_of :start, :end, :location_id
   validate :start_less_than_end
+  validate :is_within_calendar
 
+  named_scope :active, lambda {{:conditions => {:active => true}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
-  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
-  named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
-  named_scope :after_now, lambda {{:conditions => ['"end" >= ?', Time.now.utc ]}}
+  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
+  named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.beginning_of_day.utc.to_sql}"]}}
+  named_scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
 
 
   #This method creates the multitude of shifts required for repeating_events to work
@@ -33,7 +34,7 @@ class TimeSlot < ActiveRecord::Base
         while seed_end_time <= end_date
           seed_start_time = seed_start_time.next(day)
           seed_end_time = seed_start_time + diff
-          inner_test.push "(location_id = #{loc_id.to_sql} AND active = #{true.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+          inner_test.push "(location_id = #{loc_id.to_sql} AND (active = #{true.to_sql} OR calendar_id = #{cal_id.to_sql}) AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
           inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{active.to_sql}"
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
@@ -105,5 +106,11 @@ class TimeSlot < ActiveRecord::Base
 
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= start)
+  end
+
+  def is_within_calendar
+    unless self.calendar.default
+      errors.add_to_base("Repeating event start and end dates must be within the range of the calendar!") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+    end
   end
 end
