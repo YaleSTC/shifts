@@ -49,7 +49,7 @@
         <% end %>
       <% end %>
       <%= link_to "Edit", edit_shift_path(@shift) %> |
-      <%= link_to_remote "Destroy", {:url => @shift, :confirm => 'Are you sure?', :method => :delete} %>
+      <%= link_to_remote "Destroy", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
     <% elsif current_user == @shift.user %>
       <% unless @shift.has_passed? or @shift.submitted? %>
         <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
@@ -147,7 +147,6 @@
       }
       
       function error_message(){
-        $("#shift<%= @shift.id %>").remove();
         alert("Sorry, but the updated shift could not be saved.");
       }
     
