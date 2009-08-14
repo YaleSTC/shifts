@@ -1,6 +1,5 @@
-Hi <%= @old_payform_item.user ? @old_payform_item.user.name : @new_payform_item.user.name %>,
-<%= @old_payform_item.source %> has <% if @new_payform_item && @new_payform_item.active -%>
-modified<% else -%>deleted<% end -%> your payform item for <%= @old_payform_item.created_at.strftime("%A %B %d, %Y") %>.
+Hi <%= @new_payform_item.user.name %>,
+<%= @new_payform_item.source %> has modified your payform item for <%= @old_payform_item.created_at.strftime("%A %B %d, %Y") %>.
  
 Best,
 STC
