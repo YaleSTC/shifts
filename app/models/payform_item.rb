@@ -16,13 +16,38 @@ class PayformItem < ActiveRecord::Base
   delegate :user, :to => :payform  
   
   validates_presence_of :date, :category_id
-  validates_length_of :description, :minimum => 10
-  validates_length_of :reason, :minimum => 10, :unless => :active
+  validate :length_of_description
+  validate_on_update :length_of_reason
   validates_numericality_of :hours
 
   named_scope :active, :conditions => {:active =>  true}
   
+  def add_errors(e)
+    e = e.gsub("Validation failed: ", "")
+    e.split(", ").each do |error| 
+      errors.add_to_base(error)
+    end
+  end
+  
   protected
+
+  def length_of_description
+    if self.payform_id == nil
+      min = PayformItem.find_by_parent_id(self.id).payform.department.department_config.description_min.to_i
+    else
+      min = self.payform.department.department_config.description_min.to_i
+    end
+    errors.add_to_base("Description must be at least #{min} characters.") if self.description.length < min 
+  end   
+  
+  def length_of_reason
+    if self.payform == nil
+      min = PayformItem.find_by_parent_id(self.id).payform.department.department_config.reason_min.to_i
+    else
+      min = self.payform.department.department_config.reason_min.to_i
+    end
+    errors.add_to_base("Reason must be at least #{min} characters.") if self.reason.length < min 
+  end   
 
   def validate
     errors.add(:date, "cannot be in the future") if date > Date.today
