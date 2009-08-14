@@ -14,8 +14,10 @@ class Shift < ActiveRecord::Base
   validates_presence_of :start
   before_save :set_active
 
+  named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
+  named_scope :between, lambda {|start, stop| { :conditions => ['"start" >= ? and "start" < ?', start.utc, stop.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
@@ -261,9 +263,28 @@ class Shift < ActiveRecord::Base
   # = Validation helpers =
   # ======================
   def restrictions
-    #location_restrictions = location.restrictions
-    #user_restrictions = user.restrictions
-    #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
+    unless self.power_signed_up
+      self.user.restrictions.each do |restriction|
+        if restriction.max_hours
+          relevant_shifts = Shift.between(restriction.starts,restriction.expires).for_user(self.user)
+          hours_sum = relevant_shifts.map{|shift| shift.end - shift.start}.flatten.sum / 3600.0
+          hours_sum += (self.end - self.start) / 3600.0
+          if hours_sum > restriction.max_hours
+            errors.add(:max_hours, "have been exceeded by #{hours_sum - restriction.max_hours}.")
+          end
+        end
+      end
+      self.location.restrictions.each do |restriction|
+        if restriction.max_hours
+          relevant_shifts = Shift.between(restriction.starts,restriction.expires).in_location(self.location)
+          hours_sum = relevant_shifts.map{|shift| shift.end - shift.start}.flatten.sum / 3600.0
+          hours_sum += (self.end - self.start) / 3600.0
+          if hours_sum > restriction.max_hours
+            errors.add(:max_hours, "have been exceeded by #{hours_sum - restriction.max_hours}.")
+          end
+        end
+      end
+    end
   end
 
   def start_less_than_end
