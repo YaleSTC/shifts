@@ -6,6 +6,7 @@ class RepeatingEvent < ActiveRecord::Base
   validate :days_of_week_present
   validate :user_id_present, :if => Proc.new{|repeating_event| repeating_event.has_shifts?}
   validate :start_date_less_than_end_date
+  validate :is_within_calendar
   before_save :set_start_times
   before_save :adjust_for_past_event
   before_save :adjust_for_multi_day
@@ -112,6 +113,12 @@ class RepeatingEvent < ActiveRecord::Base
 
   def adjust_for_multi_day
     self.end_time += 1.days if self.end_time < self.start_time
+  end
+
+  def is_within_calendar
+    unless self.calendar.default
+      errors.add_to_base("Repeating event start and end dates must be within the range of the calendar!") if self.start_date < self.calendar.start_date || self.end_date > self.calendar.end_date
+    end
   end
 
   def adjust_for_past_event
