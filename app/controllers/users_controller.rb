@@ -105,24 +105,26 @@ class UsersController < ApplicationController
   # So that the User Profile can be updated as well
       @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
       @user_profile_entries = params[:user_profile_entries]
-
-      @user_profile_entries.each do |entry_id, entry_content|
-        entry = UserProfileEntry.find(entry_id)
-        @content = ""
-          if entry.display_type == "check_box"
-            UserProfileEntry.find(entry_id).values.split(", ").each do |value|
-              c = entry_content[value]
-              @content += value + ", " if c == "1"
+      
+      if @user_profile_entries
+        @user_profile_entries.each do |entry_id, entry_content| 
+          entry = UserProfileEntry.find(entry_id)
+          @content = ""
+            if entry.display_type == "check_box"
+              UserProfileEntry.find(entry_id).values.split(", ").each do |value|
+                c = entry_content[value]
+                @content += value + ", " if c == "1"
+              end
+              @content.gsub!(/, \Z/, "")
+              entry.content = @content
+              entry.save
+            elsif entry.display_type == "radio_button"
+              entry.content = entry_content["1"]
+              entry.save
+            else
+              entry.content = entry_content[entry_id]
+              entry.save
             end
-            @content.gsub!(/, \Z/, "")
-            entry.content = @content
-            entry.save
-          elsif entry.display_type == "radio_button"
-            entry.content = entry_content["1"]
-            entry.save
-          else
-            entry.content = entry_content[entry_id]
-            entry.save
           end
       end
 
