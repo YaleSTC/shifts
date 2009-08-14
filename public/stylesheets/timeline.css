@@ -229,7 +229,7 @@ div#AJAX_status{
 	position: fixed;
 	right: 5px;
 	top: 5px;
-	z-index: 1000;
+	z-index: 1001;
 }
 
 div.AJAX_alert{
@@ -239,7 +239,7 @@ div.AJAX_alert{
 	font-size: 10pt;
 	text-align: center;
 	width: 150px;
-	z-index: 1000;
+	z-index: 1001;
 }
 
 img.right_arrow {
@@ -263,68 +263,4 @@ div.loading{
     font-family: Verdana, Arial, serif;
 	font-size: 12px;
 	border: 1px solid gray;
-}
-
-div.tooltip{
-	text-align: left;
-	position: absolute;
-	float: left;
-	top: 100%;
-	left: 0;
-	z-index: 50;
-	display: block;
-	background: #ddd;
-	color: #000;
-	padding: 5px;
-	min-width: 200px;
-	font-style: normal;
-	font-weight: normal;
-    font-family: Verdana, Arial, serif;
-	font-size: 12px;
-	border: 1px solid gray;
-}
-/*
-div.tooltip a{
-	color: #104e8b !important;
-}*/
-
-div.tooltip strong{
-	border: 0;
-	margin: 0;
-	padding: 0;
-}
-
-div.tooltip div.close_link{
-	position: absolute;
-	top: 3px;
-	right: 3px;	
-	font-size: 10px;
-	margin: 0px;
-}
-
-span.jeditable{
-	background: #bbb;
-}
-
-span.jeditable:hover{
-	background: #ccc;
-	cursor: hand;
-	cursor: pointer;
-}
-
-div#AJAX_status{
-	position: fixed;
-	right: 5px;
-	top: 5px;
-	z-index: 1000;
-}
-
-div.AJAX_alert{
-	background: #fff;
-	padding: 5px;
-	border: 1px solid black;
-	font-size: 10pt;
-	text-align: center;
-	width: 150px;
-	z-index: 1000;
 }
