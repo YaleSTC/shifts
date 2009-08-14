@@ -87,8 +87,8 @@ class Shift < ActiveRecord::Base
       while seed_end_time <= end_date
         seed_start_time = seed_start_time.next(day)
         seed_end_time = seed_end_time.next(day)
-        inner_test.push "(user_id = '#{user_id}' AND active = '#{true.to_sqlness}' AND department_id = '#{department_id}' AND start <= '#{seed_end_time.utc.to_s(:sql)}' AND end >= '#{seed_start_time.utc.to_s(:sql)}')"
-        inner_make.push "'#{loc_id}', '#{cal_id}', '#{r_e_id}', '#{seed_start_time.utc.to_s(:sql)}', '#{seed_end_time.utc.to_s(:sql)}', '#{Time.now.utc.to_s(:sql)}', '#{Time.now.utc.to_s(:sql)}', '#{user_id}', '#{department_id}', '#{active.to_sqlness}'"
+        inner_test.push "(user_id = #{user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+        inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{user_id.to_sql}, #{department_id.to_sql}, #{active.to_sql}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
         #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -133,7 +133,7 @@ class Shift < ActiveRecord::Base
     if shifts.empty?
       ""
     else
-      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = '#{s.user_id}' AND active = '#{true.to_sqlness}' AND department_id = '#{s.department_id}' AND start <= '#{s.end.utc.to_s(:sql)}' AND end >= '#{s.start.utc.to_s(:sql)}')"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
+      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = #{s.user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{s.department_id.to_sql} AND start <= #{s.end.utc.to_sql} AND end >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
 
