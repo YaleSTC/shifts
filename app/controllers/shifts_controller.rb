@@ -24,7 +24,7 @@ class ShiftsController < ApplicationController
           @day_collection = Date.today...(@period_start+6)
         end
       end
-elsif @department.department_config.weekend_shifts #show weekends
+    elsif @department.department_config.weekend_shifts #show weekends
       @day_collection = @period_start...(@period_start+7)
     else #no weekends
       @day_collection = (@period_start+1)...(@period_start+6)
@@ -123,10 +123,10 @@ elsif @department.department_config.weekend_shifts #show weekends
       end
     else
       respond_to do |format|
-        format.html{  flash[:error] = "Shift could not be saved"
-                      render :action => 'new' }
+        format.html{ render :action => 'new' }
         format.js do
           render :update do |page|
+            raise @shift.to_yaml
             error_string = ""
             @shift.errors.each do |attr_name, message|
               error_string += "<br>#{attr_name}: #{message}"
