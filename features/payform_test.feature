@@ -29,7 +29,7 @@ Feature: payform
     And I should see "May 18"
     And I should see "Studying defense against the dark arts"
     And I should see "1.2"
-
+@passing
   Scenario: Edit a job on a payform
     Given I have the following payform item
       | category  | user_login | hours | description   | date          |
@@ -38,6 +38,7 @@ Feature: payform
     Then I should see "edit"
     When I follow "edit"
     And I select "Magic" from "payform_item[category_id]"
+    And I choose "calculate_hours_time_input"
     And I select "03" from "time_input_start_4i"
     And I select "00" from "time_input_start_5i"
     And I select "PM" from "time_input_start_7i"
@@ -49,7 +50,7 @@ Feature: payform
     And I press "Save"
     Then I should have 2 payform_items
     Then payform item 1 should be a child of payform item 2
-    And payform_item 2 should have attribute "reason" "because I can"
+    And payform_item 1 should have attribute "reason" "because I can"
     And I should see "I edited"
     And I should see "3.0"
 

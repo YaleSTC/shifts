@@ -19,16 +19,20 @@ class UserProfileFieldsController < ApplicationController
   def create
     @user_profile_field = UserProfileField.new(params[:user_profile_field])
     @user_profile_field.department_id = @department.id
-    if @user_profile_field.save
+    begin 
+      UserProfileField.transaction do 
+        @user_profile_field.save
+        @department.users.each do |user|
+          UserProfileEntry.create!(:user_profile_id => user.user_profile.id,
+                                   :user_profile_field_id => @user_profile_field.id)
+        end
+      end
       flash[:notice] = "Successfully created user profile field."
       redirect_to @user_profile_field
-    else
+    rescue
+      flash[:error] = "Something went wrong. Please try again."
       render :action => 'new'
     end
-      @department.users.each do |user|
-        UserProfileEntry.create!(:user_profile_id => user.user_profile.id,
-                                 :user_profile_field_id => @user_profile_field.id)
-      end
   end
 
   def edit
