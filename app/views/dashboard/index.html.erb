@@ -33,24 +33,24 @@
     <% end %>
   </fieldset>
 
-<% if @most_recent_payform %>
-  <fieldset class="index" id="payform">
-    <legend>Your Current Payform</legend>
-    <%= render :partial => "mini_payform", :object => @most_recent_payform %>
-  </fieldset>
-<% end %>
-
-  <fieldset class="index" id="punch_clock">
-  <legend>Punch Clock</legend>
-  <% if current_user.punch_clock %>
-    <%= render :partial => 'punch_clocks/punch_clock_timer', :object => current_user.punch_clock %>
-    <%= image_tag("icons/clock_stop.png", :class => "mini_icon") %>
-    <%= link_to "Clock out", edit_punch_clock_path(current_user.punch_clock), :class => "action_with_icon" %>
-  <% else %>
-    <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
-    <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
+  <% if @most_recent_payform %>
+    <fieldset class="index" id="payform">
+      <legend>Your Current Payform</legend>
+      <%= render :partial => "mini_payform", :object => @most_recent_payform %>
+    </fieldset>
   <% end %>
-</fieldset>
+
+    <fieldset class="index" id="punch_clock">
+    <legend>Punch Clock</legend>
+    <% if current_user.punch_clock %>
+      <%= render :partial => 'punch_clocks/punch_clock_timer', :object => current_user.punch_clock %>
+      <%= image_tag("icons/clock_stop.png", :class => "mini_icon") %>
+      <%= link_to "Clock out", edit_punch_clock_path(current_user.punch_clock), :class => "action_with_icon" %>
+    <% else %>
+      <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
+      <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
+    <% end %>
+  </fieldset>
 
 <% unless @watched_objects.empty? %>
   <fieldset class="index" id="watched_objects">
