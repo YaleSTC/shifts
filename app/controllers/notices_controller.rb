@@ -59,7 +59,7 @@ class NoticesController < ApplicationController
       respond_to do |format|
         format.html {
         flash[:notice] = 'Notice was successfully created.'
-        redirect_to :action => "index"
+        redirect_to notices_path
         }
         format.js  #create.js.rjs
       end
@@ -133,7 +133,7 @@ class NoticesController < ApplicationController
           @notice.user_sources << user_source if user_source
         else
           l = l.split("||")
-          @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+          @notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2 #javascript or not javascript
         end
       end
     end
@@ -143,7 +143,7 @@ class NoticesController < ApplicationController
       @notice.locations << current_department.locations
     elsif params[:for_location_groups]
       params[:for_location_groups].each do |loc_group|
-        lg = LocGroup.find_by_id(loc_group)
+        lg = LocGroup.find(loc_group)
         @notice.loc_groups << lg
         @notice.locations << lg.locations
       end
