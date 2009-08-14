@@ -1,6 +1,4 @@
 class Shift < ActiveRecord::Base
-#  default_scope :conditions => {:active => true}
-#  named_scope :all_including_inactive, :conditions => {}
 
   delegate :loc_group, :to => 'location'
   belongs_to :calendar
