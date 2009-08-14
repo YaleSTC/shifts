@@ -14,8 +14,8 @@ class Calendar < ActiveRecord::Base
 
   def deactivate
     self.active = false
-    TimeSlot.update_all("active = '#{false.to_sql}'", "calendar_id = '#{self.id}'")
-    Shift.update_all("active = '#{false.to_sql}'", "calendar_id = '#{self.id}'")
+    TimeSlot.update_all("active = '#{false.to_sqlness}'", "calendar_id = '#{self.id}'")
+    Shift.update_all("active = '#{false.to_sqlness}'", "calendar_id = '#{self.id}'")
     self.save
   end
 
@@ -23,8 +23,8 @@ class Calendar < ActiveRecord::Base
     self.active = true
     conflicts = Shift.check_for_conflicts(Shift.find(:all, :conditions => ["calendar_id = '#{self.id}' AND start > '#{Time.now.utc.to_s(:sql)}'"])) + TimeSlot.check_for_conflicts(TimeSlot.find(:all, :conditions=>["calendar_id = '#{self.id}' AND start > '#{Time.now.utc.to_s(:sql)}'"]))
     if conflicts.empty?
-      TimeSlot.update_all("active = '#{true.to_sql}'", "calendar_id = '#{self.id}' AND start > '#{Time.now.utc.to_s(:sql)}'")
-      Shift.update_all("active = '#{true.to_sql}'", "calendar_id = '#{self.id}' AND start > '#{Time.now.utc.to_s(:sql)}'")
+      TimeSlot.update_all("active = '#{true.to_sqlness}'", "calendar_id = '#{self.id}' AND start > '#{Time.now.utc.to_s(:sql)}'")
+      Shift.update_all("active = '#{true.to_sqlness}'", "calendar_id = '#{self.id}' AND start > '#{Time.now.utc.to_s(:sql)}'")
       self.save
       return false
     else
