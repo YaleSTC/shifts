@@ -536,11 +536,13 @@ fieldset#subs {
 fieldset#payform {
   width: 47.5%;
   float: left;
+  clear: left;
 }
 
 fieldset#punch_clock {
   width: 47.5%;
   float: left;
+  clear: left;
 }
 
 fieldset#schedule{
