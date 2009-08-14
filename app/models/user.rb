@@ -193,7 +193,7 @@ class User < ActiveRecord::Base
   end
 
   def restrictions #TODO: this could probalby be optimized
-    Restriction.all.select{|r| r.users.include?(self)}
+    Restriction.current.select{|r| r.users.include?(self)}
   end
 
   def toggle_active(department)
