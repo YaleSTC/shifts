@@ -11,11 +11,10 @@
   </tr>
   <% for calendar in @calendars %>
     <tr<%= " class='disabled'" if !calendar.active? %>>
-      <td><%=h calendar.name %></td>
+      <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.active %></td>
-      <td><%= link_to "View Individual Calendar", calendar %></td>
       <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled')"%></td>
       <% unless calendar.default? %>
         <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
@@ -109,7 +108,7 @@
     var date = params[1];
     
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    $.ajax({data:"calendar=true&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
   }
   
   function popup_new_shift(parent_element, e, raw_element){
@@ -125,7 +124,7 @@
     var widthPercentage = relX / parent_element.width();
     
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
+    $.ajax({data:"calendar=true&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
   }
   
   function popup_edit_timeslot(parent_element, e){
@@ -134,7 +133,7 @@
     var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
     
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    $.ajax({data:"calendar=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
   }
   
   function popup_edit_shift(parent_element, e){
@@ -143,7 +142,7 @@
     var id = parent_element.attr('id').substring(5); //remove "shift" from id
     
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+    $.ajax({data:"calendar=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
   
   function loading_tooltip(x,y){
