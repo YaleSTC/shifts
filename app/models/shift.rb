@@ -14,8 +14,10 @@ class Shift < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :location
   validates_presence_of :start
+  validate :is_within_calendar
   before_save :set_active
 
+  named_scope :active, lambda {{:conditions => {:active => true}}}
   named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
@@ -89,7 +91,7 @@ class Shift < ActiveRecord::Base
       while seed_end_time <= end_date
         seed_start_time = seed_start_time.next(day)
         seed_end_time = seed_end_time.next(day)
-        inner_test.push "(user_id = #{user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+        inner_test.push "(user_id = #{user_id.to_sql} AND (active = #{true.to_sql} OR calendar_id = #{cal_id.to_sql}) AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
         inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{user_id.to_sql}, #{department_id.to_sql}, #{active.to_sql}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
@@ -295,14 +297,14 @@ class Shift < ActiveRecord::Base
 
   def shift_is_within_time_slot
     unless self.power_signed_up
-      c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start <= ? AND end >= ?', self.location_id, self.start, self.end])
+      c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start <= ? AND end >= ? AND active = ?', self.location_id, self.start, self.end, true])
       errors.add_to_base("You can only sign up for a shift during a time slot!") if c == 0
     end
   end
 
   def user_does_not_have_concurrent_shift
 
-    c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ? AND department_id =?', self.user_id, self.end, self.start, self.department])
+    c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ? AND department_id =? AND (active = ? OR calendar_id = ?)', self.user_id, self.end, self.start, self.department, true, self.calendar])
     unless c.zero?
       errors.add_to_base("#{self.user.name} has an overlapping shift in that period") unless (self.id and c==1)
     end
@@ -329,6 +331,12 @@ class Shift < ActiveRecord::Base
 
   def set_active
     self.active = self.calendar.active
+  end
+
+  def is_within_calendar
+    unless self.calendar.default
+      errors.add_to_base("Repeating event start and end dates must be within the range of the calendar!") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+    end
   end
 
 
