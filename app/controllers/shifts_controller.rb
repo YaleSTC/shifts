@@ -126,7 +126,6 @@ class ShiftsController < ApplicationController
         format.html{ render :action => 'new' }
         format.js do
           render :update do |page|
-            raise @shift.to_yaml
             error_string = ""
             @shift.errors.each do |attr_name, message|
               error_string += "<br>#{attr_name}: #{message}"
@@ -161,7 +160,11 @@ class ShiftsController < ApplicationController
       if params[:wants]
         respond_to do |format|
           format.js do
-            render :text => "failed to update"
+            error_string = ""
+            @shift.errors.each do |attr_name, message|
+              error_string += "<br>#{attr_name}: #{message}"
+            end
+            render :text => "failed to update: "+error_string
             # render :update do |page|
             #   error_string = ""
             #   @shift.errors.each do |attr_name, message|
