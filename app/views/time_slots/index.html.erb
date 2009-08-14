@@ -21,13 +21,13 @@
       return false;
     });
   
-    $(element+' li.click_to_edit').click(function (e) {
-      popup_edit($(this), e);
+    $(element+' li.click_to_edit_timeslot').click(function (e) {
+      popup_edit_timeslot($(this), e);
       return false;
     });
   
     //don't stop links from firing
-    $(element+' li.click_to_edit a').click(function (e) {
+    $(element+' li.click_to_edit_timeslot a').click(function (e) {
       e.stopPropagation();
     });
   }
@@ -48,7 +48,7 @@
     $.ajax({data:"elementID="+elementID+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
   }
   
-  function popup_edit(parent_element, e){
+  function popup_edit_timeslot(parent_element, e){
     $("#tooltip").remove();
     
     var id = parent_element.attr('id').substring(8); //remove "timeslot" from id

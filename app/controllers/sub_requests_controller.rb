@@ -56,7 +56,7 @@ class SubRequestsController < ApplicationController
     #TODO This should probably be in a transaction, so that
     #if the update fails all sub sources don't get deleted...
     return unless require_owner_or_dept_admin(@sub_request.shift, current_department)
-    UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{@sub_request.id}\"")
+    UserSinksUserSource.delete_all("user_sink_type= 'SubRequest' AND user_sink_id = #{@sub_request.id.to_sql}")
     params[:list_of_logins].split(",").each do |l|
       l = l.split("||")
       @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
@@ -74,7 +74,7 @@ class SubRequestsController < ApplicationController
     @sub_request = SubRequest.find(params[:id])
     return unless require_owner_or_dept_admin(@sub_request.shift, current_department)
     @sub_request.destroy
-    UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = \"#{params[:id]}\"")
+    UserSinksUserSource.delete_all("user_sink_type= 'SubRequest' AND user_sink_id = #{params[:id].to_sql}")
     flash[:notice] = "Successfully destroyed sub request."
     redirect_to dashboard_url
   end

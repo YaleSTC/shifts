@@ -15,11 +15,11 @@ class RepeatingEvent < ActiveRecord::Base
   #orphans all previous timeslots/shifts associated with it, and destroys the repeating event
   def self.destroy_self_and_future(repeating_event)
     if repeating_event.has_time_slots?
-        TimeSlot.delete_all("repeating_event_id = \"#{repeating_event.id}\" AND end > \"#{Time.now.to_s(:sql)}\"")
-        TimeSlot.update_all("repeating_event_id = NULL", "repeating_event_id = \"#{repeating_event.id}\"")
+        TimeSlot.delete_all("repeating_event_id = #{repeating_event.id.to_sql} AND end > #{Time.now.utc.to_sql}")
+        TimeSlot.update_all("repeating_event_id = NULL", "repeating_event_id = #{repeating_event.id.to_sql}")
       else
-        Shift.delete_all("repeating_event_id = \"#{repeating_event.id}\" AND end > \"#{Time.now.to_s(:sql)}\"")
-        Shift.update_all("repeating_event_id = NULL", "repeating_event_id = \"#{repeating_event.id}\"")
+        Shift.delete_all("repeating_event_id = #{repeating_event.id.to_sql} AND end > #{Time.now.utc.to_sql}")
+        Shift.update_all("repeating_event_id = NULL", "repeating_event_id = #{repeating_event.id.to_sql}")
     end
     repeating_event.destroy
   end

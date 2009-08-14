@@ -1,4 +1,6 @@
 class Shift < ActiveRecord::Base
+#  default_scope :conditions => {:active => true}
+#  named_scope :all_including_inactive, :conditions => {}
 
   delegate :loc_group, :to => 'location'
   belongs_to :calendar
@@ -14,8 +16,10 @@ class Shift < ActiveRecord::Base
   validates_presence_of :start
   before_save :set_active
 
+  named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
   named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
+  named_scope :between, lambda {|start, stop| { :conditions => ['"start" >= ? and "start" < ?', start.utc, stop.utc]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
@@ -85,8 +89,8 @@ class Shift < ActiveRecord::Base
       while seed_end_time <= end_date
         seed_start_time = seed_start_time.next(day)
         seed_end_time = seed_end_time.next(day)
-        inner_test.push "(user_id = \"#{user_id}\" AND active = \"true\" AND department_id = \"#{department_id}\" AND start <= \"#{seed_end_time.to_s(:sql)}\" AND end >= \"#{seed_start_time.to_s(:sql)}\")"
-        inner_make.push "\"#{loc_id}\", \"#{cal_id}\", \"#{r_e_id}\", \"#{seed_start_time.to_s(:sql)}\", \"#{seed_end_time.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{Time.now.to_s(:sql)}\", \"#{user_id}\", \"#{department_id}\", \"#{active}\""
+        inner_test.push "(user_id = #{user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+        inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{user_id.to_sql}, #{department_id.to_sql}, #{active.to_sql}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
         #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -123,7 +127,7 @@ class Shift < ActiveRecord::Base
           end
         return false
       end
-      return out.collect{|t| "The shift\'"+t.to_s.gsub(",",";")+"\'conflict. Use wipe to fix."}.join(",")
+      return out.collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
 
@@ -131,7 +135,7 @@ class Shift < ActiveRecord::Base
     if shifts.empty?
       ""
     else
-      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = \"#{s.user_id}\" AND active = \"true\" AND department_id = \"#{s.department_id}\" AND start <= \"#{s.end.to_s(:sql)}\" AND end >= \"#{s.start.to_s(:sql)}\")"}.join(" OR ")]).collect{|t| "The shift \'"+t.to_s.gsub(",",";")+"\' conflicts. Use wipe to fix."}.join(",")
+      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = #{s.user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{s.department_id.to_sql} AND start <= #{s.end.utc.to_sql} AND end >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
 
@@ -239,8 +243,8 @@ class Shift < ActiveRecord::Base
      self.location.short_name + ', ' + self.start.to_s(:just_date) + ' ' + self.time_string
   end
 
-  def to_s
-    self.short_name
+  def to_message_name
+    self.user.name + " in " + self.location.short_name + " from " + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma)
   end
 
   def short_name
@@ -261,9 +265,28 @@ class Shift < ActiveRecord::Base
   # = Validation helpers =
   # ======================
   def restrictions
-    #location_restrictions = location.restrictions
-    #user_restrictions = user.restrictions
-    #TODO: RESTRICTIONS NEEDED TO BE FIXED - REMOVED CODE FOR NOW
+    unless self.power_signed_up
+      self.user.restrictions.each do |restriction|
+        if restriction.max_hours
+          relevant_shifts = Shift.between(restriction.starts,restriction.expires).for_user(self.user)
+          hours_sum = relevant_shifts.map{|shift| shift.end - shift.start}.flatten.sum / 3600.0
+          hours_sum += (self.end - self.start) / 3600.0
+          if hours_sum > restriction.max_hours
+            errors.add(:max_hours, "have been exceeded by #{hours_sum - restriction.max_hours}.")
+          end
+        end
+      end
+      self.location.restrictions.each do |restriction|
+        if restriction.max_hours
+          relevant_shifts = Shift.between(restriction.starts,restriction.expires).in_location(self.location)
+          hours_sum = relevant_shifts.map{|shift| shift.end - shift.start}.flatten.sum / 3600.0
+          hours_sum += (self.end - self.start) / 3600.0
+          if hours_sum > restriction.max_hours
+            errors.add(:max_hours, "have been exceeded by #{hours_sum - restriction.max_hours}.")
+          end
+        end
+      end
+    end
   end
 
   def start_less_than_end

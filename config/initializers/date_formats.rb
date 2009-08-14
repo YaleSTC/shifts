@@ -2,6 +2,7 @@
 my_formats = {
   :am_pm => "%I:%M %p",
   :am_pm_long => "%b %d, %Y %I:%M %p",
+  :am_pm_long_no_comma => "%I:%M %p %b %d (%Y)",
   :twelve_hour => "%I:%M",
   :short_name => "%a, %b %d, %I:%M %p",
   :just_date => "%a, %b %d",
