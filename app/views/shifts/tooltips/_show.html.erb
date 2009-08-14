@@ -49,7 +49,16 @@
         <% end %>
       <% end %>
       <%= link_to "Edit", edit_shift_path(@shift) %> |
-      <%= link_to_remote "Destroy", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+      <% unless @shift.repeating_event %>
+        <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+      <% else %>
+        <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
+        <div id="repeating_event_delete_options" style="display:none">
+          <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
+          <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br>
+          <%= button_to_remote "This and all future shifts", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+        </div>
+      <% end %>
     <% elsif current_user == @shift.user %>
       <% unless @shift.has_passed? or @shift.submitted? %>
         <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
