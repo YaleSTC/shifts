@@ -89,7 +89,11 @@ class Shift < ActiveRecord::Base
       while seed_end_time <= end_date
         seed_start_time = seed_start_time.next(day)
         seed_end_time = seed_end_time.next(day)
-        inner_test.push "(user_id = #{user_id.to_sql} AND (active = #{true.to_sql} OR calendar_id = #{cal_id.to_sql}) AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+        if active
+          inner_test.push "(user_id = #{user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+        else
+          inner_test.push "(user_id = #{user_id.to_sql} AND calendar_id = #{cal_id.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+        end
         inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{user_id.to_sql}, #{department_id.to_sql}, #{active.to_sql}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
@@ -120,7 +124,7 @@ class Shift < ActiveRecord::Base
         outer_test.each do |s|
           out += Shift.find(:all, :conditions => [s.join(" OR ")])
         end
-      if out.empty? || !active
+      if out.empty?
           outer_make.each do |s|
             sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
@@ -244,7 +248,7 @@ class Shift < ActiveRecord::Base
   end
 
   def to_message_name
-    self.user.name + " in " + self.location.short_name + " from " + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma)
+    self.user.name + " in " + self.location.short_name + " from " + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma) + " on " + self.calendar.name
   end
 
   def short_name

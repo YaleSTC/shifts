@@ -13,7 +13,7 @@ class TimeSlot < ActiveRecord::Base
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
-  named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.beginning_of_day.utc.to_sql}"]}}
+  named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
   named_scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
 
 
@@ -34,7 +34,11 @@ class TimeSlot < ActiveRecord::Base
         while seed_end_time <= end_date
           seed_start_time = seed_start_time.next(day)
           seed_end_time = seed_start_time + diff
-          inner_test.push "(location_id = #{loc_id.to_sql} AND (active = #{true.to_sql} OR calendar_id = #{cal_id.to_sql}) AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+          if active
+            inner_test.push "(location_id = #{loc_id.to_sql} AND active = #{true.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+          else
+            inner_test.push "(location_id = #{loc_id.to_sql} AND calendar_id = #{cal_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+          end
           inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{active.to_sql}"
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
@@ -66,7 +70,7 @@ class TimeSlot < ActiveRecord::Base
         outer_test.each do |s|
           out += TimeSlot.find(:all, :conditions => [s.join(" OR ")])
         end
-      if out.empty? || !active
+      if out.empty?
           outer_make.each do |s|
             sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
@@ -94,7 +98,7 @@ class TimeSlot < ActiveRecord::Base
   end
 
   def to_message_name
-    "in "+self.location.short_name + ' from ' + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma)
+    "in "+self.location.short_name + ' from ' + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma) + " on " + self.calendar.name
   end
 
   private
