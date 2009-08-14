@@ -45,7 +45,6 @@ Feature: Regular user logs into a shift
         And I press "Submit"
         Then I should see "You are already signed into a shift!"
 @passing
-@t
     Scenario: Sub Requests
         Given there is a scheduled shift:
         | start_time     | end_time       | location     | user         |

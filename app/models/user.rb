@@ -163,7 +163,7 @@ class User < ActiveRecord::Base
   end
 
   def awesome_name
-    [nick_name ? [first_name, "\"#{nick_name}\"", last_name] : self.name].join(" ")
+    [nick_name ? [first_name, "'#{nick_name}'", last_name] : self.name].join(" ")
   end
 
   def self.search(search_string)
@@ -181,19 +181,19 @@ class User < ActiveRecord::Base
   def available_sub_requests(departments = self.departments) #TODO: this could probalby be optimized even more
     #Wrap it in a transaction speeds things up....
     ActiveRecord::Base.transaction do
-    a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"User\" AND user_source_id = \"#{self.id}\""])
+    a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
     b = departments.collect do |department|
-      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Department\" AND user_source_id = \"#{department.id}\""])
+      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Department' AND user_source_id = #{department.id.to_sql}"])
     end
     c = self.roles.select{|role| departments.include?(role.department)}.collect do |role|
-        UserSinksUserSource.find(:all, :conditions => ["user_sink_type = \"SubRequest\" AND user_source_type = \"Role\" AND user_source_id = \"#{role.id}\""])
+        UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Role' AND user_source_id = #{role.id.to_sql}"])
     end
     (a+b.flatten+c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }.select{ |subs| subs.user != self }
     end
   end
 
   def restrictions #TODO: this could probalby be optimized
-    Restriction.all.select{|r| r.users.include?(self)}
+    Restriction.current.select{|r| r.users.include?(self)}
   end
 
   def toggle_active(department)

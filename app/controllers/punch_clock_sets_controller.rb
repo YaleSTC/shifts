@@ -19,19 +19,6 @@ class PunchClockSetsController < ApplicationController
   end
 
   def create
-#    begin
-#      PunchClock.transaction do  
-#        @punch_clock_set = PunchClockSet.new(params[:punch_clock_set])
-#        @punch_clock_set.department_id = current_department.id
-#        @punch_clock_set.save!
-#        params[:users].remove_blank.each{|uid| PunchClock.create!(:description => @punch_clock_set.description, :department => current_department, :user_id => uid, :runtime => 0, :last_touched => Time.now) }
-#        flash[:notice] = 'Mass punch clock was successfully created.'
-#      end
-#      redirect_to punch_clock_sets_path
-#    rescue Exception => e
-#      flash[:error] = e.message
-#      redirect_to :action => "new"
-#    end
     @punch_clock_set = PunchClockSet.new(params[:punch_clock_set])
     @punch_clock_set.department_id = current_department.id
     if @punch_clock_set.save
@@ -47,7 +34,6 @@ class PunchClockSetsController < ApplicationController
         failed << User.find(uid).name unless clock.save
       end
       flash[:warning] = "Could not clock in the following users: #{failed.to_sentence}." unless failed.empty?
-#      @punch_clock_sets = PunchClockSet.all
       redirect_to :action => :index
     else
       flash[:error] = "Mass punch clock could not be created."
@@ -58,6 +44,7 @@ class PunchClockSetsController < ApplicationController
   def update
     @punch_clock_set = PunchClockSet.new(params[:punch_clock_set])
     @punch_clock_set.department_id = current_department.id
+    
     if @punch_clock_set.save
       flash[:notice] = 'Mass punch clock was successfully created.'
       failed = []      
