@@ -44,7 +44,7 @@ class Location < ActiveRecord::Base
   end
 
   def restrictions #TODO: this could probalby be optimized
-    Restriction.all.select{|r| r.locations.include?(self)}
+    Restriction.current.select{|r| r.locations.include?(self)}
   end
 
 

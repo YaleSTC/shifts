@@ -33,7 +33,7 @@ class PunchClocksController < ApplicationController
       payform_item.payform = Payform.build(@punch_clock.department, @punch_clock.user, Date.today)
       begin
         if (payform_item.save! && @punch_clock.destroy)
-          flash[:notice] = "Successfulrly clocked out."
+          flash[:notice] = "Successfully clocked out."
           redirect_to dashboard_path and return
         end
       rescue Exception => e
