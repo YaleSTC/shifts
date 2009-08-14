@@ -315,6 +315,7 @@ class Shift < ActiveRecord::Base
     errors.add_to_base("Can't sign up for a shift that has already passed!") if self.start <= Time.now
   end
 
+  #TODO: remove sub.save! repalce with sub.save and catch exceptions
   def adjust_sub_requests
     self.sub_requests.each do |sub|
       if sub.start > self.end || sub.end < self.start
@@ -330,7 +331,8 @@ class Shift < ActiveRecord::Base
   end
 
   def set_active
-    self.active = self.calendar.active
+      self.active = self.calendar.active
+      return true
   end
 
   def is_within_calendar

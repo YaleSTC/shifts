@@ -102,6 +102,7 @@ class TimeSlot < ActiveRecord::Base
 
   def set_active
     self.active = self.calendar.active
+    return true
   end
 
   def start_less_than_end
