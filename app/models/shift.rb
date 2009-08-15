@@ -320,7 +320,11 @@ class Shift < ActiveRecord::Base
 
   def user_does_not_have_concurrent_shift
 
-    c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND (#{:active.to_sql_column} = #{true.to_sql} OR #{:calendar_id.to_sql_column} = #{self.calendar.to_sql})"])
+    if self.calendar.active
+      c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
+    else
+      c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}"])
+    end
     unless c.zero?
       errors.add_to_base("#{self.user.name} has an overlapping shift in that period") unless (self.id and c==1)
     end
