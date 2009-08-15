@@ -23,7 +23,8 @@ class PayformItem < ActiveRecord::Base
   named_scope :active, :conditions => {:active =>  true}
   
   def add_errors(e)
-    e = e.gsub("Validation failed: ", "")
+#    raise e.to_yaml
+    e = e.to_s.gsub("Validation failed: ", "")
     e.split(", ").each do |error| 
       errors.add_to_base(error)
     end
@@ -37,16 +38,19 @@ class PayformItem < ActiveRecord::Base
     else
       min = self.payform.department.department_config.description_min.to_i
     end
-    errors.add_to_base("Description must be at least #{min} characters.") if self.description.length < min 
+    if self.description.length < min 
+      errors.add_to_base("Description must be at least #{min} characters long.") 
+    end
   end   
   
   def length_of_reason
-    if self.payform == nil
-      min = PayformItem.find_by_parent_id(self.id).payform.department.department_config.reason_min.to_i
-    else
+    if self.active == false
       min = self.payform.department.department_config.reason_min.to_i
+      errors.add_to_base("Reason must be at least #{min} characters long.") if self.reason.length < min
+    elsif self.reason != nil
+      min = PayformItem.find_by_parent_id(self.id).payform.department.department_config.reason_min.to_i
+      errors.add_to_base("Reason must be at least #{min} characters long.") if self.reason.length < min 
     end
-    errors.add_to_base("Reason must be at least #{min} characters.") if self.reason.length < min 
   end   
 
   def validate
