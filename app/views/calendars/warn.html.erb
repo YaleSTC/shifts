@@ -1,0 +1,11 @@
+<% title "Conflicts!" %>
+<strong><p>If you activate this calendar, the following events will be wiped away:</p></strong>
+<ul>
+<% @problems.each do |problem| %>
+<li><%= problem %></li>
+<%end%>
+</ul>
+<p>Would you like to activate the calendar anyway?<p>
+<%= button_to "No! Take me back!", calendars_path %>
+<%= button_to "Activate anyway." , toggle_calendar_path(:id => @calendar.id, :wipe => "true"), :confirm => "This will delete all shifts listed on this page. Are you sure?" %>
+

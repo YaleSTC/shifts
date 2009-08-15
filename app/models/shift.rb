@@ -82,13 +82,12 @@ class Shift < ActiveRecord::Base
     inner_make = []
     outer_test = []
     inner_test = []
+    diff = end_time - start_time
     #Take each day and build an array containing the pieces of the sql query
     days.each do |day|
-      seed_start_time = start_time
-      seed_end_time = end_time
+      seed_start_time = start_time.next(day)
+        seed_end_time = seed_start_time+diff
       while seed_end_time <= end_date
-        seed_start_time = seed_start_time.next(day)
-        seed_end_time = seed_end_time.next(day)
         if active
           inner_test.push "(user_id = #{user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
         else
@@ -104,11 +103,13 @@ class Shift < ActiveRecord::Base
           outer_test.push inner_test
           inner_test = []
         end
+         seed_start_time = seed_start_time.next(day)
+         seed_end_time = seed_start_time + diff
       end
       #handle leftovers or the case where there are less than 450 rows to be inserted
-      outer_make.push inner_make
-      outer_test.push inner_test
     end
+      outer_make.push inner_make unless inner_make.empty?
+      outer_test.push inner_test unless inner_test.empty?
     #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
     if wipe
         outer_test.each do |s|
@@ -135,11 +136,24 @@ class Shift < ActiveRecord::Base
     end
   end
 
-  def self.check_for_conflicts(shifts)
-    if shifts.empty?
+  def self.check_for_conflicts(shifts, wipe)
+    big_array = []
+    while shifts && !shifts.empty? do
+      big_array.push shifts[0..450]
+      shifts = shifts[451..shifts.length]
+    end
+    if big_array.empty?
       ""
+    elsif wipe
+      big_array.each do |sh|
+        Shift.delete_all([sh.collect{|s| "(user_id = #{s.user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{s.department_id.to_sql} AND start <= #{s.end.utc.to_sql} AND end >= #{s.start.utc.to_sql})"}.join(" OR ")])
+      end
+      return ""
     else
-      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = #{s.user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{s.department_id.to_sql} AND start <= #{s.end.utc.to_sql} AND end >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
+      out=big_array.collect do |sh|
+        Shift.find(:all, :conditions => [sh.collect{|s| "(user_id = #{s.user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{s.department_id.to_sql} AND start <= #{s.end.utc.to_sql} AND end >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
+      end
+      out.join(",")+","
     end
   end
 
