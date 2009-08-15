@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
   named_scope :usable,   :conditions => { :active   => true, :built_in => false }
   
   def self.enabled
-    Category.find(:all, :conditions => ['active = ?', true])
+    Category.find(:all, :conditions => ["#{:active.to_sql_column} = #{true.to_sql}"])
   end
   
   protected

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   has_one :user_profile, :dependent => :destroy
 
   attr_protected :superusercreate_
-  named_scope :superusers, :conditions => { :superuser => true }, :order => "last_name"
+  named_scope :superusers, :conditions => { :superuser => true }, :order => :last_name
   delegate :default_department, :to => 'user_config'
 
   validates_presence_of :first_name
