@@ -19,9 +19,9 @@ class Calendar < ActiveRecord::Base
     self.save
   end
 
-  def activate
+  def activate(wipe)
     self.active = true
-    conflicts = Shift.check_for_conflicts(Shift.find(:all, :conditions => ["calendar_id = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}"])) + TimeSlot.check_for_conflicts(TimeSlot.find(:all, :conditions=>["calendar_id = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}"]))
+    conflicts = Shift.check_for_conflicts(Shift.find(:all, :conditions => ["calendar_id = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}"]), wipe) + TimeSlot.check_for_conflicts(TimeSlot.find(:all, :conditions=>["calendar_id = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}"]), wipe)
     if conflicts.empty?
       TimeSlot.update_all("active = #{true.to_sql}", "calendar_id = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}")
       Shift.update_all("active = #{true.to_sql}", "calendar_id = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}")

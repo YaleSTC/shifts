@@ -13,7 +13,7 @@ class TimeSlot < ActiveRecord::Base
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
-  named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
+  named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.beginning_of_day.utc.to_sql}"]}}
   named_scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
 
 
@@ -29,11 +29,9 @@ class TimeSlot < ActiveRecord::Base
     #Take each location and day and build an array containing the pieces of the sql query
     loc_ids.each do |loc_id|
       days.each do |day|
-        seed_start_time = start_time
-        seed_end_time = end_time
+        seed_start_time = start_time.next(day)
+        seed_end_time = seed_start_time+diff
         while seed_end_time <= end_date
-          seed_start_time = seed_start_time.next(day)
-          seed_end_time = seed_start_time + diff
           if active
             inner_test.push "(location_id = #{loc_id.to_sql} AND active = #{true.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
           else
@@ -43,18 +41,20 @@ class TimeSlot < ActiveRecord::Base
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
           #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
-        if inner_make.length > 450
-          outer_make.push inner_make
-          inner_make = []
-          outer_test.push inner_test
-          inner_test = []
-        end
+          if inner_make.length > 450
+            outer_make.push inner_make
+            inner_make = []
+            outer_test.push inner_test
+            inner_test = []
+          end
+          seed_start_time = seed_start_time.next(day)
+          seed_end_time = seed_start_time + diff
         end
         #handle leftovers or the case where there are less than 450 rows to be inserted
-      outer_make.push inner_make
-      outer_test.push inner_test
       end
     end
+      outer_make.push inner_make unless inner_make.empty?
+      outer_test.push inner_test unless inner_test.empty?
     #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
     if wipe
         outer_test.each do |s|
@@ -81,11 +81,24 @@ class TimeSlot < ActiveRecord::Base
     end
   end
 
-  def self.check_for_conflicts(time_slots)
-    if time_slots.empty?
+  def self.check_for_conflicts(time_slots, wipe)
+    big_array = []
+    while time_slots && !time_slots.empty? do
+      big_array.push time_slots[0..450]
+      time_slots = time_slots[451..time_slots.length]
+    end
+    if big_array.empty?
       ""
+    elsif wipe
+      big_array.each do |t_slots|
+        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id.to_sql} AND active = #{true.to_sql} AND start <= #{t.end.utc.to_sql} AND end >= #{t.start.utc.to_sql})"}.join(" OR ")])
+      end
+      return ""
     else
-      TimeSlot.find(:all, :conditions => [time_slots.collect{|t| "(location_id = #{t.location_id.to_sql} AND active = #{true.to_sql} AND start <= #{t.end.utc.to_sql} AND end >= #{t.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The timeslot "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
+      out=big_array.collect do |t_slots|
+        TimeSlot.find(:all, :conditions => [t_slots.collect{|t| "(location_id = #{t.location_id.to_sql} AND active = #{true.to_sql} AND start <= #{t.end.utc.to_sql} AND end >= #{t.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
+      end
+      return out.join(",")
     end
   end
 
