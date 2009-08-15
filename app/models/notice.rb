@@ -10,7 +10,7 @@ class Notice < ActiveRecord::Base
 
   named_scope :inactive, lambda {{ :conditions => ["#{:end_time.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
   named_scope :active_with_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
-  named_scope :active_without_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:indefinite.to_sql} = #{true.to_sql}"]}}
+  named_scope :active_without_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:indefinite.to_sql_column} = #{true.to_sql}"]}}
   named_scope :upcoming, lambda {{ :conditions => ["#{:start_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
   named_scope :stickies, lambda {{ :conditions => ["#{:sticky.to_sql_column} = #{true.to_sql}"]}}
   named_scope :announcements, lambda {{ :conditions => ["#{:announcement.to_sql_column} = #{true.to_sql}"]}}
