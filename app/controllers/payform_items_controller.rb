@@ -12,9 +12,11 @@ class PayformItemsController < ApplicationController
   def create
     get_hours
     @payform_item = PayformItem.new(params[:payform_item])
-    
+  if params[:payform_id]  
       @payform = Payform.find(params[:payform_id])
-    
+  else
+    @payform = @payform_item.parent.payform
+  end
     return unless require_owner_or_dept_admin(@payform, @payform.department)
     @payform_item.payform = @payform
     @payform.submitted = nil
@@ -40,39 +42,40 @@ class PayformItemsController < ApplicationController
     @payform_item.parent.reason = @payform_item.reason
     @payform_item.reason = nil
     @payform = @payform_item.payform = @payform_item.parent.payform
-    @payform_item.parent.payform = nil  # this line caused headache!
+    @payform_item.parent.payform = nil  # this line caused headaches!
     @payform_item.source = current_user.name
 
     return unless require_owner_or_dept_admin(@payform, @payform.department)
-    begin
-      errors = []    
-      PayformItem.transaction do
-        unless @payform_item.save
-          raise "help"
-          errors << "Failed to create a new payform item"
-        end
-        unless @payform_item.parent.save
 
-          errors << "Failed to update the old payform item"
-        end
+    begin
+#      errors = []    
+      PayformItem.transaction do
+        @payform_item.save(false)
+# unfortunately the only way I could get this to work was such that if there are
+# errors in both (ie with the reason and something else), it'll  tell you about 
+# the reason, then, when you've fixed that, it'll tell you about the rest.
+        @payform_item.parent.save!
+        @payform_item.save!
         @payform.submitted = nil
-        unless @payform.save
-          errors << "Failed to unsubmit payform"
-        end 
+
+        @errors = "Failed to unsubmit payform" unless @payform.save
+
       end
-      
         if @payform_item.user == current_user  # just for testing; should be != instead
           AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
         end
+
           flash[:notice] = "Successfully edited payform item."
           redirect_to @payform_item.payform
 
     rescue Exception => e 
-#      @payform_item = @payform_item.clone
-#      @payform_item.parent = @payform_item.parent.clone
-#      @payform_item.add_errors(e.message)
-
-      flash[:error] =  "Error: "+errors*"<br/>" 
+      @payform = @payform_item.payform
+      @payform_item = PayformItem.find(params[:id])
+      @payform_item.add_errors(e)
+      @payform_item.attributes = params[:payform_item]
+      
+      flash[:error] = @errors.to_s if @errors
+      
       render :action => 'edit'
     end
   end
