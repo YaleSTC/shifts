@@ -23,8 +23,8 @@ class Shift < ActiveRecord::Base
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
-  named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > ? and #{:end.to_sql_column} <= ?)) and #{:scheduled.to_sql_column} = #{(start.utc + incr).to_sql} and #{:location_id.to_sql_column} IN (#{stop.utc.to_sql})", true, locs], :order => '"location_id", "start"' }}
-  named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ['(("start" >= ? and "end" < ?) or ("start" >= ? and "start" < ?)) and "scheduled" = ? and "location_id" IN (?)', day_start.utc, start.utc, stop.utc, day_end.utc, true, locs], :order => '"location_id", "start"' }}
+  named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > #{(start.utc + incr).to_sql} and #{:end.to_sql_column} <= #{(stop.utc).to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{true.to_sql})"], :order => "#{:location_id.to_sql_column}, #{:start.to_sql}" }}
+  named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
@@ -89,11 +89,7 @@ class Shift < ActiveRecord::Base
       while seed_end_time <= end_date
         seed_start_time = seed_start_time.next(day)
         seed_end_time = seed_end_time.next(day)
-        if active
-          inner_test.push "(user_id = #{user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
-        else
-          inner_test.push "(user_id = #{user_id.to_sql} AND calendar_id = #{cal_id.to_sql} AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
-        end
+        inner_test.push "(user_id = #{user_id.to_sql} AND (active = #{true.to_sql} OR calendar_id = #{cal_id.to_sql}) AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
         inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{user_id.to_sql}, #{department_id.to_sql}, #{active.to_sql}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
@@ -124,7 +120,7 @@ class Shift < ActiveRecord::Base
         outer_test.each do |s|
           out += Shift.find(:all, :conditions => [s.join(" OR ")])
         end
-      if out.empty?
+      if out.empty? || !active
           outer_make.each do |s|
             sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
@@ -248,7 +244,7 @@ class Shift < ActiveRecord::Base
   end
 
   def to_message_name
-    self.user.name + " in " + self.location.short_name + " from " + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma) + " on " + self.calendar.name
+    self.user.name + " in " + self.location.short_name + " from " + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma)
   end
 
   def short_name
