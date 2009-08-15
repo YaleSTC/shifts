@@ -8,12 +8,12 @@ class Notice < ActiveRecord::Base
   validates_presence_of :content
   validate :presence_of_locations_or_viewers, :proper_time
 
-  named_scope :inactive, lambda {{ :conditions => ["end_time <= ?", Time.now.utc] }}
-  named_scope :active_with_end, lambda {{ :conditions => ["start_time <= ? and end_time > ?", Time.now.utc, Time.now.utc]}}
-  named_scope :active_without_end, lambda {{ :conditions => ["start_time <= ? and indefinite = ?", Time.now.utc, true]}}
-  named_scope :upcoming, lambda {{ :conditions => ["start_time > ? ", Time.now.utc]}}
-  named_scope :stickies, lambda {{ :conditions => ["sticky = ?", true]}}
-  named_scope :announcements, lambda {{ :conditions => ["announcement = ?", true]}}
+  named_scope :inactive, lambda {{ :conditions => ["#{:end_time.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
+  named_scope :active_with_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
+  named_scope :active_without_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:indefinite.to_sql} = #{true.to_sql}"]}}
+  named_scope :upcoming, lambda {{ :conditions => ["#{:start_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
+  named_scope :stickies, lambda {{ :conditions => ["#{:sticky.to_sql_column} = #{true.to_sql}"]}}
+  named_scope :announcements, lambda {{ :conditions => ["#{:announcement.to_sql_column} = #{true.to_sql}"]}}
 
   def self.active
     (self.announcements.active_with_end + self.announcements.active_without_end).uniq.sort_by{|n| n.start_time}.reverse +
