@@ -33,9 +33,9 @@ class TimeSlot < ActiveRecord::Base
         seed_end_time = seed_start_time+diff
         while seed_end_time <= end_date
           if active
-            inner_test.push "(location_id = #{loc_id.to_sql} AND active = #{true.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+            inner_test.push "(#{:location_id.to_sql_column} = #{loc_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
           else
-            inner_test.push "(location_id = #{loc_id.to_sql} AND calendar_id = #{cal_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+            inner_test.push "(#{:location_id.to_sql_column} = #{loc_id.to_sql} AND #{:calendar_id.to_sql_column} = #{cal_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
           end
           inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{active.to_sql}"
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
@@ -61,7 +61,7 @@ class TimeSlot < ActiveRecord::Base
           TimeSlot.delete_all(s.join(" OR "))
         end
         outer_make.each do |s|
-          sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
+          sql = "INSERT INTO time_slots (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
           ActiveRecord::Base.connection.execute sql
         end
       return false
@@ -72,7 +72,7 @@ class TimeSlot < ActiveRecord::Base
         end
       if out.empty?
           outer_make.each do |s|
-            sql = "INSERT INTO time_slots ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
+            sql = "INSERT INTO time_slots (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
           end
         return false
