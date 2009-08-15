@@ -96,9 +96,9 @@
     $(element+' li.click_to_edit_shift a').click(function (e) {
       e.stopPropagation();
     });
-    
+
     show_visible(element);
-    
+
   }
 
   function popup_new_timeslot(parent_element, e, raw_element){
@@ -163,9 +163,9 @@
     }
     return x;
   }
-  
+
   //show all calendars that are currently visible, even after rerender
-  function show_visible(element){    
+  function show_visible(element){
     for (calendar_id in calendar_visible) {
       if (calendar_visible[calendar_id] == true) {
         $(element+' .calendar'+calendar_id).show();

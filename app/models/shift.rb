@@ -82,14 +82,17 @@ class Shift < ActiveRecord::Base
     inner_make = []
     outer_test = []
     inner_test = []
+    diff = end_time - start_time
     #Take each day and build an array containing the pieces of the sql query
     days.each do |day|
-      seed_start_time = start_time
-      seed_end_time = end_time
+      seed_start_time = start_time.next(day)
+        seed_end_time = seed_start_time+diff
       while seed_end_time <= end_date
-        seed_start_time = seed_start_time.next(day)
-        seed_end_time = seed_end_time.next(day)
-        inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND (#{:active.to_sql_column} = #{true.to_sql} OR #{:calendar_id.to_sql_column} = #{cal_id.to_sql}) AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
+        if active
+          inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
+        else
+          inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND #{:calendar_id.to_sql_column} = #{cal_id.to_sql} AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
+        end
         inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{user_id.to_sql}, #{department_id.to_sql}, #{active.to_sql}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
@@ -100,11 +103,13 @@ class Shift < ActiveRecord::Base
           outer_test.push inner_test
           inner_test = []
         end
+         seed_start_time = seed_start_time.next(day)
+         seed_end_time = seed_start_time + diff
       end
       #handle leftovers or the case where there are less than 450 rows to be inserted
-      outer_make.push inner_make
-      outer_test.push inner_test
     end
+      outer_make.push inner_make unless inner_make.empty?
+      outer_test.push inner_test unless inner_test.empty?
     #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
     if wipe
         outer_test.each do |s|
@@ -120,7 +125,7 @@ class Shift < ActiveRecord::Base
         outer_test.each do |s|
           out += Shift.find(:all, :conditions => [s.join(" OR ")])
         end
-      if out.empty? || !active
+      if out.empty?
           outer_make.each do |s|
             sql = "INSERT INTO shifts (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:user_id.to_sql_column}, #{:department_id.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
@@ -131,11 +136,24 @@ class Shift < ActiveRecord::Base
     end
   end
 
-  def self.check_for_conflicts(shifts)
-    if shifts.empty?
+  def self.check_for_conflicts(shifts, wipe)
+    big_array = []
+    while shifts && !shifts.empty? do
+      big_array.push shifts[0..450]
+      shifts = shifts[451..shifts.length]
+    end
+    if big_array.empty?
       ""
+    elsif wipe
+      big_array.each do |sh|
+        Shift.delete_all([sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")])
+      end
+      return ""
     else
-      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = #{s.user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{s.department_id.to_sql} AND start <= #{s.end.utc.to_sql} AND end >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
+      out=big_array.collect do |sh|
+        Shift.find(:all, :conditions => [sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
+      end
+      out.join(",")+","
     end
   end
 
