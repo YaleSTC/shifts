@@ -1,8 +1,8 @@
 <% current_step ||= 0 %>
 <span id="progress_bar">
 <span id="<%= current_step == 1 ? "current_step" : "other_step"%>"><%= link_to_if (AppConfig.first), "Step 1: Configure App-Wide Settings", first_app_config_path %></span> &#8680;
-  <span id="<%= current_step == 2 ? "current_step" : "other_step"%>"><%= link_to_if (Department.first), "Step 2: Make the First Department", first_department_path %></span> &#8680;
-  <span id="<%= current_step == 3 ? "current_step" : "other_step"%>"><%= link_to_if (AppConfig.first && Department.first), "Step 3: Make the First User", first_user_path %></span> &#8680;
+  <span id="<%= current_step == 2 ? "current_step" : "other_step"%>"><%= link_to_if (Department.first), "Step 2: Create Your Department", first_department_path %></span> &#8680;
+  <span id="<%= current_step == 3 ? "current_step" : "other_step"%>"><%= link_to_if (AppConfig.first && Department.first), "Step 3: Create Your User", first_user_path %></span> &#8680;
   <span id="<%= current_step == 4 ? "current_step" : "other_step"%>">Login!</span>
 </span>
 
