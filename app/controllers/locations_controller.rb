@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
   before_filter :find_allowed_locations
 
   def index
-    redirect_to access_denied_path if @locations.empty?
+    redirect_to access_denied_path if current_user.loc_groups_to_admin(@department).empty?
     @location = Location.new #for embedded form at page bottom
   end
 
@@ -23,7 +23,7 @@ class LocationsController < ApplicationController
       redirect_to :action => "new"   
     elsif @location.save
       flash[:notice] = "Successfully created location."
-      redirect_to @location
+      redirect_to department_locations_path(current_department)
     else
       render :action => 'new'
     end
