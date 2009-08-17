@@ -26,23 +26,6 @@ class PunchClocksController < ApplicationController
     elsif params[:unpause]
       message = @punch_clock.unpause
     elsif params[:punch_clock]  # Clocking out  
-#      payform_item = PayformItem.new({:date => Date.today,
-#                                      :category => Category.find_by_name("Punch Clocks"),
-#                                      :hours => (@punch_clock.runtime/3600.0), # sec -> hr
-#                                      :description => params[:punch_clock][:description]})
-#      payform_item.payform = Payform.build(@punch_clock.department, @punch_clock.user, Date.today)
-#      begin
-#        if (payform_item.save! && @punch_clock.destroy)
-#          flash[:notice] = "Successfully clocked out."
-#          redirect_to dashboard_path and return
-#        end
-#      rescue Exception => e
-#        flash[:error] = e.message
-#        render :edit and return
-#      end
-#    end
-#    @punch_clock.last_touched = Time.now
-#    flash[:notice] = @punch_clock && @punch_clock.save ? "Successfully modified punch clock." : "Could not modify punch clock."
       message = @punch_clock.submit(params[:punch_clock][:description])
       message ||= "Successfully clocked out."
     end

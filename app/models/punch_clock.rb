@@ -24,7 +24,7 @@ class PunchClock < ActiveRecord::Base
     return "Successfully unpaused clock."
   end  
   
-  def submit(description = "Punch clock for #{self.user}")
+  def submit(description = "Punch clock for #{self.user}.")
     self.pause unless self.paused?
     self.save
     payform_item = PayformItem.new({:date => Date.today,
