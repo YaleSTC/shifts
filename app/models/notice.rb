@@ -36,6 +36,10 @@ class Notice < ActiveRecord::Base
     false
   end
 
+  def is_sticky
+    self.sticky
+  end
+
   def viewers
     self.user_sources.collect{|us| us.users}.flatten.uniq
   end
