@@ -83,25 +83,16 @@ th{
 	color: white;
 }
 
-<<<<<<< HEAD:public/stylesheets/application.css
 .flash {
   border: 1px solid;
   font-size:11px;
   margin:2px;
   padding:2px;
-  
 }
+
 .flash#flash_error {
   background-color: #ffcccc;
   border-color: #cc6666;
-=======
-#flash_error {
-  background-color: #FCC;
-  border: solid 1px #C66;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;    
->>>>>>> 125f978ae27428fe7867a7e279457fbf0ed57f87:public/stylesheets/application.css
 }
 
 .flash#flash_warning {
