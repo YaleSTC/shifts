@@ -26,7 +26,7 @@
       <div id="repeating_event_delete_options" style="display:none">
         <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
         <%= button_to_remote "Just this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
-        <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
+        <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
         <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :rerender_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %>
       </div>
     <% end %>
