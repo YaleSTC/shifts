@@ -88,7 +88,9 @@ class RepeatingEventsController < ApplicationController
         RepeatingEvent.destroy_self_and_future(@repeating_event)
       end
     end
-    flash[:notice] = "Successfully destroyed repeating event."
-    redirect_to repeating_events_url
+    respond_to do |format|
+      format.html {flash[:notice] = "Successfully destroyed repeating event."; redirect_to repeating_events_url}
+      format.js
+    end
   end
 end
