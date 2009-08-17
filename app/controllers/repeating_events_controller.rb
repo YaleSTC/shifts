@@ -49,7 +49,7 @@ class RepeatingEventsController < ApplicationController
         format.html {render :action => 'new'}
         format.js do
           render :update do |page|
-            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br>"+@errors*"<br>")
+            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br><br>"+@errors*"<br><br>")
           end
         end
       end 
@@ -88,7 +88,14 @@ class RepeatingEventsController < ApplicationController
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
       @repeating_event = @repeating_event.clone
-      render :action => 'edit'
+      respond_to do |format|
+        format.html {render :action => 'edit'}
+        format.js do
+          render :update do |page|
+            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br><br>"+@errors*"<br><br>")
+          end
+        end
+      end
     end
   end
 
