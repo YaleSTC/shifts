@@ -47,12 +47,12 @@ class PunchClockSetsController < ApplicationController
     messages = []
     @punch_clock_set.punch_clocks.each do |pc|
       if params[:pause]
-        pc.pause unless pc.paused?
-        messages << "Could not pause #{pc.user.name}"
+        error = pc.pause unless pc.paused?
+        messages << "Could not pause #{pc.user.name}'s clock: #{error}  "
       elsif params[:unpause]
         pc.unpause if pc.paused?
       elsif params[:submit]  # Clocking out 
-        messages <<  "Could not submit punch clock for #{pc.user}: #{pc.submit}" if pc.submit 
+        messages <<  "Could not submit #{pc.user}'s clock: #{pc.submit}  " if pc.submit 
       end
       pc.last_touched = Time.now unless params[:submit]
       pc.save if pc
@@ -62,8 +62,11 @@ class PunchClockSetsController < ApplicationController
     redirect_to punch_clock_sets_path
   end
 
+# Should be refactored to use :dependent => :destroy, but unsure if that works when
+# the presence of the parent is optional.  Must investigate.  -ben
   def destroy
     @punch_clock_set = PunchClockSet.find(params[:id])
+    @punch_clock_set.punch_clocks.each do {|clock| clock.destroy}
     @punch_clock_set.destroy
     redirect_to(punch_clock_sets_url)
   end
