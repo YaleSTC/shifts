@@ -1,10 +1,10 @@
-rerender_start_date = (Time.parse(params[:delete_after_date].nil? ? params[:rerender_date] : params[:delete_after_date])).previous_sunday
+rerender_start_date = Date.parse( params[:delete_after_date].nil? ? params[:rerender_date] : params[:delete_after_date] ).previous_sunday
 
 page.remove "#tooltip"
 
 #rerender all days until the end of the week
 rerender_start_date.wday.upto(7) do |n|
-  if @repeating_event.days.include?(n)
+  if @days.include?(n.day_of_week)
     current_date = rerender_start_date + n.days
     page.replace_html current_date.strftime("%Y-%m-%d"), :partial => (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), :object => current_date.to_date
     page << "initialize('##{current_date.strftime("%Y-%m-%d")}');" 

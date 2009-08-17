@@ -1,4 +1,4 @@
-rerender_start_date = Time.parse(params[:rerender_date]).previous_sunday
+rerender_start_date = Date.parse(params[:rerender_date]).previous_sunday
 page.remove "#tooltip"
 
 #rerender all days until the end of the week

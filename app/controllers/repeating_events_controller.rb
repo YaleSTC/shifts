@@ -49,7 +49,7 @@ class RepeatingEventsController < ApplicationController
         format.html {render :action => 'new'}
         format.js do
           render :update do |page|
-            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br>"+e)
+            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br>"+@errors*"<br>")
           end
         end
       end 
@@ -94,6 +94,7 @@ class RepeatingEventsController < ApplicationController
 
   def destroy
     @repeating_event = RepeatingEvent.find(params[:id])
+    @days = @repeating_event.days
     ActiveRecord::Base.transaction do
       if params[:delete_after_date]
         RepeatingEvent.destroy_self_and_future(@repeating_event, Time.parse(params[:delete_after_date]))
