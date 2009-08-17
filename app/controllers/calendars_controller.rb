@@ -88,27 +88,33 @@ class CalendarsController < ApplicationController
   end
 
   def prepare_copy
-    @calendar = Calendar.find(params[:id])
+    @calendar = Calendar.find(params[:id]).clone
   end
 
   def copy
     @old_calendar = Calendar.find(params[:id])
-    @new_calendar = Calendar.now(params[:calendar])
+    @new_calendar = Calendar.new(params[:calendar])
+    @new_calendar.department = @department
+    wipe = params[:wipe] ? true : false
     begin
       ActiveRecord::Base.transaction do
-        if new_calendar.save!
-          Calendar.copy(@old_calendar, @new_calendar, wipe)
+        if @new_calendar.save!
+          errors = Calendar.copy(@old_calendar, @new_calendar, wipe)
         end
-        raise errors.to_s unless errors.empty?
+        raise errors.to_s unless !errors || errors.empty?
+        redirect_to calendars_path
       end
-    rescue
-
+    rescue Exception => e
+      @errors = e.message.gsub("Validation failed:", "").split(",")
+      @calendar = @new_calendar.clone
+      render :action => 'prepare_copy'
+    end
   end
 
   def destroy
     @calendar = Calendar.find(params[:id])
     ActiveRecord::Base.transaction do
-      Calendar.destroy_self_and_future(@repeating_event)
+      Calendar.destroy_self_and_future(@calendar)
     end
     flash[:notice] = "Successfully destroyed calendar."
     redirect_to calendars_url

@@ -25,11 +25,11 @@ class Calendar < ActiveRecord::Base
     errors = ""
     old_calendar.repeating_events.each do |r|
       new_repeating_event = r.clone
-      r.start_date = new_calendar.start_date
-      r.end_date = new_calendar.start_date
-      r.calendar = new_calendar
-      r.save!
-      error = r.make_future(wipe)
+      new_repeating_event.start_date = new_calendar.start_date
+      new_repeating_event.end_date = new_calendar.end_date
+      new_repeating_event.calendar = new_calendar
+      new_repeating_event.save!
+      error = new_repeating_event.make_future(wipe)
       errors += ","+error if error
       end
       errors
