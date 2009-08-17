@@ -2,19 +2,20 @@
 <% if current_user == @report.user && !@report.departed %>
   <fieldset class = "index" >
     <legend><%= "Message Center for the #{current_user.current_shift.location.short_name}"%></legend>
-    <div>
-      <%= link_to_post_a_new_notice %>
-    </div>
     <div id = "message_center">
       <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
     </div>
+    <div id="new_notice">
+      <%= link_to_post_a_new_notice %>
+    </div>
+
   </fieldset>
 
   <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
 
       <div id="report_data_objects">
         <fieldset>
-          <legend>Data Objects</legend>
+          <legend>Update Info</legend>
           <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
         </fieldset>
       </div>
@@ -34,23 +35,26 @@
         </fieldset>
       </div>
 
-  <div id="report_relative_size">
+
+    <div id="active_report_area">
+        <h2>Update Your Report</h2>
+        <%= render :partial => 'new_report_item_form' %>
+
 <% end %>
 
-<div id="report_view">
-  <%= render :partial => 'report'%>
-</div>
-
+      <div id="report_view">
+        <%= render :partial => 'report'%>
+      </div>
+      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'} %>
+      <div class="clear"></div>
 <% if current_user == @report.user && !@report.departed %>
+
   </div>
-
-  <%= render :partial => 'new_report_item_form' %>
-
-  <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'} %>
+  
 <% elsif !@report.departed %>
   This report is still in progress.
 <% end %> 
 
 <% if !@report.departed %>
-<%= javascript_include_tag 'leave_confirm'%>
+<%#= javascript_include_tag 'leave_confirm'%>
 <% end %>
