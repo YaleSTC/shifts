@@ -63,7 +63,7 @@ Feature: payform
     Then I should see "Destroy Payform Item"
     And I fill in "Reason" with "because I lied"
     And I press "Delete"
-    Then I should see "Payform item deleted"
+#    Then I should see "Payform item deleted"
     And I should have 1 payform_item
     And that payform_item should be inactive
 

@@ -19,11 +19,9 @@ class PayformItem < ActiveRecord::Base
   validate :length_of_description
   validate_on_update :length_of_reason
   validates_numericality_of :hours
-
   named_scope :active, :conditions => {:active =>  true}
   
   def add_errors(e)
-#    raise e.to_yaml
     e = e.to_s.gsub("Validation failed: ", "")
     e.split(", ").each do |error| 
       errors.add_to_base(error)

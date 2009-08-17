@@ -89,24 +89,31 @@ class PayformItemsController < ApplicationController
 
   def destroy
     @payform_item = PayformItem.find(params[:id])
-    @payform_item.reason = params[:payform_item][:reason]
+    @payform_item.reason = params[:payform_item][:reason]    
     @payform = @payform_item.payform
     return unless require_owner_or_dept_admin(@payform, @payform.department)    
     @payform_item.active = false
     @payform_item.source = current_user.name
-    if @payform_item.payform.user == current_user  # just for testing; should be != instead
-      AppMailer.deliver_payform_item_deletion_notification(@payform_item)
-    end
-    if @payform_item.save
-      @payform_item.payform.submitted = false
-      flash[:notice] = "Payform item deleted. "
+     
+    begin
+      PayformItem.transaction do
+        @payform_item.save!
+      end
+  
+      if @payform_item.payform.user == current_user  # just for testing; should be != instead
+        AppMailer.deliver_payform_item_deletion_notification(@payform_item)
+      end
+      
+      flash[:notice] = "Payform item deleted." if @payform_item.payform.submitted == false
+      redirect_to @payform      
+  
+    rescue
+      @payform = @payform_item.payform   
       if !@payform_item.payform.save
         flash[:error] = "Error unsumbitting payform. "
       end
-    else
-      flash[:error] = "Error deleting payform item."
+      render :action => 'delete'
     end
-    redirect_to @payform
   end
   
   protected
