@@ -13,22 +13,26 @@ class Calendar < ActiveRecord::Base
   named_scope :active, lambda {{ :conditions => {:active => true}}}
 
   def self.destroy_self_and_future(calendar)
-      TimeSlot.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
-      TimeSlot.update_all("#{:calendar_id.to_sql_column} = #{nil.to_sql}", "#{:calendar_id.to_sql_column} = #{calendar.id.to_sql}")
-      Shift.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
-      Shift.update_all("#{:calendar_id.to_sql_column} = #{nil.to_sql}", "#{:calendar_id.to_sql_column} = #{calendar.id.to_sql}")
-    repeating_event.destroy
+    default_id = calendar.department.calendars.default.id
+    TimeSlot.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
+    TimeSlot.update_all("#{:calendar_id.to_sql_column} = #{default_id.to_sql}", "#{:calendar_id.to_sql_column} = #{calendar.id.to_sql}")
+    Shift.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
+    Shift.update_all("#{:calendar_id.to_sql_column} = #{default_id.to_sql}", "#{:calendar_id.to_sql_column} = #{calendar.id.to_sql}")
+    calendar.destroy
   end
 
   def self.copy(old_calendar, new_calendar, wipe)
+    errors = ""
     old_calendar.repeating_events.each do |r|
       new_repeating_event = r.clone
       r.start_date = new_calendar.start_date
       r.end_date = new_calendar.start_date
       r.calendar = new_calendar
       r.save!
-      r.make_future(wipe)
-    end
+      error = r.make_future(wipe)
+      errors += ","+error if error
+      end
+      errors
   end
 
   def deactivate
