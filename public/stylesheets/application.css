@@ -695,5 +695,9 @@ errorExplanation h2 {
 }
 
 #timer{
-	font-size: 20px;
+  font-size: 20px;
+}
+
+#new_notice{
+ margin: 5px 0px;
 }
