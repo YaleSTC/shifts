@@ -47,7 +47,7 @@ class CalendarsController < ApplicationController
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
     @time_increment = current_department.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
-    
+
     #get calendar colors
     @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
     @color = {}
@@ -94,24 +94,30 @@ class CalendarsController < ApplicationController
     redirect_to calendars_url
   end
 
+  def warn
+  end
+
   def toggle
     @calendar = Calendar.find(params[:id])
+    if params[:wipe]
+      wipe = true
+    else
+      wipe =false
+    end
     ActiveRecord::Base.transaction do
       if @calendar.active
           @calendar.deactivate
-          @problems = "Penguins"
+          @problems = false
       else
-          @problems = @calendar.activate
+          @problems = @calendar.activate(wipe)
       end
     end
     if @problems
-      if @problems != "Penguins"
-        raise @problems.split(",").to_yaml
-      else
-        raise "Deactivated calendar, yo."
-      end
+      @problems = @problems.split(",")
+      render :action => "warn"
     else
-      raise "Calendar has been activated, yo."
+      flash[:notice] = "The calendar was successfully #{@calendar.active ? 'activated' : 'deactivated'}"
+      redirect_to :action => "index"
     end
   end
 

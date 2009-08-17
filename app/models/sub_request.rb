@@ -28,7 +28,7 @@ class SubRequest < ActiveRecord::Base
           new_shift.user = user
           new_shift.start = sub_request.start
           new_shift.end = sub_request.end
-          UserSinksUserSource.delete_all("user_sink_type= \"SubRequest\" AND user_sink_id = #{sub_request.id.to_sql}")
+          UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{sub_request.id.to_sql}")
           sub_request.destroy
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
@@ -108,7 +108,7 @@ class SubRequest < ActiveRecord::Base
   end
 
   def user_does_not_have_concurrent_sub_request
-    c = SubRequest.count(:all, :conditions => ['shift_id = ? AND start < ? AND end > ?', self.shift_id, self.end, self.start])
+    c = SubRequest.count(:all, :conditions => ["#{:shift_id.to_sql_column} = #{self.shift_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql}"])
     unless c.zero?
       errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period") unless (self.id and c==1)
     end

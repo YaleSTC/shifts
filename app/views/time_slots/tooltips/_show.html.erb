@@ -17,8 +17,17 @@
   </p>
 
   <p>
-    <%#= link_to "Edit", edit_time_slot_path(@time_slot) %>
-    <%= link_to_remote "Destroy", :url => @time_slot, :confirm => 'Are you sure?', :method => :delete, :success => "$('.tooltip').hide();" %>
+    <%= link_to "Edit", edit_time_slot_path(@time_slot) %>
+    <% unless @time_slot.repeating_event %>
+      <%= link_to_remote "Destroy this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+    <% else %>
+      <%= link_to_function "Destroy this time slot", "$('#repeating_event_delete_options').toggle()" %>
+      <div id="repeating_event_delete_options" style="display:none">
+        <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
+        <%= button_to_remote "Just this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br>
+        <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+      </div>
+    <% end %>
   </p>
   
   <script type="text/javascript">
