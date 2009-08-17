@@ -1,4 +1,4 @@
-rerender_start_date = (Time.parse(params[:delete_after_date].nil? ? params[:rerender_date] : params[:delete_after_date])).previous_sunday
+rerender_start_date = Time.parse(params[:rerender_date]).previous_sunday
 
 page.remove "#tooltip"
 
@@ -12,4 +12,4 @@ rerender_start_date.wday.upto(7) do |n|
 end
 
 # display alert
-ajax_alert(page, "event(s) destroyed");
+ajax_alert(page, "event(s) created");
