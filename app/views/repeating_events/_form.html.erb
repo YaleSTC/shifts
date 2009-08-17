@@ -23,7 +23,7 @@
 
   <p>
     <%= f.label "Apply to entire calendar?" %><br />
-    <%= check_box_tag "whole_calendar", "1", false %>
+    <%= check_box_tag "whole_calendar", "1", true %>
   </p>
   <p>
       <strong>Days:</strong><br />
@@ -42,7 +42,7 @@
   </p>
     <p>
     <%= f.label "wipe_conflicts?" %><br />
-    <%= check_box_tag "wipe", "1", true %>
+    <%= check_box_tag "wipe", "1", false %>
   <p>
   <strong>Time Slot or Shift?</strong> <br />
   <%= f.label :time_slot %>
