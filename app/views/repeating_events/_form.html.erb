@@ -34,11 +34,11 @@
   </p>
   <p>
     <%= f.label :start_time %><br />
-    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => Time.now %>
   </p>
   <p>
     <%= f.label :end_time %><br />
-    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => Time.now + 1.hour %>
   </p>
     <p>
     <%= f.label "wipe_conflicts?" %><br />
