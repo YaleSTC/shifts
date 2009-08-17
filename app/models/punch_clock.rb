@@ -1,3 +1,5 @@
+# Needs to be refactored for consistency in messages pause, unpause, and submit
+# Should all return a message in event of failure, nil for success
 class PunchClock < ActiveRecord::Base
   belongs_to :user
   belongs_to :department
@@ -15,13 +17,21 @@ class PunchClock < ActiveRecord::Base
     self.paused = true
     self.runtime += Time.now - self.last_touched
     self.last_touched = Time.now
-    return "Successfully paused clock."
+    if self.save
+      "Successfully paused clock."
+    else
+      nil
+    end
   end
   
   def unpause
     self.paused = false
     self.last_touched = Time.now
-    return "Successfully unpaused clock."
+    if self.save
+      "Successfully unpaused clock."
+    else
+      nil
+    end
   end  
   
   def submit(description = "Punch clock for #{self.user}.")

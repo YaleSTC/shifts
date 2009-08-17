@@ -5,6 +5,8 @@
     <legend><%= punch_clock_set.description %></legend
     <p>Started at: <%= punch_clock_set.created_at.to_s(:am_pm_long) %></p>
     <%= link_to "Pause all clocks", punch_clock_set_path(punch_clock_set, :pause => true), :method => :put %><br />
+    <%= link_to "Unpause all clocks", punch_clock_set_path(punch_clock_set, :unpause => true), :method => :put %><br />
+    <%= link_to "Submit all clocks", punch_clock_set_path(punch_clock_set, :submit => true), :method => :put %><br />
     <%= render :partial => "punch_clocks/clocks", :object => punch_clock_set.punch_clocks %>
   </fieldset>
 <% end %>
