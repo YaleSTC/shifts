@@ -80,7 +80,11 @@ class RepeatingEventsController < ApplicationController
   def destroy
     @repeating_event = RepeatingEvent.find(params[:id])
     ActiveRecord::Base.transaction do
-      RepeatingEvent.destroy_self_and_future(@repeating_event)
+      if params[:delete_after_date]
+        RepeatingEvent.destroy_self_and_future(@repeating_event, Time.parse(params[:delete_after_date]))
+      else
+        RepeatingEvent.destroy_self_and_future(@repeating_event)
+      end
     end
     flash[:notice] = "Successfully destroyed repeating event."
     redirect_to repeating_events_url
