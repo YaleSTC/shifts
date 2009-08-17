@@ -1,4 +1,7 @@
 class RepeatingEventsController < ApplicationController
+  helper ShiftsHelper
+  helper CalendarsHelper
+  
   def index
     @repeating_events = RepeatingEvent.all
   end
@@ -13,7 +16,9 @@ class RepeatingEventsController < ApplicationController
   end
 
   def create
+    #TODO: persistent calendar selection? it would be nice...
     session[:calendar] = params[:repeating_event][:calendar_id]
+    
     params[:repeating_event][:days] = params[:days]
     if params[:repeating_event][:slot_or_shift] == "time_slot"
       params[:repeating_event][:location_ids] = params[:location_ids]
@@ -33,13 +38,21 @@ class RepeatingEventsController < ApplicationController
         @failed = @repeating_event.make_future(wipe)
         raise @failed if @failed
       end
-      flash[:notice] = "Successfully created repeating event."
-      flash[:notice] += " Please note that some events were not created because they started in the past."
-      redirect_to @repeating_event
+      respond_to do |format|
+        format.html {flash[:notice] = "Successfully created repeating event."; flash[:notice] += " Please note that some events were not created because they started in the past."; redirect_to @repeating_event}
+        format.js
+      end
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
       @repeating_event = @repeating_event.clone
-      render :action => 'new'
+      respond_to do |format|
+        format.html {render :action => 'new'}
+        format.js do
+          render :update do |page|
+            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br>"+e)
+          end
+        end
+      end 
     end
   end
 
