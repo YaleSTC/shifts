@@ -12,7 +12,11 @@ class PayformItemsController < ApplicationController
   def create
     get_hours
     @payform_item = PayformItem.new(params[:payform_item])
-    @payform = Payform.find(params[:payform_id])
+  if params[:payform_id]  
+      @payform = Payform.find(params[:payform_id])
+  else
+    @payform = @payform_item.parent.payform
+  end
     return unless require_owner_or_dept_admin(@payform, @payform.department)
     @payform_item.payform = @payform
     @payform.submitted = nil
@@ -38,28 +42,40 @@ class PayformItemsController < ApplicationController
     @payform_item.parent.reason = @payform_item.reason
     @payform_item.reason = nil
     @payform = @payform_item.payform = @payform_item.parent.payform
-    @payform_item.parent.payform = nil  # this line caused headache!
+    @payform_item.parent.payform = nil  # this line caused headaches!
     @payform_item.source = current_user.name
-    errors = []
+
     return unless require_owner_or_dept_admin(@payform, @payform.department)
-    if !@payform_item.parent.save
-      errors << "Failed to update the old payform item"
-    end
-    if !@payform_item.save
-      errors << "Failed to create a new payform item"
-    end
-    @payform.submitted = nil
-    if !@payform.save
-      errors << "Failed to unsubmit payform"
-    end 
-    if errors.length == 0
-      if @payform_item.user == current_user  # just for testing; should be != instead
-        AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
+
+    begin
+#      errors = []    
+      PayformItem.transaction do
+        @payform_item.save(false)
+# unfortunately the only way I could get this to work was such that if there are
+# errors in both (ie with the reason and something else), it'll  tell you about 
+# the reason, then, when you've fixed that, it'll tell you about the rest.
+        @payform_item.parent.save!
+        @payform_item.save!
+        @payform.submitted = nil
+
+        @errors = "Failed to unsubmit payform" unless @payform.save
+
       end
-        flash[:notice] = "Successfully edited payform item."
-        redirect_to @payform_item.payform    
-    else
-      flash[:error] =  "Error: "+errors*"<br/>" 
+        if @payform_item.user == current_user  # just for testing; should be != instead
+          AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
+        end
+
+          flash[:notice] = "Successfully edited payform item."
+          redirect_to @payform_item.payform
+
+    rescue Exception => e 
+      @payform = @payform_item.payform
+      @payform_item = PayformItem.find(params[:id])
+      @payform_item.add_errors(e)
+      @payform_item.attributes = params[:payform_item]
+      
+      flash[:error] = @errors.to_s if @errors
+      
       render :action => 'edit'
     end
   end
@@ -73,24 +89,31 @@ class PayformItemsController < ApplicationController
 
   def destroy
     @payform_item = PayformItem.find(params[:id])
-    @payform_item.reason = params[:payform_item][:reason]
+    @payform_item.reason = params[:payform_item][:reason]    
     @payform = @payform_item.payform
     return unless require_owner_or_dept_admin(@payform, @payform.department)    
     @payform_item.active = false
     @payform_item.source = current_user.name
-    if @payform_item.payform.user == current_user  # just for testing; should be != instead
-      AppMailer.deliver_payform_item_deletion_notification(@payform_item)
-    end
-    if @payform_item.save
-      @payform_item.payform.submitted = false
-      flash[:notice] = "Payform item deleted. "
+     
+    begin
+      PayformItem.transaction do
+        @payform_item.save!
+      end
+  
+      if @payform_item.payform.user == current_user  # just for testing; should be != instead
+        AppMailer.deliver_payform_item_deletion_notification(@payform_item)
+      end
+      
+      flash[:notice] = "Payform item deleted." if @payform_item.payform.submitted == false
+      redirect_to @payform      
+  
+    rescue
+      @payform = @payform_item.payform   
       if !@payform_item.payform.save
         flash[:error] = "Error unsumbitting payform. "
       end
-    else
-      flash[:error] = "Error deleting payform item."
+      render :action => 'delete'
     end
-    redirect_to @payform
   end
   
   protected
