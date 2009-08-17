@@ -66,7 +66,7 @@ class PunchClockSetsController < ApplicationController
 # the presence of the parent is optional.  Must investigate.  -ben
   def destroy
     @punch_clock_set = PunchClockSet.find(params[:id])
-    @punch_clock_set.punch_clocks.each do {|clock| clock.destroy}
+    @punch_clock_set.punch_clocks.each {|clock| clock.destroy}
     @punch_clock_set.destroy
     redirect_to(punch_clock_sets_url)
   end
