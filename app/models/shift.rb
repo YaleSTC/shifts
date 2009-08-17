@@ -85,8 +85,8 @@ class Shift < ActiveRecord::Base
     diff = end_time - start_time
     #Take each day and build an array containing the pieces of the sql query
     days.each do |day|
-      seed_start_time = start_time.next(day)
-        seed_end_time = seed_start_time+diff
+      seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
+      seed_end_time = seed_start_time+diff
       while seed_end_time <= end_date
         if active
           inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
