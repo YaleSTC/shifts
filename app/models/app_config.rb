@@ -4,7 +4,7 @@ class AppConfig < ActiveRecord::Base
   LOGIN_OPTIONS = [
     # Displayed               stored in db
     ["Central Authentication Service (CAS)",      "CAS"],
-    ["Internal Authentication",                   "built-in"]
+    ["Built-in Authentication",                   "built-in"]
   ]
 
   def login_options
