@@ -94,11 +94,15 @@ class CalendarsController < ApplicationController
   def copy
     @old_calendar = Calendar.find(params[:id])
     @new_calendar = Calendar.now(params[:calendar])
-    ActiveRecord::Base.transaction do
-      if new_calendar.save!
-        Calendar.copy(@old_calendar, @new_calendar, wipe)
+    begin
+      ActiveRecord::Base.transaction do
+        if new_calendar.save!
+          Calendar.copy(@old_calendar, @new_calendar, wipe)
+        end
+        raise errors.to_s unless errors.empty?
       end
-    end
+    rescue
+
   end
 
   def destroy
