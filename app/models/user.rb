@@ -162,8 +162,12 @@ class User < ActiveRecord::Base
     [first_name, last_name].join(" ")
   end
 
-  def awesome_name
-    [nick_name ? [first_name, "'#{nick_name}'", last_name] : self.name].join(" ")
+  def full_name_with_nick
+    if nick_name && !nick_name.blank?
+      [first_name, "'#{nick_name}'" , last_name].join(" ")
+    else
+      name
+    end
   end
 
   def self.search(search_string)

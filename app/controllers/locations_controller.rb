@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
   before_filter :find_allowed_locations
 
   def index
-    redirect_to access_denied_path if @locations.empty?
+    redirect_to access_denied_path if current_user.loc_groups_to_admin(@department).empty?
     @location = Location.new #for embedded form at page bottom
   end
 

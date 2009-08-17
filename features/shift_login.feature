@@ -19,7 +19,7 @@ Feature: Regular user logs into a shift
         And I should see "Message Center for the Diagon Alley"
         
         When I fill in "report_item[content]" with "Hey, I am here!"
-        And I press "Add this event"        
+        And I press "Add to report"        
         #this step might fail if done at exactly the wrong moment 
         Then the current time should appear 
         And I should see "Hey, I am here!"
@@ -29,7 +29,7 @@ Feature: Regular user logs into a shift
 
         When I go to the homepage
         And I follow "Return to your current shift report"
-        And I press "End shift"
+        And I press "Submit your shift report"
         Then I should see "Successfully submitted report and updated payform."
         And "Harry Potter" should have 1 payform_item
 

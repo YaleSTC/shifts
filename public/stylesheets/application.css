@@ -28,6 +28,9 @@ a {
 }
 
 */
+label {
+  vertical-align: baseline;
+}
 .form_label_large {
   font-size: 12pt;
 }
@@ -45,7 +48,7 @@ a {
 
 
 /*this is used for the department_config form*/
-.shift_admin_form label {
+.centered_form label {
   width: 30em;
   float: left;
   text-align: right;
@@ -86,27 +89,29 @@ th{
 	color: white;
 }
 
-#flash_error {
-  background-color: #FCC;
-  border: solid 1px #C66;
+.flash {
+  border: 1px solid;
   font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;    
+  margin:2px;
+  padding:2px;
 }
 
-#flash_warning {
-  background-color:#FFF0AA;
-  border:1px solid #908C99;
+.flash#flash_error {
+  background-color: #ffcccc;
+  border-color: #cc6666;
 }
 
-#flash_notice {
-  background-color:#98EEC3;
-  border:1px solid #21A454;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
+.flash#flash_warning {
+  background-color:#fff0aa;
+  border-color: #908c99;
 }
 
+.flash#flash_notice {
+  background-color:#98eec3;
+  border-color: #21a454;
+}
+
+/* Do we need this anymore? -ben */
 #flash_big_notice {
   background-color:#FFCCCC;
   border:1px solid #CC6666;
@@ -582,10 +587,11 @@ ul{
 span#progress_bar {
 	/*border: 1px black solid;*/
 	padding: 3px;
+	margin-bottom: 30px;
 }
 
 span#progress_bar #current_step {
-	background: #555;
+	background: rgb(83, 110, 141);
 	color: white;
 	border: 1px black solid;
 	padding: 3px;
@@ -659,18 +665,19 @@ img.loading_icon {
 
 
 /* styling for errors */
-errorExplanation {
+#errorExplanation {
   width: 400px;
   border-style: solid;
   border-color: #CF0000;
   border-width:2px;
   padding: 0px;
   padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+  margin-top: 10px;
+	margin-bottom: 20px;
+  background-color: #f0f0f0;;
 }
 
-errorExplanation h2 {
+#errorExplanation h2 {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;

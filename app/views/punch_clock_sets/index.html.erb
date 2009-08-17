@@ -1,22 +1,14 @@
 <h1>Listing Punch Clock Sets</h1>
 
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Running Time</th>
-  </tr>
-
 <% @punch_clock_sets.each do |punch_clock_set| %>
-  <tr>
-    <td><%=h punch_clock_set.description %></td>
-    <td><%= punch_clock_set.running_time %></td>
-    <td><%= link_to 'Show', punch_clock_set %></td>
-    <td><%= link_to 'Edit', edit_punch_clock_set_path(punch_clock_set) %></td>
-    <td><%= link_to 'Destroy', punch_clock_set, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <fieldset class='index'>
+    <legend><%= punch_clock_set.description %></legend
+    <p>Started at: <%= punch_clock_set.created_at.to_s(:am_pm_long) %></p>
+    <%= link_to "Pause all clocks", punch_clock_set_path(punch_clock_set, :pause => true), :method => :put %><br />
+    <%= link_to "Unpause all clocks", punch_clock_set_path(punch_clock_set, :unpause => true), :method => :put %><br />
+    <%= link_to "Submit all clocks", punch_clock_set_path(punch_clock_set, :submit => true), :method => :put %><br />
+    <%= render :partial => "punch_clocks/clocks", :object => punch_clock_set.punch_clocks %>
+  </fieldset>
 <% end %>
-</table>
-
-<br />
 
 <%= link_to 'New Punch Clock Set', new_punch_clock_set_path %>
