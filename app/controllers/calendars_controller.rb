@@ -87,9 +87,25 @@ class CalendarsController < ApplicationController
     end
   end
 
+  def prepare_copy
+    @calendar = Calendar.find(params[:id])
+  end
+
+  def copy
+    @old_calendar = Calendar.find(params[:id])
+    @new_calendar = Calendar.now(params[:calendar])
+    ActiveRecord::Base.transaction do
+      if new_calendar.save!
+        Calendar.copy(@old_calendar, @new_calendar, wipe)
+      end
+    end
+  end
+
   def destroy
     @calendar = Calendar.find(params[:id])
-    @calendar.destroy
+    ActiveRecord::Base.transaction do
+      Calendar.destroy_self_and_future(@repeating_event)
+    end
     flash[:notice] = "Successfully destroyed calendar."
     redirect_to calendars_url
   end
