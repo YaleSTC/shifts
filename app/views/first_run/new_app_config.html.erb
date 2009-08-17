@@ -1,48 +1,50 @@
 <%= render :partial => 'progress_bar', :locals => {:current_step => 1} %>
-<% title "Configure App Settings" %>
+<% title "Configure Application Settings" %>
 <% form_for @app_config, :url => create_first_app_config_path do |f| %>
   <%= f.error_messages %>
   <p>
-  <%= f.label :auth_types, text = "Login Options" %>
+  <%= f.label :auth_types, text = "Authentication Method", :class => "form_label_large" %> <br/>
+  <small>If your university uses CAS for authentication, select CAS; otherwise, select Built-in Authentication</small><br/>
   <%= multiple_select :app_config, :auth_types, AppConfig::LOGIN_OPTIONS %>
   </p>
   <p>
-    <%= f.label "Use LDAP?" %> <br />
-    <%= f.check_box :use_ldap, {:id => "ldap_check_box"} %>
+    <%= f.label :use_ldap, text = "LDAP", :class => "form_label_large" %> <br />
+    <small>If you have an LDAP server, you can use it to auto-complete information as you add users.</small><br/>
+    <%= f.check_box :use_ldap, {:id => "ldap_check_box"} %> Enable
   </p>
 <div class="ldap_fields" <%unless @app_config.use_ldap%>id="hide"<%end%>>
   <p>
-    <%= f.label :ldap_host_address %> <br />
+    <%= f.label :ldap_host_address, text = "LDAP Server Hostname:" %> <br />
     <%= f.text_field :ldap_host_address %>
   </p>
   <p>
-    <%= f.label :ldap_port %> <br />
+    <%= f.label :ldap_port, text = "Port:" %> <br />
     <%= f.text_field :ldap_port %>
   </p>
     <p>
-    <%= f.label :ldap_base %> <br />
+    <%= f.label :ldap_base, text = "Search Base (e.g. 'ou=people'):" %> <br />
     <%= f.text_field :ldap_base %>
   </p>
   <p>
-    <%= f.label :ldap_login %> <br />
+    <%= f.label :ldap_login, text = "LDAP Field for login information:" %> <br />
     <%= f.text_field :ldap_login %>
   </p>
     <p>
-    <%= f.label :ldap_first_name %> <br />
+    <%= f.label :ldap_first_name, text = "LDAP Field for first name:" %> <br />
     <%= f.text_field :ldap_first_name %>
   </p>
   <p>
-    <%= f.label :ldap_last_name %> <br />
+    <%= f.label :ldap_last_name, text = "LDAP Field for last name:" %> <br />
     <%= f.text_field :ldap_last_name %>
   </p>
     <p>
-    <%= f.label :ldap_email %> <br />
+    <%= f.label :ldap_email, text = "LDAP Field for email address:" %> <br />
     <%= f.text_field :ldap_email %>
   </p>
   </div>
   <p>
-    <%= f.label :footer %><br />
-    <small>You can edit this footer with HTML.  Be careful to close your tags,
+    <%= f.label :footer, text = "Footer Text", :class => "form_label_large" %><br />
+    <small>Any text or HTML you place here will be placed in the footer of each page. Be careful to close your tags,
     or you may produce broken pages.</small><br/>
     <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
   </p>

@@ -28,6 +28,9 @@ a {
 }
 
 */
+.form_label_large {
+  font-size: 12pt;
+}
 
 .clear {
   clear: both;
@@ -582,7 +585,7 @@ span#progress_bar {
 }
 
 span#progress_bar #current_step {
-	background: blue;
+	background: #555;
 	color: white;
 	border: 1px black solid;
 	padding: 3px;
