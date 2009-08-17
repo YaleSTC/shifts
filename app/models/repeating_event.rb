@@ -14,12 +14,12 @@ class RepeatingEvent < ActiveRecord::Base
 
   #This method takes a repeating event, destroys all future timeslots/shifts associated with it,
   #orphans all previous timeslots/shifts associated with it, and destroys the repeating event
-  def self.destroy_self_and_future(repeating_event)
+  def self.destroy_self_and_future(repeating_event, time=Time.now)
     if repeating_event.has_time_slots?
-        TimeSlot.delete_all("#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
+        TimeSlot.delete_all("#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql} AND #{:end.to_sql_column} > #{time.utc.to_sql}")
         TimeSlot.update_all("#{:repeating_event_id.to_sql_column} = #{nil.to_sql}", "#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql}")
       else
-        Shift.delete_all("#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
+        Shift.delete_all("#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql} AND #{:end.to_sql_column} > #{time.utc.to_sql}")
         Shift.update_all("#{:repeating_event_id.to_sql_column} = #{nil.to_sql}", "#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql}")
     end
     repeating_event.destroy
