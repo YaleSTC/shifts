@@ -23,7 +23,7 @@ class LocationsController < ApplicationController
       redirect_to :action => "new"   
     elsif @location.save
       flash[:notice] = "Successfully created location."
-      redirect_to @location
+      redirect_to department_locations_path(current_department)
     else
       render :action => 'new'
     end
