@@ -1,8 +1,9 @@
+<%= javascript_include_tag 'jeditable' %>
 
-  <%= javascript_include_tag 'jeditable' %>
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
+  <h2>Edit Timeslot</h2>
   <p>
     <strong>Location:</strong>
     <span id="time_slot_location" class="jeditable"><%=h @time_slot.location.name %></span>
@@ -17,7 +18,7 @@
   </p>
 
   <p>
-    <%= link_to "Edit", edit_time_slot_path(@time_slot) %>
+    <%= link_to "Edit", edit_time_slot_path(@time_slot) %> | 
     <% unless @time_slot.repeating_event %>
       <%= link_to_remote "Destroy this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
     <% else %>
@@ -25,7 +26,8 @@
       <div id="repeating_event_delete_options" style="display:none">
         <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
         <%= button_to_remote "Just this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br>
-        <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+        <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %>
+        <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
       </div>
     <% end %>
   </p>

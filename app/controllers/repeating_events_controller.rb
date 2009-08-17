@@ -9,9 +9,11 @@ class RepeatingEventsController < ApplicationController
 
   def new
     @repeating_event = RepeatingEvent.new
+    @repeating_event.calendar_id = session[:calendar]
   end
 
   def create
+    session[:calendar] = params[:repeating_event][:calendar_id]
     params[:repeating_event][:days] = params[:days]
     if params[:repeating_event][:slot_or_shift] == "time_slot"
       params[:repeating_event][:location_ids] = params[:location_ids]
