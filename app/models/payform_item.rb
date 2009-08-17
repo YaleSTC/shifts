@@ -19,6 +19,8 @@ class PayformItem < ActiveRecord::Base
   validate :length_of_description
   validate_on_update :length_of_reason
   validates_numericality_of :hours
+  validate :hours_greater_than_zero
+  
   named_scope :active, :conditions => {:active =>  true}
   
   def add_errors(e)
@@ -29,6 +31,12 @@ class PayformItem < ActiveRecord::Base
   end
   
   protected
+  
+  def hours_greater_than_zero
+    unless self.hours.to_f > 0
+      errors.add_to_base("Your payform item has no hours.") 
+    end
+  end
 
   def length_of_description
     if self.payform_id == nil
