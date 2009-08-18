@@ -12,6 +12,29 @@ class Calendar < ActiveRecord::Base
 
   named_scope :active, lambda {{ :conditions => {:active => true}}}
 
+  def self.destroy_self_and_future(calendar)
+    default_id = calendar.department.calendars.default.id
+    TimeSlot.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
+    TimeSlot.update_all("#{:calendar_id.to_sql_column} = #{default_id.to_sql}", "#{:calendar_id.to_sql_column} = #{calendar.id.to_sql}")
+    Shift.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
+    Shift.update_all("#{:calendar_id.to_sql_column} = #{default_id.to_sql}", "#{:calendar_id.to_sql_column} = #{calendar.id.to_sql}")
+    calendar.destroy
+  end
+
+  def self.copy(old_calendar, new_calendar, wipe)
+    errors = ""
+    old_calendar.repeating_events.each do |r|
+      new_repeating_event = r.clone
+      new_repeating_event.start_date = new_calendar.start_date
+      new_repeating_event.end_date = new_calendar.end_date
+      new_repeating_event.calendar = new_calendar
+      new_repeating_event.save!
+      error = new_repeating_event.make_future(wipe)
+      errors += ","+error if error
+      end
+      errors
+  end
+
   def deactivate
     self.active = false
     TimeSlot.update_all("#{:active.to_sql_column} = #{false.to_sql}", "#{:calendar_id.to_sql_column} = #{self.id.to_sql}")

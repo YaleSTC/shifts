@@ -29,7 +29,7 @@ class TimeSlot < ActiveRecord::Base
     #Take each location and day and build an array containing the pieces of the sql query
     loc_ids.each do |loc_id|
       days.each do |day|
-        seed_start_time = start_time.next(day)
+        seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
         seed_end_time = seed_start_time+diff
         while seed_end_time <= end_date
           if active
