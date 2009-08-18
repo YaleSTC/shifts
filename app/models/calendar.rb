@@ -35,6 +35,23 @@ class Calendar < ActiveRecord::Base
       errors
   end
 
+  def self.wipe_range(start_time, end_time, wipe_timeslots, wipe_shifts, loc_ids, cal_ids)
+    if wipe_timeslots
+      loc_ids.each do |loc_id|
+        cal_ids.each do |cal_id|
+          TimeSlot.delete_all("#{:start.to_sql_column} > #{start_time.utc.to_sql} AND #{:start.to_sql_column} < #{end_time.to_sql} AND #{:calendar_id.to_sql_column} = #{cal_id.to_sql} AND #{:location_id.to_sql_column} = #{loc_id.to_sql}")
+        end
+      end
+    end
+    if wipe_shifts
+      loc_ids.each do |loc_id|
+        cal_ids.each do |cal_id|
+          Shift.delete_all("#{:start.to_sql_column} > #{start_time.utc.to_sql} AND #{:start.to_sql_column} < #{end_time.to_sql} AND #{:calendar_id.to_sql_column} = #{cal_id.to_sql} AND #{:location_id.to_sql_column} = #{loc_id.to_sql}")
+        end
+      end
+    end
+  end
+
   def deactivate
     self.active = false
     TimeSlot.update_all("#{:active.to_sql_column} = #{false.to_sql}", "#{:calendar_id.to_sql_column} = #{self.id.to_sql}")
