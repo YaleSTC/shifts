@@ -18,22 +18,28 @@ class PunchClocksController < ApplicationController
   end
   
 # Stops, restarts, or submits the punch clock depending on params
+# Draft revision, not yet tested -ben
   def update
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
     if params[:pause]
-      message = @punch_clock.pause
+      message = @punch_clock.pause || "Successfully paused punch clock."
     elsif params[:unpause]
-      message = @punch_clock.unpause
+      message = @punch_clock.unpause || "Successfully unpaused punch clock."
     elsif params[:punch_clock]  # Clocking out  
       message = @punch_clock.submit(params[:punch_clock][:description])
-      message ||= "Successfully clocked out."
+      if message
+        error = true
+      else
+        error = false
+        message = "Successfully clocked out."
+      end
     end
     @punch_clock.last_touched = Time.now unless params[:punch_clock]
-    if @punch_clock && @punch_clock.save || !@punch_clock
+    if @punch_clock && @punch_clock.save && !error
       flash[:notice] = message
     else
-      flash[:error] = message
+      flash[:error] = "Could not modify punch clock: #{message}"
     end
     redirect_to current_user == @punch_clock.user ? dashboard_path : punch_clocks_path
   end  

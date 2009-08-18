@@ -1,10 +1,14 @@
 <table>
-  <tr><th colspan="5">LDAP Search Results</th></tr>
-  <td>Login</td>
-  <td>First Name</td>
-  <td>Last Name</td>
-  <td>Email</td>
-  <td>Add</td>
+  <tr>
+    <th colspan="5">LDAP Search Results</th>
+  </tr>
+  <tr>
+    <td>Login</td>
+    <td>First Name</td>
+    <td>Last Name</td>
+    <td>Email</td>
+    <td>Add</td>
+  </tr>
   <tr id="loading_row">
     <td colspan="5">
       <center><%= image_tag("loading.gif", :align=>:center, :class => "loading_icon") %>Searching...</center>
@@ -23,13 +27,13 @@
   <% elsif @results && @results.empty? %>
     <tr class="result">
       <td colspan="5">
-      <strong>No results related to the information you have entered were found.</strong>
+        <strong>No results related to the information you have entered were found.</strong>
       </td>
     </tr>
   <% else %>
     <tr>
       <td colspan="5">
-      <strong>Oops! Something went wrong. Please try again, or talk to your application administrator if you continue to experience problems.</strong>
+        <strong>Oops! Something went wrong. Please try again, or talk to your application administrator if you continue to experience problems.</strong>
       </td>
     </tr>
   <% end %>
