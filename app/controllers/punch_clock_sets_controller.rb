@@ -37,8 +37,9 @@ class PunchClockSetsController < ApplicationController
       flash[:warning] = "Could not clock in the following users: #{failed.to_sentence}." unless failed.empty?
       redirect_to :action => :index
     else
-      flash[:error] = "Mass punch clock could not be created."
-      redirect_to :action => :new
+#      flash[:error] = "Mass punch clock could not be created."
+      @users_select = current_department.users.sort_by(&:name)
+      render :action => :new
     end
   end
 
@@ -54,12 +55,13 @@ class PunchClockSetsController < ApplicationController
         messages << "Could not unpause #{pc.user.name}'s clock." if error        
       elsif params[:submit]  # Clocking out 
         messages <<  "Could not submit #{pc.user}'s clock: #{pc.submit}." if pc.submit 
+        @punch_clock_set.reload
       end
       pc.last_touched = Time.now unless params[:submit]
       pc.save if pc
     end
     flash[:error] = messages.join("  ") unless messages.empty?
-    @punch_clock_set.destroy if @punch_clock_set.punch_clocks.empty? # Not yet working, needs more testing
+    flash[:notice] = "Submitted all clocks." if @punch_clock_set.punch_clocks.empty? && @punch_clock_set.destroy 
     redirect_to punch_clock_sets_path
   end
 
@@ -67,7 +69,7 @@ class PunchClockSetsController < ApplicationController
 # the presence of the parent is optional.  Must investigate.  -ben
   def destroy
     @punch_clock_set = PunchClockSet.find(params[:id])
-    @punch_clock_set.punch_clocks.each {|clock| clock.destroy}
+#    @punch_clock_set.punch_clocks.each {|clock| clock.destroy}
     @punch_clock_set.destroy
     redirect_to(punch_clock_sets_url)
   end
