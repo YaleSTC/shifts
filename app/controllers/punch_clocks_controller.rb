@@ -23,18 +23,15 @@ class PunchClocksController < ApplicationController
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
     if params[:pause]
-      message = @punch_clock.pause
-      message ||= "Successfully paused punch clock."
+      message = @punch_clock.pause || "Successfully paused punch clock."
     elsif params[:unpause]
-      message = @punch_clock.unpause
-      message ||= "Successfully unpaused punch clock."
+      message = @punch_clock.unpause || "Successfully unpaused punch clock."
     elsif params[:punch_clock]  # Clocking out  
-      message = @punch_clock.submit(params[:punch_clock][:description])
-      message ||= "Successfully clocked out."
+      message = @punch_clock.submit(params[:punch_clock][:description]) || "Successfully clocked out."
     end
     @punch_clock.last_touched = Time.now unless params[:punch_clock]
     if @punch_clock && @punch_clock.save || !@punch_clock
-      flash[:notice] = message
+      flash[:notice] = "wibble"
     else
       flash[:error] = "Could not modify punch clock: #{message}"
     end

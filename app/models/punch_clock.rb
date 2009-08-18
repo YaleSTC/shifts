@@ -13,49 +13,49 @@ class PunchClock < ActiveRecord::Base
     [no_of_sec/3600, no_of_sec/60 % 60, no_of_sec % 60].map{|t| t.to_i.to_s.rjust(2, '0')}.join(':')
   end
   
-  def pause
-    self.paused = true
-    self.runtime += Time.now - self.last_touched
-    self.last_touched = Time.now
-    if self.save
-      "Successfully paused clock."
-    else
-      nil
-    end
-  end
-  
-# Draft revision -ben
 #  def pause
 #    self.paused = true
 #    self.runtime += Time.now - self.last_touched
 #    self.last_touched = Time.now
 #    if self.save
-#      nil
+#      "Successfully paused clock."
 #    else
-#      "Could not pause clock."
+#      nil
 #    end
 #  end
-    
-  def unpause
-    self.paused = false
+  
+# Draft revision -ben
+  def pause
+    self.paused = true
+    self.runtime += Time.now - self.last_touched
     self.last_touched = Time.now
     if self.save
-      "Successfully unpaused clock."
-    else
       nil
+    else
+      "Could not pause clock."
     end
-  end  
-
-# Draft revision -ben
+  end
+    
 #  def unpause
 #    self.paused = false
 #    self.last_touched = Time.now
 #    if self.save
-#     nil
+#      "Successfully unpaused clock."
 #    else
-#      "Could not pause clock."
+#      nil
 #    end
 #  end  
+
+# Draft revision -ben
+  def unpause
+    self.paused = false
+    self.last_touched = Time.now
+    if self.save
+     nil
+    else
+      "Could not pause clock."
+    end
+  end  
   
   def submit(description = "Punch clock for #{self.user}.")
     self.pause unless self.paused?
