@@ -1,6 +1,0 @@
-TODO
-
-test require_owner_or_dept_admin universally 
-Ajax for data_fields new (also degradeable)
-data entries helper for determining class of data entry td according to validations
-data validations implement with string parser for upper, lower, and general

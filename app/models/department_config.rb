@@ -34,7 +34,6 @@ class DepartmentConfig < ActiveRecord::Base
     end
   end
 
-
   # methods for use in the schedule view
   def blocks_per_hour
     60 / self.time_increment

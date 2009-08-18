@@ -18,32 +18,33 @@ class PunchClock < ActiveRecord::Base
     self.runtime += Time.now - self.last_touched
     self.last_touched = Time.now
     if self.save
-      "Successfully paused clock."
-    else
       nil
+    else
+      "Could not pause clock."
     end
   end
-  
+
   def unpause
     self.paused = false
     self.last_touched = Time.now
     if self.save
-      "Successfully unpaused clock."
+     nil
     else
-      nil
+      "Could not pause clock."
     end
   end  
   
-  def submit(description = "Punch clock for #{self.user}.")
+  def submit(description = "Punch clock for #{self.user.name}.")
     self.pause unless self.paused?
-    self.save
-    payform_item = PayformItem.new({:date => Date.today,
-                                  :category => Category.find_by_name("Punch Clocks"),
-                                  :hours => (self.runtime/3600.0), # sec -> hr
-                                  :description => description})
-    payform_item.payform = Payform.build(self.department, self.user, Date.today)
+    if self.save
+      payform_item = PayformItem.new({:date => Date.today,
+                                    :category => Category.find_by_name("Punch Clocks"),
+                                    :hours => (self.runtime/3600.0), # sec -> hr
+                                    :description => description})
+      payform_item.payform = Payform.build(self.department, self.user, Date.today)
+    end
     begin
-      return nil if payform_item.save! && self.destroy       
+      return nil if payform_item && payform_item.save! && self.destroy       
     rescue Exception => e
       return e.message
     end
