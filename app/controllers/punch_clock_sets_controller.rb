@@ -48,16 +48,17 @@ class PunchClockSetsController < ApplicationController
     @punch_clock_set.punch_clocks.each do |pc|
       if params[:pause]
         error = pc.pause unless pc.paused?
-        messages << "Could not pause #{pc.user.name}'s clock: #{error}  "
+        messages << "Could not pause #{pc.user.name}'s clock." if error
       elsif params[:unpause]
-        pc.unpause if pc.paused?
+        error = pc.unpause if pc.paused?
+        messages << "Could not unpause #{pc.user.name}'s clock." if error        
       elsif params[:submit]  # Clocking out 
-        messages <<  "Could not submit #{pc.user}'s clock: #{pc.submit}  " if pc.submit 
+        messages <<  "Could not submit #{pc.user}'s clock: #{pc.submit}." if pc.submit 
       end
       pc.last_touched = Time.now unless params[:submit]
       pc.save if pc
     end
-    flash[:error] = messages unless messages.empty?
+    flash[:error] = messages.join("  ") unless messages.empty?
     @punch_clock_set.destroy if @punch_clock_set.punch_clocks.empty? # Not yet working, needs more testing
     redirect_to punch_clock_sets_path
   end

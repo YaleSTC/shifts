@@ -1,5 +1,5 @@
 class PunchClockSet < ActiveRecord::Base
-  has_many :punch_clocks
+  has_many :punch_clocks, :dependent => :destroy
 
   validates_presence_of :description
   validates_length_of   :description, :minimum => 10
