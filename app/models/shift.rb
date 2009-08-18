@@ -8,6 +8,7 @@ class Shift < ActiveRecord::Base
   belongs_to :location
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
+  before_update :disassociate_from_repeating_event
 
   validates_presence_of :user
   validates_presence_of :location
@@ -361,6 +362,9 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  def disassociate_from_repeating_event
+    self.repeating_event_id = nil
+  end
 
   class << columns_hash['start']
     def type
