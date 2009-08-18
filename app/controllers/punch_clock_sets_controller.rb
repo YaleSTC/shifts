@@ -3,16 +3,11 @@ class PunchClockSetsController < ApplicationController
 
   helper :punch_clocks
 
-  
   before_filter :require_department_admin
 
   def index
     @punch_clock_sets = PunchClockSet.all
   end
-
-#  def show
-#    @punch_clock_set = PunchClockSet.find(params[:id])
-#  end
 
   def new
     @punch_clock_set = PunchClockSet.new
@@ -21,7 +16,7 @@ class PunchClockSetsController < ApplicationController
 
   def create
     @punch_clock_set = PunchClockSet.new(params[:punch_clock_set])
-    @punch_clock_set.department_id = current_department.id
+    @punch_clock_set.department = current_department
     if @punch_clock_set.save
       flash[:notice] = "Mass punch clock was successfully created."
       failed = []      
@@ -37,7 +32,6 @@ class PunchClockSetsController < ApplicationController
       flash[:warning] = "Could not clock in the following users: #{failed.to_sentence}." unless failed.empty?
       redirect_to :action => :index
     else
-#      flash[:error] = "Mass punch clock could not be created."
       @users_select = current_department.users.sort_by(&:name)
       render :action => :new
     end
