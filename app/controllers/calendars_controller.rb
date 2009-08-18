@@ -1,5 +1,6 @@
 class CalendarsController < ApplicationController
   layout 'calendar'
+  before_filter :require_department_admin
 
   def index
     @calendars = @department.calendars
@@ -118,6 +119,18 @@ class CalendarsController < ApplicationController
     end
     flash[:notice] = "Successfully destroyed calendar."
     redirect_to calendars_url
+  end
+
+  def prepare_wipe_range
+  end
+
+  def wipe_range
+    @calendar = Calendar.new(params[:start_and_end])
+    @start = @calendar.start_date
+    @end = @calendar.end_date
+    Calendar.wipe_range(@start, @end, params[:time_slots], params[:shifts], params[:location_ids], params[:cal_ids])
+    flash[:notice] = "Successfully wiped range of days."
+    redirect_to calendars_path
   end
 
   def warn

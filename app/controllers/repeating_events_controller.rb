@@ -1,7 +1,8 @@
 class RepeatingEventsController < ApplicationController
+  before_filter :require_department_admin
   helper ShiftsHelper
   helper CalendarsHelper
-  
+
   def index
     @repeating_events = RepeatingEvent.all
   end
@@ -18,7 +19,7 @@ class RepeatingEventsController < ApplicationController
   def create
     #TODO: persistent calendar selection? it would be nice...
     session[:calendar] = params[:repeating_event][:calendar_id]
-    
+
     params[:repeating_event][:days] = params[:days]
     if params[:repeating_event][:slot_or_shift] == "time_slot"
       params[:repeating_event][:location_ids] = params[:location_ids]
@@ -52,7 +53,7 @@ class RepeatingEventsController < ApplicationController
             persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br><br>"+@errors*"<br><br>")
           end
         end
-      end 
+      end
     end
   end
 

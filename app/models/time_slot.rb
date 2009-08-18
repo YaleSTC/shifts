@@ -8,6 +8,7 @@ class TimeSlot < ActiveRecord::Base
   validates_presence_of :start, :end, :location_id
   validate :start_less_than_end
   validate :is_within_calendar
+  validate :no_concurrent_timeslots
 
   named_scope :active, lambda {{:conditions => {:active => true}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
@@ -123,6 +124,19 @@ class TimeSlot < ActiveRecord::Base
 
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= start)
+  end
+
+   def no_concurrent_timeslots
+
+    if self.calendar.active
+      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
+    else
+      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}"])
+    end
+    unless c.zero?
+      errors.add_to_base("There is a conflicting timeslot")
+    end
+
   end
 
   def is_within_calendar

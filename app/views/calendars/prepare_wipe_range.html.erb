@@ -1,0 +1,46 @@
+<% title "Wipe Shifts and/or Timeslots" %>
+
+<% form_tag 'wipe_range' do |f| %>
+  <p>
+    <%= label_tag :start_date %><br />
+    <%= datetime_select "start_and_end","start_date" %>
+  </p>
+  <p>
+    <%= label_tag :end_date %><br />
+    <%= datetime_select "start_and_end","end_date" %>
+  </p>
+  <h3>Wipe which?</h3>
+    <p>
+    <%= label_tag :time_slots %><br />
+    <%= check_box_tag :time_slots %>
+  </p>
+  <p>
+    <%= label_tag :shifts %><br />
+    <%= check_box_tag :shifts %>
+  </p>
+  <h3>Locations to wipe</h3>
+   <% @department.loc_groups.each do |loc_group| %>
+    <% unless loc_group.locations.empty? %>
+      <p>
+        <strong><%= loc_group.name %></strong><br/>
+        <% loc_group.locations.each do |loc| %>
+          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= loc.short_name %>
+        <% end %>
+      </p>
+    <% end %>
+  <%- end -%>
+  <h3>Calendars to wipe</h3>
+   <% @department.calendars.each do |cal| %>
+      <p>
+          <%= check_box_tag "cal_ids[]", cal.id, false, {:id => "calendar_#{cal.id}"} %>
+          <%= cal.name %>
+      </p>
+  <%- end -%>
+  <p><%= submit_tag "Wipe" %></p>
+<% end %>
+
+<p>
+  <%= link_to "View All", calendars_path %>
+</p>
+
