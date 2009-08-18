@@ -27,11 +27,17 @@ class PunchClocksController < ApplicationController
     elsif params[:unpause]
       message = @punch_clock.unpause || "Successfully unpaused punch clock."
     elsif params[:punch_clock]  # Clocking out  
-      message = @punch_clock.submit(params[:punch_clock][:description]) || "Successfully clocked out."
+      message = @punch_clock.submit(params[:punch_clock][:description])
+      if message
+        error = true
+      else
+        error = false
+        message = "Successfully clocked out."
+      end
     end
     @punch_clock.last_touched = Time.now unless params[:punch_clock]
-    if @punch_clock && @punch_clock.save || !@punch_clock
-      flash[:notice] = "wibble"
+    if @punch_clock && @punch_clock.save && !error
+      flash[:notice] = message
     else
       flash[:error] = "Could not modify punch clock: #{message}"
     end

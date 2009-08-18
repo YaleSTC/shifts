@@ -40,7 +40,7 @@
     </fieldset>
   <% end %>
 
-    <fieldset class="index" id="punch_clock">
+  <fieldset class="index" id="punch_clock">
     <legend>Punch Clock</legend>
     <% if current_user.punch_clock %>
       <%= render :partial => 'punch_clocks/punch_clock_timer', :object => current_user.punch_clock %>
