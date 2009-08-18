@@ -49,10 +49,6 @@
   width: 100%;
 }
 
-#report_view_table .tr {
-  display:inline;
-}
-
 #report_item_form{
   border-collapse: collapse;
   width: 49.5%;

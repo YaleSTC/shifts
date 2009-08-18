@@ -542,18 +542,15 @@ div.table_right {
 }
 
 tr#loading_row{
-	display:none;
+  display:none;
 }
 
 img.loading_icon {
-	vertical-align: middle;
-	width: 1.2em;
-	height: 1.2em;
-	margin-right: 5px;
+  vertical-align: middle;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 5px;
 }
-
-
-
 
 
 #timer{
