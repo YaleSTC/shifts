@@ -23,7 +23,7 @@
       <div id = "useful_links">
         <fieldset>
           <legend>Useful Links</legend>
-          <!-- PARTIALIZE!! -->
+          <%# PARTIALIZE!! %>
 
           <% for l in @report.get_links do %>
             <% l = l.content.split("|$|") %>
@@ -40,21 +40,26 @@
         <h2>Update Your Report</h2>
         <%= render :partial => 'new_report_item_form' %>
 
+      <div id="report_relative_size">
 <% end %>
-
-      <div id="report_view">
-        <%= render :partial => 'report'%>
-      </div>
-      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'} %>
-      <div class="clear"></div>
+        <div id="report_view">
+          <%= render :partial => 'report'%>
+        </div>
 <% if current_user == @report.user && !@report.departed %>
+      </div> <%# close report_relative_size %>
 
-  </div>
-  
+      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'} %>
+
+      <div class='clear'></div>
+    </div> <%# close active_report_area %>
+
+
 <% elsif !@report.departed %>
-  This report is still in progress.
+  <p>This report is still in progress.</p>
 <% end %> 
 
 <% if !@report.departed %>
 <%#= javascript_include_tag 'leave_confirm'%>
 <% end %>
+
+
