@@ -76,7 +76,7 @@ class Shift < ActiveRecord::Base
 
   #This method takes a list of shifts and deletes them, all their subrequests,
   # and all the relevant UserSinksUserSource entries. Necessary for conflict
-  #wiping in repeating_event and calendars, as well as wiping a date range
+  #wiping in repeating_event and calendars, as well as wiping a date range -Mike
   def self.mass_delete_with_dependencies(shifts_to_erase)
     array_of_shift_arrays = shifts_to_erase.batch(450)
     array_of_shift_arrays.each do |shifts|
@@ -93,7 +93,7 @@ class Shift < ActiveRecord::Base
 
 
   #This method creates the multitude of shifts required for repeating_events to work
-  #in order to work efficiently, it makes a few GIANT sql insert calls
+  #in order to work efficiently, it makes a few GIANT sql insert calls -mike
   def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, active, wipe)
     #We need several inner arrays with one big outer one, b/c sqlite freaks out
     #if the sql insert call is too big. The "make" arrays are then used for making
@@ -158,7 +158,7 @@ class Shift < ActiveRecord::Base
   end
 
 
-  #Used for activating calendars, check/wipe conflicts
+  #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(shifts, wipe)
     #big_array is just an array of arrays, the inner arrays being less than 450
     #elements so sql doesn't freak
