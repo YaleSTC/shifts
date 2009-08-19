@@ -57,7 +57,7 @@ class TimeSlotsController < ApplicationController
           @hours_per_day = (@dept_end_hour - @dept_start_hour)
         else
           render :update do |page|
-            ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>)
+            ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")
           end
         end
       end
