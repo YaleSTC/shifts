@@ -4,6 +4,7 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :repeating_event
   has_many :shifts, :through => :location
   before_save :set_active
+  before_update :disassociate_from_repeating_event
 
   validates_presence_of :start, :end, :location_id
   validate :start_less_than_end
@@ -137,6 +138,10 @@ class TimeSlot < ActiveRecord::Base
     unless c.zero?
       errors.add_to_base("There is a conflicting timeslot!")
     end
+  end
+
+  def disassociate_from_repeating_event
+    self.repeating_event_id = nil
   end
 
   def is_within_calendar
