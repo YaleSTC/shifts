@@ -1,0 +1,41 @@
+<% title "Copy Calendar" %>
+
+<% form_for @calendar, :url => {:action => 'copy'} do |f| %>
+    <%if @errors%>
+      <strong>The repeating event could not be applied for the following reasons</strong>
+      <ul>
+      <% @errors.each do |error| %>
+        <li><%=error%></li>
+      <%end%>
+      </ul>
+    <%end%>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+  </p>
+  <p>
+    <%= f.label :end_date %><br />
+    <%= f.date_select :end_date %>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>
+  <p>
+  <p>
+    <%= f.label "wipe_conflicts?" %><br />
+    <%= check_box_tag "wipe", "1", false %>
+  <p>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
+<p>
+  <%= link_to "Show", @calendar %> |
+  <%= link_to "View All", calendars_path %>
+</p>
+

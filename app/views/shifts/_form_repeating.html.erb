@@ -1,0 +1,61 @@
+<%= unobtrusive_datepicker_include_tags %>
+
+<%
+  start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
+  if params[:xPercentage]
+    @dept_start_hour ||= current_department.department_config.schedule_start
+    @dept_end_hour ||= current_department.department_config.schedule_end
+    @minutes_per_day ||= (@dept_end_hour - @dept_start_hour)
+    start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f) * 60
+  end
+%>
+<p style="margin-top: -10px">
+  <%= check_box_tag "whole_calendar", "1", false, :onclick => "$('#date_selects').toggle()" %> Apply to entire calendar (does not work on default calendar)
+</p>
+
+<div style="float:left">
+  <div id="date_selects">
+    <p>
+      <%= f.label :start_date %><br />
+      <%= f.date_select :start_date, :default => start_time %>
+    </p>
+    <p>
+      <%= f.label :end_date %><br />
+      <%= f.date_select :end_date, :default => start_time %>
+    </p>
+  </div>
+  <p>
+    <%= f.label :start_time %><br />
+    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => start_time %>
+  </p>
+  <p>
+    <%= f.label :end_time %><br />
+    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => start_time + 1.hour %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @repeating_event.location_ids ? @repeating_event.location_ids[0] : params[:location_id].to_i)%><br />
+  </p>
+</div>
+<div style="float:left; margin-left: 7px; padding-left: 7px; border-left: 1px solid black">
+  <p>
+    <%= f.label :calendar %><br />
+    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+  </p>
+  <p>
+    <% params[:date] ? default_day = Time.parse(params[:date]).wday : false %>
+    <strong>Days:</strong><br />
+    <% WEEK_DAYS.each_with_index do |day, i| %>
+      <%= check_box_tag "days[]", i, ((i == default_day) or (@repeating_event.days && @repeating_event.days.include?(day))), {:id => "days_#{i}"} %>
+      <%= day %><br>
+    <% end %>
+  </p>
+  <p>
+    <%= f.label "wipe_conflicts?" %><br />
+    <%= check_box_tag "wipe", "1", true %>
+  </p>
+</div>

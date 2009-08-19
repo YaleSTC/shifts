@@ -27,7 +27,7 @@
     });
   
     //don't stop links from firing
-    $(element+' li.click_to_edit_timeslot a').click(function (e) {
+    $(element+' li.click_to_edit_timeslot a.delete_link').click(function (e) {
       e.stopPropagation();
     });
   }

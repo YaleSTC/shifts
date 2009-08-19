@@ -1,3 +1,16 @@
+#report_log{
+  width: 100%;
+  clear: both;
+}
+
+#active_report_area {
+  width: 98.6%;
+  border-style:solid;
+  clear: both;
+  background-color: #ddd;
+  padding: 5px;
+}
+
 #report_relative_size {
   width: 49.5%;
   float: right;
@@ -5,8 +18,9 @@
 }
 
 #report_view  {
-  float: left;
-  width: 100%;
+  float: right;
+  width: 98.6%;
+  margin-top: 5px;
 }
 
 #report_view .list_report_item_even {
@@ -37,11 +51,11 @@ I can still remember the day I discovered the li
   width: 100%;
 }
 
-#report_item_area{
+#report_item_form{
   border-collapse: collapse;
   width: 49.5%;
-  clear: left;
   float: left;
+  margin-top: 5px;
 }
 
 

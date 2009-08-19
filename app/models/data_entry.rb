@@ -4,8 +4,8 @@ class DataEntry < ActiveRecord::Base
   validates_presence_of :data_object_id
   validates_presence_of :content
   
-  named_scope :on_day, lambda {|day| { :conditions => ['created_at > ? and created_at < ?', day.beginning_of_day, day.end_of_day]}}
-  named_scope :between_days, lambda {|first, last| { :conditions => ['created_at > ? and created_at < ?', first.beginning_of_day, last.end_of_day]}}
+  named_scope :on_day, lambda {|day| { :conditions => ["#{:created_at.to_sql_column} > #{day.beginning_of_day.to_sql} and #{:created_at.to_sql_column} < #{day.end_of_day.to_sql}"]}}
+  named_scope :between_days, lambda {|first, last| { :conditions => ["#{:created_at.to_sql_column} > #{first.beginning_of_day.to_sql} and #{:created_at.to_sql_column} < #{last.end_of_day.to_sql}"]}}
   
   # Write DataEntry content as a string with the following delimiters:
   #   Double semicolon between each datafield

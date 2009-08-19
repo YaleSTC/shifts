@@ -57,7 +57,7 @@ class TimeSlotsController < ApplicationController
           @hours_per_day = (@dept_end_hour - @dept_start_hour)
         else
           render :update do |page|
-            ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors)
+            ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")
           end
         end
       end
@@ -71,56 +71,27 @@ class TimeSlotsController < ApplicationController
   def update
     @time_slot = TimeSlot.find(params[:id])
 
-    # from AJAX edit view
-    # if start time is pushed forward beyond end time, preserve duration
-    if params[:wants] == 'start'
-      new_start = Time.parse(params[:time_slot][:start])
-      if new_start > @time_slot.end
-        params[:time_slot][:end] = new_start + @time_slot.duration
-      end
-    elsif params[:wants] == 'end'
-      new_end = Time.parse(params[:time_slot][:end])
-      if new_end < @time_slot.start
-        params[:time_slot][:start] = new_end - @time_slot.duration
-      end
-    end
-
     if @time_slot.update_attributes(params[:time_slot])
-      if params[:wants] #AJAX (jEditable)
-        respond_to do |format|
-          format.js
+      respond_to do |format|
+        format.js
+        format.html do
+          flash[:notice] = "Successfully updated timeslot."
+          redirect_to @time_slot
         end
-      else
-        flash[:notice] = "Successfully updated timeslot."
-        redirect_to @time_slot
       end
     else
-      if params[:wants]
-        respond_to do |format|
-          format.js do
-            render :text => "failed to update"
-            # render :update do |page|
-            #   error_string = ""
-            #   @shift.errors.each do |attr_name, message|
-            #     error_string += "<br>#{attr_name}: #{message}"
-            #   end
-            #   page << "FAIL: ";
-            #   ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
-            # end
+      respond_to do |format|
+        format.js do
+          render :update do |page|
+            error_string = ""
+            @time_slot.errors.each do |attr_name, message|
+              error_string += "<br><br>#{attr_name}: #{message}"
+            end
+            ajax_alert(page, "<strong>error:</strong> updated time slot could not be saved"+error_string, 2.5 + (@time_slot.errors.size))
           end
         end
-      else
-        render :action => 'edit'
+        format.html {render :action => 'edit'}
       end
-      #
-      # respond_to do |format|
-      #   format.html{render :action => 'edit'}
-      #   format.js do
-      #     render :update do |page|
-      #       ajax_alert(page, "<strong>error:</strong> updated timeslot could not be saved")
-      #     end
-      #   end
-      # end
     end
   end
 
@@ -130,22 +101,6 @@ class TimeSlotsController < ApplicationController
     respond_to do |format|
       format.html {flash[:notice] = "Successfully destroyed timeslot."; redirect_to time_slots_url}
       format.js #remove partial from view
-    end
-  end
-
-  def rerender
-    #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
-    #TODO:simplify this stuff:
-    @dept_start_hour = current_department.department_config.schedule_start / 60
-    @dept_end_hour = current_department.department_config.schedule_end / 60
-    @hours_per_day = (@dept_end_hour - @dept_start_hour)
-    #@block_length = current_department.department_config.time_increment
-    #@blocks_per_hour = 60/@block_length.to_f
-    #@blocks_per_day = @hours_per_day * @blocks_per_hour
-    #@hidden_timeslots = [] #for timeslots that don't show up on the view
-    @time_slot = TimeSlot.find(params[:id])
-    respond_to do |format|
-      format.js
     end
   end
 end

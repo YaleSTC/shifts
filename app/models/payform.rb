@@ -12,10 +12,10 @@ class Payform < ActiveRecord::Base
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
 
-  named_scope :unsubmitted, {:conditions => ["submitted IS ?", nil] }
-  named_scope :unapproved,  {:conditions => ["submitted IS NOT ? AND approved IS ?", nil, nil] }
-  named_scope :unprinted,   {:conditions => ["approved IS NOT ? AND printed IS ?", nil, nil] }
-  named_scope :printed,     {:conditions => ["printed IS NOT ?", nil] }
+  named_scope :unsubmitted, {:conditions => ["#{:submitted.to_sql_column} IS #{nil.to_sql}"] }
+  named_scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
+  named_scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
+  named_scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
 
 
   def status

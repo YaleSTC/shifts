@@ -19,6 +19,7 @@
       <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled'); calendar_visible[#{calendar.id}] = !calendar_visible[#{calendar.id}]"%></td>
       <% unless calendar.default? %>
         <td><%= button_to calendar.active ? "Deactivate" : "Activate" , toggle_calendar_path(calendar) %></td>
+        <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
         <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
@@ -28,6 +29,7 @@
 </table>
 
 <p><%= link_to "New Calendar", new_calendar_path %></p>
+<p><%= link_to "Wipe shifts and timeslots from a range of days", prepare_wipe_range_calendars_path %></p>
 
 <p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
 
@@ -89,16 +91,16 @@
     });
 
     //don't stop links from firing
-    $(element+' li.click_to_edit_timeslot a').click(function (e) {
-      e.stopPropagation();
-    });
+    // $(element+' li.click_to_edit_timeslot a').click(function (e) {
+    //   e.stopPropagation();
+    // });
+    // 
+    // $(element+' li.click_to_edit_shift a').click(function (e) {
+    //   e.stopPropagation();
+    // });
 
-    $(element+' li.click_to_edit_shift a').click(function (e) {
-      e.stopPropagation();
-    });
-    
     show_visible(element);
-    
+
   }
 
   function popup_new_timeslot(parent_element, e, raw_element){
@@ -163,9 +165,9 @@
     }
     return x;
   }
-  
+
   //show all calendars that are currently visible, even after rerender
-  function show_visible(element){    
+  function show_visible(element){
     for (calendar_id in calendar_visible) {
       if (calendar_visible[calendar_id] == true) {
         $(element+' .calendar'+calendar_id).show();
