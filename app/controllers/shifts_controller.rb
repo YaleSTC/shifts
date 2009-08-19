@@ -128,7 +128,7 @@ class ShiftsController < ApplicationController
           render :update do |page|
             error_string = ""
             @shift.errors.each do |attr_name, message|
-              error_string += "<br>#{attr_name}: #{message}"
+              error_string += "<br><br>#{attr_name}: #{message}"
             end
             ajax_alert(page, "<strong>Error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
           end
@@ -147,36 +147,26 @@ class ShiftsController < ApplicationController
     @shift = Shift.find(params[:id])
     return unless require_owner_or_dept_admin(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
-      #combine with any compatible shifts
-      if params[:wants] #AJAX (jEditable)
-        respond_to do |format|
-          format.js
+      #combine with any compatible shifts      
+      respond_to do |format|
+        format.js
+        format.html do
+          flash[:notice] = "Successfully updated shift."
+          redirect_to @shift
         end
-      else
-        flash[:notice] = "Successfully updated shift."
-        redirect_to @shift
       end
     else
-      if params[:wants]
-        respond_to do |format|
-          format.js do
+      respond_to do |format|
+        format.js do
+          render :update do |page|
             error_string = ""
             @shift.errors.each do |attr_name, message|
-              error_string += "<br>#{attr_name}: #{message}"
+              error_string += "<br><br>#{attr_name}: #{message}"
             end
-            render :text => "failed to update: "+error_string
-            # render :update do |page|
-            #   error_string = ""
-            #   @shift.errors.each do |attr_name, message|
-            #     error_string += "<br>#{attr_name}: #{message}"
-            #   end
-            #   page << "FAIL: ";
-            #   ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
-            # end
+            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
           end
         end
-      else
-        render :action => 'edit'
+        format.html {render :action => 'edit'}
       end
     end
   end
@@ -190,19 +180,19 @@ class ShiftsController < ApplicationController
     end
   end
 
-  def rerender
-    #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
-    #TODO:simplify this stuff:
-    @dept_start_hour = current_department.department_config.schedule_start / 60
-    @dept_end_hour = current_department.department_config.schedule_end / 60
-    @hours_per_day = (@dept_end_hour - @dept_start_hour)
-    #@block_length = current_department.department_config.time_increment
-    #@blocks_per_hour = 60/@block_length.to_f
-    #@blocks_per_day = @hours_per_day * @blocks_per_hour
-    #@hidden_timeslots = [] #for timeslots that don't show up on the view
-    @shift = Shift.find(params[:id])
-    respond_to do |format|
-      format.js
-    end
-  end
+  # def rerender
+  #   #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
+  #   #TODO:simplify this stuff:
+  #   @dept_start_hour = current_department.department_config.schedule_start / 60
+  #   @dept_end_hour = current_department.department_config.schedule_end / 60
+  #   @hours_per_day = (@dept_end_hour - @dept_start_hour)
+  #   #@block_length = current_department.department_config.time_increment
+  #   #@blocks_per_hour = 60/@block_length.to_f
+  #   #@blocks_per_day = @hours_per_day * @blocks_per_hour
+  #   #@hidden_timeslots = [] #for timeslots that don't show up on the view
+  #   @shift = Shift.find(params[:id])
+  #   respond_to do |format|
+  #     format.js
+  #   end
+  # end
 end
