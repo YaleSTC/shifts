@@ -1,5 +1,10 @@
 if @notice.errors.empty?
-  page.replace_html "all_notices", :partial => 'notices/all_notices'
+  if @notice.useful_link
+      page.replace_html "report_links", :partial => 'notices/useful_links', :collection => @report.get_links
+      page.replace_html "dashboard_links", :partial => 'notices/useful_links', :collection => current_department.get_links
+  else
+    page.replace_html "all_notices", :partial => 'notices/all_notices'
+  end
   if current_user.current_shift
     page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
   end

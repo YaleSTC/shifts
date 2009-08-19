@@ -139,6 +139,7 @@ class NoticesController < ApplicationController
     end
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
       @notice.location_sources << current_department
+      @notice.departments << current_department
       @notice.loc_groups << current_department.loc_groups
       @notice.locations << current_department.locations
     elsif params[:for_location_groups]
