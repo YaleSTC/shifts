@@ -1,23 +1,24 @@
+<%= javascript_include_tag 'jeditable' %>
+
   <div class="close_link">
     <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
   </div>
   <h2>Edit Timeslot</h2>
-  <% remote_form_for @time_slot do |f| %>
-    <p>
-      <%= f.label :start %><br />
-      <%= f.time_select :start, :twelve_hour => true %>
-    </p>
-    <p>
-      <%= f.label :end %><br />
-      <%= f.time_select :end, :twelve_hour => true %>
-    </p>
-    <p>
-      <%= f.label :location %><br />
-      <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location_id)%><br />
-    </p>
-    <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'time_slots', :action => 'update', :calendar => params[:calendar] } %></p>
-  <% end %>
   <p>
+    <strong>Location:</strong>
+    <span id="time_slot_location" class="jeditable"><%=h @time_slot.location.name %></span>
+  </p>
+  <p>
+    <strong>Start:</strong>
+    <span id="time_slot_start" class="jeditable"><%=h @time_slot.start.to_s(:short_name) %></span>
+  </p>
+  <p>
+    <strong>End:</strong>
+    <span id="time_slot_end" class="jeditable"><%=h @time_slot.end.to_s(:short_name) %></span>
+  </p>
+
+  <p>
+    <%= link_to "Edit", edit_time_slot_path(@time_slot) %> | 
     <% unless @time_slot.repeating_event %>
       <%= link_to_remote "Destroy this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
     <% else %>
@@ -37,7 +38,42 @@
       e.stopPropagation();
     });
   
-
+    $('#time_slot_location').editable(
+      <%= time_slot_path(@time_slot).to_json %>,
+      {
+        name: 'time_slot[location_id]',
+        type: 'select',
+        data: {<%= Location.all.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
+        method: 'PUT',
+        submitdata: {
+          authenticity_token: <%= form_authenticity_token.to_json %>,
+          wants: 'location'
+        },
+        cancel: 'Cancel',
+        submit: 'OK',
+        indicator: '<img src="../images/loading.gif">',
+        tooltip: 'Click to edit...',
+        callback: function(value) {
+          update_schedule_view(value);
+        }
+      }
+    );
+    
+    $('#time_slot_start').editable( <%= time_slot_path(@time_slot).to_json %>, {
+      name: 'time_slot[start]',
+      method: 'PUT',
+      submitdata: {
+        authenticity_token: <%= form_authenticity_token.to_json %>,
+        wants: 'start'
+      },
+      cancel: 'Cancel',
+      submit: 'OK',
+      indicator: '<img src="../images/loading.gif">',
+      tooltip: 'Click to edit...',
+      callback: function(value) {
+        update_schedule_view(value);
+      }
+    });
     
     $('#time_slot_end').editable( <%= time_slot_path(@time_slot).to_json %>, {
       name: 'time_slot[end]',
