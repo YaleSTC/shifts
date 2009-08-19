@@ -1,6 +1,7 @@
-  <div class="close_link">
-    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
-  </div>
+<div class="close_link">
+  <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+</div>
+<% if current_user.is_admin_of?(@department) %>
   <h2>Edit Timeslot</h2>
   <% remote_form_for @time_slot do |f| %>
     <p>
@@ -30,47 +31,22 @@
       </div>
     <% end %>
   </p>
-  
-  <script type="text/javascript">
-    // don't retrigger the action when clicking the tooltip :P
-    $(".tooltip").click(function(e){
-      e.stopPropagation();
-    });
-  
+<% else %>
+  <h2>Timeslot</h2>
+  <p>
+    <%= f.label :start %>: <%= @time_slot.start.to_s(:short_name) %>
+  </p>
+  <p>
+    <%= f.label :end %>: <%= @time_slot.end.to_s(:short_name) %>
+  </p>
+  <p>
+    <%= f.label :location %>: <%= @time_slot.location.name %>
+  </p>
+<% end %>
 
-    
-    $('#time_slot_end').editable( <%= time_slot_path(@time_slot).to_json %>, {
-      name: 'time_slot[end]',
-      method: 'PUT',
-      submitdata: {
-        authenticity_token: <%= form_authenticity_token.to_json %>,
-        wants: 'end'
-      },
-      cancel: 'Cancel',
-      submit: 'OK',
-      indicator: '<img src="../images/loading.gif">',
-      tooltip: 'Click to edit...',
-      callback: function(value) {
-        update_schedule_view(value);
-      }
-    });
-    
-    function update_schedule_view(value){
-      if(value.substring(0,4) == "fail"){
-        error_message();
-      }
-      else{
-        rerender_timeslot();
-      }
-    }
-    
-    function error_message(){
-      alert("Sorry, but the updated timeslot could not be saved.");
-    }
-    
-    function rerender_timeslot(){
-      $("#timeslot<%= @time_slot.id %>").remove();  // = time slot before edit
-      // add new time slot to view
-      $.ajax({dataType:'script', type:'get', url:'<%= rerender_time_slot_path(@time_slot) %>'});
-    }
-  </script>
+<script type="text/javascript">
+  // don't retrigger the action when clicking the tooltip :P
+  $(".tooltip").click(function(e){
+    e.stopPropagation();
+  });
+</script>

@@ -1,64 +1,84 @@
-<%= javascript_include_tag 'jeditable' %>
+<div class="close_link">
+  <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+</div>
 
-  <div class="close_link">
-    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
-  </div>
+<% if current_user.is_admin_of?(@department) and @shift.scheduled? %>
+  <h2>Edit Shift</h2>
+  <% remote_form_for @shift do |f| %>
+    <p>
+      <%= f.label :start %><br />
+      <%= f.time_select :start, :twelve_hour => true %>
+    </p>
+    <p>
+      <%= f.label :end %><br />
+      <%= f.time_select :end, :twelve_hour => true %>
+    </p>
+    <p>
+      <%= f.label :location %><br />
+      <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location_id)%><br />
+    </p>
+    <p>
+      <%= f.label :calendar %><br />
+      <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+    </p>
+    <p>
+      <%= f.label :user %><br />
+      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
+    <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'shifts', :action => 'update', :calendar => params[:calendar] } %></p>
+  <% end %>
+
+  <% if !@shift.has_passed? and !@shift.submitted? %>
+    <% if @shift.has_sub? %>
+      <%= link_to "Manage sub requests for this shift", shift_sub_requests_path(@shift) %><br>
+    <% else %>
+      <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
+    <% end %>
+  <% end %>
+  
+  
+  <% unless @shift.repeating_event %>
+    <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+  <% else %>
+    <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
+    <div id="repeating_event_delete_options" style="display:none">
+      <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
+      <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
+      <%= button_to_remote "This and all future shifts", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
+      <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :rerender_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %>
+    </div>
+  <% end %>
+  
+<% else%>
   
   <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
   <p>
     <strong>Start:</strong>
-    <%= @shift.scheduled? ? "<span id='shift_start' "+(current_user.is_admin_of?(@department) ? "class='jeditable'" : "")+">#{@shift.start.to_s(:short_name)}</span>" : @shift.start.to_s(:short_name) %>
+    <%= @shift.start.to_s(:short_name) %>
   </p>
   <p>
     <strong>End:</strong>
-    <%= @shift.scheduled? ? "<span id='shift_end' "+(current_user.is_admin_of?(@department) ? "class='jeditable'" : "")+">#{@shift.end.to_s(:short_name)}</span>" : "unscheduled" %>
+    <%= @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
   </p>
   <p>
     <strong>User:</strong>
     <%=h @shift.user.name %>
   </p>
-  <% if current_user.is_admin_of?(@department) %>
-    <p>
-      <strong>Calendar:</strong>
-      <span id='shift_calendar' <%= current_user.is_admin_of?(@department) ? "class='jeditable'" : ""%>><%= @shift.calendar.name %></span>
-    </p>
-  <% end %>
   <p>
     <strong>Location:</strong>
-    <span id="shift_location" <%= current_user.is_admin_of?(@department) ? "class='jeditable'" : ""%>><%=h @shift.location.name %></span>
+    <%=h @shift.location.name %>
   </p>
+  
   <p>
     <% if @shift.report %>
       <%= link_to "View report", shift_report_path(@shift) %><br>
     <% elsif current_user == @shift.user and !@shift.has_passed? %>
       <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
     <% end %>
-    
+  
     <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
       <% @shift.sub_requests.each do |sub| %>
         <%= button_to "Take sub", sub_request_path(sub), :method => :get %>
-      <% end %>
-    <% end %>
-    
-    <% if current_user.is_admin_of?(@department) %>
-      <% if !@shift.has_passed? and !@shift.submitted? %>
-        <% if @shift.has_sub? %>
-          <%= link_to "Manage sub requests for this shift", shift_sub_requests_path(@shift) %><br>
-        <% else %>
-          <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
-        <% end %>
-      <% end %>
-      <%= link_to "Edit", edit_shift_path(@shift) %> |
-      <% unless @shift.repeating_event %>
-        <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
-      <% else %>
-        <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
-        <div id="repeating_event_delete_options" style="display:none">
-          <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
-          <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
-          <%= button_to_remote "This and all future shifts", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
-          <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :rerender_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %>
-        </div>
       <% end %>
     <% elsif current_user == @shift.user %>
       <% unless @shift.has_passed? or @shift.submitted? %>
@@ -66,104 +86,11 @@
       <% end %>
     <% end %>
   </p>
+<% end %>
  
-  <script type="text/javascript">
-    // don't retrigger the action when clicking the tooltip :P
-    $(".tooltip").click(function(e){
-      e.stopPropagation();
-    });
-      
-    <% if current_user.is_admin_of?(@department) %>
-      $('#shift_location').editable(
-        <%= shift_path(@shift).to_json %>,
-        {
-          name: 'shift[location_id]',
-          type: 'select',
-          data: {<%= @department.locations.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
-          method: 'PUT',
-          submitdata: {
-            authenticity_token: <%= form_authenticity_token.to_json %>,
-            wants: 'location'
-          },
-          cancel: 'Cancel',
-          submit: 'OK',
-          indicator: '<img src="../images/loading.gif">',
-          tooltip: 'Click to edit...',
-          callback: function(value) {
-            update_schedule_view(value);
-          }
-        }
-      );
-      
-      $('#shift_calendar').editable(
-        <%= shift_path(@shift).to_json %>,
-        {
-          name: 'shift[calendar_id]',
-          type: 'select',
-          data: {<%= @department.calendars.collect{|loc| "'#{loc.id}':'#{loc.name}'" }.flatten * ", " %>},
-          method: 'PUT',
-          submitdata: {
-            authenticity_token: <%= form_authenticity_token.to_json %>,
-            wants: 'calendar'
-          },
-          cancel: 'Cancel',
-          submit: 'OK',
-          indicator: '<img src="../images/loading.gif">',
-          tooltip: 'Click to edit...',
-          callback: function(value) {
-            update_schedule_view(value);
-          }
-        }
-      );
-    
-      $('#shift_start').editable( <%= shift_path(@shift).to_json %>, {
-        name: 'shift[start]',
-        method: 'PUT',
-        submitdata: {
-          authenticity_token: <%= form_authenticity_token.to_json %>,
-          wants: 'start'
-        },
-        cancel: 'Cancel',
-        submit: 'OK',
-        indicator: '<img src="../images/loading.gif">',
-        tooltip: 'Click to edit...',
-        callback: function(value) {
-          update_schedule_view(value);
-        }
-      });
-    
-      $('#shift_end').editable( <%= shift_path(@shift).to_json %>, {
-        name: 'shift[end]',
-        method: 'PUT',
-        submitdata: {
-          authenticity_token: <%= form_authenticity_token.to_json %>,
-          wants: 'end'
-        },
-        cancel: 'Cancel',
-        submit: 'OK',
-        indicator: '<img src="../images/loading.gif">',
-        tooltip: 'Click to edit...',
-        callback: function(value) {
-          update_schedule_view(value);
-        }
-      });
-    
-      function update_schedule_view(value){
-        if(value.substring(0,4) == "fail"){
-          error_message();
-        }else{
-          rerender_shift();
-        }
-      }
-      
-      function error_message(){
-        alert("Sorry, but the updated shift could not be saved.");
-      }
-    
-      function rerender_shift(){
-        $("#shift<%= @shift.id %>").remove();  // = shift before edit
-        // add new shift to view
-        $.ajax({data:'<%= params[:calendar] ? "calendar=true" : "" %>', dataType:'script', type:'get', url:'<%= rerender_shift_path(@shift) %>'});
-      }
-    <% end %>
-  </script>
+<script type="text/javascript">
+  // don't retrigger the action when clicking the tooltip :P
+  $(".tooltip").click(function(e){
+    e.stopPropagation();
+  });
+</script>
