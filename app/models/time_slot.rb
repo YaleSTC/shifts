@@ -127,10 +127,12 @@ class TimeSlot < ActiveRecord::Base
   end
 
   def no_concurrent_timeslots
+    dont_conflict_with_self = (self.new_record? ? "" : "AND id != #{self.id}")
+    
     if self.calendar.active
-      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:location_id.to_sql_column} = #{self.location.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND id != #{self.id}"])
+      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:location_id.to_sql_column} = #{self.location.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} #{dont_conflict_with_self}"])
     else
-      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:location_id.to_sql_column} = #{self.location.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql} AND id != #{self.id}"])
+      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:location_id.to_sql_column} = #{self.location.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql} #{dont_conflict_with_self}"])
     end
     unless c.zero?
       errors.add_to_base("There is a conflicting timeslot!")
