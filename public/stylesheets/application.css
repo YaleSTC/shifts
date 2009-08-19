@@ -88,7 +88,7 @@ th{
   border: solid 1px #C66;
   font-size:11px;
   margin-top:10px;
-  padding:5px 8px;    
+  padding:5px 8px;
 }
 
 #flash_warning {
@@ -282,8 +282,12 @@ ul#miniTabs a:hover {
   line-height: 1.75em;
 }
 
-li#useful_links {
+ul#useful_links {
     list-style-type: none;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
 }
 
 ul#navigationList {
@@ -695,3 +699,4 @@ errorExplanation h2 {
 #timer{
 	font-size: 20px;
 }
+

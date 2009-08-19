@@ -4,7 +4,7 @@ class Department < ActiveRecord::Base
   has_many :users, :through => :departments_users
   has_many :roles, :dependent => :destroy
   has_many :shifts
-#  has_and_belongs_to_many :roles  
+#  has_and_belongs_to_many :roles
   has_many :locations, :through => :loc_groups
   has_many :data_types, :dependent => :destroy
   has_many :data_objects, :through => :data_types
@@ -28,6 +28,10 @@ class Department < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_one :department_config, :dependent => :destroy
 
+  def get_links
+    self.notices.select{|n| n.useful_link}
+  end
+
   private
   def create_permissions
     self.create_admin_permission(:name => name + " dept admin")
@@ -39,3 +43,4 @@ class Department < ActiveRecord::Base
   end
 
 end
+

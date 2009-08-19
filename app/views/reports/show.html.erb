@@ -12,27 +12,25 @@
 
   <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
 
-      <div id="report_data_objects">
-        <fieldset>
-          <legend>Data Objects</legend>
-          <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
-        </fieldset>
-      </div>
+  <div id="report_data_objects">
+    <fieldset>
+      <legend>Data Objects</legend>
+      <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
+    </fieldset>
+  </div>
 
-      <div id = "useful_links">
-        <fieldset>
-          <legend>Useful Links</legend>
-          <!-- PARTIALIZE!! -->
-
-          <% for l in @report.get_links do %>
-            <% l = l.content.split("|$|") %>
-            <%= link_to "#{l.first}", "#{l.last}", :popup => true %>
-            <br />
-          <%end%>
-          <!-- -->
+  <div id = "useful_links_div">
+    <fieldset>
+      <legend>Useful Links</legend>
+      <!-- PARTIALIZE!! -->
+      <div id = "report_links">
+        <ul id = "useful_links">
+          <%= render :partial => 'notices/useful_links', :collection => @report.get_links %>
           <%= link_to_post_a_useful_link %>
-        </fieldset>
+        </ul>
       </div>
+    </fieldset>
+  </div>
 
   <div id="report_relative_size">
 <% end %>
@@ -49,8 +47,9 @@
   <%= button_to "End shift", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'} %>
 <% elsif !@report.departed %>
   This report is still in progress.
-<% end %> 
+<% end %>
 
 <% if !@report.departed %>
 <%= javascript_include_tag 'leave_confirm'%>
 <% end %>
+
