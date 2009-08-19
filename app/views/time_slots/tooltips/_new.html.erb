@@ -17,15 +17,7 @@
         <%= f.label :calendar %><br />
         <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
       </p>
-      <p>
-        <%= hidden_field_tag "days[]", Time.parse(params[:date]).wday %>
-        <!-- <% weekday = Time.parse(params[:date]).wday %>
-        <strong>Days:</strong><br />
-        <% SHORT_WEEK_DAYS.each_with_index do |day, i| %>
-          <%= check_box_tag "days[]", i, weekday == i, {:id => "days_#{i}"} %>
-          <%= day %>
-        <% end %> -->
-      </p>
+      <%= hidden_field_tag "days[]", Time.parse(params[:date]).wday %>
       <p>
         <%
           if params[:xPercentage]
