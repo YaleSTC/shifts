@@ -5,6 +5,59 @@ html {
   overflow-y: scroll;
 }
 
+<<<<<<< HEAD:public/stylesheets/application.css
+a.action_with_icon{
+	vertical-align: middle;
+}
+
+img.mini_icon {
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+}
+
+table, td, th{
+	border:1px solid #666;
+	padding: 2px;
+	border-collapse:collapse;
+}
+
+th{
+	background: #123456; /*415578;*/
+	border:1px solid black;
+	color: white;
+}
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+
+#flash_warning {
+  background-color:#FFF0AA;
+  border:1px solid #908C99;
+}
+
+#flash_notice {
+  background-color:#98EEC3;
+  border:1px solid #21A454;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+
+#flash_big_notice {
+  background-color:#FFCCCC;
+  border:1px solid #CC6666;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+
+/* Main Styles and IDs */
 body {
 	color: #000;
   margin: 0pt;
@@ -179,8 +232,12 @@ ul#application_tabs a:hover {
   line-height: 1.75em;
 }
 
-li#useful_links {
+ul#useful_links {
     list-style-type: none;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
 }
 
 ul#navigationList {
@@ -682,3 +739,4 @@ th{
   font-size: 12px;
   list-style: disc;
 }
+

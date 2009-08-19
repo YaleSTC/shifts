@@ -26,6 +26,10 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_uniqueness_of :admin_permission_id
 
+  def get_links
+    self.notices.select{|n| n.useful_link}
+  end
+
 #  has_and_belongs_to_many :users
   private
   def create_permissions
@@ -38,3 +42,4 @@ class Department < ActiveRecord::Base
   end
 
 end
+
