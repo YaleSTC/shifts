@@ -8,7 +8,7 @@
     <% end %>
     <div class="center_container">
       <div class="center_content">
-        <%= link_to_remote "x", {:url => {:controller => 'shifts', :action => 'destroy', :id => shift.id, :calendar => true}, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px" %>
+        <%= link_to_remote "x", {:url => {:controller => 'shifts', :action => 'destroy', :id => shift.id, :calendar => true}, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px", :class => 'delete_link' %>
         <%= shift.user.name %>
       </div>
     </div>

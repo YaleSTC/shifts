@@ -2,6 +2,12 @@ module TimeSlotsHelper
   
   def time_slot_style(time_slot)
     @right_overflow = @left_overflow = false
+    
+    #not DRY, thrown in for AJAX reasons for now. sorry :( -ryan 
+    @dept_start_hour ||= current_department.department_config.schedule_start / 60
+    @dept_end_hour ||= current_department.department_config.schedule_end / 60
+    @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
+    
     left = ((time_slot.start - (time_slot.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
     width = (time_slot.duration/3600.0) / @hours_per_day * 100
     if left < 0

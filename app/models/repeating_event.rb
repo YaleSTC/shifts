@@ -14,13 +14,15 @@ class RepeatingEvent < ActiveRecord::Base
 
   #This method takes a repeating event, destroys all future timeslots/shifts associated with it,
   #orphans all previous timeslots/shifts associated with it, and destroys the repeating event
-  def self.destroy_self_and_future(repeating_event)
+  def self.destroy_self_and_future(repeating_event, time=false)
+    should_update = !time
+    time = Time.now unless time
     if repeating_event.has_time_slots?
-        TimeSlot.delete_all("repeating_event_id = #{repeating_event.id.to_sql} AND end > #{Time.now.utc.to_sql}")
-        TimeSlot.update_all("repeating_event_id = NULL", "repeating_event_id = #{repeating_event.id.to_sql}")
+        TimeSlot.delete_all("#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql} AND #{:end.to_sql_column} > #{time.utc.to_sql}")
+        TimeSlot.update_all("#{:repeating_event_id.to_sql_column} = #{nil.to_sql}", "#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql}") if should_update
       else
-        Shift.delete_all("repeating_event_id = #{repeating_event.id.to_sql} AND end > #{Time.now.utc.to_sql}")
-        Shift.update_all("repeating_event_id = NULL", "repeating_event_id = #{repeating_event.id.to_sql}")
+        Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => ["#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql} AND #{:end.to_sql_column} > #{time.utc.to_sql}"]))
+        Shift.update_all("#{:repeating_event_id.to_sql_column} = #{nil.to_sql}", "#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql}") if should_update
     end
     repeating_event.destroy
   end

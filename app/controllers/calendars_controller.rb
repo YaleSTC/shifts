@@ -1,5 +1,6 @@
 class CalendarsController < ApplicationController
   layout 'calendar'
+  before_filter :require_department_admin
 
   def index
     @calendars = @department.calendars
@@ -47,7 +48,7 @@ class CalendarsController < ApplicationController
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
     @time_increment = current_department.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
-    
+
     #get calendar colors
     @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
     @color = {}
@@ -87,31 +88,75 @@ class CalendarsController < ApplicationController
     end
   end
 
+  def prepare_copy
+    @calendar = Calendar.find(params[:id]).clone
+  end
+
+  def copy
+    @old_calendar = Calendar.find(params[:id])
+    @new_calendar = Calendar.new(params[:calendar])
+    @new_calendar.department = @department
+    wipe = params[:wipe] ? true : false
+    begin
+      ActiveRecord::Base.transaction do
+        if @new_calendar.save!
+          errors = Calendar.copy(@old_calendar, @new_calendar, wipe)
+        end
+        raise errors.to_s unless !errors || errors.empty?
+        redirect_to calendars_path
+      end
+    rescue Exception => e
+      @errors = e.message.gsub("Validation failed:", "").split(",")
+      @calendar = @new_calendar.clone
+      render :action => 'prepare_copy'
+    end
+  end
+
   def destroy
     @calendar = Calendar.find(params[:id])
-    @calendar.destroy
+    ActiveRecord::Base.transaction do
+      Calendar.destroy_self_and_future(@calendar)
+    end
     flash[:notice] = "Successfully destroyed calendar."
     redirect_to calendars_url
   end
 
+  def prepare_wipe_range
+  end
+
+  def wipe_range
+    @calendar = Calendar.new(params[:start_and_end])
+    @start = @calendar.start_date
+    @end = @calendar.end_date
+    Calendar.wipe_range(@start, @end, params[:time_slots], params[:shifts], params[:location_ids], params[:cal_ids])
+    flash[:notice] = "Successfully wiped range of days."
+    redirect_to calendars_path
+  end
+
+  def warn
+  end
+
   def toggle
     @calendar = Calendar.find(params[:id])
+    if params[:wipe]
+      wipe = true
+    else
+      wipe =false
+    end
     ActiveRecord::Base.transaction do
       if @calendar.active
           @calendar.deactivate
-          @problems = "Penguins"
+          @problems = false
       else
-          @problems = @calendar.activate
+          @problems = @calendar.activate(wipe)
       end
     end
     if @problems
-      if @problems != "Penguins"
-        raise @problems.split(",").to_yaml
-      else
-        raise "Deactivated calendar, yo."
-      end
+      @problems = @problems.split(",")
+      render :action => "warn"
     else
-      raise "Calendar has been activated, yo."
+      flash[:notice] = "The calendar was successfully #{@calendar.active ? 'activated' : 'deactivated'}"
+      redirect_to :action => "index"
     end
   end
 

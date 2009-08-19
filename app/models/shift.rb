@@ -8,6 +8,7 @@ class Shift < ActiveRecord::Base
   belongs_to :location
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
+  before_update :disassociate_from_repeating_event
 
   validates_presence_of :user
   validates_presence_of :location
@@ -17,14 +18,14 @@ class Shift < ActiveRecord::Base
 
   named_scope :active, lambda {{:conditions => {:active => true}}}
   named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
-  named_scope :on_day, lambda {|day| { :conditions => ['"start" >= ? and "start" < ?', day.beginning_of_day.utc, day.end_of_day.utc]}}
-  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ['"start" >= ? and "start" < ?', start_day.beginning_of_day.utc, end_day.end_of_day.utc]}}
-  named_scope :between, lambda {|start, stop| { :conditions => ['"start" >= ? and "start" < ?', start.utc, stop.utc]}}
+  named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
+  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
+  named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
-  named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ['(("start" >= ? and "start" < ?) or ("end" > ? and "end" <= ?)) and "scheduled" = ? and "location_id" IN (?)', start.utc, stop.utc - incr, start.utc + incr, stop.utc, true, locs], :order => '"location_id", "start"' }}
-  named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ['(("start" >= ? and "end" < ?) or ("start" >= ? and "start" < ?)) and "scheduled" = ? and "location_id" IN (?)', day_start.utc, start.utc, stop.utc, day_end.utc, true, locs], :order => '"location_id", "start"' }}
+  named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > #{(start.utc + incr).to_sql} and #{:end.to_sql_column} <= #{(stop.utc).to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{true.to_sql})"], :order => "#{:location_id.to_sql_column}, #{:start.to_sql}" }}
+  named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
@@ -73,23 +74,45 @@ class Shift < ActiveRecord::Base
   end
 
 
+  #This method takes a list of shifts and deletes them, all their subrequests,
+  # and all the relevant UserSinksUserSource entries. Necessary for conflict
+  #wiping in repeating_event and calendars, as well as wiping a date range
+  def self.mass_delete_with_dependencies(shifts_to_erase)
+    array_of_shift_arrays = shifts_to_erase.batch(450)
+    array_of_shift_arrays.each do |shifts|
+      subs_to_erase = SubRequest.find(:all, :conditions => [shifts.collect{|shift| "(#{:shift_id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")] )
+      array_of_sub_arrays = subs_to_erase.batch(450)
+      array_of_sub_arrays.each do |subs|
+        UserSinksUserSource.delete_all([subs.collect{|sub| "(#{:user_sink_type.to_sql_column} = #{'SubRequest'.to_sql} AND #{:user_sink_id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
+        SubRequest.delete_all([subs.collect{|sub| "(#{:id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
+      end
+      Shift.delete_all([shifts.collect{|shift| "(#{:id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")])
+    end
+  end
+
+
 
   #This method creates the multitude of shifts required for repeating_events to work
   #in order to work efficiently, it makes a few GIANT sql insert calls
   def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, active, wipe)
-    #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
+    #We need several inner arrays with one big outer one, b/c sqlite freaks out
+    #if the sql insert call is too big. The "make" arrays are then used for making
+    #the shifts, and the "test" for finding conflicts.
     outer_make = []
     inner_make = []
     outer_test = []
     inner_test = []
-    #Take each day and build an array containing the pieces of the sql query
+    diff = end_time - start_time
+    #Take each day and build an arrays containing the pieces of the sql queries
     days.each do |day|
-      seed_start_time = start_time
-      seed_end_time = end_time
+      seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
+      seed_end_time = seed_start_time+diff
       while seed_end_time <= end_date
-        seed_start_time = seed_start_time.next(day)
-        seed_end_time = seed_end_time.next(day)
-        inner_test.push "(user_id = #{user_id.to_sql} AND (active = #{true.to_sql} OR calendar_id = #{cal_id.to_sql}) AND department_id = #{department_id.to_sql} AND start <= #{seed_end_time.utc.to_sql} AND end >= #{seed_start_time.utc.to_sql})"
+        if active
+          inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
+        else
+          inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND #{:calendar_id.to_sql_column} = #{cal_id.to_sql} AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
+        end
         inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{user_id.to_sql}, #{department_id.to_sql}, #{active.to_sql}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
@@ -100,18 +123,21 @@ class Shift < ActiveRecord::Base
           outer_test.push inner_test
           inner_test = []
         end
+         seed_start_time = seed_start_time.next(day)
+         seed_end_time = seed_start_time + diff
       end
       #handle leftovers or the case where there are less than 450 rows to be inserted
-      outer_make.push inner_make
-      outer_test.push inner_test
     end
-    #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
+      outer_make.push inner_make unless inner_make.empty?
+      outer_test.push inner_test unless inner_test.empty?
+    #Look for conflicts, delete them if wipe is on, and either complain about
+    #conflicts or make the new shifts
     if wipe
-        outer_test.each do |s|
-          Shift.delete_all(s.join(" OR "))
+        outer_test.each do |sh|
+          Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => [sh.join(" OR ")]))
         end
         outer_make.each do |s|
-          sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
+          sql = "INSERT INTO shifts (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:user_id.to_sql_column}, #{:department_id.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
           ActiveRecord::Base.connection.execute sql
         end
       return false
@@ -120,9 +146,9 @@ class Shift < ActiveRecord::Base
         outer_test.each do |s|
           out += Shift.find(:all, :conditions => [s.join(" OR ")])
         end
-      if out.empty? || !active
+      if out.empty?
           outer_make.each do |s|
-            sql = "INSERT INTO shifts ('location_id', 'calendar_id', 'repeating_event_id', 'start', 'end', 'created_at', 'updated_at', 'user_id', 'department_id', 'active') SELECT #{s.join(" UNION ALL SELECT ")};"
+            sql = "INSERT INTO shifts (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:user_id.to_sql_column}, #{:department_id.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
           end
         return false
@@ -131,11 +157,24 @@ class Shift < ActiveRecord::Base
     end
   end
 
-  def self.check_for_conflicts(shifts)
-    if shifts.empty?
+
+  #Used for activating calendars, check/wipe conflicts
+  def self.check_for_conflicts(shifts, wipe)
+    #big_array is just an array of arrays, the inner arrays being less than 450
+    #elements so sql doesn't freak
+    big_array = shifts.batch(450)
+    if big_array.empty?
       ""
+    elsif wipe
+      big_array.each do |sh|
+        Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => [sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")]))
+      end
+      return ""
     else
-      Shift.find(:all, :conditions => [shifts.collect{|s| "(user_id = #{s.user_id.to_sql} AND active = #{true.to_sql} AND department_id = #{s.department_id.to_sql} AND start <= #{s.end.utc.to_sql} AND end >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
+      out=big_array.collect do |sh|
+        Shift.find(:all, :conditions => [sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
+      end
+      out.join(",")+","
     end
   end
 
@@ -295,14 +334,18 @@ class Shift < ActiveRecord::Base
 
   def shift_is_within_time_slot
     unless self.power_signed_up
-      c = TimeSlot.count(:all, :conditions => ['location_id = ? AND start <= ? AND end >= ? AND active = ?', self.location_id, self.start, self.end, true])
+      c = TimeSlot.count(:all, :conditions => ["#{:location_id.to_sql_column} = #{self.location_id.to_sql} AND #{:start.to_sql_column} <= #{self.start.to_sql} AND #{:end.to_sql_column} >= #{self.end.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
       errors.add_to_base("You can only sign up for a shift during a time slot!") if c == 0
     end
   end
 
   def user_does_not_have_concurrent_shift
 
-    c = Shift.count(:all, :conditions => ['user_id = ? AND start < ? AND end > ? AND department_id =? AND (active = ? OR calendar_id = ?)', self.user_id, self.end, self.start, self.department, true, self.calendar])
+    if self.calendar.active
+      c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
+    else
+      c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}"])
+    end
     unless c.zero?
       errors.add_to_base("#{self.user.name} has an overlapping shift in that period") unless (self.id and c==1)
     end
@@ -335,10 +378,13 @@ class Shift < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add_to_base("Repeating event start and end dates must be within the range of the calendar!") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+      errors.add_to_base("Shift start and end dates must be within the range of the calendar!") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
     end
   end
 
+  def disassociate_from_repeating_event
+    self.repeating_event_id = nil
+  end
 
   class << columns_hash['start']
     def type

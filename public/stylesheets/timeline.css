@@ -240,6 +240,8 @@ div.AJAX_alert{
 	text-align: center;
 	width: 150px;
 	z-index: 1001;
+	max-height: 500px;
+	overflow: auto;
 }
 
 img.right_arrow {

@@ -1,4 +1,5 @@
 class PunchClocksController < ApplicationController
+  layout "payforms"
 
   def index
     require_department_admin
@@ -7,7 +8,7 @@ class PunchClocksController < ApplicationController
 
   def create
     @punch_clock = PunchClock.new({:user => current_user, :department => current_department, :runtime => 0, :last_touched => Time.now})
-    @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in."
+    @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in." + "<br/>" + @punch_clock.errors.full_messages.join("\n")
     redirect_to dashboard_url
   end
   
@@ -17,32 +18,29 @@ class PunchClocksController < ApplicationController
   end
   
 # Stops, restarts, or submits the punch clock depending on params
+# Draft revision, not yet tested -ben
   def update
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
     if params[:pause]
-      @punch_clock.paused = true
-      @punch_clock.runtime += Time.now - @punch_clock.last_touched
+      message = @punch_clock.pause || "Successfully paused punch clock."
     elsif params[:unpause]
-      @punch_clock.paused = false
+      message = @punch_clock.unpause || "Successfully unpaused punch clock."
     elsif params[:punch_clock]  # Clocking out  
-      payform_item = PayformItem.new({:date => Date.today,
-                                      :category => Category.find_by_name("Punch Clocks"),
-                                      :hours => (@punch_clock.runtime/3600), # sec -> hr
-                                      :description => params[:punch_clock][:description]})
-      payform_item.payform = Payform.build(@punch_clock.department, @punch_clock.user, Date.today)
-      begin
-        if (payform_item.save! && @punch_clock.destroy)
-          flash[:notice] = "Successfully clocked out."
-          redirect_to dashboard_path and return
-        end
-      rescue Exception => e
-        flash[:notice] = e.message
-        render :edit and return
+      message = @punch_clock.submit(params[:punch_clock][:description])
+      if message
+        error = true
+      else
+        error = false
+        message = "Successfully clocked out."
       end
     end
-    @punch_clock.last_touched = Time.now
-    flash[:notice] = @punch_clock && @punch_clock.save ? "Successfully modified punch clock." : "Could not modify punch clock."
+    @punch_clock.last_touched = Time.now unless params[:punch_clock]
+    if @punch_clock && @punch_clock.save && !error
+      flash[:notice] = message
+    else
+      flash[:error] = "Could not modify punch clock: #{message}"
+    end
     redirect_to current_user == @punch_clock.user ? dashboard_path : punch_clocks_path
   end  
   
@@ -50,8 +48,12 @@ class PunchClocksController < ApplicationController
   def destroy
     @punch_clock = PunchClock.find(params[:id])
     return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
-    flash[:notice] = @punch_clock.destroy ? "Successfully canceled punch clock." : "Could not cancel punch clock."
-    redirect_to :controller => "/dashboard"
+    if @punch_clock.destroy
+      flash[:notice] = "Successfully canceled punch clock."
+    else 
+      flash[:error] = "Could not cancel punch clock."
+    end
+    redirect_to current_user == @punch_clock.user ? dashboard_path : punch_clocks_path  
   end
   
 end

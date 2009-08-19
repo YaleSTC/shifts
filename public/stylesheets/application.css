@@ -1,66 +1,11 @@
-/* default css -- shouldn't be necessary anymore
-
-body {
-  background-color: #4B7399;
-  font-family: Verdana, Helvetica, Arial;
-  font-size: 14px;
-}
-
-a img {
-  border: none;
-}
-
-a {
-  color: #0000FF;
-}
-
-#container {
-  width: 75%;
-  margin: 0 auto;
-  background-color: #FFF;
-  padding: 20px 40px;
-  border: solid 1px black;
-  margin-top: 20px;
-}
-
-.fieldWithErrors {
-  display: inline;
-}
-
-*/
-
-.clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
-}
-
-.disabled {
-  color: #888;
-  background-color: #ddd !important;
-}
-
-
-/*this is used for the department_config form*/
-.shift_admin_form label {
-  width: 30em;
-  float: left;
-  text-align: right;
-  margin-right: 0.5em;
-  display: block;
-}
-
-
-
-
-/*this used to be main.css -- copied here for the time being*/
-
+/* Main Styles and IDs */
 
 /* Make the vertical scrollbar always appear */
 html {
   overflow-y: scroll;
 }
 
+<<<<<<< HEAD:public/stylesheets/application.css
 a.action_with_icon{
 	vertical-align: middle;
 }
@@ -123,6 +68,8 @@ body {
   background-image: none;
 }
 
+/* Header-specific classes */
+
 #pagebox {
   background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
   margin: 0px auto;
@@ -130,7 +77,7 @@ body {
   width: 900px;
   border: medium none;
 }
-#yaleHeader {
+#page_header {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
   float: left;
@@ -138,21 +85,21 @@ body {
   height: 35px;
   padding: 0px;;
 }
-#yaleHeader h2 {
-  background: transparent url(../images/yale_alt_header.gif) no-repeat scroll 0% 0%;
+#page_header h2 {
+  background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%;
   float: left;
   font-size: 12px;
   margin: 0pt;
   text-indent: -9999px;
   border-bottom: none;
 }
-#yaleHeader h2 a {
+#page_header h2 a {
   display: block;
   height: 36px;
   width: 130px;
 }
-#identityHeader {
-  background: #869FC7 url(../images/identityheader2.jpg) no-repeat scroll 0% 0%;
+#main_banner {
+  background: #869FC7 url(../images/theme/main_banner.jpg) no-repeat scroll 0% 0%;
   border-bottom: 1px solid #FFFFFF;
   color: #FFFFFF;
   clear: both;
@@ -160,21 +107,21 @@ body {
   margin: 0px auto;
   padding: 0px;
 }
-#identityHeader h1 {
+#main_banner h1 {
   float: left;f
   font-size: 12px;
   height: 0pt;
   margin: 0pt;
   text-indent: -9999px;
 }
-#identityHeader img {
+#main_banner img {
   display: block;
   color: #FFFFFF;
 }
 
 div#chooser {
   float: left;
-  width: 120px;
+  width: 250px;
   padding: 0px 0px 0px 10px;
   margin-top: 1px;
 }
@@ -189,10 +136,15 @@ div#supermode{
     float: right;
     width: 60px;
 }
-#login {
+
+div#login{
   float: right;
-  width: 700px;
+  width: 84.2%;
+  margin: 0 auto;
+  text-align: right;
+  color: whitesmoke;
 }
+
 #login p {
   margin: 9pt 10px 0pt 0pt;
   font-size: 12px;
@@ -202,7 +154,6 @@ div#supermode{
   float: right;
 }
 
-/* Header-specific classes */
 #login p.login_status {
   color: #fff;
 }
@@ -222,19 +173,18 @@ div#supermode{
   line-height: 1.6em;
 }
 
-#itsLinksHeader {
+#link_bar {
   background-color: #8B9B6C;
   border-bottom: 1px solid #FFFFFF;
   height: 25px;
   padding: 5px 10px 4px;
 }
 
-
-#miniTabsBox {
+#application_tab_bar {
   float: right;
-  width: 750px;
+  width: 600px;
 }
-ul#miniTabs {
+ul#application_tabs {
   float: right;
   font-family: Verdana, Geneva, Arial, sans-serif;
   font-size: 12px;
@@ -245,14 +195,14 @@ ul#miniTabs {
   list-style-position: outside;
   list-style-type: square;
 }
-ul#miniTabs li {
+ul#application_tabs li {
   display: inline;
   line-height: 11px;
   list-style-type: none;
   margin: 0pt;
   padding: 0pt;
 }
-ul#miniTabs a {
+ul#application_tabs a {
   color: #FFFFFF;
   float: left;
   line-height: 11px;
@@ -260,7 +210,7 @@ ul#miniTabs a {
   text-decoration: none;
 }
 
-ul#miniTabs a:hover {
+ul#application_tabs a:hover {
     border-bottom:2px solid #EEF0AE;
     padding-bottom:1px;
 }
@@ -400,6 +350,7 @@ ul#navigationList a:hover {
 }
 
 /* Get rid of standard margin/padding */
+/* redundant reset? -ben */
 h1, h2, h3, h4, h5, h6, ul, li, ol {
   margin: 0px;
   padding: 0px;
@@ -583,10 +534,11 @@ ul{
 span#progress_bar {
 	/*border: 1px black solid;*/
 	padding: 3px;
+	margin-bottom: 30px;
 }
 
 span#progress_bar #current_step {
-	background: blue;
+	background: rgb(83, 110, 141);
 	color: white;
 	border: 1px black solid;
 	padding: 3px;
@@ -647,31 +599,123 @@ div.table_right {
 }
 
 tr#loading_row{
-	display:none;
+  display:none;
 }
 
 img.loading_icon {
-	vertical-align: middle;
-	width: 1.2em;
-	height: 1.2em;
-	margin-right: 5px;
+  vertical-align: middle;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 5px;
 }
 
 
+#timer{
+  font-size: 20px;
+}
+
+#new_notice{
+ margin: 5px 0px;
+}
+/*Align all labels with their form elements*/
+label {
+  vertical-align: baseline;
+}
+
+.form_label_large {
+  font-size: 12pt;
+}
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+.disabled {
+  color: #888;
+  background-color: #ddd !important;
+}
+
+
+/*this is used for the department_config form*/
+.centered_form label {
+  width: 30em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+a.action_with_icon{
+	vertical-align: middle;
+}
+
+img.mini_icon {
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+}
+
+table, td, th{
+	border:1px solid #666;
+	padding: 2px;
+	border-collapse:collapse;
+}
+
+th{
+	background: #123456; /*415578;*/
+	border:1px solid black;
+	color: white;
+}
+
+
+/*FLASH*/
+.flash {
+  border: 1px solid;
+  font-size:11px;
+  margin:2px;
+  padding:2px;
+}
+
+.flash#flash_error {
+  background-color: #ffcccc;
+  border-color: #cc6666;
+}
+
+.flash#flash_warning {
+  background-color:#fff0aa;
+  border-color: #908c99;
+}
+
+.flash#flash_notice {
+  background-color:#98eec3;
+  border-color: #21a454;
+}
+
+/* Do we need this anymore? -ben */
+#flash_big_notice {
+  background-color:#FFCCCC;
+  border:1px solid #CC6666;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
 
 /* styling for errors */
-errorExplanation {
+#errorExplanation {
   width: 400px;
   border-style: solid;
   border-color: #CF0000;
   border-width:2px;
   padding: 0px;
   padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+  margin-top: 10px;
+	margin-bottom: 20px;
+  background-color: #f0f0f0;;
 }
 
-errorExplanation h2 {
+#errorExplanation h2 {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
@@ -694,9 +738,5 @@ errorExplanation h2 {
 #errorExplanation ul li {
   font-size: 12px;
   list-style: disc;
-}
-
-#timer{
-	font-size: 20px;
 }
 
