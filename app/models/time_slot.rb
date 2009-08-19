@@ -20,7 +20,7 @@ class TimeSlot < ActiveRecord::Base
 
 
   #This method creates the multitude of shifts required for repeating_events to work
-  #in order to work efficiently, it makes a few GIANT sql insert calls
+  #in order to work efficiently, it makes a few GIANT sql insert calls -Mike
   def self.make_future(end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
     #We need several inner arrays with one big outer one, b/c sqlite freaks out
     #if the sql insert call is too big. The "make" arrays are then used for making
@@ -87,7 +87,7 @@ class TimeSlot < ActiveRecord::Base
   end
 
 
-  #Used for activating calendars, check/wipe conflicts
+  #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(time_slots, wipe)
     #big_array is just an array of arrays, the inner arrays being less than 450
     #elements so sql doesn't freak
