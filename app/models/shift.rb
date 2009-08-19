@@ -74,17 +74,36 @@ class Shift < ActiveRecord::Base
   end
 
 
+  #This method takes a list of shifts and deletes them, all their subrequests,
+  # and all the relevant UserSinksUserSource entries. Necessary for conflict
+  #wiping in repeating_event and calendars, as well as wiping a date range
+  def self.mass_delete_with_dependencies(shifts_to_erase)
+    array_of_shift_arrays = shifts_to_erase.batch(450)
+    array_of_shift_arrays.each do |shifts|
+      subs_to_erase = SubRequest.find(:all, :conditions => [shifts.collect{|shift| "(#{:shift_id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")] )
+      array_of_sub_arrays = subs_to_erase.batch(450)
+      array_of_sub_arrays.each do |subs|
+        UserSinksUserSource.delete_all([subs.collect{|sub| "(#{:user_sink_type.to_sql_column} = #{'SubRequest'.to_sql} AND #{:user_sink_id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
+        SubRequest.delete_all([subs.collect{|sub| "(#{:id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
+      end
+      Shift.delete_all([shifts.collect{|shift| "(#{:id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")])
+    end
+  end
+
+
 
   #This method creates the multitude of shifts required for repeating_events to work
   #in order to work efficiently, it makes a few GIANT sql insert calls
   def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, active, wipe)
-    #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
+    #We need several inner arrays with one big outer one, b/c sqlite freaks out
+    #if the sql insert call is too big. The "make" arrays are then used for making
+    #the shifts, and the "test" for finding conflicts.
     outer_make = []
     inner_make = []
     outer_test = []
     inner_test = []
     diff = end_time - start_time
-    #Take each day and build an array containing the pieces of the sql query
+    #Take each day and build an arrays containing the pieces of the sql queries
     days.each do |day|
       seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
       seed_end_time = seed_start_time+diff
@@ -111,10 +130,11 @@ class Shift < ActiveRecord::Base
     end
       outer_make.push inner_make unless inner_make.empty?
       outer_test.push inner_test unless inner_test.empty?
-    #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
+    #Look for conflicts, delete them if wipe is on, and either complain about
+    #conflicts or make the new shifts
     if wipe
-        outer_test.each do |s|
-          Shift.delete_all(s.join(" OR "))
+        outer_test.each do |sh|
+          Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => [sh.join(" OR ")]))
         end
         outer_make.each do |s|
           sql = "INSERT INTO shifts (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:user_id.to_sql_column}, #{:department_id.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
@@ -137,17 +157,17 @@ class Shift < ActiveRecord::Base
     end
   end
 
+
+  #Used for activating calendars, check/wipe conflicts
   def self.check_for_conflicts(shifts, wipe)
-    big_array = []
-    while shifts && !shifts.empty? do
-      big_array.push shifts[0..450]
-      shifts = shifts[451..shifts.length]
-    end
+    #big_array is just an array of arrays, the inner arrays being less than 450
+    #elements so sql doesn't freak
+    big_array = shifts.batch(450)
     if big_array.empty?
       ""
     elsif wipe
       big_array.each do |sh|
-        Shift.delete_all([sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")])
+        Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => [sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")]))
       end
       return ""
     else
