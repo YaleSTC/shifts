@@ -8,7 +8,6 @@
     <div id="new_notice">
       <%= link_to_post_a_new_notice %>
     </div>
-
   </fieldset>
 
   <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
@@ -32,8 +31,7 @@
     </fieldset>
   </div>
 
-
-    <div id="active_report_area">
+  <div id="active_report_area">
         <h2>Update Your Report</h2>
         <%= render :partial => 'new_report_item_form' %>
 
@@ -50,22 +48,10 @@
       <div class='clear'></div>
     </div> <%# close active_report_area %>
 
-
 <% elsif !@report.departed %>
-<<<<<<< HEAD:app/views/reports/show.html.erb
-  This report is still in progress.
-<% end %>
-=======
-  <p>This report is still in progress.</p>
-<% end %>
->>>>>>> 8b9069a042045c9b4df1d055ceb1e3029245831d:app/views/reports/show.html.erb
-
-<% if !@report.departed %>
-<%#= javascript_include_tag 'leave_confirm'%>
-<% end %>
-
-<<<<<<< HEAD:app/views/reports/show.html.erb
-=======
-
->>>>>>> 8b9069a042045c9b4df1d055ceb1e3029245831d:app/views/reports/show.html.erb
+<p>This report is still in progress.</p>
+ <% end %>
+ <% if !@report.departed %>
+ <%#= javascript_include_tag 'leave_confirm'%>
+ <% end %>
 
