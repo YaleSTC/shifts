@@ -30,12 +30,16 @@ module ActionView
     
     module PrototypeHelper
       
+      USE_PROTECTION = const_defined?(:DISABLE_JQUERY_FORGERY_PROTECTION) ? !DISABLE_JQUERY_FORGERY_PROTECTION : true
+
       unless const_defined? :JQUERY_VAR
-        JQUERY_VAR = '$'
+        JQUERY_VAR = 'jQuery'
       end
           
       unless const_defined? :JQCALLBACKS
         JQCALLBACKS = Set.new([ :beforeSend, :complete, :error, :success ] + (100..599).to_a)
+        #instance_eval { remove_const :AJAX_OPTIONS }
+        remove_const(:AJAX_OPTIONS) if const_defined?(:AJAX_OPTIONS)
         AJAX_OPTIONS = Set.new([ :before, :after, :condition, :url,
                          :asynchronous, :method, :insertion, :position,
                          :form, :with, :update, :script ]).merge(JQCALLBACKS)
@@ -146,7 +150,7 @@ module ActionView
           end
         end
         
-        if respond_to?('protect_against_forgery?') && protect_against_forgery?
+        if USE_PROTECTION && respond_to?('protect_against_forgery?') && protect_against_forgery?
           if js_options['data']
             js_options['data'] << " + '&"
           else
@@ -195,10 +199,11 @@ module ActionView
       def build_callbacks(options)
         callbacks = {}
         options[:beforeSend] = '';
-        [:uninitialized,:loading,:loaded].each do |key|
+        [:uninitialized,:loading].each do |key|
           options[:beforeSend] << (options[key].last == ';' ? options.delete(key) : options.delete(key) << ';') if options[key]
         end
         options.delete(:beforeSend) if options[:beforeSend].blank?
+        options[:complete] = options.delete(:loaded) if options[:loaded] 
         options[:error] = options.delete(:failure) if options[:failure]
         if options[:update]
           if options[:update].is_a?(Hash)
@@ -226,7 +231,7 @@ module ActionView
     class JavaScriptElementProxy < JavaScriptProxy #:nodoc:
       
       unless const_defined? :JQUERY_VAR
-        JQUERY_VAR = ActionView::Helpers::PrototypeHelper::JQUERY_VAR
+        JQUERY_VAR = PrototypeHelper::JQUERY_VAR
       end
       
       def initialize(generator, id)
@@ -260,7 +265,7 @@ module ActionView
     class JavaScriptElementCollectionProxy < JavaScriptCollectionProxy #:nodoc:\
       
       unless const_defined? :JQUERY_VAR
-        JQUERY_VAR = ActionView::Helpers::PrototypeHelper::JQUERY_VAR
+        JQUERY_VAR = PrototypeHelper::JQUERY_VAR
       end
       
       def initialize(generator, pattern)
@@ -271,7 +276,7 @@ module ActionView
     module ScriptaculousHelper
       
       unless const_defined? :JQUERY_VAR
-        JQUERY_VAR = ActionView::Helpers::PrototypeHelper::JQUERY_VAR
+        JQUERY_VAR = PrototypeHelper::JQUERY_VAR
       end
       
       unless const_defined? :SCRIPTACULOUS_EFFECTS
@@ -313,7 +318,7 @@ module ActionView
           js_options = js_options.merge(effect[:options]) if effect[:options]
         end
         
-        [:color, :direction].each do |option|
+        [:color, :direction, :startcolor, :endcolor].each do |option|
           js_options[option] = "'#{js_options[option]}'" if js_options[option]
         end
         
@@ -350,9 +355,9 @@ module ActionView
         options[:dropOnEmpty] = false unless options[:dropOnEmpty]
         options[:helper] = "'clone'" if options[:ghosting] == true
         options[:axis] = case options.delete(:constraint)
-          when "vertical"
+          when "vertical", :vertical
             "y"
-          when "horizontal"
+          when "horizontal", :horizontal
             "x"
           when false
             nil
@@ -364,7 +369,13 @@ module ActionView
         options.delete(:ghosting)
         
         if options[:onUpdate] || options[:url]
-          options[:with] ||= "#{JQUERY_VAR}(this).sortable('serialize',{key:'#{element_id}[]'})"
+          if options[:format]
+            options[:with] ||= "#{JQUERY_VAR}(this).sortable('serialize',{key:'#{element_id}[]', expression:#{options[:format]}})"
+            options.delete(:format)
+          else
+            options[:with] ||= "#{JQUERY_VAR}(this).sortable('serialize',{key:'#{element_id}[]'})"
+          end
+          
           options[:onUpdate] ||= "function(){" + remote_function(options) + "}"
         end
         
