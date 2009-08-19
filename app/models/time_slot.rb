@@ -22,13 +22,15 @@ class TimeSlot < ActiveRecord::Base
   #This method creates the multitude of shifts required for repeating_events to work
   #in order to work efficiently, it makes a few GIANT sql insert calls
   def self.make_future(end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
-    #We need several inner arrays with one big outer one, b/c sqlite freaks out if the sql insert call is too big
+    #We need several inner arrays with one big outer one, b/c sqlite freaks out
+    #if the sql insert call is too big. The "make" arrays are then used for making
+    #the timeslots, and the "test" for finding conflicts.
     outer_make = []
     inner_make = []
     outer_test = []
     inner_test = []
     diff = end_time - start_time
-    #Take each location and day and build an array containing the pieces of the sql query
+    #Take each location and day and build an arrays containing the pieces of the sql queries
     loc_ids.each do |loc_id|
       days.each do |day|
         seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
@@ -57,7 +59,8 @@ class TimeSlot < ActiveRecord::Base
     end
       outer_make.push inner_make unless inner_make.empty?
       outer_test.push inner_test unless inner_test.empty?
-    #for each set of rows to be inserted, insert them, all within a transaction for speed's sake
+    #Look for conflicts, delete them if wipe is on, and either complain about
+    #conflicts or make the new timeslots
     if wipe
         outer_test.each do |s|
           TimeSlot.delete_all(s.join(" OR "))
@@ -83,7 +86,11 @@ class TimeSlot < ActiveRecord::Base
     end
   end
 
+
+  #Used for activating calendars, check/wipe conflicts
   def self.check_for_conflicts(time_slots, wipe)
+    #big_array is just an array of arrays, the inner arrays being less than 450
+    #elements so sql doesn't freak
     big_array = []
     while time_slots && !time_slots.empty? do
       big_array.push time_slots[0..450]
@@ -129,7 +136,7 @@ class TimeSlot < ActiveRecord::Base
 
   def no_concurrent_timeslots
     dont_conflict_with_self = (self.new_record? ? "" : "AND id != #{self.id}")
-    
+
     if self.calendar.active
       c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:location_id.to_sql_column} = #{self.location.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} #{dont_conflict_with_self}"])
     else
