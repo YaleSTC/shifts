@@ -4,7 +4,7 @@ class RepeatingEvent < ActiveRecord::Base
   has_many :shifts
   validate :loc_ids_present
   validate :days_of_week_present
-  validate :user_id_present, :if => Proc.new{|repeating_event| repeating_event.has_shifts?}
+  validate :user_id_present
   validate :start_date_less_than_end_date
   validate :is_within_calendar
   before_save :set_start_times
@@ -101,7 +101,7 @@ class RepeatingEvent < ActiveRecord::Base
   end
 
   def user_id_present
-    errors.add_to_base("User can't be blank!") unless self.user_id
+    errors.add_to_base("Please select a user!") unless (self.user_id && self.user_id!=0 && !self.user_id.empty?) || self.is_set_of_timeslots
   end
 
   def start_date_less_than_end_date
