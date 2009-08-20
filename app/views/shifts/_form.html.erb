@@ -27,7 +27,7 @@
     </p>
     <p>
       <%= f.label :user %><br />
-      <%= f.collection_select(:user_id, @department.users, :id, :name, {:prompt => "Select a user"}) %>
+      <%= f.collection_select(:user_id, User.active_in_department(@department), :id, :name, {:prompt => "Select a user"}) %>
     </p>
     <p>
       <%= f.check_box :power_signed_up %> Power signup (ignores restrictions and time slots)

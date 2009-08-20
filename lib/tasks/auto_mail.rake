@@ -1,7 +1,7 @@
   def send_reminders(department)
     message = department.department_config.reminder_message
     @users = department.users.select {|u| if u.is_active?(department) then u.email end }
-    admin_user = User.find_by_login("kaa43")  # should be changed to the default admin or whatever
+    admin_user = User.find_by_login("kaa43")  #TODO should be changed to the default admin or whatever
     users_reminded = []
     for user in @users
       ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, message))
@@ -13,9 +13,10 @@
   
   def send_warnings(department)
     message = department.department_config.warning_message
-    start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 8.week
-    @users = department.users.sort_by(&:name)
+    start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 4.week
+    @users = User.active_in_department(department).sort_by(&:name)
     users_warned = []
+    #TODO replace admin user with department admin email address
     @admin_user = User.find_by_login("kaa43")
     for user in @users     
       #Payform.build(department, user, Date.today)

@@ -1,7 +1,7 @@
 class UserProfilesController < ApplicationController
 before_filter :user_login
   def index
-    @user_profiles = UserProfile.all.select{|profile| profile.user.departments.include?(@department) }
+    @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department) }
   end
 
   def show
@@ -91,7 +91,7 @@ before_filter :user_login
   end
 
   def search
-    users = current_department.users
+    users = User.active_in_department(current_department)
     #filter results if we are searching
     if params[:search]
       params[:search] = params[:search].downcase
