@@ -14,7 +14,7 @@
   def send_warnings(department)
     message = department.department_config.warning_message
     start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 4.week
-    @users = User.active_in_department(department).sort_by(&:name)
+    @users = department.active_users.sort_by(&:name)
     users_warned = []
     #TODO replace admin user with department admin email address
     @admin_user = User.find_by_login("kaa43")

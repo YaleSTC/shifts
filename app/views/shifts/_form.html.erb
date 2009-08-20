@@ -10,24 +10,24 @@
       end
     %>
     <%= f.label :start_time %><br />
-    <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => @department.department_config.time_increment %>
+    <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => current_department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :end_time %><br />
-    <%= f.unobtrusive_datetime_picker :end, :default => start_time + 1.hour, :minute_step => @department.department_config.time_increment %>
+    <%= f.unobtrusive_datetime_picker :end, :default => start_time + 1.hour, :minute_step => current_department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
   <% if current_user.is_admin_of?(current_department) %>
     <p>
       <%= f.label :calendar %><br />
-      <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+      <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
     </p>
     <p>
       <%= f.label :user %><br />
-      <%= f.collection_select(:user_id, User.active_in_department(@department), :id, :name, {:prompt => "Select a user"}) %>
+      <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
     </p>
     <p>
       <%= f.check_box :power_signed_up %> Power signup (ignores restrictions and time slots)
