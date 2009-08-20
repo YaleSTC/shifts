@@ -75,6 +75,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.active_in_department(department)
+    joins = DepartmentsUser.find(:all, :conditions => {:department_id => department.id, :active => true.to_sql })
+    joins.map{|j| User.find(j.user_id)}
+  end
+  
   def self.mass_add(logins, department)
     failed = []
 

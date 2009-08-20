@@ -17,7 +17,8 @@ every :sunday, :at => "9am" do
 end
 
 every 20.minutes do
-  rake "auto_warn"
-  command "/usr/bin/ar_sendmail -o --batch-size 20 --chdir /home/kwabena/work/newstc"
+  #Do we really want to warn people every 20 mins if they have an overdue payform?
+  #rake "auto_warn"
+  command "/usr/bin/ar_sendmail -o --batch-size 20 --chdir /srv/www/rails/shifts/apps/current"
 end
 
