@@ -11,7 +11,7 @@ class PunchClockSetsController < ApplicationController
 
   def new
     @punch_clock_set = PunchClockSet.new
-    @users_select = User.active_in_department(current_department).sort_by(&:name)
+    @users_select = current_department.active_users.sort_by(&:name)
   end
 
   def create
@@ -32,7 +32,7 @@ class PunchClockSetsController < ApplicationController
       flash[:warning] = "Could not clock in the following users: #{failed.to_sentence}." unless failed.empty?
       redirect_to :action => :index
     else
-      @users_select = User.active_in_department(current_department).sort_by(&:name)
+      @users_select = current_department.active_users.sort_by(&:name)
       render :action => :new
     end
   end
@@ -63,7 +63,7 @@ class PunchClockSetsController < ApplicationController
 # the presence of the parent is optional.  Must investigate.  -ben
   def destroy
     @punch_clock_set = PunchClockSet.find(params[:id])
-#    @punch_clock_set.punch_clocks.each {|clock| clock.destroy}
+    @punch_clock_set.punch_clocks.each {|clock| clock.destroy}
     @punch_clock_set.destroy
     redirect_to(punch_clock_sets_url)
   end

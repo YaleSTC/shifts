@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if params[:show_inactive]
       @users = @department.users
     else
-      @users = User.active_in_department(@department)
+      @users = current_department.active_users
     end
 
     if params[:search]
@@ -279,7 +279,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.active_in_department(@department)
+    @users = current_department.active_users
 
     #filter results if we are searching
     if params[:search]

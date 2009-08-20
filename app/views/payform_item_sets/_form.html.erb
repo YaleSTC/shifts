@@ -10,7 +10,7 @@
   </p>
   <p>
      <%= f.label :category %><br />
-     <%= f.collection_select(:category_id, @department.categories, :id, :name, {:prompt => "Select a category"}) %>
+     <%= f.collection_select(:category_id, current_department.categories, :id, :name, {:prompt => "Select a category"}) %>
   </p>
   <p>
     <%= f.label :description %><br />
@@ -18,7 +18,7 @@
   </p>
   <p>
     <div class="no_js">
-      <% User.active_in_department(@department).each do |user| -%>
+      <% current_department.active_users.each do |user| -%>
         <%= check_box_tag "user_ids[]", user.id, false -%> <%= f.label :users, user.name -%><br />
       <% end %>
     </div>

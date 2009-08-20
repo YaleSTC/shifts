@@ -30,6 +30,12 @@ class Department < ActiveRecord::Base
     self.notices.select{|n| n.useful_link}
   end
 
+# Returns all users active in a given department
+  def active_users
+    joins = DepartmentsUser.find(:all, :conditions => {:department_id => self, :active => true })
+    joins.map{|j| User.find(j.user_id)}
+  end
+  
 #  has_and_belongs_to_many :users
   private
   def create_permissions

@@ -82,7 +82,7 @@ class PayformsController < ApplicationController
   end
 
   def search
-    users = User.active_in_department(current_department)
+    users = current_department.active_users
 
     #filter results if we are searching
     if params[:search]
@@ -126,7 +126,7 @@ class PayformsController < ApplicationController
     message = params[:post]["body"]
     start_date = Date.parse(params[:post]["date"])
     @department = current_department
-    @users = User.active_in_department(@department).sort_by(&:name)
+    @users = current_department.active_users.sort_by(&:name)
     users_warned = []
     @admin_user = current_user
     for user in @users
