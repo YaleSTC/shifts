@@ -1,7 +1,7 @@
   def send_reminders(department)
     message = department.department_config.reminder_message
     @users = department.users.select {|u| if u.is_active?(department) then u.email end }
-    admin_user = User.find_by_login("kaa43")  # should be changed to the default admin or whatever
+    admin_user = User.find_by_login("kaa43")  #TODO should be changed to the default admin or whatever
     users_reminded = []
     for user in @users
       ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, message))
