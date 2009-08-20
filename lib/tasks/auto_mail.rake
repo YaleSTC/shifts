@@ -13,9 +13,10 @@
   
   def send_warnings(department)
     message = department.department_config.warning_message
-    start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 8.week
-    @users = department.users.sort_by(&:name)
+    start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 4.week
+    @users = User.active_in_department(department).sort_by(&:name)
     users_warned = []
+    #TODO replace admin user with department admin email address
     @admin_user = User.find_by_login("kaa43")
     for user in @users     
       #Payform.build(department, user, Date.today)
