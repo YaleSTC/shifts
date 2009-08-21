@@ -4,6 +4,7 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :repeating_event
   has_many :shifts, :through => :location
   before_save :set_active
+  before_validation :adjust_for_multi_day
   before_update :disassociate_from_repeating_event
 
   validates_presence_of :start, :end, :location_id
@@ -149,6 +150,10 @@ class TimeSlot < ActiveRecord::Base
 
   def disassociate_from_repeating_event
     self.repeating_event_id = nil
+  end
+
+  def adjust_for_multi_day
+    self.end += 1.days if self.end <= self.start
   end
 
   def is_within_calendar
