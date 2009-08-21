@@ -48,34 +48,29 @@ class PayformItemsController < ApplicationController
     return unless require_owner_or_dept_admin(@payform, @payform.department)
 
     begin
-#      errors = []    
-      PayformItem.transaction do
-        @payform_item.save(false)
 # unfortunately the only way I could get this to work was such that if there are
 # errors in both (ie with the reason and something else), it'll  tell you about 
 # the reason, then, when you've fixed that, it'll tell you about the rest.
+#      errors = []    
+      PayformItem.transaction do
+        @payform_item.save(false)
         @payform_item.parent.save!
         @payform_item.save!
         @payform.submitted = nil
-
         @errors = "Failed to unsubmit payform" unless @payform.save
-
       end
-        if @payform_item.user == current_user  # just for testing; should be != instead
-          AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
-        end
-
-          flash[:notice] = "Successfully edited payform item."
-          redirect_to @payform_item.payform
+      if @payform_item.user != current_user
+        AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
+      end
+      flash[:notice] = "Successfully edited payform item."
+      redirect_to @payform_item.payform
 
     rescue Exception => e 
       @payform = @payform_item.payform
       @payform_item = PayformItem.find(params[:id])
       @payform_item.add_errors(e)
       @payform_item.attributes = params[:payform_item]
-      
-      flash[:error] = @errors.to_s if @errors
-      
+      flash[:error] = @errors.to_s if @errors      
       render :action => 'edit'
     end
   end
@@ -83,6 +78,7 @@ class PayformItemsController < ApplicationController
   def delete
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
+    raise @payform_item.to_yaml
     return unless require_owner_or_dept_admin(@payform, @payform.department)    
     layout_check
   end
@@ -99,11 +95,9 @@ class PayformItemsController < ApplicationController
       PayformItem.transaction do
         @payform_item.save!
       end
-  
-      if @payform_item.payform.user == current_user  # just for testing; should be != instead
+      if @payform_item.payform.user != current_user  # just for testing; should be != instead
         AppMailer.deliver_payform_item_deletion_notification(@payform_item)
       end
-      
       flash[:notice] = "Payform item deleted." if @payform_item.payform.submitted == false
       redirect_to @payform      
   
