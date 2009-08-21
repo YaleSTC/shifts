@@ -18,19 +18,8 @@
   </p>
   <p>
     <div class="no_js">
-      <% current_department.active_users.each do |user| -%>
-        <%= check_box_tag "user_ids[]", user.id, false -%> <%= f.label :users, user.name -%><br />
-      <% end %>
+      <%= collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})%>
     </div>
-    <%# TODO: bah not done %>
-    <div class="js" style="display: none">
-      <%= tokenized_users_autocomplete(@payform_item_set, nil, "users") %>
-    </div>
-    
-    <script type="text/javascript">
-      $('div.js').toggle();
-      //$('div.no_js').toggle();
-    </script>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

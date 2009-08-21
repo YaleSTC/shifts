@@ -78,7 +78,6 @@ class PayformItemsController < ApplicationController
   def delete
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
-    raise @payform_item.to_yaml
     return unless require_owner_or_dept_admin(@payform, @payform.department)    
     layout_check
   end
