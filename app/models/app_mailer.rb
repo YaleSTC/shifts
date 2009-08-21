@@ -1,5 +1,4 @@
 class AppMailer < ActionMailer::Base
-  default_url_options[:host] = request.host
 
 
   def sub_taken_notification(sub_request, new_shift, dept)
