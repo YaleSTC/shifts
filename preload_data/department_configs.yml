@@ -7,7 +7,7 @@ department_configs_001:
   department_id: "1"
   description_min: "10"
   end_of_month: f
-  from_address_for_auto_reminders: 
+  mailer_address: 
   grace_period: "7"
   id: "1"
   monthly: f
@@ -32,7 +32,7 @@ department_configs_002:
   department_id: "2"
   description_min: "10"
   end_of_month: f
-  from_address_for_auto_reminders: 
+  mailer_address: 
   grace_period: "0"
   id: "2"
   monthly: f

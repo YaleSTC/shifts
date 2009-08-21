@@ -44,6 +44,10 @@
       <%= f.text_area :warning_message, :size => "50x5" %>
     </p>
     <p>
+      <label>"From" address on automated emails</label>
+      <%= f.text_field :mailer_address %>
+    </p>
+    <p>
       <label>Number of weeks before admin view warning ('0' to disable):</label>
       <%= f.text_field :warning_weeks, :size => 6 %>
     </p>

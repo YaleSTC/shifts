@@ -16,6 +16,7 @@
     start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 4.week
     @users = department.active_users.sort_by(&:name)
     users_warned = []
+    
     #TODO replace admin user with department admin email address
     @admin_user = User.find_by_login("kaa43")
     for user in @users     
