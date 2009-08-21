@@ -75,10 +75,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.active_in_department(department)
-    joins = DepartmentsUser.find(:all, :conditions => {:department_id => department.id, :active => true.to_sql })
-    joins.map{|j| User.find(j.user_id)}
-  end
+# Returns all users active in a given department - deprecated in favor of department.active_users
+#  def self.active_in_department(department)
+#    joins = DepartmentsUser.find(:all, :conditions => {:department_id => department.id, :active => true.to_sql })
+#    joins.map{|j| User.find(j.user_id)}
+#  end
   
   def self.mass_add(logins, department)
     failed = []
@@ -141,10 +142,10 @@ class User < ActiveRecord::Base
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
-    unless self.departments_users[0].nil?
-      self.departments_users[0].active
+    if DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => dept, :active => true})
+      true
     else
-      return false
+      false
     end
   end
 
@@ -164,7 +165,7 @@ class User < ActiveRecord::Base
   end
 
   def proper_name
-    [first_name, last_name].join(" ")
+    [first_name, last_naime].join(" ")
   end
 
   def full_name_with_nick
@@ -187,21 +188,21 @@ class User < ActiveRecord::Base
     [self]
   end
 
-  def available_sub_requests(departments = self.departments) #TODO: this could probalby be optimized even more
-    #Wrap it in a transaction speeds things up....
-    ActiveRecord::Base.transaction do
+#TODO: This could possibly be further optimized
+  def available_sub_requests(departments = self.departments)
+    ActiveRecord::Base.transaction do #Wrapped in a transaction for performance reasons
     a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
     b = departments.collect do |department|
       UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Department' AND user_source_id = #{department.id.to_sql}"])
     end
     c = self.roles.select{|role| departments.include?(role.department)}.collect do |role|
-        UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Role' AND user_source_id = #{role.id.to_sql}"])
+      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Role' AND user_source_id = #{role.id.to_sql}"])
     end
-    (a+b.flatten+c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }.select{ |subs| subs.user != self }
+    (a + b.flatten + c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }.select{ |subs| subs.user != self }
     end
   end
 
-  def restrictions #TODO: this could probalby be optimized
+  def restrictions #TODO: this could probably be optimized
     Restriction.current.select{|r| r.users.include?(self)}
   end
 

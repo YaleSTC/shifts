@@ -91,7 +91,7 @@ before_filter :user_login
   end
 
   def search
-    users = User.active_in_department(current_department)
+    users = current_department.active_users
     #filter results if we are searching
     if params[:search]
       params[:search] = params[:search].downcase
