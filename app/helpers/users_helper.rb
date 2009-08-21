@@ -9,7 +9,7 @@ module UsersHelper
 
   def determine_class(user)
     if u = User.find_by_login(user.login)
-      if u.departments.include?(@department)
+      if u.departments.include?(current_department)
         "stop"
       else
         "caution"

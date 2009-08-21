@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if params[:show_inactive]
       @users = @department.users
     else
-      @users = User.active_in_department(@department)
+      @users = current_department.active_users
     end
 
     if params[:search]
@@ -54,13 +54,10 @@ class UsersController < ApplicationController
   def create
     if @user = User.find_by_login(params[:user][:login])
       if @user.departments.include? @department #if user is already in this department
-        #don't modify any data, as this is probably a mistake
         flash[:notice] = "This user already exists in this department!"
         redirect_to @user
       else
         @user.roles += (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-
-        #add user to new department
         @user.departments << @department unless @user.departments.include?(@department)
         flash[:notice] = "User successfully added to new department."
         redirect_to @user
@@ -71,7 +68,7 @@ class UsersController < ApplicationController
       @user.set_random_password
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
-        if @user.auth_type=='built-in'
+        if @user.auth_type == 'built-in'
           @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
         else
@@ -88,7 +85,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user_profile = UserProfile.find_by_user_id(@user.id)
     @user_profile_entries = @user.user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
-
   end
 
   def update
@@ -97,7 +93,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     #store role changes, or else they'll overwrite roles in other departments
     #remove all roles associated with this department
-    department_roles = @user.roles.select{|role| role.department == @department}
+    department_roles = @user.roles.select{|role| role.department == current_department}
     updated_roles = @user.roles - department_roles
     #now add back all checked roles associated with this department
     updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
@@ -143,12 +139,13 @@ class UsersController < ApplicationController
   end
 
   def destroy #the preferred action. really only disables the user for that department.
+# DRAFT IMPROVEMENT -ben
+#    @user = User.find(params[:id])
+#    @user.destroy
+#    flash[:notice] = "Successfully destroyed user."
+#    redirect_to department_users_path(current_department)
+# END DRAFT  
     @user = User.find(params[:id])
-    # new_entry = DepartmentsUser.new();
-    # old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-    # new_entry.attributes = old_entry.attributes
-    # new_entry.active = false
-    # DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
     if @user.toggle_active(@department) #new_entry.save
       flash[:notice] = "Successfully deactivated user."
       redirect_to @user
@@ -157,22 +154,35 @@ class UsersController < ApplicationController
     end
   end
 
-  def restore #reactivates the user
-    @user = User.find(params[:id])
-    new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-    new_entry.attributes = old_entry.attributes
-    new_entry.active = true
-    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+# I believe that neither of these two actions is in use anymore -ben
+# Replacement for destroy action
+#  def deactivate
+#    @user = User.find(params[:id])
+#    if @user.toggle_active(@department) #new_entry.save
+#      flash[:notice] = "Successfully deactivated user."
+#      redirect_to @user
+#    else
+#      render :action => 'edit'
+#    end
+#  end
 
-    if new_entry.save
-      flash[:notice] = "Successfully restored user."
-      redirect_to @user
-    else
-      render :action => 'edit'
-    end
-  end
+# Reactivates the user
+#  def restore 
+#    @user = User.find(params[:id])
+#    new_entry = DepartmentsUser.new();
+#    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
+#    new_entry.attributes = old_entry.attributes
+#    new_entry.active = true
+#    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+#    if new_entry.save
+#      flash[:notice] = "Successfully restored user."
+#      redirect_to @user
+#    else
+#      render :action => 'edit'
+#    end
+#  end
 
+# To be replaced with destroy
   def really_destroy #if we ever need an action that actually destroys users.
     @user = User.find(params[:id])
     @user.destroy
@@ -180,21 +190,25 @@ class UsersController < ApplicationController
     redirect_to department_users_path(current_department)
   end
 
+# Empty action, necessary for a view -ben
+# Used for importing from CSV
   def import
   end
 
+# Used for importing from CSV
   def verify_import
-    file=params[:file]
+    file = params[:file]
     flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
     begin
       @users = User.from_csv(file, :normal)
-      @no_nav=true
+      @no_nav = true
     rescue Exception => e
       flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
       render :action => 'import'
     end
   end
 
+# Used for importing from CSV
   def save_import
     if params[:commit]=="Cancel"
       redirect_to import_department_users_path(@department) and return
@@ -265,7 +279,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @users = User.active_in_department(@department)
+    @users = current_department.active_users
 
     #filter results if we are searching
     if params[:search]
