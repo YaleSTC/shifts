@@ -279,19 +279,19 @@ class Shift < ActiveRecord::Base
   # = Display helpers =
   # ===================
   def short_display
-     self.location.short_name + ', ' + self.start.to_s(:just_date) + ' ' + self.time_string
+      "#{location.short_name}, #{start.to_s(:just_date)} #{time_string}"
   end
 
   def to_message_name
-    self.user.name + " in " + self.location.short_name + " from " + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma)
+    "#{user.name} in #{location.short_name} from #{start.to_s(:am_pm_long_no_comma)} to #{self.end.to_s(:am_pm_long_no_comma)}"
   end
 
   def short_name
-    self.location.short_name + ', ' + self.user.name + ', ' + self.time_string + ", " + self.start.to_s(:just_date)
+    "#{location.short_name}, #{user.name}, #{time_string}, #{start.to_s(:just_date)}"
   end
 
   def time_string
-    self.scheduled? ? self.start.to_s(:am_pm) + '-' + self.end.to_s(:am_pm) : "unscheduled"
+    scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
   end
 
   def sub_request
