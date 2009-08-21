@@ -14,27 +14,32 @@ class PayformItemSetsController < ApplicationController
   
   def new
     @payform_item_set = PayformItemSet.new
+    @users_select = current_department.users.sort_by(&:name)
   end
   
   def create
     @payform_item_set = PayformItemSet.create(params[:payform_item_set])
-    params[:user_ids] ||= []
     date = build_date_from_params(:date, params[:payform_item_set])
-    params[:user_ids].each do |user_id|
+    params[:user_ids].each do |user_id| 
+      unless user_id == ""
+
       payform_item = PayformItem.new(params[:payform_item_set])
       payform_item.payform = Payform.build(current_department, User.find(user_id), date)
       @payform_item_set.payform_items << payform_item
+      end
     end
     if @payform_item_set.save
       flash[:notice] = "Successfully created payform item set."
       redirect_to @payform_item_set
     else
+    @users_select = current_department.users.sort_by(&:name)
       render :action => "new"
     end
   end
   
   def edit
     @payform_item_set = PayformItemSet.find(params[:id])
+    @users_select = current_department.users.sort_by(&:name)
   end
   
   def update
@@ -43,6 +48,7 @@ class PayformItemSetsController < ApplicationController
       flash[:notice] = "Successfully updated payform item set."
       redirect_to @payform_item_set
     else
+      @users_select = current_department.users.sort_by(&:name)
       render :action => 'edit'
     end
   end
