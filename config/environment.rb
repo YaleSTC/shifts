@@ -41,7 +41,7 @@ Rails::Initializer.run do |config|
     #thus, for now, the server will have to be connected to the yale network
     #to be able to send emails
   }
-  config.action_mailer.raise_delivery_errors = true
+#  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_charset = "utf-8"
 
   # Specify gems that this application depends on.
