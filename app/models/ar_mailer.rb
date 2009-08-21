@@ -1,7 +1,7 @@
 require 'action_mailer/ar_mailer'
 
 class ArMailer < ActionMailer::ARMailer
-  default_url_options[:host] = 'localhost:3000'
+  default_url_options[:host] = request.host
   self.delivery_method = :activerecord
   #For use when users are imported from csv
   def new_user_password_instructions(user)
