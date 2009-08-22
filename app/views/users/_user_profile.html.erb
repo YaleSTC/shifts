@@ -1,6 +1,6 @@
 <% fields_for @user_profile do |f| %>
   <p>
-    <% if @user_profile_entries %>
+    <% if @user_profile_entries != [] %>
       <% @user_profile_entries.each do |entry| %>
         <% args = entry.prepare_form_helpers %>
         <p>
@@ -27,6 +27,8 @@
         <% end %>
 
       <% end %>
+    <% else %>
+      There don't appear to be any profile fields for this department. Want to <%= link_to "add one", new_user_profile_field_path %>?
     <% end %>
   </p>
 
