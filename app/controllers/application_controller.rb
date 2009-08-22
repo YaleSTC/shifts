@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
+  before_filter :prepare_mail_url
 #  before_filter :load_user
 
   helper :layout # include all helpers, all the time
@@ -300,6 +301,10 @@ class ApplicationController < ActionController::Base
   # however it won't work for some nested routes (and defaults to root_path instead) so please overwrite this method in such controller
   def switch_department_path
     send("#{controller_name}_path") rescue root_path
+  end
+
+  def prepare_mail_url
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
 
