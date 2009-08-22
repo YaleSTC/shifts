@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-  before_filter :require_department_admin
+  before_filter :require_admin_or_superuser
   layout 'users'
 
   def index
@@ -46,6 +46,12 @@ class RolesController < ApplicationController
     @role.destroy
     flash[:notice] = "Successfully destroyed role."
     redirect_to department_roles_path(@department)
+  end
+  
+private 
+
+  def require_admin_or_superuser
+    redirect_to(access_denied_path) unless current_user.is_admin_of?(current_department) || current_user.is_superuser?
   end
 end
 

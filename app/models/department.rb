@@ -36,6 +36,10 @@ class Department < ActiveRecord::Base
     joins.map{|j| User.find(j.user_id)}
   end
   
+  def department
+    self
+  end
+  
 #  has_and_belongs_to_many :users
   private
   def create_permissions

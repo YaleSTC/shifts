@@ -9,7 +9,7 @@
     </p>
     <p>
       <label>Schedule view end time:</label>
-      <%= f.select :schedule_end, @time_choices %>
+      <%= f.select :schedule_end, @time_choices2 %>
     </p>
     <p>
       <label>Shift time increment:</label>
@@ -71,9 +71,8 @@
       <label>Last day of payform month:</label>
       <%= f.select :day, (1..28).step + DepartmentConfig::LAST_DAY_SELECT %>
     </p>
-
-      <%= submit_tag "Save" %>
   </fieldset>
+<%= submit_tag "Save Settings" %>
 <% end %>
 </div>
 

@@ -60,6 +60,7 @@ class ShiftsController < ApplicationController
 
   end
 
+# TODO: verify that it can be removed
 # Necessary? -ben
 # No, but since the shifts view is broken,i'm using this.
   def show
@@ -67,6 +68,8 @@ class ShiftsController < ApplicationController
     return unless require_department_membership(@shift.department)
   end
 
+# TODO: write the view
+# Temporarily deactivated because its view is unfinished, and will be slightly tricky design-wise -ben
   def show_active
     @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
   end

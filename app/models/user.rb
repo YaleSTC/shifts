@@ -112,19 +112,19 @@ class User < ActiveRecord::Base
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     return false unless loc_group
-    self.is_superuser? || permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
+    permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
   end
 
   # check if a user can sign up for a shift in this loc group
   def can_signup?(loc_group)
     return false unless loc_group
-    self.is_superuser? || permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
+    permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
   end
 
   # check for admin permission given a dept, location group, or location
-  def is_admin_of?(dept)
-    return false unless dept
-    self.is_superuser? || (permission_list.include?(dept.admin_permission) && self.is_active?(dept))
+  def is_admin_of?(thing)
+    return false unless thing 
+    (permission_list.include?(thing.department.admin_permission) || permission_list.include?(thing.admin_permission)) && self.is_active?(thing.department)
   end
 
   # Can only be called on objects which have a user method
@@ -214,18 +214,6 @@ class User < ActiveRecord::Base
     DepartmentsUser.delete_all( :user_id => self, :department_id => department)
     new_entry.save
   end
-
-#TODO: A method like this might be helpful
-#  def switch_auth_type
-#    if self.auth_type=='CAS'
-#      self.auth_type='built-in'
-#      self.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions (n)})
-#      self.save!
-#    else
-#      self.auth_type='CAS'
-#      self.save!
-#    end
-#  end
 
   def deliver_password_reset_instructions!(mailer)
     self.reset_perishable_token!
