@@ -1,5 +1,4 @@
 class AppMailer < ActionMailer::Base
-  default_url_options[:host] = 'localhost:3000'
 
 
   def sub_taken_notification(sub_request, new_shift, dept)
@@ -60,4 +59,3 @@ class AppMailer < ActionMailer::Base
   end
 
 end
-
