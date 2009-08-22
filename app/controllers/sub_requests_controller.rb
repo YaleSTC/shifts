@@ -26,7 +26,7 @@ class SubRequestsController < ApplicationController
     @sub_request.user = @sub_request.shift.user
     begin
       SubRequest.transaction do
-        @sub_request.save(false) #TODO: need to save before adding polymorphisms -- sorry!
+        @sub_request.save(false)
         params[:list_of_logins].split(",").each do |l|
           l = l.split("||")
           @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
