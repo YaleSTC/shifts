@@ -1,7 +1,9 @@
 Hi <%= @old_payform_item.user.name %>,
 <%= @old_payform_item.source %> has deleted your payform item for <%= @old_payform_item.created_at.strftime("%A %B %d, %Y") %>.
  
-Best,
-STC
-P.S. Penguins! We thought you should know
+<%= @old_payform_item.source %> said:
+
+ "<%= @old_payform_item.reason %>"
+ 
+Please log in to the application and verify that this change is appropriate before submitting your payform for approval.
 
