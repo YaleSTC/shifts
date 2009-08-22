@@ -41,8 +41,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :user_configs, :only => [:edit, :update]
 
-
-
   map.resources :sub_requests
   map.resources :notices, :collection => {:archive => :get}
 
@@ -74,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :punch_clocks
   end
 
-  map.resources :reports, :member => {:popup => :get} do |report|
+  map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
     report.resources :report_items
   end
 

@@ -14,19 +14,8 @@ class ReportsController < ApplicationController
     render :layout => false
   end
 
-# Do we need this action?  -ben
-# uncommented for now -- it's the default redirect after creating a shift. -ryan
-# When we clean the interface, then we can take it out -ben
- def new
-   #TODO: this doesn't work, because we can't redirect with post. bah.
-   @report = Report.new
-   #post_via_redirect :action => 'create'
- end
-
-# Already secured by @report.user == current_user -ben
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
-    # add a report item about logging in
     @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
     if @report.user==current_user && @report.save && !current_user.current_shift
       a = @report.shift
@@ -35,7 +24,7 @@ class ReportsController < ApplicationController
       redirect_to @report
     else
       if current_user.current_shift
-        flash[:notice] = "You can't sign into two shifts!"
+        flash[:notice] = "You can't sign into two shifts at the same time!"
       else
         flash[:notice] = "You can't sign into someone else's report!" unless @report.shift.user==current_user
       end
@@ -53,7 +42,6 @@ class ReportsController < ApplicationController
     return unless require_owner_or_dept_admin(@report.shift, @report.shift.department)
     if (params[:sign_out])
       @report.departed = Time.now
-      # add a report item about logging out
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.login} logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?      
     end
@@ -63,6 +51,7 @@ class ReportsController < ApplicationController
                                     "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
                                     "date"=>Date.today,
                                     "description"=>"Shift in the #{@report.shift.location.name}")
+      AppMailer.deliver_shift_report(@report.shift, @report, @report.shift.department)
       if @payform_item.save
         flash[:notice] = "Successfully submitted report and updated payform."
       else
