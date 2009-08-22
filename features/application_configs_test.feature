@@ -9,6 +9,7 @@ Feature: Application Configs
     Given the user "Albus Dumbledore" is a superuser
     And I am "Albus Dumbledore"
     And I am on the Application Settings page
+    And I fill in "App email address" with "testing@contact.ben"
 
 @passing
   Scenario: Footer

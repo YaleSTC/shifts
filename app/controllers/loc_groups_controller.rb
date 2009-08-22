@@ -1,11 +1,11 @@
 class LocGroupsController < ApplicationController
-  before_filter :require_department_admin, :except => [:show, :edit, :update]
+  before_filter :require_department_admin, :except => [:index, :show, :edit, :update]
   before_filter :find_loc_group_and_check_admin, :only => [:show, :edit, :update]
   # Show, edit, and update will allow the loc_group_admin as well
 
   def index
-    @loc_groups = @department.loc_groups.select { |lg| current_user.is_admin_of?(lg) }
-    @loc_group = @department.loc_groups.build
+    @loc_groups = current_department.loc_groups.select { |lg| current_user.is_admin_of?(lg) }
+    @loc_group = LocGroup.new({:department => current_department})
   end
 
   def show

@@ -5,6 +5,10 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
+		<% if current_user.is_superuser? %>
+        <h3> Super User Option </h3>
+          <li><%= link_to_unless_current "Application Settings", edit_app_config_path %></li>
+      <% end %>
   <% if current_user.is_admin_of?(@department) %>
     <h3>Admin Options</h3>
         <li><%= link_to_unless_current "Department Settings", edit_department_config_path(@department.department_config) %></li>
