@@ -22,7 +22,7 @@
     <%= f.text_field :email %>
   </p>
   <p>
-    <%= f.label :employee_id %><br />
+    <%= f.label :employee_id, text = "Employee ID" %><br />
     <%= f.text_field :employee_id %>
   </p>
  <% if @appconfig.login_options.size >1 %>
@@ -42,7 +42,7 @@
     <%= f.password_field :password_confirmation %>
   </p>
   <% end %>
-  <h4>After clicking "Submit", you be redirected to a login page, after which you may use the app normally.</h4>
+  <h4>After clicking "Submit", you will be redirected to a login page, after which you may use the app normally.</h4>
   <p><%= f.submit "Submit" %></p>
 <% end %>
 <% if @appconfig.use_ldap %>
