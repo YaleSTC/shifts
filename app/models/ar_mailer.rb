@@ -1,18 +1,18 @@
 require 'action_mailer/ar_mailer'
 
 class ArMailer < ActionMailer::ARMailer
-  default_url_options[:host] = 'localhost:3000'
   self.delivery_method = :activerecord
-  #For use when users are imported from csv
-  def new_user_password_instructions(user)
+# For use when users are imported from csv
+# TODO: should be the appconfig mailer address, not a dept-specific one
+  def new_user_password_instructions(user, dept)
     subject       "Password Creation Instructions"
-    from          "Yale@yale.edu"
+    from          dept.department_config.mailer_address
     recipients    user.email
     sent_on       Time.now
     body          :edit_new_user_password_url => edit_password_reset_url(user.perishable_token)
   end
 
-    # beginning of payform notification methods
+# Beginning of payform notification methods
   def due_payform_reminder(admin_user, user, message)
     subject     'Due Payform Reminder'
     recipients  "#{user.name} <#{user.email}>"
@@ -44,12 +44,12 @@ class ArMailer < ActionMailer::ARMailer
                 :filename     => attachment_name
   end
 
-  def admin_edit_notification(payform, payform_item, edit_item)
-  # admin is anybody other than the owner of the payform
+# Notifies a user when somebody else edits their payform
+  def admin_edit_notification(payform, payform_item, edit_item, dept)
     user = payform.user
     subject       'Your payform has been edited'
     recipients    "#{user.name} <#{user.email}>"
-    from          'ST Payform Dev Team <studtech-st-dev-payform@mailman.yale.edu>'
+    from          dept.department_config.mailer_address
     cc            User.find_by_login(edit_item.edited_by).email
     sent_on       Time.now
     content_type  'text/plain'

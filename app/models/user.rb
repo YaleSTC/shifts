@@ -165,7 +165,7 @@ class User < ActiveRecord::Base
   end
 
   def proper_name
-    [first_name, last_naime].join(" ")
+    [first_name, last_name].join(" ")
   end
 
   def full_name_with_nick
