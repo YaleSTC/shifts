@@ -1,8 +1,19 @@
 class AppMailer < ActionMailer::Base
 
+  def shift_report(shift, report, dept)
+    recipients  shift.user.email
+    unless shift.location.report_email.blank?
+      cc        shift.location.report_email
+    end
+    from        shift.user.email
+    subject     "Shift Report: #{shift.short_display}"
+    sent_on     Time.now
+    body        :shift => shift, :report => report
+  end
 
   def sub_taken_notification(sub_request, new_shift, dept)
     recipients  sub_request.shift.user.email
+    cc          new_shift.user.email
     from        dept.department_config.mailer_address
     subject     "Your sub request has been taken by #{new_shift.user.name}"
     sent_on     Time.now

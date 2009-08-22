@@ -215,18 +215,6 @@ class User < ActiveRecord::Base
     new_entry.save
   end
 
-#TODO: A method like this might be helpful
-#  def switch_auth_type
-#    if self.auth_type=='CAS'
-#      self.auth_type='built-in'
-#      self.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions (n)})
-#      self.save!
-#    else
-#      self.auth_type='CAS'
-#      self.save!
-#    end
-#  end
-
   def deliver_password_reset_instructions!(mailer)
     self.reset_perishable_token!
     mailer.call(self)
