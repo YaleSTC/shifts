@@ -63,7 +63,7 @@ class FirstRunController < ApplicationController
 private
   def redirect_if_not_first_run
     if User.first
-      flash[:notice] = "The setup wizard can only be run on first launch."
+      flash[:error] = "The setup wizard can only be run on first launch."
       redirect_to access_denied_path
     end
   end
