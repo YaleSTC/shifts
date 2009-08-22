@@ -8,30 +8,22 @@
 <% if current_user.is_admin_of?(current_department) %>
   <% content_for :left_nav do %>
       <ul id="navigationList">
-        <li><h3>Payform Admin</h3></li>
-        <li>
-          <%= link_to "View Payforms", payforms_path %>
-          <ul>
-            <li><%= link_to "Submitted", payforms_path(:submitted => true)%></li>
-            <li><%= link_to "Approved", payforms_path(:approved => true)%></li>
-            <li><%= link_to "Printed", payforms_path(:printed => true) %></li>
-          </ul>
-        </li>
-        <li><%= link_to "Print History", payform_sets_path %></li>
-        <li><%= link_to "Mass Add Jobs", new_payform_item_set_path %>
-          <ul>
-            <li><%= link_to "View Mass Jobs", payform_item_sets_path %></li>
-          </ul>
-        </li>
-        <li><%= link_to "Punch Clocks", punch_clocks_path %>
-              <ul>
-                <li><%= link_to "Mass Punch Clocks", punch_clock_sets_path %></li>
-              </ul>
-          </li>
-
-        <li><%= link_to "E-mail Reminders", email_reminders_path %></li>
-        <li><%= link_to "Edit Categories", department_categories_path(current_department) %></li>
-        <li><%= link_to "Edit Configurations", edit_department_config_path(@department.department_config) %></li>
+        <h3>View</h3>
+            <li><%= link_to_unless_current "All Payforms", payforms_path %></li>
+            <li><%= link_to_unless_current "Submitted Payforms", payforms_path(:submitted => true)%></li>
+            <li><%= link_to_unless_current "Approved Payforms", payforms_path(:approved => true)%></li>
+            <li><%= link_to_unless_current "Printed Payfroms", payforms_path(:printed => true) %></li>
+            <li><%= link_to_unless_current "Mass Jobs", payform_item_sets_path %></li>
+            <li><%= link_to_unless_current "Punch Clocks", punch_clocks_path %></li>
+            <li><%= link_to_unless_current "Mass Punch Clocks", punch_clock_sets_path %></li>
+            <li><%= link_to_unless_current "Print History", payform_sets_path %></li>
+            <p></p>
+        <h3>Add</h3>
+        <li><%= link_to_unless_current "Mass Jobs", new_payform_item_set_path %></li>
+        <li><%= link_to_unless_current "Mass Punch Clocks", new_punch_clock_set_path %></li>        <p></p>
+        <h3>Edit</h3>
+        <li><%= link_to_unless_current "E-mail Reminders", email_reminders_path %></li>
+        <li><%= link_to_unless_current "Categories", department_categories_path(current_department) %></li>
       </ul>
     <div id="contentNav">
   <% end %>
