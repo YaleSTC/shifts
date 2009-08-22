@@ -1,5 +1,4 @@
 class LocationsController < ApplicationController
-  #TODO: add loc group authorization before filters here
   before_filter :find_allowed_locations
 
   def index
