@@ -26,3 +26,12 @@
   background-color:#F9F9F9;
 }
 
+.update_right {
+  clear:both;
+  float:right;
+}
+
+.update_left {
+  clear:both;
+  float:left;
+}
