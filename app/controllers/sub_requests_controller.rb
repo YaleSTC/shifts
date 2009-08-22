@@ -1,8 +1,9 @@
 class SubRequestsController < ApplicationController
 
-  def index
-    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
-  end
+# Any reason at all why we should leave this in? -ben
+#  def index
+#    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
+#  end
 
   def show
     @sub_request = SubRequest.find(params[:id])
@@ -89,7 +90,7 @@ class SubRequestsController < ApplicationController
     begin  
       SubRequest.take(@sub_request, current_user, params[:just_mandatory])
         flash[:notice] = 'Sub request was successfully taken.'
-        redirect_to :action => "index"
+        redirect_to dashboard_path
 
     rescue Exception => e
       if !@sub_request.user_is_eligible?(current_user)

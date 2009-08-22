@@ -69,7 +69,7 @@ class UsersController < ApplicationController
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
         if @user.auth_type == 'built-in'
-          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n)})
+          @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n, current_department)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
         else
           flash[:notice] = "Successfully created user."
@@ -232,7 +232,7 @@ class UsersController < ApplicationController
         @user.set_random_password
         @user.departments << @department unless @user.departments.include?(@department)
         if @user.save
-          @user.deliver_password_reset_instructions!(Proc.new {|n| ArMailer.deliver_new_user_password_instructions(n)}) if @user.auth_type=='built-in'
+          @user.deliver_password_reset_instructions!(Proc.new {|n| ArMailer.deliver_new_user_password_instructions(n, current_department)}) if @user.auth_type=='built-in'
         else
           failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
         end
