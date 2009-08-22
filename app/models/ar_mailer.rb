@@ -1,7 +1,6 @@
 require 'action_mailer/ar_mailer'
 
 class ArMailer < ActionMailer::ARMailer
-  default_url_options[:host] = 'localhost:3000'
   self.delivery_method = :activerecord
 # For use when users are imported from csv
 # TODO: should be the appconfig mailer address, not a dept-specific one

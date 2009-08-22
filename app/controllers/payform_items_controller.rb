@@ -60,7 +60,7 @@ class PayformItemsController < ApplicationController
         @errors = "Failed to unsubmit payform" unless @payform.save
       end
       if @payform_item.user != current_user
-        AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item)
+        AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item, @payform.department)
       end
       flash[:notice] = "Successfully edited payform item."
       redirect_to @payform_item.payform
@@ -70,7 +70,8 @@ class PayformItemsController < ApplicationController
       @payform_item = PayformItem.find(params[:id])
       @payform_item.add_errors(e)
       @payform_item.attributes = params[:payform_item]
-      flash[:error] = @errors.to_s if @errors      
+      @payform_item.payform = @payform
+      flash[:error] = @errors.to_s if @errors
       render :action => 'edit'
     end
   end
@@ -95,15 +96,15 @@ class PayformItemsController < ApplicationController
         @payform_item.save!
       end
       if @payform_item.payform.user != current_user  # just for testing; should be != instead
-        AppMailer.deliver_payform_item_deletion_notification(@payform_item)
+        AppMailer.deliver_payform_item_deletion_notification(@payform_item, @payform.department)
       end
       flash[:notice] = "Payform item deleted." if @payform_item.payform.submitted == false
       redirect_to @payform      
   
     rescue
-      @payform = @payform_item.payform   
+     @payform = @payform_item.payform   
       if !@payform_item.payform.save
-        flash[:error] = "Error unsumbitting payform. "
+        flash[:error] = "Error unsubmitting payform. "
       end
       render :action => 'delete'
     end
