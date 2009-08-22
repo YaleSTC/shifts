@@ -1,6 +1,6 @@
 <% title "Shift Report at the #{@report.shift.location.name}" %>
 <% if current_user == @report.user && !@report.departed %>
- 
+
   <fieldset class = "index" >
     <legend><%= "Message Center for the #{current_user.current_shift.location.short_name}"%></legend>
     <div id = "message_center">
@@ -21,17 +21,14 @@
   </div>
 
 
-  <div id = "useful_links_div">
+<div id = "useful_links_div">
     <fieldset>
       <legend>Useful Links</legend>
-      <div id = "report_links">
-        <ul id = "useful_links">
-          <%= render :partial => 'notices/useful_links', :collection => @report.get_links %>
-          <%= link_to_post_a_useful_link %>
-        </ul>
-      </div>
+      <div id = "report_useful_links">
+          <%= render :partial => 'notices/report_useful_links' %>
+          </div>
     </fieldset>
-  </div>
+    </div>
 
 
   <div id="active_report_area">
@@ -40,13 +37,13 @@
 
 
       <div id="report_relative_size">
-      
+
 <% end %>
 
         <div id="report_view">
           <%= render :partial => 'report'%>
         </div>
-        
+
 <% if current_user == @report.user && !@report.departed %>
 
       </div> <%# close report_relative_size %>
@@ -61,3 +58,4 @@
 <% elsif !@report.departed %>
   <p>This report is still in progress.</p>
 <% end %>
+

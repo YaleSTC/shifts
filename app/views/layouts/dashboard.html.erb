@@ -2,16 +2,27 @@
   <%= stylesheet_link_tag 'shift', 'timeline'%>
 <% end %>
 
-<% if current_user.is_admin_of?(@department) %>
+
 <% content_for :left_nav do %>
   <ul id="navigationList">
+  <% if current_user.is_admin_of?(@department) %>
     <h3>Admin Options</h3>
         <li><%= link_to_unless_current "Department Settings", edit_department_config_path(@department.department_config) %></li>
         <li><%= link_to_unless_current "Calendars", calendars_path %></li>
         <li><%= link_to_unless_current "Roles", department_roles_path(@department) %></li>
+      <% end %>
+      <h3>Application Links</h3>
+      <li><%= link_to_unless_current "Your preferences", edit_user_config_path(current_user.user_config) %></li>
+        <li><%= link_to "Your Profile", edit_user_profile_path(current_user.login) %></li>
+        <li><%= link_to_unless_current "Notices", notices_path %></li>
+        <% if current_user.is_admin_of?(current_department) || !current_department.get_links.empty? %>
+        <h3>Useful Links</h3>
+        <div id = "dashboard_useful_links">
+          <%= render :partial => 'notices/dashboard_useful_links'%>
+          </div>
+          <% end %>
       </ul>
         <div id="contentNav">
-    <% end %>
   <% end %>
 
 <% content_for :body do %>
