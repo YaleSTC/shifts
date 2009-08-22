@@ -270,6 +270,9 @@ ul#navigationList li a, ul#navigationList li h3 {
   height: 1%;
   display: block;
 }
+ul#navigationList h3 {
+  color: #26287f;
+}
 ul#navigationList a:link, ul#navigationList a:visited {
   color: #2758B3;
   text-decoration: none;
@@ -472,6 +475,11 @@ fieldset#shifts {
   float: left;
 }
 
+fieldset#links{
+  width: 47.5%;
+  float: right;
+}
+
 fieldset#subs {
   width: 47.5%;
   float: right;
@@ -480,13 +488,12 @@ fieldset#subs {
 fieldset#payform {
   width: 47.5%;
   float: left;
-  clear: left;
+
 }
 
 fieldset#punch_clock {
   width: 47.5%;
   float: left;
-  clear: left;
 }
 
 fieldset#schedule{

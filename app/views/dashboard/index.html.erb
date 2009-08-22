@@ -16,8 +16,28 @@
     <% end %>
   </fieldset>
 
+    <fieldset class="index" id="links">
+    <legend>Links</legend>
+      <!--
+      <h4>Internal Links</h4>
+      -->
+      <ul>
+        <li><%= link_to_unless_current "Notices", notices_path %></li>
+        <li><%= link_to_unless_current "Your preferences", edit_user_config_path(current_user.user_config) %></li>
+        <li><%= link_to "Your Profile", edit_user_profile_path(current_user.login) %></li>
+      </ul>
+      <!--
+      <%# unless current_department.get_links.empty? %>
+      <h4>External Links</h4>
+        <ul>
+          <%#= render :partial => 'notices/useful_links', :collection => current_department.get_links %>
+        </ul>
+        <%# end %>
+        -->
+  </fieldset>
+
   <fieldset class="index" id="subs">
-    <legend>Subs Requests</legend>
+    <legend>Sub Requests</legend>
     <% unless @subs_you_requested.empty? %>
       <h4>Subs you've requested</h4>
       <ul>
@@ -63,3 +83,4 @@
   <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
 </fieldset>
 <% end %>
+

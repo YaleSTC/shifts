@@ -50,15 +50,20 @@
       <%= role.name %>
     </div>
   <% end -%>
-
+  <% if @department.roles == []%>
+    There don't appear to be any roles in this department. Want to <%= link_to "add one", new_department_role_path(@department) %>?
+  <% end %>
   </div>
   <div class='profile'>
     <h2>User Profile</h2>
     <%= render :partial => 'user_profile' %>
   </div>
+  
+  <div class='update_left'>
+    <p><%= f.submit "Update" %></p>
+  </div>
 
-  <p><%= f.submit "Update" %></p>
-<% end %>
+  <% end %>
 
 <% if @appconfig.use_ldap %>
 <%= observe_form :user_form, :url => { :action => 'ldap_search' }, :frequency => 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})" %>
