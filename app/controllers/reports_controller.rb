@@ -14,15 +14,6 @@ class ReportsController < ApplicationController
     render :layout => false
   end
 
-# Do we need this action?  -ben
-# uncommented for now -- it's the default redirect after creating a shift. -ryan
-# When we clean the interface, then we can take it out -ben
- def new
-   #TODO: this doesn't work, because we can't redirect with post. bah.
-   @report = Report.new
-   #post_via_redirect :action => 'create'
- end
-
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
     @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
