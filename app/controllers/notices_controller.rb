@@ -42,9 +42,9 @@ class NoticesController < ApplicationController
       @notice.end_time = nil
       @notice.indefinite = true
     else
-      @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
-      @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-      @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+      @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.sticky
+      @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.sticky
+      @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.sticky
     end
     begin
       Notice.transaction do
@@ -158,3 +158,4 @@ class NoticesController < ApplicationController
     end
   end
 end
+

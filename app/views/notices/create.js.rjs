@@ -1,6 +1,6 @@
 if @notice.errors.empty?
   if @notice.useful_link
-      page.replace_html "report_useful_links", :partial => 'notices/report_useful_links' if @report
+      page.replace_html "report_useful_links", :partial => 'notices/report_useful_links'
       page.replace_html "dashboard_useful_links", :partial => 'notices/dashboard_useful_links'
   else
     page.replace_html "all_notices", :partial => 'notices/all_notices'
@@ -9,7 +9,8 @@ if @notice.errors.empty?
     page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
   end
   page << "tb_remove();"
-  page << "tb_init('a#edit');"
+  page << "tb_init('a#edit', 'a#post_link');"
 else
   page.replace_html "errors", :partial => 'notices/error_messages'
 end
+

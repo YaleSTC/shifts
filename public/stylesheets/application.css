@@ -232,10 +232,15 @@ ul#application_tabs a:hover {
 
 ul#useful_links {
     list-style-type: none;
+    display: inline !important;
     float: left;
     text-align: left;
     list-style-position: outside;
     margin-left: 0px;
+}
+
+ul#useful_links li a{
+    display: inline !important;
 }
 
 ul#navigationList {
@@ -247,7 +252,6 @@ ul#navigationList {
   margin: 40px 0 0;
   margin-left: -5px;
   padding: 0;
-
   list-style-image: none;
   list-style-position: outside;
   list-style-type: square;

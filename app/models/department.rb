@@ -27,7 +27,11 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :admin_permission_id
 
   def get_links
-    self.notices.select{|n| n.useful_link}
+    self.current_notices.select{|n| n.useful_link}
+  end
+
+  def current_notices
+    Notice.active.select {|n| n.departments.include?(self)}
   end
 
 # Returns all users active in a given department
@@ -35,11 +39,11 @@ class Department < ActiveRecord::Base
     joins = DepartmentsUser.find(:all, :conditions => {:department_id => self, :active => true })
     joins.map{|j| User.find(j.user_id)}
   end
-  
+
   def department
     self
   end
-  
+
 #  has_and_belongs_to_many :users
   private
   def create_permissions

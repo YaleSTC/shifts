@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def link_to_post_a_useful_link
-    link_to_unless_current('Post a new link', new_notice_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox")
+    link_to_unless_current('Post a new link', new_notice_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
   end
 
   def link_toggle(id, name, speed = "slow")
@@ -94,7 +94,7 @@ module ApplicationHelper
       page[rand].visual_effect :slide_up
     end
   end
-  
+
   def persistent_ajax_alert(page, content)
     rand = "rand"+rand(10000).to_s #unique id for element
     page.insert_html :top, "AJAX_status", "<div id='#{rand}' class='AJAX_alert'><a href='#' style='float:right;' onclick='$(this).parent().remove(); return false;'>[x]</a><br>#{content}</div>"
