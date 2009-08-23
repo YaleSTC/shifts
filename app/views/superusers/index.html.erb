@@ -15,7 +15,7 @@
       <th>Name</th>
       <th>Remove su?</th>
     </tr>
-    <% User.superusers.each do |su| -%>
+    <% @superusers.each do |su| -%>
     <tr>
       <td><%= su.login %></td>
       <td><%= su.name %></td>

@@ -40,6 +40,7 @@ class Department < ActiveRecord::Base
     joins.map{|j| User.find(j.user_id)}
   end
 
+# Simplifies some permission-checking methods greatly
   def department
     self
   end
