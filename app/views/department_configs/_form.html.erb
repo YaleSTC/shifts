@@ -4,27 +4,27 @@
   <fieldset class = "index">
     <legend>Edit Shift Configuration</legend>
     <p>
-      <label>Schedule view start time:</label>
+      <%= f.label :schedule_start, text = "Schedule view start time:" %>
       <%= f.select :schedule_start, @time_choices %>
     </p>
     <p>
-      <label>Schedule view end time:</label>
+      <%= f.label :schedule_end, text = "Schedule view end time:" %>
       <%= f.select :schedule_end, @time_choices2 %>
     </p>
     <p>
-      <label>Shift time increment:</label>
+      <%= f.label :time_increment, text = "Shift time increment:" %>
       <%= f.text_field :time_increment, :size => 6 %>
     </p>
     <p>
-      <label>Late sign-in grace period:</label>
+      <%= f.label :grace_period, text = "Late sign-in grace period:" %>
       <%= f.text_field :grace_period, :size => 6 %>
     </p>
       <p>
-        <label>Display weekends on shift schedule:</label>
+        <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
         <%= f.check_box :weekend_shifts %>
       </p>
       <p>
-        <label>Display unscheduled shifts:</label>
+        <%= f.label :schedule_start, text = "Display unscheduled shifts:" %>
         <%= f.check_box :unscheduled_shifts %>
       </p>
   </fieldset>
@@ -32,43 +32,43 @@
   <fieldset class = "index">
     <legend>Edit Payform Configuration</legend>
     <p>
-      <label>Default Printed Payform Message:</label>
+      <%= f.label :schedule_start, text = "Default Printed Payform Message:" %>
       <%= f.text_area :printed_message, :size => "50x5" %>
     </p>
     <p>
-      <label>Default Payform Reminder:</label>
+      <%= f.label :schedule_start, text = "Default Payform Reminder:" %>
       <%= f.text_area :reminder_message, :size => "50x5" %>
     </p>
     <p>
-      <label>Default Late Payform Warning:</label>
+      <%= f.label :schedule_start, text = "Default Late Payform Warning:" %>
       <%= f.text_area :warning_message, :size => "50x5" %>
     </p>
     <p>
-      <label>"From" address on automated emails</label>
+      <%= f.label :schedule_start, text = "'From' address on automated emails" %>
       <%= f.text_field :mailer_address %>
     </p>
     <p>
-      <label>Number of weeks before admin view warning ('0' to disable):</label>
+      <%= f.label :schedule_start, text = "Elapsed weeks before warning admin about lateness of payform:" %>
       <%= f.text_field :warning_weeks, :size => 6 %>
     </p>
     <p>
-      <label>Minimum Length for Item Description (in characters; '0' to disable):</label>
+      <%= f.label :schedule_start, text = "Minimum Length for Item Description (in characters; '0' to disable):" %>
       <%= f.text_field :description_min, :size => 6 %>
     </p>
     <p>
-      <label>Minimum Length for Edit or Deletion Reason (in characters; '0' to disable):</label>
+      <%= f.label :schedule_start, text = "Minimum Length for Edit or Deletion Reason (in characters; '0' to disable):" %>
       <%= f.text_field :reason_min, :size => 6 %>
     </p>
     <p>
-      <label>Payform Period:</label>
+      <%= f.label :schedule_start, text = "Payform Period:" %>
       <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
     <p id = "week">
-      <label>Last day of payform week:</label>
+      <%= f.label :schedule_start, text = "Last day of payform week:" %>
       <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
     </p>
     <p id = "month">
-      <label>Last day of payform month:</label>
+      <%= f.label :schedule_start, text = "Last day of payform month:" %>
       <%= f.select :day, (1..28).step + DepartmentConfig::LAST_DAY_SELECT %>
     </p>
   </fieldset>

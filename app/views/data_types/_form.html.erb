@@ -13,8 +13,10 @@
       <%= form.label :description %><br />
       <%= form.text_field :description %>
     </p>
+<!-- 
     <br>
-  
+
+ 
     <div id="data_fields" style="display:none">
       <h2>Data Fields</h2>
       <%= render :partial => 'data_field', :collection => @data_type.data_fields %>
@@ -27,6 +29,7 @@
       $('#data_fields').toggle();
       $('.javascript_link').toggle();
     </script>
+-->
     <p>
       <%= form.submit "Submit" %>
     </p>
