@@ -11,7 +11,7 @@ class DepartmentObserver < ActiveRecord::Observer
                         :monthly => false,
                         :weekend_shifts => true,
                         :unscheduled_shifts => true,
-                        :printed_message => "This payform has already been printed and may no longer be edited by you.\n If there is a problem that needs to be addressed, please talk to the administration.",
+                        :printed_message => "This payform has already been printed and may no longer be edited.\n If there is a problem that needs to be addressed, please talk to the administration.",
                         :reminder_message => "Please remember to submit your payform for this week.",
                         :warning_message => "You have not submitted payforms for the weeks ending on the following dates:\n \n@weeklist@\n Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform.",
                         :warning_weeks => 2,
