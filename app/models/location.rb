@@ -40,7 +40,7 @@ class Location < ActiveRecord::Base
   end
 
   def links
-    self.notices.select {|n| n.useful_link}
+    self.current_notices.select {|n| n.useful_link}
   end
 
   def restrictions #TODO: this could probalby be optimized
