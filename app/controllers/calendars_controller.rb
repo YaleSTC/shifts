@@ -68,25 +68,25 @@ class CalendarsController < ApplicationController
     @calendar.department = @department
     if @calendar.save
       flash[:notice] = "Successfully created calendar."
-      redirect_to @calendar
+      redirect_to calendars_path
     else
       render :action => 'new'
     end
   end
 
-  def edit
-    @calendar = Calendar.find(params[:id])
-  end
+#  def edit
+#    @calendar = Calendar.find(params[:id])
+#  end
 
-  def update
-    @calendar = Calendar.find(params[:id])
-    if @calendar.update_attributes(params[:calendar])
-      flash[:notice] = "Successfully updated calendar."
-      redirect_to @calendar
-    else
-      render :action => 'edit'
-    end
-  end
+#  def update
+#    @calendar = Calendar.find(params[:id])
+#    if @calendar.update_attributes(params[:calendar])
+#      flash[:notice] = "Successfully updated calendar."
+#      redirect_to @calendar
+#    else
+#      render :action => 'edit'
+#    end
+#  end
 
   def prepare_copy
     @calendar = Calendar.find(params[:id]).clone
