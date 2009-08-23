@@ -4,6 +4,8 @@
   <%= render :partial => 'notices/for_you' %>
 <% end %>
 
+<div id="left_stuff">
+
   <fieldset class="index" id="shifts">
     <legend>Shifts</legend>
         <h4>Current Shift</h4>
@@ -16,25 +18,25 @@
     <% end %>
   </fieldset>
 
-    <fieldset class="index" id="links">
-    <legend>Links</legend>
-      <!--
-      <h4>Internal Links</h4>
-      -->
-      <ul>
-        <li><%= link_to_unless_current "Notices", notices_path %></li>
-        <li><%= link_to_unless_current "Your preferences", edit_user_config_path(current_user.user_config) %></li>
-        <li><%= link_to "Your Profile", edit_user_profile_path(current_user.login) %></li>
-      </ul>
-      <!--
-      <%# unless current_department.get_links.empty? %>
-      <h4>External Links</h4>
-        <ul>
-          <%#= render :partial => 'notices/useful_links', :collection => current_department.get_links %>
-        </ul>
-        <%# end %>
-        -->
+    <% if @most_recent_payform %>
+    <fieldset class="index" id="payform">
+      <legend>Your Current Payform</legend>
+      <%= render :partial => "mini_payform", :object => @most_recent_payform %>
+    </fieldset>
+  <% end %>
+
+  <fieldset class="index" id="punch_clock">
+    <legend>Punch Clock</legend>
+    <% if current_user.punch_clock %>
+      <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
+    <% else %>
+      <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
+      <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
+    <% end %>
   </fieldset>
+
+  </div>
+  <div id="right_stuff">
 
   <fieldset class="index" id="subs">
     <legend>Sub Requests</legend>
@@ -52,23 +54,7 @@
         </ul>
     <% end %>
   </fieldset>
-
-  <% if @most_recent_payform %>
-    <fieldset class="index" id="payform">
-      <legend>Your Current Payform</legend>
-      <%= render :partial => "mini_payform", :object => @most_recent_payform %>
-    </fieldset>
-  <% end %>
-
-  <fieldset class="index" id="punch_clock">
-    <legend>Punch Clock</legend>
-    <% if current_user.punch_clock %>
-      <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
-    <% else %>
-      <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
-      <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
-    <% end %>
-  </fieldset>
+  </div>
 
 <% unless @watched_objects.empty? %>
   <fieldset class="index" id="watched_objects">

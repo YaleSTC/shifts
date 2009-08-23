@@ -4,8 +4,6 @@
 html {
   overflow-y: scroll;
 }
-
-<<<<<<< HEAD:public/stylesheets/application.css
 a.action_with_icon{
 	vertical-align: middle;
 }
@@ -470,30 +468,14 @@ fieldset#warning {
   background: #C0C0C0;
 }
 
-fieldset#shifts {
-  width: 47.5%;
-  float: left;
+div#right_stuff {
+ float:right;
+ width: 47.5%;
 }
 
-fieldset#links{
-  width: 47.5%;
-  float: right;
-}
-
-fieldset#subs {
-  width: 47.5%;
-  float: right;
-}
-
-fieldset#payform {
-  width: 47.5%;
-  float: left;
-
-}
-
-fieldset#punch_clock {
-  width: 47.5%;
-  float: left;
+div#left_stuff {
+ float:left;
+ width: 47.5%;
 }
 
 fieldset#schedule{
