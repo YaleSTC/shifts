@@ -7,7 +7,8 @@ class PayformItemSet < ActiveRecord::Base
   validate :payform_item_creation
 
   def users
-    return self.payform_items.collect { |item| item.payform.user }  
+#    raise self.payform_items.to_yaml
+    return self.payform_items.collect { |item| item.user }  
   end
 
 private
