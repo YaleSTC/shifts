@@ -14,10 +14,15 @@ class Notice < ActiveRecord::Base
   named_scope :upcoming, lambda {{ :conditions => ["#{:start_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
   named_scope :stickies, lambda {{ :conditions => ["#{:sticky.to_sql_column} = #{true.to_sql}"]}}
   named_scope :announcements, lambda {{ :conditions => ["#{:announcement.to_sql_column} = #{true.to_sql}"]}}
+  named_scope :links, lambda {{:conditions => ["#{:useful_link.to_sql_column} = #{true.to_sql}"]}}
 
   def self.active
-    (self.announcements.active_with_end + self.announcements.active_without_end).uniq.sort_by{|n| n.start_time}.reverse +
-    (self.stickies.active_with_end + self.stickies.active_without_end).uniq.sort_by{|n| n.start_time}.reverse
+    (self.announcements.active_with_end + self.announcements.active_without_end).uniq.sort_by{|n| n.start_time} +
+    (self.stickies.active_with_end + self.stickies.active_without_end).uniq.sort_by{|n| n.start_time}
+  end
+
+  def self.active_links
+    (self.links.active_with_end + self.links.active_without_end).uniq
   end
 
   def display_for

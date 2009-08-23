@@ -31,7 +31,7 @@ class Department < ActiveRecord::Base
   end
 
   def current_notices
-    Notice.active.select {|n| n.departments.include?(self)}
+    Notice.active_links.select {|n| n.departments.include?(self)}
   end
 
 # Returns all users active in a given department
