@@ -1,4 +1,4 @@
-<% title "Payform Item Set" %>
+<% title "Group Job" %>
 
 <p>
   <strong>Date Added:</strong>
@@ -21,9 +21,17 @@
 </p>
 
 <p>
+  <strong>Users:</strong>
+  <%# TODO: Figure out why I get an error below %>
+  <p><%# @payform_item_set.users.each do |user| %>
+    <ul><li><%#= user.name %></li></ul>
+  <%# end %></p>
+</p>
+
+<p>
   <%= link_to "Edit", edit_payform_item_set_path(@payform_item_set) %> |
   <%= link_to "Destroy", @payform_item_set, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", payform_item_sets_path %>
 </p>
 
-<p><%= link_to "Add a Mass Job", new_payform_item_set_path %></p>
+<p><%= link_to "Add a Group Job", new_payform_item_set_path %></p>

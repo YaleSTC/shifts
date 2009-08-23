@@ -31,6 +31,10 @@ class Location < ActiveRecord::Base
     Notice.active.select {|n| n.locations.include?(self)}
   end
 
+  def current_links
+    Notice.active_links.select {|n| n.locations.include?(self)}
+  end
+
   def stickys
     self.notices.select {|n| n.sticky}
   end
@@ -40,7 +44,7 @@ class Location < ActiveRecord::Base
   end
 
   def links
-    self.current_notices.select {|n| n.useful_link}
+    self.current_links.select {|n| n.useful_link}
   end
 
   def restrictions #TODO: this could probalby be optimized
