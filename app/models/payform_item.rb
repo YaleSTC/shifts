@@ -23,6 +23,14 @@ class PayformItem < ActiveRecord::Base
   
   named_scope :active, :conditions => {:active =>  true}
   
+  def user 
+    if self.payform != nil
+      user = self.payform.user 
+    else
+      user = self.parent.payform.user 
+    end
+  end
+  
   def add_errors(e)
     e = e.to_s.gsub("Validation failed: ", "")
     e.split(", ").each do |error| 
