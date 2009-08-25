@@ -5,8 +5,7 @@ class Notice < ActiveRecord::Base
 
   belongs_to :department
 
-  validates_presence_of :content
-  validate :presence_of_locations_or_viewers, :proper_time
+  validate :content_or_link, :presence_of_locations_or_viewers, :proper_time
 
   named_scope :inactive, lambda {{ :conditions => ["#{:end_time.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
   named_scope :active_with_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
@@ -64,11 +63,26 @@ class Notice < ActiveRecord::Base
   private
   #Validations
   def presence_of_locations_or_viewers
-    errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
+    if self.announcement || self.sticky
+      errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
+    else
+      errors.add_to_base "Your link must disply somewhere" if self.location_sources.empty?
+    end
   end
 
   def proper_time
     errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time
   end
+
+  def content_or_link
+    if self.announcement || self.sticky
+      errors.add_to_base "Content cannot be blank." if self.content.empty?
+    else
+      if self.content.split("|$|").first.empty? || self.content.split("|$|").last == "http://"
+        errors.add_to_base "Your link must contain a label and a URL."
+      end
+    end
+  end
+
 end
 
