@@ -54,14 +54,13 @@
         </ul>
     <% end %>
   </fieldset>
-  </div>
-
-<% unless @watched_objects.empty? %>
+  <% unless @watched_objects.empty? %>
   <fieldset class="index" id="watched_objects">
     <legend>Recent updates for your watched data objects</legend>
       <%= render :partial => 'data_objects/watched_object', :collection => @watched_objects %>
   </fieldset>
 <% end %>
+  </div>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
