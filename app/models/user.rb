@@ -6,8 +6,6 @@ class User < ActiveRecord::Base
     options.maintain_sessions false
   end
   has_and_belongs_to_many :roles
-#TODO:There's no joined table here yet, so I've commented this out
-#  has_and_belongs_to_many :punch_clock_sets
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -18,7 +16,7 @@ class User < ActiveRecord::Base
   has_one  :punch_clock
   has_many :sub_requests
 
-  # New user configs are created by a user observer, after create
+# New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
   has_one :user_profile, :dependent => :destroy
 
@@ -33,8 +31,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :login
   validate :departments_not_empty
 
-  # memoize allows more powerful caching of instance variable in methods
-  # memoize line must be added after the method definitions (see below)
   extend ActiveSupport::Memoizable
 
   def role=(name)
@@ -55,7 +51,7 @@ class User < ActiveRecord::Base
     first_name+='*'
     last_name+='*'
     email+='*'
-    # Setup our LDAP connection
+# Set up our LDAP connection
     begin
       ldap = Net::LDAP.new( :host => appconfig.ldap_host_address, :port => appconfig.ldap_port )
       filter = Net::LDAP::Filter.eq(appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq(appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq(appconfig.ldap_email, email)
@@ -74,16 +70,9 @@ class User < ActiveRecord::Base
       false
     end
   end
-
-# Returns all users active in a given department - deprecated in favor of department.active_users
-#  def self.active_in_department(department)
-#    joins = DepartmentsUser.find(:all, :conditions => {:department_id => department.id, :active => true.to_sql })
-#    joins.map{|j| User.find(j.user_id)}
-#  end
   
   def self.mass_add(logins, department)
     failed = []
-
     logins.split(/\W+/).map do |n|
       if user = self.find_by_login(n)
         user.departments << department
@@ -92,7 +81,6 @@ class User < ActiveRecord::Base
       end
       failed << "From login #{user.login}: #{user.errors.full_messages.to_sentence} (LDAP import may have failed)" if user.new_record?
     end
-
     failed
   end
 
@@ -104,7 +92,7 @@ class User < ActiveRecord::Base
     Shift.find(:first, :conditions=>{:user_id => self.id, :signed_in => true})
   end
 
-  # Returns all the loc groups a user can view within a given department
+# Returns all the loc groups a user can view within a given department
   def loc_groups(dept)
     dept.loc_groups.delete_if{|lg| !self.can_view?(lg)}
   end
@@ -112,7 +100,7 @@ class User < ActiveRecord::Base
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     return false unless loc_group
-    permission_list.include?(loc_group.view_permission) && self.is_active?(loc_group.department)
+    (permission_list.include?(loc_group.view_permission) || permission_list.include?(loc_group.department.admin_permission)) && self.is_active?(loc_group.department)
   end
 
   # check if a user can sign up for a shift in this loc group
