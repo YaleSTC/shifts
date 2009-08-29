@@ -15,14 +15,14 @@
       <li><%= link_to_unless_current "Import from CSV", import_department_users_path(@department) %></li>
       <li><%= link_to_unless_current "Export to CSV", :action => 'index', :format => 'csv' %></li>
 <p></p>
-      <h3>User Profiles</h3>
+      <h3>Manage Permissions</h3>
+      <li><%= link_to_unless_current "Show All Roles", department_roles_path(@department) %></li>
+      <li><%= link_to_unless_current "Add a Role", new_department_role_path(@department) %></li>
+<p></p>      <h3>User Profiles</h3>
       <li><%= link_to_unless_current "Show All Profiles", user_profiles_path %></li>
       <li><%= link_to_unless_current "New Profile Field", new_user_profile_field_path %></li>
       <li><%= link_to_unless_current "Manage Profile Fields", user_profile_fields_path %></li>
       <li><%= link_to_unless_current "Your Profile", edit_user_path(current_user) %></li>   <p></p>
-      <h3>Manage Permissions</h3>
-      <li><%= link_to_unless_current "Show All Roles", department_roles_path(@department) %></li>
-      <li><%= link_to_unless_current "Add a Role", new_department_role_path(@department) %></li>
     </ul>
     <div id="contentNav">
     <% end -%>
