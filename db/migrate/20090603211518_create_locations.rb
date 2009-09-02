@@ -7,7 +7,7 @@ class CreateLocations < ActiveRecord::Migration
       t.integer     :max_staff
       t.integer     :min_staff
       t.integer     :priority
-      t.string      :report_email  
+      t.string      :report_email
       t.boolean     :active
       t.references  :loc_group
       t.timestamps
