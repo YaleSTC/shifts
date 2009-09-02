@@ -5,6 +5,7 @@ class DepartmentConfigsController < ApplicationController
 
   def edit
     @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
+    @time_choices2 = (0..1380).step(60).map{|t| [t.min_to_am_pm, t]} + (1440..2160).step(60).map{|t| ["*"+t.min_to_am_pm, t]}
     @department_config = DepartmentConfig.find(params[:id])
     @select_dept = @department_config.department.name
     #@time_choices = (0..1440).step(@department_config.time_increment).map{|t| [t.min_to_am_pm, t]}
@@ -18,7 +19,8 @@ class DepartmentConfigsController < ApplicationController
       flash[:notice] = "Successfully updated department settings."
       redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_department_config_path)
     else
-      @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
+    @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
+    @time_choices2 = (0..1380).step(60).map{|t| [t.min_to_am_pm, t]} + (1440..2160).step(60).map{|t| ["*"+t.min_to_am_pm, t]}
       render :action => 'edit'
     end
   end

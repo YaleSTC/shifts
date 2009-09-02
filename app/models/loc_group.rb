@@ -21,7 +21,7 @@ class LocGroup < ActiveRecord::Base
 
   def permissions
     [view_permission, signup_permission, admin_permission]
-  end
+  end   
 
   # Conventional has_many :through won't work -Ben
   def data_objects

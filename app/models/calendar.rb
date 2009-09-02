@@ -54,8 +54,8 @@ class Calendar < ActiveRecord::Base
 
   def deactivate
     self.active = false
-    TimeSlot.update_all("#{:active.to_sql_column} = #{false.to_sql}", "#{:calendar_id.to_sql_column} = #{self.id.to_sql}")
-    Shift.update_all("#{:active.to_sql_column} = #{false.to_sql}", "#{:calendar_id.to_sql_column} = #{self.id.to_sql}")
+    TimeSlot.update_all("#{:active.to_sql_column} = #{false.to_sql}", "#{:calendar_id.to_sql_column} = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}")
+    Shift.update_all("#{:active.to_sql_column} = #{false.to_sql}", "#{:calendar_id.to_sql_column} = #{self.id.to_sql} AND start > #{Time.now.utc.to_sql}")
     self.save
   end
 

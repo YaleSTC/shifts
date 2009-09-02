@@ -20,7 +20,6 @@
       <% unless calendar.default? %>
         <td><%= button_to calendar.active ? "Deactivate" : "Activate" , toggle_calendar_path(calendar) %></td>
         <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
-        <td><%= link_to "Edit", edit_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
@@ -94,7 +93,7 @@
     // $(element+' li.click_to_edit_timeslot a').click(function (e) {
     //   e.stopPropagation();
     // });
-    // 
+    //
     // $(element+' li.click_to_edit_shift a').click(function (e) {
     //   e.stopPropagation();
     // });
