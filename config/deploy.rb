@@ -12,7 +12,7 @@ set :application_prefix, Capistrano::CLI.ui.ask("deployment application prefix (
 set :deploy_to, "/srv/www/rails/#{application}/#{application_prefix}"
 
 
-set :repository,  "git@github.com:Smudge/newstc.git"
+set :repository,  "git@github.com:YaleSTC/shifts.git"
 set :scm, :git
 #set :deploy_via, :remote_cache
 set :branch, "master"
