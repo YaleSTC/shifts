@@ -30,7 +30,7 @@ class ShiftsController < ApplicationController
       @day_collection = (@period_start+1)...(@period_start+6)
     end
 
-    @loc_groups = current_user.user_config.view_loc_groups
+    @loc_groups = current_user.loc_groups(current_department)
     @visible_loc_groups = current_user.user_config.view_loc_groups
     @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
     @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten

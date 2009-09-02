@@ -28,6 +28,7 @@ class NoticesController < ApplicationController
   end
 
   def create
+    @report = current_user.current_shift.report if current_user.current_shift
     @notice = Notice.new(params[:notice])
     @notice.sticky = true if params[:type] == "sticky"
     @notice.announcement = true if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
@@ -35,14 +36,15 @@ class NoticesController < ApplicationController
     @notice.department = current_department
     if params[:type] == "link"
       @notice.useful_link = true if params[:type] == "link"
-      @notice.content = params[:link_label] + "|$|" + params[:url]
+      @notice.content = params[:link_label] + "|$|" + "http://" + params[:url]
+      @notice.content.gsub!("http://http://", "http://")
       @notice.start_time = Time.now
       @notice.end_time = nil
       @notice.indefinite = true
     else
-      @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.is_sticky
-      @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-      @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
+      @notice.start_time = Time.now if params[:start_time_choice] == 'now' || @notice.sticky
+      @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.sticky
+      @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.sticky
     end
     begin
       Notice.transaction do

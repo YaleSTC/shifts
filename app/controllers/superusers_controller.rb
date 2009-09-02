@@ -2,6 +2,7 @@ class SuperusersController < ApplicationController
   before_filter :require_superuser
 
   def index
+    @superusers = User.superusers
   end
 
   def add
@@ -22,12 +23,16 @@ class SuperusersController < ApplicationController
 
   #TODO: add error checking here.  Not really necessary because only superusers can access this page
   def remove
-    @su_list = User.find(params[:remove_su_ids])
-    @su_list.each do |su|
-      su.update_attribute(:superuser, false)
+    if User.superusers.length == 1
+      flash[:error] = "You are not allowed to remove the only superuser in the application."
+    else
+      @su_list = User.find(params[:remove_su_ids])
+      @su_list.each do |su|
+        su.update_attribute(:superuser, false)
+      end
+      su_names = @su_list.collect { |u| "<b>#{u.name}</b>" }
+      flash[:notice] = "Removed superuser privilege from #{su_names.to_sentence}"
     end
-    su_names = @su_list.collect { |u| "<b>#{u.name}</b>" }
-    flash[:notice] = "Removed superuser privilege from #{su_names.to_sentence}"
     redirect_to(superusers_path)
   end
 end
