@@ -12,19 +12,19 @@ class ArMailer < ActionMailer::ARMailer
   end
 
 # Beginning of payform notification methods
-  def due_payform_reminder(admin_user, user, message)
+  def due_payform_reminder(user, message, dept)
     subject     'Due Payform Reminder'
     recipients  "#{user.name} <#{user.email}>"
-    from        "#{admin_user.name} <#{admin_user.email}>"
+    from        "#{dept.department_config.mailer_address}"
     reply_to    "#{admin_user.name} <#{admin_user.email}>"
     sent_on     Time.now
     body        :user => user, :message => message
   end
 
-  def late_payform_warning(admin_user, user, message)
+  def late_payform_warning(user, message, dept)
     subject     'Late Payforms Warning'
     recipients  "#{user.name} <#{user.email}>"
-    from        "#{admin_user.name} <#{admin_user.email}>"
+    from        "#{dept.department_config.mailer_address}"
     reply_to    "#{admin_user.name} <#{admin_user.email}>"
     sent_on     Time.now
     body        :user => user, :message => message
