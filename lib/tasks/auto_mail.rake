@@ -1,10 +1,10 @@
   def send_reminders(department)
     message = department.department_config.reminder_message
     @users = department.users.select {|u| if u.is_active?(department) then u.email end }
-    admin_user = User.find_by_login("kaa43")  #TODO should be changed to the default admin or whatever
+#    admin_user = User.find_by_login("kaa43")  #TODO should be changed to the default admin or whatever
     users_reminded = []
     for user in @users
-      ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, message))
+      ArMailer.deliver(ArMailer.create_due_payform_reminder(user, message, department))
       users_reminded << "#{user.name} (#{user.login})"
     end
     puts "#{users_reminded.length} users in the #{department.name} department "  +
@@ -18,7 +18,7 @@
     users_warned = []
     
     #TODO replace admin user with department admin email address
-    @admin_user = User.find_by_login("kaa43")
+#    @admin_user = User.find_by_login("kaa43")
     for user in @users     
       #Payform.build(department, user, Date.today)
       unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => department.id, :submitted => nil }, :order => 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
@@ -28,7 +28,7 @@
         for payform in unsubmitted_payforms
           weeklist += payform.date.strftime("\t%b %d, %Y\n")
         end
-        email = ArMailer.create_late_payform_warning(@admin_user, user, message.gsub("@weeklist@", weeklist))
+        email = ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), department)
         ArMailer.deliver(email)
         users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
       end

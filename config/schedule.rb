@@ -21,4 +21,3 @@ every 20.minutes do
   #rake "auto_warn"
   command "/usr/bin/ar_sendmail -o --batch-size 20 --chdir /srv/www/rails/shifts/apps/current"
 end
-
