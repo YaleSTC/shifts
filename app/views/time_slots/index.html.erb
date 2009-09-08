@@ -26,6 +26,11 @@
       return false;
     });
   
+    $(element+' a.click_to_delete_repeating_timeslot').click(function (e) {
+      popup_delete_repeating_timeslot($(this), e);
+      return false;
+    });
+  
     //don't stop links from firing
     $(element+' li.click_to_edit_timeslot a.delete_link').click(function (e) {
       e.stopPropagation();
@@ -55,6 +60,15 @@
     
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+  }
+  
+  function popup_delete_repeating_timeslot(parent_element, e){
+    $("#tooltip").remove();
+
+    var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
+
+    loading_tooltip(e.pageX, e.pageY);
+    $.ajax({data:"delete_options=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
   }
   
   function loading_tooltip(x,y){

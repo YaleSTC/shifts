@@ -1,12 +1,13 @@
 <%= unobtrusive_datepicker_include_tags %>
 
 <%
-  start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
   if params[:xPercentage]
-    @dept_start_hour ||= current_department.department_config.schedule_start
-    @dept_end_hour ||= current_department.department_config.schedule_end
-    @minutes_per_day ||= (@dept_end_hour - @dept_start_hour)
-    start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f) * 60
+    @dept_start_hour = current_department.department_config.schedule_start / 60
+    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @hours_per_day = (@dept_end_hour - @dept_start_hour)
+    start_time = Date.today.to_time + @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f) * 3600
+  else
+    start_time = Time.now
   end
 %>
 <p style="margin-top: -10px">
@@ -63,4 +64,5 @@
     <%= f.label "wipe_conflicts?" %><br />
     <%= check_box_tag "wipe", "1", true %>
   </p>
+  <%= f.hidden_field :slot_or_shift, :value => "time_slot"%>
 </div>
