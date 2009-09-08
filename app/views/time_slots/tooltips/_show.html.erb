@@ -2,35 +2,44 @@
   <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
 </div>
 <% if current_user.is_admin_of?(@department) %>
-  <h2>Edit Timeslot</h2>
-  <% remote_form_for @time_slot do |f| %>
-    <p>
-      <%= f.label :start %><br />
-      <%= f.time_select :start, :twelve_hour => true %>
-    </p>
-    <p>
-      <%= f.label :end %><br />
-      <%= f.time_select :end, :twelve_hour => true %>
-    </p>
-    <p>
-      <%= f.label :location %><br />
-      <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location_id)%><br />
-    </p>
-    <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'time_slots', :action => 'update', :calendar => params[:calendar] } %></p>
-  <% end %>
-  <p>
-    <% unless @time_slot.repeating_event %>
-      <%= link_to_remote "Destroy this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
-    <% else %>
-      <%= link_to_function "Destroy this time slot", "$('#repeating_event_delete_options').toggle()" %>
-      <div id="repeating_event_delete_options" style="display:none">
-        <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
-        <%= button_to_remote "Just this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
-        <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
-        <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :rerender_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %>
-      </div>
+  <% if params[:delete_options] and @time_slot.repeating_event %>
+    <div id="repeating_event_delete_options">
+      <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
+      <%= button_to_remote "Just this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
+      <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
+      <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :rerender_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %>
+    </div>
+  <% else %>
+    <h2>Edit Timeslot</h2>
+    <% remote_form_for @time_slot do |f| %>
+      <p>
+        <%= f.label :start %><br />
+        <%= f.time_select :start, :twelve_hour => true %>
+      </p>
+      <p>
+        <%= f.label :end %><br />
+        <%= f.time_select :end, :twelve_hour => true %>
+      </p>
+      <p>
+        <%= f.label :location %><br />
+        <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location_id)%><br />
+      </p>
+      <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'time_slots', :action => 'update', :calendar => params[:calendar] } %></p>
     <% end %>
-  </p>
+    <p>
+      <% unless @time_slot.repeating_event %>
+        <%= link_to_remote "Destroy this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+      <% else %>
+        <%= link_to_function "Destroy this time slot", "$('#repeating_event_delete_options').toggle()" %>
+        <div id="repeating_event_delete_options" style="display:none">
+          <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
+          <%= button_to_remote "Just this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
+          <%= button_to_remote "This and all future time slots", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
+          <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @time_slot.repeating_event.id, :calendar => params[:calendar], :rerender_date => @time_slot.start}, :confirm => 'Are you sure?', :method => :delete} %>
+        </div>
+      <% end %>
+    </p>
+  <% end %>
 <% else %>
   <h2>Timeslot</h2>
   <p>
