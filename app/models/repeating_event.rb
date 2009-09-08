@@ -24,7 +24,7 @@ class RepeatingEvent < ActiveRecord::Base
         Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => ["#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql} AND #{:end.to_sql_column} > #{time.utc.to_sql}"]))
         Shift.update_all("#{:repeating_event_id.to_sql_column} = #{nil.to_sql}", "#{:repeating_event_id.to_sql_column} = #{repeating_event.id.to_sql}") if should_update
     end
-    repeating_event.destroy
+    repeating_event.destroy if should_update
   end
 
   def make_future(wipe)
@@ -45,6 +45,10 @@ class RepeatingEvent < ActiveRecord::Base
 
   def location_ids
     self.loc_ids.split(",").collect{|d| d.to_i} if loc_ids
+  end
+  
+  def locations
+    self.loc_ids.split(",").collect{|d| Location.find(d.to_i)} if loc_ids
   end
 
   def days_int
