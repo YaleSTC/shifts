@@ -88,6 +88,11 @@
       popup_edit_timeslot($(this), e);
       return false;
     });
+    
+    $(element+' a.click_to_delete_repeating_shift').click(function (e) {
+      popup_delete_repeating_shift($(this), e);
+      return false;
+    });
 
     //don't stop links from firing
     // $(element+' li.click_to_edit_timeslot a').click(function (e) {
@@ -150,6 +155,15 @@
 
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({data:"calendar=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+  }
+  
+  function popup_delete_repeating_shift(parent_element, e){
+    $("#tooltip").remove();
+
+    var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
+
+    loading_tooltip(e.pageX, e.pageY);
+    $.ajax({data:"calendar=true&delete_options=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
 
   function loading_tooltip(x,y){
