@@ -102,7 +102,11 @@ class RepeatingEventsController < ApplicationController
 
   def destroy
     @repeating_event = RepeatingEvent.find(params[:id])
-    @days = @repeating_event.days
+    if @repeating_event.is_set_of_timeslots? and !params[:calendar]
+      @locations = @repeating_event.locations
+    else
+      @days = @repeating_event.days
+    end
     ActiveRecord::Base.transaction do
       if params[:delete_after_date]
         RepeatingEvent.destroy_self_and_future(@repeating_event, Time.parse(params[:delete_after_date]))

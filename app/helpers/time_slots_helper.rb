@@ -22,6 +22,7 @@ module TimeSlotsHelper
     
     "width: #{width}%; left: #{left}%;"
   end
+  
   def fetch_timeslots(time_slot_day,location)
     result = []
     timeslots = TimeSlot.all(:conditions => ['start > ? and start < ? and location_id = ?',time_slot_day.beginning_of_day,time_slot_day.end_of_day,location.id])
