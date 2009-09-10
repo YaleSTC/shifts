@@ -7,7 +7,7 @@ class CreateRepeatingEvents < ActiveRecord::Migration
       t.datetime :end_time
       t.references :calendar
       t.string :days_of_week
-      t.string :user_id
+      t.references :user
       t.string :loc_ids
       t.boolean :is_set_of_timeslots
       t.timestamps

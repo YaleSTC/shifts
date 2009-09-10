@@ -83,9 +83,14 @@ class RepeatingEventsController < ApplicationController
         @failed = @repeating_event.make_future(wipe)
         raise @failed if @failed
       end
-      flash[:notice] = "Successfully edited repeating event."
-      flash[:notice] += " Please note that some events were not created because they started in the past."
-      redirect_to @repeating_event
+      respond_to do |format|
+        format.html {
+          flash[:notice] = "Successfully edited repeating event."
+          flash[:notice] += " Please note that some events were not created because they started in the past."
+          redirect_to @repeating_event
+        }
+        format.js
+      end
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
       @repeating_event = @repeating_event.clone
@@ -93,7 +98,7 @@ class RepeatingEventsController < ApplicationController
         format.html {render :action => 'edit'}
         format.js do
           render :update do |page|
-            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br><br>"+@errors*"<br><br>")
+            persistent_ajax_alert(page, "<strong>Error:</strong> repeating event could not be saved.<br><br>"+(@errors.nil? ? e : @errors*"<br><br>"))
           end
         end
       end
