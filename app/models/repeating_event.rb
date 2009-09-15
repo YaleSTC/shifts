@@ -105,7 +105,7 @@ class RepeatingEvent < ActiveRecord::Base
   end
 
   def user_id_present
-    errors.add_to_base("Please select a user!") unless (self.user_id && self.user_id!=0 && !self.user_id.empty?) || self.is_set_of_timeslots
+    errors.add_to_base("Please select a user!") unless (self.user_id && self.user_id!=0 && !self.user_id.nil?) || self.is_set_of_timeslots
   end
 
   def start_date_less_than_end_date
