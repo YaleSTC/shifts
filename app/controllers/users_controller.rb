@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_admin_or_superuser
+  before_filter :require_admin_or_superuser, :except => 'autocomplete'
 
   def index
     if params[:show_inactive]
@@ -101,9 +101,9 @@ class UsersController < ApplicationController
   # So that the User Profile can be updated as well
       @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
       @user_profile_entries = params[:user_profile_entries]
-      
+
       if @user_profile_entries
-        @user_profile_entries.each do |entry_id, entry_content| 
+        @user_profile_entries.each do |entry_id, entry_content|
           entry = UserProfileEntry.find(entry_id)
           @content = ""
             if entry.display_type == "check_box"
@@ -144,7 +144,7 @@ class UsersController < ApplicationController
 #    @user.destroy
 #    flash[:notice] = "Successfully destroyed user."
 #    redirect_to department_users_path(current_department)
-# END DRAFT  
+# END DRAFT
     @user = User.find(params[:id])
     if @user.toggle_active(@department) #new_entry.save
       flash[:notice] = "Successfully deactivated user."
@@ -167,7 +167,7 @@ class UsersController < ApplicationController
 #  end
 
 # Reactivates the user
-#  def restore 
+#  def restore
 #    @user = User.find(params[:id])
 #    new_entry = DepartmentsUser.new();
 #    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
