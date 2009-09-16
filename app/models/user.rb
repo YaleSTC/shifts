@@ -222,6 +222,20 @@ class User < ActiveRecord::Base
     Notice.active.select {|n| !n.users.include?(self) && n.locations.empty?}
   end
 
+
+  def payrate(department)
+    DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
+  end
+  
+  def set_payrate(value, department)
+    new_entry = DepartmentsUser.new();
+    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    new_entry.attributes = old_entry.attributes
+    new_entry.payrate = value
+    DepartmentsUser.delete_all(:user_id => self, :department_id => department)
+    new_entry.save
+  end
+
   private
 
   def departments_not_empty

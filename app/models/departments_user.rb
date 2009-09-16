@@ -7,5 +7,8 @@ class DepartmentsUser < ActiveRecord::Base
   # and we use the "has_many through" relationship
   #thus, a user can be deactivated in any given department without affecting the others.
 
+  #a user also now has a department-specific pay rate!
+  #woo-frickin-hoo y'all
+
 end
 
