@@ -21,8 +21,8 @@ class PayformsController < ApplicationController
         show.pdf  #show.pdf.prawn
         show.csv do
           csv_string = FasterCSV.generate do |csv|
-            csv << ["First Name", "Last Name", "Employee ID", "Start Date", "End Date", "Total Hours"]
-            csv << [@payform.user.first_name, @payform.user.last_name, @payform.user.employee_id, @payform.start_date, @payform.date, @payform.hours]
+            csv << ["First Name", "Last Name", "Employee ID", "Payrate", "Start Date", "End Date", "Total Hours"]
+            csv << [@payform.user.first_name, @payform.user.last_name, @payform.user.employee_id, @payform.payrate, @payform.start_date, @payform.date, @payform.hours]
           end
           send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
         end

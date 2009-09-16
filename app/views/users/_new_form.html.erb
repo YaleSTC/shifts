@@ -43,6 +43,10 @@
       <%= role.name %>
     </div>
   <% end -%>
+  <p>
+    <%= label_tag :payrate %><br />
+    <%= text_field_tag :payrate %>
+  </p>
   <p><%= f.submit submit %></p>
 <% end %>
 <% if @appconfig.use_ldap %>

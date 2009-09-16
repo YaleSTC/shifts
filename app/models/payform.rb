@@ -6,7 +6,7 @@ class Payform < ActiveRecord::Base
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
 
-  acts_as_csv_exportable :normal, [{:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :start_date, {:end_date=>"date"}, :hours ]
+  acts_as_csv_exportable :normal, [{:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :start_date, {:end_date=>"date"}, :hours ]
 
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
@@ -58,6 +58,10 @@ class Payform < ActiveRecord::Base
   def start_date
     subtract = (department.department_config.monthly ? 1.month : 1.week)
     date - subtract + 1.day
+  end
+  
+  def payrate
+    user.payrate(department)
   end
 
 
