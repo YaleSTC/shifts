@@ -1,9 +1,10 @@
 class SubRequestsController < ApplicationController
 
 # Any reason at all why we should leave this in? -ben
-#  def index
-#    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
-#  end
+# Yes: for users without Javascript. -ryan
+  def index
+    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
+  end
 
   def show
     @sub_request = SubRequest.find(params[:id])
