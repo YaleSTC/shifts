@@ -55,19 +55,20 @@ class UsersController < ApplicationController
     if @user = User.find_by_login(params[:user][:login])
       if @user.departments.include? @department #if user is already in this department
         flash[:notice] = "This user already exists in this department!"
-        redirect_to @user
       else
         @user.roles += (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
         @user.departments << @department unless @user.departments.include?(@department)
         flash[:notice] = "User successfully added to new department."
-        redirect_to @user
       end
+      @user.set_payrate(params[:payrate], @department)
+      redirect_to @user
     else
       @user = User.new(params[:user])
       @user.auth_type = @appconfig.login_options[0] if @appconfig.login_options.size == 1
       @user.set_random_password
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
+        @user.set_payrate(params[:payrate], @department)
         if @user.auth_type == 'built-in'
           @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n, current_department)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
@@ -88,7 +89,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    #TODO: prevent params hacking w/ regard to setting roles and login
+    #TODO: prevent params hacking w/ regard to setting roles and login and payrate
     params[:user][:role_ids] ||= []
     @user = User.find(params[:id])
     #store role changes, or else they'll overwrite roles in other departments
@@ -130,6 +131,7 @@ class UsersController < ApplicationController
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
     if @user.update_attributes(params[:user])
+      @user.set_payrate(params[:payrate], @department) if params[:payrate] #TODO: probably not secure :P
       flash[:notice] = "Successfully updated user."
       @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_admin_password_reset_instructions(n)}) if params[:reset_password]
       redirect_to @user
