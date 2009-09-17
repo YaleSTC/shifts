@@ -8,13 +8,13 @@
     <% if item.active %>
       <tr>
         <td><%= item.date.strftime('%b %d') %></td>
-        <td><%= item.description %></td>
-        <td><%= item.hours.round.to_s %></td>
+        <td><%= truncate(item.description, 80, "...") %></td>
+        <td><%= item.hours.round(2).to_s %></td>
       </tr>
     <% end %>
   <% end %>
   <tr>
     <td colspan="2"><strong>Total:</strong></td>
-    <td><%= mini_payform.hours.round %></td>
+    <td><%= mini_payform.hours.round(2) %></td>
   </tr>
 </table>
