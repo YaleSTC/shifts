@@ -23,7 +23,7 @@
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
-    <script>calendar_visible[<%=calendar.id%>] = <%= calendar.active? %>;</script>
+    <script>calendar_visible[<%=calendar.id%>] = <%= (@calendar ? calendar == @calendar : calendar.active?) %>;</script>
   <% end %>
 </table>
 
