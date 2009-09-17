@@ -305,6 +305,7 @@ class Shift < ActiveRecord::Base
   # ======================
   def restrictions
     unless self.power_signed_up
+      errors.add(:user, "is required") and return if self.user.nil?
       self.user.restrictions.each do |restriction|
         if restriction.max_hours
           relevant_shifts = Shift.between(restriction.starts,restriction.expires).for_user(self.user)
@@ -329,7 +330,7 @@ class Shift < ActiveRecord::Base
   end
 
   def start_less_than_end
-    errors.add(:start, "must be earlier than end time") if (self.end < start)
+    errors.add(:start, "must be earlier than end time") if (self.end <= start)
   end
 
   def shift_is_within_time_slot
