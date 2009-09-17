@@ -1,4 +1,23 @@
-<% title "Calendars" %>
+<% if @calendar %>
+  <% title @calendar.name + (@calendar.active? ? " (active)" : " (inactive)") %>
+  <% subtitle "("+@calendar.start_date.strftime("%b %d, %Y")+" - "+(@calendar.default? ? "forever" : @calendar.end_date.strftime("%b %d, %Y") )+")"%>
+
+  <% if current_user.is_admin_of?(@department) %>
+    <p>
+      <% unless @calendar.default? %>
+        <%= link_to "Edit", edit_calendar_path(@calendar) %> |
+        <%= link_to "Destroy", @calendar, :confirm => 'Are you sure?', :method => :delete %> |
+      <% else %>
+        <p>This is the default calendar, and cannot be edited or deleted.</p>
+      <% end %>
+      <%= link_to "View All Calendars", calendars_path %>
+    </p>
+  <% end %>
+<% else %>
+  <% title "Calendars" %>
+<% end %>
+
+
 <div id="AJAX_status"></div><%# to display status messages in top right corner %>
 <script>var calendar_visible = {};</script>
 <%= render :partial => 'shifts/view_preferences' %>
@@ -8,6 +27,7 @@
     <th>Name</th>
     <th>Start Date</th>
     <th>End Date</th>
+    <th>Public</th>
     <th>Active</th>
   </tr>
   <% for calendar in @calendars %>
@@ -15,6 +35,7 @@
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
+      <td><%=h calendar.public %></td>
       <td><%=h calendar.active %></td>
       <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled'); calendar_visible[#{calendar.id}] = !calendar_visible[#{calendar.id}]"%></td>
       <% unless calendar.default? or !current_user.is_admin_of?(@department) %>
