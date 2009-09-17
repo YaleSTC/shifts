@@ -6,7 +6,7 @@ class Payform < ActiveRecord::Base
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
 
-  acts_as_csv_exportable :normal, [{:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :start_date, {:end_date=>"date"}, :hours ]
+  acts_as_csv_exportable :normal, [{:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :start_date, {:end_date=>"date"}, :hours ]
 
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
@@ -16,6 +16,8 @@ class Payform < ActiveRecord::Base
   named_scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
   named_scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
   named_scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
+
+  before_create :set_payrate
 
 
   def status
@@ -60,7 +62,6 @@ class Payform < ActiveRecord::Base
     date - subtract + 1.day
   end
 
-
   protected
 
   def validate
@@ -71,5 +72,8 @@ class Payform < ActiveRecord::Base
       errors.add("Cannot print unapproved payform, so the approved field")
     end
   end
-
+  
+  def set_payrate
+    self.payrate = user.payrate(department)
+  end
 end

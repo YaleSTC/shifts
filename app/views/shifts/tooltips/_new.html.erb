@@ -32,16 +32,18 @@
     </p>
     <p>
       <%= f.label :location %><br />
-      <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location_id)%><br />
+      <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, params[:location_id].to_i)%><br />
     </p>
-    <p>
-      <%= f.label :calendar %><br />
-      <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
-    </p>
-    <p>
-      <%= f.label :user %><br />
-      <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
-    </p>
+    <% if current_user.is_admin_of?(@department) %>
+      <p>
+        <%= f.label :calendar %><br />
+        <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
+      </p>
+      <p>
+        <%= f.label :user %><br />
+        <%= f.collection_select(:user_id, current_department.active_users.sort_by(&:last_name), :id, :name, {:prompt => "Select a user"}) %>
+      </p>
+    <% end %>
     <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
   <% end %>
 </div>
