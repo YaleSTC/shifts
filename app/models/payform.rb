@@ -17,6 +17,8 @@ class Payform < ActiveRecord::Base
   named_scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
   named_scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
 
+  before_create :set_payrate
+
 
   def status
     self.printed ? 'printed' : self.approved ? 'approved' : self.submitted ? 'submitted' : 'unsubmitted'
@@ -59,11 +61,6 @@ class Payform < ActiveRecord::Base
     subtract = (department.department_config.monthly ? 1.month : 1.week)
     date - subtract + 1.day
   end
-  
-  def payrate
-    user.payrate(department)
-  end
-
 
   protected
 
@@ -75,5 +72,8 @@ class Payform < ActiveRecord::Base
       errors.add("Cannot print unapproved payform, so the approved field")
     end
   end
-
+  
+  def set_payrate
+    self.payrate = user.payrate(department)
+  end
 end

@@ -8,6 +8,7 @@
   
   pdf.text "Name: #{@payform.user.name}"
   pdf.text "Login: #{@payform.user.login}"
+  pdf.text "Payrate: #{number_to_currency(@payform.payrate)}"
   pdf.text "Department: #{@payform.department.name}"
   pdf.text "Week Ending: #{@payform.date.strftime(date_format)}"
   
