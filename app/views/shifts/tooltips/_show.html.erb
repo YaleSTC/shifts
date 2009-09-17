@@ -2,7 +2,7 @@
   <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
 </div>
 
-<% if current_user.is_admin_of?(current_department) and @shift.scheduled? %>
+<% if (current_user.is_admin_of?(current_department) or ( current_user == @shift.user and @shift.calendar.public? and !@shift.calendar.active? )) and @shift.scheduled? %>
   <% if params[:delete_options] and @shift.repeating_event %>
     <div id="repeating_event_delete_options">
       <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
@@ -80,14 +80,16 @@
             <%= f.label :location %><br />
             <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location_id)%><br />
           </p>
-          <p>
-            <%= f.label :calendar %><br />
-            <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
-          </p>
-          <p>
-            <%= f.label :user %><br />
-            <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
-          </p>
+          <% if current_user.is_admin_of?(@department) %>
+            <p>
+              <%= f.label :calendar %><br />
+              <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
+            </p>
+            <p>
+              <%= f.label :user %><br />
+              <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+            </p>
+          <% end %>
           <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'shifts', :action => 'update', :calendar => params[:calendar] } %></p>
         <% end %>
 
