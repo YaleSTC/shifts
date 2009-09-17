@@ -53,6 +53,10 @@
   <% if @department.roles == []%>
     There don't appear to be any roles in this department. Want to <%= link_to "add one", new_department_role_path(@department) %>?
   <% end %>
+  <p>
+    <%= label_tag :payrate %><br />
+    <%= text_field_tag :payrate %>
+  </p>
   </div>
   <div class='profile'>
     <h2>User Profile</h2>
