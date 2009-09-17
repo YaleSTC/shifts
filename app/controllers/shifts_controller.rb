@@ -87,7 +87,10 @@ class ShiftsController < ApplicationController
   def new
     params[:shift][:end] ||= params[:shift][:start] if params[:shift] and params[:shift][:start]
     @shift = Shift.new(params[:shift])
-    (render :partial => 'shifts/tooltips/new', :layout => 'none') if params[:tooltip]
+    if params[:tooltip]
+      @shift.user_id = current_user.id
+      render :partial => 'shifts/tooltips/new', :layout => 'none'
+    end
   end
 
   def unscheduled
