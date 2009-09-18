@@ -91,6 +91,9 @@
           <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'shifts', :action => 'update', :calendar => params[:calendar] } %></p>
         <% end %>
 
+        <% if current_user == @shift.user and !@shift.has_passed? %>
+          <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+        <% end %>
         <% if !@shift.has_passed? and !@shift.submitted? %>
           <% if @shift.has_sub? %>
             <%= link_to "Manage sub requests for this shift", shift_sub_requests_path(@shift) %><br>
