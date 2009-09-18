@@ -21,6 +21,7 @@ class Shift < ActiveRecord::Base
   named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
   named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
@@ -35,6 +36,7 @@ class Shift < ActiveRecord::Base
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   validate :restrictions
+  validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
   before_save :adjust_sub_requests
   before_save :combine_with_surrounding_shifts
 
@@ -354,6 +356,30 @@ class Shift < ActiveRecord::Base
 
   def not_in_the_past
     errors.add_to_base("Can't sign up for a shift that has already passed!") if self.start <= Time.now
+  end
+  
+  def does_not_exceed_max_concurrent_shifts_in_location
+    max_concurrent = self.location.max_staff
+    shifts = Shift.active.scheduled.in_location(self.location).overlaps(self.start, self.end)
+    time_increment = self.department.department_config.time_increment
+    
+    #how many people are in this location?
+    people_count = {}
+    people_count.default = 0
+    unless shifts.nil?
+      shifts.each do |shift|
+        time = shift.start
+        time = time.hour*60+time.min
+        end_time = shift.end
+        end_time = end_time.hour*60+end_time.min
+        while (time < end_time)
+          people_count[time] += 1
+          time += time_increment
+        end
+      end
+    end
+    
+    errors.add_to_base("#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
   end
 
   #TODO: remove sub.save! repalce with sub.save and catch exceptions
