@@ -359,27 +359,29 @@ class Shift < ActiveRecord::Base
   end
   
   def does_not_exceed_max_concurrent_shifts_in_location
-    max_concurrent = self.location.max_staff
-    shifts = Shift.active.scheduled.in_location(self.location).overlaps(self.start, self.end)
-    time_increment = self.department.department_config.time_increment
+    if self.scheduled?
+      max_concurrent = self.location.max_staff
+      shifts = Shift.active.scheduled.in_location(self.location).overlaps(self.start, self.end)
+      time_increment = self.department.department_config.time_increment
     
-    #how many people are in this location?
-    people_count = {}
-    people_count.default = 0
-    unless shifts.nil?
-      shifts.each do |shift|
-        time = shift.start
-        time = time.hour*60+time.min
-        end_time = shift.end
-        end_time = end_time.hour*60+end_time.min
-        while (time < end_time)
-          people_count[time] += 1
-          time += time_increment
+      #how many people are in this location?
+      people_count = {}
+      people_count.default = 0
+      unless shifts.nil?
+        shifts.each do |shift|
+          time = shift.start
+          time = time.hour*60+time.min
+          end_time = shift.end
+          end_time = end_time.hour*60+end_time.min
+          while (time < end_time)
+            people_count[time] += 1
+            time += time_increment
+          end
         end
       end
-    end
     
-    errors.add_to_base("#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
+      errors.add_to_base("#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
+    end
   end
 
   #TODO: remove sub.save! repalce with sub.save and catch exceptions
