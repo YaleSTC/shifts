@@ -12,7 +12,7 @@
           </div>
         <% end %>
       </p>
-      <%= hidden_field_tag :redirect_to, request.path %>
+      <%= hidden_field_tag :redirect_to, request.request_uri %>
       <p><%= f.submit "Update" %></p>
     <% end %>
   </div>
