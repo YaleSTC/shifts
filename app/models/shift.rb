@@ -194,7 +194,7 @@ class Shift < ActiveRecord::Base
     end
     if missed?
       css_class += "_missed"
-    elsif (signed_in? ? report.arrived : Time.now) > start + department.department_config.grace_period*60 #seconds
+    elsif (self.report.nil? ? Time.now : self.report.arrived) > start + department.department_config.grace_period*60 #seconds
       css_class += "_late"
     end
     css_class
