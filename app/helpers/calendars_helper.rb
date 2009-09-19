@@ -135,7 +135,7 @@ module CalendarsHelper
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
 
-    shifts = Shift.in_locations(@visible_locations).on_day(day).scheduled
+    shifts = Shift.in_calendars(@calendars).in_locations(@visible_locations).on_day(day).scheduled
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 
@@ -144,6 +144,7 @@ module CalendarsHelper
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
                                          day.beginning_of_day, day.end_of_day, @visible_locations.map{|l| l.id})
 
+    #timeslots = TimeSlot.in_calendars(@calendars).in_locations(@visible_locations).on_day(day)
     timeslots = TimeSlot.in_locations(@visible_locations).on_day(day)
 
     timeslots ||= {}
