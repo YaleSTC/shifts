@@ -46,11 +46,11 @@ class ReportsController < ApplicationController
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?      
     end
     if @report.update_attributes(params[:report]) && @report.user == current_user && @report.shift.update_attribute(:signed_in, false)
-      @payform_item=PayformItem.new("hours"=>(@report.departed-@report.arrived)/3600,
+      @payform_item=PayformItem.new("hours"=>(@report.departed-@report.arrived)/3600.0,
                                     "category"=>Category.find_by_name("Shifts"),
                                     "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
                                     "date"=>Date.today,
-                                    "description"=>"Shift in the #{@report.shift.location.name}")
+                                    "description"=>"Shift in #{@report.shift.location.name} (#{@report.arrived.strftime("%I:%M%p")}-#{@report.departed.strftime("%I:%M%p")})")
       AppMailer.deliver_shift_report(@report.shift, @report, @report.shift.department)
       if @payform_item.save
         flash[:notice] = "Successfully submitted report and updated payform."
