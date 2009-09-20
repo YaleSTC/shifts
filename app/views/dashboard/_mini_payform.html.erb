@@ -9,15 +9,12 @@
       <tr>
         <td><%= item.date.strftime('%b %d') %></td>
         <td><%= truncate(item.description, 80, "...") %></td>
-        <td><%= item.hours.to_f.round(2).to_s %></td>
+        <td><%= item.hours.round(2).to_s %></td>
       </tr>
     <% end %>
   <% end %>
   <tr>
     <td colspan="2"><strong>Total:</strong></td>
-    <%# use the following because .hours.round(2) somehow breaks *sometimes*. %>
-    <%# x.round(2) doesnt work when x is an integer.  x has to be float %>
-    <td><%= mini_payform.hours.to_f.round(2) %></td>
+    <td><%= mini_payform.hours.round(2) %></td>
   </tr>
 </table>
-
