@@ -77,9 +77,11 @@ class HooksController < ApplicationController
       logger.info("**Billing failed** IP #{p[:ip]} sends this to hooks/add_job: #{p.to_json}")
       # clear relevant session detail
       session[:external] = nil
-
-      redirect_to(root_path)
+    else
+      logger.info("**Billing failed** add_job_after called with session[:external] empty.")
     end
+
+    redirect_to(root_path)
   end
 end
 
