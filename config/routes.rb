@@ -104,6 +104,7 @@ ActionController::Routing::Routes.draw do |map|
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
 
+  map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -147,3 +148,4 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+
