@@ -145,6 +145,7 @@ class ShiftsController < ApplicationController
 
   def edit
     @shift = Shift.find(params[:id])
+    @report = @shift.report
     return unless require_owner_or_dept_admin(@shift, @shift.department)
     (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end

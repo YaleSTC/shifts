@@ -12,26 +12,10 @@
     </div>
   <% else%>
     <% if @shift.report %>
-      <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
+      <%= stylesheet_link_tag "report" %>
+      <%= render :partial => 'reports/report', :object => @shift.report %>
+      
       <p>
-        <strong>Start:</strong>
-        <%= @shift.start.to_s(:short_name) %>
-      </p>
-      <p>
-        <strong>End:</strong>
-        <%= @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
-      </p>
-      <p>
-        <strong>User:</strong>
-        <%=h @shift.user.name %>
-      </p>
-      <p>
-        <strong>Location:</strong>
-        <%=h @shift.location.name %>
-      </p>
-  
-      <p>
-        <%= link_to "View report", shift_report_path(@shift) %>
         <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
           <% @shift.sub_requests.each do |sub| %>
             <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user) %>
@@ -131,28 +115,31 @@
   
 <% else %>
   
-  <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
-  <p>
-    <strong>Start:</strong>
-    <%= @shift.start.to_s(:short_name) %>
-  </p>
-  <p>
-    <strong>End:</strong>
-    <%= @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
-  </p>
-  <p>
-    <strong>User:</strong>
-    <%=h @shift.user.name %>
-  </p>
-  <p>
-    <strong>Location:</strong>
-    <%=h @shift.location.name %>
-  </p>
+  <% if @shift.report %>
+    <%= stylesheet_link_tag "report" %>
+    <%= render :partial => 'reports/report', :object => @shift.report %>
+  <% else %>
+    <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
+    <p>
+      <strong>Start:</strong>
+      <%= @shift.start.to_s(:short_name) %>
+    </p>
+    <p>
+      <strong>End:</strong>
+      <%= @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
+    </p>
+    <p>
+      <strong>User:</strong>
+      <%=h @shift.user.name %>
+    </p>
+    <p>
+      <strong>Location:</strong>
+      <%=h @shift.location.name %>
+    </p>
+  <% end %>
   
   <p>
-    <% if @shift.report %>
-      <%= link_to "View report", shift_report_path(@shift) %><br>
-    <% elsif current_user == @shift.user and !@shift.has_passed? %>
+    <% if current_user == @shift.user and !@shift.has_passed? and @shift.report.nil? %>
       <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
     <% end %>
   
