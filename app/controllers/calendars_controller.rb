@@ -50,7 +50,7 @@ class CalendarsController < ApplicationController
     @blocks_per_hour = 60/@time_increment.to_f
 
     #get calendar colors
-    @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
+    @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f", "399","933","393","c60","60c","0c6","6c0","c06","06c"]
     @color = {}
     @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i]}
   end

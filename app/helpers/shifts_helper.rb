@@ -186,7 +186,7 @@ module ShiftsHelper
 
     #different calendars are different colors
     unless defined? @color
-      @color_array ||= ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
+      @color_array ||= ["9f9", "9ff", "ff9", "f9f", "f99", "99f", "399","933","393","c60","60c","0c6","6c0","c06","06c"]
       @color ||= {}
       @calendars ||= @department.calendars
       @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i]}
