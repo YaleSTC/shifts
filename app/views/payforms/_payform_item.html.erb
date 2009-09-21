@@ -8,7 +8,7 @@
     <%=h payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
-    <%=h '❝'+payform_item.description+'❞' %>
+    <%=h payform_item.description %>
   </td>
   <td class ="description" id= "reason">
     <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
