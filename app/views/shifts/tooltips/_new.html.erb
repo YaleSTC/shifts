@@ -43,6 +43,9 @@
         <%= f.label :user %><br />
         <%= f.collection_select(:user_id, current_department.active_users.sort_by(&:last_name), :id, :name, {:prompt => "Select a user"}) %>
       </p>
+      <p>
+        <%= f.check_box :power_signed_up %> Power signup
+      </p>
     <% end %>
     <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
   <% end %>
