@@ -44,7 +44,7 @@
     <% else %>
       <h2>Edit Shift</h2>
     
-      <% if current_user.is_admin_of?(@department) and @shift.repeating_event %>
+      <% if @shift.repeating_event %>
         <p>
           <%= check_box_tag :repeating_event, false, false, :onclick => "$('.toggle_me').toggle()" %> Edit repeating event
         </p>
@@ -71,6 +71,9 @@
           <p>
             <%= f.label :user %><br />
             <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+          </p>
+          <p>
+            <%= f.check_box :power_signed_up %> Power signup
           </p>
           <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'shifts', :action => 'update', :calendar => params[:calendar] } %></p>
         <% end %>
