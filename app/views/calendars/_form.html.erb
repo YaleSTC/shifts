@@ -13,11 +13,15 @@
     <%= f.date_select :end_date %>
   </p>
   <% if @calendar.new_record? %>
-  <p>
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </p>
+    <p>
+      <%= f.label :active %><br />
+      <%= f.check_box :active %>
+    </p>
   <% end %>
+  <p>
+    <%= f.label :public, 'Public (accessible by regular users)' %><br />
+    <%= f.check_box :public %>
+  </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
