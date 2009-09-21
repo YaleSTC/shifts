@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :departments, :through => :departments_users
   has_many :payforms
   has_many :payform_items, :through => :payforms
+  has_many :permissions, :through => :roles
   has_many :shifts
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
