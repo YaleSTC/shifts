@@ -196,7 +196,7 @@ class Shift < ActiveRecord::Base
     end
     if missed?
       css_class += "_missed"
-    elsif (signed_in? ? report.arrived : Time.now) > start + department.department_config.grace_period*60 #seconds
+    elsif (self.report.nil? ? Time.now : self.report.arrived) > start + department.department_config.grace_period*60 #seconds
       css_class += "_late"
     end
     css_class
@@ -207,15 +207,16 @@ class Shift < ActiveRecord::Base
   end
 
   def missed?
-    self.has_passed? and !self.signed_in?
+    self.has_passed? and !self.report
   end
 
   def late?
-    self.signed_in? && (self.report.arrived - self.start > $department.department_config.grace_period*60)
+    self.report && (self.report.arrived - self.start > $department.department_config.grace_period*60)
     #seconds
   end
 
   #a shift has been signed in to if it has a report
+  # NOTE: this evaluates whether a shift is CURRENTLY signed in
   def signed_in?
     self.report && !self.report.departed
   end
