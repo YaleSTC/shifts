@@ -1,7 +1,6 @@
   def send_reminders(department)
     message = department.department_config.reminder_message
     @users = department.users.select {|u| if u.is_active?(department) then u.email end }
-#    admin_user = User.find_by_login("kaa43")  #TODO should be changed to the default admin or whatever
     users_reminded = []
     for user in @users
       ArMailer.deliver(ArMailer.create_due_payform_reminder(user, message, department))
@@ -17,8 +16,6 @@
     @users = department.active_users.sort_by(&:name)
     users_warned = []
     
-    #TODO replace admin user with department admin email address
-#    @admin_user = User.find_by_login("kaa43")
     for user in @users     
       #Payform.build(department, user, Date.today)
       unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => department.id, :submitted => nil }, :order => 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
