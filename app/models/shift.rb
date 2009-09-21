@@ -48,7 +48,7 @@ class Shift < ActiveRecord::Base
     #Used for taking sub requests
     if !(start_of_delete.between?(shift.start, shift.end) && end_of_delete.between?(shift.start, shift.end))
       raise "You can\'t delete more than the entire shift"
-  elsif start_of_delete >= end_of_delete
+    elsif start_of_delete >= end_of_delete
       raise "Start of the deletion should be before end of deletion"
     elsif start_of_delete == shift.start && end_of_delete == shift.end
       shift.destroy
@@ -363,6 +363,7 @@ class Shift < ActiveRecord::Base
     if self.scheduled?
       max_concurrent = self.location.max_staff
       shifts = Shift.active.scheduled.in_location(self.location).overlaps(self.start, self.end)
+      shifts.delete_if{|shift| shift.id = self.id} unless self.new_record?
       time_increment = self.department.department_config.time_increment
     
       #how many people are in this location?
