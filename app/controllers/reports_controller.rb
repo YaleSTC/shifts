@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
                                     "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
                                     "date"=>Date.today,
                                     "description"=> @report.short_description,
-                                    "source_url" => shift_report(@report.shift))
+                                    "source_url" => shift_report_path(@report.shift))
       AppMailer.deliver_shift_report(@report.shift, @report, @report.shift.department)
       if @payform_item.save
         flash[:notice] = "Successfully submitted report and updated payform."
