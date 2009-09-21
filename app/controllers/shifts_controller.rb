@@ -114,6 +114,9 @@ class ShiftsController < ApplicationController
     if !@shift.scheduled && current_user.current_shift
       flash[:notice] = "You can't sign into two shifts!"
       redirect_to shifts_path and return
+    elsif !@shift.power_signed_up && !current_user.can_signup?(@shift.location.loc_group)
+      flash[:notice] = "You don't have permission to sign up for a shift there!"
+      redirect_to shifts_path and return
     end
     if @shift.save
       if !@shift.scheduled
