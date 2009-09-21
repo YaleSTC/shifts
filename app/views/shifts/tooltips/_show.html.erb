@@ -1,6 +1,12 @@
+<script type="text/javascript">var ie = false;</script>
+<!--[if IE]>
+<script type="text/javascript">ie = true;</script>
+<![endif]-->
+
 <div class="close_link">
   <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
 </div>
+
 
 <% if current_user.is_admin_of?(current_department) and @shift.scheduled? %>
   <% if params[:delete_options] and @shift.repeating_event %>
@@ -79,7 +85,7 @@
         <% end %>
 
         <% if current_user == @shift.user and !@shift.has_passed? %>
-          <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+          <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
         <% end %>
         <% if !@shift.has_passed? and !@shift.submitted? %>
           <% if @shift.has_sub? %>
@@ -143,7 +149,7 @@
   
   <p>
     <% if current_user == @shift.user and !@shift.has_passed? and @shift.report.nil? %>
-      <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+      <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
     <% end %>
   
     <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
