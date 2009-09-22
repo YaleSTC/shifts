@@ -37,7 +37,8 @@
     <% if current_user.is_admin_of?(@department) %>
       <p>
         <%= f.label :calendar %><br />
-        <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
+        <%= select_tag 'shift[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%><br />
+        <%#= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
       </p>
       <p>
         <%= f.label :user %><br />
@@ -46,6 +47,8 @@
       <p>
         <%= f.check_box :power_signed_up %> Power signup
       </p>
+    <% elsif params[:calendar] %>
+      <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
     <% end %>
     <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
   <% end %>
