@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
     return false unless thing 
-    (permission_list.include?(thing.department.admin_permission) || permission_list.include?(thing.admin_permission)) && self.is_active?(thing.department)
+    ((permission_list.include?(thing.department.admin_permission) || permission_list.include?(thing.admin_permission)) || self.is_superuser?) && self.is_active?(thing.department)
   end
 
   # Can only be called on objects which have a user method
