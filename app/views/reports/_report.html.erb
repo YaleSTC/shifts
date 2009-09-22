@@ -1,3 +1,4 @@
+<% @report ||= report %>
   <table id="report_view_table">
     <tr>
       <th class="list_header" colspan="2">
@@ -6,7 +7,7 @@
       </th>
     </tr>
     <tbody id = "all_report_items">
-      <%= render :partial => 'report_item', :collection => @report.report_items %>
+      <%= render :partial => 'reports/report_item', :collection => @report.report_items %>
     </tbody>
   </table>
 

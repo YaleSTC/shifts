@@ -12,7 +12,7 @@
     <li id="location<%=location.id%>_<%=day%>_slot" style="width:<%= length / @total_blocks * 100 %>%; left:<%= start_block / @total_blocks * 100 %>%" class="<%=style%> bar">
       <div class="time-slot">
         <div class="center_container">
-          <div class="center_content">
+          <div class="center_content signup_bar">
             <% if show_text and length >= 3 %>
               <%= style == "bar_open click_to_add_new" ? (link_to "sign up", new_shift_path) : "" %>
               <%= style == "bar_full no_signups" ? "full" : "" %>

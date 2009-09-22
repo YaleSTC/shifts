@@ -53,6 +53,7 @@ class HooksController < ApplicationController
                                           :description => p[:comments],
                                           :category => Category.find_by_name("Other"),
                                           :payform => Payform.build(dept, current_user, Time.now),
+                                          :source_url => p[:url],
                                           :date => Date.today)
 
           if @payform_item.save

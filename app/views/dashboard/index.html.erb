@@ -18,13 +18,6 @@
     <% end %>
   </fieldset>
 
-    <% if @most_recent_payform %>
-    <fieldset class="index" id="payform">
-      <legend>Your Current Payform</legend>
-      <%= render :partial => "mini_payform", :object => @most_recent_payform %>
-    </fieldset>
-  <% end %>
-
   <fieldset class="index" id="punch_clock">
     <legend>Punch Clock</legend>
     <% if current_user.punch_clock %>

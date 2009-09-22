@@ -24,6 +24,7 @@ class Shift < ActiveRecord::Base
   named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
+  named_scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
   named_scope :scheduled, lambda {{ :conditions => {:scheduled => true}}}
   named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > #{(start.utc + incr).to_sql} and #{:end.to_sql_column} <= #{(stop.utc).to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{true.to_sql})"], :order => "#{:location_id.to_sql_column}, #{:start.to_sql}" }}
   named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
@@ -48,7 +49,7 @@ class Shift < ActiveRecord::Base
     #Used for taking sub requests
     if !(start_of_delete.between?(shift.start, shift.end) && end_of_delete.between?(shift.start, shift.end))
       raise "You can\'t delete more than the entire shift"
-  elsif start_of_delete >= end_of_delete
+    elsif start_of_delete >= end_of_delete
       raise "Start of the deletion should be before end of deletion"
     elsif start_of_delete == shift.start && end_of_delete == shift.end
       shift.destroy
@@ -196,7 +197,7 @@ class Shift < ActiveRecord::Base
     end
     if missed?
       css_class += "_missed"
-    elsif (signed_in? ? report.arrived : Time.now) > start + department.department_config.grace_period*60 #seconds
+    elsif (self.report.nil? ? Time.now : self.report.arrived) > start + department.department_config.grace_period*60 #seconds
       css_class += "_late"
     end
     css_class
@@ -207,15 +208,16 @@ class Shift < ActiveRecord::Base
   end
 
   def missed?
-    self.has_passed? and !self.signed_in?
+    self.has_passed? and !self.report
   end
 
   def late?
-    self.signed_in? && (self.report.arrived - self.start > $department.department_config.grace_period*60)
+    self.report && (self.report.arrived - self.start > $department.department_config.grace_period*60)
     #seconds
   end
 
   #a shift has been signed in to if it has a report
+  # NOTE: this evaluates whether a shift is CURRENTLY signed in
   def signed_in?
     self.report && !self.report.departed
   end
@@ -362,6 +364,7 @@ class Shift < ActiveRecord::Base
     if self.scheduled?
       max_concurrent = self.location.max_staff
       shifts = Shift.active.scheduled.in_location(self.location).overlaps(self.start, self.end)
+      shifts.delete_if{|shift| shift.id = self.id} unless self.new_record?
       time_increment = self.department.department_config.time_increment
     
       #how many people are in this location?
