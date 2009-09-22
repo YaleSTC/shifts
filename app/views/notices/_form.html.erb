@@ -1,4 +1,5 @@
-<% unobtrusive_datepicker_includes %>
+<%# TODO: remove all references to datepicker %>
+<%# unobtrusive_datepicker_includes %>
 
 <% form_remote_for @notice do |f| %>
   <div id ="errors">
@@ -49,13 +50,15 @@
   <% end %>
 
   <% unless current_user.is_admin_of?(current_department) %>
-      <%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
-
-      <div id="advanced_options_div">
+  <%# TODO: change notice administrator to loc group admins, not dept admins %>
+    <%= hidden_field_tag 'type', 'sticky' %>
+    <%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
+      
+    <div id="advanced_options_div">
   <%end%>
-      <%= render :partial => 'advanced_options'%>
+  <%= render :partial => 'advanced_options'%>
   <% unless current_user.is_admin_of?(current_department) %>
-  </div>
+    </div>
   <% end %>
   <p>
     <%= f.submit 'Save' %>

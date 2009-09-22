@@ -8,13 +8,14 @@
     <% if item.active %>
       <tr>
         <td><%= item.date.strftime('%b %d') %></td>
-        <td><%= item.description %></td>
-        <td><%= item.hours.round.to_s %></td>
+        <td><%= truncate(item.description, 80, "...") %></td>
+        <td><%= number_with_precision(item.hours, :precision => 2) %></td>
       </tr>
     <% end %>
   <% end %>
   <tr>
     <td colspan="2"><strong>Total:</strong></td>
-    <td><%= mini_payform.hours.round %></td>
+    <td><%= number_with_precision(mini_payform.hours, :precision => 2) %></td>
   </tr>
 </table>
+

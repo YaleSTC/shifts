@@ -1,4 +1,23 @@
-<% title "Calendars" %>
+<% if @calendar %>
+  <% title @calendar.name + (@calendar.active? ? " (active)" : " (inactive)") %>
+  <% subtitle "("+@calendar.start_date.strftime("%b %d, %Y")+" - "+(@calendar.default? ? "forever" : @calendar.end_date.strftime("%b %d, %Y") )+")"%>
+
+  <% if current_user.is_admin_of?(@department) %>
+    <p>
+      <% unless @calendar.default? %>
+        <%= link_to "Edit", edit_calendar_path(@calendar) %> |
+        <%= link_to "Destroy", @calendar, :confirm => 'Are you sure?', :method => :delete %> |
+      <% else %>
+        <p>This is the default calendar, and cannot be edited or deleted.</p>
+      <% end %>
+      <%= link_to "View All Calendars", calendars_path %>
+    </p>
+  <% end %>
+<% else %>
+  <% title "Calendars" %>
+<% end %>
+
+
 <div id="AJAX_status"></div><%# to display status messages in top right corner %>
 <script>var calendar_visible = {};</script>
 <%= render :partial => 'shifts/view_preferences' %>
@@ -8,34 +27,38 @@
     <th>Name</th>
     <th>Start Date</th>
     <th>End Date</th>
+    <th>Public</th>
     <th>Active</th>
   </tr>
   <% for calendar in @calendars %>
-    <tr<%= " class='disabled'" if !calendar.active? %>>
+    <tr<%= " class='disabled'" if (!calendar.active? and @calendar.nil?) %>>
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
+      <td><%=h calendar.public %></td>
       <td><%=h calendar.active %></td>
       <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled'); calendar_visible[#{calendar.id}] = !calendar_visible[#{calendar.id}]"%></td>
-      <% unless calendar.default? %>
+      <% unless calendar.default? or !current_user.is_admin_of?(@department) %>
         <td><%= button_to calendar.active ? "Deactivate" : "Activate" , toggle_calendar_path(calendar) %></td>
         <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
-    <script>calendar_visible[<%=calendar.id%>] = <%= calendar.active? %>;</script>
+    <script>calendar_visible[<%=calendar.id%>] = <%= (@calendar ? calendar == @calendar : calendar.active?) %>;</script>
   <% end %>
 </table>
 
-<p><%= link_to "New Calendar", new_calendar_path %></p>
-<p><%= link_to "Wipe shifts and timeslots from a range of days", prepare_wipe_range_calendars_path %></p>
+<% if current_user.is_admin_of?(@department) %>
+  <p><%= link_to "New Calendar", new_calendar_path %></p>
+  <p><%= link_to "Wipe shifts and timeslots from a range of days", prepare_wipe_range_calendars_path %></p>
 
-<p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
+  <p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
 
-<%# HIDE the new timeslot link when javascript is enabled.%>
-<script type='text/javascript' charset='utf-8'>
-  $('#new_time_slot_link').toggle();
-</script>
+  <%# HIDE the new timeslot link when javascript is enabled.%>
+  <script type='text/javascript' charset='utf-8'>
+    $('#new_time_slot_link').toggle();
+  </script>
+<% end %>
 
 <div style="clear:both"></div>
 
@@ -133,7 +156,7 @@
     var date = params[1];
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=true&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
   }
 
   function popup_new_shift(parent_element, e, raw_element){
@@ -149,7 +172,7 @@
     var widthPercentage = relX / parent_element.width();
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=true&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
+    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
   }
 
   function popup_edit_timeslot(parent_element, e){
@@ -158,7 +181,7 @@
     var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
   }
 
   function popup_edit_shift(parent_element, e){
@@ -167,7 +190,7 @@
     var id = parent_element.attr('id').substring(5); //remove "shift" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
   
   function popup_delete_repeating_shift(parent_element, e){
@@ -176,7 +199,7 @@
     var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=true&delete_options=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
   
   function popup_delete_repeating_timeslot(parent_element, e){
@@ -185,7 +208,7 @@
     var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=true&delete_options=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id, async: false});
+    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id, async: false});
   }
 
   function loading_tooltip(x,y){
