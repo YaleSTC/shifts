@@ -67,13 +67,14 @@ module ApplicationHelper
     output + "</select>"
   end
 
+  #TODO: clean up datepicker references, since datepicker.js has been removed (for license reasons, I think)
   def unobtrusive_datepicker_includes
-    javascript 'datepicker'
-    stylesheet 'datepicker'
+    #javascript 'datepicker'
+    #stylesheet 'datepicker'
   end
 
   def unobtrusive_datepicker_include_tags
-    (javascript_include_tag 'datepicker') + (stylesheet_link_tag 'datepicker')
+    #(javascript_include_tag 'datepicker') + (stylesheet_link_tag 'datepicker')
   end
 
   def time_format
