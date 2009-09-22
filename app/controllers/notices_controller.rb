@@ -30,10 +30,10 @@ class NoticesController < ApplicationController
   def create
     @report = current_user.current_shift.report if current_user.current_shift
     @notice = Notice.new(params[:notice])
-    @notice.sticky = true if params[:type] == "sticky"
-    @notice.announcement = true if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = current_department
+    @notice.sticky = true if params[:type] == "sticky"
+    @notice.announcement = true if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
     if params[:type] == "link"
       @notice.useful_link = true if params[:type] == "link"
       @notice.content = params[:link_label] + "|$|" + "http://" + params[:url]

@@ -1,7 +1,7 @@
 class ShiftsController < ApplicationController
 
     helper :shifts
-    before_filter :require_department_admin, :only => [:destroy]
+    #before_filter :require_department_admin, :only => [:destroy]
 
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
@@ -114,6 +114,9 @@ class ShiftsController < ApplicationController
     if !@shift.scheduled && current_user.current_shift
       flash[:notice] = "You can't sign into two shifts!"
       redirect_to shifts_path and return
+    elsif !@shift.power_signed_up && !current_user.can_signup?(@shift.location.loc_group)
+      flash[:notice] = "You don't have permission to sign up for a shift there!"
+      redirect_to shifts_path and return
     end
     if @shift.save
       if !@shift.scheduled
@@ -145,6 +148,7 @@ class ShiftsController < ApplicationController
 
   def edit
     @shift = Shift.find(params[:id])
+    @report = @shift.report
     return unless require_owner_or_dept_admin(@shift, @shift.department)
     (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
@@ -179,10 +183,22 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift = Shift.find(params[:id])
-    @shift.destroy
-    respond_to do |format|
-      format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}
-      format.js #remove partial from view
+    if current_user.is_admin_of?(current_department) or (@shift.user == current_user and @shift.calendar.public? and !@shift.calendar.active?)
+      @shift.destroy
+      respond_to do |format|
+        format.html {flash[:notice] = "Successfully destroyed shift."; redirect_to shifts_url}
+        format.js #remove partial from view
+      end
+    else
+      respond_to do |format|
+        format.html {flash[:notice] = "That action is restricted."; redirect_to access_denied_path}        
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> That action is restricted.");
+          end
+        end
+      end
     end
   end
 

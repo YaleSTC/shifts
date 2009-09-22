@@ -8,7 +8,11 @@
     <%=h payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
-    <%=h '❝'+payform_item.description+'❞' %>
+    <% if payform_item.source_url -%>
+      <%= link_to h(payform_item.description), payform_item.source_url %>
+    <% else -%>
+      <%=h payform_item.description %>
+    <% end -%>
   </td>
   <td class ="description" id= "reason">
     <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
@@ -28,3 +32,4 @@
   </td>
 </tr>
 <% end %>
+

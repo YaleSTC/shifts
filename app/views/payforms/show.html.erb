@@ -1,4 +1,10 @@
-<% title "Payform for " + start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format)%>
+<% payform_span = start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format) -%>
+<% if current_user.is_admin_of?(current_department) %>
+  <% title "#{current_user.name}'s payform for #{payform_span}" -%>
+<% else -%>
+  <% title "Payform for #{payform_span}" -%>
+<% end -%>
+
   <% unless current_user.is_admin_of?(current_department) %>
     <div id="cols">
       <div id="cols-header"><%= error_messages_for 'payform' %></div>
@@ -28,3 +34,4 @@
 <div id="payform_buttons">
   <%= render :partial => "payform_buttons" %>
 </div>
+

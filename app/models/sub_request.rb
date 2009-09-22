@@ -10,6 +10,8 @@ class SubRequest < ActiveRecord::Base
   validate :not_in_the_past
   validate :user_does_not_have_concurrent_sub_request
   validate :has_user_sources
+  
+  before_destroy :destroy_user_sinks_user_sources
   #
   # Class methods
   #
@@ -117,5 +119,8 @@ class SubRequest < ActiveRecord::Base
       errors.add_to_base("Someone must be able to take this sub request. Add a person department and/or role to 'People/groups eligible for this sub'")
     end
   end
-
+  
+  def destroy_user_sinks_user_sources
+    UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
+  end
 end
