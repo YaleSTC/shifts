@@ -39,7 +39,7 @@ class Shift < ActiveRecord::Base
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
   before_save :adjust_sub_requests
-  before_save :combine_with_surrounding_shifts
+  after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
 
   #
   # Class methods
@@ -254,10 +254,23 @@ class Shift < ActiveRecord::Base
     if (shift_earlier = Shift.find(:first, :conditions => {:end => self.start, :user_id => self.user_id, :location_id => self.location_id, :calendar_id => self.calendar.id}))
       self.start = shift_earlier.start
       shift_earlier.sub_requests.each {|s| s.shift = self}
+      unless shift_earlier.report.nil?
+        shift_earlier.report.shift = nil
+        shift_earlier.report.save! #we have to disassociate the report first, or it will be destroyed too       
+        self.report = shift_earlier.report
+        shift_earlier.report = nil
+      end
       shift_earlier.destroy
       self.save!
+      # the below doesn't work...
+      # shift_earlier.end = self.end
+      # self.sub_requests.each {|s| s.shift = shift_earlier}
+      # shift_earlier.report = self.report if shift_earlier.report.nil? #only replace report if it doesn't exist
+      #shift_earlier.save!
+      #return false
+      #self.destroy #how do we cancel creation of this shift but return success?
     end
-  end
+  end    
 
   def exceeds_max_staff?
     count = 0
@@ -345,7 +358,6 @@ class Shift < ActiveRecord::Base
   end
 
   def user_does_not_have_concurrent_shift
-
     if self.calendar.active
       c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
     else
@@ -354,7 +366,6 @@ class Shift < ActiveRecord::Base
     unless c.zero?
       errors.add_to_base("#{self.user.name} has an overlapping shift in that period") unless (self.id and c==1)
     end
-
   end
 
   def not_in_the_past
@@ -404,8 +415,8 @@ class Shift < ActiveRecord::Base
   end
 
   def set_active
-      self.active = self.calendar.active
-      return true
+    self.active = self.calendar.active
+    return true
   end
 
   def is_within_calendar
