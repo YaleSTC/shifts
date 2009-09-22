@@ -11,7 +11,7 @@
     <% if payform_item.source_url -%>
       <%= link_to h(payform_item.description), payform_item.source_url %>
     <% else -%>
-      <%=h '❝'+payform_item.description+'❞' %>
+      <%=h payform_item.description %>
     <% end -%>
   </td>
   <td class ="description" id= "reason">
