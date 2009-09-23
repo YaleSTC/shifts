@@ -51,7 +51,7 @@ class HooksController < ApplicationController
         if (dept = Department.find_by_name "STC")
           @payform_item = PayformItem.new(:hours => p[:total].to_f,
                                           :description => p[:comments],
-                                          :category => Category.find_by_name("Other"),
+                                          :category => Category.find_by_name("RT"),
                                           :payform => Payform.build(dept, current_user, Time.now),
                                           :source_url => p[:url],
                                           :date => Date.today)
