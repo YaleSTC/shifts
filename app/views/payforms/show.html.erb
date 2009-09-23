@@ -1,6 +1,6 @@
 <% payform_span = start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format) -%>
 <% if current_user.is_admin_of?(current_department) %>
-  <% title "#{current_user.name}'s payform for #{payform_span}" -%>
+  <% title "#{@payform.user.name}'s payform for #{payform_span}" -%>
 <% else -%>
   <% title "Payform for #{payform_span}" -%>
 <% end -%>
