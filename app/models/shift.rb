@@ -260,6 +260,7 @@ class Shift < ActiveRecord::Base
         self.report = shift_earlier.report
         shift_earlier.report = nil
       end
+      self.signed_in = shift_earlier.signed_in
       shift_earlier.destroy
       self.save!
       # the below doesn't work...
