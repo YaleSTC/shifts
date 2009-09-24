@@ -45,7 +45,7 @@
         <%= f.collection_select(:user_id, current_department.active_users.sort_by(&:last_name), :id, :name, {:prompt => "Select a user"}) %>
       </p>
       <p>
-        <%= f.check_box :power_signed_up %> Power signup
+        <%= f.check_box :power_signed_up, :checked => true %> Power signup
       </p>
     <% elsif params[:calendar] %>
       <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
