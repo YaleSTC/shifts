@@ -4,7 +4,7 @@ require 'mongrel_cluster/recipes'
 
 set :user, "deploy"
 set :runner, "deploy"
-set :use_sudo, :true
+set :use_sudo, :false
 
 set :domain, Capistrano::CLI.ui.ask("deployment server hostname (e.g. weke.its.yale.edu): ")
 set :application, "shifts"
