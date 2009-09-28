@@ -181,6 +181,7 @@ class CalendarsController < ApplicationController
         RepeatingEvent.create_from_existing_event(event)
       end
     end
+    flash[:notice] = "Schedule applied successfully."
     redirect_to @calendar
   end
   
