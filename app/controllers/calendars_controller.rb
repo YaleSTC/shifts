@@ -83,19 +83,19 @@ class CalendarsController < ApplicationController
     end
   end
 
- def edit
-   @calendar = Calendar.find(params[:id])
- end
+  def edit
+    @calendar = Calendar.find(params[:id])
+  end
 
- def update
-   @calendar = Calendar.find(params[:id])
-   if @calendar.update_attributes(params[:calendar])
-     flash[:notice] = "Successfully updated calendar."
-     redirect_to @calendar
-   else
-     render :action => 'edit'
-   end
- end
+  def update
+    @calendar = Calendar.find(params[:id])
+    if @calendar.update_attributes(params[:calendar])
+      flash[:notice] = "Successfully updated calendar."
+      redirect_to @calendar
+    else
+      render :action => 'edit'
+    end
+  end
 
   def prepare_copy
     @calendar = Calendar.find(params[:id]).clone
@@ -172,6 +172,18 @@ class CalendarsController < ApplicationController
       redirect_to :action => "index"
     end
   end
+  
+  
+  def apply_schedule
+    @calendar = Calendar.find(params[:id])
+    ActiveRecord::Base.transaction do
+      (@calendar.time_slots + @calendar.shifts).each do |event|
+        RepeatingEvent.create_from_existing_event(event)
+      end
+    end
+    redirect_to @calendar
+  end
+  
 
   private
   def index_prep
