@@ -78,7 +78,7 @@ module ShiftsHelper
       time = @dept_start_hour*60 + block*@time_increment
       if today and time < now
         @signup_bar[block] = "bar_passed no_signups"
-      elsif !@open_at[time]
+      elsif !@open_at[time] or !current_user.can_signup?(location.loc_group)
         @signup_bar[block] = "bar_closed no_signups"
       elsif people_count[time] >= location.max_staff
         @signup_bar[block] = "bar_full no_signups"
