@@ -1,5 +1,5 @@
 class PayformsController < ApplicationController
-  before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit]
+  before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit, :unsubmit]
 
   def index
     @payforms = narrow_down(current_user.is_admin_of?(current_department) ?
@@ -56,6 +56,16 @@ class PayformsController < ApplicationController
     end
   end
 
+  def unsubmit
+    @payform = Payform.find(params[:id])
+    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    @payform.submitted = nil
+    if @payform.save
+      flash[:notice] = "Successfully unsubmitted payform."
+    end
+    redirect_to @payform
+  end
+
   def approve
     @payform = Payform.find(params[:id])
     @payform.approved = Time.now
@@ -63,7 +73,9 @@ class PayformsController < ApplicationController
     if @payform.save
       flash[:notice] = "Successfully approved payform."
     end
-    redirect_to @payform
+    #will eventually redirect to the next unapproved payform
+    @next_unapproved_payform = Payform.unapproved.sort_by(&:date).last
+    redirect_to @next_unapproved_payform
   end
 
   def print
