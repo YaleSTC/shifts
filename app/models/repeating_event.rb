@@ -84,6 +84,54 @@ class RepeatingEvent < ActiveRecord::Base
       "shift"
     end
   end
+  
+  
+  
+  # ideally this might be made an overload of the 'new' action,
+  # but for now, this will do
+  # creates a new repeating event from an existing event. the repeating
+  # event will span the entire calendar, and wipe all conflicts.
+  def self.create_from_existing_event( event )
+    if event.calendar.default?
+      return false #cannot make repeating events on the default calendar
+    else
+      repeating_event = RepeatingEvent.new
+
+      if event.class == Shift
+        repeating_event.is_set_of_timeslots = false
+        repeating_event.user_id = event.user.id
+      elsif event.class == TimeSlot
+        repeating_event.is_set_of_timeslots = true
+      else
+        return false #we can't make a repeating event out of anything else
+      end
+      
+      #this will span the whole calendar
+      repeating_event.calendar = event.calendar
+      repeating_event.start_date = event.calendar.start_date
+      repeating_event.end_date = event.calendar.end_date
+      repeating_event.start_time = event.start
+      repeating_event.end_time = event.end
+      
+      #get location from event
+      repeating_event.loc_ids = event.location_id.to_s
+      
+      #repeat weekly
+      repeating_event.days_of_week = event.start.wday.to_s
+      
+      ActiveRecord::Base.transaction do
+        event.destroy
+        repeating_event.save!
+        failed = repeating_event.make_future(true) #wipe conflicts
+        raise failed if failed
+      end
+      
+      return true
+    end
+  end
+  
+  
+  
 
   private
 
@@ -137,5 +185,6 @@ class RepeatingEvent < ActiveRecord::Base
       self.end_time = self.end_time.change(:day => Date.tomorrow.day, :month => Date.tomorrow.month, :year => Date.tomorrow.year)
     end
   end
+
 
 end
