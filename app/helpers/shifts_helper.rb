@@ -43,6 +43,7 @@ module ShiftsHelper
         time = time.hour*60+time.min
         end_time = timeslot.end
         end_time = end_time.hour*60+end_time.min
+        end_time += (24*60) if end_time <= time #for slots ending at/after midnight
         while (time < end_time)
           @open_at[time] = true
           time += @time_increment
@@ -59,6 +60,7 @@ module ShiftsHelper
         time = time.hour*60+time.min
         end_time = shift.end
         end_time = end_time.hour*60+end_time.min
+        end_time += (24*60) if end_time <= time #for slots ending at/after midnight
         while (time < end_time)
           people_count[time] += 1
           time += @time_increment
@@ -76,7 +78,7 @@ module ShiftsHelper
       time = @dept_start_hour*60 + block*@time_increment
       if today and time < now
         @signup_bar[block] = "bar_passed no_signups"
-      elsif !@open_at[time]
+      elsif !@open_at[time] or !current_user.can_signup?(location.loc_group)
         @signup_bar[block] = "bar_closed no_signups"
       elsif people_count[time] >= location.max_staff
         @signup_bar[block] = "bar_full no_signups"
