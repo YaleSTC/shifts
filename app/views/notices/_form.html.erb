@@ -20,7 +20,7 @@
       </fieldset>
       <fieldset class = "index">
         <legend>URL</legend>
-        <%= text_field_tag "url" %>
+        <%= text_field_tag "url", {}, :style => 'width: 400px' %>
       </fieldset>
       <%= hidden_field_tag 'type', 'link' %>
     <% end %>
