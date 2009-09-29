@@ -209,7 +209,7 @@
     var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id, async: false});
+    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
   }
 
   function loading_tooltip(x,y){
