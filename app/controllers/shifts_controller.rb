@@ -70,9 +70,9 @@ class ShiftsController < ApplicationController
 
 # TODO: write the view
 # Temporarily deactivated because its view is unfinished, and will be slightly tricky design-wise -ben
-  def show_active
-    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
-  end
+#  def show_active
+#    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
+#  end
 
   def show_unscheduled
     @start_date = 1.week.ago
@@ -103,7 +103,7 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(params[:shift])
-    @shift.department = @shift.location.department #assign it a department based off of its location. shifts will never change to a location in a diff. dept, so this is okay.
+    @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)
     @shift.start = Time.now unless @shift.start
     @shift.calendar = @department.calendars.default unless @shift.calendar
@@ -157,7 +157,7 @@ class ShiftsController < ApplicationController
     @shift = Shift.find(params[:id])
     return unless require_owner_or_dept_admin(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
-      #combine with any compatible shifts      
+      #combine with any compatible shifts
       respond_to do |format|
         format.js
         format.html do
@@ -191,7 +191,7 @@ class ShiftsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html {flash[:notice] = "That action is restricted."; redirect_to access_denied_path}        
+        format.html {flash[:notice] = "That action is restricted."; redirect_to access_denied_path}
         format.js do
           render :update do |page|
             # display alert
@@ -218,3 +218,4 @@ class ShiftsController < ApplicationController
   #   end
   # end
 end
+
