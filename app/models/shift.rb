@@ -16,6 +16,7 @@ class Shift < ActiveRecord::Base
   validate :is_within_calendar
   before_save :set_active
 
+#TODO: remove all to_sql calls except where needed for booleans
   named_scope :active, lambda {{:conditions => {:active => true}}}
   named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
   named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
@@ -256,7 +257,7 @@ class Shift < ActiveRecord::Base
       shift_earlier.sub_requests.each {|s| s.shift = self}
       unless shift_earlier.report.nil?
         shift_earlier.report.shift = nil
-        shift_earlier.report.save! #we have to disassociate the report first, or it will be destroyed too       
+        shift_earlier.report.save! #we have to disassociate the report first, or it will be destroyed too
         self.report = shift_earlier.report
         shift_earlier.report = nil
       end
@@ -271,7 +272,7 @@ class Shift < ActiveRecord::Base
       #return false
       #self.destroy #how do we cancel creation of this shift but return success?
     end
-  end    
+  end
 
   def exceeds_max_staff?
     count = 0
@@ -372,14 +373,14 @@ class Shift < ActiveRecord::Base
   def not_in_the_past
     errors.add_to_base("Can't sign up for a shift that has already passed!") if self.start <= Time.now
   end
-  
+
   def does_not_exceed_max_concurrent_shifts_in_location
     if self.scheduled?
       max_concurrent = self.location.max_staff
       shifts = Shift.active.scheduled.in_location(self.location).overlaps(self.start, self.end)
       shifts.delete_if{|shift| shift.id = self.id} unless self.new_record?
       time_increment = self.department.department_config.time_increment
-    
+
       #how many people are in this location?
       people_count = {}
       people_count.default = 0
@@ -395,7 +396,7 @@ class Shift < ActiveRecord::Base
           end
         end
       end
-    
+
       errors.add_to_base("#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
     end
   end
@@ -436,3 +437,4 @@ class Shift < ActiveRecord::Base
     end
   end
 end
+
