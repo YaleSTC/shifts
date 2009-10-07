@@ -2,10 +2,11 @@ class Notice < ActiveRecord::Base
 
   belongs_to :author, :class_name => "User"
   belongs_to :remover, :class_name => "User"
-
   belongs_to :department
 
   validate :content_or_link, :presence_of_locations_or_viewers, :proper_time
+  
+  before_destroy :destroy_user_sinks_user_sources
 
   named_scope :inactive, lambda {{ :conditions => ["#{:end_time.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
   named_scope :active_with_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
@@ -83,6 +84,9 @@ class Notice < ActiveRecord::Base
       end
     end
   end
-
+  
+  def destroy_user_sinks_user_sources
+    UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"Notice".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
+  end
 end
 
