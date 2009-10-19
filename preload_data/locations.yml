@@ -8,10 +8,10 @@ locations_001:
   min_staff: "1"
   name: Io
   priority: "100"
+  report_email: 
   short_name: io
   updated_at: 2009-06-22 17:35:10
   useful_links: ""
-  report_email:
 locations_002: 
   active: t
   created_at: 2009-06-22 17:35:40
@@ -21,10 +21,10 @@ locations_002:
   min_staff: "1"
   name: Connecticut Hall
   priority: "100"
+  report_email: 
   short_name: CT Hall
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_003: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -34,10 +34,10 @@ locations_003:
   min_staff: "1"
   name: Technology Troubleshooting Office
   priority: "100"
+  report_email: 
   short_name: TTO
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_004: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -47,10 +47,10 @@ locations_004:
   min_staff: "1"
   name: Branford College
   priority: "100"
+  report_email: 
   short_name: BR
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_005: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -60,10 +60,10 @@ locations_005:
   min_staff: "1"
   name: Berkeley College
   priority: "100"
+  report_email: 
   short_name: BC
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_006: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -73,10 +73,10 @@ locations_006:
   min_staff: "1"
   name: Silliman College
   priority: "100"
+  report_email: 
   short_name: SC
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_007: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -86,10 +86,10 @@ locations_007:
   min_staff: "1"
   name: Saybrook College
   priority: "100"
+  report_email: 
   short_name: SY
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_008: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -99,10 +99,10 @@ locations_008:
   min_staff: "1"
   name: Trumbull College
   priority: "100"
+  report_email: 
   short_name: TC
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_009: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -112,10 +112,10 @@ locations_009:
   min_staff: "1"
   name: Davenport College
   priority: "100"
+  report_email: 
   short_name: DC
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_010: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -125,10 +125,10 @@ locations_010:
   min_staff: "1"
   name: Pierson College
   priority: "100"
+  report_email: 
   short_name: PC
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_011: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -138,10 +138,10 @@ locations_011:
   min_staff: "1"
   name: Morse College
   priority: "100"
+  report_email: 
   short_name: MC
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_012: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -151,10 +151,10 @@ locations_012:
   min_staff: "1"
   name: Ezra Stiles College
   priority: "100"
+  report_email: 
   short_name: ES
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_013: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -164,10 +164,10 @@ locations_013:
   min_staff: "1"
   name: Timothy Dwight College
   priority: "100"
+  report_email: 
   short_name: TD
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_014: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -177,10 +177,10 @@ locations_014:
   min_staff: "1"
   name: Jonathan Edwards College
   priority: "100"
+  report_email: 
   short_name: JE
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:
 locations_015: 
   active: t
   created_at: 2009-06-22 17:36:41
@@ -190,7 +190,7 @@ locations_015:
   min_staff: "1"
   name: Calhoun College
   priority: "100"
+  report_email: 
   short_name: CC
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
-  report_email:

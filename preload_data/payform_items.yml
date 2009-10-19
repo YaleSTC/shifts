@@ -12,5 +12,6 @@ payform_items_001:
   payform_item_set_id: 
   reason: 
   source: 
+  source_url: 
   updated_at: 2009-07-10 13:01:13
   user_id: 

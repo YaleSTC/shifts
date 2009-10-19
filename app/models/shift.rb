@@ -39,7 +39,8 @@ class Shift < ActiveRecord::Base
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
-  before_save :adjust_sub_requests
+  validate :adjust_sub_requests
+#  before_save :adjust_sub_requests
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
 
   #
@@ -401,7 +402,7 @@ class Shift < ActiveRecord::Base
     end
   end
 
-  #TODO: remove sub.save! repalce with sub.save and catch exceptions
+  #TODO: remove sub.save! replace with sub.save and catch exceptions
   def adjust_sub_requests
     self.sub_requests.each do |sub|
       if sub.start > self.end || sub.end < self.start

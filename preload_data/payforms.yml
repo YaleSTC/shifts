@@ -10,6 +10,7 @@ payforms_001:
   id: "56"
   monthly: f
   payform_set_id: 
+  payrate: 
   printed: 
   submitted: 
   updated_at: 2009-07-10 13:01:13
