@@ -40,24 +40,23 @@ class ReportsController < ApplicationController
 # TODO: refactor into a model method on Report
   def update
     @report = Report.find(params[:id])
-    shift = @report.shift
-    return unless require_owner_or_dept_admin(shift, shift.department)
+    return unless require_owner_or_dept_admin(@report.shift, @report.shift.department)
     if (params[:sign_out])
       @report.departed = Time.now
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.login} logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
-      shift.update_attribute(:end, Time.now) unless shift.scheduled?
+      @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
 # above method call isn't safe; it works because there are never sub requests on unscheduled shifts, but it'll cause validation problems
 # with shift.adjust_sub_requests if it ever does run. -ben
     end
-    shift.signed_in = false
-    if @report.update_attributes(params[:report]) && @report.user == current_user && shift.save(false)
+#    @report.shift.signed_in = false
+    if @report.update_attributes(params[:report]) && @report.shift.update_attribute(:signed_in, false)
       @payform_item=PayformItem.new("hours" => @report.duration,
                                     "category"=>Category.find_by_name("Shifts"),
-                                    "payform"=>Payform.build(shift.location.loc_group.department, @report.user, Time.now),
+                                    "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
                                     "date"=>Date.today,
                                     "description"=> @report.short_description,
-                                    "source_url" => shift_report_path(shift))
-      AppMailer.deliver_shift_report(shift, @report, shift.department)
+                                    "source_url" => shift_report_path(@report.shift))
+      AppMailer.deliver_shift_report(@report.shift, @report, @report.shift.department)
       if @payform_item.save
         flash[:notice] = "Successfully submitted report and updated payform."
       else
