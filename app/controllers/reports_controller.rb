@@ -45,7 +45,7 @@ class ReportsController < ApplicationController
     if (params[:sign_out])
       @report.departed = Time.now
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.login} logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
-      shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
+      shift.update_attribute(:end, Time.now) unless shift.scheduled?
 # above method call isn't safe; it works because there are never sub requests on unscheduled shifts, but it'll cause validation problems
 # with shift.adjust_sub_requests if it ever does run. -ben
     end
