@@ -40,7 +40,7 @@ class Shift < ActiveRecord::Base
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
   validate :adjust_sub_requests
-#  before_save :adjust_sub_requests
+#  before_save :adjust_sub_requests # TODO: can be deleted after bugfix#171 is accepted -ben
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
 
   #
