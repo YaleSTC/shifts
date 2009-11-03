@@ -13,7 +13,7 @@ class AppMailer < ActionMailer::Base
 
   def sub_created_notify(sub)
     subject     "[Sub Request] Sub needed for " + sub.shift.short_display
-    to          "sub.request.mailer@yale.edu"
+    recipients  "sub.request.mailer@yale.edu"
     bcc         sub.email_list
     from        sub.user.email
     body        :sub => sub
