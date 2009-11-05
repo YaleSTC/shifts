@@ -1,5 +1,6 @@
 require 'action_mailer/ar_mailer'
 
+ActionMailer::Base.delivery_method = :activerecord
 class ArMailer < ActionMailer::ARMailer
   self.delivery_method = :activerecord
 # For use when users are imported from csv
@@ -55,4 +56,16 @@ class ArMailer < ActionMailer::ARMailer
     body          :payform => payform, :payform_item => payform_item, :edit_item => edit_item
   end
 
+  # SUB REQUEST:
+  # email the specified list or default list of eligible takers
+  def sub_created_notify(email_to, sub)
+
+    subject     "[Sub Request] Sub needed for " + sub.shift.short_display
+    recipients  email_to
+    from        sub.user.email
+    sent_on     Time.now
+    body        :sub => sub
+  end
+
 end
+

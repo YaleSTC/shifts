@@ -28,6 +28,10 @@ class LocGroup < ActiveRecord::Base
     self.locations.map{|loc| loc.data_objects}.flatten.compact
   end
 
+  def can_signup_users
+    department.users.select { |u| u.can_signup?(self) }
+  end
+  
   private
 
   def create_permissions
@@ -43,5 +47,6 @@ class LocGroup < ActiveRecord::Base
     self.signup_permission.update_attribute(:name, name + " signup")
     self.admin_permission.update_attribute(:name, name + " admin")
   end
+
 
 end
