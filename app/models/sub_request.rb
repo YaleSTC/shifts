@@ -52,30 +52,21 @@ class SubRequest < ActiveRecord::Base
     shift.location.loc_group
   end
 
-  # list of emails to send sub request when created
-  # default is sending to sub_request_email alias defined in loc_group
-  def email_list
-    if user_sources.blank? # if sub was requested to the default list
-          shift.location.loc_group.sub_request_email || "email.not.set.please.tell.admin@yale.edu"
-    else     # if user specified targets who can take sub
-      user_sources.collect(&:users).flatten.uniq.collect(&:email)
-    end
-  end
-
   def user_is_eligible?(user)
     return false if self.user == user
 
-    if user_sources.blank? # if sub was requested to the default list
-      user.can_signup?(loc_group)
-    else     # if user specified targets who can take sub
-      eligible_takers.include?(user)
-    end
+    potential_takers.include?(user)
   end
 
-  def eligible_takers
-    specified_ones = user_sources.collect(&:users).flatten.uniq
-    # filter return that
-    eligible_ones = specified_ones.select {|u| u.can_signup?(loc_group)}
+  def potential_takers
+    can_signup_ones = loc_group.can_signup_users
+    if user_sources.blank?
+      can_signup_ones
+    else
+      specified_ones = user_sources.collect(&:users).flatten.uniq
+      # filter through people who can sign up
+      specified_ones & can_signup_ones
+    end
   end
 
   def sub_name

@@ -35,15 +35,19 @@ class SubRequestsController < ApplicationController
         end
         @sub_request.save!
       end
-        flash[:notice] = 'Sub request was successfully created.'
-        AppMailer.deliver_sub_created_notify @sub_request
-        redirect_to :action => "show", :id => @sub_request
     rescue Exception => e
       @sub_request = @sub_request.clone
       @sub_request.add_errors(e.message)
       render :action => "new"
-    end
       #redirect_to :action => :new, :id => @sub_request.shift
+    else
+      flash[:notice] = 'Sub request was successfully created.'
+      @sub_request.potential_takers.each do |user|
+        # "if user.email" because email is not a compulsory field in user
+        ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
+      end
+      redirect_to :action => "show", :id => @sub_request
+    end
 
 
 #    if @sub_request.save

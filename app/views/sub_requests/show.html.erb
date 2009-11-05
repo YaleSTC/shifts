@@ -35,8 +35,8 @@
 
 <p>
   <b>Who can take this sub request: </b>
-  <% if @sub_request.eligible_takers.empty? %>
-    <p>Any one in <%= @sub_request.loc_group.name %></p>
+  <% if @sub_request.user_sources.empty? %>
+    <p>Any one who can work shifts in <%= @sub_request.loc_group.name %></p>
   <% else -%>
     <ul>
     <% @sub_request.user_sinks_user_sources.each do |substitute| %>
