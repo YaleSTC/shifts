@@ -1,3 +1,4 @@
-page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
-page << "tb_init('a#edit');"
-
+unless current_user.current_shift.nil?
+  page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
+  page << "tb_init('a#edit');"
+end
