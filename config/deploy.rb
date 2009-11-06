@@ -8,14 +8,15 @@ set :use_sudo, :false
 
 set :domain, Capistrano::CLI.ui.ask("deployment server hostname (e.g. weke.its.yale.edu): ")
 set :application, "shifts"
-set :application_prefix, Capistrano::CLI.ui.ask("deployment application prefix (e.g. bass): ")
+set :application_prefix, Capistrano::CLI.ui.ask("deployment application prefix (e.g. apps2): ")
 set :deploy_to, "/srv/www/rails/#{application}/#{application_prefix}"
+set :branch, Capistrano::CLI.ui.ask("deployment branch (e.g. feature#111): ")
 
 
 set :repository,  "git@github.com:YaleSTC/shifts.git"
 set :scm, :git
 #set :deploy_via, :remote_cache
-set :branch, "master"
+#set :branch, "master"
 
 role :app, "#{domain}"
 role :web, "#{domain}"
