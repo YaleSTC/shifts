@@ -60,6 +60,10 @@ class Notice < ActiveRecord::Base
     self.remover = user
     true if self.save
   end
+  
+  def content_with_formatting
+    content.sanitize_and_format
+  end
 
   private
   #Validations
