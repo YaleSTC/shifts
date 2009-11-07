@@ -4,7 +4,7 @@
       :confirm => "Are you sure you want to remove this notice? It will be removed for all users and all locations.",
       :method => :delete %>
   </div>
-  <%= sticky.content %>
+  <%= sticky.content_with_formatting %>
   <br />
   <div class="grayleft">
     <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start_time, Time.now, true)} ago" %>
