@@ -123,8 +123,9 @@ class ShiftsController < ApplicationController
         @report = Report.new(:shift => @shift, :arrived => Time.now)
         @shift.signed_in = true
         @shift.save
-        @report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
-        redirect_to @report and return if @report.save
+        if @report.save and (@report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip))
+          redirect_to @report and return
+        end
       end
       respond_to do |format|
         format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
