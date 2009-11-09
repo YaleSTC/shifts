@@ -26,7 +26,7 @@ class PayformItem < ActiveRecord::Base
   def user 
     if self.payform != nil
       user = self.payform.user 
-    else
+    elsif self.parent and self.parent.payform
       user = self.parent.payform.user 
     end
   end
