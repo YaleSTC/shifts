@@ -1,11 +1,12 @@
 = RubyCAS-Client
 
 Author::    Matt Zukowski <matt AT roughest DOT net>; inspired by code by Ola Bini <ola.bini AT ki DOT se> and Matt Walker <mwalker AT tamu DOT edu>
-Copyright:: (c) 2008 Urbacon Ltd.
-License::   GNU Lesser General Public License v2.1 (LGPL 2.1)
-Websites::   http://code.google.com/p/rubycas-client
-             http://github.com/gunark/rubycas-client
-             http://rubyforge.org/projects/rubycas-client
+Copyright:: Portions contributed by Matt Zukowski are copyright (c) 2009 Urbacon Ltd.
+            Other portions are copyright of their respective authors.
+License::   MIT License
+Websites::  http://github.com/gunark/rubycas-client
+            http://code.google.com/p/rubycas-client
+            http://rubyforge.org/projects/rubycas-client
             
 
 
@@ -19,6 +20,10 @@ For general information about the open CAS protocol, please have a look at http:
 If your organization does not already have a CAS server, you may be interested in RubyCAS-Client's sister project,
 RubyCAS-Server[http://code.google.com/p/rubycas-server/].
 
+The RubyCAS-Client package includes adapters for Rails and Merb, although the client library itself can be
+adapted for other frameworks (for example an implementation for Camping is available via the Picnic[http://github.com/zuk/picnic/tree/master]
+library).
+
 
 == Getting help and reporting problems
 
@@ -26,13 +31,15 @@ If you need help, try posting to the RubyCAS discussion group at http://groups.g
 
 To report problems, please use the Google Code issue tracker at http://code.google.com/p/rubycas-client/issues/list.
 
+API documentation (i.e. the RDocs) are available at http://rubycas-client.rubyforge.org
+
 
 == Installation
 
 You can download the latest version of RubyCAS-Client from the project's rubyforge page at 
 http://rubyforge.org/projects/rubycas-client.
 
-However, it is easier to install the CAS client into a Ruby on Rails app as a plugin:
+However, if you're using Rails, it's easier to install the CAS client as a plugin:
 
   cd <your rails app>
   ./script/plugin install http://rubycas-client.googlecode.com/svn/trunk/rubycas-client
@@ -46,6 +53,9 @@ you always have the latest bleeding-edge version of RubyCAS-Client:
 
   ./script/plugin install -x http://rubycas-client.googlecode.com/svn/trunk/rubycas-client
 
+With Rails 2.1 or newer, it is also possible to install the plugin directly from the bleeding-edge git repository:
+
+  ./script/plugin install git://github.com/gunark/rubycas-client.git
 
 == Usage Examples
 
@@ -107,9 +117,9 @@ Here is a more complicated configuration showing most of the configuration optio
     :logout_url    => "https://cas.example.foo/logout",
     :validate_url  => "https://cas.example.foo/proxyValidate",
     :username_session_key => :cas_user,
-    :extra_attributes_session_key => :cas_extra_attributes
+    :extra_attributes_session_key => :cas_extra_attributes,
     :logger => cas_logger,
-    :authenticate_on_every_request => true
+    :enable_single_sign_out => true
   )
 
 Note that normally it is not necessary to specify <tt>:login_url</tt>, <tt>:logout_url</tt>, and <tt>:validate_url</tt>.
@@ -143,6 +153,8 @@ requsts from the CAS server, but in order for this to work you must configure yo
    the contents of this directory must be shared between all server instances. 
 3. Cross-site request forgery protection must be disabled. In your <tt>application.rb</tt>: <tt>self.allow_forgery_protection = false</tt>.
    (Or rather you may want to disable forgery protection only for actions that are behind the CAS filter.)
+4. Finally, you must add <tt>:enable_single_sign_out => true</tt> to your CAS client config (a similar option must be
+   enabled on the CAS server, if you're using RubyCAS-Server).
 
 The best way to debug single-sign out functionality is to configure your CAS client with logging (see above) and then watch the
 log to ensure that single-sign out requests from the server are being processed correctly.
@@ -257,12 +269,12 @@ to authenticate another application:
 
   service_uri = "http://some-other-application.example.foo"
   proxy_granting_ticket = session[:cas_pgt]
-  ticket = CASClient::Frameworks::Rails::Filter.client.request_proxy_ticket(service_uri, proxy_granting_ticket).ticket
+  proxy_ticket = CASClient::Frameworks::Rails::Filter.client.request_proxy_ticket(service_uri, proxy_granting_ticket)
   
-<tt>ticket</tt> should now contain a valid service ticket. You can use it to authenticate other services by sending it and 
+<tt>proxy_ticket</tt> should now contain a valid proxy ticket. You can use it to authenticate other services by sending it together with 
 the service URI as parameters to your target application:
 
-  http://some-other-application.example.foo?service=#{CGI.encode(ticket.target_service)}&ticket=#{ticket.proxy_ticket}
+  http://some-other-application.example.foo?service=#{CGI::escape(proxy_ticket.service)}&ticket=#{proxy_ticket.ticket}
   
 This is of course assuming that http://some-other-application.example.foo is also protected by the CAS filter. 
 Note that you should always URI-encode your service parameter inside URIs!
@@ -296,16 +308,5 @@ For other platforms you'll have to figure it out yourself.
 
 == License
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program (see the file called LICENSE); if not, write to the
-Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+RubyCAS-Client is licensed for use under the terms of the MIT License.
+See the LICENSE.txt file bundled with the official RubyCAS-Client distribution for details.
