@@ -1,6 +1,6 @@
 <% if user_has_active_shift?%>
   <p>
-    <%= image_tag("icons/asterisk_orange.png", :class => "mini_icon") %> <%=link_to "Return to your current shift report", report_path(current_user.current_shift.report) %>
+    <%= image_tag("icons/asterisk_orange.png", :class => "mini_icon") %> <%=link_to "Return to your current shift report", (current_user.current_shift.report.nil? ? shift_path(current_user.current_shift) : report_path(current_user.current_shift.report)) %>
   </p>
 <% else %>
   <p>
