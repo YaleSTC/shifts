@@ -1,4 +1,11 @@
 <div id="active_shifts_div">
   <% title "Active Shift Reports" %>
-  <%= render :partial => 'active_shifts_layout' %>
+  <ul>
+    <% @current_shifts.each do |active_shift| %>
+      <li>
+        <%= link_to active_shift.short_name, shift_report_path(active_shift), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
+        <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(active_shift.start) %></span>
+      </li>
+    <% end %>
+  </ul>
 </div>

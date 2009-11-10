@@ -1,7 +1,5 @@
 class ShiftsController < ApplicationController
-
-    helper :shifts
-    #before_filter :require_department_admin, :only => [:destroy]
+  helper :shifts
 
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
@@ -70,9 +68,9 @@ class ShiftsController < ApplicationController
 
 # TODO: write the view
 # Temporarily deactivated because its view is unfinished, and will be slightly tricky design-wise -ben
-#  def show_active
-#    @current_shifts = Shift.all.select{|s| s.report and !s.submitted? and @department.locations.include?(s.location)}.sort_by(&:start)
-#  end
+  def show_active
+    @current_shifts = Shift.in_locations(current_department.locations).signed_in.sort_by(&:start)
+  end
 
   def show_unscheduled
     @start_date = 1.week.ago
