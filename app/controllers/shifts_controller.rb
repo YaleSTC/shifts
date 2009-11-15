@@ -123,7 +123,8 @@ class ShiftsController < ApplicationController
         @report = Report.new(:shift => @shift, :arrived => Time.now)
         @shift.signed_in = true
         @shift.save
-        if @report.save and (@report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip))
+        if @report.save
+          @report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
           redirect_to @report and return
         end
       end
