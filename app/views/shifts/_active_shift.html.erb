@@ -1,4 +1,4 @@
 <li>
-  <%= link_to active_shift.short_name, shift_report_path(active_shift), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
+  <%= link_to active_shift.short_name, shift_report_path(active_shift) -%>
   <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(active_shift.start) %></span>
 </li>
