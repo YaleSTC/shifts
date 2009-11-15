@@ -12,6 +12,6 @@ class ReportItem < ActiveRecord::Base
   def check_for_ip_address_change
     #if ip has changed from previous line item, note this
     previous_report_items = self.report.report_items
-    self.content += " [IP Address changed to #{self.ip_address}]" if (!previous_report_items.empty? and previous_report_items[-1].ip_address != self.ip_address)
+    self.content += " [IP Address changed to #{self.ip_address}]" if (!previous_report_items.empty? and previous_report_items.last.ip_address != self.ip_address)
   end
 end
