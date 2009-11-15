@@ -27,9 +27,10 @@ class PayformItemSetsController < ApplicationController
         PayformItem.transaction do  
           @payform_items = []
         
-          params[:user_ids].each do |user_id| 
+          users = User.find(params[:user_ids])
+          users.each do |user| 
             payform_item = PayformItem.new(params[:payform_item_set])
-            payform_item.payform = Payform.build(current_department, User.find(user_id), date)
+            payform_item.payform = Payform.build(current_department, user, date)
             @payform_items << payform_item
           end
         
@@ -37,7 +38,7 @@ class PayformItemSetsController < ApplicationController
             flash[:notice] = "Successfully created payform item set."
             redirect_to @payform_item_set   
           else
-            flash[:error] = "Something failed. Please try again."
+            flash[:error] = @payform_item_set.errors.full_messages.to_sentence
             @users_select = current_department.users.sort_by(&:name)
             render :action => "new"
           end 
