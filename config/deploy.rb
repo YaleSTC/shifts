@@ -101,3 +101,11 @@ after "deploy", "deploy:cleanup"
 after "deploy:migrations", "deploy:cleanup"
 after "deploy:setup", "init:config:database"
 after "deploy:symlink", "init:config:localize"
+after "deploy:symlink", "deploy:update_crontab"
+
+namespace :deploy do
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db do
+    run "cd #{release_path} && whenever --update-crontab #{application}-#{application_prefix}"
+  end
+end
