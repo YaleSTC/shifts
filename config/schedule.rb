@@ -19,5 +19,5 @@ end
 every 3.minutes do
   #Do we really want to warn people every 20 mins if they have an overdue payform?
   #rake "auto_warn"
-  command "/usr/bin/ar_sendmail -o --chdir /srv/www/rails/shifts/apps/current --environment production"
+  command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production"
 end
