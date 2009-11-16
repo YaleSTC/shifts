@@ -35,6 +35,8 @@ class Shift < ActiveRecord::Base
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   validates_presence_of :user
+  
+  before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
@@ -434,6 +436,13 @@ class Shift < ActiveRecord::Base
 
   def disassociate_from_repeating_event
     self.repeating_event_id = nil
+  end
+  
+  def adjust_end_time_if_in_early_morning
+    #increment end by one day in cases where the department is open past midnight
+    self.end += 1.day if (self.end <= self.start and (self.end.hour * 60 + self.end.min) <= (self.department.department_config.schedule_end % 1440))
+    #stopgap fix: don't allow shifts longer than 24 hours
+    self.end -= 1.day if (self.end > self.start + 1.day)
   end
 
   class << columns_hash['start']
