@@ -35,14 +35,19 @@ class SubRequestsController < ApplicationController
         end
         @sub_request.save!
       end
-        flash[:notice] = 'Sub request was successfully created.'
-        redirect_to :action => "show", :id => @sub_request
     rescue Exception => e
       @sub_request = @sub_request.clone
       @sub_request.add_errors(e.message)
       render :action => "new"
-    end
       #redirect_to :action => :new, :id => @sub_request.shift
+    else
+      flash[:notice] = 'Sub request was successfully created.'
+      @sub_request.potential_takers.each do |user|
+        # "if user.email" because email is not a compulsory field in user
+        ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
+      end
+      redirect_to :action => "show", :id => @sub_request
+    end
 
 
 #    if @sub_request.save
@@ -88,18 +93,19 @@ class SubRequestsController < ApplicationController
   def take
     @sub_request = SubRequest.find(params[:id])
     return unless require_department_membership(@sub_request.shift.department)
-    begin  
+    begin
       SubRequest.take(@sub_request, current_user, params[:just_mandatory])
         flash[:notice] = 'Sub request was successfully taken.'
         redirect_to dashboard_path
 
     rescue Exception => e
       if !@sub_request.user_is_eligible?(current_user)
-        flash[:error] = 'You are not authorized to take this shift' 
-      else 
+        flash[:error] = 'You are not authorized to take this shift'
+      else
         flash[:error] = e.message.gsub("Validation failed: ", "")
       end
       render :action => "get_take_info"
      end
   end
 end
+

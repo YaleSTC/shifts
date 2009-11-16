@@ -16,7 +16,7 @@
     <td><%=h sub_request.end.to_s(:long) %></td>
     <td><%=h sub_request.mandatory_start.to_s(:long) %></td>
     <td><%=h sub_request.mandatory_end.to_s(:long) %></td>
-    <td><%=h sub_request.substitutes.collect{|s| s.name} * ", " %></td>
+    <td><%=h sub_request.users.collect(&:email) * ", " %></td>
     <td><%=h sub_request.reason %></td>
     <td><%= link_to 'Show', sub_request %></td>
     <td><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td>

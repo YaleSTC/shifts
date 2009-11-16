@@ -5,7 +5,7 @@ $.fn.tokenInput = function (url, options) {
     var settings = $.extend({
         url: url,
         prePopulate: "",
-        hintText: "Type a name, NetID or department",
+        hintText: "Type a name, NetID, role or department",
         noResultsText: "No results",
         searchingText: "Searching...",
         searchDelay: 300

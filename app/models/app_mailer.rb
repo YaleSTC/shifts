@@ -1,3 +1,5 @@
+ActionMailer::Base.delivery_method = :smtp
+
 class AppMailer < ActionMailer::Base
 
   def shift_report(shift, report, dept)
@@ -11,11 +13,19 @@ class AppMailer < ActionMailer::Base
     body        :shift => shift, :report => report
   end
 
-  def sub_taken_notification(sub_request, new_shift, dept)
+#  def sub_created_notify(sub)
+#    subject     "[Sub Request] Sub needed for " + sub.shift.short_display
+#    recipients  "sub.request.mailer@yale.edu"
+#    bcc         sub.email_list
+#    from        sub.user.email
+#    body        :sub => sub
+#  end
+
+ def sub_taken_notification(sub_request, new_shift, dept)
     recipients  sub_request.shift.user.email
     cc          new_shift.user.email
     from        dept.department_config.mailer_address
-    subject     "Your sub request has been taken by #{new_shift.user.name}"
+    subject     "[Sub Request] #{new_shift.user.name} took your sub!"
     sent_on     Time.now
     body        :sub_request => sub_request, :new_shift => new_shift
   end
@@ -70,3 +80,4 @@ class AppMailer < ActionMailer::Base
   end
 
 end
+
