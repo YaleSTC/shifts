@@ -25,12 +25,12 @@
     <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.end : @shift.end) %>
   </p>
   <p>
-    <%= label_tag "People/groups eligible for this sub" %><br />
+    <%= label_tag "Leave blank to send to everyone eligible in <b>#{@sub_request.shift.location.loc_group.name}</b>, or specify below" %><br />
     <%= tokenized_users_autocomplete(@sub_request, "user_sources", "list_of_logins") %>
   </p>
   <p>
     <%= f.label :reason %><br />
-    <%= f.text_field :reason %>
+    <%= f.text_area :reason, :size => "50x3" %>
   </p>
     <%= f.submit 'Submit' %>
   </p>

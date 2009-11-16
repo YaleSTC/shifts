@@ -34,8 +34,10 @@
 <% end %>
 
 <p>
-  <b>Who can take this sub request:</b>
-  <% if !@sub_request.substitutes.empty? %>
+  <b>Who can take this sub request: </b>
+  <% if @sub_request.user_sources.empty? %>
+    <p>Any one who can work shifts in <%= @sub_request.loc_group.name %></p>
+  <% else -%>
     <ul>
     <% @sub_request.user_sinks_user_sources.each do |substitute| %>
       <% if substitute.user_source_type == "Department" %>
@@ -47,8 +49,6 @@
       <%end%>
     <%end%>
     </ul>
-  <% else %>
-    none
   <% end %>
 </p>
 
@@ -67,3 +67,4 @@
 <% if current_user.is_admin_of?(@department) %>
   <%= link_to 'See all subs', sub_requests_path %>
 <% end %>
+

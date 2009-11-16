@@ -1,0 +1,12 @@
+<%  user_name = @sub.user.name -%>
+<%= user_name %> is looking for a sub for the following shift:
+
+Cluster:  <%= @sub.shift.location.name%>
+Date:     <%= @sub.shift.start.to_s(:just_date) %>
+Time:     <%= @sub.start.to_s(:am_pm) %> - <%= @sub.end.to_s(:am_pm) %>
+
+Additional comments from <%= user_name %>:
+<%= h @sub.reason %>
+
+Link to take this sub request:
+<%= get_take_info_sub_request_url(@sub) %>
