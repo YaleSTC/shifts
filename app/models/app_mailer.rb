@@ -1,6 +1,9 @@
+#This line may be unnessecary. See line 6.
 ActionMailer::Base.delivery_method = :smtp
 
 class AppMailer < ActionMailer::Base
+
+  self.delivery_method = :smtp
 
   def shift_report(shift, report, dept)
     recipients  shift.user.email
