@@ -1,0 +1,43 @@
+<% form_for @stat do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :start_date, "Start date", :class => 'stat' %>
+    <%= f.text_field :start_date, :class => 'date-pick', :size => 14 %></p>
+  <p>
+    <%= f.label :stop_date, "Stop date", :class => 'stat' %>
+    <%= f.text_field :stop_date, :class => 'date-pick', :size => 14%></p>
+  <p>
+    <label class='stat'>Users</label>
+    <%#= tokenized_users_autocomplete(@stat, "user_sources", "list_of_logins") %>
+    <%#= text_field_with_auto_complete :stat, :users_string, { :size => 80 },
+       {:tokens => ",", :url => {:controller => :users, :action => :live_search, :id => current_department.id},
+        :method => :get, :param_name => 'search' } %>
+  </p>
+  <p>
+    <label class='stat'>Locations</label>
+    <% @locations.each do |loc| %>
+      <%= check_box_tag "stat[location_id_array][]", loc.id, false, {:id => "location_#{loc.id}"} %>
+      <%= "<label for='location_%s'>%s</label>" % [loc.id, loc.short_name]%>&nbsp;&nbsp;
+    <%- end -%>
+    <%= "Not Available!" if @locations.empty? %>
+  </p>
+  <p>
+    <label class='stat'>Location Groups</label>
+    <% @location_groups.each do |lg| %>
+      <%= check_box_tag "stat[location_group_id_array][]", lg.id, false, {:id => "location_#{lg.id}"} %>
+      <%= "<label for='location_%s'>%s</label>" % [lg.id, lg.name]%>&nbsp;&nbsp;
+    <%- end -%>
+    <%= "Not Available!" if @location_groups.empty? %>
+  </p>
+  <%= f.hidden_field :department_ids, :value => "#{current_department.id}" %>
+  <p>
+    <%= f.label :view_by, "View by", :class => 'stat' %>
+    <%= f.select :view_by, Stat.view_formats %>
+  </p>
+  <p>
+    <%= f.label :group_by, 'Group by', :class => 'stat' %>
+    <%= f.select :group_by, Stat.group_formats %>
+  </p>
+
+  <p><%= f.submit "Make stats" %></p>
+<% end %>
