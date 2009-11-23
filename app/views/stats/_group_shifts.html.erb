@@ -1,0 +1,25 @@
+<table class="tablesorter group_shifts">
+  <thead>
+    <tr>
+      <th><%= cname.capitalize %></th>
+      <th># Shifts</th>
+      <th># Late</th>
+      <th># Missed</th>
+      <th># hours logged/scheduled</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <% stat.send("#{cname}_list").each do |u| %>
+    <% shift_list = Stat.send("split_to_#{cname}s",group_shifts)[u.id]  || []%>
+    <tr>
+      <td><%= cname.camelcase.constantize.find(u.id).name %></td>
+      <td><%= shift_list.size %></td>
+      <td><%= Stat.filter_late(shift_list).size %></td>
+      <td><%= Stat.filter_missed(shift_list).size %></td>
+      <td><%= Stat.actual_vs_scheduled(shift_list) %></td>
+    </tr>
+
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,18 @@
+<% title "New Stats" %>
+
+<%= render :partial => 'note' %>
+
+<%= render :file => 'stats/new' %>
+
+<hr />
+<h1>
+  Stats history [<%= link_to_remote "Clear", :update => 'stat_history', :url => destroy_all_stats_path , :method => :delete %>]
+</h1>
+
+<div id="stat_history">
+  <ul>
+  <% @stats.each do |stat|  %>
+    <li><%= link_to stat.display, stat_path(stat) %></li>
+  <% end %>  
+  </ul>
+</div>
