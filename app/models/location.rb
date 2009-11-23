@@ -1,6 +1,8 @@
 class Location < ActiveRecord::Base
   belongs_to :loc_group
 
+  named_scope :active, :conditions => {:active => true}
+
   has_many :time_slots
   has_many :shifts
   has_and_belongs_to_many :data_objects
