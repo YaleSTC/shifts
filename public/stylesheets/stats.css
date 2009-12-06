@@ -1,0 +1,16 @@
+.list_line_even {
+  background:   #f5f5f5;
+}
+
+.list_line_odd {
+  background:   #e6e6fa;
+}
+
+a.dp-choose-date {
+  display: none;
+}
+
+label.stat{
+  margin-left: 0;
+  display:block;
+}
