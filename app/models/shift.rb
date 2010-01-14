@@ -191,8 +191,12 @@ class Shift < ActiveRecord::Base
   # = Object methods =
   # ==================
 
-  def duration
-    (self.end? && self.start?) ? (self.end - self.start) : 0
+  def duration(actual = false)
+    if actual
+      (self.report?) ? self.report.duration : self.duration
+    else
+      (self.end? && self.start?) ? (self.end - self.start) / 3600 : 0
+    end
   end
 
   def css_class(current_user = nil)
