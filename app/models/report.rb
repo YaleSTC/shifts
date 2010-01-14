@@ -22,7 +22,7 @@ class Report < ActiveRecord::Base
   end
 
   def duration
-    (departed - arrived) / 3600.0
+    (self.departed && self.arrived) ? ((self.departed - self.arrived) / 3600.0) : 0
   end
 end
 
