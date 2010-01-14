@@ -193,7 +193,7 @@ class Shift < ActiveRecord::Base
 
   def duration(actual = false)
     if actual
-      (self.report?) ? self.report.duration : self.duration
+      (self.report) ? self.report.duration : self.duration
     else
       (self.end? && self.start?) ? (self.end - self.start) / 3600 : 0
     end
