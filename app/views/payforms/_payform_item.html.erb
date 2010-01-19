@@ -18,7 +18,7 @@
     <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
   </td>
   <td class="rightside" id="hours" >
-    <%= number_with_precision(payform_item.hours, :precision => 2) %>
+    <%= ((payform_item.hours * 4).round)/4 %>
   </td>
   <td class="rightside" id="edit">
     <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
