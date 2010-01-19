@@ -29,7 +29,7 @@
   <table id="payformList" width="100%">
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
     <tfoot><tr> <th scope="col" id="hours" colspan=6>
-      <div class="total-hours-right"><%= number_with_precision(@payform.hours, :precision => 2) %></div>
+      <div class="total-hours-right"><%= ((@payform.hours * 4).round / 4) %></div>
       Total Hours:
     </th></tr> </tfoot>
   </table>
