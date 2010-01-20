@@ -35,26 +35,28 @@ module PayformsHelper
     if @payform.submitted
       if current_user.is_admin_of?(@payform.department)
         if @payform.approved && !@payform.printed
-          link_to "<span><strong>Print Payform</strong></span>", print_payform_path(@payform), :class => "button", :onclick => "this.blur();"
+          link_to "<span><strong>Print</strong></span>", print_payform_path(@payform), :class => "button", :onclick => "this.blur();"
         elsif !@payform.printed
-          link_to "<span><strong>Approve Payform</strong></span>", approve_payform_path(@payform), :class => "button", :onclick => "this.blur();"
+          link_to "<span><strong>Approve and go to next</strong></span>", approve_payform_path(@payform), :class => "button", :onclick => "this.blur();"
         end
       end
     else
-      link_to_remote "<span><strong>Submit Payform</strong></span>", :url => submit_payform_path(@payform), :method => :get, :html => {:href => submit_payform_path(@payform), :class => "button", :onclick => "this.blur();"}
+      link_to_remote "<span><strong>Submit</strong></span>", :url => submit_payform_path(@payform), :method => :get, :html => {:href => submit_payform_path(@payform), :class => "button", :onclick => "this.blur();"}
     end
   end
   
-  def payform_unsubmit_button
+  def payform_unsubmit_unapprove_button
     if @payform.submitted && !@payform.approved && !@payform.printed
-      link_to "<span><strong>Unsubmit Payform</strong></span>", unsubmit_payform_path(@payform), :class => "button", :onclick => "this.blur();"
+      link_to "<span><strong>Unsubmit</strong></span>", unsubmit_payform_path(@payform), :class => "button", :onclick => "this.blur();"
+    elsif @payform.approved && !@payform.printed
+      link_to "<span><strong>Unapprove</strong></span>", unapprove_payform_path(@payform), :class => "button", :onclick => "this.blur();"
     end
   end
 
   def payform_add_button
     unless @payform.approved
-      link_to '<span>New Payform Item</span>', new_payform_payform_item_path(@payform, :height => "400", :width => "600"), 
-                     :title => "Create New Payform Item", :class => "thickbox button", :onclick => "this.blur();"
+      link_to '<span>Add Time</span>', new_payform_payform_item_path(@payform, :height => "400", :width => "600"), 
+                     :title => "Add Time", :class => "thickbox button", :onclick => "this.blur();"
     end
   end
 
