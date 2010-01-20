@@ -15,7 +15,7 @@
   </p>
   <p>
     <%= f.label :category %><br />
-    <%= f.collection_select :category_id, @department.categories.usable, :id, :name, {:prompt => "Select a category"} %>
+    <%= f.collection_select :category_id, @department.categories.active, :id, :name, {:prompt => "Select a category"} %>
   </p>
   <p>
     <%= f.label :description %><br />
@@ -27,4 +27,3 @@
   <% end %>
   <p><%= f.submit submit %></p>
 <% end %>
-

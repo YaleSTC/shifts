@@ -78,6 +78,17 @@ class PayformsController < ApplicationController
     redirect_to @next_unapproved_payform
   end
 
+  def unapprove
+    @payform = Payform.find(params[:id])
+    @payform.approved = nil
+    @payform.approved_by = nil
+    if @payform.save
+      flash[:notice] = "Successfully unapproved payform."
+    end
+    redirect_to @payform
+  end
+
+
   def print
     @payform = Payform.find(params[:id])
     @payform.printed = Time.now
