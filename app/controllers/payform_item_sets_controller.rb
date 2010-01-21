@@ -14,7 +14,7 @@ class PayformItemSetsController < ApplicationController
   
   def new
     @payform_item_set = PayformItemSet.new
-    @users_select = current_department.users.sort_by(&:last_name)
+    @users_select = current_department.active_users.sort_by(&:last_name)
   end
   
   def create
