@@ -73,9 +73,8 @@ class PayformsController < ApplicationController
     if @payform.save
       flash[:notice] = "Successfully approved payform."
     end
-    #will eventually redirect to the next unapproved payform
-    @next_unapproved_payform = Payform.unapproved.sort_by(&:date).last
-    redirect_to @next_unapproved_payform
+    @next_unapproved_payform = Payform.unapproved.select{|p| p.date == @payform.date}.sort_by(&:submitted).last
+    @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
   end
 
   def unapprove
