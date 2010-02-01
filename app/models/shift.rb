@@ -412,19 +412,21 @@ class Shift < ActiveRecord::Base
   def obeys_signup_priority
     #check for all higher-priority locations in this loc group
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
-    time_increment = self.department.department_config.time_increment
+    seconds_increment = self.department.department_config.time_increment * 60
     prioritized_locations.each do |prioritized_location|
-      people_count = {}
-      people_count.default = 0
+      min_staff_filled = true
       
       time = self.start
       end_time = self.end
       while (time < end_time)
-        people_count[time] = Shift.active.scheduled.in_location(prioritized_location).overlaps(time, (time + time_increment*60)).count
-        time += (time_increment * 60) #time_increment in seconds
+        people_count = Shift.active.scheduled.in_location(prioritized_location).overlaps(time, (time + seconds_increment)).count
+        # if at any time the location is not at min_staff, the validation fails
+        if people_count < prioritized_location.min_staff
+          errors.add_to_base("Signup slots in #{prioritized_location.name} are higher priority and must be filled first.")
+          break
+        end
+        time += seconds_increment
       end
-        
-      errors.add_to_base("Signup slots in #{prioritized_location.name} are higher priority and must be filled first.") if people_count.values.select{|n| n < prioritized_location.min_staff}.size > 0
     end
   end
 
