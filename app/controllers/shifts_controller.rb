@@ -62,8 +62,21 @@ class ShiftsController < ApplicationController
 # Necessary? -ben
 # No, but since the shifts view is broken,i'm using this.
   def show
-    @shift = Shift.find(params[:id])
-    return unless require_department_membership(@shift.department)
+    begin
+      @shift = Shift.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        format.html #freak out
+        format.js do
+          render :update do |page|
+            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.")
+            page.hide "tooltip"
+          end
+        end
+      end
+    else
+      return unless require_department_membership(@shift.department)
+    end
   end
 
 # TODO: write the view
