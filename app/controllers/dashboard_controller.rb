@@ -4,11 +4,6 @@ class DashboardController < ApplicationController
   helper :punch_clocks
 
   def index
-    # for lists of shifts
-    #@active_shifts = Shift.all.select{|s| s.report and !s.submitted? and current_department.locations.include?(s.location)}.sort_by(&:start)
-    #@upcoming_shifts = current_user.shifts.select{|shift| shift.scheduled? and shift.end > Time.now and !(shift.submitted?) and @department.locations.include?(shift.location)}.sort_by(&:start)[0..3]
-#    @shift = Shift.new
-
     @active_shifts = Shift.find(:all, :conditions => {:signed_in => true, :department_id => current_department.id}, :order => :start)
     @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id.to_sql_column} = ? and #{:end.to_sql_column} > ? and #{:department_id.to_sql_column} = ? and #{:scheduled.to_sql_column} = ? and #{:active.to_sql_column} = ?", current_user.to_sql, Time.now.utc, current_department.id.to_sql, true, true], :order => :start, :limit => 5)
     @subs_you_requested = SubRequest.find(:all, :conditions => ["#{:end.to_sql_column} > ? AND #{:user_id.to_sql_column} = ?", Time.now.to_sql, current_user.id.to_sql]).sort_by(&:start)

@@ -18,7 +18,7 @@
     <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
   </td>
   <td class="rightside" id="hours" >
-    <%= ((payform_item.hours * 4).round)/4 %>
+    <%= payform_item.hours %>
   </td>
   <td class="rightside" id="edit">
     <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>

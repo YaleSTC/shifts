@@ -28,6 +28,7 @@ class SubRequest < ActiveRecord::Base
           new_shift = sub_request.shift.clone
           old_shift = sub_request.shift
           new_shift.location = old_shift.location
+          new_shift.power_signed_up = true #so that you don't get blocked taking a sub due to validations
           new_shift.user = user
           new_shift.start = sub_request.start
           new_shift.end = sub_request.end
