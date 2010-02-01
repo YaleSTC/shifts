@@ -16,9 +16,6 @@ class ReportItemsController < ApplicationController
     @report_item = ReportItem.new(params[:report_item])
     @report_item.time = Time.now
     @report_item.ip_address = request.remote_ip
-    #if ip has changed from previous line item, note this
-    previous_report_items = Report.find(params[:report_id]).report_items
-    @report_item.content += " [IP Address changed to #{@report_item.ip_address}]" if(previous_report_items and previous_report_items[-1].ip_address != @report_item.ip_address)
     @report_item.report = params[:report_id] ? Report.find(params[:report_id]) : Shift.find(params[:shift_id]).report
     respond_to do |format|
       if current_user==@report_item.user && @report_item.save
