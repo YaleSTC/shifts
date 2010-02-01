@@ -22,10 +22,11 @@
 
 <p>
   <strong>Users:</strong>
-  <%# TODO: Figure out why I get an error below %>
-  <p><%# @payform_item_set.users.each do |user| %>
-    <ul><li><%#= user.name %></li></ul>
-  <%# end %></p>
+  <ul>
+    <% @payform_item_set.payform_items.each do |payform_item| %>
+      <li><%= link_to payform_item.user.name, payform_item.payform %> <%= "(deleted from payform)" if !payform_item.active %></li>
+    <% end %>
+  </ul>
 </p>
 
 <p>

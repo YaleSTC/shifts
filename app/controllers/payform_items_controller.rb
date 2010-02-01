@@ -71,7 +71,7 @@ class PayformItemsController < ApplicationController
       @payform_item.add_errors(e)
       @payform_item.attributes = params[:payform_item]
       @payform_item.payform = @payform
-      flash[:error] = @errors.to_s if @errors
+      flash[:error].now = @errors.to_s if @errors
       render :action => 'edit'
     end
   end
@@ -104,7 +104,9 @@ class PayformItemsController < ApplicationController
     rescue
      @payform = @payform_item.payform   
       if !@payform_item.payform.save
-        flash[:error] = "Error unsubmitting payform. "
+        flash.now[:error] = "Error unsubmitting payform. "
+      else
+        flash.now[:error] = @payform_item.errors.to_sentence
       end
       render :action => 'delete'
     end
