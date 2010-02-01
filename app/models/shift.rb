@@ -43,6 +43,7 @@ class Shift < ActiveRecord::Base
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
+  validate :obeys_signup_priority, :if => Proc.new{|shift| !shift.power_signed_up?}
 #  validate :adjust_sub_requests # TODO: can be deleted after bugfix#171 is accepted -ben
   before_save :adjust_sub_requests
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
@@ -405,6 +406,25 @@ class Shift < ActiveRecord::Base
       end
 
       errors.add_to_base("#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
+    end
+  end
+  
+  def obeys_signup_priority
+    #check for all higher-priority locations in this loc group
+    prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
+    time_increment = self.department.department_config.time_increment
+    prioritized_locations.each do |prioritized_location|
+      people_count = {}
+      people_count.default = 0
+      
+      time = self.start
+      end_time = self.end
+      while (time < end_time)
+        people_count[time] = Shift.active.scheduled.in_location(prioritized_location).overlaps(time, (time + time_increment*60)).count
+        time += (time_increment * 60) #time_increment in seconds
+      end
+        
+      errors.add_to_base("Signup slots in #{prioritized_location.name} are higher priority and must be filled first.") if people_count.values.select{|n| n < prioritized_location.min_staff}.size > 0
     end
   end
 
