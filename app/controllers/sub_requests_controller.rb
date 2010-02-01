@@ -94,7 +94,7 @@ class SubRequestsController < ApplicationController
     @sub_request = SubRequest.find(params[:id])
     return unless require_department_membership(@sub_request.shift.department)
     begin
-      SubRequest.take(@sub_request, current_user, params[:just_mandatory])
+      SubRequest.take(@sub_request, current_user, params[:mandatory_start])
         flash[:notice] = 'Sub request was successfully taken.'
         redirect_to dashboard_path
 
