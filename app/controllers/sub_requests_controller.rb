@@ -93,11 +93,12 @@ class SubRequestsController < ApplicationController
   def take
     @sub_request = SubRequest.find(params[:id])
     return unless require_department_membership(@sub_request.shift.department)
+    #The form returns string values of "true" or "false", we must convert these to boolean
+    just_mandatory = params[:sub_request][:mandatory_start] == "true" ? true : false
     begin
-      SubRequest.take(@sub_request, current_user, params[:sub_request][:mandatory_start])
-        flash[:notice] = 'Sub request was successfully taken.'
-        redirect_to dashboard_path
-
+      SubRequest.take(@sub_request, current_user, just_mandatory)
+      flash[:notice] = 'Sub request was successfully taken.'
+      redirect_to dashboard_path
     rescue Exception => e
       if !@sub_request.user_is_eligible?(current_user)
         flash[:error] = 'You are not authorized to take this shift'

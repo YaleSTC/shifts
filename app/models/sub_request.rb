@@ -21,17 +21,13 @@ class SubRequest < ActiveRecord::Base
   def self.take(sub_request, user, just_mandatory)
     if sub_request.user_is_eligible?(user)
         SubRequest.transaction do
-          if just_mandatory
-            sub_request.start = sub_request.mandatory_start
-            sub_request.end = sub_request.mandatory_end
-          end
           new_shift = sub_request.shift.clone
           old_shift = sub_request.shift
           new_shift.location = old_shift.location
           new_shift.power_signed_up = true #so that you don't get blocked taking a sub due to validations
           new_shift.user = user
-          new_shift.start = sub_request.start
-          new_shift.end = sub_request.end
+          new_shift.start = just_mandatory ? sub_request.mandatory_start : sub_request.start
+          new_shift.end = just_mandatory ? sub_request.mandatory_end : sub_request.end
           UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{sub_request.id.to_sql}")
           sub_request.destroy
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
