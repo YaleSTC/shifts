@@ -1,29 +1,28 @@
-  <% title "Take this sub request" %>
-  
-  
-  <% form_for @sub_request, :url => take_sub_request_path(@sub_request) do |f| %>
-  <%= f.error_messages %>
+  <% if @sub_request %>
 
-<% if (@sub_request.mandatory_start != @sub_request.start) || (@sub_request.mandatory_end != @sub_request.end) %>
-  <h3>You can take either of these two shifts:</h3>
+    <% title "Take this sub request" %>
 
-  <p>
-  <%= f.radio_button :mandatory_start, :true %>
-  <label><%= @sub_request.mandatory_start.to_s(:just_date_long) %> from <%= @sub_request.mandatory_start.to_s(:am_pm) %> to <%= @sub_request.mandatory_end.to_s(:am_pm) %></label></p>
-  
-  
-  <p>
-  <%= f.radio_button :mandatory_start, :false %>
-  <label><%= @sub_request.start.to_s(:just_date_long) %> from <%= @sub_request.start.to_s(:am_pm) %> to <%= @sub_request.end.to_s(:am_pm) %></label></p>
+    <% form_for @sub_request, :url => take_sub_request_path(@sub_request) do |f| %>
+      <%= f.error_messages %>
 
-<% else %>
-  <% title "Sub Request" %>
-  <%= f.radio_button :mandatory_start, :true %>
-  <label><%= @sub_request.mandatory_start.to_s(:just_date_long) %> from <%= @sub_request.mandatory_start.to_s(:am_pm) %> to <%= @sub_request.mandatory_end.to_s(:am_pm) %></label></p>
-<% end %>
-  
-  <p></p>
-  <%= f.submit "Take this!" %>
+      <% if (@sub_request.mandatory_start != @sub_request.start) || (@sub_request.mandatory_end != @sub_request.end) %>
+      <h3>You can take either of these two shifts:</h3>
+
+      <p>
+        <%= f.radio_button :mandatory_start, :true %>
+        <label><%= @sub_request.mandatory_start.to_s(:just_date_long) %> from <%= @sub_request.mandatory_start.to_s(:am_pm) %> to <%= @sub_request.mandatory_end.to_s(:am_pm) %></label></p>
+      <p>
+        <%= f.radio_button :mandatory_start, :false %>
+        <label><%= @sub_request.start.to_s(:just_date_long) %> from <%= @sub_request.start.to_s(:am_pm) %> to <%= @sub_request.end.to_s(:am_pm) %></label></p>
+
+      <% else %>
+        <% title "Sub Request" %>
+        <%= f.radio_button :mandatory_start, :true %>
+        <label><%= @sub_request.mandatory_start.to_s(:just_date_long) %> from <%= @sub_request.mandatory_start.to_s(:am_pm) %> to <%= @sub_request.mandatory_end.to_s(:am_pm) %></label></p>
+      <% end %>
+
+      <p></p>
+      <%= f.submit "Take this!" %>
+    <% end %>
+
   <% end %>
-  
-

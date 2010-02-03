@@ -87,7 +87,11 @@ class SubRequestsController < ApplicationController
   end
 
   def get_take_info
-    @sub_request = SubRequest.find(params[:id])
+    begin
+      @sub_request = SubRequest.find(params[:id])
+    rescue
+      flash[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner!"
+    end
   end
 
   def take
