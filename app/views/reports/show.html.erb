@@ -16,7 +16,7 @@
   <div id="report_data_objects">
     <fieldset>
       <legend>Data Objects</legend>
-      <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects %>
+      <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
     </fieldset>
   </div>
 
