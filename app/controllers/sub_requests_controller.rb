@@ -90,7 +90,7 @@ class SubRequestsController < ApplicationController
     begin
       @sub_request = SubRequest.find(params[:id])
     rescue
-      flash[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner!"
+      flash.now[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner!"
     end
   end
 
