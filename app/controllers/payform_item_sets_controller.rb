@@ -10,6 +10,7 @@ class PayformItemSetsController < ApplicationController
   
   def show
     @payform_item_set = PayformItemSet.find(params[:id])
+    @payform_items = @payform_item_set.payform_items.select{|p| p.payform_id}
   end
   
   def new
