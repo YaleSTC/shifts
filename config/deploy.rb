@@ -140,4 +140,4 @@ after "deploy:setup", "init:config:database"
 after "deploy:symlink", "init:config:localize"
 after "deploy:symlink", "deploy:update_crontab"
 after "deploy", "deploy:cleanup"
-after "deploy:migrations", "deploy:cleanup
+after "deploy:migrations", "deploy:cleanup"
