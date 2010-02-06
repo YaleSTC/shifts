@@ -43,7 +43,7 @@ class Shift < ActiveRecord::Base
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
-  validate :obeys_signup_priority, :if => Proc.new{|shift| !shift.power_signed_up?}
+  validate :obeys_signup_priority, :if => Proc.new{|shift| !shift.power_signed_up? && shift.scheduled}
 #  validate :adjust_sub_requests # TODO: can be deleted after bugfix#171 is accepted -ben
   before_save :adjust_sub_requests
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
