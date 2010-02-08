@@ -14,10 +14,6 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
 
-  #THIS IS FOR NATHAN'S APACHE SETUP (shouldn't give you issues, but it might):
-  # disable when using heroku!
-  config.action_controller.relative_url_root = "/newstc" if ENV["USER"].nil?
-
   #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
   #ENV["HMP_DEBUG"] = 'true'
 
@@ -26,9 +22,6 @@ Rails::Initializer.run do |config|
   # -- all .rb files in that directory are automatically loaded.
   # See Rails::Configuration for more options.
 
-  # Skip frameworks you're not going to use. To use Rails without a database
-  # you must remove the Active Record framework.
-  # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
   # Configure Rails Mail options
   config.action_mailer.delivery_method = :smtp
@@ -56,8 +49,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem 'ar_mailer', :lib => 'action_mailer/ar_mailer'
   config.gem "whenever", :lib => false
-  #make sure you remove 'ar_mailer' - sudo gem uninstall ar_mailer - this is an old version
-
+  config.gem 'hoptoad_notifier'
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named

@@ -45,6 +45,12 @@ EOF
       put database_configuration, "#{shared_path}/config/database.yml"
     end
 
+    desc "Enter Hoptoad API code"
+    task :hoptoad do
+      #Placeholder for commit.
+      #script/generate hoptoad --api-key XXXXXXXXXXXXXXXXXXXXXXX
+    end
+    
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
@@ -122,16 +128,11 @@ namespace :deploy do
 
   desc "Restart Apache"
   task :restart_apache, :roles => :app do
-
       run "#{sudo} /etc/init.d/apache2 restart"
-
   end
-
 
   desc "Update the crontab file"
-  task :update_crontab, :roles => :db do
-    run "cd #{release_path} && #{sudo} whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
-  end
+  task :update_crontab, :roles => :app do
 
 end
 
