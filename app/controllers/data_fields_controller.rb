@@ -42,7 +42,8 @@ class DataFieldsController < ApplicationController
   def destroy
     @data_field = DataField.find(params[:id])
     @data_type = @data_field.data_type
-    @data_field.destroy
+    @data_field.active = false
+    @data_field.save
     flash[:notice] = "Successfully destroyed data field."
     redirect_to data_type_path(@data_type)
   end

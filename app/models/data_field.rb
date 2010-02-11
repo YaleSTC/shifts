@@ -14,6 +14,9 @@ class DataField < ActiveRecord::Base
   
   validates_uniqueness_of :name, :scope => :data_type_id
 
+  default_scope :conditions => { :active => true }
+  named_scope :inactive, :conditions => { :active => false }
+
   #This should probably be moved to the data_entries helper
   #Based on the display type, returns the arguments for the formhelper methods
   def prepare_form_helpers
@@ -31,6 +34,10 @@ class DataField < ActiveRecord::Base
       options = values.split(',').each{|opt| opt.squish!}
       return options.map{|v| ["data_fields[#{id}]", 1, v]}
     end
+  end
+
+  def self.find_with_destroyed *args
+    self.with_exclusive_scope { find(*args) }
   end
 
   def check_alerts?(string)
