@@ -45,14 +45,14 @@ class DataEntry < ActiveRecord::Base
   def data_fields_with_contents
     content_arrays = self.content.split(';;').map{|str| str.split('::')}
     content_arrays.each do |a|
-      if DataField.find(a.first).display_type == "check_box"
+      if DataField.find_with_destroyed(a.first).display_type == "check_box"
         checked = []
         a.second.split(';').each do |box|
           box = box.split(':')
           checked << box.first if box.second == "1"
         end
         a[1] = checked.join(', ') unless checked.empty?
-      elsif DataField.find(a.first).display_type == "radio_button"
+      elsif DataField.find_with_destroyed(a.first).display_type == "radio_button"
         box = a.second.split(':')
         a[1] = box.second if box.first == "1"
       end
