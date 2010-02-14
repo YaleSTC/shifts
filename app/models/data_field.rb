@@ -35,6 +35,10 @@ class DataField < ActiveRecord::Base
     end
   end
 
+  #We want to have the default scope on data fields only include active
+  #This method allows us to bypass the default scope when we are potentially
+  #interacting with historical data. In that case, we want to find destroyed
+  #data fields as well.
   def self.find_with_destroyed *args
     self.with_exclusive_scope { find(*args) }
   end

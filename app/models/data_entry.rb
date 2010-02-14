@@ -65,14 +65,9 @@ class DataEntry < ActiveRecord::Base
 
   def passes_field_validation?
     self.data_fields_with_contents.each_pair do |field_id, content|
-      return false unless DataField.find(field_id).check_alerts?(content)
+      return false unless DataField.find_with_destroyed(field_id).check_alerts?(content)
     end
     return true
   end
-
-# Not only is this not in use, but it won't work, either -ben
-#  def self.atlocation (location)
-#    DataEntry.all.select{|dataentry| dataentry.location == location }
-#  end
 
 end
