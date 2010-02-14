@@ -47,16 +47,24 @@ EOF
 
     desc "Enter Hoptoad API code"
     task :hoptoad do
-      #Placeholder for commit.
-      #script/generate hoptoad --api-key XXXXXXXXXXXXXXXXXXXXXXX
+
+      hoptoad_config=<<-EOF
+HoptoadNotifier.configure do |config|
+  config.api_key = 'bd6121ade2299339db3a5cbbca4244de'
+end
+
+EOF
+      put hoptoad_config, "#{shared_path}/config/hoptoad.rb"
     end
     
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
-      %w[database.yml].each do |f|
-        run "ln -nsf #{shared_path}/config/#{f} #{current_path}/config/#{f}"
-      end
+
+      run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
+      #Temporarily disabled until hoptoad integration is complete
+      #run "ln -nsf #{shared_path}/config/hoptoad.rb #{current_path}/config/initializers/hoptoad.rb"
+
       run "mkdir -p #{shared_path}/log"
       run "mkdir -p #{shared_path}/pids"
       run "mkdir -p #{shared_path}/sessions"
@@ -133,10 +141,13 @@ namespace :deploy do
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :app do
+    run "cd #{release_path} && #{sudo} whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
+  end
 
 end
 
 after "deploy:setup", "init:config:database"
+after "deploy:setup", "init:config:hoptoad"
 after "deploy:symlink", "init:config:localize"
 after "deploy:symlink", "deploy:update_crontab"
 after "deploy", "deploy:cleanup"
