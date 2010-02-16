@@ -228,8 +228,8 @@ module ShiftsHelper
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
                                          day.beginning_of_day, day.end_of_day, @visible_locations.map{|l| l.id})
 
-    #timeslots = TimeSlot.in_calendars(@calendars).in_locations(@visible_locations).on_day(day)
-    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day)
+    timeslots = TimeSlot.in_calendars(@calendars).in_locations(@visible_locations).on_day(day)
+    #timeslots = TimeSlot.in_locations(@visible_locations).on_day(day)
 
     timeslots ||= {}
     timeslots = timeslots.group_by(&:location)

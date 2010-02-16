@@ -106,7 +106,8 @@ module CalendarsHelper
     unless defined? @color
       @color_array ||= ["9f9", "9ff", "ff9", "f9f", "f99", "99f", "399","933","393","c60","60c","0c6","6c0","c06","06c"]
       @color ||= {}
-      @calendars ||= @department.calendars
+      @calendar ||= (params[:calendar] == "true" ? nil : Calendar.find(params[:calendar]) )
+      @calendars ||= (params[:calendar] == "true" ? @department.calendars : [Calendar.find(params[:calendar])] )
       @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i]}
     end
 
@@ -144,8 +145,8 @@ module CalendarsHelper
                                          day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
                                          day.beginning_of_day, day.end_of_day, @visible_locations.map{|l| l.id})
 
-    #timeslots = TimeSlot.in_calendars(@calendars).in_locations(@visible_locations).on_day(day)
-    timeslots = TimeSlot.in_locations(@visible_locations).on_day(day)
+    timeslots = TimeSlot.in_calendars(@calendars).in_locations(@visible_locations).on_day(day)
+    #timeslots = TimeSlot.in_locations(@visible_locations).on_day(day)
 
     timeslots ||= {}
     timeslots = timeslots.group_by(&:location)
