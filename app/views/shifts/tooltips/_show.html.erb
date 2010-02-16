@@ -21,6 +21,9 @@
       <%= render :partial => 'reports/report', :object => @shift.report %>
       
       <p>
+        <% if @shift.signed_in? && (current_user == @shift.user || current_user.is_admin_of?(@shift.location)) %>
+          <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+        <% end %>
         <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
           <% @shift.sub_requests.each do |sub| %>
             <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user) %>
@@ -129,6 +132,9 @@
   <% if @shift.report %>
     <%= stylesheet_link_tag "report" %>
     <%= render :partial => 'reports/report', :object => @shift.report %>
+    <% if @shift.signed_in? && (current_user == @shift.user || current_user.is_admin_of?(@shift.location)) %>
+      <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+    <% end %>
   <% else %>
     <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
     <p>
