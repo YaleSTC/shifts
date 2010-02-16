@@ -141,7 +141,7 @@ namespace :deploy do
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :app do
-    run "cd #{release_path} && #{sudo} whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
+    run "cd #{release_path} && whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
   end
 
 end
