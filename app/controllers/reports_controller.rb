@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
 
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
-    if @report.user==current_user && !current_user.current_shift && @report.save 
+    if @report.user==current_user && @report.save && !current_user.current_shift && !current_user.punch_clock
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
       a = @report.shift
       a.signed_in = true
@@ -25,6 +25,8 @@ class ReportsController < ApplicationController
     else
       if current_user.current_shift
         flash[:notice] = "You can't sign into two shifts at the same time!"
+      elsif current_user.punch_clock
+        flash[:notice] = "You can't sign into a shift while you have a punch clock active!"
       else
         flash[:notice] = "You can't sign into someone else's report!" unless @report.shift.user==current_user
       end
