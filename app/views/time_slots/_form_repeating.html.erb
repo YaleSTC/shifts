@@ -50,7 +50,7 @@
 <div style="float:left; margin-left: 7px; padding-left: 7px; border-left: 1px solid black">
   <p>
     <%= f.label :calendar %><br />
-    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
+    <%= select_tag 'repeating_event[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%>
   </p>
   <p>
     <% params[:date] ? default_day = Time.parse(params[:date]).wday : false %>

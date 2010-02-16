@@ -13,10 +13,14 @@
   <div class="toggle_me">
     <% remote_form_for @time_slot do |f| %>
       <%= f.error_messages %>
-      <p>
-        <%= f.label :calendar %><br />
-        <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
-      </p>
+      <% if params[:calendar] %>
+        <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
+      <% else %>
+        <p>
+          <%= f.label :calendar %><br />
+          <%= select_tag 'time_slot[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%>
+        </p>
+      <% end %>
       <%= hidden_field_tag "days[]", Time.parse(params[:date]).wday %>
       <p>
         <%

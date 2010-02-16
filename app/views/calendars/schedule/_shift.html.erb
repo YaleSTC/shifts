@@ -10,7 +10,7 @@
       <div class="center_content">
         <% if current_user.is_admin_of?(@department) or current_user == shift.user %>
           <% unless shift.repeating_event %>
-            <%= link_to_remote "x", {:url => {:controller => 'shifts', :action => 'destroy', :id => shift.id, :calendar => true}, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px", :class => 'delete_link' %>
+            <%= link_to_remote "x", {:url => {:controller => 'shifts', :action => 'destroy', :id => shift.id, :calendar => (params[:calendar] || true) }, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px", :class => 'delete_link' %>
           <% else %>
             <%= link_to_function "x", :class => 'click_to_delete_repeating_shift', :id => 'delete_repeating_'+shift.id.to_s %>
           <% end %>
