@@ -1,0 +1,6 @@
+<h1>Search Results</h1>
+<ul>
+<% @shift_results.each do |shift| %>
+  <li><%= link_to "#{shift.user.name} #{shift.short_display}", shift.report %></li>
+<% end %>
+</ul>
