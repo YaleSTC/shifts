@@ -1,5 +1,7 @@
 require 'net/ldap'
+
 class User < ActiveRecord::Base
+
   acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_csv_exportable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
@@ -16,6 +18,16 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :remover
   has_one  :punch_clock
   has_many :sub_requests
+
+  define_index do
+
+    indexes first_name
+    indexes last_name
+    indexes nick_name
+    indexes login
+    
+  end
+
 
 # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
@@ -165,9 +177,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.search(search_string)
+  def self.search_by_name_and_login(search_string)
     User.all.each do |u|
-      return u if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+      return u if u.name == search_string || u.proper_name == search_string || u.login == search_string
     end
     nil
   end
