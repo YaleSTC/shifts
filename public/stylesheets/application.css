@@ -635,7 +635,9 @@ label {
 	float: right;
 }
 
-
+.highlight{
+	color: #800;
+}
 /*this is used for the department_config form*/
 .centered_form label {
   width: 30em;

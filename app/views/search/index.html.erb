@@ -1,6 +1,11 @@
 <h1>Search Results</h1>
 <ul>
 <% @shift_results.each do |shift| %>
-  <li><%= link_to "#{shift.user.name} #{shift.short_display}", shift.report %></li>
+  <li><h4><%= link_to "#{shift.user.name} in #{shift.location.name} on #{shift.start.to_s(:just_date)}", shift.report %><h4></li>
+    <ul>
+      <% @results_hash[shift].each do |report_item| %>
+        <li><%= highlight(excerpt(report_item.content, params[:search_text], 50), params[:search_text]) %></li>
+      <% end %>
+    </ul>
 <% end %>
 </ul>
