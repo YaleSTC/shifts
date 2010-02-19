@@ -11,6 +11,7 @@ class DataEntriesController < ApplicationController
 
   def create
     @data_entry = DataEntry.new({:data_object_id => params[:data_object_id]})
+    #TODO: Fix this bug related to current_user.current_shift / .report
     unless current_user.current_shift && current_user.current_shift.report.data_objects.include?(@data_entry.data_object)
       flash[:error] = "You are not signed into a shift."
       redirect_to(access_denied_path) and return false
