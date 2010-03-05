@@ -420,8 +420,9 @@ class Shift < ActiveRecord::Base
       end_time = self.end
       while (time < end_time)
         people_count = Shift.active.scheduled.in_location(prioritized_location).overlaps(time, (time + seconds_increment)).count
-        # if at any time the location is not at min_staff, the validation fails
-        if people_count < prioritized_location.min_staff
+        time_slot_present = TimeSlot.active.in_location(prioritized_location).overlaps(time, (time + seconds_increment)).count >= 1
+        # if at any time the location is not at min_staff and there is a timeslot, the validation fails
+        if people_count < prioritized_location.min_staff && time_slot_present
           errors.add_to_base("Signup slots in #{prioritized_location.name} are higher priority and must be filled first.")
           break
         end
