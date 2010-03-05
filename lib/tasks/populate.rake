@@ -70,7 +70,7 @@ namespace :db do
 
       puts "creating stickies and announcements for #{department.name} department"
       Notice.populate(stickies_per_department) do |sticky|
-        sticky.is_sticky = true
+        sticky.sticky = true
         sticky.content = Populator.sentences(1..3)
         sticky.author_id = department.users[rand(department.users.length)].id
         sticky.start_time = notices_start_range
@@ -84,7 +84,7 @@ namespace :db do
       end
 
       Notice.populate(announcements_per_department) do |announcement|
-        announcement.is_sticky = false
+        announcement.sticky = false
         announcement.content = Populator.sentences(1..3)
         announcement.author_id = department.users[rand(department.users.length)].id
         announcement.start_time = notices_start_range

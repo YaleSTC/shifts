@@ -71,8 +71,8 @@ class NoticesController < ApplicationController
   def update
     @notice = Notice.find_by_id(params[:id]) || Notice.new
     @notice.update_attributes(params[:notice])
-    @notice.is_sticky = true if params[:type] == "sticky"
-    @notice.is_sticky = false if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
+    @notice.sticky = true if params[:type] == "sticky"
+    @notice.sticky = false if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
     @notice.author = current_user
     @notice.department = current_department
     @notice.start_time = Time.now if @notice.is_sticky
