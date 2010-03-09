@@ -20,7 +20,11 @@ class ReportsController < ApplicationController
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
       a = @report.shift
       a.signed_in = true
-      a.save
+      begin
+        a.save(false) #ignore validations because this is an existing shift or an unscheduled shift
+      rescue
+        ##TODO Remove me when confirmed that above line fixes Bug 236
+        raise "The application was unable to save your shift. Please email adam.bray@yale.edu with the date/time you received this error. "
       redirect_to @report
     else
       if current_user.current_shift
