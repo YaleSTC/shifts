@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
+  
   has_and_belongs_to_many :roles
   has_many :departments_users
   has_many :departments, :through => :departments_users
@@ -47,31 +48,28 @@ class User < ActiveRecord::Base
     self.password=self.password_confirmation=(1..size).collect{|a| chars[rand(chars.size)] }.join
   end
 
- def self.search_ldap(first_name, last_name, email, limit)
+  def self.search_ldap(first_name, last_name, email, limit)
     appconfig = AppConfig.first
     first_name+='*'
     last_name+='*'
     email+='*'
-# Set up our LDAP connection
+    # Set up our LDAP connection
     begin
       ldap = Net::LDAP.new( :host => appconfig.ldap_host_address, :port => appconfig.ldap_port )
       filter = Net::LDAP::Filter.eq(appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq(appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq(appconfig.ldap_email, email)
       out=[]
       ldap.open do |ldap|
         ldap.search(:base => appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
-        out << {:login => entry[appconfig.ldap_login][0],
-                :email => entry[appconfig.ldap_email][0],
-                :first_name => entry[appconfig.ldap_first_name][0],
-                :last_name => entry[appconfig.ldap_last_name][0]}
+          out << {:login => entry[appconfig.ldap_login][0], :email => entry[appconfig.ldap_email][0], :first_name => entry[appconfig.ldap_first_name][0], :last_name => entry[appconfig.ldap_last_name][0]}
          break if out.length>=limit
+        end
       end
-    end
-    out
+      out
     rescue Exception => e
       false
     end
   end
-  
+
   def self.mass_add(logins, department)
     failed = []
     logins.split(/\W+/).map do |n|
@@ -177,7 +175,7 @@ class User < ActiveRecord::Base
     [self]
   end
 
-#TODO: This could possibly be further optimized
+  #TODO: This could possibly be further optimized
   def available_sub_requests(departments = self.departments)
     ActiveRecord::Base.transaction do #Wrapped in a transaction for performance reasons
     a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
@@ -195,7 +193,7 @@ class User < ActiveRecord::Base
     Restriction.current.select{|r| r.users.include?(self)}
   end
 
-  def toggle_active(department)
+  def toggle_active(department) #TODO why don't we just update the attribues on the current entry and save it?
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
     new_entry.attributes = old_entry.attributes
