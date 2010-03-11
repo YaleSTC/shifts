@@ -16,27 +16,20 @@ class ReportsController < ApplicationController
 
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
-    if @report.user==current_user && @report.save && !current_user.current_shift && !current_user.punch_clock
+
+    if current_user.current_shift || current_user.punch_clock
+      flash[:warning] = "You are already signed into a shift or punch clock."
+    elsif @report.user!=current_user 
+        flash[:notice] = "You can't sign into someone else's report!"
+    else
+      @report.save
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
       a = @report.shift
       a.signed_in = true
-      begin
-        a.save(false) #ignore validations because this is an existing shift or an unscheduled shift
-      rescue
-        ##TODO Remove me when confirmed that above line fixes Bug 236
-        raise "The application was unable to save your shift. Please email adam.bray@yale.edu with the date/time you received this error. "
-      end
+      a.save(false) #ignore validations because this is an existing shift or an unscheduled shift
       redirect_to @report
-    else
-      if current_user.current_shift
-        flash[:notice] = "You can't sign into two shifts at the same time!"
-      elsif current_user.punch_clock
-        flash[:notice] = "You can't sign into a shift while you have a punch clock active!"
-      else
-        flash[:notice] = "You can't sign into someone else's report!" unless @report.shift.user==current_user
-      end
-      redirect_to shifts_path
     end
+    redirect_to shifts_path
   end
 
   def edit
