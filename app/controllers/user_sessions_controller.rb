@@ -1,6 +1,7 @@
 class UserSessionsController < ApplicationController
   skip_before_filter :login_check
   skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}
+
   def new
     flash[:notice] = "Please login."
     @user_session = UserSession.new
@@ -26,4 +27,10 @@ class UserSessionsController < ApplicationController
     flash[:notice] = "Successfully logged out"
     redirect_to login_path
   end
+
+  #Not called yet. Should be used once we migrate from using sessions_controller for CAS logout
+  def cas_logout
+    CASClient::Frameworks::Rails::Filter.logout(self)
+  end
+
 end
