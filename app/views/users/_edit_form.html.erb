@@ -1,71 +1,76 @@
 <% stylesheet 'users' %>
 
-  <div class='information'>
+<div class='information'>
 
-    <h2>User Information</h2>
+  <h2>User Information</h2>
 
-<% form_for user, :html=>{:id=>"user_form"} do |f| %>
-  <%= f.error_messages :object => [@user, @user_profile_entries] %>
-
-  <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
-   <h3>Reset Password?</h3>
-     <div>
-       <%= check_box_tag :reset_password -%>
-     </div>
- <% end %>
-  <p>
-    <%= f.label :login %><br />
-    <%= f.text_field :login %>
-  </p>
-  <p>
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
-  </p>
-  <p>
-    <%= f.label :nick_name %><br />
-    <%= f.text_field :nick_name %>
-  </p>
-  <p>
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </p>
-  <p>
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :employee_id %><br />
-    <%= f.text_field :employee_id %>
-  </p>
- <% if @appconfig.login_options.size >1 %>
-  <p>
-    <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, @appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
-  </p>
-  <% end %>
-  <h3>Roles</h3>
-  <% for role in @department.roles -%>
-    <div>
-      <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
-      <%= role.name %>
-    </div>
-  <% end -%>
-  <% if @department.roles == []%>
-    There don't appear to be any roles in this department. Want to <%= link_to "add one", new_department_role_path(@department) %>?
-  <% end %>
-  <p>
-    <%= label_tag :payrate %><br />
-    <%= text_field_tag :payrate %>
-  </p>
-  </div>
-  <div class='profile'>
-    <h2>User Profile</h2>
-    <%= render :partial => 'user_profile' %>
-  </div>
+  <% form_for user, :html=>{:id=>"user_form"} do |f| %>
+    <%= f.error_messages :object => [@user, @user_profile_entries] %>
   
-  <div class='update_left'>
-    <p><%= f.submit "Update" %></p>
-  </div>
+    <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
+      <h3>Reset Password?</h3>
+      <div>
+        <%= check_box_tag :reset_password -%>
+      </div>
+    <% end %>
+    <p>
+      <%= f.label :login %><br />
+      <%= f.text_field :login %>
+    </p>
+    <p>
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name %>
+    </p>
+    <p>
+      <%= f.label :nick_name %><br />
+      <%= f.text_field :nick_name %>
+    </p>
+    <p>
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+    </p>
+    <p>
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :employee_id %><br />
+      <%= f.text_field :employee_id %>
+    </p>
+    <p>
+      <%= label_tag :payrate %><br />
+      $<%= text_field_tag :payrate, @user.payrate(current_department) %>
+    </p>
+  
+    <% if @appconfig.login_options.size >1 %>
+      <p>
+        <%= f.label :login_type %><br />
+        <%= f.select(:auth_type, @appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
+      </p>
+    <% end %>
+  
+    <h3>Roles</h3>
+    <% for role in @department.roles -%>
+      <div>
+        <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
+        <%= role.name %>
+      </div>
+    <% end -%>
+  
+    <% if @department.roles == []%>
+      There don't appear to be any roles in this department. Want to <%= link_to "add one", new_department_role_path(@department) %>?
+    <% end %>
+  
+</div>
+  
+<div class='profile'>
+  <h2>User Profile</h2>
+  <%= render :partial => 'user_profile' %>
+</div>
+  
+<div class='update_left'>
+  <p><%= f.submit "Update User" %></p>
+</div>
 
   <% end %>
 
