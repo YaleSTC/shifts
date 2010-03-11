@@ -1,7 +1,7 @@
 <%  
   link_name = upcoming_shift.short_display
   if upcoming_shift.has_sub?
-    link_name << " (Sub requested)"
+    link_name << " (sub requested)"
   elsif upcoming_shift.signed_in?
     link_name << " (signed in)"
   end

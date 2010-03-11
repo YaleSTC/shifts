@@ -7,17 +7,34 @@
 <div id="left_stuff">
 
   <fieldset class="index" id="shifts">
-    <legend>Shifts</legend>
-        <h4>Current Shift</h4>
-    <%= render :partial => "shifts/user_options" %>
-    <% unless @upcoming_shifts.empty? %>
-        <h4>Upcoming Shifts</h4>
+    <legend>Your Shifts</legend>
+      <h4>Current Shift</h4>
+      <%= render :partial => "shifts/user_options" %>
+      
+      <% unless @upcoming_shifts.empty? %>
+      <h4>Upcoming Shifts</h4>
         <ul>
           <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
         </ul>
-    <% end %>
+      <% end %>
   </fieldset>
 
+  <fieldset class="index" id="subs">
+    <legend>Sub Requests</legend>
+    <% unless @subs_you_requested.empty? %>
+      <h4>Subs you've requested</h4>
+      <ul>
+        <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
+      </ul>
+    <% end %>
+    <% unless @subs_you_can_take.empty? %>
+      <h4>Subs You Can Take</h4>
+        <ul>
+          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+        </ul>
+    <% end %>
+  </fieldset>
+  
   <fieldset class="index" id="punch_clock">
     <legend>Punch Clock</legend>
     <% if current_user.punch_clock %>
@@ -30,29 +47,19 @@
 
   </div>
   <div id="right_stuff">
+    
+    <fieldset class="index" id="shifts">
+      <legend>Active Shifts</legend>
+        <%= render :partial => 'shifts/signed_in_shifts', :collection => @signed_in_shifts %>
+    </fieldset>
 
-  <fieldset class="index" id="subs">
-    <legend>Sub Requests</legend>
-    <% unless @subs_you_requested.empty? %>
-      <h4>Subs you've requested</h4>
-      <ul>
-        <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
-      </ul>
+    <% unless @watched_objects.empty? %>
+      <fieldset class="index" id="watched_objects">
+        <legend>Recent updates for your watched data objects</legend>
+          <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
+      </fieldset>
     <% end %>
 
-    <% unless @subs_you_can_take.empty? %>
-      <h4>Subs You Can Take</h4>
-        <ul>
-          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
-        </ul>
-    <% end %>
-  </fieldset>
-  <% unless @watched_objects.empty? %>
-  <fieldset class="index" id="watched_objects">
-    <legend>Recent updates for your watched data objects</legend>
-      <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
-  </fieldset>
-<% end %>
   </div>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
