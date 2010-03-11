@@ -79,10 +79,8 @@ class ShiftsController < ApplicationController
     end
   end
 
-# TODO: write the view
-# Temporarily deactivated because its view is unfinished, and will be slightly tricky design-wise -ben
   def show_active
-    @current_shifts = Shift.in_locations(current_department.locations).signed_in.ordered_by_start
+    @signed_in_shifts = Shift.signed_in_shifts_by_location_in_department(current_department)
   end
 
   def show_unscheduled

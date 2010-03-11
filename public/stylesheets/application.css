@@ -737,3 +737,7 @@ span.success_notification{
   background-color:#98eec3;
   border-color: #21a454;
 }
+
+ul.activeShifts {
+	list-style-type: none;
+}
