@@ -5,9 +5,9 @@ class DashboardController < ApplicationController
 
   def index
     @active_shifts = Shift.find(:all, :conditions => {:signed_in => true, :department_id => current_department.id}, :order => :start)
-    @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id.to_sql_column} = ? and #{:end.to_sql_column} > ? and #{:department_id.to_sql_column} = ? and #{:scheduled.to_sql_column} = ? and #{:active.to_sql_column} = ?", current_user.to_sql, Time.now.utc, current_department.id.to_sql, true, true], :order => :start, :limit => 5)
-    @subs_you_requested = SubRequest.find(:all, :conditions => ["#{:end.to_sql_column} > ? AND #{:user_id.to_sql_column} = ?", Time.now.to_sql, current_user.id.to_sql]).sort_by(&:start)
-    @subs_you_can_take = current_user.available_sub_requests([@department]).select{|sub| sub.end > Time.now}.sort_by(&:start)
+    @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true], :order => :start, :limit => 5)
+    @subs_you_requested = SubRequest.find(:all, :conditions => ["#{:end} > ? AND #{:user_id} = ?", Time.now.utc, current_user.id]).sort_by(&:start)
+    @subs_you_can_take = current_user.available_sub_requests([@department]).select{|sub| sub.end > Time.now.utc}.sort_by(&:start)
 
     @most_recent_payform= current_user.payforms.sort_by(&:date).last
     @watched_objects = DataObject.find(current_user.user_config.watched_data_objects.split(', ')).group_by(&:data_type)
