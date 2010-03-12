@@ -110,7 +110,7 @@ class PayformsController < ApplicationController
     if params[:search]
       search_result = []
       users.each do |user|
-        if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
+        if user.login.downcase.include?(params[:search].downcase) or user.name.downcase.include?(params[:search].downcase)
           search_result << user
         end
       end
@@ -120,7 +120,6 @@ class PayformsController < ApplicationController
     for user in users
       @payforms += narrow_down(user.payforms)
     end
-
   end
 
   def email_reminders
@@ -171,7 +170,7 @@ class PayformsController < ApplicationController
   protected
 
   def narrow_down(payforms)
-    if (!params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed])
+    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed] )
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
     end
     scope = []
