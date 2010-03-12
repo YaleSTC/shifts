@@ -20,14 +20,14 @@ class ReportsController < ApplicationController
     if current_user.current_shift || current_user.punch_clock
       flash[:warning] = "You are already signed into a shift or punch clock."
     elsif @report.user!=current_user 
-        flash[:notice] = "You can't sign into someone else's report!"
+      flash[:notice] = "You can't sign into someone else's report!"
     else
       @report.save
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
       a = @report.shift
       a.signed_in = true
       a.save(false) #ignore validations because this is an existing shift or an unscheduled shift
-      redirect_to @report
+      redirect_to @report and return
     end
     redirect_to shifts_path
   end
