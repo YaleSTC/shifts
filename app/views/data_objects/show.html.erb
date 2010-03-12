@@ -36,7 +36,7 @@
         <thead>
           <tr>
             <th>Time</th>
-            <% @data_object.data_type.data_fields.each do |df| %>
+            <% @data_fields.each do |df| %>
               <th><%= df.name %></th>
             <% end %>
           </tr>
