@@ -160,13 +160,13 @@ class ShiftsController < ApplicationController
   def edit
     @shift = Shift.find(params[:id])
     @report = @shift.report
-    return unless require_owner_or_dept_admin(@shift, @shift.department)
+    return unless user_is_owner_or_admin_of(@shift, @shift.department)
     (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
 
   def update
     @shift = Shift.find(params[:id])
-    return unless require_owner_or_dept_admin(@shift, @shift.department)
+    return unless user_is_owner_or_admin_of(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
       respond_to do |format|

@@ -12,7 +12,7 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     flash[:error] = "Payform does not exist." unless @payform
     flash[:error] = "The payform (from #{@payform.department.name}) is not in this department (#{current_department.name})." unless @payform.department == current_department
-    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)
     if flash[:error]
       redirect_to payforms_path
     else
@@ -45,7 +45,7 @@ class PayformsController < ApplicationController
 
   def submit
     @payform = Payform.find(params[:id])
-    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform.submitted = Time.now
     if @payform.save
       flash[:notice] = "Successfully submitted payform."
@@ -58,7 +58,7 @@ class PayformsController < ApplicationController
 
   def unsubmit
     @payform = Payform.find(params[:id])
-    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform.submitted = nil
     if @payform.save
       flash[:notice] = "Successfully unsubmitted payform."

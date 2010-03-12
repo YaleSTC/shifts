@@ -14,13 +14,13 @@ class PunchClocksController < ApplicationController
 
   def edit
     @punch_clock = PunchClock.find_by_id(params[:id])
-    return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
+    return unless user_is_owner_or_admin_of(@punch_clock, @punch_clock.department)
   end
 
 # Stops, restarts, or submits the punch clock depending on params
   def update
     @punch_clock = PunchClock.find(params[:id])
-    return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
+    return unless user_is_owner_or_admin_of(@punch_clock, @punch_clock.department)
     if params[:pause]
       message = @punch_clock.pause || "Successfully paused punch clock."
     elsif params[:unpause]
@@ -46,7 +46,7 @@ class PunchClocksController < ApplicationController
 # Cancels out the punch clock w/o adding time to payform
   def destroy
     @punch_clock = PunchClock.find(params[:id])
-    return unless require_owner_or_dept_admin(@punch_clock, @punch_clock.department)
+    return unless user_is_owner_or_admin_of(@punch_clock, @punch_clock.department)
     if @punch_clock.destroy
       flash[:notice] = "Successfully canceled punch clock."
     else

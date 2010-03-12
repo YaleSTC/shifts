@@ -214,7 +214,7 @@ class ApplicationController < ActionController::Base
   end
 
 # Takes any object that has a user method and its department
-  def require_owner_or_dept_admin(thing, dept)
+  def user_is_owner_or_admin_of(thing, dept)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(dept)
       error_message = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
       respond_to do |format|

@@ -14,6 +14,7 @@ class ReportsController < ApplicationController
     render :layout => false
   end
 
+  #Signing into a shift
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
 
@@ -23,7 +24,7 @@ class ReportsController < ApplicationController
       flash[:error] = "You can't sign into someone else's report!"
     else
       @report.save
-      @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
+      @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged in from #{request.remote_ip}", :ip_address => request.remote_ip)
       a = @report.shift
       a.signed_in = true
       a.save(false) #ignore validations because this is an existing shift or an unscheduled shift
@@ -34,17 +35,18 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    return unless require_owner_or_dept_admin(@report.shift, @report.shift.department)
+    return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department)
   end
 
-# TODO: refactor into a model method on Report
+  # TODO: refactor into a model method on Report
+  #Submitting a shift
   def update
     @report = Report.find(params[:id])
-    return unless require_owner_or_dept_admin(@report.shift, @report.shift.department)
+    return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department)
     
     if (params[:sign_out] and @report.departed.nil?) #don't allow duplicate signout messages
       @report.departed = Time.now
-      @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.login} logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
+      @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
       # above method call isn't safe; it works because there are never sub requests on unscheduled shifts, but it'll cause validation problems
       # with shift.adjust_sub_requests if it ever does run. -ben
