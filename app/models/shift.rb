@@ -203,11 +203,7 @@ class Shift < ActiveRecord::Base
   # ==================
   # = Object methods =
   # ==================
-
-  def duration(actual = false)
-    (actual && self.report) ? self.report.duration : ((self.end - self.start)/3600 rescue 0)
-  end
-
+  
   def css_class(current_user = nil)
     if current_user and self.user == current_user
       css_class = "user"
@@ -226,24 +222,32 @@ class Shift < ActiveRecord::Base
     self.start > 30.minutes.from_now
   end
 
+  #Return either the actual (worked) duration of a shift, or the scheduled duration
+  def duration(actual = false)
+    (actual && self.report) ? self.report.duration : ((self.end - self.start)/3600 rescue 0)
+  end
+
   def missed?
     self.has_passed? and !self.report
   end
 
   def late?
     self.report && (self.report.arrived - self.start > $department.department_config.grace_period*60)
-    #seconds
   end
 
+  def left_early?
+    self.report && (self.end - self.report.departed > $department.department_config.grace_period*60)
+  end
+  
   #a shift has been signed in to if it has a report
   # NOTE: this evaluates whether a shift is CURRENTLY signed in
   def signed_in?
     self.report && !self.report.departed
   end
 
-  #a shift has been signed in to if its shift report has been submitted
+  #a shift has been submitted if its shift report has been submitted
   def submitted?
-    self.report and self.report.departed
+    self.report.nil? ? false : !self.report.departed.nil?
   end
 
   #TODO: subs!
@@ -332,7 +336,6 @@ class Shift < ActiveRecord::Base
   def name_and_time
     "#{user.name}, #{time_string}"
   end
-
 
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"

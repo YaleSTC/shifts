@@ -18,9 +18,9 @@ class ReportsController < ApplicationController
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
 
     if current_user.current_shift || current_user.punch_clock
-      flash[:warning] = "You are already signed into a shift or punch clock."
+      flash[:error] = "You are already signed into a shift or punch clock."
     elsif @report.user!=current_user 
-      flash[:notice] = "You can't sign into someone else's report!"
+      flash[:error] = "You can't sign into someone else's report!"
     else
       @report.save
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{@report.shift.user.login} logged in at #{request.remote_ip}", :ip_address => request.remote_ip)
