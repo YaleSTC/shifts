@@ -33,7 +33,7 @@ class DataObjectsController < ApplicationController
     if params[:start] && params[:end]
       startdate = Date.civil(params[:start][:year].to_i, params[:start][:month].to_i, params[:start][:day].to_i)
       enddate = Date.civil(params[:end][:year].to_i, params[:end][:month].to_i, params[:end][:day].to_i)
-      @data_entries = DataEntry.between_days(startdate, enddate)
+      @data_entries = DataEntry.for_data_object(@data_object).between_days(startdate, enddate)
     else
       @data_entries = DataEntry.find(:all, :conditions => {:data_object_id => @data_object.id},
                                            :limit => 50, :offset => offset,

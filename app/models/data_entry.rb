@@ -6,7 +6,7 @@ class DataEntry < ActiveRecord::Base
   
   named_scope :on_day, lambda {|day| { :conditions => ["#{:created_at.to_sql_column} > #{day.beginning_of_day.to_sql} and #{:created_at.to_sql_column} < #{day.end_of_day.to_sql}"]}}
   named_scope :between_days, lambda {|first, last| { :conditions => ["#{:created_at.to_sql_column} > #{first.beginning_of_day.to_sql} and #{:created_at.to_sql_column} < #{last.end_of_day.to_sql}"]}}
-  
+  named_scope :for_data_object, lambda {|data_object| { :conditions => {:data_object_id => data_object.id }}}
   # Write DataEntry content as a string with the following delimiters:
   #   Double semicolon between each datafield
   #   Double colon between the id of the datafield and the information it holds
