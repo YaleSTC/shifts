@@ -10,9 +10,6 @@ class SubRequest < ActiveRecord::Base
   validate :not_in_the_past
   validate :user_does_not_have_concurrent_sub_request
 
-  # Removing this has_user_sources validation because when empty, email to loc_group sub_request alias
-#  validate :has_user_sources
-
   before_destroy :destroy_user_sinks_user_sources
   #
   # Class methods
@@ -21,10 +18,12 @@ class SubRequest < ActiveRecord::Base
   def self.take(sub_request, user, just_mandatory)
     if sub_request.user_is_eligible?(user)
         SubRequest.transaction do
-          new_shift = sub_request.shift.clone
           old_shift = sub_request.shift
-          new_shift.location = old_shift.location
+
+          new_shift = sub_request.shift.clone
+          new_shift.location = old_shift.location #association not handled by clone method
           new_shift.power_signed_up = true #so that you don't get blocked taking a sub due to validations
+          new_shift.signed_in = false #if you take a sub for a shift, but the requestor has signed in this prevents an error
           new_shift.user = user
           new_shift.start = just_mandatory ? sub_request.mandatory_start : sub_request.start
           new_shift.end = just_mandatory ? sub_request.mandatory_end : sub_request.end
