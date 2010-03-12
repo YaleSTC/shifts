@@ -4,7 +4,7 @@ class PayformItemsController < ApplicationController
 
   def new
     @payform = Payform.find(params[:payform_id])
-    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform_item = PayformItem.new
     layout_check
   end
@@ -17,7 +17,7 @@ class PayformItemsController < ApplicationController
   else
     @payform = @payform_item.parent.payform
   end
-    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform_item.payform = @payform
     @payform.submitted = nil
     if @payform_item.save and @payform.save
@@ -31,7 +31,7 @@ class PayformItemsController < ApplicationController
   def edit
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
-    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)
     layout_check
   end
 
@@ -45,7 +45,7 @@ class PayformItemsController < ApplicationController
     @payform_item.parent.payform = nil  # this line caused headaches!
     @payform_item.source = current_user.name
 
-    return unless require_owner_or_dept_admin(@payform, @payform.department)
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)
 
     begin
 # unfortunately the only way I could get this to work was such that if there are
@@ -79,7 +79,7 @@ class PayformItemsController < ApplicationController
   def delete
     @payform_item = PayformItem.find(params[:id])
     @payform = @payform_item.payform
-    return unless require_owner_or_dept_admin(@payform, @payform.department)    
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)    
     layout_check
   end
 
@@ -87,7 +87,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     @payform_item.reason = params[:payform_item][:reason]    
     @payform = @payform_item.payform
-    return unless require_owner_or_dept_admin(@payform, @payform.department)    
+    return unless user_is_owner_or_admin_of(@payform, @payform.department)    
     @payform_item.active = false
     @payform_item.source = current_user.name
      
