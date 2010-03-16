@@ -1,3 +1,8 @@
+# == DEPLOYMENT DEFAULTS =========
+default_domain = ENV['DOMAIN'] ? ENV['DOMAIN'] : "mahi.its.yale.edu"
+default_application_prefix = ENV['PREFIX'] ? ENV['PREFIX'] : "test"
+default_branch = ENV['BRANCH'] ? ENV['BRANCH'] : "master"
+
 # == INITIAL CONFIG ==============
 set :application, "shifts"
 set :repository,  "git@github.com:YaleSTC/shifts.git"
@@ -8,15 +13,19 @@ set :user, "deploy"
 set :runner, "deploy"
 set :use_sudo, false
 
-set :domain, Capistrano::CLI.ui.ask("Deployment server hostname (e.g. weke.its.yale.edu): ")
-set :application_prefix, Capistrano::CLI.ui.ask("Deployment application prefix (e.g. apps2): ")
-set :branch, Capistrano::CLI.ui.ask("deployment branch (e.g. master): ")
+set :domain, Capistrano::CLI.ui.ask("Deployment server hostname (default #{default_domain}): ") unless ENV['DOMAIN']
+set :application_prefix, Capistrano::CLI.ui.ask("Application prefix (default #{default_application_prefix}): ") unless ENV['PREFIX']
+set :branch, Capistrano::CLI.ui.ask("Deployment branch (default #{default_branch}): ") unless ENV['BRANCH']
+
+#Set Variables to default if specified from command line or left blank
+set :domain, default_domain if (ENV['DOMAIN'] || fetch(:domain) == "")
+set :application_prefix, default_application_prefix if (ENV['PREFIX'] || fetch(:application_prefix) == "")
+set :branch, default_branch if (ENV['BRANCH'] || fetch(:branch) == "")
+
 set :deploy_to, "/srv/www/rails/#{application}/#{application_prefix}"
 
 set :scm, :git
-#set :deploy_via, :remote_cache
 set :scm_verbose, false
-
 
 role :app, "#{domain}"
 role :web, "#{domain}"
@@ -56,7 +65,6 @@ end
 EOF
       put hoptoad_config, "#{shared_path}/config/hoptoad.rb"
     end
-    
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
