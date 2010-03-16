@@ -1,0 +1,196 @@
+--- 
+locations_001: 
+  active: t
+  created_at: 2009-06-22 17:35:10
+  id: "2"
+  loc_group_id: "2"
+  max_staff: "3"
+  min_staff: "1"
+  name: Io
+  priority: "100"
+  report_email: 
+  short_name: io
+  updated_at: 2009-06-22 17:35:10
+  useful_links: ""
+locations_002: 
+  active: t
+  created_at: 2009-06-22 17:35:40
+  id: "3"
+  loc_group_id: "3"
+  max_staff: "2"
+  min_staff: "1"
+  name: Connecticut Hall
+  priority: "100"
+  report_email: 
+  short_name: CT Hall
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_003: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "4"
+  loc_group_id: "3"
+  max_staff: "4"
+  min_staff: "1"
+  name: Technology Troubleshooting Office
+  priority: "100"
+  report_email: 
+  short_name: TTO
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_004: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "5"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Branford College
+  priority: "100"
+  report_email: 
+  short_name: BR
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_005: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "6"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Berkeley College
+  priority: "100"
+  report_email: 
+  short_name: BC
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_006: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "7"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Silliman College
+  priority: "100"
+  report_email: 
+  short_name: SC
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_007: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "8"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Saybrook College
+  priority: "100"
+  report_email: 
+  short_name: SY
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_008: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "9"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Trumbull College
+  priority: "100"
+  report_email: 
+  short_name: TC
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_009: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "10"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Davenport College
+  priority: "100"
+  report_email: 
+  short_name: DC
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_010: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "11"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Pierson College
+  priority: "100"
+  report_email: 
+  short_name: PC
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_011: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "12"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Morse College
+  priority: "100"
+  report_email: 
+  short_name: MC
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_012: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "13"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Ezra Stiles College
+  priority: "100"
+  report_email: 
+  short_name: ES
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_013: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "14"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Timothy Dwight College
+  priority: "100"
+  report_email: 
+  short_name: TD
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_014: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "15"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Jonathan Edwards College
+  priority: "100"
+  report_email: 
+  short_name: JE
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""
+locations_015: 
+  active: t
+  created_at: 2009-06-22 17:36:41
+  id: "16"
+  loc_group_id: "4"
+  max_staff: "5"
+  min_staff: "1"
+  name: Calhoun College
+  priority: "100"
+  report_email: 
+  short_name: CC
+  updated_at: 2009-06-22 17:35:40
+  useful_links: ""

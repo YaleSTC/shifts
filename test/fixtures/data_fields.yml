@@ -1,0 +1,45 @@
+--- 
+data_fields_001: 
+  created_at: 2009-07-02 22:11:53
+  data_type_id: "2"
+  display_type: radio_button
+  exact_alert: 
+  id: "1"
+  lower_bound: 
+  name: Orientation
+  updated_at: 2009-07-02 22:11:53
+  upper_bound: 
+  values: Good, Evil
+data_fields_002: 
+  created_at: 2009-07-02 22:11:53
+  data_type_id: "2"
+  display_type: select
+  exact_alert: 
+  id: "2"
+  lower_bound: 
+  name: Model
+  updated_at: 2009-07-02 22:11:53
+  upper_bound: 
+  values: YT-1300 light freighter, Death Star, Firefly
+data_fields_003: 
+  created_at: 2009-07-02 22:11:53
+  data_type_id: "1"
+  display_type: check_box
+  exact_alert: 
+  id: "3"
+  lower_bound: 
+  name: fur color
+  updated_at: 2009-07-02 22:11:53
+  upper_bound: 
+  values: tabby, brown, orange, white
+data_fields_004: 
+  created_at: 2009-07-02 22:11:53
+  data_type_id: "1"
+  display_type: text_field
+  exact_alert: 
+  id: "4"
+  lower_bound: "0.0"
+  name: number of lives
+  updated_at: 2009-07-02 22:11:53
+  upper_bound: "9.0"
+  values: 
