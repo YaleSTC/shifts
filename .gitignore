@@ -8,3 +8,4 @@ Rakefile
 *.orig
 *.sqlite3
 cleangit
+config/database.yml
