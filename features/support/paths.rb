@@ -3,12 +3,12 @@ module NavigationHelpers
   #
   #   When /^I go to (.+)$/ do |page_name|
   #
-  # step definition in webrat_steps.rb
+  # step definition in web_steps.rb
   #
   def path_to(page_name)
     case page_name
-
-    when /the homepage/
+    
+    when /the home\s?page/
       @appconfig = AppConfig.first
       root_path
     when /the list of users/
@@ -51,8 +51,8 @@ module NavigationHelpers
       url_for(:controller => 'user_sessions', :action => 'new')
     when /the page for the user "([^\"]*)"/
       edit_user_path(User.find_by_login($1))
-      # Add more mappings here.
-    # Here is a more fancy example:
+    # Add more mappings here.
+    # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
@@ -65,4 +65,3 @@ module NavigationHelpers
 end
 
 World(NavigationHelpers)
-
