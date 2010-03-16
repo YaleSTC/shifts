@@ -1,0 +1,19 @@
+--- 
+data_objects_locations_001: 
+  data_object_id: "2"
+  location_id: "3"
+data_objects_locations_002: 
+  data_object_id: "3"
+  location_id: "2"
+data_objects_locations_003: 
+  data_object_id: "4"
+  location_id: "4"
+data_objects_locations_004: 
+  data_object_id: "4"
+  location_id: "1"
+data_objects_locations_005: 
+  data_object_id: "1"
+  location_id: "2"
+data_objects_locations_006: 
+  data_object_id: "1"
+  location_id: "1"

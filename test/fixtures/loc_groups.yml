@@ -1,13 +1,31 @@
-one:
-  name: MyString
-  department_id: 1
-  view_perm_id: 1
-  signup_perm_id: 1
-  admin_perm_id: 1
-
-two:
-  name: MyString
-  department_id: 1
-  view_perm_id: 1
-  signup_perm_id: 1
-  admin_perm_id: 1
+--- 
+loc_groups_001: 
+  admin_perm_id: "7"
+  created_at: 2009-06-22 17:33:43
+  department_id: "1"
+  id: "2"
+  name: IO Cluster
+  signup_perm_id: "6"
+  sub_request_email: 
+  updated_at: 2009-06-22 17:33:43
+  view_perm_id: "5"
+loc_groups_002: 
+  admin_perm_id: "10"
+  created_at: 2009-06-22 17:33:57
+  department_id: "1"
+  id: "3"
+  name: Public Clusters
+  signup_perm_id: "9"
+  sub_request_email: 
+  updated_at: 2009-06-22 17:33:57
+  view_perm_id: "8"
+loc_groups_003: 
+  admin_perm_id: "13"
+  created_at: 2009-06-22 17:34:11
+  department_id: "1"
+  id: "4"
+  name: College Clusters
+  signup_perm_id: "12"
+  sub_request_email: 
+  updated_at: 2009-06-22 17:34:11
+  view_perm_id: "11"
