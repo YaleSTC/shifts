@@ -232,12 +232,8 @@ class Shift < ActiveRecord::Base
   end
 
   def late?
-<<<<<<< HEAD:app/models/shift.rb
-    self.report && (self.report.arrived - self.start > $department.department_config.grace_period*60)
-=======
     self.report && (self.report.arrived - self.start > self.department.department_config.grace_period*60)
     #seconds
->>>>>>> initial import of old stats code, with some cleanup. it runs to some degree, but creating stats for a set of users is broken, and I'm sure there are other problems:app/models/shift.rb
   end
 
   def left_early?
