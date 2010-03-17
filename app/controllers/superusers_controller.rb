@@ -21,7 +21,6 @@ class SuperusersController < ApplicationController
     end
   end
 
-  #TODO: add error checking here.  Not really necessary because only superusers can access this page
   def remove
     @su_list = User.find(params[:remove_su_ids])
     if User.superusers.size == @su_list.size

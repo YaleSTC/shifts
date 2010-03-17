@@ -9,6 +9,6 @@
 <% end -%>
 <% if @payform.printed -%>
   <strong>Printed:</strong> <%= @payform.printed.strftime(date_format + " at " + time_format) %><br/>
-  <em><%=@payform.department.department_config.printed_message.></em><br/>
+  <em><%=@payform.department.department_config.printed_message%></em><br/>
 <%end -%>
 </fieldset>
