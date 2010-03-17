@@ -23,10 +23,10 @@ class SuperusersController < ApplicationController
 
   #TODO: add error checking here.  Not really necessary because only superusers can access this page
   def remove
-    if User.superusers.length == 1
+    @su_list = User.find(params[:remove_su_ids])
+    if User.superusers.length == @su_list.count
       flash[:error] = "You are not allowed to remove the only superuser in the application."
     else
-      @su_list = User.find(params[:remove_su_ids])
       @su_list.each do |su|
         su.update_attribute(:superuser, false)
       end
