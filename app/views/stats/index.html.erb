@@ -1,2 +1,37 @@
-<h1>Stats#index</h1>
-<p>Find me in app/views/stats/index.html.erb</p>
+<h1>Stats</h1>
+<%#= raise params.to_yaml%>
+<% form_tag 'stats' do |f| %>
+  <p>
+    <%= label_tag :start_date %><br />
+    <%=  text_field_tag 'start_date', "#{@start_date}" %>
+  </p>
+  <p>
+    <%= label_tag :end_date %><br />
+    <%=  text_field_tag 'end_date', "#{@end_date}" %>
+  </p>
+  <div><%= submit_tag 'Update dates' %></div>
+<% end -%>
+
+<table id="stats_table" class="sortable">
+  <thead>
+    <tr>
+      <th align="left">Name</th>
+      <th align="left">Total Shifts</th>
+      <th align="left">Late</th>
+      <th align="left">Left Early</th>
+      <th align="left">Missed</th>
+    </tr>
+  </thead>
+  <tbody id="user_list">
+    <% @stats.each do |key, stat| %>
+      <tr>
+        <td><%=h stat[:name] %></td>
+        <td><%=h stat[:num_shifts] %></td>
+        <td><%=h stat[:num_late] %></td>
+        <td><%=h stat[:num_left_early] %></td>
+        <td><%=h stat[:num_missed] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script type="text/javascript">sorttable.makeSortable(document.getElementById('stats_table')); $('#stats_table" %>').addClass("sortable_style");</script>
