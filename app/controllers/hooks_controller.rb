@@ -25,7 +25,6 @@ class HooksController < ApplicationController
   def add_job
     session[:external] = params.clone
 
-    #TODO: if desired, censor IP addresses here (eg. RT)
     session[:external][:ip] = request.remote_ip
 
     redirect_to :action => :add_job_after
