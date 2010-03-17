@@ -171,7 +171,7 @@ class ApplicationController < ActionController::Base
 
 # These three methods all return true/false, so they can be tested to trigger return statements
 # Takes a department, location, or loc_group
-  def require_admin_of(thing)
+  def user_is_admin_of(thing)
     unless current_user.is_admin_of?(thing)
       error_message = "You are not authorized to administer this #{thing.class.name.decamelize}"
       respond_to do |format|
@@ -193,7 +193,7 @@ class ApplicationController < ActionController::Base
 
 
 # Takes any object that has a user method and checks against current_user
-  def require_owner(thing)
+  def user_is_owner_of(thing)
     unless current_user.is_owner_of?(thing)
       error_message = "You are not the owner of this #{thing.class.name.decamelize}"
       respond_to do |format|
