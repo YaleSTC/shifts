@@ -1,6 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :repeating_events
 
+  map.resources :stats, :collection => {:destroy_all => :delete}, :member => {:location_more => :get}
+
   map.resources :calendars, :member => {:toggle => :post, :prepare_copy => :get, :copy => :post, :apply_schedule => [:get, :post]}, :collection => {:prepare_wipe_range => :get, :wipe_range => :post}
 
   map.resources :punch_clock_sets
