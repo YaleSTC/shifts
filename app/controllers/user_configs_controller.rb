@@ -28,7 +28,7 @@ class UserConfigsController < ApplicationController
 
   def set_var_and_check_owner
     @user_config = UserConfig.find(params[:id])
-    return unless require_owner(@user_config)
+    return unless user_is_owner_of(@user_config)
   end
 
 end

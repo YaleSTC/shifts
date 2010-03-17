@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
 
   def popup
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
-    return unless require_owner(@report.shift)
+    return unless user_is_owner_of(@report.shift)
     render :layout => false
   end
 
