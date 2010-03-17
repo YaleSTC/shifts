@@ -17,21 +17,21 @@ class SuperusersController < ApplicationController
       redirect_to(superusers_path)
     else
       flash[:notice] = "<b>#{params[:new_su_login]}</b> is an invalid login. Please enter a valid login name."
-      render :action => 'index'
+      redirect_to :action => 'index'
     end
   end
 
   #TODO: add error checking here.  Not really necessary because only superusers can access this page
   def remove
     @su_list = User.find(params[:remove_su_ids])
-    if User.superusers.length == @su_list.count
+    if User.superusers.count == @su_list.count
       flash[:error] = "You are not allowed to remove the only superuser in the application."
     else
       @su_list.each do |su|
         su.update_attribute(:superuser, false)
       end
       su_names = @su_list.collect { |u| "<b>#{u.name}</b>" }
-      flash[:notice] = "Removed superuser privilege from #{su_names.to_sentence}"
+      flash[:notice] = "Removed #{su_names.to_sentence} from the list of superusers"
     end
     redirect_to(superusers_path)
   end
