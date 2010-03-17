@@ -232,13 +232,13 @@ class Shift < ActiveRecord::Base
   end
 
   def late?
-    self.report && (self.report.arrived - self.start > $department.department_config.grace_period*60)
+    self.report.nil? ? false : (self.report.arrived - self.start > self.department.department_config.grace_period*60)
   end
 
   def left_early?
-    self.report && (self.end - self.report.departed > $department.department_config.grace_period*60)
+    (self.report.nil? or self.report.departed.nil?) ? false : (self.end - self.report.departed > self.department.department_config.grace_period*60)
   end
-  
+
   #a shift has been signed in to if it has a report
   # NOTE: this evaluates whether a shift is CURRENTLY signed in
   def signed_in?
