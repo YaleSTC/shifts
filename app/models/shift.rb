@@ -232,7 +232,8 @@ class Shift < ActiveRecord::Base
   end
 
   def late?
-    self.report && (self.report.arrived - self.start > $department.department_config.grace_period*60)
+    self.report && (self.report.arrived - self.start > self.department.department_config.grace_period*60)
+    #seconds
   end
 
   def left_early?
