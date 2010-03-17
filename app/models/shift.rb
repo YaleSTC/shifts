@@ -258,7 +258,7 @@ class Shift < ActiveRecord::Base
   end
 
   def has_passed?
-    self.end < Time.now
+    self.end.nil? ? false : self.end < Time.now
   end
 
   def has_started?
