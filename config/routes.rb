@@ -100,6 +100,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
+  map.resources :stats, :only => :index
+
 
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
