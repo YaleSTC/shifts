@@ -105,6 +105,8 @@ ActionController::Routing::Routes.draw do |map|
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
+
+	map.public_view '/public/shifts/:cluster/:date', :controller => 'public_view', :action => 'index'
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
