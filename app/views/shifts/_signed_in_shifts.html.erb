@@ -1,9 +1,0 @@
-<h5><%= signed_in_shifts.first.location.name %></h5>
-  <ul class="activeShifts">
-    <% signed_in_shifts.each do |shift| %>
-      <li>
-        <%= link_to shift.name_and_time, shift_report_path(shift), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
-        <span class="early_late_info">&nbsp;&nbsp;<%= early_late_info(shift.start) %></span>
-      </li>
-    <% end %>
-  </ul>

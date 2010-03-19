@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
   helper :punch_clocks
 
   def index
-    @signed_in_shifts = Shift.signed_in_shifts_by_location_in_department(current_department)
+    @signed_in_shifts = Shift.signed_in(current_department).sort_by(&:start).group_by(&:loc_group)
     @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true], :order => :start, :limit => 5)
 
     @subs_you_requested = SubRequest.find(:all, :conditions => ["end > ? AND user_id = ?", Time.now.utc, current_user.id]).sort_by(&:start)

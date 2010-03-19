@@ -80,7 +80,7 @@ class ShiftsController < ApplicationController
   end
 
   def show_active
-    @signed_in_shifts = Shift.signed_in_shifts_by_location_in_department(current_department)
+    @signed_in_shifts = Shift.signed_in(current_department).sort_by(&:start).group_by(&:loc_group)
   end
 
   def show_unscheduled
@@ -90,7 +90,7 @@ class ShiftsController < ApplicationController
       @start_date = Time.local(params[:start][:year], params[:start][:month], params[:start][:day])
       @end_date = Time.local(params[:end][:year], params[:end][:month], params[:end][:day], 23, 59, 59)
     end
-    @unscheduled_shifts_by_locgroup = Shift.all.select{|s| !s.scheduled? and @department.locations.include?(s.location) and (@start_date <= s.start and s.start <= @end_date)}.sort_by(&:start).group_by(&:loc_group)
+    @unscheduled_shifts_by_locgroup = Shift.unscheduled.in_department(current_department).on_days(@start_date, @end_date).sort_by(&:start).group_by(&:loc_group)
   end
 
   def new
