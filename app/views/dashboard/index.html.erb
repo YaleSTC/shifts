@@ -50,7 +50,7 @@
     
     <fieldset class="index" id="shifts">
       <legend>Active Shifts</legend>
-        <%= render :partial => 'shifts/signed_in_shifts', :collection => @signed_in_shifts %>
+        <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
     </fieldset>
 
     <% unless @watched_objects.empty? %>
