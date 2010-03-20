@@ -6,6 +6,7 @@
   <% shifts_by_location.each do |location, shifts| %>
     <h2><%= location.name %></h2>
     <ul>
+    <% shifts = shifts.sort_by(&:start)%>
     <% shifts.each do |s| %>
       <li><%= link_to "#{s.send(shift_display_method)}", shift_report_path(s), {:rel => "floatboxcurr", :rev => "width:500px height:500px" } -%>
       </li>

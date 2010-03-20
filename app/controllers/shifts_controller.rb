@@ -80,7 +80,7 @@ class ShiftsController < ApplicationController
   end
 
   def show_active
-    @signed_in_shifts = Shift.signed_in(current_department).sort_by(&:start).group_by(&:loc_group)
+    @signed_in_shifts = Shift.signed_in(current_department).group_by(&:loc_group).sort_by(&:id)
   end
 
   def show_unscheduled
