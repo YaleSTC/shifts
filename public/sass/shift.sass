@@ -1,0 +1,123 @@
+ul li
+  z-index: 100
+
+  &.user
+    background: #C2F094
+    font-weight: bold
+
+    &:hover
+      background: #85E029
+
+  &.user_late
+    background: #FFCA7A
+    font-weight: bold
+
+    &:hover
+      background: #FFB13D
+
+  &.user_missed
+    background: #E85E5E
+    font-weight: bold
+
+    &:hover
+      background: #E02929
+
+  &.shift
+    background: #94C2F0
+
+    &:hover
+      background: #2985E0
+
+  &.shift_late
+    background: #F0F094
+
+    &:hover
+      background: #E8E85E
+
+  &.shift_missed
+    background: #F09494
+
+    &:hover
+      background: #E85E5E
+
+
+div
+  &.sub-bribe
+    background: #fcf
+    height: 100%
+
+  &.sub-mandatory
+    background: #eae
+    height: 100%
+
+  &.shift-time-overlay
+    width: 100%
+    height: 100%
+    visibility: hidden
+
+
+ul
+  &.events li:hover div.shift-time-overlay
+    visibility: visible
+    background: white
+    opacity: 0.4
+    filter: alpha(opacity=40)
+
+
+  &.hidden_shifts
+    list-style-type: none
+    margin: 0px 0px 20px 0px
+    width: 100%
+    display: block
+
+    li
+      font-size: 1em
+      margin: 0
+      margin-bottom: 20px
+      padding: 2px 2px
+      border: 1px solid #ccc
+      text-align: center
+      width: 24%
+      float: left
+
+      &:hover
+        cursor: pointer
+
+
+div
+  &.shifts_bottom
+    padding: 0
+    margin: 20px 0px
+    border-top: thin solid #408080
+
+  &.shifts_top
+    padding: 0
+    margin: 20px 0px
+    border-bottom: thin solid #408080
+
+  &.week_title
+    width: 60%
+    margin: 0 auto 0 auto
+    font-size: large
+    text-align: center
+
+  &.week_bottom
+    width: 60%
+    margin: 0 auto 0 auto
+    color: #808080
+    font-size: 14px
+    text-align: center
+
+  &.shift_links a
+    &.last_week
+      width: 20%
+      float: left
+
+    &.next_week
+      text-align: right
+      width: 20%
+      float: right
+
+
+  &.signup_bar
+    color: #999

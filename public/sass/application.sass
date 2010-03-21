@@ -1,0 +1,696 @@
+html
+  overflow-y: scroll
+
+
+a.action_with_icon
+  vertical-align: middle
+
+
+img.mini_icon
+  vertical-align: middle
+  width: 1.2em
+  height: 1.2em
+
+
+th
+  border: 1px solid #666
+  padding: 2px
+  border-collapse: collapse
+  background: #123456
+  border: 1px solid black
+  color: white
+
+
+#flash_error
+  background-color: #FCC
+  border: solid 1px #C66
+  font-size: 11px
+  margin-top: 10px
+  padding: 5px 8px
+
+
+#flash_warning
+  background-color: #FFF0AA
+  border: 1px solid #908C99
+
+
+#flash_notice
+  background-color: #98EEC3
+  border: 1px solid #21A454
+  font-size: 11px
+  margin-top: 10px
+  padding: 5px 8px
+
+
+body
+  color: #000
+  margin: 0pt
+  padding: 0pt
+  font-family: Trebuchet MS, Verdana, Arial, serif
+  font-size: 11px
+  background-color: #E9E9E9
+  background-image: none
+
+
+#pagebox
+  background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%
+  margin: 0px auto
+  padding: 0pt 12px
+  width: 900px
+  border: medium none
+
+
+#page_header
+  background-color: #536E8D
+  border-bottom: 1px solid #FFFFFF
+  float: left
+  width: 100%
+  height: 35px
+  padding: 0px
+
+  h2
+    background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%
+    float: left
+    font-size: 12px
+    margin: 0pt
+    text-indent: -9999px
+    border-bottom: none
+
+    a
+      display: block
+      height: 36px
+      width: 130px
+
+
+#main_banner
+  background: #869FC7 url(../images/theme/main_banner.jpg) no-repeat scroll 0% 0%
+  border-bottom: 1px solid #FFFFFF
+  color: #FFFFFF
+  clear: both
+  height: 85px
+  margin: 0px auto
+  padding: 0px
+
+  h1
+    float: left
+    font-size: 12px
+    height: 0pt
+    margin: 0pt
+    text-indent: -9999px
+
+  img
+    display: block
+    color: #FFFFFF
+
+
+div
+  &#chooser
+    float: left
+    width: 250px
+    padding: 0px 0px 0px 10px
+    margin-top: 1px
+
+    p
+      margin: 0pt 5px 0pt 0pt
+      font-size: 12px
+      color: #FFFFFF
+      float: left
+
+  &#supermode
+    float: right
+    width: 60px
+
+  &#login
+    float: right
+    width: 84.2%
+    margin: 0 auto
+    text-align: right
+    color: whitesmoke
+
+
+#login
+  p
+    margin: 9pt 10px 0pt 0pt
+    font-size: 12px
+    font-family: Verdana, Arial, Helvetica, sans-serif
+    line-height: 1.1em
+    color: #FFFFFF
+    float: right
+
+    &.login_status
+      color: #fff
+
+  a.login_status
+    color: #660000
+    font-weight: bold
+    text-decoration: none
+
+    &:hover
+      color: #CC0000
+
+
+#chooser p.chooser_status
+  float: left
+  font-family: Verdana, Geneva, Arial, sans-serif
+  font-size: 12px
+  padding: 0pt
+  line-height: 1.6em
+
+
+#link_bar
+  background-color: #8B9B6C
+  border-bottom: 1px solid #FFFFFF
+  height: 25px
+  padding: 5px 10px 4px
+
+
+#application_tab_bar
+  float: right
+  width: 600px
+
+
+ul#application_tabs
+  float: right
+  font-family: Verdana, Geneva, Arial, sans-serif
+  font-size: 12px
+  margin: 0pt 5px 0pt 0pt
+  padding: 0pt
+  line-height: 1.6em
+  list-style-image: none
+  list-style-position: outside
+  list-style-type: square
+
+  li
+    display: inline
+    line-height: 11px
+    list-style-type: none
+    margin: 0pt
+    padding: 0pt
+
+  a
+    color: #FFFFFF
+    float: left
+    line-height: 11px
+    margin: 6px 12px 0px
+    text-decoration: none
+
+    &:hover
+      border-bottom: 2px solid #EEF0AE
+      padding-bottom: 1px
+
+
+#scanColumn
+  background: #FFFFFF none repeat scroll 0% 0%
+  float: left
+  margin: 0px
+  margin-top: 20px
+  padding-left: 15px
+  width: 145px
+  color: #415578
+  font-family: Verdana, Geneva, Arial, sans-serif
+  font-size: 11px
+  font-weight: bold
+  line-height: 1.2em
+  margin: 40px 0pt 0pt
+  padding: 0pt
+  line-height: 1.75em
+
+
+ul
+  &#useful_links
+    list-style-type: none
+    display: inline !important
+    float: left
+    text-align: left
+    list-style-position: outside
+    margin-left: 0px
+
+    li a
+      display: inline !important
+
+  &#navigationList
+    color: #415578
+    font-family: Verdana, Geneva, Arial, sans-serif
+    font-size: 11px
+    font-weight: bold
+    line-height: 1.7em
+    margin: 40px 0 0
+    margin-left: -5px
+    padding: 0
+    list-style-image: none
+    list-style-position: outside
+    list-style-type: square
+    float: left
+    padding: 5px 0px 5px 20px
+
+    li
+      list-style-type: none
+      margin-left: 0px
+
+      ul
+        font-size: 10px
+        margin: 0pt
+        padding: 0pt 0pt 0pt 17px
+
+      a, h3
+        height: 1%
+        display: block
+
+    h3
+      color: #26287f
+
+    a
+      &:link, &:visited
+        color: #2758B3
+        text-decoration: none
+
+      &:hover
+        color: #FF9933
+        text-decoration: none
+
+
+#contentNav, #contentNoNav
+  background: transparent none no-repeat scroll 0% 0%
+  height: auto !important
+  min-height: 450px
+
+
+#contentNav h1, #contentNoNav h1
+  padding: 0px 0px 5px 0px
+
+
+#contentNav
+  float: right
+  padding: 30px 30px 10px 10px
+  width: 700px
+
+
+#contentNoNav
+  padding: 30px
+  width: 840px
+
+
+#header
+  position: absolute
+  top: 0px
+  left: 0px
+  margin: 0px
+  padding: 0px
+  width: 100%
+  height: 120px
+  background-color: #8B9B6C
+
+  .login
+    position: absolute
+    top: 88px
+    right: 18px
+    text-align: right
+
+  .chooser
+    position: absolute
+    top: 88px
+    left: 5px
+    text-align: left
+
+
+#pageboxBottom
+  background: transparent url(../images/pagebox_shadow_bottom.gif) no-repeat scroll 0% 0%
+  height: 12px
+  margin: 0px auto
+  padding-bottom: 2px
+  width: 924px
+
+
+#menu
+  padding: 0px
+  margin: 0px
+  position: absolute
+  top: 125px
+  left: 0px
+  float: left
+
+
+#page_title
+  padding: 0 0 0
+  margin-bottom: 15px
+  border-bottom: thin solid #408080
+
+
+#subtitle
+  padding: 0 0
+  margin-top: -8px
+  margin-bottom: 5px
+  color: gray
+
+
+h1, h2, h3, h4, h5, h6, ul, li, ol
+  margin: 0px
+  padding: 0px
+
+
+h1, h2, h3, h4, h5, h6
+  margin: 2px 0px
+
+
+h1
+  font-size: 18px
+
+
+h2
+  font-size: 14px
+
+
+h3
+  font-size: 12px
+  font-weight: bold
+
+
+a
+  &:link, &:visited
+    text-decoration: none
+
+
+#pageAnchor
+  clear: both
+
+  img
+    float: left
+    padding: 10px 50px 10px 190px
+
+
+#footer
+  background-color: #536E8D
+  border-bottom: medium none
+  border-top: medium none
+  clear: both
+  padding: 5px 10px 15px
+
+  a
+    color: #999999
+    font-weight: bold
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline
+
+
+p.footer
+  color: #FFFFFF
+  font-family: Verdana, Geneva, Arial, sans-serif
+  font-size: 10px
+  line-height: 1.6em
+  margin: 0px 0px 0px 180px
+  padding: 0em
+
+
+textarea
+  overflow: auto
+
+
+table.manage_table
+  border: 1px solid #666666
+  border-collapse: collapse
+  width: 100%
+  padding: 4px
+
+  caption
+    text-align: left
+    font-size: 15px
+    font-weight: bold
+    padding-top: 1em
+
+  td
+    border: 1px solid #666666
+    text-align: center
+
+  th
+    border: 1px solid #666666
+
+
+a
+  color: #104e8b
+
+  &:hover
+    color: orange
+
+
+.admin_form label
+  width: 20em
+  float: left
+  text-align: right
+  margin-right: 0.5em
+  display: block
+
+
+fieldset
+  &.index
+    width: 98.6%
+    padding: 5px
+    margin: 0px 0px 5px 0px
+    border: 1px solid gray
+    background-color: #DDDDFF
+
+
+  &#warning
+    background: #C0C0C0
+
+
+div
+  &#right_stuff
+    float: right
+    width: 47.5%
+
+  &#left_stuff
+    float: left
+    width: 47.5%
+
+
+fieldset#schedule
+  clear: both
+
+
+textarea#content
+  width: 95%
+  height: 90%
+
+
+legend
+  color: #eef
+  background: #123456
+  font-family: sans-serif
+  padding: 0.2em 1em
+
+
+#blue_fieldset fieldset
+  background: #ddf
+
+  legend
+    color: #eef
+    background: #123456
+    font-family: sans-serif
+    padding: 0.2em 1em
+
+
+div.note
+  border: 1px solid #AAAAAA
+  border-style: dashed
+  margin: 5px
+  padding: 2px
+  overflow-x: auto
+  color: #556677
+
+
+ul
+  margin-left: 20px
+
+
+span#progress_bar
+  padding: 3px
+  margin-bottom: 30px
+
+  #current_step
+    background: rgb(83, 110, 141)
+    color: white
+    border: 1px black solid
+    padding: 3px
+
+    a
+      color: white
+
+  #other_step
+    border: 1px black solid
+    padding: 3px
+
+
+.delete_link
+  float: right
+  text-align: right
+
+
+table
+  &.sortable th, &.sortable_style th
+    text-decoration: underline
+
+    &:hover
+      color: orange
+
+  tr.alert_entry
+    background-color: #ff0033
+
+
+div
+  &.form_left
+    width: 45%
+    float: left
+
+  &.form_right
+    position: absolute
+    width: 25%
+    top: 500
+    right: 450px
+
+  &.table_right
+    width: 50%
+    float: right
+    margin: 12px
+    visibility: hidden
+
+
+tr#loading_row
+  display: none
+
+
+img.loading_icon
+  vertical-align: middle
+  width: 1.2em
+  height: 1.2em
+  margin-right: 5px
+
+
+#timer
+  font-size: 20px
+
+
+#new_notice
+  margin: 5px 0px
+
+
+label
+  vertical-align: baseline
+
+
+.form_label_large
+  font-size: 12pt
+
+
+.clear
+  clear: both
+  height: 0
+  overflow: hidden
+
+
+.disabled
+  color: #888
+  background-color: #ddd !important
+
+
+.centered_form label
+  width: 30em
+  float: left
+  text-align: right
+  margin-right: 0.5em
+  display: block
+
+
+a.action_with_icon
+  vertical-align: middle
+
+
+img.mini_icon
+  vertical-align: middle
+  width: 1.2em
+  height: 1.2em
+
+
+table, td
+  border: 1px solid #666
+  padding: 2px
+  border-collapse: collapse
+
+
+th
+  border: 1px solid #666
+  padding: 2px
+  border-collapse: collapse
+  background: #123456
+  border: 1px solid black
+  color: white
+
+
+.flash
+  border: 1px solid
+  font-size: 11px
+  margin: 2px
+  padding: 2px
+
+  &#flash_error
+    background-color: #ffcccc
+    border-color: #cc6666
+
+  &#flash_warning
+    background-color: #fff0aa
+    border-color: #908c99
+
+  &#flash_notice
+    background-color: #98eec3
+    border-color: #21a454
+
+
+#flash_big_notice
+  background-color: #FFCCCC
+  border: 1px solid #CC6666
+  font-size: 11px
+  margin-top: 10px
+  padding: 5px 8px
+
+
+#errorExplanation
+  width: 400px
+  border-style: solid
+  border-color: #CF0000
+  border-width: 2px
+  padding: 0px
+  padding-bottom: 12px
+  margin-top: 10px
+  margin-bottom: 20px
+  background-color: #f0f0f0
+
+  h2
+    text-align: left
+    font-weight: bold
+    padding: 5px 5px 5px 15px
+    font-size: 12px
+    margin: 0
+    background-color: #c00
+    color: #fff
+
+  p
+    color: #333
+    margin-bottom: 0
+    padding: 8px
+
+  ul
+    margin: 2px 24px
+
+    li
+      font-size: 12px
+      list-style: disc
+
+
+span.success_notification
+  background-color: #98eec3
+  border-color: #21a454
+
+
+ul.activeShifts
+  list-style-type: none

@@ -1,0 +1,44 @@
+li#notice_li
+  list-style-type: none
+  padding-left: 1em
+
+
+fieldset
+  &.sticky
+    width: 48%
+    padding: 5px
+    margin: 0 0 0 0
+    border: 1px solid gray
+    background-color: #FFFF99
+
+  &.announcement
+    width: 48%
+    padding: 5px
+    margin: 0 0 0 0
+    float: right
+    clear: right
+    border: 1px solid gray
+    background-color: #ADD8E6
+
+  &.sticky .grayleft, &.announcement .grayleft
+    float: left
+    text-align: left
+
+  &.sticky
+    .grayright, .right
+      float: right
+      text-align: right
+
+  &.announcement .right
+    float: right
+    text-align: right
+
+  &.sticky
+    .grayleft, .grayright
+      color: SlateGray
+      font-size: 90%
+
+  &.announcement
+    .grayleft, .grayright
+      color: DarkRed
+      font-size: 90%

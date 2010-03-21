@@ -1,0 +1,286 @@
+ul
+  &.events li
+    color: #000
+
+    &.timeslot
+      background: #eee
+      color: #707070
+      font-weight: bold
+      z-index: 1
+
+      a
+        color: #999
+
+      &:hover
+        background: #ddd
+
+        a
+          color: #707070
+
+          &:hover
+            color: #999
+
+    &.bar a
+      color: #999
+
+  &.timeslot_group li
+    border-top: 1px solid #ccc
+    border-bottom: 1px solid #ccc
+
+
+h2
+  clear: both
+
+
+div
+  &.timeline
+    float: right
+    position: relative
+    margin-bottom: 10px
+    color: #707070
+    width: 100%
+
+  &.timeline-data
+    float: right
+    position: relative
+    width: 93%
+    height: 100%
+
+  &.timeline div
+    &.days
+      position: absolute
+      left: 0
+      width: 7%
+      height: 100%
+
+    &.day
+      border-bottom: 1px solid #fff
+      width: 100%
+      text-align: center
+      color: #fff
+      font-weight: bold
+      background: #888
+
+
+ul.intervals
+  margin: 0
+  list-style-type: none
+  padding: 0
+  position: relative
+  width: 100%
+  border-bottom: 1px solid #fff
+  border-left: 1px solid #fff
+  background: #559
+  color: #fff
+
+  div.hours
+    background: #888
+    border-left: 1px solid #fff
+
+  &:first-child li:first-child div.hours:first-child
+    border-left: 1px solid #888
+
+
+div.timeline div.day
+  font-size: 1em
+  margin: 0
+  padding: 0
+
+
+ul
+  &.intervals li
+    font-size: 1em
+    margin: 0
+    padding: 0
+    border-right: 1px solid #fff
+    position: absolute
+    text-align: center
+    height: 100%
+
+    div
+      &.inside-li
+        position: relative
+        width: auto
+        height: 100%
+
+      &.hours
+        border-bottom: 1px solid #fff
+        border-right: 1px solid #888
+        height: 50%
+
+      &.minutes
+        border-right: 1px solid #fff
+        position: absolute
+        height: 50%
+
+  &.events
+    list-style-type: none
+    padding: 0
+    margin: 0
+    position: relative
+    border-bottom: 1px solid #fff
+    border-left: 1px solid #fff
+    background: #bbb
+    width: 100%
+
+    li
+      font-size: 1em
+      margin: 0px 0px
+      padding: 0px 0px
+      position: absolute
+      text-align: center
+      border-left: 1px solid #fff
+      height: 100%
+
+
+div.timeline
+  div.days div.divider, ul.divider
+    background: #fff
+
+
+ul.events li
+  &.no_signups
+    z-index: 0
+
+  &.click_to_add_new
+    z-index: 0
+    background: transparent
+    position: absolute
+    height: 100%
+    border-left: 0px solid #fff
+    cursor: pointer
+    background: #d6d6d6
+
+  &.click_to_add_new_timeslot
+    z-index: 0
+    background: transparent
+    position: absolute
+    height: 100%
+    border-left: 0px solid #fff
+    cursor: pointer
+
+  &.click_to_show
+    cursor: pointer
+
+
+div.click_to_add_new:hover
+  background: #666
+  cursor: pointer
+
+
+ul.events li
+  &.click_to_add_new:hover
+    background: #ddd
+    position: absolute
+    height: 100%
+    cursor: pointer
+
+  div
+    position: relative
+
+    &.time-slot
+      width: auto
+      height: 100%
+      border-right: 1px solid #fff
+      overflow: hidden
+
+
+div
+  &.center_container
+    display: table
+    width: 100%
+    height: 100%
+
+  &.center_content
+    display: table-cell
+    vertical-align: middle
+    width: 100%
+
+
+img
+  &.right_arrow
+    position: absolute
+    right: 0
+
+  &.left_arrow
+    position: absolute
+    left: 0
+
+
+div#tooltip
+  text-align: left
+  z-index: 1000
+  display: block
+  background: #ddd
+  color: #000
+  padding: 5px
+  min-width: 200px
+  font-style: normal
+  font-weight: normal
+  font-family: Verdana, Arial, serif
+  font-size: 12px
+  border: 1px solid gray
+
+  strong
+    border: 0
+    margin: 0
+    padding: 0
+
+  div.close_link
+    position: absolute
+    top: 3px
+    right: 3px
+    font-size: 10px
+    margin: 0px
+
+
+span.jeditable
+  background: #bbb
+
+  &:hover
+    background: #ccc
+    cursor: hand
+    cursor: pointer
+
+
+div
+  &#AJAX_status
+    position: fixed
+    right: 5px
+    top: 5px
+    z-index: 1001
+
+  &.AJAX_alert
+    background: #fff
+    padding: 5px
+    border: 1px solid black
+    font-size: 10pt
+    text-align: center
+    width: 150px
+    z-index: 1001
+    max-height: 500px
+    overflow: auto
+
+
+img
+  &.right_arrow
+    float: right
+
+  &.left_arrow
+    float: left
+
+
+div.loading
+  position: absolute
+  top: 100%
+  left: 0
+  z-index: 3
+  display: block
+  background: #ddd
+  color: #000
+  padding: 5px
+  font-style: normal
+  font-weight: normal
+  font-family: Verdana, Arial, serif
+  font-size: 12px
+  border: 1px solid gray

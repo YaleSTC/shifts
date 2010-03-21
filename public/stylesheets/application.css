@@ -1,61 +1,13 @@
 /* Main Styles and IDs */
 
 /* Make the vertical scrollbar always appear */
+
+
+/* =CORE GLOBAL STYLES
+======================================================================= */
 html {
   overflow-y: scroll;
 }
-a.action_with_icon{
-	vertical-align: middle;
-}
-
-img.mini_icon {
-	vertical-align: middle;
-	width: 1.2em;
-	height: 1.2em;
-}
-
-table, td, th{
-	border:1px solid #666;
-	padding: 2px;
-	border-collapse:collapse;
-}
-
-th{
-	background: #123456; /*415578;*/
-	border:1px solid black;
-	color: white;
-}
-
-#flash_error {
-  background-color: #FCC;
-  border: solid 1px #C66;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
-}
-
-#flash_warning {
-  background-color:#FFF0AA;
-  border:1px solid #908C99;
-}
-
-#flash_notice {
-  background-color:#98EEC3;
-  border:1px solid #21A454;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
-}
-
-#flash_big_notice {
-  background-color:#FFCCCC;
-  border:1px solid #CC6666;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
-}
-
-/* Main Styles and IDs */
 body {
 	color: #000;
   margin: 0pt;
@@ -65,8 +17,96 @@ body {
   background-color: #E9E9E9;
   background-image: none;
 }
+table, td, th{
+	border:1px solid #666;
+	padding: 2px;
+	border-collapse:collapse;
+}
+th{
+	background: #123456; /*415578;*/
+	border:1px solid black;
+	color: white;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 2px 0px;
+}
+h1 {
+  font-size: 18px;
+}
+h2 {
+  font-size: 14px;
+}
+h3 {
+  font-size: 12px;
+  font-weight: bold;
+}
+a:link, a:visited {
+  text-decoration: none;
+}
+a {
+  color: #104e8b;
+}
+a:hover{
+	color: orange;
+}
+textarea {
+  overflow: auto;
+}
+ul{
+	/*these guys are overflowing left for some reason*/
+	margin-left: 20px;
+}
 
-/* Header-specific classes */
+/* = Flash (THIS NEEDS CLEANUP / DUP REMOVAL )
+======================================================================= */
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+#flash_warning {
+  background-color:#FFF0AA;
+  border:1px solid #908C99;
+}
+#flash_notice {
+  background-color:#98EEC3;
+  border:1px solid #21A454;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+#flash_big_notice {
+  background-color:#FFCCCC;
+  border:1px solid #CC6666;
+  font-size:11px;
+  margin-top:10px;
+  padding:5px 8px;
+}
+
+.flash {
+  border: 1px solid;
+  font-size:11px;
+  margin:2px;
+  padding:2px;
+}
+.flash#flash_error {
+  background-color: #ffcccc;
+  border-color: #cc6666;
+}
+.flash#flash_warning {
+  background-color:#fff0aa;
+  border-color: #908c99;
+}
+.flash#flash_notice {
+  background-color:#98eec3;
+  border-color: #21a454;
+}
+
+
+/* = Header-specific classes
+======================================================================= */
 
 #pagebox {
   background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
@@ -75,13 +115,20 @@ body {
   width: 900px;
   border: medium none;
 }
+#pageboxBottom {
+  background: transparent url(../images/pagebox_shadow_bottom.gif) no-repeat scroll 0% 0%;
+  height: 12px;
+  margin: 0px auto;
+  padding-bottom: 2px;
+  width: 924px;
+}
 #page_header {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
   float: left;
   width: 100%;
   height: 35px;
-  padding: 0px;;
+  padding: 0px;
 }
 #page_header h2 {
   background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%;
@@ -106,7 +153,7 @@ body {
   padding: 0px;
 }
 #main_banner h1 {
-  float: left;f
+  float: left;
   font-size: 12px;
   height: 0pt;
   margin: 0pt;
@@ -117,6 +164,46 @@ body {
   color: #FFFFFF;
 }
 
+/* login
+--------------------------------------------------------- */
+div#login{
+  float: right;
+  width: 84.2%;
+  margin: 0 auto;
+  text-align: right;
+  color: whitesmoke;
+}
+#login p {
+  margin: 9pt 10px 0pt 0pt;
+  font-size: 12px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  line-height: 1.1em;
+  color: #FFFFFF;
+  float: right;
+}
+#login p.login_status {
+  color: #fff;
+}
+#login a.login_status {
+  color: #660000;
+  font-weight: bold;
+  text-decoration: none;
+}
+#login a.login_status:hover {
+  color: #CC0000;
+}
+
+/* Link bar (chooser + tabs)
+======================================================================= */
+#link_bar {
+  background-color: #8B9B6C;
+  border-bottom: 1px solid #FFFFFF;
+  height: 25px;
+  padding: 5px 10px 4px;
+}
+
+/* chooser
+--------------------------------------------------------- */
 div#chooser {
   float: left;
   width: 250px;
@@ -129,40 +216,6 @@ div#chooser p {
   color: #FFFFFF;
   float: left;
 }
-
-div#supermode{
-    float: right;
-    width: 60px;
-}
-
-div#login{
-  float: right;
-  width: 84.2%;
-  margin: 0 auto;
-  text-align: right;
-  color: whitesmoke;
-}
-
-#login p {
-  margin: 9pt 10px 0pt 0pt;
-  font-size: 12px;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  line-height: 1.1em;
-  color: #FFFFFF;
-  float: right;
-}
-
-#login p.login_status {
-  color: #fff;
-}
-#login a.login_status {
-  color: #660000;
-  font-weight: bold;
-  text-decoration: none;
-}
-#login a.login_status:hover {
-  color: #CC0000;
-}
 #chooser p.chooser_status {
   float: left;
   font-family: Verdana, Geneva, Arial, sans-serif;
@@ -171,13 +224,8 @@ div#login{
   line-height: 1.6em;
 }
 
-#link_bar {
-  background-color: #8B9B6C;
-  border-bottom: 1px solid #FFFFFF;
-  height: 25px;
-  padding: 5px 10px 4px;
-}
-
+/* tabs
+--------------------------------------------------------- */
 #application_tab_bar {
   float: right;
   width: 600px;
@@ -207,41 +255,14 @@ ul#application_tabs a {
   margin: 6px 12px 0px;
   text-decoration: none;
 }
-
 ul#application_tabs a:hover {
     border-bottom:2px solid #EEF0AE;
     padding-bottom:1px;
 }
 
-#scanColumn {
-  background: #FFFFFF none repeat scroll 0% 0%;
-  float: left;
-  margin: 0px;
-  margin-top: 20px;
-  padding-left: 15px;
-  width: 145px;
-  color: #415578;
-  font-family: Verdana, Geneva, Arial, sans-serif;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 1.2em;
-  margin: 40px 0pt 0pt;
-  padding: 0pt;
-  line-height: 1.75em;
-}
 
-ul#useful_links {
-    list-style-type: none;
-    display: inline !important;
-    float: left;
-    text-align: left;
-    list-style-position: outside;
-    margin-left: 0px;
-}
-
-ul#useful_links li a{
-    display: inline !important;
-}
+/* = navigation-related classes
+======================================================================= */
 
 ul#navigationList {
   color: #415578;
@@ -284,6 +305,9 @@ ul#navigationList a:hover {
   text-decoration: none;
 }
 
+/* = main content classes
+======================================================================= */
+
 #contentNav, #contentNoNav {
   background: transparent none no-repeat scroll 0% 0%;
   height: auto !important;
@@ -301,47 +325,6 @@ ul#navigationList a:hover {
   padding: 30px;
   width: 840px;
 }
-
-#header {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  margin: 0px;
-  padding: 0px;
-  width: 100%;
-  height: 120px;
-  background-color: #8B9B6C;
-}
-#header .login {
-  position: absolute;
-  top: 88px;
-  right: 18px;
-  text-align: right;
-}
-#header .chooser {
-  position: absolute;
-  top: 88px;
-  left: 5px;
-  text-align: left;
-}
-
-#pageboxBottom {
-  background: transparent url(../images/pagebox_shadow_bottom.gif) no-repeat scroll 0% 0%;
-  height: 12px;
-  margin: 0px auto;
-  padding-bottom: 2px;
-  width: 924px;
-}
-
-#menu {
-  padding: 0px;
-  margin: 0px;
-  position: absolute;
-  top: 125px;
-  left: 0px;
-  float: left;
-}
-
 #page_title {
   padding: 0 0 0;
   margin-bottom: 15px;
@@ -354,42 +337,8 @@ ul#navigationList a:hover {
   color: gray;
 }
 
-/* Get rid of standard margin/padding */
-/* redundant reset? -ben */
-h1, h2, h3, h4, h5, h6, ul, li, ol {
-  margin: 0px;
-  padding: 0px;
-}
-
-/* Redefine standard styles */
-h1, h2, h3, h4, h5, h6 {
-  margin: 2px 0px;
-}
-h1 {
-  font-size: 18px;
-}
-h2 {
-  font-size: 14px;
-}
-h3 {
-  font-size: 12px;
-  font-weight: bold;
-}
-a:link, a:visited {
-  text-decoration: none;
-}
-
-/* Text-formatting-specfic classes */
-
-#pageAnchor {
-  clear: both;
-}
-
-#pageAnchor img {
-  float: left;
-  padding: 10px 50px 10px 190px;
-}
-/* Footer-specific classes */
+/* = footer-specific classes
+======================================================================= */
 #footer {
   background-color: #536E8D;
   border-bottom: medium none;
@@ -405,7 +354,6 @@ a:link, a:visited {
 #footer a:hover {
   text-decoration: underline;
 }
-
 p.footer {
   color: #FFFFFF;
   font-family: Verdana, Geneva, Arial, sans-serif;
@@ -415,9 +363,9 @@ p.footer {
   padding: 0em;
 }
 
-textarea {
-  overflow: auto;
-}
+
+/* = currently only used by loc_group and location forms
+======================================================================= */
 
 table.manage_table{
   border: 1px solid #666666;
@@ -425,7 +373,6 @@ table.manage_table{
   width: 100%;
   padding: 4px;
 }
-
 table.manage_table caption{
   text-align: left;
   font-size: 15px;
@@ -437,19 +384,9 @@ table.manage_table td {
   border: 1px solid #666666;
   text-align: center;
 }
-
 table.manage_table th {
   border: 1px solid #666666;
 }
-
-a {
-  color: #104e8b;
-}
-
-a:hover{
-	color: orange;
-}
-
 .admin_form label {
   width: 20em;
   float: left;
@@ -458,7 +395,8 @@ a:hover{
   display: block;
 }
 
-/* FIELDSET DESIGN -- Get this unified! */
+/* = fieldset styles - NEEDS CLEANUP
+======================================================================= */
 
 fieldset.index {
   width: 98.6%;
@@ -467,30 +405,20 @@ fieldset.index {
   border: 1px solid gray;
   background-color:#DDDDFF
 }
-
 fieldset#warning {
   background: #C0C0C0;
 }
-
+fieldset#schedule{
+	clear: both;
+}
 div#right_stuff {
  float:right;
  width: 47.5%;
 }
-
 div#left_stuff {
  float:left;
  width: 47.5%;
 }
-
-fieldset#schedule{
-	clear: both;
-}
-
-textarea#content {
-    width: 95%;
-    height:90%;
-}
-
 legend {
   color: #eef;
   background: #123456;
@@ -498,16 +426,27 @@ legend {
   padding: 0.2em 1em;
 }
 
+/* used in all_notices, but why? */
 #blue_fieldset fieldset {
   background: #ddf;
 }
-
 #blue_fieldset fieldset legend {
   color: #eef;
   background: #123456;
   font-family: sans-serif;
   padding: 0.2em 1em;
 }
+
+/* = used by notices */
+textarea#content {
+    width: 95%;
+    height:90%;
+}
+
+
+/* = TO BE CLEANED UP
+======================================================================= */
+
 
 /* BOXED-IN NOTE */
 div.note {
@@ -519,28 +458,20 @@ div.note {
   color: #556677;
 }
 
-ul{
-	/*these guys are overflowing left for some reason*/
-	margin-left: 20px;
-}
-
 span#progress_bar {
 	/*border: 1px black solid;*/
 	padding: 3px;
 	margin-bottom: 30px;
 }
-
 span#progress_bar #current_step {
 	background: rgb(83, 110, 141);
 	color: white;
 	border: 1px black solid;
 	padding: 3px;
 }
-
 span#progress_bar #current_step a {
 	color: white;
 }
-
 span#progress_bar #other_step {
 	border: 1px black solid;
 	padding: 3px;
@@ -577,7 +508,6 @@ div.form_left {
   width:45%;
   float:left;
 }
-
 div.form_right {
   position:absolute;
   width:25%;
@@ -610,6 +540,7 @@ img.loading_icon {
 #new_notice{
  margin: 5px 0px;
 }
+
 /*Align all labels with their form elements*/
 label {
   vertical-align: baseline;
@@ -650,50 +581,6 @@ img.mini_icon {
 	height: 1.2em;
 }
 
-table, td, th{
-	border:1px solid #666;
-	padding: 2px;
-	border-collapse:collapse;
-}
-
-th{
-	background: #123456; /*415578;*/
-	border:1px solid black;
-	color: white;
-}
-
-
-/*FLASH*/
-.flash {
-  border: 1px solid;
-  font-size:11px;
-  margin:2px;
-  padding:2px;
-}
-
-.flash#flash_error {
-  background-color: #ffcccc;
-  border-color: #cc6666;
-}
-
-.flash#flash_warning {
-  background-color:#fff0aa;
-  border-color: #908c99;
-}
-
-.flash#flash_notice {
-  background-color:#98eec3;
-  border-color: #21a454;
-}
-
-/* Do we need this anymore? -ben */
-#flash_big_notice {
-  background-color:#FFCCCC;
-  border:1px solid #CC6666;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
-}
 
 /* styling for errors */
 #errorExplanation {
@@ -705,9 +592,8 @@ th{
   padding-bottom: 12px;
   margin-top: 10px;
 	margin-bottom: 20px;
-  background-color: #f0f0f0;;
+  background-color: #f0f0f0;
 }
-
 #errorExplanation h2 {
   text-align: left;
   font-weight: bold;
@@ -717,17 +603,14 @@ th{
   background-color: #c00;
   color: #fff;
 }
-
 #errorExplanation p {
   color: #333;
   margin-bottom: 0;
   padding: 8px;
 }
-
 #errorExplanation ul {
   margin: 2px 24px;
 }
-
 #errorExplanation ul li {
   font-size: 12px;
   list-style: disc;
@@ -740,4 +623,27 @@ span.success_notification{
 
 ul.activeShifts {
 	list-style-type: none;
+}
+
+
+a.action_with_icon{
+	vertical-align: middle;
+}
+
+img.mini_icon {
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+}
+ul#useful_links {
+    list-style-type: none;
+    display: inline !important;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
+}
+
+ul#useful_links li a{
+    display: inline !important;
 }
