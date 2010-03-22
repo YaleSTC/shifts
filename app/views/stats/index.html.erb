@@ -1,5 +1,5 @@
 <h1>Stats</h1>
-<%#= raise params.to_yaml%>
+
 <% form_tag 'stats' do |f| %>
   <p>
     <%= label_tag :start_date %><br />
@@ -12,7 +12,7 @@
   <div><%= submit_tag 'Update dates' %></div>
 <% end -%>
 
-<table id="stats_table" class="sortable">
+<table id="stats_table" class="tablesorter">
   <thead>
     <tr>
       <th align="left">Name</th>
@@ -34,4 +34,5 @@
     <% end %>
   </tbody>
 </table>
-<script type="text/javascript">sorttable.makeSortable(document.getElementById('stats_table')); $('#stats_table" %>').addClass("sortable_style");</script>
+
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[0,0]]});});</script>
