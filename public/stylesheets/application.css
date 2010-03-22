@@ -23,7 +23,7 @@ table, td, th{
 	border-collapse:collapse;
 }
 th{
-	background: #123456; /*415578;*/
+	background: #123456;
 	border:1px solid black;
 	color: white;
 }
@@ -55,6 +55,10 @@ textarea {
 ul{
 	/*these guys are overflowing left for some reason*/
 	margin-left: 20px;
+}
+/*Align all labels with their form elements*/
+label {
+  vertical-align: baseline;
 }
 
 /* = Flash (THIS NEEDS CLEANUP / DUP REMOVAL )
@@ -444,20 +448,63 @@ textarea#content {
 }
 
 
-/* = TO BE CLEANED UP
+/* = Error explanation styles
 ======================================================================= */
 
-
-/* BOXED-IN NOTE */
-div.note {
-  border: 1px solid #AAAAAA;
-  border-style: dashed;
-  margin: 5px;
-  padding: 2px;
-  overflow-x: auto;
-  color: #556677;
+#errorExplanation {
+  width: 400px;
+  border-style: solid;
+  border-color: #CF0000;
+  border-width:2px;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-top: 10px;
+	margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 8px;
+}
+#errorExplanation ul {
+  margin: 2px 24px;
+}
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: disc;
 }
 
+/* = Notices
+======================================================================= */
+/*this is used for useful links*/
+span.success_notification{
+  background-color:#98eec3;
+  border-color: #21a454;
+}
+ul#useful_links {
+    list-style-type: none;
+    display: inline !important;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
+}
+ul#useful_links li a{
+    display: inline !important;
+}
+
+/* = Progress bar
+======================================================================= */
 span#progress_bar {
 	/*border: 1px black solid;*/
 	padding: 3px;
@@ -477,31 +524,82 @@ span#progress_bar #other_step {
 	padding: 3px;
 }
 
-.delete_link {
-	float: right;
-	text-align: right;
+/* = Tables
+======================================================================= */
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #123456;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(../images/tables/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #fff;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../images/tables/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../images/tables/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #536E8D;
+}
+table tr.alert_entry {
+  background-color:#ff0033;
 }
 
-/* Sortable tables */
+/*
+/* Sortable tables 
 table.sortable th:hover {
 	color:orange;
 }
 table.sortable th {
 	text-decoration: underline;
 }
-
-/* Sortable tables hack for AJAX */
+/* Sortable tables hack for AJAX 
 table.sortable_style th:hover {
 	color:orange;
 }
 table.sortable_style th {
 	text-decoration: underline;
 }
+*/
 
-/* Data tables - should probably get its own stylesheet */
-table tr.alert_entry {
-  background-color:#ff0033;
+/* = TO BE CLEANED UP
+======================================================================= */
+
+
+/* BOXED-IN NOTE */
+div.note {
+  border: 1px solid #AAAAAA;
+  border-style: dashed;
+  margin: 5px;
+  padding: 2px;
+  overflow-x: auto;
+  color: #556677;
 }
+
+
 
 /*Forms w/ tables next to them*/
 div.form_left {
@@ -536,26 +634,22 @@ img.loading_icon {
 #timer{
   font-size: 20px;
 }
-
 #new_notice{
  margin: 5px 0px;
 }
 
-/*Align all labels with their form elements*/
-label {
-  vertical-align: baseline;
+.delete_link {
+	float: right;
+	text-align: right;
 }
-
 .form_label_large {
   font-size: 12pt;
 }
-
 .clear {
   clear: both;
   height: 0;
   overflow: hidden;
 }
-
 .disabled {
   color: #888;
   background-color: #ddd !important;
@@ -571,10 +665,10 @@ label {
   display: block;
 }
 
+/*To align links and icons*/
 a.action_with_icon{
 	vertical-align: middle;
 }
-
 img.mini_icon {
 	vertical-align: middle;
 	width: 1.2em;
@@ -582,68 +676,7 @@ img.mini_icon {
 }
 
 
-/* styling for errors */
-#errorExplanation {
-  width: 400px;
-  border-style: solid;
-  border-color: #CF0000;
-  border-width:2px;
-  padding: 0px;
-  padding-bottom: 12px;
-  margin-top: 10px;
-	margin-bottom: 20px;
-  background-color: #f0f0f0;
-}
-#errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: 0;
-  background-color: #c00;
-  color: #fff;
-}
-#errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 8px;
-}
-#errorExplanation ul {
-  margin: 2px 24px;
-}
-#errorExplanation ul li {
-  font-size: 12px;
-  list-style: disc;
-}
-
-span.success_notification{
-  background-color:#98eec3;
-  border-color: #21a454;
-}
-
+/*no bullets for active shits*/
 ul.activeShifts {
 	list-style-type: none;
-}
-
-
-a.action_with_icon{
-	vertical-align: middle;
-}
-
-img.mini_icon {
-	vertical-align: middle;
-	width: 1.2em;
-	height: 1.2em;
-}
-ul#useful_links {
-    list-style-type: none;
-    display: inline !important;
-    float: left;
-    text-align: left;
-    list-style-position: outside;
-    margin-left: 0px;
-}
-
-ul#useful_links li a{
-    display: inline !important;
 }
