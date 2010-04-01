@@ -1,13 +1,8 @@
-/*
-********************CSS********************
-.intro { font-size:10pt; font-style:italic }
-.heading { font-size:14pt; font-weight:bold; font-family:sans-serif }
-.title { font-size:18pt; font-weight:bold; background-color:navy; color:white; text-align:center; font-family:sans-serif }
-*/
-
 /* This script and many more are available free online at
 The JavaScript Source!! http://javascript.internet.com
-Created by: Jason Hotchkiss |  */
+Created by: Jason Hotchkiss
+Modified by Adam Bray |  */
+
 
 /* Information used to draw the ships */
 var ship =  [[[11,12], [13,14,12], [15,16,17,18], [19,14,20,21,22]], [[31,32], [33,34,32], [35,36,37,38], [39,34,40,41,42]]];
@@ -29,7 +24,7 @@ function imagePreload() {
   var i,ids = [11,12,13,14,15,16,17,18,19,20,21,22,111,112,113,114,115,116,117,118,119,120,121,122,100,101,102,103,201,202,203,204,205,206];
   window.status = "Preloading images...please wait";
   for (i=0;i<ids.length;++i) {
-    var img = new Image, name = "http://mahi.its.yale.edu/apps2/images/battleshifts/batt"+ids[i]+".gif";
+    var img = new Image, name = "http://weke.its.yale.edu/apps2/images/battleshifts/batt"+ids[i]+".gif";
     img.src = name;
     preloaded[i] = img;
   }
@@ -99,10 +94,10 @@ return grid;
 function setImage(y,x,id,ispc) {
   if ( ispc ) {
     computer[y][x][0] = id;
-    document.images["pc"+y+"_"+x].src = "http://mahi.its.yale.edu/apps2/images/battleshifts/batt"+id+".gif";
+    document.images["pc"+y+"_"+x].src = "http://weke.its.yale.edu/apps2/images/battleshifts/batt"+id+".gif";
   } else {
     player[y][x][0] = id;
-    document.images["ply"+y+"_"+x].src = "http://mahi.its.yale.edu/apps2/images/battleshifts/batt"+id+".gif";
+    document.images["ply"+y+"_"+x].src = "http://weke.its.yale.edu/apps2/images/battleshifts/batt"+id+".gif";
   }
 }
 
@@ -112,9 +107,9 @@ function showGrid(ispc) {
   for (y=0;y<gridy;++y) {
     for (x=0;x<gridx;++x) {
       if ( ispc )
-      $('#opponent').append('<a href="javascript:gridClick('+y+','+x+');"><img name="pc'+y+'_'+x+'" src="http://mahi.its.yale.edu/apps2/images/battleshifts/batt100.gif" width=16 height=16></a>');
+      $('#opponent').append('<a href="javascript:gridClick('+y+','+x+');"><img name="pc'+y+'_'+x+'" src="http://weke.its.yale.edu/apps2/images/battleshifts/batt100.gif" width=16 height=16></a>');
       else
-			$('#player').append('<a href="javascript:void(0);"><img name="ply'+y+'_'+x+'" src="http://mahi.its.yale.edu/apps2/images/battleshifts/batt'+player[y][x][0]+'.gif" width=16 height=16></a>');
+			$('#player').append('<a href="javascript:void(0);"><img name="ply'+y+'_'+x+'" src="http://weke.its.yale.edu/apps2/images/battleshifts/batt'+player[y][x][0]+'.gif" width=16 height=16></a>');
     }
 		if ( ispc )
      $('#opponent').append('<br>');
