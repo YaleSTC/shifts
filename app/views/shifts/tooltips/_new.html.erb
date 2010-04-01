@@ -1,7 +1,7 @@
 <div class="close_link">
   <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
 </div>
-<h2>New Shift</h2>
+<h2>Duty Request</h2>
 
 <% if current_user.is_admin_of?(@department) %>
   <p>
@@ -31,7 +31,7 @@
       <%= f.time_select :end, :twelve_hour => true, :default => start_time + 1.hour, :minute_step => current_department.department_config.time_increment %>
     </p>
     <p>
-      <%= f.label :location %><br />
+      <%= f.label :Ship %><br />
       <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, params[:location_id].to_i)%><br />
     </p>
     <% if current_user.is_admin_of?(@department) %>
@@ -45,12 +45,12 @@
         <%= f.collection_select(:user_id, current_department.active_users.sort_by(&:last_name), :id, :name, {:prompt => "Select a user"}) %>
       </p>
       <p>
-        <%= f.check_box :power_signed_up, :checked => true %> Power signup
+        <%= f.check_box :power_signed_up, :checked => true %> Admiral signup
       </p>
     <% elsif params[:calendar] %>
       <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
     <% end %>
-    <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
+    <p><%= submit_to_remote "add_button", "Request Duty", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
   <% end %>
 </div>
 

@@ -4,7 +4,7 @@ module ApplicationHelper
   def link_to_post_a_new_notice(report = false)
     report == true ? height = 200 : height = 445
     height = 540 if current_user.is_admin_of?(current_department)
-    link_to_unless_current('Post a New Notice', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
+    link_to_unless_current('Post a New Radio Message', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
   end
 
   def link_to_post_a_useful_link

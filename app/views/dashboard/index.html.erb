@@ -1,4 +1,4 @@
-<% title "Shifts Dashboard" %>
+<% title "Radar Screen" %>
 
 <% unless current_user.notices.empty? %>
   <%= render :partial => 'notices/for_you' %>
@@ -7,12 +7,12 @@
 <div id="left_stuff">
 
   <fieldset class="index" id="shifts">
-    <legend>Your Shifts</legend>
-      <h4>Current Shift</h4>
+    <legend>Your Voyages</legend>
+      <h4>Current Voyage</h4>
       <%= render :partial => "shifts/user_options" %>
       
       <% unless @upcoming_shifts.empty? %>
-      <h4>Upcoming Shifts</h4>
+      <h4>Upcoming Voyages</h4>
         <ul>
           <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
         </ul>
@@ -20,15 +20,15 @@
   </fieldset>
 
   <fieldset class="index" id="subs">
-    <legend>Sub Requests</legend>
+    <legend>Submarine Requests</legend>
     <% unless @subs_you_requested.empty? %>
-      <h4>Subs you've requested</h4>
+      <h4>Submarines you've requested</h4>
       <ul>
         <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
       </ul>
     <% end %>
     <% unless @subs_you_can_take.empty? %>
-      <h4>Subs You Can Take</h4>
+      <h4>Submarines You Can Take</h4>
         <ul>
           <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
         </ul>
@@ -49,7 +49,7 @@
   <div id="right_stuff">
     
     <fieldset class="index" id="shifts">
-      <legend>Active Shifts</legend>
+      <legend>Active Voyages</legend>
         <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
     </fieldset>
 
@@ -64,7 +64,7 @@
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
-  <legend>Today's schedule</legend>
+  <legend>Who's aboard today</legend>
   <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
 </fieldset>
 <% end %>

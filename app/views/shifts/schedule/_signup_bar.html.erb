@@ -14,7 +14,7 @@
         <div class="center_container">
           <div class="center_content signup_bar">
             <% if show_text and length >= 3 %>
-              <%= style == "bar_open click_to_add_new" ? (link_to "sign up", new_shift_path) : "" %>
+              <%= style == "bar_open click_to_add_new" ? (link_to "request duty", new_shift_path) : "" %>
               <%= style == "bar_full no_signups" ? "full" : "" %>
               <%= style == "bar_pending no_signups" ? "pending" : "" %>
             <% end %>
