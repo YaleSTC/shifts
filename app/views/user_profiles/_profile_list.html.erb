@@ -6,9 +6,9 @@
   <% for user_profile in @user_profiles %>
     <tr>
     <% if user_profile.user != current_user %>
-      <td><%= link_to "#{user_profile.user.proper_name}", user_profile_path(user_profile.user.login) %></td>
+      <td><%= link_to "#{user_profile.user.name}", user_profile_path(user_profile.user.login) %></td>
     <% elsif user_profile.user == current_user %>
-      <td><%= link_to "#{user_profile.user.proper_name}", edit_user_profile_path(user_profile.user.login) %></td>
+      <td><%= link_to "#{user_profile.user.name}", edit_user_profile_path(user_profile.user.login) %></td>
     <% end %>
     </tr>
   <% end %>
