@@ -11,7 +11,7 @@ class AppMailer < ActionMailer::Base
       cc        shift.location.report_email
     end
     from        shift.user.email
-    subject     "Shift Report: #{shift.short_display}"
+    subject     "Sea Voyage: #{shift.short_display}"
     sent_on     Time.now
     body        :shift => shift, :report => report
   end
