@@ -13,7 +13,9 @@ class String
     temp.gsub!(/[Bb]ass/,"USS Abe Lincoln")
     temp.gsub!(/[Cc][Tt][Hh]all/,"USS John F. Kennedy")
     temp.gsub!(/[Dd]unham/,"USS George H. W. Bush")
-    
+    temp.gsub!(/\b[Hh]ello/,"ahoy")
+    temp.gsub!(/\b[Ss]hift/,"voyage")
+    temp.gsub!(/\b[Aa]dam\b/,"Admiral Adam")
     # temp.gsub!(/([Rr]eport#)([0-9]+)/, ActionView::Helpers::UrlHelper::link_to('\1\2', :controller => :report, :action => :view, :id => '\1'))
     temp
   end
