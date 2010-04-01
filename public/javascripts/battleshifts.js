@@ -99,10 +99,10 @@ return grid;
 function setImage(y,x,id,ispc) {
   if ( ispc ) {
     computer[y][x][0] = id;
-    document.images["pc"+y+"_"+x].src = "/images/battleshifts/batt"+id+".gif";
+    document.images["pc"+y+"_"+x].src = "http://mahi.its.yale.edu/apps2/images/battleshifts/batt"+id+".gif";
   } else {
     player[y][x][0] = id;
-    document.images["ply"+y+"_"+x].src = "/images/battleshifts/batt"+id+".gif";
+    document.images["ply"+y+"_"+x].src = "http://mahi.its.yale.edu/apps2/images/battleshifts/batt"+id+".gif";
   }
 }
 
