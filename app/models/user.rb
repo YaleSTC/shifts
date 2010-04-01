@@ -149,6 +149,7 @@ class User < ActiveRecord::Base
 
   def name
     [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
+    [rank, ((nick_name.nil? or nick_name.length == 0) ? first_name[0,1] +"." : nick_name)[0,1] +".", last_name].join(" ")
   end
 
   def proper_name

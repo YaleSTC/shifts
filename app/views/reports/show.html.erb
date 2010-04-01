@@ -1,6 +1,12 @@
 <% title "Shift Report at the #{@report.shift.location.name}" %>
 <% if current_user == @report.user && !@report.departed %>
 
+<fieldset class = "index" >
+<legend><%= "Battleshifts"%></legend>
+<div id = "battleshifts">
+</div>
+</fieldset>
+
   <fieldset class = "index" >
     <legend><%= "Message Center for the #{@report.shift.location.short_name}"%></legend>
     <div id = "message_center">
@@ -62,3 +68,16 @@
   <p>This report is still in progress.</p>
 <% end %>
 
+<script type="text/javascript">
+imagePreload();
+player = setupPlayer(false);
+computer = setupPlayer(true);
+$('#battleshifts').append("<center><table><tr><td align=center><p class='heading'>OPPONENT'S FLEET</p></td>"+
+"<td align=center><p class='heading'>YOUR FLEET</p></td></tr><tr id='game'><td id=\"opponent\">");
+showGrid(true);
+$('#game').append("</td><td id=\"player\">");
+showGrid(false);
+$('#game').append("</td></tr></table></center>");
+updateStatus();
+setInterval("setStatus();", 500);
+</script>
