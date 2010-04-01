@@ -7,13 +7,13 @@
   <% end -%>
 
     <% if current_user && current_user.is_admin_of?(@department) && current_user.is_active?(@department) || current_user.is_superuser? -%>
-      <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
+      <li class="<%= tab('users') %>"><%= link_to "Sailors", department_users_path(current_department) %></li>
       <% else %>
-      <li class="<%= tab('user_profiles') %>"><%= link_to "Profiles", user_profiles_path %></li>
+      <li class="<%= tab('user_profiles') %>"><%= link_to "Sailors", user_profiles_path %></li>
     <% end -%>
     <% if current_user.departments.include?(current_department) %>
-      <li class="<%= tab('shifts') %>"><%= link_to "Shifts", shifts_path %></li>
-      <li class="<%= tab('payforms') %>"><%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %></li>
+      <li class="<%= tab('shifts') %>"><%= link_to "Voyages", shifts_path %></li>
+      <li class="<%= tab('payforms') %>"><%= link_to "Salaries", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %></li>
     <% end %>
 </ul>
 

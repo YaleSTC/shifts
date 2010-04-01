@@ -2,13 +2,13 @@
 <% if current_user == @report.user && !@report.departed %>
 
 <fieldset class = "index" >
-<legend><%= "Battleshifts"%></legend>
+<legend>Tactical Simulation Room</legend>
 <div id = "battleshifts">
 </div>
 </fieldset>
 
   <fieldset class = "index" >
-    <legend><%= "Message Center for the #{@report.shift.location.short_name}"%></legend>
+    <legend><%= "Radio room for the #{@report.shift.location.short_name}"%></legend>
     <div id = "message_center">
       <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
     </div>
@@ -21,7 +21,7 @@
 
   <div id="report_data_objects">
     <fieldset>
-      <legend>Data Objects</legend>
+      <legend>Logistics</legend>
       <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
     </fieldset>
   </div>
@@ -38,7 +38,7 @@
 
 
   <div id="active_report_area">
-        <h2>Update Your Report</h2>
+        <h2><%= current_user.rank %>'s Logbook</h2>
         <%= render :partial => 'new_report_item_form' %>
 
 
@@ -57,7 +57,7 @@
 
       </div> <%# close report_relative_size %>
 
-      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'}, :confirm => 'Ahoy matey! Are you sure you wish to disembark?' %>
+      <%= button_to "Disembark from vessel", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:confirm => 'Ahoy matey! Are you sure you wish to disembark?', :id => 'submit_button'} %>
 
       <div class='clear'></div>
     </div> <%# close active_report_area %>
