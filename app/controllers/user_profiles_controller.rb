@@ -13,9 +13,9 @@ before_filter :user_login
 
   end
 
-#  def new
-#    @user_profile = UserProfile.new
-#  end
+  def new
+    @user_profile = UserProfile.new
+  end
 
   def create
     @user_profile = UserProfile.new(params[:user_profile])
@@ -29,17 +29,15 @@ before_filter :user_login
 
   def edit
     @user = User.find_by_login(params[:id])
-
-    @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
-#The dept admin can edit all parts of any profile in their department, and a regular user can only edit their own profile entries that are user editable
-    if @user_profile.user == current_user && current_user.is_admin_of?(@department)
-       @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
-     elsif @user_profile.user == current_user
+    @user_profile = UserProfile.find_by_user_id(@user.id)
+    
+    #The dept admin can edit all parts of any profile in their department, and a regular user can only edit their own profile entries that are user editable
+    if current_user.is_admin_of?(@department)
+      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
+    elsif @user_profile.user == current_user
       @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.user_editable }
-     elsif current_user.is_admin_of?(@department)
-      @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id}
     else
-      flash[:error] = "You are not allowed to access that profile."
+      flash[:error] = "You are not allowed to edit another user's profile."
       redirect_to access_denied_path
     end
   end
@@ -48,23 +46,21 @@ before_filter :user_login
     @user_profile = UserProfile.find(params[:id])
 
     @user = User.find(@user_profile.user_id)
-  begin
-  UserProfile.transaction do
-    @failed = []
-    @user_profile_entries = params[:user_profile_entries]
-      @user_profile_entries = params[:user_profile_entries]
-      @user_profile_entries.each do |entry_id, entry_content|
-        entry = UserProfileEntry.find(entry_id)
-        @content = ""
+    begin
+      UserProfile.transaction do
+        @failed = []
+        @user_profile_entries = params[:user_profile_entries]
+        @user_profile_entries.each do |entry_id, entry_content|
+          entry = UserProfileEntry.find(entry_id)
+          @content = ""
           if entry.display_type == "check_box"
             UserProfileEntry.find(entry_id).values.split(", ").each do |value|
               c = entry_content[value]
               @content += value + ", " if c == "1"
             end
-            @content.gsub!(/, \Z/, "")
-            entry.content = @content
-
-            @failed << entry.field_name unless entry.save
+          @content.gsub!(/, \Z/, "")
+          entry.content = @content
+          @failed << entry.field_name unless entry.save
 
           elsif entry.display_type == "radio_button"
             entry.content = entry_content["1"]
@@ -73,14 +69,12 @@ before_filter :user_login
             entry.content = entry_content[entry_id]
             @failed << entry.field_name unless entry.save
           end
+        end
       end
-      end
-  rescue
-    flash[:error] = @failed.to_sentence + " all failed to save."
-  else
-      redirect_to user_profile_path(@user.login)
-  end
-
+    rescue
+      flash[:error] = @failed.to_sentence + " all failed to save."
+    end
+    redirect_to user_profile_path(@user.login)
   end
 
   def destroy
