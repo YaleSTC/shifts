@@ -12,9 +12,10 @@
     <% end %>
     <% if current_user.is_admin_of?(@department) %>
       <h3>Admin Options</h3>
-      <li><%= link_to_unless_current "Department Settings", edit_department_config_path(@department.department_config) %></li>
-      <li><%= link_to_unless_current "Calendars", calendars_path %></li>
-      <li><%= link_to_unless_current "Roles", department_roles_path(@department) %></li>
+		<li><%= link_to_unless_current "Department Settings", edit_department_config_path(@department.department_config) %></li>
+		<li><%= link_to_unless_current "Stats", stats_path %></li>
+      	<li><%= link_to_unless_current "Calendars", calendars_path %></li>
+      	<li><%= link_to_unless_current "Roles", department_roles_path(@department) %></li>
     <% end %>
     <h3>Application Links</h3>
     <li><%= link_to_unless_current "My Preferences", edit_user_config_path(current_user.user_config) %></li>
