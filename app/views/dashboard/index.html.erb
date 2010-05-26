@@ -10,7 +10,7 @@
     <legend>Your Shifts</legend>
       <h4>Current Shift</h4>
       <%= render :partial => "shifts/user_options" %>
-      
+
       <% unless @upcoming_shifts.empty? %>
       <h4>Upcoming Shifts</h4>
         <ul>
@@ -34,7 +34,7 @@
         </ul>
     <% end %>
   </fieldset>
-  
+
   <fieldset class="index" id="punch_clock">
     <legend>Punch Clock</legend>
     <% if current_user.punch_clock %>
@@ -47,7 +47,7 @@
 
   </div>
   <div id="right_stuff">
-    
+
     <fieldset class="index" id="shifts">
       <legend>Active Shifts</legend>
         <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
