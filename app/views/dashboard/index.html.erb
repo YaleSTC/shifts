@@ -12,7 +12,7 @@
       <%= render :partial => "shifts/user_options" %>
 
       <% unless @upcoming_shifts.empty? %>
-      <h4>Upcoming Shifts</h4>
+      <h4>My Upcoming Shifts</h4>
         <ul>
           <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
         </ul>
