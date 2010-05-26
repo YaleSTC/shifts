@@ -1,5 +1,6 @@
 <% title "Erin thinks the Cheese Truck is awesome" %>
 
+
 <% unless current_user.notices.empty? %>
   <%= render :partial => 'notices/for_you' %>
 <% end %>
