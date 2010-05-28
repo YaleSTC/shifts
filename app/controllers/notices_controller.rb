@@ -35,8 +35,9 @@ class NoticesController < ApplicationController
     @notice.sticky = true if params[:type] == "sticky"
     @notice.announcement = true if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
     if params[:type] == "link"
-      @notice.useful_link = true if params[:type] == "link"
+      @notice.useful_link = true
       @notice.content = params[:link_label] + "|$|" + "http://" + params[:url]
+			@notice.content.gsub!("http://https://", "https://")
       @notice.content.gsub!("http://http://", "http://")
       @notice.start_time = Time.now
       @notice.end_time = nil
@@ -78,7 +79,6 @@ class NoticesController < ApplicationController
     @notice.start_time = Time.now if @notice.is_sticky
     @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.is_sticky
     @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.is_sticky
-#    raise params.to_yaml
     begin
       Notice.transaction do
         @notice.save(false)
