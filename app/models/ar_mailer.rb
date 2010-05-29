@@ -17,7 +17,7 @@ class ArMailer < ActionMailer::ARMailer
     subject     'Due Payform Reminder'
     recipients  "#{user.name} <#{user.email}>"
     from        "#{dept.department_config.mailer_address}"
-    reply_to    "#{admin_user.name} <#{admin_user.email}>"
+    #reply_to    "#{admin_user.name} <#{admin_user.email}>"
     sent_on     Time.now
     body        :user => user, :message => message
   end
@@ -26,7 +26,7 @@ class ArMailer < ActionMailer::ARMailer
     subject     'Late Payforms Warning'
     recipients  "#{user.name} <#{user.email}>"
     from        "#{dept.department_config.mailer_address}"
-    reply_to    "#{admin_user.name} <#{admin_user.email}>"
+    #reply_to    "#{admin_user.name} <#{admin_user.email}>"
     sent_on     Time.now
     body        :user => user, :message => message
   end
