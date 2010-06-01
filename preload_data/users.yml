@@ -212,8 +212,8 @@ users_012:
   password_salt: XknDzG1kw87HwPZqV-2d
   perishable_token: 5-jp2jKuthl86bb092_t
   persistence_token: a841a123c53b47a90752e98fccc1d4f6d40e2f2b1d208aaf7dd172926ced2e4d12f2fac4135a07b1dcf7c5aa6486ebfb3fe40be033473199a31fe4967ea2da23
-  supermode: f
-  superuser: f
+  supermode: false
+  superuser: false
   updated_at: 2009-06-29 20:27:07
 users_013: 
   auth_type: CAS
