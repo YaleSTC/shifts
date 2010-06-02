@@ -1,5 +1,5 @@
 <div class="close_link">
-  <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+  <a onclick="$('#tooltip').fadeOut(function (){ $(this).remove() }); return false;" href="#">[esc]</a>
 </div>
 <h2>New Shift</h2>
 
@@ -63,3 +63,20 @@
     <% end %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+// don't retrigger the action when clicking the tooltip :P
+$('#tooltip').click(function(e){
+	e.stopPropagation();
+});
+$(this).keyup(function(event) {
+  if (event.keyCode == 27) {
+     $('#tooltip').fadeOut(function (){ $(this).remove() });
+	 return false;
+   }
+});
+$(this).click(function(event) {
+     $('#tooltip').fadeOut(function (){ $(this).remove() });
+		return(false);
+});
+</script>
