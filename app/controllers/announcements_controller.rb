@@ -26,10 +26,7 @@ class AnnouncementsController < NoticesController
   def new
     @announcement = Announcement.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @announcement }
-    end
+    layout_check
   end
 
   # GET /announcements/1/edit

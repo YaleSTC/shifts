@@ -1,17 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'shift' %>
+<% end %>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Announcements: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
-</head>
-<body>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<% content_for :left_nav do %>
+  <ul id="navigationList">
+    <h3>Notice Actions</h3>
+      <li><%= link_to_post_a_new_notice %></li>
+    <% if current_user.is_admin_of?(current_department) %>
+      <li><%= link_to 'View All Notices', archive_notices_path %></li>
+    <% end %>
+  </ul>
+  <div id="contentNav">
+<% end %>
 
-<%= yield %>
 
-</body>
-</html>
+<% content_for :body do %>
+
+  <%= yield %>
+
+  <div class="clear"></div>
+<% end -%>
+
+<%= render :file => "layouts/application.html.erb" %>
+
