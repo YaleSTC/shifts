@@ -26,10 +26,7 @@ class StickiesController < NoticesController
   def new
     @sticky = Sticky.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @sticky }
-    end
+    layout_check
   end
 
   # GET /stickies/1/edit

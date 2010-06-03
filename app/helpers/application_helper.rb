@@ -7,9 +7,17 @@ module ApplicationHelper
     link_to_unless_current('Post a New Notice', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
   end
 
-  def link_to_post_a_useful_link
-    link_to_unless_current('Post a new link', new_notice_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
+  def link_to_post_a_link
+    link_to_unless_current('Post a new link', new_link_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
   end
+
+	def link_to_post_a_sticky
+    link_to_unless_current('Post a new sticky', new_sticky_path(:height => "330", :width => 515, :type => "Sticky"), :title => "Post a new sticky", :class => "thickbox", :id => "post_link" )
+  end
+
+	def link_to_post_an_announcement
+		link_to_unless_current('Post a new announcement', new_announcement_path(:height => 540, :width => 515), :title => "Post a new announcement", :class => "thickbox")
+	end
 
   def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]

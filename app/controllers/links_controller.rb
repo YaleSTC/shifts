@@ -26,10 +26,8 @@ class LinksController < NoticesController
   def new
     @link = Link.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @link }
-    end
+
+		layout_check
   end
 
   # GET /links/1/edit

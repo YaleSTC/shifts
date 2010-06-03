@@ -1,7 +1,35 @@
-<h1>New link</h1>
-
 <% form_for(@link) do |f| %>
   <%= f.error_messages %>
+	<fieldset class = "index">
+        <legend>Link label</legend>
+        <%= text_field_tag "link_label" %>
+      </fieldset>
+      <fieldset class = "index">
+        <legend>URL</legend>
+        <%= text_field_tag "url", {}, :style => 'width: 400px' %>
+      </fieldset>
+      <%= hidden_field_tag 'type', 'link' %>
+	
+	<fieldset class = "index">
+  <legend>Where:</legend>
+
+    <%= check_box_tag :department_wide_locations, department_check(current_department) %>
+    <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)" %>
+
+  <div id = "all_locations">
+    <% for loc_group in current_department.loc_groups do %>
+      <li id = "notice_li">
+        <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_check(loc_group) %>
+        <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
+        <% for location in loc_group.locations do %>
+          <%= check_box_tag "for_locations[]", location.id, location_check(location) %>
+          <%= label_tag "location_#{location.id}", text = location.short_name %>
+          <% unless location == loc_group.locations.last %> , <%end%>
+        <% end %>
+      </li>
+    <% end %>
+  </div>
+	</fieldset>
 
   <p>
     <%= f.submit 'Create' %>

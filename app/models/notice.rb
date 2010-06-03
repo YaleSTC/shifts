@@ -4,7 +4,8 @@ class Notice < ActiveRecord::Base
   belongs_to :remover, :class_name => "User"
   belongs_to :department
 
-  validate :content_or_link, :presence_of_locations_or_viewers, :proper_time
+  validate :presence_of_locations_and_viewers, :proper_time
+	validates_presence_of :content
   
   before_destroy :destroy_user_sinks_user_sources
 
@@ -67,26 +68,14 @@ class Notice < ActiveRecord::Base
 
   private
   #Validations
-  def presence_of_locations_or_viewers
-    if self.announcement || self.sticky
-      errors.add_to_base "Your notice must display somewhere or for someone." if self.location_sources.empty? && self.user_sources.empty?
-    else
-      errors.add_to_base "Your link must disply somewhere" if self.location_sources.empty?
-    end
-  end
+  def presence_of_locations_and_viewers
+    if self.location_sources.empty? && self.user_sources.empty?
+			errors.add_to_base "Your #{self.class.name.downcase} must display somewhere."
+  	end
+	end
 
   def proper_time
     errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time
-  end
-
-  def content_or_link
-    if self.announcement || self.sticky
-      errors.add_to_base "Content cannot be blank." if self.content.empty?
-    else
-      if self.content.split("|$|").first.empty? || self.content.split("|$|").last == "http://"
-        errors.add_to_base "Your link must contain a label and a URL."
-      end
-    end
   end
   
   def destroy_user_sinks_user_sources

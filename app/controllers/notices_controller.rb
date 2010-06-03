@@ -28,15 +28,18 @@ class NoticesController < ApplicationController
   end
 
   def create
+		
+
     @report = current_user.current_shift.report if current_user.current_shift
-    @notice = Notice.new(params[:notice])
+    @notice = params[:type].capitalize.constantize.new(params[:id])
+
     @notice.author = current_user
     @notice.department = current_department
-    @notice.sticky = true if params[:type] == "sticky"
-    @notice.announcement = true if params[:type] == "announcement" && current_user.is_admin_of?(current_department)
+
+
     if params[:type] == "link"
-      @notice.useful_link = true
-      @notice.content = params[:link_label] + "|$|" + "http://" + params[:url]
+      @notice.url = params[:url]
+      @notice.content = params[:link_label]
 			@notice.content.gsub!("http://https://", "https://")
       @notice.content.gsub!("http://http://", "http://")
       @notice.start_time = Time.now
