@@ -40,6 +40,10 @@ module NoticesHelper
   end
 
   def end_time_check(indefinite)
+
+		#for now
+		return false
+
     if indefinite
       return true unless @notice.end_time
     else
@@ -48,6 +52,10 @@ module NoticesHelper
   end
 
   def start_time_check(now)
+
+		#for now
+		return false
+
     if now
       !@notice.is_upcoming?
     else
