@@ -38,17 +38,32 @@ class AnnouncementsController < NoticesController
   # POST /announcements.xml
   def create
     @announcement = Announcement.new(params[:announcement])
-
-    respond_to do |format|
-      if @announcement.save
-        flash[:notice] = 'Announcement was successfully created.'
-        format.html { redirect_to(@announcement) }
-        format.xml  { render :xml => @announcement, :status => :created, :location => @announcement }
-      else
+		@announcement.start_time = Time.now if params[:start_time_choice] == "now"
+    @announcement.end_time = nil if params[:end_time_choice] == "indefinite"
+    @announcement.indefinite = true if params[:end_time_choice] == "indefinite"
+		begin
+      Announcement.transaction do
+        @announcement.save(false)
+        set_sources(@announcement)
+        @announcement.save!
+    	end
+		rescue Exception
+			respond_to do |format|
         format.html { render :action => "new" }
-        format.xml  { render :xml => @announcement.errors, :status => :unprocessable_entity }
+        format.js  #create.js.rjs
       end
-    end
+		else
+		  respond_to do |format|
+		    if @announcement.save
+		      flash[:notice] = 'Announcement was successfully created.'
+		      format.html { redirect_to(@announcement) }
+		      format.xml  { render :xml => @announcement, :status => :created, :location => @announcement }
+		    else
+		      format.html { render :action => "new" }
+		      format.xml  { render :xml => @announcement.errors, :status => :unprocessable_entity }
+		    end
+		  end
+		end
   end
 
   # PUT /announcements/1
