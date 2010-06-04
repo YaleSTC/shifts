@@ -4,7 +4,7 @@
 <% @location_group_row = 0 %>
 
 <div id="<%= day.to_s %>" class="day_partial">
-  <h2><%= link_to_function day.to_s(:just_date_long), "$(this).parent().next().toggle(600)", :name => day.to_s %></h2>
+  <h2><%= link_to_function day.to_s(:just_date_long), "$(this).parent().next().children(':first').slideToggle('200')", :name => day.to_s %></h2>
   <div>
     <div class="timeline">
       <div class="days">
