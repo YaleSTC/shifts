@@ -3,18 +3,17 @@
 
 <% if @report %>
 <% @report.get_links.each do |link|%>
-  <% l = link.content.split("|$|") %>
   <li>
     <% if current_user.is_admin_of?(@report.shift.location.loc_group) %>
       <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => link.id },
                                  :confirm => "Are you sure you want to remove this useful link?",
                                  :method => :delete %>
     <% end %>
-    <%= link_to "#{l.first}", "#{l.last}", :popup => true %>
+    <%= link_to "#{link.content}", "#{link.url}", :popup => true %>
   </li>
 <% end %>
 <% if current_user.is_admin_of?(@report.shift.location.loc_group) %>
-    <li><%= link_to_post_a_useful_link %></li>
+    <li><%= link_to_post_a_link %></li>
 <% end %>
 <% end %>
 </ul>
