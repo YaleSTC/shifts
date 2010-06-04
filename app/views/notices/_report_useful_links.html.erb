@@ -13,7 +13,7 @@
   </li>
 <% end %>
 <% if current_user.is_admin_of?(@report.shift.location.loc_group) %>
-    <li><%= link_to_post_a_useful_link %></li>
+    <li><%= link_to_post_a_link %></li>
 <% end %>
 <% end %>
 </ul>

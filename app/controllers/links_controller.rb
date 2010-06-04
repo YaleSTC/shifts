@@ -39,17 +39,36 @@ class LinksController < NoticesController
   # POST /links.xml
   def create
     @link = Link.new(params[:link])
-
-    respond_to do |format|
-      if @link.save
-        flash[:notice] = 'Link was successfully created.'
-        format.html { redirect_to(@link) }
-        format.xml  { render :xml => @link, :status => :created, :location => @link }
-      else
+		@link.url = params[:url]
+    @link.content = params[:link_label]
+		@link.content.gsub!("http://https://", "https://")
+    @link.content.gsub!("http://http://", "http://")
+    @link.start_time = Time.now
+    @link.end_time = nil
+    @link.indefinite = true
+		begin
+      Link.transaction do
+        @link.save(false)
+        set_sources(@link)
+        @link.save!
+    	end
+		rescue Exception
+			respond_to do |format|
         format.html { render :action => "new" }
-        format.xml  { render :xml => @link.errors, :status => :unprocessable_entity }
+        format.js  #create.js.rjs
       end
-    end
+		else
+		  respond_to do |format|
+		    if @link.save
+		      flash[:notice] = 'Link was successfully created.'
+		      format.html { redirect_to(@link) }
+		      format.xml  { render :xml => @link, :status => :created, :location => @link }
+		    else
+		      format.html { render :action => "new" }
+		      format.xml  { render :xml => @link.errors, :status => :unprocessable_entity }
+		    end
+		  end
+		end
   end
 
   # PUT /links/1

@@ -38,17 +38,31 @@ class StickiesController < NoticesController
   # POST /stickies.xml
   def create
     @sticky = Sticky.new(params[:sticky])
-
-    respond_to do |format|
-      if @sticky.save
-        flash[:notice] = 'Sticky was successfully created.'
-        format.html { redirect_to(@sticky) }
-        format.xml  { render :xml => @sticky, :status => :created, :location => @sticky }
-      else
+		@sticky.start_time = Time.now
+		@sticky.end_time = nil if params[:end_time_choice] == "indefinite"
+		begin
+      Sticky.transaction do
+        @sticky.save(false)
+        set_sources(@sticky)
+        @sticky.save!
+    	end
+		rescue Exception
+			respond_to do |format|
         format.html { render :action => "new" }
-        format.xml  { render :xml => @sticky.errors, :status => :unprocessable_entity }
+        format.js  #create.js.rjs
       end
-    end
+		else
+		  respond_to do |format|
+		    if @sticky.save
+		      flash[:notice] = 'Sticky was successfully created.'
+		      format.html { redirect_to(@sticky) }
+		      format.xml  { render :xml => @sticky, :status => :created, :location => @sticky }
+		    else
+		      format.html { render :action => "new" }
+		      format.xml  { render :xml => @sticky.errors, :status => :unprocessable_entity }
+		    end
+		  end
+		end
   end
 
   # PUT /stickies/1
