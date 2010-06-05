@@ -38,6 +38,7 @@ class StickiesController < NoticesController
   # POST /stickies.xml
   def create
     @sticky = Sticky.new(params[:sticky])
+		@sticky.author = current_user
 		@sticky.start_time = Time.now
 		@sticky.end_time = nil if params[:end_time_choice] == "indefinite"
 		begin

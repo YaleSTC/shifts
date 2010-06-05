@@ -39,11 +39,15 @@ class LinksController < NoticesController
   # POST /links.xml
   def create
     @link = Link.new(params[:link])
+# raise params.to_yaml
+		@link.author = current_user
 		@link.url = params[:url]
     @link.content = params[:link_label]
+
 		@link.content.gsub!("http://https://", "https://")
     @link.content.gsub!("http://http://", "http://")
-    @link.start_time = Time.now
+    
+		@link.start_time = Time.now
     @link.end_time = nil
     @link.indefinite = true
 		begin
