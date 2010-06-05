@@ -47,6 +47,7 @@ class NoticesController < ApplicationController
       @notice.end_time = nil if params[:end_time_choice] == "indefinite" || @notice.sticky
       @notice.indefinite = true if params[:end_time_choice] == "indefinite" || @notice.sticky
     end
+
     begin
       Notice.transaction do
         @notice.save(false) #polymorphic associations require a saved database record

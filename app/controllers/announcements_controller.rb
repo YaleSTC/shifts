@@ -38,6 +38,7 @@ class AnnouncementsController < NoticesController
   # POST /announcements.xml
   def create
     @announcement = Announcement.new(params[:announcement])
+		@announcement.author = current_user
 		@announcement.start_time = Time.now if params[:start_time_choice] == "now"
     @announcement.end_time = nil if params[:end_time_choice] == "indefinite"
     @announcement.indefinite = true if params[:end_time_choice] == "indefinite"
