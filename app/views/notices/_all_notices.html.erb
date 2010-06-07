@@ -8,13 +8,16 @@
   </div>
   <br />
   <% end %>
+
   <div id = "for_others">
-    <%= render :partial => 'for_others' %>
+    <%= render :partial => 'notices/for_others' %>
   </div>
+
 <% end %>
 <div id = "for_you">
-    <%= render :partial => 'for_you' %>
+    <%= render :partial => 'notices/for_you' %>
 </div>
+
 <% if current_user.user_config.view_loc_groups.empty? %>
   <p>You have not selected any location groups to view! Fix that in your
     <%= link_to "User settings", edit_user_config_path(current_user.user_config) %>.</p>
@@ -26,7 +29,7 @@
       <% unless @loc_current_notices.empty? %>
         <fieldset class ="index">
           <legend id ="blue_fieldset"><%= loc.name %></legend>
-          <%= render :partial => 'notice', :collection => @loc_current_notices%>
+          <%= render :partial => 'notices/notice', :collection => @loc_current_notices%>
         </fieldset>
         <br/>
       <% end %>

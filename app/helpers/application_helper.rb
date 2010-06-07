@@ -16,7 +16,9 @@ module ApplicationHelper
   end
 
 	def link_to_post_an_announcement
-		link_to_unless_current('Post a new announcement', new_announcement_path(:height => 540, :width => 515), :title => "Post a new announcement", :class => "thickbox")
+		if current_user.is_admin_of?(current_department)
+			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 540, :width => 515), :title => "Post a new announcement", :class => "thickbox")
+		end
 	end
 
   def link_toggle(id, name, speed = "slow")

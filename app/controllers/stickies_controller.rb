@@ -40,7 +40,15 @@ class StickiesController < NoticesController
     @sticky = Sticky.new(params[:sticky])
 		@sticky.author = current_user
 		@sticky.start_time = Time.now
-		@sticky.end_time = nil if params[:end_time_choice] == "indefinite"
+		if params[:end_time_choice] == "indefinite"
+			@sticky.end_time = nil 
+		elsif params[:sticky][:end_time] == "day"
+			@sticky.end_time = @sticky.start_time + 86400
+		elsif params[:sticky][:end_time] == "week"
+			@sticky.end_time = @sticky.start_time + 604800
+		elsif params[:sticky][:end_time] == "month"
+			@sticky.end_time = @sticky.start_time + 18144000
+		end
 		begin
       Sticky.transaction do
         @sticky.save(false)
@@ -48,22 +56,19 @@ class StickiesController < NoticesController
         @sticky.save!
     	end
 		rescue Exception
-			respond_to do |format|
+      respond_to do |format|
         format.html { render :action => "new" }
         format.js  #create.js.rjs
       end
-		else
-		  respond_to do |format|
-		    if @sticky.save
-		      flash[:notice] = 'Sticky was successfully created.'
-		      format.html { redirect_to(@sticky) }
-		      format.xml  { render :xml => @sticky, :status => :created, :location => @sticky }
-		    else
-		      format.html { render :action => "new" }
-		      format.xml  { render :xml => @sticky.errors, :status => :unprocessable_entity }
-		    end
-		  end
-		end
+    else
+      respond_to do |format|
+        format.html {
+        flash[:sticky] = 'Sticky was successfully created.'
+        redirect_to stickies_path
+        }
+        format.js  #create.js.rjs
+      end
+    end
   end
 
   # PUT /stickies/1

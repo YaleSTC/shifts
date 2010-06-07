@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
   end
 
   def current_notices
-    Notice.active.select {|n| n.users.include?(self)}
+    self.notices.select {|n| n.type != "Link"}
   end
 
   def other_notices

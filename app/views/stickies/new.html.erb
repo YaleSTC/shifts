@@ -1,4 +1,4 @@
-<% form_for(@sticky) do |f| %>
+<% form_remote_for(@sticky) do |f| %>
   <%= f.error_messages %>
 	
 	<fieldset class = "index">
@@ -20,7 +20,7 @@
         <% for location in loc_group.locations do %>
           <%= check_box_tag "for_locations[]", location.id, location_check(location) %>
           <%= label_tag "location_#{location.id}", text = location.short_name %>
-          <% unless location == loc_group.locations.last %> , <%end%>
+          <% unless location == loc_group.locations.last %> , <% end %>
         <% end %>
       </li>
     <% end %>
@@ -29,9 +29,9 @@
 
 	<fieldset class = "index">
 		<legend>End time:</legend>
-		<%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Manually delete (anyone can delete any sticky) <br/>
-		<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %> Automatically expire on: 
-		<%= f.unobtrusive_datetime_picker :end_time, :minute_step => @department.department_config.time_increment %>
+		<%= radio_button_tag 'end_time_choice', 'indefinite', true %> Manually delete (anyone can delete any sticky) <br/>
+		<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %> Automatically expire in one: 
+		<%= f.select :end_time, Sticky::EXPIRE_ON %>
 	</fieldset>
 
 	<fieldset class = "index">
