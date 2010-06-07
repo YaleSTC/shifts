@@ -1,6 +1,6 @@
 --- 
 locations_001: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:35:10
   id: "2"
   loc_group_id: "2"
@@ -13,7 +13,7 @@ locations_001:
   updated_at: 2009-06-22 17:35:10
   useful_links: ""
 locations_002: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:35:40
   id: "3"
   loc_group_id: "3"
@@ -26,7 +26,7 @@ locations_002:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_003: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "4"
   loc_group_id: "3"
@@ -39,7 +39,7 @@ locations_003:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_004: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "5"
   loc_group_id: "4"
@@ -52,7 +52,7 @@ locations_004:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_005: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "6"
   loc_group_id: "4"
@@ -65,7 +65,7 @@ locations_005:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_006: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "7"
   loc_group_id: "4"
@@ -78,7 +78,7 @@ locations_006:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_007: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "8"
   loc_group_id: "4"
@@ -91,7 +91,7 @@ locations_007:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_008: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "9"
   loc_group_id: "4"
@@ -104,7 +104,7 @@ locations_008:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_009: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "10"
   loc_group_id: "4"
@@ -117,7 +117,7 @@ locations_009:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_010: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "11"
   loc_group_id: "4"
@@ -130,7 +130,7 @@ locations_010:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_011: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "12"
   loc_group_id: "4"
@@ -143,7 +143,7 @@ locations_011:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_012: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "13"
   loc_group_id: "4"
@@ -156,7 +156,7 @@ locations_012:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_013: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "14"
   loc_group_id: "4"
@@ -169,7 +169,7 @@ locations_013:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_014: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "15"
   loc_group_id: "4"
@@ -182,7 +182,7 @@ locations_014:
   updated_at: 2009-06-22 17:35:40
   useful_links: ""
 locations_015: 
-  active: t
+  active: true
   created_at: 2009-06-22 17:36:41
   id: "16"
   loc_group_id: "4"
