@@ -8,6 +8,7 @@
     </div>
     <div id="new_notice">
       <%= link_to_post_a_sticky %>
+			<%= link_to_post_an_announcement %>
     </div>
   </fieldset>
   <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
