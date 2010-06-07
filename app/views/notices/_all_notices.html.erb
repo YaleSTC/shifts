@@ -1,5 +1,6 @@
 <% if current_user.is_admin_of?(current_department) %>
   <% unless Notice.upcoming.empty? %>
+
   <div id = "upcoming">
     <fieldset class = "index">
       <legend>Upcoming</legend>
@@ -10,12 +11,12 @@
   <% end %>
 
   <div id = "for_others">
-    <%= render :partial => 'notices/for_others' %>
+    <%= render :partial => 'notices/for_category', :locals => {:givencollection => current_user.other_notices, :legend => "For other users"} %>
   </div>
 
 <% end %>
 <div id = "for_you">
-    <%= render :partial => 'notices/for_you' %>
+    <%= render :partial => 'notices/for_category', :locals => {:givencollection => current_user.current_notices, :legend => "For you"} %>
 </div>
 
 <% if current_user.user_config.view_loc_groups.empty? %>
