@@ -1,5 +1,7 @@
-<% form_for(@announcement) do |f| %>
-  <%= f.error_messages %>
+<% form_remote_for(@announcement) do |f| %>
+  <div id ="errors">
+    <%= render :partial => "error_messages", :locals => {:f => f} %>
+  </div>
 	
 	<fieldset class = "index">
     <legend>Content:</legend>
@@ -48,4 +50,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', announcements_path %>
+<%= javascript_include_tag 'notices' %>
