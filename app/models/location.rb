@@ -30,7 +30,7 @@ class Location < ActiveRecord::Base
   end
 
   def current_notices
-    (self.stickies + self.announcements).uniq
+    Notice.active.select {|n| n.location.include?(self)}
   end
 
   def stickies

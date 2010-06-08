@@ -95,12 +95,6 @@ class LinksController < NoticesController
   # DELETE /links/1
   # DELETE /links/1.xml
   def destroy
-    @link = Link.find(params[:id])
-    @link.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(links_url) }
-      format.xml  { head :ok }
-    end
+		redirect_to :controller => 'notice', :action => 'destroy'
   end
 end
