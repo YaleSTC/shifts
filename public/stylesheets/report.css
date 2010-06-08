@@ -4,7 +4,7 @@
 }
 
 #active_report_area {
-  width: 98.6%;
+  width: 99%;
   border-style:solid;
   clear: both;
   background-color: #ddd;
@@ -12,9 +12,13 @@
 }
 
 #report_relative_size {
-  width: 49.5%;
+  width: 50%;
   float: right;
   clear: right;
+}
+
+#announcement_link {
+	float: right;
 }
 
 #report_view  {
@@ -72,19 +76,19 @@
 }
 
 #useful_links {
-  width: 47.5%;
+  width: 48%;
   float: right;
   margin-bottom: 5px;
 }
 
 #report_data_objects {
-  width: 47.5%;
+  width: 48%;
   float: right;
   margin-bottom: 5px;
 }
 
 #report_message_center {
-	width: 47.5%;
+	width: 48%;
 	float: left;
 	clear: right;
 	margin-bottom: 5px;
