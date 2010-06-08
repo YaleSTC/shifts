@@ -140,7 +140,8 @@ class PayformsController < ApplicationController
       ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, message))
       users_reminded << "#{user.name} (#{user.login})"
     end
-    redirect_with_flash "E-mail reminders sent to the following: #{users_reminded.to_sentence}", :action => :email_reminders, :id => @department.id
+    flash[:notice] = "E-mail reminders sent to the following: #{users_reminded.to_sentence}"
+    redirect_to {:action => :email_reminders, :id => @department.id}
   end
 
   def send_warnings
@@ -159,12 +160,13 @@ class PayformsController < ApplicationController
         for payform in unsubmitted_payforms
           weeklist += payform.date.strftime("\t%b %d, %Y\n")
         end
-        email = ArMailer.create_late_payform_warning(@admin_user, user, message.gsub("@weeklist@", weeklist))
+        email = ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department)
         ArMailer.deliver(email)
         users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
       end
     end
-    redirect_with_flash "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}", :action => :email_reminders, :id => @department.id
+    flash[:notice] = "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}"
+    redirect_to {:action => :email_reminders, :id => @department.id}
   end
 
   protected

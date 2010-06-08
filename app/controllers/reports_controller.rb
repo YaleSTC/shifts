@@ -8,12 +8,6 @@ class ReportsController < ApplicationController
     @report_item = ReportItem.new
   end
 
-  def popup
-    @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
-    return unless user_is_owner_of(@report.shift)
-    render :layout => false
-  end
-
   #Signing into a shift
   def create
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
