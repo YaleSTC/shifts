@@ -159,7 +159,7 @@ class PayformsController < ApplicationController
         for payform in unsubmitted_payforms
           weeklist += payform.date.strftime("\t%b %d, %Y\n")
         end
-        email = ArMailer.create_late_payform_warning(@admin_user, user, message.gsub("@weeklist@", weeklist))
+        email = ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department)
         ArMailer.deliver(email)
         users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
       end
