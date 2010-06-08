@@ -1,7 +1,7 @@
 <% title "Shift Report at the #{@report.shift.location.name}" %>
 <% if current_user == @report.user && !@report.departed %>
 
-  <fieldset class = "index" >
+  <fieldset class = "index" id = "report_message_center">
     <legend><%= "Message Center for the #{@report.shift.location.short_name}"%></legend>
     <div id = "message_center">
       <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
@@ -13,24 +13,17 @@
   </fieldset>
   <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
 
-
-  <div id="report_data_objects">
-    <fieldset>
+    <fieldset id = "report_data_objects" class = "index">
       <legend>Data Objects</legend>
       <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
     </fieldset>
-  </div>
 
-
-<div id = "useful_links_div">
-    <fieldset>
+    <fieldset id = "useful_links" class = "index">
       <legend>Useful Links</legend>
       <div id = "report_useful_links">
           <%= render :partial => 'notices/report_useful_links' %>
-          </div>
+      </div>
     </fieldset>
-    </div>
-
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
