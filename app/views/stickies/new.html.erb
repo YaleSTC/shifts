@@ -1,5 +1,7 @@
 <% form_remote_for(@sticky) do |f| %>
-  <%= f.error_messages %>
+  <div id ="errors">
+    <%= render :partial => "error_messages", :locals => {:f => f} %>
+  </div>
 	
 	<fieldset class = "index">
     <legend>Content:</legend>
@@ -36,7 +38,7 @@
 
 	<fieldset class = "index">
     <legend>Who:</legend>
-    Enter any name, login, role or department
+    Display for any person, role, or department:
     <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
   </fieldset>
   
@@ -45,4 +47,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', stickies_path %>
+<%= javascript_include_tag 'notices' %>

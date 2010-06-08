@@ -17,7 +17,7 @@ module ApplicationHelper
 
 	def link_to_post_an_announcement
 		if current_user.is_admin_of?(current_department)
-			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 540, :width => 515), :title => "Post a new announcement", :class => "thickbox")
+			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 540, :width => 515), :title => "Post a new announcement", :class => "thickbox", :id => "post_link")
 		end
 	end
 
