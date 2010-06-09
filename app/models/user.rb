@@ -176,7 +176,7 @@ class User < ActiveRecord::Base
   end
 
   #TODO: This could possibly be further optimized
-  def available_sub_requests(departments = self.departments)
+  def available_sub_requestsOLD(departments = self.departments)
     ActiveRecord::Base.transaction do #Wrapped in a transaction for performance reasons
     a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
     b = departments.collect do |department|
@@ -188,7 +188,14 @@ class User < ActiveRecord::Base
     (a + b.flatten + c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }.select{ |subs| subs.user != self }
     end
   end
-
+  
+  def available_sub_requests(departments = self.departments)
+   availables = departments.collect do |department|
+      department.sub_requests.select { |subs| subs.potential_takers.include?(self)}
+    end
+    availables.flatten.collect
+  end
+  
   def restrictions #TODO: this could probably be optimized
     Restriction.current.select{|r| r.users.include?(self)}
   end
