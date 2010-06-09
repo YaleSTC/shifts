@@ -16,9 +16,13 @@ every :sunday, :at => "9am" do
   rake "auto_remind"
 end
 
-every :day, at => "1am" do 
+every :day, at => "1am" do ga
  rake "email_stats"
 end
+
+#every 5.minutes do
+  #rake "inactive_shift_email"
+#end
 
 every 3.minutes do
   command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production"

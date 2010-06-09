@@ -4,6 +4,6 @@ class AddEmailStatsToAdmin < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :department_configs, :email_stats, :boolean, :default => true    
+    remove_column :department_configs, :email_stats    
   end
 end
