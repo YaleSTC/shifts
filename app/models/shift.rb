@@ -35,8 +35,14 @@ class Shift < ActiveRecord::Base
   named_scope :ordered_by_start, :order => 'start'
   named_scope :stats_send, :conditions => {:email_stats => true}
   named_scope :missed, :conditions => {:has_passed => true, :report => false}
-  named_scope :late, :conditions => {self.report.nil? ? false : ("#{:report.arrived - :start > :department_config.grace_period*60}") => true} 
-  named_scope :left_early, :conditions => {(self.report.nil? or self.report.departed.nil?) ? false : (self.end - self.report.departed > self.department.department_config.grace_period*60) => true}
+  named_scope :late,
+    :joins => :report,
+    :conditions => ["#{:arrived.to_sql_column} - #{:start.to_sql_column} > ?",7*60] #TODO: inlcude department config (instead of defaulting to "7")
+  named_scope :left_early,
+    :joins => :report,
+    :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")
+  
+  #named_scope :left_early, :conditions => {(self.report.nil? or self.report.departed.nil?) ? false : (self.end - self.report.departed > self.department.department_config.grace_period*60) => true}
   
   
   
