@@ -1,0 +1,64 @@
+<% title "Shift Report at #{@report.shift.location.name}"%>
+<% if current_user == @report.user && !@report.departed %>
+
+  <fieldset class = "index" >
+    <legend><%= "Message Center for the #{@report.shift.location.short_name}"%></legend>
+    <div id = "message_center">
+      <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
+    </div>
+    <div id="new_notice">
+      <%= link_to_post_a_new_notice(true) %>
+    </div>
+  </fieldset>
+  <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
+
+
+  <div id="report_data_objects">
+    <fieldset>
+      <legend>Data Objects</legend>
+      <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
+    </fieldset>
+  </div>
+
+
+<div id = "useful_links_div">
+    <fieldset>
+      <legend>Useful Links</legend>
+      <div id = "report_useful_links">
+          <%= render :partial => 'notices/report_useful_links' %>
+          </div>
+    </fieldset>
+    </div>
+
+
+  <div id="active_report_area">
+        <h2>Update Your Report</h2>
+        <%= render :partial => 'new_report_item_form' %>
+
+
+      <div id="report_relative_size">
+
+<% end %>
+
+        <div id="report_view">
+          <%= render :partial => 'report'%>
+        </div>
+        <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.location)) %>
+          <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+        <% end %>
+
+<% if current_user == @report.user && !@report.departed %>
+
+      </div> <%# close report_relative_size %>
+
+      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:id => 'submit_button'} %>
+
+      <div class='clear'></div>
+    </div> <%# close active_report_area %>
+
+  <%#= javascript_include_tag 'leave_confirm'%>
+
+<% elsif !@report.departed %>
+  <p>This report is still in progress.</p>
+<% end %>
+

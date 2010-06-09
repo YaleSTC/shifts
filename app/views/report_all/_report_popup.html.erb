@@ -1,0 +1,9 @@
+<div id="report_popup_<%= report.id %>" class="popup popup_draghandle" style="display:none">
+  <strong>Events:</strong>
+  <ul>
+  <% report.report_items.each do |item| %>
+    <li><%= item.time.getlocal.to_s(:am_pm) %>: <%=h item.content_with_formatting %></li>
+  <% end %>
+  </ul>
+</div>
+<%= javascript_tag "new Popup('report_popup_#{report.id}','report_link_#{report.id}')" %>
