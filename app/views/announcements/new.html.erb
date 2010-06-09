@@ -1,6 +1,6 @@
 <% form_remote_for(@announcement) do |f| %>
   <div id ="errors">
-    <%= render :partial => "error_messages", :locals => {:f => f} %>
+    <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
   </div>
 	
 	<fieldset class = "index">
@@ -49,5 +49,4 @@
     <%= f.submit 'Create' %>
   </p>
 <% end %>
-
 <%= javascript_include_tag 'notices' %>

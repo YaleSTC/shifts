@@ -91,12 +91,6 @@ class StickiesController < NoticesController
   # DELETE /stickies/1
   # DELETE /stickies/1.xml
   def destroy
-    @sticky = Sticky.find(params[:id])
-    @sticky.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(stickies_url) }
-      format.xml  { head :ok }
-    end
-  end
+		redirect_to :controller => 'notice', :action => 'destroy'
+	end
 end

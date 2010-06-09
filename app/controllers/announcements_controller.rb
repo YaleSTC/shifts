@@ -87,12 +87,6 @@ class AnnouncementsController < NoticesController
   # DELETE /announcements/1
   # DELETE /announcements/1.xml
   def destroy
-    @announcement = Announcement.find(params[:id])
-    @announcement.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(announcements_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to :controller => 'notice', :action => 'destroy'
   end
 end
