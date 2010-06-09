@@ -6,7 +6,8 @@
     <th>End</th>
     <th>Mandatory Start</th>
     <th>Mandatory End</th>
-    <th>Potential takers</th>
+    <th>User Sources</th>
+	<th>Requestor</th>
     <th>Reason</th>
   </tr>
 
@@ -16,7 +17,8 @@
     <td><%=h sub_request.end.to_s(:long) %></td>
     <td><%=h sub_request.mandatory_start.to_s(:long) %></td>
     <td><%=h sub_request.mandatory_end.to_s(:long) %></td>
-    <td><%=h sub_request.users.collect(&:email) * ", " %></td>
+    <td><%= render :partial => 'list_user_sources'%></td>
+	<td><%=h sub_request.shift.user %>    <!--- Bay: make email address  -->
     <td><%=h sub_request.reason %></td>
     <td><%= link_to 'Show', sub_request %></td>
     <td><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td>

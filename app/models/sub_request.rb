@@ -1,7 +1,7 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
   belongs_to :user
-
+  
   validates_presence_of :reason
   validates_presence_of :shift
   validate :start_and_end_are_within_shift
@@ -50,36 +50,27 @@ class SubRequest < ActiveRecord::Base
 
   def user_is_eligible?(user)
     return false if self.user == user
-
-    potential_takers.include?(user)
+    user.can_signup?(self.shift.loc_group)
   end
 
   def potential_takers
-    can_signup_ones = loc_group.can_signup_users
-    if user_sources.blank?
-      can_signup_ones
-    else
-      specified_ones = user_sources.collect(&:users).flatten.uniq
-      # filter through people who can sign up
-      specified_ones & can_signup_ones
-    end
+    users ? users : roles.flatten.uniq
+  end
+  
+  #returns users stated in user_sources and checks to make sure they still have permission
+  def users
+      user_sources.uniq.select { |u| u.can_signup?(self.shift.loc_group) } 
   end
 
+  #returns roles that currently have permission
+  def roles 
+     puts self.to_yaml
+     shift.location.loc_group.roles
+  end  
+    
   def sub_name
     sub_class = self.user_source_type.classify
     sub_name = sub_class.find(self.user_source_id).name.to_s
-  end
-
-  def who_can_take
-    self.user_sinks_user_sources.each do |substitute|
-      if substitute.user_source_type == "Department"
-        "Users in the department:" #+ substitute.name.to_s
-      elsif substitute.user_source_type == "Role"
-        "Users who have the role: " #+ substitute.name.to_s
-      else
-        return "this user" #+ substitute.name.to_s
-      end
-    end
   end
 
   def has_started?
