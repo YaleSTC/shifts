@@ -1,0 +1,5 @@
+<% form_for([:shift, @report], :url => shift_report_path) do |f| %>
+  <%= f.error_messages %>
+  <p><%= f.submit "Yes" %></p>
+<% end %>
+
