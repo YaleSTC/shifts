@@ -19,7 +19,7 @@ class Notice < ActiveRecord::Base
     (Sticky.active_with_end + Sticky.active_without_end).uniq.sort_by{|n| n.start_time}
   end
 
-	def active
+	def current
 		self.start_time < Time.now && (self.end_time > Time.now if self.end_time)
 	end
 

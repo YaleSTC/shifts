@@ -41,7 +41,8 @@ class StickiesController < NoticesController
 		@sticky.author = current_user
 		@sticky.start_time = Time.now
 		if params[:end_time_choice] == "indefinite"
-			@sticky.end_time = nil 
+			@sticky.end_time = nil
+			@sticky.indefinite = true
 		elsif params[:sticky][:end_time] == "day"
 			@sticky.end_time = @sticky.start_time + 86400
 		elsif params[:sticky][:end_time] == "week"
