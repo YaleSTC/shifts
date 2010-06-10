@@ -1,5 +1,0 @@
-<tr <%= 'id="current_report_item"' if @report.report_items.last == report_item %> class="<%= cycle('list_report_item_odd', 'list_report_item_even') %>" >
-<td class="timestamp"><%=h report_item.time.getlocal.to_s(:am_pm) %></td>
-<td class="report_item_content"> <%= report_item.content_with_formatting %></td>
-</tr>
-
