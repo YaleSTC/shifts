@@ -30,6 +30,18 @@ class ReportItemsController < ApplicationController
     end
   end
 
+
+  def for_location
+    @location = Location.find(params[:id]) 
+    @report_items = []
+    for report in @location.reports
+      for report_item in report.report_items
+        @report_items << report_item
+      end
+    end
+
+  end
+
 #  def edit
 #    @report_item = ReportItem.find(params[:id])
 #  end
