@@ -8,12 +8,12 @@
     <th>Description</th>
   </tr>
   
-  <% render :partial => "payform_item_set", :collection => @active_sets %>
+  <%= render :partial => "payform_item_set", :collection => @active_sets %>
   
 </table>
 Expired sets:
 <table>
-  <% render :partial => "payform_item_set", :collection => @expired_sets %>
+  <%= render :partial => "payform_item_set", :collection => @expired_sets %>
 </table>
 
 <p><%= link_to "Add a Group Job", new_payform_item_set_path %></p>
