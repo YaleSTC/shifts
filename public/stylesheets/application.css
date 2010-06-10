@@ -525,7 +525,7 @@ span#progress_bar #other_step {
 }
 
 /* = Tables
-======================================================================= */
+======================================================================= */	
 table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
@@ -680,3 +680,19 @@ img.mini_icon {
 ul.activeShifts {
 	list-style-type: none;
 }
+
+/* Sub Request Table Index
+======================================================================= */	
+table#sub_requests tr td {vertical-align:middle; text-align:left; padding:4px;}
+table#sub_requests tr td ul {
+	 list-style-type: none;
+   float: left;
+   text-align: left;
+   list-style-position: outside;
+	 margin-left:0px;
+}
+td.date {white-space: nowrap; overflow: hidden; line-height:120%;}
+td.requestor {white-space: nowrap; overflow: hidden;}
+td.location {text-align:center;}
+a#view_more {float:right; padding:3px;}
+tr.new_sub {background-color:#A9D0F5;}

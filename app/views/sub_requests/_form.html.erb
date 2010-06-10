@@ -26,7 +26,7 @@
   </p>
   <p>
     <%= label_tag "Leave blank to send to everyone eligible in <b>#{@sub_request.shift.location.loc_group.name}</b>, or specify individual users below" %><br />
-    <%= tokenized_users_autocomplete(@sub_request, "users", "list_of_logins") %>
+    <%= tokenized_users_autocomplete(@sub_request, "user_sources", "list_of_logins") %>
   </p>
   <p>
     <%= f.label :reason %><br />

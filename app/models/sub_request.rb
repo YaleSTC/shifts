@@ -9,7 +9,8 @@ class SubRequest < ActiveRecord::Base
   validate :start_less_than_end
   validate :not_in_the_past
   validate :user_does_not_have_concurrent_sub_request
-
+  after_create :user_sources_have_permission 
+  
   before_destroy :destroy_user_sinks_user_sources
   #
   # Class methods
@@ -54,17 +55,16 @@ class SubRequest < ActiveRecord::Base
   end
 
   def potential_takers
-    users ? users : roles.flatten.uniq
+    !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq
   end
   
   #returns users stated in user_sources and checks to make sure they still have permission
-  def users
+  def users_with_permission
       user_sources.uniq.select { |u| u.can_signup?(self.shift.loc_group) } 
   end
 
   #returns roles that currently have permission
-  def roles 
-     puts self.to_yaml
+  def roles_with_permission
      shift.location.loc_group.roles
   end  
     
@@ -116,14 +116,15 @@ class SubRequest < ActiveRecord::Base
     end
   end
 
-  def has_user_sources
-    if self.user_sources.empty?
-      errors.add_to_base("Someone must be able to take this sub request. Add a person department and/or role to 'People/groups eligible for this sub'")
-    end
-  end
-
   def destroy_user_sinks_user_sources
     UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
+  end
+  
+  def user_sources_have_permission 
+     c = self.user_sources.select { |user| !user.can_signup?(self.loc_group)}
+    unless c.blank? 
+      errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
+    end
   end
 end
 
