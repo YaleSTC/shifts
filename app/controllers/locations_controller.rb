@@ -44,13 +44,26 @@ class LocationsController < ApplicationController
     end
   end
 
-  def destroy
+  def switch
+    raise params.to_yaml
     @location = Location.find(params[:id])
-    redirect_to access_denied_path unless @locations.include?(@location)
-    @location.destroy
-    flash[:notice] = "Successfully destroyed location."
+    @shifts = Shift.in_location(@location).active
+    @location.switch_active
+    @shifts.each do |shift|
+      shift.active = false
+      shift.save
+    end
+    flash[:notice] = @location.name.to_s
     redirect_to department_locations_path(current_department)
   end
+
+  def destroy
+     @location = Location.find(params[:id])
+     redirect_to access_denied_path unless @locations.include?(@location)
+     @location.destroy
+     flash[:notice] = "Successfully destroyed location."
+     redirect_to department_locations_path(current_department)
+   end
   
 private
 
