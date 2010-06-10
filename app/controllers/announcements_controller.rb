@@ -1,17 +1,9 @@
 class AnnouncementsController < NoticesController
-  # GET /announcements
-  # GET /announcements.xml
-  def index
-    @announcements = Announcement.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @announcements }
-    end
+  def index
+    redirect_to(notices_path)
   end
 
-  # GET /announcements/1
-  # GET /announcements/1.xml
   def show
     @announcement = Announcement.find(params[:id])
 
@@ -21,21 +13,15 @@ class AnnouncementsController < NoticesController
     end
   end
 
-  # GET /announcements/new
-  # GET /announcements/new.xml
   def new
     @announcement = Announcement.new
-
     layout_check
   end
 
-  # GET /announcements/1/edit
   def edit
     @announcement = Announcement.find(params[:id])
   end
 
-  # POST /announcements
-  # POST /announcements.xml
   def create
     @announcement = Announcement.new(params[:announcement])
 		@announcement.author = current_user
@@ -49,26 +35,21 @@ class AnnouncementsController < NoticesController
         @announcement.save!
     	end
 		rescue Exception
-			respond_to do |format|
+      respond_to do |format|
         format.html { render :action => "new" }
         format.js  #create.js.rjs
       end
-		else
-		  respond_to do |format|
-		    if @announcement.save
-		      flash[:notice] = 'Announcement was successfully created.'
-		      format.html { redirect_to(@announcement) }
-		      format.xml  { render :xml => @announcement, :status => :created, :location => @announcement }
-		    else
-		      format.html { render :action => "new" }
-		      format.xml  { render :xml => @announcement.errors, :status => :unprocessable_entity }
-		    end
-		  end
-		end
+    else
+      respond_to do |format|
+        format.html {
+        flash[:sticky] = 'Announcement was successfully created.'
+        redirect_to announcements_path
+        }
+        format.js  #create.js.rjs
+      end
+    end
   end
 
-  # PUT /announcements/1
-  # PUT /announcements/1.xml
   def update
     @announcement = Announcement.find(params[:id])
 
@@ -84,8 +65,6 @@ class AnnouncementsController < NoticesController
     end
   end
 
-  # DELETE /announcements/1
-  # DELETE /announcements/1.xml
   def destroy
     redirect_to :controller => 'notice', :action => 'destroy'
   end

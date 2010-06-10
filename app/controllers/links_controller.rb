@@ -43,7 +43,7 @@ class LinksController < NoticesController
 		@link.author = current_user
 		@link.url = params[:url]
     @link.content = params[:link_label]
-
+		#raise params.to_yaml
 		@link.content.gsub!("http://https://", "https://")
     @link.content.gsub!("http://http://", "http://")
     
@@ -57,22 +57,19 @@ class LinksController < NoticesController
         @link.save!
     	end
 		rescue Exception
-			respond_to do |format|
+      respond_to do |format|
         format.html { render :action => "new" }
         format.js  #create.js.rjs
       end
-		else
-		  respond_to do |format|
-		    if @link.save
-		      flash[:notice] = 'Link was successfully created.'
-		      format.html { redirect_to(@link) }
-		      format.xml  { render :xml => @link, :status => :created, :location => @link }
-		    else
-		      format.html { render :action => "new" }
-		      format.xml  { render :xml => @link.errors, :status => :unprocessable_entity }
-		    end
-		  end
-		end
+    else
+      respond_to do |format|
+        format.html {
+        flash[:notice] = 'Notice was successfully created.'
+        redirect_to notices_path
+        }
+        format.js  #create.js.rjs
+      end
+    end
   end
 
   # PUT /links/1

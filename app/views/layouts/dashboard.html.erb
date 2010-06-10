@@ -25,13 +25,13 @@
 		<li><%= link_to_post_a_link %></li>
 		<li><%= link_to_post_a_sticky %></li>
 		<li><%= link_to_post_an_announcement %></li>
-		<li><%= link_to_post_a_new_notice %></li>
-
-<!--
+		<li><%= link_to "View all notices", notices_path %></li>
+		<% unless current_department.get_links.empty? %>		
+		<h3>Useful Links</h3>
       <div id = "dashboard_useful_links">
         <%= render :partial => 'notices/dashboard_useful_links'%>
       </div>
--->
+		<% end %> 
   </ul>
         <div id="contentNav">
   <% end %>
