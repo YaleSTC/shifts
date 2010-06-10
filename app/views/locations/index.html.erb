@@ -10,6 +10,7 @@
         <th>Max Staff</th>
         <th>Priority</th>
         <th>Min Staff</th>
+				<th>Active</th>
       </tr>
     </thead>
     <tbody>
@@ -21,7 +22,8 @@
           <td><%= loc.max_staff %></td>
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
-          <td><%= link_to "Delete Location", loc, :confirm => 'Are you sure?', :method => :delete %></td>
+					<td><%= loc.active %></td>
+					<td><%= button_to 'Activate/Deactivate', :action => 'switch', :id => loc %></td>
         </tr>
       <% end -%>
     </tbody>

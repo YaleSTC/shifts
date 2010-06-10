@@ -52,7 +52,15 @@ class Location < ActiveRecord::Base
   def restrictions #TODO: this could probalby be optimized
     Restriction.current.select{|r| r.locations.include?(self)}
   end
-
+  
+  def switch_active
+    #self.active = !self.active
+    #self.save
+    a = self.active
+    b = !a
+    self.active = b
+    self.save
+  end
 
   def count_people_for(shift_list, min_block)
     people_count = {}
