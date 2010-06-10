@@ -1,5 +1,6 @@
 class PayformItemSetsController < ApplicationController
   layout "payforms"
+  helper 'payforms'
   
   before_filter :require_department_admin
   
