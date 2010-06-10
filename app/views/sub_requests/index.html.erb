@@ -1,24 +1,19 @@
 <% title "Sub Requests" %>
 
-<table>
+<% @limit = (params[:limit].blank? ? 25 : params[:limit].to_i) %>
+<table id="sub_requests">
   <tr>
-    <th>Start</th>
-    <th>End</th>
-    <th>Mandatory Start</th>
-    <th>Mandatory End</th>
-    <th>User Sources</th>
-	<th>Requestor</th>
+    <th>Date/Time</th>
+    <th>Location</th>
+	<th>Requestor</th
     <th>Reason</th>
   </tr>
-
-<% @sub_requests.each do |sub_request| %>
-  <tr>
-    <td><%=h sub_request.start.to_s(:long) %></td>
-    <td><%=h sub_request.end.to_s(:long) %></td>
-    <td><%=h sub_request.mandatory_start.to_s(:long) %></td>
-    <td><%=h sub_request.mandatory_end.to_s(:long) %></td>
-    <td><%= render :partial => 'list_user_sources'%></td>
-	<td><%=h sub_request.shift.user %>    <!--- Bay: make email address  -->
+<% SubRequest.find(:all, :order => "end DESC", :limit => @limit).each do |sub_request| %>
+  <tr id= "<%= sub_request.id %>" class="<%= (sub_request.end >= Time.now) ? "new_sub" : "old_sub" %>">
+    <td class="date"><%=h sub_request.start.to_s(:gg) %><br>
+		<%=h sub_request.start.to_s(:am_pm) %> - <%=h  sub_request.end.to_s(:am_pm) %></td>
+    <td class="location"><%=h sub_request.shift.location.name.to_s %></td>
+	<td class="requestor"><%= link_to sub_request.shift.user.name.to_s, user_path(sub_request.shift.user)%> 
     <td><%=h sub_request.reason %></td>
     <td><%= link_to 'Show', sub_request %></td>
     <td><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td>
@@ -26,6 +21,7 @@
   </tr>
 <% end %>
 </table>
+<%= link_to "view more", sub_requests_path(:anchor => "view_more", :limit => @limit+25), :id => "view_more" %>
 
 <br />
 

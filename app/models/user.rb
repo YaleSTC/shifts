@@ -190,10 +190,7 @@ class User < ActiveRecord::Base
   end
   
   def available_sub_requests(departments = self.departments)
-   availables = departments.collect do |department|
-      department.sub_requests.select { |subs| subs.potential_takers.include?(self)}
-    end
-    availables.flatten.collect
+    SubRequest.find_by_sql("SELECT * FROM sub_requests WHERE end >= '#{Time.now.to_s(:sql)}'").select { |sub| self.can_signup?(sub.loc_group) && (sub.users_with_permission.include?(self) || sub.users_with_permission.blank?)} 
   end
   
   def restrictions #TODO: this could probably be optimized
