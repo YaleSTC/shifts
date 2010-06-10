@@ -8,7 +8,6 @@
         <legend>URL</legend>
         <%= text_field_tag "url", {}, :style => 'width: 400px' %>
       </fieldset>
-      <%= hidden_field_tag 'type', 'link' %>
 	
 	<fieldset class = "index">
   <legend>Where:</legend>
@@ -35,5 +34,3 @@
     <%= f.submit 'Create' %>
   </p>
 <% end %>
-
-<%= link_to 'Back', links_path %>

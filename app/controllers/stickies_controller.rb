@@ -1,17 +1,9 @@
 class StickiesController < NoticesController
-  # GET /stickies
-  # GET /stickies.xml
-  def index
-    @stickies = Sticky.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @stickies }
-    end
+  def index
+		redirect_to(notices_path)
   end
 
-  # GET /stickies/1
-  # GET /stickies/1.xml
   def show
     @sticky = Sticky.find(params[:id])
 
@@ -21,21 +13,15 @@ class StickiesController < NoticesController
     end
   end
 
-  # GET /stickies/new
-  # GET /stickies/new.xml
   def new
     @sticky = Sticky.new
-
     layout_check
   end
 
-  # GET /stickies/1/edit
   def edit
     @sticky = Sticky.find(params[:id])
   end
 
-  # POST /stickies
-  # POST /stickies.xml
   def create
     @sticky = Sticky.new(params[:sticky])
 		@sticky.author = current_user
@@ -72,8 +58,6 @@ class StickiesController < NoticesController
     end
   end
 
-  # PUT /stickies/1
-  # PUT /stickies/1.xml
   def update
     @sticky = Sticky.find(params[:id])
 
@@ -89,8 +73,6 @@ class StickiesController < NoticesController
     end
   end
 
-  # DELETE /stickies/1
-  # DELETE /stickies/1.xml
   def destroy
 		redirect_to :controller => 'notice', :action => 'destroy'
 	end
