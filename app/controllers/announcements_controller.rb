@@ -24,6 +24,7 @@ class AnnouncementsController < NoticesController
 
   def create
     @announcement = Announcement.new(params[:announcement])
+		raise params.to_yaml
 		@announcement.author = current_user
 		@announcement.start_time = Time.now if params[:start_time_choice] == "now"
     @announcement.end_time = nil if params[:end_time_choice] == "indefinite"

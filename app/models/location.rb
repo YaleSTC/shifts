@@ -42,7 +42,7 @@ class Location < ActiveRecord::Base
   end
 
   def links
-    self.current_notices.select {|n| n.type == "Link"}
+    Link.active_without_end {|n| n.locations.include?(self)}
   end
 
   def restrictions #TODO: this could probalby be optimized
