@@ -20,9 +20,14 @@
 
     <fieldset id = "useful_links" class = "index">
       <legend>Useful Links</legend>
-      <div id = "report_useful_links">
-          <%= render :partial => 'notices/report_useful_links' %>
-      </div>
+			<ul id = "useful_links">
+      	<div id = "report_useful_links">
+        	<%= render :partial => 'notices/report_useful_links' %>
+      	</div>
+				<% if current_user.is_admin_of?(@report.shift.location.loc_group) %>
+    			<li><%= link_to_post_a_link %></li>
+				<% end %>
+			</ul>
     </fieldset>
 
   <div id="active_report_area">
