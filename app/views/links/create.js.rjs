@@ -1,5 +1,5 @@
 if @link.errors.empty? 
-	page.replace_html "report_useful_links", :partial => 'notices/report_useful_links' 
+	page.replace_html "report_useful_links", :partial => 'notices/report_useful_links'
 	page.replace_html "dashboard_useful_links", :partial => 'notices/dashboard_useful_links'
   page << "tb_remove();"
 else
