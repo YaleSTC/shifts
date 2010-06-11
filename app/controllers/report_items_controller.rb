@@ -39,7 +39,6 @@ class ReportItemsController < ApplicationController
         @report_items << report_item
       end
     end
-
   end
 
 #  def edit

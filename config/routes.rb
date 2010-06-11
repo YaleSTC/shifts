@@ -76,6 +76,9 @@ ActionController::Routing::Routes.draw do |map|
     report.resources :report_items
   end
 
+#TODO Fix report items routing, this is temporary
+
+
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
     data_type.resources :data_objects, :only => [:new, :create]

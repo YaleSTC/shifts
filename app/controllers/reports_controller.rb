@@ -72,7 +72,7 @@ class ReportsController < ApplicationController
       flash[:notice] = "Report not submitted.  You may not be the owner of this report."
       render :action => 'show'
     end
-  end
+end
 
 
 
@@ -84,5 +84,5 @@ class ReportsController < ApplicationController
    # flash[:notice] = "Successfully destroyed report."
     #redirect_to reports_url
 #  end
-#end
+end
 
