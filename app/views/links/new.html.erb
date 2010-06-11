@@ -1,13 +1,16 @@
 <% form_remote_for(@link) do |f| %>
-  <%= f.error_messages %>
+  <div id ="errors">
+    <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
+  </div>
 	<fieldset class = "index">
-        <legend>Link label</legend>
-        <%= text_field_tag "link_label" %>
-      </fieldset>
-      <fieldset class = "index">
-        <legend>URL</legend>
-        <%= text_field_tag "url", {}, :style => 'width: 400px' %>
-      </fieldset>
+		<legend>Link label</legend>
+		<%= f.text_area :content, :id=>"content", :size => "30x1" %>
+	</fieldset>
+      
+	<fieldset class = "index">
+		<legend>URL</legend>
+		<%= f.text_area :url, :id=>"url", :size => "30x1" %>
+	</fieldset>
 	
 	<fieldset class = "index">
   <legend>Where:</legend>
@@ -38,9 +41,3 @@
     <%= f.submit 'Create' %>
   </p>
 <% end %>
-<<<<<<< HEAD
-=======
-
-<%= link_to 'Back', links_path %>
-
->>>>>>> 42cbd2065bc32101de07b6d947d446b7727f4ec9

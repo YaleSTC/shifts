@@ -39,14 +39,8 @@ class LinksController < NoticesController
   # POST /links.xml
   def create
     @link = Link.new(params[:link])
-# raise params.to_yaml
-		@link.author = current_user
-		@link.url = params[:url]
-    @link.content = params[:link_label]
-		#raise params.to_yaml
-		@link.content.gsub!("http://https://", "https://")
-    @link.content.gsub!("http://http://", "http://")
-    
+		@link.author = current_user		
+		@link.url = "http://" << params[:link][:url] if @link.url[0,7] != "http://" || @link.url[0,8] != "https://"
 		@link.start_time = Time.now
     @link.end_time = nil
     @link.indefinite = true
@@ -64,8 +58,8 @@ class LinksController < NoticesController
     else
       respond_to do |format|
         format.html {
-        flash[:notice] = 'Notice was successfully created.'
-        redirect_to notices_path
+        flash[:notice] = 'Link was successfully created.'
+        redirect_to links_path
         }
         format.js  #create.js.rjs
       end
