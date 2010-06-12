@@ -8,24 +8,12 @@
     <th>Description</th>
   </tr>
   
-  <% for payform_item_set in @payform_item_sets %>
-    <% if payform_item_set.active %>
-      <tr>
-        <tr<%= " class='disabled'" if payform_item_set.active == false %>>
-        <td><%=h payform_item_set.date %></td>
-        <td><%=h payform_item_set.hours %></td>
-        <td><%=h payform_item_set.category.name %></td>
-        <td><%=h payform_item_set.description %></td>
-        <td><%= link_to "Show", payform_item_set %></td>
-        <% if payform_item_set.active != false %>
-          <td><%= link_to "Edit", edit_payform_item_set_path(payform_item_set) %></td>
-          <td><%= link_to "Destroy", payform_item_set, :confirm => 'Are you sure?', :method => :delete %></td>
-        <% else %>
-          <td colspan = 2>Deleted</td>
-        <% end %>
-      </tr>
-    <% end %>
-  <% end %>
+  <%= render :partial => "payform_item_set", :collection => @active_sets %>
+  
+</table>
+Expired sets:
+<table>
+  <%= render :partial => "payform_item_set", :collection => @expired_sets %>
 </table>
 
 <p><%= link_to "Add a Group Job", new_payform_item_set_path %></p>

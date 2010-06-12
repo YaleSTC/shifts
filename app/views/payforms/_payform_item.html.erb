@@ -1,11 +1,11 @@
-<%= render :partial => "payform_item", :object => payform_item.parent, :locals => {:type => 'edit_item' } if payform_item.parent %>
+
 
 <% type = 'deleted_item' if !payform_item.active && type != 'edit_item' %>
 <% if payform_item.active || current_user.is_admin_of?(current_department) %>
 <tr class="<%= type %>">
   <td class="date">
-    <%= "➘" if payform_item.parent %>
-    <%=h payform_item.date.strftime('%b %d') %>
+    <%= "&uarr;" unless payform_item.children.empty? %>
+    <%= payform_item.date.strftime('%b&nbsp;%d') %>
   </td>
   <td class="description">
     <% if payform_item.source_url -%>
@@ -18,7 +18,7 @@
     <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
   </td>
   <td class="rightside" id="hours" >
-    <%= payform_item.hours %>
+    <%= number_with_precision(payform_item.hours, :precision => 2) %>
   </td>
   <td class="rightside" id="edit">
     <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
@@ -32,4 +32,4 @@
   </td>
 </tr>
 <% end %>
-
+<%= render :partial => "payform_item", :object => payform_item.parent, :locals => {:type => 'edit_item' } if payform_item.parent %>
