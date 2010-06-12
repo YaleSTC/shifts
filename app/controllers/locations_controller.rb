@@ -44,16 +44,23 @@ class LocationsController < ApplicationController
     end
   end
 
-  def switch
-    raise params.to_yaml
+  def toggle
+    #raise params.to_yaml
     @location = Location.find(params[:id])
-    @shifts = Shift.in_location(@location).active
-    @location.switch_active
+    @shifts = Shift.in_location(@location).select{|s| s.start > Time.now}
+    #Should we wrap all this into a transaction as is done in Calendar?
+    @location.toggle_active
     @shifts.each do |shift|
-      shift.active = false
+      if shift.active
+        shift.active = false
+      elsif shift.user.is_active?(current_department) && shift.calendar.active
+        shift.active = true
+      else 
+        shift.active = false
+      end
       shift.save
     end
-    flash[:notice] = @location.name.to_s
+    flash[:notice] = "Changed activation status of " + @location.name.to_s + "."
     redirect_to department_locations_path(current_department)
   end
 
