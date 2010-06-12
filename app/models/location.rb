@@ -53,12 +53,8 @@ class Location < ActiveRecord::Base
     Restriction.current.select{|r| r.locations.include?(self)}
   end
   
-  def switch_active
-    #self.active = !self.active
-    #self.save
-    a = self.active
-    b = !a
-    self.active = b
+  def toggle_active
+    self.active = !self.active
     self.save
   end
 

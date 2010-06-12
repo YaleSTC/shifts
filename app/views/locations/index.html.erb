@@ -23,7 +23,7 @@
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
 					<td><%= loc.active %></td>
-					<td><%= button_to 'Activate/Deactivate', :action => 'switch', :id => loc %></td>
+					<td><%= button_to 'Activate/Deactivate', :action => 'toggle', :id => loc %></td>
         </tr>
       <% end -%>
     </tbody>
