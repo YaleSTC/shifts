@@ -9,7 +9,8 @@ class SubRequest < ActiveRecord::Base
   validate :start_less_than_end
   validate :not_in_the_past
   validate :user_does_not_have_concurrent_sub_request
-  after_create :user_sources_have_permission 
+  validate :user_sources_are_users
+  validate :user_sources_have_permission 
   
   before_destroy :destroy_user_sinks_user_sources
   #
@@ -80,7 +81,7 @@ class SubRequest < ActiveRecord::Base
   def add_errors(e)
     e = e.gsub("Validation failed: ", "")
     e.split(", ").each do |error|
-      errors.add_to_base(error)
+      errors.add_to_base(error.gsub(",,", ", "))
     end
   end
 
@@ -120,10 +121,18 @@ class SubRequest < ActiveRecord::Base
     UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
   end
   
-  def user_sources_have_permission 
-     c = self.user_sources.select { |user| !user.can_signup?(self.loc_group)}
+  def user_sources_are_users
+     c = self.user_sources.select { |s| s.class.to_s != "User"}
     unless c.blank? 
-      errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
+      msg = c.collect(&:class).uniq
+      errors.add_to_base("Cannot add by source type#{msg.length>1 ? 's' : ''}: #{msg.join(",,")}")
+    end
+  end
+  
+  def user_sources_have_permission 
+     c = self.user_sources.select { |user| user.class.to_s == "User" && !user.can_signup?(self.loc_group) }
+    unless c.blank? 
+      errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ",,"}") 
     end
   end
 end
