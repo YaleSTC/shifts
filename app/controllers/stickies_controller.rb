@@ -5,21 +5,12 @@ class StickiesController < NoticesController
   end
 
   def show
-    @sticky = Sticky.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @sticky }
-    end
+     redirect_to(notices_path)
   end
 
   def new
     @sticky = Sticky.new
     layout_check
-  end
-
-  def edit
-    @sticky = Sticky.find(params[:id])
   end
 
   def create
@@ -54,21 +45,6 @@ class StickiesController < NoticesController
         redirect_to stickies_path
         }
         format.js  #create.js.rjs
-      end
-    end
-  end
-
-  def update
-    @sticky = Sticky.find(params[:id])
-
-    respond_to do |format|
-      if @sticky.update_attributes(params[:sticky])
-        flash[:notice] = 'Sticky was successfully updated.'
-        format.html { redirect_to(@sticky) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @sticky.errors, :status => :unprocessable_entity }
       end
     end
   end

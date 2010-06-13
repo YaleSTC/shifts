@@ -4,8 +4,7 @@ class Notice < ActiveRecord::Base
   belongs_to :remover, :class_name => "User"
   belongs_to :department
 
-  validate :presence_of_locations_and_viewers, :proper_time
-	validates_presence_of :content
+  validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
   
   before_destroy :destroy_user_sinks_user_sources
 
@@ -71,7 +70,7 @@ class Notice < ActiveRecord::Base
   #Validations
   def presence_of_locations_and_viewers
     if self.location_sources.empty? && self.user_sources.empty?
-			errors.add_to_base "Your #{self.class.name.downcase} must display somewhere."
+			errors.add_to_base "Your #{self.class.name.downcase} must display somewhere"
   	end
 	end
 
@@ -82,5 +81,15 @@ class Notice < ActiveRecord::Base
   def destroy_user_sinks_user_sources
     UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"Notice".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
   end
+
+	def content_or_label
+		if self.content.empty?
+			if self.type == "Link"
+				errors.add_to_base "Your link must have a label"
+			else
+				errors.add_to_base "Your #{self.type.downcase} must have content"
+			end
+		end
+	end
 end
 
