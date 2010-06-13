@@ -683,16 +683,17 @@ ul.activeShifts {
 
 /* Sub Request Table Index
 ======================================================================= */	
-table#sub_requests tr td {vertical-align:middle; text-align:left; padding:4px;}
-table#sub_requests tr td ul {
+table#requests_table {width:100%; margin-bottom:5px;}
+table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; width:100%; white-space: nowrap;}
+table#requests_table tr td ul {
 	 list-style-type: none;
    float: left;
    text-align: left;
    list-style-position: outside;
 	 margin-left:0px;
 }
-td.date {white-space: nowrap; overflow: hidden; line-height:120%;}
-td.requestor {white-space: nowrap; overflow: hidden;}
-td.location {text-align:center;}
-a#view_more {float:right; padding:3px;}
-tr.new_sub {background-color:#A9D0F5;}
+td.sub_reason {white-space:auto;}
+td.sub_date .sub_time_mandatory {color:#8A0808;}
+td.sub_location {text-align:center;}
+td.sub_invalid {color:#6E6E6E;}
+a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}
