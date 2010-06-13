@@ -1,12 +1,4 @@
-<h1>Editing announcement</h1>
+<div id="form">
+  <%= render :partial => 'form' %>
+</div>
 
-<% form_for(@announcement) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @announcement %> |
-<%= link_to 'Back', announcements_path %>
