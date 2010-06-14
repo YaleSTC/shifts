@@ -525,7 +525,7 @@ span#progress_bar #other_step {
 }
 
 /* = Tables
-======================================================================= */
+======================================================================= */	
 table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
@@ -680,3 +680,20 @@ img.mini_icon {
 ul.activeShifts {
 	list-style-type: none;
 }
+
+/* Sub Request Table Index
+======================================================================= */	
+table#requests_table {width:100%; margin-bottom:5px;}
+table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; width:100%; white-space: nowrap;}
+table#requests_table tr td ul {
+	 list-style-type: none;
+   float: left;
+   text-align: left;
+   list-style-position: outside;
+	 margin-left:0px;
+}
+td.sub_reason {white-space:auto;}
+td.sub_date .sub_time_mandatory {color:#8A0808;}
+td.sub_location {text-align:center;}
+td.sub_invalid {color:#6E6E6E;}
+a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}

@@ -26,59 +26,54 @@ class SubRequestsController < ApplicationController
     @sub_request.shift = Shift.find(params[:shift_id])
     @sub_request.user = @sub_request.shift.user
     begin
-      SubRequest.transaction do
-        @sub_request.save(false)
-       if params[:list_of_logins].empty?
-         @sub_request.user_sources << current_department
-       else
-          params[:list_of_logins].split(",").each do |l|
-            l = l.split("||")
-            @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
-            @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
-          end
-       end
+      SubRequest.transaction do  
+          @sub_request.save(false)
+          if !params[:list_of_logins].empty? 
+             params[:list_of_logins].split(",").each do |l|
+                l = l.split("||")
+                @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+                @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
+             end
+           end
         @sub_request.save!
       end
     rescue Exception => e
       @sub_request = @sub_request.clone
       @sub_request.add_errors(e.message)
       render :action => "new"
-      #redirect_to :action => :new, :id => @sub_request.shift
     else
       flash[:notice] = 'Sub request was successfully created.'
-      @sub_request.potential_takers.each do |user|
+    #  @sub_request.potential_takers.each do |user|
         # "if user.email" because email is not a compulsory field in user
-        ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
-      end
+     #   ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
+     # end
       redirect_to :action => "show", :id => @sub_request
     end
-
-
-#    if @sub_request.save
-#      flash[:notice] = 'Sub request was successfully created.'
-#      redirect_to @sub_request
-#    else
-#      render :action => "new"
-#    end
   end
 
   def update
     @sub_request = SubRequest.find(params[:id])
-    #TODO This should probably be in a transaction, so that
-    #if the update fails all sub sources don't get deleted...
     return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
-    UserSinksUserSource.delete_all("user_sink_type= 'SubRequest' AND user_sink_id = #{@sub_request.id.to_sql}")
-    params[:list_of_logins].split(",").each do |l|
-      l = l.split("||")
-      @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
-      @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
-    end
-    if @sub_request.update_attributes(params[:sub_request])
-      flash[:notice] = 'SubRequest was successfully updated.'
-      redirect_to @sub_request
-    else
-      render :action => "edit"
-    end
+    begin
+      SubRequest.transaction do
+          UserSinksUserSource.delete_all("user_sink_type= 'SubRequest' AND user_sink_id = #{@sub_request.id.to_sql}")
+                if !params[:list_of_logins].empty? 
+                   params[:list_of_logins].split(",").each do |l|
+                      l = l.split("||")
+                      @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+                      @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
+                   end
+                 end
+              @sub_request.save!
+            end
+          rescue Exception => e
+            @sub_request = @sub_request.clone
+            @sub_request.add_errors(e.message)
+        render :action => "edit", :id => @sub_request
+      else
+        flash[:notice] = 'SubRequest was successfully updated.'
+        redirect_to :action => "show", :id => @sub_request       
+      end
   end
 
   def destroy
