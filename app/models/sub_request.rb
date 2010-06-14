@@ -1,6 +1,7 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
   belongs_to :user
+  has_many :users
   
   validates_presence_of :reason
   validates_presence_of :shift
@@ -9,10 +10,11 @@ class SubRequest < ActiveRecord::Base
   validate :start_less_than_end
   validate :not_in_the_past
   validate :user_does_not_have_concurrent_sub_request
-  validate :user_sources_are_users
-  validate :user_sources_have_permission 
+  #validate :user_sources_are_users
+  #validate :user_sources_have_permission 
+  #TODO: Non-polymorphic validations the replace the above two
   
-  before_destroy :destroy_user_sinks_user_sources
+  #before_destroy :destroy_user_sinks_user_sources
   #
   # Class methods
   #
@@ -117,23 +119,24 @@ class SubRequest < ActiveRecord::Base
     end
   end
 
-  def destroy_user_sinks_user_sources
-    UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
-  end
+  #def destroy_user_sinks_user_sources
+  #  UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
+  #end
   
-  def user_sources_are_users
-     c = self.user_sources.select { |s| s.class.to_s != "User"}
-    unless c.blank? 
-      msg = c.collect(&:class).uniq
-      errors.add_to_base("Cannot add by source type#{msg.length>1 ? 's' : ''}: #{msg.join(",,")}")
-    end
-  end
+  #  def user_sources_are_users
+  #     c = self.user_sources.select { |s| s.class.to_s != "User"}
+  #    unless c.blank? 
+  #      msg = c.collect(&:class).uniq
+  #      errors.add_to_base("Cannot add by source type#{msg.length>1 ? 's' : ''}: #{msg.join(",,")}")
+  #    end
+  #  end
+  #  
+  #  def user_sources_have_permission 
+  #     c = self.user_sources.select { |user| user.class.to_s == "User" && !user.can_signup?(self.loc_group) }
+  #    unless c.blank? 
+  #      errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ",,"}") 
+  #    end
+  #  end
   
-  def user_sources_have_permission 
-     c = self.user_sources.select { |user| user.class.to_s == "User" && !user.can_signup?(self.loc_group) }
-    unless c.blank? 
-      errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ",,"}") 
-    end
-  end
 end
 
