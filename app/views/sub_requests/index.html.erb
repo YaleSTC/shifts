@@ -1,7 +1,7 @@
 <% title "Sub Requests" %>
 
 <% @limit = (params[:limit].blank? ? 25 : params[:limit].to_i) %>
-<% @subs = SubRequest.find(:all, :conditions =>[ "end >= ?", Time.now]).select { |sub| current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user} %>
+<% @subs = @sub_requests.select {|sub| sub.end >= Time.now && (current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user)} %>
 <% @limit = (@limit>@subs.count) ? @subs.count : @limit%>
 <table id="requests_table">
   <tr>
@@ -23,7 +23,7 @@
 	
 	<td class="sub_location"><%=h sub_request.shift.location.name.to_s %></td>
 	<td class="sub_requestor"><%= link_to sub_request.shift.user.name.to_s, user_path(sub_request.shift.user)%></td>
-	<td class="sub_reason"><%=h sub_request.reason %></td>
+	<td class="sub_reason"><div class="sub_reason_container"><%=h truncate(sub_request.reason.gsub(/\r\n/, "    "), 215, "...") %></div></td>
 	<td class="sub_show_link"><%= link_to 'Show', sub_request %></td>
 	
 	<% if current_user.can_take_sub?(sub_request) %>

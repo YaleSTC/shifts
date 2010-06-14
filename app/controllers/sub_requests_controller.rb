@@ -8,6 +8,7 @@ class SubRequestsController < ApplicationController
 
   def show
     @sub_request = SubRequest.find(params[:id])
+    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
   end
 
   def new
@@ -57,18 +58,19 @@ class SubRequestsController < ApplicationController
     begin
       SubRequest.transaction do
           UserSinksUserSource.delete_all("user_sink_type= 'SubRequest' AND user_sink_id = #{@sub_request.id.to_sql}")
-                if !params[:list_of_logins].empty? 
-                   params[:list_of_logins].split(",").each do |l|
-                      l = l.split("||")
-                      @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
-                      @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
-                   end
-                 end
-              @sub_request.save!
+          if !params[:list_of_logins].empty? 
+            params[:list_of_logins].split(",").each do |l|
+              l = l.split("||")
+              @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
+              @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
             end
-          rescue Exception => e
-            @sub_request = @sub_request.clone
-            @sub_request.add_errors(e.message)
+          end
+          @sub_request.update_attributes(params[:sub_request])
+          @sub_request.save!
+        end
+      rescue Exception => e
+        @sub_request = @sub_request.clone
+        @sub_request.add_errors(e.message)
         render :action => "edit", :id => @sub_request
       else
         flash[:notice] = 'SubRequest was successfully updated.'
@@ -82,15 +84,19 @@ class SubRequestsController < ApplicationController
     @sub_request.destroy
     UserSinksUserSource.delete_all("user_sink_type = 'SubRequest' AND user_sink_id = #{params[:id].to_sql}")
     flash[:notice] = "Successfully destroyed sub request."
-    redirect_to dashboard_url
+    redirect_to sub_requests
   end
 
   def get_take_info
     begin
       @sub_request = SubRequest.find(params[:id])
+      if !@sub_request.user_is_eligible?(current_user)
+         flash.now[:error] = "Access Denied.  You do not have permission to take that sub_request."
+       end
     rescue
       flash.now[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner!"
     end
+
   end
 
   def take
