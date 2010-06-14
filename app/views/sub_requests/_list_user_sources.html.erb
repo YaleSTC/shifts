@@ -1,0 +1,20 @@
+<ul>
+<% @sub_request ||= list_user_sources %>
+<% if @sub_request.users_with_permission.blank? %>
+	<% @sub_request.roles_with_permission.each do |role| %>
+		<li>
+			<% if current_user.is_admin_of?(@sub_request.shift.department) || current_user.is_superuser? %>
+			<%= link_to role.name.to_s + "'s", role_path(role) %>
+			<% else %>
+			<%= role.name.to_s + "'s" %>
+			<% end %>
+		</li>
+	<% end %>
+<% else %>
+	<% @sub_request.users_with_permission.collect.each do |user| %>
+		<li>
+			<%= link_to user.name.to_s, user_path(user) %>
+		</li>
+	<% end %>
+<% end %>
+</ul>

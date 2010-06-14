@@ -1,29 +1,51 @@
 <% title "Sub Requests" %>
 
-<table>
+<% @limit = (params[:limit].blank? ? 25 : params[:limit].to_i) %>
+<% @subs = SubRequest.find(:all, :conditions =>[ "end >= ?", Time.now]).select { |sub| current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user} %>
+<% @limit = (@limit>@subs.count) ? @subs.count : @limit%>
+<table id="requests_table">
   <tr>
-    <th>Start</th>
-    <th>End</th>
-    <th>Mandatory Start</th>
-    <th>Mandatory End</th>
-    <th>Potential takers</th>
+    <th>Date/Time</th>
+    <th>Location</th>
+	<th>Requestor</th
     <th>Reason</th>
   </tr>
 
-<% @sub_requests.each do |sub_request| %>
+<% @subs.first(@limit).each do |sub_request| %>
   <tr>
-    <td><%=h sub_request.start.to_s(:long) %></td>
-    <td><%=h sub_request.end.to_s(:long) %></td>
-    <td><%=h sub_request.mandatory_start.to_s(:long) %></td>
-    <td><%=h sub_request.mandatory_end.to_s(:long) %></td>
-    <td><%=h sub_request.users.collect(&:email) * ", " %></td>
-    <td><%=h sub_request.reason %></td>
-    <td><%= link_to 'Show', sub_request %></td>
-    <td><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td>
-    <td><%= link_to 'Destroy', sub_request, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="sub_date">
+		<%=h sub_request.start.to_s(:gg) %><br>
+		<%=h sub_request.start.to_s(:am_pm) %> - <%=h  sub_request.end.to_s(:am_pm) %><br>
+		<% if !(sub_request.start==sub_request.mandatory_start && sub_request.end==sub_request.mandatory_end) %>
+			<span class="sub_time_mandatory">(<%=h sub_request.mandatory_start.to_s(:twelve_hour) %> - <%=h  sub_request.mandatory_end.to_s(:twelve_hour) %>)</span>
+		<% end %>
+	</td>
+	
+	<td class="sub_location"><%=h sub_request.shift.location.name.to_s %></td>
+	<td class="sub_requestor"><%= link_to sub_request.shift.user.name.to_s, user_path(sub_request.shift.user)%></td>
+	<td class="sub_reason"><%=h sub_request.reason %></td>
+	<td class="sub_show_link"><%= link_to 'Show', sub_request %></td>
+	
+	<% if current_user.can_take_sub?(sub_request) %>
+		<td class="sub_take_link"><%= link_to 'Take', get_take_info_sub_request_path(sub_request) %></td>
+	<% else %>
+		<td class="sub_invalid">Take</td>
+	<% end %>
+	
+	<% if current_user.is_admin_of?(sub_request.shift.department) or current_user == sub_request.user %>
+    	<td class="sub_edit_link"><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td> 
+    	<td class="sub_destroy_link"><%= link_to 'Destroy', sub_request, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% else %> 
+		<td class="sub_invalid">Edit</td>
+		<td class="sub_invalid">Destroy</td>
+	<% end %>
+		
   </tr>
 <% end %>
 </table>
 
-<br />
+<% if @limit < @subs.count %>
+	<%= link_to "view more", sub_requests_path(:anchor => "view_more", :limit => @limit+25), :id => "view_more" %>
+	<%= link_to "view all", sub_requests_path(:anchor => "view_all", :limit => @max), :id => "view_all" %>
+<% end %>
 
