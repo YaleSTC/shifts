@@ -105,11 +105,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :permissions, :only => :index
   map.resources :stats, :only => :index
 
+  map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
