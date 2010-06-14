@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 #TODO Fix report items routing, this is temporary
-
+  map.resources :report_items, :except => [:new, :update, :create, :destroy], :member => {:for_location => :get}
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
@@ -105,7 +105,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :permissions, :only => :index
   map.resources :stats, :only => :index
 
-  map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
+  #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
