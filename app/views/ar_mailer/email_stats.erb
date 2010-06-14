@@ -1,42 +1,31 @@
-Hi Erin,
-
+Hello,
 
 
 This is a report of shift statistics for: <%= (Time.now - 86400).strftime('%m/%d/%y') %>.
 
 The following users have missed a shift in the past 24 hours:
-<ul>
-<% for shift in @missed_shifts %>
-<li>
-<%= shift.user.name %>, <%= shift.location.name%>, <%=shift.start.to_s(:am_pm)%> - <%= shift.end.to_s(:am_pm)%>
-</li>
-<% end %>
-</ul>
+	<% for shift in @missed_shifts %>
+	<%= shift.stats_display -%>
+	<% end %>
+	
 Total Shifts missed: <%= "#{@missed_shifts.size}" %> 
-
 ---
+
 The following users have been late to a shift in the past 24 hours:
-<ul>
-<% for shift in @late_shifts %>
-<li>
-<%= shift.user.name %>, <%= shift.location.name%>, <%=shift.start.to_s(:am_pm)%> - <%= shift.end.to_s(:am_pm)%>
-</li>
-<% end %>
-</ul>
+	<% for shift in @late_shifts %>
+	<%= shift.stats_display -%>
+	<% end %>
+	
 Total shifts signed into late: <%= "#{@late_shifts.size}" %>  
-
 ---
-The following users have left a shift early in the past 24 hours:
-<ul>
-<% for shift in @left_early_shifts %>
-<li>
-<%= shift.user.name %>, <%= shift.location.name%>, <%=shift.start.to_s(:am_pm)%> - <%= shift.end.to_s(:am_pm)%>
-</li>
-<% end %>
-</ul>
-Total shifts signed out of early: <%= "#{@left_early_shifts.size}" %> 
 
+The following users have left a shift early in the past 24 hours:
+	<% for shift in @left_early_shifts %>
+	<%= shift.stats_display -%>
+	<% end %>
+	
+Total shifts signed out of early: <%= "#{@left_early_shifts.size}" %> 
+---
 
 
 Have a great day!
-
