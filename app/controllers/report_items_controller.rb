@@ -33,11 +33,16 @@ class ReportItemsController < ApplicationController
 
   def for_location
     @location = Location.find(params[:id]) 
+    @report
     @report_items = []
-    for report in @location.reports
-      for report_item in report.report_items
-        @report_items << report_item
-      end
+    
+    for shift in @location.shifts 
+
+#shifts.reports isn't going to work b/c. location.shifts.report b/c .report works on one shift. location.shifts is an array 
+    
+        if shift.report
+          @report_items << shift.report.report_items
+        end
     end
   end
 
