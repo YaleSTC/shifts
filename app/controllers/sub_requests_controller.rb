@@ -23,17 +23,20 @@ class SubRequestsController < ApplicationController
   end
 
   def create
+    begin
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
-    @sub_request.user = @sub_request.shift.user
-    begin
       SubRequest.transaction do  
           @sub_request.save(false)
           if !params[:list_of_logins].empty? 
              params[:list_of_logins].split(",").each do |l|
                 l = l.split("||")
-                @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
-                @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
+                if l.length == 2
+                  for user in l[0].constantize.find(l[1]).users 
+                    @sub_request.requested_users << user
+                  end
+                end
+                @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
              end
            end
         @sub_request.save!
@@ -57,14 +60,18 @@ class SubRequestsController < ApplicationController
     return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
     begin
       SubRequest.transaction do
-          UserSinksUserSource.delete_all("user_sink_type= 'SubRequest' AND user_sink_id = #{@sub_request.id.to_sql}")
+          @sub_request.requested_users = []
           if !params[:list_of_logins].empty? 
-            params[:list_of_logins].split(",").each do |l|
-              l = l.split("||")
-              @sub_request.user_sources << l[0].constantize.find(l[1]) if l.length == 2
-              @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
-            end
-          end
+             params[:list_of_logins].split(",").each do |l|
+                l = l.split("||")
+                if l.length == 2
+                  for user in l[0].constantize.find(l[1]).users 
+                    @sub_request.requested_users << user
+                  end
+                end
+                @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
+             end
+           end
           @sub_request.update_attributes(params[:sub_request])
           @sub_request.save!
         end
