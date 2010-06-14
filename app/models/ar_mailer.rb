@@ -70,7 +70,7 @@ class ArMailer < ActionMailer::ARMailer
   #EMAILING STATS
   #email notifies admin that a shift has been missed, was signed into late, or was left early
   def email_stats (missed_shifts, late_shifts, left_early_shifts, dept)
-    subject      'Shift Statistics for :' + (Time.now - 86400).strftime('%m/%d/%y') #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
+    subject      "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y') #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
     recipients   'ms.altyeva@gmail.com'   #"#{dept.department_config.stats_email_address}"  
     from         "#{dept.department_config.mailer_address}"
     sent_on      Time.now
