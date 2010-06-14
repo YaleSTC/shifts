@@ -43,27 +43,20 @@ class LocationsController < ApplicationController
       render :action => 'edit'
     end
   end
-
+  
   def toggle
-    #raise params.to_yaml
     @location = Location.find(params[:id])
-    @shifts = Shift.in_location(@location).select{|s| s.start > Time.now}
-    #Should we wrap all this into a transaction as is done in Calendar?
-    @location.toggle_active
-    @shifts.each do |shift|
-      if shift.active
-        shift.active = false
-      elsif shift.user.is_active?(current_department) && shift.calendar.active
-        shift.active = true
-      else 
-        shift.active = false
+    ActiveRecord::Base.transaction do
+      if @location.active
+        @location.deactivate
+      else
+        @location.activate
       end
-      shift.save
     end
     flash[:notice] = "Changed activation status of " + @location.name.to_s + "."
-    redirect_to department_locations_path(current_department)
+    redirect_to :action => "index"
   end
-
+    
   def destroy
      @location = Location.find(params[:id])
      redirect_to access_denied_path unless @locations.include?(@location)
