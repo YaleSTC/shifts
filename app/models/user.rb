@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   end
   
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :subs_requested, :class_name => 'SubRequest'
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -16,7 +17,8 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
-  has_many :sub_requests
+  has_many :sub_requests, :through => :shifts #the sub reqeusts this user owns
+
 
 # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
