@@ -1,7 +1,7 @@
 <% title "Sub Requests" %>
 
 <% @limit = (params[:limit].blank? ? 25 : params[:limit].to_i) %>
-<% @subs = SubRequest.find(:all, :conditions =>[ "end >= ?", Time.now]).select { |sub| current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == self} %>
+<% @subs = SubRequest.find(:all, :conditions =>[ "end >= ?", Time.now]).select { |sub| current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user} %>
 <% @limit = (@limit>@subs.count) ? @subs.count : @limit%>
 <table id="requests_table">
   <tr>
