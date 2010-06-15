@@ -35,28 +35,14 @@
 
 <p>
   <b>Who can take this sub request: </b>
-  <% if @sub_request.user_sources.empty? %>
-    <p>Any one who can work shifts in <%= @sub_request.loc_group.name %></p>
-  <% else -%>
-    <ul>
-    <% @sub_request.user_sinks_user_sources.each do |substitute| %>
-      <% if substitute.user_source_type == "Department" %>
-        <li>Users in the department: <%= Department.find(substitute.user_source_id).name.to_s %></li>
-      <% elsif substitute.user_source_type == "Role" %>
-        <li>Users who have the role: <%= Role.find(substitute.user_source_id).name.to_s %></li>
-      <% elsif substitute.user_source_type == "User" %>
-        <li><%= User.find(substitute.user_source_id).name.to_s %></li>
-      <%end%>
-    <%end%>
-    </ul>
-  <% end %>
+	<%= render :partial => 'list_user_sources' %>
 </p>
 
 <p>
   <b>Reason:</b>
   <%=h @sub_request.reason %>
-
 </p>
+
 <% if @sub_request.user_is_eligible?(current_user) && @sub_request.user != current_user %>
   <%= link_to 'Take', get_take_info_sub_request_path(@sub_request) %> |
 <% end %>
