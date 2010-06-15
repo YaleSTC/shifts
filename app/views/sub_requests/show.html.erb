@@ -14,6 +14,11 @@
 	<%=h @sub_request.shift.location.name %>
 </p>
 
+<h3>Requestor:</h3>
+<p class="sub_show">
+	<%=h @sub_request.shift.user.name %>
+</p>
+
 <h3>Who can take this sub request:</h3>
 	<%= render :partial => 'list_user_sources' %>
 	<br>
