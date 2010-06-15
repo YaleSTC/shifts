@@ -28,8 +28,12 @@ class LocGroup < ActiveRecord::Base
     self.locations.map{|loc| loc.data_objects}.flatten.compact
   end
 
-  def can_signup_users
+  def users
     department.users.select { |u| u.can_signup?(self) }
+  end
+  
+  def roles
+      department.roles.select { |u| u.permissions.include?(signup_permission) }
   end
   
   private

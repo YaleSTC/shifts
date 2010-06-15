@@ -475,7 +475,13 @@ class Shift < ActiveRecord::Base
   end
 
   def set_active
-    self.active = self.calendar.active
+    #self.active = self.calendar.active
+    #return true
+    if self.calendar.active && self.location.active
+      self.active = true
+    else
+      self.active = false
+    end
     return true
   end
 
