@@ -45,6 +45,10 @@ class Department < ActiveRecord::Base
     self
   end
 
+  def sub_requests
+    SubRequest.find(:all)
+  end
+  
 #  has_and_belongs_to_many :users
   private
   def create_permissions
