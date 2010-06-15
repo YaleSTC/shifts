@@ -1,9 +1,7 @@
 class LinksController < NoticesController
 
   def index
-    redirect_to(notices_path)
   end
-
 
   def new
     @link = Link.new

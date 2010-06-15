@@ -42,7 +42,7 @@ class Location < ActiveRecord::Base
   end
 
   def links
-    Link.active_without_end {|n| n.locations.include?(self)}
+    Link.active_without_end.select {|n| n.locations.include?(self)}
   end
 
   def restrictions #TODO: this could probalby be optimized
