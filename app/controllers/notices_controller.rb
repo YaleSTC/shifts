@@ -148,6 +148,11 @@ class NoticesController < ApplicationController
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
       notice.departments << current_department
     end
+		if params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group|
+        @notice.loc_groups << loc_group
+      end
+    end
     if params[:for_locations]
       params[:for_locations].each do |loc|
         notice.locations << Location.find_by_id(loc)

@@ -11,13 +11,14 @@ module ApplicationHelper
     link_to_unless_current('Post a new link', new_link_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
   end
 
-	def link_to_post_a_sticky
-    link_to_unless_current('Post a new sticky', new_sticky_path(:height => "330", :width => 515, :type => "Sticky"), :title => "Post a new sticky", :class => "thickbox", :id => "post_link" )
+	def link_to_post_a_sticky(on_report_page = false)
+		on_report_page == true ? height = 240 : height = 330
+    link_to_unless_current('Post a new sticky', new_sticky_path(:height => "#{height}", :width => 515, :type => "Sticky"), :title => "Post a new sticky", :class => "thickbox", :id => "post_link" )
   end
 
 	def link_to_post_an_announcement
 		if current_user.is_admin_of?(current_department)
-			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 540, :width => 515), :title => "Post a new announcement", :class => "thickbox", :id => "announcement_link")
+			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 535, :width => 515), :title => "Post a new announcement", :class => "thickbox", :id => "announcement_link")
 		end
 	end
 

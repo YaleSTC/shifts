@@ -48,7 +48,7 @@ class AnnouncementsController < NoticesController
 
   def update
     @announcement = Announcement.find(params[:id])
-		@announcement.update_attributes(params[:notice])
+		@announcement.update_attributes(params[:announcement])
     begin
       Announcement.transaction do
         @announcement.save(false)

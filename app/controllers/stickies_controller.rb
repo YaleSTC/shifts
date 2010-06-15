@@ -10,6 +10,7 @@ class StickiesController < NoticesController
 
   def new
     @sticky = Sticky.new
+		@current_shift_location = current_user.current_shift.location if current_user.current_shift
     layout_check
   end
 

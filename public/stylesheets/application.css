@@ -440,11 +440,7 @@ legend {
   padding: 0.2em 1em;
 }
 
-/* = used by notices */
-textarea#content {
-    width: 95%;
-    height:90%;
-}
+
 
 
 /* = Error explanation styles
