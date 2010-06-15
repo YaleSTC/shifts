@@ -16,7 +16,7 @@ class ArMailer < ActionMailer::ARMailer
   def due_payform_reminder(user, message, dept)
     subject     'Due Payform Reminder'
     recipients  "#{user.name} <#{user.email}>"
-    from        "#{dept.department_config.mailer_address}"
+    from        dept.department_config.mailer_address
     #reply_to    "#{admin_user.name} <#{admin_user.email}>"
     sent_on     Time.now
     body        :user => user, :message => message
@@ -25,7 +25,7 @@ class ArMailer < ActionMailer::ARMailer
   def late_payform_warning(user, message, dept)
     subject     'Late Payforms Warning'
     recipients  "#{user.name} <#{user.email}>"
-    from        "#{dept.department_config.mailer_address}"
+    from        dept.department_config.mailer_address
     #reply_to    "#{admin_user.name} <#{admin_user.email}>"
     sent_on     Time.now
     body        :user => user, :message => message
@@ -33,7 +33,7 @@ class ArMailer < ActionMailer::ARMailer
 
   def printed_payforms_notification(admin_user, message, attachment_name)
     subject       'Printed Payforms ' + Date.today.strftime('%m/%d/%y')
-    recipients    "#{admin_user.email}"
+    recipients    admin_user.email
     from          'ST Payform Apps <studtech-st-dev-payform@mailman.yale.edu>'
     reply_to      'adam.bray@yale.edu'
     sent_on       Time.now
