@@ -8,7 +8,9 @@ class SubRequest < ActiveRecord::Base
            :mandatory_start_and_end_are_within_subrequest,
            :start_less_than_end,
            :not_in_the_past,
-           :user_does_not_have_concurrent_sub_request
+           :user_does_not_have_concurrent_sub_request,
+           :requested_users_have_permission 
+ 
   #
   # Class methods
   #
@@ -111,6 +113,13 @@ class SubRequest < ActiveRecord::Base
     c = SubRequest.count(:all, :conditions => ["#{:shift_id.to_sql_column} = #{self.shift_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql}"])
     unless c.zero?
       errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period") unless (self.id and c==1)
+    end
+  end
+    
+  def requested_users_have_permission 
+    c = self.requested_users.select { |user| !user.can_signup?(self.loc_group) || user==self.user}
+      unless c.blank? 
+        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
     end
   end
   
