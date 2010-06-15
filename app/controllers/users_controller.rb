@@ -252,17 +252,16 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
-    departments = current_user.departments.sort_by(&:name)
-    users = Department.find(params[:department_id]).users.sort_by(&:first_name)
-    roles = Department.find(params[:department_id]).roles.sort_by(&:name)
-
     @list = []
+    
+    users = Department.find(params[:department_id]).users.sort_by(&:first_name)
     users.each do |user|
       if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
       #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
         @list << {:id => "User||#{user.id}", :name => "#{user.name} (#{user.login})"}
       end
     end
+    departments = current_user.departments.sort_by(&:name)
     departments.each do |department|
       if department.name.downcase.include?(params[:q])
         #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
@@ -272,6 +271,7 @@ class UsersController < ApplicationController
         @list << {:id => "Department||#{department.id}", :name => "Department: #{department.name}"}
       end
     end
+    roles = Department.find(params[:department_id]).roles.sort_by(&:name)
     roles.each do |role|
       if role.name.downcase.include?(params[:q])
         #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))

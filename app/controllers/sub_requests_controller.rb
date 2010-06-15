@@ -28,7 +28,7 @@ class SubRequestsController < ApplicationController
     @sub_request.shift = Shift.find(params[:shift_id])
       SubRequest.transaction do  
           @sub_request.save(false)
-          if !params[:list_of_logins].empty? 
+          unless params[:list_of_logins].empty? 
              params[:list_of_logins].split(",").each do |l|
                 l = l.split("||")
                 if l.length == 2
@@ -61,7 +61,7 @@ class SubRequestsController < ApplicationController
     begin
       SubRequest.transaction do
           @sub_request.requested_users = []
-          if !params[:list_of_logins].empty? 
+          unless params[:list_of_logins].empty? 
              params[:list_of_logins].split(",").each do |l|
                 l = l.split("||")
                 if l.length == 2
@@ -91,7 +91,7 @@ class SubRequestsController < ApplicationController
     @sub_request.destroy
     UserSinksUserSource.delete_all("user_sink_type = 'SubRequest' AND user_sink_id = #{params[:id].to_sql}")
     flash[:notice] = "Successfully destroyed sub request."
-    redirect_to sub_requests
+    redirect_to sub_requests_path
   end
 
   def get_take_info

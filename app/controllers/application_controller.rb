@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
-#  before_filter :load_user
+  #before_filter :load_user
 
-  helper :layout # include all helpers, all the time
+  helper :layout # include all helpers, all the time (whyy? -Nathan)
   helper_method :current_user
   helper_method :current_department
 
@@ -40,7 +40,6 @@ class ApplicationController < ActionController::Base
   protected
   def current_user
     @current_user ||= (
-#    raise @user_session.login.to_s
     if @user_session
       @user_session.user
     elsif session[:cas_user]
@@ -64,20 +63,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-#    if params[:department_id] or session[:department_id]
-#        @department ||= Department.find(params[:department_id] || session[:department_id])
-#    elsif current_user and current_user.departments
-#      @department = current_user.user_config.default_dept ? Department.find(current_user.user_config.default_dept) : current_user.departments[0]
-#    elsif current_user and current_user.is_superuser?
-#      @department = Department.first
-#    end
-#  end
-
-  # Application-wide settings are stored in the only record in the app_configs table
-#  def app_config
-#    AppConfig.first
-#  end
-
   def load_department
     if (params[:department_id])
       @department = Department.find_by_id(params[:department_id])
@@ -86,17 +71,6 @@ class ApplicationController < ActionController::Base
       end
     end
     @department ||= current_department
-
-    # update department id in session if neccessary so that we can use shallow routes properly
-#      if params[:department_id]
-#        session[:department_id] = params[:department_id]
-#        @department = Department.find_by_id(session[:department_id])
-#      elsif session[:department_id]
-#        @department = Department.find_by_id(session[:department_id])
-#      elsif current_user and current_user.departments
-#        @department = current_user.departments[0]
-#      end
-   # load @department variable, no need ||= because it's only called once at the start of controller
   end
 
   def load_user
@@ -107,8 +81,8 @@ class ApplicationController < ActionController::Base
     @user_session = UserSession.find
   end
 
-# These are the authorization before_filters to use under controllers
-# These all return nil
+  # These are the authorization before_filters to use under controllers
+  # These all return nil
   def require_department_admin
     unless current_user.is_admin_of?(current_department)
       error_message = "That action is restricted to department administrators."
@@ -169,8 +143,9 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-# These three methods all return true/false, so they can be tested to trigger return statements
-# Takes a department, location, or loc_group
+  # These three methods all return true/false, so they can be tested to trigger return statements
+  # Takes a department, location, or loc_group
+  # TODO: This is mixing model logic!!!
   def user_is_admin_of(thing)
     unless current_user.is_admin_of?(thing)
       error_message = "You are not authorized to administer this #{thing.class.name.decamelize}"
@@ -192,7 +167,8 @@ class ApplicationController < ActionController::Base
   end
 
 
-# Takes any object that has a user method and checks against current_user
+  # Takes any object that has a user method and checks against current_user
+  #TODO: This is mixing model logic!!!
   def user_is_owner_of(thing)
     unless current_user.is_owner_of?(thing)
       error_message = "You are not the owner of this #{thing.class.name.decamelize}"
@@ -213,7 +189,8 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-# Takes any object that has a user method and its department
+  # Takes any object that has a user method and its department
+  #TODO: This is mixing model logic!!!
   def user_is_owner_or_admin_of(thing, dept)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(dept)
       error_message = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
@@ -234,7 +211,7 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-# Takes a department; intended to be passed some_thing.department
+  # Takes a department; intended to be passed some_thing.department
   def require_department_membership(dept)
     unless current_user.departments.include?(dept)
       error_message = "You are not a member of the appropriate department."
