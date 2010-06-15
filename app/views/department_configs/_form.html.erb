@@ -72,6 +72,15 @@
       <%= f.select :day, (1..28).step + DepartmentConfig::LAST_DAY_SELECT %>
     </p>
   </fieldset>
+<fieldset class = "index">
+    <legend>Edit Email Statistics Configuration</legend>
+	<p>
+		<%= f.label :stats_mailer_address, text = "Emails of users to receive shift statistics (separated by commas):"%>
+		<%= f.text_area :stats_mailer_address, :size => "50x5"%>
+	</p>
+</fieldset>
+
+<fieldset class = "index">
 <%= submit_tag "Save Settings" %>
 <% end %>
 </div>
