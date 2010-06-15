@@ -91,6 +91,7 @@
         <% if current_user == @shift.user and !@shift.has_passed? %>
           <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
         <% end %>
+
         <% if !@shift.has_passed? and !@shift.submitted? %>
           <% if @shift.has_sub? %>
             <% @shift.sub_requests.each do |sub| %>
