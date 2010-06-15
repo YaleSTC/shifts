@@ -1,9 +1,25 @@
 class SubRequestsController < ApplicationController
 
-# Any reason at all why we should leave this in? -ben
-# Yes: for users without Javascript. -ryan
   def index
-    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
+    if params[:shift_id]      # check if index listing is shift specific
+      @shift=Shift.find(params[:shift_id])
+      @subs=@shift.sub_requests 
+      @title_add=" for " + @shift.user.name + "'s shift in " + @shift.location.name + " on " + @shift.start.to_s(:gg)
+      @index_link = true
+    else                      
+      @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now])
+      @title_add=" Index"
+      @index_link=false
+    end
+    @subs = @subs.select {|sub| (current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user)} 
+
+    @limit = (params[:limit].blank? ? 25 : params[:limit].to_i)
+    if @limit<@subs.count
+      @limit_links=true
+    else
+      @limit_links=false
+      @limit=@subs.count
+    end
   end
 
   def show
@@ -15,12 +31,12 @@ class SubRequestsController < ApplicationController
   def new
     @sub_request = SubRequest.new
     @sub_request.shift = Shift.find(params[:shift_id])
-   return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here -Bay
+   return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here? -Bay
   end
 
   def edit
     @sub_request = SubRequest.find(params[:id])
-    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)        #is 'return unless' unnessecary here -Bay
+    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)        #is 'return unless' unnessecary here? -Bay
   end
 
   def create
@@ -45,10 +61,9 @@ class SubRequestsController < ApplicationController
       render :action => "new"
     else
       flash[:notice] = 'Sub request was successfully created.'
-    #  @sub_request.potential_takers.each do |user|
-        # "if user.email" because email is not a compulsory field in user
-     #   ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
-     # end
+      @sub_request.potential_takers.each do |user|
+        ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
+      end
       redirect_to :action => "show", :id => @sub_request
     end
   end

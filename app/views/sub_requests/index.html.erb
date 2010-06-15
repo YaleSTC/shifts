@@ -1,8 +1,4 @@
-<% title "Sub Requests" %>
-
-<% @limit = (params[:limit].blank? ? 25 : params[:limit].to_i) %>
-<% @subs = @sub_requests.select {|sub| sub.end >= Time.now && (current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user)} %>
-<% @limit = (@limit>@subs.count) ? @subs.count : @limit%>
+<% title "Sub Requests" + @title_add %>
 <table id="requests_table">
   <tr>
     <th>Date/Time</th>
@@ -43,9 +39,12 @@
   </tr>
 <% end %>
 </table>
-
-<% if @limit < @subs.count %>
+<% if @index_link %>
+	<%= link_to "request another sub", new_shift_sub_request_path(@shift) %>
+	<%= link_to "view all sub requests", sub_requests_path, :id => "view_all" %><br>
+<% end %>
+<% if @limit_links %>
 	<%= link_to "view more", sub_requests_path(:anchor => "view_more", :limit => @limit+25), :id => "view_more" %>
-	<%= link_to "view all", sub_requests_path(:anchor => "view_all", :limit => @max), :id => "view_all" %>
+	<%= link_to "view all", sub_requests_path(:anchor => "view_all", :limit => @subs.count), :id => "view_all" %>
 <% end %>
 
