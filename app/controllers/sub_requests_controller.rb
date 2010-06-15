@@ -3,31 +3,32 @@ class SubRequestsController < ApplicationController
 # Any reason at all why we should leave this in? -ben
 # Yes: for users without Javascript. -ryan
   def index
-    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : SubRequest.all)
+    @sub_requests = (params[:shift_id] ? Shift.find(params[:shift_id]).sub_requests : "SubRequest.all")
   end
 
   def show
     @sub_request = SubRequest.find(params[:id])
-    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
+    @sub_request.user_is_eligible?(current_user) || user_is_owner_or_admin_of(@sub_request.shift, current_department)
+    #if user_is_own_or_admin_of fails, it will redirect away from page w/ associated error message.
   end
 
   def new
     @sub_request = SubRequest.new
     @sub_request.shift = Shift.find(params[:shift_id])
-    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
+   return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here -Bay
   end
 
   def edit
     @sub_request = SubRequest.find(params[:id])
-    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
+    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)        #is 'return unless' unnessecary here -Bay
   end
 
   def create
-    @sub_request = SubRequest.new(params[:sub_request])
-    @sub_request.shift = Shift.find(params[:shift_id])
-    @sub_request.user = @sub_request.shift.user
     begin
       SubRequest.transaction do  
+        @sub_request = SubRequest.new(params[:sub_request])
+        @sub_request.shift = Shift.find(params[:shift_id])
+        @sub_request.user = @sub_request.shift.user
           @sub_request.save(false)
           if !params[:list_of_logins].empty? 
              params[:list_of_logins].split(",").each do |l|
@@ -69,8 +70,6 @@ class SubRequestsController < ApplicationController
           @sub_request.save!
         end
       rescue Exception => e
-        @sub_request = @sub_request.clone
-        @sub_request.add_errors(e.message)
         render :action => "edit", :id => @sub_request
       else
         flash[:notice] = 'SubRequest was successfully updated.'
@@ -84,7 +83,7 @@ class SubRequestsController < ApplicationController
     @sub_request.destroy
     UserSinksUserSource.delete_all("user_sink_type = 'SubRequest' AND user_sink_id = #{params[:id].to_sql}")
     flash[:notice] = "Successfully destroyed sub request."
-    redirect_to sub_requests
+    redirect_to sub_requests_path
   end
 
   def get_take_info

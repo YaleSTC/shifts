@@ -93,12 +93,12 @@
         <% end %>
         <% if !@shift.has_passed? and !@shift.submitted? %>
           <% if @shift.has_sub? %>
-            <%= link_to "Manage sub requests for this shift", shift_sub_requests_path(@shift) %><br>
             <% @shift.sub_requests.each do |sub| %>
               <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user)  %>
             <% end %>
+            <%= link_to "Manage sub requests", shift_sub_requests_path(@shift) %><br>
           <% else %>
-            <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
+            <%= link_to "Create a sub request", new_shift_sub_request_path(@shift) %><br>
           <% end %>
         <% end %>
   
