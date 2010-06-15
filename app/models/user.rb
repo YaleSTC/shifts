@@ -196,10 +196,16 @@ class User < ActiveRecord::Base
   def toggle_active(department) #TODO why don't we just update the attribues on the current entry and save it?
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    shifts = Shift.for_user(self).select{|s| s.start > Time.now}
     new_entry.attributes = old_entry.attributes
     new_entry.active = !old_entry.active
     DepartmentsUser.delete_all( :user_id => self, :department_id => department)
     new_entry.save
+    shifts.each do |shift|
+      shift.active = new_entry.active
+      shift.save
+    end
+    return true
   end
 
   def deliver_password_reset_instructions!(mailer)
