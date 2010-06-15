@@ -1,7 +1,6 @@
 <% unobtrusive_datepicker_includes %>
 
 <% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
-  <% @shift = Shift.find(params[:shift_id]) if params[:shift_id] %>
   <div id ="errors">
     <%= render :partial => "error_messages", :locals => {:f => f} %>
   </div>
@@ -9,24 +8,24 @@
   <p><h3>Time that you need someone to take for this sub request:</h3></p>
   <p>
     <%= f.label "Start" %><br />
-    <%= f.unobtrusive_datetime_picker :mandatory_start, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.mandatory_start : @shift.start) %>
+    <%= f.unobtrusive_datetime_picker :mandatory_start, :minute_step => @department.department_config.time_increment, :default => (params[:mandatory_start] ? @sub_request.mandatory_start : @sub_request.shift.start) %>
   </p>
   <p>
     <%= f.label "End" %><br />
-    <%= f.unobtrusive_datetime_picker :mandatory_end, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.mandatory_end : @shift.end) %>
+    <%= f.unobtrusive_datetime_picker :mandatory_end, :minute_step => @department.department_config.time_increment, :default => (params[:mandatory_end] ? @sub_request.mandatory_end : @sub_request.shift.end) %>
   </p>
   <p><h3>Maximum amount of time you're willing to give up (bribe):</h3></p>
   <p>
     <%= f.label :start %><br />
-    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.start : @shift.start) %>
+    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment, :default => (params[:start] ? @sub_request.start : @sub_request.shift.start) %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.end : @shift.end) %>
+    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment, :default => (params[:end] ? @sub_request.end : @sub_request.shift.end) %>
   </p>
   <p>
     <%= f.label :selected_users, "Leave blank to send to everyone eligible in <b>#{@sub_request.shift.location.loc_group.name}</b>, or specify individual users below" %><br />
-    <%= tokenized_users_autocomplete(@sub_request, "requested_users", "list_of_logins", "Type a netID or name") %>
+    <%= tokenized_users_autocomplete(@sub_request, :requested_users, "list_of_logins", "Type a netID or name") %>
   </p>
   <p>
     <%= f.label :reason %><br />

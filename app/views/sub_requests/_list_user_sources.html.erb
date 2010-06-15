@@ -1,4 +1,4 @@
-<ul>
+<ul id="user_sources">
 <% @sub_request ||= list_user_sources %>
 <% if @sub_request.users_with_permission.empty? %>
 	<% @sub_request.roles_with_permission.each do |role| %>
