@@ -1,11 +1,12 @@
 /* via http://loopj.com/2009/04/25/jquery-plugin-tokenizing-autocomplete-text-entry/ */
+/* adapted for shifts by Ryan Laughlin and Nathan Griffith */
 (function($) {
 
 $.fn.tokenInput = function (url, options) {
     var settings = $.extend({
         url: url,
         prePopulate: "",
-        hintText: "Type a name, NetID, role or department",
+        hintText: "Enter a search term",
         noResultsText: "No results",
         searchingText: "Searching...",
         searchDelay: 300

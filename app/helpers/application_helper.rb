@@ -27,7 +27,7 @@ module ApplicationHelper
     current_user.current_shift
   end
 
-  def tokenized_users_autocomplete(object, field, id)
+  def tokenized_users_autocomplete(object, field, id, hintText = "Type a name, NetID, role or department")
     json_string = ""
     unless object.nil? or field.nil?
       object.send(field).each do |user_source|
@@ -39,6 +39,7 @@ module ApplicationHelper
       $(document).ready(function() {
         $("#'+id+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {
             prePopulate: ['+json_string+'],
+            hintText: "'+hintText+'",
             classes: {
               tokenList: "token-input-list-facebook",
               token: "token-input-token-facebook",
