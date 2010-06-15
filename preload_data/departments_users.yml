@@ -174,3 +174,10 @@ departments_users_025:
   payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
   user_id: "104"
+departments_users_026: 
+  active: true
+  created_at: 2009-06-22 17:40:25
+  department_id: "1"
+  payrate: "15.00"
+  updated_at: 2009-06-22 17:42:58
+  user_id: "105"
