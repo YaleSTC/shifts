@@ -1,6 +1,6 @@
 <ul id="user_sources">
 <% @sub_request ||= list_user_sources %>
-<% if @sub_request.users_with_permission.blank? %>
+<% if @sub_request.users_with_permission.empty? %>
 	<% @sub_request.roles_with_permission.each do |role| %>
 		<li>
 			<% if current_user.is_admin_of?(@sub_request.shift.department) || current_user.is_superuser? %>
