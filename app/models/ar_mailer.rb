@@ -79,7 +79,7 @@ class ArMailer < ActionMailer::ARMailer
   def email_stats (missed_shifts, late_shifts, left_early_shifts, dept)
     subject      "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y') #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
     recipients   dept.department_config.stats_mailer_address  
-    from         "#{dept.department_config.mailer_address}"
+    from         dept.department_config.mailer_address
     sent_on      Time.now
     body         :missed_shifts => missed_shifts, :late_shifts => late_shifts, :left_early_shifts => left_early_shifts
   end
