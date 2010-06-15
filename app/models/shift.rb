@@ -106,7 +106,7 @@ class Shift < ActiveRecord::Base
   #This method creates the multitude of shifts required for repeating_events to work
   #in order to work efficiently, it makes a few GIANT sql insert calls -mike
   def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, active, wipe)
-    #We need several inner arrays with one big outer one, b/c sqlite freaks out
+    #We need several innerm arrays with one big outer one, b/c sqlite freaks out
     #if the sql insert call is too big. The "make" arrays are then used for making
     #the shifts, and the "test" for finding conflicts.
     outer_make = []
