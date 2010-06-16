@@ -2,6 +2,11 @@ class Location < ActiveRecord::Base
   belongs_to :loc_group
 
   named_scope :active, :conditions => {:active => true}
+  named_scope :in_group, 
+    lambda {|loc_group,*order| {
+      :conditions => {:loc_group_id => loc_group.id},
+      :order => order.flatten.first || 'priority ASC'                                  
+  }}
 
   has_many :time_slots
   has_many :shifts
