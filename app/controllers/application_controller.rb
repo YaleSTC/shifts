@@ -243,13 +243,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_with_flash(msg = nil, options = {:action => :index})
-    if msg
-      msg = msg.join("<br/>") if msg.is_a?(Array)
-      flash[:notice] = msg
-    end
-    redirect_to options
-  end
+#  def redirect_with_flash(msg = nil, options = {:action => :index})
+#    if msg
+#      msg = msg.join("<br/>") if msg.is_a?(Array)
+#      flash[:notice] = msg
+#    end
+#    redirect_to options
+#  end
 
   private
 
@@ -286,3 +286,4 @@ class ApplicationController < ActionController::Base
 
 
 end
+
