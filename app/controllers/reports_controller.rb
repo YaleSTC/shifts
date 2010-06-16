@@ -72,15 +72,17 @@ class ReportsController < ApplicationController
       flash[:notice] = "Report not submitted.  You may not be the owner of this report."
       render :action => 'show'
     end
-  end
+end
+
+
 
 # Do we want this action? -ben
 #  def destroy
 #    @report = Report.find(params[:id])
-#    @report.destroy
-#    #ArMailer.deliver()
-#    flash[:notice] = "Successfully destroyed report."
-#    redirect_to reports_url
+ #   @report.destroy
+  #  #ArMailer.deliver()
+   # flash[:notice] = "Successfully destroyed report."
+    #redirect_to reports_url
 #  end
 end
 
