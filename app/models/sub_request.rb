@@ -115,7 +115,7 @@ class SubRequest < ActiveRecord::Base
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't create a sub request for a time that has already passed!") if self.start < Time.now
+    errors.add_to_base("Can't create a sub request for a time that has already passed") if self.start < Time.now
   end
 
   def user_does_not_have_concurrent_sub_request
