@@ -24,8 +24,8 @@ end
   
 desc "Sends out an e-mail to the admin whenever a user misses, is late to, or leaves a shift early"
 
-task (:email_stats => :environment) do
-  departments_that_want_admin_emailed = Department.all.select { |d| d.department_config.email_stats }# check stats_email_address is not nil email_stats
+task (:email_stats=> :environment) do
+  departments_that_want_admin_emailed = Department.all.select { |d| d.department_config.stats_mailer_address }
   for dept in departments_that_want_admin_emailed
     shift_email(dept)
   end
