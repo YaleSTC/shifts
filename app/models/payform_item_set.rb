@@ -5,6 +5,7 @@ class PayformItemSet < ActiveRecord::Base
   delegate :department, :to => :category
   validates_presence_of :description, :hours, :date, :category_id
   validate :payform_item_creation
+  delegate :users, :to => :payform_items
   
   named_scope :active, :conditions => {:active => true }
   named_scope :expired, :conditions => {:active => false }

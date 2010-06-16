@@ -23,13 +23,11 @@
   </p>
   <p>
     <%= label_tag "Leave blank to send to everyone" %><br />
-    <%= tokenized_users_autocomplete( @users_select, "user_sources", "list_of_logins") %>
+    <%= tokenized_users_autocomplete( @payform_item_set, "users") %>
   </p>
 
-  <p>
-    <div class="no_js">
-      <%= collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})%>
-    </div>
+  <p class="no_js">
+    <%= collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})%>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
