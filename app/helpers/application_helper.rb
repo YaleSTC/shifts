@@ -27,11 +27,12 @@ module ApplicationHelper
     current_user.current_shift
   end
 
-  def tokenized_users_autocomplete(object, field, id, options = {})
+  def tokenized_users_autocomplete(object, field, options = {})
     #set defaults
-    options.reverse_merge({
+    options.reverse_merge!({
+      :id => "list_of_logins",
       :hint_text => "Type a name, NetID, role or department",
-      :style => "facebook"
+      :style => "vertical" #default to vertical style -- seems more appropriate
     })
     
 
@@ -59,7 +60,7 @@ module ApplicationHelper
 
     output = '<script type="text/javascript">
       $(document).ready(function() {
-        $("#'+id+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {
+        $("#'+options[:id]+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {
             prePopulate: ['+json_string+'],
             hintText: "'+options[:hint_text]+'",
             classes: {
@@ -67,7 +68,7 @@ module ApplicationHelper
             }
           });
         });
-        </script>' + text_field_tag(id)
+        </script>' + text_field_tag(options[:id])
   end
 
 

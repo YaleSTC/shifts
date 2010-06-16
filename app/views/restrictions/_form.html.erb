@@ -24,7 +24,7 @@
   </span>
   <div id="advanced">
     Search for a user, role, or department: <br />
-    <%= tokenized_users_autocomplete(@restriction, "user_sources", "for_users") %>
+    <%= tokenized_users_autocomplete(@restriction, "user_sources", :id => "for_users",:style => "facebook") %>
     <p>
       For locations: <br />
       <% if current_user.is_admin_of?(@department) %>

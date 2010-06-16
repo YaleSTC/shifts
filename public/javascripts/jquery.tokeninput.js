@@ -9,7 +9,8 @@ $.fn.tokenInput = function (url, options) {
         hintText: "Enter a search term",
         noResultsText: "No results",
         searchingText: "Searching...",
-        searchDelay: 300
+        searchDelay: 300,
+        minChars: 2
     }, options);
 
     settings.classes = $.extend({

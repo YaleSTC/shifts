@@ -2,7 +2,7 @@
   <fieldset class = "index">
     <legend>Who:</legend>
     Enter any name, login, role or department
-    <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
+    <%= tokenized_users_autocomplete(@notice, "user_sources", :id => "for_users", :style => "facebook") %>
   </fieldset>
 <% end %>
 <fieldset class = "index">
