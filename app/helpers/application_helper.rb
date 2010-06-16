@@ -27,21 +27,16 @@ module ApplicationHelper
     current_user.current_shift
   end
 
-  def tokenized_users_autocomplete(object, field, id, hintText = "Type a name, NetID, role or department")
-    json_string = ""
-    unless object.nil? or field.nil?
-      object.send(field).each do |user_source|
-        json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
-      end
-    end
+  def tokenized_users_autocomplete(object, field, id, options = {})
+    #set defaults
+    options.reverse_merge({
+      :hint_text => "Type a name, NetID, role or department",
+      :style => "facebook"
+    })
+    
 
-    '<script type="text/javascript">
-      $(document).ready(function() {
-        $("#'+id+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {
-            prePopulate: ['+json_string+'],
-            hintText: "'+hintText+'",
-            classes: {
-              tokenList: "token-input-list-facebook",
+    if (options[:style] == "facebook")
+      style = 'tokenList: "token-input-list-facebook",
               token: "token-input-token-facebook",
               tokenDelete: "token-input-delete-token-facebook",
               selectedToken: "token-input-selected-token-facebook",
@@ -50,7 +45,25 @@ module ApplicationHelper
               dropdownItem: "token-input-dropdown-item-facebook",
               dropdownItem2: "token-input-dropdown-item2-facebook",
               selectedDropdownItem: "token-input-selected-dropdown-item-facebook",
-              inputToken: "token-input-input-token-facebook"
+              inputToken: "token-input-input-token-facebook"'
+    else
+      style = ''
+    end
+    
+    json_string = ""
+    unless object.nil? or field.nil?
+      object.send(field).each do |user_source|
+        json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
+      end
+    end
+
+    output = '<script type="text/javascript">
+      $(document).ready(function() {
+        $("#'+id+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {
+            prePopulate: ['+json_string+'],
+            hintText: "'+options[:hint_text]+'",
+            classes: {
+              '+style+'
             }
           });
         });
