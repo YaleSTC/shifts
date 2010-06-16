@@ -141,7 +141,7 @@ class PayformsController < ApplicationController
       users_reminded << "#{user.name} (#{user.login})"
     end
     flash[:notice] = "E-mail reminders sent to the following: #{users_reminded.to_sentence}"
-    redirect_to {:action => :email_reminders, :id => @department.id}
+    redirect_to :action => :email_reminders, :id => @department.id
   end
 
   def send_warnings
@@ -166,7 +166,7 @@ class PayformsController < ApplicationController
       end
     end
     flash[:notice] = "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}"
-    redirect_to {:action => :email_reminders, :id => @department.id}
+    redirect_to :action => :email_reminders, :id => @department.id
   end
 
   protected
