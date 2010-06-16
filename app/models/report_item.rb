@@ -4,6 +4,16 @@ class ReportItem < ActiveRecord::Base
   belongs_to :report
   delegate :user, :to => 'report.shift'
   validates_presence_of :content, :report_id
+
+  define_index do
+    # fields
+    indexes content
+
+    # attributes
+    has created_at, updated_at
+    has report.shift.start, :as => :shift_start
+    has report.shift(:id), :as => :shift_id
+  end
   
   before_save :check_for_ip_address_change
   
