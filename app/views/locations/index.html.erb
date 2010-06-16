@@ -23,8 +23,8 @@
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
 					<td><%= loc.active %></td>
-					<td><%= button_to 'Activate/Deactivate', :action => 'toggle', :id => loc %></td>
-        </tr>
+					<td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc } %></td>
+        </tr>s
       <% end -%>
     </tbody>
   </table>
