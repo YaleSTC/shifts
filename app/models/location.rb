@@ -63,6 +63,7 @@ class Location < ActiveRecord::Base
     self.save!
     #Location activation must be set prior to individual shift activation; Shift class before_save
     shifts = Shift.in_location(self).select{|s| s.start > Time.now}
+    deactivate_time = Time.now
     shifts.each do |shift|
       shift.active = false
       shift.save
