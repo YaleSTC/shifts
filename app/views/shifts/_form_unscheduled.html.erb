@@ -2,9 +2,8 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :location_id, text = 'Location' %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name)%><br />
+    <%= select_tag 'shift[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name)%><br />
   </p>
   <%= f.hidden_field :scheduled, :value => :false %>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-
