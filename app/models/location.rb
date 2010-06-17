@@ -65,7 +65,7 @@ class Location < ActiveRecord::Base
     shifts = Shift.in_location(self).select{|s| s.start > Time.now}
     shifts.each do |shift|
       shift.active = false
-      shift.save!
+      shift.save
     end
   end
   
@@ -80,7 +80,7 @@ class Location < ActiveRecord::Base
       else
         shift.active = false
       end
-      shift.save!
+      shift.save
     end    
   end
 
