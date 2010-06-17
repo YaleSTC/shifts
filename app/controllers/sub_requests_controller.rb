@@ -127,19 +127,7 @@ class SubRequestsController < ApplicationController
   end
 
 
-  def parse_simple_time_select_output(form_output)
-    %w{start end mandatory_start mandatory_end}.each do |field_name|
 
-      if form_output["#{field_name}(5i)"].blank?
-        form_output.delete "#{field_name}"         #is this if statement actually necessary? ~Casey
-      else
-        form_output[field_name.intern] = Time.parse( form_output[:"#{field_name}(5i)"] )
-      end
-      form_output.delete("#{field_name}(5i)")
-
-    end
-    form_output
-  end
 
 
 
