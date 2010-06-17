@@ -21,8 +21,7 @@
           <td><%= loc.max_staff %></td>
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
-					<td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id },
-			      :html => { :class => 'toggle_link' }%></td>
+					<td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
         </tr>
       <% end -%>
     </tbody>
