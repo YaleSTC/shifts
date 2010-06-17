@@ -4,7 +4,7 @@
   <h1><%= loc_group.name %></h1>
   <% shifts_by_location = shifts.group_by(&:location) %>
   <% shifts_by_location.each do |location, shifts| %>
-    <h2><%= location.name %></h2>
+    <h2><%= link_to location.name, for_location_location_path(location) %></h2>
     <ul>
     <% shifts = shifts.sort_by(&:start)%>
     <% shifts.each do |s| %>
@@ -15,3 +15,5 @@
   <% end %>
   <br>
 <% end %>
+
+
