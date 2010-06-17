@@ -71,6 +71,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
+  
+  map.resources :locations, :member => {:toggle => [:get, :post]}
 
   map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
     report.resources :report_items

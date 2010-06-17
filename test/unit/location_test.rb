@@ -8,6 +8,9 @@ class LocationTest < ActiveSupport::TestCase
     #There is something wrong with the setup. Get "comparison of ActiveSupport::TimeWithZone with nil" error
     @loc   = locations(:locations_001)
     @shift = shifts(:shifts_872)
+    @shift.start = Time.now + 100
+    @shift.end   = Time.now + 200
+    @shift.save(false)
   end
   
   test "deactivate method on location" do
@@ -35,25 +38,25 @@ class LocationTest < ActiveSupport::TestCase
   test "deactivate method on shift (location active)" do
     @loc.active = true
     @shift.active = true
-    @shift.save
+    @shift.save(false)
     @loc.deactivate
     assert !@shift.active
     @loc.active = true
     @shift.active = false
-    @shift.save
+    @shift.save(false)
     @loc.deactivate
     assert !@loc.active
   end
   
   test "activate method on shift (location active)" do
     @loc.active = true
-    @shift.active = true
-    @shift.save
+    @shift.active = false
+    @shift.save(false)
     @loc.activate
-    assert @shift.active
+    assert @loc.active
     @loc.active = true
     @shift.active = false
-    @shift.save
+    @shift.save(false)
     @loc.activate
     assert @loc.active
   end
@@ -61,12 +64,12 @@ class LocationTest < ActiveSupport::TestCase
   test "deactivate method on shift (location inactive)" do
     @loc.active = false
     @shift.active = true
-    @shift.save
+    @shift.save(false)
     @loc.deactivate
     assert !@shift.active
     @loc.active = false
     @shift.active = false
-    @shift.save
+    @shift.save(false)
     @loc.deactivate
     assert !@loc.active
   end
@@ -74,14 +77,16 @@ class LocationTest < ActiveSupport::TestCase
   test "activate method on shift (location inactive)" do
     @loc.active = false
     @shift.active = true
-    @shift.save
+    @shift.save(false)
     @loc.activate
-    assert @shift.active
+    assert @loc.active
     @loc.active = false
     @shift.active = false
-    @shift.save
+    @shift.save(false)
     @loc.activate
     assert @loc.active
   end
+  
+  
 
 end
