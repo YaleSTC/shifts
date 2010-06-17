@@ -30,17 +30,7 @@ class ReportItemsController < ApplicationController
     end
   end
 
-#shifts.reports isn't going to work b/c. location.shifts.report b/c .report works on one shift. location.shifts is an array 
 
-  def for_location
-    start_time = 3.hours.ago.utc    
-    end_time = Time.now.utc
-  
-    @location = Location.find(params[:id]) 
-
-    @report_items = ReportItem.find(:all, :conditions => ["time > ? AND time < ?", start_time, end_time]).select{|r| r.report.shift.location == @location}.sort_by{|r| r.time}.reverse
-   
-  end
 # past 3 hours. Find all shifts that ended in that past one select those shifts then tkae all of their report items and then draw them in line items. More can't show that. So genearlize it end in the past x hours. If we take shifts that started of it. So what you want to t o.. Find MATCH 
 #report_items.each do |report_item|
 #block of code. 

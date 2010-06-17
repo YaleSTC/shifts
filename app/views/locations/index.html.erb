@@ -10,6 +10,7 @@
         <th>Max Staff</th>
         <th>Priority</th>
         <th>Min Staff</th>
+        <th>Shifts</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
           <td><%= loc.max_staff %></td>
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
+          <td><%= link_to "All Shifts", for_location_location_path(loc) %> </td>
           <td><%= link_to "Delete Location", loc, :confirm => 'Are you sure?', :method => :delete %></td>
         </tr>
       <% end -%>
