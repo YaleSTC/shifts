@@ -27,6 +27,9 @@
         <%= f.label :schedule_start, text = "Display unscheduled shifts:" %>
         <%= f.check_box :unscheduled_shifts %>
       </p>
+      <p>
+        <%= f.label :can_take_passed_sub, text = "Allow for sub request to be taken even if shift has already begun:" %>
+        <%= f.check_box :can_take_passed_sub %>
   </fieldset>
   <br/>
   <fieldset class = "index">
