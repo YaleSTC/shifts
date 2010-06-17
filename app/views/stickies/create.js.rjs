@@ -1,0 +1,9 @@
+if @sticky.errors.empty? 
+	page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
+	page.replace_html "all_notices", :partial => 'notices/all_notices'
+  page << "tb_remove();"
+  page << "tb_init('a#edit');"
+else
+  page.replace_html "errors", :partial => 'notices/error_messages'
+end
+

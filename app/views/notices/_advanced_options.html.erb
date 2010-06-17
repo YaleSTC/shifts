@@ -5,6 +5,7 @@
     <%= tokenized_users_autocomplete(@notice, "user_sources", :id => "for_users", :style => "facebook") %>
   </fieldset>
 <% end %>
+
 <fieldset class = "index">
   <legend>Where:</legend>
   <% if current_user.is_admin_of?(current_department) %>
