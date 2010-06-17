@@ -23,14 +23,9 @@ class SubRequestsController < ApplicationController
 
   def create
 
-    this_shift = Shift.find(params[:shift_id])
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "mandatory_start", this_shift.start)
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "mandatory_end", this_shift.end)
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "start", this_shift.start)
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "end", this_shift.end)
-
+    parse_simple_time_select_output(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
-    @sub_request.shift = this_shift   ##or this could say Shift.find(params[:shift_id])
+    @sub_request.shift = Shift.find(params[:shift_id])   ##or this could say Shift.find(params[:shift_id])
     @sub_request.user = @sub_request.shift.user
 
 
@@ -84,11 +79,8 @@ class SubRequestsController < ApplicationController
       @sub_request.user_sources << User.find_by_login(l[0]) if l.length == 1
     end
 
-    this_shift = @sub_request.shift
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "mandatory_start", this_shift.start)
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "mandatory_end", this_shift.end)
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "start", this_shift.start)
-    params[:sub_request] = parse_simple_time_select_output(params[:sub_request], "end", this_shift.end)
+
+    parse_simple_time_select_output(params[:sub_request])
 
     if @sub_request.update_attributes(params[:sub_request])
       flash[:notice] = 'SubRequest was successfully updated.'
@@ -135,34 +127,19 @@ class SubRequestsController < ApplicationController
   end
 
 
-  def parse_simple_time_select_output(form_output, field_name, original_shift)
-    form_output[field_name.intern] = Time.parse( form_output[:"#{field_name}(5i)"] )
-    form_output.delete(:"#{field_name}(5i)")
-	return form_output
+  def parse_simple_time_select_output(form_output)
+    %w{start end mandatory_start mandatory_end}.each do |field_name|
+
+      if form_output["#{field_name}(5i)"].blank?
+        form_output.delete "#{field_name}"         #is this if statement actually necessary? ~Casey
+      else
+        form_output[field_name.intern] = Time.parse( form_output[:"#{field_name}(5i)"] )
+      end
+      form_output.delete("#{field_name}(5i)")
+
+    end
+    form_output
   end
-
-
-
-### sample function from simple_time_select author
-### This is the way to go - I think I understand what it's doing now ~Casey
-
-#  def fix_show_attrs(show_attrs)
-#    %w{show_time load_in doors}.each do |time_type|
-#      date_type = ( time_type == 'show_time' ) ? 'show_date' : "#{time_type}_date"
-
-#      if show_attrs["#{time_type}(5i)"].blank?
-#        show_attrs.delete "#{time_type}"
-#      else
-#        show_date = [ show_attrs["#{date_type}(1i)"], show_attrs["#{date_type}(2i)"], show_attrs["#{date_type}(3i)"] ].join('-')
-#        show_attrs["#{time_type}"] = Time.parse "#{show_date} "+ show_attrs["#{time_type}(5i)"]
-#      end
-#      show_attrs.delete("#{date_type}(1i)")
-#      show_attrs.delete("#{date_type}(2i)")
-#      show_attrs.delete("#{date_type}(3i)")
-#      show_attrs.delete("#{time_type}(5i)")
-#    end
-#    show_attrs
-#  end
 
 
 
