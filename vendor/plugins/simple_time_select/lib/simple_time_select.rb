@@ -6,10 +6,13 @@ module ActionView::Helpers
         # Although this is a datetime select, we only care about the time.  Assume that the date will
         # be set by some other control, and the date represented here will be overriden
 
+    if @options[:default].nil?
         val_minutes = @datetime.kind_of?(Time) ? @datetime.min + @datetime.hour*60 : @datetime
+    else
+        val_minutes = @options[:default].min + @options[:default].hour*60
+    end
 
         @options[:time_separator] = ""
-
         @options[:include_start_time] = true  if @options[:include_start_time].nil?
         @options[:include_end_time] = false   if @options[:include_end_time].nil?
 
@@ -111,3 +114,4 @@ end
 def zero_pad_num(num)
   return num < 10 ? '0' + num.to_s : num.to_s
 end
+
