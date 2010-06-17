@@ -18,7 +18,6 @@ module ActionView::Helpers
 
 ##we really should specify this option every time (in case of midnight!)
 ##unless we pass an object like @shift or @sub_request, it can't tell what it's doing. Mandatory option :/
-#        @options[:shift_date] = Time.now   if @options[:shift_date].nil?
 
         # Default is 15 minute intervals
         minute_interval = 15
@@ -56,7 +55,8 @@ module ActionView::Helpers
               hour_padded = zero_pad_num(hour)
               ampm_hour = ampm_hour(hour)
 
-              val = @options[:shift_date].to_date.to_s + " " + "#{hour_padded}:#{minute_padded}:00"
+## Right now we assume that date in every entry is start_time's date
+              val = @options[:start_time].to_date.to_s + " " + "#{hour_padded}:#{minute_padded}:00"
               minute_options << ((val_minutes == minute) ?
                 %(<option value="#{val}" selected="selected">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n) :
                 %(<option value="#{val}">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n)
