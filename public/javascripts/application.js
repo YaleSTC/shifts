@@ -12,13 +12,16 @@ $(document).ready(function() {
     $('.onchange_submit').change(function() { $
         (this).submit() 
     });
-
-
-    //Anything of class "trigger" will cause something of class "toggle" with the same name to be toggled
+    
+    //Anything of class "trigger-<id>" will cause something of class "toggle-<id>" with the same <id> to be toggled
     //Also, the trigger will gain the class "triggered" in case any styling needs to be changed on the trigger
 	$("[class^=trigger-]").click(function(){
-		$($(this).toggleClass("triggered").attr("class").replace("trigger",".toggle")).slideToggle('200');
+		$(".toggle-"+$(this).toggleClass("triggered").attr("class").match(/trigger-((\w|-)+)\b/)[1]).slideToggle('200');
 	});
+    //Also, make all triggers links
+    $("[class^=trigger-]").each(function() {
+        $(this).html("<a href='#'>"+$(this).text()+"</a>");
+    });
 
 });
 
