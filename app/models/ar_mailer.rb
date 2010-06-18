@@ -66,6 +66,16 @@ class ArMailer < ActionMailer::ARMailer
     sent_on     Time.now
     body        :sub => sub
   end
+  
+  #email a group of users who want to see whenever a sub request is taken
+  def sub_taken_watch(sub_request, new_shift, dept) #variables here
+      subject        "RE:[Sub Request] Sub needed for " #add here 
+      recipients      new_shift.user.email #change this later once i know this works
+      from            dept.department_config.mailer_address
+      sent_on         Time.now
+      body            :sub_request => sub_request, :new_shift => new_shift #change these later too... 
+    end
+  
 
 end
 
