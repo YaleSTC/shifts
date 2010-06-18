@@ -44,7 +44,7 @@ Rails::Initializer.run do |config|
   config.gem 'ar_mailer', :lib => 'action_mailer/ar_mailer'
   config.gem "whenever", :lib => false
   config.gem 'hoptoad_notifier'
-  
+  config.gem 'icalendar'
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
