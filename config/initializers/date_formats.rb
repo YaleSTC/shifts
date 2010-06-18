@@ -11,6 +11,7 @@ my_formats = {
   :Day => "%A",
   :gg => "%a %m/%d",
   :sql => "%Y-%m-%d %H:%M:%S"
+  :us_icaldate => "%Y%m%dT%H%M%S"
 }
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(my_formats)
