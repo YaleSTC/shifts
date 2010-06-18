@@ -25,7 +25,7 @@ class SubRequestsController < ApplicationController
 
     parse_simple_time_select_output(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
-    @sub_request.shift = Shift.find(params[:shift_id])   ##or this could say Shift.find(params[:shift_id])
+    @sub_request.shift = Shift.find(params[:shift_id])
     @sub_request.user = @sub_request.shift.user
 
 
