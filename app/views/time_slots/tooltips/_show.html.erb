@@ -16,7 +16,7 @@
     <% remote_form_for @time_slot do |f| %>
       <p>
         <%= f.label :start %><br />
-<%= f.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true
+<%= f.time_select :start, :twelve_hour => true, :minute_step => current_department.department_config.time_increment
 #    f.time_select :start, {
  #               :simple_time_select => true,
   #              :time_separator => "",
@@ -35,7 +35,7 @@
       </p>
       <p>
         <%= f.label :end %><br />
-    <%= f.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true
+    <%= f.time_select :start, :twelve_hour => true, :minute_step => current_department.department_config.time_increment
 #  f.time_select :end, {
  #               :simple_time_select => true,
   #              :time_separator => "",
