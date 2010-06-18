@@ -12,10 +12,9 @@ class CalendarFeedsController < ApplicationController
 
   def grab
     @source = resolve_token(params[:token], params[:user_id])
-    @user = User.find(params[:user_id])
 
     # @shifts = @source.get_viewable_shifts(@user)     #model after shifts/calendar logic we already have
-    @shifts = Shift.find(:all, :conditions => ["end >= ?", Time.now])
+    @shifts = @source.shifts
     render :text => generate_ical
     
   end
@@ -36,7 +35,7 @@ class CalendarFeedsController < ApplicationController
       cipher.iv = current_user.calendar_feed_hash
       @token = cipher.update(source.class.name.to_s + ',' +  source.id.to_s)
       @token << cipher.final
-      @token.unpack("H*")
+      @token.unpack("H*").to_s
   end
   
   def resolve_token(token, user_id)
@@ -46,11 +45,9 @@ class CalendarFeedsController < ApplicationController
     cipher.decrypt
     cipher.key = "gd345z68k223h70xkcdgd345z68k223h"
     cipher.iv = User.find(user_id).calendar_feed_hash
-    @token=token.to_a.pack("H*")
-
-    @source_string = cipher.update(@token)
-    @source_sting << cipher.final
-    @source_string.split('.')[0].constantize.find(@decrypted_value.split('.')[1])   #this will fail ugly with bad url
+    @source_string = cipher.update(token.to_a.pack("H*"))
+    @source_string << cipher.final    #in case first update is blank, concat would fail
+    @source_string.split(',')[0].constantize.find(@source_string.split(',')[1])
   end
 
   def generate_ical
