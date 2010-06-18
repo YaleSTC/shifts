@@ -17,6 +17,7 @@ $(document).ready(function() {
     //Also, the trigger will gain the class "triggered" in case any styling needs to be changed on the trigger
 	$("[class^=trigger-]").click(function(){
 		$(".toggle-"+$(this).toggleClass("triggered").attr("class").match(/trigger-((\w|-)+)\b/)[1]).slideToggle('200');
+		event.preventDefault(); //don't actually follow the link (even '#' goes to top of page in some cases)
 	});
     //Also, make all triggers links
     $("[class^=trigger-]").each(function() {
