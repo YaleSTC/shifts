@@ -6,9 +6,10 @@
 <% content_for :left_nav do %>
   <ul id="navigationList">
     <h3>Notice Actions</h3>
-      <li><%= link_to_post_a_new_notice %></li>
+      <li><%= link_to_post_an_announcement %></li>
+			<li><%= link_to "View useful links", links_path %></li>
     <% if current_user.is_admin_of?(current_department) %>
-      <li><%= link_to 'View All Notices', archive_notices_path %></li>
+      <li><%= link_to 'View all notices', archive_notices_path %></li>
     <% end %>
   </ul>
   <div id="contentNav">

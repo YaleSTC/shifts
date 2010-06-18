@@ -15,9 +15,9 @@ jQuery(document).ready(function(){
 //    $(this).css("display", "inline");
 //})
 
-$("input[name^='for_location_group']").each(function(){
-    $(this).css("display", "inline");
-})
+		$("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
+  	  $(this).css("display", "inline");
+		})
 
 
 
