@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
 
 
-//By default, only have advanced_options open on the main Notices page (not in a location)
+    //By default, only have advanced_options open on the main Notices page (not in a location)
     if($("#page_title").text() != "Notices") {
         $("#advanced_options_div").hide();
         $("#toggle_link").html('Show advanced options');
@@ -11,15 +11,13 @@ jQuery(document).ready(function(){
         $("#toggle_link").show();
     }
 
-//$("#department_wide_locations").each(function(){
-//    $(this).css("display", "inline");
-//})
+    //$("#department_wide_locations").each(function(){
+    //    $(this).css("display", "inline");
+    //})
 
-$("input[name^='for_location_group']").each(function(){
-    $(this).css("display", "inline");
-})
-
-
+    $("input[name^='for_location_group']").each(function(){
+        $(this).css("display", "inline");
+    })
 
     $("#department_wide_locations").click(function(){
         var dept_status = $(this).attr('checked');

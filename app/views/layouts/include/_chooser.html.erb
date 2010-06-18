@@ -5,19 +5,11 @@
     <% if ad.size==1 -%>
       <%= ad.first.name %>
     <% else -%>
-      <% form_tag('', {:id => 'form_chooser', :method => "get"}) do %>
+      <% form_tag('', {:id => 'chooser_form', :class => 'onchange_submit', :method => "get"}) do %>
         <%= collection_select 'chooser', "dept_id", ad, :id, :name, @department!=current_department ? {:include_blank =>true} : {:selected => current_department.id} %>
-        <%= submit_tag value = "Switch", :id => 'submit_deptchooser' %>
+        <%= submit_tag value = "Switch", :id => 'submit_deptchooser', :class => 'no_js' %>
       <% end -%>
     <% end -%>
   </p>
 <% end %>
 </div>
-
-<%# hide the submit tag if javascript is enabled, and submit when clicked -%>
-<% content_for :javascript do -%> 
-  $(document).ready(function() {
-    $('#submit_deptchooser').toggle();
-  });
-  $('#form_chooser').change($(this).submit());
-<% end -%>
