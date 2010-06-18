@@ -32,6 +32,8 @@ class SubRequest < ActiveRecord::Base
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
           AppMailer.deliver_sub_taken_notification(sub_request, new_shift, new_shift.department)
+          ArMailer.deliver(ArMailer.create_sub_taken_watch(sub_request, new_shift, new_shift.department)) 
+          #ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email 
           return true
         end
     else
