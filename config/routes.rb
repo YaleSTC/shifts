@@ -30,6 +30,9 @@ ActionController::Routing::Routes.draw do |map|
   #TODO: get rid of sessions controller and move logout action to user_session controller and name it cas_logout
   map.cas_logout "cas_logout", :controller => 'sessions', :action => 'logout'
 
+   # routes for calendar_feeds
+  map.calendar_feed 'calendar_feeds/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab'
+  
   # routes for managing superusers
   map.superusers "superusers", :controller => 'superusers'
   map.add_superusers "superusers/add", :controller => 'superusers', :action => 'add'
