@@ -8,19 +8,17 @@ module ActionView::Helpers
 
     if @options[:default]
       val_minutes = @options[:default].min + @options[:default].hour*60
-    elsif @options[:default_minute]
-      val_minutes = @options[:default_minute]
     else
       val_minutes = @datetime.kind_of?(Time) ? @datetime.min + @datetime.hour*60 : @datetime
     end
 
-    if @options[:date].nil?
-      if @options[:start_time].nil?
-        @options[:date] = Time.now
-      else
-        @options[:date] = @options[:start_time] #ideal scenario leads here
+      if @options[:date].nil?
+        if @options[:start_time]
+          @options[:date] = @options[:start_time]
+        else
+          @options[:date] = Time.now
+        end
       end
-    end
 
         @options[:time_separator] = ""
         @options[:include_start_time] = true  if @options[:include_start_time].nil?
@@ -35,26 +33,18 @@ module ActionView::Helpers
 
 
         if @options[:start_time]
-          start_minute = @options[:start_time].hour * 60
-          start_minute = start_minute + @options[:start_time].min
-          start_minute = start_minute + 1 unless @options[:include_start_time]
-        elsif @options[:start_minute]
-          start_minute = @options[:start_minute]
+          start_minute = @options[:start_time].hour * 60 + @options[:start_time].min
         else
           start_minute = 0
         end
-
+        start_minute = start_minute + 1 unless @options[:include_start_time]
 
         if @options[:end_time]
-          end_minute = @options[:end_time].hour * 60
-          end_minute = end_minute + @options[:end_time].min
-          end_minute = end_minute - 1 unless @options[:include_end_time]
-        elsif @options[:end_minute]
-          end_minute = @options[:end_minute]
+          end_minute = @options[:end_time].hour * 60 + @options[:end_time].min
         else
           end_minute = 1439
         end
-
+        end_minute = end_minute - 1 unless @options[:include_end_time]
 
 
 

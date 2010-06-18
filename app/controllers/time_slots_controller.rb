@@ -20,13 +20,17 @@ class TimeSlotsController < ApplicationController
 
   def new
     @time_slot = TimeSlot.new
+    @start_time = Time.now.to_date + @department.department_config.schedule_start.minutes
+    @end_time = Time.now.to_date + @department.department_config.schedule_end.minutes
+    @default_start_time = @start_time
+    @default_end_time = @end_time
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
   end
 
   def create
     @time_slots = []
     errors = []
-#    parse_simple_time_select_output(params[:time_slot])
+    parse_simple_time_select_output(params[:time_slot])
     week_start_date = (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
     for location_id in params[:location_ids]
       for day in params[:days]
@@ -37,7 +41,7 @@ class TimeSlotsController < ApplicationController
         time_slot.calendar = @department.calendars.default unless time_slot.calendar
         if !time_slot.save
           errors << "Error saving timeslot for #{WEEK_DAYS[day.to_i]}"
-      else
+        else
           @time_slots << time_slot
         end
       end
@@ -67,12 +71,16 @@ class TimeSlotsController < ApplicationController
 
   def edit
     @time_slot = TimeSlot.find(params[:id])
+    @start_time = @time_slot.start.to_date + @department.department_config.schedule_start.minutes
+    @end_time = @time_slot.end.to_date + @department.department_config.schedule_end.minutes
+    @default_start_time = @time_slot.start
+    @default_end_time = @time_slot.end
   end
 
   def update
     @time_slot = TimeSlot.find(params[:id])
 
-#    parse_simple_time_select_output(params[:time_slot])
+    parse_simple_time_select_output(params[:time_slot])
 
     if @time_slot.update_attributes(params[:time_slot])
       respond_to do |format|
