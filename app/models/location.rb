@@ -49,7 +49,6 @@ class Location < ActiveRecord::Base
     Restriction.current.select{|r| r.locations.include?(self)}
   end
 
-
   def count_people_for(shift_list, min_block)
     people_count = {}
     people_count.default = 0

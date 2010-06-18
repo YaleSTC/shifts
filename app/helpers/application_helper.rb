@@ -8,7 +8,9 @@ module ApplicationHelper
   end
 
   def link_to_post_a_link
-    link_to_unless_current('Post a new link', new_link_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
+		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
+    	link_to_unless_current('Post a new link', new_link_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
+		end
   end
 
 	def link_to_post_a_sticky(on_report_page = false)
@@ -17,7 +19,7 @@ module ApplicationHelper
   end
 
 	def link_to_post_an_announcement
-		if current_user.is_admin_of?(current_department)
+		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
 			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 535, :width => 515), :title => "Post a new announcement", :class => "thickbox", :id => "announcement_link")
 		end
 	end
