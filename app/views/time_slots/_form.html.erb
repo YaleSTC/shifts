@@ -15,12 +15,11 @@
   </p>
   <p>
     <%= f.label :start %><br />
-    <%= f.time_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    <%= f.time_select :start, :twelve_hour => true, :minute_step => @department.department_config.time_increment %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.time_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-  </p>
+    <%= f.time_select :end, :twelve_hour => true, :minute_step => @department.department_config.time_increment %>  </p>
   <% @department.loc_groups.each do |loc_group| %>
     <% unless loc_group.locations.empty? %>
       <p>
@@ -35,3 +34,4 @@
   </p>
   <p><%= f.submit "Add" %></p>
 <% end %>
+
