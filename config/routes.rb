@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
   map.cas_logout "cas_logout", :controller => 'sessions', :action => 'logout'
 
    # routes for calendar_feeds
-  map.calendar_feed 'calendar_feeds/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab'
+  map.calendar_feed 'calendar_feeds/grab/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab'
   
   # routes for managing superusers
   map.superusers "superusers", :controller => 'superusers'
