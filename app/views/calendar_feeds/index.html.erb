@@ -1,7 +1,20 @@
 <h1>Listing calendar_feeds</h1>
+<table>
+  <tr>
+    <th>Shift source type</th>
+    <th>Shift source</th>
+    <th>Path</th>
+  </tr>
 
+<% @shift_sources.each do |shift_source| %>
 
-List all feeds current_user has access to.
+  <tr>
+    <td><%=h shift_source.type %></td>
+    <td><%=h shift_source.name %></td>
+    <td><%=link_to 'calendar_feed', "/calendar_feeds/grab/" + current_user.id.to_s + "/" + shift_source.token.to_s + ".ical" %></td>
+  </tr>
+<% end %>
+</table>
 
 
 </table>
