@@ -26,8 +26,8 @@ class TimeSlotsController < ApplicationController
   def create
     @time_slots = []
     errors = []
-    parse_simple_time_select_output(params[:time_slot])
-    week_start_date= (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
+#    parse_simple_time_select_output(params[:time_slot])
+    week_start_date = (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
     for location_id in params[:location_ids]
       for day in params[:days]
         time_slot = TimeSlot.new(params[:time_slot])
