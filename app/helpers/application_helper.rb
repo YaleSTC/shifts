@@ -58,8 +58,10 @@ module ApplicationHelper
               dropdownItem2: "token-input-dropdown-item2-facebook",
               selectedDropdownItem: "token-input-selected-dropdown-item-facebook",
               inputToken: "token-input-input-token-facebook"'
+      css_file = 'tokeninput-facebook'
     else
       style = ''
+      css_file = 'token-input'
     end
     
     json_string = ""
@@ -68,9 +70,10 @@ module ApplicationHelper
         json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
       end
     end
-
-    output = '<script type="text/javascript">
-      $(document).ready(function() {
+    
+    #Tell the app to put javascript info at top and bottom of pages (Unobtrusive Javascript - style)
+    content_for :javascript, 
+      '$(document).ready(function() {
         $("#'+options[:id]+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {
             prePopulate: ['+json_string+'],
             hintText: "'+options[:hint_text]+'",
@@ -78,8 +81,10 @@ module ApplicationHelper
               '+style+'
             }
           });
-        });
-        </script>' + text_field_tag(options[:id])
+        });'
+    content_for :head, javascript_include_tag('jquery.tokeninput')
+    content_for :head, stylesheet_link_tag(css_file)
+    text_field_tag(options[:id])
   end
 
 
