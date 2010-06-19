@@ -1,25 +1,23 @@
 <div id="location<%= location.id %>">
-  <h1><%= link_to_function location.name, "$(this).parent().next().toggle()" %></h1>
-  <div>
-    <div class="timeline" style="height:150px; width: 100%;">
-      <div class="days">
-        <div class="day" style="height: 22%;"></div>
-        <%= render :partial => "time_slots/left_day", :collection => @period_start...(@period_start+1.day).end_of_week %>
-      </div>
-      <div class="timeline-data">
-        <ul class="intervals" style="height: 22%;">
-          <%= render :partial => "time_slots/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
-        </ul>
-        <%= render :partial => "time_slots/time_slot_day", :collection => @period_start...(@period_start+1.day).end_of_week, :locals => {:location => location}  %>
-      </div>
+  <h1 class="trigger-<%= location.name.parameterize() %>"><%= location.name %></h1>
+  <div class="timeline toggle-<%= location.name.parameterize() %>" style="height:150px; width: 100%;">
+    <div class="days">
+      <div class="day" style="height: 22%;"></div>
+      <%= render :partial => "time_slots/left_day", :collection => @period_start...(@period_start+1.day).end_of_week %>
     </div>
-    
-    <% unless @hidden_timeslots.empty? %>
-      <h3>Hidden From <%= location.short_name %> View:</h3>
-      <ul>
-        <%= render :partial => "time_slots/hidden_timeslot", :collection => @hidden_timeslots %>
-        <div style="clear:both"></div>
+    <div class="timeline-data">
+      <ul class="intervals" style="height: 22%;">
+        <%= render :partial => "time_slots/hour", :collection =>  @dept_start_hour...@dept_end_hour %>
       </ul>
-    <% end %>
+      <%= render :partial => "time_slots/time_slot_day", :collection => @period_start...(@period_start+1.day).end_of_week, :locals => {:location => location}  %>
+    </div>
   </div>
+  
+  <% unless @hidden_timeslots.empty? %>
+    <h3>Hidden From <%= location.short_name %> View:</h3>
+    <ul>
+      <%= render :partial => "time_slots/hidden_timeslot", :collection => @hidden_timeslots %>
+      <div style="clear:both"></div>
+    </ul>
+  <% end %>
 </div>

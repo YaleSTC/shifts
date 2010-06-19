@@ -22,6 +22,7 @@ module ApplicationHelper
 		end
 	end
 
+  # deprecated! use nathan's toggle methods in application.js instead (need only give objects classes)
   def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
