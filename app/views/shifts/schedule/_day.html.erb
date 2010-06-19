@@ -5,8 +5,8 @@
 
 <!-- #TODO: this whole section needs to be cleaned up... we should standardize ids, classes, etc... -->
 <div id="<%= day.to_s %>" class="day_partial">
-  <h2 class="trigger-<%= day.to_s %>"><%= day.to_s(:just_date_long) %></h2>
-  <div class="timeline toggle-<%= day.to_s %>" id="day_<%=day.to_s %>">
+  <h2 class="trigger"><%= day.to_s(:just_date_long) %></h2>
+  <div class="timeline" id="day_<%=day.to_s %>">
     <div class="days">
       <div class="day" style="height: <%= @table_pixels / (@table_height)%>px;"></div>
       <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups, :locals => {:day => day} %>
