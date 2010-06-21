@@ -1,5 +1,6 @@
 class CalendarFeedsController < ApplicationController
-
+    skip_before_filter :load_app_config, :login_check, :except => :index
+    
   def index
     shift_source = Struct.new( :type, :name, :token )
     @user=shift_source.new(current_user.class.name, current_user.name, generate_token(current_user))
