@@ -231,10 +231,10 @@ class Shift < ActiveRecord::Base
   
   def updates_per_hour
     if self.report == nil
-      return 0
+      return nil
     else
-      shift_time = self.report.arrived - self.report.departed
-      number_report_items = self.report.report_items.size - 2
+      shift_time = (self.report.departed - self.report.arrived)/3600
+      number_report_items = self.report.report_items.size
       return number_report_items/shift_time
     end
   end

@@ -20,6 +20,7 @@
       <th align="left">Late</th>
       <th align="left">Left Early</th>
       <th align="left">Missed</th>
+			<th align="left">Updates/Hour</th>
     </tr>
   </thead>
   <tbody id="user_list">
@@ -30,6 +31,7 @@
         <td><%=h stat[:num_late] %></td>
         <td><%=h stat[:num_left_early] %></td>
         <td><%=h stat[:num_missed] %></td>
+				<td><%=h stat[:updates] %></td>
       </tr>
     <% end %>
   </tbody>
