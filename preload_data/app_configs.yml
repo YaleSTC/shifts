@@ -14,3 +14,4 @@ app_configs_001:
   mailer_address: testing@contact.ben
   updated_at: 2009-08-04 20:23:27
   use_ldap: true
+  calendar_feed_hash: gd345z68k223h70xkcdgd345z68k223h

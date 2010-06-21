@@ -3,8 +3,8 @@
   <tr>
     <th>Shift source type</th>
     <th>Shift source</th>
-    <th>ics Path</th>
-	<th>WebCal Path</th
+    <th>html</th>
+	<th>WebCal</th
   </tr>
 
 <% @shift_sources.each do |shift_source| %>
@@ -17,3 +17,4 @@
 </tr>
 <% end %>
 </table>
+<%= link_to 'reset feeds', {:controller => 'calendar_feeds', :action => 'reset', } %>

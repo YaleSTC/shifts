@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
   # check if a user can sign up for a shift in this loc group
   def can_signup?(loc_group)
     return false unless loc_group
-    permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
+    (permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)) if permission_list
   end
   
   # check if a user has permission to take a sub

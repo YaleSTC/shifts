@@ -4,5 +4,6 @@ class AddCalendarFeedHashToUser < ActiveRecord::Migration
   end
 
   def self.down
+    remove_column :users, :calendar_feed_hash
   end
 end
