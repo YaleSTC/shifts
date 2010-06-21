@@ -3,7 +3,8 @@
   <tr>
     <th>Shift source type</th>
     <th>Shift source</th>
-    <th>Path</th>
+    <th>ics Path</th>
+	<th>WebCal Path</th
   </tr>
 
 <% @shift_sources.each do |shift_source| %>
@@ -11,10 +12,8 @@
   <tr>
     <td><%=h shift_source.type %></td>
     <td><%=h shift_source.name %></td>
-    <td><%=link_to 'calendar_feed', "/calendar_feeds/grab/" + current_user.id.to_s + "/" + shift_source.token.to_s + ".ical" %></td>
-  </tr>
+    <td><%=link_to 'html', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics} %></td>
+  	<td><%= link_to 'webCal', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %>
+</tr>
 <% end %>
-</table>
-
-
 </table>
