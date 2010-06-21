@@ -66,27 +66,27 @@ class ArMailer < ActionMailer::ARMailer
     body        :sub => sub
   end
   
+  #email the user who took the sub and the requester of the sub that their shift has been taken
+  def sub_taken_notification(sub_request, new_shift, dept)
+    subject     "[Sub Request] #{new_shift.user.name} took your sub!"
+    recipients  sub_request.shift.user.email
+    cc          new_shift.user.email
+    from        dept.department_config.mailer_address
+    sent_on     Time.now
+    body        :sub_request => sub_request, :new_shift => new_shift
+  end
     
-    def sub_taken_notification(sub_request, new_shift, dept)
-       subject     "[Sub Request] #{new_shift.user.name} took your sub!"
-       recipients  sub_request.shift.user.email
-       cc          new_shift.user.email
-       from        dept.department_config.mailer_address
-       sent_on     Time.now
-       body        :sub_request => sub_request, :new_shift => new_shift
-     end
-    
   
   
-  # #email a group of users who want to see whenever a sub request is taken
-  #   def sub_taken_watch(dept) #sub_request, new_shift, dept) #variables here
-  #       subject        "RE:[Sub Request] Sub needed for " #add here 
-  #       recipients      "maria.altyeva@yale.edu" #new_shift.user.email #change this later once i know this works
-  #       from            dept.department_config.mailer_address
-  #       sent_on         Time.now
-  #       body            #:sub_request => sub_request, :new_shift => new_shift #change these later too... 
-  #     end
-  
+  #email a group of users who want to see whenever a sub request is taken
+  def sub_taken_watch(sub_request, new_shift, dept) #variables here
+    subject     "Re: [Sub Request] Sub needed for " #+ sub_request.shift.short_display 
+    recipients  new_shift.user.email
+    from        dept.department_config.mailer_address
+    sent_on     Time.now
+    body       :sub_request => sub_request, :new_shift => new_shift #change these later too... 
+  end
+   
 
 end
 
