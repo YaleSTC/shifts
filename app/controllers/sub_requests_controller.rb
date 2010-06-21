@@ -64,9 +64,9 @@ class SubRequestsController < ApplicationController
       render :action => "new"
     else
       flash[:notice] = 'Sub request was successfully created.'
-     # @sub_request.potential_takers.each do |user|
-       # ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
-    #  end
+      @sub_request.potential_takers.each do |user|
+        ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email
+      end
       redirect_to :action => "show", :id => @sub_request
     end
   end
