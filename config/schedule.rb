@@ -19,3 +19,7 @@ end
 every 3.minutes do
   command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production"
 end
+
+every 1.hour do
+  rake "generate_stats"
+end
