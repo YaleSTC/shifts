@@ -1,5 +1,9 @@
 <h1>Stats</h1>
 
+<% content_for :head do %>
+ <%= javascript_include_tag 'jExpand' %>
+<% end %>
+
 <% form_tag 'stats' do |f| %>
   <p>
     <%= label_tag :start_date %><br />
@@ -20,6 +24,7 @@
       <th align="left">Late</th>
       <th align="left">Left Early</th>
       <th align="left">Missed</th>
+			<th align="left">Updates/Hour</th>
     </tr>
   </thead>
   <tbody id="user_list">
@@ -30,7 +35,11 @@
         <td><%=h stat[:num_late] %></td>
         <td><%=h stat[:num_left_early] %></td>
         <td><%=h stat[:num_missed] %></td>
+				<td><%=h stat[:updates] %></td>
       </tr>
+			<tr>
+				<td>"Hello world"<td>
+			</tr>
     <% end %>
   </tbody>
 </table>
