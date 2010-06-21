@@ -28,7 +28,7 @@
             @dept_start_hour = current_department.department_config.schedule_start / 60
             @dept_end_hour = current_department.department_config.schedule_end / 60
             @hours_per_day = (@dept_end_hour - @dept_start_hour)
-            default_time = Date.today.to_time + @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f) * 3600
+            default_time = Date.today.to_time + @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f).to_int * 3600 #the .to_int truncates the minutes&seconds off
           else
             default_time = Time.now
           end

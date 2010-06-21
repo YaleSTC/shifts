@@ -111,6 +111,10 @@ class ShiftsController < ApplicationController
   end
 
   def create
+
+# needed when simple_time_select is implemented
+#    parse_simple_time_select_output(params[:shift])
+
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)
@@ -165,6 +169,10 @@ class ShiftsController < ApplicationController
   end
 
   def update
+
+#    needed when simple_time_select is implemented
+#    parse_simple_time_select_output(params[:shift])
+
     @shift = Shift.find(params[:id])
     return unless user_is_owner_or_admin_of(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
