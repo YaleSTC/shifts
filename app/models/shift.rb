@@ -43,7 +43,9 @@ class Shift < ActiveRecord::Base
   named_scope :left_early,
         :joins => :report,
         :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")  
-      
+  named_scope :parsed, :conditions => {:parsed => false}
+
+
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
@@ -234,6 +236,16 @@ class Shift < ActiveRecord::Base
 
   def left_early?
     (self.report.nil? or self.report.departed.nil?) ? false : (self.end - self.report.departed > self.department.department_config.grace_period*60)
+  end
+  
+  def updates_per_hour
+    if self.report == nil
+      return nil
+    else
+      shift_time = (self.report.departed - self.report.arrived)/3600
+      number_report_items = self.report.report_items.size
+      return number_report_items/shift_time
+    end
   end
 
   #a shift has been signed in to if it has a report
