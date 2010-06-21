@@ -13,22 +13,22 @@
   <% remote_form_for @shift do |f| %>
     <%= f.error_messages %>
     <%
-      start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
+      default_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
       if params[:xPercentage]
-        @dept_start_hour ||= current_department.department_config.schedule_start
-        @dept_end_hour ||= current_department.department_config.schedule_end
-        @minutes_per_day ||= (@dept_end_hour - @dept_start_hour)
-        start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f) * 60
+        @dept_start_hour = current_department.department_config.schedule_start / 60
+        @dept_end_hour = current_department.department_config.schedule_end / 60
+        @hours_per_day = (@dept_end_hour - @dept_start_hour)
+        default_time = Date.today.to_time + @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f).to_int * 3600 #the .to_int truncates the minutes & seconds off
       end
     %>
     <%#= render :partial => 'shifts/form', :locals => {:f => f} %><%# disabled because start and end don't need dates, just times %>
     <p>
       <%= f.label :start %><br />
-      <%= f.time_select :start, :twelve_hour => true, :default => start_time, :minute_step => current_department.department_config.time_increment %>
+      <%= f.time_select :start, :twelve_hour => true, :default => default_time, :minute_step => current_department.department_config.time_increment %>
     </p>
     <p>
       <%= f.label :end %><br />
-      <%= f.time_select :end, :twelve_hour => true, :default => start_time + 1.hour, :minute_step => current_department.department_config.time_increment %>
+      <%= f.time_select :end, :twelve_hour => true, :default => default_time + 1.hour, :minute_step => current_department.department_config.time_increment %>
     </p>
     <p>
       <%= f.label :location %><br />
