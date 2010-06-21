@@ -4,11 +4,11 @@
 class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
-  before_filter :load_app_config, :except => 'grab'
+  before_filter :load_app_config
   before_filter :department_chooser
   before_filter :load_user_session
   before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
-  before_filter :login_check, :except => [:access_denied, 'grab']
+  before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
 # before_filter :load_user
