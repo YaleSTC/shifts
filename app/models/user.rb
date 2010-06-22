@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
   def role
     self.roles.first.name if self.roles.first
   end
+  
+  def active_departments
+    self.departments.select {|d| self.is_active?(d)}
+  end
 
   def set_random_password(size=20)
     chars = (('a'..'z').to_a + ('0'..'9').to_a)

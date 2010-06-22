@@ -38,14 +38,14 @@ class CalendarFeedsController < ApplicationController
     end
     @shifts = []
     case
-        when @source.class.name == "Department" && @user.departments.include?(@source)
+        when @source.class.name == "Department" && @user.departments.include?(@source) && @user.is_active?(@source)
           @shifts = Shift.in_locations(@source.loc_groups.select {|lg| @user.can_view?(lg)}.collect(&:locations).flatten).after_date(Time.now.utc - 3.weeks).flatten
         when @source.class.name == "LocGroup" && @user.can_view?(@source)
           @shifts = Shift.in_locations(@source.locations).after_date(Time.now.utc - 3.weeks).flatten
         when @source.class.name == "Location" && @user.can_view?(@source.loc_group)
            @shifts = Shift.find(:all, :conditions => ["location_id = ? AND end >= ?", @source.id, Time.now.utc - 3.weeks])
-        when @source.class.name == "User"   
-          @shifts = Shift.find(:all, :conditions => ["user_id = ? AND end >= ?", @source.id, Time.now.utc - 3.weeks]).flatten
+        when @source.class.name == "User"
+           @shifts = Shift.in_departments(@source.active_departments).for_user(@source).after_date(Time.now.utc - 3.weeks).flatten
       end
       render :text => generate_ical
   end
