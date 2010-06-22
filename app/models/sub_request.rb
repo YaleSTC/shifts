@@ -32,10 +32,11 @@ class SubRequest < ActiveRecord::Base
           sub_request.destroy
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
-          ArMailer.deliver(ArMailer.create_sub_taken_notification (sub_request, new_shift, new_shift.department)) #if new_shift.user.email && sub_request.user.email
-          ArMailer.deliver(ArMailer.create_sub_taken_watch (sub_request, new_shift, new_shift.department))
-          #ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email 
-          #email = ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department)        
+          ArMailer.deliver(ArMailer.create_sub_taken_notification (sub_request, new_shift, new_shift.department)) 
+          sub_watch_users = sub_request.potential_takers.select {|u| u.user_config.taken_sub_email}
+          for user in sub_watch_users
+            ArMailer.deliver(ArMailer.create_sub_taken_watch (user.email, sub_request, new_shift, new_shift.department)) if user.email
+          end
           return true
         end
     else
@@ -60,6 +61,11 @@ class SubRequest < ActiveRecord::Base
 
   def potential_takers
     !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq
+  end
+  
+  def can_take_sub?(sub_request)
+    return false unless sub_request
+    can_signup?(sub_request.loc_group)  && (sub_request.user != self) && (sub_request.users_with_permission.include?(self) || sub_request.users_with_permission.blank?)
   end
   
   #returns users stated in user_sources and checks to make sure they still have permission
