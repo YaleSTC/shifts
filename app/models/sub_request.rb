@@ -49,7 +49,11 @@ class SubRequest < ActiveRecord::Base
   def loc_group
     shift.location.loc_group
   end
-
+  
+  def location
+    shift.location
+  end
+  
   def user_is_eligible?(user)
     return false if self.user == user
     user.can_signup?(self.shift.loc_group)

@@ -2,7 +2,7 @@
 <table>
   <tr>
     <th>Shift source type</th>
-    <th>Shift source</th>
+    <th>source</th>
     <th>html</th>
 	<th>WebCal</th
   </tr>
@@ -14,6 +14,25 @@
     <td><%=h shift_source.name %></td>
     <td><%=link_to 'html', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics} %></td>
   	<td><%= link_to 'webCal', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %>
+</tr>
+<% end %>
+</table>
+
+<table>
+  <tr>
+    <th>SubRequest source type</th>
+    <th>source</th>
+    <th>html</th>
+	<th>WebCal</th
+  </tr>
+
+<% @sub_sources.each do |sub_source| %>
+
+  <tr>
+    <td><%=h sub_source.type %></td>
+    <td><%=h sub_source.name %></td>
+    <td><%=link_to 'html', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => sub_source.token.to_s, :format => :ics} %></td>
+  	<td><%= link_to 'webCal', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => sub_source.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %>
 </tr>
 <% end %>
 </table>
