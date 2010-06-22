@@ -1,6 +1,6 @@
-<% if notice.sticky %>
+<% if notice.type == "Sticky" %>
   <%= render :partial => 'notices/sticky', :object => notice %>
-<% elsif notice.announcement %>
+<% elsif notice.type == "Announcement" %>
   <%= render :partial => 'notices/announcement', :object => notice %>
 <% end %>
 

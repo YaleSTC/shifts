@@ -1,4 +1,4 @@
-#This line may be unnessecary. See line 6.
+ #This line may be unnessecary. See line 6.
 ActionMailer::Base.delivery_method = :smtp
 
 class AppMailer < ActionMailer::Base

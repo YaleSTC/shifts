@@ -1,16 +1,16 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-  belongs_to :user
-
-  validates_presence_of :reason
-  validates_presence_of :shift
-  validate :start_and_end_are_within_shift
-  validate :mandatory_start_and_end_are_within_subrequest
-  validate :start_less_than_end
-  validate :not_in_the_past
-  validate :user_does_not_have_concurrent_sub_request
-
-  before_destroy :destroy_user_sinks_user_sources
+  delegate :user, :to => :shift
+  has_and_belongs_to_many :requested_users, :class_name => 'User'
+  
+  validates_presence_of :reason, :shift
+  validate :start_and_end_are_within_shift,
+           :mandatory_start_and_end_are_within_subrequest,
+           :start_less_than_end,
+           :not_in_the_past,
+           :user_does_not_have_concurrent_sub_request,
+           :requested_users_have_permission 
+ 
   #
   # Class methods
   #
@@ -25,19 +25,27 @@ class SubRequest < ActiveRecord::Base
           new_shift.power_signed_up = true #so that you don't get blocked taking a sub due to validations
           new_shift.signed_in = false #if you take a sub for a shift, but the requestor has signed in this prevents an error
           new_shift.user = user
-          new_shift.start = just_mandatory ? sub_request.mandatory_start : sub_request.start
+          if new_shift.start < Time.now && old_shift.department.department_config.can_take_passed_sub #if the sub request shift has already started, someone else can still sign up for the sub, but the start time will be the time you took the sub, to avoid the "not_in_the_past" validations
+            new_shift.start = Time.now + 1 #not_in_the_past checks for ==
+          else
+            new_shift.start = just_mandatory ? sub_request.mandatory_start : sub_request.start
+          end
           new_shift.end = just_mandatory ? sub_request.mandatory_end : sub_request.end
           UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{sub_request.id.to_sql}")
           sub_request.destroy
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
-          AppMailer.deliver_sub_taken_notification(sub_request, new_shift, new_shift.department)
+          ArMailer.deliver(ArMailer.create_sub_taken_notification sub_request, new_shift, new_shift.department) if new_shift.user.email && sub_request.user.email
+          
+          #ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email 
+          #email = ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department)        
           return true
         end
     else
       return false
     end
   end
+
 
   #
   # Object methods
@@ -50,36 +58,26 @@ class SubRequest < ActiveRecord::Base
 
   def user_is_eligible?(user)
     return false if self.user == user
-
-    potential_takers.include?(user)
+    user.can_signup?(self.shift.loc_group)
   end
 
   def potential_takers
-    can_signup_ones = loc_group.can_signup_users
-    if user_sources.blank?
-      can_signup_ones
-    else
-      specified_ones = user_sources.collect(&:users).flatten.uniq
-      # filter through people who can sign up
-      specified_ones & can_signup_ones
-    end
+    !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq
+  end
+  
+  #returns users stated in requested_users and checks to make sure they still have permission
+  def users_with_permission
+    requested_users.uniq.select { |u| u.can_signup?(self.shift.loc_group) }
   end
 
+  #returns roles that currently have permission
+  def roles_with_permission
+     shift.location.loc_group.roles
+  end  
+    
   def sub_name
     sub_class = self.user_source_type.classify
     sub_name = sub_class.find(self.user_source_id).name.to_s
-  end
-
-  def who_can_take
-    self.user_sinks_user_sources.each do |substitute|
-      if substitute.user_source_type == "Department"
-        "Users in the department:" #+ substitute.name.to_s
-      elsif substitute.user_source_type == "Role"
-        "Users who have the role: " #+ substitute.name.to_s
-      else
-        return "this user" #+ substitute.name.to_s
-      end
-    end
   end
 
   def has_started?
@@ -89,7 +87,7 @@ class SubRequest < ActiveRecord::Base
   def add_errors(e)
     e = e.gsub("Validation failed: ", "")
     e.split(", ").each do |error|
-      errors.add_to_base(error)
+      errors.add_to_base(error.gsub(",,", ", "))
     end
   end
 
@@ -124,15 +122,13 @@ class SubRequest < ActiveRecord::Base
       errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period") unless (self.id and c==1)
     end
   end
-
-  def has_user_sources
-    if self.user_sources.empty?
-      errors.add_to_base("Someone must be able to take this sub request. Add a person department and/or role to 'People/groups eligible for this sub'")
+    
+  def requested_users_have_permission 
+    c = self.requested_users.select { |user| !user.can_signup?(self.loc_group) || user==self.user}
+      unless c.blank? 
+        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
     end
   end
-
-  def destroy_user_sinks_user_sources
-    UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"SubRequest".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
-  end
+  
 end
 

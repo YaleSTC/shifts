@@ -12,4 +12,12 @@
       <%= render :partial => "time_slots/time_slot_day", :collection => @period_start...(@period_start+1.day).end_of_week, :locals => {:location => location}  %>
     </div>
   </div>
+  
+  <% unless @hidden_timeslots.empty? %>
+    <h3>Hidden From <%= location.short_name %> View:</h3>
+    <ul>
+      <%= render :partial => "time_slots/hidden_timeslot", :collection => @hidden_timeslots %>
+      <div style="clear:both"></div>
+    </ul>
+  <% end %>
 </div>

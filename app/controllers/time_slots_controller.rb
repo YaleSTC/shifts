@@ -26,17 +26,17 @@ class TimeSlotsController < ApplicationController
   def create
     @time_slots = []
     errors = []
-    date = (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
+    week_start_date= (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
     for location_id in params[:location_ids]
       for day in params[:days]
         time_slot = TimeSlot.new(params[:time_slot])
         time_slot.location_id = location_id
-        time_slot.start = date + day.to_i.days + time_slot.start.seconds_since_midnight
-        time_slot.end = date + day.to_i.days + time_slot.end.seconds_since_midnight
+        time_slot.start = week_start_date+ day.to_i.days + time_slot.start.seconds_since_midnight
+        time_slot.end = week_start_date+ day.to_i.days + time_slot.end.seconds_since_midnight
         time_slot.calendar = @department.calendars.default unless time_slot.calendar
         if !time_slot.save
           errors << "Error saving timeslot for #{WEEK_DAYS[day.to_i]}"
-        else
+      else
           @time_slots << time_slot
         end
       end
@@ -104,3 +104,4 @@ class TimeSlotsController < ApplicationController
     end
   end
 end
+
