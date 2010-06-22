@@ -1,7 +1,7 @@
 <% title "My Dashboard" %>
 
 <% unless current_user.notices.empty? %>
-  <%= render :partial => 'notices/for_you' %>
+  <%= render :partial => 'notices/for_category', :locals => {:givencollection => current_user.current_notices, :legend => "For you"} %>
 <% end %>
 
 <div id="left_stuff">
@@ -64,8 +64,13 @@
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
+	<%#= link_to "&lt;&lt; Earlier", {:date => (@period_start - 7)}, :class => "last_week" %>
   <legend>Today's schedule</legend>
-  <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
+  <%@today = Date.today %>
+  <%= link_to "&lt;&lt; Earlier", {:date => (@today - 1)} %>
+  <%= link_to "Later &gt;&gt;", {:partial => 'shifts/schedule/day', :object => (@today + 1)}%>
+  <%= render :partial => 'shifts/schedule/day', :object => @today %>
+
 </fieldset>
 <% end %>
 

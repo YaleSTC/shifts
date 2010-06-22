@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :stickies
+
+  map.resources :announcements
+
+  map.resources :links
+
   map.resources :repeating_events
   
   map.resources :calendars, :member => {:toggle => :post, :prepare_copy => :get, :copy => :post, :apply_schedule => [:get, :post]}, :collection => {:prepare_wipe_range => :get, :wipe_range => :post}
@@ -71,10 +77,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
+  
+  map.resources :locations, :member => {:toggle => [:get, :post]}
 
   map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
     report.resources :report_items
   end
+
+#TODO Fix report items routing, this is temporary
+  map.resources :report_items, :except => [:new, :update, :create, :destroy], :member => {:for_location => :get}
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
@@ -102,11 +113,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :permissions, :only => :index
   map.resources :stats, :only => :index
 
+  #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
+
+	map.public_view '/public/shifts/:cluster/:date', :controller => 'public_view', :action => 'index'
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

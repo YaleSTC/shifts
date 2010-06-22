@@ -43,14 +43,30 @@ class LocationsController < ApplicationController
       render :action => 'edit'
     end
   end
-
-  def destroy
+  
+  def toggle
     @location = Location.find(params[:id])
-    redirect_to access_denied_path unless @locations.include?(@location)
-    @location.destroy
-    flash[:notice] = "Successfully destroyed location."
-    redirect_to department_locations_path(current_department)
+    ActiveRecord::Base.transaction do
+      if @location.active
+        @location.deactivate
+      else
+        @location.activate
+      end
+    end
+    #flash[:notice] = "Changed activation status of " + @location.name.to_s + "."
+    respond_to do |format|
+      format.js 
+      format.html {redirect_to notices_path}
+    end
   end
+    
+  def destroy
+     @location = Location.find(params[:id])
+     redirect_to access_denied_path unless @locations.include?(@location)
+     @location.destroy
+     flash[:notice] = "Successfully destroyed location."
+     redirect_to department_locations_path(current_department)
+   end
   
 private
 
