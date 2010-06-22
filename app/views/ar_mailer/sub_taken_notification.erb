@@ -1,0 +1,5 @@
+Hi <%= @sub_request.shift.user.name %>,
+
+<%= @new_shift.user.name %> has agreed to cover your shift from <%= @new_shift.start.to_s(:am_pm_long) %> to <%= @new_shift.end.to_s(:am_pm_long) %> in <%= @new_shift.location.name %>.
+
+Have a nice day!
