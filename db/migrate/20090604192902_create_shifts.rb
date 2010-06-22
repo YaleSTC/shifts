@@ -11,7 +11,7 @@ class CreateShifts < ActiveRecord::Migration
       t.references :department #SPEEDS UP DATABASE QUERIES!
       t.boolean :scheduled, :default => true
       t.boolean :signed_in, :default => false
-      t.boolean :power_signed_up, :default => false #why was this true? -njg
+      t.boolean :power_signed_up, :default => false
       t.timestamps
     end
   end
