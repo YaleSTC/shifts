@@ -13,5 +13,5 @@ desc 'Run all continuous integration tests'
   # end.compact
   # abort "Errors running #{errors.to_sentence(:locale => :en)}!" if errors.any?
 
-    system "cap deploy DOMAIN=mahi.its.yale.edu PREFIX=test BRANCH=master"
+    system "cap deploy DOMAIN=mahi.its.yale.edu PREFIX=test BRANCH=development"
   end
