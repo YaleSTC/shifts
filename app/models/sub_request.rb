@@ -35,7 +35,10 @@ class SubRequest < ActiveRecord::Base
           sub_request.destroy
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
-          AppMailer.deliver_sub_taken_notification(sub_request, new_shift, new_shift.department)
+          ArMailer.deliver(ArMailer.create_sub_taken_notification sub_request, new_shift, new_shift.department) if new_shift.user.email && sub_request.user.email
+          
+          #ArMailer.deliver(ArMailer.create_sub_created_notify user.email, @sub_request) if user.email 
+          #email = ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department)        
           return true
         end
     else
