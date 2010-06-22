@@ -208,23 +208,14 @@ div#login{
 
 /* chooser
 --------------------------------------------------------- */
-div#chooser {
+#chooser {
   float: left;
   width: 250px;
-  padding: 0px 0px 0px 10px;
+  padding: 0px 5px 0px 10px;
   margin-top: 1px;
-}
-div#chooser p {
-  margin: 0pt 5px 0pt 0pt;
   font-size: 12px;
   color: #FFFFFF;
-  float: left;
-}
-#chooser p.chooser_status {
-  float: left;
   font-family: Verdana, Geneva, Arial, sans-serif;
-  font-size: 12px;
-  padding: 0pt;
   line-height: 1.6em;
 }
 
