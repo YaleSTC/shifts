@@ -59,13 +59,34 @@ class ArMailer < ActionMailer::ARMailer
   # SUB REQUEST:
   # email the specified list or default list of eligible takers
   def sub_created_notify(email_to, sub)
-
     subject     "[Sub Request] Sub needed for " + sub.shift.short_display
     recipients  email_to
     from        sub.user.email
     sent_on     Time.now
     body        :sub => sub
   end
+  
+    
+    def sub_taken_notification(sub_request, new_shift, dept)
+       subject     "[Sub Request] #{new_shift.user.name} took your sub!"
+       recipients  sub_request.shift.user.email
+       cc          new_shift.user.email
+       from        dept.department_config.mailer_address
+       sent_on     Time.now
+       body        :sub_request => sub_request, :new_shift => new_shift
+     end
+    
+  
+  
+  # #email a group of users who want to see whenever a sub request is taken
+  #   def sub_taken_watch(dept) #sub_request, new_shift, dept) #variables here
+  #       subject        "RE:[Sub Request] Sub needed for " #add here 
+  #       recipients      "maria.altyeva@yale.edu" #new_shift.user.email #change this later once i know this works
+  #       from            dept.department_config.mailer_address
+  #       sent_on         Time.now
+  #       body            #:sub_request => sub_request, :new_shift => new_shift #change these later too... 
+  #     end
+  
 
 end
 
