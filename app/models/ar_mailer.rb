@@ -82,7 +82,7 @@ class ArMailer < ActionMailer::ARMailer
   def sub_taken_watch(user, sub_request, new_shift, dept) 
     subject     "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display 
     recipients  "#{user.name} <#{user.email}>"
-    from        dept.department_config.mailer_address
+    from        sub_request.shift.user.email
     sent_on     Time.now
     body        :sub_request => sub_request, :new_shift => new_shift  
   end
