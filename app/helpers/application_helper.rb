@@ -67,12 +67,14 @@ module ApplicationHelper
   end
 
 
-  def select_integer (object, column, start, stop, default = nil)
+  def select_integer (object, column, start, stop, interval = 1, default = nil)
     output = "<select id=\"#{object}_#{column}\" name=\"#{object}[#{column}]\">"
     for i in start..stop
-      output << "\n<option value=\"#{i}\""
-      output << " selected=\"selected\"" if i == default
-      output << ">#{i}"
+      if i%interval == 0
+        output << "\n<option value=\"#{i}\""
+        output << " selected=\"selected\"" if i == default
+        output << ">#{i}"
+      end
     end
     output + "</select>"
   end
