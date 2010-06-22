@@ -188,11 +188,19 @@ class User < ActiveRecord::Base
   end
 
   #returns  upcoming sub_requests user has permission to take.  Default is for all departments
-  def available_sub_requests(departments)
+  def available_sub_requests(source)
+    @all_subs = []
    @all_subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| self.can_take_sub?(sub) }
-   if !departments.blank?
-     @all_subs.select {|sub| departments.include?(sub.shift.department) }
-   end
+   if !source.blank?
+       case 
+       when source.class.name == "Department"
+         @all_subs.select {|sub| source == sub.shift.department }
+       when source.class.name == "LocGroup"
+         @all_subs.select {|sub| source == sub.loc_group }
+       when source.class.name == "Location"
+         @all_subs.select {|sub| source == sub.shift.location }
+       end 
+    end
   end
   
   def restrictions #TODO: this could probably be optimized
