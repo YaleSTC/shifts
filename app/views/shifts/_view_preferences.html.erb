@@ -1,6 +1,6 @@
 <div id="preferences" style="float:right;position:relative;width:160px;text-align:right">
-  <span id="pref_link" class="dotted_link" style="display:none;"><%= link_toggle "checkbox_div", "Show/Hide Groups", "fast" %></span>
-  <div id="checkbox_div" style="position:absolute;background:#fff;border:#ccc 1px solid;width:160px;z-index:999;text-align:left;padding-left:10px;">
+  <h2 class="only_js trigger" style="display:none;">Show/Hide Groups</h2>
+  <div class="no_js" style="position:absolute;background:#fff;border:#ccc 1px solid;width:160px;z-index:999;text-align:left;padding-left:10px;">
     <% form_for current_user.user_config do |f| %>
       <p>
         <% for department in current_user.departments %>
