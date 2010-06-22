@@ -11,6 +11,7 @@ module ApplicationHelper
     link_to_unless_current('Post a new link', new_notice_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
   end
 
+  # deprecated! use nathan's toggle methods in application.js instead (need only give objects classes)
   def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
