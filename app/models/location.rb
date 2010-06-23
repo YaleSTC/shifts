@@ -58,7 +58,8 @@ class Location < ActiveRecord::Base
     self.active = false
     self.save!
     #Location activation must be set prior to individual shift activation; Shift class before_save
-    shifts = Shift.in_location(self).select{|s| s.start > Time.now}
+    shifts = Shift.in_location(self).after_date(Time.now.utc)
+    deactivate_time = Time.now
     shifts.each do |shift|
       shift.active = false
       shift.save
@@ -69,12 +70,10 @@ class Location < ActiveRecord::Base
     self.active = true
     self.save!
     #Location activation must be set prior to individual shift activation; Shift class before_save
-    shifts = Shift.in_location(self).select{|s| s.start > Time.now}
+    shifts = Shift.in_location(self).after_date(Time.now.utc)
     shifts.each do |shift|
       if shift.user.is_active?(shift.department) && shift.calendar.active
         shift.active = true
-      else
-        shift.active = false
       end
       shift.save
     end    
