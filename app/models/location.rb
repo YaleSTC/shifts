@@ -38,20 +38,16 @@ class Location < ActiveRecord::Base
     Notice.active.select {|n| n.locations.include?(self)}
   end
 
-  def current_links
-    Notice.active_links.select {|n| n.locations.include?(self)}
-  end
-
-  def stickys
-    self.notices.select {|n| n.sticky}
+  def stickies
+    self.current_notices.select {|n| n.type == "Sticky"}
   end
 
   def announcements
-    self.notices.select {|n| n.announcement}
+    self.current_notices.select {|n| n.type == "Announcement"}
   end
 
   def links
-    self.current_links.select {|n| n.useful_link}
+    Link.active_without_end.select {|n| n.locations.include?(self)}
   end
 
   def restrictions #TODO: this could probalby be optimized
@@ -65,7 +61,7 @@ class Location < ActiveRecord::Base
     shifts = Shift.in_location(self).select{|s| s.start > Time.now}
     shifts.each do |shift|
       shift.active = false
-      shift.save!
+      shift.save
     end
   end
   
@@ -80,7 +76,7 @@ class Location < ActiveRecord::Base
       else
         shift.active = false
       end
-      shift.save!
+      shift.save
     end    
   end
 

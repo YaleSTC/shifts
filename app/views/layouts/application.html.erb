@@ -37,7 +37,10 @@
     
   </div> <!-- End pagebox container generated in main_header -->
   
-  <div id="pageboxBottom"></div> <!-- do not remove -->
-  
+  <div id="pageboxBottom"> <!-- do not remove -->
+    <script type='text/javascript' charset='utf-8'>
+      <%= yield(:javascript) %>
+    </script>
+  </div>
   </body>
 </html>

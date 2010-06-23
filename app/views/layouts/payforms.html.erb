@@ -9,7 +9,7 @@
   <% content_for :left_nav do %>
       <ul id="navigationList">
         <h3>View Payforms</h3>
-            <li><%= link_to_unless_current "All", payforms_path(params = false)%></li>
+            <li><%= link_to "All", payforms_path %></li>
             <li><%= link_to_unless_current "Submitted", payforms_path(:submitted => true)%></li>
             <li><%= link_to_unless_current "Approved", payforms_path(:approved => true)%></li>
             <li><%= link_to_unless_current "Printed", payforms_path(:printed => true) %></li>

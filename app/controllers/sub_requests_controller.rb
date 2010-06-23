@@ -45,7 +45,7 @@ class SubRequestsController < ApplicationController
       begin
       SubRequest.transaction do  
           @sub_request.save(false)
-          if !params[:list_of_logins].empty? 
+          unless params[:list_of_logins].empty? 
              params[:list_of_logins].split(",").each do |l|
                 l = l.split("||")
                 if l.length == 2
@@ -77,7 +77,7 @@ class SubRequestsController < ApplicationController
     begin
       SubRequest.transaction do
           @sub_request.requested_users = []
-          if !params[:list_of_logins].empty? 
+          unless params[:list_of_logins].empty? 
              params[:list_of_logins].split(",").each do |l|
                 l = l.split("||")
                 if l.length == 2
