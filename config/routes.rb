@@ -32,6 +32,7 @@ ActionController::Routing::Routes.draw do |map|
 
    # routes for calendar_feeds
   map.calendar_feed 'calendar_feeds/grab/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab'
+  map.resources :calendar_feeds
   
   # routes for managing superusers
   map.superusers "superusers", :controller => 'superusers'

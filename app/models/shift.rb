@@ -19,6 +19,7 @@ class Shift < ActiveRecord::Base
 #TODO: remove all to_sql calls except where needed for booleans
   named_scope :active, :conditions => {:active => true}
   named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
+  named_scope :not_for_user, lambda {|usr| { :conditions => ["user_id != #{usr.id}"]}}
   named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
   named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}

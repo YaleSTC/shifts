@@ -1,20 +1,46 @@
-<h1>Listing calendar_feeds</h1>
-<table>
-  <tr>
-    <th>Shift source type</th>
-    <th>Shift source</th>
-    <th>html</th>
-	<th>WebCal</th
-  </tr>
-
-<% @shift_sources.each do |shift_source| %>
-
-  <tr>
-    <td><%=h shift_source.type %></td>
-    <td><%=h shift_source.name %></td>
-    <td><%=link_to 'html', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics} %></td>
-  	<td><%= link_to 'webCal', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %>
-</tr>
-<% end %>
-</table>
-<%= link_to 'reset feeds', {:controller => 'calendar_feeds', :action => 'reset', } %>
+<p><h1>Your Available Calendar Feeds</h1></p>
+<hr />
+<div class="feed_shifts">
+<h2>Shifts</h2>
+    <h3>All Your Shifts</h3>
+	<% @shift_sources.select {|s| s.type=="User"}.each do |user| %>
+		<%=link_to user.name, {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => user.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+    <h3>Shifts By Department</h3>
+	<% @shift_sources.select {|s| s.type=="Department"}.each do |d| %>
+		<%=link_to d.name, {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => d.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+   <h3>Shifts By Location Group</h3>
+	<% @shift_sources.select {|s| s.type=="LocGroup"}.each do |lg| %>
+		<%=link_to lg.name, {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => lg.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+    <h3>Shifts By Location Group</h3>
+	<% @shift_sources.select {|s| s.type=="Location"}.each do |l| %>
+		<%=link_to l.name, {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => l.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+</div>
+<div class="feed_subs">
+<h2>Subs</h2>
+    <h3>All Available Subs</h3>
+	<% @sub_sources.select {|s| s.type=="User"}.each do |d| %>
+		<%=link_to "All Subs", {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => d.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+    <h3>Subs By Department</h3>
+	<% @sub_sources.select {|s| s.type=="Department"}.each do |d| %>
+		<%=link_to d.name, {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => d.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+    <h3>Subs By Location Group</h3>
+	<% @sub_sources.select {|s| s.type=="LocGroup"}.each do |lg| %>
+		<%=link_to lg.name, {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => lg.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+    <h3>Subs By Location Group</h3>
+	<% @sub_sources.select {|s| s.type=="Location"}.each do |l| %>
+		<%=link_to l.name, {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => l.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+	<% end %>
+</div>
+<div class="feed_bottom">
+	<br />
+<hr />
+*Note: To avoid duplicates, public feeds will not render your personal shifts. 
+<%= link_to 'reset feeds', {:controller => 'calendar_feeds', :action => 'reset'}, :confirm => "Warning: This will reset all of your calendar feeds.\nThis action can not be undone."%>
+</div>
