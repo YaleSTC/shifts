@@ -33,6 +33,7 @@
           <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
         </ul>
     <% end %>
+	<span style="float:right;text-align:right;margin-top:1em"><%= link_to "All Subs", sub_requests_path %></span>
   </fieldset>
 
   <fieldset class="index" id="punch_clock">
