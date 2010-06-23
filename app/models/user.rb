@@ -235,6 +235,33 @@ class User < ActiveRecord::Base
     new_entry.save
   end
 
+  def detailed_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    shift_stats = {}
+  
+    shifts_set.each do |s|
+       stat_entry = {}
+       stat_entry[:location] = s.location.name
+       stat_entry[:start] = s.start
+       stat_entry[:end] = s.end
+       stat_entry[:in] = s.created_at
+       stat_entry[:out] = s.updated_at
+       if s.missed
+         stat_entry[:notes] = "Missed"
+       elsif s.late
+         stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes"
+       elsif s.left_early
+         stat_entry[:notes] = "Left Early"
+       else
+         stat_entry[:notes]
+       end
+       stat_entry[:updates_hour] = s.updates_hour
+       shift_stats[s.id] = stat_entry
+    end
+    
+    return shift_stats
+  end
+  
   private
 
   def departments_not_empty

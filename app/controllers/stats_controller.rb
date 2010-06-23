@@ -1,4 +1,5 @@
 class StatsController < ApplicationController
+ 
   def index
     return unless user_is_admin_of(current_department)
     @start_date = params[:start_date] ? Date.parse(params[:start_date]) : 1.week.ago.to_date
@@ -22,6 +23,7 @@ class StatsController < ApplicationController
       
       shifts = u.shifts.on_days(@start_date, @end_date).active
 
+      user_stats[:u] = u
       user_stats[:name] = u.name
       
       user_stats[:num_shifts] = shifts.size
@@ -34,9 +36,19 @@ class StatsController < ApplicationController
       else
         user_stats[:updates] = valid_report_stats.sum/valid_report_stats.size
       end
+      
       @stats[u.id] = user_stats
     end
   end
+
+  def for_user
+    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : 1.week.ago.to_date
+    @end_date = params[:end_date] ? Date.parse(params[:end_date]) : 1.day.ago.to_date
+    @user = User.find(params[:id])
+    @stats_hash = @user.detailed_stats(@start_date, @end_date)
+  end
+    
+end
     
 
   # def index
@@ -65,4 +77,3 @@ class StatsController < ApplicationController
   #       @stats[u.id] = user_stats
   #     end
   # end
-end
