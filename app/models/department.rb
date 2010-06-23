@@ -46,7 +46,7 @@ class Department < ActiveRecord::Base
   end
 
   def sub_requests
-    SubRequest.find(:all)
+    SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| sub.shift.department == self }
   end
   
 #  has_and_belongs_to_many :users
