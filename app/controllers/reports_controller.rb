@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
     if current_user.current_shift || current_user.punch_clock
       flash[:error] = "You are already signed into a shift or punch clock."
     elsif @report.user!=current_user 
-      flash[:error] = "You can't sign into someone else's report!"
+      flash[:error] = "You can't xto someone else's report!"
     else
       @report.save
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged in from #{request.remote_ip}", :ip_address => request.remote_ip)
@@ -72,15 +72,17 @@ class ReportsController < ApplicationController
       flash[:notice] = "Report not submitted.  You may not be the owner of this report."
       render :action => 'show'
     end
-  end
+end
+
+
 
 # Do we want this action? -ben
 #  def destroy
 #    @report = Report.find(params[:id])
-#    @report.destroy
-#    #ArMailer.deliver()
-#    flash[:notice] = "Successfully destroyed report."
-#    redirect_to reports_url
+ #   @report.destroy
+  #  #ArMailer.deliver()
+   # flash[:notice] = "Successfully destroyed report."
+    #redirect_to reports_url
 #  end
 end
 

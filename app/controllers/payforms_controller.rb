@@ -124,7 +124,8 @@ class PayformsController < ApplicationController
 
   def email_reminders
     if !params[:id] or params[:id].to_i != @department.id
-      redirect_to :action => :email_reminders, :id => @department.id and return
+      redirect_to :email_reminders and return
+##originally we also had :id => @department.id  ~Casey
     end
     @default_reminder_msg = current_department.department_config.reminder_message
     @default_warning_msg = current_department.department_config.warning_message
@@ -140,7 +141,8 @@ class PayformsController < ApplicationController
       ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, message))
       users_reminded << "#{user.name} (#{user.login})"
     end
-    redirect_with_flash "E-mail reminders sent to the following: #{users_reminded.to_sentence}", :action => :email_reminders, :id => @department.id
+    flash[:notice] = "E-mail reminders sent to the following: #{users_reminded.to_sentence}"
+    redirect_to :email_reminders
   end
 
   def send_warnings
@@ -164,7 +166,8 @@ class PayformsController < ApplicationController
         users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
       end
     end
-    redirect_with_flash "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}", :action => :email_reminders, :id => @department.id
+    flash[:notice] = "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}"
+    redirect_to :email_reminders
   end
 
   protected

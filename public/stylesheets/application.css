@@ -208,23 +208,14 @@ div#login{
 
 /* chooser
 --------------------------------------------------------- */
-div#chooser {
+#chooser {
   float: left;
   width: 250px;
-  padding: 0px 0px 0px 10px;
+  padding: 0px 5px 0px 10px;
   margin-top: 1px;
-}
-div#chooser p {
-  margin: 0pt 5px 0pt 0pt;
   font-size: 12px;
   color: #FFFFFF;
-  float: left;
-}
-#chooser p.chooser_status {
-  float: left;
   font-family: Verdana, Geneva, Arial, sans-serif;
-  font-size: 12px;
-  padding: 0pt;
   line-height: 1.6em;
 }
 
@@ -323,7 +314,7 @@ ul#navigationList a:hover {
 #contentNav {
   float: right;
   padding: 30px 30px 10px 10px;
-  width: 700px;
+  width: 650px;
 }
 #contentNoNav {
   padding: 30px;
@@ -403,7 +394,6 @@ table.manage_table th {
 ======================================================================= */
 
 fieldset.index {
-  width: 98.6%;
   padding: 5px;
   margin: 0px 0px 5px 0px;
   border: 1px solid gray;
@@ -441,11 +431,7 @@ legend {
   padding: 0.2em 1em;
 }
 
-/* = used by notices */
-textarea#content {
-    width: 95%;
-    height:90%;
-}
+
 
 
 /* = Error explanation styles
