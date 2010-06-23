@@ -13,12 +13,13 @@ class CalendarFeedsController < ApplicationController
         if current_user.can_view?(loc_group)
           @shift_sources << shift_source.new(loc_group.class.name, loc_group.name, generate_token(loc_group, "Shift"))
           loc_group.locations.each do |location|
-            @shift_sources << shift_source.new(location.class.name, location.name, generate_token(location, "Shift"))
+            @shift_sources << shift_source.new(location.class.name, location.short_name, generate_token(location, "Shift"))
           end
         end
       end
      end
-     @sub_sources = []
+     @user=shift_source.new(current_user.class.name, current_user.name, generate_token(current_user, "SubRequest"))
+     @sub_sources = [@user]
       current_user.departments.each do |department|
          @sub_sources << shift_source.new(department.class.name, department.name, generate_token(department, "SubRequest"))
        end  
@@ -27,7 +28,7 @@ class CalendarFeedsController < ApplicationController
            if current_user.can_view?(loc_group)
              @sub_sources << shift_source.new(loc_group.class.name, loc_group.name, generate_token(loc_group, "SubRequest"))
              loc_group.locations.each do |location|
-               @sub_sources << shift_source.new(location.class.name, location.name, generate_token(location, "SubRequest"))
+               @sub_sources << shift_source.new(location.class.name, location.short_name, generate_token(location, "SubRequest"))
              end
            end
          end
@@ -58,11 +59,11 @@ class CalendarFeedsController < ApplicationController
     elsif @type == "Shift"
        case
         when @source.class.name == "Department" && @user.departments.include?(@source) && @user.is_active?(@source)
-            @shifts = Shift.in_locations(@source.loc_groups.select {|lg| @user.can_view?(lg)}.collect(&:locations).flatten).after_date(Time.now.utc - 3.weeks).flatten
+            @shifts = Shift.in_locations(@source.loc_groups.select {|lg| @user.can_view?(lg)}.collect(&:locations).flatten).after_date(Time.now.utc - 3.weeks).not_for_user(@user).flatten
         when @source.class.name == "LocGroup" && @user.can_view?(@source)
-            @shifts = Shift.in_locations(@source.locations).after_date(Time.now.utc - 3.weeks).flatten
+            @shifts = Shift.in_locations(@source.locations).after_date(Time.now.utc - 3.weeks).not_for_user(@user).flatten
         when @source.class.name == "Location" && @user.can_view?(@source.loc_group)
-            @shifts = Shift.find(:all, :conditions => ["location_id = ? AND end >= ?", @source.id, Time.now.utc - 3.weeks])
+            @shifts = Shift.find(:all, :conditions => ["location_id = ? AND end >= ?", @source.id, Time.now.utc - 3.weeks]).not_for_user(@user)
         when @source.class.name == "User"
            @shifts = Shift.in_departments(@source.active_departments).for_user(@source).after_date(Time.now.utc - 3.weeks).flatten
       end
@@ -100,32 +101,34 @@ class CalendarFeedsController < ApplicationController
       @source = @source_string.split(',')[0].constantize.find(@source_string.split(',')[1])     #gets shift_source from string
       @feed_type=@source_string.split(',')[2]   #is it for Shifts or for Sub_Requests
       return @source, @feed_type
-      #This block will failß with bad data -- but it is handled in the grab function.
+      #This block will fail with bad data -- but it is handled in the grab function.
   end
 
   def generate_ical
     cal = Icalendar::Calendar.new
     cal.custom_property("METHOD","PUBLISH")
-    cal.custom_property("x-wr-calname", @type.underscore + "s: " + @source.name)
+    cal.custom_property("x-wr-calname", @type + "s: " + @source.name)
     cal.custom_property("X-WR-CALDESC", @type + "s Calendar Feed for user: " + @user.name + ".  The feed is " + @source.class.name.downcase + ": " + @source.name)
     cal.custom_property("X-PUBLISHED-TTL", "PT1H")  #default refresh rate
       @shifts.each do |shift|
         @event = Icalendar::Event.new
         @event.dtstart = shift.start.to_s(:us_icaldate)
         @event.dtend = shift.end.to_s(:us_icaldate)
-        @event.summary = @type.underscore + " for #{shift.user.name} in #{shift.location.name}"
-        if @type == "Shift" && @user == shift.user
-          @event.description = "Request a sub!"
+        if @type == "Shift"
+          @event.summary = "Shift" + (@source.class.name != "User" ? " for #{shift.user.name}" : "") + " in #{shift.location.short_name}"
+          @event.summary << " (sub requested!)" if shift.has_sub?
+          @event.description = shift.user.name + " has requested a sub for this shift!"
         elsif @type == "SubRequest"
-          @event.description = "\n Mandatory:" + shift.mandatory_start.to_s(:twelve_hour) + " - " + shift.mandatory_end.to_s(:twelve_hour) 
-          @event.description << "\nTake This Sub!"
+          @event.description = "\nMandatory: " + shift.mandatory_start.to_s(:twelve_hour) + " - " + shift.mandatory_end.to_s(:twelve_hour) 
+          @event.description << "\n\n" + shift.reason
+           @event.summary = "Sub for #{shift.user.name} in #{shift.location.short_name}"
         end  
         @event.location = shift.location.name
         cal.add @event
       end
       headers['Content-Type'] = "text/calendar; charset=UTF-8"
       headers['Content-Disposition'] = "inline; filename=" + User.find(params[:user_id]).name + "_calendar_feed.ics"
-     # cal.publish 
+     # cal.publish  #not necessary...
       cal.to_ical
   end    
   

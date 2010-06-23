@@ -201,6 +201,7 @@ class User < ActiveRecord::Base
          @all_subs.select {|sub| source == sub.shift.location }
        end 
     end
+    return @all_subs
   end
   
   def restrictions #TODO: this could probably be optimized
