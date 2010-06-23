@@ -1,5 +1,5 @@
 class CalendarFeedsController < ApplicationController
-    skip_before_filter filter_chain, :except => {:index, :admin}
+    skip_before_filter filter_chain, :except => [:index]
     
   def index
     shift_source = Struct.new( :type, :name, :token )
