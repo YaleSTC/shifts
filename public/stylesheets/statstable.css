@@ -1,0 +1,7 @@
+.arrow {
+	background-color: #d0e4fe;
+	background-image: url(../images/tables/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
