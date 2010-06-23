@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   end
   
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :subs_requested, :class_name => 'SubRequest'
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -16,7 +17,8 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
-  has_many :sub_requests
+  has_many :sub_requests, :through => :shifts #the sub reqeusts this user owns
+
 
 # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
@@ -41,6 +43,10 @@ class User < ActiveRecord::Base
 
   def role
     self.roles.first.name if self.roles.first
+  end
+  
+  def active_departments
+    self.departments.select {|d| self.is_active?(d)}
   end
 
   def set_random_password(size=20)
@@ -105,7 +111,13 @@ class User < ActiveRecord::Base
   # check if a user can sign up for a shift in this loc group
   def can_signup?(loc_group)
     return false unless loc_group
-    permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
+    (permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)) if permission_list
+  end
+  
+  # check if a user has permission to take a sub
+  def can_take_sub?(sub_request)
+    return false unless sub_request
+    can_signup?(sub_request.loc_group)  && (sub_request.user != self) && (sub_request.users_with_permission.include?(self) || sub_request.users_with_permission.blank?)
   end
 
   # check for admin permission given a dept, location group, or location
@@ -175,20 +187,14 @@ class User < ActiveRecord::Base
     [self]
   end
 
-  #TODO: This could possibly be further optimized
-  def available_sub_requests(departments = self.departments)
-    ActiveRecord::Base.transaction do #Wrapped in a transaction for performance reasons
-    a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
-    b = departments.collect do |department|
-      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Department' AND user_source_id = #{department.id.to_sql}"])
-    end
-    c = self.roles.select{|role| departments.include?(role.department)}.collect do |role|
-      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Role' AND user_source_id = #{role.id.to_sql}"])
-    end
-    (a + b.flatten + c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }.select{ |subs| subs.user != self }
-    end
+  #returns  upcoming sub_requests user has permission to take.  Default is for all departments
+  def available_sub_requests(departments)
+   @all_subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| self.can_take_sub?(sub) }
+   if !departments.blank?
+     @all_subs.select {|sub| departments.include?(sub.shift.department) }
+   end
   end
-
+  
   def restrictions #TODO: this could probably be optimized
     Restriction.current.select{|r| r.users.include?(self)}
   end

@@ -1,0 +1,20 @@
+<h1>Listing calendar_feeds</h1>
+<table>
+  <tr>
+    <th>Shift source type</th>
+    <th>Shift source</th>
+    <th>html</th>
+	<th>WebCal</th
+  </tr>
+
+<% @shift_sources.each do |shift_source| %>
+
+  <tr>
+    <td><%=h shift_source.type %></td>
+    <td><%=h shift_source.name %></td>
+    <td><%=link_to 'html', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics} %></td>
+  	<td><%= link_to 'webCal', {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => shift_source.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %>
+</tr>
+<% end %>
+</table>
+<%= link_to 'reset feeds', {:controller => 'calendar_feeds', :action => 'reset', } %>

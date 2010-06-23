@@ -525,7 +525,7 @@ span#progress_bar #other_step {
 }
 
 /* = Tables
-======================================================================= */
+======================================================================= */	
 table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
@@ -676,7 +676,30 @@ img.mini_icon {
 }
 
 
-/*no bullets for active shits*/
+/*no bullets for active shifts*/
 ul.activeShifts {
 	list-style-type: none;
 }
+
+/* Sub Request Table Index
+======================================================================= */	
+table#requests_table {margin-bottom:5px;}
+table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; white-space:nowrap;}
+table#requests_table tr td ul {
+	 list-style-type: none;
+   float: left;
+   text-align: left;
+   list-style-position: outside;
+	 margin-left:0px;
+}
+td.sub_reason {width:100%;}
+.sub_reason_container {white-space:pre-wrap;}
+.sub_time_mandatory {color:#8A0808;}
+td.sub_location {text-align:center;}
+.sub_invalid {color:#6E6E6E;}
+a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}
+/* Sub Request Show
+======================================================================= */	
+p.sub_show {margin-top:0px; margin-left:1.5em; line-height:120%;}
+p.sub_show h4{padding-left:0px;}
+ul#user_sources {margin-top:0px; margin-left:1.5em; list-style-type:none;}
