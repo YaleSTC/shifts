@@ -1,62 +1,32 @@
 <% title "Sub Request" %>
 
-<% if (@sub_request.mandatory_start != @sub_request.start) || (@sub_request.mandatory_end != @sub_request.end) %>
-  <h3> Required portion of the shift: </h3>
-  <p>
-    <b>Start:</b>
-    <%=h @sub_request.mandatory_start.to_s(:short_name) %>
-  </p>
-
-  <p>
-    <b>End:</b>
-    <%=h @sub_request.mandatory_end.to_s(:short_name) %>
-  </p>
-  <h3> Whole Sub Request (bribe): </h3>
-  <p>
-    <b>Start:</b>
-    <%=h @sub_request.start.to_s(:short_name) %>
-  </p>
-
-  <p>
-    <b>End:</b>
-    <%=h @sub_request.end.to_s(:short_name) %>
-  </p>
-<% else %>
-  <p>
-    <b>Start:</b>
-    <%=h @sub_request.mandatory_start.to_s(:short_name) %>
-  </p>
-
-  <p>
-    <b>End:</b>
-    <%=h @sub_request.mandatory_end.to_s(:short_name) %>
-  </p>
-<% end %>
-
-<p>
-  <b>Who can take this sub request: </b>
-  <% if @sub_request.user_sources.empty? %>
-    <p>Any one who can work shifts in <%= @sub_request.loc_group.name %></p>
-  <% else -%>
-    <ul>
-    <% @sub_request.user_sinks_user_sources.each do |substitute| %>
-      <% if substitute.user_source_type == "Department" %>
-        <li>Users in the department: <%= Department.find(substitute.user_source_id).name.to_s %></li>
-      <% elsif substitute.user_source_type == "Role" %>
-        <li>Users who have the role: <%= Role.find(substitute.user_source_id).name.to_s %></li>
-      <% elsif substitute.user_source_type == "User" %>
-        <li><%= User.find(substitute.user_source_id).name.to_s %></li>
-      <%end%>
-    <%end%>
-    </ul>
-  <% end %>
+<h3>Date/Time</h3>
+<p class="sub_show">
+	<%=h @sub_request.start.to_s(:gg) %><br>
+	<%=h @sub_request.start.to_s(:am_pm) %> - <%=h  @sub_request.end.to_s(:am_pm) %>
+	<% if !(@sub_request.start==@sub_request.mandatory_start && @sub_request.end==@sub_request.mandatory_end) %>
+		<br><span class="sub_time_mandatory"><b>Required:</b> <%=h @sub_request.mandatory_start.to_s(:twelve_hour) %> - <%=h  @sub_request.mandatory_end.to_s(:twelve_hour) %></span>
+	<% end %>
 </p>
 
-<p>
-  <b>Reason:</b>
+<h3>Location:</h3>
+<p class="sub_show">
+	<%=h @sub_request.shift.location.name %>
+</p>
+
+<h3>Requestor:</h3>
+<p class="sub_show">
+	<%=h @sub_request.shift.user.name %>
+</p>
+
+<h3>Who can take this sub request:</h3>
+	<%= render :partial => 'list_user_sources' %>
+	<br>
+<h3>Reason:</h3>
+<p class="sub_show">
   <%=h @sub_request.reason %>
-
 </p>
+
 <% if @sub_request.user_is_eligible?(current_user) && @sub_request.user != current_user %>
   <%= link_to 'Take', get_take_info_sub_request_path(@sub_request) %> |
 <% end %>
@@ -64,7 +34,5 @@
   <%= link_to 'Cancel Request', @sub_request, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
 <% end %>
-<% if current_user.is_admin_of?(@department) %>
   <%= link_to 'See all subs', sub_requests_path %>
-<% end %>
 

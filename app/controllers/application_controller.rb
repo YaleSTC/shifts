@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
-#  before_filter :load_user
+# before_filter :load_user
 
   helper :layout # include all helpers, all the time
   helper_method :current_user
