@@ -98,7 +98,7 @@ class ArMailer < ActionMailer::ARMailer
   #STALE SHIFTS
   #an email is sent to a student if they have been inactive in their shift for an hour
  def stale_shift(user, stale_shifts, dept) 
-    subject       "Your Shift in the [add location here later] has been inactive for an hour."
+    subject       "Your Shift in the #{stale_shifts.location.name} has been inactive for an hour."
     recipients    "#{user.name} <#{user.email}>"
     from          dept.department_config.mailer_address
     sent_on       Time.now

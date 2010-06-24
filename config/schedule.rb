@@ -20,7 +20,7 @@ every :day, at => "1am" do
  rake "email_stats"
 end
 
-every :day, at => "1am" do #time to change soon, just example 
+every 10.minutes do
   rake "stale_shift_email"
 end
 
