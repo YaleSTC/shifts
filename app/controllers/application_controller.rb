@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
   # TODO: This is mixing model logic!!!
   def user_is_admin_of(thing)
     unless current_user.is_admin_of?(thing)
-      error_message = "You are not authorized to administer this #{thing.class.name.decamelize}"
+      error_message = "You are not authorized to administer this #{thing.class.name.decamelize}."
       respond_to do |format|
         format.html do
           flash[:error] = error_message
@@ -172,7 +172,7 @@ class ApplicationController < ActionController::Base
   #TODO: This is mixing model logic!!!
   def user_is_owner_of(thing)
     unless current_user.is_owner_of?(thing)
-      error_message = "You are not the owner of this #{thing.class.name.decamelize}"
+      error_message = "You are not the owner of this #{thing.class.name.decamelize}."
       respond_to do |format|
         format.html do
           flash[:error] = error_message

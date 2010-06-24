@@ -57,7 +57,7 @@ class PayformItemsController < ApplicationController
         @payform_item.parent.save!
         @payform_item.save!
         @payform.submitted = nil
-        @errors = "Failed to unsubmit payform" unless @payform.save
+        @errors = "Failed to unsubmit payform." unless @payform.save
       end
       if @payform_item.user != current_user
         AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item, @payform.department)

@@ -23,7 +23,7 @@ class ReportItemsController < ApplicationController
         format.html {redirect_to @report}
         format.js
       else
-        flash[:notice] = "You can't add things to someone else's report!" if @report_item.user != current_user
+        flash[:notice] = "You can't add things to someone else's report." if @report_item.user != current_user
         format.html {redirect_to @report}
         format.js {redirect_to @report}
       end

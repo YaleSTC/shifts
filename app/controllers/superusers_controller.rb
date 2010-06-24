@@ -30,7 +30,7 @@ class SuperusersController < ApplicationController
         su.update_attribute(:superuser, false)
       end
       su_names = @su_list.collect { |u| "<b>#{u.name}</b>" }
-      flash[:notice] = "Removed #{su_names.to_sentence} from the list of superusers"
+      flash[:notice] = "Removed #{su_names.to_sentence} from the list of superusers."
     end
     redirect_to(superusers_path)
   end

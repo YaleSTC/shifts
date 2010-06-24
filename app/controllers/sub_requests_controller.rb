@@ -95,7 +95,7 @@ class SubRequestsController < ApplicationController
       rescue Exception => e
         render :action => "edit", :id => @sub_request
       else
-        flash[:notice] = 'SubRequest was successfully updated.'
+        flash[:notice] = 'Sub Request was successfully updated.'
         redirect_to :action => "show", :id => @sub_request       
       end
   end
@@ -116,7 +116,7 @@ class SubRequestsController < ApplicationController
          flash.now[:error] = "Access Denied.  You do not have permission to take that sub_request."
        end
     rescue
-      flash.now[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner!"
+      flash.now[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner."
     end
 
   end
@@ -132,7 +132,7 @@ class SubRequestsController < ApplicationController
       redirect_to dashboard_path
     rescue Exception => e
       if !@sub_request.user_is_eligible?(current_user)
-        flash[:error] = 'You are not authorized to take this shift'
+        flash[:error] = 'You are not authorized to take this shift.'
       else
         flash[:error] = e.message.gsub("Validation failed: ", "")
       end

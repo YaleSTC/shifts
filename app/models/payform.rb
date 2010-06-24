@@ -66,10 +66,10 @@ class Payform < ActiveRecord::Base
 
   def validate
     if (approved or printed) and !submitted
-      errors.add("Cannot approve or print unsubmitted payform, so the submitted field")
+      errors.add("Cannot approve or print unsubmitted payform.")
     end
     if printed and !approved
-      errors.add("Cannot print unapproved payform, so the approved field")
+      errors.add("Cannot print unapproved payform.")
     end
   end
   

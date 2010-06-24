@@ -63,13 +63,13 @@ class HooksController < ApplicationController
               redirect_to p[:url] and return
             end
           else
-            flash[:error] = "Please report to Admin.  ERROR: Could not save to payform"
+            flash[:error] = "Please report to Admin.  ERROR: Could not save to payform."
           end
         else
-          flash[:error] = "Please report to Admin. ERROR: Department not found"
+          flash[:error] = "Please report to Admin. ERROR: Department not found."
         end
       else
-        flash[:error] = "Please report to Admin. ERROR: Invalid Params"
+        flash[:error] = "Please report to Admin. ERROR: Invalid Params."
       end
 
       # FAIL
