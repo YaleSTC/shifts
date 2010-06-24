@@ -20,6 +20,8 @@ class ReportItemsController < ApplicationController
     respond_to do |format|
       @report = Report.find(@report_item.report_id)
       if current_user==@report_item.user && @report_item.save
+        @report.shift.stale_shifts_unsent = true
+        @report.shift.save
         format.html {redirect_to @report}
         format.js
       else

@@ -18,7 +18,7 @@ class LocGroupsController < ApplicationController
   def create
     @loc_group = LocGroup.new(params[:loc_group])
     if @loc_group.save
-      flash[:notice] = "Successfully created Location Group."
+      flash[:notice] = "Successfully created location group."
       redirect_to @loc_group
     else
       render :action => 'new'

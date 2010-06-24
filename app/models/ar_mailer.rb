@@ -63,7 +63,16 @@ class ArMailer < ActionMailer::ARMailer
     sent_on     Time.now
     body        :sub => sub
   end
-  
+
+  #email a group of users who want to see whenever a sub request is taken
+  def sub_taken_watch(user, sub_request, new_shift, dept) 
+    subject     "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display 
+    recipients  "#{user.name} <#{user.email}>"
+    from        sub_request.shift.user.email
+    sent_on     Time.now
+    body        :sub_request => sub_request, :new_shift => new_shift  
+  end
+
 
   #email the user who took the sub and the requester of the sub that their shift has been taken
   def sub_taken_notification(sub_request, new_shift, dept)
@@ -84,23 +93,16 @@ class ArMailer < ActionMailer::ARMailer
     body         :missed_shifts => missed_shifts, :late_shifts => late_shifts, :left_early_shifts => left_early_shifts
   end
 
-  #email a group of users who want to see whenever a sub request is taken
-  def sub_taken_watch(user, sub_request, new_shift, dept) 
-    subject     "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display 
-    recipients  "#{user.name} <#{user.email}>"
-    from        sub_request.shift.user.email
-    sent_on     Time.now
-    body        :sub_request => sub_request, :new_shift => new_shift  
-  end
 
   #STALE SHIFTS
   #an email is sent to a student if they have been inactive in their shift for an hour
  def stale_shift(user, stale_shifts, dept) 
-    subject       "Your Shift in the [add location here later] has been inactive for an hour."
-    recipients    'ms.altyeva@gmail.com' #"#{user.name} <#{user.email}>"
+    subject       "Your Shift in the #{stale_shifts.location.name} has been inactive for an hour."
+    recipients    "#{user.name} <#{user.email}>"
     from          dept.department_config.mailer_address
     sent_on       Time.now
     body          :user => user, :stale_shifts => stale_shifts
+
   end
 
 

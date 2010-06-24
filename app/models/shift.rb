@@ -38,6 +38,7 @@ class Shift < ActiveRecord::Base
   named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
   named_scope :stats_unsent, :conditions => {:stats_unsent => true}
   named_scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
+
   named_scope :missed, 
         :joins => "LEFT JOIN reports ON shifts.id = reports.shift_id",
         :conditions => ["end < ? AND reports.id is null AND shifts.active = ?", Time.now.utc, true]
@@ -47,8 +48,7 @@ class Shift < ActiveRecord::Base
   named_scope :left_early,
         :joins => :report,
         :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")       
-      
-      
+
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
@@ -262,6 +262,7 @@ class Shift < ActiveRecord::Base
     self.report.nil? ? false : !self.report.departed.nil?
   end
 
+  #a shift is stale if it is currently signed into and if the report has not been updated for an hour. 
   def self.stale_shifts_with_unsent_emails(department = current_department)
     @shifts = Shift.in_department(department).signed_in(department).between(1.day.ago, Time.now).stale_shifts_unsent
     @shifts.select{|s| s.report.report_items.last.time < 1.hour.ago.utc}
@@ -351,8 +352,8 @@ class Shift < ActiveRecord::Base
   end
   
   def stats_display
-    "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
-  end    
+       "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+ end    
 
   def name_and_time
     "#{user.name}, #{time_string}"
