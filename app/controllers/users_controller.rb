@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user_profile = UserProfile.find_by_user_id((params[:id]))
     unless @user_profile.user.departments.include?(@department)
-      flash[:error] = "This user does not have a profile in this department"
+      flash[:error] = "This user does not have a profile in this department."
     end
     @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
   end
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def create
     if @user = User.find_by_login(params[:user][:login])
       if @user.departments.include? @department #if user is already in this department
-        flash[:notice] = "This user already exists in this department!"
+        flash[:notice] = "This user already exists in this department."
       else
         @user.roles += (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
         @user.departments << @department unless @user.departments.include?(@department)
@@ -241,7 +241,7 @@ class UsersController < ApplicationController
       end
     end
     if failures.empty?
-      flash[:notice] = "All users successfully added!"
+      flash[:notice] = "All users successfully added."
       redirect_to department_users_path(@department)
     else
       @users=failures.collect{|e| User.new(e[:user])}

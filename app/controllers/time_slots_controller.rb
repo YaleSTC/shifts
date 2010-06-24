@@ -87,7 +87,7 @@ class TimeSlotsController < ApplicationController
             @time_slot.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>error:</strong> updated time slot could not be saved"+error_string, 2.5 + (@time_slot.errors.size))
+            ajax_alert(page, "<strong>error:</strong> updated time slot could not be saved."+error_string, 2.5 + (@time_slot.errors.size))
           end
         end
         format.html {render :action => 'edit'}

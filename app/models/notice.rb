@@ -55,7 +55,7 @@ class Notice < ActiveRecord::Base
   end
 
   def remove(user)
-    self.errors.add_to_base "This notice has already been removed by #{remover.name}" and return if self.remover && self.end_time
+    self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end_time
     self.end_time = Time.now
     self.indefinite = false
     self.remover = user
