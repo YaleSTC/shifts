@@ -74,6 +74,7 @@ class Notice < ActiveRecord::Base
   	end
 	end
 
+
   def proper_time
     errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time
   end
