@@ -6,18 +6,19 @@ def shift_email(department)
   missed_shifts = []
   late_shifts = []
   left_early_shifts = []
-    
-  for shift in shifts_to_email
-    missed_shifts = shifts_to_email.missed
-    late_shifts = shifts_to_email.late
-    left_early_shifts = shifts_to_email.left_early
-  end
-      stats_email = ArMailer.create_email_stats(missed_shifts, late_shifts, left_early_shifts, department)
-      ArMailer.deliver(stats_email)
+
+  missed_shifts = shifts_to_email.missed
+  late_shifts = shifts_to_email.late
+  left_early_shifts = shifts_to_email.left_early
+
+  stats_email = ArMailer.create_email_stats(missed_shifts, late_shifts, left_early_shifts, department)
+  ArMailer.deliver(stats_email)
+  
   for shift in shifts_to_email
     shift.stats_unsent = false
-     shift.save
-   end
+    shift.save
+  end
+   
 end
 
 
