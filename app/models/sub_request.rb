@@ -111,24 +111,25 @@ class SubRequest < ActiveRecord::Base
 
   def mandatory_start_and_end_are_within_subrequest
     unless self.mandatory_start.between?(self.start, self.end) && self.mandatory_end.between?(self.start, self.end)
-      errors.add_to_base("The requested portion of this sub request must be within the maximum amount of time." ) 
+      errors.add_to_base("The mandatory portion of this sub request must be within the optional portion.")
+
     end
   end
 
   def start_less_than_end
     if self.end <= self.start || self.mandatory_end <= self.mandatory_start
-      errors.add_to_base("All start times must be before end times")
+      errors.add_to_base("All start times must be before end times.")
     end
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't create a sub request for a time that has already passed!") if self.start < Time.now
+    errors.add_to_base("Can't create a sub request for a time that has already passed.") if self.start < Time.now
   end
 
   def user_does_not_have_concurrent_sub_request
     c = SubRequest.count(:all, :conditions => ["#{:shift_id.to_sql_column} = #{self.shift_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql}"])
     unless c.zero?
-      errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period") unless (self.id and c==1)
+      errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period.") unless (self.id and c==1)
     end
   end
     
