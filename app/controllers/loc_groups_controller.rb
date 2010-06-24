@@ -30,7 +30,7 @@ class LocGroupsController < ApplicationController
 
   def update
     if @loc_group.update_attributes(params[:loc_group])
-      flash[:notice] = "Successfully updated loc group."
+      flash[:notice] = "Successfully updated Location group."
       redirect_to @loc_group
     else
       render :action => 'edit'
@@ -40,7 +40,7 @@ class LocGroupsController < ApplicationController
   def destroy
     @loc_group = LocGroup.find(params[:id])
     @loc_group.destroy
-    flash[:notice] = "Successfully destroyed loc group."
+    flash[:notice] = "Successfully destroyed Location group."
     redirect_to department_loc_groups_path(current_department)
   end    
       

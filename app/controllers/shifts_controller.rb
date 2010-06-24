@@ -125,7 +125,7 @@ class ShiftsController < ApplicationController
       flash[:notice] = "You can't sign into two shifts or punch clocks at the same time."
       redirect_to shifts_path and return
     elsif !@shift.power_signed_up && !current_user.can_signup?(@shift.location.loc_group)
-      flash[:notice] = "You don't have permission to sign up for a shift there!"
+      flash[:notice] = "You don't have permission to sign up for a shift there."
       redirect_to shifts_path and return
     end
     if @shift.save
@@ -151,7 +151,7 @@ class ShiftsController < ApplicationController
             @shift.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>Error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            ajax_alert(page, "<strong>Error:</strong> shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
           end
         end
       end
@@ -185,7 +185,7 @@ class ShiftsController < ApplicationController
             @shift.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
           end
         end
         format.html {render :action => 'edit'}
