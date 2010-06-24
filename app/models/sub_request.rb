@@ -35,10 +35,10 @@ class SubRequest < ActiveRecord::Base
           sub_request.destroy
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
-          ArMailer.deliver(ArMailer.create_sub_taken_notification (sub_request, new_shift, new_shift.department)) 
+          ArMailer.deliver(ArMailer.create_sub_taken_notification(sub_request, new_shift, new_shift.department)) 
           sub_watch_users = sub_request.potential_takers.select {|u| u.user_config.taken_sub_email}
           for user in sub_watch_users
-            ArMailer.deliver(ArMailer.create_sub_taken_watch (user, sub_request, new_shift, new_shift.department))
+            ArMailer.deliver(ArMailer.create_sub_taken_watch.(user, sub_request, new_shift, new_shift.department))
           end
           return true
         end
@@ -111,7 +111,7 @@ class SubRequest < ActiveRecord::Base
 
   def mandatory_start_and_end_are_within_subrequest
     unless self.mandatory_start.between?(self.start, self.end) && self.mandatory_end.between?(self.start, self.end)
-      errors.add_to_base("The mandatory portion of this sub request must be within the optional portion")
+      errors.add_to_base("The requested portion of this sub request must be within the maximum amount of time." ) 
     end
   end
 
