@@ -35,10 +35,11 @@ class Shift < ActiveRecord::Base
   named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
   named_scope :signed_in, lambda{ |department| {:conditions => {:signed_in => true, :department_id => department.id} } }
   named_scope :ordered_by_start, :order => 'start'
-
   named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
   named_scope :stats_unsent, :conditions => {:stats_unsent => true}
   named_scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
+  named_scope :stats_unsent, :conditions => {:stats_unsent => true}
+
   named_scope :missed, 
         :joins => "LEFT JOIN reports ON shifts.id = reports.shift_id",
         :conditions => ["end < ? AND reports.id is null AND shifts.active = ?", Time.now.utc, true]
@@ -46,9 +47,9 @@ class Shift < ActiveRecord::Base
         :joins => :report,
         :conditions => ["#{:arrived.to_sql_column} - #{:start.to_sql_column} > ?",7*60] #TODO: inlcude department config (instead of defaulting to "7")
   named_scope :left_early,
-    :joins => :report,
-    :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")  
-  
+        :joins => :report,
+        :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")  
+ 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
@@ -351,12 +352,8 @@ class Shift < ActiveRecord::Base
   end
   
   def stats_display
-<<<<<<< HEAD
-    "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
-=======
-    "#{user.name}, #{location.name}, #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{start.to_s(:just_date)}"
->>>>>>> 123f1bb... Working on email stats task
-  end    
+       "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+ end    
 
   def name_and_time
     "#{user.name}, #{time_string}"
