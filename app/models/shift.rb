@@ -262,6 +262,7 @@ class Shift < ActiveRecord::Base
     self.report.nil? ? false : !self.report.departed.nil?
   end
 
+  #a shift is stale if it is currently signed into and if the report has not been updated for an hour. 
   def self.stale_shifts_with_unsent_emails(department = current_department)
     @shifts = Shift.in_department(department).signed_in(department).between(1.day.ago, Time.now).stale_shifts_unsent
     @shifts.select{|s| s.report.report_items.last.time < 1.hour.ago.utc}

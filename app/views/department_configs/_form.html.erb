@@ -82,7 +82,13 @@
 		<%= f.text_area :stats_mailer_address, :size => "50x5"%>
 	</p>
 </fieldset>
-
+<fieldset class = "index">
+    <legend>Edit Stale Shift Configuration</legend>
+	<p>
+		<%= f.label :stale_shift, text = "Send emails to users regarding stale shifts (leave blank to disable):"%>
+		<%= f.check_box :stale_shift %>
+	</p>
+</fieldset>
 <fieldset class = "index">
 <%= submit_tag "Save Settings" %>
 <% end %>
