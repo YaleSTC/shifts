@@ -112,7 +112,6 @@ class SubRequest < ActiveRecord::Base
   def mandatory_start_and_end_are_within_subrequest
     unless self.mandatory_start.between?(self.start, self.end) && self.mandatory_end.between?(self.start, self.end)
       errors.add_to_base("The mandatory portion of this sub request must be within the optional portion.")
-
     end
   end
 
