@@ -60,7 +60,7 @@ class ArMailer < ActionMailer::ARMailer
   # email the specified list or default list of eligible takers
   def sub_created_notify(user, sub)
     subject     "[Sub Request] Sub needed for " + sub.shift.short_display
-    recipients  "#{user.name} <#{user.email}>"
+    recipients  "user.name} <#{user.email}>"
     from        sub.user.email
     sent_on     Time.now
     body        :sub => sub
@@ -80,8 +80,8 @@ class ArMailer < ActionMailer::ARMailer
   #email notifies admin that a shift has been missed, was signed into late, or was left early
   def email_stats (missed_shifts, late_shifts, left_early_shifts, dept)
     subject      "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y') #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
-    recipients   "maria.altyeva@yale.edu"#dept.department_config.stats_mailer_address  
-    from         "#{dept.department_config.mailer_address}"
+    recipients   dept.department_config.stats_mailer_address  
+    from         dept.department_config.mailer_address
     sent_on      Time.now
     body         :missed_shifts => missed_shifts, :late_shifts => late_shifts, :left_early_shifts => left_early_shifts
   end
@@ -99,7 +99,7 @@ class ArMailer < ActionMailer::ARMailer
   #an email is sent to a student if they have been inactive in their shift for an hour
  def stale_shift(user, stale_shifts, dept) 
     subject       "Your Shift in the [add location here later] has been inactive for an hour."
-    recipients    'ms.altyeva@gmail.com' #"#{user.name} <#{user.email}>"
+    recipients    "#{user.name} <#{user.email}>"
     from          dept.department_config.mailer_address
     sent_on       Time.now
     body          :user => user, :stale_shifts => stale_shifts
