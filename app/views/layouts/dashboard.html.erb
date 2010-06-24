@@ -21,10 +21,10 @@
     <li><%= link_to_unless_current "My Preferences", edit_user_config_path(current_user.user_config) %></li>
     <li><%= link_to "My Profile", edit_user_profile_path(current_user.login) %></li>
 	<li><%= link_to_unless_current "My Calendar Feeds", calendar_feeds_path %></li>
-    <li><%= link_to_unless_current "Notices", notices_path %></li>
 	<li><%= link_to_unless_current "SubRequests", sub_requests_path %></li>
     <% if current_user.is_admin_of?(current_department) || !current_department.get_links.empty? %>
       <h3>Useful Links</h3>
+		<li><%= link_to_unless_current "Notices", notices_path %></li>
       <div id = "dashboard_useful_links">
         <%#= render :partial => 'notices/dashboard_useful_links'%>
       </div>
