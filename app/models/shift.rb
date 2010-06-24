@@ -38,7 +38,6 @@ class Shift < ActiveRecord::Base
   named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
   named_scope :stats_unsent, :conditions => {:stats_unsent => true}
   named_scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
-  named_scope :stats_unsent, :conditions => {:stats_unsent => true}
 
   named_scope :missed, 
         :joins => "LEFT JOIN reports ON shifts.id = reports.shift_id",
@@ -48,8 +47,8 @@ class Shift < ActiveRecord::Base
         :conditions => ["#{:arrived.to_sql_column} - #{:start.to_sql_column} > ?",7*60] #TODO: inlcude department config (instead of defaulting to "7")
   named_scope :left_early,
         :joins => :report,
-        :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")  
- 
+        :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")       
+
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
   before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
