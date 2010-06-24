@@ -33,9 +33,18 @@
         <td><%=h stat[:num_missed] %></td>
 				<td><%=h stat[:updates] %></td>
       </tr>
-			<tr>
-				<td colspan="6">hello</td>
-			</tr>
+			
+				<% @my_stats = stat[:u].detailed_stats(@start_date, @end_date) %>
+				<% @my_stats.each do |shift_id, stat_entry| %>
+				<tr>
+					<td colspan="2"><%= stat_entry[:location] %></td>
+					<td colspan="1"><%= stat_entry[:start] %></td>
+					<td colspan="1"><%= stat_entry[:end] %></td>
+					<td colspan="1"><%= stat_entry[:notes] %></td>
+					<td colspan="1"><%= stat_entry[:updates] %></td>
+				</tr>
+				<% end %>
+
     <% end %>
   </tbody>
 </table>
