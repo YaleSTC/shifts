@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   named_scope :superusers, :conditions => { :superuser => true }, :order => :last_name
   delegate :default_department, :to => 'user_config'
 
+  
+
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
