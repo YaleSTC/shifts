@@ -26,7 +26,7 @@
     <% if current_user.is_admin_of?(current_department) || !current_department.get_links.empty? %>
       <h3>Useful Links</h3>
       <div id = "dashboard_useful_links">
-        <%#= render :partial => 'notices/dashboard_useful_links'%>
+        <%= render :partial => 'notices/dashboard_useful_links'%>
       </div>
     <% end %>
   </ul>

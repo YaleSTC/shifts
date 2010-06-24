@@ -38,7 +38,7 @@ class SubRequest < ActiveRecord::Base
           ArMailer.deliver(ArMailer.create_sub_taken_notification(sub_request, new_shift, new_shift.department)) 
           sub_watch_users = sub_request.potential_takers.select {|u| u.user_config.taken_sub_email}
           for user in sub_watch_users
-            ArMailer.deliver(ArMailer.create_sub_taken_watch.(user, sub_request, new_shift, new_shift.department))
+            ArMailer.deliver(ArMailer.create_sub_taken_watch(user, sub_request, new_shift, new_shift.department))
           end
           return true
         end
