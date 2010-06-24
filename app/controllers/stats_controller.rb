@@ -7,15 +7,6 @@ class StatsController < ApplicationController
     
     @stats = {}
     
-    # def average_shift_updates_hour #Could probably be optimized with better attribute -> sum handling
-    #   myshifts = self.shifts.find(:all, :conditions => {:parsed => true})
-    #   total_time = 0
-    #   myshifts.each do |shift|
-    #     total_time += shift.updates_hour
-    #   end
-    #   return total_time/myshifts.size
-    # end
-    
     users = current_department.active_users.sort_by(&:last_name)
 
     users.each do |u|
