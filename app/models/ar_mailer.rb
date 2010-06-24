@@ -58,10 +58,19 @@ class ArMailer < ActionMailer::ARMailer
   # email the specified list or default list of eligible takers
   def sub_created_notify(user, sub)
     subject     "[Sub Request] Sub needed for " + sub.shift.short_display
-    recipients  "user.name} <#{user.email}>"
+    recipients  "#{user.name} <#{user.email}>"
     from        sub.user.email
     sent_on     Time.now
     body        :sub => sub
+  end
+  
+  #email a group of users who want to see whenever a sub request is taken
+  def sub_taken_watch(user, sub_request, new_shift, dept) 
+    subject     "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display 
+    recipients  "#{user.name} <#{user.email}>"
+    from        sub_request.shift.user.email
+    sent_on     Time.now
+    body        :sub_request => sub_request, :new_shift => new_shift  
   end
   
 
@@ -82,15 +91,6 @@ class ArMailer < ActionMailer::ARMailer
     from         dept.department_config.mailer_address
     sent_on      Time.now
     body         :missed_shifts => missed_shifts, :late_shifts => late_shifts, :left_early_shifts => left_early_shifts
-  end
-
-  #email a group of users who want to see whenever a sub request is taken
-  def sub_taken_watch(user, sub_request, new_shift, dept) 
-    subject     "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display 
-    recipients  "#{user.name} <#{user.email}>"
-    from        sub_request.shift.user.email
-    sent_on     Time.now
-    body        :sub_request => sub_request, :new_shift => new_shift  
   end
 
   #STALE SHIFTS
