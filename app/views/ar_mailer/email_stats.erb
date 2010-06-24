@@ -8,8 +8,6 @@ The following users have missed a shift in the past 24 hours:
 	<%= shift.stats_display -%>
 	<% end %>
 
-Total Shifts missed: <%= @missed_shifts.size %> 
-
 
 The following users have been late to a shift in the past 24 hours:
 	<% for shift in @late_shifts %>
@@ -29,4 +27,3 @@ Total shifts signed out of early: <%= @left_early_shifts.size %>
 ---
 
 Have a great day!
-
