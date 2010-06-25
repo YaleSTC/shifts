@@ -130,15 +130,14 @@ class TimeSlot < ActiveRecord::Base
     "in "+self.location.short_name + ' from ' + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma) + " on " + self.calendar.name
   end
 
+
+
+  private
+
   def join_date_and_time
     self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
     self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
   end
-
-
-
-
-  private
 
   def set_active
     self.active = self.calendar.active
@@ -176,3 +175,4 @@ class TimeSlot < ActiveRecord::Base
     end
   end
 end
+
