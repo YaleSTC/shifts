@@ -3,22 +3,6 @@ module ActionView::Helpers
      def select_minute_with_simple_time_select
         return select_minute_without_simple_time_select unless @options[:simple_time_select].eql? true
 
-        # Although this is a datetime select, we only care about the time.  Assume that the date will
-        # be set by some other control, and the date represented here will be overriden
-
-    if @options[:default]
-      val_minutes = @options[:default].min + @options[:default].hour*60
-    else
-      val_minutes = @datetime.kind_of?(Time) ? @datetime.min + @datetime.hour*60 : @datetime
-    end
-
-      if @options[:date].nil?
-        if @options[:start_time]
-          @options[:date] = @options[:start_time]
-        else
-          @options[:date] = Time.now
-        end
-      end
 
         @options[:time_separator] = ""
         @options[:include_start_time] = true  if @options[:include_start_time].nil?
@@ -29,6 +13,20 @@ module ActionView::Helpers
         minute_interval = 15
         if @options[:minute_interval]
           minute_interval = @options[:minute_interval]
+        end
+
+
+        if @options[:default]
+          val_minutes = @options[:default].min + @options[:default].hour*60
+
+          # When :default isn't a valid multiple of 15, it can still contribute
+          # This loop selects the earliest valid minute after :default to be the default
+          unless (@options[:default].min % minute_interval) == 0
+            val_minutes = val_minutes - (@options[:default].min % minute_interval) + minute_interval
+          end
+
+        else
+          val_minutes = @datetime.kind_of?(Time) ? @datetime.min + @datetime.hour*60 : @datetime
         end
 
 
@@ -53,15 +51,13 @@ module ActionView::Helpers
         else
           minute_options = []
           start_minute.upto(end_minute) do |minute|
-          if minute%minute_interval == 0
+            if minute%minute_interval == 0
               ampm = minute < 720 ? ' AM' : ' PM'
               hour = minute/60
               minute_padded = zero_pad_num(minute%60)
               hour_padded = zero_pad_num(hour)
               ampm_hour = ampm_hour(hour)
-
-## Right now we assume that date in every entry is start_time's date
-              val = @options[:date].to_date.to_s + " " + "#{hour_padded}:#{minute_padded}:00"
+              val = "#{hour_padded}:#{minute_padded}:00"
               minute_options << ((val_minutes == minute) ?
                 %(<option value="#{val}" selected="selected">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n) :
                 %(<option value="#{val}">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n)

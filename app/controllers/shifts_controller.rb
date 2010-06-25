@@ -96,6 +96,8 @@ class ShiftsController < ApplicationController
   def new
     params[:shift][:end] ||= params[:shift][:start] if params[:shift] and params[:shift][:start]
     @shift = Shift.new(params[:shift])
+    @start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
+    @end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
     if params[:tooltip]
       @shift.user_id = current_user.id
       render :partial => 'shifts/tooltips/new', :layout => 'none'
@@ -113,8 +115,7 @@ class ShiftsController < ApplicationController
   def create
 
 # needed when simple_time_select is implemented
-#    parse_simple_time_select_output(params[:shift])
-
+    parse_date_and_time_output(params[:shift])
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)
@@ -171,7 +172,9 @@ class ShiftsController < ApplicationController
   def update
 
 #    needed when simple_time_select is implemented
-#    parse_simple_time_select_output(params[:shift])
+    parse_date_and_time_output(params[:shift])
+    @start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
+    @end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
 
     @shift = Shift.find(params[:id])
     return unless user_is_owner_or_admin_of(@shift, @shift.department)

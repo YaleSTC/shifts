@@ -274,19 +274,21 @@ class ApplicationController < ActionController::Base
 #    redirect_to options
 #  end
 
-  def parse_date_and_time_output(form_output)
+  def parse_simple_time_select_output(form_output)
     %w{start end mandatory_start mandatory_end}.each do |field_name|
-
-        unless form_output["#{field_name}_date"].blank?
-          form_output["#{field_name}_date"] = Date.parse( form_output["#{field_name}_date"] )
+        if form_output["#{field_name}(5i)"].blank?
+          form_output.delete "#{field_name}"         #is this if statement actually necessary? ~Casey
+        else
+          form_output[field_name.intern] = Time.parse( form_output[:"#{field_name}(5i)"] )
         end
+        form_output.delete("#{field_name}(5i)")
 
-        unless form_output["#{field_name}_time(5i)"].blank?
-          form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
-        end
-        form_output.delete("#{field_name}_time(5i)")
+#        unless form_output["#{field_name}_date"].blank?
+#          form_output[field_name.intern] =
+#            form_output["#{field_name}_date"].to_date.to_time +
+#            form_output[field_name.intern].sconds_since_midnight
+#        end
 
-    end
     form_output
   end
 

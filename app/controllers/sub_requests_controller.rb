@@ -22,8 +22,7 @@ class SubRequestsController < ApplicationController
   end
 
   def create
-
-    parse_simple_time_select_output(params[:sub_request])
+    parse_date_and_time_output(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
     @sub_request.user = @sub_request.shift.user
@@ -80,7 +79,7 @@ class SubRequestsController < ApplicationController
     end
 
 
-    parse_simple_time_select_output(params[:sub_request])
+    parse_date_and_time_output(params[:sub_request])
 
     if @sub_request.update_attributes(params[:sub_request])
       flash[:notice] = 'SubRequest was successfully updated.'

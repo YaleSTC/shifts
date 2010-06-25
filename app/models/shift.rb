@@ -9,11 +9,16 @@ class Shift < ActiveRecord::Base
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
   before_update :disassociate_from_repeating_event
+  before_validation :join_date_and_time
 
   validates_presence_of :location
   validates_presence_of :start
   validate :is_within_calendar
   before_save :set_active
+  attr_accessor :start_date
+  attr_accessor :start_time
+  attr_accessor :end_date
+  attr_accessor :end_time
 
 #TODO: remove all to_sql calls except where needed for booleans
   named_scope :active, :conditions => {:active => true}
@@ -336,6 +341,13 @@ class Shift < ActiveRecord::Base
   def sub_request
     SubRequest.find_by_shift_id(self.id)
   end
+
+  def join_date_and_time
+    self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+    self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+  end
+
+
 
   private
 

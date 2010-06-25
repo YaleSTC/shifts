@@ -4,13 +4,17 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :repeating_event
   has_many :shifts, :through => :location
   before_save :set_active
-  before_validation :adjust_for_multi_day
+  before_validation :join_date_and_time, :adjust_for_multi_day
   before_update :disassociate_from_repeating_event
 
   validates_presence_of :start, :end, :location_id
   validate :start_less_than_end
   validate :is_within_calendar
   validate :no_concurrent_timeslots
+  attr_accessor :start_date
+  attr_accessor :start_time
+  attr_accessor :end_date
+  attr_accessor :end_time
 
   named_scope :active, lambda {{:conditions => {:active => true}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
@@ -125,6 +129,14 @@ class TimeSlot < ActiveRecord::Base
   def to_message_name
     "in "+self.location.short_name + ' from ' + self.start.to_s(:am_pm_long_no_comma) + " to " + self.end.to_s(:am_pm_long_no_comma) + " on " + self.calendar.name
   end
+
+  def join_date_and_time
+    self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+    self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+  end
+
+
+
 
   private
 
