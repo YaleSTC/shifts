@@ -26,25 +26,24 @@
   <tbody id="user_list">
     <% @stats.each do |key, stat| %>
       <tr class="master">
-        <td><span class="arrow"></span><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date } %></td>
+        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date } %></td>
         <td><%=h stat[:num_shifts] %></td>
         <td><%=h stat[:num_late] %></td>
         <td><%=h stat[:num_left_early] %></td>
         <td><%=h stat[:num_missed] %></td>
 				<td><%=h stat[:updates] %></td>
-      </tr>
-			
-				<% @my_stats = stat[:u].detailed_stats(@start_date, @end_date) %>
-				<% @my_stats.each do |shift_id, stat_entry| %>
-				<tr>
-					<td colspan="2"><%= stat_entry[:location] %></td>
-					<td colspan="1"><%= stat_entry[:start] %></td>
-					<td colspan="1"><%= stat_entry[:end] %></td>
-					<td colspan="1"><%= stat_entry[:notes] %></td>
-					<td colspan="1"><%= stat_entry[:updates] %></td>
-				</tr>
-				<% end %>
-
+      </tr class="subordinate">
+			<tr>
+					<td colspan="6">
+						<% @my_stats = stat[:u].detailed_stats(@start_date, @end_date) %>
+						<% @my_stats.each do |shift_id, stat_entry| %>
+								<body>
+									<%= stat_entry[:location].to_s + " from " + stat_entry[:start].to_s + " to " + stat_entry[:end].to_s + " // Status was: " + stat_entry[:notes].to_s + " // Updated " + stat_entry[:updates_hour].to_s + " times per hour //" %>
+									<br />
+								</body>
+						<% end %>
+					</td>
+			</tr>
     <% end %>
   </tbody>
 </table>
@@ -54,13 +53,6 @@ $(document).ready(function(){
   $("#user_list tr:not(.master)").hide();
   $("#user_list tr.master").click(function(){
       $(this).next("tr").toggle();
-      $(this).find(".arrow").toggleClass("up");
-  }); 
-
-  
-  //$.tablesorter.defaults.widgets = ['zebra'];
-  //$("#stats_table").tablesorter({
-  //  sortList: [[0,0]]
-  //});
+  });
 });
 </script>
