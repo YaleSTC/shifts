@@ -9,8 +9,9 @@
   <p><h3>Time that you need someone to take for this sub request:</h3></p>
 
   <p>
-    <%= f.label "Start" %><br />
-    <%= f.time_select :mandatory_start, {
+    <%= f.label :start %><br />
+    <%= f.hidden_field :mandatory_start_date, :value => (params[:id] ? @sub_request.shift.start.to_date : @shift.start.to_date)%>
+    <%= f.time_select :mandatory_start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,
@@ -23,8 +24,9 @@
                                           } %>
   </p>
   <p>
-    <%= f.label "End" %><br />
-    <%= f.time_select :mandatory_end, {
+    <%= f.label :end %><br />
+    <%= f.hidden_field :mandatory_end_date, :value => (params[:id] ? @sub_request.shift.end.to_date : @shift.end.to_date)%>
+    <%= f.time_select :mandatory_end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,
@@ -39,7 +41,8 @@
   <p><h3>Maximum amount of time you're willing to give up (bribe):</h3></p>
   <p>
     <%= f.label :start %><br />
-    <%= f.time_select :start, {
+    <%= f.hidden_field :start_date, :value => (params[:id] ? @sub_request.shift.start.to_date : @shift.start.to_date)%>
+    <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,
@@ -54,7 +57,8 @@
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.time_select :end, {
+    <%= f.hidden_field :end_date, :value => (params[:id] ? @sub_request.shift.end.to_date : @shift.end.to_date)%>
+    <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,

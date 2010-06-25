@@ -15,7 +15,8 @@
   </p>
       <p>
         <%= f.label :start %><br />
-        <%= f.time_select :start, {
+        <%= f.hidden_field :start_date, :value => @period_start%>
+        <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,
@@ -30,7 +31,8 @@
       </p>
       <p>
         <%= f.label :end %><br />
-        <%= f.time_select :end, {
+        <%= f.hidden_field :end_date, :value => @period_start%>
+        <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,

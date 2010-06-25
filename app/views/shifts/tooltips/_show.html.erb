@@ -18,7 +18,7 @@
   <% else%>
     <% if @shift.report %>
       <%= stylesheet_link_tag "report" %>
-      <%= render :partial => 'reports/report', :object => @shift.report %>      
+      <%= render :partial => 'reports/report', :object => @shift.report %>
       <p>
         <% if @shift.signed_in? && (current_user == @shift.user || current_user.is_admin_of?(@shift.location)) %>
           <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
@@ -33,7 +33,7 @@
           <% end %>
         <% end %>
       </p>
-      
+
       <% if @shift.submitted? %>
         <% unless @shift.repeating_event %>
           <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
@@ -47,27 +47,48 @@
           </div>
         <% end %>
       <% end %>
-      
+
     <% else %>
       <h2>Edit Shift</h2>
-    
+
       <% if @shift.repeating_event %>
         <p>
           <%= check_box_tag :repeating_event, false, false, :onclick => "$('.toggle_me').toggle()" %> Edit repeating event
         </p>
       <% end %>
-    
+
       <div class="toggle_me">
         <% remote_form_for @shift do |f| %>
-          <p>
-            <%= f.label :start %><br />
-            <%= f.time_select :start, :twelve_hour => true, :minute_step => current_department.department_config.time_increment %>
-          </p>
-          <p>
-            <%= f.label :end %><br />
-            <%= f.time_select :end, :twelve_hour => true, :minute_step => current_department.department_config.time_increment %>
-          </p>
-          <p>
+    <p>
+      <%= f.label :start %><br />
+      <%= f.hidden_field :start_date, :value => @shift.start.to_date, :id => :start_date  %>
+      <%= f.time_select :start_time, {
+                  :simple_time_select => true,
+                  :time_separator => "",
+                  :minute_interval => current_department.department_config.time_increment,
+
+                  :start_time => @start_time,
+                  :end_time => @end_time,
+                  :include_start_time => true,
+                  :include_end_time => false,
+                  :default => @shift.start,
+                                            } %>
+    </p>
+    <p>
+      <%= f.label :end %><br />
+      <%= f.hidden_field :end_date, :value => @shift.end.to_date, :id => :end_date %>
+      <%= f.time_select :end_time, {
+                  :simple_time_select => true,
+                  :time_separator => "",
+                  :minute_interval => current_department.department_config.time_increment,
+
+                  :start_time => @start_time,
+                  :end_time => @end_time,
+                  :include_start_time => false,
+                  :include_end_time => true,
+                  :default => @shift.end,
+                                            } %>
+    </p>          <p>
             <%= f.label :location %><br />
             <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location_id)%><br />
           </p>
@@ -101,7 +122,7 @@
             <%= link_to "Create a sub request for this shift", new_shift_sub_request_path(@shift) %><br>
           <% end %>
         <% end %>
-  
+
         <% unless @shift.repeating_event %>
           <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
         <% else %>
@@ -125,9 +146,9 @@
       <% end %>
     <% end %>
   <% end %>
-  
+
 <% else %>
-  
+
   <% if @shift.report %>
     <%= stylesheet_link_tag "report" %>
     <%= render :partial => 'reports/report', :object => @shift.report %>
@@ -153,12 +174,12 @@
       <%=h @shift.location.name %>
     </p>
   <% end %>
-  
+
   <p>
     <% if current_user == @shift.user and !@shift.has_passed? and @shift.report.nil? %>
       <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
     <% end %>
-  
+
     <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
       <% @shift.sub_requests.each do |sub| %>
         <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user)  %>
@@ -170,7 +191,7 @@
     <% end %>
   </p>
 <% end %>
- 
+
 <script type="text/javascript">
   // don't retrigger the action when clicking the tooltip :P
   $(".tooltip").click(function(e){

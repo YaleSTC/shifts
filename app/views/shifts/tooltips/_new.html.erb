@@ -13,7 +13,7 @@
   <% remote_form_for @shift do |f| %>
     <%= f.error_messages %>
     <%
-      default_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
+      default_time = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
       if params[:xPercentage]
         @dept_start_hour = current_department.department_config.schedule_start / 60
         @dept_end_hour = current_department.department_config.schedule_end / 60
@@ -24,11 +24,33 @@
     <%#= render :partial => 'shifts/form', :locals => {:f => f} %><%# disabled because start and end don't need dates, just times %>
     <p>
       <%= f.label :start %><br />
-      <%= f.time_select :start, :twelve_hour => true, :default => default_time, :minute_step => current_department.department_config.time_increment %>
+      <%= f.hidden_field :start_date, :value => default_date, :id => :start_date  %>
+      <%= f.time_select :start_time, {
+                  :simple_time_select => true,
+                  :time_separator => "",
+                  :minute_interval => @department.department_config.time_increment,
+
+                  :start_time => @start_time,
+                  :end_time => @end_time,
+                  :include_start_time => true,
+                  :include_end_time => false,
+                  :default => default_time,
+                                            } %>
     </p>
     <p>
       <%= f.label :end %><br />
-      <%= f.time_select :end, :twelve_hour => true, :default => default_time + 1.hour, :minute_step => current_department.department_config.time_increment %>
+      <%= f.hidden_field :end_date, :value => default_date, :id => :end_date %>
+      <%= f.time_select :end_time, {
+                  :simple_time_select => true,
+                  :time_separator => "",
+                  :minute_interval => @department.department_config.time_increment,
+
+                  :start_time => @start_time,
+                  :end_time => @end_time,
+                  :include_start_time => false,
+                  :include_end_time => true,
+                  :default => default_time + 1.hour,
+                                            } %>
     </p>
     <p>
       <%= f.label :location %><br />
