@@ -1,9 +1,10 @@
-<table id="payformList" width="100%">
 <% if params[:printed].nil? %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Finalized Payforms", payforms_path(:unsubmitted =>true, :submitted => true, :approved => true, :printed => true, :class => "action_with_icon") %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Finalized Payforms", payforms_path(:unsubmitted =>true, :submitted => true, :approved => true, :printed => true) %>
 <% else %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Finalized Payforms", payforms_path(:class => "action_with_icon") %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Finalized Payforms", payforms_path %>
 <% end %>
+
+<table id="payformList" width="100%">
 
 
   <thead><tr>
