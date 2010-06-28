@@ -241,7 +241,7 @@ class User < ActiveRecord::Base
   
     shifts_set.each do |s|
        stat_entry = {}
-       stat_entry[:location] = s.location.name
+       stat_entry[:location] = s.location.short_name
        stat_entry[:start] = s.start
        stat_entry[:end] = s.end
        stat_entry[:in] = s.created_at
