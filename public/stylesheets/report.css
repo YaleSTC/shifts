@@ -27,11 +27,11 @@
   margin-top: 5px;
 }
 
-#report_view .list_report_item_even {
+tr.list_report_item_even {
   background:   #f5f5f5;
 }
 
-#report_view .list_report_item_odd {
+tr.list_report_item_odd {
   background:   #e6e6fa;
 }
 
@@ -77,7 +77,7 @@
 
 #useful_links {
   width: 48%;
-	float: right;
+	float: left;
   margin-bottom: 5px;
 }
 
@@ -85,6 +85,11 @@
   width: 48%;
   float: right;
   margin-bottom: 5px;
+}
+
+#report_view_table td.user_name{
+  width: 100px;
+  padding: 4px;
 }
 
 #report_message_center {

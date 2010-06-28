@@ -3,7 +3,7 @@
   <% unless @dept_select.length == 1 %>
     <fieldset class = "index">
       <legend>Default Department Preferences"</legend>
-      <small>This is the department you will be logged into when you sign in to the
+      <small>Control which department your account will be logged into when you sign in to the
       application.  You can then change it through the department chooser.  If you
       leave this blank, then it will default to your first department.</small><br />
       <%= f.select :default_dept, @dept_select %>
@@ -11,8 +11,8 @@
   <% end %>
   <fieldset class = "index">
   <legend>Location Groups</legend>
-    <small>These are the location groups you will view by default on the shift
-    schedule and on the notice index page.  If you leave this blank, then it will default to all of your
+    <small>Control which location groups to view on your shift
+    schedule and on the notices index page.  If you leave this blank, then it will default to all of your
     location groups.  </small><br />
     <% for department in current_user.departments %>
       <div class="multiple_select">
@@ -26,12 +26,12 @@
 
   <fieldset class = "index">
     <legend>Schedule View</legend>
-    <small>This controls what portion of the shift schedule you see.</small><br />
+    <small>Control which portion of the shift schedule you would like to see.</small><br />
     <%= f.select :view_week, UserConfig::VIEW_WEEK_OPTIONS %>
   </fieldset>
   <fieldset class = "index">
     <legend>Data</legend>
-    <small>This controls which data objects you will see updates for on your
+    <small>Control which data objects will show updates on your
     dashboard.</small><br />
     <%= collection_multiple_select( :user_config, :watched_data_objects,
                                     @data_objects, :id, :name,
@@ -39,7 +39,7 @@
   </fieldset>
   <fieldset class = "index">
 	<legend>Email Notifications</legend>
-	<small>This controls whether you will get an email notification for any of the listed feature. Uncheck each feature to disable it.</small><br />
+	<small>Control your notification preferences.</small><br />
 	<p>
      <%= f.check_box :taken_sub_email %>
      <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests:" %>

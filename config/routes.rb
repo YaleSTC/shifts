@@ -89,7 +89,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 #TODO Fix report items routing, this is temporary
-  map.resources :report_items, :except => [:new, :update, :create, :destroy], :member => {:for_location => :get}
+  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :member => {:for_location => :get}
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
