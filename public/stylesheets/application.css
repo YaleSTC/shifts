@@ -667,6 +667,7 @@ ul.activeShifts {
 	list-style-type: none;
 }
 
+
 /* Sub Request Table Index
 ======================================================================= */	
 table#requests_table {margin-bottom:5px;}
@@ -697,3 +698,7 @@ div.feed_subs {float:right; margin-right:40em;}
 div.feed_shifts {float:left;}
 div.feed_bottom {clear:both}
 div.feed_bottom a {float:right;}
+
+/* button for report_item_view on location index */
+input.view_more {float:right;}
+
