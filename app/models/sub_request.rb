@@ -96,10 +96,10 @@ class SubRequest < ActiveRecord::Base
 
   def add_errors(e)
     e = e.gsub("Validation failed: ", "")
-    e.split(", ").each do |error|
-      errors.add_to_base(error.gsub(",,", ", "))
-    end
-  end
+    e.split(", ").each do |error|                   #errors.add_to_base is tokenized by comma-space pattern
+      errors.add_to_base(error.gsub(",,", ", "))    #problem: in comma-seperated lists, each item is incorrectly rendered as a seperate error
+    end                                             #work-around: lists are printed as "item,,item,,item" which now swap to "item, item, item"
+  end                                               
 
 
   private
@@ -137,7 +137,7 @@ class SubRequest < ActiveRecord::Base
   def requested_users_have_permission 
     c = self.requested_users.select { |user| !user.can_signup?(self.loc_group) || user==self.user}
       unless c.blank? 
-        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
+        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ",,"}") 
     end
   end
   
