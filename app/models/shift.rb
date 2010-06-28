@@ -10,7 +10,7 @@ class Shift < ActiveRecord::Base
   has_many :sub_requests, :dependent => :destroy
   before_update :disassociate_from_repeating_event
 
-  validates_presence_of :user
+
   validates_presence_of :location
   validates_presence_of :start
   validate :is_within_calendar
@@ -19,11 +19,13 @@ class Shift < ActiveRecord::Base
 #TODO: remove all to_sql calls except where needed for booleans
   named_scope :active, :conditions => {:active => true}
   named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
+  named_scope :not_for_user, lambda {|usr| { :conditions => ["user_id != #{usr.id}"]}}
   named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
   named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   named_scope :in_department, lambda {|dept| {:conditions => {:department_id => dept.id}}}
+  named_scope :in_departments, lambda {|dept_array| {:conditions => {:department_id => dept_array.collect(&:id)}}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
@@ -33,11 +35,22 @@ class Shift < ActiveRecord::Base
   named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
   named_scope :signed_in, lambda{ |department| {:conditions => {:signed_in => true, :department_id => department.id} } }
   named_scope :ordered_by_start, :order => 'start'
+  named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
+  named_scope :stats_unsent, :conditions => {:stats_unsent => true}
+  named_scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
+
+  named_scope :missed, 
+        :joins => "LEFT JOIN reports ON shifts.id = reports.shift_id",
+        :conditions => ["end < ? AND reports.id is null AND shifts.active = ?", Time.now.utc, true]
+  named_scope :late,
+        :joins => :report,
+        :conditions => ["#{:arrived.to_sql_column} - #{:start.to_sql_column} > ?",7*60] #TODO: inlcude department config (instead of defaulting to "7")
+  named_scope :left_early,
+        :joins => :report,
+        :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")       
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
-  validates_presence_of :user
-  
   before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
@@ -87,7 +100,7 @@ class Shift < ActiveRecord::Base
 
   #This method takes a list of shifts and deletes them, all their subrequests,
   # and all the relevant UserSinksUserSource entries. Necessary for conflict
-  #wiping in repeating_event and calendars, as well as wiping a date range -Mike
+  # wiping in repeating_event and calendars, as well as wiping a date range -Mike
   def self.mass_delete_with_dependencies(shifts_to_erase)
     array_of_shift_arrays = shifts_to_erase.batch(450)
     array_of_shift_arrays.each do |shifts|
@@ -192,7 +205,7 @@ class Shift < ActiveRecord::Base
   # ==================
   # = Object methods =
   # ==================
-  
+
   def css_class(current_user = nil)
     if current_user and self.user == current_user
       css_class = "user"
@@ -227,6 +240,16 @@ class Shift < ActiveRecord::Base
   def left_early?
     (self.report.nil? or self.report.departed.nil?) ? false : (self.end - self.report.departed > self.department.department_config.grace_period*60)
   end
+  
+  def updates_per_hour
+    if self.report == nil
+      return nil
+    else
+      shift_time = (self.report.departed - self.report.arrived)/3600
+      number_report_items = self.report.report_items.size
+      return number_report_items/shift_time
+    end
+  end
 
   #a shift has been signed in to if it has a report
   # NOTE: this evaluates whether a shift is CURRENTLY signed in
@@ -239,6 +262,12 @@ class Shift < ActiveRecord::Base
     self.report.nil? ? false : !self.report.departed.nil?
   end
 
+  #a shift is stale if it is currently signed into and if the report has not been updated for an hour. 
+  def self.stale_shifts_with_unsent_emails(department = current_department)
+    @shifts = Shift.in_department(department).signed_in(department).between(1.day.ago, Time.now).stale_shifts_unsent
+    @shifts.select{|s| s.report.report_items.last.time < 1.hour.ago.utc}
+  end
+  
   #TODO: subs!
   #check if a shift has a *pending* sub request and that sub is not taken yet
   def has_sub?
@@ -321,6 +350,10 @@ class Shift < ActiveRecord::Base
   def short_name
     "#{location.short_name}, #{user.name}, #{time_string}, #{start.to_s(:just_date)}"
   end
+  
+  def stats_display
+       "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+ end    
 
   def name_and_time
     "#{user.name}, #{time_string}"
@@ -377,7 +410,7 @@ class Shift < ActiveRecord::Base
   def shift_is_within_time_slot
     unless self.power_signed_up
       c = TimeSlot.count(:all, :conditions => ["#{:location_id.to_sql_column} = #{self.location_id.to_sql} AND #{:start.to_sql_column} <= #{self.start.to_sql} AND #{:end.to_sql_column} >= #{self.end.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
-      errors.add_to_base("You can only sign up for a shift during a time slot!") if c == 0
+      errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
     end
   end
 
@@ -388,12 +421,12 @@ class Shift < ActiveRecord::Base
       c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}"])
     end
     unless c.zero?
-      errors.add_to_base("#{self.user.name} has an overlapping shift in that period") unless (self.id and c==1)
+      errors.add_to_base("#{self.user.name} has an overlapping shift in that period.") unless (self.id and c==1)
     end
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't sign up for a shift that has already passed!") if self.start <= Time.now
+    errors.add_to_base("Can't sign up for a shift that has already passed.") if self.start <= Time.now
   end
 
   def does_not_exceed_max_concurrent_shifts_in_location
@@ -422,14 +455,14 @@ class Shift < ActiveRecord::Base
       errors.add_to_base("#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
     end
   end
-  
+
   def obeys_signup_priority
     #check for all higher-priority locations in this loc group
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
     seconds_increment = self.department.department_config.time_increment * 60
     prioritized_locations.each do |prioritized_location|
       min_staff_filled = true
-      
+
       time = self.start
       end_time = self.end
       while (time < end_time)
@@ -461,20 +494,22 @@ class Shift < ActiveRecord::Base
   end
 
   def set_active
-    self.active = self.calendar.active
+    #self.active = self.calendar.active
+    #return true
+    self.active = calendar.active && location.active && user.is_active?(department)
     return true
   end
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add_to_base("Shift start and end dates must be within the range of the calendar!") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+      errors.add_to_base("Shift start and end dates must be within the range of the calendar.") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
     end
   end
 
   def disassociate_from_repeating_event
     self.repeating_event_id = nil
   end
-  
+
   def adjust_end_time_if_in_early_morning
     #increment end by one day in cases where the department is open past midnight
     self.end += 1.day if (self.end <= self.start and (self.end.hour * 60 + self.end.min) <= (self.department.department_config.schedule_end % 1440))
