@@ -38,7 +38,7 @@ class PunchClocksController < ApplicationController
     if @punch_clock && @punch_clock.save && !error
       flash[:notice] = message
     else
-      flash[:error] = "Could not modify punch clock: #{message}"
+      flash[:error] = "Could not modify punch clock: #{message}."
     end
     redirect_to current_user == @punch_clock.user ? dashboard_path : punch_clocks_path
   end

@@ -1,9 +1,4 @@
-<% form_tag({:action => :go, :department_id => @department}, {:id => 'date_form', :method => :get} ) do %>
-  <%= select_tag :date, options_for_select(last_10_dates, Payform.default_period_date(date, @department)), {:onchange =>"this.form.submit()"} %>
-  <%= submit_tag "Change Date", :id => 'submit_date' %>
+<% form_tag({:action => :go, :department_id => @department}, {:id => 'date_form', :class => 'onchange_submit', :method => :get} ) do %>
+  <%= select_tag :date, options_for_select(last_10_dates, Payform.default_period_date(date, @department)) %>
+  <%= submit_tag "Change Date", :id => 'submit_date', :class => 'no_js' %>
 <% end %>
-
-<script type="text/javascript" charset="utf-8">
-  $('#submit_date').toggle();
-</script>
-

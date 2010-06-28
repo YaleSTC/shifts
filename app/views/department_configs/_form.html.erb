@@ -27,6 +27,9 @@
         <%= f.label :schedule_start, text = "Display unscheduled shifts:" %>
         <%= f.check_box :unscheduled_shifts %>
       </p>
+      <p>
+        <%= f.label :can_take_passed_sub, text = "Allow for sub request to be taken even if shift has already begun:" %>
+        <%= f.check_box :can_take_passed_sub %>
   </fieldset>
   <br/>
   <fieldset class = "index">
@@ -72,6 +75,21 @@
       <%= f.select :day, (1..28).step + DepartmentConfig::LAST_DAY_SELECT %>
     </p>
   </fieldset>
+<fieldset class = "index">
+    <legend>Edit Email Statistics Configuration</legend>
+	<p>
+		<%= f.label :stats_mailer_address, text = "Emails of users to receive shift statistics (separated by commas):"%>
+		<%= f.text_area :stats_mailer_address, :size => "50x5"%>
+	</p>
+</fieldset>
+<fieldset class = "index">
+    <legend>Edit Stale Shift Configuration</legend>
+	<p>
+		<%= f.label :stale_shift, text = "Send emails to users regarding stale shifts (leave blank to disable):"%>
+		<%= f.check_box :stale_shift %>
+	</p>
+</fieldset>
+<fieldset class = "index">
 <%= submit_tag "Save Settings" %>
 <% end %>
 </div>

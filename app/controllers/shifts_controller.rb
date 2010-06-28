@@ -3,7 +3,8 @@ class ShiftsController < ApplicationController
 
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
-
+    @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true], :order => :start, :limit => 5)
+    
     # for user view preferences partial
     @loc_group_select = {}
     current_user.departments.each do |dept|
@@ -124,7 +125,7 @@ class ShiftsController < ApplicationController
       flash[:notice] = "You can't sign into two shifts or punch clocks at the same time."
       redirect_to shifts_path and return
     elsif !@shift.power_signed_up && !current_user.can_signup?(@shift.location.loc_group)
-      flash[:notice] = "You don't have permission to sign up for a shift there!"
+      flash[:notice] = "You don't have permission to sign up for a shift there."
       redirect_to shifts_path and return
     end
     if @shift.save
@@ -150,7 +151,7 @@ class ShiftsController < ApplicationController
             @shift.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>Error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            ajax_alert(page, "<strong>Error:</strong> shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
           end
         end
       end
@@ -184,7 +185,7 @@ class ShiftsController < ApplicationController
             @shift.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
           end
         end
         format.html {render :action => 'edit'}

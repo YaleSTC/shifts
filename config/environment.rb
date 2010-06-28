@@ -45,6 +45,7 @@ Rails::Initializer.run do |config|
   config.gem "whenever", :lib => false
   config.gem 'hoptoad_notifier'
   config.gem 'vestal_versions'
+  config.gem 'icalendar'
   
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.

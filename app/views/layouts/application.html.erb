@@ -29,7 +29,8 @@
           Please report bugs to our <a href="http://mahi.its.yale.edu/bugs">Bug Tracker</a>.<br />
           <% if current_user && current_user.superuser? -%>
             Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
-                {:su_mode => current_user.supermode? ? 'OFF' : 'ON'} %>
+                {:su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
+
                 <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
           <% end -%>
         </p>
@@ -37,7 +38,10 @@
     
   </div> <!-- End pagebox container generated in main_header -->
   
-  <div id="pageboxBottom"></div> <!-- do not remove -->
-  
+  <div id="pageboxBottom"> <!-- do not remove -->
+    <script type='text/javascript' charset='utf-8'>
+      <%= yield(:javascript) %>
+    </script>
+  </div>
   </body>
 </html>
