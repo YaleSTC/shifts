@@ -40,9 +40,9 @@
 								<body>
 									<font color="blue"><strong><%= stat_entry[:location].to_s %></strong></font>
 									<%= " // " %>
-									<strong><%= stat_entry[:start].to_s %></strong>
+									<strong><%= stat_entry[:start].localtime.to_s %></strong>
 									<%= " to " %>
-									<strong><%= stat_entry[:end].to_s %></strong>
+									<strong><%= stat_entry[:end].localtime.to_s %></strong>
 									<%= "// Notes: " %>
 									<% if stat_entry[:missed] %>
 										<font color="red"><strong><%= stat_entry[:notes].to_s %></strong></font>
