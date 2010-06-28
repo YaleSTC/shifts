@@ -67,7 +67,18 @@ class LocationsController < ApplicationController
      flash[:notice] = "Successfully destroyed location."
      redirect_to department_locations_path(current_department)
    end
-  
+
+
+  def display_report_items
+    @location = Location.find(params[:id])
+    @start_time = 3.hours.ago.utc
+    respond_to do |format|
+      format.js { @start_time = @start_time - 5.hours }
+      format.html { } #this is necessary!
+    end
+    @report_items = ReportItem.in_location(@location).after_time(@start_time)
+  end
+
 private
 
   def find_allowed_locations
