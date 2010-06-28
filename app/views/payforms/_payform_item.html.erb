@@ -1,10 +1,8 @@
-<%= render :partial => "payform_item", :object => payform_item.parent, :locals => {:type => 'edit_item' } if payform_item.parent %>
-
 <% type = 'deleted_item' if !payform_item.active && type != 'edit_item' %>
 <% if payform_item.active || current_user.is_admin_of?(current_department) %>
 <tr class="<%= type %>">
   <td class="date">
-    <%= "➘" if payform_item.parent %>
+    <%= "|" if type == 'edit_item' %>
     <%=h payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
@@ -20,16 +18,24 @@
   <td class="rightside" id="hours" >
     <%= payform_item.hours %>
   </td>
-  <td class="rightside" id="edit">
-    <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
-      <%= link_to 'edit', edit_payform_item_path(payform_item, :height => "548", :width => "600"), :title => "Edit Payform Item", :class => "thickbox" %>
-    <% end %>
-  </td>
-  <td class="rightside" id="delete">
-    <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
-      <%= link_to "&#x2716;", delete_payform_item_path(payform_item, :height => "180", :width => "600"), :title => "Delete Payform Item", :class => "thickbox" %>
-    <% end %>
-  </td>
+  <% if type != 'edit_item' %>
+    <td class="rightside" id="edit">
+      <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+        <%= link_to 'edit', edit_payform_item_path(payform_item, :height => "548", :width => "600"), :title => "Edit Payform Item", :class => "thickbox" %>
+      <% end %>
+    </td>
+    <td class="rightside" id="delete">
+      <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
+        <%= link_to "&#x2716;", delete_payform_item_path(payform_item, :height => "180", :width => "600"), :title => "Delete Payform Item", :class => "thickbox" %>
+      <% end %>
+    </td>
+  <% else %>
+    <td></td><td></td>
+  <% end %>
 </tr>
 <% end %>
 
+<% if payform_item.version > 1 %>
+  <% payform_item.revert_to(payform_item.version-1) %>
+  <%= render :partial => "payform_item", :object => payform_item, :locals => {:type => 'edit_item' } %>
+<% end %>
