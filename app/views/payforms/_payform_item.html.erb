@@ -3,7 +3,7 @@
 <tr class="<%= type %>">
   <td class="date">
     <%= "&uarr;" if type == 'edit_item' %>
-    <%=h payform_item.date.strftime('%b&nbsp;%d') %>
+    <%= payform_item.date.strftime('%b&nbsp;%d') %>
   </td>
   <td class="description">
     <% if payform_item.source_url -%>
