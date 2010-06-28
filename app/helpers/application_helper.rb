@@ -103,21 +103,5 @@ module ApplicationHelper
     page[rand].visual_effect :highlight
   end
 
-  def same_page?(options)
-    url_string = CGI.unescapeHTML(url_for(options))
-    request = @controller.request
-    # We ignore any extra parameters in the request_uri if the 
-    # submitted url doesn't have any either.  This lets the function
-    # work with things like ?order=asc 
-    request_uri = request.request_uri
-    
-    if url_string =~ /^\w+:\/\//
-      url_string == "#{request.protocol}#{request.host_with_port}#{request_uri}"
-    else
-      url_string == request_uri
-    end
-  end
-
-
 end
 
