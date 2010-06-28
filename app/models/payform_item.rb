@@ -15,7 +15,9 @@ class PayformItem < ActiveRecord::Base
   belongs_to :category
 
   delegate :department, :to => :payform
-  delegate :user, :to => :payform  
+  delegate :user, :to => :payform
+  
+  before_validation :unsubmit_payform
   
   validates_presence_of :date, :category_id, :payform_id
   validates_numericality_of :hours, :greater_than => 0
@@ -34,6 +36,13 @@ class PayformItem < ActiveRecord::Base
   end
   
   protected
+  
+  def unsubmit_payform
+    self.payform.submitted = nil
+    unless self.payform.save
+      errors.add(:payform, "failed to allow for new payform items.")
+    end
+  end
 
   def length_of_description
     min = self.department.department_config.description_min.to_i 
