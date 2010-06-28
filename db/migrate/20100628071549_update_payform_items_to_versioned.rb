@@ -12,12 +12,16 @@ class UpdatePayformItemsToVersioned < ActiveRecord::Migration
         kids =  PayformItem.all.select{|p| p.parent_id == p_i.id}
         # IF DELETED
         ############
-        if (kids.empty? and !p_i.active) 
-          p_i.active = true
-          reason = p_i.reason
-          p_i.updated_by = p_i.source
-          p_i.reason = nil
-          p_i.save! #activate versioned on this item, initially active
+        if (kids.empty? and !p_i.active)
+        
+          p_i.skip_version do
+            p_i.active = true
+            reason = p_i.reason
+            p_i.updated_by = p_i.source
+            p_i.reason = nil
+            p_i.save! #activate versioned on this item, initially active
+          end
+          
           p_i.active = false
           p_i.reason = reason
           p_i.updated_by = p_i.source
@@ -25,11 +29,14 @@ class UpdatePayformItemsToVersioned < ActiveRecord::Migration
         # ELSE RECURSE THROUGH KIDS
         ###########################
         else 
-          p_i.updated_by = p_i.source
-          reason = p_i.reason
-          p_i.reason = nil
-          p_i.active = true
-          p_i.save!
+          p_i.skip_version do
+            p_i.updated_by = p_i.source
+            reason = p_i.reason
+            p_i.reason = nil
+            p_i.active = true
+            p_i.save!
+          end
+
           while !kids.empty?
             kid = kids.first
             new_reason = reason
@@ -50,6 +57,7 @@ class UpdatePayformItemsToVersioned < ActiveRecord::Migration
   end
 
   def self.down
+    raise ActiveRecord::IrreversibleMigration
     #THIS IS IRREVERSABLE (BE WARNED)
     #(unless you want to write this method.)
     #(it is theoretically possible...)
