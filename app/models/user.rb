@@ -255,6 +255,9 @@ class User < ActiveRecord::Base
        else
          stat_entry[:notes]
        end
+       stat_entry[:missed] = s.missed
+       stat_entry[:late] = s.late
+       stat_entry[:left_early] = s.left_early
        stat_entry[:updates_hour] = s.updates_hour
        shift_stats[s.id] = stat_entry
     end
