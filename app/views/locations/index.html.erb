@@ -22,7 +22,7 @@
           <td><%= loc.max_staff %></td>
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
-          <td><%= link_to "All Shifts", for_location_location_path(loc) %> </td>
+          <td><%= link_to "All Shifts", :action => :display_report_items, :id => loc %> </td>
           <td><%= link_to "Delete Location", loc, :confirm => 'Are you sure?', :method => :delete %></td>
         </tr>
       <% end -%>

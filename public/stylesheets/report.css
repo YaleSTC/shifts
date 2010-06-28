@@ -23,11 +23,11 @@
   margin-top: 5px;
 }
 
-#report_view .list_report_item_even {
+tr.list_report_item_even {
   background:   #f5f5f5;
 }
 
-#report_view .list_report_item_odd {
+tr.list_report_item_odd {
   background:   #e6e6fa;
 }
 
@@ -67,6 +67,11 @@
 }
 
 #report_view_table td.timestamp{
+  width: 69px;
+  padding: 4px;
+}
+
+#report_view_table td.user_name{
   width: 69px;
   padding: 4px;
 }
