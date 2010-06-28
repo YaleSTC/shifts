@@ -43,7 +43,7 @@ class UpdatePayformItemsToVersioned < ActiveRecord::Migration
         new_p_i.active = true
         new_p_i.updated_by = p_i.source
         new_p_i.reason = nil
-        new_p_i.save!(false)
+        new_p_i.save(false)
      
         # IF DELETED
         ############
@@ -53,7 +53,7 @@ class UpdatePayformItemsToVersioned < ActiveRecord::Migration
           new_p_i.active = false
           new_p_i.reason = reason
           new_p_i.updated_by = p_i.user.name #may not be accurate if an admin deleted it
-          new_p_i.save!(false)
+          new_p_i.save(false)
 
         # ELSE RECURSE THROUGH KIDS
         ###########################
@@ -67,10 +67,16 @@ class UpdatePayformItemsToVersioned < ActiveRecord::Migration
             new_p_i.updated_by = p_i.user.name #may not be accurate if an admin edited it
             old_kids = kids
             kids =  PayformItem.all.select{|p| p.parent_id == kid.id}
-            unless (kids.empty?)
-              new_p_i.active = true
+            new_p_i.active = true
+            #if it is a deleted edit
+            if (kids.empty? and !kid.active)
+              new_p_i.save(false) #set the version that is to be deleted
+              #now we delete it
+              new_p_i.active = false
+              new_p_i.reason = reason
+              new_p_i.updated_by = p_i.user.name #may not be accurate if an admin deleted it
             end
-            new_p_i.save!(false) #update version based off of kid
+            new_p_i.save(false) #update version based off of kid
             old_kids.map{|k| k.destroy } #no longer need this layer of kids (should only have one)
           end
         end
