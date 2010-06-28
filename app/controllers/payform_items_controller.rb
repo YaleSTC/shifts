@@ -106,7 +106,7 @@ class PayformItemsController < ApplicationController
       if !@payform_item.payform.save
         flash.now[:error] = "Error unsubmitting payform. "
       else
-        flash.now[:error] = @payform_item.errors.to_sentence
+        flash.now[:error] = @payform_item.errors.to_sentence #TODO: to_sentence is throwing up an undefined method error
       end
       render :action => 'delete'
     end
