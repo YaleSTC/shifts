@@ -42,7 +42,8 @@ class PayformItem < ActiveRecord::Base
   end
 
   def length_of_description
-    if self.description.length < self.payform.department.department_config.description_min.to_i 
+    min =  self.payform.department.department_config.description_min.to_i 
+    if self.description.length < min
       errors.add_to_base("Description must be at least #{min} characters long.") 
     end
   end   

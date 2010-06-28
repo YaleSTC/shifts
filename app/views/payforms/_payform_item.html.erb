@@ -1,5 +1,5 @@
 <% type = 'deleted_item' if !payform_item.active && type != 'edit_item' %>
-<% if payform_item.active || current_user.is_admin_of?(current_department) %>
+<% if (payform_item.active && type != 'edit_item') || current_user.is_admin_of?(current_department) %>
 <tr class="<%= type %>">
   <td class="date">
     <%= "&uarr;" if type == 'edit_item' %>
@@ -17,8 +17,9 @@
     <%= "(original)" if type == 'edit_item' and payform_item.version == 1 %>
   </td>
   <td class ="updated_by">
-    <%# TODO: Clean up this line: %>
+    <%# TODO: Clean up this code: %>
     <%=h payform_item.versions[payform_item.version-2].user if payform_item.version > 1 and current_user.is_admin_of?(current_department) %>
+    <%=h payform_item.source if payform_item.version == 1  and current_user.is_admin_of?(current_department) %>
   </td>
   <td class="rightside" id="hours" >
     <%= number_with_precision(payform_item.hours, :precision => 2) %>

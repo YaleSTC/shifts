@@ -3,9 +3,9 @@ class PayformItemsController < ApplicationController
   helper 'payforms'
 
   def new
-    @payform = Payform.find(params[:payform_id])
-    return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform_item = PayformItem.new
+    @payform_item.payform = Payform.find(params[:payform_id])
+    return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.payform.department)
     layout_check
   end
 
@@ -13,14 +13,14 @@ class PayformItemsController < ApplicationController
     get_hours
     @payform_item = PayformItem.new(params[:payform_item])
     if params[:payform_id]
-      @payform = Payform.find(params[:payform_id])
+      @payform_item.payform = Payform.find(params[:payform_id])
     end
-    return unless user_is_owner_or_admin_of(@payform, @payform.department)
-    @payform_item.payform = @payform
-    @payform.submitted = nil
-    if @payform_item.save and @payform.save
+    return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.payform.department)
+    @payform_item.source = current_user.name
+    @payform_item.payform.submitted = nil
+    if @payform_item.save and @payform_item.payform.save
       flash[:notice] = "Successfully created payform item."
-      redirect_to @payform
+      redirect_to @payform_item.payform
     else
       render :action => 'new'
     end
