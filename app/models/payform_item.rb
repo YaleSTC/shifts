@@ -24,6 +24,7 @@ class PayformItem < ActiveRecord::Base
   validate :hours_greater_than_zero
   
   named_scope :active, :conditions => {:active =>  true}
+  named_scope :in_category, lambda { |category| { :conditions => {:category_id => category.id}}}
   
   def add_errors(e)
     e = e.to_s.gsub("Validation failed: ", "")
