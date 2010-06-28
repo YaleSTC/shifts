@@ -2,7 +2,7 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :date %><br />
-    <%= f.collection_select :date, days_in_period(@payform), :to_s, :to_s, {:selected => (@payform_item.date || Date.today).to_s} %>
+    <%= f.collection_select :date, days_in_period(@payform_item.payform), :to_s, :to_s, {:selected => (@payform_item.date || Date.today).to_s} %>
   </p>
   <p>
     <%= f.label :hours %><br />
