@@ -14,7 +14,7 @@ class PayformItem < ActiveRecord::Base
   belongs_to :payform_item_set
   belongs_to :category
 
-  delegate :department, :to => :category
+  delegate :department, :to => :payform
   delegate :user, :to => :payform  
   
   validates_presence_of :date, :category_id, :payform_id
@@ -42,7 +42,7 @@ class PayformItem < ActiveRecord::Base
   end
 
   def length_of_description
-    min =  self.payform.department.department_config.description_min.to_i 
+    min =  self.department.department_config.description_min.to_i 
     if self.description.length < min
       errors.add_to_base("Description must be at least #{min} characters long.") 
     end
@@ -50,7 +50,7 @@ class PayformItem < ActiveRecord::Base
   
   def proper_reason
     unless self.version == 1 #we haven't done any versioning yet
-      min = self.payform.department.department_config.reason_min.to_i
+      min = self.department.department_config.reason_min.to_i
       unless (self.reason.nil?)
         errors.add_to_base("Reason must be at least #{min} characters long.") if self.reason.length < min
       else
