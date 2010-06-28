@@ -29,8 +29,8 @@
   <% end %>
 </p>
 <p>
+  <% if current_user.is_admin_of?(current_department) or curent_user.is_admin_of?(self.location.loc_group) %>
   <%= link_to "Edit", edit_shift_path(@shift) %> |
-  <% if current_user.is_admin_of?(current_department) %>
   <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |
   <% end %>
   <%= link_to "View All", shifts_path %>

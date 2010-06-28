@@ -26,7 +26,8 @@ class SubRequest < ActiveRecord::Base
           new_shift.signed_in = false #if you take a sub for a shift, but the requestor has signed in this prevents an error
           new_shift.user = user
           if new_shift.start < Time.now && old_shift.department.department_config.can_take_passed_sub #if the sub request shift has already started, someone else can still sign up for the sub, but the start time will be the time you took the sub, to avoid the "not_in_the_past" validations
-            new_shift.start = Time.now + 1 #not_in_the_past checks for ==
+            new_shift.start = Time.now #
+            new_shift.save_with_validation(false)
           else
             new_shift.start = just_mandatory ? sub_request.mandatory_start : sub_request.start
           end
@@ -95,10 +96,10 @@ class SubRequest < ActiveRecord::Base
 
   def add_errors(e)
     e = e.gsub("Validation failed: ", "")
-    e.split(", ").each do |error|
-      errors.add_to_base(error.gsub(",,", ", "))
-    end
-  end
+    e.split(", ").each do |error|                   #errors.add_to_base is tokenized by comma-space pattern
+      errors.add_to_base(error.gsub(",,", ", "))    #problem: in comma-seperated lists, each item is incorrectly rendered as a seperate error
+    end                                             #work-around: lists are printed as "item,,item,,item" which now swap to "item, item, item"
+  end                                               
 
 
   private
@@ -136,7 +137,7 @@ class SubRequest < ActiveRecord::Base
   def requested_users_have_permission 
     c = self.requested_users.select { |user| !user.can_signup?(self.loc_group) || user==self.user}
       unless c.blank? 
-        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
+        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ",,"}") 
     end
   end
   

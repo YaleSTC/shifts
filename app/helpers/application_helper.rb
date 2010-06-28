@@ -123,5 +123,6 @@ module ApplicationHelper
     page[rand].visual_effect :slide_down
     page[rand].visual_effect :highlight
   end
+
 end
 
