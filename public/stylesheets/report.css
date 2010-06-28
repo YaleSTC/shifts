@@ -72,7 +72,7 @@ tr.list_report_item_odd {
 }
 
 #report_view_table td.user_name{
-  width: 69px;
+  width: 100px;
   padding: 4px;
 }
 
