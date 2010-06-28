@@ -26,7 +26,8 @@ class SubRequest < ActiveRecord::Base
           new_shift.signed_in = false #if you take a sub for a shift, but the requestor has signed in this prevents an error
           new_shift.user = user
           if new_shift.start < Time.now && old_shift.department.department_config.can_take_passed_sub #if the sub request shift has already started, someone else can still sign up for the sub, but the start time will be the time you took the sub, to avoid the "not_in_the_past" validations
-            new_shift.start = Time.now + 1 #not_in_the_past checks for ==
+            new_shift.start = Time.now #
+            new_shift.save_with_validation(false)
           else
             new_shift.start = just_mandatory ? sub_request.mandatory_start : sub_request.start
           end
