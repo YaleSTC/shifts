@@ -38,7 +38,24 @@
 						<% @my_stats = stat[:u].detailed_stats(@start_date, @end_date) %>
 						<% @my_stats.each do |shift_id, stat_entry| %>
 								<body>
-									<%= stat_entry[:location].to_s + " from " + stat_entry[:start].to_s + " to " + stat_entry[:end].to_s + " // Status was: " + stat_entry[:notes].to_s + " // Updated " + stat_entry[:updates_hour].to_s + " times per hour //" %>
+									<font color="blue"><strong><%= stat_entry[:location].to_s %></strong></font>
+									<%= " // " %>
+									<strong><%= stat_entry[:start].to_s %></strong>
+									<%= " to " %>
+									<strong><%= stat_entry[:end].to_s %></strong>
+									<%= "// Notes: " %>
+									<% if stat_entry[:missed] %>
+										<font color="red"><strong><%= stat_entry[:notes].to_s %></strong></font>
+									<% elsif stat_entry[:late] %>
+									  <font color="#ff4500"><strong><%= stat_entry[:notes].to_s %></strong></font>
+									<% elsif stat_entry[:left_early] %>
+									  <font color="#ffa500"><strong><%= stat_entry[:notes].to_s %></strong></font>
+									<% else %>
+										<font color="black"><strong><%= stat_entry[:notes].to_s %></strong></font>
+									<% end %>
+									<%= "// Updated: " %>
+									<strong><%= stat_entry[:updates_hour].to_s %></strong>
+									<%= " times/hour" %>
 									<br />
 								</body>
 						<% end %>
