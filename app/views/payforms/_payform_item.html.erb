@@ -16,6 +16,10 @@
     <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
     <%= "(original)" if type == 'edit_item' and payform_item.version == 1 %>
   </td>
+  <td class ="updated_by">
+    <%# TODO: Clean up this line: %>
+    <%=h payform_item.versions[payform_item.version-2].user if payform_item.version > 1 and current_user.is_admin_of?(current_department) %>
+  </td>
   <td class="rightside" id="hours" >
     <%= number_with_precision(payform_item.hours, :precision => 2) %>
   </td>
