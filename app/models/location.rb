@@ -74,6 +74,7 @@ class Location < ActiveRecord::Base
     end    
   end
 
+
   def count_people_for(shift_list, min_block)
     people_count = {}
     people_count.default = 0
