@@ -680,3 +680,6 @@ img.mini_icon {
 ul.activeShifts {
 	list-style-type: none;
 }
+
+/* button for report_item_view on location index */
+input.view_more {float:right;}

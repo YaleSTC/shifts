@@ -51,19 +51,16 @@ class LocationsController < ApplicationController
     flash[:notice] = "Successfully destroyed location."
     redirect_to department_locations_path(current_department)
   end
-  
-#shifts.reports isn't going to work b/c. location.shifts.report b/c .report works on one shift. location.shifts is an array 
 
-  def for_location
-    start_time = 3.hours.ago.utc    
-    end_time = Time.now.utc
-  
-    @location = Location.find(params[:id]) 
-
-    @report_items = ReportItem.find(:all, :conditions => ["time > ? AND time < ?", start_time, end_time]).select{|r| r.report.shift.location == @location}.sort_by{|r| r.time}.reverse
-   
+  def display_report_items
+    @location = Location.find(params[:id])
+    @start_time = 3.hours.ago.utc
+    respond_to do |format|
+      format.js { @start_time = @start_time - 5.hours }
+      format.html { } #this is necessary!
+    end
+    @report_items = ReportItem.in_location(@location).after_time(@start_time)
   end
-
 
 private
 
