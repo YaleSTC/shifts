@@ -208,23 +208,14 @@ div#login{
 
 /* chooser
 --------------------------------------------------------- */
-div#chooser {
+#chooser {
   float: left;
   width: 250px;
-  padding: 0px 0px 0px 10px;
+  padding: 0px 5px 0px 10px;
   margin-top: 1px;
-}
-div#chooser p {
-  margin: 0pt 5px 0pt 0pt;
   font-size: 12px;
   color: #FFFFFF;
-  float: left;
-}
-#chooser p.chooser_status {
-  float: left;
   font-family: Verdana, Geneva, Arial, sans-serif;
-  font-size: 12px;
-  padding: 0pt;
   line-height: 1.6em;
 }
 
@@ -323,7 +314,7 @@ ul#navigationList a:hover {
 #contentNav {
   float: right;
   padding: 30px 30px 10px 10px;
-  width: 700px;
+  width: 650px;
 }
 #contentNoNav {
   padding: 30px;
@@ -403,7 +394,6 @@ table.manage_table th {
 ======================================================================= */
 
 fieldset.index {
-  width: 98.6%;
   padding: 5px;
   margin: 0px 0px 5px 0px;
   border: 1px solid gray;
@@ -441,11 +431,7 @@ legend {
   padding: 0.2em 1em;
 }
 
-/* = used by notices */
-textarea#content {
-    width: 95%;
-    height:90%;
-}
+
 
 
 /* = Error explanation styles
@@ -525,7 +511,7 @@ span#progress_bar #other_step {
 }
 
 /* = Tables
-======================================================================= */
+======================================================================= */	
 table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
@@ -676,7 +662,38 @@ img.mini_icon {
 }
 
 
-/*no bullets for active shits*/
+/*no bullets for active shifts*/
 ul.activeShifts {
 	list-style-type: none;
 }
+
+/* Sub Request Table Index
+======================================================================= */	
+table#requests_table {margin-bottom:5px;}
+table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; white-space:nowrap;}
+table#requests_table tr td ul {
+	 list-style-type: none;
+   float: left;
+   text-align: left;
+   list-style-position: outside;
+	 margin-left:0px;
+}
+td.sub_reason {width:100%;}
+.sub_reason_container {white-space:pre-wrap;}
+.sub_time_mandatory {color:#8A0808;}
+td.sub_location {text-align:center;}
+.sub_invalid {color:#6E6E6E;}
+a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}
+/* Sub Request Show
+======================================================================= */	
+p.sub_show {margin-top:0px; margin-left:1.5em; line-height:120%;}
+p.sub_show h4{padding-left:0px;}
+ul#user_sources {margin-top:0px; margin-left:1.5em; list-style-type:none;}
+/* CalendarFeeds Index
+======================================================================= */
+div.feed_subs h3, div.feed_shifts h3 {margin-left:1em; margin-top:1em;}
+div.feed_subs a, div.feed_shifts a {margin-left:2em; line-height:120%}
+div.feed_subs {float:right; margin-right:40em;}
+div.feed_shifts {float:left;}
+div.feed_bottom {clear:both}
+div.feed_bottom a {float:right;}

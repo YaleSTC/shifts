@@ -1,0 +1,52 @@
+<br/>
+<% form_remote_for(@sticky) do |f| %>
+  <div id ="errors">
+    <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
+  </div>
+	
+	<fieldset class = "index">
+    <legend>Content:</legend>
+    <%= f.text_area :content, :id=>"content", :size => "60x5" %>
+  </fieldset>
+
+  <%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
+	
+	<div id="advanced_options_div">
+
+		<fieldset class = "index">
+		<legend>Where:</legend>
+
+		<div id = "all_locations">
+		  <% for loc_group in current_department.loc_groups do %>
+		    <li id = "notice_li">
+		      <%= check_box_tag "for_location_groups[]", loc_group.id, false %>
+		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
+		      <% for location in loc_group.locations do %>
+		        <%= check_box_tag "for_locations[]", location.id, location_check(location, @sticky) %>
+		        <%= label_tag "location_#{location.id}", text = location.short_name %>
+		        <% unless location == loc_group.locations.last %> , <% end %>
+		      <% end %>
+		    </li>
+		  <% end %>
+		</div>
+		</fieldset>
+
+		<fieldset class = "index">
+			<legend>End time:</legend>
+			<%= radio_button_tag 'end_time_choice', 'indefinite', true %> Manually delete only (anyone can delete any sticky) <br/>
+			<%= radio_button_tag 'end_time_choice', 'date', false %> Automatically expire in one: 
+			<%= f.select :end_time, Sticky::EXPIRE_ON %>
+		</fieldset>
+
+		<fieldset class = "index">
+		  <legend>Who:</legend>
+		  Display for any person, role, or department:
+		  <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
+		</fieldset>
+  
+	</div>
+	<p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+<%= javascript_include_tag 'notices' %>

@@ -12,7 +12,7 @@ class PayformItemsController < ApplicationController
   def create
     get_hours
     @payform_item = PayformItem.new(params[:payform_item])
-    if params[:payform_id]  
+    if params[:payform_id]
       @payform = Payform.find(params[:payform_id])
     end
     return unless user_is_owner_or_admin_of(@payform, @payform.department)
@@ -39,7 +39,7 @@ class PayformItemsController < ApplicationController
     return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.payform.department)
     begin
       PayformItem.transaction do
-        @payform_item.attribures = params[:payform_item]
+        @payform_item.attributes = params[:payform_item]
         @payform_item.updated_by = current_user.name #used to be 'source', now handled by versioning
         @payform_item.save!
         @payform_item.payform.submitted = nil
@@ -58,7 +58,7 @@ class PayformItemsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def delete
     @payform_item = PayformItem.find(params[:id])
     @payform_item.reason = nil
@@ -86,36 +86,38 @@ class PayformItemsController < ApplicationController
       render :action => 'delete'
     end
   end
-  
+
   protected
-  
+
   def get_hours
     if params[:calculate_hours] == 'user_input'
       params[:payform_item][:hours] = params[:other][:hours].to_f + params[:other][:minutes].to_f/60
     else
       start_params = []
       end_params = []
-      for num in (1..6)
-        start_params << params[:time_input]["start(#{num}i)"].to_i
-        end_params << params[:time_input]["end(#{num}i)"].to_i
+      for num in (1..7)
+        unless num == 6 #we skip seconds; meridian is stored in 7
+          start_params << params[:time_input]["start(#{num}i)"].to_i
+          end_params << params[:time_input]["end(#{num}i)"].to_i
+        end
       end
       start_time = convert_to_time(start_params)
-      end_time = convert_to_time(end_params)      
+      end_time = convert_to_time(end_params)
       params[:payform_item][:hours] = (end_time-start_time) / 3600.0
     end
   end
-  
-  
+
+
   def convert_to_time(date_array)
-    # 0 = year, 1 = month, 2 = day, 3 = hour, 4 = minute, 5 = meridiem
-    if date_array[3] == 12
+    # 0 = year, 1 = month, 2 = day, 3 = hour, 4 = minute, 5 = meridiem(am/pm)
+    if date_array[3] == 12 #if noon or midnight
       date_array[3] -= 12
     end
-    if date_array[5] == 1
+    if date_array[5] == -2 #if pm
       date_array[3] += 12
     end
     Time.utc(date_array[0], nil, nil, date_array[3], date_array[4])
-  end   
-  
+  end
+
 end
 

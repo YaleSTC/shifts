@@ -2,8 +2,8 @@
 <% if payform_item.active || current_user.is_admin_of?(current_department) %>
 <tr class="<%= type %>">
   <td class="date">
-    <%= "|" if type == 'edit_item' %>
-    <%=h payform_item.date.strftime('%b %d') %>
+    <%= "&uarr;" if type == 'edit_item' %>
+    <%=h payform_item.date.strftime('%b&nbsp;%d') %>
   </td>
   <td class="description">
     <% if payform_item.source_url -%>
@@ -17,7 +17,7 @@
     <%= "(original)" if type == 'edit_item' and payform_item.version == 1 %>
   </td>
   <td class="rightside" id="hours" >
-    <%= payform_item.hours %>
+    <%= number_with_precision(payform_item.hours, :precision => 2) %>
   </td>
   <% if type != 'edit_item' %>
     <td class="rightside" id="edit">

@@ -37,6 +37,14 @@
                                     @data_objects, :id, :name,
                                     :selected_items => @selected_data_objects) %>
   </fieldset>
+  <fieldset class = "index">
+	<legend>Email Notifications</legend>
+	<small>This controls whether you will get an email notification for any of the listed feature. Uncheck each feature to disable it.</small><br />
+	<p>
+     <%= f.check_box :taken_sub_email %>
+     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests:" %>
+    </p>
+	</fieldset>
   <p>
     <%= f.submit "Submit" %>
   </p>

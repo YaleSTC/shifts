@@ -1,26 +1,13 @@
 <div id="chooser">
 <% if current_user %>
-  <p class="chooser_status">
   <% ad = current_user.accessible_departments -%>
   <% if ad.size==1 -%>
     <%= ad.first.name %>
   <% else -%>
-    <% form_tag('', {:id => 'form_chooser', :method => "get"}) do %>
-      <%= collection_select 'chooser', "dept_id",
-                  ad,
-                  :id,
-                  :name,
-                  @department!=current_department ? {:include_blank =>true} : {:selected => current_department.id},
-                  :onchange =>"$('#form_chooser').submit()"
-      %>
-      <%= submit_tag value = "Switch", :id => 'submit_deptchooser' %>
-      <%# hide the submit tag if javascript is enabled -%>
-      <script type='text/javascript' charset='utf-8'>
-        $('#submit_deptchooser').toggle();
-      </script>
+    <% form_tag('', {:id => 'chooser_form', :class => 'onchange_submit', :method => "get"}) do %>
+      <%= collection_select 'chooser', "dept_id", ad, :id, :name, @department!=current_department ? {:include_blank =>true} : {:selected => current_department.id} %>
+      <%= submit_tag value = "Switch", :id => 'submit_deptchooser', :class => 'no_js' %>
     <% end -%>
   <% end -%>
-	</p>
 <% end %>
 </div>
-

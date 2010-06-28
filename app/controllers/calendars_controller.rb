@@ -59,7 +59,7 @@ class CalendarsController < ApplicationController
   def show
     @calendar = Calendar.find(params[:id])
     unless current_user.is_admin_of?(@department) or @calendar.public?
-      flash[:notice] = "Only an administrator may view a private calendar"
+      flash[:notice] = "Only an administrator may view a private calendar."
       redirect_to shifts_path
       return
     end

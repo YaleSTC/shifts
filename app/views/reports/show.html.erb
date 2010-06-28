@@ -1,35 +1,34 @@
-<% title "Shift Report at #{@report.shift.location.name}"%>
+<% title "Shift Report: #{@report.shift.location.name}"%>
 <% if current_user == @report.user && !@report.departed %>
+  <fieldset class = "index" id = "report_message_center">
 
-  <fieldset class = "index" >
-    <legend><%= "Message Center for the #{@report.shift.location.short_name}"%></legend>
+    <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
     <div id = "message_center">
       <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
     </div>
     <div id="new_notice">
-      <%= link_to_post_a_new_notice(true) %>
+      <%= link_to_post_a_sticky(true) %>
+			<%= link_to_post_an_announcement %>
     </div>
   </fieldset>
   <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
 
-
-  <div id="report_data_objects">
-    <fieldset>
+    <fieldset id = "report_data_objects" class = "index">
       <legend>Data Objects</legend>
       <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
     </fieldset>
-  </div>
 
-
-<div id = "useful_links_div">
-    <fieldset>
+    <fieldset id = "useful_links" class = "index">
       <legend>Useful Links</legend>
-      <div id = "report_useful_links">
-          <%= render :partial => 'notices/report_useful_links' %>
-          </div>
+			<ul id = "useful_links">
+      	<div id = "report_useful_links">
+        	<%= render :partial => 'notices/report_useful_links' %>
+      	</div>
+				<% if current_user.is_admin_of?(@report.shift.location.loc_group) %>
+    			<li><%= link_to_post_a_link %></li>
+				<% end %>
+			</ul>
     </fieldset>
-    </div>
-
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
