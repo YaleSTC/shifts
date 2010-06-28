@@ -96,6 +96,11 @@ class SubRequestsController < ApplicationController
     rescue
       flash.now[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner!"
     end
+    if Time.now > @sub_request.start
+      flash[:notice] = 'This sub request has already started.  If you take this sub request, your shift will begin immediately.'
+    end
+
+    
   end
 
   def take
