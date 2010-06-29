@@ -251,7 +251,7 @@ class User < ActiveRecord::Base
        elsif s.late
          stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes"
        elsif s.left_early
-         stat_entry[:notes] = "Left Early"
+         stat_entry[:notes] = "Left early " + (s.end - s.updated_at)/60 + " minutes"
        else
          stat_entry[:notes]
        end
