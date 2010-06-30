@@ -97,10 +97,11 @@ class ShiftsController < ApplicationController
     params[:shift][:end] ||= params[:shift][:start] if params[:shift] and params[:shift][:start]
     @shift = Shift.new(params[:shift])
     calculate_default_times
-    if params[:tooltip]
-      @shift.user_id = current_user.id
-      render :partial => 'shifts/tooltips/new', :layout => 'none'
-    end
+# TODO - unecessary? they never seem to be called ~Casey
+#    if params[:tooltip]
+#      @shift.user_id = current_user.id
+#      render :partial => 'shifts/tooltips/new', :layout => 'none'
+#    end
   end
 
   def unscheduled
@@ -147,6 +148,7 @@ class ShiftsController < ApplicationController
         format.js
       end
     else
+      calculate_default_times
       respond_to do |format|
         format.html{ render :action => 'new' }
         format.js do
@@ -165,15 +167,10 @@ class ShiftsController < ApplicationController
   def edit
     @shift = Shift.find(params[:id])
     @report = @shift.report
-
-    @range_start_time = "a"
-    @range_end_time = "a"
-    @default_start = "a"
-    @default_end = "a"
-
-#    calculate_default_times
-    return unless user_is_owner_or_admin_of(@shift, @shift.department)
-    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
+    calculate_default_times
+# TODO - unecessary? they never seem to be called ~Casey
+#    return unless user_is_owner_or_admin_of(@shift, @shift.department)
+#    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
 
   def update
