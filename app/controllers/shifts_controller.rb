@@ -64,6 +64,7 @@ class ShiftsController < ApplicationController
   def show
     begin
       @shift = Shift.find(params[:id])
+      calculate_default_times
     rescue ActiveRecord::RecordNotFound
       respond_to do |format|
         format.html #freak out
