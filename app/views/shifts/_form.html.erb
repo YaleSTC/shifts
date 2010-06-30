@@ -1,7 +1,10 @@
-<%= unobtrusive_datepicker_include_tags %>
   <p>
     <%= f.label :start %><br />
+  <% if params[:xPercentage] %>
+    <%= f.hidden_field :start_date, :value => @default_start.to_date, :id => :start_date  %>
+  <% else %>
     <%= f.date_select :start_date, :default => @default_start.to_date, :id => :start_date  %>
+  <% end %>
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -16,7 +19,11 @@
   </p>
   <p>
     <%= f.label :end %><br />
+  <% if params[:xPercentage] %>
+    <%= f.hidden_field :end_date, :value => @default_end.to_date, :id => :end_date  %>
+  <% else %>
     <%= f.date_select :end_date, :default => @default_end.to_date, :id => :end_date  %>
+  <% end %>
     <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -33,6 +40,8 @@
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
+
+
   <% if current_user.is_admin_of?(current_department) %>
     <p>
       <%= f.label :calendar %><br />
@@ -43,7 +52,9 @@
       <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
     </p>
     <p>
-      <%= f.check_box :power_signed_up %> Power signup (ignores restrictions and time slots)
+      <%= f.check_box :power_signed_up %> Power signup
     </p>
+  <% elsif params[:calendar] %>
+    <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
   <% end %>
 
