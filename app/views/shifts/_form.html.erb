@@ -1,27 +1,7 @@
 <%= unobtrusive_datepicker_include_tags %>
   <p>
-    <%
-      if params[:id]
-        default_start = @shift.start
-        default_end = @shift.end
-      elsif params[:xPercentage]
-        default_start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
-        @dept_start_minutes ||= current_department.department_config.schedule_start
-        @dept_end_minutes ||= current_department.department_config.schedule_end
-        @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
-        default_start += @dept_start_minutes.minutes
-        default_start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
-#if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
-#if the schedule starts at 9:30, I'm not sure what happens ~Casey
-        default_end = default_start + 1.hour
-      else
-        default_start = (params[:date] ? Time.parse(params[:date]) : Time.now)
-        default_end = default_start + 1.hour
-      end
-    %>
-
     <%= f.label :start %><br />
-    <%= f.date_select :start_date, :default => default_start.to_date, :id => :start_date  %>
+    <%= f.date_select :start_date, :default => @default_start.to_date, :id => :start_date  %>
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -31,12 +11,12 @@
                 :end_time => @range_end_time,
                 :include_start_time => true,
                 :include_end_time => false,
-                :default => default_start,
+                :default => @default_start,
                                           } %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.date_select :end_date, :default => default_end.to_date, :id => :end_date  %>
+    <%= f.date_select :end_date, :default => @default_end.to_date, :id => :end_date  %>
     <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -46,7 +26,7 @@
                 :end_time => @end_time,
                 :include_start_time => false,
                 :include_end_time => true,
-                :default => default_end,
+                :default => @default_end,
                                           } %>
   </p>
   <p>

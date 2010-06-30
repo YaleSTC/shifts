@@ -96,8 +96,7 @@ class ShiftsController < ApplicationController
   def new
     params[:shift][:end] ||= params[:shift][:start] if params[:shift] and params[:shift][:start]
     @shift = Shift.new(params[:shift])
-    @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
-    @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+    calculate_default_times
     if params[:tooltip]
       @shift.user_id = current_user.id
       render :partial => 'shifts/tooltips/new', :layout => 'none'
@@ -166,8 +165,13 @@ class ShiftsController < ApplicationController
   def edit
     @shift = Shift.find(params[:id])
     @report = @shift.report
-    @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
-    @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+
+    @range_start_time = "a"
+    @range_end_time = "a"
+    @default_start = "a"
+    @default_end = "a"
+
+#    calculate_default_times
     return unless user_is_owner_or_admin_of(@shift, @shift.department)
     (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
@@ -240,5 +244,32 @@ class ShiftsController < ApplicationController
   #     format.js
   #   end
   # end
+
+#calculates default_start/end and range_start/end_time
+    def calculate_default_times
+      if params[:id]
+        @default_start = @shift.start
+        @default_end = @shift.end
+      elsif params[:xPercentage]
+        @default_start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+        @dept_start_minutes ||= current_department.department_config.schedule_start
+        @dept_end_minutes ||= current_department.department_config.schedule_end
+        @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
+        @default_start += @dept_start_minutes.minutes
+        @default_start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
+#if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
+#if the schedule starts at 9:30, I'm not sure what happens ~Casey
+        @default_end = @default_start + 1.hour
+      else
+        @default_start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+        @default_end = @default_start + 1.hour
+      end
+
+      @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
+      @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+
+    end
+
+
 end
 
