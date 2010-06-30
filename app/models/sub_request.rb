@@ -67,11 +67,6 @@ class SubRequest < ActiveRecord::Base
     user.can_signup?(self.shift.loc_group)
   end
   
-  def can_take_sub?(sub_request)
-    return false unless sub_request
-    can_signup?(sub_request.loc_group)  && (sub_request.user != self) && (sub_request.users_with_permission.include?(self) || sub_request.users_with_permission.blank?)
-  end
-  
   def potential_takers
     !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq
   end
