@@ -261,7 +261,7 @@ class ShiftsController < ApplicationController
 #if the schedule starts at 9:30, I'm not sure what happens ~Casey
         @default_end = @default_start + 1.hour
       else
-        @default_start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+        @default_start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
         @default_end = @default_start + 1.hour
       end
 
