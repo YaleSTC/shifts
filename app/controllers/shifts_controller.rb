@@ -116,6 +116,7 @@ class ShiftsController < ApplicationController
 
 # needed when simple_time_select is implemented
     parse_date_and_time_output(params[:shift])
+
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)
