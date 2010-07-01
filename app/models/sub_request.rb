@@ -2,7 +2,7 @@ class SubRequest < ActiveRecord::Base
   belongs_to :shift
   delegate :user, :to => :shift
   has_and_belongs_to_many :requested_users, :class_name => 'User'
-  
+  before_validation :join_date_and_time
   validates_presence_of :reason, :shift
   validate :start_and_end_are_within_shift,
            :mandatory_start_and_end_are_within_subrequest,
@@ -10,7 +10,15 @@ class SubRequest < ActiveRecord::Base
            :not_in_the_past,
            :user_does_not_have_concurrent_sub_request,
            :requested_users_have_permission 
- 
+  attr_accessor :mandatory_start_date
+  attr_accessor :mandatory_start_time
+  attr_accessor :mandatory_end_date
+  attr_accessor :mandatory_end_time
+  attr_accessor :start_date
+  attr_accessor :start_time
+  attr_accessor :end_date
+  attr_accessor :end_time
+
   #
   # Class methods
   #
@@ -98,6 +106,13 @@ class SubRequest < ActiveRecord::Base
 
 
   private
+
+  def join_date_and_time
+    self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+    self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+    self.mandatory_start = self.mandatory_start_date.to_date.to_time + self.mandatory_start_time.seconds_since_midnight
+    self.mandatory_end = self.mandatory_end_date.to_date.to_time + self.mandatory_end_time.seconds_since_midnight
+  end
 
   def start_and_end_are_within_shift
     unless self.start.between?(self.shift.start, self.shift.end) && self.end.between?(self.shift.start, self.shift.end)
