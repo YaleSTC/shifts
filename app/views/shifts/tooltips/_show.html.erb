@@ -18,7 +18,7 @@
   <% else%>
     <% if @shift.report %>
       <%= stylesheet_link_tag "report" %>
-      <%= render :partial => 'reports/report', :object => @shift.report %>      
+      <%= render :partial => 'reports/report', :object => @shift.report %>
       <p>
         <% if @shift.signed_in? && (current_user == @shift.user || current_user.is_admin_of?(@shift.location)) %>
           <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
@@ -33,7 +33,7 @@
           <% end %>
         <% end %>
       </p>
-      
+
       <% if @shift.submitted? %>
         <% unless @shift.repeating_event %>
           <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
@@ -47,44 +47,19 @@
           </div>
         <% end %>
       <% end %>
-      
+
     <% else %>
       <h2>Edit Shift</h2>
-    
+
       <% if @shift.repeating_event %>
         <p>
           <%= check_box_tag :repeating_event, false, false, :onclick => "$('.toggle_me').toggle()" %> Edit repeating event
         </p>
       <% end %>
-    
+
       <div class="toggle_me">
         <% remote_form_for @shift do |f| %>
-          <p>
-            <%= f.label :start %><br />
-            <%= f.time_select :start, :twelve_hour => true, :minute_step => current_department.department_config.time_increment %>
-          </p>
-          <p>
-            <%= f.label :end %><br />
-            <%= f.time_select :end, :twelve_hour => true, :minute_step => current_department.department_config.time_increment %>
-          </p>
-          <p>
-            <%= f.label :location %><br />
-            <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location_id)%><br />
-          </p>
-
-          <% if current_user.is_admin_of?(@department) %>
-            <p>
-              <%= f.label :calendar %><br />
-              <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
-            </p>
-            <p>
-              <%= f.label :user %><br />
-              <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
-            </p>
-            <p>
-              <%= f.check_box :power_signed_up %> Power signup
-            </p>
-          <% end %>
+    		  <%= render :partial => 'shifts/form', :locals => {:f => f} %>
           <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'shifts', :action => 'update', :calendar => params[:calendar] } %></p>
         <% end %>
 
@@ -102,7 +77,7 @@
             <%= link_to "Create a sub request", new_shift_sub_request_path(@shift) %><br>
           <% end %>
         <% end %>
-  
+
         <% unless @shift.repeating_event %>
           <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
         <% else %>
@@ -126,9 +101,9 @@
       <% end %>
     <% end %>
   <% end %>
-  
+
 <% else %>
-  
+
   <% if @shift.report %>
     <%= stylesheet_link_tag "report" %>
     <%= render :partial => 'reports/report', :object => @shift.report %>
@@ -154,12 +129,12 @@
       <%=h @shift.location.name %>
     </p>
   <% end %>
-  
+
   <p>
     <% if current_user == @shift.user and !@shift.has_passed? and @shift.report.nil? %>
       <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
     <% end %>
-  
+
     <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
       <% @shift.sub_requests.each do |sub| %>
         <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user)  %>
@@ -190,3 +165,4 @@ $(this).click(function(event) {
 	}
 });
 </script>
+
