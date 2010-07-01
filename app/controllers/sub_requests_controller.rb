@@ -46,23 +46,21 @@ class SubRequestsController < ApplicationController
     @sub_request.shift = Shift.find(params[:shift_id])
     @shift=@sub_request.shift
     begin
-    SubRequest.transaction do  
-        @sub_request.save(false)
-        unless params[:list_of_logins].empty? 
-          params[:list_of_logins].split(",").each do |l|
-              l = l.split("||")
-              if l.length == 2
-                for user in l[0].constantize.find(l[1]).users 
-                  @sub_request.requested_users << user
-                end
-              end
-              @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
-           end
-         end
+    unless params[:list_of_logins].empty? 
+      params[:list_of_logins].split(",").each do |l|
+          l = l.split("||")
+          if l.length == 2
+            for user in l[0].constantize.find(l[1]).users 
+              @sub_request.requested_users << user
+            end
+          end
+          @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
+       end
+     end
+    SubRequest.transaction do
         @sub_request.save!
       end
     rescue Exception => e
-      @sub_request = @sub_request.clone
       @sub_request.add_errors(e.message)
       render :action => "new"
     else
