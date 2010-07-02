@@ -8,11 +8,8 @@
     <legend>Content:</legend>
     <%= f.text_area :content, :id=>"content", :size => "60x5" %>
   </fieldset>
-
-  <%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
-	
-	<div id="advanced_options_div">
-
+	<%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
+	<% content_tag("div", {:id => "advanced_options_div", :style => "display: #{@display};"}) do %>
 		<fieldset class = "index">
 		<legend>Where:</legend>
 
@@ -43,8 +40,7 @@
 		  Display for any person, role, or department:
 		  <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
 		</fieldset>
-  
-	</div>
+	<% end %>
 	<p>
     <%= f.submit 'Save' %>
   </p>

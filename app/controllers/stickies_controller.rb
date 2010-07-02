@@ -11,6 +11,7 @@ class StickiesController < NoticesController
   def new
     @sticky = Sticky.new
 		@current_shift_location = current_user.current_shift.location if current_user.current_shift
+		@display = params[:on_report_view] == "true" ? "none" : "inline"
     layout_check
   end
 
