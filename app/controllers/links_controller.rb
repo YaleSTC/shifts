@@ -4,18 +4,18 @@ class LinksController < NoticesController
   end
 
   def new
-		require_loc_group_admin(current_loc_group)
+		current_user.is_loc_group_admin?(current_department)
     @link = Link.new
 		layout_check
   end
 
   def edit
-		require_loc_group_admin(current_loc_group)
+		current_user.is_loc_group_admin?(current_department)
     @link = Link.find(params[:id])
   end
 
   def create
-		require_loc_group_admin(current_loc_group)
+		current_user.is_loc_group_admin?(current_department)
     @link = Link.new(params[:link])
 		@link.author = current_user		
 		@link.department = current_department
@@ -46,7 +46,7 @@ class LinksController < NoticesController
   end
 
 	def update
-		require_loc_group_admin(current_loc_group)
+		current_user.is_loc_group_admin?(current_department)
     @link = Link.find_by_id(params[:id]) || Link.new
     @link.update_attributes(params[:link])
 		@link.author = current_user		
@@ -76,7 +76,7 @@ class LinksController < NoticesController
   end
 
   def destroy
-		require_loc_group_admin(current_loc_group)
+		current_user.is_loc_group_admin?(current_department)
 		redirect_to :controller => 'notice', :action => 'destroy'
   end
 end

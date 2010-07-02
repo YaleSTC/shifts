@@ -9,19 +9,19 @@ class AnnouncementsController < NoticesController
   end
 
   def new
-		require_department_admin
+		current_user.is_loc_group_admin?(current_deparment)
     @announcement = Announcement.new
     layout_check
   end
 
   def edit
-		require_department_admin
+		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.find(params[:id])
 		layout_check
   end
 
   def create
-		require_department_admin
+		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.new(params[:announcement])
 		set_author_dept_and_time
 		begin
@@ -47,7 +47,7 @@ class AnnouncementsController < NoticesController
   end
 
   def update
-		require_department_admin
+		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.find_by_id(params[:id]) || Announcement.new
 		@announcement.update_attributes(params[:announcement])
 		set_author_dept_and_time
@@ -74,7 +74,7 @@ class AnnouncementsController < NoticesController
   end
 
   def destroy
-		require_department_admin
+		current_user.is_loc_group_admin?(current_department)
     redirect_to :controller => 'notice', :action => 'destroy'
   end
 
