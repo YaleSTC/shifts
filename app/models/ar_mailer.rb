@@ -82,6 +82,7 @@ class ArMailer < ActionMailer::ARMailer
     from        dept.department_config.mailer_address
     sent_on     Time.now
     body        :sub_request => sub_request, :new_shift => new_shift
+  end
 
   #EMAILING STATS
   #email notifies admin that a shift has been missed, was signed into late, or was left early
@@ -96,13 +97,12 @@ class ArMailer < ActionMailer::ARMailer
 
   #STALE SHIFTS
   #an email is sent to a student if they have been inactive in their shift for an hour
- def stale_shift(user, stale_shifts, dept) 
+  def stale_shift(user, stale_shifts, dept) 
     subject       "Your Shift in the #{stale_shifts.location.name} has been inactive for an hour."
     recipients    "#{user.name} <#{user.email}>"
     from          dept.department_config.mailer_address
     sent_on       Time.now
     body          :user => user, :stale_shifts => stale_shifts
-
   end
 
 

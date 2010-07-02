@@ -147,7 +147,7 @@ class SubRequest < ActiveRecord::Base
   def requested_users_have_permission 
     c = self.requested_users.select { |user| !user.can_signup?(self.loc_group) || user==self.user}
       unless c.blank? 
-        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ",,"}") 
+        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
     end
   end
   

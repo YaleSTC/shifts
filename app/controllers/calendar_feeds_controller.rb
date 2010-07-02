@@ -2,38 +2,18 @@ class CalendarFeedsController < ApplicationController
     skip_before_filter filter_chain, :except => [:index]
     
   def index
+    @source_types = %w[User Department LocGroup Location]
     shift_source = Struct.new( :type, :name, :token )
-    @user=shift_source.new(current_user.class.name, current_user.name, generate_token(current_user, "Shift"))
-    @shift_sources = [@user]
-    current_user.departments.each do |department|
-      @shift_sources << shift_source.new(department.class.name, department.name, generate_token(department, "Shift"))
-    end  
-    current_user.departments.each do |department|
-      department.loc_groups.each do |loc_group|
-        if current_user.can_view?(loc_group)
-          @shift_sources << shift_source.new(loc_group.class.name, loc_group.name, generate_token(loc_group, "Shift"))
-          loc_group.locations.each do |location|
-            @shift_sources << shift_source.new(location.class.name, location.short_name, generate_token(location, "Shift"))
-          end
-        end
+    @shift_sources=[]
+    @sub_sources=[]
+    
+    @source_types.each do |source_type|
+      current_user.send(source_type.underscore.concat('s')).each do |source|
+         @shift_sources << shift_source.new(source.class.name, source.name, generate_token(source, "Shift"))
+         @sub_sources << shift_source.new(source.class.name, source.name, generate_token(source, "SubRequest"))
       end
-     end
-     @user=shift_source.new(current_user.class.name, current_user.name, generate_token(current_user, "SubRequest"))
-     @sub_sources = [@user]
-      current_user.departments.each do |department|
-         @sub_sources << shift_source.new(department.class.name, department.name, generate_token(department, "SubRequest"))
-       end  
-       current_user.departments.each do |department|
-         department.loc_groups.each do |loc_group|
-           if current_user.can_view?(loc_group)
-             @sub_sources << shift_source.new(loc_group.class.name, loc_group.name, generate_token(loc_group, "SubRequest"))
-             loc_group.locations.each do |location|
-               @sub_sources << shift_source.new(location.class.name, location.short_name, generate_token(location, "SubRequest"))
-             end
-           end
-         end
-       end
     end
+  end
 
   def reset
     current_user.calendar_feed_hash = nil
