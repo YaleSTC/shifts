@@ -19,7 +19,7 @@
 
 <% if current_user.is_admin_of?(current_department) %>
     <%= check_box_tag :department_wide_locations, current_department.id, department_check(current_department, @link), :style => "display: none;" %>
-    <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)", :style => "display: inline;"  %>
+    <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)" %>
 <% end %>
 
 
