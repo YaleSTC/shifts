@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
 
   def index
-    @notices = Notice.active
+    @notices = Sticky.active + Announcement.active
   end
 
   def archive
@@ -56,7 +56,7 @@ class NoticesController < ApplicationController
     end
 		if params[:for_location_groups]
       params[:for_location_groups].each do |loc_group|
-        @notice.loc_groups << loc_group
+        notice.loc_groups << loc_group
       end
     end
     if params[:for_locations]

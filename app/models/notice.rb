@@ -5,21 +5,15 @@ class Notice < ActiveRecord::Base
   belongs_to :department
 
   validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
-  
   before_destroy :destroy_user_sinks_user_sources
-
-  named_scope :inactive, lambda {{ :conditions => ["#{:end_time.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
-  named_scope :active_with_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
-  named_scope :active_without_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:indefinite.to_sql_column} = #{true.to_sql}"]}}
-  named_scope :upcoming, lambda {{ :conditions => ["#{:start_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
-
-  def self.active
-    (Announcement.active_with_end + Announcement.active_without_end).uniq.sort_by{|n| n.start_time} +
-    (Sticky.active_with_end + Sticky.active_without_end).uniq.sort_by{|n| n.start_time}
-  end
-
+  
+  named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
+  named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
+  named_scope :inactive, lambda {{ :conditions => ["end_time != ? AND end_time < ?", nil, Time.now.utc] }}
+  named_scope :not_link, :conditions => {:type != "Link"}
+  
   def self.active_links
-    self.links.active_without_end
+     Link.active
   end
 
   def display_for

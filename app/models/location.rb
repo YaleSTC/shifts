@@ -30,19 +30,31 @@ class Location < ActiveRecord::Base
   end
 
   def current_notices
-    Notice.active.select {|n| n.locations.include?(self)}
+    ActiveRecord::Base.transaction do
+      a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
+      a.collect {|u| Notice.find(u.location_sink_id).active.not_link }
+    end
   end
 
   def stickies
-    self.current_notices.select {|n| n.type == "Sticky"}
+     ActiveRecord::Base.transaction do
+        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
+        a.collect {|u| Sticky.find(u.location_sink_id).active.not_link }
+      end
   end
 
   def announcements
-    self.current_notices.select {|n| n.type == "Announcement"}
+     ActiveRecord::Base.transaction do
+        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
+        a.collect {|u| Announcement.find(u.location_sink_id).active.not_link }
+      end
   end
 
   def links
-    Link.active_without_end.select {|n| n.locations.include?(self)}
+     ActiveRecord::Base.transaction do
+        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
+        a.collect {|u| Link.find(u.location_sink_id).active.not_link }
+      end
   end
 
   def restrictions #TODO: this could probalby be optimized
