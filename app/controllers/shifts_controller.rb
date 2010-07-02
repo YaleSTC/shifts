@@ -4,7 +4,7 @@ class ShiftsController < ApplicationController
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
     @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true], :order => :start, :limit => 5)
-    
+
     # for user view preferences partial
     @loc_group_select = {}
     current_user.departments.each do |dept|
@@ -113,10 +113,7 @@ class ShiftsController < ApplicationController
   end
 
   def create
-
-# needed when simple_time_select is implemented
     parse_date_and_time_output(params[:shift])
-
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)

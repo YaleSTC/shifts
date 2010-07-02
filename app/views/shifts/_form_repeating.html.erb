@@ -1,5 +1,3 @@
-<%= unobtrusive_datepicker_include_tags %>
-
 <%
   start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
   if params[:xPercentage]
@@ -59,3 +57,4 @@
     <%= check_box_tag "wipe", "1", true %>
   </p>
 </div>
+
