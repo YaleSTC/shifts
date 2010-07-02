@@ -10,13 +10,16 @@ jQuery(document).ready(function(){
         $("#toggle_link").show();
     }
 
+
     //$("#department_wide_locations").each(function(){
     //    $(this).css("display", "inline");
     //})
 
-    $("input[name^='for_location_group']").each(function(){
-        $(this).css("display", "inline");
-    })
+
+		$("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
+  	  $(this).css("display", "inline");
+		})
+
 
     $("#department_wide_locations").click(function(){
         var dept_status = $(this).attr('checked');

@@ -1,17 +1,24 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  def link_to_post_a_new_notice(report = false)
-    report == true ? height = 200 : height = 445
-    height = 540 if current_user.is_admin_of?(current_department)
-    link_to_unless_current('Post a New Notice', new_notice_path(:height => "#{height}", :width => 515), :title => "Post a new notice", :class => "thickbox")
-  end
 
   def link_to_post_a_link
-    link_to_unless_current('Post a new link', new_link_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
+		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
+    	link_to_unless_current('Post a new link', new_link_path(:height => "330", :width => 515, :type => "link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
+		end
   end
 
-  # deprecated! use nathan's toggle methods in application.js instead (need only give objects classes)
+	def link_to_post_a_sticky(on_report_page = false)
+		on_report_page == true ? height = 240 : height = 500
+    link_to_unless_current('Post a new sticky', new_sticky_path(:height => "#{height}", :width => 515, :type => "Sticky"), :title => "Post a new sticky", :class => "thickbox", :id => "post_link" )
+  end
+
+	def link_to_post_an_announcement
+		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
+			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 535, :width => 515), :title => "Post a new announcement", :class => "thickbox", :id => "announcement_link")
+		end
+	end
+	
   def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
