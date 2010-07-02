@@ -10,7 +10,7 @@ class Notice < ActiveRecord::Base
   named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
   named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
   named_scope :inactive, lambda {{ :conditions => ["end_time != ? AND end_time < ?", nil, Time.now.utc] }}
-  named_scope :not_link, :conditions => {:type != "Link"}
+  named_scope :not_link, :conditions => ["type != ?", "Link"]
   
   def self.active_links
      Link.active
@@ -69,7 +69,7 @@ class Notice < ActiveRecord::Base
   end
 
 	def content_or_label
-		if self.content.empty?
+		if self.content.blank?
 			if self.type == "Link"
 				errors.add_to_base "Your link must have a label"
 			else
