@@ -9,7 +9,7 @@ class AnnouncementsController < NoticesController
   end
 
   def new
-		current_user.is_loc_group_admin?(current_deparment)
+		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.new
     layout_check
   end
