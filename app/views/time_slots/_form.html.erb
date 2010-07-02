@@ -1,4 +1,4 @@
-<% unobtrusive_datepicker_includes %>
+<% calculate_default_times %>
 
 <% form_for @time_slot do |f| %>
   <%= f.error_messages %>
@@ -21,10 +21,10 @@
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,
 
-                :start_time => @start_time,
-                :end_time => @end_time,
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
 
-                :default => @default_start_time,
+                :default => @default_start,
                 :include_start_time => true,
                 :include_end_time => false,
                                           } %>
@@ -37,10 +37,10 @@
                 :time_separator => "",
                 :minute_interval => @department.department_config.time_increment,
 
-                :start_time => @start_time,
-                :end_time => @end_time,
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
 
-                :default => @default_end_time,
+                :default => @default_end,
                 :include_start_time => false,
                 :include_end_time => true,
                                           } %>
