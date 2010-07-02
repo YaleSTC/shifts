@@ -1,6 +1,3 @@
-<%# TODO: remove all references to datepicker %>
-<%# unobtrusive_datepicker_includes %>
-
 <% form_remote_for @notice do |f| %>
   <div id ="errors">
     <%= render :partial => "error_messages", :locals => {:f => f} %>
@@ -36,14 +33,14 @@
         <legend>Start time:</legend>
           <%= radio_button_tag 'start_time_choice', 'now',start_time_check(true) %> Now <br/>
           <%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
-          <%= f.unobtrusive_datetime_picker :start_time, :minute_step => @department.department_config.time_increment %>
+      		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
         </fieldset>
 
         <fieldset class = "index">
           <legend>End time:</legend>
           <%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
           <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
-          <%= f.unobtrusive_datetime_picker :end_time, :minute_step => @department.department_config.time_increment %>
+      		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
         </fieldset>
       </div>
     <% end %>

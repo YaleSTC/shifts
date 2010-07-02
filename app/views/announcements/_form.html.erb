@@ -3,7 +3,7 @@
   <div id ="errors">
     <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
   </div>
-	
+
 	<fieldset class = "index">
     <legend>Content:</legend>
     <%= f.text_area :content, :id=>"content", :size => "60x5" %>
@@ -14,14 +14,14 @@
 		<legend>Start time:</legend>
 		<%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
 		<%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
-		<%= f.unobtrusive_datetime_picker :start_time, :minute_step => @department.department_config.time_increment %>
+		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
 	</fieldset>
 
 	<fieldset class = "index">
 		<legend>End time:</legend>
 		<%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
 		<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
-		<%= f.unobtrusive_datetime_picker :end_time, :minute_step => @department.department_config.time_increment %>
+		<%= f.datetime_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
 	</fieldset>
   </div>
 
@@ -49,3 +49,4 @@
   	<%= f.submit 'Create' %>
 	</p>
 <% end %>
+
