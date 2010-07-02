@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
 
   def index
-    @notices = Sticky.active + Announcement.active
+    @notices = Notice.active.not_link
   end
 
   def archive
