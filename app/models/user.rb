@@ -99,11 +99,6 @@ class User < ActiveRecord::Base
     Shift.find(:first, :conditions=>{:user_id => self.id, :signed_in => true})
   end
 
-# Returns all the loc groups a user can view within a given department
-  def loc_groups(dept)
-    dept.loc_groups.delete_if{|lg| !self.can_view?(lg)}
-  end
-
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     return false unless loc_group
@@ -188,7 +183,20 @@ class User < ActiveRecord::Base
   def users
     [self]
   end
-
+  
+  def loc_groups(dept=nil)
+    if dept    #specified department
+      dept.loc_groups.select{|lg| self.can_view?(lg)}
+    else      #all departments
+      [departments.collect(&:loc_groups).flatten.select {|lg| self.can_view?(lg)}].flatten
+    end
+  end
+  
+  def locations(dept=nil)
+    [loc_groups(dept).collect(&:locations).flatten.uniq].flatten
+  end
+  
+  
   #returns  upcoming sub_requests user has permission to take.  Default is for all departments
   def available_sub_requests(source)
     @all_subs = []
