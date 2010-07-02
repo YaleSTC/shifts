@@ -26,7 +26,6 @@ jQuery(document).ready(function(){
             }
         });
     });
-
     $("input[name^='for_location_group']").click(function(){
         var locgroup_status = $(this).attr('checked');
         $(this).siblings('input[type=checkbox]').each(function(){
@@ -52,12 +51,15 @@ jQuery(document).ready(function(){
     });
 
     $("#toggle_link").click(function(){
-        $("#advanced_options_div").toggle(function(){
-            if($(this).css("display")=="none") {
-                $("#toggle_link").html('Show advanced options');
-            } else {
-                $("#toggle_link").html('Hide advanced options');
-            }
-        });
+			if($(this).css("display")=="none") {
+            $("#toggle_link").html('Show advanced options');
+						$("#TB_ajaxContent").animate({ height:'-=290' }, 300 );
+        } else {
+            $("#toggle_link").html('Hide advanced options');
+						$("#TB_ajaxContent").animate({ height:'+=290' }, 300 );
+        }
+	       $("#advanced_options_div").toggle(function(){
+       		 
+				});
     });
 });
