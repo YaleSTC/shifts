@@ -13,6 +13,8 @@
 	  <% remote_form_for @shift do |f| %>
 		<%= f.error_messages %>
 		  <%= render :partial => 'shifts/form', :locals => {:f => f} %>
+    <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
+
 	  <% end %>
 	</div>
 
@@ -25,3 +27,4 @@
 		<% end %>
 	  </div>
 	<% end %>
+
