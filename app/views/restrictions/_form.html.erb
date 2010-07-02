@@ -1,17 +1,12 @@
-<% calculate_default_times %>
-
 <% form_for @restriction do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :starts %><br />
-    <%= f.date_select :start_date, :default => @restriction.starts.to_date, :id => :start_date  %>
+    <%= f.date_select :start_date, :default => @restriction.starts, :id => :start_date  %>
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
-
-                :start_time => @range_start_time,
-                :end_time => @range_end_time,
                 :include_start_time => true,
                 :include_end_time => false,
                 :default => @restriction.starts,
@@ -25,9 +20,6 @@
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
-
-                :start_time => @range_start_time,
-                :end_time => @range_end_time,
                 :include_start_time => true,
                 :include_end_time => false,
                 :default => @restriction.expires,
