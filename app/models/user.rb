@@ -214,13 +214,18 @@ class User < ActiveRecord::Base
   end
 
   def current_notices
-    Notice.active.select {|n| n.users.include?(self)}
+    ActiveRecord::Base.transaction do
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
+      a.collect {|u| Notice.find(u.user_sink_id).active.not_link }
+    end
   end
 
   def other_notices
-    Notice.active.select {|n| !n.users.include?(self) && n.locations.empty?}
+    ActiveRecord::Base.transaction do
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id != #{self.id.to_sql}"])
+      a.collect {|u| Notice.find(u.user_sink_id).active.not_link }
+    end 
   end
-
 
   def payrate(department)
     DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
