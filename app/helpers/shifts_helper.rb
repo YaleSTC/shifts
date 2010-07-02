@@ -100,34 +100,23 @@ module ShiftsHelper
 
 #calculates default_start/end and range_start/end_time
   def calculate_default_times
-    #Case 1 - validation failed, so the form is redisplayed
-    if params[:shift]
-      @default_start = params[:shift][:start_date].to_date.to_time + params[:shift][:start_time].seconds_since_midnight
-      @default_end = params[:shift][:end_date].to_date.to_time + params[:shift][:end_time].seconds_since_midnight
-    #Case 2 - start with info from the shift being edited
-    elsif params[:id]
-      @default_start = @shift.start
-      @default_end = @shift.end
-    #Case 3 - start with info from timeline
-    elsif params[:xPercentage]
-      @default_start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+
+    if params[:xPercentage]
+      @shift.start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
       @dept_start_minutes ||= current_department.department_config.schedule_start
       @dept_end_minutes ||= current_department.department_config.schedule_end
       @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
-      @default_start += @dept_start_minutes.minutes
-      @default_start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
+      @shift.start += @dept_start_minutes.minutes
+      @shift.start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
 #if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
 #if the schedule starts at 9:30, I'm not sure what happens ~Casey
-      @default_end = @default_start + 1.hour
-  #Case 4 - nothing to start with (shifts/new)
+      @shift.end = @shift.start + 1.hour
     else
-      @default_start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
-      @default_end = @default_start + 1.hour
+      @shift.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
+      @shift.end ||= @shift.start + 1.hour
     end
-
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
     @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
-
   end
 
 

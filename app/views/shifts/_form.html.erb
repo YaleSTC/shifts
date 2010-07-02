@@ -3,9 +3,9 @@
   <p>
     <%= f.label :start %><br />
   <% if params[:xPercentage] %>
-    <%= f.hidden_field :start_date, :value => @default_start.to_date, :id => :start_date  %>
+    <%= f.hidden_field :start_date, :value => @shift.start.to_date, :id => :start_date  %>
   <% else %>
-    <%= f.date_select :start_date, :default => @default_start.to_date, :id => :start_date  %>
+    <%= f.date_select :start_date, :default => @shift.start.to_date, :id => :start_date  %>
   <% end %>
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
@@ -16,15 +16,15 @@
                 :end_time => @range_end_time,
                 :include_start_time => true,
                 :include_end_time => false,
-                :default => @default_start,
+                :default => @shift.start,
                                           } %>
   </p>
   <p>
     <%= f.label :end %><br />
   <% if params[:xPercentage] %>
-    <%= f.hidden_field :end_date, :value => @default_end.to_date, :id => :end_date  %>
+    <%= f.hidden_field :end_date, :value => @shift.end.to_date, :id => :end_date  %>
   <% else %>
-    <%= f.date_select :end_date, :default => @default_end.to_date, :id => :end_date  %>
+    <%= f.date_select :end_date, :default => @shift.end.to_date, :id => :end_date  %>
   <% end %>
     <%= f.time_select :end_time, {
                 :simple_time_select => true,
@@ -35,7 +35,7 @@
                 :end_time => @range_end_time,
                 :include_start_time => false,
                 :include_end_time => true,
-                :default => @default_end,
+                :default => @shift.end,
                                           } %>
   </p>
   <p>
