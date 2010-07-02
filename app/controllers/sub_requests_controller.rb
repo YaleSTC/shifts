@@ -3,15 +3,15 @@ class SubRequestsController < ApplicationController
   def index
     if params[:shift_id]      # check if index listing is shift specific
       @shift=Shift.find(params[:shift_id])
-      @subs=@shift.sub_requests 
+      @subs=@shift.sub_requests
       @title_add=" for " + @shift.user.name + "'s shift in " + @shift.location.name + " on " + @shift.start.to_s(:gg)
       @index_link = true
-    else                      
+    else
       @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now])
       @title_add=" Index"
       @index_link=false
     end
-    @subs = @subs.select {|sub| (current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user)} 
+    @subs = @subs.select {|sub| (current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user)}
 
     @limit = (params[:limit].blank? ? 25 : params[:limit].to_i)
     if @limit<@subs.count
@@ -29,10 +29,10 @@ class SubRequestsController < ApplicationController
   end
 
   def new
-    @sub_request = SubRequest.new
-    @sub_request.shift = Shift.find(params[:shift_id])
-    @shift=@sub_request.shift
-   return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here? -Bay
+    @sub_request = SubRequest.new(:shift_id => params[:shift_id])
+    @sub_request.mandatory_start = @sub_request.start = @sub_request.shift.start
+    @sub_request.mandatory_end = @sub_request.end = @sub_request.shift.end
+    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here? -Bay
   end
 
   def edit
@@ -44,26 +44,18 @@ class SubRequestsController < ApplicationController
     parse_date_and_time_output(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
-    @shift=@sub_request.shift
-    begin
-    SubRequest.transaction do  
-        @sub_request.save(false)
-        unless params[:list_of_logins].empty? 
-          params[:list_of_logins].split(",").each do |l|
-              l = l.split("||")
-              if l.length == 2
-                for user in l[0].constantize.find(l[1]).users 
-                  @sub_request.requested_users << user
-                end
-              end
-              @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
-           end
-         end
-        @sub_request.save!
+    unless params[:list_of_logins].empty?
+      params[:list_of_logins].split(",").each do |l|
+        l = l.split("||")
+        if l.length == 2
+          for user in l[0].constantize.find(l[1]).users
+            @sub_request.requested_users << user
+          end
+        end
+        @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
       end
-    rescue Exception => e
-      @sub_request = @sub_request.clone
-      @sub_request.add_errors(e.message)
+    end
+    unless @sub_request.save
       render :action => "new"
     else
       flash[:notice] = 'Sub request was successfully created.'
@@ -81,11 +73,11 @@ class SubRequestsController < ApplicationController
     begin
       SubRequest.transaction do
           @sub_request.requested_users = []
-          unless params[:list_of_logins].empty? 
+          unless params[:list_of_logins].empty?
              params[:list_of_logins].split(",").each do |l|
                 l = l.split("||")
                 if l.length == 2
-                  for user in l[0].constantize.find(l[1]).users 
+                  for user in l[0].constantize.find(l[1]).users
                     @sub_request.requested_users << user
                   end
                 end
@@ -100,7 +92,7 @@ class SubRequestsController < ApplicationController
         render :action => "edit", :id => @sub_request
       else
         flash[:notice] = 'Sub Request was successfully updated.'
-        redirect_to :action => "show", :id => @sub_request       
+        redirect_to :action => "show", :id => @sub_request
       end
   end
 
@@ -122,7 +114,7 @@ class SubRequestsController < ApplicationController
     rescue
       flash.now[:error] = "Oops! It seems the Sub Request you tried to take has already been taken (or canceled). Next time, try clicking sooner."
     end
-    
+
     if Time.now > @sub_request.start
       flash[:notice] = 'This sub request has already started.  If you take this sub request, your shift will begin immediately.'
     end
