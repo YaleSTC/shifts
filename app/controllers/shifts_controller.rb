@@ -172,10 +172,7 @@ class ShiftsController < ApplicationController
   end
 
   def update
-
-#    needed when simple_time_select is implemented
     parse_date_and_time_output(params[:shift])
-
     @shift = Shift.find(params[:id])
     return unless user_is_owner_or_admin_of(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])

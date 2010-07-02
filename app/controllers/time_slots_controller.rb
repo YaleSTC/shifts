@@ -20,10 +20,6 @@ class TimeSlotsController < ApplicationController
 
   def new
     @time_slot = TimeSlot.new
-    @start_time = Time.now.to_date + @department.department_config.schedule_start.minutes
-    @end_time = Time.now.to_date + @department.department_config.schedule_end.minutes
-    @default_start_time = @start_time
-    @default_end_time = @end_time
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday.to_date : Date.today.previous_sunday.to_date
   end
 
@@ -73,10 +69,6 @@ class TimeSlotsController < ApplicationController
 
   def edit
     @time_slot = TimeSlot.find(params[:id])
-    @start_time = @time_slot.start.to_date + @department.department_config.schedule_start.minutes
-    @end_time = @time_slot.end.to_date + @department.department_config.schedule_end.minutes
-    @default_start_time = @time_slot.start
-    @default_end_time = @time_slot.end
   end
 
   def update
