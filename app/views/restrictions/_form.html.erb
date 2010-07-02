@@ -1,13 +1,37 @@
+<% calculate_default_times %>
+
 <% form_for @restriction do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :starts %><br />
-		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+    <%= f.date_select :start_date, :default => @restriction.starts.to_date, :id => :start_date  %>
+    <%= f.time_select :start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => @restriction.starts,
+                                          } %>
+
   </p>
   <p>
     <%= f.label :expires %><br />
-		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-  </p>
+    <%= f.date_select :end_date, :default => @restriction.expires.to_date, :id => :end_date  %>
+    <%= f.time_select :end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => @restriction.expires,
+                                          } %>  </p>
   <p>
     <%= f.label :max_subs %><br />
     <%= f.text_field :max_subs %>
