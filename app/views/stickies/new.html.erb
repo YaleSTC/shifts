@@ -38,7 +38,7 @@
 		<fieldset class = "index">
 		  <legend>Who:</legend>
 		  Display for any person, role, or department:
-		  <% tokenized_users_autocomplete @notice, :for_users, :hint_text => "Type a netID or name", :style => "facebook" %>
+		  <%= tokenized_users_autocomplete @notice, :for_users, :hint_text => "Type a netID or name", :style => "facebook" %>
 		
 		</fieldset>
 	<% end %>
