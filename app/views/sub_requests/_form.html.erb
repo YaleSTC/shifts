@@ -1,11 +1,12 @@
-<% calculate_default_times %>
-
 <% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
   <div id ="errors">
     <%= render :partial => "error_messages", :locals => {:f => f} %>
   </div>
 
   <p><h3>Time that you need someone to take for this sub request:</h3></p>
+<%
+
+%>
 
   <p>
     <%= f.label :start %><br />
@@ -13,8 +14,7 @@
     <%= f.time_select :mandatory_start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
-                :minute_interval => @department.department_config.time_increment,
-
+                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => true,
@@ -29,12 +29,12 @@
     <%= f.time_select :mandatory_end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
-                :minute_interval => @department.department_config.time_increment,
+                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => false,
                 :include_end_time => true,
-                :default => @sub_request.mandatory_end,                     
+                :default => @sub_request.mandatory_end,
     } %>
 
   </p>
@@ -45,8 +45,7 @@
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
-                :minute_interval => @department.department_config.time_increment,
-
+                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => true,
@@ -60,9 +59,9 @@
     <%= f.hidden_field :end_date, :value => @sub_request.shift.end.to_date %>
 
     <%= f.time_select :end_time, {
-                      :simple_time_select => true,
-                      :time_separator => "",
-                      :minute_interval => @department.department_config.time_increment,
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => false,
