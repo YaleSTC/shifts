@@ -35,7 +35,7 @@ module ApplicationHelper
       :hint_text => "Type a name, NetID, role or department",
       :style => "vertical" #default to vertical style -- seems more appropriate
     })
-    
+
 
     if (options[:style] == "facebook")
       style = 'tokenList: "token-input-list-facebook",
@@ -53,16 +53,16 @@ module ApplicationHelper
       style = ''
       css_file = 'token-input'
     end
-    
+
     json_string = ""
     unless object.nil? or field.nil?
       object.send(field).each do |user_source|
         json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
       end
     end
-    
+
     #Tell the app to put javascript info at top and bottom of pages (Unobtrusive Javascript - style)
-    content_for :javascript, 
+    content_for :javascript,
       '$(document).ready(function() {
         $("#'+options[:id]+'").tokenInput("'+autocomplete_department_users_path(current_department)+'", {
             prePopulate: ['+json_string+'],
@@ -90,15 +90,6 @@ module ApplicationHelper
     output + "</select>"
   end
 
-  #TODO: clean up datepicker references, since datepicker.js has been removed (for license reasons, I think)
-  def unobtrusive_datepicker_includes
-    #javascript 'datepicker'
-    #stylesheet 'datepicker'
-  end
-
-  def unobtrusive_datepicker_include_tags
-    #(javascript_include_tag 'datepicker') + (stylesheet_link_tag 'datepicker')
-  end
 
   def time_format
     '%I:%M%p'

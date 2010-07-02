@@ -1,14 +1,12 @@
-<% unobtrusive_datepicker_includes %>
-
 <% form_for @restriction do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :starts %><br />
-    <%= f.unobtrusive_datetime_picker :starts, :minute_step => @department.department_config.time_increment %>
+		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :expires %><br />
-    <%= f.unobtrusive_datetime_picker :expires, :minute_step => @department.department_config.time_increment %>
+		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
   </p>
   <p>
     <%= f.label :max_subs %><br />
