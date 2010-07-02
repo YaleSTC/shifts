@@ -1,7 +1,8 @@
 jQuery(document).ready(function(){
 
-    //By default, only have advanced_options open on the main Notices page (not in a location)
-    if($("#page_title").text() != "Notices") {
+//By default, only have advanced_options open on the main Notices page (not in a location)
+    if($("#page_title").text() != "Notices" || $("#page_title").text() != "My Dashboard")) {
+
         $("#advanced_options_div").hide();
         $("#toggle_link").html('Show advanced options');
         $("#toggle_link").show();
