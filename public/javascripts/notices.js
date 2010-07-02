@@ -10,8 +10,7 @@ jQuery(document).ready(function(){
         $("#toggle_link").show();
     }
 
-
-		$("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
+		$("input[name^=for_location_group], input[name^=department_wide_locations]").each(function(){	
   	  $(this).css("display", "inline");
 		})
 
