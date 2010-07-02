@@ -46,7 +46,7 @@ class RepeatingEvent < ActiveRecord::Base
   def location_ids
     self.loc_ids.split(",").collect{|d| d.to_i} if loc_ids
   end
-  
+
   def locations
     self.loc_ids.split(",").collect{|d| Location.find(d.to_i)} if loc_ids
   end
@@ -84,9 +84,9 @@ class RepeatingEvent < ActiveRecord::Base
       "shift"
     end
   end
-  
-  
-  
+
+
+
   # ideally this might be made an overload of the 'new' action,
   # but for now, this will do
   # creates a new repeating event from an existing event. the repeating
@@ -105,33 +105,33 @@ class RepeatingEvent < ActiveRecord::Base
       else
         return false #we can't make a repeating event out of anything else
       end
-      
+
       #this will span the whole calendar
       repeating_event.calendar = event.calendar
       repeating_event.start_date = event.calendar.start_date
       repeating_event.end_date = event.calendar.end_date
       repeating_event.start_time = event.start
       repeating_event.end_time = event.end
-      
+
       #get location from event
       repeating_event.loc_ids = event.location_id.to_s
-      
+
       #repeat weekly
       repeating_event.days_of_week = event.start.wday.to_s
-      
+
       ActiveRecord::Base.transaction do
         event.destroy
         repeating_event.save!
         failed = repeating_event.make_future(true) #wipe conflicts
         raise failed if failed
       end
-      
+
       return true
     end
   end
-  
-  
-  
+
+
+
 
   private
 
@@ -161,8 +161,10 @@ class RepeatingEvent < ActiveRecord::Base
   end
 
   def set_start_times
-    self.start_time = self.start_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
-      self.end_time = self.end_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
+    self.start_time = self.start_date.to_time + self.start_time.seconds_since_midnight
+    self.end_time = self.end_date.to_time + self.end_time.seconds_since_midnight
+#self.start_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
+ #     self.end_time = self.end_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
   end
 
   def adjust_for_multi_day
@@ -188,3 +190,4 @@ class RepeatingEvent < ActiveRecord::Base
 
 
 end
+
