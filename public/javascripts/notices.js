@@ -1,8 +1,7 @@
 jQuery(document).ready(function(){
 
-
-//By default, only have advanced_options open on the main Notices page (not in a location)
-    if($("#page_title").text() != "Notices" || $("#page_title").text() != "My Dashboard")) {
+//By default, only have advanced_options open on the main Notices and Dashboard page (not in a shift report page)
+    if(($("#page_title").text() != "Notices") && ($("#page_title").text() != "My Dashboard")) {
         $("#advanced_options_div").hide();
         $("#toggle_link").html('Show advanced options');
         $("#toggle_link").show();
@@ -11,15 +10,9 @@ jQuery(document).ready(function(){
         $("#toggle_link").show();
     }
 
-//$("#department_wide_locations").each(function(){
-//    $(this).css("display", "inline");
-//})
-
 		$("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
   	  $(this).css("display", "inline");
 		})
-
-
 
     $("#department_wide_locations").click(function(){
         var dept_status = $(this).attr('checked');
