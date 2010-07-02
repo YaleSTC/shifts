@@ -29,10 +29,9 @@ class SubRequestsController < ApplicationController
   end
 
   def new
-    @sub_request = SubRequest.new
-    @sub_request.shift = Shift.find(params[:shift_id])
-    @shift=@sub_request.shift
-   return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here? -Bay
+    @sub_request = SubRequest.new(:shift_id => params[:shift_id])
+    @sub_request.mandatory_end = @sub_request.end = @sub_request.shift.end
+    return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here? -Bay
   end
 
   def edit
@@ -44,24 +43,18 @@ class SubRequestsController < ApplicationController
     parse_date_and_time_output(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
-    @shift=@sub_request.shift
-    begin
     unless params[:list_of_logins].empty? 
       params[:list_of_logins].split(",").each do |l|
-          l = l.split("||")
-          if l.length == 2
-            for user in l[0].constantize.find(l[1]).users 
-              @sub_request.requested_users << user
-            end
+        l = l.split("||")
+        if l.length == 2
+          for user in l[0].constantize.find(l[1]).users 
+            @sub_request.requested_users << user
           end
-          @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
-       end
-     end
-    SubRequest.transaction do
-        @sub_request.save!
+        end
+        @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
       end
-    rescue Exception => e
-      @sub_request.add_errors(e.message)
+    end
+    unless @sub_request.save
       render :action => "new"
     else
       flash[:notice] = 'Sub request was successfully created.'
