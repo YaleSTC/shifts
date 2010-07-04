@@ -8,7 +8,7 @@
     <h3>Notice Actions</h3>
 			<li><%= link_to_post_a_sticky %></li>
 			<li><%= link_to_post_an_announcement %></li>
-			<li><%= link_to "View useful links", links_path %></li>
+			<li><%= link_to "View all links", links_path %></li>
     <% if current_user.is_admin_of?(current_department) %>
       <li><%= link_to 'View inactive notices', archive_notices_path %></li>
     <% end %>
