@@ -18,6 +18,7 @@ module ActionView::Helpers
 
         if @options[:default]
           val_minutes = @options[:default].min + @options[:default].hour*60
+          val_minutes += 1440   if (@options[:end_time].day == (@options[:start_time].day + 1))
 
           # Even if :default isn't a valid multiple of 15, it should still be used
           # This loop selects the earliest valid minute after :default to be the default
@@ -39,9 +40,7 @@ module ActionView::Helpers
 
         if @options[:end_time]
           end_minute = @options[:end_time].hour * 60 + @options[:end_time].min
-          if (@options[:end_time].day == (@options[:start_time].day + 1))
-            end_minute += 1440
-          end
+          end_minute += 1440    if (@options[:end_time].day == (@options[:start_time].day + 1))
         else
           end_minute = 1439
         end
@@ -77,7 +76,11 @@ module ActionView::Helpers
                 hour_padded = zero_pad_num(hour)
                 ampm_hour = ampm_hour(hour)
                 val = "#{hour_padded}:#{minute_padded}:00+"
-                minute_options << %(<option value="#{val}">#{ampm_hour}:#{minute_padded}#{ampm}*</option>\n)
+                minute_options << ((val_minutes == minute + 1440) ?
+                  %(<option value="#{val}" selected="selected">#{ampm_hour}:#{minute_padded}#{ampm}*</option>\n) :
+                  %(<option value="#{val}">#{ampm_hour}:#{minute_padded}#{ampm}*</option>\n)
+                )
+
               end
             end
 
