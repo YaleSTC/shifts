@@ -21,9 +21,11 @@ class AnnouncementsController < NoticesController
   end
 
   def create
+				puts params.to_yaml
 		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.new(params[:announcement])
 		set_author_dept_and_time
+
 		begin
       Announcement.transaction do
         @announcement.save(false)
