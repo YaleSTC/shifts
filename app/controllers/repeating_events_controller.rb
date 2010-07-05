@@ -21,6 +21,7 @@ class RepeatingEventsController < ApplicationController
 
     parse_date_and_time_output(params[:repeating_event])
     session[:calendar] = params[:repeating_event][:calendar_id]
+    parse_date_and_time_output(params[:repeating_event])
 
     params[:repeating_event][:days] = params[:days]
     if params[:repeating_event][:slot_or_shift] == "time_slot"
