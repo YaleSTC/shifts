@@ -37,6 +37,9 @@
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => Time.now.to_date + current_department.department_config.schedule_start.minutes,
+                :end_time => Time.now.to_date + current_department.department_config.schedule_end.minutes,
                 :include_start_time => true,
                 :include_end_time => false,
                 :default => Time.now.to_date + current_department.department_config.schedule_start.minutes,
@@ -48,6 +51,8 @@
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
+                :start_time => Time.now.to_date + current_department.department_config.schedule_start.minutes,
+                :end_time => Time.now.to_date + current_department.department_config.schedule_end.minutes,
                 :include_start_time => false,
                 :include_end_time => true,
                 :default => Time.now.to_date + current_department.department_config.schedule_end.minutes,
@@ -97,4 +102,28 @@
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"repeating_event_start_date_3i":"j",
+                              "repeating_event_start_date_1i":"Y",
+                              "repeating_event_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"repeating_event_end_date_3i":"j",
+                              "repeating_event_end_date_1i":"Y",
+                              "repeating_event_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
 

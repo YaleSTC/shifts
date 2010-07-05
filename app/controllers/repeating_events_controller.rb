@@ -29,7 +29,6 @@ class RepeatingEventsController < ApplicationController
       params[:repeating_event][:location_ids] = [params[:shift][:location_id]]
     end
     @repeating_event = RepeatingEvent.new(params[:repeating_event])
-raise @repeating_event.to_yaml
     wipe = params[:wipe] ? true : false
     if params[:whole_calendar] && !@repeating_event.calendar.default
       @repeating_event.start_date = @repeating_event.calendar.start_date
