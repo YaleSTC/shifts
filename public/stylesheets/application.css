@@ -286,7 +286,7 @@ ul#navigationList li ul {
 }
 ul#navigationList li a, ul#navigationList li h3 {
   height: 1%;
-  display: block;
+  display: inline;
 }
 ul#navigationList h3 {
   color: #26287f;

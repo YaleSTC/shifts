@@ -27,7 +27,7 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :admin_permission_id
   
   def get_links
-    self.notices.select {|n| n.type == "Link"}
+    Link.active_without_end.select {|n| n.department == self}
   end
 
 # Returns all users active in a given department
