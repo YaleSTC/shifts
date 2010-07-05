@@ -18,12 +18,8 @@ class Notice < ActiveRecord::Base
     (Sticky.active_with_end + Sticky.active_without_end).uniq.sort_by{|n| n.start_time}
   end
 
-	def current
-		self.start_time < Time.now && (self.end_time > Time.now if self.end_time)
-	end
-
   def self.active_links
-    (self.links.active_with_end + self.links.active_without_end).uniq
+    self.links.active_without_end
   end
 
   def display_for
@@ -40,10 +36,6 @@ class Notice < ActiveRecord::Base
   def is_upcoming?
     return self.start_time > Time.now if self.start_time
     false
-  end
-
-  def is_sticky
-    self.sticky
   end
 
   def viewers

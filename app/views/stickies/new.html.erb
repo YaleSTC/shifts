@@ -8,18 +8,15 @@
     <legend>Content:</legend>
     <%= f.text_area :content, :id=>"content", :size => "60x5" %>
   </fieldset>
-
-  <%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
-	
-	<div id="advanced_options_div">
-
+	<%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
+	<% content_tag("div", {:id => "advanced_options_div", :style => "display: #{@display};"}) do %>
 		<fieldset class = "index">
 		<legend>Where:</legend>
 
 		<div id = "all_locations">
 		  <% for loc_group in current_department.loc_groups do %>
 		    <li id = "notice_li">
-		      <%= check_box_tag "for_location_groups[]", loc_group.id, false %>
+		      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :style => "display: none;"  %>
 		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 		      <% for location in loc_group.locations do %>
 		        <%= check_box_tag "for_locations[]", location.id, location_check(location, @sticky) %>
@@ -41,12 +38,12 @@
 		<fieldset class = "index">
 		  <legend>Who:</legend>
 		  Display for any person, role, or department:
-		  <%= tokenized_users_autocomplete(@notice, "user_sources", "for_users") %>
+		  <%= tokenized_users_autocomplete @notice, :for_users, :hint_text => "Type a netID or name", :style => "facebook" %>
+		
 		</fieldset>
-  
-	</div>
+	<% end %>
 	<p>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Save' %>
   </p>
 <% end %>
 <%= javascript_include_tag 'notices' %>

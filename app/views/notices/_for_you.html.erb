@@ -1,9 +1,0 @@
-<% @current_notices = current_user.current_notices %>
-<% unless @current_notices.empty? %>
-  <fieldset class ="index" id="notices_for_you">
-    <legend>For you</legend>
-      <%= render :partial => 'notices/notice', :collection => @current_notices %>
-  </fieldset>
-  <br />
-<% end %>
-
