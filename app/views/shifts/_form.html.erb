@@ -7,20 +7,6 @@
   <% else %>
     <%= f.date_select :start_date, :default => @shift.start.to_date, :id => :start_date  %>
   <% end %>
-
-<script type="text/javascript">
-var opts = {
-                formElements:{"shift_start_date_3i":"j",
-                              "shift_start_date_1i":"Y",
-                              "shift_start_date_2i":"n"
-                },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
-datePickerController.createDatePicker(opts);
-
-</script>
-
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -40,19 +26,6 @@ datePickerController.createDatePicker(opts);
   <% else %>
     <%= f.date_select :end_date, :default => @shift.end.to_date, :id => :end_date  %>
   <% end %>
-
-<script type="text/javascript">
-var opts = {
-                formElements:{"shift_end_date_3i":"j",
-                              "shift_end_date_1i":"Y",
-                              "shift_end_date_2i":"n"
-                },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
-datePickerController.createDatePicker(opts);
-
-</script>
     <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -86,4 +59,27 @@ datePickerController.createDatePicker(opts);
   <% elsif params[:calendar] %>
     <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
   <% end %>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"shift_start_date_3i":"j",
+                              "shift_start_date_1i":"Y",
+                              "shift_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"shift_end_date_3i":"j",
+                              "shift_end_date_1i":"Y",
+                              "shift_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
 
