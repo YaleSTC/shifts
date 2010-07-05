@@ -1,8 +1,5 @@
 class LinksController < NoticesController
 
-  def index
-  end
-
   def new
 		current_user.is_loc_group_admin?(current_department)
     @link = Link.new
@@ -77,6 +74,6 @@ class LinksController < NoticesController
 
   def destroy
 		current_user.is_loc_group_admin?(current_department)
-		redirect_to :controller => 'notice', :action => 'destroy'
+		redirect_to :controller => 'notices', :action => 'destroy'
   end
 end
