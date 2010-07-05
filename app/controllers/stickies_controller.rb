@@ -16,6 +16,7 @@ class StickiesController < NoticesController
   end
 
   def create
+				puts params.to_yaml
     @sticky = Sticky.new(params[:sticky])
 		set_author_dept_and_times
 		current_user.current_shift ? @in_shift = true : @in_shift = false
