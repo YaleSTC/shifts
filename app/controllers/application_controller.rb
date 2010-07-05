@@ -255,6 +255,18 @@ class ApplicationController < ActionController::Base
   def parse_date_and_time_output(form_output)
     %w{start end mandatory_start mandatory_end}.each do |field_name|
 
+        midnight = 0
+
+        ## Simple Time Select Input
+        unless form_output["#{field_name}_time(5i)"].blank?
+          unless form_output["#{field_name}_time(5i)"].scan(/\+$/).empty?
+            midnight = 1.day
+          end
+
+          form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
+        end
+
+
         ## Date Input - Hidden Field
         unless form_output["#{field_name}_date"].blank?
           form_output["#{field_name}_date"] = Date.parse( form_output["#{field_name}_date"] )
@@ -266,9 +278,9 @@ class ApplicationController < ActionController::Base
         form_output["#{field_name}_date"] = Date.parse( join_date )
         end
 
-        ## Simple Time Select Input
-        unless form_output["#{field_name}_time(5i)"].blank?
-          form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
+        ## If simple_time_select was beyond midnight, add a day
+        unless form_output["#{field_name}_date"].blank?
+          form_output["#{field_name}_date"] += midnight
         end
 
         form_output.delete("#{field_name}_date(1i)")
