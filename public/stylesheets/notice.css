@@ -3,6 +3,7 @@ li#notice_li {
     padding-left: 1em;
 }
 
+a#toggle_link {text-decoration:underline;}
 
 fieldset.sticky {
   width: 97%;

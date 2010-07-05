@@ -1,7 +1,6 @@
 jQuery(document).ready(function(){
-
-    //By default, only have advanced_options open on the main Notices page (not in a location)
-    if($("#page_title").text() != "Notices") {
+//By default, only have advanced_options open on the main Notices and Dashboard page (not in a shift report page)
+    if(($("#page_title").text() != "Notices") && ($("#page_title").text() != "My Dashboard")) {
         $("#advanced_options_div").hide();
         $("#toggle_link").html('Show advanced options');
         $("#toggle_link").show();
@@ -10,14 +9,10 @@ jQuery(document).ready(function(){
         $("#toggle_link").show();
     }
 
-    //$("#department_wide_locations").each(function(){
-    //    $(this).css("display", "inline");
-    //})
-
-    $("input[name^='for_location_group']").each(function(){
-        $(this).css("display", "inline");
-    })
-
+		$("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
+  	  $(this).css("display", "inline");		
+		});
+	
     $("#department_wide_locations").click(function(){
         var dept_status = $(this).attr('checked');
         $("div#all_locations :checkbox").each(function(){
@@ -29,7 +24,6 @@ jQuery(document).ready(function(){
             }
         });
     });
-
     $("input[name^='for_location_group']").click(function(){
         var locgroup_status = $(this).attr('checked');
         $(this).siblings('input[type=checkbox]').each(function(){
@@ -55,14 +49,15 @@ jQuery(document).ready(function(){
     });
 
     $("#toggle_link").click(function(){
-        $("#advanced_options_div").toggle(function(){
-            if($(this).css("display")=="none") {
-                $("#toggle_link").html('Show advanced options');
-            } else {
-                $("#toggle_link").html('Hide advanced options');
-            }
-        });
+			if($(this).css("display")=="none") {
+            $("#toggle_link").html('Show advanced options');
+						$("#TB_ajaxContent").animate({ height:'-=290' }, 300 );
+        } else {
+            $("#toggle_link").html('Hide advanced options');
+						$("#TB_ajaxContent").animate({ height:'+=290' }, 300 );
+        }
+	       $("#advanced_options_div").toggle(function(){
+       		 
+				});
     });
-
 });
-
