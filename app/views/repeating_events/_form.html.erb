@@ -1,4 +1,3 @@
-<%= unobtrusive_datepicker_include_tags %>
 <% form_for @repeating_event do |f| %>
   <%if @errors%>
 <strong>The repeating event could not be applied for the following reasons</strong>
@@ -34,11 +33,25 @@
   </p>
   <p>
     <%= f.label :start_time %><br />
-    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => Time.now %>
+    <%= f.time_select :start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => Time.now,
+                                          } %>
   </p>
   <p>
     <%= f.label :end_time %><br />
-    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => Time.now + 1.hour %>
+    <%= f.time_select :end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => Time.now,
+                                          } %>
   </p>
     <p>
     <%= f.label "wipe_conflicts?" %><br />
