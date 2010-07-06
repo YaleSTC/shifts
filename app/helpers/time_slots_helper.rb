@@ -59,6 +59,11 @@ module TimeSlotsHelper
     end
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
     @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+
+    @default_start_date = @time_slot.start.to_date
+    @default_end_date = @time_slot.end.to_date
+    @default_end_date -= 1.day if (@time_slot.end.day == (@time_slot.start.day + 1))
+
   end
 
 

@@ -117,6 +117,9 @@ module ShiftsHelper
     end
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
     @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+
+#    @default_end_date = @shift.end.to_date
+#    @default_end_date -= 1.day if (@shift.end.day == (@shift.start.day + 1))
   end
 
 
