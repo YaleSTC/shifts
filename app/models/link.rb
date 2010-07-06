@@ -1,9 +1,12 @@
 class Link < Notice
-	validate :proper_url
+	validate_on_create :proper_url
 
 	private
 	def proper_url
-		errors.add_to_base "Your link must have a URL" if self.url.empty? || self.url == "http://"
+		if self.url.empty? || self.url == "http://"
+			errors.add_to_base "Your URL cannot be empty"
+		elsif self.url.split.first != self.url
+			errors.add_to_base "Your URL cannot have a white space " + self.url
+		end
 	end
-
 end

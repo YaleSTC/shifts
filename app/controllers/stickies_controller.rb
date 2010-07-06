@@ -65,10 +65,6 @@ class StickiesController < NoticesController
     end
   end
 
-  def destroy
-		redirect_to :controller => 'notices', :action => 'destroy'
-	end
-
 	private
 	def set_author_dept_and_times
 		@sticky.author = current_user

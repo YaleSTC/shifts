@@ -14,12 +14,8 @@ class Notice < ActiveRecord::Base
   named_scope :upcoming, lambda {{ :conditions => ["#{:start.to_sql_column} > #{Time.now.utc.to_sql}"]}}
 
   def self.active
-    (Announcement.active_with_end + Announcement.active_without_end).uniq.sort_by{|n| n.start_time} +
-    (Sticky.active_with_end + Sticky.active_without_end).uniq.sort_by{|n| n.start_time}
-  end
-
-  def self.active_links
-    self.links.active_without_end
+    (Announcement.active_with_end + Announcement.active_without_end).uniq.sort_by{|n| n.start} +
+    Sticky.active_without_end.sort_by{|n| n.start}
   end
 
   def display_for
@@ -47,7 +43,7 @@ class Notice < ActiveRecord::Base
   end
 
   def remove(user)
-    self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end_time
+    self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end
     self.end = Time.now
     self.indefinite = false
     self.remover = user
@@ -68,7 +64,7 @@ class Notice < ActiveRecord::Base
 
 
   def proper_time
-    errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time
+    errors.add_to_base "Start/end time combination is invalid." if self.start >= self.end if self.end
   end
   
   def destroy_user_sinks_user_sources

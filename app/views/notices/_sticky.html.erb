@@ -7,7 +7,7 @@
   <%= sticky.content_with_formatting %>
   <br />
   <div class="grayleft">
-    <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start_time, Time.now, true)} ago" %>
+    <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start, Time.now, true)} ago" %>
   </div>
   <div class="grayright">
     <%= sticky.display_for %>

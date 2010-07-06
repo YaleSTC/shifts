@@ -33,11 +33,11 @@
 			<li><%= link_to "View all notices", notices_path %></li>
 			
 	<h3>Useful Links</h3>
-		<% unless current_department.get_links.empty? %>		
-	  	<div id = "dashboard_useful_links">
-	    	<%= render :partial => 'links/dashboard_useful_links'%>
-	    </div>
-		<% end %>
+		<div id = "dashboard_links">
+			<% unless current_department.get_links.empty? %>		
+		  	<%= render :partial => 'links/dashboard_links'%>
+			<% end %>
+		</div>
 		<li><%= link_to_post_a_link %></li>
 		<li><%= link_to "View all links", links_path %></li>
   </ul>
