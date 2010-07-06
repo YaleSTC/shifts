@@ -2,10 +2,11 @@
 
   <p>
     <%= f.label :start %><br />
+
   <% if params[:xPercentage] %>
-    <%= f.hidden_field :start_date, :value => @shift.start.to_date, :id => :start_date  %>
+    <%= f.hidden_field :start_date, :value => @default_start_date, :id => :start_date  %>
   <% else %>
-    <%= f.date_select :start_date, :default => @shift.start.to_date, :id => :start_date  %>
+    <%= f.date_select :start_date, :default => @default_start_date, :id => :start_date  %>
   <% end %>
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
