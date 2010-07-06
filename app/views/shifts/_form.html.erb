@@ -22,9 +22,9 @@
   <p>
     <%= f.label :end %><br />
   <% if params[:xPercentage] %>
-    <%= f.hidden_field :end_date, :value => @shift.end.to_date, :id => :end_date  %>
+    <%= f.hidden_field :end_date, :value => @default_end_date, :id => :end_date  %>
   <% else %>
-    <%= f.date_select :end_date, :default => @shift.end.to_date, :id => :end_date  %>
+    <%= f.date_select :end_date, :default => @default_end_date, :id => :end_date  %>
   <% end %>
     <%= f.time_select :end_time, {
                 :simple_time_select => true,

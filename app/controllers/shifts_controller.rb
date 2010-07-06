@@ -162,7 +162,11 @@ class ShiftsController < ApplicationController
 
   def edit
     @shift = Shift.find(params[:id])
-    @report = @shift.report
+#why did we need the report? when there is none yet, @shift gets overwritten by nil ~Casey
+#    @report = @shift.report
+#
+#we could add - if @shift.report
+
 # TODO - unecessary? they never seem to be called ~Casey
 #    return unless user_is_owner_or_admin_of(@shift, @shift.department)
 #    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
