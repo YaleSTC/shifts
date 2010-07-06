@@ -36,7 +36,7 @@ module ActionView::Helpers
 
         if @options[:default]
           val_minutes = @options[:default].min + @options[:default].hour*60
-          if (@options[:end_time].to_date == (@options[:start_time].to_date + 1.day)) && ((@options[:default].hour*60 + @options[:default].min) < (@options[:start_time].hour*60 + @options[:start_time].min))
+          if (@options[:end_time].to_date == (@options[:start_time].to_date + 1.day)) && (val_minutes < start_minute)
             val_minutes += 1440
           end
           # Even if :default isn't a valid multiple of 15, it should still be used
