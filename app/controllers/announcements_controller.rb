@@ -1,4 +1,5 @@
 class AnnouncementsController < NoticesController
+	before_filter :require_any_loc_group_admin, :except => [:index, :show]
 
   def index
     redirect_to(notices_path)
@@ -9,23 +10,18 @@ class AnnouncementsController < NoticesController
   end
 
   def new
-		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.new
     layout_check
   end
 
   def edit
-		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.find(params[:id])
 		layout_check
   end
 
   def create
-				puts params.to_yaml
-		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.new(params[:announcement])
 		set_author_dept_and_time
-
 		begin
       Announcement.transaction do
         @announcement.save(false)
@@ -49,7 +45,6 @@ class AnnouncementsController < NoticesController
   end
 
   def update
-		current_user.is_loc_group_admin?(current_department)
     @announcement = Announcement.find_by_id(params[:id]) || Announcement.new
 		@announcement.update_attributes(params[:announcement])
 		set_author_dept_and_time
@@ -75,18 +70,13 @@ class AnnouncementsController < NoticesController
     end
   end
 
-  def destroy
-		current_user.is_loc_group_admin?(current_department)
-    redirect_to :controller => 'notice', :action => 'destroy'
-  end
-
 	private
 	def set_author_dept_and_time
 		@announcement.author = current_user
 		@announcement.department = current_department
-		@announcement.start_time = Time.now if params[:start_time_choice] == "now"
+		@announcement.start = Time.now if params[:start_time_choice] == "now"
 		if params[:end_time_choice] == "indefinite"
-    	@announcement.end_time = nil 
+    	@announcement.end = nil 
     	@announcement.indefinite = true
 		end
 	end

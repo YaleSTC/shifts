@@ -16,7 +16,6 @@ class StickiesController < NoticesController
   end
 
   def create
-				puts params.to_yaml
     @sticky = Sticky.new(params[:sticky])
 		set_author_dept_and_times
 		current_user.current_shift ? @in_shift = true : @in_shift = false
@@ -67,23 +66,23 @@ class StickiesController < NoticesController
   end
 
   def destroy
-		redirect_to :controller => 'notice', :action => 'destroy'
+		redirect_to :controller => 'notices', :action => 'destroy'
 	end
 
 	private
 	def set_author_dept_and_times
 		@sticky.author = current_user
 		@sticky.department = current_department
-		@sticky.start_time = Time.now
+		@sticky.start = Time.now
 		if params[:end_time_choice] == "indefinite"
-			@sticky.end_time = nil
+			@sticky.end = nil
 			@sticky.indefinite = true
-		elsif params[:sticky][:end_time] == "day"
-			@sticky.end_time = 1.day.from_now
-		elsif params[:sticky][:end_time] == "week"
-			@sticky.end_time = 1.week.from_now
-		elsif params[:sticky][:end_time] == "month"
-			@sticky.end_time = 1.month.from_now
+		elsif params[:sticky][:end] == "day"
+			@sticky.end = 1.day.from_now
+		elsif params[:sticky][:end] == "week"
+			@sticky.end = 1.week.from_now
+		elsif params[:sticky][:end] == "month"
+			@sticky.end = 1.month.from_now
 		end
 	end
 end

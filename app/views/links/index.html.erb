@@ -1,4 +1,4 @@
-<h1 id="page_title">Useful Links</h1>
+<h1 id="page_title">Links</h1>
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
     <% loc_group.locations.each do |loc| %>
       <% @loc_links = loc.links %>
@@ -8,8 +8,8 @@
 					<ul id = "useful_links">
 					<% @loc_links.each do |link| %>
 		      	<li>
-							<% if current_user.is_admin_of?(link.locations.include?(loc_group)) %>
-								<%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => link.id },
+							<% if current_user.is_admin_of?(loc_group) %>
+								<%= link_to '[x]', { :controller => 'links', :action => 'destroy', :id => link.id },
 												             :confirm => "Are you sure you want to remove this useful link?",
 												             :method => :delete %>
 							<% end %>

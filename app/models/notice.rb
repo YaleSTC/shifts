@@ -8,10 +8,10 @@ class Notice < ActiveRecord::Base
   
   before_destroy :destroy_user_sinks_user_sources
 
-  named_scope :inactive, lambda {{ :conditions => ["#{:end_time.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
-  named_scope :active_with_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
-  named_scope :active_without_end, lambda {{ :conditions => ["#{:start_time.to_sql_column} <= #{Time.now.utc.to_sql} and #{:indefinite.to_sql_column} = #{true.to_sql}"]}}
-  named_scope :upcoming, lambda {{ :conditions => ["#{:start_time.to_sql_column} > #{Time.now.utc.to_sql}"]}}
+  named_scope :inactive, lambda {{ :conditions => ["#{:end.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
+  named_scope :active_with_end, lambda {{ :conditions => ["#{:start.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end.to_sql_column} > #{Time.now.utc.to_sql}"]}}
+  named_scope :active_without_end, lambda {{ :conditions => ["#{:start.to_sql_column} <= #{Time.now.utc.to_sql} and #{:indefinite.to_sql_column} = #{true.to_sql}"]}}
+  named_scope :upcoming, lambda {{ :conditions => ["#{:start.to_sql_column} > #{Time.now.utc.to_sql}"]}}
 
   def self.active
     (Announcement.active_with_end + Announcement.active_without_end).uniq.sort_by{|n| n.start_time} +
@@ -30,11 +30,11 @@ class Notice < ActiveRecord::Base
   end
 
   def is_current?
-    self.end_time ? self.start_time < Time.now && self.end_time > Time.now : self.start_time < Time.now
+    self.end ? self.start < Time.now && self.end > Time.now : self.start < Time.now
   end
 
   def is_upcoming?
-    return self.start_time > Time.now if self.start_time
+    return self.start > Time.now if self.start
     false
   end
 
@@ -48,7 +48,7 @@ class Notice < ActiveRecord::Base
 
   def remove(user)
     self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end_time
-    self.end_time = Time.now
+    self.end = Time.now
     self.indefinite = false
     self.remover = user
     true if self.save

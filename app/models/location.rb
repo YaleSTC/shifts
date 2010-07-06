@@ -39,11 +39,11 @@ class Location < ActiveRecord::Base
   end
 
   def stickies
-    self.current_notices.select {|n| n.type == "Sticky"}
+    self.current_notices.select {|n| n.class.name == "Sticky"}
   end
 
   def announcements
-    self.current_notices.select {|n| n.type == "Announcement"}
+    self.current_notices.select {|n| n.class.name == "Announcement"}
   end
 
   def links
