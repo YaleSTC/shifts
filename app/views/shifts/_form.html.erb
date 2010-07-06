@@ -47,12 +47,12 @@
 
   <% if current_user.is_admin_of?(current_department) %>
     <p>
-      <%= f.label :calendar %><br />
-      <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
-    </p>
-    <p>
       <%= f.label :user %><br />
       <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
+    <p>
+      <%= f.label :calendar %><br />
+      <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
     </p>
     <p>
       <%= f.check_box :power_signed_up %> Power signup
