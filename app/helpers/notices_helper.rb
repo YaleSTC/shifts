@@ -25,9 +25,9 @@ module NoticesHelper
 
   def end_time_check(indefinite)
     if indefinite
-      return true unless @announcement.end_time
+      return true unless @announcement.end
     else
-      return true if @announcement.end_time
+      return true if @announcement.end
     end
   end
 
