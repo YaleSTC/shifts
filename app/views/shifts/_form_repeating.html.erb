@@ -15,28 +15,48 @@
   <div id="date_selects">
     <p>
       <%= f.label :start_date %><br />
-      <%= f.date_select :start_date, :default => start_time %>
+      <%= f.date_select :start_date, :default => @default_start_date, :id => :start_date %>
     </p>
     <p>
       <%= f.label :end_date %><br />
-      <%= f.date_select :end_date, :default => start_time %>
+      <%= f.date_select :end_date, :default => @default_end_date, :id => :end_date  %>
     </p>
   </div>
   <p>
     <%= f.label :start_time %><br />
-    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => start_time %>
+    <%= f.time_select :start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => @shift.start,
+                                          } %>
   </p>
   <p>
     <%= f.label :end_time %><br />
-    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => start_time + 1.hour %>
-  </p>
-  <p>
-    <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+    <%= f.time_select :end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => @shift.end,
+                                          } %>
   </p>
   <p>
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @repeating_event.location_ids ? @repeating_event.location_ids[0] : params[:location_id].to_i)%><br />
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
   </p>
 </div>
 <div style="float:left; margin-left: 7px; padding-left: 7px; border-left: 1px solid black">
@@ -57,4 +77,27 @@
     <%= check_box_tag "wipe", "1", true %>
   </p>
 </div>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"repeating_event_start_date_3i":"j",
+                              "repeating_event_start_date_1i":"Y",
+                              "repeating_event_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"repeating_event_end_date_3i":"j",
+                              "repeating_event_end_date_1i":"Y",
+                              "repeating_event_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
 
