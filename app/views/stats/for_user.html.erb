@@ -15,9 +15,7 @@
 <table id="stats_table" class="tablesorter">
   <thead>
     <tr>
-      <th align="left">Location</th>
-      <th align="left">Start Time</th>
-      <th align="left">End Time</th>
+      <th align="left">Shift</th>
       <th align="left">Notes</th>
 			<th align="left">Updates/Hour</th>
     </tr>
@@ -25,12 +23,11 @@
 	<tbody>
 		<% @stats_hash.each do |shift_id, stat_entry| %>
 			<tr>
-				<td><%=h stat_entry[:location] %></td>
-				<td><%=h stat_entry[:start] %></td>
-				<td><%=h stat_entry[:end] %></td>
+				<td><%= link_to stat_entry[:shift], {:controller => :stats, :action => 'show', :id => stat_entry[:id] } %></td>
 				<td><%=h stat_entry[:notes] %></td>
 				<td><%=h stat_entry[:updates_hour] %></td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[0,0]]});});</script>
