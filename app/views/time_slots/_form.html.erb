@@ -1,18 +1,24 @@
 <% calculate_default_times %>
 
-<% form_for @time_slot do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :calendar %><br />
-    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
-  </p>
-  <p>
-      <strong>Days:</strong><br />
-    <% WEEK_DAYS.each_with_index do |day, i| %>
-      <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
-      <%= day %>
+    <% if params[:calendar] %>
+      <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
+    <% else %>
+      <p>
+        <%= f.label :calendar %><br />
+        <%= select_tag 'time_slot[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%>
+      </p>
     <% end %>
-  </p>
+
+    <% if @time_slot.new_record? && !params[:tooltip]%>
+      <p>
+          <strong>Days:</strong><br />
+        <% WEEK_DAYS.each_with_index do |day, i| %>
+          <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+          <%= day %>
+        <% end %>
+      </p>
+    <% end %>
+
       <p>
         <%= f.label :start %><br />
         <%= f.hidden_field :start_date, :value => @default_start_date %>
@@ -45,18 +51,41 @@
                 :include_end_time => true,
                                           } %>
       </p>
-  <% @department.loc_groups.each do |loc_group| %>
-    <% unless loc_group.locations.empty? %>
-      <p>
-        <strong><%= loc_group.name %></strong><br/>
-        <% loc_group.locations.each do |loc| %>
-          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
-          <%= loc.short_name %>
+
+<% #we could still simplify the first two sections of this conditional. In the tooltip (elsif part), locations wrap around, that's all. %>
+    <% if @time_slot.new_record? && !params[:xPercentage]%>
+    <%# if we're on the html new page, give locations as checkboxes %>
+        <% @department.loc_groups.each do |loc_group| %>
+          <% unless loc_group.locations.empty? %>
+            <p>
+              <strong><%= loc_group.name %></strong><br/>
+              <% loc_group.locations.each do |loc| %>
+                <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+                <%= loc.short_name %>
+              <% end %>
+            </p>
+          <% end %>
         <% end %>
+    <% elsif @time_slot.new_record? %>
+        <% @department.loc_groups.each do |loc_group| %>
+          <% unless loc_group.locations.empty? %>
+            <p>
+              <strong><%= loc_group.name %></strong><br/>
+              <% loc_group.locations.each_with_index do |loc, i| %>
+                <%= check_box_tag "location_ids[]", loc.id, params[:location_id] == loc.id.to_s, {:id => "location_#{loc.id}"} %>
+                <%= loc.short_name %><%= "<br>" if i % 5 == 4 %>
+              <% end %>
+            </p>
+          <% end %>
+        <%- end -%>
+    <% else %>
+    <%# if we're in a tooltip, use a location dropdown %>
+      <p>
+        <%= f.label :location %><br />
+        <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location_id)%><br />
       </p>
     <% end %>
-  <%- end -%>
+
   </p>
-  <p><%= f.submit "Add" %></p>
-<% end %>
+  <%= (hidden_field_tag 'date', params[:date]) if params[:date] %>
 
