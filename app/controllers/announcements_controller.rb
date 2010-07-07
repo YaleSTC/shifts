@@ -10,11 +10,13 @@ class AnnouncementsController < NoticesController
   end
 
   def new
+     @disable_locations = false
     @announcement = Announcement.new
     layout_check
   end
 
   def edit
+    @disable_locations = true
     @announcement = Announcement.find(params[:id])
 		layout_check
   end
@@ -45,7 +47,7 @@ class AnnouncementsController < NoticesController
   end
 
   def update
-    @announcement = Announcement.find_by_id(params[:id]) || Announcement.new
+    @announcement = Announcement.find_by_id(params[:id]) || Announcement.new 
 		@announcement.update_attributes(params[:announcement])
 		set_author_dept_and_time
     begin

@@ -9,7 +9,7 @@ class SubRequest < ActiveRecord::Base
            :start_less_than_end,
            :not_in_the_past,
            :user_does_not_have_concurrent_sub_request,
-           :requested_users_have_permission 
+           :requested_users_have_permission
   attr_accessor :mandatory_start_date
   attr_accessor :mandatory_start_time
   attr_accessor :mandatory_end_date
@@ -44,7 +44,7 @@ class SubRequest < ActiveRecord::Base
           sub_request.destroy
           Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
-          ArMailer.deliver(ArMailer.create_sub_taken_notification(sub_request, new_shift, new_shift.department)) 
+          ArMailer.deliver(ArMailer.create_sub_taken_notification(sub_request, new_shift, new_shift.department))
           sub_watch_users = sub_request.potential_takers.select {|u| u.user_config.taken_sub_email}
           for user in sub_watch_users
             ArMailer.deliver(ArMailer.create_sub_taken_watch(user, sub_request, new_shift, new_shift.department))
@@ -65,20 +65,20 @@ class SubRequest < ActiveRecord::Base
   def loc_group
     shift.location.loc_group
   end
-  
+
   def location
     shift.location
   end
-  
+
   def user_is_eligible?(user)
     return false if self.user == user
     user.can_signup?(self.shift.loc_group)
   end
-  
+
   def potential_takers
     !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq
   end
-  
+
   def users_with_permission
     requested_users.uniq.select { |u| u.can_signup?(self.shift.loc_group) }
   end
@@ -86,8 +86,8 @@ class SubRequest < ActiveRecord::Base
   #returns roles that currently have permission
   def roles_with_permission
      shift.location.loc_group.roles
-  end  
-    
+  end
+
   def sub_name
     sub_class = self.user_source_type.classify
     sub_name = sub_class.find(self.user_source_id).name.to_s
@@ -102,16 +102,16 @@ class SubRequest < ActiveRecord::Base
     e.split(", ").each do |error|                   #errors.add_to_base is tokenized by comma-space pattern
       errors.add_to_base(error.gsub(",,", ", "))    #problem: in comma-seperated lists, each item is incorrectly rendered as a seperate error
     end                                             #work-around: lists are printed as "item,,item,,item" which now swap to "item, item, item"
-  end                                               
+  end
 
 
   private
 
   def join_date_and_time
-    self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-    self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
-    self.mandatory_start = self.mandatory_start_date.to_date.to_time + self.mandatory_start_time.seconds_since_midnight
-    self.mandatory_end = self.mandatory_end_date.to_date.to_time + self.mandatory_end_time.seconds_since_midnight
+    self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+    self.end ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+    self.mandatory_start ||= self.mandatory_start_date.to_date.to_time + self.mandatory_start_time.seconds_since_midnight
+    self.mandatory_end ||= self.mandatory_end_date.to_date.to_time + self.mandatory_end_time.seconds_since_midnight
   end
 
   def start_and_end_are_within_shift
@@ -143,13 +143,13 @@ class SubRequest < ActiveRecord::Base
       errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period.") unless (self.id and c==1)
     end
   end
-    
-  def requested_users_have_permission 
+
+  def requested_users_have_permission
     c = self.requested_users.select { |user| !user.can_signup?(self.loc_group) || user==self.user}
-      unless c.blank? 
-        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}") 
+      unless c.blank?
+        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}")
     end
   end
-  
+
 end
 

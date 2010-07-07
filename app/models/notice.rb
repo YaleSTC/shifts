@@ -6,7 +6,7 @@ class Notice < ActiveRecord::Base
 
   validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
   
-  before_destroy :destroy_user_sinks_user_sources
+  #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
 
   named_scope :inactive, lambda {{ :conditions => ["#{:end.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
   named_scope :active_with_end, lambda {{ :conditions => ["#{:start.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end.to_sql_column} > #{Time.now.utc.to_sql}"]}}
@@ -64,7 +64,7 @@ class Notice < ActiveRecord::Base
 
 
   def proper_time
-    errors.add_to_base "Start/end time combination is invalid." if self.start >= self.end if self.end
+    errors.add_to_base "Start/end time combination is invalid." if self.end && self.start >= self.end
   end
   
   def destroy_user_sinks_user_sources
