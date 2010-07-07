@@ -1,5 +1,10 @@
 <% title "New Time Slot for " + @period_start.to_s(:just_date_long) + " to " + (@period_start + 6.days).to_s(:just_date_long) %>
 
-<%= render :partial => 'form' %>
+<% form_for @time_slot do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => {:f => f}  %>
+  <p><%= f.submit "Add" %></p>
+<% end %>
+
 
 <p><%= link_to "Back to List", time_slots_path %></p>
