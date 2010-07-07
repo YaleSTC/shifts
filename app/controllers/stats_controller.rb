@@ -1,19 +1,11 @@
 class StatsController < ApplicationController
+ 
   def index
     return unless user_is_admin_of(current_department)
     @start_date = params[:start_date] ? Date.parse(params[:start_date]) : 1.week.ago.to_date
     @end_date = params[:end_date] ? Date.parse(params[:end_date]) : 1.day.ago.to_date
     
     @stats = {}
-    
-    # def average_shift_updates_hour #Could probably be optimized with better attribute -> sum handling
-    #   myshifts = self.shifts.find(:all, :conditions => {:parsed => true})
-    #   total_time = 0
-    #   myshifts.each do |shift|
-    #     total_time += shift.updates_hour
-    #   end
-    #   return total_time/myshifts.size
-    # end
     
     users = current_department.active_users.sort_by(&:last_name)
 
@@ -22,8 +14,8 @@ class StatsController < ApplicationController
       
       shifts = u.shifts.on_days(@start_date, @end_date).active
 
+      user_stats[:u] = u
       user_stats[:name] = u.name
-      
       user_stats[:num_shifts] = shifts.size
       user_stats[:num_late] = shifts.select{|s| s.late == true}.size
       user_stats[:num_missed] = shifts.select{|s| s.missed == true}.size
@@ -37,7 +29,34 @@ class StatsController < ApplicationController
       @stats[u.id] = user_stats
     end
   end
-    
+
+  def for_user
+    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : 1.week.ago.to_date
+    @end_date = params[:end_date] ? Date.parse(params[:end_date]) : 1.day.ago.to_date
+    @user = User.find(params[:id])
+    @stats_hash = @user.detailed_stats(@start_date, @end_date)
+  end
+  
+  def show
+    begin
+      @shift = Shift.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        # format.html #freak out
+        format.js do
+          render :update do |page|
+            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.")
+            page.hide "tooltip"
+          end
+        end
+      end
+    else
+      return unless require_department_membership(@shift.department)
+    end
+  end
+end
+
+
 
   # def index
   #     return unless user_is_admin_of(current_department)
@@ -65,4 +84,3 @@ class StatsController < ApplicationController
   #       @stats[u.id] = user_stats
   #     end
   # end
-end
