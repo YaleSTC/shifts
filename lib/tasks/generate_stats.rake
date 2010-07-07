@@ -1,15 +1,9 @@
 def generate_stats
-  shifts = Shift.parsed
+  shifts = Shift.parsed.active
   shifts.each do |shift|
-    if shift.missed?
-      shift.missed = true
-    end
-    if shift.late?
-      shift.late = true
-    end
-    if shift.left_early?
-      shift.left_early = true
-    end
+    shift.missed = shift.missed?
+    shift.late = shift.late?
+    shift.left_early = shift.left_early?
     shift.updates_hour = shift.updates_per_hour
     shift.parsed = true
     shift.save
