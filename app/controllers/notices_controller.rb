@@ -37,6 +37,10 @@ class NoticesController < ApplicationController
   protected
 
   def set_sources(notice)
+   
+      #LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_sink_id = #{self.id.to_sql}"])
+      #UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_sink_id = #{self.id.to_sql}"])
+  
 		if params[:for_users] && notice.type == "Sticky"
 			params[:for_users].split(",").each do |l|
 		  	if l == l.split("||").first #This is for if javascript is disabled
