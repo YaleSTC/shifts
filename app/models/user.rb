@@ -241,17 +241,29 @@ class User < ActiveRecord::Base
   
     shifts_set.each do |s|
        stat_entry = {}
-       stat_entry[:location] = s.location.short_name
-       stat_entry[:start] = s.start
-       stat_entry[:end] = s.end
+       stat_entry[:id] = s.id
+       stat_entry[:shift] = s.short_display
        stat_entry[:in] = s.created_at
        stat_entry[:out] = s.updated_at
+       # if s.missed
+       #   stat_entry[:notes] = "Missed"
+       # elsif s.late && s.left_early
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes, and left early " + (s.end - s.updated_at)/60 + " minutes"
+       # elsif s.late
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes"
+       # elsif s.left_early
+       #   stat_entry[:notes] = "Left early " + (s.end - s.updated_at)/60 + " minutes"
+       # else
+       #   stat_entry[:notes]
+       # end
        if s.missed
          stat_entry[:notes] = "Missed"
+       elsif s.late && s.left_early
+         stat_entry[:notes] = "Late and left early"
        elsif s.late
-         stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes"
+         stat_entry[:notes] = "Late"
        elsif s.left_early
-         stat_entry[:notes] = "Left Early"
+         stat_entry[:notes] = "Left early"
        else
          stat_entry[:notes]
        end

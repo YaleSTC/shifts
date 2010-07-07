@@ -16,7 +16,6 @@ class StatsController < ApplicationController
 
       user_stats[:u] = u
       user_stats[:name] = u.name
-      
       user_stats[:num_shifts] = shifts.size
       user_stats[:num_late] = shifts.select{|s| s.late == true}.size
       user_stats[:num_missed] = shifts.select{|s| s.missed == true}.size
@@ -27,7 +26,6 @@ class StatsController < ApplicationController
       else
         user_stats[:updates] = valid_report_stats.sum/valid_report_stats.size
       end
-      
       @stats[u.id] = user_stats
     end
   end
@@ -38,9 +36,27 @@ class StatsController < ApplicationController
     @user = User.find(params[:id])
     @stats_hash = @user.detailed_stats(@start_date, @end_date)
   end
-    
+  
+  def show
+    begin
+      @shift = Shift.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        # format.html #freak out
+        format.js do
+          render :update do |page|
+            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.")
+            page.hide "tooltip"
+          end
+        end
+      end
+    else
+      return unless require_department_membership(@shift.department)
+    end
+  end
 end
-    
+
+
 
   # def index
   #     return unless user_is_admin_of(current_department)
