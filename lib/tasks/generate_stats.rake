@@ -1,5 +1,5 @@
 def generate_stats
-  shifts = Shift.parsed
+  shifts = Shift.parsed.active
   shifts.each do |shift|
     shift.missed = shift.missed?
     shift.late = shift.late?
