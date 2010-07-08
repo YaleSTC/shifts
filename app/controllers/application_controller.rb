@@ -254,18 +254,10 @@ class ApplicationController < ActionController::Base
 
   def parse_date_and_time_output(form_output)
     %w{start end mandatory_start mandatory_end}.each do |field_name|
-
-        midnight = 0
-
         ## Simple Time Select Input
         unless form_output["#{field_name}_time(5i)"].blank?
-          unless form_output["#{field_name}_time(5i)"].scan(/\+$/).empty?
-            midnight = 1.day
-          end
-
           form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
         end
-
 
         ## Date Input - Hidden Field
         unless form_output["#{field_name}_date"].blank?
@@ -277,18 +269,28 @@ class ApplicationController < ActionController::Base
         join_date = [ form_output["#{field_name}_date(1i)"], form_output["#{field_name}_date(2i)"], form_output["#{field_name}_date(3i)"] ].join('-')
         form_output["#{field_name}_date"] = Date.parse( join_date )
         end
+    end
 
-        ## If simple_time_select was beyond midnight, add a day
-        unless form_output["#{field_name}_date"].blank?
-          form_output["#{field_name}_date"] += midnight
+
+    #when there is no end_date (such as shifts, time_slots, and sub_requests)
+    form_output["end_date"] ||= form_output["start_date"] if form_output["start_date"]
+    form_output["mandatory_end_date"] ||= form_output["mandatory_start_date"] if form_output["mandatory_start_date"]
+
+
+#Midnight? and cleanup
+    %w{start end mandatory_start mandatory_end}.each do |field_name|
+        unless form_output["#{field_name}_time(5i)"].nil?
+          unless form_output["#{field_name}_time(5i)"].scan(/\+$/).empty?
+            form_output["#{field_name}_date"] += 1.day
+          end
         end
-
         form_output.delete("#{field_name}_date(1i)")
         form_output.delete("#{field_name}_date(2i)")
         form_output.delete("#{field_name}_date(3i)")
         form_output.delete("#{field_name}_time(5i)")
-
     end
+
+
     form_output
   end
 
