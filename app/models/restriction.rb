@@ -20,8 +20,8 @@ class Restriction < ActiveRecord::Base
   end
 
   def join_date_and_time
-    self.starts = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-    self.expires = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+    self.starts ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+    self.expires ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
   end
 
 end
