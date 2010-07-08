@@ -117,7 +117,8 @@ class ShiftsController < ApplicationController
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)
-    @shift.start = Time.now unless @shift.start
+    @shift.join_date_and_time
+#    @shift.start = Time.now unless @shift.start
     @shift.calendar = @department.calendars.default unless @shift.calendar
     unless current_user.is_admin_of?(@department) && @shift.scheduled?
       @shift.power_signed_up = false
