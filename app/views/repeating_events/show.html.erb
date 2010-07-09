@@ -2,11 +2,19 @@
 
 <p>
   <strong>Start Date:</strong>
-  <%=h @repeating_event.start_date %>
+  <%=h @repeating_event.start_date.to_date %>
 </p>
 <p>
   <strong>End Date:</strong>
-  <%=h @repeating_event.end_date %>
+  <%=h @repeating_event.end_date.to_date %>
+</p>
+<p>
+  <strong>End Time:</strong>
+  <%=h @repeating_event.start_time %>
+</p>
+<p>
+  <strong>End Time:</strong>
+  <%=h @repeating_event.end_time %>
 </p>
 <p>
   <strong>Calendar:</strong>
