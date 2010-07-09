@@ -42,3 +42,4 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
   font-size: 90%;
 }
 
+.gray_url {float:right; overflow:hidden; white-space:none; text-align:right; color:gray;}

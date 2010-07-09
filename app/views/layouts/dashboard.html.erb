@@ -34,7 +34,7 @@
 			
 	<h3>Useful Links</h3>
 		<div id = "dashboard_links">
-			<% unless current_department.get_links.empty? %>		
+			<% unless current_department.links.empty? %>		
 		  	<%= render :partial => 'links/dashboard_links'%>
 			<% end %>
 		</div>
