@@ -32,8 +32,8 @@ class LinksController < NoticesController
       end
     else
       respond_to do |format|
-        format.html {
         flash[:notice] = 'Link was successfully created.'
+        format.html {
         redirect_to links_path
         }
         format.js  #create.js.rjs
