@@ -61,7 +61,7 @@ class NoticesController < ApplicationController
 		if params[:for_location_groups] 
       params[:for_location_groups].each do |loc_group|
 				@loc_group = LocGroup.find_by_id(loc_group)
-				if current_user.is_admin_of?(@loc_group)
+				if current_user.is_admin_of?(@loc_group) || notice.class.name == "Sticky"
         	notice.loc_groups << @loc_group	
 					notice.locations << @loc_group.locations
       	end
