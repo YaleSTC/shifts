@@ -145,15 +145,15 @@ class RepeatingEvent < ActiveRecord::Base
 #  end
 
   def days_of_week_present
-    errors.add_to_base("You must select at least one day of the week!") unless days_of_week
+    errors.add_to_base("You must select at least one day of the week.") unless days_of_week
   end
 
   def loc_ids_present
-    errors.add_to_base("You must select at least one location!") unless loc_ids
+    errors.add_to_base("You must select at least one location.") unless loc_ids
   end
 
   def user_id_present
-    errors.add_to_base("Please select a user!") unless (self.user_id && self.user_id!=0 && !self.user_id.nil?) || self.is_set_of_timeslots
+    errors.add_to_base("Please select a user.") unless (self.user_id && self.user_id!=0 && !self.user_id.nil?) || self.is_set_of_timeslots
   end
 
   def start_date_less_than_end_date
@@ -171,7 +171,7 @@ class RepeatingEvent < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add_to_base("Repeating event start and end dates must be within the range of the calendar!") if self.start_date < self.calendar.start_date || self.end_date > self.calendar.end_date
+      errors.add_to_base("Repeating event start and end dates must be within the range of the calendar.") if self.start_date < self.calendar.start_date || self.end_date > self.calendar.end_date
     end
   end
 

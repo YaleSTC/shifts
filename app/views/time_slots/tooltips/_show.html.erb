@@ -1,5 +1,7 @@
+<% #TODO This is not DRY - the popup form should share a partial with the html one%>
+
 <div class="close_link">
-  <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+  	  <a onclick="$('#tooltip').fadeOut(function (){ $(this).remove() }); return false;" href="#">[esc]</a>
 </div>
 <% if current_user.is_admin_of?(@department) %>
   <% if params[:delete_options] and @time_slot.repeating_event %>
@@ -14,11 +16,35 @@
     <% remote_form_for @time_slot do |f| %>
       <p>
         <%= f.label :start %><br />
-        <%= f.time_select :start, :twelve_hour => true %>
+        <%= f.hidden_field :start_date, :value => @start_time%>
+        <%= f.time_select :start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => @department.department_config.time_increment,
+
+                :start_time => @start_time,
+                :end_time => @end_time,
+
+                :default => @default_start_time,
+                :include_start_time => true,
+                :include_end_time => false,
+                                          } %>
       </p>
       <p>
         <%= f.label :end %><br />
-        <%= f.time_select :end, :twelve_hour => true %>
+        <%= f.hidden_field :end_date, :value => @end_time%>
+        <%= f.time_select :end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => @department.department_config.time_increment,
+
+                :start_time => @start_time,
+                :end_time => @end_time,
+
+                :default => @default_end_time,
+                :include_start_time => false,
+                :include_end_time => true,
+                                          } %>
       </p>
       <p>
         <%= f.label :location %><br />
@@ -58,8 +84,20 @@
 <% end %>
 
 <script type="text/javascript">
-  // don't retrigger the action when clicking the tooltip :P
-  $(".tooltip").click(function(e){
-    e.stopPropagation();
-  });
+// don't retrigger the action when clicking the tooltip :P
+$('#tooltip').click(function(e){
+	e.stopPropagation();
+});
+$(this).keyup(function(event) {
+  if (event.keyCode == 27) {
+     $('#tooltip').fadeOut(function (){ $(this).remove() });
+	 return false;
+   }
+});
+$(this).click(function(event) {
+	if ($('#tooltip').length == 1) {
+     $('#tooltip').fadeOut(function (){ $(this).remove() });
+		return(false);
+	}
+});
 </script>

@@ -1,6 +1,11 @@
-<h1 id="page_title"><%= link_to '<- back to all notices', notices_path %></h1>
-<fieldset class ="index">
-  <legend>Inactive Notices</legend>
-  <%= render :partial => 'notice', :collection => Notice.inactive %>
+<h1 id = "page_title" > Notices archive </h1>
+<fieldset class="index">
+  <legend>Inactive announcements</legend>
+  <%= render :partial => 'notice', :collection => Announcement.inactive %>
 </fieldset>
+<fieldset class="index">
+  <legend>Inactive stickies</legend>
+  <%= render :partial => 'notice', :collection => Sticky.inactive %>
+</fieldset>
+
 

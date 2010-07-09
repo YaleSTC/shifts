@@ -1,0 +1,66 @@
+<% form_remote_for @notice do |f| %>
+  <div id ="errors">
+    <%= render :partial => "error_messages", :locals => {:f => f} %>
+  </div>
+  <% unless @notice_type %>
+  <fieldset class = "index">
+    <legend>Content:</legend>
+    <%= f.text_area :content, :id=>"content", :size => "60x5" %>
+  </fieldset>
+  <% end %>
+
+  <% if current_user.is_admin_of?(current_department) %>
+    <% if @notice_type %>
+      <fieldset class = "index">
+        <legend>Link label</legend>
+        <%= text_field_tag "link_label" %>
+      </fieldset>
+      <fieldset class = "index">
+        <legend>URL</legend>
+        <%= text_field_tag "url", {}, :style => 'width: 400px' %>
+      </fieldset>
+      <%= hidden_field_tag 'type', 'link' %>
+    <% end %>
+    <% unless @notice_type %>
+      <fieldset class = "index">
+        <legend>Type of notice:</legend>
+        <%= radio_button_tag 'type', 'sticky', type_check(true) %> Sticky <br />
+        <%= radio_button_tag 'type', 'announcement', type_check(false) %> Announcement
+      </fieldset>
+      <div id = "time_choices">
+
+        <fieldset class = "index">
+        <legend>Start time:</legend>
+          <%= radio_button_tag 'start_time_choice', 'now',start_time_check(true) %> Now <br/>
+          <%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
+      		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+        </fieldset>
+
+        <fieldset class = "index">
+          <legend>End time:</legend>
+          <%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
+          <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
+      		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% unless current_user.is_admin_of?(current_department) %>
+  <%# TODO: change notice administrator to loc group admins, not dept admins %>
+    <%= hidden_field_tag 'type', 'sticky' %>
+    <%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
+
+    <div id="advanced_options_div">
+  <%end%>
+  <%= render :partial => 'advanced_options'%>
+  <% unless current_user.is_admin_of?(current_department) %>
+    </div>
+  <% end %>
+  <p>
+    <%= f.submit 'Save' %>
+  </p>
+<% end %>
+
+<%= javascript_include_tag 'notices' %>
+

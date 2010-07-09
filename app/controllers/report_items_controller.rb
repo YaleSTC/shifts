@@ -20,15 +20,27 @@ class ReportItemsController < ApplicationController
     respond_to do |format|
       @report = Report.find(@report_item.report_id)
       if current_user==@report_item.user && @report_item.save
+        @report.shift.stale_shifts_unsent = true
+        @report.shift.save
         format.html {redirect_to @report}
         format.js
       else
-        flash[:notice] = "You can't add things to someone else's report!" if @report_item.user != current_user
+        flash[:notice] = "You can't add things to someone else's report." if @report_item.user != current_user
         format.html {redirect_to @report}
         format.js {redirect_to @report}
       end
     end
   end
+
+
+# past 3 hours. Find all shifts that ended in that past one select those shifts then tkae all of their report items and then draw them in line items. More can't show that. So genearlize it end in the past x hours. If we take shifts that started of it. So what you want to t o.. Find MATCH 
+#report_items.each do |report_item|
+#block of code. 
+#report_items.find(:cond time > sometime interface this way first so that it's flexibile and then move on. 
+
+#start.time params[:start] ||= 3.hours.ago.utc
+#start_time = param[:start] || 3.hours.ago.utc
+#end_time = #param[:end_time] || time.now
 
 #  def edit
 #    @report_item = ReportItem.find(params[:id])

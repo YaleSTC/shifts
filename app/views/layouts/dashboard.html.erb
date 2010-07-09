@@ -5,36 +5,44 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
-		<% if current_user.is_superuser? %>
-      <h3> Superuser Options </h3>
+	
+	<% if current_user.is_superuser? %>
+    <h3> Superuser Options </h3>
       <li><%= link_to_unless_current "Application Settings", edit_app_config_path %></li>
       <li><%= link_to_unless_current "Manage Superusers", superusers_path %></li>
-    <% end %>
+      <% end %>
+
     <% if current_user.is_admin_of?(@department) %>
-      <h3>Admin Options</h3>
+    <h3>Admin Options</h3>
 		<li><%= link_to_unless_current "Department Settings", edit_department_config_path(@department.department_config) %></li>
 		<li><%= link_to_unless_current "Stats", stats_path %></li>
       	<li><%= link_to_unless_current "Calendars", calendars_path %></li>
       	<li><%= link_to_unless_current "Roles", department_roles_path(@department) %></li>
-    <% end %>
-    <h3>Application Links</h3>
-    <li><%= link_to_unless_current "My Preferences", edit_user_config_path(current_user.user_config) %></li>
-    <li><%= link_to "My Profile", edit_user_profile_path(current_user.login) %></li>
+    	<% end %>
 
-    <h3>Notice Links</h3>
+    <h3>Application Links</h3>
+    	<li><%= link_to_unless_current "My Preferences", edit_user_config_path(current_user.user_config) %></li>
+    	<li><%= link_to "My Profile", edit_user_profile_path(current_user.login) %></li>
+		<li><%= link_to_unless_current "My Calendar Feeds", calendar_feeds_path %></li>
+		<li><%= link_to_unless_current "SubRequests", sub_requests_path %></li>
+		
+	<h3>Notice Links</h3>
+			<li><%= link_to_post_a_link %></li>
+			<li><%= link_to_post_a_sticky(false) %></li>
+			<li><%= link_to_post_an_announcement %></li>
+			<li><%= link_to "View all notices", notices_path %></li>
+			
+	<h3>Useful Links</h3>
+		<div id = "dashboard_links">
+			<% unless current_department.get_links.empty? %>		
+		  	<%= render :partial => 'links/dashboard_links'%>
+			<% end %>
+		</div>
 		<li><%= link_to_post_a_link %></li>
-		<li><%= link_to_post_a_sticky %></li>
-		<li><%= link_to_post_an_announcement %></li>
-		<li><%= link_to "View all notices", notices_path %></li>
-		<% unless current_department.get_links.empty? %>		
-		<h3>Useful Links</h3>
-      <div id = "dashboard_useful_links">
-        <%= render :partial => 'notices/dashboard_useful_links'%>
-      </div>
-		<% end %> 
+		<li><%= link_to "View all links", links_path %></li>
   </ul>
-        <div id="contentNav">
-  <% end %>
+  <div id="contentNav">
+<% end %>
 
 <% content_for :body do %>
 
@@ -44,4 +52,3 @@
 <% end -%>
 
 <%= render :file => "layouts/application.html.erb" %>
-

@@ -126,7 +126,7 @@ private
 
   def check_data_object_admin_permission(obj)
     if (current_user.loc_groups_to_admin(current_department).map{|lg| lg.locations}.flatten & obj.locations).empty?
-      flash[:notice] = "You do not have permission to administer this data object"
+      flash[:notice] = "You do not have permission to administer this data object."
       redirect_to access_denied_path
     end
   end

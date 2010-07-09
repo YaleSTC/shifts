@@ -1,65 +1,30 @@
 <div class="close_link">
-  <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
+  <a onclick="$('#tooltip').fadeOut(function (){ $(this).remove() }); return false;" href="#">[esc]</a>
 </div>
 <h2>New Shift</h2>
 
-<% if current_user.is_admin_of?(@department) %>
-  <p>
-    <%= check_box_tag :repeating_event, false, false, :onclick => "$('.toggle_me').toggle()" %> Repeating event?
-  </p>
-<% end %>
+	<% if current_user.is_admin_of?(@department) %>
+	  <p>
+		<%= check_box_tag :repeating_event, false, false, :onclick => "$('.toggle_me').toggle()" %> Repeating event?
+	  </p>
+	<% end %>
 
-<div class="toggle_me">
-  <% remote_form_for @shift do |f| %>
-    <%= f.error_messages %>
-    <%
-      start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
-      if params[:xPercentage]
-        @dept_start_hour ||= current_department.department_config.schedule_start
-        @dept_end_hour ||= current_department.department_config.schedule_end
-        @minutes_per_day ||= (@dept_end_hour - @dept_start_hour)
-        start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f) * 60
-      end
-    %>
-    <%#= render :partial => 'shifts/form', :locals => {:f => f} %><%# disabled because start and end don't need dates, just times %>
-    <p>
-      <%= f.label :start %><br />
-      <%= f.time_select :start, :twelve_hour => true, :default => start_time, :minute_step => current_department.department_config.time_increment %>
-    </p>
-    <p>
-      <%= f.label :end %><br />
-      <%= f.time_select :end, :twelve_hour => true, :default => start_time + 1.hour, :minute_step => current_department.department_config.time_increment %>
-    </p>
-    <p>
-      <%= f.label :location %><br />
-      <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, params[:location_id].to_i)%><br />
-    </p>
-    <% if current_user.is_admin_of?(@department) %>
-      <p>
-        <%= f.label :calendar %><br />
-        <%= select_tag 'shift[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%><br />
-        <%#= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
-      </p>
-      <p>
-        <%= f.label :user %><br />
-        <%= f.collection_select(:user_id, current_department.active_users.sort_by(&:last_name), :id, :name, {:prompt => "Select a user"}) %>
-      </p>
-      <p>
-        <%= f.check_box :power_signed_up, :checked => true %> Power signup
-      </p>
-    <% elsif params[:calendar] %>
-      <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
-    <% end %>
+	<div class="toggle_me">
+	  <% remote_form_for @shift do |f| %>
+		<%= f.error_messages %>
+		  <%= render :partial => 'shifts/form', :locals => {:f => f} %>
     <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
-  <% end %>
-</div>
 
-<% if current_user.is_admin_of?(@department) %>
-  <div class="toggle_me" style="display:none">
-    <% remote_form_for (@repeating_event = RepeatingEvent.new) do |f| %>
-      <%= render :partial => 'shifts/form_repeating', :locals => {:f => f} %>
-      <%= hidden_field_tag 'rerender_date', params[:date] %>
-      <p><%= submit_to_remote "add_button", "Create New Repeating Event", :url => { :controller => 'repeating_events', :action => 'create', :calendar => params[:calendar] }, :loading => "$(this).val('creating...'); $(this).attr('disabled', 'true')" %></p>
-    <% end %>
-  </div>
-<% end %>
+	  <% end %>
+	</div>
+
+	<% if current_user.is_admin_of?(@department) %>
+	  <div class="toggle_me" style="display:none">
+		<% remote_form_for (@repeating_event = RepeatingEvent.new) do |f| %>
+		  <%= render :partial => 'shifts/form_repeating', :locals => {:f => f} %>
+		  <%= hidden_field_tag 'rerender_date', params[:date] %>
+		  <p><%= submit_to_remote "add_button", "Create New Repeating Event", :url => { :controller => 'repeating_events', :action => 'create', :calendar => params[:calendar] }, :loading => "$(this).val('creating...'); $(this).attr('disabled', 'true')" %></p>
+		<% end %>
+	  </div>
+	<% end %>
+

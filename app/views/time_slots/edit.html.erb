@@ -1,4 +1,4 @@
-<% title "Edit Time Slot" %>
+<% title "Edit Time Slot for " + @start_time.to_date.to_s(:just_date_long) %>
 
 <%= render :partial => 'form' %>
 
@@ -6,3 +6,4 @@
   <%= link_to "Show", @time_slot %> |
   <%= link_to "View All", time_slots_path %>
 </p>
+

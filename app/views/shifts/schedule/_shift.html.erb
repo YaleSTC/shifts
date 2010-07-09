@@ -5,9 +5,6 @@
   <div class="time-slot">
     <%= render :partial => "shifts/schedule/sub", :collection => shift.sub_requests %>
 
-
-
-
     <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => @table_pixels / @table_height + 1 } if @right_overflow %>
     <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => @table_pixels / @table_height + 1 } if @left_overflow %>
 

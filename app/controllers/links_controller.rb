@@ -1,7 +1,5 @@
 class LinksController < NoticesController
-
-  def index
-  end
+	before_filter :require_any_loc_group_admin, :except => [:index, :show, :destroy]
 
   def new
     @link = Link.new
@@ -17,8 +15,9 @@ class LinksController < NoticesController
 		@link.author = current_user		
 		@link.department = current_department
 		@link.url = "http://" << params[:link][:url] if @link.url[0,7] != "http://" || @link.url[0,8] != "https://"
-		@link.start_time = Time.now
-    @link.end_time = nil
+		@link.url.strip!
+		@link.start = Time.now
+    @link.end = nil
     @link.indefinite = true
 		begin
       Link.transaction do
@@ -26,15 +25,15 @@ class LinksController < NoticesController
         set_sources(@link)
         @link.save!
     	end
-		rescue Exception
+		rescue ActiveRecord::RecordInvalid
       respond_to do |format|
         format.html { render :action => "new" }
         format.js  #create.js.rjs
       end
     else
       respond_to do |format|
-        format.html {
         flash[:notice] = 'Link was successfully created.'
+        format.html {
         redirect_to links_path
         }
         format.js  #create.js.rjs
@@ -48,8 +47,9 @@ class LinksController < NoticesController
 		@link.author = current_user		
 		@link.department = current_department
 		@link.url = "http://" << params[:link][:url] if @link.url[0,7] != "http://" && @link.url[0,8] != "https://"
-		@link.start_time = Time.now
-    @link.end_time = nil
+		@link.url.strip!
+		@link.start = Time.now
+    @link.end = nil
     @link.indefinite = true
 		begin
       Link.transaction do
@@ -57,7 +57,7 @@ class LinksController < NoticesController
         set_sources(@link)
         @link.save!
     	end
-		rescue Exception
+		rescue ActiveRecord::RecordInvalid
       respond_to do |format|
         format.html { render :action => "new" }
       end
@@ -69,9 +69,5 @@ class LinksController < NoticesController
         }
       end
     end
-  end
-
-  def destroy
-		redirect_to :controller => 'notice', :action => 'destroy'
   end
 end

@@ -4,9 +4,7 @@ class Notice < ActiveRecord::Base
   belongs_to :remover, :class_name => "User"
   belongs_to :department
 
-  validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
-  before_destroy :destroy_user_sinks_user_sources
-  
+  #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
   named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
   named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
   named_scope :inactive, lambda {{ :conditions => ["end_time != ? AND end_time < ?", nil, Time.now.utc] }}
@@ -24,11 +22,11 @@ class Notice < ActiveRecord::Base
   end
 
   def is_current?
-    self.end_time ? self.start_time < Time.now && self.end_time > Time.now : self.start_time < Time.now
+    self.end ? self.start < Time.now && self.end > Time.now : self.start < Time.now
   end
 
   def is_upcoming?
-    return self.start_time > Time.now if self.start_time
+    return self.start > Time.now if self.start
     false
   end
 
@@ -41,8 +39,8 @@ class Notice < ActiveRecord::Base
   end
 
   def remove(user)
-    self.errors.add_to_base "This notice has already been removed by #{remover.name}" and return if self.remover && self.end_time
-    self.end_time = Time.now
+    self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end
+    self.end = Time.now
     self.indefinite = false
     self.remover = user
     true if self.save
@@ -60,8 +58,9 @@ class Notice < ActiveRecord::Base
   	end
 	end
 
+
   def proper_time
-    errors.add_to_base "Start/end time combination is invalid." if self.start_time >= self.end_time if self.end_time
+    errors.add_to_base "Start/end time combination is invalid." if self.end && self.start >= self.end
   end
   
   def destroy_user_sinks_user_sources

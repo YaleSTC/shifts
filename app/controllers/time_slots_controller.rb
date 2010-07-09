@@ -20,23 +20,26 @@ class TimeSlotsController < ApplicationController
 
   def new
     @time_slot = TimeSlot.new
-    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday.to_date : Date.today.previous_sunday.to_date
   end
 
   def create
     @time_slots = []
     errors = []
-    week_start_date= (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
+    parse_date_and_time_output(params[:time_slot])
+#date should ideally come from the hidden date field across the application, and it can be forced through this way;
+#but the way it's written, week_start_date makes more sense to keep ~Casey
+    week_start_date = (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
     for location_id in params[:location_ids]
       for day in params[:days]
         time_slot = TimeSlot.new(params[:time_slot])
         time_slot.location_id = location_id
-        time_slot.start = week_start_date+ day.to_i.days + time_slot.start.seconds_since_midnight
-        time_slot.end = week_start_date+ day.to_i.days + time_slot.end.seconds_since_midnight
+        time_slot.start_date = week_start_date + day.to_i.days
+        time_slot.end_date = week_start_date + day.to_i.days
         time_slot.calendar = @department.calendars.default unless time_slot.calendar
         if !time_slot.save
           errors << "Error saving timeslot for #{WEEK_DAYS[day.to_i]}"
-      else
+        else
           @time_slots << time_slot
         end
       end
@@ -71,6 +74,8 @@ class TimeSlotsController < ApplicationController
   def update
     @time_slot = TimeSlot.find(params[:id])
 
+    parse_date_and_time_output(params[:time_slot])
+
     if @time_slot.update_attributes(params[:time_slot])
       respond_to do |format|
         format.js
@@ -87,7 +92,7 @@ class TimeSlotsController < ApplicationController
             @time_slot.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>error:</strong> updated time slot could not be saved"+error_string, 2.5 + (@time_slot.errors.size))
+            ajax_alert(page, "<strong>error:</strong> updated time slot could not be saved."+error_string, 2.5 + (@time_slot.errors.size))
           end
         end
         format.html {render :action => 'edit'}

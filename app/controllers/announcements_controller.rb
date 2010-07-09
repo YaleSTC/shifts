@@ -1,4 +1,5 @@
 class AnnouncementsController < NoticesController
+	before_filter :require_any_loc_group_admin, :except => [:index, :show]
 
   def index
     redirect_to(notices_path)
@@ -9,12 +10,13 @@ class AnnouncementsController < NoticesController
   end
 
   def new
+     @disable_locations = false
     @announcement = Announcement.new
     layout_check
   end
 
   def edit
-		require_department_admin
+    @disable_locations = true
     @announcement = Announcement.find(params[:id])
 		layout_check
   end
@@ -34,9 +36,9 @@ class AnnouncementsController < NoticesController
         format.js  #create.js.rjs
       end
     else
+			flash[:notice] = 'Announcement was successfully created.'
       respond_to do |format|
         format.html {
-        flash[:notice] = 'Announcement was successfully created.'
         redirect_to announcements_path
         }
         format.js  #create.js.rjs
@@ -45,7 +47,7 @@ class AnnouncementsController < NoticesController
   end
 
   def update
-    @announcement = Announcement.find_by_id(params[:id]) || Announcement.new
+    @announcement = Announcement.find_by_id(params[:id]) || Announcement.new 
 		@announcement.update_attributes(params[:announcement])
 		set_author_dept_and_time
     begin
@@ -70,17 +72,13 @@ class AnnouncementsController < NoticesController
     end
   end
 
-  def destroy
-    redirect_to :controller => 'notice', :action => 'destroy'
-  end
-
 	private
 	def set_author_dept_and_time
 		@announcement.author = current_user
 		@announcement.department = current_department
-		@announcement.start_time = Time.now if params[:start_time_choice] == "now"
+		@announcement.start = Time.now if params[:start_time_choice] == "now"
 		if params[:end_time_choice] == "indefinite"
-    	@announcement.end_time = nil 
+    	@announcement.end = nil 
     	@announcement.indefinite = true
 		end
 	end

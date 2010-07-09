@@ -1,4 +1,12 @@
+<% if params[:printed].nil? %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Finalized Payforms", payforms_path(:unsubmitted =>true, :submitted => true, :approved => true, :printed => true), :class => "action_with_icon" %>
+<% else %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Finalized Payforms", payforms_path, :class => "action_with_icon" %>
+<% end %>
+
 <table id="payformList" width="100%">
+
+
   <thead><tr>
     <% if current_user.is_admin_of?(current_department) -%>
       <th>User</th>
@@ -13,7 +21,7 @@
       <th>Approved</th>
     <% end -%>
     <% if params[:printed] %>
-      <th>Printed</th>
+      <th>Finalized</th>
     <% end -%>
   </tr></thead>
   <%= render :partial => "payform", :collection => @payforms %>

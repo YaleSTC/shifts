@@ -25,16 +25,16 @@
 <% end %>
 <div id = "location_notices">
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
-    <% loc_group.locations.each do |loc| %>
-      <% @loc_current_notices = loc.current_notices %>
-      <% unless @loc_current_notices.empty? %>
-        <fieldset class ="index">
-          <legend id ="blue_fieldset"><%= loc.name %></legend>
-          <%= render :partial => 'notices/notice', :collection => @loc_current_notices%>
-        </fieldset>
-        <br/>
-      <% end %>
-    <% end %>
+		<% loc_group.locations.each do |loc| %>
+		    <% @loc_current_notices = loc.current_notices %>
+		    <% unless @loc_current_notices.empty? %>
+		      <fieldset class ="index">
+		        <legend><%= loc.name %></legend>
+		        <%= render :partial => 'notices/notice', :collection => @loc_current_notices%>
+		      </fieldset>
+		      <br/>
+		    <% end %>
+		  <% end %>
   <% end %>
 </div>
 

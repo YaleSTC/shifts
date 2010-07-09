@@ -27,9 +27,9 @@
 
 <p>
 <% if params[:show_inactive].nil? %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true, :class => "action_with_icon") %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true), :class => "action_with_icon" %>
 <% else %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department, :class => "action_with_icon") %>
+  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), :class => "action_with_icon" %>
 <% end %>
 </p>
 
