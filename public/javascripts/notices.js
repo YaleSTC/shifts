@@ -1,8 +1,35 @@
+function DepartmentCheckBoxes(){
+	var dept_status = $("#department_wide_locations").attr('checked');
+	$("div#all_locations :checkbox").each(function(){
+	    $(this).attr('checked', dept_status);
+	   if(dept_status) {
+	        $(this).attr('disabled', 'disabled');
+	    } else {
+	        $(this).removeAttr('disabled');
+	    }
+	});
+}
+
+function LocGroupCheckBoxes(lcg){
+	lcg.each(function(){
+  var locgroup_status = $(this).attr('checked');
+  $(this).siblings('input[type=checkbox]').each(function(){
+      $(this).attr('checked', locgroup_status);
+      if(locgroup_status) {
+          $(this).attr('disabled', 'disabled');
+      } else {
+          $(this).removeAttr('disabled');
+      }
+  });
+});
+}
+
 jQuery(document).ready(function(){
-
-
-//By default, only have advanced_options open on the main Notices page (not in a location)
-    if($("#page_title").text() != "Notices") {
+//By default, only have advanced_options open on the main Notices and Dashboard page (not in a shift report page)
+    DepartmentCheckBoxes();
+		LocGroupCheckBoxes($("input[name^='for_location_group']"));
+		
+    if(($("#page_title").text() != "Notices") && ($("#page_title").text() != "My Dashboard")) {
         $("#advanced_options_div").hide();
         $("#toggle_link").html('Show advanced options');
         $("#toggle_link").show();
@@ -11,39 +38,23 @@ jQuery(document).ready(function(){
         $("#toggle_link").show();
     }
 
-//$("#department_wide_locations").each(function(){
-//    $(this).css("display", "inline");
-//})
-
 		$("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
-  	  $(this).css("display", "inline");
-		})
-
-
-
-    $("#department_wide_locations").click(function(){
-        var dept_status = $(this).attr('checked');
-        $("div#all_locations :checkbox").each(function(){
-            $(this).attr('checked', dept_status);
-           if(dept_status) {
-                $(this).attr('disabled', 'disabled');
-            } else {
-                $(this).removeAttr('disabled');
-            }
-        });
-    });
-
+  	  $(this).css("display", "inline");		
+		});
+		
+    $("#department_wide_locations").click(DepartmentCheckBoxes);
+    //Tried and failed to extract this to a seperate function. Could not get objects to pass correctly. TODO: for someone with more javascript skillz -bay
     $("input[name^='for_location_group']").click(function(){
-        var locgroup_status = $(this).attr('checked');
-        $(this).siblings('input[type=checkbox]').each(function(){
-            $(this).attr('checked', locgroup_status);
-            if(locgroup_status) {
-                $(this).attr('disabled', 'disabled');
-            } else {
-                $(this).removeAttr('disabled');
-            }
-        });
-    });
+			  var locgroup_status = $(this).attr('checked');
+			  $(this).siblings('input[type=checkbox]').each(function(){
+			      $(this).attr('checked', locgroup_status);
+			      if(locgroup_status) {
+			          $(this).attr('disabled', 'disabled');
+			      } else {
+			          $(this).removeAttr('disabled');
+			      }
+			  });
+		});
 
     $("#type_sticky").click(function(){
         $("#start_time_choice_date").attr('checked', false);
@@ -58,14 +69,15 @@ jQuery(document).ready(function(){
     });
 
     $("#toggle_link").click(function(){
-        $("#advanced_options_div").toggle(function(){
-            if($(this).css("display")=="none") {
-                $("#toggle_link").html('Show advanced options');
-            } else {
-                $("#toggle_link").html('Hide advanced options');
-            }
-        });
+	       $("#advanced_options_div").toggle(function(){
+       		 if($(this).css("display")=="none") {
+		            $("#toggle_link").html('Show advanced options');
+								$("#TB_ajaxContent").animate({ height:'-=240' }, 300 );
+		        } else {
+		            $("#toggle_link").html('Hide advanced options');
+								$("#TB_ajaxContent").animate({ height:'+=240' }, 300 );
+		        }
+				});
     });
 
 });
-

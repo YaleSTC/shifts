@@ -4,16 +4,19 @@ class RestrictionsController < ApplicationController
   def index
     @restrictions = Restriction.all
   end
-  
+
   def show
     @restriction = Restriction.find(params[:id])
   end
-  
+
   def new
     @restriction = Restriction.new
+    @restriction.starts ||= Time.now.to_date.to_time
+    @restriction.expires ||= Time.now.to_date.to_time
   end
-  
+
   def create
+    parse_date_and_time_output(params[:restriction])
     @restriction = Restriction.new(params[:restriction])
     begin
       Restriction.transaction do
@@ -28,13 +31,14 @@ class RestrictionsController < ApplicationController
       redirect_to restrictions_path
     end
   end
-  
+
   def edit
     @restriction = Restriction.find(params[:id])
   end
-  
+
   def update
     @restriction = Restriction.find(params[:id])
+    parse_date_and_time_output(params[:restriction])
     if @restriction.update_attributes(params[:restriction])
       flash[:notice] = "Successfully updated restriction."
       redirect_to @restriction
@@ -42,14 +46,14 @@ class RestrictionsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @restriction = Restriction.find(params[:id])
     @restriction.destroy
     flash[:notice] = "Successfully destroyed restriction."
     redirect_to restrictions_url
   end
-  
+
   protected
 
   def set_sources
@@ -84,5 +88,6 @@ class RestrictionsController < ApplicationController
       end
     end
   end
-  
+
 end
+

@@ -97,6 +97,30 @@ module ShiftsHelper
     @open_at[time.to_s(:am_pm)] && people_count[time.to_s(:am_pm)] < location.min_staff
   end
 
+
+#calculates default_start/end and range_start/end_time
+  def calculate_default_times
+
+    if params[:xPercentage]
+      @shift.start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+      @dept_start_minutes ||= current_department.department_config.schedule_start
+      @dept_end_minutes ||= current_department.department_config.schedule_end
+      @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
+      @shift.start += @dept_start_minutes.minutes
+      @shift.start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
+#if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
+#if the schedule starts at 9:30, I'm not sure what happens ~Casey
+      @shift.end = @shift.start + 1.hour
+    else
+      @shift.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
+      @shift.end ||= @shift.start + 1.hour
+    end
+    @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
+    @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+  end
+
+
+
   def day_preprocessing(day)
     @location_rows = {}
 
@@ -281,3 +305,4 @@ module ShiftsHelper
   end
 
 end
+

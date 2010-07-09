@@ -25,9 +25,9 @@ class Department < ActiveRecord::Base
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name
   validates_uniqueness_of :admin_permission_id
-
+  
   def get_links
-    Link.active_without_end.select {|n| n.department == self}
+    Link.active_without_end.select {|n| n.departments.include?(self)}
   end
 
 # Returns all users active in a given department
@@ -41,6 +41,10 @@ class Department < ActiveRecord::Base
     self
   end
 
+  def sub_requests
+    SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| sub.shift.department == self }
+  end
+  
 #  has_and_belongs_to_many :users
   private
   def create_permissions

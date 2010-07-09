@@ -20,19 +20,20 @@
       <th align="left">Late</th>
       <th align="left">Left Early</th>
       <th align="left">Missed</th>
+			<th align="left">Updates/Hour</th>
     </tr>
   </thead>
   <tbody id="user_list">
     <% @stats.each do |key, stat| %>
       <tr>
-        <td><%=h stat[:name] %></td>
+        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date } %></td>
         <td><%=h stat[:num_shifts] %></td>
         <td><%=h stat[:num_late] %></td>
         <td><%=h stat[:num_left_early] %></td>
         <td><%=h stat[:num_missed] %></td>
-      </tr>
+				<td><%=h stat[:updates] %></td>
+ 			</tr>
     <% end %>
   </tbody>
 </table>
-
 <script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[0,0]]});});</script>

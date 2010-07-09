@@ -3,6 +3,7 @@ class ShiftsController < ApplicationController
 
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
+    @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true], :order => :start, :limit => 5)
 
     # for user view preferences partial
     @loc_group_select = {}
@@ -96,10 +97,11 @@ class ShiftsController < ApplicationController
   def new
     params[:shift][:end] ||= params[:shift][:start] if params[:shift] and params[:shift][:start]
     @shift = Shift.new(params[:shift])
-    if params[:tooltip]
-      @shift.user_id = current_user.id
-      render :partial => 'shifts/tooltips/new', :layout => 'none'
-    end
+# TODO - unecessary? they never seem to be called ~Casey
+#    if params[:tooltip]
+#      @shift.user_id = current_user.id
+#      render :partial => 'shifts/tooltips/new', :layout => 'none'
+#    end
   end
 
   def unscheduled
@@ -111,6 +113,7 @@ class ShiftsController < ApplicationController
   end
 
   def create
+    parse_date_and_time_output(params[:shift])
     @shift = Shift.new(params[:shift])
     @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)
@@ -124,7 +127,7 @@ class ShiftsController < ApplicationController
       flash[:notice] = "You can't sign into two shifts or punch clocks at the same time."
       redirect_to shifts_path and return
     elsif !@shift.power_signed_up && !current_user.can_signup?(@shift.location.loc_group)
-      flash[:notice] = "You don't have permission to sign up for a shift there!"
+      flash[:notice] = "You don't have permission to sign up for a shift there."
       redirect_to shifts_path and return
     end
     if @shift.save
@@ -141,7 +144,7 @@ class ShiftsController < ApplicationController
         format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
         format.js
       end
-    else
+  else
       respond_to do |format|
         format.html{ render :action => 'new' }
         format.js do
@@ -150,7 +153,7 @@ class ShiftsController < ApplicationController
             @shift.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>Error:</strong> shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            ajax_alert(page, "<strong>Error:</strong> shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
           end
         end
       end
@@ -160,11 +163,13 @@ class ShiftsController < ApplicationController
   def edit
     @shift = Shift.find(params[:id])
     @report = @shift.report
-    return unless user_is_owner_or_admin_of(@shift, @shift.department)
-    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
+# TODO - unecessary? they never seem to be called ~Casey
+#    return unless user_is_owner_or_admin_of(@shift, @shift.department)
+#    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
   end
 
   def update
+    parse_date_and_time_output(params[:shift])
     @shift = Shift.find(params[:id])
     return unless user_is_owner_or_admin_of(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
@@ -184,7 +189,7 @@ class ShiftsController < ApplicationController
             @shift.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved"+error_string, 2.5 + (@shift.errors.size))
+            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
           end
         end
         format.html {render :action => 'edit'}
@@ -228,5 +233,8 @@ class ShiftsController < ApplicationController
   #     format.js
   #   end
   # end
+
+
+
 end
 

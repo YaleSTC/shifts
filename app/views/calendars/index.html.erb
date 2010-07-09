@@ -1,3 +1,5 @@
+<H1>TEST</H1>
+
 <% if @calendar %>
   <% title @calendar.name + (@calendar.active? ? " (active)" : " (inactive)") %>
   <% subtitle "("+@calendar.start_date.strftime("%b %d, %Y")+" - "+(@calendar.default? ? "forever" : @calendar.end_date.strftime("%b %d, %Y") )+")"%>
@@ -56,7 +58,7 @@
   <p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
 
   <%# HIDE the new timeslot link when javascript is enabled.%>
-  <script type='text/javascript' charset='utf-8'>
+ <script type='text/javascript' charset='utf-8'>
     $('#new_time_slot_link').toggle();
   </script>
 <% end %>

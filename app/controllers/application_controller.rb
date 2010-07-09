@@ -11,9 +11,10 @@ class ApplicationController < ActionController::Base
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
-#  before_filter :load_user
+  #before_filter :load_user
 
-  helper :layout # include all helpers, all the time
+
+  helper :layout # include all helpers, all the time (whyy? -Nathan)
   helper_method :current_user
   helper_method :current_department
 
@@ -40,7 +41,6 @@ class ApplicationController < ActionController::Base
   protected
   def current_user
     @current_user ||= (
-#    raise @user_session.login.to_s
     if @user_session
       @user_session.user
     elsif session[:cas_user]
@@ -64,20 +64,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-#    if params[:department_id] or session[:department_id]
-#        @department ||= Department.find(params[:department_id] || session[:department_id])
-#    elsif current_user and current_user.departments
-#      @department = current_user.user_config.default_dept ? Department.find(current_user.user_config.default_dept) : current_user.departments[0]
-#    elsif current_user and current_user.is_superuser?
-#      @department = Department.first
-#    end
-#  end
-
-  # Application-wide settings are stored in the only record in the app_configs table
-#  def app_config
-#    AppConfig.first
-#  end
-
   def load_department
     if (params[:department_id])
       @department = Department.find_by_id(params[:department_id])
@@ -86,17 +72,6 @@ class ApplicationController < ActionController::Base
       end
     end
     @department ||= current_department
-
-    # update department id in session if neccessary so that we can use shallow routes properly
-#      if params[:department_id]
-#        session[:department_id] = params[:department_id]
-#        @department = Department.find_by_id(session[:department_id])
-#      elsif session[:department_id]
-#        @department = Department.find_by_id(session[:department_id])
-#      elsif current_user and current_user.departments
-#        @department = current_user.departments[0]
-#      end
-   # load @department variable, no need ||= because it's only called once at the start of controller
   end
 
   def load_user
@@ -107,8 +82,8 @@ class ApplicationController < ActionController::Base
     @user_session = UserSession.find
   end
 
-# These are the authorization before_filters to use under controllers
-# These all return nil
+  # These are the authorization before_filters to use under controllers
+  # These all return nil
   def require_department_admin
     unless current_user.is_admin_of?(current_department)
       error_message = "That action is restricted to department administrators."
@@ -149,6 +124,26 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+	def require_any_loc_group_admin
+    unless current_user.is_loc_group_admin?(current_department)
+      error_message = "That action is restricted to location group administrators."
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
+    end
+    return true
+  end
+
   def require_superuser
     unless current_user.is_superuser?
       error_message = "That action is only available to superusers."
@@ -169,11 +164,12 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-# These three methods all return true/false, so they can be tested to trigger return statements
-# Takes a department, location, or loc_group
+  # These three methods all return true/false, so they can be tested to trigger return statements
+  # Takes a department, location, or loc_group
+  # TODO: This is mixing model logic!!!
   def user_is_admin_of(thing)
     unless current_user.is_admin_of?(thing)
-      error_message = "You are not authorized to administer this #{thing.class.name.decamelize}"
+      error_message = "You are not authorized to administer this #{thing.class.name.decamelize}."
       respond_to do |format|
         format.html do
           flash[:error] = error_message
@@ -192,10 +188,11 @@ class ApplicationController < ActionController::Base
   end
 
 
-# Takes any object that has a user method and checks against current_user
+  # Takes any object that has a user method and checks against current_user
+  #TODO: This is mixing model logic!!!
   def user_is_owner_of(thing)
     unless current_user.is_owner_of?(thing)
-      error_message = "You are not the owner of this #{thing.class.name.decamelize}"
+      error_message = "You are not the owner of this #{thing.class.name.decamelize}."
       respond_to do |format|
         format.html do
           flash[:error] = error_message
@@ -213,7 +210,8 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-# Takes any object that has a user method and its department
+  # Takes any object that has a user method and its department
+  #TODO: This is mixing model logic!!!
   def user_is_owner_or_admin_of(thing, dept)
     unless current_user.is_owner_of?(thing) || current_user.is_admin_of?(dept)
       error_message = "You are not the owner of this #{thing.class.name.decamelize}, nor are you the department administrator."
@@ -234,7 +232,7 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-# Takes a department; intended to be passed some_thing.department
+  # Takes a department; intended to be passed some_thing.department
   def require_department_membership(dept)
     unless current_user.departments.include?(dept)
       error_message = "You are not a member of the appropriate department."
@@ -274,13 +272,45 @@ class ApplicationController < ActionController::Base
 #    redirect_to options
 #  end
 
+  def parse_date_and_time_output(form_output)
+    %w{start end mandatory_start mandatory_end}.each do |field_name|
+
+        ## Date Input - Hidden Field
+        unless form_output["#{field_name}_date"].blank?
+          form_output["#{field_name}_date"] = Date.parse( form_output["#{field_name}_date"] )
+        end
+
+        ## Date Input - Select (Rails default)
+        unless (form_output["#{field_name}_date(1i)"].blank? || form_output["#{field_name}_date(2i)"].blank? || form_output["#{field_name}_date(3i)"].blank?)
+        join_date = [ form_output["#{field_name}_date(1i)"], form_output["#{field_name}_date(2i)"], form_output["#{field_name}_date(3i)"] ].join('-')
+        form_output["#{field_name}_date"] = Date.parse( join_date )
+        end
+
+        ## Simple Time Select Input
+        unless form_output["#{field_name}_time(5i)"].blank?
+          form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
+        end
+
+        form_output.delete("#{field_name}_date(1i)")
+        form_output.delete("#{field_name}_date(2i)")
+        form_output.delete("#{field_name}_date(3i)")
+        form_output.delete("#{field_name}_time(5i)")
+
+    end
+    form_output
+  end
+
+
+
+
+
   private
 
   def department_chooser
     if (params[:su_mode] && current_user.superuser?)
       current_user.update_attribute(:supermode, params[:su_mode]=='ON')
       flash[:notice] = "Supermode is now #{current_user.supermode? ? 'ON' : 'OFF'}"
-      redirect_to(root_path) and return
+      redirect_to :action => "index" and return
     end
     if (params["chooser"] && params["chooser"]["dept_id"])
       session[:department_id] = params["chooser"]["dept_id"]
@@ -309,3 +339,4 @@ class ApplicationController < ActionController::Base
 
 
 end
+

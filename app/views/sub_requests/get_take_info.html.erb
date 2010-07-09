@@ -1,4 +1,4 @@
-  <% if @sub_request %>
+  <% if @sub_request && @sub_request.user_is_eligible?(current_user) %>
 
     <% title "Take this sub request" %>
 
@@ -22,7 +22,7 @@
       <% end %>
 
       <p></p>
-      <%= f.submit "Take this!" %>
-    <% end %>
+      	<%= f.submit "Take this!" %>
+      <% end %>
 
-  <% end %>
+<% end %>

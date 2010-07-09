@@ -1,11 +1,6 @@
 <% title "Time Slots" %>
 
-<p id="new_time_slot_link"><%= link_to "<h1>New Time Slot</h1>", new_time_slot_path(:date => params[:date]) %></p>
-
-<%# HIDE the new timeslot link when javascript is enabled.%>
-<script type='text/javascript' charset='utf-8'>
-  $('#new_time_slot_link').toggle(); 
-</script>
+<h1 class="no_js"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></h1>
 
 <div id="AJAX_status"></div><%# to display status messages in top right corner %>
 
