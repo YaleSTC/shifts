@@ -9,7 +9,7 @@
       </p>
     <% end %>
 
-    <% if @time_slot.new_record? && !params[:tooltip]%>
+    <% if @time_slot.new_record? && !params[:xPercentage]%>
       <p>
           <strong>Days:</strong><br />
         <% WEEK_DAYS.each_with_index do |day, i| %>
@@ -54,7 +54,8 @@
 
 <% #we could still simplify the first two sections of this conditional. In the tooltip (elsif part), locations wrap around, that's all. %>
     <% if @time_slot.new_record? && !params[:xPercentage]%>
-    <%# if we're on the html new page, give locations as checkboxes %>
+    <%# if we're on the html new page, give locations as checkboxes
+        but remove this later? %>
         <% @department.loc_groups.each do |loc_group| %>
           <% unless loc_group.locations.empty? %>
             <p>
@@ -66,18 +67,6 @@
             </p>
           <% end %>
         <% end %>
-    <% elsif @time_slot.new_record? %>
-        <% @department.loc_groups.each do |loc_group| %>
-          <% unless loc_group.locations.empty? %>
-            <p>
-              <strong><%= loc_group.name %></strong><br/>
-              <% loc_group.locations.each_with_index do |loc, i| %>
-                <%= check_box_tag "location_ids[]", loc.id, params[:location_id] == loc.id.to_s, {:id => "location_#{loc.id}"} %>
-                <%= loc.short_name %><%= "<br>" if i % 5 == 4 %>
-              <% end %>
-            </p>
-          <% end %>
-        <%- end -%>
     <% else %>
     <%# if we're in a tooltip, use a location dropdown %>
       <p>
