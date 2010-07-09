@@ -1,0 +1,6 @@
+<% @current_notices = current_user.current_notices %>
+<% unless @current_notices.empty? %>
+      <%= render :partial => 'notices/notice', :collection => @current_notices %>
+<% else %>
+      <em>There are no department-wide announcements at this time.</em>
+<% end %>
