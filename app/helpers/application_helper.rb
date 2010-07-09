@@ -40,7 +40,8 @@ module ApplicationHelper
       :id => "list_of_logins",
       :hint_text => "Type a name, NetID, role or department",
       :style => "vertical", #default to vertical style -- seems more appropriate
-      :classes => ["User","Role","Department"]
+      :classes => ["User","Role","Department"],
+      :include_headers => true
     })
 
 
@@ -79,8 +80,10 @@ module ApplicationHelper
             }
           });
         });'
-    content_for :head, javascript_include_tag('jquery.tokeninput')
-    content_for :head, stylesheet_link_tag(css_file)
+    if options[:include_headers]
+      content_for :head, javascript_include_tag('jquery.tokeninput')
+      content_for :head, stylesheet_link_tag(css_file)
+    end
     text_field_tag(options[:id])
   end
 
