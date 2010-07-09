@@ -4,7 +4,7 @@
   <div id = "upcoming">
     <fieldset class = "index">
       <legend>Upcoming</legend>
-      <%= render :partial => 'notice', :collection => Notice.upcoming %>
+      <%= render :partial => 'notices/notice', :collection => Notice.upcoming %>
     </fieldset>
   </div>
   <br />
@@ -17,6 +17,10 @@
 <% end %>
 <div id = "for_you">
     <%= render :partial => 'notices/for_category', :locals => {:givencollection => current_user.current_notices, :legend => "For you"} %>
+</div>
+
+<div id = "for_department">
+    <%= render :partial => 'notices/for_category', :locals => {:givencollection => current_department.current_notices, :legend => "Department Wide"} %>
 </div>
 
 <% if current_user.user_config.view_loc_groups.empty? %>
