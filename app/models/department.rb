@@ -27,7 +27,7 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :admin_permission_id
   
   def get_links
-    Link.active_without_end.select {|n| n.departments.include?(self)}
+    Link.active.select {|n| n.departments.include?(self)}
   end
 
 # Returns all users active in a given department
@@ -40,7 +40,16 @@ class Department < ActiveRecord::Base
   def department
     self
   end
-
+  
+  def current_notices
+    ActiveRecord::Base.transaction do
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+      x = Sticky.active.collect(&:id)
+      y = Announcement.active.collect(&:id)
+      Notice.find(a & (x + y))
+    end
+  end
+    
   def sub_requests
     SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| sub.shift.department == self }
   end
