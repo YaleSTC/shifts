@@ -49,6 +49,7 @@ class Notice < ActiveRecord::Base
 
   def remove(user)
     self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end
+    self.start = Time.now if self.start > Time.now
     self.end = Time.now
     self.indefinite = false
     self.remover = user
