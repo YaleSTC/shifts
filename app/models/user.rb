@@ -266,6 +266,48 @@ class User < ActiveRecord::Base
     new_entry.save
   end
 
+  def detailed_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    shift_stats = {}
+  
+    shifts_set.each do |s|
+       stat_entry = {}
+       stat_entry[:id] = s.id
+       stat_entry[:shift] = s.short_display
+       stat_entry[:in] = s.created_at
+       stat_entry[:out] = s.updated_at
+       # if s.missed
+       #   stat_entry[:notes] = "Missed"
+       # elsif s.late && s.left_early
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes, and left early " + (s.end - s.updated_at)/60 + " minutes"
+       # elsif s.late
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes"
+       # elsif s.left_early
+       #   stat_entry[:notes] = "Left early " + (s.end - s.updated_at)/60 + " minutes"
+       # else
+       #   stat_entry[:notes]
+       # end
+       if s.missed
+         stat_entry[:notes] = "Missed"
+       elsif s.late && s.left_early
+         stat_entry[:notes] = "Late and left early"
+       elsif s.late
+         stat_entry[:notes] = "Late"
+       elsif s.left_early
+         stat_entry[:notes] = "Left early"
+       else
+         stat_entry[:notes]
+       end
+       stat_entry[:missed] = s.missed
+       stat_entry[:late] = s.late
+       stat_entry[:left_early] = s.left_early
+       stat_entry[:updates_hour] = s.updates_hour
+       shift_stats[s.id] = stat_entry
+    end
+    
+    return shift_stats
+  end
+  
   private
 
   def departments_not_empty

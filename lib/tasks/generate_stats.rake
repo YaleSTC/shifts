@@ -1,18 +1,11 @@
 def generate_stats
-  shifts = Shift.parsed
+  shifts = Shift.unparsed.active.select{|s| s.submitted? or s.missed?}
   shifts.each do |shift|
-    if shift.missed?
-      shift.missed = true
-    end
-    if shift.late?
-      shift.late = true
-    end
-    if shift.left_early?
-      shift.left_early = true
-    end
-    shift.updates_hour = shift.updates_per_hour
-    shift.parsed = true
-    shift.save
+    shift.update_attribute(:missed, shift.missed?)
+    shift.update_attribute(:late, shift.late?)
+    shift.update_attribute(:left_early,shift.left_early?)
+    shift.update_attribute(:updates_hour, shift.updates_per_hour)
+    shift.update_attribute(:parsed, true)
   end
 end
 
