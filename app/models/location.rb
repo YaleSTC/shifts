@@ -36,29 +36,34 @@ class Location < ActiveRecord::Base
 
   def current_notices
     ActiveRecord::Base.transaction do
-      a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
-      a.collect {|u| Notice.find(u.location_sink_id).active.not_link }
-    end
+       a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
+       b = Sticky.active.collect(&:id)
+       c = Announcement.active.collect(&:id)
+       Notice.find(a & (b + c))
+     end
   end
 
   def stickies
      ActiveRecord::Base.transaction do
-        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
-        a.collect {|u| Sticky.find(u.location_sink_id).active.not_link }
+        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
+        b = Sticky.active.collect(&:id)
+        Sticky.find(a & b)
       end
   end
 
   def announcements
      ActiveRecord::Base.transaction do
-        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
-        a.collect {|u| Announcement.find(u.location_sink_id).active.not_link }
+        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
+        b = Announcement.active.collect(&:id)
+        Announcement.find(a & b)
       end
   end
 
   def links
      ActiveRecord::Base.transaction do
-        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"])
-        a.collect {|u| Link.find(u.location_sink_id).active.not_link }
+        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
+        b = Link.active.collect(&:id)
+        Link.find(a & b) 
       end
   end
 

@@ -1,6 +1,9 @@
 class Announcement < Notice
-  named_scope :active, lambda {{ :conditions => ["start_time <= ? AND end_time = ? OR end_time > ?", Time.now.utc, nil, Time.now.utc] }}
-  named_scope :upcoming, lambda {{ :conditions => ["start_time > ?", Time.now.utc]}}
+  named_scope :active, lambda {{ :conditions => ["start <= ? AND end is ? OR end > ?", Time.now.utc, nil, Time.now.utc] }}
+  named_scope :upcoming, lambda {{ :conditions => ["start > ?", Time.now.utc]}}
 
+  def active?
+    self.start <= Time.now && (self.end == nil || self.end > Time.now)
+  end
 
 end

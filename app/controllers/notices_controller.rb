@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
 
   def index
-    @notices = Notice.active.not_link
+    @notices = Notice.active_notices
   end
 
   def archive
