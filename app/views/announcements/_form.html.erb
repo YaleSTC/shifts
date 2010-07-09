@@ -25,6 +25,9 @@
 	</fieldset>
 
   </div>
+<!-- set_sources method in notices controller doesn't handle removing polymorphic associations, so we can't unassociate locations
+		from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
+		locations, but just disable all of the checkboxes -->
 <% if !@disable_locations %>
 	<fieldset class = "index">
   	<legend>Where:</legend>
