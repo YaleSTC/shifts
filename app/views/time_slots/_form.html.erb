@@ -9,14 +9,21 @@
       </p>
     <% end %>
 
-    <% if @time_slot.new_record? && !params[:xPercentage]%>
-      <p>
-          <strong>Days:</strong><br />
-        <% WEEK_DAYS.each_with_index do |day, i| %>
-          <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
-          <%= day %>
-        <% end %>
-      </p>
+<%#new page %>
+    <% if @time_slot.new_record? %>
+      <% if params[:xPercentage]%>
+        <%= hidden_field_tag "days[]", Time.parse(params[:date]).wday %>
+        </p>
+      <% else %>
+        <p>
+            <strong>Days:</strong><br />
+          <% WEEK_DAYS.each_with_index do |day, i| %>
+            <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
+            <%= day %>
+          <% end %>
+      <% else %>
+        <%= (hidden_field_tag 'date', params[:date]) if params[:date] %>
+      <% end %>
     <% end %>
 
       <p>
@@ -76,5 +83,4 @@
     <% end %>
 
   </p>
-  <%= (hidden_field_tag 'date', params[:date]) if params[:date] %>
 
