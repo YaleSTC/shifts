@@ -25,11 +25,15 @@ class Department < ActiveRecord::Base
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name
   validates_uniqueness_of :admin_permission_id
-  
-  def get_links
-    Link.active.select {|n| n.departments.include?(self)}
-  end
 
+  def links
+     ActiveRecord::Base.transaction do
+        a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+        b = Link.active.collect(&:id)
+        Link.find(a & b) 
+      end
+  end
+  
 # Returns all users active in a given department
   def active_users
     joins = DepartmentsUser.find(:all, :conditions => {:department_id => self, :active => true })

@@ -10,7 +10,7 @@ class Report < ActiveRecord::Base
   end
 
   def get_links
-    self.shift.location.links
+    self.shift.location.links + self.shift.location.department.links
   end
 
   def data_objects
