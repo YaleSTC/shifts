@@ -25,8 +25,7 @@
 <% end %>
 <div id = "location_notices">
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
-		<% if current_user.can_view?(loc_group) %>
-		  <% loc_group.locations.each do |loc| %>
+		<% loc_group.locations.each do |loc| %>
 		    <% @loc_current_notices = loc.current_notices %>
 		    <% unless @loc_current_notices.empty? %>
 		      <fieldset class ="index">
@@ -36,7 +35,6 @@
 		      <br/>
 		    <% end %>
 		  <% end %>
-		<% end %>
   <% end %>
 </div>
 
