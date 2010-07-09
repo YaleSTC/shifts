@@ -1,4 +1,4 @@
-<br/>
+<%= yield :head %>
 <% form_remote_for(@sticky) do |f| %>
   <div id ="errors">
     <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
@@ -35,12 +35,11 @@
 			<%= f.select :end, Sticky::EXPIRE_ON %>
 		</fieldset>
 
-		<fieldset class = "index">
+		<!--<fieldset class = "index">
 		  <legend>Who:</legend>
 		  Display for any person or role:
-		  <%= tokenized_users_autocomplete @notice, :for_users, :hint_text => "Type a netID or name", :style => "facebook" %>
-		
-		</fieldset>
+		  <%#= tokenized_users_autocomplete @notice, "user_sources",:hint_text => "Type a netID, name or role", :style => "facebook", :classes => ["Role","User"], :include_headers => false %>
+		-->
 	<% end %>
 	<p>
     <%= f.submit 'Save' %>
