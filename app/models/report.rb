@@ -6,7 +6,7 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    (self.shift.location.current_notices + self.shift.user.current_notices).uniq
+    (self.shift.location.current_notices + self.shift.user.current_notices + self.shift.department.current_notices).uniq
   end
 
   def get_links

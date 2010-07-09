@@ -4,18 +4,23 @@ class Notice < ActiveRecord::Base
   belongs_to :remover, :class_name => "User"
   belongs_to :department
 
-  validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
-  
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
+  named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
+  named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
+  named_scope :inactive, lambda {{ :conditions => ["end != ? AND end < ?", nil, Time.now.utc] }}
+  named_scope :not_link, :conditions => ["type != ?", "Link"]
+  named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
+  
+  def self.active_links
+     Link.active
+  end
 
-  named_scope :inactive, lambda {{ :conditions => ["#{:end.to_sql_column} <= #{Time.now.utc.to_sql}"] }}
-  named_scope :active_with_end, lambda {{ :conditions => ["#{:start.to_sql_column} <= #{Time.now.utc.to_sql} and #{:end.to_sql_column} > #{Time.now.utc.to_sql}"]}}
-  named_scope :active_without_end, lambda {{ :conditions => ["#{:start.to_sql_column} <= #{Time.now.utc.to_sql} and #{:indefinite.to_sql_column} = #{true.to_sql}"]}}
-  named_scope :upcoming, lambda {{ :conditions => ["#{:start.to_sql_column} > #{Time.now.utc.to_sql}"]}}
-
-  def self.active
-    (Announcement.active_with_end + Announcement.active_without_end).uniq.sort_by{|n| n.start} +
-    Sticky.active_without_end.sort_by{|n| n.start}
+  def active?
+    true
+  end
+  
+  def self.active_notices
+    Sticky.active + Announcement.active
   end
 
   def display_for
@@ -44,6 +49,7 @@ class Notice < ActiveRecord::Base
 
   def remove(user)
     self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end
+    self.start = Time.now if self.start > Time.now
     self.end = Time.now
     self.indefinite = false
     self.remover = user
@@ -72,7 +78,7 @@ class Notice < ActiveRecord::Base
   end
 
 	def content_or_label
-		if self.content.empty?
+		if self.content.blank?
 			if self.type == "Link"
 				errors.add_to_base "Your link must have a label"
 			else
