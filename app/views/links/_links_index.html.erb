@@ -1,6 +1,25 @@
 <h1 id="page_title">Links</h1>
+<fieldset class="index">
+	<legend>Department Wide</legend>
+	<ul id = "useful_links">
+	<% current_department.links.each do |link| %>
+		<li>
+			<% if current_user.is_admin_of?(link.department) || current_user == link.author %>
+				<%= link_to '[x]', { :controller => 'links', :action => 'destroy', :id => link.id },
+													       :confirm => "Are you sure you want to remove this link?",
+													       :method => :delete %>
+			<% end %>
+		    <%= link_to link.content, link.url, :popup => true %>
+			<div class="gray_url">
+			    <%= link.url %>
+			 </div>
+		</li>
+	<% end %>
+    </ul>
+	<br/>
+</fieldset>
+
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
-		<% if current_user.can_view?(loc_group) %>
 		  <% loc_group.locations.each do |loc| %>
 		    <% @loc_links = loc.links %>
 		    <% unless @loc_links.empty? %>
@@ -11,7 +30,7 @@
 				    	<li>
 								<% if current_user.is_admin_of?(loc_group) || current_user == link.author %>
 									<%= link_to '[x]', { :controller => 'links', :action => 'destroy', :id => link.id },
-														           :confirm => "Are you sure you want to remove this useful link?",
+														           :confirm => "Are you sure you want to remove this link?",
 														           :method => :delete %>
 								<% end %>
 								<%= link_to "#{link.content}", "#{link.url}", :popup => true %>
@@ -22,6 +41,5 @@
 		    <% end %>
 			</fieldset>
 		  <% end %>
-		<% end %>
   <% end %>
 

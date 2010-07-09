@@ -1,5 +1,11 @@
 class Link < Notice
-	validate_on_create :proper_url
+
+	validate :proper_url
+  named_scope :active,  :conditions => {:end => nil}
+  
+  def active?
+    self.end == nil 
+  end
 
 	private
 	def proper_url
