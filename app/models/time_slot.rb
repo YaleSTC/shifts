@@ -135,8 +135,8 @@ class TimeSlot < ActiveRecord::Base
   private
 
   def join_date_and_time
-    self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-    self.end ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+    self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+    self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
   end
 
   def set_active
