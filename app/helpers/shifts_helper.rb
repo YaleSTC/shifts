@@ -101,8 +101,9 @@ module ShiftsHelper
 #calculates default_start/end and range_start/end_time
   def calculate_default_times
 
+    @default_start_date = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
     if params[:xPercentage]
-      @shift.start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+      @shift.start = @default_start_date
       @dept_start_minutes ||= current_department.department_config.schedule_start
       @dept_end_minutes ||= current_department.department_config.schedule_end
       @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
@@ -118,9 +119,6 @@ module ShiftsHelper
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
     @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
 
-    @default_start_date = @shift.start.to_date
-    @default_end_date = @shift.end.to_date
-    @default_end_date -= 1.day if (@shift.end.day == (@shift.start.day + 1))
   end
 
 

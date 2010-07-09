@@ -43,8 +43,9 @@ module TimeSlotsHelper
 
 #calculates default_start/end and range_start/end_time
   def calculate_default_times
+    @default_start_date = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
     if params[:xPercentage]
-      @time_slot.start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+      @time_slot.start = @default_start_date
       @dept_start_minutes ||= current_department.department_config.schedule_start
       @dept_end_minutes ||= current_department.department_config.schedule_end
       @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
@@ -54,15 +55,14 @@ module TimeSlotsHelper
 #if the schedule starts at 9:30, I'm not sure what happens ~Casey
       @time_slot.end = @time_slot.start + 1.hour
     else
-      @time_slot.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
-      @time_slot.end ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_end.minutes
+      @time_slot.start ||= @default_start_date.to_time + current_department.department_config.schedule_start.minutes
+      @time_slot.end ||= @default_start_date.to_time + current_department.department_config.schedule_end.minutes
     end
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
     @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
 
-    @default_start_date = @time_slot.start.to_date
-    @default_end_date = @time_slot.end.to_date
-    @default_end_date -= 1.day if (@time_slot.end.day == (@time_slot.start.day + 1))
+#    @default_end_date = @time_slot.end.to_date
+#    @default_end_date -= 1.day if (@time_slot.end.day == (@time_slot.start.day + 1))
 
   end
 
