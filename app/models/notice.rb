@@ -7,11 +7,20 @@ class Notice < ActiveRecord::Base
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
   named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
   named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
-  named_scope :inactive, lambda {{ :conditions => ["end_time != ? AND end_time < ?", nil, Time.now.utc] }}
+  named_scope :inactive, lambda {{ :conditions => ["end != ? AND end < ?", nil, Time.now.utc] }}
   named_scope :not_link, :conditions => ["type != ?", "Link"]
+  named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
   
   def self.active_links
      Link.active
+  end
+
+  def active?
+    true
+  end
+  
+  def self.active_notices
+    Sticky.active + Announcement.active
   end
 
   def display_for

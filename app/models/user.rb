@@ -246,15 +246,19 @@ class User < ActiveRecord::Base
 
   def current_notices
     ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
-      a.collect {|u| Notice.find(u.user_sink_id).active.not_link }
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+      b = Sticky.active.collect(&:id)
+      c = Announcement.active.collect(&:id)
+      Notice.find(a & (b + c))
     end
   end
 
   def other_notices
     ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id != #{self.id.to_sql}"])
-      a.collect {|u| Notice.find(u.user_sink_id).active.not_link }
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id != #{self.id.to_sql}"]).collect(&:user_sink_id)
+      b = Sticky.active.collect(&:id)
+      c = Announcement.active.collect(&:id)
+      Notice.find(a & (b + c))
     end 
   end
 

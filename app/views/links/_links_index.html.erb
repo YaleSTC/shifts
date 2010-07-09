@@ -1,6 +1,5 @@
 <h1 id="page_title">Links</h1>
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
-		<% if current_user.can_view?(loc_group) %>
 		  <% loc_group.locations.each do |loc| %>
 		    <% @loc_links = loc.links %>
 		    <% unless @loc_links.empty? %>
@@ -22,6 +21,5 @@
 		    <% end %>
 			</fieldset>
 		  <% end %>
-		<% end %>
   <% end %>
 

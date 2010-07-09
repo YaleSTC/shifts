@@ -1,7 +1,11 @@
 class Link < Notice
 
 	validate :proper_url
-  named_scope :active,  :conditions => ["end_time = ? ", nil]
+  named_scope :active,  :conditions => {:end => nil}
+  
+  def active?
+    self.end == nil 
+  end
 
 	private
 	def proper_url
