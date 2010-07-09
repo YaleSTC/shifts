@@ -32,8 +32,8 @@ class StickiesController < NoticesController
       end
     else
       respond_to do |format|
+        flash[:notice] = 'Sticky was successfully created.'
         format.html {
-        flash[:sticky] = 'Sticky was successfully created.'
         redirect_to stickies_path
         }
         format.js  #create.js.rjs

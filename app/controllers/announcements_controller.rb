@@ -36,9 +36,9 @@ class AnnouncementsController < NoticesController
         format.js  #create.js.rjs
       end
     else
+			flash[:notice] = 'Announcement was successfully created.'
       respond_to do |format|
         format.html {
-        flash[:notice] = 'Announcement was successfully created.'
         redirect_to announcements_path
         }
         format.js  #create.js.rjs
