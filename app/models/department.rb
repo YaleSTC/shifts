@@ -40,7 +40,16 @@ class Department < ActiveRecord::Base
   def department
     self
   end
-
+  
+  def current_notices
+    ActiveRecord::Base.transaction do
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+      x = Sticky.active.collect(&:id)
+      y = Announcement.active.collect(&:id)
+      Notice.find(a & (x + y))
+    end
+  end
+    
   def sub_requests
     SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| sub.shift.department == self }
   end
