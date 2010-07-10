@@ -43,8 +43,15 @@ module TimeSlotsHelper
 
 #calculates default_start/end and range_start/end_time
   def calculate_default_times
-    @default_start_date = @time_slot.start.to_date if @time_slot.start
-    @default_start_date ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+    if params[:date]
+	  #sometimes from the tooltip, sometimes week start date
+      @default_start_date = Date.parse(params[:date]) 
+    elsif @time_slot.start
+      @default_start_date = @time_slot.start.to_date
+    else #do we ever hit this? ~Casey
+      @default_start_date = Time.now.to_date
+    end
+
     if params[:xPercentage]
       @time_slot.start = @default_start_date
       @dept_start_minutes ||= current_department.department_config.schedule_start

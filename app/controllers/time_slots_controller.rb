@@ -24,63 +24,35 @@ class TimeSlotsController < ApplicationController
   end
 
   def create
-    @time_slots = []
     errors = []
     parse_date_and_time_output(params[:time_slot])
-#date should ideally come from the hidden date field across the application, and it can be forced through this way;
-#but the way it's written, week_start_date makes more sense to keep ~Casey
-    week_start_date = (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
+    @time_slot = TimeSlot.new(params[:time_slot])
 
-
-    if params[:location_ids] && params[:days]
-    #if there is the list of days and locations
-      for location_id in params[:location_ids]
-        for day in params[:days]
-          time_slot = TimeSlot.new(params[:time_slot])
-          time_slot.location_id = location_id
-          time_slot.start_date = week_start_date + day.to_i.days
-          time_slot.end_date = week_start_date + day.to_i.days
-          time_slot.calendar = @department.calendars.default unless time_slot.calendar
-          if !time_slot.save
-            errors << "Error saving timeslot for #{WEEK_DAYS[day.to_i]}"
-          else
-            @time_slots << time_slot
-          end
-        end
-      end
-
-    else
-    #it's from a simple tooltip - one location and one day
-      time_slot = TimeSlot.new(params[:time_slot])
-      if !time_slot.save
-        errors << "Error saving timeslot"
-      else
-        @time_slots << time_slot
-      end
-
+    if !@time_slot.save
+      errors << "Error saving timeslot"
     end
 
-        respond_to do |format|
-          format.html do
-              if errors.empty?
-                flash[:notice] = "Successfully created timeslot(s)."
-              else
-                flash[:error] =  "Error: "+errors*"<br/>"
-              end
-              redirect_to time_slots_path
+    respond_to do |format|
+      format.html do
+          if errors.empty?
+            flash[:notice] = "Successfully created timeslot(s)."
+          else
+            flash[:error] =  "Error: "+errors*"<br/>"
           end
-          format.js do
-              if errors.empty?
-                @dept_start_hour = current_department.department_config.schedule_start / 60
-                @dept_end_hour = current_department.department_config.schedule_end / 60
-                @hours_per_day = (@dept_end_hour - @dept_start_hour)
-              else
-                render :update do |page|
-                  ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")
-                end
-              end
+          redirect_to time_slots_path
+      end
+      format.js do
+          if errors.empty?
+            @dept_start_hour = current_department.department_config.schedule_start / 60
+            @dept_end_hour = current_department.department_config.schedule_end / 60
+            @hours_per_day = (@dept_end_hour - @dept_start_hour)
+          else
+            render :update do |page|
+              ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")
+            end
           end
-        end
+      end
+    end
   end
 
   def edit
