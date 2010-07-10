@@ -9,22 +9,34 @@
   <%=h @repeating_event.end_date.to_date %>
 </p>
 <p>
-  <strong>End Time:</strong>
-  <%=h @repeating_event.start_time %>
+  <strong>Start Time:</strong>
+  <%=h @repeating_event.start_time.to_s(:am_pm) %>
 </p>
 <p>
   <strong>End Time:</strong>
-  <%=h @repeating_event.end_time %>
+  <%=h @repeating_event.end_time.to_s(:am_pm) %>
 </p>
 <p>
   <strong>Calendar:</strong>
   <%=h @repeating_event.calendar.name %>
 </p>
+
 <p>
   <strong>Days Of Week:</strong>
-  <% @repeating_event.days.each do |day|%>
-  <%=h day %>
+  <ul>
+    <% @repeating_event.days.each do |day|%>
+    <li> <%=h day %> </li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <strong>Locations:</strong>
+<ul>
+  <% @repeating_event.locations.each do |loc| %>
+  <li> <%=h loc.name %> </li>
   <% end %>
+</ul>
 </p>
 
 <p>
