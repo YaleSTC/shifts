@@ -162,7 +162,7 @@ class RepeatingEvent < ActiveRecord::Base
 
   def set_start_times
     self.start_time = self.start_date.to_time + self.start_time.seconds_since_midnight
-    self.end_time = self.end_date.to_time + self.end_time.seconds_since_midnight
+    self.end_time = self.start_date.to_time + self.end_time.seconds_since_midnight
 #self.start_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
  #     self.end_time = self.end_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
   end
