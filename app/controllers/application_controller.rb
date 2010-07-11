@@ -255,7 +255,7 @@ class ApplicationController < ActionController::Base
   def parse_date_and_time_output(form_output)
     %w{start end mandatory_start mandatory_end}.each do |field_name|
         ## Simple Time Select Input
-        unless form_output["#{field_name}_time(5i)"].blank?
+        if !form_output["#{field_name}_time(5i)"].blank? && form_output["#{field_name}_time(4i)"].blank?
           form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
         end
 
@@ -287,7 +287,7 @@ class ApplicationController < ActionController::Base
         form_output.delete("#{field_name}_date(1i)")
         form_output.delete("#{field_name}_date(2i)")
         form_output.delete("#{field_name}_date(3i)")
-        form_output.delete("#{field_name}_time(5i)")
+        form_output.delete("#{field_name}_time(5i)") if form_output["#{field_name}_time(4i)"].blank?
     end
 
 
