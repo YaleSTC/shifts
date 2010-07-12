@@ -1,3 +1,5 @@
+<% calculate_default_times_repeating_events %>
+
 <% form_for @repeating_event do |f| %>
   <%if @errors%>
 <strong>The repeating event could not be applied for the following reasons</strong>
@@ -9,11 +11,11 @@
 <%end%>
   <p>
     <%= f.label :start_date %><br />
-    <%= f.date_select :start_date %>
+    <%= f.date_select :start_date, :default => @default_start_date.previous_sunday.to_date %>
   </p>
   <p>
     <%= f.label :end_date %><br />
-    <%= f.date_select :end_date %>
+    <%= f.date_select :end_date, :default => @default_start_date.previous_sunday.to_date + 7.days %>
   </p>
   <p>
     <%= f.label :calendar %><br />
@@ -38,11 +40,12 @@
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
 
-                :start_time => Time.now.to_date + current_department.department_config.schedule_start.minutes,
-                :end_time => Time.now.to_date + current_department.department_config.schedule_end.minutes,
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
                 :include_start_time => true,
                 :include_end_time => false,
-                :default => Time.now.to_date + current_department.department_config.schedule_start.minutes,
+                :default => @repeating_event.start_time
+#                :default => Time.now.to_date + current_department.department_config.schedule_start.minutes,
                                           } %>
   </p>
   <p>
@@ -51,11 +54,12 @@
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
-                :start_time => Time.now.to_date + current_department.department_config.schedule_start.minutes,
-                :end_time => Time.now.to_date + current_department.department_config.schedule_end.minutes,
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
                 :include_start_time => false,
                 :include_end_time => true,
-                :default => Time.now.to_date + current_department.department_config.schedule_end.minutes,
+                :default => @repeating_event.end_time
+#                :default => Time.now.to_date + current_department.department_config.schedule_end.minutes,
                                           } %>
   </p>
     <p>
