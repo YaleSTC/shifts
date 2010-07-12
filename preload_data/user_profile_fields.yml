@@ -5,9 +5,9 @@ user_profile_fields_001:
   display_type: text_field
   id: "1"
   name: Phone Number
-  public: true
+  public: t
   updated_at: 2009-10-19 15:38:01
-  user_editable: true
+  user_editable: t
   values: text
 user_profile_fields_002: 
   created_at: 2009-10-19 15:38:01
@@ -15,9 +15,9 @@ user_profile_fields_002:
   display_type: text_area
   id: "2"
   name: About Me
-  public: true
+  public: t
   updated_at: 2009-10-19 15:38:01
-  user_editable: true
+  user_editable: t
   values: 
 user_profile_fields_003: 
   created_at: 2009-10-19 15:38:01
@@ -25,9 +25,9 @@ user_profile_fields_003:
   display_type: select
   id: "3"
   name: Primary Operating system
-  public: true
+  public: t
   updated_at: 2009-10-19 15:38:01
-  user_editable: true
+  user_editable: t
   values: Mac, Windows, Linux
 user_profile_fields_004: 
   created_at: 2009-10-19 15:38:01
@@ -35,9 +35,9 @@ user_profile_fields_004:
   display_type: radio_button
   id: "4"
   name: Likes Peas?
-  public: true
+  public: t
   updated_at: 2009-10-19 15:38:01
-  user_editable: true
+  user_editable: t
   values: yes, no
 user_profile_fields_005: 
   created_at: 2009-10-19 15:38:01
@@ -45,9 +45,9 @@ user_profile_fields_005:
   display_type: check_box
   id: "5"
   name: Favorite Fruits
-  public: true
+  public: t
   updated_at: 2009-10-19 15:38:01
-  user_editable: true
+  user_editable: t
   values: Apples, Bananas, Strawberries, Mangos
 user_profile_fields_006: 
   created_at: 2009-10-19 15:38:01
@@ -55,7 +55,7 @@ user_profile_fields_006:
   display_type: picture_link
   id: "6"
   name: Profile Picture Link
-  public: true
+  public: t
   updated_at: 2009-10-19 15:38:01
-  user_editable: true
+  user_editable: t
   values: 

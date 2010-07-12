@@ -1,6 +1,7 @@
 --- 
 users_001: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -14,11 +15,12 @@ users_001:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_002: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:58
   crypted_password: 6ec0921c5b3b018358f4407de17def1c156bc3d7fd0812add5d4ccb914b17918441283015152c68ccc99985bc90bfa411ef6f07b11f871aa4c389e831047c67a
   default_department_id: 
@@ -32,11 +34,12 @@ users_002:
   password_salt: uKI9E1L2zdIJeyMEgx7x
   perishable_token: zlcklQ1fxqalxiE3CDgf
   persistence_token: d1d0d519201aee6289cd3b3579edbe0a96c4915d296b75d07f4c0fd30349a34d18a9bd6f0f3dc2e9771fbd39ea507d93fe8736510b3b2926047fab614690bdfc
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_003: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:58
   crypted_password: d91eb70ffd0025b77e7535a995d60e75fa2b88c77c4676bf8d84e0c97c34f6862f14e08eaa43d4514092f5059a5adc6b9c36cf381d75721de6342b5fe1ae080d
   default_department_id: 
@@ -50,11 +53,12 @@ users_003:
   password_salt: a_whv1I8dJb6bNQBEFBx
   perishable_token: T6Tt6ZlyskdApIEgYQph
   persistence_token: acfc43258f240f651a49d39be72d694de565d22d8e036b46393b1742f2cac872ebf9968b646e7b94cba9e3747e0ae28fef4cc7697e4bb5c78aed2bec9ae3b3d3
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_004: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:58
   crypted_password: d4399b3c35aa32bd33d7e6ade0be04d5061f111048a4984fca470a567d1d8cab19b210dee2eb67e4efb0a6ed85556e3edc75a4d81c277786bc03ef36eb925708
   default_department_id: 
@@ -66,13 +70,14 @@ users_004:
   login: njg24
   nick_name: ""
   password_salt: hIyPpKZXW9b50lNUQqCB
-  perishable_token: fhxUMOvuzXoT1YK5LmaA
+  perishable_token: VjWcNepvz3L7VC2iXGr-
   persistence_token: 2d2e857c73866734fe09520c4683167188cd0264bafe3ae3a12c0e7cbcbf4e77a82b11c127b285f1995010d13f313386fd973686a7f870f8facb1568ed3c6ba0
-  supermode: true
-  superuser: true
-  updated_at: 2009-08-11 22:23:24
+  supermode: t
+  superuser: t
+  updated_at: 2010-07-12 20:06:12
 users_005: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:58
   crypted_password: 1a78bc0d3f5458d00ea0cdd0f06ac9e15c22ca3f3a5b54df1e7a857d18ce3443a8a8dce337d10b4e6a5e8154f35df27fd3be5dd602de8a2b3c28b1338d668bdf
   default_department_id: 
@@ -86,11 +91,12 @@ users_005:
   password_salt: covqJU-htUjYK-xPsd-h
   perishable_token: zWT6XLgfUJJjss95W9B-
   persistence_token: faad628f69c2aa937a377351cdcbe706fae87194918df2c331a1e06a3ed0a9adabecd96af4e94cbf19fc7ad89d2f2d3850eb0f069238f9a1ec8c703ed8c13320
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:06
 users_006: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:59
   crypted_password: af499aebf0df736fe55f1d1166c052fe244a597bbae31cc06e5c66f3bb7f5814d33e4fb9636225d360a0bf1a3351960b978ad27ba47462bf3edb5be9b05a3107
   default_department_id: 
@@ -104,11 +110,12 @@ users_006:
   password_salt: gsoUK3M-5ZXerlyhEvRA
   perishable_token: hO1qKR_wvm8etcpPz4pd
   persistence_token: 6bb2dc99d3e1c1cf0f7b66a80478a48d95745b380270a7fe310d7ae45e915d362b918fea5e53aaac9212bec338ae1dbd6b59aeb553cca15305fc796103204f65
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:06
 users_007: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:59
   crypted_password: 0dc69dbdcc7c6d310f7f8ef29914117aa25427ba628aac8ac3e46c2889c8c5b13c111bedf3e5207c5e7d1ea10c873961b33bd703e7c259bb42086e746fdd59e0
   default_department_id: 
@@ -122,11 +129,12 @@ users_007:
   password_salt: OG7bmmFhmkC8dmWvuFfB
   perishable_token: Ton4PIvzsGveBEJF0gnW
   persistence_token: b18812ed8acd557288c3c10d4208f1077bb30a9d37dd44b3cff8106d57a0febba1924fe9d5624614d416e327de05aaee87e23133ae650474a8dacc996076679b
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:06
 users_008: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:43:00
   crypted_password: de93e35e5d7b9f81d4ac49338ed3beee9433a9fcf10690cf4cb7c69733f02c872c59156a8049e7e45f5de076fea4980e6ded450c3ece6be9d014c557c26989b4
   default_department_id: 
@@ -140,11 +148,12 @@ users_008:
   password_salt: fpnP9Jhf6_EcBIBdObSL
   perishable_token: Ervjde7LRPf7LDkLM9PM
   persistence_token: 868c15986b10f765eb790b7f5209d1d252bfad1facd979c3938feb1974cf41b43da9dc6a5febe3623e1e7f27ce85b3bab0c96937dd3d52202a2e513d7462630e
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:06
 users_009: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:43:00
   crypted_password: 031e93571245649716739bddf6d6d262b18ec42330569b931374837595d820ec1db373145cfd16700ac36ccdcaa269183988384fb6f6fe6bf578403e3763922d
   default_department_id: 
@@ -158,11 +167,12 @@ users_009:
   password_salt: hIYLzprPWzhKei6urYNk
   perishable_token: J5N6X2kKap0AyGpH3rYY
   persistence_token: 851143530f15a024d34e0e276a020419735a2ab88a82c91eda6f3efa0eae9dbeff95ec8a042ce8aab898274497f07aee62a3c41e8b7b1aea2f3d0ef218e4e7c7
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:06
 users_010: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:43:00
   crypted_password: 5bac5064ee2ef785229f3e24486d624fc6c69d58e37e84265f5639fbfd4a63f2d337a95c7eaea762b7cb546d555bf2277da2b7e2ff9a6c9f0eb4fe5ecb7ae25f
   default_department_id: 
@@ -176,11 +186,12 @@ users_010:
   password_salt: tDiEkFEnzfEt8rgD-KrR
   perishable_token: Qdmb6urofNrmLz6kCx1J
   persistence_token: 0c87650044cf381e2b3c0272f9c91cfd67df46f01bd2c5d53b17242d2da66d48a414cf7cb5ee5d7ada3d31e137d0b57de6f5d1182cb7a04974d8171607adfc78
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:06
 users_011: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:43:00
   crypted_password: 8b8141cded1401fa517ec02df587f9c002a8bb6228fa13d894d3beb02c3459a3ddab09a0dcc7e5f9fd7369ace00241320556be981b7bfe0f35f87ddfceb7fd82
   default_department_id: 
@@ -194,11 +205,12 @@ users_011:
   password_salt: 9z5GXjzvr3Qx1SLC-6-1
   perishable_token: sj3KtGqTAChh-4PO_8YQ
   persistence_token: a9aa94df8a53db8ebf3887217242216d36eaaf1a23be61fb168b4f729759c8cd8e11487861bea7ac462ee43002d5f309ddc2bcd8aa3614a3badaf70c9c104f73
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:06
 users_012: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:55:03
   crypted_password: 5374a7ff3ea290ac9b856ed5b6cb090389cb2b45fccab6d2d78e900ded0eb6106603caa47aeb0f5cb5e889a2971efdc76d5218539c28eb91d44af854c7cde277
   default_department_id: 
@@ -212,11 +224,12 @@ users_012:
   password_salt: XknDzG1kw87HwPZqV-2d
   perishable_token: 5-jp2jKuthl86bb092_t
   persistence_token: a841a123c53b47a90752e98fccc1d4f6d40e2f2b1d208aaf7dd172926ced2e4d12f2fac4135a07b1dcf7c5aa6486ebfb3fe40be033473199a31fe4967ea2da23
-  supermode: false
-  superuser: false
+  supermode: f
+  superuser: f
   updated_at: 2009-06-29 20:27:07
 users_013: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:56:03
   crypted_password: cd9b9685687de8f2f77799351bfe0e5902077987f7cfd2d3e8c6a129ff11e235b52525d28b043c3514adb737a8f9215ff0906de02ab726c40911e2d2e6508957
   default_department_id: 
@@ -230,11 +243,12 @@ users_013:
   password_salt: jVY3GdkXNogBkD0R3UWL
   perishable_token: tSfENyXGimuidsnLwdbl
   persistence_token: c5683e4a981384ef4280dc0474f48c440bb1da61d2541f10ff09d572ba6cca23b0a198ce2a0a83a08d87ae0d534cfb0e3c9ba3063b5ff9204e6f2e28bf7ff570
-  supermode: true
+  supermode: t
   superuser: 
   updated_at: 2009-06-29 20:27:07
 users_014: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:58:24
   crypted_password: 7c1f14b95a1bdc749de261cc716fc3c8ed3644b1f4d5d3c3995855bdd081b70e4a06a9ae054ea800dc8081e5c646650ed159d59714bf6a8e40ddb1dc4e6b9f35
   default_department_id: 
@@ -248,11 +262,12 @@ users_014:
   password_salt: 4rveKYy6NKP2exzh6-mp
   perishable_token: NL268d2mq2_0wsT1biJO
   persistence_token: 2f6ba5656ba9d65d3be902a64d4663236d13718bc3f66267745c59e87b51b717560236887c4d295ed420865b14d89f222c0001d87fce255f3115ea1371af8c9f
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:07
 users_015: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-29 15:52:53
   crypted_password: eb5e91e234036fbe1652505c22b99368393a4f30df49ada68139e5cf0537656dade5e16eb7f65900d95769c1d664a3e266058be3165b3951e503264afd1ed371
   default_department_id: 
@@ -266,11 +281,12 @@ users_015:
   password_salt: y6LfxzkKhrzB3XetMA5E
   perishable_token: 4JrYNRY-nIkBVCKqfhb2
   persistence_token: 58de000748d3710c866e1a9922bccac50726c2e067daf67407c9556a922644023447484d97beba7a533b99ac48eeec676c448add935a3407b5b9e143b665dbf6
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:07
 users_016: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-30 19:58:09
   crypted_password: 40b0f11c5842761498331eb1a4609f3ede05a2c5ff7da9920d9dc948f1f288a3acaecee1b1e29d0d028cd4b4a59fe2737fc2b9d3bdf91f09813e6ac119173b84
   default_department_id: 
@@ -284,11 +300,12 @@ users_016:
   password_salt: A93lT46f1cKjflQYJKWz
   perishable_token: VibdtJDG9G79jV53uDbT
   persistence_token: 2bffee5de55f8e0e5c760db3f62adadfea18309cada50fc06b1b97ebf5b82d51a875606b8d1cfa08f8ba25092754a505b4136b587f2427a123e00fa3c0a9aad0
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-30 19:58:09
 users_017: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-30 19:58:26
   crypted_password: 5934cf079abc01fbeb2ec9adeaae567670913023ed1de867c6043d31fb9f22068cd916927f8f9128dc5c0de5be931d3685a51dcf9d8d2589400cab259716213c
   default_department_id: 
@@ -302,11 +319,12 @@ users_017:
   password_salt: -sf6BF3l4h_OvUM-Bh0t
   perishable_token: cuaPHVp_hcxSVWzNsC9g
   persistence_token: c9893252fdb94226c7e9c1a2ab158c26686c53425c057618c00e21111be957516b20ae56e2762d66492385116ef7054fb16532a6e035e8101b758d4bc5005b8d
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-30 19:58:26
 users_018: 
   auth_type: built-in
+  calendar_feed_hash: 
   created_at: 2009-06-30 20:23:05
   crypted_password: ecfc16b2ff6e277066e52a4514e44308acdb50f372448fd5bf2b735ac17d6316d4312d7517719da562e5e7ae93151b1c65e8c5ce61e32cc92612a00b91c65552
   default_department_id: 
@@ -320,11 +338,12 @@ users_018:
   password_salt: cZGcddzHX_IRli8a6tyu
   perishable_token: Spg5wuCfSML9J3Prouah
   persistence_token: cb8bc496e1b87c3cb3951621da7f8b685d7d7c5b52aec513c17dedd702a31eab8f7806a4f6f074ba3c7b925cd5fb342877c773d8fae8b2d62e6fc4273c63336b
-  supermode: true
+  supermode: t
   superuser: 
   updated_at: 2009-06-30 20:26:00
 users_019: 
   auth_type: built-in
+  calendar_feed_hash: 
   created_at: 2009-07-10 12:59:25
   crypted_password: 619a135e36e9f45c4f15ea3a02a2e0a4323ec1c603c3a31f34cc7db9ea80c104c9037e7ff227654c02f0dc986ad4d8d0b51c2852cdf35302a4b6ce8f49ab7a38
   default_department_id: 
@@ -338,11 +357,12 @@ users_019:
   password_salt: M4hF_TnQsAmsDi2e2Ho4
   perishable_token: -G1Zag13259AicDzliVK
   persistence_token: 3be99c0a38324c0758ccc99a685fb921606221cec6c60115a62a92cf1ec241ccd7176e5b42439ce604468bb0b4804cd5fe96ca7cabc7cda00ee3729f326b705b
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-07-10 13:00:37
 users_020: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -356,11 +376,12 @@ users_020:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_021: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -374,11 +395,12 @@ users_021:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_022: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -392,11 +414,12 @@ users_022:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_023: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -410,11 +433,12 @@ users_023:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_024: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -428,11 +452,12 @@ users_024:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_025: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -446,11 +471,12 @@ users_025:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
 users_026: 
   auth_type: CAS
+  calendar_feed_hash: 
   created_at: 2009-06-22 17:42:57
   crypted_password: 67e09f77739e4daedb161fb55d9f3144084fbea24ecb5e784227779a5e0a05813b874ee31905f6095e1d0536ae8038e2de19042c869a7a6e67cdf9f830b2c8fd
   default_department_id: 
@@ -464,6 +490,6 @@ users_026:
   password_salt: T95igvFCU3RDOjq_GWv-
   perishable_token: 4kz7rCS_7ChKkcBJ0b5h
   persistence_token: 1ca8c76b6b47924214b03e92e4e1decab887a69527407ebd9536ff46787d8afe125d1c12590154f6d9e20c95e8dbf3ed4be9e102f7eaaefe00c12ad1f5b159b4
-  supermode: true
-  superuser: true
+  supermode: t
+  superuser: t
   updated_at: 2009-06-29 20:27:05
