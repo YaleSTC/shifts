@@ -18,7 +18,7 @@ class Shift < ActiveRecord::Base
   before_save :set_active
   attr_accessor :start_date
   attr_accessor :start_time
-#  attr_accessor :end_date
+  attr_accessor :end_date
   attr_accessor :end_time
 
 #TODO: remove all to_sql calls except where needed for booleans
