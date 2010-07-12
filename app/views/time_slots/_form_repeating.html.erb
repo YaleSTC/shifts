@@ -49,7 +49,7 @@
     <% @department.loc_groups.each do |loc_group| %>
       <% unless loc_group.locations.empty? %>
         <p>
-          <strong><%= loc_group.name %></strong><br/>
+          <i><%= loc_group.name %></i><br/>
           <% loc_group.locations.each_with_index do |loc, i| %>
             <%= check_box_tag "location_ids[]", loc.id, @repeating_event.location_ids && @repeating_event.location_ids.include?(loc.id), {:id => "location_#{loc.id}"} %>
             <%= loc.short_name %><%= "<br>" if i % 5 == 4 %>
@@ -66,7 +66,7 @@
   </p>
   <p>
     <% params[:date] ? default_day = Time.parse(params[:date]).wday : false %>
-    <strong>Days:</strong><br />
+    <i>Days:</i><br />
     <% WEEK_DAYS.each_with_index do |day, i| %>
       <%= check_box_tag "days[]", i, ((i == default_day) or (@repeating_event.days && @repeating_event.days.include?(day))), {:id => "days_#{i}"} %>
       <%= day %><br>
