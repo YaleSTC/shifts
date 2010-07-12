@@ -380,7 +380,6 @@ class Shift < ActiveRecord::Base
     SubRequest.find_by_shift_id(self.id)
   end
 
-<<<<<<< HEAD
 
   def join_date_and_time
     # scheduled shifts
@@ -393,12 +392,6 @@ class Shift < ActiveRecord::Base
      end
   end
 
-=======
-  def join_date_and_time
-    self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-    self.end ||= self.start_date.to_date.to_time + self.end_time.seconds_since_midnight
-  end
->>>>>>> 0cac629... removed end_date from shifts, and it works fine still
 
 
   private

@@ -2,6 +2,7 @@
 
  <% if params[:xPercentage] %>
     <%= f.hidden_field :start_date, :value => @shift.start.to_date, :id => :start_date  %>
+
   <% else %>
     <p>
       <%= f.label :date %><br />
