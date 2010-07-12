@@ -1,26 +1,15 @@
 <% calculate_default_times %>
 
-  <p>
-    <%= f.label :start %><br />
-  <% if params[:xPercentage] %>
+ <% if params[:xPercentage] %>
     <%= f.hidden_field :start_date, :value => @shift.start.to_date, :id => :start_date  %>
   <% else %>
-    <%= f.date_select :start_date, :default => @shift.start.to_date, :id => :start_date  %>
+    <p>
+      <%= f.label :date %><br />
+      <%= f.date_select :start_date, :default => @default_start_date, :id => :start_date  %>
+    </p>
   <% end %>
-
-<script type="text/javascript">
-var opts = {
-                formElements:{"shift_start_date_3i":"j",
-                              "shift_start_date_1i":"Y",
-                              "shift_start_date_2i":"n"
-                },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
-datePickerController.createDatePicker(opts);
-
-</script>
-
+  <p>
+    <%= f.label :start %><br />
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -34,25 +23,12 @@ datePickerController.createDatePicker(opts);
                                           } %>
   </p>
   <p>
+  <%# if params[:xPercentage] %>
+    <%#= f.hidden_field :end_date, :value => @default_end_date, :id => :end_date  %>
+  <%# else %>
+    <%#= f.date_select :end_date, :default => @default_end_date, :id => :end_date  %>
+  <%# end %>
     <%= f.label :end %><br />
-  <% if params[:xPercentage] %>
-    <%= f.hidden_field :end_date, :value => @shift.end.to_date, :id => :end_date  %>
-  <% else %>
-    <%= f.date_select :end_date, :default => @shift.end.to_date, :id => :end_date  %>
-  <% end %>
-
-<script type="text/javascript">
-var opts = {
-                formElements:{"shift_end_date_3i":"j",
-                              "shift_end_date_1i":"Y",
-                              "shift_end_date_2i":"n"
-                },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
-datePickerController.createDatePicker(opts);
-
-</script>
     <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
