@@ -14,24 +14,26 @@
 		<legend>Start time:</legend>
 		<%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
 		<%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
-		<%= f.datetime_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+		<%= f.datetime_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
 	</fieldset>
 
 	<fieldset class = "index">
 		<legend>End time:</legend>
 		<%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
 		<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
-		<%= f.datetime_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
+		<%= f.datetime_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
 	</fieldset>
 
   </div>
-
+<!-- set_sources method in notices controller doesn't handle removing polymorphic associations, so we can't unassociate locations
+		from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
+		locations, but just disable all of the checkboxes -->
+<% if !@disable_locations %>
 	<fieldset class = "index">
   	<legend>Where:</legend>
 	 <%= check_box_tag :department_wide_locations, current_department.id, department_check(current_department, @announcement), :style => "display: none;" %>
     <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
-
-		<div id = "all_locations">
+	<div id = "all_locations">
     <% for loc_group in current_department.loc_groups do %>
       <% if current_user.permission_list.select{|p| p.loc_group == loc_group} %>
 				<li id = "notice_li">
@@ -47,6 +49,7 @@
     <% end %>
   	</div>
 	</fieldset>
+	<% end -%>
 	<p>
   	<%= f.submit 'Save' %>
 	</p>

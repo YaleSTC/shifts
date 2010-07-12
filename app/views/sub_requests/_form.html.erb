@@ -71,7 +71,7 @@
 
   </p><p>
 	    <%= f.label :selected_users, "Leave blank to send to everyone eligible in <b>#{@sub_request.shift.location.loc_group.name}</b>, or specify individual users below" %><br />
-	    <%= tokenized_users_autocomplete @sub_request, :requested_users, :hint_text => "Type a netID or name", :style => "facebook" %>
+	    <%= tokenized_users_autocomplete @sub_request, :requested_users, :hint_text => "Type a netID or name", :style => "facebook", :classes => ["User"] %>
   </p>
   <p>
     <%= f.label :reason %><br />

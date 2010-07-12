@@ -5,6 +5,8 @@ if @announcement.errors.empty?
 	page.replace_html "all_notices", :partial => 'notices/all_notices'
   page << "tb_remove();"
   page << "tb_init('a#edit');"
+	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	flash.discard
 else
   page.replace_html "errors", :partial => 'notices/error_messages'
 end
