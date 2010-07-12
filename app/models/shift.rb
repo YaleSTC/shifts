@@ -380,25 +380,22 @@ class Shift < ActiveRecord::Base
     SubRequest.find_by_shift_id(self.id)
   end
 
-
-  def join_date_and_time
-    # scheduled shifts
-     if self.start_date
-       self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-       self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
-     # unscheduled shifts
-     else
-       self.start = Time.now
-     end
-  end
-
-
-
   private
 
   # ======================
   # = Validation helpers =
   # ======================
+  def join_date_and_time
+    # scheduled shifts
+    #TODO: Confirm with casey that we want the ||= instead of =
+     if self.start_date
+       self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+       self.end ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+     # unscheduled shifts
+     else
+       self.start = Time.now
+     end
+  end
 
   def restrictions
     unless self.power_signed_up

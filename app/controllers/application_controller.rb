@@ -124,6 +124,26 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+	def require_any_loc_group_admin
+    unless current_user.is_loc_group_admin?(current_department)
+      error_message = "That action is restricted to location group administrators."
+      respond_to do |format|
+        format.html do
+          flash[:error] = error_message
+          redirect_to access_denied_path
+        end
+        format.js do
+          render :update do |page|
+            # display alert
+            ajax_alert(page, "<strong>error:</strong> "+error_message);
+          end
+          return false
+        end
+      end
+    end
+    return true
+  end
+
   def require_superuser
     unless current_user.is_superuser?
       error_message = "That action is only available to superusers."
