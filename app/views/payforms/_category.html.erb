@@ -1,11 +1,17 @@
-<% jobs = (current_user.is_admin_of?(@payform.department) ? category.payform_items : category.payform_items.select{|p| p.active}) & @payform.payform_items %>
+<% jobs = @payform.payform_items.in_category(category) %>
+
+
+<% if !current_user.is_admin_of?(@payform.department) %>
+  <% jobs = jobs.active #only show active %>
+<% end %>
+
 <% unless jobs.empty? %>
 
 <thead>
   <tr class="category">
-    <th scope="col" id="<%=h category.name %>" colspan=6>
+    <th scope="col" id="<%=h category.name %>" colspan=7>
       <div class="hours-right">
-        <%= number_with_precision((@payform.payform_items.active & category.payform_items).map{|i| i.hours}.sum, :precision => 2) %>
+        <%= number_with_precision(@payform.payform_items.active.in_category(category).map{|i| i.hours}.sum, :precision => 2) %>
       </div>
       <%=h category.name %>
     </th>
