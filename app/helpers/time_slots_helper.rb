@@ -1,6 +1,6 @@
 module TimeSlotsHelper
 
-  def time_slot_style(time_slot)
+  def time_slot_style(time_slot, time_slot_day)
     @right_overflow = @left_overflow = false
 
     #not DRY, thrown in for AJAX reasons for now. sorry :( -ryan
@@ -8,7 +8,7 @@ module TimeSlotsHelper
     @dept_end_hour ||= current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
 
-    left = ((time_slot.start - (time_slot.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
+    left = ((time_slot.start - (time_slot_day.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
     width = (time_slot.duration/3600.0) / @hours_per_day * 100
     if left < 0
       width += left
@@ -25,13 +25,15 @@ module TimeSlotsHelper
 
   def fetch_timeslots(time_slot_day,location)
     result = []
-    #timeslots = TimeSlot.all(:conditions => ['start >= ? and start < ? and location_id = ?',time_slot_day.beginning_of_day,time_slot_day.end_of_day,location.id])
-    timeslots = TimeSlot.on_day(time_slot_day).in_location(location)
+    timeslots = TimeSlot.on_48h(time_slot_day).in_location(location)
     for timeslot in timeslots do
-      if ((timeslot.start < timeslot.start.beginning_of_day + @dept_start_hour.hours) &&
-         (timeslot.end    < timeslot.start.beginning_of_day + @dept_start_hour.hours)) ||
-         ((timeslot.start > timeslot.start.beginning_of_day + @dept_end_hour.hours) &&
-         (timeslot.end    > timeslot.start.beginning_of_day + @dept_end_hour.hours))
+
+      if ( ( ((timeslot.start < time_slot_day.beginning_of_day + @dept_start_hour.hours) &&
+         (timeslot.end    < time_slot_day.beginning_of_day + @dept_start_hour.hours))            &&
+         ((timeslot.start > (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours) &&
+         (timeslot.end    > (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours)) ) ||
+         ((timeslot.start > time_slot_day.beginning_of_day + @dept_end_hour.hours) &&
+         (timeslot.end    > time_slot_day.beginning_of_day + @dept_end_hour.hours)) )
         @hidden_timeslots << timeslot
       else
         result << timeslot
