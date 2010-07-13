@@ -42,7 +42,7 @@ class TimeSlot < ActiveRecord::Base
       days.each do |day|
         seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
         seed_end_time = seed_start_time+diff
-        while seed_end_time <= end_date
+        while seed_end_time <= (end_date + 1.day)
           if active
             inner_test.push "(#{:location_id.to_sql_column} = #{loc_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
           else

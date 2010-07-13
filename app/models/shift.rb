@@ -136,7 +136,7 @@ class Shift < ActiveRecord::Base
     days.each do |day|
       seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
       seed_end_time = seed_start_time+diff
-      while seed_end_time <= end_date
+      while seed_end_time <= (end_date + 1.day)
         if active
           inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
         else
@@ -380,17 +380,15 @@ class Shift < ActiveRecord::Base
     SubRequest.find_by_shift_id(self.id)
   end
 
-
-
   # ======================
   # = Validation helpers =
   # ======================
+
   def join_date_and_time
     # scheduled shifts
-    #TODO: Confirm with casey that we want the ||= instead of =
      if self.start_date
-       self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-       self.end ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+       self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+       self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
      # unscheduled shifts
      else
        self.start = Time.now
