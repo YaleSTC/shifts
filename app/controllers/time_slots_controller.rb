@@ -27,6 +27,7 @@ class TimeSlotsController < ApplicationController
     errors = []
     parse_date_and_time_output(params[:time_slot])
     @time_slot = TimeSlot.new(params[:time_slot])
+    @time_slot.join_date_and_time
 
     if !@time_slot.save
       errors << "Error saving timeslot"
