@@ -380,7 +380,7 @@ class Shift < ActiveRecord::Base
     SubRequest.find_by_shift_id(self.id)
   end
 
-  private
+
 
   # ======================
   # = Validation helpers =
@@ -397,6 +397,8 @@ class Shift < ActiveRecord::Base
      end
   end
 
+  private
+  
   def restrictions
     unless self.power_signed_up
       errors.add(:user, "is required") and return if self.user.nil?
