@@ -16,20 +16,6 @@ module ActionView::Helpers
         end
 
 
-        if @options[:default]
-          val_minutes = @options[:default].min + @options[:default].hour*60
-
-          # When :default isn't a valid multiple of 15, it can still contribute
-          # This loop selects the earliest valid minute after :default to be the default
-          unless (@options[:default].min % minute_interval) == 0
-            val_minutes = val_minutes - (@options[:default].min % minute_interval) + minute_interval
-          end
-
-        else
-          val_minutes = @datetime.kind_of?(Time) ? @datetime.min + @datetime.hour*60 : @datetime
-        end
-
-
         if @options[:start_time]
           start_minute = @options[:start_time].hour * 60 + @options[:start_time].min
         else
@@ -39,6 +25,7 @@ module ActionView::Helpers
 
         if @options[:end_time]
           end_minute = @options[:end_time].hour * 60 + @options[:end_time].min
+          end_minute += 1440    if (@options[:end_time].day == (@options[:start_time].day + 1))
         else
           end_minute = 1439
         end
@@ -46,23 +33,56 @@ module ActionView::Helpers
 
 
 
+
+        if @options[:default]
+          val_minutes = @options[:default].min + @options[:default].hour*60
+          if (@options[:end_time].to_date == (@options[:start_time].to_date + 1.day)) && (val_minutes < start_minute)
+            val_minutes += 1440
+          end
+          # Even if :default isn't a valid multiple of 15, it should still be used
+          # This condition selects the earliest valid minute after :default to be the default
+          unless (@options[:default].min % minute_interval) == 0
+            val_minutes = val_minutes - (@options[:default].min % minute_interval) + minute_interval
+          end
+        end
+
+
         if @options[:use_hidden] || @options[:discard_minute]
           build_hidden(:minute, val)
         else
           minute_options = []
           start_minute.upto(end_minute) do |minute|
-            if minute%minute_interval == 0
-              ampm = minute < 720 ? ' AM' : ' PM'
-              hour = minute/60
-              minute_padded = zero_pad_num(minute%60)
-              hour_padded = zero_pad_num(hour)
-              ampm_hour = ampm_hour(hour)
-              val = "#{hour_padded}:#{minute_padded}:00"
-              minute_options << ((val_minutes == minute) ?
-                %(<option value="#{val}" selected="selected">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n) :
-                %(<option value="#{val}">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n)
-              )
+
+            if minute < 1440
+              if minute%minute_interval == 0
+                ampm = minute < 720 ? ' AM' : ' PM'
+                hour = minute/60
+                minute_padded = zero_pad_num(minute%60)
+                hour_padded = zero_pad_num(hour)
+                ampm_hour = ampm_hour(hour)
+                val = "#{hour_padded}:#{minute_padded}:00"
+                minute_options << ((val_minutes == minute) ?
+                  %(<option value="#{val}" selected="selected">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n) :
+                  %(<option value="#{val}">#{ampm_hour}:#{minute_padded}#{ampm}</option>\n)
+                )
+              end
+            elsif minute < 2880
+              minute -= 1440
+              if minute%minute_interval == 0
+                ampm = minute < 720 ? ' AM' : ' PM'
+                hour = minute/60
+                minute_padded = zero_pad_num(minute%60)
+                hour_padded = zero_pad_num(hour)
+                ampm_hour = ampm_hour(hour)
+                val = "#{hour_padded}:#{minute_padded}:00+"
+                minute_options << ((val_minutes == minute + 1440) ?
+                  %(<option value="#{val}" selected="selected">#{ampm_hour}:#{minute_padded}#{ampm}*</option>\n) :
+                  %(<option value="#{val}">#{ampm_hour}:#{minute_padded}#{ampm}*</option>\n)
+                )
+
+              end
             end
+
           end
           build_select(:minute, minute_options)
         end

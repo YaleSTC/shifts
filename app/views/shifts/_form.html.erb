@@ -1,8 +1,7 @@
 <% calculate_default_times %>
 
- <% if params[:xPercentage] %>
-    <%= f.hidden_field :start_date, :value => @shift.start.to_date, :id => :start_date  %>
-
+  <% if params[:xPercentage] %>
+    <%= f.hidden_field :start_date, :value => @default_start_date, :id => :start_date  %>
   <% else %>
     <p>
       <%= f.label :date %><br />
@@ -50,12 +49,12 @@
 
   <% if current_user.is_admin_of?(current_department) %>
     <p>
-      <%= f.label :calendar %><br />
-      <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
-    </p>
-    <p>
       <%= f.label :user %><br />
       <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+    </p>
+    <p>
+      <%= f.label :calendar %><br />
+      <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
     </p>
     <p>
       <%= f.check_box :power_signed_up %> Power signup
@@ -63,4 +62,27 @@
   <% elsif params[:calendar] %>
     <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
   <% end %>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"shift_start_date_3i":"j",
+                              "shift_start_date_1i":"Y",
+                              "shift_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"shift_end_date_3i":"j",
+                              "shift_end_date_1i":"Y",
+                              "shift_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
 
