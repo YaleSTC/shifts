@@ -288,8 +288,9 @@ class ApplicationController < ActionController::Base
 
 #join date and time
     %w{start end mandatory_start mandatory_end}.each do |field_name|
-    if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
-      form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
+      if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
+        form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
+      end
     end
     form_output["start"] ||= Time.now
 
