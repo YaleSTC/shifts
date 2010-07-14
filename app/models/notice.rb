@@ -15,10 +15,6 @@ class Notice < ActiveRecord::Base
      Link.active
   end
 
-  def active?
-    true
-  end
-  
   def self.active_notices
     Sticky.active + Announcement.active
   end
