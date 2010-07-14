@@ -29,7 +29,7 @@
   <% end %>
 </p>
 <p>
-  <% if current_user.is_admin_of?(current_department) or curent_user.is_admin_of?(self.location.loc_group) %>
+  <% if current_user.is_admin_of?(current_department) or current_user.is_admin_of?(self.location.loc_group) %>
   <%= link_to "Edit", edit_shift_path(@shift) %> |
   <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |
   <% end %>
