@@ -12,11 +12,11 @@
 #   runner "MyModel.some_method"
 #   rake "some:great:rake:task"
 # end
-every :sunday, :at => "9am" do
+every :sunday, :at => '9am' do
   rake "auto_remind"
 end
 
-every :day, :at => "1am" do 
+every 1.day, :at => '1 am do 
  rake "email_stats"
 end
 
