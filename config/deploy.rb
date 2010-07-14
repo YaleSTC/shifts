@@ -38,16 +38,16 @@ namespace :init do
   namespace :config do
     desc "Create database.yml"
     task :database do
-      #set :mysql_user, Capistrano::CLI.ui.ask("deployment host database user name: ")
-      #set :mysql_pass, Capistrano::CLI.password_prompt("deployment host database password: ")
+      set :mysql_user, Capistrano::CLI.ui.ask("deployment host database user name: ")
+      set :mysql_pass, Capistrano::CLI.password_prompt("deployment host database password: ")
       database_configuration =<<-EOF
 ---
 production:
   adapter: mysql
   database: #{application}_#{application_prefix}_production
   host: localhost
-  user: root
-  password: ir3300t@cobell
+  user: #{mysql_user}
+  password: #{mysql_pass} 
 
 EOF
       run "mkdir -p #{shared_path}/config"
@@ -56,7 +56,7 @@ EOF
 
     desc "Enter Hoptoad API code"
     task :hoptoad do
-      #set :api_key, Capistrano::CLI.ui.ask("Hoptoad API Key: ")
+      set :api_key, Capistrano::CLI.ui.ask("Hoptoad API Key: ")
       hoptoad_config=<<-EOF
 HoptoadNotifier.configure do |config|
   config.api_key = ''
@@ -149,7 +149,7 @@ namespace :deploy do
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :app do
-    #run "cd #{release_path} && whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
+    run "cd #{release_path} && whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
   end
 
 end

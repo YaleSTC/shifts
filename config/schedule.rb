@@ -16,12 +16,11 @@ every :sunday, :at => "9am" do
   rake "auto_remind"
 end
 
-every :day, at => "1am" do 
+every :day, :at => "1am" do 
  rake "email_stats"
 end
 
 every 10.minutes do
-
   rake "stale_shift_email"
 end
 
