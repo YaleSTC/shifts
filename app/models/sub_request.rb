@@ -2,7 +2,6 @@ class SubRequest < ActiveRecord::Base
   belongs_to :shift
   delegate :user, :to => :shift
   has_and_belongs_to_many :requested_users, :class_name => 'User'
-  before_validation :join_date_and_time
   validates_presence_of :reason, :shift
   validate :start_and_end_are_within_shift,
            :mandatory_start_and_end_are_within_subrequest,
@@ -104,15 +103,16 @@ class SubRequest < ActiveRecord::Base
     end                                             #work-around: lists are printed as "item,,item,,item" which now swap to "item, item, item"
   end
 
-
-  private
-
   def join_date_and_time
     self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
     self.end ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
     self.mandatory_start ||= self.mandatory_start_date.to_date.to_time + self.mandatory_start_time.seconds_since_midnight
     self.mandatory_end ||= self.mandatory_end_date.to_date.to_time + self.mandatory_end_time.seconds_since_midnight
   end
+
+
+  private
+
 
   def start_and_end_are_within_shift
     unless self.start.between?(self.shift.start, self.shift.end) && self.end.between?(self.shift.start, self.shift.end)
