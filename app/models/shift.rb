@@ -9,8 +9,6 @@ class Shift < ActiveRecord::Base
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
   before_update :disassociate_from_repeating_event
-  before_validation :join_date_and_time
-
 
   validates_presence_of :location
   validates_presence_of :start

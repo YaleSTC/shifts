@@ -4,7 +4,7 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :repeating_event
   has_many :shifts, :through => :location
   before_save :set_active
-  before_validation :join_date_and_time, :adjust_for_multi_day
+  before_validation :adjust_for_multi_day
   before_update :disassociate_from_repeating_event
 
   validates_presence_of :start, :end, :location_id
