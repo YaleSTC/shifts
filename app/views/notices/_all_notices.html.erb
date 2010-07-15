@@ -4,7 +4,7 @@
   <div id = "upcoming">
     <fieldset class = "index">
       <legend>Upcoming</legend>
-      <%= render :partial => 'notice', :collection => Notice.upcoming %>
+      <%= render :partial => 'notices/notice', :collection => Notice.upcoming %>
     </fieldset>
   </div>
   <br />
@@ -19,22 +19,26 @@
     <%= render :partial => 'notices/for_category', :locals => {:givencollection => current_user.current_notices, :legend => "For you"} %>
 </div>
 
+<div id = "for_department">
+    <%= render :partial => 'notices/for_category', :locals => {:givencollection => current_department.current_notices, :legend => "Department Wide"} %>
+</div>
+
 <% if current_user.user_config.view_loc_groups.empty? %>
   <p>You have not selected any location groups to view! Fix that in your
     <%= link_to "User settings", edit_user_config_path(current_user.user_config) %>.</p>
 <% end %>
 <div id = "location_notices">
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
-    <% loc_group.locations.each do |loc| %>
-      <% @loc_current_notices = loc.current_notices %>
-      <% unless @loc_current_notices.empty? %>
-        <fieldset class ="index">
-          <legend id ="blue_fieldset"><%= loc.name %></legend>
-          <%= render :partial => 'notices/notice', :collection => @loc_current_notices%>
-        </fieldset>
-        <br/>
-      <% end %>
-    <% end %>
+		<% loc_group.locations.each do |loc| %>
+		    <% @loc_current_notices = loc.current_notices %>
+		    <% unless @loc_current_notices.empty? %>
+		      <fieldset class ="index">
+		        <legend><%= loc.name %></legend>
+		        <%= render :partial => 'notices/notice', :collection => @loc_current_notices%>
+		      </fieldset>
+		      <br/>
+		    <% end %>
+		  <% end %>
   <% end %>
 </div>
 

@@ -1,0 +1,33 @@
+<h1>Stats for <%= @user.name%></h1>
+
+<!-- <% form_tag 'stats' do |f| %>
+  <p>
+    <%= label_tag :start_date %><br />
+    <%=  text_field_tag 'start_date', "#{@start_date}" %>
+  </p>
+  <p>
+    <%= label_tag :end_date %><br />
+    <%=  text_field_tag 'end_date', "#{@end_date}" %>
+  </p>
+  <div><%= submit_tag 'Update dates' %></div>
+<% end -%> -->
+
+<table id="stats_table" class="tablesorter">
+  <thead>
+    <tr>
+      <th align="left">Shift</th>
+      <th align="left">Notes</th>
+			<th align="left">Updates/Hour</th>
+    </tr>
+  </thead>
+	<tbody>
+		<% @stats_hash.each do |shift_id, stat_entry| %>
+			<tr>
+				<td><%= link_to stat_entry[:shift], {:controller => :stats, :action => 'show', :id => stat_entry[:id] } %></td>
+				<td><%=h stat_entry[:notes] %></td>
+				<td><%=h stat_entry[:updates_hour] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[0,0]]});});</script>

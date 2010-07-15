@@ -2,6 +2,7 @@
 department_configs_001: 
   auto_remind: true
   auto_warn: true
+  can_take_passed_sub: true
   created_at: 2009-06-22 17:27:52
   day: "6"
   department_id: "1"
@@ -16,6 +17,8 @@ department_configs_001:
   reminder_message: Please remember to submit your payform for the week.
   schedule_end: "1380"
   schedule_start: "600"
+  stale_shift: true
+  stats_mailer_address: 
   time_increment: "15"
   unscheduled_shifts: true
   updated_at: 2009-06-22 17:27:52
@@ -27,6 +30,7 @@ department_configs_001:
 department_configs_002: 
   auto_remind: true
   auto_warn: true
+  can_take_passed_sub: true
   created_at: 2009-06-22 18:09:37
   day: "6"
   department_id: "2"
@@ -41,6 +45,8 @@ department_configs_002:
   reminder_message: Please remember to submit your payform for the week.
   schedule_end: "1020"
   schedule_start: "540"
+  stale_shift: true
+  stats_mailer_address: 
   time_increment: "60"
   unscheduled_shifts: true
   updated_at: 2009-06-22 18:09:37

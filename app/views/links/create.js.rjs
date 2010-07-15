@@ -1,9 +1,13 @@
 if @link.errors.empty? 
 	if @report
-		page.replace_html "report_useful_links", :partial => 'notices/report_useful_links'
-	end
-	page.replace_html "dashboard_useful_links", :partial => 'notices/dashboard_useful_links'
-  page << "tb_remove();"
+		page.replace_html "report_links", :partial => 'report_links'
+	else
+		page.replace_html "dashboard_links", :partial => 'dashboard_links'
+		page.replace_html "links_index", :partial => 'links_index'	
+  end
+	page << "tb_remove();"
+	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	flash.discard
 else
   page.replace_html "errors", :partial => 'notices/error_messages'
 end
