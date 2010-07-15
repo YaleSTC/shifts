@@ -114,6 +114,7 @@ class ShiftsController < ApplicationController
 
   def create
     parse_date_and_time_output(params[:shift])
+    join_date_and_time(params[:shift])
     @shift = Shift.new(params[:shift])
 #    @shift.join_date_and_time
     @shift.department = @shift.location.department
@@ -175,6 +176,7 @@ class ShiftsController < ApplicationController
 
   def update
     parse_date_and_time_output(params[:shift])
+    join_date_and_time(params[:shift])
     @shift = Shift.find(params[:id])
 #    @shift.join_date_and_time
     return unless user_is_owner_or_admin_of(@shift, @shift.department)
