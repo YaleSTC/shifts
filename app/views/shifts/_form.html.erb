@@ -50,7 +50,7 @@
   <% if current_user.is_admin_of?(current_department) %>
     <p>
       <%= f.label :user %><br />
-      <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+      <%= f.collection_select(:user_id, current_department.active_users.sort_by{ |u| [ u.first_name, u.last_name]}, :id, :name, {:prompt => "Select a user"}) %>
     </p>
     <p>
       <%= f.label :calendar %><br />
