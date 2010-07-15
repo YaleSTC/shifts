@@ -26,6 +26,7 @@ class TimeSlotsController < ApplicationController
   def create
     errors = []
     parse_date_and_time_output(params[:time_slot])
+    join_date_and_time(params[:time_slot])
     @time_slot = TimeSlot.new(params[:time_slot])
 #    @time_slot.join_date_and_time
 
@@ -63,7 +64,7 @@ class TimeSlotsController < ApplicationController
   def update
     @time_slot = TimeSlot.find(params[:id])
     parse_date_and_time_output(params[:time_slot])
-
+    join_date_and_time(params[:time_slot])
     if @time_slot.update_attributes(params[:time_slot])
       respond_to do |format|
         format.js
