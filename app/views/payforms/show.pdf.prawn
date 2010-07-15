@@ -13,7 +13,7 @@
   pdf.text "Week Ending: #{@payform.date.strftime(date_format)}"
   
   for category in current_department.categories do
-    payform_items = category.payform_items & @payform.payform_items
+    payform_items = @payform.payform_items.in_category(category).active
     unless payform_items.empty?
       table_items = payform_items.map do |table_item|
         [table_item.date, table_item.description, table_item.hours]

@@ -1,5 +1,7 @@
 class PayformItem < ActiveRecord::Base
-  acts_as_tree
+  versioned
+  
+  # acts_as_tree - replaced by 'versioned'
   
   # acts_as_ascii_tree
   #     /\
@@ -12,24 +14,19 @@ class PayformItem < ActiveRecord::Base
   belongs_to :payform_item_set
   belongs_to :category
 
-  delegate :department, :to => :category
-  delegate :user, :to => :payform  
+  delegate :department, :to => :payform
+  delegate :user, :to => :payform
   
-  validates_presence_of :date, :category_id
+  before_validation :unsubmit_payform
+  
+  validates_presence_of :date, :category_id, :payform_id
+  validates_numericality_of :hours, :greater_than => 0
+  validates_presence_of :reason, :on => :update
   validate :length_of_description
   validate_on_update :length_of_reason
-  validates_numericality_of :hours
-  validate :hours_greater_than_zero
-  
+
   named_scope :active, :conditions => {:active =>  true}
-  
-  def user 
-    if self.payform != nil
-      user = self.payform.user 
-    elsif self.parent and self.parent.payform
-      user = self.parent.payform.user 
-    end
-  end
+  named_scope :in_category, lambda { |category| { :conditions => {:category_id => category.id}}}
   
   def add_errors(e)
     e = e.to_s.gsub("Validation failed: ", "")
@@ -40,31 +37,21 @@ class PayformItem < ActiveRecord::Base
   
   protected
   
-  def hours_greater_than_zero
-    unless self.hours.to_f > 0
-      errors.add_to_base("Your payform item has no hours.") 
+  def unsubmit_payform
+    self.payform.submitted = nil
+    unless self.payform.save
+      errors.add(:payform, "failed to allow for new payform items.")
     end
   end
 
   def length_of_description
-    if self.payform_id == nil
-      min = PayformItem.find_by_parent_id(self.id).payform.department.department_config.description_min.to_i
-    else
-      min = self.payform.department.department_config.description_min.to_i
-    end
-    if self.description.length < min 
-      errors.add_to_base("Description must be at least #{min} characters long.") 
-    end
+    min = self.department.department_config.description_min.to_i 
+    errors.add(:description, "must be at least #{min} characters long.") if self.description.length < min
   end   
   
   def length_of_reason
-    if self.active == false
-      min = self.payform.department.department_config.reason_min.to_i
-      errors.add_to_base("Reason must be at least #{min} characters long.") if self.reason.length < min
-    elsif self.reason != nil
-      min = PayformItem.find_by_parent_id(self.id).payform.department.department_config.reason_min.to_i
-      errors.add_to_base("Reason must be at least #{min} characters long.") if self.reason.length < min 
-    end
+    min = self.department.department_config.reason_min.to_i
+    errors.add(:reason, "must be at least #{min} characters long.") if self.reason.length < min
   end   
 
   def validate

@@ -14,11 +14,11 @@ class SubRequestsController < ApplicationController
     @subs = @subs.select {|sub| (current_user.can_take_sub?(sub) || current_user.is_admin_of?(sub.shift.department) || sub.user == current_user)}
 
     @limit = (params[:limit].blank? ? 25 : params[:limit].to_i)
-    if @limit<@subs.count
+    if @limit<@subs.size
       @limit_links=true
     else
       @limit_links=false
-      @limit=@subs.count
+      @limit=@subs.size
     end
   end
 

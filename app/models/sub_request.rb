@@ -75,11 +75,11 @@ class SubRequest < ActiveRecord::Base
   end
 
   def potential_takers
-    !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq
+    !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq.select{ |u| u.is_active?(self.shift.department)}
   end
 
   def users_with_permission
-    requested_users.uniq.select { |u| u.can_signup?(self.shift.loc_group) }
+    requested_users.uniq.select { |u| u.can_signup?(self.shift.loc_group) && u.is_active?(self.shift.department) }
   end
 
   #returns roles that currently have permission
@@ -104,10 +104,10 @@ class SubRequest < ActiveRecord::Base
   end
 
   def join_date_and_time
-    self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-    self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
-    self.mandatory_start = self.mandatory_start_date.to_date.to_time + self.mandatory_start_time.seconds_since_midnight
-    self.mandatory_end = self.mandatory_end_date.to_date.to_time + self.mandatory_end_time.seconds_since_midnight
+    self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+    self.end ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+    self.mandatory_start ||= self.mandatory_start_date.to_date.to_time + self.mandatory_start_time.seconds_since_midnight
+    self.mandatory_end ||= self.mandatory_end_date.to_date.to_time + self.mandatory_end_time.seconds_since_midnight
   end
 
 

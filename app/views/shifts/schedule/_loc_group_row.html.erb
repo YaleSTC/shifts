@@ -1,5 +1,5 @@
 <% loc_group_preprocessing %>
 
-<%= render :partial => "shifts/schedule/location_row_set", :collection => Location.active.in_group(loc_group_row), :locals => {:day => day} %>
+<%= render :partial => "shifts/schedule/location_row_set", :collection => Location.active.in_group(loc_group_row).sort_by(&:short_name).reverse.sort_by(&:priority).reverse, :locals => {:day => day} %>
 <ul class="events divider" style="height: <%= @divider_height %>px;"></ul>
 <% @location_group_row += 1 %>

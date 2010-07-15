@@ -7,8 +7,8 @@
       <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
     </div>
     <div id="new_notice">
-      <%#= link_to_post_a_sticky(true) %>
-			<%#= link_to_post_an_announcement %>
+      <%= link_to_post_a_sticky(true) %>
+			<%= link_to_post_an_announcement %>
     </div>
   </fieldset>
 
@@ -22,12 +22,11 @@
     <fieldset class="index" id = "useful_links">
       <legend>Useful Links</legend>
 			<ul id = "useful_links">
-      	<div id = "report_useful_links">
-        	<%= render :partial => 'notices/report_useful_links' %>
+      	<div id = "report_links">
+        	<%= render :partial => 'links/report_links' %>
       	</div>
-				<% if current_user.is_admin_of?(@report.shift.location.loc_group) %>
-    				<li><%= link_to_post_a_link %></li>
-				<% end %>
+    		<li><%= link_to_post_a_link %></li>
+
 
 			</ul>
     </fieldset>

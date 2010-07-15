@@ -245,13 +245,22 @@ class User < ActiveRecord::Base
   end
 
   def current_notices
-    Notice.active.select {|n| n.users.include?(self)}
+    ActiveRecord::Base.transaction do
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+      x = Sticky.active.collect(&:id)
+      y = Announcement.active.collect(&:id)
+      Notice.find(a & (x + y))
+    end
   end
 
   def other_notices
-    Notice.active.select {|n| !n.users.include?(self) && n.locations.empty?}
+    ActiveRecord::Base.transaction do
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id != #{self.id.to_sql}"]).collect(&:user_sink_id)
+      b = Sticky.active.collect(&:id)
+      c = Announcement.active.collect(&:id)
+      Notice.find(a & (b + c))
+    end 
   end
-
 
   def payrate(department)
     DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
@@ -266,6 +275,48 @@ class User < ActiveRecord::Base
     new_entry.save
   end
 
+  def detailed_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    shift_stats = {}
+  
+    shifts_set.each do |s|
+       stat_entry = {}
+       stat_entry[:id] = s.id
+       stat_entry[:shift] = s.short_display
+       stat_entry[:in] = s.created_at
+       stat_entry[:out] = s.updated_at
+       # if s.missed
+       #   stat_entry[:notes] = "Missed"
+       # elsif s.late && s.left_early
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes, and left early " + (s.end - s.updated_at)/60 + " minutes"
+       # elsif s.late
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes"
+       # elsif s.left_early
+       #   stat_entry[:notes] = "Left early " + (s.end - s.updated_at)/60 + " minutes"
+       # else
+       #   stat_entry[:notes]
+       # end
+       if s.missed
+         stat_entry[:notes] = "Missed"
+       elsif s.late && s.left_early
+         stat_entry[:notes] = "Late and left early"
+       elsif s.late
+         stat_entry[:notes] = "Late"
+       elsif s.left_early
+         stat_entry[:notes] = "Left early"
+       else
+         stat_entry[:notes]
+       end
+       stat_entry[:missed] = s.missed
+       stat_entry[:late] = s.late
+       stat_entry[:left_early] = s.left_early
+       stat_entry[:updates_hour] = s.updates_hour
+       shift_stats[s.id] = stat_entry
+    end
+    
+    return shift_stats
+  end
+  
   private
 
   def departments_not_empty

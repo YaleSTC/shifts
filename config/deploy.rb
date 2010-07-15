@@ -47,7 +47,7 @@ production:
   database: #{application}_#{application_prefix}_production
   host: localhost
   user: #{mysql_user}
-  password: #{mysql_pass}
+  password: #{mysql_pass} 
 
 EOF
       run "mkdir -p #{shared_path}/config"
@@ -59,7 +59,7 @@ EOF
       set :api_key, Capistrano::CLI.ui.ask("Hoptoad API Key: ")
       hoptoad_config=<<-EOF
 HoptoadNotifier.configure do |config|
-  config.api_key = '#{api_key}'
+  config.api_key = ''
 end
 
 EOF
