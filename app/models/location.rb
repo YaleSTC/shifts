@@ -35,6 +35,7 @@ class Location < ActiveRecord::Base
   end
 
   def current_notices
+		return self.announcements + self.stickies
     ActiveRecord::Base.transaction do
        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
        b = Sticky.active.collect(&:id)
@@ -47,7 +48,7 @@ class Location < ActiveRecord::Base
      ActiveRecord::Base.transaction do
         a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
         b = Sticky.active.collect(&:id)
-        Sticky.find(a & b)
+        Sticky.find(a & b).sort_by{|s| s.start}
       end
   end
 
@@ -55,7 +56,7 @@ class Location < ActiveRecord::Base
      ActiveRecord::Base.transaction do
         a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
         b = Announcement.active.collect(&:id)
-        Announcement.find(a & b)
+        Announcement.find(a & b).sort_by{|a| a.start}
       end
   end
 
