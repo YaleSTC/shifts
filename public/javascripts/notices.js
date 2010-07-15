@@ -27,7 +27,7 @@ function LocGroupCheckBoxes(lcg){
 jQuery(document).ready(function(){
 //By default, only have advanced_options open on the main Notices and Dashboard page (not in a shift report page)
 //This disables all checkboxes under the department checkbox if the department checkbox is checked
-		DepartmentCheckBoxes();
+//		DepartmentCheckBoxes();
 		LocGroupCheckBoxes($("input[name^='for_location_group']"));
 		
     if(($("#page_title").text() != "Notices") && ($("#page_title").text() != "My Dashboard")) {
@@ -43,7 +43,7 @@ jQuery(document).ready(function(){
   	  $(this).css("display", "inline");		
 		});
 		
-    $("#department_wide_locations").click(DepartmentCheckBoxes());
+    $("#department_wide_locations").click(DepartmentCheckBoxes);
     //Tried and failed to extract this to a seperate function. Could not get objects to pass correctly. TODO: for someone with more javascript skillz -bay
     $("input[name^='for_location_group']").click(function(){
 			  var locgroup_status = $(this).attr('checked');
