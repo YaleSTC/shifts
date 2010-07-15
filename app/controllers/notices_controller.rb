@@ -1,8 +1,8 @@
 class NoticesController < ApplicationController
 
-  def index
-    @notices = Notice.active_notices
-  end
+  #def index
+ #   @notices = Notice.active_notices
+ # end
 
   def archive
     require_department_admin
