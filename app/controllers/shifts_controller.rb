@@ -114,10 +114,11 @@ class ShiftsController < ApplicationController
 
   def create
     parse_date_and_time_output(params[:shift])
+    join_date_and_time(params[:shift])
     @shift = Shift.new(params[:shift])
+#    @shift.join_date_and_time
     @shift.department = @shift.location.department
     return unless require_department_membership(@shift.department)
-    @shift.join_date_and_time
 #    @shift.start = Time.now unless @shift.start
     @shift.calendar = @department.calendars.default unless @shift.calendar
     unless current_user.is_admin_of?(@department) && @shift.scheduled?
@@ -175,7 +176,9 @@ class ShiftsController < ApplicationController
 
   def update
     parse_date_and_time_output(params[:shift])
+    join_date_and_time(params[:shift])
     @shift = Shift.find(params[:id])
+#    @shift.join_date_and_time
     return unless user_is_owner_or_admin_of(@shift, @shift.department)
     if @shift.update_attributes(params[:shift])
       #combine with any compatible shifts
