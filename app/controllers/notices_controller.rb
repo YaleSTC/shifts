@@ -1,9 +1,5 @@
 class NoticesController < ApplicationController
 
-  #def index
- #   @notices = Notice.active_notices
- # end
-
   def archive
     require_department_admin
     @notices = Notice.inactive
@@ -52,14 +48,14 @@ class NoticesController < ApplicationController
 #		  end
 #		end
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
-      notice.user_sources << current_department
+      notice.location_sources << current_department
     end
 		if params[:for_location_groups] 
       params[:for_location_groups].each do |loc_group|
 				@loc_group = LocGroup.find_by_id(loc_group)
 				if current_user.is_admin_of?(@loc_group) || notice.class.name == "Sticky"
         	notice.location_sources << @loc_group	
-					notice.location_sources << @loc_group.locations
+					#notice.location_sources << @loc_group.locations
       	end
 			end
 

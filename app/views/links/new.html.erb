@@ -12,36 +12,35 @@
 		<legend>URL</legend>
 		<%= f.text_area :url, :id=>"url", :size => "50x3" %>
 	</fieldset>
-	
-	<fieldset class = "index">
-  <legend>Where:</legend>
+	<div id="variable_height_box">
+      <fieldset class = "index">
+	  <legend>Where:</legend>
+		<% if current_user.is_admin_of?(current_department) %>
+		    <%= check_box_tag :department_wide_locations, current_department.id, department_check(current_department, @link), :style => "display: none;" %>
+		    <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)" %>
+		<% end %>
 
-
-<% if current_user.is_admin_of?(current_department) %>
-    <%= check_box_tag :department_wide_locations, current_department.id, department_check(current_department, @link), :style => "display: none;" %>
-    <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)" %>
-<% end %>
-
-
-  <div id = "all_locations">
-    <% for loc_group in current_department.loc_groups do %>
-      <% if current_user.is_admin_of?(loc_group) %>
-				<li id = "notice_li">
-		      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_check(loc_group, @link), :style => "display: none;" %>
-		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
-		      <% for location in loc_group.locations do %>
-		        <%= check_box_tag "for_locations[]", location.id, location_check(location, @link) %>
-		        <%= label_tag "location_#{location.id}", text = location.short_name %>
-		        <% unless location == loc_group.locations.last %> , <%end%>
-		      <% end %>
-		    </li>
-			<% end %>
-    <% end %>
-  </div>
-	</fieldset>
+		  <div id = "all_locations">
+		    <% for loc_group in current_department.loc_groups do %>
+		      <% if current_user.is_admin_of?(loc_group) %>
+						<li id = "notice_li">
+				      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_check(loc_group, @link), :style => "display: none;" %>
+				      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
+				      <% for location in loc_group.locations do %>
+				        <%= check_box_tag "for_locations[]", location.id, location_check(location, @link) %>
+				        <%= label_tag "location_#{location.id}", text = location.short_name %>
+				        <% unless location == loc_group.locations.last %> , <%end%>
+				      <% end %>
+				    </li>
+					<% end %>
+		    <% end %>
+		  </div>
+		</fieldset>
+	  </div>
 
   <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
 <%= javascript_include_tag 'notices' %> 
+<%=  stylesheet_link_tag 'notice' %>
