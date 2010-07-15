@@ -277,13 +277,17 @@ class ApplicationController < ActionController::Base
     form_output["mandatory_end_date"] ||= form_output["mandatory_start_date"] if form_output["mandatory_start_date"]
 
 
-#Midnight? and cleanup
+#Midnight?
     %w{start end mandatory_start mandatory_end}.each do |field_name|
         unless form_output["#{field_name}_time(5i)"].nil?
           unless form_output["#{field_name}_time(5i)"].scan(/\+$/).empty?
             form_output["#{field_name}_date"] += 1.day
           end
         end
+    end
+
+#cleanup
+    %w{start end mandatory_start mandatory_end}.each do |field_name|
         form_output.delete("#{field_name}_date(1i)")
         form_output.delete("#{field_name}_date(2i)")
         form_output.delete("#{field_name}_date(3i)")
@@ -295,6 +299,20 @@ class ApplicationController < ActionController::Base
   end
 
 
+
+def join_date_and_time(form_output)
+  #join date and time
+    %w{start end mandatory_start mandatory_end}.each do |field_name|
+      if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
+        form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
+      form_output.delete("#{field_name}_date")
+      form_output.delete("#{field_name}_time")
+      end
+    end
+    form_output["start"] ||= Time.now
+
+form_output
+end
 
 
 
