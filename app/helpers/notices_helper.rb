@@ -19,8 +19,8 @@ module NoticesHelper
     notice.location_sources.each do |loc|
       return true if loc == location
     end
+		false
   end
-
 
   def end_time_check(indefinite)
     if indefinite
@@ -38,4 +38,3 @@ module NoticesHelper
     end
   end
 end
-
