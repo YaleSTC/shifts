@@ -147,22 +147,6 @@
   </p>
 <% end %>
 
-<script type="text/javascript">
-// don't retrigger the action when clicking the tooltip :P
-$('#tooltip').click(function(e){
-	e.stopPropagation();
-});
-$(this).keyup(function(event) {
-  if (event.keyCode == 27) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
-	 return false;
-   }
-});
-$(this).click(function(event) {
-	if ($('#tooltip').length == 1) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
-		return(false);
-	}
-});
-</script>
+
+<%= render :partial => '/tooltips/close_tooltip'%>
 
