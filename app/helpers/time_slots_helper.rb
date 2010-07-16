@@ -2,7 +2,6 @@ module TimeSlotsHelper
 
   def time_slot_style(time_slot, time_slot_day)
     @right_overflow = @left_overflow = false
-
     #not DRY, thrown in for AJAX reasons for now. sorry :( -ryan
     @dept_start_hour ||= current_department.department_config.schedule_start / 60
     @dept_end_hour ||= current_department.department_config.schedule_end / 60
@@ -28,14 +27,20 @@ module TimeSlotsHelper
     timeslots = TimeSlot.on_48h(time_slot_day).in_location(location)
     for timeslot in timeslots do
 
-      if ( ( ((timeslot.start < time_slot_day.beginning_of_day + @dept_start_hour.hours) &&
-         (timeslot.end    < time_slot_day.beginning_of_day + @dept_start_hour.hours))            &&
+      if( ##between yesterday's work day and today's => show it in the hidden block
+         ((timeslot.start < time_slot_day.beginning_of_day + @dept_start_hour.hours) &&
+         (timeslot.end    <= time_slot_day.beginning_of_day + @dept_start_hour.hours)) &&
          ((timeslot.start > (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours) &&
-         (timeslot.end    > (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours)) ) ||
-         ((timeslot.start > time_slot_day.beginning_of_day + @dept_end_hour.hours) &&
-         (timeslot.end    > time_slot_day.beginning_of_day + @dept_end_hour.hours)) )
+         (timeslot.end    >= (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours))
+        )
         @hidden_timeslots << timeslot
-      else
+
+      elsif #ignore anything after today's work day, or in yesterday's work day
+(            ((timeslot.start > time_slot_day.beginning_of_day + @dept_end_hour.hours) &&
+             (timeslot.end    >= time_slot_day.beginning_of_day + @dept_end_hour.hours))) ||
+(            ((timeslot.start < (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours) &&
+             (timeslot.end    <= (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours)) )
+      else #the shift is in today, so show it!
         result << timeslot
       end
     end
