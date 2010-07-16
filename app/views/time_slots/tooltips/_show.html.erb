@@ -1,6 +1,5 @@
-<% #TODO This is not DRY - the popup form should share a partial with the html one%>
-
 <%= render :partial => '/tooltips/close_tooltip'%>
+
 <% if current_user.is_admin_of?(@department) %>
   <% if params[:delete_options] and @time_slot.repeating_event %>
     <div id="repeating_event_delete_options">
