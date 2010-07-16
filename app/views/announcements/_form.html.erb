@@ -28,6 +28,7 @@
 <!-- set_sources method in notices controller doesn't handle removing polymorphic associations, so we can't unassociate locations
 		from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
 		locations, but just disable all of the checkboxes -->
+<div id="variable_height_box">
 <% if !@disable_locations %>
 	<fieldset class = "index">
   	<legend>Where:</legend>
@@ -50,8 +51,12 @@
   	</div>
 	</fieldset>
 	<% end -%>
+	</div>
 	<p>
   	<%= f.submit 'Save' %>
 	</p>
 <% end %>
+
 <%= javascript_include_tag 'notices' %>
+<%=  stylesheet_link_tag 'notice' %>
+
