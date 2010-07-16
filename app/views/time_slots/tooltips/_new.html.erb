@@ -1,7 +1,5 @@
+<%= render :partial => '/tooltips/close_tooltip'%>
 
-  <div class="close_link">
-  		<a onclick="$('#tooltip').fadeOut(function (){ $(this).remove() }); return false;" href="#">[esc]</a>
-  </div>
   <h2>Add New Time Slot</h2>
 
   <% if current_user.is_admin_of?(@department) %>
