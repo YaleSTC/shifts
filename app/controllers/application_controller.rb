@@ -306,7 +306,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-#cleanup
+    #cleanup
     %w{start end mandatory_start mandatory_end}.each do |field_name|
         form_output.delete("#{field_name}_date(1i)")
         form_output.delete("#{field_name}_date(2i)")
