@@ -18,7 +18,7 @@ class Notice < ActiveRecord::Base
   end
 
   def self.active_notices
-    Announcement.active.sort_by{|a| a.start} + Sticky.active.sort_by{|s| s.start}
+    Announcement.active.ordered_by_start + Sticky.active.ordered_by_start
   end
 
   def display_for
