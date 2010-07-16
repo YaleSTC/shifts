@@ -1,34 +1,4 @@
-function DepartmentCheckBoxes(){
-	var dept_status = $("#department_wide_locations").attr('checked');
-	$("div#all_locations :checkbox").each(function(){
-	   $(this).attr('checked', dept_status);
-	    if(dept_status) {
-	          $(this).attr('disabled', 'disabled');
-	      } else {
-	          $(this).removeAttr('disabled');
-	     }	 	
-	 });
-}
-
-function LocGroupCheckBoxes(lcg){
-	lcg.each(function(){
-		var locgroup_status = $(this).attr('checked');
-		if(locgroup_status) {
-			$(this).siblings('input[type=checkbox]').each(function(){
-		    $(this).attr('checked', locgroup_status);
-			});
-			$(this).attr('disabled', 'disabled');
-		} else {
-		  $(this).removeAttr('disabled');
-		}
-	});
-}
-jQuery($("#TB_ajaxContent")).ready(function(){
-//By default, only have advanced_options open on the main Notices and Dashboard page (not in a shift report page)
-//This disables all checkboxes under the department checkbox if the department checkbox is checked
-
-		DepartmentCheckBoxes;   
-		LocGroupCheckBoxes($("input[name^='for_location_group']"));    
+jQuery($("#TB_ajaxContent")).ready(function(){ 
 		
     if(($("#page_title").text() != "Notices") && ($("#page_title").text() != "My Dashboard")) {
         $("#advanced_options_div").hide();
@@ -43,7 +13,17 @@ jQuery($("#TB_ajaxContent")).ready(function(){
   	  $(this).css("display", "inline");		
 		});
 
-    $("#department_wide_locations").click(DepartmentCheckBoxes);
+    $("#department_wide_locations").click(function(){
+				var dept_status = $("#department_wide_locations").attr('checked');
+				$("div#all_locations :checkbox").each(function(){
+				   $(this).attr('checked', dept_status);
+				    if(dept_status) {
+				          $(this).attr('disabled', 'disabled');
+				      } else {
+				          $(this).removeAttr('disabled');
+				     }	 	
+				 });
+			});
     $("input[name^='for_location_group']").click(function(){
 			  var locgroup_status = $(this).attr('checked');
 			  $(this).siblings('input[type=checkbox]').each(function(){
