@@ -1,6 +1,5 @@
-<div class="close_link">
-  <a onclick="$('#tooltip').fadeOut(function (){ $(this).remove() }); return false;" href="#">[esc]</a>
-</div>
+<%= render :partial => '/tooltips/close_tooltip'%>
+
 <h2>New Shift</h2>
 
 	<% if current_user.is_admin_of?(@department) %>
@@ -27,7 +26,4 @@
 		<% end %>
 	  </div>
 	<% end %>
-
-
-<%= render :partial => '/tooltips/close_tooltip'%>
 
