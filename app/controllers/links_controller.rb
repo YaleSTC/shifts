@@ -2,6 +2,7 @@ class LinksController < NoticesController
 	before_filter :require_any_loc_group_admin, :except => [:index, :show, :destroy]
 
   def new
+		@current_shift_location = current_user.current_shift.location if current_user.current_shift
     @link = Link.new
 		layout_check
   end
