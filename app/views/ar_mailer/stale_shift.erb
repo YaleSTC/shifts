@@ -3,8 +3,8 @@ Hello <%= @user.name %>,
 
 The following shift has not been updated in the past hour:
 
-	Cluster:  <%= @stale_shifts.location.name %>
-	Date:     <%= @stale_shifts.start.to_s(:just_date) %>
-	Time:     <%= @stale_shifts.start.to_s(:am_pm) %> - <%= @stale_shifts.end.to_s(:am_pm) %>
+	Cluster:  <%= @stale_shift.location.name %>
+	Date:     <%= @stale_shift.start.to_s(:just_date) %>
+	Time:     <%= @stale_shift.start.to_s(:am_pm) %>
 	
 Please update your shift report or sign out if you had forgotten to do so at the end of your shift. 
