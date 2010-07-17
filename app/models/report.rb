@@ -6,7 +6,10 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    (self.shift.location.current_notices + self.shift.user.current_notices + self.shift.department.current_notices).uniq
+    @report_notices =  (self.shift.location.current_notices + self.shift.department.current_notices)
+		a = @report_notices.select{|n| n.class.name == "Announcement"}.sort_by{|n| n.start}
+		s = @report_notices.select{|n| n.class.name == "Sticky"}.sort_by{|n| n.start}
+		return a + s
   end
 
   def get_links

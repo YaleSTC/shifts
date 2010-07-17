@@ -244,24 +244,6 @@ class User < ActiveRecord::Base
     (superuser? && supermode?) ? Department.all : departments
   end
 
-  def current_notices
-    ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
-      x = Sticky.active.collect(&:id)
-      y = Announcement.active.collect(&:id)
-      Notice.find(a & (x + y))
-    end
-  end
-
-  def other_notices
-    ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id != #{self.id.to_sql}"]).collect(&:user_sink_id)
-      b = Sticky.active.collect(&:id)
-      c = Announcement.active.collect(&:id)
-      Notice.find(a & (b + c))
-    end 
-  end
-
   def payrate(department)
     DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
   end
