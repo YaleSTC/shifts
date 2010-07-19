@@ -19,6 +19,7 @@ module NoticesHelper
     notice.location_sources.each do |loc|
       return true if loc == location
     end
+		false
   end
 
 

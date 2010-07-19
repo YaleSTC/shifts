@@ -29,29 +29,8 @@
 		from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
 		locations, but just disable all of the checkboxes -->
 <div id="variable_height_box">
-<% if !@disable_locations %>
-	<fieldset class = "index">
-  	<legend>Where:</legend>
-	 <%= check_box_tag :department_wide_locations, current_department.id, department_check(current_department, @announcement), :style => "display: none;" %>
-    <%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
-	<div id = "all_locations">
-    <% for loc_group in current_department.loc_groups do %>
-      <% if current_user.permission_list.select{|p| p.loc_group == loc_group} %>
-				<li id = "notice_li">
-		      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_check(loc_group, @announcement), :style => "display: none;" %>
-		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
-		      <% for location in loc_group.locations do %>
-		        <%= check_box_tag "for_locations[]", location.id, location_check(location, @announcement) %>
-		        <%= label_tag "location_#{location.id}", text = location.short_name %>
-		        <% unless location == loc_group.locations.last %> , <%end%>
-		      <% end %>
-		    </li>
-			<% end %>
-    <% end %>
-  	</div>
-	</fieldset>
-	<% end -%>
-	</div>
+	<%= render :partial => "notices/locations", :locals => {:notice => @announcement} %>
+</div>
 	<p>
   	<%= f.submit 'Save' %>
 	</p>
