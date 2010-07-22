@@ -1,2 +1,2 @@
-module UserShiftPreferencesHelper
+module ShiftPreferencesHelper
 end
