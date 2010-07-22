@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class UserShiftPreferencesHelperTest < ActionView::TestCase
+class ShiftPreferencesHelperTest < ActionView::TestCase
 end
