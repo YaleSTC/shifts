@@ -33,21 +33,6 @@
   <%=h @shift_preference.max_hours_per_day %>
 </p>
 
-<p>
-  <b>Locations requested:</b>
-  <%=h @shift_preference.locations_requested %>
-</p>
-
-<p>
-  <b>Locations willing:</b>
-  <%=h @shift_preference.locations_willing %>
-</p>
-
-<p>
-  <b>Locations unwanted:</b>
-  <%=h @shift_preference.locations_unwanted %>
-</p>
-
 
 <%= link_to 'Edit', edit_shift_preference_path(@shift_preference) %> |
 <%= link_to 'Back', shift_preferences_path %>
