@@ -10,7 +10,10 @@ class Location < ActiveRecord::Base
 
   has_many :time_slots
   has_many :shifts
+  has_many :locations_shift_preferences
+	has_many :shift_preferences, :through => :locations_shift_preferences
   has_and_belongs_to_many :data_objects
+	has_and_belongs_to_many :requested_shifts
 
   validates_presence_of :loc_group
   validates_presence_of :name

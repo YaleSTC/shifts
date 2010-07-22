@@ -1,0 +1,28 @@
+<h1>Listing requested_shifts</h1>
+
+<table>
+  <tr>
+    <th>Preferred start</th>
+    <th>Preferred end</th>
+    <th>Acceptable start</th>
+    <th>Acceptable end</th>
+    <th>Day</th>
+  </tr>
+
+<% @requested_shifts.each do |requested_shift| %>
+  <tr>
+    <td><%=h requested_shift.preferred_start %></td>
+    <td><%=h requested_shift.preferred_end %></td>
+    <td><%=h requested_shift.acceptable_start %></td>
+    <td><%=h requested_shift.acceptable_end %></td>
+    <td><%=h requested_shift.day %></td>
+    <td><%= link_to 'Show', requested_shift %></td>
+    <td><%= link_to 'Edit', edit_requested_shift_path(requested_shift) %></td>
+    <td><%= link_to 'Destroy', requested_shift, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New requested_shift', new_requested_shift_path %>

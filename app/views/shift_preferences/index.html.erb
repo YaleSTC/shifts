@@ -1,0 +1,32 @@
+<h1>Listing shift_preferences</h1>
+
+<table>
+  <tr>
+    <th>Max total hours</th>
+    <th>Min total hours</th>
+    <th>Max continuous hours</th>
+    <th>Min continuous hours</th>
+    <th>Max number of shifts</th>
+    <th>Min number of shifts</th>
+    <th>Max hours per day</th>
+  </tr>
+
+<% @shift_preferences.each do |shift_preference| %>
+  <tr>
+    <td><%=h shift_preference.max_total_hours %></td>
+    <td><%=h shift_preference.min_total_hours %></td>
+    <td><%=h shift_preference.max_continuous_hours %></td>
+    <td><%=h shift_preference.min_continuous_hours %></td>
+    <td><%=h shift_preference.max_number_of_shifts %></td>
+    <td><%=h shift_preference.min_number_of_shifts %></td>
+    <td><%=h shift_preference.max_hours_per_day %></td>
+    <td><%= link_to 'Show', shift_preference %></td>
+    <td><%= link_to 'Edit', edit_shift_preference_path(shift_preference) %></td>
+    <td><%= link_to 'Destroy', shift_preference, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New shift_preference', new_shift_preference_path %>

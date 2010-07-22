@@ -10,6 +10,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string      :report_email
       t.boolean     :active
       t.references  :loc_group
+			t.references 	:requested_shift
       t.timestamps
     end
   end
