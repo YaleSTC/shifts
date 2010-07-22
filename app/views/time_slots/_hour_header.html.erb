@@ -1,10 +1,11 @@
-<li style="width: <%= 100/@hours_per_day.to_f %>%; left: <%= hour_counter*100/@hours_per_day.to_f %>%;" >
+<li style="width: <%= 100/@hours_per_day.to_f %>%; left: <%= hour_header_counter*100/@hours_per_day.to_f %>%;" >
   <div class="hours" >
     <div class="center_container">
       <div class="center_content">
-        <%=(Time.now.beginning_of_day + hour.hours).strftime("%l:%M%p")%>
+        <%=(Time.now.beginning_of_day + hour_header.hours).strftime("%l:%M%p")%>
       </div>
     </div>
   </div>
   <%= render :partial => "time_slots/minutes", :collection => 0...(@blocks_per_hour-1) %>
 </li>
+

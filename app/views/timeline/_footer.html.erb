@@ -3,4 +3,7 @@
     <%= link_to "&lt;&lt; Earlier", {:date => (@period_start - 7), :anchor => @period_start - 1        }, :class => "last_week"  %>
     <%= link_to "Later &gt;&gt;",   {:date => (@period_start + 7), :anchor => @period_start + (2*7) - 1}, :class => "next_week" %>
   </div>
+  <div class="week_title">
+    <%= @period_start.to_s(:just_date_long) %> to <%= (@period_start + 6).to_s(:just_date_long) %>
+  </div>
 </div>

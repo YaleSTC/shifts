@@ -9,11 +9,11 @@
   <div class="timeline" id="day_<%=day.to_s %>">
     <div class="days">
       <div class="day" style="height: <%= @table_pixels / (@table_height)%>px;"></div>
-      <%= render :partial => "shifts/schedule/left_loc_group", :collection => @loc_groups, :locals => {:day => day} %>
+      <%= render :partial => "shifts/schedule/loc_group", :collection => @loc_groups, :locals => {:day => day} %>
     </div>
     <div class="timeline-data">
       <ul class="intervals" style="height: <%= @table_pixels / (@table_height)%>px;">
-        <%= render :partial => "shifts/schedule/hour_header", :collection =>  (@dept_start_hour...@dept_end_hour).map{ |hour| (Time.now.beginning_of_day + hour.hours).strftime("%l%p")} %>
+        <%= render :partial => "shifts/schedule/hour", :collection =>  (@dept_start_hour...@dept_end_hour).map{ |hour| (Time.now.beginning_of_day + hour.hours).strftime("%l%p")} %>
       </ul>
       <%= render :partial => "shifts/schedule/loc_group_row", :collection => @loc_groups, :locals => {:day => day} %>
     </div>
