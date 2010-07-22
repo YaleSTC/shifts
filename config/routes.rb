@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :templates
+
+  map.resources :requested_shifts
+
+  map.resources :user_shift_preferences
+
   map.resources :stickies
 
   map.resources :announcements

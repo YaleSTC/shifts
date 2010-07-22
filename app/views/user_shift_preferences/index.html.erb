@@ -1,0 +1,38 @@
+<h1>Listing user_shift_preferences</h1>
+
+<table>
+  <tr>
+    <th>Max total hours</th>
+    <th>Min total hours</th>
+    <th>Max continuous hours</th>
+    <th>Min continuous hours</th>
+    <th>Max number of shifts</th>
+    <th>Min number of shifts</th>
+    <th>Max hours per day</th>
+    <th>Locations requested</th>
+    <th>Locations willing</th>
+    <th>Locations unwanted</th>
+  </tr>
+
+<% @user_shift_preferences.each do |user_shift_preference| %>
+  <tr>
+    <td><%=h user_shift_preference.max_total_hours %></td>
+    <td><%=h user_shift_preference.min_total_hours %></td>
+    <td><%=h user_shift_preference.max_continuous_hours %></td>
+    <td><%=h user_shift_preference.min_continuous_hours %></td>
+    <td><%=h user_shift_preference.max_number_of_shifts %></td>
+    <td><%=h user_shift_preference.min_number_of_shifts %></td>
+    <td><%=h user_shift_preference.max_hours_per_day %></td>
+    <td><%=h user_shift_preference.locations_requested %></td>
+    <td><%=h user_shift_preference.locations_willing %></td>
+    <td><%=h user_shift_preference.locations_unwanted %></td>
+    <td><%= link_to 'Show', user_shift_preference %></td>
+    <td><%= link_to 'Edit', edit_user_shift_preference_path(user_shift_preference) %></td>
+    <td><%= link_to 'Destroy', user_shift_preference, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user_shift_preference', new_user_shift_preference_path %>
