@@ -1,48 +1,39 @@
-<h1>New shift_preference</h1>
+<h1>New Shift Preferences</h1>
 
 <% form_for(@shift_preference) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :max_total_hours %><br />
-    <%= f.text_field :max_total_hours %>
+    <%= f.label :max_total_hours %>: 
+    <%= select_tag 'shift_preference[max_total_hours]', options_for_select(@hours_week, @hours_week.min) %>
   </p>
   <p>
-    <%= f.label :min_total_hours %><br />
-    <%= f.text_field :min_total_hours %>
+    <%= f.label :min_total_hours %>: 
+    <%= select_tag 'shift_preference[min_total_hours]', options_for_select(@hours_week, @hours_week.min) %>
   </p>
   <p>
-    <%= f.label :max_continuous_hours %><br />
-    <%= f.text_field :max_continuous_hours %>
+    <%= f.label :max_continuous_hours %>: 
+    <%= select_tag 'shift_preference[max_continuous_hours]', options_for_select(@hours_shift, @hours_shift.min) %>
   </p>
   <p>
-    <%= f.label :min_continuous_hours %><br />
-    <%= f.text_field :min_continuous_hours %>
+    <%= f.label :min_continuous_hours %>: 
+    <%= select_tag 'shift_preference[min_continuous_hours]', options_for_select(@hours_shift, @hours_shift.min) %>
   </p>
   <p>
-    <%= f.label :max_number_of_shifts %><br />
-    <%= f.text_field :max_number_of_shifts %>
+    <%= f.label :max_number_of_shifts %>: 
+    <%= select_tag 'shift_preference[max_number_of_shifts]', options_for_select(@shifts_week, @shifts_week.min) %>
   </p>
   <p>
-    <%= f.label :min_number_of_shifts %><br />
-    <%= f.text_field :min_number_of_shifts %>
+    <%= f.label :min_number_of_shifts %>: 
+    <%= select_tag 'shift_preference[min_number_of_shifts]', options_for_select(@shifts_week, @shifts_week.min) %>
   </p>
   <p>
-    <%= f.label :max_hours_per_day %><br />
-    <%= f.text_field :max_hours_per_day %>
+    <%= f.label :max_hours_per_day %>: 
+    <%= select_tag 'shift_preference[max_hours_per_day]', options_for_select(@hours_shift, @hours_shift.min) %>
   </p>
-  <p>
-    <%= f.label :locations_requested %><br />
-    <%= f.text_field :locations_requested %>
-  </p>
-  <p>
-    <%= f.label :locations_willing %><br />
-    <%= f.text_field :locations_willing %>
-  </p>
-  <p>
-    <%= f.label :locations_unwanted %><br />
-    <%= f.text_field :locations_unwanted %>
-  </p>
+	<p>
+		
+	</p>
   <p>
     <%= f.submit 'Create' %>
   </p>
