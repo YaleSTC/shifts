@@ -45,9 +45,9 @@
 			<% @locations.each do |current_location| %>
 				<tr>
 					<td><%= current_location.name %></td>
-					<td><%= radio_button_tag("kind"+current_location.id.to_s, "yes") %></td>
-					<td><%= radio_button_tag("kind"+current_location.id.to_s, "maybe") %></td>
-					<td><%= radio_button_tag("kind"+current_location.id.to_s, "no") %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "yes") %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "maybe", true) %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "no") %></td>
 				</tr>
 			<% end %>
 		</table>

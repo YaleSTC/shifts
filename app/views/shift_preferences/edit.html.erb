@@ -1,36 +1,57 @@
-<h1>Editing shift_preference</h1>
+<h1>Editing Shift Preferences</h1>
 
 <% form_for(@shift_preference) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :max_total_hours %><br />
-    <%= f.text_field :max_total_hours %>
+    <%= f.label :max_total_hours %>: 
+    <%= select_tag 'shift_preference[max_total_hours]', options_for_select(@hours_week, @hours_week.min) %>
   </p>
   <p>
-    <%= f.label :min_total_hours %><br />
-    <%= f.text_field :min_total_hours %>
+    <%= f.label :min_total_hours %>: 
+    <%= select_tag 'shift_preference[min_total_hours]', options_for_select(@hours_week, @hours_week.min) %>
   </p>
   <p>
-    <%= f.label :max_continuous_hours %><br />
-    <%= f.text_field :max_continuous_hours %>
+    <%= f.label :max_continuous_hours %>: 
+    <%= select_tag 'shift_preference[max_continuous_hours]', options_for_select(@hours_shift, @hours_shift.min) %>
   </p>
   <p>
-    <%= f.label :min_continuous_hours %><br />
-    <%= f.text_field :min_continuous_hours %>
+    <%= f.label :min_continuous_hours %>: 
+    <%= select_tag 'shift_preference[min_continuous_hours]', options_for_select(@hours_shift, @hours_shift.min) %>
   </p>
   <p>
-    <%= f.label :max_number_of_shifts %><br />
-    <%= f.text_field :max_number_of_shifts %>
+    <%= f.label :max_number_of_shifts %>: 
+    <%= select_tag 'shift_preference[max_number_of_shifts]', options_for_select(@shifts_week, @shifts_week.min) %>
   </p>
   <p>
-    <%= f.label :min_number_of_shifts %><br />
-    <%= f.text_field :min_number_of_shifts %>
+    <%= f.label :min_number_of_shifts %>: 
+    <%= select_tag 'shift_preference[min_number_of_shifts]', options_for_select(@shifts_week, @shifts_week.min) %>
   </p>
   <p>
-    <%= f.label :max_hours_per_day %><br />
-    <%= f.text_field :max_hours_per_day %>
-  </p>
+    <%= f.label :max_hours_per_day %>: 
+    <%= select_tag 'shift_preference[max_hours_per_day]', options_for_select(@hours_shift, @hours_shift.min) %>
+	</p>
+	
+	<p>
+		Please select your location preferences: <br/>
+		<table>
+			<tr>
+				<th>Location</th>
+				<th>Yes</th>
+				<th>Maybe</th>
+				<th>No</th>
+			</tr>
+			<% f.label :location_preference %>
+			<% @locations.each do |current_location| %>
+				<tr>
+					<td><%= current_location.name %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "yes") %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "maybe", true) %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "no") %></td>
+				</tr>
+			<% end %>
+		</table>
+	</p>
   <p>
     <%= f.submit 'Update' %>
   </p>
