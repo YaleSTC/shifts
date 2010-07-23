@@ -1,12 +1,20 @@
 <h1>New template</h1>
 
-<% form_for(@template) do |f| %>
+<% form_for(@week_template) do |f| %>
   <%= f.error_messages %>
 
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+	Enable this template for the following locations:
+	<% @locations.each do |location| %>
+		<%= check_box_tag "for_locations[]", location.id %>
+		<%= label_tag "location_#{location.id}", text = location.short_name %> ,
+	<% end %>
+	<p>
+		Let users add their requested shifts to this template:
+		<%= check_box_tag :public %>
   <p>
     <%= f.submit 'Create' %>
   </p>
