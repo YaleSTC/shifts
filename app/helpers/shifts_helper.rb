@@ -121,11 +121,18 @@ module ShiftsHelper
       @shift.end ||= @shift.start + 1.hour
     end
 
-#the date doesn't matter, only the time
-    @range_start_time = Time.now.beginning_of_day + current_department.department_config.schedule_start.minutes
-    @range_end_time = Time.now.beginning_of_day + current_department.department_config.schedule_end.minutes
 
-  end
+    #is it safe to use last? it works consistently when I tested it
+    timeslot = TimeSlot.overlaps(@shift.start, @shift.end).last
+    if timeslot
+        @range_start_time = timeslot.start
+        @range_end_time = timeslot.end
+    else
+        #the date doesn't matter for range_start_time, only the time
+        @range_start_time = Date.today.to_time + current_department.department_config.schedule_start.minutes
+        @range_end_time = Date.today.to_time + current_department.department_config.schedule_end.minutes
+    end
+end
 
 
 
