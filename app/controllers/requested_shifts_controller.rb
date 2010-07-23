@@ -21,27 +21,21 @@ class RequestedShiftsController < ApplicationController
     end
   end
 
-  # GET /requested_shifts/new
-  # GET /requested_shifts/new.xml
   def new
     @requested_shift = RequestedShift.new
+		#Rails will throw an error if you use @template
+		@template2 = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+	end
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @requested_shift }
-    end
-  end
-
-  # GET /requested_shifts/1/edit
   def edit
     @requested_shift = RequestedShift.find(params[:id])
   end
 
-  # POST /requested_shifts
-  # POST /requested_shifts.xml
   def create
+		puts "hi"
     @requested_shift = RequestedShift.new(params[:requested_shift])
-
+		raise params.to_yaml
     respond_to do |format|
       if @requested_shift.save
         flash[:notice] = 'RequestedShift was successfully created.'
