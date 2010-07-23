@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     return false unless loc_group
-    (permission_list.include?(loc_group.view_permission) || permission_list.include?(loc_group.department.admin_permission)) && self.is_active?(loc_group.department)
+    (self.is_superuser? || permission_list.include?(loc_group.view_permission) || permission_list.include?(loc_group.department.admin_permission)) && self.is_active?(loc_group.department)
   end
 
   # check if a user can sign up for a shift in this loc group
