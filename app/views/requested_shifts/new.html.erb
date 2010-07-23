@@ -2,27 +2,33 @@
 
 <% form_for([@template2, @requested_shift]) do |f| %>
   <%= f.error_messages %>
-	
+	<p>
+    <%= f.label :acceptable_start %><br />
+    <%= f.time_select :acceptable_start %>
+  </p>
   <p>
     <%= f.label :preferred_start %><br />
-    <%= f.datetime_select :preferred_start %>
+    <%= f.time_select :preferred_start %>
   </p>
   <p>
     <%= f.label :preferred_end %><br />
-    <%= f.datetime_select :preferred_end %>
+    <%= f.time_select :preferred_end %>
   </p>
-  <p>
-    <%= f.label :acceptable_start %><br />
-    <%= f.datetime_select :acceptable_start %>
-  </p>
+  
   <p>
     <%= f.label :acceptable_end %><br />
-    <%= f.datetime_select :acceptable_end %>
+    <%= f.time_select :acceptable_end %>
   </p>
   <p>
-    <%= f.label :day %><br />
+    <%= f.label :day, "What day:" %><br />
     <%= f.select :day, RequestedShift::WEEK_DAY_SELECT %>
   </p>
+	Locations:
+	<% @locations.each do |location| %>
+		<%= check_box_tag "for_locations[]", location.id %>
+		<%= label_tag "location_#{location.id}", text = location.short_name %> ,
+	<% end %>
+		
   <p>
     <%= f.submit 'Add a shift request' %>
   </p>

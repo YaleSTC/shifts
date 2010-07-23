@@ -25,19 +25,27 @@ class RequestedShiftsController < ApplicationController
     @requested_shift = RequestedShift.new
 		#Rails will throw an error if you use @template
 		@template2 = Template.find(:first, :conditions => {:id => params[:template_id]})
-		@days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+		@locations = @template2.locations
 	end
 
   def edit
     @requested_shift = RequestedShift.find(params[:id])
+		@template2 = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@locations = @template2.locations
   end
 
   def create
-		puts "hi"
     @requested_shift = RequestedShift.new(params[:requested_shift])
-		raise params.to_yaml
+		@template2 = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@locations = @template2.locations
+		if params[:for_locations]
+			@requested_shift.locations << Location.find(params[:for_locations]) 
+		end	
+		@requested_shift.user = current_user
+		#raise @requested_shift.to_yaml
     respond_to do |format|
       if @requested_shift.save
+				@template2.requested_shifts << @requested_shift
         flash[:notice] = 'RequestedShift was successfully created.'
         format.html { redirect_to(@requested_shift) }
         format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
