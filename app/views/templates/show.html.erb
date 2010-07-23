@@ -1,8 +1,14 @@
 <p>
   <b>Name:</b>
-  <%=h @template.name %>
+  <%= @week_template.name %>
+	<p>
+	Requested shifts:
+	<% @requested_shifts.each do |requested_shift| %>
+		<br/><%= "#{requested_shift.user.name}" %>: <%= "Preferred start: #{requested_shift.preferred_start.strftime("%X")}" %>
+	<% end %>
+	</p>
 </p>
 
 
-<%= link_to 'Edit', edit_template_path(@template) %> |
+<%= link_to 'Edit', edit_template_path(@week_template) %> |
 <%= link_to 'Back', templates_path %>
