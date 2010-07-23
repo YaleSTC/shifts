@@ -25,6 +25,9 @@ class ShiftPreferencesController < ApplicationController
   # GET /shift_preferences/new.xml
   def new
     @shift_preference = ShiftPreference.new
+    @hours_week = (3..19).to_a
+    @shifts_week = (1..10).to_a
+    @hours_shift = [0.25, 0.5] + (1..8).to_a
 
     respond_to do |format|
       format.html # new.html.erb

@@ -1,5 +1,6 @@
 class ShiftPreference < ActiveRecord::Base
 	belongs_to :user
-	has_and_belongs_to_many :locations
+	has_many :locations_shift_preferences
+	has_many :locations, :through => :locations_shift_preferences
 	belongs_to :template
 end
