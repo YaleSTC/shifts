@@ -4,7 +4,7 @@
   <tr>
     <th>Name</th>
   </tr>
-<% @templates.each do |template| %>
+<% @week_templates.each do |template| %>
   <tr>
 		<% template.requested_shifts.each do |rs| %>
 			Start: <%= rs.preferred_start%>
@@ -21,3 +21,4 @@
 <br />
 
 <%= link_to 'New template', new_template_path %>
+

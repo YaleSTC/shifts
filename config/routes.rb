@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :links
 
   map.resources :repeating_events
-  
+
   map.resources :calendars, :member => {:toggle => :post, :prepare_copy => :get, :copy => :post, :apply_schedule => [:get, :post]}, :collection => {:prepare_wipe_range => :get, :wipe_range => :post}
 
   map.resources :punch_clock_sets
@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
    # routes for calendar_feeds
   map.calendar_feed 'calendar_feeds/grab/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab'
   map.resources :calendar_feeds
-  
+
   # routes for managing superusers
   map.superusers "superusers", :controller => 'superusers'
   map.add_superusers "superusers/add", :controller => 'superusers', :action => 'add'
@@ -82,10 +82,13 @@ ActionController::Routing::Routes.draw do |map|
                                     :as => "subs"
   end
 
+  map.resources :requested_shifts
+  map.resources :templates
+
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
-  
+
   map.resources :locations, :member => {:toggle => [:get, :post]}
 
   map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
@@ -127,7 +130,7 @@ ActionController::Routing::Routes.draw do |map|
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
-	
+
 	map.resources :templates, :has_many => :requested_shifts, :shallow => true
   # The priority is based upon order of creation: first created -> highest priority.
 
