@@ -18,13 +18,19 @@ class RequestedShift < ActiveRecord::Base
     ["Sunday", 6]
   ]
 	
+	protected
 	def user_shift_preferences
-		@max_cont_hours = self.user.shift_preferences.select{|sp| sp.template_id == self.template_id}.first.max_continuous_hours
+		@shift_preference = self.user.shift_preferences.select{|sp| sp.template_id == self.template_id}.first
+		@max_cont_hours = @shift_preference.max_continuous_hours
+		@min_cont_hours = @shift_preference.min_continuous_hours
+		errors.add_to_base("Your preferred shift length is longer than the maximum continious hours you 
+												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > @max_cont_hours
+		errors.add_to_base("Your preferred shift length is shorter than the minimum continious hours you 
+												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 < @min_cont_hours
 		errors.add_to_base("Your preferred shift length is longer than the maximum continious hours you 
 												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > @max_cont_hours
 	end
-	protected
-	
+
 	def proper_times
 		errors.add_to_base("Acceptable start time cannot be after the preferred start time") if self.acceptable_start > self.preferred_start
 		errors.add_to_base("Acceptable end time cannot be before the preferred end time") if self.acceptable_end < self.preferred_end
