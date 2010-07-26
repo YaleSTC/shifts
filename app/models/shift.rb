@@ -422,7 +422,7 @@ class Shift < ActiveRecord::Base
   end
 
   def start_less_than_end
-    errors.add(:start, "must be earlier than end time") if (self.end <= start)
+    errors.add(:start, "must be earlier than end time") if (self.end <= self.start)
   end
 
   def shift_is_within_time_slot
