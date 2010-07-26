@@ -48,6 +48,9 @@ class ShiftPreferencesController < ApplicationController
   # POST /shift_preferences.xml
   def create
     @locations = Location.active
+    @hours_week = (3..19).to_a
+    @shifts_week = (1..10).to_a
+    @hours_shift = [0.25, 0.5] + (1..8).to_a
     @shift_preference = ShiftPreference.new(params[:shift_preference])
     respond_to do |format|
       if @shift_preference.save
@@ -70,14 +73,21 @@ class ShiftPreferencesController < ApplicationController
   # PUT /shift_preferences/1.xml
   def update
     @shift_preference = ShiftPreference.find(params[:id])
+    @hours_week = (3..19).to_a
+    @shifts_week = (1..10).to_a
+    @hours_shift = [0.25, 0.5] + (1..8).to_a
     @locations = Location.active
     respond_to do |format|
       if @shift_preference.update_attributes(params[:shift_preference])
         @locations.each do |current_location|
           preference_name = "kind"+current_location.id.to_s
-          @locations_shift_preference = LocationsShiftPreference.find(:first, :conditions => {:shift_preference_id => @shift_preference.id, :location_id => current_location.id})
-          @locations_shift_preference.kind = params[preference_name]
-          @locations_shift_preference.save!
+          # @old_locations_shift_preference = LocationsShiftPreference.find(:first, :conditions => {:shift_preference_id => @shift_preference.id, :location_id => current_location.id})
+          # # @locations_shift_preference.kind = params[preference_name]
+          # # @locations_shift_preference.save!
+          # @old_locations_shift_preference.delete
+          #LocationsShiftPreference.find(:first, :conditions => {:shift_preference_id => @shift_preference.id, :location_id => current_location.id}).delete
+          @new_locations_shift_preference = LocationsShiftPreference.new(:shift_preference_id => @shift_preference.id, :location_id => current_location.id, :kind => params[preference_name])
+          @new_locations_shift_preference.save
         end
         flash[:notice] = 'ShiftPreference was successfully updated.'
         format.html { redirect_to(@shift_preference) }
