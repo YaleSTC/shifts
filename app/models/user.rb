@@ -244,15 +244,6 @@ class User < ActiveRecord::Base
     (superuser? && supermode?) ? Department.all : departments
   end
 
-  def current_notices
-    Notice.active.select {|n| n.users.include?(self)}
-  end
-
-  def other_notices
-    Notice.active.select {|n| !n.users.include?(self) && n.locations.empty?}
-  end
-
-
   def payrate(department)
     DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
   end

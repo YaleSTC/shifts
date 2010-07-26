@@ -100,9 +100,14 @@ module ShiftsHelper
 
 #calculates default_start/end and range_start/end_time
   def calculate_default_times
+    if @shift.new_record? #true for new html&tooltip
+      @default_start_date = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+    else # true for edit html&tooltip
+      @default_start_date = @shift.start
+    end
 
-    if params[:xPercentage]
-      @shift.start = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+    if params[:xPercentage] #only true in a new shift tooltip
+      @shift.start = @default_start_date
       @dept_start_minutes ||= current_department.department_config.schedule_start
       @dept_end_minutes ||= current_department.department_config.schedule_end
       @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
@@ -111,12 +116,15 @@ module ShiftsHelper
 #if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
 #if the schedule starts at 9:30, I'm not sure what happens ~Casey
       @shift.end = @shift.start + 1.hour
-    else
+    else #start already exists when editing, this just sets it for the new html view
       @shift.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
       @shift.end ||= @shift.start + 1.hour
     end
-    @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
-    @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+
+#the date doesn't matter, only the time
+    @range_start_time = Time.now.beginning_of_day + current_department.department_config.schedule_start.minutes
+    @range_end_time = Time.now.beginning_of_day + current_department.department_config.schedule_end.minutes
+
   end
 
 

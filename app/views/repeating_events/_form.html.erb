@@ -1,3 +1,5 @@
+<% calculate_default_times_repeating_events %>
+
 <% form_for @repeating_event do |f| %>
   <%if @errors%>
 <strong>The repeating event could not be applied for the following reasons</strong>
@@ -9,11 +11,11 @@
 <%end%>
   <p>
     <%= f.label :start_date %><br />
-    <%= f.date_select :start_date %>
+    <%= f.date_select :start_date, :default => @default_start_date.previous_sunday.to_date %>
   </p>
   <p>
     <%= f.label :end_date %><br />
-    <%= f.date_select :end_date %>
+    <%= f.date_select :end_date, :default => @default_start_date.previous_sunday.to_date + 6.days %>
   </p>
   <p>
     <%= f.label :calendar %><br />
@@ -37,9 +39,13 @@
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
                 :include_start_time => true,
                 :include_end_time => false,
-                :default => Time.now,
+                :default => @repeating_event.start_time
+#                :default => Time.now.to_date + current_department.department_config.schedule_start.minutes,
                                           } %>
   </p>
   <p>
@@ -48,9 +54,12 @@
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment,
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
                 :include_start_time => false,
                 :include_end_time => true,
-                :default => Time.now,
+                :default => @repeating_event.end_time
+#                :default => Time.now.to_date + current_department.department_config.schedule_end.minutes,
                                           } %>
   </p>
     <p>
@@ -97,4 +106,28 @@
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"repeating_event_start_date_3i":"j",
+                              "repeating_event_start_date_1i":"Y",
+                              "repeating_event_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"repeating_event_end_date_3i":"j",
+                              "repeating_event_end_date_1i":"Y",
+                              "repeating_event_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
 

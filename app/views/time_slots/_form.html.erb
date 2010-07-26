@@ -1,21 +1,20 @@
 <% calculate_default_times %>
 
-<% form_for @time_slot do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :calendar %><br />
-    <%= f.collection_select(:calendar_id, @department.calendars, :id, :name) %>
-  </p>
-  <p>
-      <strong>Days:</strong><br />
-    <% WEEK_DAYS.each_with_index do |day, i| %>
-      <%= check_box_tag "days[]", i, false, {:id => "days_#{i}"} %>
-      <%= day %>
+    <% if params[:calendar] %>
+      <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
+    <% else %>
+      <p>
+        <%= f.label :calendar %><br />
+        <%= select_tag 'time_slot[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%>
+      </p>
     <% end %>
-  </p>
+
+      <p>
+        <%= f.label :date %><br />
+        <%= f.date_select :start_date, :default => @default_start_date %>
+      </p>
       <p>
         <%= f.label :start %><br />
-        <%= f.hidden_field :start_date, :value => @time_slot.start.to_date %>
         <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -31,7 +30,7 @@
       </p>
       <p>
         <%= f.label :end %><br />
-        <%= f.hidden_field :end_date, :value => @time_slot.end.to_date %>
+        <%#= f.hidden_field :end_date, :value => @default_end_date %>
         <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -45,18 +44,21 @@
                 :include_end_time => true,
                                           } %>
       </p>
-  <% @department.loc_groups.each do |loc_group| %>
-    <% unless loc_group.locations.empty? %>
       <p>
-        <strong><%= loc_group.name %></strong><br/>
-        <% loc_group.locations.each do |loc| %>
-          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
-          <%= loc.short_name %>
-        <% end %>
+        <%= f.label :location %><br />
+        <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location_id)%><br />
       </p>
-    <% end %>
-  <%- end -%>
-  </p>
-  <p><%= f.submit "Add" %></p>
-<% end %>
 
+  </p>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"time_slot_start_date_3i":"j",
+                              "time_slot_start_date_1i":"Y",
+                              "time_slot_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+</script>
