@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :templates
+  # map.resources :templates
 
   map.resources :stickies
 
@@ -126,7 +126,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
 	
-	map.resources :templates, :shallow => true do |template|
+	map.resources :templates do |template|
 		template.resources :requested_shifts
 		template.resources :shift_preferences
   end

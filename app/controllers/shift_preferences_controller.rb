@@ -3,6 +3,7 @@ class ShiftPreferencesController < ApplicationController
   # GET /shift_preferences.xml
   def index
     @shift_preferences = ShiftPreference.all
+    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,8 +13,9 @@ class ShiftPreferencesController < ApplicationController
 
   # GET /shift_preferences/1
   # GET /shift_preferences/1.xml
-  def show
+  def show    
     @shift_preference = ShiftPreference.find(params[:id])
+    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,7 +31,7 @@ class ShiftPreferencesController < ApplicationController
     @hours_week = (3..19).to_a
     @shifts_week = (1..10).to_a
     @hours_shift = [0.25, 0.5] + (1..8).to_a
-    @locations = Location.active
+    @locations = @week_template.locations
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @shift_preference }
@@ -38,18 +40,19 @@ class ShiftPreferencesController < ApplicationController
 
   # GET /shift_preferences/1/edit
   def edit
+    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.find(params[:id])
     @hours_week = (3..19).to_a
     @shifts_week = (1..10).to_a
     @hours_shift = [0.25, 0.5] + (1..8).to_a
-    @locations = Location.active
+    @locations = @week_template.locations
   end
 
   # POST /shift_preferences
   # POST /shift_preferences.xml
   def create
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
-    @locations = Location.active
+    @locations = @week_template.locations
     @hours_week = (3..19).to_a
     @shifts_week = (1..10).to_a
     @hours_shift = [0.25, 0.5] + (1..8).to_a
@@ -64,7 +67,7 @@ class ShiftPreferencesController < ApplicationController
           @locations_shift_preference.save
         end
         flash[:notice] = 'ShiftPreference was successfully created.'
-        format.html { redirect_to(@shift_preference) }
+        format.html { redirect_to(template_shift_preferences_path(@week_template)) }
         format.xml  { render :xml => @shift_preference, :status => :created, :location => @shift_preference }
       else
         format.html { render :action => "new" }
@@ -76,25 +79,22 @@ class ShiftPreferencesController < ApplicationController
   # PUT /shift_preferences/1
   # PUT /shift_preferences/1.xml
   def update
+    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.find(params[:id])
     @hours_week = (3..19).to_a
     @shifts_week = (1..10).to_a
     @hours_shift = [0.25, 0.5] + (1..8).to_a
-    @locations = Location.active
+    @locations = @week_template.locations
     respond_to do |format|
       if @shift_preference.update_attributes(params[:shift_preference])
+        @shift_preference.locations_shift_preferences.destroy_all
         @locations.each do |current_location|
           preference_name = "kind"+current_location.id.to_s
-          # @old_locations_shift_preference = LocationsShiftPreference.find(:first, :conditions => {:shift_preference_id => @shift_preference.id, :location_id => current_location.id})
-          # # @locations_shift_preference.kind = params[preference_name]
-          # # @locations_shift_preference.save!
-          # @old_locations_shift_preference.delete
-          #LocationsShiftPreference.find(:first, :conditions => {:shift_preference_id => @shift_preference.id, :location_id => current_location.id}).delete
-          @new_locations_shift_preference = LocationsShiftPreference.new(:shift_preference_id => @shift_preference.id, :location_id => current_location.id, :kind => params[preference_name])
-          @new_locations_shift_preference.save
+          @locations_shift_preference = LocationsShiftPreference.new(:shift_preference_id => @shift_preference.id, :location_id => current_location.id, :kind => params[preference_name])
+          @locations_shift_preference.save
         end
         flash[:notice] = 'ShiftPreference was successfully updated.'
-        format.html { redirect_to(@shift_preference) }
+        format.html { redirect_to(template_shift_preferences_path(@week_template)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -106,11 +106,12 @@ class ShiftPreferencesController < ApplicationController
   # DELETE /shift_preferences/1
   # DELETE /shift_preferences/1.xml
   def destroy
+    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.find(params[:id])
     @shift_preference.destroy
 
     respond_to do |format|
-      format.html { redirect_to(shift_preferences_url) }
+      format.html { redirect_to(template_shift_preferences_path(@week_template)) }
       format.xml  { head :ok }
     end
   end

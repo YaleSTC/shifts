@@ -23,8 +23,8 @@ class ShiftPreference < ActiveRecord::Base
     errors.add(:max_number_of_shifts, "max number of shifts must be greater min number of shifts") if (self.max_number_of_shifts < self.min_number_of_shifts)
   end
 	
-	def feasibility_of_preferences
-	  errors.add(:)
-  end
+  # def feasibility_of_preferences
+  #   errors.add()
+  #   end
 	
 end
