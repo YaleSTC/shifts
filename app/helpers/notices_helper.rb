@@ -15,19 +15,19 @@ module NoticesHelper
   end
 
   def location_check(location, notice)
-    notice.locations.each do |loc|
+		return @current_shift_location == location if @current_shift_location
+    notice.location_sources.each do |loc|
       return true if loc == location
     end
-    return @current_shift_location == location if @current_shift_location
-    false
+		false
   end
 
 
   def end_time_check(indefinite)
     if indefinite
-      return true unless @announcement.end_time
+      return true unless @announcement.end
     else
-      return true if @announcement.end_time
+      return true if @announcement.end
     end
   end
 

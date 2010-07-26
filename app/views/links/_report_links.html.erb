@@ -1,9 +1,9 @@
 <% if @report = current_user.current_shift.report %>
 <% @report.get_links.each do |link|%>
   <li>
-    <% if current_user.is_admin_of?(@report.shift.location.loc_group) %>
+    <% if current_user.is_admin_of?(@report.shift.location.loc_group) || current_user == link.author %>
       <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => link.id },
-                                 :confirm => "Are you sure you want to remove this useful link?",
+                                 :confirm => "Are you sure you want to remove this link?",
                                  :method => :delete %>
     <% end %>
     <%= link_to "#{link.content}", "#{link.url}", :popup => true %>

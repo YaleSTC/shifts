@@ -17,6 +17,7 @@ class RestrictionsController < ApplicationController
 
   def create
     parse_date_and_time_output(params[:restriction])
+    join_date_and_time(params[:restriction])
     @restriction = Restriction.new(params[:restriction])
     begin
       Restriction.transaction do
@@ -39,6 +40,7 @@ class RestrictionsController < ApplicationController
   def update
     @restriction = Restriction.find(params[:id])
     parse_date_and_time_output(params[:restriction])
+    join_date_and_time(params[:restriction])
     if @restriction.update_attributes(params[:restriction])
       flash[:notice] = "Successfully updated restriction."
       redirect_to @restriction

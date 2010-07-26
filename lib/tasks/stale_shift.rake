@@ -20,6 +20,3 @@ task (:stale_shift => :environment) do
     stale_shift_email(dept)
   end
 end
-
-
-

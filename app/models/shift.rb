@@ -9,8 +9,6 @@ class Shift < ActiveRecord::Base
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
   before_update :disassociate_from_repeating_event
-  before_validation :join_date_and_time
-
 
   validates_presence_of :location
   validates_presence_of :start
@@ -136,7 +134,7 @@ class Shift < ActiveRecord::Base
     days.each do |day|
       seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
       seed_end_time = seed_start_time+diff
-      while seed_end_time <= end_date
+      while seed_end_time <= (end_date + 1.day)
         if active
           inner_test.push "(#{:user_id.to_sql_column} = #{user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{department_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
         else
@@ -380,6 +378,9 @@ class Shift < ActiveRecord::Base
     SubRequest.find_by_shift_id(self.id)
   end
 
+  # ======================
+  # = Validation helpers =
+  # ======================
 
   def join_date_and_time
     # scheduled shifts
@@ -392,14 +393,8 @@ class Shift < ActiveRecord::Base
      end
   end
 
-
-
   private
-
-  # ======================
-  # = Validation helpers =
-  # ======================
-
+  
   def restrictions
     unless self.power_signed_up
       errors.add(:user, "is required") and return if self.user.nil?
@@ -429,7 +424,8 @@ class Shift < ActiveRecord::Base
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= start)
   end
-
+  
+  #TODO: Fix this to check timeslots by time_increment
   def shift_is_within_time_slot
     unless self.power_signed_up
       c = TimeSlot.count(:all, :conditions => ["#{:location_id.to_sql_column} = #{self.location_id.to_sql} AND #{:start.to_sql_column} <= #{self.start.to_sql} AND #{:end.to_sql_column} >= #{self.end.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
@@ -439,12 +435,12 @@ class Shift < ActiveRecord::Base
 
   def user_does_not_have_concurrent_shift
     if self.calendar.active
-      c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
+      c = Shift.find(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
     else
-      c = Shift.count(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}"])
+      c = Shift.find(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}"])
     end
-    unless c.zero?
-      errors.add_to_base("#{self.user.name} has an overlapping shift in that period.") unless (self.id and c==1)
+    unless c.empty?
+      errors.add_to_base("#{self.user.name} has an overlapping shift in that period.") unless (c.length == 1  and  self.id == c.first.id)
     end
   end
 
