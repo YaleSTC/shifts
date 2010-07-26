@@ -42,6 +42,7 @@ class RequestedShiftsController < ApplicationController
 			@requested_shift.locations << Location.find(params[:for_locations]) 
 		end	
 		@requested_shift.user = current_user
+		@requested_shift.template = @template2
 		#raise @requested_shift.to_yaml
     respond_to do |format|
       if @requested_shift.save

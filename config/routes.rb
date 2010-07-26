@@ -1,8 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :templates
 
-  map.resources :shift_preferences
-
   map.resources :stickies
 
   map.resources :announcements
@@ -131,7 +129,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
 
-	map.resources :templates, :has_many => :requested_shifts, :shallow => true
+	map.resources :templates, :shallow => true do |template|
+		template.resources :requested_shifts
+		template.resources :shift_preferences
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
