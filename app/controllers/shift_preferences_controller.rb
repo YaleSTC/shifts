@@ -48,10 +48,13 @@ class ShiftPreferencesController < ApplicationController
   # POST /shift_preferences
   # POST /shift_preferences.xml
   def create
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @locations = Location.active
     @shift_preference = ShiftPreference.new(params[:shift_preference])
     respond_to do |format|
       if @shift_preference.save
+				@week_template.shift_preferences << @shift_preference
+				@week_template.save
         @locations.each do |current_location|
           preference_name = "kind"+current_location.id.to_s
           @locations_shift_preference = LocationsShiftPreference.new(:shift_preference_id => @shift_preference.id, :location_id => current_location.id, :kind => params[preference_name])

@@ -19,7 +19,7 @@ class RequestedShift < ActiveRecord::Base
   ]
 	
 	def user_shift_preferences
-		@max_cont_hours = self.user.shift_preferences.select{|sp| sp.template_id == @template2.id}.first.max_continuous_hours
+		@max_cont_hours = self.user.shift_preferences.select{|sp| sp.template_id == self.template_id}.first.max_continuous_hours
 		errors.add_to_base("Your preferred shift length is longer than the maximum continious hours you 
 												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > @max_cont_hours
 	end
