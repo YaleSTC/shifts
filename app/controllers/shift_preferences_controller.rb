@@ -24,6 +24,7 @@ class ShiftPreferencesController < ApplicationController
   # GET /shift_preferences/new
   # GET /shift_preferences/new.xml
   def new
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.new
     @hours_week = (3..19).to_a
     @shifts_week = (1..10).to_a
