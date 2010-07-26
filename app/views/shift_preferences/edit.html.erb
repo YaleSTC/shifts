@@ -1,6 +1,6 @@
 <h1>Editing Shift Preferences</h1>
 
-<% form_for(@shift_preference) do |f| %>
+<% form_for([@week_template, @shift_preference]) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -57,5 +57,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @shift_preference %> |
-<%= link_to 'Back', shift_preferences_path %>
+<%= link_to 'Show', template_shift_preference_path(@week_template) %> |
+<%= link_to 'Back', template_shift_preferences_path(@week_template) %>

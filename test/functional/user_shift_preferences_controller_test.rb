@@ -40,6 +40,6 @@ class ShiftPreferencesControllerTest < ActionController::TestCase
       delete :destroy, :id => shift_preferences(:one).to_param
     end
 
-    assert_redirected_to shift_preferences_path
+    assert_redirected_to template_shift_preferences_path
   end
 end

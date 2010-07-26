@@ -20,13 +20,13 @@
     <td><%=h shift_preference.max_number_of_shifts %></td>
     <td><%=h shift_preference.min_number_of_shifts %></td>
     <td><%=h shift_preference.max_hours_per_day %></td>
-    <td><%= link_to 'Show', shift_preference %></td>
-    <td><%= link_to 'Edit', edit_shift_preference_path(shift_preference) %></td>
-    <td><%= link_to 'Destroy', shift_preference, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', template_shift_preference_path(@week_template, shift_preference) %></td>
+    <td><%= link_to 'Edit', edit_template_shift_preference_path(@week_template, shift_preference) %></td>
+    <td><%= link_to 'Destroy', template_shift_preference_path(@week_template, shift_preference), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New shift_preference', new_shift_preference_path %>
+<%= link_to 'New shift_preference', new_template_shift_preference_path(@week_template) %>
