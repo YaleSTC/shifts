@@ -3,7 +3,7 @@ class RequestedShiftsController < ApplicationController
   # GET /requested_shifts.xml
   def index
     @requested_shifts = RequestedShift.all
-
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @requested_shifts }
@@ -43,11 +43,10 @@ class RequestedShiftsController < ApplicationController
 		end	
 		@requested_shift.user = current_user
 		@requested_shift.template = @template2
-		#raise @requested_shift.to_yaml
     respond_to do |format|
       if @requested_shift.save
 				@template2.requested_shifts << @requested_shift
-        flash[:notice] = 'RequestedShift was successfully created.'
+        flash[:notice] = 'Requested shift was successfully created.'
         format.html { redirect_to(@requested_shift) }
         format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
       else
