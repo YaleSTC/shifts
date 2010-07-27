@@ -57,6 +57,7 @@ class ShiftPreferencesController < ApplicationController
     @shifts_week = (1..10).to_a
     @hours_shift = [0.25, 0.5] + (1..8).to_a
     @shift_preference = ShiftPreference.new(params[:shift_preference])
+    @shift_preference.user = current_user
     respond_to do |format|
       if @shift_preference.save
 				@week_template.shift_preferences << @shift_preference

@@ -1,5 +1,6 @@
 class TemplatesController < ApplicationController
   before_filter :require_department_admin
+  layout "application"
   # GET /templates
   # GET /templates.xml
   def index
