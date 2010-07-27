@@ -81,7 +81,7 @@ class ShiftPreferencesController < ApplicationController
   def update
     @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.find(params[:id])
-    @hours_week = (3..19).to_a
+    @hours_week = (3..19Task).to_a
     @shifts_week = (1..10).to_a
     @hours_shift = [0.25, 0.5] + (1..8).to_a
     @locations = @week_template.locations
