@@ -28,9 +28,9 @@ class ShiftPreferencesController < ApplicationController
   def new
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.new
-    @hours_week = (3..19).to_a
-    @shifts_week = (1..10).to_a
-    @hours_shift = [0.25, 0.5] + (1..8).to_a
+    @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
+    @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
+    @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
     @locations = @week_template.locations
     respond_to do |format|
       format.html # new.html.erb
@@ -42,9 +42,9 @@ class ShiftPreferencesController < ApplicationController
   def edit
     @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.find(params[:id])
-    @hours_week = (3..19).to_a
-    @shifts_week = (1..10).to_a
-    @hours_shift = [0.25, 0.5] + (1..8).to_a
+    @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
+    @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
+    @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
     @locations = @week_template.locations
   end
 
@@ -52,10 +52,10 @@ class ShiftPreferencesController < ApplicationController
   # POST /shift_preferences.xml
   def create
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+    @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
+    @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
+    @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
     @locations = @week_template.locations
-    @hours_week = (3..19).to_a
-    @shifts_week = (1..10).to_a
-    @hours_shift = [0.25, 0.5] + (1..8).to_a
     @shift_preference = ShiftPreference.new(params[:shift_preference])
     @shift_preference.user = current_user
     respond_to do |format|
@@ -82,9 +82,9 @@ class ShiftPreferencesController < ApplicationController
   def update
     @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.find(params[:id])
-    @hours_week = (3..19).to_a
-    @shifts_week = (1..10).to_a
-    @hours_shift = [0.25, 0.5] + (1..8).to_a
+    @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
+    @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
+    @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
     @locations = @week_template.locations
     respond_to do |format|
       if @shift_preference.update_attributes(params[:shift_preference])
