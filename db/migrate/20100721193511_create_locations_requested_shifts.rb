@@ -1,9 +1,9 @@
 class CreateLocationsRequestedShifts < ActiveRecord::Migration
   def self.up
-    create_table :locations_requested_shifts, :id => false do |t|
+    create_table :locations_requested_shifts do |t|
       t.references :requested_shift
       t.references :location
-			t.boolean :active
+			t.boolean :assigned
 
       t.timestamps
     end
