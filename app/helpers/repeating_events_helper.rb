@@ -49,7 +49,7 @@ module RepeatingEventsHelper
     @repeating_event.end_time ||= @default_start_date.to_time + current_department.department_config.schedule_end.minutes
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
     @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
-    @repeating_event.location_ids << params[:location_id] #this param comes from the timeline
+    @repeating_event.location_ids ||= params[:location_id] #this param comes from the timeline
   end
 
 
