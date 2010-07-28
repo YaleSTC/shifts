@@ -1,20 +1,32 @@
+//The function of this locationcheckboxes.js is different from the similar code for notices
+//because
+
 jQuery($("#TB_ajaxContent")).ready(function(){
 
-	    $("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
+//make location group and department checkboxes appear
+    $("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
       $(this).css("display", "inline");
-	    });
+    });
 
+//check the location groups if all locations come checked
+    $("input[name^='for_locations']").each(function(){
+        var loccheck = true;
+        $(this).parent().children("input[name^='for_locations']").each(function() {
+            if($(this).attr('checked') == false)
+                {loccheck = false}
+        })
+        $(this).parent(name^='for_location_group').children("input[name^='for_location_group']").attr('checked', loccheck)
+});
+
+
+//checking the dept box checks/unchecks everything
     $("#department_wide_locations").click(function(){
 				var dept_status = $("#department_wide_locations").attr('checked');
 				$("div#all_locations :checkbox").each(function(){
-				   $(this).attr('checked', dept_status);
-				    if(dept_status) {
-				          $(this).attr('disabled', 'disabled');
-				      } else {
-				          $(this).removeAttr('disabled');
-				     }
-				 });
+                    $(this).attr('checked', dept_status);
+                });
 			});
+//checking the loc_group checks/unchecks all locations in the group
     $("input[name^='for_location_group']").click(function(){
 			  var locgroup_status = $(this).attr('checked');
 			  $(this).siblings('input[type=checkbox]').each(function(){
@@ -22,25 +34,27 @@ jQuery($("#TB_ajaxContent")).ready(function(){
 			  });
 		});
 
-//when you click any, see if the children of its parent location group are all checked
-
+//if any location in a group is unchecked, uncheck the location group's box
+//otherwise all are checked and group should be checked
     $("input[name^='for_locations']").click(function(){
-			  var loc_status = $(this).attr('checked');
+        var loccheck = true;
+        $(this).closest('#repeating_event_li').children("input[name^='for_locations']").each(function() {
+            if($(this).attr('checked') == false)
+                {loccheck = false}
+        })
+        $(this).closest('#repeating_event_li').children("input[name^='for_location_group']").attr('checked', loccheck)
+});
 
-if( 'checked' in $(this).siblings('input[type=checkbox]').all.attr('checked')  )
-{
-alert("yeah")
-}
-
-//$(this).siblings('input[type=checkbox]').attr('checked')
-//function(){
-//			      $(this).attr('checked');  }
-
-			  $(this).siblings('input[type=checkbox]').each(function(){
-			      $(this).attr('checked', locgroup_status);
-			  });
-		});
-
+//if any location group is unchecked, uncheck the dept box
+//otherwise all are checked and dept should be checked
+//    $("input[name^='for_locations'],input[name^=for_location_group]").click(function(){
+//        var deptcheck = true;
+//        $(this).parent().parent().children("input[name^='for_locations']").each(function() {
+//            if($(this).attr('checked') == false)
+//                {loccheck = false}
+//        })
+//        $(this).parent(name^='for_location_group').children("input[name^='for_location_group']").attr('checked', loccheck)
+//});
 
 
 

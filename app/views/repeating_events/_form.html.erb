@@ -76,10 +76,10 @@
   <h3> Time Slot </h3>
 
 <%# isn't this view restricted to admins anyway? %>
-		<% if current_user.is_admin_of?(current_department) %>
-	 		<%= check_box_tag :department_wide_locations, current_department.id, false, :style => "display: none;" %>
-    	<%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
-		<% end %>
+		<%# if current_user.is_admin_of?(current_department) %>
+	 		<%#= check_box_tag :department_wide_locations, current_department.id, false, :style => "display: none;" %>
+    	<%#= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
+		<%# end %>
 
 	<div id = "all_locations">
     <% for loc_group in current_department.loc_groups do %>
