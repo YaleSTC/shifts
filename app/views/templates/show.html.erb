@@ -1,6 +1,33 @@
 <p>
-  <b>Name:</b>
-  <%= @week_template.name %>
+	<b>Name:</b>
+	<%= @week_template.name %>
+	<p>
+  <b>Max Total Hours:</b>
+  <%= @week_template.max_total_hours %>
+	<p>
+  <b>Min Total Hours:</b>
+  <%= @week_template.min_total_hours %>
+	<p>
+	<b>Max Continuous Hours:</b>
+  <%= @week_template.max_continuous_hours %>
+	<p>
+  <b>Min Continuous Hours:</b>
+  <%= @week_template.min_continuous_hours %>
+	<p>
+  <b>Max Number Of Shifts:</b>
+  <%= @week_template.max_number_of_shifts %>
+	<p>
+  <b>Min Number Of Shifts:</b>
+  <%= @week_template.min_number_of_shifts %>
+	<p>
+	<b>Max Hours Per Day:</b>
+  <%= @week_template.max_hours_per_day %>
+	<p>
+	<b>Locations:</b>
+	<% @week_template.locations.each do |location| %>
+		<%= location.name %>
+		<%= ", " unless location == @week_template.locations.last %>
+	<% end %>
 	<p>
 	Requested shifts:
 	<% @requested_shifts.each do |requested_shift| %>

@@ -20,6 +20,10 @@ class RequestedShift < ActiveRecord::Base
     ["Saturday", 5],
     ["Sunday", 6]
   ]
+  
+  def day_string
+    WEEK_DAY_SELECT.select{|i| i[1] == self.day}[0][0]
+  end
 	
 	def assign(location)
 		@location_request = LocationsRequestedShift.find(:first, :conditions => 
@@ -30,16 +34,13 @@ class RequestedShift < ActiveRecord::Base
 
 	protected
 	def user_shift_preferences
-		@shift_preference = self.user.shift_preferences.select{|sp| sp.template_id == self.template_id}.first
-		@max_cont_hours = @shift_preference.max_continuous_hours
-		@min_cont_hours = @shift_preference.min_continuous_hours
-		@max_hours_per_day = @shift_preference.max_hours_per_day
+		shift_preference = self.user.shift_preferences.select{|sp| sp.template_id == self.template_id}.first
 		errors.add_to_base("Your preferred shift length is longer than the maximum continuous hours you 
-												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > @max_cont_hours
+												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > shift_preference.max_continuous_hours
 		errors.add_to_base("Your preferred shift length is shorter than the minimum continuous hours you 
-												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 < @min_cont_hours
+												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 < shift_preference.min_continuous_hours
 		errors.add_to_base("Your preferred shift length is longer than the maximum shift hours per day you
-												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > @max_hours_per_day
+												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > shift_preference.max_hours_per_day
 	end
 
 	def proper_times
