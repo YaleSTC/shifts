@@ -1,8 +1,8 @@
-//The function of this locationcheckboxes.js is different from the similar code for notices
-//because
+//location group can check or uncheck all, and is only checked itself when all its locations are checked
 
 jQuery($("#TB_ajaxContent")).ready(function(){
 
+////initialize page
 //make location group and department checkboxes appear
     $("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
       $(this).css("display", "inline");
@@ -19,14 +19,17 @@ jQuery($("#TB_ajaxContent")).ready(function(){
 });
 
 
-//checking the dept box checks/unchecks everything
+
+////click responses
+
+//checking the dept box - checks/unchecks everything
     $("#department_wide_locations").click(function(){
 				var dept_status = $("#department_wide_locations").attr('checked');
 				$("div#all_locations :checkbox").each(function(){
                     $(this).attr('checked', dept_status);
                 });
 			});
-//checking the loc_group checks/unchecks all locations in the group
+//checking the loc_group - checks/unchecks all locations in the group
     $("input[name^='for_location_group']").click(function(){
 			  var locgroup_status = $(this).attr('checked');
 			  $(this).siblings('input[type=checkbox]').each(function(){
@@ -34,6 +37,7 @@ jQuery($("#TB_ajaxContent")).ready(function(){
 			  });
 		});
 
+//checking the location
 //if any location in a group is unchecked, uncheck the location group's box
 //otherwise all are checked and group should be checked
     $("input[name^='for_locations']").click(function(){
@@ -55,7 +59,6 @@ jQuery($("#TB_ajaxContent")).ready(function(){
 //        })
 //        $(this).parent(name^='for_location_group').children("input[name^='for_location_group']").attr('checked', loccheck)
 //});
-
 
 
 });
