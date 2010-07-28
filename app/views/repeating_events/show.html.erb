@@ -33,7 +33,6 @@
 <p>
   <strong>Locations:</strong>
 <ul>
-  <%raise @repeating_event.to_yaml %>
   <% @repeating_event.locations.each do |loc| %>
   <li> <%=h loc.name %> </li>
   <% end %>

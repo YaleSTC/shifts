@@ -2,7 +2,7 @@
 	<fieldset class = "index">
   	<legend>Where:</legend>
 		<% if current_user.is_admin_of?(current_department) && notice.class.name != "Sticky" %>
-	 		<%= check_box_tag :department_wide_locations, current_department.id, :style => "display: none;" %>
+    <%= check_box_tag :department_wide_locations, current_department.id, department_check(current_department, notice), :style => "display: none;" %>
     	<%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
 		<% end %>
 
@@ -23,3 +23,4 @@
   	</div>
 	</fieldset>
 <% end -%>
+
