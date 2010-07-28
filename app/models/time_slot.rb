@@ -23,6 +23,7 @@ class TimeSlot < ActiveRecord::Base
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
   named_scope :on_day, lambda {|day| { :conditions => ["#{:end.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
   named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  named_scope :ordered_by_start, :order => 'start'
   named_scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
 
 
