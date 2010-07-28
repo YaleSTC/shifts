@@ -42,23 +42,23 @@ jQuery($("#TB_ajaxContent")).ready(function(){
 //otherwise all are checked and group should be checked
     $("input[name^='for_locations']").click(function(){
         var loccheck = true;
-        $(this).closest('#repeating_event_li').children("input[name^='for_locations']").each(function() {
+        $(this).closest('li').children("input[name^='for_locations']").each(function() {
             if($(this).attr('checked') == false)
                 {loccheck = false}
         })
-        $(this).closest('#repeating_event_li').children("input[name^='for_location_group']").attr('checked', loccheck)
+        $(this).closest('li').children("input[name^='for_location_group']").attr('checked', loccheck)
 });
 
 //if any location group is unchecked, uncheck the dept box
 //otherwise all are checked and dept should be checked
-//    $("input[name^='for_locations'],input[name^=for_location_group]").click(function(){
-//        var deptcheck = true;
-//        $(this).parent().parent().children("input[name^='for_locations']").each(function() {
-//            if($(this).attr('checked') == false)
-//                {loccheck = false}
-//        })
-//        $(this).parent(name^='for_location_group').children("input[name^='for_location_group']").attr('checked', loccheck)
-//});
+    $("input[name^='for_locations'],input[name^=for_location_group]").click(function(){
+        var deptcheck = true;
+        $("#all_locations").find("input[name^='for_locations']").each(function() {
+            if($(this).attr('checked') == false)
+                {deptcheck = false}
+        })
+        $("#department_wide_locations").attr('checked', deptcheck)
+});
 
 
 });
