@@ -3,9 +3,10 @@ class TemplatesController < ApplicationController
   layout "application"
   # GET /templates
   # GET /templates.xml
+
+  
   def index
     @week_templates = Template.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @week_templates }
@@ -28,6 +29,8 @@ class TemplatesController < ApplicationController
   def new
     @week_template = Template.new
 		@locations = current_department.locations
+		@roles = current_department.roles
+		
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @week_template }
@@ -37,6 +40,8 @@ class TemplatesController < ApplicationController
   # GET /templates/1/edit
   def edit
     @week_template = Template.find(params[:id])
+    @locations = current_department.locations
+    @roles = current_department.roles
   end
 
   # POST /templates
@@ -62,7 +67,6 @@ class TemplatesController < ApplicationController
   # PUT /templates/1.xml
   def update
     @week_template = Template.find(params[:id])
-
     respond_to do |format|
       if @week_template.update_attributes(params[:template])
         flash[:notice] = 'Template was successfully updated.'
