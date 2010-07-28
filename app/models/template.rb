@@ -4,6 +4,7 @@ class Template < ActiveRecord::Base
 	has_many :requested_shifts
 	has_many :shift_preferences
 	belongs_to :department
+	has_and_belongs_to_many :roles
 	
 	validate :max_total_hours_greater_than_min
 	validate :max_continuous_hours_greater_than_min
