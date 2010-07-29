@@ -1,0 +1,372 @@
+/*SHIFT COLORS*/
+ul li{ z-index: 100;}
+ul li.user {                 background: #C2F094; font-weight: bold; }
+ul li.user:hover {           background: #85E029; }
+ul li.user_late {            background: #FFCA7A; font-weight: bold; }
+ul li.user_late:hover {      background: #FFB13D; }
+ul li.user_missed {          background: #E85E5E; font-weight: bold; }
+ul li.user_missed:hover {    background: #E02929; }
+ul li.shift {                background: #94C2F0; }
+ul li.shift:hover {          background: #2985E0; }
+ul li.shift_late {           background: #F0F094; }
+ul li.shift_late:hover {     background: #E8E85E; }
+ul li.shift_missed {         background: #F09494; }
+ul li.shift_missed:hover {   background: #E85E5E; }
+
+
+div.sub-bribe {     background: #fcf; height:100%; }
+div.sub-mandatory { background: #eae; height:100%; }
+
+div.shift-time-overlay {
+    width: 100%; 
+    height: 100%;
+    visibility: hidden;
+}
+
+ul.events li:hover div.shift-time-overlay {
+    visibility: visible;
+    background: white; 
+    opacity:0.4;filter:alpha(opacity=40)
+}
+
+
+
+/* HIDDEN SHIFTS */
+ul.hidden_shifts {
+    list-style-type: none;
+    margin: 0px 0px 20px 0px;
+    width: 100%;
+    display: block;
+}
+ul.hidden_shifts li {
+    font-size: 1em;
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 2px 2px;
+    border: 1px solid #ccc;
+    text-align: center;
+    width:24%;
+    float:left;
+}
+ul.hidden_shifts li:hover {
+    cursor: pointer;
+}
+
+
+/* HEADERS AND FOOTERS*/
+div.shifts_bottom {
+  padding: 0;
+  margin: 20px 0px;
+  border-top: thin solid #408080;
+}
+div.shifts_top {
+  padding: 0;
+  margin: 20px 0px;
+  border-bottom: thin solid #408080;
+}
+div.week_title{
+  width: 60%;
+  margin: 0 auto 0 auto;/*the 2 auto are margins for left and right, aligning this as center */
+
+  font-size: large;
+  text-align: center;
+}
+div.week_bottom{
+  width: 60%;
+  margin: 0 auto 0 auto;/*the 2 auto are margins for left and right, aligning this as center */
+  color: #808080;
+  font-size: 14px;
+  text-align: center;
+}
+div.shift_links a.last_week{
+  width: 20%;
+  float: left;
+}
+div.shift_links a.next_week{
+  text-align: right;
+  width: 20%;
+  float: right
+}
+
+/* DELETE THIS UNLESS WE USE IT
+div.restriction {
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  margin: 20px;
+  padding: 8px;
+  overflow-x: auto;
+}
+*/
+
+div.signup_bar{
+	color: #999;
+}
+
+
+ul.events li {                        color: #000; }
+ul.events li.timeslot {
+    background: #eee;
+    color: #707070;
+    font-weight: bold;
+		z-index: 1;
+}
+ul.events li.timeslot a {             color: #999; }
+ul.events li.timeslot:hover a:hover { color: #999; }
+ul.events li.timeslot:hover a {       color: #707070; }
+ul.events li.timeslot:hover {         background: #ddd; }
+
+ul.events li.bar a {             color: #999; }
+
+ul.timeslot_group li{border-top:1px solid #ccc; border-bottom:1px solid #ccc;}
+
+
+h2 { clear: both; }
+
+div.timeline {
+    float:right;
+    position:relative;
+    margin-bottom: 10px;
+    color: #707070;
+    width: 100%;
+}
+div.timeline-data {
+    float:right;
+    position:relative;
+    width: 93%;
+    height: 100%;
+}
+
+div.timeline div.days {
+    position: absolute;
+    left: 0;
+    width: 7%;
+    height: 100%;
+}
+div.timeline div.day {
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    background: #888;
+}
+
+ul.intervals {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    position:relative;
+    width: 100%;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid #fff;
+    background: #559;
+    color: #fff;
+}
+
+ul.intervals div.hours {
+    background: #888;
+    border-left: 1px solid #fff;
+
+}
+ul.intervals:first-child li:first-child div.hours:first-child {
+    border-left: 1px solid #888;
+}
+
+div.timeline div.day,
+ul.intervals li {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+ul.intervals li {
+    border-right: 1px solid #fff;
+    position: absolute;
+    text-align: center;
+    height:100%;
+}
+
+ul.intervals li div.inside-li{
+    position:relative;
+    width: auto;
+    height: 100%;
+}
+
+ul.intervals li div.hours{
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #888;
+    height:50%;
+}
+
+ul.intervals li div.minutes{
+    border-right: 1px solid #fff;
+    position: absolute;
+    height:50%;
+}
+
+ul.events {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position:relative;
+    border-bottom: 1px solid #fff;
+
+    border-left: 1px solid #fff;
+    background: #bbb;
+    width: 100%;
+}
+
+ul.events li {
+    font-size: 1em;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    position: absolute;
+    text-align: center;
+    border-left: 1px solid #fff;
+    height: 100%;
+}
+div.timeline div.days div.divider,
+div.timeline ul.divider {
+    background: #fff;
+}
+
+ul.events li.no_signups {
+		z-index: 0;/*
+				background: #b0b0b0 !important;*/
+}
+
+ul.events li.click_to_add_new {
+	z-index: 0;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+    border-left: 0px solid #fff;
+		cursor: pointer;
+		background: #d6d6d6;
+}
+ul.events li.click_to_add_new_timeslot {
+	z-index: 0;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+    border-left: 0px solid #fff;
+		cursor: pointer;
+}
+ul.events li.click_to_show {
+		cursor: pointer;
+}
+div.click_to_add_new:hover {
+    background: #666;
+	cursor: pointer;
+}
+ul.events li.click_to_add_new:hover {
+    background: #ddd;
+    position: absolute;
+    height: 100%;
+	cursor: pointer;
+}
+ul.events li div {
+	position: relative;
+}
+ul.events li div.time-slot {
+    width: auto;
+    height: 100%;
+    border-right: 1px solid #fff;
+	overflow:hidden;
+}
+
+/* hack for vertical centering*/
+div.center_container {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+div.center_content {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+}
+
+img.right_arrow { position:absolute; right:0; }
+img.left_arrow {  position:absolute; left:0;  }
+
+div#tooltip{
+	text-align: left;
+	z-index: 1000;
+	display: block;
+	background: #ddd;
+	color: #000;
+	padding: 5px;
+	padding-top:15px;
+	min-width: 200px;
+	font-style: normal;
+	font-weight: normal;
+    font-family: Verdana, Arial, serif;
+	font-size: 12px;
+	border: 1px solid gray;
+}
+
+div#tooltip strong{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+div#tooltip div.close_link{
+	position: absolute;
+	top: 2px;
+	right: 3px;	
+	font-size: 10px;
+}
+
+span.jeditable{
+	background: #bbb;
+}
+
+span.jeditable:hover{
+	background: #ccc;
+	cursor: hand;
+	cursor: pointer;
+}
+
+div#AJAX_status{
+	position: fixed;
+	right: 5px;
+	top: 5px;
+	z-index: 1001;
+}
+
+div.AJAX_alert{
+	background: #fff;
+	padding: 5px;
+	border: 1px solid black;
+	font-size: 10pt;
+	text-align: center;
+	width: 150px;
+	z-index: 1001;
+	max-height: 500px;
+	overflow: auto;
+}
+
+img.right_arrow {
+    float:right;
+}
+img.left_arrow {
+    float:left;
+}
+
+div.loading{
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 3;
+	display: block;
+	background: #ddd;
+	color: #000;
+	padding: 5px;
+	font-style: normal;
+	font-weight: normal;
+    font-family: Verdana, Arial, serif;
+	font-size: 12px;
+	border: 1px solid gray;
+}
