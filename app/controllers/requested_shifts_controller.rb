@@ -24,8 +24,12 @@ class RequestedShiftsController < ApplicationController
   def new
     @requested_shift = RequestedShift.new
 		#Rails will throw an error if you use @template
-		@template2 = Template.find(:first, :conditions => {:id => params[:template_id]})
-		@locations = @template2.locations
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}
+		unless @shift_preference
+			redirect_to new_template_shift_preference(@week_template)
+		end
+		@locations = @week_template.locations
 	end
 
   def edit
@@ -36,16 +40,16 @@ class RequestedShiftsController < ApplicationController
 
   def create
     @requested_shift = RequestedShift.new(params[:requested_shift])
-		@template2 = Template.find(:first, :conditions => {:id => params[:template_id]})
-		@locations = @template2.locations
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@locations = @week_template.locations
 		if params[:for_locations]
 			@requested_shift.locations << Location.find(params[:for_locations]) 
 		end	
 		@requested_shift.user = current_user
-		@requested_shift.template = @template2
+		@requested_shift.template = @week_template
     respond_to do |format|
       if @requested_shift.save
-				@template2.requested_shifts << @requested_shift
+				@week_template.requested_shifts << @requested_shift
         flash[:notice] = 'Requested shift was successfully created.'
         format.html { redirect_to(@requested_shift) }
         format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
