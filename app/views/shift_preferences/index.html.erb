@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+		<th>Name</th>
     <th>Max total hours</th>
     <th>Min total hours</th>
     <th>Max continuous hours</th>
@@ -13,6 +14,7 @@
 
 <% @shift_preferences.each do |shift_preference| %>
   <tr>
+		<td><%=h shift_preference.user.name %></td>
     <td><%=h shift_preference.max_total_hours %></td>
     <td><%=h shift_preference.min_total_hours %></td>
     <td><%=h shift_preference.max_continuous_hours %></td>
@@ -29,4 +31,9 @@
 
 <br />
 
-<%= link_to 'New shift_preference', new_template_shift_preference_path(@week_template) %>
+<%= link_to 'New Shift Preference', new_template_shift_preference_path(@week_template) %>
+
+<br />
+<br />
+
+<%= link_to 'Back to Template', templates_path() %>

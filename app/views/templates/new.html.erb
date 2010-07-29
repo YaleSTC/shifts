@@ -1,4 +1,4 @@
-<h1>New template</h1>
+<h1>New Template</h1>
 
 <% form_for(@week_template) do |f| %>
   <%= f.error_messages %>
@@ -35,10 +35,20 @@
     <%= f.label :max_hours_per_day %><br />
     <%= f.text_field :max_hours_per_day %>
   </p>
+	Enable this template for the following roles:
+	<% @roles.each do |role| %>
+		<%= check_box_tag "for_roles[]", role.id %>
+		<%= label_tag "role_#{role.id}", text = role.name %>
+		<%= ", " unless role == @roles.last %>
+	<% end %>
+	
+	<br />
+
 	Enable this template for the following locations:
 	<% @locations.each do |location| %>
 		<%= check_box_tag "for_locations[]", location.id %>
-		<%= label_tag "location_#{location.id}", text = location.short_name %> ,
+		<%= label_tag "location_#{location.id}", text = location.short_name %>
+		<%= ", " unless location == @locations.last %>
 	<% end %>
 	<p>
 		Let users add their requested shifts to this template:

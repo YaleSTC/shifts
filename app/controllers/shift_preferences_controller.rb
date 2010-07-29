@@ -32,6 +32,10 @@ class ShiftPreferencesController < ApplicationController
     @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
     @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
     @locations = @week_template.locations
+    @user_shift_preference = @week_template.shift_preferences.find_by_user_id(current_user.id)
+    if @user_shift_preference
+    	redirect_to edit_template_shift_preference_path(@week_template, @user_shift_preference) and return
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @shift_preference }

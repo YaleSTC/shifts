@@ -151,6 +151,16 @@ class User < ActiveRecord::Base
   def is_loc_group_admin?(dept)
     dept.loc_groups.any?{|lg| self.is_admin_of?(lg)}
   end
+  
+  # given an object with roles, checks to see if the user belongs to one of those roles
+  def has_proper_role_for?(thing)
+    self.roles.each do |role|
+      if thing.roles.include?(role)
+        return true
+      end
+    end
+    return false
+  end
 
   # Given a department, return any location groups within that department that the user can admin
   def loc_groups_to_admin(dept)
