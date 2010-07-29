@@ -1,11 +1,11 @@
+<%#do we still need this ie code?%>
 <script type="text/javascript">var ie = false;</script>
 <!--[if IE]>
 <script type="text/javascript">ie = true;</script>
 <![endif]-->
 
-<div class="close_link">
-  <a onclick="$('#tooltip').fadeOut(function (){ $(this).remove() }); return false;" href="#">[esc]</a>
-</div>
+
+<%= render :partial => '/tooltips/close_tooltip'%>
 
 <% if (current_user.is_admin_of?(current_department) or ( current_user == @shift.user and @shift.calendar.public? and !@shift.calendar.active? )) and @shift.scheduled? %>
   <% if params[:delete_options] and @shift.repeating_event %>
@@ -146,23 +146,4 @@
     <% end %>
   </p>
 <% end %>
-
-<script type="text/javascript">
-// don't retrigger the action when clicking the tooltip :P
-$('#tooltip').click(function(e){
-	e.stopPropagation();
-});
-$(this).keyup(function(event) {
-  if (event.keyCode == 27) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
-	 return false;
-   }
-});
-$(this).click(function(event) {
-	if ($('#tooltip').length == 1) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
-		return(false);
-	}
-});
-</script>
 
