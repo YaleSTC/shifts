@@ -1,38 +1,13 @@
-<!-- #TODO: this whole section needs to be cleaned up... we should standardize ids, classes, etc... -->
-<div id="Monday" class="day_partial">
-  <h2 class="trigger">Monday</h2>
-  <div class="timeline">
-    <div class="days">
-      <div class="day"></div>
-      <div class="day">
-        <div class="center_container">
-          <div class="center_content">
-            TTO
-          </div>
-        </div>
-      </div>
-      <div class="day divider" style="height: 4px;"></div>
-    </div>
-    <div class="timeline-data">
-      <ul class="intervals" style="height: 50px;">
-        <li style="width: <%= 100/12.to_f %>%; left: <%= 1*100/12.to_f %>%;" >
-          <div class="hours">
-            <div class="center_container">
-              <div class="center_content">
+<h2 class="trigger"><%= RequestedShift.day_in_words(day) %></h2>
+<div class="schedule">
+  
+  <div class="event-group-title" style="height:24px"></div>
+  <table class="times">
+    <tr class = "hours"><% for i in 8..22 %><th colspan="4"><%= i.modulo(12)+1 %></th><% end %></tr>
+    <tr class = "minutes"><% for j in 0...4*(22-8+1) %><td >&nbsp;</td><% end %></tr>  
+  </table>
+  
+  <%= render :partial => "/templates/schedule/event_group", :collection => @week_template.locations, :locals => {:day => day} %>
 
-              </div>
-            </div>
-          </div>
-          <% for i in 0...3 %>
-            <div class="minutes" style="width: <%= 100.0/4 %>%; left:<%= i*(100.0/4) %>%;"></div>
-          <% end %>
-        </li>
-
-      </ul>
-      <ul class="events" style="height: 50px;">
-      
-      </ul>
-      <ul class="events divider" style="height: 4px;"></ul>
-    </div>
-  </div>
+  <div style="clear:both;"></div>
 </div>
