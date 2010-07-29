@@ -1,5 +1,8 @@
 class TemplatesController < ApplicationController
+  
   before_filter :require_department_admin
+  
+  
   layout "application"
   # GET /templates
   # GET /templates.xml
@@ -28,9 +31,7 @@ class TemplatesController < ApplicationController
   # GET /templates/new.xml
   def new
     @week_template = Template.new
-		@locations = current_department.locations
-		@roles = current_department.roles
-		
+		@department = current_department
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @week_template }
@@ -40,8 +41,6 @@ class TemplatesController < ApplicationController
   # GET /templates/1/edit
   def edit
     @week_template = Template.find(params[:id])
-    @locations = current_department.locations
-    @roles = current_department.roles
   end
 
   # POST /templates
@@ -67,6 +66,12 @@ class TemplatesController < ApplicationController
   # PUT /templates/1.xml
   def update
     @week_template = Template.find(params[:id])
+    @week_template.locations.clear
+    @week_template.roles.clear
+    if params[:for_locations]
+			@week_template.locations << Location.find(params[:for_locations])
+			@week_template.roles << Role.find(params[:for_roles])
+    end
     respond_to do |format|
       if @week_template.update_attributes(params[:template])
         flash[:notice] = 'Template was successfully updated.'
