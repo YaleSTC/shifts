@@ -1,8 +1,17 @@
-<h1>Listing templates</h1>
+<h1>Listing Templates</h1>
 
 <table>
   <tr>
     <th>Name</th>
+    <th>Max total hours</th>
+    <th>Min total hours</th>
+    <th>Max continuous hours</th>
+    <th>Min continuous hours</th>
+    <th>Max number of shifts</th>
+    <th>Min number of shifts</th>
+    <th>Max hours per day</th>
+		<th>Roles</th>
+		<th>Locations</th>
   </tr>
 <% @week_templates.each do |template| %>
   <tr>
@@ -11,6 +20,19 @@
 			End: <%= rs.preferred_end %>
 		<% end %>
     <td><%=h template.name %></td>
+    <td><%=h template.max_total_hours %></td>
+    <td><%=h template.min_total_hours %></td>
+    <td><%=h template.max_continuous_hours %></td>
+    <td><%=h template.min_continuous_hours %></td>
+    <td><%=h template.max_number_of_shifts %></td>
+    <td><%=h template.min_number_of_shifts %></td>
+    <td><%=h template.max_hours_per_day %></td>
+		<td><% template.roles.each do |role| %>
+		<%=h role.name %>
+		<% end %></td>
+		<td><% template.locations.each do |location| %>
+		<%=h location.short_name %>
+		<% end %></td>
     <td><%= link_to 'Show', template %></td>
     <td><%= link_to 'Edit', edit_template_path(template) %></td>
     <td><%= link_to 'Destroy', template, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -22,5 +44,5 @@
 
 <br />
 
-<%= link_to 'New template', new_template_path %>
+<%= link_to 'New Template', new_template_path %>
 
