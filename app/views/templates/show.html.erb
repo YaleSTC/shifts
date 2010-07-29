@@ -25,6 +25,12 @@
 	<b>Max Hours Per Day:</b>
   <%= @week_template.max_hours_per_day %>
 	<p>
+	<b>Roles:</b>
+	<% @week_template.roles.each do |role| %>
+		<%= role.name %>
+		<%= ", " unless role == @week_template.roles.last %>
+	<% end %>
+	<p>
 	<b>Locations:</b>
 	<% @week_template.locations.each do |location| %>
 		<%= location.name %>

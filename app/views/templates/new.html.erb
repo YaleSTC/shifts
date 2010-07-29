@@ -36,19 +36,19 @@
     <%= f.text_field :max_hours_per_day %>
   </p>
 	Enable this template for the following roles:
-	<% @roles.each do |role| %>
+	<% current_department.roles.each do |role| %>
 		<%= check_box_tag "for_roles[]", role.id %>
 		<%= label_tag "role_#{role.id}", text = role.name %>
-		<%= ", " unless role == @roles.last %>
+		<%= ", " unless role == current_department.roles.last %>
 	<% end %>
 	
 	<br />
 
 	Enable this template for the following locations:
-	<% @locations.each do |location| %>
+	<% current_department.locations.each do |location| %>
 		<%= check_box_tag "for_locations[]", location.id %>
 		<%= label_tag "location_#{location.id}", text = location.short_name %>
-		<%= ", " unless location == @locations.last %>
+		<%= ", " unless location == current_department.locations.last %>
 	<% end %>
 	<p>
 		Let users add their requested shifts to this template:
