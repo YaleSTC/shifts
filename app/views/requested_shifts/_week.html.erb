@@ -1,0 +1,22 @@
+<div id="location1">
+  <h1 class="trigger"><%= "Week" %></h1>
+  <div class="timeline" style="height:150px; width: 100%;">
+
+<%# left column of the table; labels %>
+    <div class="days">
+      <div class="day" style="height: 25px;"></div>
+      <%= render :partial => "left_day", :collection => @period_start...(@period_start+1.day).end_of_week %>
+<%#Date.today.beginning_of_week...(Date.today.beginning_of_week+1.day).end_of_week%>
+    </div>
+
+<%# 'hour' is the header, 'time_slot_day' holds the actual time_slots %>
+    <div class="timeline-data">
+      <ul class="intervals" style="height: 25px;">
+        <%= render :partial => "time_slots/hour_header", :collection =>  @dept_start_hour...@dept_end_hour %>
+      </ul>
+      <%= render :partial => "day", :collection => @period_start...(@period_start+1.day).end_of_week  %>
+    </div>
+  </div>
+
+</div>
+
