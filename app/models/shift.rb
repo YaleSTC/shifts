@@ -424,7 +424,8 @@ class Shift < ActiveRecord::Base
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= self.start)
   end
-
+  
+  #TODO: Fix this to check timeslots by time_increment
   def shift_is_within_time_slot
     unless self.power_signed_up
       c = TimeSlot.count(:all, :conditions => ["#{:location_id.to_sql_column} = #{self.location_id.to_sql} AND #{:start.to_sql_column} <= #{self.start.to_sql} AND #{:end.to_sql_column} >= #{self.end.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])

@@ -13,7 +13,7 @@ class Report < ActiveRecord::Base
   end
 
   def get_links
-    self.shift.location.links + self.shift.location.department.links
+    self.shift.location.department.links.sort_by{|l| l.start} + self.shift.location.links.sort_by{|l| l.start}
   end
 
   def data_objects

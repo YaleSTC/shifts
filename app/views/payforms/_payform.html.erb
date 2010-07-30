@@ -3,16 +3,16 @@
     <td><%= payform.user.name unless @previous_user && payform.user == @previous_user%></td>
   <% end -%>
   <% if params[:unsubmitted] %>
-    <td><%= link_to payform.date, payform if !payform.submitted %></td>
+    <td><%= link_to payform.date.to_s(:long), payform if !payform.submitted %></td>
   <% end %>
   <% if  params[:submitted] %>
-    <td><%= link_to payform.date, payform if payform.submitted && !payform.approved %></td>
+    <td><%= link_to payform.date.to_s(:long), payform if payform.submitted && !payform.approved %></td>
   <% end %>
   <% if  params[:approved] %>
-    <td><%= link_to payform.date, payform if payform.approved && !payform.printed %></td>
+    <td><%= link_to payform.date.to_s(:long), payform if payform.approved && !payform.printed %></td>
   <% end %>
   <% if  params[:printed] %>
-    <td><%= link_to payform.date, payform if payform.printed %></td>
+    <td><%= link_to payform.date.to_s(:long), payform if payform.printed %></td>
   <% end %>
 </tr>
 
