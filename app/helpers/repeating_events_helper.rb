@@ -20,9 +20,6 @@ module RepeatingEventsHelper
 #      return true if loc == location
 #    end
 		false
-
-
-
   end
 
 
@@ -41,15 +38,6 @@ module RepeatingEventsHelper
       end
     end
     result
-  end
-
-  def calculate_default_times_repeating_events
-    @default_start_date = Time.now.to_date
-    @repeating_event.start_time ||= @default_start_date.to_time + current_department.department_config.schedule_start.minutes
-    @repeating_event.end_time ||= @default_start_date.to_time + current_department.department_config.schedule_end.minutes
-    @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
-    @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
-    @repeating_event.location_ids ||= params[:location_id] #this param comes from the timeline
   end
 
 

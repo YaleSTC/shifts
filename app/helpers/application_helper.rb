@@ -126,5 +126,17 @@ module ApplicationHelper
     page[rand].visual_effect :highlight
   end
 
+  def calculate_default_times_repeating_events
+    @default_start_date = Time.now.to_date
+    @repeating_event.start_time ||= @default_start_date.to_time + current_department.department_config.schedule_start.minutes
+    @repeating_event.end_time ||= @default_start_date.to_time + current_department.department_config.schedule_end.minutes
+    @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
+    @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
+    if params[:location_id] #this param comes from the timeline on creation of a new repeating_event
+      @repeating_event.location_ids = [] << params[:location_id]
+    end
+  end
+
+
 end
 
