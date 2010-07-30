@@ -66,6 +66,7 @@ table.times tr.minutes td {
     float:left;
     background: #888;
     border-right: 1px solid white;
+    line-height: 25px;
 }
 
 .schedule ul.event-row {
@@ -75,6 +76,8 @@ table.times tr.minutes td {
     float:left;
     padding: 0;
     width: 93%;
+    
+    line-height: 25px;
     list-style-type: none;
     height: 25px;
     margin-bottom: 1px;
@@ -86,6 +89,7 @@ table.times tr.minutes td {
     position: absolute;
     top: 0;
     height: 100%;
+    overflow: hidden;
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
 }
