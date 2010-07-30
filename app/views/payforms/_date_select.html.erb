@@ -1,4 +1,4 @@
 <% form_tag({:action => :go, :department_id => @department}, {:id => 'date_form', :class => 'onchange_submit', :method => :get} ) do %>
-  <%= select_tag :date, options_for_select(last_10_dates, Payform.default_period_date(date, @department)) %>
+  <%= select_tag :date, options_for_select(last_10_dates.map{|d|d.to_s(:long)}, Payform.default_period_date(date, @department).to_s(:long)) %>
   <%= submit_tag "Change Date", :id => 'submit_date', :class => 'no_js' %>
 <% end %>

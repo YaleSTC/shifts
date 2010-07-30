@@ -1,2 +1,240 @@
---- {}
+--- 
+notices_001: 
+  announcement: "0"
+  author_id: "99"
+  content: |
+    Sticky from report page as Super User!
+    
+    only for CT HAll
 
+  created_at: 2010-07-23 19:33:44
+  department_id: "1"
+  end: 
+  id: "63"
+  indefinite: "1"
+  remover_id: 
+  start: 2010-07-23 19:33:44
+  sticky: "0"
+  type: Sticky
+  updated_at: 2010-07-23 19:33:44
+  url: 
+  useful_link: "0"
+notices_002: 
+  announcement: "0"
+  author_id: "99"
+  content: |-
+    Announcement from report page as super user for whole department!
+    
+    Ending on CHRISTMAS
+  created_at: 2010-07-23 19:42:29
+  department_id: "1"
+  end: 2010-12-26 01:00:00
+  id: "64"
+  indefinite: 
+  remover_id: 
+  start: 2010-07-23 19:42:29
+  sticky: "0"
+  type: Announcement
+  updated_at: 2010-07-23 19:42:29
+  url: 
+  useful_link: "0"
+notices_003: 
+  announcement: "0"
+  author_id: "99"
+  content: Announcement just for CT HALL on report as super user
+  created_at: 2010-07-23 19:42:51
+  department_id: "1"
+  end: 
+  id: "65"
+  indefinite: "1"
+  remover_id: 
+  start: 2010-07-23 19:42:51
+  sticky: "0"
+  type: Announcement
+  updated_at: 2010-07-23 19:42:51
+  url: 
+  useful_link: "0"
+notices_004: 
+  announcement: "0"
+  author_id: "99"
+  content: |-
+    Sticky from notices page as super user.
+    it sho be for public clusters and never ever end
+  created_at: 2010-07-23 19:46:06
+  department_id: "1"
+  end: 2010-07-23 20:16:54
+  id: "66"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 19:46:06
+  sticky: "0"
+  type: Sticky
+  updated_at: 2010-07-23 20:16:54
+  url: 
+  useful_link: "0"
+notices_005: 
+  announcement: "0"
+  author_id: "99"
+  content: Double Rainbow
+  created_at: 2010-07-23 19:49:34
+  department_id: "1"
+  end: 2010-07-23 20:07:06
+  id: "67"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 19:49:34
+  sticky: "0"
+  type: Link
+  updated_at: 2010-07-23 20:07:06
+  url: http://www.youtube.com/watch?v=MX0D4oZwCsA
+  useful_link: "0"
+notices_006: 
+  announcement: "0"
+  author_id: "99"
+  content: Department Wide Policies!
+  created_at: 2010-07-23 19:50:45
+  department_id: "1"
+  end: 2010-07-23 20:11:57
+  id: "68"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 19:50:45
+  sticky: "0"
+  type: Link
+  updated_at: 2010-07-23 20:11:57
+  url: http://www.youtube.com/watch?v=RlSMlUetZ_Y
+  useful_link: "0"
+notices_007: 
+  announcement: "0"
+  author_id: "99"
+  content: |
+    Announcement from notices page as super user.   FOr tto no end date.  
+    
+    Also, Cash monah.
+
+  created_at: 2010-07-23 19:51:50
+  department_id: "1"
+  end: 
+  id: "69"
+  indefinite: "1"
+  remover_id: 
+  start: 2010-07-23 19:51:50
+  sticky: "0"
+  type: Announcement
+  updated_at: 2010-07-23 19:51:50
+  url: 
+  useful_link: "0"
+notices_008: 
+  announcement: "0"
+  author_id: "99"
+  content: Double Rainbow
+  created_at: 2010-07-23 20:07:21
+  department_id: "1"
+  end: 
+  id: "70"
+  indefinite: "1"
+  remover_id: 
+  start: 2010-07-23 20:07:21
+  sticky: "0"
+  type: Link
+  updated_at: 2010-07-23 20:07:21
+  url: http://www.youtube.com/watch?v=MX0D4oZwCsA
+  useful_link: "0"
+notices_009: 
+  announcement: "0"
+  author_id: "99"
+  content: Another STicky.  THis will end in one month
+  created_at: 2010-07-23 20:10:45
+  department_id: "1"
+  end: 2010-07-23 20:16:37
+  id: "71"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 20:10:45
+  sticky: "0"
+  type: Sticky
+  updated_at: 2010-07-23 20:16:37
+  url: 
+  useful_link: "0"
+notices_010: 
+  announcement: "0"
+  author_id: "99"
+  content: New Department Policies!
+  created_at: 2010-07-23 20:12:51
+  department_id: "1"
+  end: 
+  id: "72"
+  indefinite: "1"
+  remover_id: 
+  start: 2010-07-23 20:12:51
+  sticky: "0"
+  type: Link
+  updated_at: 2010-07-23 20:12:51
+  url: http://www.youtube.com/watch?v=oHg5SJYRHA0
+  useful_link: "0"
+notices_011: 
+  announcement: "0"
+  author_id: "99"
+  content: New Department Announcement Posted from dashboard
+  created_at: 2010-07-23 20:13:34
+  department_id: "1"
+  end: 2010-07-23 20:15:13
+  id: "73"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 20:13:34
+  sticky: "0"
+  type: Announcement
+  updated_at: 2010-07-23 20:15:13
+  url: 
+  useful_link: "0"
+notices_012: 
+  announcement: "0"
+  author_id: "99"
+  content: link from dashboard
+  created_at: 2010-07-23 20:14:18
+  department_id: "1"
+  end: 2010-07-23 20:14:34
+  id: "74"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 20:14:18
+  sticky: "0"
+  type: Link
+  updated_at: 2010-07-23 20:14:34
+  url: http://testme.com
+  useful_link: "0"
+notices_013: 
+  announcement: "0"
+  author_id: "99"
+  content: Test
+  created_at: 2010-07-23 20:14:48
+  department_id: "1"
+  end: 2010-07-23 20:14:57
+  id: "75"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 20:14:48
+  sticky: "0"
+  type: Link
+  updated_at: 2010-07-23 20:14:57
+  url: http://google.com
+  useful_link: "0"
+notices_014: 
+  announcement: "0"
+  author_id: "99"
+  content: |-
+    Posted w/o super user.    For IO and public cluster.  
+     Testing?
+  created_at: 2010-07-23 20:16:04
+  department_id: "1"
+  end: 2010-07-23 20:16:24
+  id: "76"
+  indefinite: "0"
+  remover_id: "99"
+  start: 2010-07-23 20:16:04
+  sticky: "0"
+  type: Sticky
+  updated_at: 2010-07-23 20:16:24
+  url: 
+  useful_link: "0"

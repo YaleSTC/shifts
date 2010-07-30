@@ -1,4 +1,7 @@
 class RequestedShiftsController < ApplicationController
+  
+  before_filter :require_proper_template_role
+  
   # GET /requested_shifts
   # GET /requested_shifts.xml
   def index

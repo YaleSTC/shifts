@@ -62,7 +62,7 @@
     <p>
       <%= link_to "Edit", edit_user_path(@user) %> |
       <%= deactivate_link(@user) %> |
-      <%= link_to "Delete", :action => :really_destroy, :id => @user, :confirm => "Are you sure you want to delete this user?  This is strongly discouraged, as it may damage the integrity of your database." %> |
+      <%#= link_to "Delete", :action => :really_destroy, :id => @user, :confirm => "Are you sure you want to delete this user?  This is strongly discouraged, as it may damage the integrity of your database." %> |
       <%= link_to "View All", department_users_path(@department) %>
     </p>
 

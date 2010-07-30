@@ -1,5 +1,7 @@
 class ShiftPreferencesController < ApplicationController
   
+  layout 'calendar'
+  
   before_filter :require_proper_template_role
   
   # GET /shift_preferences
@@ -75,7 +77,7 @@ class ShiftPreferencesController < ApplicationController
           @locations_shift_preference = LocationsShiftPreference.new(:shift_preference_id => @shift_preference.id, :location_id => current_location.id, :kind => params[preference_name])
           @locations_shift_preference.save
         end
-        flash[:notice] = 'ShiftPreference was successfully created.'
+        flash[:notice] = 'Shift Preference was successfully created.'
         format.html { redirect_to(template_shift_preferences_path(@week_template)) }
         format.xml  { render :xml => @shift_preference, :status => :created, :location => @shift_preference }
       else
@@ -102,7 +104,7 @@ class ShiftPreferencesController < ApplicationController
           @locations_shift_preference = LocationsShiftPreference.new(:shift_preference_id => @shift_preference.id, :location_id => current_location.id, :kind => params[preference_name])
           @locations_shift_preference.save
         end
-        flash[:notice] = 'ShiftPreference was successfully updated.'
+        flash[:notice] = 'Shift Preference was successfully updated.'
         format.html { redirect_to(template_shift_preferences_path(@week_template)) }
         format.xml  { head :ok }
       else
