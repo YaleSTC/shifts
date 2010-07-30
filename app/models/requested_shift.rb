@@ -9,6 +9,7 @@ class RequestedShift < ActiveRecord::Base
 	belongs_to :template
 
  	named_scope :assigned, lambda {|location| {:conditions => ["assigned = ? AND locations_requested_shifts.location_id = ?", true,  location.id], :joins => :locations_requested_shifts }}
+ 	named_scope :unassigned, lambda {|location| {:conditions => ["assigned = ? AND locations_requested_shifts.location_id = ?", false,  location.id], :joins => :locations_requested_shifts }}
 	named_scope :on_day, lambda {|day| {:conditions => {:day => day}}}
 
 	WEEK_DAY_SELECT = [
