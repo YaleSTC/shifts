@@ -1,3 +1,5 @@
+<%= link_to 'Edit This Template', edit_template_path(@week_template) %> |
+<%= link_to 'Back', templates_path %>
 <p>
 	<b>Name:</b>
 	<%= @week_template.name %>
@@ -42,6 +44,6 @@
 	</p>
 </p>
 
+<% content_for :head, stylesheet_link_tag("shift_view_refactoring") %>
 
-<%= link_to 'Edit', edit_template_path(@week_template) %> |
-<%= link_to 'Back', templates_path %>
+<%= render :partial => "/templates/schedule/day", :collection => [6,0,1,2,3,4,5] %>
