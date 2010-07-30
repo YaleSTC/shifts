@@ -2,54 +2,7 @@
 
 <% form_for(@week_template) do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :max_total_hours %><br />
-    <%= f.text_field :max_total_hours %>
-  </p>
-  <p>
-    <%= f.label :min_total_hours %><br />
-    <%= f.text_field :min_total_hours %>
-  </p>
-  <p>
-    <%= f.label :max_continuous_hours %><br />
-    <%= f.text_field :max_continuous_hours %>
-  </p>
-  <p>
-    <%= f.label :min_continuous_hours %><br />
-    <%= f.text_field :min_continuous_hours %>
-  </p>
-  <p>
-    <%= f.label :max_number_of_shifts %><br />
-    <%= f.text_field :max_number_of_shifts %>
-  </p>
-  <p>
-    <%= f.label :min_number_of_shifts %><br />
-    <%= f.text_field :min_number_of_shifts %>
-  </p>
-  <p>
-    <%= f.label :max_hours_per_day %><br />
-    <%= f.text_field :max_hours_per_day %>
-  </p>
-	Enable this template for the following roles:
-	<% current_department.roles.each do |role| %>
-		<%= check_box_tag "for_roles[]", role.id %>
-		<%= label_tag "role_#{role.id}", text = role.name %>
-		<%= ", " unless role == current_department.roles.last %>
-	<% end %>
-	
-	<br />
-
-	Enable this template for the following locations:
-	<% current_department.locations.each do |location| %>
-		<%= check_box_tag "for_locations[]", location.id %>
-		<%= label_tag "location_#{location.id}", text = location.short_name %>
-		<%= ", " unless location == current_department.locations.last %>
-	<% end %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
   <p>
     <%= f.submit 'Update' %>
   </p>

@@ -162,7 +162,7 @@ class ApplicationController < ActionController::Base
     end
     return true
   end
-  
+
   def require_proper_template_role
     unless current_user.has_proper_role_for?(Template.find(params[:template_id]))
       error_message = "This action is only availabe to users with correct roles"
