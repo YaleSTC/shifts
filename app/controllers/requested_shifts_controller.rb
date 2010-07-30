@@ -39,12 +39,13 @@ class RequestedShiftsController < ApplicationController
   end
 
   def create
+    parse_just_time(params[:requested_shift])
     @requested_shift = RequestedShift.new(params[:requested_shift])
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
 		@locations = @week_template.locations
 		if params[:for_locations]
-			@requested_shift.locations << Location.find(params[:for_locations]) 
-		end	
+			@requested_shift.locations << Location.find(params[:for_locations])
+		end
 		@requested_shift.user = current_user
 		@requested_shift.template = @week_template
     respond_to do |format|
@@ -89,3 +90,16 @@ class RequestedShiftsController < ApplicationController
     end
   end
 end
+
+private
+
+  def parse_just_time(form_output)
+    titles = ["preferred_start", "preferred_end", "acceptable_start","acceptable_end"]
+    titles.each do |field_name|
+      if !form_output["#{field_name}(5i)"].blank? && form_output["#{field_name}(4i)"].blank?
+        form_output["#{field_name}"] = Time.parse( form_output["#{field_name}(5i)"] )
+      end
+      form_output.delete("#{field_name}(5i)")
+    end
+  end
+
