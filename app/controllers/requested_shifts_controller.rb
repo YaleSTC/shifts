@@ -23,12 +23,14 @@ class RequestedShiftsController < ApplicationController
 
   def new
     @requested_shift = RequestedShift.new
-		#Rails will throw an error if you use @template
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
 		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}
 		unless @shift_preference
 			redirect_to new_template_shift_preference(@week_template)
 		end
+		#TODO: link these to Template timeslots?
+		@time_start = Time.local(2000, "jan",1,8,0,0)
+		@time_end = @time_start + 10.hours
 		@locations = @week_template.locations
 	end
 
@@ -47,14 +49,18 @@ class RequestedShiftsController < ApplicationController
 		end	
 		@requested_shift.user = current_user
 		@requested_shift.template = @week_template
-    respond_to do |format|
+		@requested_shift.preferred_start = Time.parse(params[:requested_shift]["preferred_start(5i)"])
+		@requested_shift.preferred_end = Time.parse(params[:requested_shift]["preferred_end(5i)"])
+		@requested_shift.acceptable_start = Time.parse(params[:requested_shift]["acceptable_start(5i)"])
+		@requested_shift.acceptable_end = Time.parse(params[:requested_shift]["acceptable_end(5i)"])
+		respond_to do |format|
       if @requested_shift.save
 				@week_template.requested_shifts << @requested_shift
         flash[:notice] = 'Requested shift was successfully created.'
         format.html { redirect_to(@requested_shift) }
         format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "edit" }
         format.xml  { render :xml => @requested_shift.errors, :status => :unprocessable_entity }
       end
     end

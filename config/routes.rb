@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :template_time_slots
+
   # map.resources :templates
 
   map.resources :stickies
