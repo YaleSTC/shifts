@@ -21,8 +21,16 @@ class RequestedShift < ActiveRecord::Base
     ["Sunday", 6]
   ]
   
+  def self.day_in_words(day_int)
+    WEEK_DAY_SELECT.select{|i| i[1] == day_int}[0][0]
+  end
+  
+  def length
+    self.acceptable_end - self.acceptable_start
+  end
+  
   def day_string
-    WEEK_DAY_SELECT.select{|i| i[1] == self.day}[0][0]
+    RequestedShift.day_in_words(self.day)
   end
 	
 	def assign(location)
