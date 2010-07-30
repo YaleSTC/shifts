@@ -49,6 +49,7 @@ class TemplatesController < ApplicationController
     @week_template = Template.new(params[:template])
 		if params[:for_locations]
 			@week_template.locations << Location.find(params[:for_locations])
+			@week_template.roles << Role.find(params[:for_roles])
     end
 		respond_to do |format|
       if @week_template.save
