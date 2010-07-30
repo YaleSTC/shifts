@@ -1,0 +1,94 @@
+/*SHIFT COLORS*/
+.schedule li{ z-index: 100;}
+.schedule li.user {                 background: #C2F094; font-weight: bold; }
+.schedule li.user:hover {           background: #85E029; }
+.schedule li.user.late {            background: #FFCA7A; font-weight: bold; }
+.schedule li.user.late:hover {      background: #FFB13D; }
+.schedule li.user.missed {          background: #E85E5E; font-weight: bold; }
+.schedule li.user.missed:hover {    background: #E02929; }
+.schedule li.shift {                background: #94C2F0; }
+.schedule li.shift:hover {          background: #2985E0; }
+.schedule li.shift.late {           background: #F0F094; }
+.schedule li.shift.late:hover {     background: #E8E85E; }
+.schedule li.shift.missed {         background: #F09494; }
+.schedule li.shift.missed:hover {   background: #E85E5E; }
+
+
+div.sub-bribe {     background: #fcf; height:100%; }
+div.sub-mandatory { background: #eae; height:100%; }
+
+/* Schedule view: */
+
+.schedule {
+    position: relative;
+    color: white;
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+/*
+    Time bar (along top)
+*/
+
+table.times, table.times tr, table.times th, table.times td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+table.times {
+    float:left;
+    width: 93%;
+    height: 25px;
+    border-collapse:collapse;
+}
+table.times tr {
+    border-bottom: 1px solid white;
+}
+table.times tr.hours th:last-child, table.times tr.minutes td:last-child {
+    border-right: 0;
+}
+table.times tr.hours th, table.times tr.minutes td {
+    border-right: 1px solid white;
+}
+table.times tr.hours th {
+    background: #888;
+}
+table.times tr.minutes td {
+    background: #62a;
+}
+
+/*
+    Events bars
+*/
+
+.schedule .event-group-title {
+    width: 7%;
+    float:left;
+    background: #888;
+    border-right: 1px solid white;
+}
+
+.schedule ul.event-row {
+    background: #bbb;
+    position: relative;
+    margin: 0;
+    float:left;
+    padding: 0;
+    width: 93%;
+    list-style-type: none;
+    height: 25px;
+    margin-bottom: 1px;
+}
+
+.schedule ul.event-row li{
+    color: #000;
+    display: inline;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+.schedule ul.event-row  li:hover {
+    background: #5c7;
+}

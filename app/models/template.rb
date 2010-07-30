@@ -9,6 +9,8 @@ class Template < ActiveRecord::Base
 	validate :max_total_hours_greater_than_min
 	validate :max_continuous_hours_greater_than_min
 	validate :max_number_of_shifts_greater_than_min
+	validates_presence_of :roles
+	validates_presence_of :locations
 	
 	protected
 	

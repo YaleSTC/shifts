@@ -63,7 +63,6 @@ class ApplicationController < ActionController::Base
     @current_department
   end
 
-
   def load_department
     if (params[:department_id])
       @department = Department.find_by_id(params[:department_id])
@@ -160,6 +159,15 @@ class ApplicationController < ActionController::Base
           return false
         end
       end
+    end
+    return true
+  end
+  
+  def require_proper_template_role
+    unless current_user.has_proper_role_for?(Template.find(params[:template_id]))
+      error_message = "This action is only availabe to users with correct roles"
+      flash[:error] = error_message
+      redirect_to access_denied_path
     end
     return true
   end
