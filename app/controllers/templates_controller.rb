@@ -95,3 +95,4 @@ class TemplatesController < ApplicationController
     end
   end
 end
+
