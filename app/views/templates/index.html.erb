@@ -27,12 +27,8 @@
     <td><%=h template.max_number_of_shifts %></td>
     <td><%=h template.min_number_of_shifts %></td>
     <td><%=h template.max_hours_per_day %></td>
-		<td><% template.roles.each do |role| %>
-		<%=h role.name %>
-		<% end %></td>
-		<td><% template.locations.each do |location| %>
-		<%=h location.short_name %>
-		<% end %></td>
+		<td><%= template.roles.collect{|role| role.name}.to_sentence %></td>
+		<td><%= template.locations.collect{|loc| loc.short_name}.to_sentence %></td>
     <td><%= link_to 'Show', template %></td>
     <td><%= link_to 'Edit', edit_template_path(template) %></td>
     <td><%= link_to 'Destroy', template, :confirm => 'Are you sure?', :method => :delete %></td>

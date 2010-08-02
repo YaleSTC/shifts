@@ -281,7 +281,8 @@ class ApplicationController < ActionController::Base
 #  end
 
   def parse_date_and_time_output(form_output)
-    %w{start end mandatory_start mandatory_end}.each do |field_name|
+		time_attribute_names = ["start", "end", "mandatory_start", "mandatory_end"]
+    time_attribute_names.each do |field_name|
       ## Simple Time Select Input
       if !form_output["#{field_name}_time(5i)"].blank? && form_output["#{field_name}_time(4i)"].blank?
         form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
@@ -304,9 +305,8 @@ class ApplicationController < ActionController::Base
     form_output["end_date"] ||= form_output["start_date"] if form_output["start_date"]
     form_output["mandatory_end_date"] ||= form_output["mandatory_start_date"] if form_output["mandatory_start_date"]
 
-
     #Midnight?
-    %w{start end mandatory_start mandatory_end}.each do |field_name|
+    time_attribute_names.each do |field_name|
         unless form_output["#{field_name}_time(5i)"].nil?
           unless form_output["#{field_name}_time(5i)"].scan(/\+$/).empty?
             form_output["#{field_name}_date"] += 1.day
@@ -315,7 +315,7 @@ class ApplicationController < ActionController::Base
     end
 
     #cleanup
-    %w{start end mandatory_start mandatory_end}.each do |field_name|
+    time_attribute_names.each do |field_name|
         form_output.delete("#{field_name}_date(1i)")
         form_output.delete("#{field_name}_date(2i)")
         form_output.delete("#{field_name}_date(3i)")
