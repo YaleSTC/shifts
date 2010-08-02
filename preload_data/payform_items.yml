@@ -7,7 +7,6 @@ payform_items_001:
   description: Sleeping at work
   hours: "0.01"
   id: "13"
-  parent_id: 
   payform_id: "56"
   payform_item_set_id: 
   reason: 
@@ -23,7 +22,6 @@ payform_items_002:
   description: Shift in Connecticut Hall (03:31PM-04:22PM)
   hours: "0.85"
   id: "14"
-  parent_id: 
   payform_id: "57"
   payform_item_set_id: 
   reason: 
