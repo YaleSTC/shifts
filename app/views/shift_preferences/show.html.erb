@@ -1,3 +1,4 @@
+<h2>Shift Preferences for <%= @shift_preference.user.name %></h2>
 <p>
   <b>Max total hours:</b>
   <%=h @shift_preference.max_total_hours %>
@@ -33,6 +34,10 @@
   <%=h @shift_preference.max_hours_per_day %>
 </p>
 
+<p>
+	<b>Locations:</b>
+	<%= @shift_preference.locations.collect{|l| l.short_name}.to_sentence %>
+</p>
 
 <%= link_to 'Edit', edit_template_shift_preference_path(@week_template) %> |
 <%= link_to 'Back', template_shift_preferences_path(@week_template) %>
