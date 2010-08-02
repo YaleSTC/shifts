@@ -1,6 +1,6 @@
 Hello, 
 
-The following shift requested by <%= @sub_request.shift.user.name %> has been taken by <%= @new_shift.user.name %>
+The following sub-request for <%= @sub_request.shift.user.name %> has been taken by <%= @new_shift.user.name %>
 
 Cluster:  <%= @new_shift.location.name%>
 Date:     <%= @new_shift.start.to_s(:just_date) %>
