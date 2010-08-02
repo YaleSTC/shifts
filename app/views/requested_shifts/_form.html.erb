@@ -1,0 +1,62 @@
+<p>
+    <%= f.label :acceptable_start %>: 
+    <%= f.time_select :acceptable_start, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => @week_template.department.department_config.time_increment,
+								:start_time => @time_start,
+                :end_time => @time_end,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => Time.now
+                                          } %>
+  </p>
+  <p>
+    <%= f.label :preferred_start %>: 
+		<%= f.time_select :preferred_start, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => @week_template.department.department_config.time_increment,
+								:start_time => @time_start,
+                :end_time => @time_end,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => Time.now
+                                          } %>
+  </p>
+  <p>
+    <%= f.label :preferred_end %>: 
+		<%= f.time_select :preferred_end, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => @week_template.department.department_config.time_increment,
+								:start_time => @time_start,
+                :end_time => @time_end,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => Time.now
+                                          } %>
+  </p>
+  
+  <p>
+    <%= f.label :acceptable_end %>: 
+		<%= f.time_select :acceptable_end, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => @week_template.department.department_config.time_increment,
+								:start_time => @time_start,
+                :end_time => @time_end,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => Time.now
+                                          } %>
+  </p>
+  <p>
+    <%= f.label :day, "What day:" %>: 
+    <%= f.select :day, RequestedShift::WEEK_DAY_SELECT %>
+  </p>
+	Locations:
+	<% @locations.each do |location| %>
+		<%= check_box_tag "for_locations[]", location.id %>
+		<%= label_tag "location_#{location.id}", text = location.short_name %> ,
+	<% end %>
