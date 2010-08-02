@@ -10,6 +10,7 @@ class Location < ActiveRecord::Base
   }}
 
   has_many :time_slots
+	has_many :template_time_slots
   has_many :shifts
 	has_many :locations_requested_shifts
 	has_many :requested_shifts, :through => :locations_requested_shifts

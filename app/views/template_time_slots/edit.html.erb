@@ -1,0 +1,24 @@
+<h1>Editing template_time_slot</h1>
+
+<% form_for(@template_time_slot) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :day %><br />
+    <%= f.text_field :day %>
+  </p>
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @template_time_slot %> |
+<%= link_to 'Back', template_time_slots_path %>

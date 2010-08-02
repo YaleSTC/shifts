@@ -1,0 +1,24 @@
+<h1>Listing template_time_slots</h1>
+
+<table>
+  <tr>
+    <th>Day</th>
+    <th>Start</th>
+    <th>End</th>
+  </tr>
+
+<% @template_time_slots.each do |template_time_slot| %>
+  <tr>
+    <td><%=h template_time_slot.day %></td>
+    <td><%=h template_time_slot.start %></td>
+    <td><%=h template_time_slot.end %></td>
+    <td><%= link_to 'Show', template_time_slot %></td>
+    <td><%= link_to 'Edit', edit_template_time_slot_path(template_time_slot) %></td>
+    <td><%= link_to 'Destroy', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New template_time_slot', new_template_time_slot_path %>

@@ -47,6 +47,7 @@ class TemplatesController < ApplicationController
   # POST /templates.xml
   def create
     @week_template = Template.new(params[:template])
+		@week_template.department = current_department
 		@week_template.locations << Location.find(params[:for_locations]) 		if params[:for_locations]
 		@week_template.roles << Role.find(params[:for_roles])		if params[:for_roles]
 		respond_to do |format|
@@ -94,5 +95,17 @@ class TemplatesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+	def update_locations
+		@locations = []
+		current_department.roles.each do |role|
+			@locations << Role.find(params["#{role.id}"]).signup_locations if params["#{role.id}"]
+		end
+		@locations.flatten!
+	end
 end
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 28d4466d9a44b6732f77929a6cb907fc95d767b2
