@@ -26,16 +26,10 @@
   <%= @week_template.max_hours_per_day %>
 	<p>
 	<b>Roles:</b>
-	<% @week_template.roles.each do |role| %>
-		<%= role.name %>
-		<%= ", " unless role == @week_template.roles.last %>
-	<% end %>
+	<%= @week_template.roles.collect{|role| role.name}.to_sentence %>
 	<p>
 	<b>Locations:</b>
-	<% @week_template.locations.each do |location| %>
-		<%= location.name %>
-		<%= ", " unless location == @week_template.locations.last %>
-	<% end %>
+	<%= @week_template.locations.collect{|loc| loc.short_name}.to_sentence %>
 	<p>
 	Requested shifts:
 	<% @requested_shifts.each do |requested_shift| %>

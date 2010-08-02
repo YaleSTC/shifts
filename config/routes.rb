@@ -131,7 +131,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
 	
-	map.resources :templates do |template|
+	map.resources :templates, :collection => {:update_locations => :post} do |template|
 		template.resources :requested_shifts
 		template.resources :shift_preferences
   end

@@ -22,5 +22,15 @@ class Role < ActiveRecord::Base
     associated_roles = self.department.roles - [self]
     errors.add("Name must be unique in a department.", "") unless associated_roles.select{ |role| role.name == self.name }.empty?
   end
+	
+	#returns an array of locations that the role can signup at
+	def signup_locations
+		locations = []
+		self.department.loc_groups.each do |loc_group|
+			locations << loc_group.locations if self.permissions.include?(loc_group.signup_permission)
+		end
+		return locations.flatten
+	end
+
 end
 
