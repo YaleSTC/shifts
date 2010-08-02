@@ -37,22 +37,31 @@
   </p>
 	Enable this template for the following roles:
 	<% current_department.roles.each do |role| %>
-		<%= check_box_tag "for_roles[]", role.id %>
+		<%= check_box_tag "role_checkbox_#{role.id}", role.id %>
 		<%= label_tag "role_#{role.id}", text = role.name %>
 		<%= ", " unless role == current_department.roles.last %>
-	<% end %>
-	
-	<br />
 
-	Enable this template for the following locations:
-	<% current_department.locations.each do |location| %>
-		<%= check_box_tag "for_locations[]", location.id %>
-		<%= label_tag "location_#{location.id}", text = location.short_name %>
-		<%= ", " unless location == current_department.locations.last %>
+	<%= observe_field("role_checkbox_#{role.id}", :url => {:controller => :templates,
+																						:action => :update_locations},
+																						:with => "#{role.id}",
+																						:on => "change")%>
+
 	<% end %>
+	<br />
+	<p>
+		Create Time Slots (when/where users can request shifts):
+		<div id = "time_slot_partial">		
+			<% unless @locations %>		
+				Please select roles first
+			<% else %> 
+				<%= render :partial => "location_and_time_slots"%>
+			<% end %> 
+		</div>
+	</p>	
 	<p>
 		Let users add their requested shifts to this template:
 		<%= check_box_tag :public %>
+	</p>
   <p>
     <%= f.submit 'Create' %>
   </p>
