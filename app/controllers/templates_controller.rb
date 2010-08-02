@@ -104,8 +104,3 @@ class TemplatesController < ApplicationController
 		@locations.flatten!
 	end
 end
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 28d4466d9a44b6732f77929a6cb907fc95d767b2
