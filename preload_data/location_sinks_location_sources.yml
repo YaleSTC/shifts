@@ -1,2 +1,176 @@
---- {}
-
+--- 
+location_sinks_location_sources_001: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "2"
+  location_source_type: LocGroup
+location_sinks_location_sources_002: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "2"
+  location_source_type: Location
+location_sinks_location_sources_003: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: LocGroup
+location_sinks_location_sources_004: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: Location
+location_sinks_location_sources_005: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "4"
+  location_source_type: Location
+location_sinks_location_sources_006: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "4"
+  location_source_type: LocGroup
+location_sinks_location_sources_007: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "5"
+  location_source_type: Location
+location_sinks_location_sources_008: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "6"
+  location_source_type: Location
+location_sinks_location_sources_009: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "7"
+  location_source_type: Location
+location_sinks_location_sources_010: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "8"
+  location_source_type: Location
+location_sinks_location_sources_011: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "9"
+  location_source_type: Location
+location_sinks_location_sources_012: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "10"
+  location_source_type: Location
+location_sinks_location_sources_013: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "11"
+  location_source_type: Location
+location_sinks_location_sources_014: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "12"
+  location_source_type: Location
+location_sinks_location_sources_015: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "13"
+  location_source_type: Location
+location_sinks_location_sources_016: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "14"
+  location_source_type: Location
+location_sinks_location_sources_017: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "15"
+  location_source_type: Location
+location_sinks_location_sources_018: 
+  location_sink_id: "1"
+  location_sink_type: Notice
+  location_source_id: "16"
+  location_source_type: Location
+location_sinks_location_sources_019: 
+  location_sink_id: "63"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: Location
+location_sinks_location_sources_020: 
+  location_sink_id: "65"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: Location
+location_sinks_location_sources_021: 
+  location_sink_id: "66"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: LocGroup
+location_sinks_location_sources_022: 
+  location_sink_id: "66"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: Location
+location_sinks_location_sources_023: 
+  location_sink_id: "66"
+  location_sink_type: Notice
+  location_source_id: "4"
+  location_source_type: Location
+location_sinks_location_sources_024: 
+  location_sink_id: "69"
+  location_sink_type: Notice
+  location_source_id: "4"
+  location_source_type: Location
+location_sinks_location_sources_025: 
+  location_sink_id: "71"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: Location
+location_sinks_location_sources_026: 
+  location_sink_id: "71"
+  location_sink_type: Notice
+  location_source_id: "14"
+  location_source_type: Location
+location_sinks_location_sources_027: 
+  location_sink_id: "71"
+  location_sink_type: Notice
+  location_source_id: "15"
+  location_source_type: Location
+location_sinks_location_sources_028: 
+  location_sink_id: "74"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: Location
+location_sinks_location_sources_029: 
+  location_sink_id: "74"
+  location_sink_type: Notice
+  location_source_id: "4"
+  location_source_type: Location
+location_sinks_location_sources_030: 
+  location_sink_id: "74"
+  location_sink_type: Notice
+  location_source_id: "5"
+  location_source_type: Location
+location_sinks_location_sources_031: 
+  location_sink_id: "76"
+  location_sink_type: Notice
+  location_source_id: "2"
+  location_source_type: LocGroup
+location_sinks_location_sources_032: 
+  location_sink_id: "76"
+  location_sink_type: Notice
+  location_source_id: "2"
+  location_source_type: Location
+location_sinks_location_sources_033: 
+  location_sink_id: "76"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: LocGroup
+location_sinks_location_sources_034: 
+  location_sink_id: "76"
+  location_sink_type: Notice
+  location_source_id: "3"
+  location_source_type: Location
+location_sinks_location_sources_035: 
+  location_sink_id: "76"
+  location_sink_type: Notice
+  location_source_id: "4"
+  location_source_type: Location

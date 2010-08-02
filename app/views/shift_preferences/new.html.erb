@@ -1,45 +1,45 @@
-<h1>New Shift Preferences</h1>
+<h1>Creating Shift Preferences for <%= @week_template.name%></h1>
 
 <% form_for([@week_template, @shift_preference]) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :max_total_hours %>: 
-    <%= select_tag 'shift_preference[max_total_hours]', options_for_select(@hours_week, @hours_week.min) %>
+    <%= f.label "Maximum total hours" %>: 
+    <%= select_tag 'shift_preference[max_total_hours]', options_for_select(@hours_week, @hours_week.max) %>
   </p>
   <p>
-    <%= f.label :min_total_hours %>: 
+    <%= f.label "Minimum total hours" %>: 
     <%= select_tag 'shift_preference[min_total_hours]', options_for_select(@hours_week, @hours_week.min) %>
   </p>
   <p>
-    <%= f.label :max_continuous_hours %>: 
-    <%= select_tag 'shift_preference[max_continuous_hours]', options_for_select(@hours_shift, @hours_shift.min) %>
+    <%= f.label "Maximum continuous hours" %>: 
+    <%= select_tag 'shift_preference[max_continuous_hours]', options_for_select(@hours_shift, @hours_shift.max) %>
   </p>
   <p>
-    <%= f.label :min_continuous_hours %>: 
+    <%= f.label "Minimum continuous hours" %>: 
     <%= select_tag 'shift_preference[min_continuous_hours]', options_for_select(@hours_shift, @hours_shift.min) %>
   </p>
   <p>
-    <%= f.label :max_number_of_shifts %>: 
-    <%= select_tag 'shift_preference[max_number_of_shifts]', options_for_select(@shifts_week, @shifts_week.min) %>
+    <%= f.label "Maximum hours per day" %>: 
+    <%= select_tag 'shift_preference[max_hours_per_day]', options_for_select(@hours_shift, @hours_shift.max) %>
+	</p>
+  <p>
+    <%= f.label "Maximum number of shifts" %>: 
+    <%= select_tag 'shift_preference[max_number_of_shifts]', options_for_select(@shifts_week, @shifts_week.max) %>
   </p>
   <p>
-    <%= f.label :min_number_of_shifts %>: 
+    <%= f.label "Minimum number of shifts" %>: 
     <%= select_tag 'shift_preference[min_number_of_shifts]', options_for_select(@shifts_week, @shifts_week.min) %>
   </p>
-  <p>
-    <%= f.label :max_hours_per_day %>: 
-    <%= select_tag 'shift_preference[max_hours_per_day]', options_for_select(@hours_shift, @hours_shift.min) %>
-	</p>
 	
 	<p>
 		Please select your location preferences: <br/>
 		<table>
 			<tr>
 				<th>Location</th>
-				<th>Yes</th>
-				<th>Maybe</th>
-				<th>No</th>
+				<th>Prefer</th>
+				<th>Able</th>
+				<th>Unable</th>
 			</tr>
 			<% f.label :location_preference %>
 			<% @locations.each do |current_location| %>
@@ -52,7 +52,6 @@
 			<% end %>
 		</table>
 	</p>
-	
 	
   <p>
     <%= f.submit 'Create' %>

@@ -1,13 +1,13 @@
 class TemplatesController < ApplicationController
-  
+
   before_filter :require_department_admin
-  
-  
+
+
   layout "application"
   # GET /templates
   # GET /templates.xml
 
-  
+
   def index
     @week_templates = Template.all
     respond_to do |format|
@@ -46,12 +46,10 @@ class TemplatesController < ApplicationController
   # POST /templates
   # POST /templates.xml
   def create
-
     @week_template = Template.new(params[:template])
-		if params[:for_locations]
-			@week_template.locations << Location.find(params[:for_locations])
-    end
 		@week_template.department = current_department
+		@week_template.locations << Location.find(params[:for_locations]) 		if params[:for_locations]
+		@week_template.roles << Role.find(params[:for_roles])		if params[:for_roles]
 		respond_to do |format|
       if @week_template.save
         flash[:notice] = 'Template was successfully created.'
@@ -107,4 +105,7 @@ class TemplatesController < ApplicationController
 	end
 end
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 28d4466d9a44b6732f77929a6cb907fc95d767b2
