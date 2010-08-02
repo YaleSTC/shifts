@@ -21,7 +21,7 @@
     <td><%=h requested_shift.day %></td>
 		<td><%=h requested_shift.locations.collect{|l| l.short_name}.to_sentence %></td>
     <td><%= link_to 'Show', template_requested_shift_path(@week_template, requested_shift) %></td>
-    <td><%= link_to 'Edit', edit_requested_shift_path(requested_shift) %></td>
+    <td><%= link_to 'Edit', edit_template_requested_shift_path(@week_template, requested_shift) %></td>
     <td><%= link_to 'Destroy', requested_shift, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -30,3 +30,5 @@
 <br />
 
 <%#= link_to 'New requested_shift', new_requested_shift_path %>
+
+<%= render :partial => 'week' %>

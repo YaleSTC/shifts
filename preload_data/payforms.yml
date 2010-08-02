@@ -6,9 +6,9 @@ payforms_001:
   date: "2009-07-11"
   day: "6"
   department_id: "1"
-  end_of_month: false
+  end_of_month: "0"
   id: "56"
-  monthly: false
+  monthly: "0"
   payform_set_id: 
   payrate: 
   printed: 
@@ -18,16 +18,16 @@ payforms_001:
 payforms_002: 
   approved: 
   approved_by_id: 
-  created_at: 2010-07-12 19:56:12
-  date: "2010-07-17"
+  created_at: 2010-07-23 20:22:13
+  date: "2010-07-24"
   day: "6"
   department_id: "1"
-  end_of_month: false
+  end_of_month: "0"
   id: "57"
-  monthly: false
+  monthly: "0"
   payform_set_id: 
-  payrate: "15"
+  payrate: "15.00"
   printed: 
   submitted: 
-  updated_at: 2010-07-12 19:56:12
-  user_id: "16"
+  updated_at: 2010-07-23 20:22:13
+  user_id: "99"

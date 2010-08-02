@@ -2,66 +2,7 @@
 
 <% form_for(@week_template) do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :max_total_hours %><br />
-    <%= f.text_field :max_total_hours %>
-  </p>
-  <p>
-    <%= f.label :min_total_hours %><br />
-    <%= f.text_field :min_total_hours %>
-  </p>
-  <p>
-    <%= f.label :max_continuous_hours %><br />
-    <%= f.text_field :max_continuous_hours %>
-  </p>
-  <p>
-    <%= f.label :min_continuous_hours %><br />
-    <%= f.text_field :min_continuous_hours %>
-  </p>
-  <p>
-    <%= f.label :max_number_of_shifts %><br />
-    <%= f.text_field :max_number_of_shifts %>
-  </p>
-  <p>
-    <%= f.label :min_number_of_shifts %><br />
-    <%= f.text_field :min_number_of_shifts %>
-  </p>
-  <p>
-    <%= f.label :max_hours_per_day %><br />
-    <%= f.text_field :max_hours_per_day %>
-  </p>
-	Enable this template for the following roles:
-	<% current_department.roles.each do |role| %>
-		<%= check_box_tag "role_checkbox_#{role.id}", role.id %>
-		<%= label_tag "role_#{role.id}", text = role.name %>
-		<%= ", " unless role == current_department.roles.last %>
-
-	<%= observe_field("role_checkbox_#{role.id}", :url => {:controller => :templates,
-																						:action => :update_locations},
-																						:with => "#{role.id}",
-																						:on => "change")%>
-
-	<% end %>
-	<br />
-	<p>
-		Create Time Slots (when/where users can request shifts):
-		<div id = "time_slot_partial">		
-			<% unless @locations %>		
-				Please select roles first
-			<% else %> 
-				<%= render :partial => "location_and_time_slots"%>
-			<% end %> 
-		</div>
-	</p>	
-	<p>
-		Let users add their requested shifts to this template:
-		<%= check_box_tag :public %>
-	</p>
+  <%= render :partial => 'form', :locals => {:f => f} %>
   <p>
     <%= f.submit 'Create' %>
   </p>

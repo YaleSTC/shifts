@@ -1,5 +1,5 @@
 if @link.errors.empty? 
-	if @report
+	if current_user.current_shift
 		page.replace_html "report_links", :partial => 'report_links'
 	else
 		page.replace_html "dashboard_links", :partial => 'dashboard_links'
