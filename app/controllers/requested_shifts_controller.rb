@@ -1,12 +1,12 @@
 class RequestedShiftsController < ApplicationController
-  
+
   before_filter :require_proper_template_role
-  
+
   # GET /requested_shifts
   # GET /requested_shifts.xml
   def index
-	
-	#copied from time_slot, some might not be necessary?    
+
+	#copied from time_slot, some might not be necessary?
 	@period_start = Date.today.previous_sunday
     #TODO:simplify this stuff:
     @dept_start_hour = current_department.department_config.schedule_start / 60
@@ -15,7 +15,14 @@ class RequestedShiftsController < ApplicationController
     @block_length = current_department.department_config.time_increment
     @blocks_per_hour = 60/@block_length.to_f
     @blocks_per_day = @hours_per_day * @blocks_per_hour
+#definitely remove hidden timeslots
     @hidden_timeslots = [] #for timeslots that don't show up on the view
+
+    if current_department.department_config.weekend_shifts #show weekends
+      @day_collection = @period_start...(@period_start+7)
+    else #no weekends
+      @day_collection = (@period_start+1)...(@period_start+6)
+    end
 
     @requested_shifts = RequestedShift.all
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
@@ -67,7 +74,7 @@ class RequestedShiftsController < ApplicationController
       if @requested_shift.save
 				@week_template.requested_shifts << @requested_shift
         flash[:notice] = 'Requested shift was successfully created.'
-        format.html { redirect_to(@requested_shift) }
+        format.html { redirect_to(template_requested_shift_path(@week_template, @requested_shift)) }
         format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
       else
         format.html { render :action => "new" }
@@ -100,7 +107,7 @@ class RequestedShiftsController < ApplicationController
     @requested_shift.destroy
 
     respond_to do |format|
-      format.html { redirect_to(requested_shifts_url) }
+      format.html { redirect_to(template_requested_shifts_url) }
       format.xml  { head :ok }
     end
   end
