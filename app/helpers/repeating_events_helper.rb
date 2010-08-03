@@ -1,20 +1,20 @@
 module RepeatingEventsHelper
 
-  def department_check(dept, repeating_event)
+  def department_checked?(dept, repeating_event)
    repeating_event.departments.each do |d|
       return true if d == dept
     end
     false
   end
 
-  def loc_group_check(loc_group, repeating_event)
+  def loc_group_checked?(loc_group, repeating_event)
     repeating_event.loc_groups.each do |lg|
       return true if lg == loc_group
     end
     false
   end
 
-  def location_check(location, repeating_event)
+  def location_checked?(location, repeating_event)
     return true if @repeating_event.location_ids && @repeating_event.location_ids.include?(location.id)
 #    current_department.locations.each do |loc|
 #      return true if loc == location

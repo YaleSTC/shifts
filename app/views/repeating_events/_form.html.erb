@@ -89,7 +89,7 @@
 		      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :style => "display: none;" %>
 		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 		      <% for location in loc_group.locations do %>
-		        <%= check_box_tag "for_locations[]", location.id, location_check(location, @repeating_event) %>
+		        <%= check_box_tag "for_locations[]", location.id, location_checked?(location, @repeating_event) %>
 		        <%= label_tag "location_#{location.id}", text = location.short_name %>
 		        <% unless location == loc_group.locations.last %> , <%end%>
 		      <% end %>
