@@ -1,5 +1,4 @@
 <% calculate_default_times_repeating_events %>
-<%= javascript_include_tag 'locationcheckboxes' %>
 
 <p style="margin-top: -10px">
   <%= check_box_tag "whole_calendar", "1", false, :onclick => "$('#date_selects').toggle()" %> Apply to entire calendar (does not work on default calendar)
@@ -49,17 +48,15 @@
   <p>
 	<div id = "all_locations">
     <% for loc_group in current_department.loc_groups do %>
-      <% if current_user.permission_list.select{|p| p.loc_group == loc_group} %>
-				<li id = "repeating_event_li">
-		      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :style => "display: none;" %>
-		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
-		      <% loc_group.locations.each_with_index do |location, i| %>
-		        <%= check_box_tag "for_locations[]", location.id, (@repeating_event.location_ids && @repeating_event.location_ids.include?(location.id)) %>
-		        <%= label_tag "location_#{location.id}", text = location.short_name -%>
-            <%= "<br>" if (i == 1) || ((i-2) % 5 == 4) %>
-		      <% end %>
-		    </li>
-			<% end %>
+			<li id = "repeating_event_li">
+	      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :style => "display: none;" %>
+	      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
+	      <% loc_group.locations.each_with_index do |location, i| %>
+	        <%= check_box_tag "for_locations[]", location.id, (@repeating_event.location_ids && @repeating_event.location_ids.include?(location.id)) %>
+	        <%= label_tag "location_#{location.id}", text = location.short_name -%>
+          <%= "<br>" if (i == 1) || ((i-2) % 5 == 4) %>
+	      <% end %>
+	    </li>
     <% end %>
   	</div>
   </p>
