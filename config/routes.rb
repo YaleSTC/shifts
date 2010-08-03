@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :template_time_slots
+
   # map.resources :templates
 
   map.resources :stickies
@@ -120,7 +122,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
-  map.resources :stats, :collection => {:for_user => [:get,:post], :index=> [:get,:post]}
+  map.resources :stats, :collection => {:for_user => [:post, :get], :index => [:post, :get]}
 
   #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 
@@ -129,7 +131,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
 	
-	map.resources :templates do |template|
+	map.resources :templates, :collection => {:update_locations => :post} do |template|
 		template.resources :requested_shifts
 		template.resources :shift_preferences
   end
