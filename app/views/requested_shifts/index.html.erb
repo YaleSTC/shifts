@@ -26,13 +26,13 @@
     </td>
     <td><%= link_to 'Show', template_requested_shift_path(@week_template, requested_shift) %></td>
     <td><%= link_to 'Edit', edit_template_requested_shift_path(@week_template, requested_shift) %></td>
-    <td><%= link_to 'Destroy', requested_shift, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', template_requested_shift_path(@week_template, requested_shift), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%#= link_to 'New requested_shift', new_requested_shift_path %>
+<%= link_to 'New requested_shift', new_template_requested_shift_path(@week_template) %>
 
 <%= render :partial => 'week' %>

@@ -1,16 +1,16 @@
 class ShiftPreferencesController < ApplicationController
-  
+
   layout 'calendar'
-  
+
   before_filter :require_proper_template_role
-  
+
   # GET /shift_preferences
   # GET /shift_preferences.xml
   def index
 
     @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preferences = @week_template.shift_preferences
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @shift_preferences }
@@ -127,3 +127,4 @@ class ShiftPreferencesController < ApplicationController
     end
   end
 end
+

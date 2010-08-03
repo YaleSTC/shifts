@@ -15,10 +15,6 @@
   </tr>
 <% @week_templates.each do |template| %>
   <tr>
-		<% template.requested_shifts.each do |rs| %>
-			Start: <%= rs.preferred_start%>
-			End: <%= rs.preferred_end %>
-		<% end %>
     <td><%=h template.name %></td>
     <td><%=h template.max_total_hours %></td>
     <td><%=h template.min_total_hours %></td>
