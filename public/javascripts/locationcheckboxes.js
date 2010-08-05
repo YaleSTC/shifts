@@ -2,24 +2,6 @@
 
 jQuery($("#TB_ajaxContent")).ready(function(){
 
-////initialize page
-//make location group and department checkboxes appear
-    $("input[name^=for_location_group],input[name^=department_wide_locations]").each(function(){
-      $(this).css("display", "inline");
-    });
-
-//check the location groups if all locations come checked
-    $("input[name^='for_locations']").each(function(){
-        var loccheck = true;
-        $(this).parent().children("input[name^='for_locations']").each(function() {
-            if($(this).attr('checked') == false)
-                {loccheck = false}
-        })
-        $(this).parent(name^='for_location_group').children("input[name^='for_location_group']").attr('checked', loccheck)
-});
-
-
-
 ////click responses
 
 //checking the dept box - checks/unchecks everything
