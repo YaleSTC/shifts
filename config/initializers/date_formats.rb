@@ -1,3 +1,10 @@
+#we need this in payform_item's form to make the drop-down list of dates accept day of the week. For whatever reason, collection_select can't apply any to_s transformations like the ones below
+class Date
+  def to_weekday_date
+    strftime("%A, %B %d")
+  end
+end
+
 # Add commonly used time format here. Usage: time_object.to_s(:am_pm) or :short_name, or etc. -H
 my_formats = {
   :am_pm => "%I:%M %p",

@@ -71,9 +71,11 @@ module TimeSlotsHelper
 
 #    @default_end_date = @time_slot.end.to_date
 #    @default_end_date -= 1.day if (@time_slot.end.day == (@time_slot.start.day + 1))
+    if params[:location_id]
+      @time_slot.location_id = params[:location_id]
+    end
 
   end
 
 
 end
-
