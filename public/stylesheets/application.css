@@ -694,8 +694,8 @@ ul#user_sources {margin-top:0px; margin-left:1.5em; list-style-type:none;}
 ======================================================================= */
 div.feed_subs h3, div.feed_shifts h3 {margin-left:1em; margin-top:1em;}
 div.feed_subs a, div.feed_shifts a {margin-left:2em; line-height:120%}
-div.feed_subs {float:right; margin-right:40em;}
-div.feed_shifts {float:left;}
+div.feed_subs {float:left; margin-left:4em;}
+div.feed_shifts {float:left; max-width:25em;}
 div.feed_bottom {clear:both}
 div.feed_bottom a {float:right;}
 

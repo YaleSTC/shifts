@@ -2,6 +2,7 @@ class LinksController < NoticesController
 	before_filter :require_any_loc_group_admin, :except => [:index, :show, :destroy]
 
   def new
+		@current_shift_location = current_user.current_shift.location if current_user.current_shift
     @link = Link.new
 		layout_check
   end
@@ -14,7 +15,7 @@ class LinksController < NoticesController
     @link = Link.new(params[:link])
 		@link.author = current_user		
 		@link.department = current_department
-		@link.url = "http://" << params[:link][:url] if @link.url[0,7] != "http://" || @link.url[0,8] != "https://"
+		@link.url = "http://" << params[:link][:url] if @link.url[0,7] != "http://" && @link.url[0,8] != "https://"
 		@link.url.strip!
 		@link.start = Time.now
     @link.end = nil

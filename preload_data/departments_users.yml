@@ -1,183 +1,183 @@
 --- 
 departments_users_001: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:40:25
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
   user_id: "105"
 departments_users_002: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:42:59
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:59
   user_id: "17"
 departments_users_003: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:40:23
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
   user_id: "14"
 departments_users_004: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:42:57
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:57
   user_id: "13"
 departments_users_005: 
-  active: true
+  active: "1"
   created_at: 2009-06-27 03:14:21
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:43:00
   user_id: "24"
 departments_users_006: 
-  active: true
+  active: "1"
   created_at: 2009-06-30 20:23:05
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-30 20:23:05
   user_id: "51"
 departments_users_007: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:42:59
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:59
   user_id: "18"
 departments_users_008: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:55:03
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:55:03
   user_id: "26"
 departments_users_009: 
-  active: true
+  active: "1"
   created_at: 2009-06-29 15:52:53
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-30 19:58:09
   user_id: "49"
 departments_users_010: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:40:25
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
-  user_id: "99"
+  user_id: "16"
 departments_users_011: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:43:00
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:43:00
   user_id: "21"
 departments_users_012: 
-  active: true
+  active: "1"
   created_at: 2009-06-30 20:23:05
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-30 20:23:05
   user_id: "100"
 departments_users_013: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:56:03
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:56:03
   user_id: "27"
 departments_users_014: 
-  active: true
+  active: "1"
   created_at: 2009-06-29 15:52:53
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-29 15:52:53
   user_id: "44"
 departments_users_015: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:55:03
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:55:03
   user_id: "101"
 departments_users_016: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:43:00
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:43:00
   user_id: "22"
 departments_users_017: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:40:25
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
   user_id: "102"
 departments_users_018: 
-  active: true
+  active: "1"
   created_at: 2009-06-30 19:58:26
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-30 19:58:26
   user_id: "50"
 departments_users_019: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:43:00
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:43:00
   user_id: "23"
 departments_users_020: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:40:25
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
   user_id: "103"
 departments_users_021: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:58:24
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:58:24
   user_id: "28"
 departments_users_022: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:42:59
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:59
   user_id: "20"
 departments_users_023: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:40:25
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
   user_id: "104"
 departments_users_024: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:42:58
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
   user_id: "15"
 departments_users_025: 
-  active: true
+  active: "1"
   created_at: 2009-06-30 20:26:42
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-30 20:26:42
   user_id: "52"
 departments_users_026: 
-  active: true
+  active: "1"
   created_at: 2009-06-22 17:40:25
   department_id: "1"
-  payrate: "15"
+  payrate: "15.00"
   updated_at: 2009-06-22 17:42:58
-  user_id: "16"
+  user_id: "99"

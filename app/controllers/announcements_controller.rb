@@ -10,7 +10,8 @@ class AnnouncementsController < NoticesController
   end
 
   def new
-     @disable_locations = false
+		@current_shift_location = current_user.current_shift.location if current_user.current_shift
+    @disable_locations = false
     @announcement = Announcement.new
     layout_check
   end
