@@ -13,7 +13,7 @@ class ShiftPreference < ActiveRecord::Base
 	protected
 	
 	def max_hours_per_day_greater_than_continuous
-		errors.add("Maximum hours per day is greater than maximum continuous hours") if (self.max_hours_per_day < self.max_continuous_hours)
+		errors.add("Maximum hours per day is greater than maximum continuous hours") if (self.max_hours_per_day > self.max_continuous_hours)
 	end
 	
   def max_total_hours_greater_than_min
