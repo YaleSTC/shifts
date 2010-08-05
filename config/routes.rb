@@ -88,15 +88,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
-
-  map.resources :locations, :member => {:toggle => [:get, :post]}
-
   map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
     report.resources :report_items
   end
 
 #TODO Fix report items routing, this is temporary
-  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :member => {:for_location => :get}
+  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :member => {:display_report_items => :get, :toggle => [:get, :post]}
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
