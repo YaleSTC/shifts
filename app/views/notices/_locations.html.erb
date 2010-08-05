@@ -2,7 +2,7 @@
 	<fieldset class = "index">
   	<legend>Where:</legend>
 		<% if current_user.is_admin_of?(current_department) && notice.class.name != "Sticky" %>
-    <%= check_box_tag :department_wide_locations, current_department.id, department_checked?(current_department, notice), :style => "display: none;" %>
+    <%= check_box_tag :department_wide_locations, current_department.id, department_checked?(current_department, notice), :style => "display: none;", :class => "only_js" %>
     	<%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
 		<% end %>
 
@@ -10,7 +10,7 @@
     <% for loc_group in current_department.loc_groups do %>
       <% if current_user.permission_list.select{|p| p.loc_group == loc_group} %>
 				<li id = "notice_li">
-		      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked?(loc_group, notice), :style => "display: none;" %>
+		      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
 		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 		      <% for location in loc_group.locations do %>
 		        <%= check_box_tag "for_locations[]", location.id, location_checked?(location, notice) %>
@@ -24,3 +24,6 @@
 	</fieldset>
 <% end -%>
 
+<%= javascript_include_tag 'locationcheckboxes' %>
+<%# next line is to make location_groups appear; the action is early in application.js %>
+<script type="text/javascript"> jQuery.getScript('/javascripts/application.js'); </script>

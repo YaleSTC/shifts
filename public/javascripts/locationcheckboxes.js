@@ -1,6 +1,6 @@
 //location group can check or uncheck all, and is only checked itself when all its locations are checked
 
-jQuery($("#TB_ajaxContent")).ready(function(){
+jQuery($(document).ready(function(){
 
 ////click responses
 
