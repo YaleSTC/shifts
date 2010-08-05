@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     return false unless loc_group
-    (permission_list.include?(loc_group.view_permission) || permission_list.include?(loc_group.department.admin_permission)) && self.is_active?(loc_group.department)
+    (self.is_superuser? || permission_list.include?(loc_group.view_permission) || permission_list.include?(loc_group.department.admin_permission)) && self.is_active?(loc_group.department)
   end
 
   # check if a user can sign up for a shift in this loc group
@@ -242,24 +242,6 @@ class User < ActiveRecord::Base
 
   def accessible_departments
     (superuser? && supermode?) ? Department.all : departments
-  end
-
-  def current_notices
-    ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
-      x = Sticky.active.collect(&:id)
-      y = Announcement.active.collect(&:id)
-      Notice.find(a & (x + y))
-    end
-  end
-
-  def other_notices
-    ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'User' AND user_source_id != #{self.id.to_sql}"]).collect(&:user_sink_id)
-      b = Sticky.active.collect(&:id)
-      c = Announcement.active.collect(&:id)
-      Notice.find(a & (b + c))
-    end 
   end
 
   def payrate(department)

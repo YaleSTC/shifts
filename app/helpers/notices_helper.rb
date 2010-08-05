@@ -15,12 +15,11 @@ module NoticesHelper
   end
 
   def location_check(location, notice)
-    notice.locations.each do |loc|
+		return @current_shift_location == location if @current_shift_location
+    notice.location_sources.each do |loc|
       return true if loc == location
     end
-		if @current_shift_location
-    	return @current_shift_location == location if @current_shift_location
-    end
+		false
   end
 
 

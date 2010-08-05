@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag 'shift', 'timeline'%>
+  <%= stylesheet_link_tag 'shift', 'timeline', 'notice'%>
 <% end %>
 
 
@@ -27,8 +27,7 @@
 		<li><%= link_to_unless_current "SubRequests", sub_requests_path %></li>
 		
 	<h3>Notice Links</h3>
-			<li><%= link_to_post_a_link %></li>
-			<li><%= link_to_post_a_sticky(false) %></li>
+			<li><%= link_to_post_a_sticky() %></li>
 			<li><%= link_to_post_an_announcement %></li>
 			<li><%= link_to "View all notices", notices_path %></li>
 			
