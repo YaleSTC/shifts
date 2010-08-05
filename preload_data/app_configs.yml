@@ -14,4 +14,4 @@ app_configs_001:
   ldap_port: "389"
   mailer_address: testing@contact.ben
   updated_at: 2009-08-04 20:23:27
-  use_ldap: "1"
+  use_ldap: true

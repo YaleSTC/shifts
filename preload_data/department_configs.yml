@@ -1,8 +1,8 @@
 --- 
 department_configs_001: 
-  auto_remind: "1"
-  auto_warn: "1"
-  can_take_passed_sub: "1"
+  auto_remind: true
+  auto_warn: true
+  can_take_passed_sub: true
   created_at: 2009-06-22 17:27:52
   day: "6"
   department_id: "1"
@@ -11,26 +11,26 @@ department_configs_001:
   grace_period: "7"
   id: "1"
   mailer_address: noreply@shifts.app
-  monthly: "0"
+  monthly: false
   printed_message: This payform has already been printed and may no longer be edited by you. If there is a problem that needs to be addressed, please talk to the administration.
   reason_min: "10"
   reminder_message: Please remember to submit your payform for the week.
   schedule_end: "1380"
   schedule_start: "600"
-  stale_shift: "1"
+  stale_shift: true
   stats_mailer_address: 
   time_increment: "15"
-  unscheduled_shifts: "1"
+  unscheduled_shifts: true
   updated_at: 2009-06-22 17:27:52
   warning_message: |-
     You have not submitted payforms for the weeks ending on the following dates:
     @weeklist@Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform.
   warning_weeks: "4"
-  weekend_shifts: "1"
+  weekend_shifts: true
 department_configs_002: 
-  auto_remind: "1"
-  auto_warn: "1"
-  can_take_passed_sub: "1"
+  auto_remind: true
+  auto_warn: true
+  can_take_passed_sub: true
   created_at: 2009-06-22 18:09:37
   day: "6"
   department_id: "2"
@@ -39,19 +39,19 @@ department_configs_002:
   grace_period: "0"
   id: "2"
   mailer_address: noreply@shifts.app
-  monthly: "0"
+  monthly: false
   printed_message: This payform has already been printed and may no longer be edited by you. If there is a problem that needs to be addressed, please talk to the administration.
   reason_min: "10"
   reminder_message: Please remember to submit your payform for the week.
   schedule_end: "1020"
   schedule_start: "540"
-  stale_shift: "1"
+  stale_shift: true
   stats_mailer_address: 
   time_increment: "60"
-  unscheduled_shifts: "1"
+  unscheduled_shifts: true
   updated_at: 2009-06-22 18:09:37
   warning_message: |-
     You have not submitted payforms for the weeks ending on the following dates:
     @weeklist@Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform.
   warning_weeks: "4"
-  weekend_shifts: "1"
+  weekend_shifts: true

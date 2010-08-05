@@ -3,7 +3,7 @@ roles_001:
   created_at: 2010-07-23 18:13:41
   department_id: "1"
   id: "3"
-  name: "ST "
+  name: ST
   updated_at: 2010-07-23 18:13:41
 roles_002: 
   created_at: 2010-07-23 18:13:47
