@@ -8,8 +8,8 @@ class RequestedShift < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :template
 
- 	named_scope :assigned, lambda {|location| {:conditions => ["assigned = ? AND locations_requested_shifts.location_id = ?", true,  location.id], :joins => :locations_requested_shifts }}
- 	named_scope :unassigned, lambda {|location| {:conditions => ["assigned = ? AND locations_requested_shifts.location_id = ?", false,  location.id], :joins => :locations_requested_shifts }}
+ 	named_scope :assigned, lambda {|location| {:conditions => ["locations_requested_shifts.assigned = ? AND locations_requested_shifts.location_id = ?", true,  location.id], :joins => :locations_requested_shifts }}
+ 	named_scope :unassigned, lambda {|location| {:conditions => ["locations_requested_shifts.assigned = ? AND locations_requested_shifts.location_id = ?", false,  location.id], :joins => :locations_requested_shifts }}
 	named_scope :on_day, lambda {|day| {:conditions => {:day => day}}}
 
 	WEEK_DAY_SELECT = [
@@ -32,6 +32,10 @@ class RequestedShift < ActiveRecord::Base
 
   def day_string
     RequestedShift.day_in_words(self.day)
+  end
+
+  def overlaps_with(shift)
+    self.acceptable_start >= shift.acceptable_start and self.acceptable_start < shift.acceptable_end
   end
 
 	def assign(location)
