@@ -1,14 +1,21 @@
-<h1>Listing requested_shifts</h1>
+<h1>Requested Shifts for <%= @week_template.name %></h1>
 
 <table>
   <tr>
 		<th>User</th>
-    <th>Preferred start</th>
-    <th>Preferred end</th>
-    <th>Acceptable start</th>
-    <th>Acceptable end</th>
+    <th colspan=2>Preferred</th>
+    <th colspan=2>Acceptable</th>
     <th>Day</th>
 		<th>Locations</th>
+  </tr>
+  <tr>
+		<th></th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Start</th>
+    <th>End</th>
+    <th></th>
+		<th></th>
   </tr>
 
 <% @requested_shifts.each do |requested_shift| %>
@@ -29,6 +36,12 @@
 
 <br />
 
-<%= link_to 'New requested_shift', new_template_requested_shift_path(@week_template) %>
+<%= link_to 'New Requested Shift', new_template_requested_shift_path(@week_template) %>
+
+<br />
+<br />
+
+<%= link_to 'Back to Template', templates_path() %> |
+<%= link_to 'Go to All Shift Preferences', template_shift_preferences_path() %>
 
 <%= render :partial => 'week' %>

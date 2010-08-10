@@ -10,6 +10,7 @@ class TemplatesController < ApplicationController
 
   def index
     @week_templates = Template.all
+    @department = current_department
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @week_templates }

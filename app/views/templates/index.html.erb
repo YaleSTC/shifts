@@ -1,17 +1,26 @@
-<h1>Listing Templates</h1>
+<h1>Templates for <%= @department.name %></h1>
 
 <table>
   <tr>
     <th>Name</th>
-    <th>Max total hours</th>
-    <th>Min total hours</th>
-    <th>Max continuous hours</th>
-    <th>Min continuous hours</th>
-    <th>Max number of shifts</th>
-    <th>Min number of shifts</th>
-    <th>Max hours per day</th>
+    <th colspan=2>Total hours</th>
+    <th colspan=2>Continuous hours</th>
+    <th colspan=2>Number of shifts</th>
+    <th>Hours per day</th>
 		<th>Roles</th>
 		<th>Locations</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+		<th></th>
+		<th></th>
   </tr>
 <% @week_templates.each do |template| %>
   <tr>
