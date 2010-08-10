@@ -58,27 +58,23 @@ class RequestedShiftsController < ApplicationController
 
   def edit
     @requested_shift = RequestedShift.find(params[:id])
-		@template2 = Template.find(:first, :conditions => {:id => params[:template_id]})
-		@locations = @template2.locations
+		@template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@locations = @template.locations
   end
 
   def create
     parse_just_time(params[:requested_shift])
     @requested_shift = RequestedShift.new(params[:requested_shift])
-		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
-		@locations = @week_template.locations
+		@week_template = Template.find(params[:template_id])
+		@requested_shift.template = @week_template
+		@locations = @requested_shift.template.locations
+
 		if params[:for_locations]
 			@requested_shift.locations << Location.find(params[:for_locations])
 		end
 		@requested_shift.user = current_user
-		@requested_shift.template = @week_template
-		@requested_shift.preferred_start = Time.parse(params[:requested_shift]["preferred_start(5i)"])
-		@requested_shift.preferred_end = Time.parse(params[:requested_shift]["preferred_end(5i)"])
-		@requested_shift.acceptable_start = Time.parse(params[:requested_shift]["acceptable_start(5i)"])
-		@requested_shift.acceptable_end = Time.parse(params[:requested_shift]["acceptable_end(5i)"])
 		respond_to do |format|
       if @requested_shift.save
-				@week_template.requested_shifts << @requested_shift
         flash[:notice] = 'Requested shift was successfully created.'
         format.html { redirect_to(template_requested_shift_path(@week_template, @requested_shift)) }
         format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }

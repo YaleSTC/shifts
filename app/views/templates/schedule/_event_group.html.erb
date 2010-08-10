@@ -1,14 +1,26 @@
-<div class="event-group-title" style="height:<%=1*25 + (1-1)%>px; border-bottom: 1px dashed #fff;"><%= event_group.short_name %></div>
+<%# ASSIGNED SHIFTS %>
+<% rows = sort @week_template.requested_shifts.on_day(day).assigned(event_group) %>
+<div class="event-group-title" style="height:<%=rows.length*25 + (rows.length-1)%>px;line-height:<%=rows.length*25 + (rows.length-1)%>px; border-bottom: 1px dashed #fff;"><%= event_group.short_name %></div>
+<% if rows.empty? %>
+  <ul class="event-row"></ul>
+<% else %> 
+  <% for row in rows %>
+    <ul class="event-row">
+      <%= render :partial => "/templates/schedule/event", :collection => row %>
+    </ul>
+  <% end %>
+<% end %>
 
-<!-- LOOP THROUGH PRE-DETERMINED ROWS HERE -->
-<ul class="event-row">
-  <%= render :partial => "/templates/schedule/event", :collection => @week_template.requested_shifts.on_day(day).assigned(event_group) %>
-</ul>
-
-<div class="event-group-title" style="height:<%=1*25 + (1-1)%>px">Requested</div>
-
-<!-- LOOP THROUGH PRE-DETERMINED ROWS HERE -->
-<ul class="event-row">
-  <%= render :partial => "/templates/schedule/event", :collection => @week_template.requested_shifts.on_day(day).unassigned(event_group) %>
-</ul>
-<div style="height:5px; width: 100%; float:left;"></div>
+<%# REQUESTED SHIFTS %>
+<% rows = sort @week_template.requested_shifts.on_day(day).unassigned(event_group) %>
+<div class="event-group-title" style="height:<%=rows.length*25 + (rows.length-1)%>px;line-height:<%=rows.length*25 + (rows.length-1)%>px">Requested</div>
+<% if rows.empty? %>
+  <ul class="event-row"></ul>
+<% else %> 
+  <% for row in rows %>
+    <ul class="event-row">
+      <%= render :partial => "/templates/schedule/event", :collection => row %>
+    </ul>
+  <% end %>
+<% end %>
+<div style="height:5px; width: 100%; clear:both;"></div>
