@@ -6,7 +6,7 @@
 <% else %> 
   <% for row in rows %>
     <ul class="event-row">
-      <%= render :partial => "/templates/schedule/event", :collection => row %>
+      <%= render :partial => "/templates/schedule/event", :collection => row, :locals => {:location => event_group} %>
     </ul>
   <% end %>
 <% end %>
@@ -19,7 +19,7 @@
 <% else %> 
   <% for row in rows %>
     <ul class="event-row">
-      <%= render :partial => "/templates/schedule/event", :collection => row %>
+      <%= render :partial => "/templates/schedule/event", :collection => row, :locals => {:location => event_group} %>
     </ul>
   <% end %>
 <% end %>
