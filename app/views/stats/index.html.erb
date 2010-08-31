@@ -31,7 +31,7 @@
         <td><%=h stat[:num_late] %></td>
         <td><%=h stat[:num_left_early] %></td>
         <td><%=h stat[:num_missed] %></td>
-				<td><%=h stat[:updates] %></td>
+				<td><%=h sprintf("%.1f", stat[:updates]) %></td>
  			</tr>
     <% end %>
   </tbody>
