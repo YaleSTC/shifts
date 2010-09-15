@@ -31,22 +31,32 @@
     <%= f.text_field :max_hours_per_day %>
   </p>
 	Enable this template for the following roles:
+	<% with = "'roles=' +" %>
+	<% with << "'#{@week_template.id}:' +" %>
 	<% current_department.roles.each do |role| %>
-		<%= check_box_tag "for_roles[]", role.id %>
+		<%= check_box_tag "role_check_#{role.id}", role.id %>
 		<%= label_tag "role_#{role.id}", text = role.name %>
 		<%= ", " unless role == current_department.roles.last %>
+		<% with << "'#{role.id}:' + $('#role_check_#{role.id}').is(':checked') + ' '" %>
+		<% with << "+" unless role == current_department.roles.last %>	
 	<% end %>
+	<% current_department.roles.each do |role| %>
+		<%= observe_field("role_check_#{role.id}", :url => {:controller => :templates, :action => "update_locations"}, :with 					=> with, :on => "change") %>
+	<% end %> 
 
-	<br />
-
-	Enable this template for the following locations:
-	<% current_department.locations.each do |location| %>
-		<%= check_box_tag "for_locations[]", location.id %>
-		<%= label_tag "location_#{location.id}", text = location.short_name %>
-		<%= ", " unless location == current_department.locations.last %>
-	<% end %>
+	<p>
+		<div id = "new_time_slots">
+			Create new time slots:
+			<%= render :partial => "location_and_time_slots" %>
+		</div>
+	</p>
 	<p>
 		Let users add their requested shifts to this template:
 		<%= check_box_tag :public %>
-  </p>
+	</p>
+	<div id = "step2">
+		<p>
+		  <%= f.submit 'Add Time Slots' %>
+		<p>
+	</div>
 
