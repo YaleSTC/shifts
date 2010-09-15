@@ -131,6 +131,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :templates, :collection => {:update_locations => :post} do |template|
 		template.resources :requested_shifts
 		template.resources :shift_preferences
+		template.resources :template_time_slots
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

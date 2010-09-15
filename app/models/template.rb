@@ -13,7 +13,8 @@ class Template < ActiveRecord::Base
   validate :feasibility_of_preferences
 	validates_presence_of :roles
 	validates_presence_of :locations
-		
+	
+	accepts_nested_attributes_for :template_time_slots
 	protected
 	
 	def max_hours_per_day_greater_than_continuous

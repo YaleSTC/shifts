@@ -1,1 +1,1 @@
-page.replace_html "time_slot_partial", :partial => "location_and_time_slots"
+page.replace_html "new_time_slots", :partial => "location_and_time_slots"

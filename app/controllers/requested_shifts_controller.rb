@@ -73,8 +73,10 @@ class RequestedShiftsController < ApplicationController
 			@requested_shift.locations << Location.find(params[:for_locations])
 		end
 		@requested_shift.user = current_user
+		@requested_shift.template = @week_template
 		respond_to do |format|
       if @requested_shift.save
+				@week_template.requested_shifts << @requested_shift
         flash[:notice] = 'Requested shift was successfully created.'
         format.html { redirect_to(template_requested_shift_path(@week_template, @requested_shift)) }
         format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }

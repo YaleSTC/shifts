@@ -1,6 +1,8 @@
 class TemplateTimeSlotsController < ApplicationController
   # GET /template_time_slots
   # GET /template_time_slots.xml
++
+
   def index
     @template_time_slots = TemplateTimeSlot.all
 

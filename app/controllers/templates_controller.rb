@@ -1,7 +1,5 @@
 class TemplatesController < ApplicationController
-
   before_filter :require_department_admin
-
 
   layout "application"
   # GET /templates
@@ -17,8 +15,6 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # GET /templates/1
-  # GET /templates/1.xml
   def show
     @week_template = Template.find(params[:id])
 		@requested_shifts = @week_template.requested_shifts
@@ -28,10 +24,9 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # GET /templates/new
-  # GET /templates/new.xml
   def new
     @week_template = Template.new
+		@template_time_slots = []
 		@department = current_department
     respond_to do |format|
       format.html # new.html.erb
@@ -39,32 +34,31 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # GET /templates/1/edit
   def edit
     @week_template = Template.find(params[:id])
   end
 
-  # POST /templates
-  # POST /templates.xml
   def create
+		raise params.to_yaml
     @week_template = Template.new(params[:template])
 		@week_template.department = current_department
 		@week_template.locations << Location.find(params[:for_locations]) 		if params[:for_locations]
 		@week_template.roles << Role.find(params[:for_roles])		if params[:for_roles]
-		respond_to do |format|
-      if @week_template.save
-        flash[:notice] = 'Template was successfully created.'
-        format.html { redirect_to(@week_template) }
-        format.xml  { render :xml => @week_template, :status => :created, :location => @week_template }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @week_template.errors, :status => :unprocessable_entity }
-      end
-    end
+		if @week_template.template_time_slots.empty?
+		
+			respond_to do |format|
+		    if @week_template.save
+		      flash[:notice] = 'Template was successfully created.'
+		      format.html { redirect_to(@week_template) }
+		      format.xml  { render :xml => @week_template, :status => :created, :location => @week_template }
+		    else
+		      format.html { render :action => "new" }
+		      format.xml  { render :xml => @week_template.errors, :status => :unprocessable_entity }
+		    end
+		  end
+		end
   end
 
-  # PUT /templates/1
-  # PUT /templates/1.xml
   def update
     @week_template = Template.find(params[:id])
     @week_template.locations.clear
@@ -98,10 +92,35 @@ class TemplatesController < ApplicationController
   end
 
 	def update_locations
+		raise params.to_yaml
+    #@week_template = Template.find(params[:roles].split(":").first)
 		@locations = []
-		current_department.roles.each do |role|
-			@locations << Role.find(params["#{role.id}"]).signup_locations if params["#{role.id}"]
+		process_roles(params[:roles]).flatten.each do |role|
+			@locations << role.signup_locations
 		end
+		@template_time_slots = @week_template.template_time_slots
+		@time_slot = TemplateTimeSlot.new
+		@time_slot.save(false)
+		@template_time_slots << @time_slot if @template_time_slots.empty?
+		puts @locations.to_yaml
 		@locations.flatten!
 	end
+
+	def add_timeslot
+    @week_template = Template.find(params[:id])
+		@time_slot = TemplateTimeSlot.new
+		@time_slot.save(false)
+		@template_time_slots = @week_template.template_time_slots
+		@template_time_slots << @time_slot
+	end
+
+	def process_roles(params_roles)
+		roles = params_roles.split(":").to_a
+		roles.shift
+		roles.split(" ").each do |role_string|
+			roles << Role.find(role_string.split(":").first) if role_string.split(":").last == "true"
+		end
+		return roles
+	end
 end
+
