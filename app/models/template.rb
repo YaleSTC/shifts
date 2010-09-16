@@ -11,8 +11,8 @@ class Template < ActiveRecord::Base
 	validate :max_number_of_shifts_greater_than_min
 	validate :max_hours_per_day_greater_than_continuous
   validate :feasibility_of_preferences
-	validates_presence_of :roles
-	validates_presence_of :locations
+	#validates_presence_of :roles
+	#validates_presence_of :locations
 	
 	accepts_nested_attributes_for :template_time_slots
 	protected

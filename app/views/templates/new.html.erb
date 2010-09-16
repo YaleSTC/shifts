@@ -1,16 +1,3 @@
 <h1>New Template</h1>
-
-<% form_for(@week_template) do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
-	<p>
-    <%= f.submit 'continue' %>
-	<p>
-<% end %>
-<p>
-		Create new time slots:
-		<div id = "new_time_slots">
-			<%= render :partial => "location_and_time_slots" %>
-		</div>
-	</p>
+<%= render :partial => 'form' %>
 <%= link_to 'Back', templates_path %>

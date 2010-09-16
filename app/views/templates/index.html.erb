@@ -34,11 +34,11 @@
     <td><%=h template.max_hours_per_day %></td>
 		<td><%= template.roles.collect{|role| role.name}.to_sentence %></td>
 		<td><%= template.locations.collect{|loc| loc.short_name}.to_sentence %></td>
-    <td><%= link_to 'Show', template %></td>
+    <td><%= link_to 'View', template %></td>
     <td><%= link_to 'Edit', edit_template_path(template) %></td>
-    <td><%= link_to 'Destroy', template, :confirm => 'Are you sure?', :method => :delete %></td>
 		<td><%= link_to 'Shift Preferences', template_shift_preferences_path(template) %></td>
 		<td><%= link_to 'Requested Shifts', template_requested_shifts_path(template) %></td>
+    <td><%= link_to 'X', template, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
