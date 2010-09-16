@@ -1,9 +1,24 @@
 <h1>Submit a shift request</h1>
 
-<% form_for([@week_template, @requested_shift]) do |f| %>
+<% remote_form_for([@week_template, @requested_shift]) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => 'form', :locals => {:f => f} %>
   <p>
     <%= f.submit 'Add a shift request' %>
   </p>
 <% end %>
+
+<div id = "all_requests">
+	<%= render :partial => "all_requests", :locals => {:requested_shifts => @requested_shifts} %>
+</div>
+<br />
+
+<%#= link_to 'New Requested Shift', new_template_requested_shift_path(@week_template) %>
+
+<br />
+<br />
+
+<%= link_to 'Back to Template', templates_path() %> |
+<%= link_to 'Go to All Shift Preferences', template_shift_preferences_path() %>
+
+<%#= render :partial => 'week' %>

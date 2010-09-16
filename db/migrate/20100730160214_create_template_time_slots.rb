@@ -4,8 +4,8 @@ class CreateTemplateTimeSlots < ActiveRecord::Migration
 			t.references :location
 			t.references :template
       t.integer :day
-      t.datetime :start
-      t.datetime :end
+      t.datetime :start_time
+      t.datetime :end_time
 
       t.timestamps
     end

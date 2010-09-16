@@ -31,6 +31,8 @@
 	<b>Locations:</b>
 	<%= @week_template.locations.collect{|loc| loc.short_name}.to_sentence %>
 	<p>
+	<%= link_to 'View all submitted shift preferences', template_shift_preferences_path(@week_template) %> |
+	<%= link_to 'View all requested shifts', template_requested_shifts_path(@week_template) %> 
 	<!--
 	Requested shifts:
 	<% @requested_shifts.each do |requested_shift| %>

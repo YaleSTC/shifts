@@ -1,4 +1,4 @@
-<h1>Requested Shifts for <%= @week_template.name %></h1>
+<h1>All requested shifts for <%= @week_template.name %></h1>
 
 <table>
   <tr>
@@ -18,25 +18,24 @@
 		<th></th>
   </tr>
 
-<% @requested_shifts.each do |requested_shift| %>
+<% @requested_shifts.sort{|x,y| x.day <=> y.day}.each do |requested_shift| %>
   <tr>
 		<td><%=h requested_shift.user.name %></td>
     <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") %></td>
     <td><%=h requested_shift.preferred_end.strftime("%I:%M %p") %></td>
     <td><%=h requested_shift.acceptable_start.strftime("%I:%M %p") %></td>
     <td><%=h requested_shift.acceptable_end.strftime("%I:%M %p") %></td>
-    <td><%=h requested_shift.day %></td>
+    <td><%=h RequestedShift::WEEK_DAY_SELECT[requested_shift.day][0]%></td>
 		<td><%=h requested_shift.locations.collect{|l| l.short_name}.to_sentence %></td>
-    <td><%= link_to 'Show', template_requested_shift_path(@week_template, requested_shift) %></td>
     <td><%= link_to 'Edit', edit_template_requested_shift_path(@week_template, requested_shift) %></td>
-    <td><%= link_to 'Destroy', template_requested_shift_path(@week_template, requested_shift), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'X', template_requested_shift_path(@week_template, requested_shift), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Requested Shift', new_template_requested_shift_path(@week_template) %>
+<%#= link_to 'New Requested Shift', new_template_requested_shift_path(@week_template) %>
 
 <br />
 <br />
@@ -44,4 +43,4 @@
 <%= link_to 'Back to Template', templates_path() %> |
 <%= link_to 'Go to All Shift Preferences', template_shift_preferences_path() %>
 
-<%= render :partial => 'week' %>
+<%#= render :partial => 'week' %>

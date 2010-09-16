@@ -1,11 +1,12 @@
 class TemplateTimeSlotsController < ApplicationController
   # GET /template_time_slots
   # GET /template_time_slots.xml
-+
+	layout 'requested_shifts'
 
   def index
+		@week_template = Template.find(params[:template_id])
     @template_time_slots = TemplateTimeSlot.all
-
+		@template_time_slot = TemplateTimeSlot.new
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @template_time_slots }
@@ -42,12 +43,23 @@ class TemplateTimeSlotsController < ApplicationController
   # POST /template_time_slots
   # POST /template_time_slots.xml
   def create
-    @template_time_slot = TemplateTimeSlot.new(params[:template_time_slot])
+		raise params.to_yaml
+		@week_template = Template.find(params[:template_id])
+		params[:time_slot][:day].each do |day|
+			if day[1] == "1"
+				params[:for_locations].each do |location|
+					@template_time_slot = TemplateTimeSlot.new(params[:template_time_slot])
+					@template_time_slot.day = day[0].to_i
+					@template_time_slot.location = Location.find(location)
+		#			@template_time_slot.start_time = 
+				end
+			end
+		end
 
     respond_to do |format|
       if @template_time_slot.save
-        flash[:notice] = 'TemplateTimeSlot was successfully created.'
-        format.html { redirect_to(@template_time_slot) }
+        flash[:notice] = 'Time slot successfully created.'
+        format.html { redirect_to(template_template_time_slots_path(@week_template)) }
         format.xml  { render :xml => @template_time_slot, :status => :created, :location => @template_time_slot }
       else
         format.html { render :action => "new" }
