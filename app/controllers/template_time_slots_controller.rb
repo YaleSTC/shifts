@@ -51,7 +51,7 @@ class TemplateTimeSlotsController < ApplicationController
 					@template_time_slot = TemplateTimeSlot.new(params[:template_time_slot])
 					@template_time_slot.day = day[0].to_i
 					@template_time_slot.location = Location.find(location)
-		#			@template_time_slot.start_time = 
+					@template_time_slot.start_time = params[:start_time(5i)]
 				end
 			end
 		end

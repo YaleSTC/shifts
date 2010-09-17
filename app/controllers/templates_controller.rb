@@ -34,19 +34,18 @@ class TemplatesController < ApplicationController
   end
 
   def create
-		puts params[:for_role].to_yaml
     @week_template = Template.new(params[:template])
 		@week_template.department = current_department
-	#	@week_template.locations << Location.find(params[:for_locations]) if params[:for_locations]
-		params[:for_role].each do |role_id|
-			@week_template.roles << Role.find(role_id)
+		if params[:for_role]		
+			params[:for_role].each do |role_id|
+				@week_template.roles << Role.find(role_id)
+			end
 		end
 		@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten.uniq
-		puts @week_template.roles.to_yaml
 		respond_to do |format|
-		  if @week_template.save && @week_template.template_time_slots.empty?
-		    flash[:notice] = 'Template was successfully created. Please set hours for template locations.'
-		    format.html { redirect_to(template_template_time_slots_path(@week_template)) }
+		  if @week_template.save
+		    flash[:notice] = 'Template was successfully created.'
+		    format.html { redirect_to(@week_template) }
 		    format.xml  { render :xml => @week_template, :status => :created, :location => @week_template }
 		  else
 		    format.html { render :action => "new" }
