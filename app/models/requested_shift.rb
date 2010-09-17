@@ -1,5 +1,5 @@
 class RequestedShift < ActiveRecord::Base
-	validates_presence_of :locations
+	validates_presence_of :locations, :acceptable_start, :acceptable_end
 	validate :proper_times
 	validate :user_shift_preferences
 
@@ -39,8 +39,7 @@ class RequestedShift < ActiveRecord::Base
   end
 
 	def assign(location)
-		@location_request = LocationsRequestedShift.find(:first, :conditions =>
-												{:requested_shift_id => self.id, :location_id => location.id})
+		@location_request = LocationsRequestedShift.find(:first, :conditions => {:requested_shift_id => self.id, :location_id => location.id})
 		@location_request.assigned = true
 		@location_request.save
 	end
@@ -56,9 +55,12 @@ class RequestedShift < ActiveRecord::Base
 												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > shift_preference.max_hours_per_day
 	end
 
+	def user_does_not_have_concurrent_request
+		@week_template.requested_shifts
+	end
 	def proper_times
-		errors.add_to_base("Acceptable start time cannot be after the preferred start time") if self.acceptable_start > self.preferred_start
-		errors.add_to_base("Acceptable end time cannot be before the preferred end time") if self.acceptable_end < self.preferred_end
+		errors.add_to_base("Acceptable start time cannot be after the acceptable end time") if self.acceptable_start > self.acceptable_end
+		errors.add_to_base("Preferred start time cannot be after the preferred end time") if self.preferred_start > self.preferred_end
 	end
 
 

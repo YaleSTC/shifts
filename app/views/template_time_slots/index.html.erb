@@ -10,7 +10,7 @@
 	</p>
 	<p>
 	Start time:
-	<%= time_select "start", {
+	<%= f.time_select "start_time", {
 													:simple_time_select => true,
 										      :time_separator => "",
 										      :minute_interval => current_department.department_config.time_increment,
@@ -22,7 +22,7 @@
 	</p>
 	<p>
 	End time:
-	<%= time_select "end", {
+	<%= f.time_select "end_time", {
 													:simple_time_select => true,
 										      :time_separator => "",
 										      :minute_interval => current_department.department.department_config.time_increment,

@@ -67,30 +67,34 @@ class RequestedShiftsController < ApplicationController
 		@week_template = Template.find(params[:template_id])
 		@requested_shift.template = @week_template
 		@locations = @requested_shift.template.locations
-		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
-    @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 		if params[:for_locations]
-			@requested_shift.locations << Location.find(params[:for_locations])
+			params[:for_locations].each do |loc_id|
+				@requested_shift.locations << Location.find(loc_id)
+			end
 		end
 		@requested_shift.user = current_user
-		@requested_shift.template = @week_template
-		respond_to do |format|
-      if @requested_shift.save
-				#TODO: there's probably a better way to do this, otherwise assigned is left as "nil" which messes up the named scopes
-				@requested_shift.locations_requested_shifts.each do |lrs|
-					lrs.assigned = false
-					lrs.save
-				end
-				@week_template.requested_shifts << @requested_shift
-        flash[:notice] = 'Requested shift was successfully created.'
-        format.html { redirect_to(template_requested_shifts_path(@week_template)) }
-				format.js
-        format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @requested_shift.errors, :status => :unprocessable_entity }
-      end
-    end
+		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
+    @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
+
+    if @requested_shift.save
+			@week_template.requested_shifts << @requested_shift
+			#TODO: there's probably a better way to do this, otherwise assigned is left as "nil" which messes up the named scopes
+			@requested_shift.locations_requested_shifts.each do |lrs|
+				lrs.assigned = false
+				lrs.save
+			end
+			respond_to do |format|
+		     flash[:notice] = 'Requested shift was successfully created.'
+		      format.html { redirect_to(template_requested_shifts_path(@week_template)) }
+					format.js
+		      format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
+		    end
+			else
+				respond_to do |format|
+        	format.html { render :action => "edit" }
+        	format.xml  { render :xml => @requested_shift.errors, :status => :unprocessable_entity }
+      	end
+    	end
   end
 
   def update

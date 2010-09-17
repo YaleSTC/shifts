@@ -1,8 +1,9 @@
 if @requested_shift.errors.empty?
 	page.replace_html "all_requests", :partial => 'requested_shifts/all_requests', :locals => {:requested_shifts => @requested_shifts} 
 	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	page.visual_effect :highlight, "last_request", :color => '#3bcc77', :duration => 2.0
 	flash.discard
 else
-  page.replace_html "errors", :partial => 'notices/error_messages'
+  page.replace_html "errors", :partial => 'error_messages'
 end
 
