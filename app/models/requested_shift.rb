@@ -61,6 +61,8 @@ class RequestedShift < ActiveRecord::Base
 	def proper_times
 		errors.add_to_base("Acceptable start time cannot be after the acceptable end time") if self.acceptable_start > self.acceptable_end
 		errors.add_to_base("Preferred start time cannot be after the preferred end time") if self.preferred_start > self.preferred_end
+		template = self.template
+		#template.template_time_slots.find(c
 	end
 
 

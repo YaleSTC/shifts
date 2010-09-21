@@ -16,6 +16,11 @@ class Template < ActiveRecord::Base
 	#validates_presence_of :locations
 	
 	accepts_nested_attributes_for :template_time_slots
+
+	def locations
+		self.template_time_slots.collect{|tts| Location.find(tts.location_id)}.flatten
+	end
+
 	protected
 	
 	def max_hours_per_day_greater_than_continuous
