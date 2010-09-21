@@ -47,7 +47,7 @@ class RequestedShiftsController < ApplicationController
     @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
 		unless @shift_preference
-			redirect_to new_template_shift_preference(@week_template)
+			redirect_to new_template_shift_preference_path(@week_template)
 		end
 		#TODO: link these to Template timeslots?
 		@time_start = Time.local(2000, "jan",1,8,0,0)
