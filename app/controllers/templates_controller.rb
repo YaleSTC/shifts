@@ -41,7 +41,7 @@ class TemplatesController < ApplicationController
 				@week_template.roles << Role.find(role_id)
 			end
 		end
-		@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten.uniq
+#		@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten.uniq
 		respond_to do |format|
 		  if @week_template.save
 		    flash[:notice] = 'Template was successfully created.'
@@ -58,7 +58,7 @@ class TemplatesController < ApplicationController
     @week_template = Template.find(params[:id])
     @week_template.roles.clear
 		@week_template.roles << Role.find(params[:for_roles]) if params[:for_roles]
-				@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten!.uniq!
+		#		@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten!.uniq!
     respond_to do |format|
       if @week_template.update_attributes(params[:template])
         flash[:notice] = 'Template was successfully updated.'
