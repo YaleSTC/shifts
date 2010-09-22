@@ -10,9 +10,7 @@
 </p>
 <p>
   <strong>User:</strong>
-  <% if current_user.is_admin_of?(@shift.location.loc_group)%>
     <%=h @shift.user.name %>                               
-  <% end %>
 </p>
 <p>
   <strong>Location:</strong>
