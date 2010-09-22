@@ -1,6 +1,4 @@
 class TemplateTimeSlotsController < ApplicationController
-  # GET /template_time_slots
-  # GET /template_time_slots.xml
 	layout 'requested_shifts'
 
   def index
@@ -13,8 +11,6 @@ class TemplateTimeSlotsController < ApplicationController
     end
   end
 
-  # GET /template_time_slots/1
-  # GET /template_time_slots/1.xml
   def show
     @template_time_slot = TemplateTimeSlot.find(params[:id])
 
@@ -24,8 +20,6 @@ class TemplateTimeSlotsController < ApplicationController
     end
   end
 
-  # GET /template_time_slots/new
-  # GET /template_time_slots/new.xml
   def new
     @template_time_slot = TemplateTimeSlot.new
 
@@ -35,23 +29,23 @@ class TemplateTimeSlotsController < ApplicationController
     end
   end
 
-  # GET /template_time_slots/1/edit
   def edit
     @template_time_slot = TemplateTimeSlot.find(params[:id])
   end
 
-  # POST /template_time_slots
-  # POST /template_time_slots.xml
   def create
-		raise params.to_yaml
-		@week_template = Template.find(params[:template_id])
-		params[:time_slot][:day].each do |day|
+	#raise params.to_yaml
+		parse_just_time(params[:template_time_slot])
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		
+		
+		params[:template_time_slot][:day].each do |day|
 			if day[1] == "1"
 				params[:for_locations].each do |location|
 					@template_time_slot = TemplateTimeSlot.new(params[:template_time_slot])
 					@template_time_slot.day = day[0].to_i
 					@template_time_slot.location = Location.find(location)
-					#@template_time_slot.start_time = params[:start_time(5i)]
+					@template_time_slot.template = @week_template
 				end
 			end
 		end
@@ -68,8 +62,6 @@ class TemplateTimeSlotsController < ApplicationController
     end
   end
 
-  # PUT /template_time_slots/1
-  # PUT /template_time_slots/1.xml
   def update
     @template_time_slot = TemplateTimeSlot.find(params[:id])
 
@@ -85,8 +77,6 @@ class TemplateTimeSlotsController < ApplicationController
     end
   end
 
-  # DELETE /template_time_slots/1
-  # DELETE /template_time_slots/1.xml
   def destroy
     @template_time_slot = TemplateTimeSlot.find(params[:id])
     @template_time_slot.destroy
@@ -94,6 +84,17 @@ class TemplateTimeSlotsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(template_time_slots_url) }
       format.xml  { head :ok }
+    end
+  end
+
+private
+	def parse_just_time(form_output)
+    titles = ["start_time", "end_time"]
+    titles.each do |field_name|
+      if !form_output["#{field_name}(5i)"].blank? && form_output["#{field_name}(4i)"].blank?
+        form_output["#{field_name}"] = Time.parse( form_output["#{field_name}(5i)"] )
+      end
+      form_output.delete("#{field_name}(5i)")
     end
   end
 end

@@ -14,8 +14,8 @@
 													:simple_time_select => true,
 										      :time_separator => "",
 										      :minute_interval => current_department.department_config.time_increment,
-													:start_time => Time.now-5000,
-										      :end_time => Time.now+5000,
+													:start_time => Time.now-9000,
+										      :end_time => Time.now+10000,
 										      :include_start_time => true,
 										      :include_end_time => false,
 										      :default => Time.now} %>
@@ -26,8 +26,8 @@
 													:simple_time_select => true,
 										      :time_separator => "",
 										      :minute_interval => current_department.department.department_config.time_increment,
-													:start_time => Time.now-5000,
-										      :end_time => Time.now+5000,
+													:start_time => Time.now-9000,
+										      :end_time => Time.now+10000,
 										      :include_start_time => true,
 										      :include_end_time => false,
 										      :default => Time.now} %>
@@ -35,7 +35,7 @@
 	<p>
 	Day:
 	<% RequestedShift::WEEK_DAY_SELECT.each do |day| %>
-		<%= check_box "time_slot_#{@template_time_slot.id}[day]}", day[1].to_i %> <%= "#{day[0][0..2]}" %>
+		<%= check_box "template_time_slot[day]", day[1].to_i %> <%= "#{day[0][0..2]}" %>
 	<% end %>
 	</p>
 	<%= f.submit 'Add time slot' %>
@@ -54,7 +54,7 @@
     <td><%=h template_time_slot.day %></td>
     <td><%=h template_time_slot.start_time %></td>
     <td><%=h template_time_slot.end_time %></td>
-		<td><%=h template_time_slot.collect{|l| l.short_name}.to_sentence %></td>
+		<td><%=h template_time_slot.location.short_name %></td>
     <td><%= link_to 'Edit', edit_template_time_slot_path(template_time_slot) %></td>
     <td><%= link_to 'X', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
