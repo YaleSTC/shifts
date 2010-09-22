@@ -1,0 +1,8 @@
+if @template_time_slot.errors.empty?
+	page.replace_html "all_time_slots", :partial => 'template_time_slots/all_time_slots', :locals => {:template_time_slots => @template_time_slots} 
+	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	flash.discard
+else
+  page.replace_html "errors", :partial => 'template_time_slots/error_messages'
+end
+

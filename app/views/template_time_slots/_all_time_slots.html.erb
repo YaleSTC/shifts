@@ -1,0 +1,22 @@
+<table>
+		<tr>
+		  <th>Day</th>
+		  <th>Start</th>
+		  <th>End</th>
+			<th>Location</th>
+		</tr>
+
+	<% template_time_slots.each do |template_time_slot| %>
+		<tr>
+		  <td><%=h RequestedShift::WEEK_DAY_SELECT[template_time_slot.day][0] %></td>
+		  <td><%=h template_time_slot.start_time.strftime("%I:%M %p") %></td>
+		  <td><%=h template_time_slot.end_time.strftime("%I:%M %p") %></td>
+			<td><%=h template_time_slot.location.short_name %></td>
+		  <td><%= link_to 'Edit', edit_template_time_slot_path(template_time_slot) %></td>
+		  <td><%= link_to 'X', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
+		</tr>
+	<% end %>
+</table>
+<% if template_time_slots.empty? %>
+	This template has no time slots. Please add some below.
+<% end %>

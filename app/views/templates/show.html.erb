@@ -29,7 +29,7 @@
 	<%= @week_template.roles.collect{|role| role.name}.to_sentence %>
 	<p>
 	<b>Locations:</b>
-	<%= @week_template.locations.collect{|loc| loc.short_name}.to_sentence %>
+	<%= @week_template.timeslot_locations.collect{|loc| loc.short_name}.to_sentence %>
 	<p>
 	<%= link_to 'View all submitted shift preferences', template_shift_preferences_path(@week_template) %> |
 	<%= link_to 'View all requested shifts', template_requested_shifts_path(@week_template) %> 
@@ -48,7 +48,7 @@
 
 <% for day in [6,0,1,2,3,4,5] %>
   <% for event in @week_template.requested_shifts.on_day(day) %>
-    <% for location in @week_template.locations %>
+    <% for location in @week_template.timeslot_locations %>
       <div class="tooltip" id="tip_event_<%= event.id %>_<%= location.id %>">
           <a href="#" class="closetooltip" style="float:right;">[X]</a><br/>
           <%= event.user.name %><br/>

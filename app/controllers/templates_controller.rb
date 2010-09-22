@@ -45,8 +45,8 @@ class TemplatesController < ApplicationController
 		respond_to do |format|
 		  if @week_template.save
 		    flash[:notice] = 'Template was successfully created.'
-		    format.html { redirect_to(@week_template) }
-		    format.xml  { render :xml => @week_template, :status => :created, :location => @week_template }
+				format.html { redirect_to(template_template_time_slots_path(@week_template)) }
+				format.xml  { render :xml => @week_template, :status => :created, :location => @week_template }
 		  else
 		    format.html { render :action => "new" }
 		    format.xml  { render :xml => @week_template.errors, :status => :unprocessable_entity }
@@ -71,8 +71,6 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # DELETE /templates/1
-  # DELETE /templates/1.xml
   def destroy
     @week_template = Template.find(params[:id])
     @week_template.destroy
