@@ -41,24 +41,24 @@ class RequestedShiftsController < ApplicationController
   end
 
   def new
+#		If the user does not have a shift preference object, make sure they create one first
+		unless @shift_preference
+			redirect_to new_template_shift_preference_path(@week_template)
+		end
     @requested_shift = RequestedShift.new
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
 		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
     @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
-		unless @shift_preference
-			redirect_to new_template_shift_preference_path(@week_template)
-		end
-		#TODO: link these to Template timeslots?
-		@time_start = Time.local(2000, "jan",1,8,0,0)
-		@time_end = @time_start + 10.hours
-		@locations = @week_template.locations
+		@range_start_time = Time.local(2000,"jan", 1, @week_template.department.department_config.schedule_start.to_s.insert(-3,":").split(":").first, 		Department.first.department_config.schedule_start.to_s.insert(-3,":").split(":").last,1)
+		@range_end_time = Time.local(2000,"jan", 1, @week_template.department.department_config.schedule_end.to_s.insert(-3,":").split(":").first, Department.first.department_config.schedule_end.to_s.insert(-3,":").split(":").last,1)
+		@locations = @week_template.timeslot_locations
 	end
 
   def edit
     @requested_shift = RequestedShift.find(params[:id])
-		@template = Template.find(:first, :conditions => {:id => params[:template_id]})
-		@locations = @template.locations
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@locations = @week_template.timeslot_locations
   end
 
   def create
@@ -66,7 +66,7 @@ class RequestedShiftsController < ApplicationController
     @requested_shift = RequestedShift.new(params[:requested_shift])
 		@week_template = Template.find(params[:template_id])
 		@requested_shift.template = @week_template
-		@locations = @requested_shift.template.locations
+		@locations = @requested_shift.template.timeslot_locations
 		if params[:for_locations]
 			params[:for_locations].each do |loc_id|
 				@requested_shift.locations << Location.find(loc_id)
