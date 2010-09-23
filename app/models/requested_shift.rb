@@ -63,6 +63,7 @@ class RequestedShift < ActiveRecord::Base
 	
 	def request_is_within_time_slot
 		b = self.locations
+		c = 0
 		b.each do |location|		
 			c += TemplateTimeSlot.count(:all, :conditions => ["#{:start_time.to_sql_column} <= #{self.acceptable_start.to_sql} AND #{:end_time.to_sql_column} >= #{self.acceptable_end.to_sql} AND #{:template_id.to_sql_column} = #{self.template_id.to_sql} AND #{:location_id.to_sql_column} = #{location.id.to_sql}"])
 		end

@@ -37,7 +37,7 @@
 				<th>Unwilling</th>
 			</tr>
 			<% f.label :location_preference %>
-			<% @locations.each do |current_location| %>
+			<% @locations.uniq.each do |current_location| %>
 				<tr>
 					<td><%= current_location.name %></td>
 					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "yes", location_preference_check(current_location, "yes")) %></td>
