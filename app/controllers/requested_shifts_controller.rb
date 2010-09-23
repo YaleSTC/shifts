@@ -44,6 +44,7 @@ class RequestedShiftsController < ApplicationController
 #		If the user does not have a shift preference object, make sure they create one first
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})		
 		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
+		@template_time_slots = @week_template.template_time_slots
 		unless @shift_preference
 			flash[:notice] = 'Please set your general shift preferences first'
 			redirect_to new_template_shift_preference_path(@week_template)
@@ -68,18 +69,25 @@ class RequestedShiftsController < ApplicationController
     parse_just_time(params[:requested_shift])
     @requested_shift = RequestedShift.new(params[:requested_shift])
 		@week_template = Template.find(params[:template_id])
+				@template_time_slots = @week_template.template_time_slots
 		@requested_shift.template = @week_template
 		@locations = @requested_shift.template.timeslot_locations
+		puts "1"
 		if params[:for_locations]
 			params[:for_locations].each do |loc_id|
-				@requested_shift.locations << Location.find(loc_id)
+				@locations_requested_shift = LocationsRequestedShift.new
+				@locations_requested_shift.requested_shift = @requested_shift
+				@locations_requested_shift.location = Location.find(loc_id)
+				@locations_requested_shift.assigned = false
+				@locations_requested_shift.save
 			end
 		end
 		@requested_shift.user = current_user
 		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
     @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
-
+		puts "2"
     if @requested_shift.save
+			puts "3"
 			@week_template.requested_shifts << @requested_shift
 			#TODO: there's probably a better way to do this, otherwise assigned is left as "nil" which messes up the named scopes
 			@requested_shift.locations_requested_shifts.each do |lrs|
@@ -94,8 +102,10 @@ class RequestedShiftsController < ApplicationController
 		      format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
 		    end
 			else
+			puts "4"
 				respond_to do |format|
         	format.html { render :action => "edit" }
+					format.js
         	format.xml  { render :xml => @requested_shift.errors, :status => :unprocessable_entity }
       	end
     	end
