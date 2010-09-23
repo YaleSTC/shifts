@@ -49,15 +49,16 @@ class TemplateTimeSlotsController < ApplicationController
 							@template_time_slot.day = day[0].to_i
 							@template_time_slot.location = Location.find(location)
 							@template_time_slot.template = @week_template
-							puts "made it here!"
+#							puts "pre save"
 							@template_time_slot.save
-							puts "made it here!2"
+#							puts "post save"
 						end
 					end
 				end
 			end
 		rescue Exception
 		@template_time_slots = @week_template.template_time_slots
+		#puts "error".to_yaml
 	#	raise @template_time_slots.to_yaml
 		  respond_to do |format|
 
@@ -65,6 +66,7 @@ class TemplateTimeSlotsController < ApplicationController
 				format.js
 		  end
 		else
+	#	puts "success".to_yaml
 		@template_time_slots = @week_template.template_time_slots
 		  respond_to do |format|
 
