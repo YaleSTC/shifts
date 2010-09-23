@@ -1,9 +1,10 @@
 class RequestedShift < ActiveRecord::Base
-	validates_presence_of :locations, :acceptable_start, :acceptable_end
+	validates_presence_of :acceptable_start, :acceptable_end
+	validates_presence_of :locations, :on => :update
 	validate :proper_times
-	validate :user_shift_preferences
+	#validate :user_shift_preferences
 	validate :user_does_not_have_concurrent_request
-	validate :request_is_within_time_slot
+#	validate :request_is_within_time_slot
 
 	has_many :locations_requested_shifts
 	has_many :locations, :through => :locations_requested_shifts

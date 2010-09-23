@@ -71,8 +71,10 @@ class RequestedShiftsController < ApplicationController
 		@week_template = Template.find(params[:template_id])
 				@template_time_slots = @week_template.template_time_slots
 		@requested_shift.template = @week_template
+		@requested_shift.user = current_user
 		@locations = @requested_shift.template.timeslot_locations
 		puts "1"
+		@requested_shift.save(false)
 		if params[:for_locations]
 			params[:for_locations].each do |loc_id|
 				@locations_requested_shift = LocationsRequestedShift.new

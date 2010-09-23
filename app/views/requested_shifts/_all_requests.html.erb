@@ -1,4 +1,4 @@
-<h1>All requested shifts for <%= @week_template.name %></h1>
+<h1>Your shift requests for <%= @week_template.name %></h1>
 
 	<table>
 		<tr>
@@ -18,7 +18,7 @@
 			<th></th>
 		</tr>
 
-	<% requested_shifts.sort{|x,y| x.day <=> y.day}.each do |requested_shift| %>
+	<% @requested_shifts.sort{|x,y| x.day <=> y.day}.each do |requested_shift| %>
 		<tr <%= 'id="last_request"' if requested_shifts.last == requested_shift %> >
 			<td><%=h requested_shift.user.name %></td>
 		  <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") %></td>
