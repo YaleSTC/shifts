@@ -6,6 +6,9 @@
 	<fieldset class = "index" >
 		<legend>Add a new a time slot</legend>
 		<% remote_form_for([@week_template, @template_time_slot]) do |f| %>
+<div id ="errors">
+    <%= render :partial => "template_time_slots/error_messages", :locals => {:f => f} %>
+  </div>
 			<p>
 			Where:
 			<% @week_template.signup_locations.each do |location| %> 
