@@ -42,14 +42,17 @@ class RequestedShiftsController < ApplicationController
 
   def new
 #		If the user does not have a shift preference object, make sure they create one first
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})		
+		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
 		unless @shift_preference
+			flash[:notice] = 'Please set your general shift preferences first'
 			redirect_to new_template_shift_preference_path(@week_template)
 		end
     @requested_shift = RequestedShift.new
-		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+
 		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
     @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
-		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
+
 		@range_start_time = Time.local(2000,"jan", 1, @week_template.department.department_config.schedule_start.to_s.insert(-3,":").split(":").first, 		Department.first.department_config.schedule_start.to_s.insert(-3,":").split(":").last,1)
 		@range_end_time = Time.local(2000,"jan", 1, @week_template.department.department_config.schedule_end.to_s.insert(-3,":").split(":").first, Department.first.department_config.schedule_end.to_s.insert(-3,":").split(":").last,1)
 		@locations = @week_template.timeslot_locations
@@ -83,6 +86,7 @@ class RequestedShiftsController < ApplicationController
 				lrs.assigned = false
 				lrs.save
 			end
+					@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
 			respond_to do |format|
 		     flash[:notice] = 'Requested shift was successfully created.'
 		      format.html { redirect_to(template_requested_shifts_path(@week_template)) }
