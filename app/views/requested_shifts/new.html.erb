@@ -10,25 +10,24 @@
   </p>
 <% end %>
 <p>
-<div id = "all_requests">
-	<%= render :partial => "all_requests", :locals => {:requested_shifts => @requested_shifts} %>
-	<% if @requested_shifts.empty? %>
-		Please add your shift requests above
-	<% end %>
-</div>
+	<div id = "all_requests">
+		<%= render :partial => "all_requests", :locals => {:requested_shifts => @requested_shifts} %>
+		<% if @requested_shifts.empty? %>
+			Please add your shift requests above
+		<% end %>
+	</div>
 </p>
 <p>
-<h1> Timeslots for <%= @week_template.name %> </h1>
-<div id = "all_time_slots">
-	<%= render :partial => "template_time_slots/all_time_slots", :locals => {:template_time_slots => @template_time_slots} %>
-</div>
-<%#= link_to 'New Requested Shift', new_template_requested_shift_path(@week_template) %>
-
-<br />
-<br />
+	<h1> Timeslots for <%= @week_template.name %> </h1>
+	<div id = "all_time_slots">
+		<%= render :partial => "template_time_slots/all_time_slots", :locals => {:template_time_slots => @template_time_slots} %>
+	</div>
+</p>
 <% if current_user.is_admin_of?(@week_template.department) %>
-	<%= link_to "Back to #{@week_template.name} template", templates_path() %> |
-	<%= link_to 'View all shift preferences', template_shift_preferences_path(@week_template) %>
+	<p>
+		<%= link_to "Back to #{@week_template.name} template", templates_path() %> |
+		<%= link_to 'View all shift preferences', template_shift_preferences_path(@week_template) %>
+	</p>
 <% end %>
 
 <%#= render :partial => 'week' %>

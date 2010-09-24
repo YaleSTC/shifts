@@ -58,7 +58,6 @@ class TemplatesController < ApplicationController
     @week_template = Template.find(params[:id])
     @week_template.roles.clear
 		@week_template.roles << Role.find(params[:for_role]) if params[:for_role]
-		#		@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten!.uniq!
     respond_to do |format|
       if @week_template.update_attributes(params[:template])
         flash[:notice] = 'Template was successfully updated.'
