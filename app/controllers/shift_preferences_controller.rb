@@ -4,33 +4,24 @@ class ShiftPreferencesController < ApplicationController
 
   before_filter :require_proper_template_role
 
-  # GET /shift_preferences
-  # GET /shift_preferences.xml
   def index
-
     @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preferences = @week_template.shift_preferences
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @shift_preferences }
     end
   end
 
-  # GET /shift_preferences/1
-  # GET /shift_preferences/1.xml
   def show
     @shift_preference = ShiftPreference.find(params[:id])
     @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @shift_preference }
     end
   end
 
-  # GET /shift_preferences/new
-  # GET /shift_preferences/new.xml
   def new
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     @shift_preference = ShiftPreference.new
