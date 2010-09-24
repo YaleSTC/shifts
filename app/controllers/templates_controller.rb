@@ -55,9 +55,10 @@ class TemplatesController < ApplicationController
   end
 
   def update
+#		raise params.to_yaml
     @week_template = Template.find(params[:id])
     @week_template.roles.clear
-		@week_template.roles << Role.find(params[:for_roles]) if params[:for_roles]
+		@week_template.roles << Role.find(params[:for_role]) if params[:for_role]
 		#		@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten!.uniq!
     respond_to do |format|
       if @week_template.update_attributes(params[:template])

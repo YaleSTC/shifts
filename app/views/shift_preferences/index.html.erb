@@ -1,4 +1,4 @@
-<h1>Listing Shift Preferences for <%= @week_template.name %> </h1>
+<h1>All general shift preferences for <%= @week_template.name %> </h1>
 
 <table>
   <tr>
@@ -40,7 +40,7 @@
 				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "no"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
 		    <td><%= link_to 'Show', template_shift_preference_path(@week_template, shift_preference) %></td>
 		    <td><%= link_to 'Edit', edit_template_shift_preference_path(@week_template, shift_preference) %></td>
-		    <td><%= link_to 'Destroy', template_shift_preference_path(@week_template, shift_preference), :confirm => 'Are you sure?', :method => :delete %></td>
+		    <td><%= link_to 'X', template_shift_preference_path(@week_template, shift_preference), :confirm => 'Are you sure?', :method => :delete %></td>
 		  </tr>
 		<% end %>
 	</tbody>
