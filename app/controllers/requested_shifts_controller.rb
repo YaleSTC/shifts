@@ -33,7 +33,6 @@ class RequestedShiftsController < ApplicationController
 
   def show
     @requested_shift = RequestedShift.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @requested_shift }
@@ -41,16 +40,15 @@ class RequestedShiftsController < ApplicationController
   end
 
   def new
-#		If the user does not have a shift preference object, make sure they create one first
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})		
 		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
 		@template_time_slots = @week_template.template_time_slots
+#		If the user does not have a shift preference object for the given template, make sure they create one first
 		unless @shift_preference
 			flash[:notice] = 'Please set your general shift preferences first'
 			redirect_to new_template_shift_preference_path(@week_template)
 		end
     @requested_shift = RequestedShift.new
-
 		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
     @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 		@department_config = @week_template.department.department_config
@@ -93,11 +91,11 @@ class RequestedShiftsController < ApplicationController
 #				puts "after save"
 			end
 		rescue Exception => e
-			puts "rescued"
-			puts e.message
+#			puts "rescued"
+#			puts e.message
 #			puts e.backtrace.inspect.to_yaml
-			puts @requested_shift.errors.to_yaml
-			puts @requested_shift.errors.empty?
+#			puts @requested_shift.errors.to_yaml
+#			puts @requested_shift.errors.empty?
 			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
 		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 			respond_to do |format|
@@ -105,8 +103,8 @@ class RequestedShiftsController < ApplicationController
 				format.js
 		  end
 		else
-			puts "else"
-			puts @requested_shift.to_yaml
+#			puts "else"
+#			puts @requested_shift.to_yaml
 			@week_template.requested_shifts << @requested_shift
 			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
 		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
