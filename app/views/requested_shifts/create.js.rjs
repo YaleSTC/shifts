@@ -1,4 +1,5 @@
 if @requested_shift.errors.empty?
+#	page.alert("no errors")
 	page.hide "errors"
 	page.replace_html "all_requests", :partial => 'requested_shifts/all_requests', :locals => {:requested_shifts => @requested_shifts} 
 	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
@@ -8,6 +9,7 @@ if @requested_shift.errors.empty?
 	end
 	flash.discard
 else
+	page.show "errors"
   page.replace_html "errors", :partial => 'error_messages'
 end
 

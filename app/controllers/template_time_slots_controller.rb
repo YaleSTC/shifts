@@ -6,8 +6,8 @@ class TemplateTimeSlotsController < ApplicationController
     @template_time_slots = @week_template.template_time_slots
 		@template_time_slot = TemplateTimeSlot.new
 		@department_config = @week_template.department.department_config
-		@start = Time.local(2000,"jan", 1, @department_config.schedule_start.to_s.insert(-3," ").split.first, 	 @department_config.schedule_start.to_s.insert(-3," ").split.last,1)
-		@end = Time.local(2000,"jan", 1, @department_config.schedule_end.to_s.insert(-3," ").split.first, @department_config.schedule_end.to_s.insert(-3," ").split.last,1)
+		@start = Time.local(2000,"jan", 1, 0, 0, 0) + @department_config.schedule_start * 60
+		@end = Time.local(2000,"jan", 1, 0, 0, 0) + @department_config.schedule_end * 60
     respond_to do |format|
       format.html
       format.xml  { render :xml => @template_time_slots }
