@@ -149,7 +149,7 @@ private
     titles = ["preferred_start", "preferred_end", "acceptable_start","acceptable_end"]
     titles.each do |field_name|
       if !form_output["#{field_name}(5i)"].blank? && form_output["#{field_name}(4i)"].blank?
-        form_output["#{field_name}"] = Time.local(2000,"jan", 1, form_output["#{field_name}(5i)"].to_s.insert(-3," ").split.first, form_output["#{field_name}(5i)"].to_s.insert(-3," ").split.last,1)
+        form_output["#{field_name}"] = Time.local(2000,"jan", 1, form_output["#{field_name}(5i)"].split(":").first, form_output["#{field_name}(5i)"].split(":")[1], form_output["#{field_name}(5i)"].split(":").last)
       end
       form_output.delete("#{field_name}(5i)")
     end

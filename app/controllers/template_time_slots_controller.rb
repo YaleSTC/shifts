@@ -35,8 +35,9 @@ class TemplateTimeSlotsController < ApplicationController
   end
 
   def create
+#		raise params.to_yaml
 		parse_just_time(params[:template_time_slot])
-	#raise params.to_yaml
+
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
 		begin
 			TemplateTimeSlot.transaction do
@@ -107,7 +108,7 @@ private
     titles = ["start_time", "end_time"]
     titles.each do |field_name|
       if !form_output["#{field_name}(5i)"].blank? && form_output["#{field_name}(4i)"].blank?
-        form_output["#{field_name}"] = Time.local(2000,"jan", 1, form_output["#{field_name}(5i)"].to_s.insert(-3," ").split.first, form_output["#{field_name}(5i)"].to_s.insert(-3," ").split.last,1)
+        form_output["#{field_name}"] = Time.local(2000,"jan", 1, form_output["#{field_name}(5i)"].split(":").first, form_output["#{field_name}(5i)"].split(":")[1], form_output["#{field_name}(5i)"].split(":").last)
       end
       form_output.delete("#{field_name}(5i)")
     end
