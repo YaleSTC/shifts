@@ -133,7 +133,7 @@ class RequestedShiftsController < ApplicationController
     @requested_shift.destroy
 
     respond_to do |format|
-      format.html { redirect_to(template_requested_shifts_url) }
+      format.html { redirect_to(:back) }
       format.xml  { head :ok }
     end
   end

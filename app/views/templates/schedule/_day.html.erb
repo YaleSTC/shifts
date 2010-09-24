@@ -7,7 +7,7 @@
     <tr class = "minutes"><% for j in 0...4*(22-8+1) %><td style="width:<%= 100.0/(22.0-8.0+1.0)/4.0 %>%">&nbsp;</td><% end %></tr>  
   </table>
   
-  <%= render :partial => "/templates/schedule/event_group", :collection => @week_template.locations, :locals => {:day => day} %>
+  <%= render :partial => "/templates/schedule/event_group", :collection => @week_template.timeslot_locations, :locals => {:day => day} %>
 
   <div style="clear:both;"></div>
 </div>
