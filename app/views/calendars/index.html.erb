@@ -1,5 +1,3 @@
-<H1>TEST</H1>
-
 <% if @calendar %>
   <% title @calendar.name + (@calendar.active? ? " (active)" : " (inactive)") %>
   <% subtitle "("+@calendar.start_date.strftime("%b %d, %Y")+" - "+(@calendar.default? ? "forever" : @calendar.end_date.strftime("%b %d, %Y") )+")"%>
