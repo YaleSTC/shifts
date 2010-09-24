@@ -66,56 +66,54 @@ class RequestedShiftsController < ApplicationController
   end
 
   def create
+#		raise params.to_yaml
     parse_just_time(params[:requested_shift])
     @requested_shift = RequestedShift.new(params[:requested_shift])
+		@requested_shift.preferred_start = nil unless params[:preferred_start_choice]
+		@requested_shift.preferred_end = nil unless params[:preferred_end_choice]
+#		raise @requested_shift.to_yaml
 		@week_template = Template.find(params[:template_id])
-				@template_time_slots = @week_template.template_time_slots
+		@template_time_slots = @week_template.template_time_slots
 		@requested_shift.template = @week_template
 		@requested_shift.user = current_user
 		@locations = @requested_shift.template.timeslot_locations
-		puts "1"
-		@requested_shift.save(false)
-		if params[:for_locations]
-			params[:for_locations].each do |loc_id|
-				@locations_requested_shift = LocationsRequestedShift.new
-				@locations_requested_shift.requested_shift = @requested_shift
-				@locations_requested_shift.location = Location.find(loc_id)
-				@locations_requested_shift.assigned = false
-				@locations_requested_shift.save
+		begin
+			RequestedShift.transaction do 
+				@requested_shift.save(false)
+				if params[:for_locations]
+					params[:for_locations].each do |loc_id|
+						@locations_requested_shift = LocationsRequestedShift.new
+						@locations_requested_shift.requested_shift = @requested_shift
+						@locations_requested_shift.location = Location.find(loc_id)
+						@locations_requested_shift.assigned = false
+						@locations_requested_shift.save
+					end
+				end
+				@requested_shift.save
+				puts "after save"
+			end
+		rescue Exception
+			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
+		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
+			respond_to do |format|
+		  	format.html { render :action => "edit" }
+				format.js
+		  end
+		else
+			puts @requested_shift.to_yaml
+			@week_template.requested_shifts << @requested_shift
+			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
+		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
+			respond_to do |format|
+				flash[:notice] = 'Requested shift was successfully created.'
+				format.html { redirect_to(template_requested_shifts_path(@week_template)) }
+				format.js
 			end
 		end
-		@requested_shift.user = current_user
-		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
-    @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
-		puts "2"
-    if @requested_shift.save
-			puts "3"
-			@week_template.requested_shifts << @requested_shift
-			#TODO: there's probably a better way to do this, otherwise assigned is left as "nil" which messes up the named scopes
-			@requested_shift.locations_requested_shifts.each do |lrs|
-				lrs.assigned = false
-				lrs.save
-			end
-					@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
-			respond_to do |format|
-		     flash[:notice] = 'Requested shift was successfully created.'
-		      format.html { redirect_to(template_requested_shifts_path(@week_template)) }
-					format.js
-		      format.xml  { render :xml => @requested_shift, :status => :created, :location => @requested_shift }
-		    end
-			else
-			puts "4"
-				respond_to do |format|
-        	format.html { render :action => "edit" }
-					format.js
-        	format.xml  { render :xml => @requested_shift.errors, :status => :unprocessable_entity }
-      	end
-    	end
   end
 
   def update
     @requested_shift = RequestedShift.find(params[:id])
-
     respond_to do |format|
       if @requested_shift.update_attributes(params[:requested_shift])
         flash[:notice] = 'RequestedShift was successfully updated.'
@@ -145,7 +143,7 @@ private
     titles = ["preferred_start", "preferred_end", "acceptable_start","acceptable_end"]
     titles.each do |field_name|
       if !form_output["#{field_name}(5i)"].blank? && form_output["#{field_name}(4i)"].blank?
-        form_output["#{field_name}"] = Time.parse( form_output["#{field_name}(5i)"] )
+        form_output["#{field_name}"] = Time.local(2000,"jan", 1, form_output["#{field_name}(5i)"].to_s.insert(-3," ").split.first, form_output["#{field_name}(5i)"].to_s.insert(-3," ").split.last,1)
       end
       form_output.delete("#{field_name}(5i)")
     end
