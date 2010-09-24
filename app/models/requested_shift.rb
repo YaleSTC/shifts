@@ -82,10 +82,10 @@ class RequestedShift < ActiveRecord::Base
 #		puts "other locations"
 #		puts other_locations.to_yaml
 #		puts "self locations"
+		puts "locations for current request"
 		puts self.locations.to_yaml
 		self.locations.each do |location|	
-			puts "here?"
-			errors.add_to_base("#{location.short_name} already has a requested shift at that time") if other_locations.include?(location)
+			errors.add_to_base("Your request is overlapping with another one of your requests at #{location.short_name}") if other_locations.include?(location)
 		end
   end
 
@@ -97,6 +97,8 @@ class RequestedShift < ActiveRecord::Base
 			errors.add_to_base("Preferred end time must be before or the same as the acceptable end time") if self.preferred_end > self.acceptable_end
 		end
 		errors.add_to_base("Acceptable start time cannot be after the acceptable end time") if self.acceptable_start > self.acceptable_end
-		errors.add_to_base("Preferred start time cannot be after the preferred end time") if self.preferred_start > self.preferred_end
+		if self.preferred_start && self.preferred_end
+			errors.add_to_base("Preferred start time cannot be after the preferred end time") if self.preferred_start > self.preferred_end
+		end
 	end
 end

@@ -53,9 +53,9 @@ class RequestedShiftsController < ApplicationController
 
 		@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
     @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
-
-		@range_start_time = Time.local(2000,"jan", 1, @week_template.department.department_config.schedule_start.to_s.insert(-3,":").split(":").first, 		Department.first.department_config.schedule_start.to_s.insert(-3,":").split(":").last,1)
-		@range_end_time = Time.local(2000,"jan", 1, @week_template.department.department_config.schedule_end.to_s.insert(-3,":").split(":").first, Department.first.department_config.schedule_end.to_s.insert(-3,":").split(":").last,1)
+		@department_config = @week_template.department.department_config
+		@range_start_time = Time.local(2000,"jan", 1, 0, 0, 0) + @department_config.schedule_start * 60
+		@range_end_time = Time.local(2000,"jan", 1, 0, 0, 0) + @department_config.schedule_end * 60
 		@locations = @week_template.timeslot_locations
 	end
 
@@ -71,7 +71,7 @@ class RequestedShiftsController < ApplicationController
     @requested_shift = RequestedShift.new(params[:requested_shift])
 		@requested_shift.preferred_start = nil unless params[:preferred_start_choice]
 		@requested_shift.preferred_end = nil unless params[:preferred_end_choice]
-#		raise @requested_shift.to_yaml
+#		puts @requested_shift.to_yaml
 		@week_template = Template.find(params[:template_id])
 		@template_time_slots = @week_template.template_time_slots
 		@requested_shift.template = @week_template
@@ -89,10 +89,15 @@ class RequestedShiftsController < ApplicationController
 						@locations_requested_shift.save
 					end
 				end
-				@requested_shift.save
-				puts "after save"
+				@requested_shift.save!
+#				puts "after save"
 			end
-		rescue Exception
+		rescue Exception => e
+			puts "rescued"
+			puts e.message
+#			puts e.backtrace.inspect.to_yaml
+			puts @requested_shift.errors.to_yaml
+			puts @requested_shift.errors.empty?
 			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
 		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 			respond_to do |format|
@@ -100,6 +105,7 @@ class RequestedShiftsController < ApplicationController
 				format.js
 		  end
 		else
+			puts "else"
 			puts @requested_shift.to_yaml
 			@week_template.requested_shifts << @requested_shift
 			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
