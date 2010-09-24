@@ -21,7 +21,6 @@ class TemplatesController < ApplicationController
 
   def new
     @week_template = Template.new
-		@template_time_slots = []
 		@department = current_department
     respond_to do |format|
       format.html # new.html.erb
@@ -36,12 +35,12 @@ class TemplatesController < ApplicationController
   def create
     @week_template = Template.new(params[:template])
 		@week_template.department = current_department
+		@week_template.public = true if params[:public]
 		if params[:for_role]		
 			params[:for_role].each do |role_id|
 				@week_template.roles << Role.find(role_id)
 			end
 		end
-#		@week_template.locations << @week_template.roles.collect{|role| role.signup_locations}.flatten.uniq
 		respond_to do |format|
 		  if @week_template.save
 		    flash[:notice] = 'Template was successfully created.'
