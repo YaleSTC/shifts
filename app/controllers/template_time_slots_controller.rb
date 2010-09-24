@@ -9,26 +9,24 @@ class TemplateTimeSlotsController < ApplicationController
 		@start = Time.local(2000,"jan", 1, @department_config.schedule_start.to_s.insert(-3," ").split.first, 	 @department_config.schedule_start.to_s.insert(-3," ").split.last,1)
 		@end = Time.local(2000,"jan", 1, @department_config.schedule_end.to_s.insert(-3," ").split.first, @department_config.schedule_end.to_s.insert(-3," ").split.last,1)
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @template_time_slots }
     end
   end
 
   def show
     @template_time_slot = TemplateTimeSlot.find(params[:id])
-
+		@week_template = Template.find(params[:template_id])
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @template_time_slot }
+      format.html
     end
   end
 
   def new
     @template_time_slot = TemplateTimeSlot.new
-
+		@week_template = Template.find(params[:template_id])
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @template_time_slot }
+      format.html
     end
   end
 

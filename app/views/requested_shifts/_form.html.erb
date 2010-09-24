@@ -69,5 +69,5 @@
 	<% @week_template.timeslot_locations.uniq.each do |location| %>
 		<%= check_box_tag "for_locations[]", location.id %>
 		<%= label_tag "location_#{location.id}", text = location.short_name %>
-		<%= ", " unless location == @week_template.timeslot_locations.last %>
+		<%= ", " unless location == @week_template.timeslot_locations.uniq.last %>
 	<% end %>
