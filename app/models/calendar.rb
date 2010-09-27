@@ -32,8 +32,14 @@ class Calendar < ActiveRecord::Base
       new_repeating_event.save!
       error = new_repeating_event.make_future(wipe)
       errors += ","+error if error
-      end
-      errors
+    end
+    old_calendar.shifts.select{|s| s.repeating_event.nil?}.each do |r|
+      new_shift = r.clone
+      new_shift.calendar = new_calendar
+      new_shift.active = false
+      new_shift.save!
+    end
+    errors
   end
 
   #def self.wipe_range(start_time, end_time, wipe_timeslots, wipe_shifts, loc_ids, cal_ids)
