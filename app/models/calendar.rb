@@ -25,15 +25,15 @@ class Calendar < ActiveRecord::Base
   def self.copy(old_calendar, new_calendar, wipe)
     errors = ""
 
-    old_calendar.repeating_events.each do |r|
-      new_repeating_event = r.clone
-      new_repeating_event.start_date = new_calendar.start_date
-      new_repeating_event.end_date = new_calendar.end_date
-      new_repeating_event.calendar = new_calendar
-      new_repeating_event.save!
-      error = new_repeating_event.make_future(wipe)
-      errors += ","+error if error
-    end
+    # old_calendar.repeating_events.each do |r|
+    #   new_repeating_event = r.clone
+    #   new_repeating_event.start_date = new_calendar.start_date
+    #   new_repeating_event.end_date = new_calendar.end_date
+    #   new_repeating_event.calendar = new_calendar
+    #   new_repeating_event.save!
+    #   error = new_repeating_event.make_future(wipe)
+    #   errors += ","+error if error
+    # end
 
     old_calendar.time_slots.select{|s| s.repeating_event.nil?}.each do |r|
       new_time_slot = r.clone
