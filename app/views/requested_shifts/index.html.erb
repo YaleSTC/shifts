@@ -23,8 +23,8 @@
 	<% @requested_shifts.sort{|x,y| x.day <=> y.day}.each do |requested_shift| %>
 		<tr>
 			<td><%=h requested_shift.user.name %></td>
-		  <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") %></td>
-		  <td><%=h requested_shift.preferred_end.strftime("%I:%M %p") %></td>
+		  <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") if requested_shift.preferred_start %></td>
+		  <td><%=h requested_shift.preferred_end.strftime("%I:%M %p") if requested_shift.preferred_end %></td>
 		  <td><%=h requested_shift.acceptable_start.strftime("%I:%M %p") %></td>
 		  <td><%=h requested_shift.acceptable_end.strftime("%I:%M %p") %></td>
 		  <td><%=h RequestedShift::WEEK_DAY_SELECT[requested_shift.day][0]%></td>
