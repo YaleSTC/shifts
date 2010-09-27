@@ -1,15 +1,3 @@
-<%# ASSIGNED SHIFTS %>
-<% rows = sort @week_template.requested_shifts.on_day(day).assigned(event_group) %>
-<div class="event-group-title" style="height:<%=rows.length*25 + (rows.length-1)%>px;line-height:<%=rows.length*25 + (rows.length-1)%>px; border-bottom: 1px dashed #fff;"><%= event_group.short_name %></div>
-<% if rows.empty? %>
-  <ul class="event-row"></ul>
-<% else %> 
-  <% for row in rows %>
-    <ul class="event-row">sort
-      <%= render :partial => "/templates/schedule/event", :collection => row, :locals => {:location => event_group} %>
-    </ul>
-  <% end %>
-<% end %>
 
 <%# REQUESTED SHIFTS %>
 <% rows = sort @week_template.requested_shifts.on_day(day).unassigned(event_group) %>
