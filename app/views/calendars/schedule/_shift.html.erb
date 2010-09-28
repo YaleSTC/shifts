@@ -14,9 +14,8 @@
           <% else %>
             <%= link_to_function "x", :class => 'click_to_delete_repeating_shift', :id => 'delete_repeating_'+shift.id.to_s %>
           <% end %>
-        <% end %>
-        
         <%= shift.user.name %>
+        <% end %>
       </div>
     </div>
   </div>

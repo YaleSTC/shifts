@@ -32,6 +32,7 @@ class TemplateTimeSlotsController < ApplicationController
 
   def edit
     @template_time_slot = TemplateTimeSlot.find(params[:id])
+		@week_template = Template.find(params[:template_id])
   end
 
   def create
@@ -78,12 +79,13 @@ class TemplateTimeSlotsController < ApplicationController
   end
 
   def update
+		raise params.to_yaml
     @template_time_slot = TemplateTimeSlot.find(params[:id])
-
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     respond_to do |format|
       if @template_time_slot.update_attributes(params[:template_time_slot])
         flash[:notice] = 'TemplateTimeSlot was successfully updated.'
-        format.html { redirect_to(@template_time_slot) }
+        format.html { redirect_to(template_template_time_slot(@week_template, @template_time_slot)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

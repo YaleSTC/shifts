@@ -325,8 +325,38 @@ class ApplicationController < ActionController::Base
     form_output
   end
 
+  def set_payform_item_hours(model_name)
+    if params[:calculate_hours] == 'user_input'
+      params[model_name.to_sym][:hours] = params[:other][:hours].to_f + params[:other][:minutes].to_f/60
+    else
+      start_params = []
+      end_params = []
+      for num in (1..7)
+        unless num == 6 #we skip seconds; meridian is stored in 7
+          start_params << params[:time_input]["start(#{num}i)"].to_i
+          end_params << params[:time_input]["end(#{num}i)"].to_i
+        end
+      end
+      start_time = convert_to_time(start_params)
+      end_time = convert_to_time(end_params)
+      params[model_name.to_sym][:hours] = (end_time-start_time) / 3600.0
+    end
+  end
 
-def join_date_and_time(form_output)
+
+  def convert_to_time(date_array)
+    # 0 = year, 1 = month, 2 = day, 3 = hour, 4 = minute, 5 = meridiem(am/pm)
+    if date_array[3] == 12 #if noon or midnight
+      date_array[3] -= 12
+    end
+    if date_array[5] == -2 #if pm
+      date_array[3] += 12
+    end
+    Time.utc(date_array[0], nil, nil, date_array[3], date_array[4])
+  end
+  
+
+  def join_date_and_time(form_output)
   #join date and time
     %w{start end mandatory_start mandatory_end}.each do |field_name|
       if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
@@ -337,8 +367,8 @@ def join_date_and_time(form_output)
     end
     form_output["start"] ||= Time.now
 
-form_output
-end
+    form_output
+  end
 
   private
 
