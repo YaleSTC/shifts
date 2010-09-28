@@ -1,6 +1,6 @@
 <h1>Stats</h1>
 
-<% form_tag('/stats', :method => :get) do |f| %>
+<% form_tag 'stats' do |f| %>
   <p>
     <%= label_tag :start_date %><br />
     <%=  text_field_tag 'start_date', "#{@start_date}" %>
