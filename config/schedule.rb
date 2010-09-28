@@ -13,21 +13,20 @@
 #   rake "some:great:rake:task"
 # end
 every :sunday, :at => '9am' do
-  rake "auto_remind"
+  rake "email:payform_reminders"
+  rake "email:late_payform_warnings"
 end
 
 every 1.day, :at => '1 am' do 
- rake "email_stats"
+ rake "email:daily_stats"
 end
 
 every 10.minutes do
-  rake "stale_shift_email"
+  rake "email:stale_shift_reminders"
+  rake "db:update_shift_stats"
 end
 
 every 3.minutes do
   command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production"
 end
 
-every 1.hour do
-  rake "generate_stats"
-end
