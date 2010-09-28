@@ -36,7 +36,7 @@
 	<!--
 	Requested shifts:
 	<% @requested_shifts.each do |requested_shift| %>
-		<br/><%= "#{requested_shift.user.name}" %>: <%= "Preferred start: #{requested_shift.preferred_start.strftime("%X")}" %>
+		<br/><%= "#{requested_shift.user.name}" %>: <%#= "Preferred start: #{requested_shift.preferred_start.strftime("%X")}" %>
 	<% end %>
 	-->
 	</p>
@@ -52,7 +52,7 @@
       <div class="tooltip" id="tip_event_<%= event.id %>_<%= location.id %>">
           <a href="#" class="closetooltip" style="float:right;">[X]</a><br/>
           <%= event.user.name %><br/>
-          <%= event.preferred_start.to_s %> <br/>
+          <%#= event.preferred_start.to_s %> <br/>
           <%= location.name %>
           <div style="clear:both;"></div>
       </div>  

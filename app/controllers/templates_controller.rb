@@ -36,11 +36,7 @@ class TemplatesController < ApplicationController
     @week_template = Template.new(params[:template])
 		@week_template.department = current_department
 		@week_template.public = true if params[:public]
-		if params[:for_role]		
-			params[:for_role].each do |role_id|
-				@week_template.roles << Role.find(role_id)
-			end
-		end
+		@week_template.roles << Role.find(params[:for_role]) if params[:for_role]
 		respond_to do |format|
 		  if @week_template.save
 		    flash[:notice] = 'Template was successfully created.'
@@ -56,6 +52,8 @@ class TemplatesController < ApplicationController
   def update
 #		raise params.to_yaml
     @week_template = Template.find(params[:id])
+		@week_template.public = false
+		@week_template.public = true if params[:public]
     @week_template.roles.clear
 		@week_template.roles << Role.find(params[:for_role]) if params[:for_role]
     respond_to do |format|

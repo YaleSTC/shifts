@@ -4,7 +4,7 @@ class RequestedShift < ActiveRecord::Base
 	validate :proper_times
 	#validate :user_shift_preferences
 	validate :user_does_not_have_concurrent_request
-#	validate :request_is_within_time_slot
+	validate :request_is_within_time_slot
 
 	has_many :locations_requested_shifts
 	has_many :locations, :through => :locations_requested_shifts
@@ -66,7 +66,7 @@ class RequestedShift < ActiveRecord::Base
 		b = self.locations
 		c = 0
 		b.each do |location|		
-			c += TemplateTimeSlot.count(:all, :conditions => ["#{:start_time.to_sql_column} <= #{self.acceptable_start.to_sql} AND #{:end_time.to_sql_column} >= #{self.acceptable_end.to_sql} AND #{:template_id.to_sql_column} = #{self.template_id.to_sql} AND #{:location_id.to_sql_column} = #{location.id.to_sql}"])
+			c += TemplateTimeSlot.count(:all, :conditions => ["#{:start_time.to_sql_column} <= #{self.acceptable_start.to_sql} AND #{:end_time.to_sql_column} >= #{self.acceptable_end.to_sql} AND #{:template_id.to_sql_column} = #{self.template_id.to_sql} AND #{:location_id.to_sql_column} = #{location.id.to_sql} AND #{:day.to_sql_column} = #{self.day.to_sql}"])
 		end
 		errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
   end
