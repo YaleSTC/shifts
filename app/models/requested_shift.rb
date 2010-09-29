@@ -4,7 +4,7 @@ class RequestedShift < ActiveRecord::Base
 	validate :proper_times
 	#validate :user_shift_preferences
 	validate :user_does_not_have_concurrent_request
-#	validate :request_is_within_time_slot
+	validate :request_is_within_time_slot
 
 	has_many :locations_requested_shifts
 	has_many :locations, :through => :locations_requested_shifts
@@ -66,24 +66,16 @@ class RequestedShift < ActiveRecord::Base
 		b = self.locations
 		c = 0
 		b.each do |location|		
-			c += TemplateTimeSlot.count(:all, :conditions => ["#{:start_time.to_sql_column} <= #{self.acceptable_start.to_sql} AND #{:end_time.to_sql_column} >= #{self.acceptable_end.to_sql} AND #{:template_id.to_sql_column} = #{self.template_id.to_sql} AND #{:location_id.to_sql_column} = #{location.id.to_sql}"])
+			c += TemplateTimeSlot.count(:all, :conditions => ["#{:start_time.to_sql_column} <= #{self.acceptable_start.to_sql} AND #{:end_time.to_sql_column} >= #{self.acceptable_end.to_sql} AND #{:template_id.to_sql_column} = #{self.template_id.to_sql} AND #{:location_id.to_sql_column} = #{location.id.to_sql} AND #{:day.to_sql_column} = #{self.day.to_sql}"])
 		end
 		errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
   end
 
   def user_does_not_have_concurrent_request
-		#Find all other requests of the user that occupy the same time (same day + overlapping acceptable start/end time)
+#		Find all other requests of the user that occupy the same time (same day + overlapping acceptable start/end time)
 		c = RequestedShift.find(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:day.to_sql_column} = #{self.day.to_sql} AND #{:acceptable_start.to_sql_column} <= #{self.acceptable_end.to_sql} AND #{:acceptable_end.to_sql_column} >= #{self.acceptable_start.to_sql} AND #{:template_id.to_sql_column} = #{self.template.to_sql}"])
-		#Now see if any of the other requests have locations that are the same as this request's locations
-		other_locations = []
-		c.each do |request|
-			other_locations << request.locations
-		end
-#		puts "other locations"
-#		puts other_locations.to_yaml
-#		puts "self locations"
-		puts "locations for current request"
-		puts self.locations.to_yaml
+#		Now see if any of the other requests have locations that are the same as this request's locations
+		other_locations = c.collect{|request| request.locations}.flatten
 		self.locations.each do |location|	
 			errors.add_to_base("Your request is overlapping with another one of your requests at #{location.short_name}") if other_locations.include?(location)
 		end
