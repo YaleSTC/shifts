@@ -12,8 +12,10 @@
 		  <td><%=h template_time_slot.start_time.strftime("%I:%M %p") %></td>
 		  <td><%=h template_time_slot.end_time.strftime("%I:%M %p") %></td>
 			<td><%=h template_time_slot.location.short_name %></td>
-		  <td><%#= link_to 'Edit', edit_template_time_slot_path(template_time_slot) %></td>
-		  <td><%#= link_to 'X', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
+			<% if current_user.is_admin_of?(@week_template.department) %>
+				<td><%= link_to 'Edit', edit_template_template_time_slot_path(@week_template, template_time_slot) %></td>
+				<td><%= link_to 'X', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
+			<% end %>
 		</tr>
 	<% end %>
 </table>

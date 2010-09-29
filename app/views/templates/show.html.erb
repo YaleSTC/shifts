@@ -33,6 +33,12 @@
 	<p>
 	<%= link_to 'View all submitted shift preferences', template_shift_preferences_path(@week_template) %> |
 	<%= link_to 'View all requested shifts', template_requested_shifts_path(@week_template) %> 
+	<!--
+	Requested shifts:
+	<% @requested_shifts.each do |requested_shift| %>
+		<br/><%#= "#{requested_shift.user.name}" %>: <%#= "Preferred start: #{requested_shift.preferred_start.strftime("%X")}" %>
+	<% end %>
+	-->
 	</p>
 </p>
 
@@ -46,7 +52,7 @@
       <div class="tooltip" id="tip_event_<%= event.id %>_<%= location.id %>">
           <a href="#" class="closetooltip" style="float:right;">[X]</a><br/>
           <%= event.user.name %><br/>
-          <%= event.preferred_start.to_s %> <br/>
+          <%#= event.preferred_start.to_s %> <br/>
           <%= location.name %>
           <div style="clear:both;"></div>
       </div>  

@@ -33,6 +33,7 @@ class RequestedShiftsController < ApplicationController
 
   def show
     @requested_shift = RequestedShift.find(params[:id])
+		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @requested_shift }
