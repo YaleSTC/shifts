@@ -36,7 +36,6 @@ class TemplateTimeSlotsController < ApplicationController
   end
 
   def create
-#		raise params.to_yaml
 		parse_just_time(params[:template_time_slot])
 
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
@@ -79,17 +78,15 @@ class TemplateTimeSlotsController < ApplicationController
   end
 
   def update
-		raise params.to_yaml
+		parse_just_time(params[:template_time_slot])
     @template_time_slot = TemplateTimeSlot.find(params[:id])
 		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
     respond_to do |format|
       if @template_time_slot.update_attributes(params[:template_time_slot])
-        flash[:notice] = 'TemplateTimeSlot was successfully updated.'
-        format.html { redirect_to(template_template_time_slot(@week_template, @template_time_slot)) }
-        format.xml  { head :ok }
+        flash[:notice] = "Timeslot for #{@week_template.name} successfully updated."
+        format.html { redirect_to(:back) }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @template_time_slot.errors, :status => :unprocessable_entity }
       end
     end
   end
