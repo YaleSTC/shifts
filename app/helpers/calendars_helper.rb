@@ -120,7 +120,7 @@ module CalendarsHelper
     @time_increment ||= current_department.department_config.time_increment
     @blocks_per_hour ||= 60/@time_increment.to_f
 
-    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
     #locations = @loc_groups.map{|lg| lg.locations}.flatten
     for location in @visible_locations
       @location_rows[location] = [] #initialize rows
@@ -134,7 +134,7 @@ module CalendarsHelper
     # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
-    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
 
     shifts = Shift.in_calendars(@calendars).in_locations(@visible_locations).on_day(day).scheduled
     shifts ||= []
