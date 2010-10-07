@@ -1,3 +1,3 @@
-<%= render :partial => "calendars/schedule/location_row_set", :collection => loc_group_row.locations.sort_by(&:priority).reverse, :locals => {:day => day} %>
+<%= render :partial => "calendars/schedule/location_row_set", :collection => loc_group_row.locations.active.sort_by{|l| [-1*l.priority, l.name]}, :locals => {:day => day} %>
 <ul class="events divider" style="height: <%= @divider_height %>px;"></ul>
 <% @location_group_row += 1 %>
