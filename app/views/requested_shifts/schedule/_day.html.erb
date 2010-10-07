@@ -1,0 +1,13 @@
+<h2 class="trigger"><%= RequestedShift.day_in_words(day) %></h2>
+<div class="schedule">
+  
+  <div class="event-group-title" style="height:24px"></div>
+  <table class="times">
+    <tr class = "hours"><% for i in 8..22 %><th colspan="4"><%= i.modulo(12)+1 %>PM</th><% end %></tr>
+    <tr class = "minutes"><% for j in 0...4*(22-8+1) %><td style="width:<%= 100.0/(22.0-8.0+1.0)/4.0 %>%">&nbsp;</td><% end %></tr>  
+  </table>
+  
+  <%= render :partial => "/requested_shifts/schedule/event_group", :locals => {:day => day} %>
+
+  <div style="clear:both;"></div>
+</div>
