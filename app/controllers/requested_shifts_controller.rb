@@ -70,7 +70,6 @@ class RequestedShiftsController < ApplicationController
     @requested_shift = RequestedShift.new(params[:requested_shift])
 		@requested_shift.preferred_start = nil unless params[:preferred_start_choice]
 		@requested_shift.preferred_end = nil unless params[:preferred_end_choice]
-#		puts @requested_shift.to_yaml
 		@week_template = Template.find(params[:template_id])
 		@template_time_slots = @week_template.template_time_slots
 		@requested_shift.template = @week_template
@@ -89,14 +88,8 @@ class RequestedShiftsController < ApplicationController
 					end
 				end
 				@requested_shift.save!
-#				puts "after save"
 			end
 		rescue Exception => e
-#			puts "rescued"
-#			puts e.message
-#			puts e.backtrace.inspect.to_yaml
-#			puts @requested_shift.errors.to_yaml
-#			puts @requested_shift.errors.empty?
 			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
 		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 			respond_to do |format|
@@ -104,8 +97,6 @@ class RequestedShiftsController < ApplicationController
 				format.js
 		  end
 		else
-#			puts "else"
-#			puts @requested_shift.to_yaml
 			@week_template.requested_shifts << @requested_shift
 			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
 		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
@@ -118,14 +109,23 @@ class RequestedShiftsController < ApplicationController
   end
 
   def update
+		parse_just_time(params[:requested_shift])
     @requested_shift = RequestedShift.find(params[:id])
-    respond_to do |format|
+		@week_template = Template.find(params[:template_id])
+		puts "hi"    
+		puts params.to_yaml
+		respond_to do |format|
       if @requested_shift.update_attributes(params[:requested_shift])
+				if params[:assign_flag]
+					@lrs = LocationsRequestedShift.find(:first, :conditions => ['requested_shift_id = ? AND location_id = ?', @requested_shift, Location.find(params[:assigned_location])])
+					@lrs.assigned = true
+					@lrs.save
+				end
         flash[:notice] = 'RequestedShift was successfully updated.'
         format.html { redirect_to(template_requested_shift_path(@week_template, @requested_shift)) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { redirect_to(edit_template_requested_shift_path(@week_template, @requested_shift)) }
         format.xml  { render :xml => @requested_shift.errors, :status => :unprocessable_entity }
       end
     end
@@ -145,7 +145,7 @@ end
 private
 
   def parse_just_time(form_output)
-    titles = ["preferred_start", "preferred_end", "acceptable_start","acceptable_end"]
+    titles = ["preferred_start", "preferred_end", "acceptable_start","acceptable_end", "assigned_start", "assigned_end"]
     titles.each do |field_name|
       if !form_output["#{field_name}(5i)"].blank? && form_output["#{field_name}(4i)"].blank?
         form_output["#{field_name}"] = Time.local(2000,"jan", 1, form_output["#{field_name}(5i)"].split(":").first, form_output["#{field_name}(5i)"].split(":")[1], form_output["#{field_name}(5i)"].split(":").last)
