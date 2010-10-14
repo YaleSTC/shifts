@@ -12,18 +12,19 @@ class RequestedShift < ActiveRecord::Base
 	belongs_to :template
 
  	named_scope :assigned, lambda {|location| {:conditions => ["locations_requested_shifts.assigned = ? AND locations_requested_shifts.location_id = ?", true,  location.id], :joins => :locations_requested_shifts }}
- 	named_scope :unassigned, lambda {|location| {:conditions => ["locations_requested_shifts.assigned = ? AND locations_requested_shifts.location_id = ?", false,  location.id], :joins => :locations_requested_shifts }}
+# 	named_scope :unassigned, lambda {|location| {:conditions => ["locations_requested_shifts.assigned = ? AND locations_requested_shifts.location_id = ?", false,  location.id], :joins => :locations_requested_shifts }}
 	named_scope :on_day, lambda {|day| {:conditions => {:day => day}}}
 
-	WEEK_DAY_SELECT = [
-    ["Monday", 0],
-    ["Tuesday", 1],
-    ["Wednesday", 2],
-    ["Thursday", 3],
-    ["Friday", 4],
-    ["Saturday", 5],
-    ["Sunday", 6]
-  ]
+	WEEK_DAY_SELECT = [	["Monday", 0],
+    									["Tuesday", 1],
+    									["Wednesday", 2],
+    									["Thursday", 3],
+    									["Friday", 4],
+    									["Saturday", 5],
+    									["Sunday", 6] ]
+	def assigned(location)
+		LocationsRequestedShift.find(:all, :conditions => ['requested_shift_id = ?', self.id]).collect{|lrs| Location.find(lrs.location_id)}
+	end
 
 	def locations
 		LocationsRequestedShift.find(:all, :conditions => ['requested_shift_id = ?', self.id]).collect{|lrs| Location.find(lrs.location_id)}
@@ -36,7 +37,7 @@ class RequestedShift < ActiveRecord::Base
   def length
     self.acceptable_end - self.acceptable_start
   end
-
+	
   def day_string
     RequestedShift.day_in_words(self.day)
   end
