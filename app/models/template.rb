@@ -18,11 +18,11 @@ class Template < ActiveRecord::Base
 	accepts_nested_attributes_for :template_time_slots
 
 	def signup_locations
-		self.roles.collect{|role| role.signup_locations}.flatten
+		self.roles.collect{|role| role.signup_locations}.flatten.uniq
 	end
 	
 	def timeslot_locations
-		self.template_time_slots.collect{|tts| Location.find(tts.location_id)}.flatten
+		self.template_time_slots.collect{|tts| Location.find(tts.location_id)}.flatten.uniq
 	end
 
 	protected

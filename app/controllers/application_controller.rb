@@ -165,7 +165,7 @@ class ApplicationController < ActionController::Base
 
   def require_proper_template_role
     unless current_user.has_proper_role_for?(Template.find(params[:template_id])) || current_user.is_admin_of?(Template.find(params[:template_id]).department)
-      error_message = "This action is only availabe to users with correct roles"
+      error_message = "This page is only availabe to the following roles: #{Template.find(params[:template_id]).roles.to_sentence}"
       flash[:error] = error_message
       redirect_to access_denied_path
     end

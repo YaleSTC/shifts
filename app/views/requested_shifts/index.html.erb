@@ -1,4 +1,4 @@
-
+<% content_for :head, stylesheet_link_tag("shift_view_refactoring") %>
 
 <h1>All requested shifts for <%= @week_template.name %></h1>
 <p>
@@ -38,5 +38,5 @@
 <p>
 <%= link_to 'Back to template', templates_path() %> |
 <%= link_to 'View all general shift preferences', template_shift_preferences_path() %>
-
+<%= render :partial => "/requested_shifts/schedule/day", :collection => [6,0,1,2,3,4,5] %>
 <%#= render :partial => 'week' %>

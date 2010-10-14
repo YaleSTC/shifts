@@ -5,7 +5,7 @@
 	</div>
 	<p>
 		Where:
-		<%= f.select :location_id, options_from_collection_for_select(@week_template.signup_locations.uniq, "id", "short_name", :selected => @template_time_slot.location.id) %>
+		<%= f.select :location_id, options_from_collection_for_select(@week_template.signup_locations, "id", "short_name", :selected => @template_time_slot.location.id) %>
 	</p>
 	<p>
 		Start time:
@@ -35,5 +35,5 @@
 		Day:
     <%= f.select :day, RequestedShift::WEEK_DAY_SELECT %>
 	</p>
-	<%= f.submit @template_time_slot.new_record? ? 'Add' : 'Update'  %>
+	<%= f.submit 'Update' %>
 <% end %>
