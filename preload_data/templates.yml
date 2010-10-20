@@ -1,0 +1,15 @@
+--- 
+templates_001: 
+  created_at: 2010-09-24 21:07:09
+  department_id: "1"
+  id: "1"
+  max_continuous_hours: "6"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "10"
+  max_total_hours: "15"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "0"
+  name: Fall 2010
+  public: "1"
+  updated_at: 2010-09-24 21:07:09
