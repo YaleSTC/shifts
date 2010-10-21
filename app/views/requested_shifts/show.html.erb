@@ -1,3 +1,4 @@
+<h1 id = "page_title">Shift request for <%= "#{@requested_shift.user.name}" %></h1>
 <p>
   <b>Preferred start:</b>
   <%=h @requested_shift.preferred_start %>
@@ -20,9 +21,13 @@
 
 <p>
   <b>Day:</b>
-  <%=h @requested_shift.day %>
+  <%=h RequestedShift::WEEK_DAY_SELECT[@requested_shift.day][0] %>
 </p>
 
+<p>
+	<b>Locations:</b>
+	<%=h @requested_shift.locations.collect{|loc| loc.short_name}.to_sentence %>
+</p>
 
-<%= link_to 'Edit', edit_requested_shift_path(@requested_shift) %>
+<%= link_to 'Edit', edit_template_requested_shift_path(@week_template) %>
 

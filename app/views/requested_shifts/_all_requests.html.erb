@@ -1,0 +1,34 @@
+<h1>Your shift requests for <%= @week_template.name %></h1>
+
+	<table>
+		<tr>
+			<th>User</th>
+		  <th colspan=2>Preferred</th>
+		  <th colspan=2>Acceptable</th>
+		  <th>Day</th>
+			<th>Locations</th>
+		</tr>
+		<tr>
+			<th></th>
+		  <th>Start</th>
+		  <th>End</th>
+		  <th>Start</th>
+		  <th>End</th>
+		  <th></th>
+			<th></th>
+		</tr>
+
+	<% @requested_shifts.sort_by{|s| [s.day, s.acceptable_start, s.acceptable_end]}.each do |requested_shift| %>
+		<tr <%= 'id="last_request"' if requested_shifts.last == requested_shift %> >
+			<td><%=h requested_shift.user.name %></td>
+		  <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") if requested_shift.preferred_start %></td>
+		  <td><%=h requested_shift.preferred_end.strftime("%I:%M %p") if requested_shift.preferred_end %></td>
+		  <td><%=h requested_shift.acceptable_start.strftime("%I:%M %p") %></td>
+		  <td><%=h requested_shift.acceptable_end.strftime("%I:%M %p") %></td>
+		  <td><%=h RequestedShift::WEEK_DAY_SELECT[requested_shift.day][0]%></td>
+			<td><%=h requested_shift.locations.collect{|l| l.short_name}.to_sentence %></td>
+		  <td><%= link_to 'Edit', edit_template_requested_shift_path(@week_template, requested_shift) %></td>
+		  <td><%= link_to 'X', template_requested_shift_path(@week_template, requested_shift), :confirm => 'Are you sure?', :method => :delete %></td>
+		</tr>
+	<% end %>
+	</table>

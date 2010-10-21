@@ -1,17 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<% content_for :head do %>
+  <% stylesheet 'shift', 'timeline'%>
+  <% javascript 'sorttable' %>
+<% end %>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Templates: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
-</head>
-<body>
+<% content_for :left_nav do %>
+  <ul id="navigationList">
+		<h3>Templates</h3>
+    	<li><%= link_to_unless_current "View all", templates_path %></li>
+      <li><%= link_to_unless_current "Create new", new_template_path %></li>
+  </ul>
+  <div id="contentNav">
+<% end %>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<% content_for :body do %>
 
-<%= yield %>
+  <%= yield %>
 
-</body>
-</html>
+  <div class="clear"></div>
+<% end -%>
+
+<%= render :file => "layouts/application.html.erb" %>
+

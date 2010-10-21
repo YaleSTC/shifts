@@ -211,7 +211,7 @@ class CalendarsController < ApplicationController
     @loc_group_select[@department.id] = @department.loc_groups #{}
     @visible_loc_groups = current_user.user_config.view_loc_groups
     @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
-    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
+    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
 
     # now all this stuff is collected in day_preprocessing helper
     # @shifts = []

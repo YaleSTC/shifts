@@ -1,6 +1,6 @@
 <h1>Stats</h1>
 
-<% form_tag('/stats', :method => :get) do |f| %>
+<% form_tag(:controller => 'stats', :action => 'index', :method => :get) do |f| %>
   <p>
     <%= label_tag :start_date %><br />
     <%=  text_field_tag 'start_date', "#{@start_date}" %>
@@ -31,7 +31,7 @@
         <td><%=h stat[:num_late] %></td>
         <td><%=h stat[:num_left_early] %></td>
         <td><%=h stat[:num_missed] %></td>
-				<td><%=h stat[:updates] %></td>
+				<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
  			</tr>
     <% end %>
   </tbody>

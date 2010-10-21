@@ -1,34 +1,25 @@
-<table>
-	<tr>
-		<th>Enable</th>
-		<th>Where</th>
-		<th>Start</th>
-		<th>End</th>
-	</tr>
-	<% @locations.each do |location| %>
+<% unless @locations %>
+	Please select roles first
+<% else %>
+	<table>
 		<tr>
-			<td><%= check_box_tag "for_locations[]", location.id %></td>
-			<td><%= label_tag "location_#{location.id}", text = location.short_name %></td> 
-			<td><%= time_select "location_#{location.id}_start", {
-											:simple_time_select => true,
-						          :time_separator => "",
-						          :minute_interval => current_department.department_config.time_increment,
-											:start_time => Time.now-5000,
-						          :end_time => Time.now+5000,
-						          :include_start_time => true,
-						          :include_end_time => false,
-						          :default => Time.now} %></td>
-			<td><%= time_select "location_#{location.id}_end", {
-											:simple_time_select => true,
-						          :time_separator => "",
-						          :minute_interval => current_department.department.department_config.time_increment,
-											:start_time => Time.now-5000,
-						          :end_time => Time.now+5000,
-						          :include_start_time => true,
-						          :include_end_time => false,
-						          :default => Time.now} %></td>
+			<th>Enable</th>
+			<th>Where</th>
+			<th>Start</th>
+			<th>End</th>
+			<th>Days</th>
 		</tr>
-	<% end %>
-</table>
-
+		<tr>
+			<% if @template_time_slots.empty? %>
+				Please select roles first
+			<% else %>
+				<% @template_time_slots.each do |@time_slot| %>
+					<% content_tag :div, :id => "time_slot_#{@time_slot.id}" do %>
+						<%= render :partial => 'template_time_slot_form', :locals => {:locations => @locations, :time_slot => @time_slot, :f => f} %>
+					<% end %>
+				<% end %>
+			<% end %>
+		</tr>		
+	</table>
+<% end %>
 

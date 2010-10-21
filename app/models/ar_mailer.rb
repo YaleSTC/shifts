@@ -3,7 +3,8 @@ require 'action_mailer/ar_mailer'
 ActionMailer::Base.delivery_method = :activerecord
 class ArMailer < ActionMailer::ARMailer
   self.delivery_method = :activerecord
-# For use when users are imported from csv
+  
+  #For use when users are imported from csv
   def new_user_password_instructions(user, dept)
     subject       "Password Creation Instructions"
     from          AppConfig.first.mailer_address
@@ -12,7 +13,7 @@ class ArMailer < ActionMailer::ARMailer
     body          :edit_new_user_password_url => edit_password_reset_url(user.perishable_token)
   end
 
-# Beginning of payform notification methods
+  #Beginning of payform notification methods
   def due_payform_reminder(user, message, dept)
     subject     'Due Payform Reminder'
     recipients  "#{user.name} <#{user.email}>"
@@ -29,7 +30,7 @@ class ArMailer < ActionMailer::ARMailer
     body        :user => user, :message => message
   end
 
-#this code is currently not used anywhere in the code so Adam told me to comment it out for now. - Maria
+  #this code is currently not used anywhere in the code so Adam told me to comment it out for now. - Maria
   # def printed_payforms_notification(admin_user, message, attachment_name)
   #   subject       'Printed Payforms ' + Date.today.strftime('%m/%d/%y')
   #   recipients    "#{admin_user.email}"
@@ -42,7 +43,7 @@ class ArMailer < ActionMailer::ARMailer
   #               :filename     => attachment_name
   # end
 
-# Notifies a user when somebody else edits their payform
+  #Notifies a user when somebody else edits their payform
   def admin_edit_notification(payform, payform_item, edit_item, dept)
     user = payform.user
     subject       'Your payform has been edited'
@@ -98,7 +99,7 @@ class ArMailer < ActionMailer::ARMailer
   #STALE SHIFTS
   #an email is sent to a student if they have been inactive in their shift for an hour
   def stale_shift(user, stale_shift, dept) 
-    subject       "Your Shift in the #{stale_shift.location.name} has been inactive for an hour."
+    subject       "Your Shift in the #{stale_shift.location.name} has been inactive for at least an hour."
     recipients    "#{user.name} <#{user.email}>"
     from          dept.department_config.mailer_address
     sent_on       Time.now
