@@ -1,11 +1,3 @@
-<h1>New Template</h1>
-
-<% form_for(@week_template) do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
-
+<h1 id="page_title">New Template</h1>
+<%= render :partial => 'form' %>
 <%= link_to 'Back', templates_path %>

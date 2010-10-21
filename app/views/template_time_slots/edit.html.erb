@@ -1,24 +1,39 @@
-<h1>Editing template_time_slot</h1>
-
-<% form_for(@template_time_slot) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :day %><br />
-    <%= f.text_field :day %>
-  </p>
-  <p>
-    <%= f.label :start %><br />
-    <%= f.datetime_select :start %>
-  </p>
-  <p>
-    <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+<h1 id = "page_title">Editing time slot for <%= "#{@week_template.name}" %> template</h1>
+<% form_for([@week_template, @template_time_slot]) do |f| %>
+	<div id ="errors">
+		<%= render :partial => "template_time_slots/error_messages", :locals => {:f => f} %>
+	</div>
+	<p>
+		Where:
+		<%= f.select :location_id, options_from_collection_for_select(@week_template.signup_locations, "id", "short_name", :selected => @template_time_slot.location.id) %>
+	</p>
+	<p>
+		Start time:
+		<%= f.time_select "start_time", {
+											:simple_time_select => true,
+											:time_separator => "",
+											:minute_interval => current_department.department_config.time_increment,
+											:start_time => @start,
+											:end_time => @end,
+											:include_start_time => true,
+											:include_end_time => false,
+											:default => @template_time_slot.start_time} %>
+	</p>
+	<p>
+		End time:
+		<%= f.time_select "end_time", {
+											:simple_time_select => true,
+											:time_separator => "",
+											:minute_interval => current_department.department.department_config.time_increment,
+											:start_time => @start,
+											:end_time => @end,
+											:include_start_time => false,
+											:include_end_time => true,
+											:default => @template_time_slot.end_time} %>
+	</p>
+	<p>
+		Day:
+    <%= f.select :day, RequestedShift::WEEK_DAY_SELECT %>
+	</p>
+	<%= f.submit 'Update' %>
 <% end %>
-
-<%= link_to 'Show', @template_time_slot %> |
-<%= link_to 'Back', template_time_slots_path %>

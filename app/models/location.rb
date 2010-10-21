@@ -1,6 +1,5 @@
 class Location < ActiveRecord::Base
   belongs_to :loc_group
-	belongs_to :template
 
   named_scope :active, :conditions => {:active => true}
   named_scope :in_group, 

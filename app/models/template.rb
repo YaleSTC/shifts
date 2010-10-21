@@ -1,5 +1,4 @@
 class Template < ActiveRecord::Base
-	has_many :locations
 	has_many :template_time_slots
 	has_many :requested_shifts
 	has_many :shift_preferences
@@ -9,11 +8,23 @@ class Template < ActiveRecord::Base
 	validate :max_total_hours_greater_than_min
 	validate :max_continuous_hours_greater_than_min
 	validate :max_number_of_shifts_greater_than_min
-	validate :max_hours_per_day_greater_than_continuous
+	#validate :max_hours_per_day_greater_than_continuous
   validate :feasibility_of_preferences
 	validates_presence_of :roles
-	validates_presence_of :locations
-		
+	validates_numericality_of :max_number_of_shifts, :only_integer => true, :message => "can only be whole number"
+	validates_numericality_of :min_number_of_shifts, :only_integer => true, :message => "can only be whole number"
+	#validates_presence_of :locations
+	
+	accepts_nested_attributes_for :template_time_slots
+
+	def signup_locations
+		self.roles.collect{|role| role.signup_locations}.flatten.uniq
+	end
+	
+	def timeslot_locations
+		self.template_time_slots.collect{|tts| Location.find(tts.location_id)}.flatten.uniq
+	end
+
 	protected
 	
 	def max_hours_per_day_greater_than_continuous
@@ -25,7 +36,7 @@ class Template < ActiveRecord::Base
   end
   
   def max_continuous_hours_greater_than_min
-    errors.add("Maximum hours is greater minimum continuous hours") if (self.max_continuous_hours < self.min_continuous_hours)
+    errors.add("Maximum continuous hours is greater minimum continuous hours") if (self.max_continuous_hours < self.min_continuous_hours)
   end
   
   def max_number_of_shifts_greater_than_min

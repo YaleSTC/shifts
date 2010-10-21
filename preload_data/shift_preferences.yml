@@ -1,0 +1,911 @@
+--- 
+shift_preferences_001: 
+  created_at: 2010-09-25 20:59:48
+  id: "1"
+  max_continuous_hours: "3"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "5"
+  max_total_hours: "5"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "1"
+  min_total_hours: "1"
+  template_id: "1"
+  updated_at: 2010-09-25 20:59:48
+  user_id: "106"
+shift_preferences_002: 
+  created_at: 2010-09-26 00:05:59
+  id: "2"
+  max_continuous_hours: "3"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "3"
+  max_total_hours: "8"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 00:05:59
+  user_id: "152"
+shift_preferences_003: 
+  created_at: 2010-09-26 00:07:29
+  id: "3"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "3"
+  max_total_hours: "7"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 00:07:29
+  user_id: "136"
+shift_preferences_004: 
+  created_at: 2010-09-26 00:09:05
+  id: "4"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "4"
+  max_total_hours: "10"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 00:09:06
+  user_id: "150"
+shift_preferences_005: 
+  created_at: 2010-09-26 00:09:13
+  id: "5"
+  max_continuous_hours: "3"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "5"
+  max_total_hours: "8"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-26 00:09:13
+  user_id: "56"
+shift_preferences_006: 
+  created_at: 2010-09-26 00:12:00
+  id: "6"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "2"
+  max_total_hours: "6"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 00:12:00
+  user_id: "161"
+shift_preferences_007: 
+  created_at: 2010-09-26 00:16:05
+  id: "7"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "0"
+  max_total_hours: "5"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 00:16:05
+  user_id: "153"
+shift_preferences_008: 
+  created_at: 2010-09-26 00:23:59
+  id: "8"
+  max_continuous_hours: "5"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "6"
+  max_total_hours: "15"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "4"
+  min_total_hours: "10"
+  template_id: "1"
+  updated_at: 2010-09-26 00:24:00
+  user_id: "69"
+shift_preferences_009: 
+  created_at: 2010-09-26 00:26:58
+  id: "9"
+  max_continuous_hours: "5"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "2"
+  max_total_hours: "10"
+  min_continuous_hours: "5"
+  min_number_of_shifts: "1"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-26 00:26:58
+  user_id: "37"
+shift_preferences_010: 
+  created_at: 2010-09-26 00:27:42
+  id: "10"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "4"
+  max_total_hours: "10"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "7"
+  template_id: "1"
+  updated_at: 2010-09-26 00:27:42
+  user_id: "170"
+shift_preferences_011: 
+  created_at: 2010-09-26 00:38:59
+  id: "11"
+  max_continuous_hours: "2"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "4"
+  max_total_hours: "6"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "2"
+  min_total_hours: "3"
+  template_id: "1"
+  updated_at: 2010-09-26 00:38:59
+  user_id: "132"
+shift_preferences_012: 
+  created_at: 2010-09-26 00:40:44
+  id: "12"
+  max_continuous_hours: "6"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "4"
+  max_total_hours: "15"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "3"
+  min_total_hours: "8"
+  template_id: "1"
+  updated_at: 2010-09-26 00:40:44
+  user_id: "109"
+shift_preferences_013: 
+  created_at: 2010-09-26 00:50:26
+  id: "13"
+  max_continuous_hours: "4"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "7"
+  max_total_hours: "10"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "2"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-26 00:50:26
+  user_id: "145"
+shift_preferences_014: 
+  created_at: 2010-09-26 00:59:26
+  id: "14"
+  max_continuous_hours: "3"
+  max_hours_per_day: "0"
+  max_number_of_shifts: "8"
+  max_total_hours: "8"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "3"
+  min_total_hours: "6"
+  template_id: "1"
+  updated_at: 2010-09-26 00:59:26
+  user_id: "159"
+shift_preferences_015: 
+  created_at: 2010-09-26 01:13:28
+  id: "15"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "3"
+  max_total_hours: "6"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "2"
+  min_total_hours: "3"
+  template_id: "1"
+  updated_at: 2010-09-26 01:13:28
+  user_id: "80"
+shift_preferences_016: 
+  created_at: 2010-09-26 01:13:41
+  id: "16"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "2"
+  max_total_hours: "4"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "2"
+  template_id: "1"
+  updated_at: 2010-09-26 01:13:41
+  user_id: "90"
+shift_preferences_017: 
+  created_at: 2010-09-26 01:41:16
+  id: "17"
+  max_continuous_hours: "3"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "7"
+  max_total_hours: "13"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "5"
+  min_total_hours: "9"
+  template_id: "1"
+  updated_at: 2010-09-26 01:41:16
+  user_id: "81"
+shift_preferences_018: 
+  created_at: 2010-09-26 01:57:54
+  id: "18"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "3"
+  max_total_hours: "8"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-26 01:57:54
+  user_id: "64"
+shift_preferences_019: 
+  created_at: 2010-09-26 02:34:06
+  id: "19"
+  max_continuous_hours: "2"
+  max_hours_per_day: "2"
+  max_number_of_shifts: "2"
+  max_total_hours: "4"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 02:34:06
+  user_id: "158"
+shift_preferences_020: 
+  created_at: 2010-09-26 02:37:00
+  id: "20"
+  max_continuous_hours: "2"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "5"
+  max_total_hours: "8"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "0"
+  template_id: "1"
+  updated_at: 2010-09-26 02:37:01
+  user_id: "134"
+shift_preferences_021: 
+  created_at: 2010-09-26 02:40:04
+  id: "21"
+  max_continuous_hours: "6"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "6"
+  max_total_hours: "14"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "6"
+  template_id: "1"
+  updated_at: 2010-09-26 02:40:04
+  user_id: "108"
+shift_preferences_022: 
+  created_at: 2010-09-26 03:03:18
+  id: "22"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "3"
+  max_total_hours: "9"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "6"
+  template_id: "1"
+  updated_at: 2010-09-26 03:03:18
+  user_id: "42"
+shift_preferences_023: 
+  created_at: 2010-09-26 03:12:18
+  id: "23"
+  max_continuous_hours: "2"
+  max_hours_per_day: "2"
+  max_number_of_shifts: "4"
+  max_total_hours: "6"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "3"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 03:12:18
+  user_id: "29"
+shift_preferences_024: 
+  created_at: 2010-09-26 03:17:00
+  id: "24"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "3"
+  max_total_hours: "7"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 03:17:00
+  user_id: "160"
+shift_preferences_025: 
+  created_at: 2010-09-26 03:23:49
+  id: "25"
+  max_continuous_hours: "3"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "4"
+  max_total_hours: "10"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 03:23:49
+  user_id: "163"
+shift_preferences_026: 
+  created_at: 2010-09-26 03:59:30
+  id: "26"
+  max_continuous_hours: "3"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "4"
+  max_total_hours: "10"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-26 03:59:30
+  user_id: "98"
+shift_preferences_027: 
+  created_at: 2010-09-26 04:15:49
+  id: "27"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "6"
+  max_total_hours: "10"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 04:15:49
+  user_id: "101"
+shift_preferences_028: 
+  created_at: 2010-09-26 05:14:05
+  id: "28"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "4"
+  max_total_hours: "9"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 05:14:05
+  user_id: "130"
+shift_preferences_029: 
+  created_at: 2010-09-26 05:42:00
+  id: "29"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "6"
+  max_total_hours: "12"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "4"
+  min_total_hours: "10"
+  template_id: "1"
+  updated_at: 2010-09-26 05:42:00
+  user_id: "55"
+shift_preferences_030: 
+  created_at: 2010-09-26 06:12:13
+  id: "30"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "6"
+  max_total_hours: "14"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "3"
+  min_total_hours: "8"
+  template_id: "1"
+  updated_at: 2010-09-26 06:12:13
+  user_id: "157"
+shift_preferences_031: 
+  created_at: 2010-09-26 06:12:48
+  id: "31"
+  max_continuous_hours: "4"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "7"
+  max_total_hours: "15"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 06:12:48
+  user_id: "141"
+shift_preferences_032: 
+  created_at: 2010-09-26 06:21:31
+  id: "32"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "4"
+  max_total_hours: "12"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "3"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-26 06:21:31
+  user_id: "133"
+shift_preferences_033: 
+  created_at: 2010-09-26 07:43:38
+  id: "33"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "5"
+  max_total_hours: "8"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 07:43:39
+  user_id: "143"
+shift_preferences_034: 
+  created_at: 2010-09-26 15:57:02
+  id: "34"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "3"
+  max_total_hours: "6"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 15:57:03
+  user_id: "147"
+shift_preferences_035: 
+  created_at: 2010-09-26 16:05:07
+  id: "35"
+  max_continuous_hours: "2"
+  max_hours_per_day: "2"
+  max_number_of_shifts: "2"
+  max_total_hours: "3"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "1"
+  min_total_hours: "2"
+  template_id: "1"
+  updated_at: 2010-09-26 16:05:07
+  user_id: "127"
+shift_preferences_036: 
+  created_at: 2010-09-26 17:38:11
+  id: "36"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "4"
+  max_total_hours: "8"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "3"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 17:38:11
+  user_id: "124"
+shift_preferences_037: 
+  created_at: 2010-09-26 18:20:22
+  id: "37"
+  max_continuous_hours: "2"
+  max_hours_per_day: "2"
+  max_number_of_shifts: "10"
+  max_total_hours: "15"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "4"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 18:20:22
+  user_id: "122"
+shift_preferences_038: 
+  created_at: 2010-09-26 18:52:11
+  id: "38"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "5"
+  max_total_hours: "7"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-26 18:52:11
+  user_id: "38"
+shift_preferences_039: 
+  created_at: 2010-09-26 19:00:03
+  id: "39"
+  max_continuous_hours: "6"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "5"
+  max_total_hours: "11"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "2"
+  min_total_hours: "8"
+  template_id: "1"
+  updated_at: 2010-09-26 19:00:03
+  user_id: "32"
+shift_preferences_040: 
+  created_at: 2010-09-26 19:42:15
+  id: "40"
+  max_continuous_hours: "3"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "4"
+  max_total_hours: "9"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 19:42:15
+  user_id: "156"
+shift_preferences_041: 
+  created_at: 2010-09-26 19:43:41
+  id: "41"
+  max_continuous_hours: "3"
+  max_hours_per_day: "2"
+  max_number_of_shifts: "2"
+  max_total_hours: "7"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 19:43:42
+  user_id: "75"
+shift_preferences_042: 
+  created_at: 2010-09-26 22:02:24
+  id: "42"
+  max_continuous_hours: "4"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "3"
+  max_total_hours: "9"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 22:02:24
+  user_id: "138"
+shift_preferences_043: 
+  created_at: 2010-09-26 22:15:16
+  id: "43"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "3"
+  max_total_hours: "10"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 22:15:16
+  user_id: "142"
+shift_preferences_044: 
+  created_at: 2010-09-26 23:06:45
+  id: "44"
+  max_continuous_hours: "4"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "10"
+  max_total_hours: "15"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "10"
+  template_id: "1"
+  updated_at: 2010-09-26 23:06:45
+  user_id: "126"
+shift_preferences_045: 
+  created_at: 2010-09-26 23:19:42
+  id: "45"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "3"
+  max_total_hours: "6"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-26 23:19:42
+  user_id: "41"
+shift_preferences_046: 
+  created_at: 2010-09-26 23:43:28
+  id: "46"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "5"
+  max_total_hours: "10"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "7"
+  template_id: "1"
+  updated_at: 2010-09-26 23:43:28
+  user_id: "100"
+shift_preferences_047: 
+  created_at: 2010-09-27 00:10:54
+  id: "47"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "5"
+  max_total_hours: "12"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "3"
+  min_total_hours: "8"
+  template_id: "1"
+  updated_at: 2010-09-27 00:10:54
+  user_id: "99"
+shift_preferences_048: 
+  created_at: 2010-09-27 00:31:36
+  id: "48"
+  max_continuous_hours: "3"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "4"
+  max_total_hours: "9"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "6"
+  template_id: "1"
+  updated_at: 2010-09-27 00:31:36
+  user_id: "78"
+shift_preferences_049: 
+  created_at: 2010-09-27 01:51:20
+  id: "49"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "5"
+  max_total_hours: "8"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "3"
+  min_total_hours: "6"
+  template_id: "1"
+  updated_at: 2010-09-27 01:51:20
+  user_id: "68"
+shift_preferences_050: 
+  created_at: 2010-09-27 01:57:33
+  id: "50"
+  max_continuous_hours: "6"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "4"
+  max_total_hours: "12"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "8"
+  template_id: "1"
+  updated_at: 2010-09-27 01:57:33
+  user_id: "140"
+shift_preferences_051: 
+  created_at: 2010-09-27 02:23:26
+  id: "51"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "2"
+  max_total_hours: "4"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 02:23:26
+  user_id: "94"
+shift_preferences_052: 
+  created_at: 2010-09-27 03:36:58
+  id: "52"
+  max_continuous_hours: "6"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "3"
+  max_total_hours: "10"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 03:36:59
+  user_id: "172"
+shift_preferences_053: 
+  created_at: 2010-09-27 13:08:28
+  id: "53"
+  max_continuous_hours: "2"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "4"
+  max_total_hours: "5"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "3"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 13:08:28
+  user_id: "36"
+shift_preferences_054: 
+  created_at: 2010-09-27 15:50:36
+  id: "54"
+  max_continuous_hours: "6"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "5"
+  max_total_hours: "15"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "10"
+  template_id: "1"
+  updated_at: 2010-09-27 15:50:36
+  user_id: "151"
+shift_preferences_055: 
+  created_at: 2010-09-27 22:42:48
+  id: "55"
+  max_continuous_hours: "6"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "3"
+  max_total_hours: "6"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "1"
+  min_total_hours: "2"
+  template_id: "1"
+  updated_at: 2010-09-27 22:42:48
+  user_id: "48"
+shift_preferences_056: 
+  created_at: 2010-09-27 22:53:57
+  id: "56"
+  max_continuous_hours: "6"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "2"
+  max_total_hours: "6"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 22:53:58
+  user_id: "149"
+shift_preferences_057: 
+  created_at: 2010-09-27 22:56:00
+  id: "57"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "2"
+  max_total_hours: "5"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 22:56:00
+  user_id: "76"
+shift_preferences_058: 
+  created_at: 2010-09-27 22:57:46
+  id: "58"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "3"
+  max_total_hours: "6"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "1"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 22:57:47
+  user_id: "154"
+shift_preferences_059: 
+  created_at: 2010-09-27 23:42:32
+  id: "59"
+  max_continuous_hours: "4"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "2"
+  max_total_hours: "8"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 23:42:32
+  user_id: "135"
+shift_preferences_060: 
+  created_at: 2010-09-27 23:45:08
+  id: "60"
+  max_continuous_hours: "5"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "2"
+  max_total_hours: "10"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-27 23:45:09
+  user_id: "135"
+shift_preferences_061: 
+  created_at: 2010-09-27 23:45:41
+  id: "61"
+  max_continuous_hours: "3"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "4"
+  max_total_hours: "4"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "1"
+  min_total_hours: "1"
+  template_id: "1"
+  updated_at: 2010-09-27 23:45:41
+  user_id: "24"
+shift_preferences_062: 
+  created_at: 2010-09-28 00:06:50
+  id: "62"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "4"
+  max_total_hours: "7"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-28 00:08:39
+  user_id: "20"
+shift_preferences_063: 
+  created_at: 2010-09-28 00:18:44
+  id: "63"
+  max_continuous_hours: "4"
+  max_hours_per_day: "5"
+  max_number_of_shifts: "3"
+  max_total_hours: "10"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "1"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-28 00:18:44
+  user_id: "144"
+shift_preferences_064: 
+  created_at: 2010-09-28 00:34:14
+  id: "64"
+  max_continuous_hours: "2"
+  max_hours_per_day: "2"
+  max_number_of_shifts: "2"
+  max_total_hours: "4"
+  min_continuous_hours: "0"
+  min_number_of_shifts: "0"
+  min_total_hours: "0"
+  template_id: "1"
+  updated_at: 2010-09-28 00:34:14
+  user_id: "129"
+shift_preferences_065: 
+  created_at: 2010-09-28 00:45:35
+  id: "65"
+  max_continuous_hours: "4"
+  max_hours_per_day: "6"
+  max_number_of_shifts: "4"
+  max_total_hours: "8"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-28 00:45:35
+  user_id: "125"
+shift_preferences_066: 
+  created_at: 2010-09-28 01:00:25
+  id: "66"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "3"
+  max_total_hours: "6"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "2"
+  min_total_hours: "3"
+  template_id: "1"
+  updated_at: 2010-09-28 01:00:25
+  user_id: "95"
+shift_preferences_067: 
+  created_at: 2010-09-28 01:35:54
+  id: "67"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "4"
+  max_total_hours: "8"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "5"
+  template_id: "1"
+  updated_at: 2010-09-28 01:35:54
+  user_id: "82"
+shift_preferences_068: 
+  created_at: 2010-09-28 02:20:00
+  id: "68"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "3"
+  max_total_hours: "7"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "0"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-28 02:20:00
+  user_id: "91"
+shift_preferences_069: 
+  created_at: 2010-09-28 04:43:01
+  id: "69"
+  max_continuous_hours: "4"
+  max_hours_per_day: "4"
+  max_number_of_shifts: "10"
+  max_total_hours: "15"
+  min_continuous_hours: "1"
+  min_number_of_shifts: "5"
+  min_total_hours: "0"
+  template_id: "1"
+  updated_at: 2010-09-28 04:43:01
+  user_id: "123"
+shift_preferences_070: 
+  created_at: 2010-09-28 10:02:55
+  id: "70"
+  max_continuous_hours: "3"
+  max_hours_per_day: "3"
+  max_number_of_shifts: "2"
+  max_total_hours: "5"
+  min_continuous_hours: "2"
+  min_number_of_shifts: "2"
+  min_total_hours: "4"
+  template_id: "1"
+  updated_at: 2010-09-28 10:02:55
+  user_id: "22"

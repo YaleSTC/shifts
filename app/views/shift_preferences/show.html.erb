@@ -36,7 +36,7 @@
 
 <p>
 	<b>Locations:</b>
-	<%= @shift_preference.locations.collect{|l| l.short_name}.to_sentence %>
+	<%= @shift_preference.locations.uniq.collect{|l| l.short_name}.to_sentence %>
 </p>
 
 <%= link_to 'Edit', edit_template_shift_preference_path(@week_template) %> |
