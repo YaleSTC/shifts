@@ -51,7 +51,7 @@
 
       </div> <%# close report_relative_size %>
 
-      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put, :id => 'submit_button'}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
 
       <div class='clear'></div>
     </div> <%# close active_report_area %>
