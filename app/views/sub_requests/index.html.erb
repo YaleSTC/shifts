@@ -45,6 +45,6 @@
 <% end %>
 <% if @limit_links %>
 	<%= link_to "view more", sub_requests_path(:anchor => "view_more", :limit => @limit+25), :id => "view_more" %>
-	<%= link_to "view all", sub_requests_path(:anchor => "view_all", :limit => @subs.count), :id => "view_all" %>
+	<%= link_to "view all", sub_requests_path(:anchor => "view_all", :limit => @subs.size), :id => "view_all" %>
 <% end %>
 
