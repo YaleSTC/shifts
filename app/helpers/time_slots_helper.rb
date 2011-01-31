@@ -28,6 +28,7 @@ module TimeSlotsHelper
     #timeslots = TimeSlot.all(:conditions => ['start >= ? and start < ? and location_id = ?',time_slot_day.beginning_of_day,time_slot_day.end_of_day,location.id])
     timeslots = TimeSlot.on_day(time_slot_day).in_location(location)
     for timeslot in timeslots do
+    #TODO: This needs to be changed to fix midnight display bug. I believe it should reflect whether either the start or the end lies outside the dept hours, not both start and end.
       if ((timeslot.start < timeslot.start.beginning_of_day + @dept_start_hour.hours) &&
          (timeslot.end    < timeslot.start.beginning_of_day + @dept_start_hour.hours)) ||
          ((timeslot.start > timeslot.start.beginning_of_day + @dept_end_hour.hours) &&
