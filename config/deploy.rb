@@ -70,7 +70,6 @@ EOF
     task :localize, :roles => [:app] do
 
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
-      #Temporarily disabled until hoptoad integration is complete
       run "ln -nsf #{shared_path}/config/hoptoad.rb #{current_path}/config/initializers/hoptoad.rb"
 
       run "mkdir -p #{shared_path}/log"

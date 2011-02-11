@@ -365,6 +365,7 @@ class ApplicationController < ActionController::Base
       end
       form_output["start"] ||= Time.now
       form_output
+    end
   end
 
   private
@@ -402,4 +403,3 @@ class ApplicationController < ActionController::Base
 
 
 end
-
