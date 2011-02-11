@@ -5,7 +5,7 @@ default_branch = ENV['BRANCH'] ? ENV['BRANCH'] : "master"
 
 # == INITIAL CONFIG ==============
 set :application, "shifts"
-set :repository,  "git@github.com:YaleSTC/shifts.git"
+set :repository,  "git://github.com/YaleSTC/shifts.git"
 set :apache_config_dir, "/etc/apache2/vhosts.d"
 set :document_root, "/srv/www/htdocs"
 
