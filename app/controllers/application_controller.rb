@@ -343,7 +343,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def convert_to_time(date_array)
     # 0 = year, 1 = month, 2 = day, 3 = hour, 4 = minute, 5 = meridiem(am/pm)
     if date_array[3] == 12 #if noon or midnight
@@ -361,13 +360,11 @@ class ApplicationController < ActionController::Base
     %w{start end mandatory_start mandatory_end}.each do |field_name|
       if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
         form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
-      form_output.delete("#{field_name}_date")
-      form_output.delete("#{field_name}_time")
+        form_output.delete("#{field_name}_date")
+        form_output.delete("#{field_name}_time")
       end
-    end
-    form_output["start"] ||= Time.now
-
-    form_output
+      form_output["start"] ||= Time.now
+      form_output
   end
 
   private
