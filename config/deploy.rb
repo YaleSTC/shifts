@@ -7,7 +7,7 @@ default_branch = ENV['BRANCH'] ? ENV['BRANCH'] : "master"
 set :application, "shifts"
 set :repository,  "git://github.com/YaleSTC/shifts.git"
 set :apache_config_dir, "/etc/httpd/conf.d"
-set :document_root, "/var/www/htdocs"
+set :document_root, "/var/www/html"
 
 set :user, "deploy"
 set :runner, "deploy"
