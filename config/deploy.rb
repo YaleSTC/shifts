@@ -46,7 +46,7 @@ production:
   adapter: mysql
   database: #{application}_#{application_prefix}_production
   host: localhost
-  user: #{mysql_user}
+  username: #{mysql_user}
   password: #{mysql_pass} 
 
 EOF
