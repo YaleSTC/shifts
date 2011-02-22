@@ -1,6 +1,6 @@
 # == DEPLOYMENT DEFAULTS =========
 default_domain = ENV['DOMAIN'] ? ENV['DOMAIN'] : "mahi.its.yale.edu"
-default_application_prefix = ENV['PREFIX'] ? ENV['PREFIX'] : "test"
+default_application_prefix = ENV['PREFIX'] ? ENV['PREFIX'] : "shifts_test"
 default_branch = ENV['BRANCH'] ? ENV['BRANCH'] : "master"
 
 # == INITIAL CONFIG ==============
@@ -47,7 +47,7 @@ production:
   database: #{application}_#{application_prefix}_production
   host: localhost
   username: #{mysql_user}
-  password: #{mysql_pass} 
+  password: #{mysql_pass}
 
 EOF
       run "mkdir -p #{shared_path}/config"
@@ -59,7 +59,7 @@ EOF
       set :api_key, Capistrano::CLI.ui.ask("Hoptoad API Key: ")
       hoptoad_config=<<-EOF
 HoptoadNotifier.configure do |config|
-  config.api_key = ''
+  config.api_key = '#{api_key}'
 end
 
 EOF
