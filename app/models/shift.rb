@@ -13,6 +13,7 @@ class Shift < ActiveRecord::Base
   validates_presence_of :location
   validates_presence_of :start
   validate :is_within_calendar
+
   before_save :set_active
   attr_accessor :start_date
   attr_accessor :start_time
