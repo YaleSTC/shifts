@@ -11,6 +11,7 @@ class TimeSlot < ActiveRecord::Base
   validate :start_less_than_end
   validate :is_within_calendar
   validate :no_concurrent_timeslots
+  
   attr_accessor :start_date
   attr_accessor :start_time
   attr_accessor :end_date
