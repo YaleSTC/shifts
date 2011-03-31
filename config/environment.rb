@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.3' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.11' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -30,20 +30,6 @@ Rails::Initializer.run do |config|
   }
 #  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_charset = "utf-8"
-
-  # Specify gems that this application depends on.
-  # They can then be installed with "rake gems:install" on new installations.
-  # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
-  config.gem "ruby-net-ldap", :lib => 'net/ldap'
-  config.gem "fastercsv", :lib => false
-  config.gem "icalendar", :lib  => false
-  config.gem "prawn"
-  config.gem "chronic"
-  config.gem "has_many_polymorphs"
-  config.gem "authlogic"
-  config.gem 'ar_mailer', :lib => 'action_mailer/ar_mailer'
-  config.gem "whenever", :lib => false
-  config.gem 'hoptoad_notifier'
   
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.
