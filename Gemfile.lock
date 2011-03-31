@@ -1,0 +1,64 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    aaronh-chronic (0.3.9)
+    actionmailer (2.3.11)
+      actionpack (= 2.3.11)
+    actionpack (2.3.11)
+      activesupport (= 2.3.11)
+      rack (~> 1.1.0)
+    activerecord (2.3.11)
+      activesupport (= 2.3.11)
+    activeresource (2.3.11)
+      activesupport (= 2.3.11)
+    activesupport (2.3.11)
+    ar_mailer (1.5.1)
+    authlogic (2.1.6)
+      activesupport
+    builder (3.0.0)
+    chronic (0.3.0)
+    fastercsv (1.5.4)
+    has_many_polymorphs (2.13)
+      activerecord
+    hoptoad_notifier (2.4.9)
+      activesupport
+      builder
+    icalendar (1.1.6)
+    mysql (2.8.1)
+    prawn (0.8.4)
+      prawn-core (< 0.9, >= 0.8.4)
+      prawn-layout (< 0.9, >= 0.8.4)
+      prawn-security (< 0.9, >= 0.8.4)
+    prawn-core (0.8.4)
+    prawn-layout (0.8.4)
+    prawn-security (0.8.4)
+    rack (1.1.2)
+    rails (2.3.11)
+      actionmailer (= 2.3.11)
+      actionpack (= 2.3.11)
+      activerecord (= 2.3.11)
+      activeresource (= 2.3.11)
+      activesupport (= 2.3.11)
+      rake (>= 0.8.3)
+    rake (0.8.7)
+    ruby-net-ldap (0.0.4)
+    whenever (0.6.7)
+      aaronh-chronic (>= 0.3.9)
+      activesupport (>= 2.3.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ar_mailer
+  authlogic
+  chronic
+  fastercsv
+  has_many_polymorphs
+  hoptoad_notifier
+  icalendar
+  mysql
+  prawn
+  rails (= 2.3.11)
+  ruby-net-ldap
+  whenever

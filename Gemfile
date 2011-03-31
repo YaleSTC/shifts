@@ -1,0 +1,13 @@
+source :rubygems
+gem "rails", "2.3.11"
+gem "ruby-net-ldap", :require => "net/ldap"
+gem "fastercsv"
+gem "icalendar"
+gem "prawn"
+gem "chronic"
+gem "has_many_polymorphs"
+gem "authlogic"
+gem "ar_mailer", :require => "action_mailer/ar_mailer"
+gem "whenever"
+gem "hoptoad_notifier"
+gem "mysql"
