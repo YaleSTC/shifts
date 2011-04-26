@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 # == DEPLOYMENT DEFAULTS =========
 default_domain = ENV['DOMAIN'] ? ENV['DOMAIN'] : "mahi.its.yale.edu"
 default_application_prefix = ENV['PREFIX'] ? ENV['PREFIX'] : "shifts_test"
