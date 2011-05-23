@@ -2848,7 +2848,7 @@ users_150:
   perishable_token: 9GKaONej3gnK_Fu5XNYr
   persistence_token: 8fd76b20889deeb9f9f61993a4567d1aa704b6fcb29d60e06403680b4880a43f6767b6f817f02dbf77897929751a2e867cbdabd621ac63a483258dbd3dce055a
   supermode: "1"
-  superuser: 
+  superuser: "1"
   updated_at: 2010-09-07 02:26:57
 users_151: 
   auth_type: CAS
