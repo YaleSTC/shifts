@@ -1,0 +1,17 @@
+<div class="day" style="height: <%= @table_pixels / (@table_height) * (@location_rows[left_location].length) + @location_rows[left_location].length - 1 %>px;">
+  <div class="center_container click_to_add_new" id="location<%=left_location.id%>_<%=day%>_label">
+    <div class="center_content">
+      <%= left_location.short_name %>
+    </div>
+  </div>
+</div>
+<% unless @location_rows_timeslots[left_location].nil? %>
+  <div class="day" style="height: <%= @table_pixels / (@table_height) / 2 %>px;">
+    <div class="center_container click_to_add_new_timeslot">
+      <div class="center_content">
+        signups
+      </div>
+    </div>
+  </div>
+<% end %>
+

@@ -137,6 +137,20 @@ module ApplicationHelper
     end
   end
 
-
+	def observe_fields(fields)
+		#prepare a value of the :with parameter
+		with = "'"
+		for field in fields
+			with += field + "=’$(’#" + field + "’).is(':checked')"
+			with += " + " if field != fields.last
+		end
+ 		with += "'"
+		#generate a call of the observer_field helper for each field
+		ret = "";
+		for field in fields
+			puts field
+			ret += observe_field(field.to_s, :url => {:controller => :templates, :action => "update_locations"}, :with => with, :on => "change")
+    end
+    return ret
+	end
 end
-

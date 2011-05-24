@@ -17,6 +17,7 @@ class PayformItemSetsController < ApplicationController
   
   def create
     params[:user_ids].delete("")
+    set_payform_item_hours("payform_item_set")
     @payform_item_set = PayformItemSet.new(params[:payform_item_set])
     @payform_item_set.active = true #TODO: set this as a default in the database
     date = build_date_from_params(:date, params[:payform_item_set])
@@ -31,7 +32,8 @@ class PayformItemSetsController < ApplicationController
           payform_item.payform = Payform.build(current_department, user, date)
           @payform_items << payform_item
         end
-      
+
+        
         if @payform_item_set.save and @payform_item_set.payform_items << @payform_items
           flash[:notice] = "Successfully created payform item set."
           redirect_to payform_item_sets_path

@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  helper "payforms"
   layout "payforms"
   
   before_filter :require_department_admin

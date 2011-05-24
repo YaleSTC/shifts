@@ -28,8 +28,6 @@ class TimeSlotsController < ApplicationController
     parse_date_and_time_output(params[:time_slot])
     join_date_and_time(params[:time_slot])
     @time_slot = TimeSlot.new(params[:time_slot])
-#    @time_slot.join_date_and_time
-
     if !@time_slot.save
       errors << "Error saving timeslot"
     end
@@ -48,6 +46,11 @@ class TimeSlotsController < ApplicationController
             @dept_start_hour = current_department.department_config.schedule_start / 60
             @dept_end_hour = current_department.department_config.schedule_end / 60
             @hours_per_day = (@dept_end_hour - @dept_start_hour)
+            if (@time_slot.start.beginning_of_day + current_department.department_config.schedule_start.minutes) <= @time_slot.start ##in the normal day (up to midnight)
+              @time_slot_day = @time_slot.start.to_date
+            else #after midnight
+              @time_slot_day = @time_slot.start.to_date - 1.day
+            end
           else
             render :update do |page|
               ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")

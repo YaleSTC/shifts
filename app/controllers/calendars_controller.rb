@@ -211,7 +211,7 @@ class CalendarsController < ApplicationController
     @loc_group_select[@department.id] = @department.loc_groups #{}
     @visible_loc_groups = current_user.user_config.view_loc_groups
     @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
-    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
+    @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
 
     # now all this stuff is collected in day_preprocessing helper
     # @shifts = []
@@ -233,7 +233,7 @@ class CalendarsController < ApplicationController
     @blocks_per_hour = 60/@time_increment.to_f
 
     #get calendar colors
-    @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
+    @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f"]
     @color = {}
     @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i]}
   end
