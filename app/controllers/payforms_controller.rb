@@ -5,7 +5,7 @@ class PayformsController < ApplicationController
     @payforms = narrow_down(current_user.is_admin_of?(current_department) ?
                             current_department.payforms :
                             current_department.payforms && current_user.payforms)
-    @payforms = @payforms.sort_by{|payform| payform.user.last_name}
+    @payforms = @payforms.sort_by{|payform| payform.user.reverse_name}
   end
 
   def show
