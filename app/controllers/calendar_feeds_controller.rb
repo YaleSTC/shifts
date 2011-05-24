@@ -1,12 +1,12 @@
 class CalendarFeedsController < ApplicationController
     skip_before_filter filter_chain, :except => [:index]
-    
+
   def index
     @source_types = %w[User Department LocGroup Location]
     shift_source = Struct.new( :type, :name, :token )
     @shift_sources=[]
     @sub_sources=[]
-    
+
     @source_types.each do |source_type|
       current_user.send(source_type.underscore.concat('s')).each do |source|
          @shift_sources << shift_source.new(source.class.name, source.name, generate_token(source, "Shift"))
@@ -21,21 +21,21 @@ class CalendarFeedsController < ApplicationController
     flash[:notice] = 'All calendars reset.  NOTE: Your old feeds are now inactive'
     redirect_to :action => "index"
   end
-  
+
   def grab
     begin
       @token_array = resolve_token(params[:token], params[:user_id])
       @user = User.find(params[:user_id])
     rescue Exception => e
       redirect_to :action => "index"
-      flash[:error] = 'Could not load calendar feed.  This feed may be invalid, inactive, or disabled.'  
+      flash[:error] = 'Could not load calendar feed.  This feed may be invalid, inactive, or disabled.'
       return
-    end 
+    end
     @shifts = []
-    @source = @token_array[0]  
+    @source = @token_array[0]
     @type = @token_array[1]
     if @type == "SubRequest"
-       @shifts = @user.available_sub_requests(@source)      
+       @shifts = @user.available_sub_requests(@source)
     elsif @type == "Shift"
        case
         when @source.class.name == "Department" && @user.departments.include?(@source) && @user.is_active?(@source)
@@ -50,9 +50,9 @@ class CalendarFeedsController < ApplicationController
     end
     render :text => generate_ical
   end
-  
+
   private
-  
+
   def generate_token(source, type)
     if !current_user.calendar_feed_hash
       current_user.calendar_feed_hash = ActiveSupport::SecureRandom.hex(32)  #must be 32 characters
@@ -62,13 +62,13 @@ class CalendarFeedsController < ApplicationController
       require 'digest/sha2'
       cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
       cipher.encrypt
-      cipher.key = AppConfig.first.calendar_feed_hash      
+      cipher.key = AppConfig.first.calendar_feed_hash
       cipher.iv = current_user.calendar_feed_hash
       @token = cipher.update(source.class.name.to_s + ',' +  source.id.to_s + ',' + type)    #creates cipher from string
       @token << cipher.final
       @token.unpack("H*").to_s          #makes cipher alpa-numeric pretty
   end
-  
+
   def resolve_token(token, user_id)
     require 'openssl'
     require 'digest/sha2'
@@ -92,17 +92,17 @@ class CalendarFeedsController < ApplicationController
     cal.custom_property("X-PUBLISHED-TTL", "PT1H")  #default refresh rate
       @shifts.each do |shift|
         @event = Icalendar::Event.new
-        @event.dtstart = shift.start.to_s(:us_icaldate)
-        @event.dtend = shift.end.to_s(:us_icaldate)
+        @event.dtstart = shift.start.utc.to_s(:us_icaldate_utc)
+        @event.dtend = shift.end.utc.to_s(:us_icaldate_utc)
         if @type == "Shift"
           @event.summary = "Shift" + (@source.class.name != "User" ? " for #{shift.user.name}" : "") + " in #{shift.location.short_name}"
           @event.summary << " (sub requested!)" if shift.has_sub?
           @event.description = shift.user.name + " has requested a sub for this shift!"
         elsif @type == "SubRequest"
-          @event.description = "\nMandatory: " + shift.mandatory_start.to_s(:twelve_hour) + " - " + shift.mandatory_end.to_s(:twelve_hour) 
+          @event.description = "\nMandatory: " + shift.mandatory_start.to_s(:twelve_hour) + " - " + shift.mandatory_end.to_s(:twelve_hour)
           @event.description << "\n\n" + shift.reason
            @event.summary = "Sub for #{shift.user.name} in #{shift.location.short_name}"
-        end  
+        end
         @event.location = shift.location.name
         cal.add @event
       end
@@ -110,7 +110,8 @@ class CalendarFeedsController < ApplicationController
       headers['Content-Disposition'] = "inline; filename=" + User.find(params[:user_id]).name + "_calendar_feed.ics"
      # cal.publish  #not necessary...
       cal.to_ical
-  end    
-  
-  
+  end
+
+
 end
+

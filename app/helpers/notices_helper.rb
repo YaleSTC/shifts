@@ -22,7 +22,6 @@ module NoticesHelper
 		false
   end
 
-
   def end_time_check(indefinite)
     if indefinite
       return true unless @announcement.end
@@ -39,4 +38,3 @@ module NoticesHelper
     end
   end
 end
-

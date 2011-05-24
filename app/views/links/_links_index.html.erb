@@ -34,6 +34,9 @@
 														           :method => :delete %>
 								<% end %>
 								<%= link_to "#{link.content}", "#{link.url}", :popup => true %>
+								<div class="link_url">
+								    <%= link.url %>
+								 </div>
 							</li>
 						<% end %>
 						</ul>

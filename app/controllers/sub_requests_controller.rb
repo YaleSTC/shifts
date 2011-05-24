@@ -7,7 +7,7 @@ class SubRequestsController < ApplicationController
       @title_add=" for " + @shift.user.name + "'s shift in " + @shift.location.name + " on " + @shift.start.to_s(:gg)
       @index_link = true
     else
-      @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now])
+      @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now], :order => 'start')
       @title_add=" Index"
       @index_link=false
     end

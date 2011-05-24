@@ -24,16 +24,32 @@ class Calendar < ActiveRecord::Base
 
   def self.copy(old_calendar, new_calendar, wipe)
     errors = ""
-    old_calendar.repeating_events.each do |r|
-      new_repeating_event = r.clone
-      new_repeating_event.start_date = new_calendar.start_date
-      new_repeating_event.end_date = new_calendar.end_date
-      new_repeating_event.calendar = new_calendar
-      new_repeating_event.save!
-      error = new_repeating_event.make_future(wipe)
-      errors += ","+error if error
-      end
-      errors
+
+    # old_calendar.repeating_events.each do |r|
+    #   new_repeating_event = r.clone
+    #   new_repeating_event.start_date = new_calendar.start_date
+    #   new_repeating_event.end_date = new_calendar.end_date
+    #   new_repeating_event.calendar = new_calendar
+    #   new_repeating_event.save!
+    #   error = new_repeating_event.make_future(wipe)
+    #   errors += ","+error if error
+    # end
+
+    old_calendar.time_slots.select{|s| s.repeating_event.nil?}.each do |r|
+      new_time_slot = r.clone
+      new_time_slot.calendar = new_calendar
+      new_time_slot.active = new_calendar.active
+      new_time_slot.save!
+    end
+
+    old_calendar.shifts.select{|s| s.repeating_event.nil?}.each do |r|
+      new_shift = r.clone
+      new_shift.calendar = new_calendar
+      new_shift.active = new_calendar.active
+      new_shift.power_signed_up = true
+      new_shift.save!
+    end
+    errors
   end
 
   #def self.wipe_range(start_time, end_time, wipe_timeslots, wipe_shifts, loc_ids, cal_ids)

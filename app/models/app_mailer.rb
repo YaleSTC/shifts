@@ -45,7 +45,7 @@ class AppMailer < ActionMailer::Base
     recipients  old_payform_item.user.email
     from        dept.department_config.mailer_address
     sent_on     Time.now
-    subject     "Your payform item has been deleted by #{old_payform_item.source}"
+    subject     "Your payform item has been deleted by #{old_payform_item.versions.last.user}"
     body        :old_payform_item => old_payform_item
   end
 
