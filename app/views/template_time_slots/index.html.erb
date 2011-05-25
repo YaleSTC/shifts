@@ -1,0 +1,55 @@
+<h1 id="page_title">Timeslots for <%= @week_template.name %> </h1>
+<div id = "all_time_slots">
+	<%= render :partial => "all_time_slots", :locals => {:template_time_slots => @template_time_slots} %>
+</div>
+<p>
+	<fieldset class = "index" >
+		<legend>Add a new a time slot</legend>
+		<% remote_form_for([@week_template, @template_time_slot]) do |f| %>
+			<div id ="errors">
+		  	<%= render :partial => "template_time_slots/error_messages", :locals => {:f => f} %>
+			</div>
+			<p>
+				Where:
+				<% @week_template.signup_locations.each do |location| %> 
+					<%= check_box_tag "for_locations[]", location.id %>
+					<%= label_tag "location_#{location.id}", text = location.short_name %>
+					<%= "," unless location == @week_template.signup_locations.last %>
+				<% end %>
+			</p>
+			<p>
+				Start time:
+				<%= f.time_select "start_time", {
+																:simple_time_select => true,
+																:time_separator => "",
+																:minute_interval => current_department.department_config.time_increment,
+																:start_time => @start,
+																:end_time => @end,
+																:include_start_time => true,
+																:include_end_time => false,
+																:default => @start} %>
+			</p>
+			<p>
+				End time:
+				<%= f.time_select "end_time", {
+																:simple_time_select => true,
+																:time_separator => "",
+																:minute_interval => current_department.department.department_config.time_increment,
+																:start_time => @start,
+																:end_time => @end,
+																:include_start_time => false,
+																:include_end_time => true,
+																:default => @end} %>
+			</p>
+			<p>
+				Day:
+				<% RequestedShift::WEEK_DAY_SELECT.each do |day| %>
+					<%= check_box "template_time_slot[day]", day[1].to_i %> <%= "#{day[0][0..2]}" %>
+				<% end %>
+			</p>
+			<%= f.submit 'Add' %>
+		<% end %>
+	</fieldset>
+</p>
+
+<%= link_to "Back to templates", templates_path %>

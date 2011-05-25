@@ -1,56 +1,96 @@
 --- 
 permissions_001: 
-  created_at: 2009-06-22 17:27:52
+  created_at: 2009-09-08 01:29:16
   id: "1"
   name: STC dept admin
-  updated_at: 2009-06-22 17:27:52
+  updated_at: 2009-09-08 01:29:16
 permissions_002: 
-  created_at: 2009-06-22 17:33:43
-  id: "5"
-  name: IO Cluster view
-  updated_at: 2009-06-22 17:33:43
-permissions_003: 
-  created_at: 2009-06-22 17:33:43
-  id: "6"
-  name: IO Cluster signup
-  updated_at: 2009-06-22 17:33:43
-permissions_004: 
-  created_at: 2009-06-22 17:33:43
-  id: "7"
-  name: IO Cluster admin
-  updated_at: 2009-06-22 17:33:43
-permissions_005: 
-  created_at: 2009-06-22 17:33:57
-  id: "8"
+  created_at: 2009-09-08 01:31:31
+  id: "2"
   name: Public Clusters view
-  updated_at: 2009-06-22 17:33:57
-permissions_006: 
-  created_at: 2009-06-22 17:33:57
-  id: "9"
+  updated_at: 2010-04-02 15:14:39
+permissions_003: 
+  created_at: 2009-09-08 01:31:31
+  id: "3"
   name: Public Clusters signup
-  updated_at: 2009-06-22 17:33:57
-permissions_007: 
-  created_at: 2009-06-22 17:33:57
-  id: "10"
+  updated_at: 2010-04-02 15:14:39
+permissions_004: 
+  created_at: 2009-09-08 01:31:31
+  id: "4"
   name: Public Clusters admin
-  updated_at: 2009-06-22 17:33:57
+  updated_at: 2010-04-02 15:14:39
+permissions_005: 
+  created_at: 2009-09-14 02:07:05
+  id: "5"
+  name: io view
+  updated_at: 2010-04-02 15:14:49
+permissions_006: 
+  created_at: 2009-09-14 02:07:05
+  id: "6"
+  name: io signup
+  updated_at: 2010-04-02 15:14:49
+permissions_007: 
+  created_at: 2009-09-14 02:07:05
+  id: "7"
+  name: io admin
+  updated_at: 2010-04-02 15:14:49
 permissions_008: 
-  created_at: 2009-06-22 17:34:11
+  created_at: 2009-09-14 02:10:19
+  id: "8"
+  name: Bass Media view
+  updated_at: 2010-04-02 15:14:56
+permissions_009: 
+  created_at: 2009-09-14 02:10:19
+  id: "9"
+  name: Bass Media signup
+  updated_at: 2010-04-02 15:14:56
+permissions_010: 
+  created_at: 2009-09-14 02:10:19
+  id: "10"
+  name: Bass Media admin
+  updated_at: 2010-04-02 15:14:56
+permissions_011: 
+  created_at: 2009-09-14 02:26:57
   id: "11"
   name: College Clusters view
-  updated_at: 2009-06-22 17:34:11
-permissions_009: 
-  created_at: 2009-06-22 17:34:11
+  updated_at: 2010-04-02 15:15:08
+permissions_012: 
+  created_at: 2009-09-14 02:26:57
   id: "12"
   name: College Clusters signup
-  updated_at: 2009-06-22 17:34:11
-permissions_010: 
-  created_at: 2009-06-22 17:34:11
+  updated_at: 2010-04-02 15:15:08
+permissions_013: 
+  created_at: 2009-09-14 02:26:57
   id: "13"
   name: College Clusters admin
-  updated_at: 2009-06-22 17:34:11
-permissions_011: 
-  created_at: 2009-06-22 18:09:37
+  updated_at: 2010-04-02 15:15:08
+permissions_014: 
+  created_at: 2009-09-21 20:29:30
   id: "14"
-  name: DOJ dept admin
-  updated_at: 2009-06-22 18:09:37
+  name: Grad Support view
+  updated_at: 2010-04-02 15:15:28
+permissions_015: 
+  created_at: 2009-09-21 20:29:30
+  id: "15"
+  name: Grad Support signup
+  updated_at: 2010-04-02 15:15:28
+permissions_016: 
+  created_at: 2009-09-21 20:29:30
+  id: "16"
+  name: Grad Support admin
+  updated_at: 2010-04-02 15:15:28
+permissions_017: 
+  created_at: 2009-09-22 00:42:22
+  id: "17"
+  name: Unstaffed Public Clusters view
+  updated_at: 2010-04-02 15:15:38
+permissions_018: 
+  created_at: 2009-09-22 00:42:22
+  id: "18"
+  name: Unstaffed Public Clusters signup
+  updated_at: 2010-04-02 15:15:38
+permissions_019: 
+  created_at: 2009-09-22 00:42:22
+  id: "19"
+  name: Unstaffed Public Clusters admin
+  updated_at: 2010-04-02 15:15:38

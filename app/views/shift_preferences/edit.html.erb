@@ -1,0 +1,12 @@
+<h1>Editing Shift Preferences for <%= @week_template.name %></h1>
+
+<% form_for([@week_template, @shift_preference]) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', template_shift_preference_path(@week_template) %> |
+<%= link_to 'Back', template_shift_preferences_path(@week_template) %>

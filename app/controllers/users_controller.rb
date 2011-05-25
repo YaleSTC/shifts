@@ -96,9 +96,14 @@ class UsersController < ApplicationController
     #remove all roles associated with this department
     department_roles = @user.roles.select{|role| role.department == current_department}
     updated_roles = @user.roles - department_roles
-    #now add back all checked roles associated with this department
-    updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-
+    #now add back all checked roles associated with this department (or empty if none were checked)
+    updated_roles += (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+    #We can't save the roles association via update attributes, so we have to do it manually
+    @user.roles = updated_roles
+    @user.save!
+    #Finally to prevent the @user.update_attribues from attempting to update the roles, we must remove them from params
+    params[:user].delete(:role_ids)
+    
     #So that the User Profile can be updated as well
       @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
       @user_profile_entries = params[:user_profile_entries]
@@ -127,9 +132,11 @@ class UsersController < ApplicationController
 
     @user_profile = UserProfile.find_by_user_id(@user.id)
     @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
-    params[:user][:role_ids] = updated_roles
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
+    
+    
+    
     if @user.update_attributes(params[:user])
       @user.set_payrate(params[:payrate].gsub(/\$/,""), @department) if params[:payrate]
       flash[:notice] = "Successfully updated user."

@@ -1,0 +1,48 @@
+<h1 id="page_title">Templates for <%= @department.name %></h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th colspan=2>Total hours</th>
+    <th colspan=2>Continuous hours</th>
+    <th colspan=2>Number of shifts</th>
+    <th>Hours per day</th>
+		<th>Roles</th>
+		<th>Locations</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+		<th></th>
+		<th></th>
+  </tr>
+<% @week_templates.each do |template| %>
+  <tr>
+    <td><%=h template.name %></td>
+    <td><%=h template.max_total_hours %></td>
+    <td><%=h template.min_total_hours %></td>
+    <td><%=h template.max_continuous_hours %></td>
+    <td><%=h template.min_continuous_hours %></td>
+    <td><%=h template.max_number_of_shifts %></td>
+    <td><%=h template.min_number_of_shifts %></td>
+    <td><%=h template.max_hours_per_day %></td>
+		<td><%= template.roles.collect{|role| role.name}.to_sentence %></td>
+		<td><%= template.timeslot_locations.uniq.collect{|loc| loc.short_name}.to_sentence %></td>
+    <td><%= link_to 'View', template %></td>
+    <td><%= link_to 'Edit', edit_template_path(template) %></td>
+		<td><%= link_to 'Shift Preferences', template_shift_preferences_path(template) %></td>
+		<td><%= link_to 'Requested Shifts', template_requested_shifts_path(template) %></td>
+		<td><%= link_to 'Timeslots', template_template_time_slots_path(template) %></td>
+    <td><%= link_to 'X', template, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

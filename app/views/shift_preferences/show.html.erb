@@ -1,0 +1,43 @@
+<h2>Shift Preferences for <%= @shift_preference.user.name %></h2>
+<p>
+  <b>Max total hours:</b>
+  <%=h @shift_preference.max_total_hours %>
+</p>
+
+<p>
+  <b>Min total hours:</b>
+  <%=h @shift_preference.min_total_hours %>
+</p>
+
+<p>
+  <b>Max continuous hours:</b>
+  <%=h @shift_preference.max_continuous_hours %>
+</p>
+
+<p>
+  <b>Min continuous hours:</b>
+  <%=h @shift_preference.min_continuous_hours %>
+</p>
+
+<p>
+  <b>Max number of shifts:</b>
+  <%=h @shift_preference.max_number_of_shifts %>
+</p>
+
+<p>
+  <b>Min number of shifts:</b>
+  <%=h @shift_preference.min_number_of_shifts %>
+</p>
+
+<p>
+  <b>Max hours per day:</b>
+  <%=h @shift_preference.max_hours_per_day %>
+</p>
+
+<p>
+	<b>Locations:</b>
+	<%= @shift_preference.locations.uniq.collect{|l| l.short_name}.to_sentence %>
+</p>
+
+<%= link_to 'Edit', edit_template_shift_preference_path(@week_template) %> |
+<%= link_to 'Back', template_shift_preferences_path(@week_template) %>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  max_total_hours: 1
+  min_total_hours: 1
+  max_continuous_hours: 1
+  min_continuous_hours: 1
+  max_number_of_shifts: 1
+  min_number_of_shifts: 1
+  max_hours_per_day: 1
+  locations_requested: MyString
+  locations_willing: MyString
+  locations_unwanted: MyString
+
+two:
+  max_total_hours: 1
+  min_total_hours: 1
+  max_continuous_hours: 1
+  min_continuous_hours: 1
+  max_number_of_shifts: 1
+  min_number_of_shifts: 1
+  max_hours_per_day: 1
+  locations_requested: MyString
+  locations_willing: MyString
+  locations_unwanted: MyString

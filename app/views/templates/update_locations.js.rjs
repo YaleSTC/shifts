@@ -1,0 +1,1 @@
+page.replace_html "new_time_slots", :partial => "location_and_time_slots"
