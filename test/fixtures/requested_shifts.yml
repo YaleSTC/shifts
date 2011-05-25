@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  preferred_start: 2010-07-21 14:48:14
+  preferred_end: 2010-07-21 14:48:14
+  acceptable_start: 2010-07-21 14:48:14
+  acceptable_end: 2010-07-21 14:48:14
+  day: 2010-07-21
+
+two:
+  preferred_start: 2010-07-21 14:48:14
+  preferred_end: 2010-07-21 14:48:14
+  acceptable_start: 2010-07-21 14:48:14
+  acceptable_end: 2010-07-21 14:48:14
+  day: 2010-07-21

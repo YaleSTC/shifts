@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :template_time_slots
+
+  # map.resources :templates
+
   map.resources :stickies
 
   map.resources :announcements
@@ -6,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :links
 
   map.resources :repeating_events
-  
+
   map.resources :calendars, :member => {:toggle => :post, :prepare_copy => :get, :copy => :post, :apply_schedule => [:get, :post]}, :collection => {:prepare_wipe_range => :get, :wipe_range => :post}
 
   map.resources :punch_clock_sets
@@ -39,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
    # routes for calendar_feeds
   map.calendar_feed 'calendar_feeds/grab/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab'
   map.resources :calendar_feeds
-  
+
   # routes for managing superusers
   map.superusers "superusers", :controller => 'superusers'
   map.add_superusers "superusers/add", :controller => 'superusers', :action => 'add'
@@ -78,18 +82,18 @@ ActionController::Routing::Routes.draw do |map|
                                     :as => "subs"
   end
 
+  map.resources :requested_shifts
+  map.resources :templates
+
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
-  
-  map.resources :locations, :member => {:toggle => [:get, :post]}
-
   map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
     report.resources :report_items
   end
 
 #TODO Fix report items routing, this is temporary
-  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :member => {:for_location => :get}
+  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :member => {:display_report_items => :get, :toggle => [:get, :post]}
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
@@ -115,7 +119,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
-  map.resources :stats, :only => :index
+  map.resources :stats, :collection => {:for_user => [:post, :get], :index => [:post, :get]}
 
   #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 
@@ -123,8 +127,12 @@ ActionController::Routing::Routes.draw do |map|
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
-
-	map.public_view '/public/shifts/:cluster/:date', :controller => 'public_view', :action => 'index'
+	
+	map.resources :templates, :collection => {:update_locations => :post} do |template|
+		template.resources :requested_shifts
+		template.resources :shift_preferences
+		template.resources :template_time_slots
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
 

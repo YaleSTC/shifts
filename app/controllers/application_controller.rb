@@ -63,7 +63,6 @@ class ApplicationController < ActionController::Base
     @current_department
   end
 
-
   def load_department
     if (params[:department_id])
       @department = Department.find_by_id(params[:department_id])
@@ -160,6 +159,15 @@ class ApplicationController < ActionController::Base
           return false
         end
       end
+    end
+    return true
+  end
+
+  def require_proper_template_role
+    unless current_user.has_proper_role_for?(Template.find(params[:template_id])) || current_user.is_admin_of?(Template.find(params[:template_id]).department)
+      error_message = "This page is only availabe to the following roles: #{Template.find(params[:template_id]).roles.to_sentence}"
+      flash[:error] = error_message
+      redirect_to access_denied_path
     end
     return true
   end
@@ -273,7 +281,8 @@ class ApplicationController < ActionController::Base
 #  end
 
   def parse_date_and_time_output(form_output)
-    %w{start end mandatory_start mandatory_end}.each do |field_name|
+		time_attribute_names = ["start", "end", "mandatory_start", "mandatory_end"]
+    time_attribute_names.each do |field_name|
       ## Simple Time Select Input
       if !form_output["#{field_name}_time(5i)"].blank? && form_output["#{field_name}_time(4i)"].blank?
         form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
@@ -296,9 +305,8 @@ class ApplicationController < ActionController::Base
     form_output["end_date"] ||= form_output["start_date"] if form_output["start_date"]
     form_output["mandatory_end_date"] ||= form_output["mandatory_start_date"] if form_output["mandatory_start_date"]
 
-
     #Midnight?
-    %w{start end mandatory_start mandatory_end}.each do |field_name|
+    time_attribute_names.each do |field_name|
         unless form_output["#{field_name}_time(5i)"].nil?
           unless form_output["#{field_name}_time(5i)"].scan(/\+$/).empty?
             form_output["#{field_name}_date"] += 1.day
@@ -307,7 +315,7 @@ class ApplicationController < ActionController::Base
     end
 
     #cleanup
-    %w{start end mandatory_start mandatory_end}.each do |field_name|
+    time_attribute_names.each do |field_name|
         form_output.delete("#{field_name}_date(1i)")
         form_output.delete("#{field_name}_date(2i)")
         form_output.delete("#{field_name}_date(3i)")
@@ -317,20 +325,48 @@ class ApplicationController < ActionController::Base
     form_output
   end
 
+  def set_payform_item_hours(model_name)
+    if params[:calculate_hours] == 'user_input'
+      params[model_name.to_sym][:hours] = params[:other][:hours].to_f + params[:other][:minutes].to_f/60
+    else
+      start_params = []
+      end_params = []
+      for num in (1..7)
+        unless num == 6 #we skip seconds; meridian is stored in 7
+          start_params << params[:time_input]["start(#{num}i)"].to_i
+          end_params << params[:time_input]["end(#{num}i)"].to_i
+        end
+      end
+      start_time = convert_to_time(start_params)
+      end_time = convert_to_time(end_params)
+      params[model_name.to_sym][:hours] = (end_time-start_time) / 3600.0
+    end
+  end
 
-def join_date_and_time(form_output)
+  def convert_to_time(date_array)
+    # 0 = year, 1 = month, 2 = day, 3 = hour, 4 = minute, 5 = meridiem(am/pm)
+    if date_array[3] == 12 #if noon or midnight
+      date_array[3] -= 12
+    end
+    if date_array[5] == -2 #if pm
+      date_array[3] += 12
+    end
+    Time.utc(date_array[0], nil, nil, date_array[3], date_array[4])
+  end
+  
+
+  def join_date_and_time(form_output)
   #join date and time
     %w{start end mandatory_start mandatory_end}.each do |field_name|
       if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
         form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
-      form_output.delete("#{field_name}_date")
-      form_output.delete("#{field_name}_time")
+        form_output.delete("#{field_name}_date")
+        form_output.delete("#{field_name}_time")
       end
+      form_output["start"] ||= Time.now
+      form_output
     end
-    form_output["start"] ||= Time.now
-
-form_output
-end
+  end
 
   private
 
@@ -367,4 +403,3 @@ end
 
 
 end
-

@@ -1,14 +1,13 @@
 module TimeSlotsHelper
 
-  def time_slot_style(time_slot)
+  def time_slot_style(time_slot, time_slot_day)
     @right_overflow = @left_overflow = false
-
     #not DRY, thrown in for AJAX reasons for now. sorry :( -ryan
     @dept_start_hour ||= current_department.department_config.schedule_start / 60
     @dept_end_hour ||= current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
 
-    left = ((time_slot.start - (time_slot.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
+    left = ((time_slot.start - (time_slot_day.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
     width = (time_slot.duration/3600.0) / @hours_per_day * 100
     if left < 0
       width += left
@@ -25,15 +24,23 @@ module TimeSlotsHelper
 
   def fetch_timeslots(time_slot_day,location)
     result = []
-    #timeslots = TimeSlot.all(:conditions => ['start >= ? and start < ? and location_id = ?',time_slot_day.beginning_of_day,time_slot_day.end_of_day,location.id])
-    timeslots = TimeSlot.on_day(time_slot_day).in_location(location)
+    timeslots = TimeSlot.on_48h(time_slot_day).in_location(location)
     for timeslot in timeslots do
-      if ((timeslot.start < timeslot.start.beginning_of_day + @dept_start_hour.hours) &&
-         (timeslot.end    < timeslot.start.beginning_of_day + @dept_start_hour.hours)) ||
-         ((timeslot.start > timeslot.start.beginning_of_day + @dept_end_hour.hours) &&
-         (timeslot.end    > timeslot.start.beginning_of_day + @dept_end_hour.hours))
+
+      if( ##between yesterday's work day and today's => show it in the hidden block
+         ((timeslot.start < time_slot_day.beginning_of_day + @dept_start_hour.hours) &&
+         (timeslot.end    <= time_slot_day.beginning_of_day + @dept_start_hour.hours)) &&
+         ((timeslot.start > (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours) &&
+         (timeslot.end    >= (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours))
+        )
         @hidden_timeslots << timeslot
-      else
+
+      elsif #ignore anything after today's work day, or in yesterday's work day
+(            ((timeslot.start > time_slot_day.beginning_of_day + @dept_end_hour.hours) &&
+             (timeslot.end    >= time_slot_day.beginning_of_day + @dept_end_hour.hours))) ||
+(            ((timeslot.start < (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours) &&
+             (timeslot.end    <= (time_slot_day-1.day).beginning_of_day + @dept_end_hour.hours)) )
+      else #the shift is in today, so show it!
         result << timeslot
       end
     end
@@ -71,9 +78,11 @@ module TimeSlotsHelper
 
 #    @default_end_date = @time_slot.end.to_date
 #    @default_end_date -= 1.day if (@time_slot.end.day == (@time_slot.start.day + 1))
+    if params[:location_id]
+      @time_slot.location_id = params[:location_id]
+    end
 
   end
 
 
 end
-

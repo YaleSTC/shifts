@@ -23,9 +23,14 @@ module CalendarsHelper
     "width: #{width}%; left: #{left}%;"
   end
 
-  def time_slot_style(time_slot)
+  def time_slot_style(time_slot, time_slot_day)
     @right_overflow = @left_overflow = false
-    left = ((time_slot.start - (time_slot.start.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
+    #not DRY, thrown in for AJAX reasons for now. sorry :( -ryan
+    @dept_start_hour ||= current_department.department_config.schedule_start / 60
+    @dept_end_hour ||= current_department.department_config.schedule_end / 60
+    @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
+
+    left = ((time_slot.start - (time_slot_day.at_beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
     width = (time_slot.duration/3600.0) / @hours_per_day * 100
     if left < 0
       width += left
@@ -39,7 +44,7 @@ module CalendarsHelper
 
     "width: #{width}%; left: #{left}%;"
   end
-
+  
   # def day_preprocessing(day)
   #   @location_rows = {}
   #
@@ -120,7 +125,7 @@ module CalendarsHelper
     @time_increment ||= current_department.department_config.time_increment
     @blocks_per_hour ||= 60/@time_increment.to_f
 
-    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
     #locations = @loc_groups.map{|lg| lg.locations}.flatten
     for location in @visible_locations
       @location_rows[location] = [] #initialize rows
@@ -134,7 +139,7 @@ module CalendarsHelper
     # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
-    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
 
     shifts = Shift.in_calendars(@calendars).in_locations(@visible_locations).on_day(day).scheduled
     shifts ||= []

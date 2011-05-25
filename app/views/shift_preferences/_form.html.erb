@@ -1,0 +1,50 @@
+  <p>
+    <%= f.label "Maximum hours per week" %>:
+    <%= select_tag 'shift_preference[max_total_hours]', options_for_select(@hours_week, @shift_preference.max_total_hours) %>
+  </p>
+  <p>
+    <%= f.label "Minimum hours per week" %>:
+    <%= select_tag 'shift_preference[min_total_hours]', options_for_select(@hours_week, @shift_preference.min_total_hours) %>
+  </p>
+  <p>
+    <%= f.label "Maximum continuous hours per day" %>:
+    <%= select_tag 'shift_preference[max_continuous_hours]', options_for_select(@hours_shift, @shift_preference.max_continuous_hours) %>
+  </p>
+  <p>
+    <%= f.label "Minimum continuous hours per day" %>:
+    <%= select_tag 'shift_preference[min_continuous_hours]', options_for_select(@hours_shift, @shift_preference.min_continuous_hours) %>
+  </p>
+  <p>
+    <%= f.label "Maximum hours per day" %>:
+    <%= select_tag 'shift_preference[max_hours_per_day]', options_for_select(@hours_shift, @shift_preference.max_hours_per_day) %>
+	</p>
+  <p>
+    <%= f.label "Maximum number of shifts per week" %>:
+    <%= select_tag 'shift_preference[max_number_of_shifts]', options_for_select(@shifts_week, @shift_preference.max_number_of_shifts) %>
+  </p>
+  <p>
+    <%= f.label "Minimum number of shifts per week" %>:
+    <%= select_tag 'shift_preference[min_number_of_shifts]', options_for_select(@shifts_week, @shift_preference.min_number_of_shifts) %>
+  </p>
+
+	<p>
+		Please select your location preferences: <br/>
+		<table>
+			<tr>
+				<th>Location</th>
+				<th>Prefer</th>
+				<th>Willing</th>
+				<th>Unwilling</th>
+			</tr>
+			<% f.label :location_preference %>
+			<% @locations.uniq.each do |current_location| %>
+				<tr>
+					<td><%= current_location.name %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "yes", location_preference_check(current_location, "yes")) %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "maybe", location_preference_check(current_location, "maybe")) %></td>
+					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "no", location_preference_check(current_location, "no")) %></td>
+				</tr>
+			<% end %>
+		</table>
+	</p>
+

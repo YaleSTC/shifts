@@ -12,7 +12,7 @@ namespace :db do
   end
 
   desc "Updates shifts in the database with shift statistics"
-  task (:generate_stats => :environment) do
+  task (:update_shift_stats => :environment) do
     generate_stats
   end
 
