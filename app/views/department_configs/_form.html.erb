@@ -19,6 +19,9 @@
       <%= f.label :grace_period, text = "Late sign-in grace period:" %>
       <%= f.text_field :grace_period, :size => 6 %>
     </p>
+	<p>
+		<%= f.label :payform_time_limit, text = " Maximum amount of hours allowed to be submitted without getting a warning: "%>
+		<%= f.text_field :payform_time_limit, :size => 6 %>
       <p>
         <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
         <%= f.check_box :weekend_shifts %>
