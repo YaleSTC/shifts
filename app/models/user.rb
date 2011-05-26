@@ -273,10 +273,24 @@ class User < ActiveRecord::Base
     DepartmentsUser.delete_all(:user_id => self, :department_id => department)
     new_entry.save
   end
-
+  
+  def summary_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    summary_stats = {}
+    
+    summary_stats[:start_date] = start_date
+    summary_stats[:end_date] = end_date
+    summary_stats[:total] = shifts_set.size
+    summary_stats[:late] = shifts_set.select{|s| s.late == true}.size
+    summary_stats[:missed] = shifts_set.select{|s| s.missed == true}.size
+    summary_stats[:left_early] = shifts_set.select{|s| s.left_early == true}.size
+    
+    return summary_stats
+  end
+    
   def detailed_stats(start_date, end_date)
     shifts_set = shifts.on_days(start_date, end_date).active
-    shift_stats = {}
+    detailed_stats = {}
   
     shifts_set.each do |s|
        stat_entry = {}
@@ -310,10 +324,10 @@ class User < ActiveRecord::Base
        stat_entry[:late] = s.late
        stat_entry[:left_early] = s.left_early
        stat_entry[:updates_hour] = s.updates_hour
-       shift_stats[s.id] = stat_entry
+       detailed_stats[s.id] = stat_entry
     end
     
-    return shift_stats
+    return detailed_stats
   end
   
   private

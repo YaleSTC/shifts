@@ -62,12 +62,9 @@
     </fieldset>
 
     <fieldset class="index" id="shift_stats">
-      <legend>Shifts Statistics (Past 6 mo.)</legend>
-				<% shifts = current_user.shifts.on_days(Date.today - 183, Date.today).active %>
-	      Total Shifts: <%= shifts.size %><br />
-	      Late Shifts: <%= shifts.select{|s| s.late == true}.size %><br />
-				Shifts Left Early: <%= shifts.select{|s| s.left_early == true}.size %><br />      
-				Missed Shifts: <%= shifts.select{|s| s.missed == true}.size %><br />
+      <legend>Shifts Statistics</legend>
+				<% @summary = current_user.summary_stats(Date.today - 183, Date.today) %>
+				<%= render :partial => 'stats/user_stats_summary', :object => @summary %>
 				<%= link_to "More Info", {:controller => :stats, :action => 'for_user', :id => current_user.id, :start_date => Date.today - 183, :end_date => Date.today } %><br />
     </fieldset>
 

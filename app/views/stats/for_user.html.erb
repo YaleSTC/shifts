@@ -17,13 +17,8 @@
 <div id="right_stuff">
 	<p>
 		<h3>Your Statistics Summary</h3>
-		<% shifts = current_user.shifts.on_days(@start_date, @end_date).active %>
-		<%= "Between #{@start_date.strftime("%b %d, %Y")} and #{@end_date.strftime("%b %d, %Y")}" %><br />
-	</p>
-	<p>
-		<%= "Total shifts: #{shifts.size}" %><br />
-		<%= "Late shifts: #{shifts.select{|s| s.late == true}.size}" %><br />
-		<%= "Shifts left early: #{shifts.select{|s| s.left_early == true}.size}" %><br />
+			<% @summary = @user.summary_stats(@start_date, @end_date) %>
+			<%= render :partial => 'stats/user_stats_summary', :object => @summary %>
 	</p>
 </div>
 
@@ -31,6 +26,7 @@
   <thead>
     <tr>
       <th align="left">Date</th>
+      <th align="left">Location</th>
 			<th align="left">Shift</th>
       <th align="left">Notes</th>
     </tr>
@@ -38,9 +34,10 @@
 	<tbody>
 		<% @stats_hash.each do |shift_id, stat_entry| %>
 			<tr>
-				<% @shift = Shift.find_by_id(stat_entry[:id]) %>
-				<td><%=h @shift.start.to_date %></td>
-				<td><%=h @shift.report.nil? ? (stat_entry[:shift]) : (link_to stat_entry[:shift], shift_report_path(@shift)) %></td>
+				<% s = Shift.find_by_id(stat_entry[:id]) %>
+				<td><%=h s.start.to_date.strftime("%b %d, %Y") %></td>
+				<td><%=h s.location.short_name %></td>
+				<td><%=h s.report.nil? ? (stat_entry[:shift]) : (link_to stat_entry[:shift], shift_report_path(s)) %></td>
 				<td><%=h stat_entry[:notes] %></td>
 			</tr>
 		<% end %>

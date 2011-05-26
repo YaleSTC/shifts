@@ -34,6 +34,7 @@ class StatsController < ApplicationController
     @start_date = params[:start_date] ? Date.parse(params[:start_date]) : 1.week.ago.to_date
     @end_date = params[:end_date] ? Date.parse(params[:end_date]) : 1.day.ago.to_date
     @user = User.find(params[:id])
+    @shifts = @user.shifts.on_days(@start_date, @end_date).active
     @stats_hash = @user.detailed_stats(@start_date, @end_date)
   end
   
