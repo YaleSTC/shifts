@@ -1,0 +1,7 @@
+	<%= "Between #{@summary[:start_date].strftime("%b %d, %Y")} and #{@summary[:end_date].strftime("%b %d, %Y")}" %><br />	
+<p>	
+	<%= "Total shifts: #{@summary[:total]}" %><br />
+	<%= "Missed shifts: #{@summary[:missed]}" %><br />
+	<%= "Late shifts: #{@summary[:late]}" %><br />
+	<%= "Shifts left early: #{@summary[:left_early]}" %><br />
+</p>
