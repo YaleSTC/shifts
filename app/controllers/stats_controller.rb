@@ -54,6 +54,7 @@ class StatsController < ApplicationController
       return unless require_department_membership(@shift.department)
     end
   end
+  
 end
 
 
