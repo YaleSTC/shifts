@@ -1,16 +1,31 @@
 <h1>Stats for <%= @user.name%></h1>
 
-<% form_tag(:controller => 'stats', :action => 'for_user', :method => :get, :id => @user.id) do |f| %>
+<div id="left_stuff">
+	<% form_tag(:controller => 'stats', :action => 'for_user', :method => :get, :id => @user.id) do |f| %>
+		<p>
+	    <%= label_tag :start_date %><br />
+	    <%=  text_field_tag 'start_date', "#{@start_date}" %>
+	  </p>
+	  <p>
+	    <%= label_tag :end_date %><br />
+	    <%=  text_field_tag 'end_date', "#{@end_date}" %>
+	  </p>
+	  <div><%= submit_tag 'Update dates' %></div>
+	<% end -%>
+</div>
+
+<div id="right_stuff">
 	<p>
-    <%= label_tag :start_date %><br />
-    <%=  text_field_tag 'start_date', "#{@start_date}" %>
-  </p>
-  <p>
-    <%= label_tag :end_date %><br />
-    <%=  text_field_tag 'end_date', "#{@end_date}" %>
-  </p>
-  <div><%= submit_tag 'Update dates' %></div>
-<% end -%>
+		<h3>Your Statistics Summary</h3>
+		<% shifts = current_user.shifts.on_days(@start_date, @end_date).active %>
+		<%= "Between #{@start_date.strftime("%b %d, %Y")} and #{@end_date.strftime("%b %d, %Y")}" %><br />
+	</p>
+	<p>
+		<%= "Total shifts: #{shifts.size}" %><br />
+		<%= "Late shifts: #{shifts.select{|s| s.late == true}.size}" %><br />
+		<%= "Shifts left early: #{shifts.select{|s| s.left_early == true}.size}" %><br />
+	</p>
+</div>
 
 <table id="stats_table" class="tablesorter">
   <thead>
