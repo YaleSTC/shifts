@@ -47,7 +47,10 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform.submitted = Time.now
-    if @payform.save
+    if @payform.save && @payform.hours > current_department.department_config.payform_time_limit
+      flash[:notice] = "Successfully submitted payform."
+      flash[:error] = "You have submitted more than the allowed 19 hours this week."
+    elsif @payform.save &&  @payform.hours <= current_department.department_config.payform_time_limit
       flash[:notice] = "Successfully submitted payform."
     end
     respond_to do |format|
