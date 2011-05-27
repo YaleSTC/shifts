@@ -16,7 +16,7 @@
 
 <div id="right_stuff">
 	<p>
-		<h3>Your Statistics Summary</h3>
+		<h3>Statistics Summary</h3>
 			<% @summary = @user.summary_stats(@start_date, @end_date) %>
 			<%= render :partial => 'stats/user_stats_summary', :object => @summary %>
 	</p>
