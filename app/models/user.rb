@@ -195,7 +195,12 @@ class User < ActiveRecord::Base
     end
     nil
   end
-
+  
+  #Keeping permissions consistent.
+  def user
+    self
+  end
+  
   #We do still need this for polymorphism. I want to be able to call @user.users.
   def users
     [self]
