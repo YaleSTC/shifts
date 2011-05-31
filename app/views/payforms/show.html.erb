@@ -29,7 +29,7 @@
   <table id="payformList" width="100%">
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
     <tfoot><tr> <th scope="col" id="hours" colspan=7>
-      <div class="total-hours-right"><%= ((@payform.hours * 60 / current_department.department_config.admin_round_option).round * current_department.department_config.admin_round_option / 60) %></div>
+      <div class="total-hours-right"><%= @payform.hours %></div>
       Total Hours:
     </th></tr> </tfoot>
   </table>
