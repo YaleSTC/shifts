@@ -2595,14 +2595,14 @@ sub_requests_235:
   user_id: 
 sub_requests_236: 
   created_at: 2010-09-21 19:49:51
-  end: 2010-09-21 22:00:00
+  end: 2010-09-21 21:00:00
   id: "1950"
-  mandatory_end: 2010-09-21 22:00:00
+  mandatory_end: 2010-09-21 21:00:00
   mandatory_start: 2010-09-21 21:00:00
   reason: "Forgot about a new section time that I signed up for "
   shift_id: "66633"
   start: 2010-09-21 21:00:00
-  updated_at: 2010-09-21 19:49:51
+  updated_at: 2011-05-31 01:29:15
   user_id: 
 sub_requests_237: 
   created_at: 2010-09-22 12:34:08

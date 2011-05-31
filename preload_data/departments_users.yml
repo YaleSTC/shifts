@@ -1,1219 +1,1212 @@
 --- 
 departments_users_001: 
-  active: "1"
-  created_at: 2009-09-14 02:05:55
-  department_id: "1"
-  payrate: 
-  updated_at: 2009-09-14 02:05:55
-  user_id: "103"
-departments_users_002: 
-  active: "1"
-  created_at: 2009-09-14 02:06:15
-  department_id: "1"
-  payrate: 
-  updated_at: 2009-09-14 02:06:15
-  user_id: "104"
-departments_users_003: 
-  active: "1"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "32"
-departments_users_004: 
-  active: "1"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "34"
-departments_users_005: 
-  active: "1"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "36"
-departments_users_006: 
-  active: "1"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "37"
-departments_users_007: 
-  active: "1"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "38"
-departments_users_008: 
-  active: "1"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "42"
-departments_users_009: 
-  active: "1"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "44"
-departments_users_010: 
-  active: "1"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "52"
-departments_users_011: 
-  active: "1"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "55"
-departments_users_012: 
-  active: "1"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "68"
-departments_users_013: 
-  active: "1"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "69"
-departments_users_014: 
-  active: "0"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "71"
-departments_users_015: 
-  active: "1"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "75"
-departments_users_016: 
-  active: "1"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "76"
-departments_users_017: 
-  active: "1"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "81"
-departments_users_018: 
-  active: "1"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "89"
-departments_users_019: 
-  active: "1"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "90"
-departments_users_020: 
-  active: "1"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "91"
-departments_users_021: 
-  active: "1"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "94"
-departments_users_022: 
-  active: "1"
-  created_at: 2009-09-14 02:05:36
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:36
-  user_id: "98"
-departments_users_023: 
-  active: "1"
-  created_at: 2009-09-14 02:05:36
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:36
-  user_id: "99"
-departments_users_024: 
-  active: "1"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "20"
-departments_users_025: 
-  active: "1"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "22"
-departments_users_026: 
-  active: "1"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "24"
-departments_users_027: 
-  active: "1"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "29"
-departments_users_028: 
-  active: "1"
-  created_at: 2009-09-14 02:05:29
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:29
-  user_id: "2"
-departments_users_029: 
-  active: "1"
-  created_at: 2009-09-14 02:05:29
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:29
-  user_id: "4"
-departments_users_030: 
-  active: "1"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "6"
-departments_users_031: 
-  active: "1"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "8"
-departments_users_032: 
-  active: "1"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "9"
-departments_users_033: 
-  active: "1"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "11"
-departments_users_034: 
-  active: "1"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "13"
-departments_users_035: 
-  active: "1"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "70"
-departments_users_036: 
-  active: "0"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "7"
-departments_users_037: 
-  active: "0"
-  created_at: 2009-09-14 02:05:36
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:36
-  user_id: "102"
-departments_users_038: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "46"
-departments_users_039: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "96"
-departments_users_040: 
-  active: "0"
-  created_at: 2009-09-14 02:05:29
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:29
-  user_id: "3"
-departments_users_041: 
-  active: "1"
-  created_at: 2010-01-12 19:01:09
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-12 19:01:09
-  user_id: "107"
-departments_users_042: 
-  active: "0"
-  created_at: 2009-09-14 02:05:36
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:36
-  user_id: "97"
-departments_users_043: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "115"
-departments_users_044: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "116"
-departments_users_045: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "162"
-departments_users_046: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "138"
-departments_users_047: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "151"
-departments_users_048: 
-  active: "1"
-  created_at: 2010-01-16 21:26:20
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-16 21:26:20
-  user_id: "108"
-departments_users_049: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "129"
-departments_users_050: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "134"
-departments_users_051: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "127"
-departments_users_052: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "157"
-departments_users_053: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "135"
-departments_users_054: 
-  active: "1"
-  created_at: 2010-01-18 06:18:22
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:22
-  user_id: "110"
-departments_users_055: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "121"
-departments_users_056: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "122"
-departments_users_057: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "163"
-departments_users_058: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "147"
-departments_users_059: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "142"
-departments_users_060: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "158"
-departments_users_061: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "117"
-departments_users_062: 
-  active: "1"
-  created_at: 2010-01-18 06:18:22
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:22
-  user_id: "112"
-departments_users_063: 
-  active: "0"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "77"
-departments_users_064: 
-  active: "1"
-  created_at: 2010-01-18 06:18:22
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:22
-  user_id: "111"
-departments_users_065: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "159"
-departments_users_066: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "113"
-departments_users_067: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "130"
-departments_users_068: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "132"
-departments_users_069: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "125"
-departments_users_070: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "156"
-departments_users_071: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "161"
-departments_users_072: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "119"
-departments_users_073: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "140"
-departments_users_074: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "160"
-departments_users_075: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "120"
-departments_users_076: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "141"
-departments_users_077: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "145"
-departments_users_078: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "146"
-departments_users_079: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "148"
-departments_users_080: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "152"
-departments_users_081: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "144"
-departments_users_082: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "149"
-departments_users_083: 
-  active: "1"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "63"
-departments_users_084: 
-  active: "1"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "56"
-departments_users_085: 
-  active: "1"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "48"
-departments_users_086: 
-  active: "1"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "41"
-departments_users_087: 
-  active: "1"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "35"
-departments_users_088: 
-  active: "1"
-  created_at: 2009-09-14 02:05:36
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:36
-  user_id: "101"
-departments_users_089: 
-  active: "1"
-  created_at: 2009-09-14 02:05:36
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:36
-  user_id: "100"
-departments_users_090: 
-  active: "1"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "95"
-departments_users_091: 
-  active: "1"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "82"
-departments_users_092: 
-  active: "1"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "80"
-departments_users_093: 
-  active: "1"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "64"
-departments_users_094: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "126"
-departments_users_095: 
-  active: "1"
-  created_at: 2010-01-16 22:48:01
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-16 22:48:01
-  user_id: "109"
-departments_users_096: 
-  active: "1"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "60"
-departments_users_097: 
-  active: "0"
-  created_at: 2010-03-18 18:59:04
-  department_id: "1"
-  payrate: 
-  updated_at: 2010-03-18 18:59:04
-  user_id: "164"
-departments_users_098: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "114"
-departments_users_099: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "124"
-departments_users_100: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "154"
-departments_users_101: 
-  active: "1"
-  created_at: 2010-01-18 06:18:25
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:25
-  user_id: "143"
-departments_users_102: 
-  active: "1"
-  created_at: 2010-01-18 06:18:26
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:26
-  user_id: "153"
-departments_users_103: 
-  active: "1"
-  created_at: 2010-04-20 16:29:13
-  department_id: "1"
-  payrate: 
-  updated_at: 2010-04-20 16:29:13
-  user_id: "165"
-departments_users_104: 
-  active: "1"
-  created_at: 2010-04-27 14:54:22
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-04-27 14:54:22
-  user_id: "166"
-departments_users_105: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "84"
-departments_users_106: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "51"
-departments_users_107: 
-  active: "1"
-  created_at: 2010-01-18 06:18:24
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:24
-  user_id: "136"
-departments_users_108: 
-  active: "1"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "78"
-departments_users_109: 
-  active: "1"
-  created_at: 2010-01-18 06:18:23
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2010-01-18 06:18:23
-  user_id: "123"
-departments_users_110: 
-  active: "1"
-  created_at: 2010-07-01 16:56:22
-  department_id: "1"
-  payrate: 
-  updated_at: 2010-07-01 16:56:22
-  user_id: "169"
-departments_users_111: 
-  active: "0"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "15"
-departments_users_112: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "40"
-departments_users_113: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "39"
-departments_users_114: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "43"
-departments_users_115: 
-  active: "0"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "16"
-departments_users_116: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "45"
-departments_users_117: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "47"
-departments_users_118: 
-  active: "0"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "17"
-departments_users_119: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "50"
-departments_users_120: 
-  active: "0"
-  created_at: 2009-09-14 02:05:32
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:32
-  user_id: "49"
-departments_users_121: 
-  active: "0"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "53"
-departments_users_122: 
-  active: "0"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "57"
-departments_users_123: 
-  active: "0"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "58"
-departments_users_124: 
-  active: "0"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "61"
-departments_users_125: 
-  active: "0"
-  created_at: 2009-09-14 02:05:33
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:33
-  user_id: "65"
-departments_users_126: 
-  active: "0"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "66"
-departments_users_127: 
-  active: "0"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: 
-  updated_at: 2009-09-14 02:05:34
-  user_id: "67"
-departments_users_128: 
-  active: "0"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "21"
-departments_users_129: 
-  active: "0"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "72"
-departments_users_130: 
-  active: "0"
-  created_at: 2009-09-14 02:05:34
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:34
-  user_id: "74"
-departments_users_131: 
-  active: "0"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "23"
-departments_users_132: 
-  active: "0"
-  created_at: 2009-09-14 02:05:30
-  department_id: "1"
-  payrate: "12.50"
-  updated_at: 2009-09-14 02:05:30
-  user_id: "10"
-departments_users_133: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "83"
-departments_users_134: 
-  active: "0"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "25"
-departments_users_135: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "85"
-departments_users_136: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "86"
-departments_users_137: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "87"
-departments_users_138: 
-  active: "0"
-  created_at: 2009-09-21 19:41:09
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-21 19:41:09
-  user_id: "105"
-departments_users_139: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "88"
-departments_users_140: 
-  active: "0"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "26"
-departments_users_141: 
-  active: "0"
-  created_at: 2010-06-10 18:38:12
-  department_id: "1"
-  payrate: "12.00"
-  updated_at: 2010-06-10 18:38:12
-  user_id: "168"
-departments_users_142: 
-  active: "0"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "28"
-departments_users_143: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "92"
-departments_users_144: 
-  active: "0"
-  created_at: 2009-09-14 02:05:35
-  department_id: "1"
-  payrate: "13.00"
-  updated_at: 2009-09-14 02:05:35
-  user_id: "93"
-departments_users_145: 
-  active: "0"
-  created_at: 2009-09-14 02:05:31
-  department_id: "1"
-  payrate: "13.50"
-  updated_at: 2009-09-14 02:05:31
-  user_id: "30"
-departments_users_146: 
   active: "0"
   created_at: 2009-09-14 02:05:30
   department_id: "1"
   payrate: "12.50"
   updated_at: 2009-09-14 02:05:30
   user_id: "14"
-departments_users_147: 
+departments_users_002: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "47"
+departments_users_003: 
+  active: "1"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "34"
+departments_users_004: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "158"
+departments_users_005: 
+  active: "1"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "9"
+departments_users_006: 
   active: "1"
   created_at: 2009-09-14 02:05:29
   department_id: "1"
   payrate: "12.50"
   updated_at: 2009-09-14 02:05:29
   user_id: "5"
-departments_users_148: 
+departments_users_007: 
+  active: "0"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "17"
+departments_users_008: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "117"
+departments_users_009: 
+  active: "1"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "11"
+departments_users_010: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "50"
+departments_users_011: 
+  active: "1"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "95"
+departments_users_012: 
+  active: "1"
+  created_at: 2010-01-18 06:18:22
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:22
+  user_id: "112"
+departments_users_013: 
+  active: "1"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "13"
+departments_users_014: 
+  active: "1"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "36"
+departments_users_015: 
   active: "0"
   created_at: 2009-09-14 02:05:33
   department_id: "1"
   payrate: "13.50"
   updated_at: 2009-09-14 02:05:33
   user_id: "59"
-departments_users_149: 
+departments_users_016: 
+  active: "0"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "77"
+departments_users_017: 
+  active: "1"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "70"
+departments_users_018: 
+  active: "1"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "37"
+departments_users_019: 
+  active: "1"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "82"
+departments_users_020: 
   active: "0"
   created_at: 2009-09-14 02:05:30
   department_id: "1"
   payrate: "12.50"
   updated_at: 2009-09-14 02:05:30
   user_id: "12"
-departments_users_150: 
+departments_users_021: 
+  active: "1"
+  created_at: 2010-01-18 06:18:22
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:22
+  user_id: "111"
+departments_users_022: 
+  active: "0"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "7"
+departments_users_023: 
+  active: "1"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "38"
+departments_users_024: 
+  active: "1"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "80"
+departments_users_025: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "49"
+departments_users_026: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "159"
+departments_users_027: 
+  active: "0"
+  created_at: 2009-09-14 02:05:36
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "102"
+departments_users_028: 
+  active: "1"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "42"
+departments_users_029: 
+  active: "1"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "64"
+departments_users_030: 
+  active: "0"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "53"
+departments_users_031: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "113"
+departments_users_032: 
+  active: "1"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "44"
+departments_users_033: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "126"
+departments_users_034: 
   active: "1"
   created_at: 2009-09-14 02:05:31
   department_id: "1"
   payrate: "13.50"
   updated_at: 2009-09-14 02:05:31
   user_id: "27"
-departments_users_151: 
+departments_users_035: 
+  active: "0"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "57"
+departments_users_036: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "130"
+departments_users_037: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "46"
+departments_users_038: 
+  active: "1"
+  created_at: 2010-01-16 22:48:01
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-16 22:48:01
+  user_id: "109"
+departments_users_039: 
   active: "1"
   created_at: 2010-01-18 06:18:24
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-01-18 06:18:24
   user_id: "133"
-departments_users_152: 
+departments_users_040: 
+  active: "0"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "58"
+departments_users_041: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "132"
+departments_users_042: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "96"
+departments_users_043: 
+  active: "1"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "60"
+departments_users_044: 
   active: "0"
   created_at: 2009-09-14 02:05:33
   department_id: "1"
   payrate: "13.00"
   updated_at: 2009-09-14 02:05:33
   user_id: "62"
-departments_users_153: 
+departments_users_045: 
+  active: "0"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "61"
+departments_users_046: 
+  active: "0"
+  created_at: 2010-03-18 18:59:04
+  department_id: "1"
+  payrate: 
+  updated_at: 2010-03-18 18:59:04
+  user_id: "164"
+departments_users_047: 
+  active: "1"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "52"
+departments_users_048: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "125"
+departments_users_049: 
   active: "0"
   created_at: 2009-09-14 02:05:31
   department_id: "1"
   payrate: "13.00"
   updated_at: 2009-09-14 02:05:31
   user_id: "33"
-departments_users_154: 
+departments_users_050: 
+  active: "0"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "65"
+departments_users_051: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "114"
+departments_users_052: 
+  active: "1"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "55"
+departments_users_053: 
   active: "0"
   created_at: 2009-09-14 02:05:30
   department_id: "1"
   payrate: "13.50"
   updated_at: 2009-09-14 02:05:30
   user_id: "19"
-departments_users_155: 
+departments_users_054: 
+  active: "0"
+  created_at: 2009-09-14 02:05:29
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:29
+  user_id: "3"
+departments_users_055: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "124"
+departments_users_056: 
+  active: "1"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "68"
+departments_users_057: 
   active: "0"
   created_at: 2010-01-18 06:18:24
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-01-18 06:18:24
   user_id: "131"
-departments_users_156: 
+departments_users_058: 
+  active: "0"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "66"
+departments_users_059: 
+  active: "1"
+  created_at: 2010-01-12 19:01:09
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-12 19:01:09
+  user_id: "107"
+departments_users_060: 
+  active: "1"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "69"
+departments_users_061: 
   active: "0"
   created_at: 2010-01-18 06:18:23
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-01-18 06:18:23
   user_id: "118"
-departments_users_157: 
+departments_users_062: 
+  active: "0"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: 
+  updated_at: 2009-09-14 02:05:34
+  user_id: "67"
+departments_users_063: 
+  active: "0"
+  created_at: 2009-09-14 02:05:36
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "97"
+departments_users_064: 
+  active: "0"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "71"
+departments_users_065: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "156"
+departments_users_066: 
   active: "0"
   created_at: 2010-01-18 06:18:24
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-01-18 06:18:24
   user_id: "128"
-departments_users_158: 
+departments_users_067: 
+  active: "0"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "21"
+departments_users_068: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "115"
+departments_users_069: 
+  active: "1"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "75"
+departments_users_070: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "161"
+departments_users_071: 
   active: "0"
   created_at: 2010-05-22 17:46:28
   department_id: "1"
   payrate: 
   updated_at: 2010-05-22 17:46:28
   user_id: "167"
-departments_users_159: 
+departments_users_072: 
+  active: "0"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "72"
+departments_users_073: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "116"
+departments_users_074: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "119"
+departments_users_075: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "162"
+departments_users_076: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "154"
+departments_users_077: 
+  active: "1"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "76"
+departments_users_078: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "140"
+departments_users_079: 
   active: "0"
   created_at: 2009-09-14 02:05:33
   department_id: "1"
   payrate: "13.00"
   updated_at: 2009-09-14 02:05:33
   user_id: "54"
-departments_users_160: 
+departments_users_080: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "138"
+departments_users_081: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "143"
+departments_users_082: 
+  active: "1"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "81"
+departments_users_083: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "160"
+departments_users_084: 
+  active: "0"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "74"
+departments_users_085: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "151"
+departments_users_086: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "153"
+departments_users_087: 
+  active: "1"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "89"
+departments_users_088: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "120"
+departments_users_089: 
+  active: "0"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "23"
+departments_users_090: 
+  active: "1"
+  created_at: 2010-04-20 16:29:13
+  department_id: "1"
+  payrate: 
+  updated_at: 2010-04-20 16:29:13
+  user_id: "165"
+departments_users_091: 
+  active: "1"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "90"
+departments_users_092: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "141"
+departments_users_093: 
+  active: "1"
+  created_at: 2010-01-16 21:26:20
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-16 21:26:20
+  user_id: "108"
+departments_users_094: 
   active: "0"
   created_at: 2010-01-18 06:18:24
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-01-18 06:18:24
   user_id: "137"
-departments_users_161: 
+departments_users_095: 
+  active: "0"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "10"
+departments_users_096: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "145"
+departments_users_097: 
   active: "0"
   created_at: 2010-01-18 06:18:26
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-01-18 06:18:26
   user_id: "155"
-departments_users_162: 
+departments_users_098: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "83"
+departments_users_099: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "146"
+departments_users_100: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "129"
+departments_users_101: 
+  active: "1"
+  created_at: 2010-04-27 14:54:22
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-04-27 14:54:22
+  user_id: "166"
+departments_users_102: 
   active: "1"
   created_at: 2010-01-18 06:18:26
   department_id: "1"
   payrate: "13.50"
   updated_at: 2010-01-18 06:18:26
   user_id: "150"
-departments_users_163: 
+departments_users_103: 
+  active: "0"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "25"
+departments_users_104: 
+  active: "1"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "91"
+departments_users_105: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "148"
+departments_users_106: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "84"
+departments_users_107: 
   active: "1"
   created_at: 2010-08-28 14:27:16
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-08-28 14:27:16
   user_id: "170"
-departments_users_164: 
+departments_users_108: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "85"
+departments_users_109: 
+  active: "1"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "94"
+departments_users_110: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "51"
+departments_users_111: 
   active: "0"
   created_at: 2009-09-14 02:05:34
   department_id: "1"
   payrate: "13.00"
   updated_at: 2009-09-14 02:05:34
   user_id: "73"
-departments_users_165: 
+departments_users_112: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "86"
+departments_users_113: 
+  active: "1"
+  created_at: 2009-09-14 02:05:36
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "98"
+departments_users_114: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "136"
+departments_users_115: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "134"
+departments_users_116: 
   active: "1"
   created_at: 2010-09-14 18:54:59
   department_id: "1"
   payrate: "12.50"
   updated_at: 2010-09-14 18:54:59
   user_id: "173"
-departments_users_166: 
+departments_users_117: 
+  active: "1"
+  created_at: 2009-09-14 02:05:36
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "99"
+departments_users_118: 
+  active: "1"
+  created_at: 2009-09-14 02:05:34
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "78"
+departments_users_119: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "127"
+departments_users_120: 
   active: "0"
   created_at: 2010-08-31 17:39:55
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-08-31 17:39:55
   user_id: "171"
-departments_users_167: 
+departments_users_121: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "87"
+departments_users_122: 
+  active: "1"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "20"
+departments_users_123: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "152"
+departments_users_124: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "123"
+departments_users_125: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "157"
+departments_users_126: 
   active: "0"
   created_at: 2009-09-14 02:05:30
   department_id: "1"
   payrate: "13.50"
   updated_at: 2009-09-14 02:05:30
   user_id: "18"
-departments_users_168: 
+departments_users_127: 
+  active: "0"
+  created_at: 2009-09-21 19:41:09
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-21 19:41:09
+  user_id: "105"
+departments_users_128: 
+  active: "1"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "22"
+departments_users_129: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "144"
+departments_users_130: 
+  active: "1"
+  created_at: 2010-01-18 06:18:24
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "135"
+departments_users_131: 
   active: "1"
   created_at: 2010-09-02 15:10:53
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-09-02 15:10:53
   user_id: "172"
-departments_users_169: 
+departments_users_132: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "88"
+departments_users_133: 
+  active: "1"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "24"
+departments_users_134: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "149"
+departments_users_135: 
+  active: "1"
+  created_at: 2010-01-18 06:18:22
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2010-01-18 06:18:22
+  user_id: "110"
+departments_users_136: 
   active: "0"
   created_at: 2009-09-14 02:05:34
   department_id: "1"
   payrate: "13.00"
   updated_at: 2009-09-14 02:05:34
   user_id: "79"
-departments_users_170: 
+departments_users_137: 
+  active: "1"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "63"
+departments_users_138: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "121"
+departments_users_139: 
+  active: "1"
+  created_at: 2010-07-01 16:56:22
+  department_id: "1"
+  payrate: 
+  updated_at: 2010-07-01 16:56:22
+  user_id: "169"
+departments_users_140: 
+  active: "1"
+  created_at: 2009-09-14 02:05:33
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "56"
+departments_users_141: 
+  active: "1"
+  created_at: 2010-01-18 06:18:23
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "122"
+departments_users_142: 
+  active: "0"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "15"
+departments_users_143: 
+  active: "1"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "29"
+departments_users_144: 
+  active: "0"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "26"
+departments_users_145: 
+  active: "1"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "48"
+departments_users_146: 
+  active: "1"
+  created_at: 2010-01-18 06:18:26
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "163"
+departments_users_147: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "40"
+departments_users_148: 
+  active: "1"
+  created_at: 2009-09-14 02:05:29
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:29
+  user_id: "2"
+departments_users_149: 
+  active: "0"
+  created_at: 2010-06-10 18:38:12
+  department_id: "1"
+  payrate: "12.00"
+  updated_at: 2010-06-10 18:38:12
+  user_id: "168"
+departments_users_150: 
+  active: "1"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "41"
+departments_users_151: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "147"
+departments_users_152: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "39"
+departments_users_153: 
+  active: "1"
+  created_at: 2009-09-14 02:05:29
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:29
+  user_id: "4"
+departments_users_154: 
   active: "1"
   created_at: 2009-09-14 02:05:31
   department_id: "1"
   payrate: "13.50"
   updated_at: 2009-09-14 02:05:31
   user_id: "31"
-departments_users_171: 
+departments_users_155: 
+  active: "0"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "28"
+departments_users_156: 
+  active: "1"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "35"
+departments_users_157: 
+  active: "1"
+  created_at: 2010-01-18 06:18:25
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "142"
+departments_users_158: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "43"
+departments_users_159: 
   active: "1"
   created_at: 2009-09-08 01:29:32
   department_id: "1"
   payrate: "18.00"
   updated_at: 2009-09-08 01:29:32
   user_id: "1"
-departments_users_172: 
+departments_users_160: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "92"
+departments_users_161: 
+  active: "1"
+  created_at: 2009-09-14 02:05:36
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "101"
+departments_users_162: 
+  active: "1"
+  created_at: 2009-09-14 02:05:55
+  department_id: "1"
+  payrate: 
+  updated_at: 2009-09-14 02:05:55
+  user_id: "103"
+departments_users_163: 
   active: "0"
   created_at: 2009-09-21 20:35:14
   department_id: "1"
   payrate: 
   updated_at: 2009-09-21 20:35:14
   user_id: "106"
-departments_users_173: 
+departments_users_164: 
+  active: "0"
+  created_at: 2009-09-14 02:05:35
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "93"
+departments_users_165: 
+  active: "0"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "16"
+departments_users_166: 
+  active: "1"
+  created_at: 2009-09-14 02:05:36
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "100"
+departments_users_167: 
+  active: "1"
+  created_at: 2009-09-14 02:06:15
+  department_id: "1"
+  payrate: 
+  updated_at: 2009-09-14 02:06:15
+  user_id: "104"
+departments_users_168: 
+  active: "1"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "6"
+departments_users_169: 
   active: "0"
   created_at: 2010-01-18 06:18:25
   department_id: "1"
   payrate: "13.00"
   updated_at: 2010-01-18 06:18:25
   user_id: "139"
-departments_users_174: 
-  active: "1"
-  created_at: 2010-01-18 07:18:25
+departments_users_170: 
+  active: "0"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.50"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "30"
+departments_users_171: 
+  active: "0"
+  created_at: 2009-09-14 02:05:32
   department_id: "1"
   payrate: "13.00"
-  updated_at: 2010-01-18 07:18:25
-  user_id: "150"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "45"
+departments_users_172: 
+  active: "1"
+  created_at: 2009-09-14 02:05:31
+  department_id: "1"
+  payrate: "13.00"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "32"
+departments_users_173: 
+  active: "1"
+  created_at: 2009-09-14 02:05:30
+  department_id: "1"
+  payrate: "12.50"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "8"

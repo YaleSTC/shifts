@@ -2162,7 +2162,6 @@ users_114:
   password_salt: dwxckBApj9jOK8h3FunK
   perishable_token: nUcoYuEsUMF81z1cQJy5
   persistence_token: ed2b551bc1084c6495b71281c92657f80e78c6c5be0215f0d84f98b2e67502cee3bfe621248f6a09d3124013db9f0d2db4166c3fa6eae803166003a68667b56c
-
   supermode: "1"
   superuser: 
   updated_at: 2010-04-01 04:39:12
