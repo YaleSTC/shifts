@@ -12,19 +12,20 @@ department_configs_001:
   id: "1"
   mailer_address: noreply@shifts.app
   monthly: "0"
+  payform_time_limit: "10"
   printed_message: |-
     This payform has already been printed and may no longer be edited.
     
     If there is a problem that needs to be addressed, please talk to your supervisor.
   reason_min: "4"
   reminder_message: Please remember to submit your payform for this week.
-  schedule_end: "1440"
+  schedule_end: "1680"
   schedule_start: "540"
   stale_shift: "1"
   stats_mailer_address: adam.bray@yale.edu, laura.tomas@yale.edu
   time_increment: "15"
   unscheduled_shifts: "1"
-  updated_at: 2010-10-04 20:19:46
+  updated_at: 2011-05-30 21:50:20
   warning_message: |-
     You have not submitted payforms for the weeks ending on the following dates:
     

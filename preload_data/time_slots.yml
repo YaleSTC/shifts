@@ -13789,6 +13789,76 @@ time_slots_2162:
   repeating_event_id: 
   start: 2010-10-05 13:00:00
   updated_at: 2010-10-05 16:45:54
+time_slots_2163: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 19:41:39
+  end: 2011-06-06 04:00:00
+  id: "6891"
+  location_id: "13"
+  repeating_event_id: "4884"
+  start: 2011-06-05 13:00:00
+  updated_at: 2011-05-30 19:41:39
+time_slots_2164: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 19:41:39
+  end: 2011-06-06 04:00:00
+  id: "6892"
+  location_id: "14"
+  repeating_event_id: "4884"
+  start: 2011-06-05 13:00:00
+  updated_at: 2011-05-30 19:41:39
+time_slots_2165: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 21:13:03
+  end: 2011-06-06 04:00:00
+  id: "6893"
+  location_id: "1"
+  repeating_event_id: "4885"
+  start: 2011-06-05 13:00:00
+  updated_at: 2011-05-30 21:13:03
+time_slots_2166: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 21:13:03
+  end: 2011-06-01 04:00:00
+  id: "6894"
+  location_id: "1"
+  repeating_event_id: "4885"
+  start: 2011-05-31 13:00:00
+  updated_at: 2011-05-30 21:13:03
+time_slots_2167: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 21:13:03
+  end: 2011-06-02 04:00:00
+  id: "6895"
+  location_id: "1"
+  repeating_event_id: "4885"
+  start: 2011-06-01 13:00:00
+  updated_at: 2011-05-30 21:13:03
+time_slots_2168: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 21:13:03
+  end: 2011-06-03 04:00:00
+  id: "6896"
+  location_id: "1"
+  repeating_event_id: "4885"
+  start: 2011-06-02 13:00:00
+  updated_at: 2011-05-30 21:13:03
+time_slots_2169: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 21:13:03
+  end: 2011-06-04 04:00:00
+  id: "6897"
+  location_id: "1"
+  repeating_event_id: "4885"
+  start: 2011-06-03 13:00:00
+  updated_at: 2011-05-30 21:13:03
 time_slots_217: 
   active: "1"
   calendar_id: "1"
@@ -13799,6 +13869,16 @@ time_slots_217:
   repeating_event_id: "19"
   start: 2009-09-24 19:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2170: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-05-30 21:13:03
+  end: 2011-06-05 04:00:00
+  id: "6898"
+  location_id: "1"
+  repeating_event_id: "4885"
+  start: 2011-06-04 13:00:00
+  updated_at: 2011-05-30 21:13:03
 time_slots_218: 
   active: "1"
   calendar_id: "1"

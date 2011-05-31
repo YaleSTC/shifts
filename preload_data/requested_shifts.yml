@@ -2,6 +2,8 @@
 requested_shifts_001: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 20:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:07:46
   day: "5"
   id: "1"
@@ -13,6 +15,8 @@ requested_shifts_001:
 requested_shifts_002: 
   acceptable_end: 2000-01-02 03:45:00
   acceptable_start: 2000-01-01 23:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:11:42
   day: "6"
   id: "3"
@@ -24,6 +28,8 @@ requested_shifts_002:
 requested_shifts_003: 
   acceptable_end: 2000-01-02 02:00:00
   acceptable_start: 2000-01-01 23:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:12:48
   day: "0"
   id: "4"
@@ -35,6 +41,8 @@ requested_shifts_003:
 requested_shifts_004: 
   acceptable_end: 2000-01-01 20:45:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:13:32
   day: "4"
   id: "5"
@@ -46,6 +54,8 @@ requested_shifts_004:
 requested_shifts_005: 
   acceptable_end: 2000-01-01 19:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:14:25
   day: "5"
   id: "7"
@@ -57,6 +67,8 @@ requested_shifts_005:
 requested_shifts_006: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:19:03
   day: "1"
   id: "9"
@@ -68,6 +80,8 @@ requested_shifts_006:
 requested_shifts_007: 
   acceptable_end: 2000-01-01 23:30:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:21:01
   day: "3"
   id: "12"
@@ -79,6 +93,8 @@ requested_shifts_007:
 requested_shifts_008: 
   acceptable_end: 2000-01-01 22:30:00
   acceptable_start: 2000-01-01 19:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:25:23
   day: "6"
   id: "14"
@@ -90,6 +106,8 @@ requested_shifts_008:
 requested_shifts_009: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:28:21
   day: "5"
   id: "15"
@@ -101,6 +119,8 @@ requested_shifts_009:
 requested_shifts_010: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 02:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:32:32
   day: "0"
   id: "18"
@@ -112,6 +132,8 @@ requested_shifts_010:
 requested_shifts_011: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 02:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:33:18
   day: "3"
   id: "21"
@@ -123,6 +145,8 @@ requested_shifts_011:
 requested_shifts_012: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:34:25
   day: "6"
   id: "22"
@@ -134,6 +158,8 @@ requested_shifts_012:
 requested_shifts_013: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:35:06
   day: "5"
   id: "23"
@@ -145,6 +171,8 @@ requested_shifts_013:
 requested_shifts_014: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 01:45:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:35:11
   day: "6"
   id: "24"
@@ -156,6 +184,8 @@ requested_shifts_014:
 requested_shifts_015: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 02:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:36:03
   day: "1"
   id: "25"
@@ -167,6 +197,8 @@ requested_shifts_015:
 requested_shifts_016: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:39:52
   day: "5"
   id: "26"
@@ -178,6 +210,8 @@ requested_shifts_016:
 requested_shifts_017: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 14:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:41:36
   day: "4"
   id: "28"
@@ -189,6 +223,8 @@ requested_shifts_017:
 requested_shifts_018: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 16:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:43:25
   day: "0"
   id: "31"
@@ -200,6 +236,8 @@ requested_shifts_018:
 requested_shifts_019: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:45:11
   day: "0"
   id: "34"
@@ -211,6 +249,8 @@ requested_shifts_019:
 requested_shifts_020: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:47:28
   day: "4"
   id: "35"
@@ -222,6 +262,8 @@ requested_shifts_020:
 requested_shifts_021: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:47:34
   day: "5"
   id: "36"
@@ -233,6 +275,8 @@ requested_shifts_021:
 requested_shifts_022: 
   acceptable_end: 2000-01-01 19:00:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 00:57:04
   day: "1"
   id: "37"
@@ -244,6 +288,8 @@ requested_shifts_022:
 requested_shifts_023: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:00:31
   day: "5"
   id: "38"
@@ -255,6 +301,8 @@ requested_shifts_023:
 requested_shifts_024: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:00:42
   day: "4"
   id: "39"
@@ -266,6 +314,8 @@ requested_shifts_024:
 requested_shifts_025: 
   acceptable_end: 2000-01-01 19:00:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:02:32
   day: "3"
   id: "40"
@@ -277,6 +327,8 @@ requested_shifts_025:
 requested_shifts_026: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:06:33
   day: "4"
   id: "41"
@@ -288,6 +340,8 @@ requested_shifts_026:
 requested_shifts_027: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:06:34
   day: "3"
   id: "42"
@@ -299,6 +353,8 @@ requested_shifts_027:
 requested_shifts_028: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:06:48
   day: "1"
   id: "43"
@@ -310,6 +366,8 @@ requested_shifts_028:
 requested_shifts_029: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:07:12
   day: "4"
   id: "44"
@@ -321,6 +379,8 @@ requested_shifts_029:
 requested_shifts_030: 
   acceptable_end: 2000-01-01 21:30:00
   acceptable_start: 2000-01-01 19:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:14:26
   day: "0"
   id: "45"
@@ -332,6 +392,8 @@ requested_shifts_030:
 requested_shifts_031: 
   acceptable_end: 2000-01-01 21:30:00
   acceptable_start: 2000-01-01 19:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:14:30
   day: "2"
   id: "46"
@@ -343,6 +405,8 @@ requested_shifts_031:
 requested_shifts_032: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 01:14:30
   day: "1"
   id: "47"
@@ -354,6 +418,8 @@ requested_shifts_032:
 requested_shifts_033: 
   acceptable_end: 2000-01-01 19:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 02:41:17
   day: "6"
   id: "49"
@@ -365,6 +431,8 @@ requested_shifts_033:
 requested_shifts_034: 
   acceptable_end: 2000-01-01 18:00:00
   acceptable_start: 2000-01-01 16:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 02:42:19
   day: "1"
   id: "50"
@@ -376,6 +444,8 @@ requested_shifts_034:
 requested_shifts_035: 
   acceptable_end: 2000-01-01 18:00:00
   acceptable_start: 2000-01-01 16:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 02:42:23
   day: "3"
   id: "51"
@@ -387,6 +457,8 @@ requested_shifts_035:
 requested_shifts_036: 
   acceptable_end: 2000-01-01 21:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 02:43:17
   day: "4"
   id: "53"
@@ -398,6 +470,8 @@ requested_shifts_036:
 requested_shifts_037: 
   acceptable_end: 2000-01-01 19:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 03:20:48
   day: "0"
   id: "54"
@@ -409,6 +483,8 @@ requested_shifts_037:
 requested_shifts_038: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 03:21:31
   day: "1"
   id: "55"
@@ -420,6 +496,8 @@ requested_shifts_038:
 requested_shifts_039: 
   acceptable_end: 2000-01-01 17:30:00
   acceptable_start: 2000-01-01 16:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 03:25:27
   day: "4"
   id: "56"
@@ -431,6 +509,8 @@ requested_shifts_039:
 requested_shifts_040: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-01 21:45:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 03:57:49
   day: "0"
   id: "62"
@@ -442,6 +522,8 @@ requested_shifts_040:
 requested_shifts_041: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-01 21:45:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 03:58:26
   day: "0"
   id: "63"
@@ -453,6 +535,8 @@ requested_shifts_041:
 requested_shifts_042: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 04:02:21
   day: "4"
   id: "64"
@@ -464,6 +548,8 @@ requested_shifts_042:
 requested_shifts_043: 
   acceptable_end: 2000-01-01 21:15:00
   acceptable_start: 2000-01-01 17:15:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:05:52
   day: "2"
   id: "66"
@@ -475,6 +561,8 @@ requested_shifts_043:
 requested_shifts_044: 
   acceptable_end: 2000-01-01 17:00:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:15:21
   day: "0"
   id: "69"
@@ -486,6 +574,8 @@ requested_shifts_044:
 requested_shifts_045: 
   acceptable_end: 2000-01-02 04:00:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:16:45
   day: "0"
   id: "70"
@@ -497,6 +587,8 @@ requested_shifts_045:
 requested_shifts_046: 
   acceptable_end: 2000-01-02 04:00:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:16:52
   day: "2"
   id: "71"
@@ -508,6 +600,8 @@ requested_shifts_046:
 requested_shifts_047: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:17:24
   day: "5"
   id: "72"
@@ -519,6 +613,8 @@ requested_shifts_047:
 requested_shifts_048: 
   acceptable_end: 2000-01-01 21:00:00
   acceptable_start: 2000-01-01 19:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:17:47
   day: "6"
   id: "73"
@@ -530,6 +626,8 @@ requested_shifts_048:
 requested_shifts_049: 
   acceptable_end: 2000-01-02 02:00:00
   acceptable_start: 2000-01-01 22:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:18:30
   day: "0"
   id: "75"
@@ -541,6 +639,8 @@ requested_shifts_049:
 requested_shifts_050: 
   acceptable_end: 2000-01-02 02:00:00
   acceptable_start: 2000-01-01 22:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:18:35
   day: "0"
   id: "76"
@@ -552,6 +652,8 @@ requested_shifts_050:
 requested_shifts_051: 
   acceptable_end: 2000-01-02 00:45:00
   acceptable_start: 2000-01-01 22:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:19:21
   day: "3"
   id: "77"
@@ -563,6 +665,8 @@ requested_shifts_051:
 requested_shifts_052: 
   acceptable_end: 2000-01-01 17:15:00
   acceptable_start: 2000-01-01 15:45:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:20:32
   day: "4"
   id: "78"
@@ -574,6 +678,8 @@ requested_shifts_052:
 requested_shifts_053: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 20:45:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 06:24:29
   day: "1"
   id: "79"
@@ -585,6 +691,8 @@ requested_shifts_053:
 requested_shifts_054: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 07:47:38
   day: "5"
   id: "81"
@@ -596,6 +704,8 @@ requested_shifts_054:
 requested_shifts_055: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 02:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 14:20:05
   day: "2"
   id: "84"
@@ -607,6 +717,8 @@ requested_shifts_055:
 requested_shifts_056: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 17:40:04
   day: "2"
   id: "86"
@@ -618,6 +730,8 @@ requested_shifts_056:
 requested_shifts_057: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 17:40:15
   day: "3"
   id: "87"
@@ -629,6 +743,8 @@ requested_shifts_057:
 requested_shifts_058: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 17:40:30
   day: "5"
   id: "88"
@@ -640,6 +756,8 @@ requested_shifts_058:
 requested_shifts_059: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 20:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 17:41:27
   day: "6"
   id: "89"
@@ -651,6 +769,8 @@ requested_shifts_059:
 requested_shifts_060: 
   acceptable_end: 2000-01-01 16:30:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 18:22:43
   day: "3"
   id: "90"
@@ -662,6 +782,8 @@ requested_shifts_060:
 requested_shifts_061: 
   acceptable_end: 2000-01-01 16:30:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 18:23:09
   day: "0"
   id: "91"
@@ -673,6 +795,8 @@ requested_shifts_061:
 requested_shifts_062: 
   acceptable_end: 2000-01-01 16:30:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 18:23:27
   day: "2"
   id: "92"
@@ -684,6 +808,8 @@ requested_shifts_062:
 requested_shifts_063: 
   acceptable_end: 2000-01-01 16:30:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 18:23:36
   day: "1"
   id: "93"
@@ -695,6 +821,8 @@ requested_shifts_063:
 requested_shifts_064: 
   acceptable_end: 2000-01-01 15:30:00
   acceptable_start: 2000-01-01 14:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 18:36:39
   day: "1"
   id: "94"
@@ -706,6 +834,8 @@ requested_shifts_064:
 requested_shifts_065: 
   acceptable_end: 2000-01-01 15:30:00
   acceptable_start: 2000-01-01 14:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 18:36:51
   day: "3"
   id: "95"
@@ -717,6 +847,8 @@ requested_shifts_065:
 requested_shifts_066: 
   acceptable_end: 2000-01-02 04:00:00
   acceptable_start: 2000-01-01 23:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 18:57:00
   day: "6"
   id: "96"
@@ -728,6 +860,8 @@ requested_shifts_066:
 requested_shifts_067: 
   acceptable_end: 2000-01-01 21:00:00
   acceptable_start: 2000-01-01 18:45:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 19:07:25
   day: "2"
   id: "98"
@@ -739,6 +873,8 @@ requested_shifts_067:
 requested_shifts_068: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 00:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 19:13:06
   day: "1"
   id: "101"
@@ -750,6 +886,8 @@ requested_shifts_068:
 requested_shifts_069: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-02 00:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 19:14:02
   day: "3"
   id: "102"
@@ -761,6 +899,8 @@ requested_shifts_069:
 requested_shifts_070: 
   acceptable_end: 2000-01-01 19:00:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 19:14:38
   day: "4"
   id: "103"
@@ -772,6 +912,8 @@ requested_shifts_070:
 requested_shifts_071: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 19:48:16
   day: "5"
   id: "104"
@@ -783,6 +925,8 @@ requested_shifts_071:
 requested_shifts_072: 
   acceptable_end: 2000-01-01 20:00:00
   acceptable_start: 2000-01-01 19:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 19:55:09
   day: "5"
   id: "106"
@@ -794,6 +938,8 @@ requested_shifts_072:
 requested_shifts_073: 
   acceptable_end: 2000-01-02 00:00:00
   acceptable_start: 2000-01-01 22:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 19:58:36
   day: "2"
   id: "107"
@@ -805,6 +951,8 @@ requested_shifts_073:
 requested_shifts_074: 
   acceptable_end: 2000-01-01 22:45:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 20:07:25
   day: "1"
   id: "109"
@@ -816,6 +964,8 @@ requested_shifts_074:
 requested_shifts_075: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 02:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 20:19:24
   day: "6"
   id: "113"
@@ -827,6 +977,8 @@ requested_shifts_075:
 requested_shifts_076: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 20:21:16
   day: "5"
   id: "114"
@@ -838,6 +990,8 @@ requested_shifts_076:
 requested_shifts_077: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 22:16:11
   day: "0"
   id: "115"
@@ -849,6 +1003,8 @@ requested_shifts_077:
 requested_shifts_078: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 22:16:22
   day: "1"
   id: "116"
@@ -860,6 +1016,8 @@ requested_shifts_078:
 requested_shifts_079: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 22:16:27
   day: "2"
   id: "117"
@@ -871,6 +1029,8 @@ requested_shifts_079:
 requested_shifts_080: 
   acceptable_end: 2000-01-02 00:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 22:16:39
   day: "3"
   id: "118"
@@ -882,6 +1042,8 @@ requested_shifts_080:
 requested_shifts_081: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 22:17:09
   day: "5"
   id: "119"
@@ -893,6 +1055,8 @@ requested_shifts_081:
 requested_shifts_082: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 22:18:07
   day: "6"
   id: "120"
@@ -904,6 +1068,8 @@ requested_shifts_082:
 requested_shifts_083: 
   acceptable_end: 2000-01-01 17:00:00
   acceptable_start: 2000-01-01 15:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-26 23:21:02
   day: "5"
   id: "121"
@@ -915,6 +1081,8 @@ requested_shifts_083:
 requested_shifts_084: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-02 00:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 00:11:49
   day: "2"
   id: "122"
@@ -926,6 +1094,8 @@ requested_shifts_084:
 requested_shifts_085: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 00:12:05
   day: "3"
   id: "123"
@@ -937,6 +1107,8 @@ requested_shifts_085:
 requested_shifts_086: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 00:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 00:12:28
   day: "0"
   id: "124"
@@ -948,6 +1120,8 @@ requested_shifts_086:
 requested_shifts_087: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:00:30
   day: "0"
   id: "125"
@@ -959,6 +1133,8 @@ requested_shifts_087:
 requested_shifts_088: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:01:00
   day: "0"
   id: "126"
@@ -970,6 +1146,8 @@ requested_shifts_088:
 requested_shifts_089: 
   acceptable_end: 2000-01-02 04:00:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:03:14
   day: "1"
   id: "128"
@@ -981,6 +1159,8 @@ requested_shifts_089:
 requested_shifts_090: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:04:48
   day: "1"
   id: "129"
@@ -992,6 +1172,8 @@ requested_shifts_090:
 requested_shifts_091: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-02 02:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:05:40
   day: "3"
   id: "130"
@@ -1003,6 +1185,8 @@ requested_shifts_091:
 requested_shifts_092: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 19:45:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:12:34
   day: "1"
   id: "132"
@@ -1014,6 +1198,8 @@ requested_shifts_092:
 requested_shifts_093: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 22:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:13:51
   day: "2"
   id: "134"
@@ -1025,6 +1211,8 @@ requested_shifts_093:
 requested_shifts_094: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 19:15:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:15:00
   day: "3"
   id: "136"
@@ -1036,6 +1224,8 @@ requested_shifts_094:
 requested_shifts_095: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 19:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:16:50
   day: "4"
   id: "137"
@@ -1047,6 +1237,8 @@ requested_shifts_095:
 requested_shifts_096: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:18:17
   day: "5"
   id: "138"
@@ -1058,6 +1250,8 @@ requested_shifts_096:
 requested_shifts_097: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:18:21
   day: "6"
   id: "139"
@@ -1069,6 +1263,8 @@ requested_shifts_097:
 requested_shifts_098: 
   acceptable_end: 2000-01-01 21:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:24:09
   day: "2"
   id: "140"
@@ -1080,6 +1276,8 @@ requested_shifts_098:
 requested_shifts_099: 
   acceptable_end: 2000-01-02 01:00:00
   acceptable_start: 2000-01-02 00:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:30:31
   day: "2"
   id: "141"
@@ -1091,6 +1289,8 @@ requested_shifts_099:
 requested_shifts_100: 
   acceptable_end: 2000-01-01 15:00:00
   acceptable_start: 2000-01-01 14:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:55:23
   day: "0"
   id: "147"
@@ -1102,6 +1302,8 @@ requested_shifts_100:
 requested_shifts_101: 
   acceptable_end: 2000-01-01 19:30:00
   acceptable_start: 2000-01-01 18:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 02:55:49
   day: "2"
   id: "148"
@@ -1113,6 +1315,8 @@ requested_shifts_101:
 requested_shifts_102: 
   acceptable_end: 2000-01-01 23:00:00
   acceptable_start: 2000-01-01 15:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 03:39:28
   day: "0"
   id: "149"
@@ -1124,6 +1328,8 @@ requested_shifts_102:
 requested_shifts_103: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 04:08:28
   day: "0"
   id: "150"
@@ -1135,6 +1341,8 @@ requested_shifts_103:
 requested_shifts_104: 
   acceptable_end: 2000-01-01 15:00:00
   acceptable_start: 2000-01-01 14:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 13:10:47
   day: "2"
   id: "151"
@@ -1146,6 +1354,8 @@ requested_shifts_104:
 requested_shifts_105: 
   acceptable_end: 2000-01-02 01:00:00
   acceptable_start: 2000-01-01 21:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 15:56:55
   day: "1"
   id: "153"
@@ -1157,6 +1367,8 @@ requested_shifts_105:
 requested_shifts_106: 
   acceptable_end: 2000-01-01 14:15:00
   acceptable_start: 2000-01-01 14:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 22:45:29
   day: "3"
   id: "154"
@@ -1168,6 +1380,8 @@ requested_shifts_106:
 requested_shifts_107: 
   acceptable_end: 2000-01-02 04:45:00
   acceptable_start: 2000-01-01 16:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 22:55:25
   day: "0"
   id: "156"
@@ -1179,6 +1393,8 @@ requested_shifts_107:
 requested_shifts_108: 
   acceptable_end: 2000-01-01 17:00:00
   acceptable_start: 2000-01-01 14:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 22:57:32
   day: "4"
   id: "157"
@@ -1190,6 +1406,8 @@ requested_shifts_108:
 requested_shifts_109: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 19:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 22:57:59
   day: "4"
   id: "158"
@@ -1201,6 +1419,8 @@ requested_shifts_109:
 requested_shifts_110: 
   acceptable_end: 2000-01-01 17:00:00
   acceptable_start: 2000-01-01 14:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 22:58:20
   day: "3"
   id: "159"
@@ -1212,6 +1432,8 @@ requested_shifts_110:
 requested_shifts_111: 
   acceptable_end: 2000-01-02 03:15:00
   acceptable_start: 2000-01-02 00:15:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 23:00:49
   day: "3"
   id: "160"
@@ -1223,6 +1445,8 @@ requested_shifts_111:
 requested_shifts_112: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 23:45:52
   day: "0"
   id: "162"
@@ -1234,6 +1458,8 @@ requested_shifts_112:
 requested_shifts_113: 
   acceptable_end: 2000-01-01 19:15:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 23:47:42
   day: "1"
   id: "163"
@@ -1245,6 +1471,8 @@ requested_shifts_113:
 requested_shifts_114: 
   acceptable_end: 2000-01-01 19:15:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-27 23:48:02
   day: "3"
   id: "164"
@@ -1256,6 +1484,8 @@ requested_shifts_114:
 requested_shifts_115: 
   acceptable_end: 2000-01-01 17:45:00
   acceptable_start: 2000-01-01 16:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 00:13:46
   day: "1"
   id: "165"
@@ -1267,6 +1497,8 @@ requested_shifts_115:
 requested_shifts_116: 
   acceptable_end: 2000-01-01 21:00:00
   acceptable_start: 2000-01-01 19:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 00:24:22
   day: "6"
   id: "166"
@@ -1278,6 +1510,8 @@ requested_shifts_116:
 requested_shifts_117: 
   acceptable_end: 2000-01-01 17:00:00
   acceptable_start: 2000-01-01 14:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 00:35:01
   day: "6"
   id: "167"
@@ -1289,6 +1523,8 @@ requested_shifts_117:
 requested_shifts_118: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-02 00:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 00:35:44
   day: "4"
   id: "168"
@@ -1300,6 +1536,8 @@ requested_shifts_118:
 requested_shifts_119: 
   acceptable_end: 2000-01-01 21:30:00
   acceptable_start: 2000-01-01 19:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 01:04:51
   day: "0"
   id: "169"
@@ -1311,6 +1549,8 @@ requested_shifts_119:
 requested_shifts_120: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 18:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 01:06:12
   day: "3"
   id: "170"
@@ -1322,6 +1562,8 @@ requested_shifts_120:
 requested_shifts_121: 
   acceptable_end: 2000-01-02 01:00:00
   acceptable_start: 2000-01-02 00:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 01:07:45
   day: "4"
   id: "172"
@@ -1333,6 +1575,8 @@ requested_shifts_121:
 requested_shifts_122: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 20:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 02:17:52
   day: "0"
   id: "174"
@@ -1344,6 +1588,8 @@ requested_shifts_122:
 requested_shifts_123: 
   acceptable_end: 2000-01-02 03:30:00
   acceptable_start: 2000-01-02 02:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 03:55:57
   day: "3"
   id: "176"
@@ -1355,6 +1601,8 @@ requested_shifts_123:
 requested_shifts_124: 
   acceptable_end: 2000-01-01 20:30:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 04:38:15
   day: "1"
   id: "184"
@@ -1366,6 +1614,8 @@ requested_shifts_124:
 requested_shifts_125: 
   acceptable_end: 2000-01-01 19:15:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 04:38:45
   day: "0"
   id: "185"
@@ -1377,6 +1627,8 @@ requested_shifts_125:
 requested_shifts_126: 
   acceptable_end: 2000-01-01 19:15:00
   acceptable_start: 2000-01-01 17:30:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 04:38:49
   day: "2"
   id: "186"
@@ -1388,6 +1640,8 @@ requested_shifts_126:
 requested_shifts_127: 
   acceptable_end: 2000-01-01 22:00:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 04:43:58
   day: "5"
   id: "187"
@@ -1399,6 +1653,8 @@ requested_shifts_127:
 requested_shifts_128: 
   acceptable_end: 2000-01-02 03:00:00
   acceptable_start: 2000-01-02 01:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 04:44:47
   day: "0"
   id: "188"
@@ -1410,6 +1666,8 @@ requested_shifts_128:
 requested_shifts_129: 
   acceptable_end: 2000-01-02 04:00:00
   acceptable_start: 2000-01-02 02:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 04:45:04
   day: "1"
   id: "189"
@@ -1421,6 +1679,8 @@ requested_shifts_129:
 requested_shifts_130: 
   acceptable_end: 2000-01-01 19:30:00
   acceptable_start: 2000-01-01 17:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 04:47:06
   day: "4"
   id: "191"
@@ -1432,6 +1692,8 @@ requested_shifts_130:
 requested_shifts_131: 
   acceptable_end: 2000-01-01 18:30:00
   acceptable_start: 2000-01-01 16:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 10:03:36
   day: "1"
   id: "192"
@@ -1443,6 +1705,8 @@ requested_shifts_131:
 requested_shifts_132: 
   acceptable_end: 2000-01-01 22:30:00
   acceptable_start: 2000-01-01 20:00:00
+  assigned_end: 
+  assigned_start: 
   created_at: 2010-09-28 10:04:01
   day: "4"
   id: "193"

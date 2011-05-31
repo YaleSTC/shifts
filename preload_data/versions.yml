@@ -1918,7 +1918,7 @@ versions_074:
     - Still no keyword for this week
     - |-
       Still no keyword for this week
-      
+    
       EDIT: never mind, the bearsharktopus is indeed the most awesome animal ever
     reason: 
     - 
@@ -1947,7 +1947,7 @@ versions_075:
     - Emails
     - |-
       Emails
-      
+    
       Code: bearsharktopus
     reason: 
     - 
@@ -3389,7 +3389,7 @@ versions_1026:
     - Shift in Bass Library (09:30AM-01:03PM)
     - |-
       Shift in Bass Library (09:30AM-01:03PM)
-      
+    
       Normally (09:30AM-11:30AM) -- I made an io run at the end of the shift and forgot to sign out before heading to class.
     hours: 
     - 27.55
@@ -7450,7 +7450,7 @@ versions_1173:
     reason: 
     - 
     - |-
-      
+    
       Accidently stayed in here for more than 3 hours.
     parent_id: 
     - 
@@ -7629,7 +7629,7 @@ versions_118:
     - Shift in Bass Media (05:59PM-07:45PM)
     - |-
       Shift in Bass Media (05:59PM-07:45PM)
-      
+    
       Edit: 5:59-9:10pm
     hours: 
     - 25.76
@@ -11748,11 +11748,11 @@ versions_1322:
     description: 
     - |-
       Worked from 9:15-5:15, with 30 minutes off for lunch.  At $18.50, that works out to $138.75, which equals 10 hours and 16 minutes at $13.50.  Adding 9.5 hours to this weeks payform, will add the extra 46 minutes to next week.
-      
+    
       Finished editing the video.
     - |-
       Worked from 9:15-5:15, with 30 minutes off for lunch.  At $18.50, that works out to $138.75, which equals 10 hours and 16 minutes at $13.50.  Adding 9 hours to this weeks payform, will add the extra 76 minutes to next week.
-      
+    
       Finished editing the video.
     hours: 
     - 9.5
@@ -11783,11 +11783,11 @@ versions_1323:
     description: 
     - |-
       Worked from 9:15-5:15, with 30 minutes off for lunch.  At $18.50, that works out to $138.75, which equals 10 hours and 16 minutes at $13.50.  Adding 9 hours to this weeks payform, will add the extra 76 minutes to next week.
-      
+    
       Finished editing the video.
     - |-
       Worked from 9:15-5:15, with 30 minutes off for lunch.  At $18.50, that works out to $138.75, which equals 10 hours and 16 minutes at $13.50.  Adding 8.5 hours to this weeks payform, will add the extra hour and 46 minutes to next week.
-      
+    
       Finished editing the video.
     reason: 
     - Went over 40 hours, Lori told me to bill any extra time to next week.
@@ -12595,7 +12595,7 @@ versions_1350:
     - 
     - |
       taking off 2 hours.  Went a little over.   Will push these to next week as I will only do part time anyways. 
-      
+    
     
     parent_id: 
     - 
@@ -14729,7 +14729,7 @@ versions_1437:
     - ST Training - Add/remove for any time you stayed late or left early (or left during and came back).
     - |-
       ST Training - Add/remove for any time you stayed late or left early (or left during and came back).
-      
+    
       + 50 minutes for breakfast / setup
     hours: 
     - 12.0
@@ -18885,6 +18885,26 @@ versions_1617:
   user_type: 
   versioned_id: "43966"
   versioned_type: PayformItem
+versions_1618: 
+  changes: |
+    --- 
+    reason: 
+    - 
+    - testing
+    hours: 
+    - 11.0
+    - 9.0
+
+  created_at: 2011-05-30 19:58:54
+  id: "2629"
+  number: "2"
+  tag: 
+  updated_at: 2011-05-30 19:58:54
+  user_id: 
+  user_name: James Luo
+  user_type: 
+  versioned_id: "14"
+  versioned_type: PayformItem
 versions_162: 
   changes: |
     --- 
@@ -20386,7 +20406,7 @@ versions_216:
     - 
     - |
       clicked on wrong window when commenting on ticket. 
-      
+    
     
     active: 
     - true
@@ -23094,7 +23114,7 @@ versions_314:
     - 
     - |-
       I submitted the payform before the code is available, but the code is:
-      
+    
       Mine is Carol of the Bells.
     parent_id: 
     - 
@@ -23270,7 +23290,7 @@ versions_320:
     - no code this week
     - |-
       no code this week...
-      
+    
       12/13. Update; It is Jungle Bells!
     reason: 
     - 
@@ -23380,7 +23400,7 @@ versions_324:
     - Pierson queue email
     - |-
       Pierson queue email
-      
+    
       Email code: I know this blasphemous, but I generally dislike Christmas music. I played at least five Christmas concerts a year through all of high school.  Sleigh Ride makes me want to scream.
       If I have to pick one, Carol of the Bells is better than most.
     reason: 
@@ -23562,7 +23582,7 @@ versions_331:
     - 
     - |-
       Need to add a code:
-      
+    
       Hark the Herald Angels Sing!
     parent_id: 
     - 
@@ -23759,7 +23779,7 @@ versions_338:
     - Email.
     - |-
       Email. ...What if my favorite Christmas song was called "Email."? =P
-      
+    
       My favorite song is "Oh Come All Ye Gentlemen"
     reason: 
     - 
@@ -30373,9 +30393,9 @@ versions_577:
     - 
     - |-
       You have an entry on your payform for last week that appears to match this:
-      
+    
       Feb 01	 BMT Training 1.1 2-1-2010 4:30-5:45p		 1.75	
-      
+    
       Please let me know if something is incorrect.
     active: 
     - true
@@ -31222,7 +31242,7 @@ versions_607:
     - |-
       From looking at your payform for last week, it looks like this was added. Please see your payform at:
       http://weke.its.yale.edu/apps2/payforms/2116-2010-02-06
-      
+    
       There is a line 'BMT Training 1.1 2-1-2010 4:30-5:45p' for 1.75 hours. If I am missing something, please let me know and we'll do our best to correct it on your next payform.
     active: 
     - true
@@ -33432,7 +33452,7 @@ versions_698:
     - email
     - |-
       email.  Btw, putting the passphrase in an email not entitled "Weekly Update" isn't cool.  I completely missed it until somebody else told me that it was in that email; there hadn't been a Weekly Update, so I wasn't looking for a passphrase.
-      
+    
       Toner, btw.
     reason: 
     - 
