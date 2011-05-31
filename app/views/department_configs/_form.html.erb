@@ -20,8 +20,8 @@
       <%= f.text_field :grace_period, :size => 6 %>
     </p>
 	<p>
-		<%= f.label :admin_round_option, text = "Department payform rounding (in minutes): "%>
-		<%= f.text_field :admin_round_option, :size => 6 %>
+		<%= f.label :admin_round_option, text = "Department payform rounding: "%>
+		<%= f.select :admin_round_option, @rounding_choices %>
 		</p>
       <p>
         <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
