@@ -1,5 +1,6 @@
 --- 
 department_configs_001: 
+  admin_round_option: 
   auto_remind: "1"
   auto_warn: "1"
   can_take_passed_sub: "1"

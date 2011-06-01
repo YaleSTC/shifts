@@ -10,6 +10,7 @@ locations_001:
   priority: "10"
   report_email: studtech-st-tto@mailman.yale.edu
   short_name: TTO
+  template_id: 
   updated_at: 2010-08-24 23:16:55
   useful_links: ""
 locations_002: 
@@ -23,6 +24,7 @@ locations_002:
   priority: "7"
   report_email: studtech-st-bass@mailman.yale.edu
   short_name: Bass
+  template_id: 
   updated_at: 2010-09-02 18:12:51
   useful_links: ""
 locations_003: 
@@ -36,6 +38,7 @@ locations_003:
   priority: "1"
   report_email: studtech-st-io@mailman.yale.edu
   short_name: io
+  template_id: 
   updated_at: 2010-09-14 22:25:49
   useful_links: ""
 locations_004: 
@@ -49,6 +52,7 @@ locations_004:
   priority: "3"
   report_email: studtech-st-cthall@mailman.yale.edu
   short_name: CT Hall
+  template_id: 
   updated_at: 2010-07-03 18:24:43
   useful_links: ""
 locations_005: 
@@ -62,6 +66,7 @@ locations_005:
   priority: "3"
   report_email: studtech-st-dunham@mailman.yale.edu
   short_name: Dunham
+  template_id: 
   updated_at: 2010-04-02 15:13:35
   useful_links: ""
 locations_006: 
@@ -75,6 +80,7 @@ locations_006:
   priority: "10"
   report_email: studtech-st-bl@mailman.yale.edu
   short_name: BMT
+  template_id: 
   updated_at: 2010-05-13 15:31:25
   useful_links: ""
 locations_007: 
@@ -88,6 +94,7 @@ locations_007:
   priority: "1"
   report_email: studtech-st-bk-kilroy@mailman.yale.edu
   short_name: BK
+  template_id: 
   updated_at: 2009-09-15 15:18:20
   useful_links: ""
 locations_008: 
@@ -101,6 +108,7 @@ locations_008:
   priority: "1"
   report_email: studtech-st-br-kilroy@mailman.yale.edu
   short_name: BR
+  template_id: 
   updated_at: 2009-09-15 15:18:51
   useful_links: ""
 locations_009: 
@@ -114,6 +122,7 @@ locations_009:
   priority: "1"
   report_email: studtech-st-cc-kilroy@mailman.yale.edu
   short_name: CC
+  template_id: 
   updated_at: 2009-09-15 15:19:06
   useful_links: ""
 locations_010: 
@@ -127,6 +136,7 @@ locations_010:
   priority: "1"
   report_email: studtech-st-dc-kilroy@mailman.yale.edu
   short_name: DC
+  template_id: 
   updated_at: 2009-09-15 15:19:23
   useful_links: ""
 locations_011: 
@@ -140,6 +150,7 @@ locations_011:
   priority: "1"
   report_email: studtech-st-je-kilroy@mailman.yale.edu
   short_name: JE
+  template_id: 
   updated_at: 2009-09-15 15:19:58
   useful_links: ""
 locations_012: 
@@ -153,6 +164,7 @@ locations_012:
   priority: "1"
   report_email: studtech-st-pc-kilroy@mailman.yale.edu
   short_name: PC
+  template_id: 
   updated_at: 2009-09-15 15:20:40
   useful_links: ""
 locations_013: 
@@ -166,6 +178,7 @@ locations_013:
   priority: "1"
   report_email: studtech-st-sy-kilroy@mailman.yale.edu
   short_name: SY
+  template_id: 
   updated_at: 2009-09-15 15:20:56
   useful_links: ""
 locations_014: 
@@ -179,6 +192,7 @@ locations_014:
   priority: "1"
   report_email: studtech-st-sm-kilroy@mailman.yale.edu
   short_name: SM
+  template_id: 
   updated_at: 2009-09-15 15:21:15
   useful_links: ""
 locations_015: 
@@ -192,6 +206,7 @@ locations_015:
   priority: "1"
   report_email: studtech-st-td-kilroy@mailman.yale.edu
   short_name: TD
+  template_id: 
   updated_at: 2009-09-15 15:21:44
   useful_links: ""
 locations_016: 
@@ -205,6 +220,7 @@ locations_016:
   priority: "1"
   report_email: studtech-st-tc-kilroy@mailman.yale.edu
   short_name: TC
+  template_id: 
   updated_at: 2009-09-15 15:22:10
   useful_links: ""
 locations_017: 
@@ -218,6 +234,7 @@ locations_017:
   priority: "1"
   report_email: studtech-st-es-kilroy@mailman.yale.edu
   short_name: SW
+  template_id: 
   updated_at: 2010-09-02 05:20:47
   useful_links: ""
 locations_018: 
@@ -231,6 +248,7 @@ locations_018:
   priority: "1"
   report_email: studtech-st-es-kilroy@mailman.yale.edu
   short_name: ES
+  template_id: 
   updated_at: 2010-10-06 00:39:16
   useful_links: ""
 locations_019: 
@@ -244,6 +262,7 @@ locations_019:
   priority: "1"
   report_email: studtech-st-blue-dog@mailman.yale.edu
   short_name: Blue Dog
+  template_id: 
   updated_at: 2009-09-21 20:30:26
   useful_links: ""
 locations_020: 
@@ -257,6 +276,7 @@ locations_020:
   priority: "1"
   report_email: studtech-st-hhh@mailman.yale.edu
   short_name: HHH
+  template_id: 
   updated_at: 2009-09-22 00:42:37
   useful_links: ""
 locations_021: 
@@ -270,6 +290,7 @@ locations_021:
   priority: "1"
   report_email: studtech-st-hgs@mailman.yale.edu
   short_name: HGS
+  template_id: 
   updated_at: 2009-09-22 00:42:33
   useful_links: ""
 locations_022: 
@@ -283,6 +304,7 @@ locations_022:
   priority: "1"
   report_email: "studtech-st-mgr@mailman.yale.edu\t"
   short_name: McDougal
+  template_id: 
   updated_at: 2009-09-22 00:43:41
   useful_links: ""
 locations_023: 
@@ -296,6 +318,7 @@ locations_023:
   priority: "1"
   report_email: "studtech-st-scl-kilroy@mailman.yale.edu\t"
   short_name: SCL
+  template_id: 
   updated_at: 2009-09-22 14:39:36
   useful_links: ""
 locations_024: 
@@ -309,6 +332,7 @@ locations_024:
   priority: "1"
   report_email: "studtech-st-ksl-kilroy@mailman.yale.edu\t"
   short_name: KBT
+  template_id: 
   updated_at: 2009-09-22 14:39:51
   useful_links: ""
 locations_025: 
@@ -322,6 +346,7 @@ locations_025:
   priority: "1"
   report_email: "studtech-st-mgr@mailman.yale.edu\t"
   short_name: PR276
+  template_id: 
   updated_at: 2009-09-22 00:46:19
   useful_links: ""
 locations_026: 
@@ -335,6 +360,7 @@ locations_026:
   priority: "0"
   report_email: studtech-st-tto@mailman.yale.edu
   short_name: TTO (New STs
+  template_id: 
   updated_at: 2010-05-13 15:32:23
   useful_links: ""
 locations_027: 
@@ -348,6 +374,7 @@ locations_027:
   priority: "5"
   report_email: studtech-st-bl@mailman.yale.edu
   short_name: BMT (New)
+  template_id: 
   updated_at: 2010-05-13 15:31:46
   useful_links: ""
 locations_028: 
@@ -361,6 +388,7 @@ locations_028:
   priority: "1"
   report_email: studtech-st-mc-kilroy@mailman.yale.edu
   short_name: MC
+  template_id: 
   updated_at: 2010-09-02 05:21:32
   useful_links: ""
 locations_029: 
@@ -374,6 +402,7 @@ locations_029:
   priority: "1"
   report_email: studtech-st-aacc@mailman.yale.edu
   short_name: AACC
+  template_id: 
   updated_at: 2010-09-24 16:13:51
   useful_links: ""
 locations_030: 
@@ -387,6 +416,7 @@ locations_030:
   priority: "1"
   report_email: studtech-st-afam@mailman.yale.edu
   short_name: Af-AmCC
+  template_id: 
   updated_at: 2010-09-24 16:14:55
   useful_links: ""
 locations_031: 
@@ -400,5 +430,6 @@ locations_031:
   priority: "1"
   report_email: studtech-st-lacasa@mailman.yale.edu
   short_name: La Casa
+  template_id: 
   updated_at: 2010-10-07 16:54:16
   useful_links: ""
