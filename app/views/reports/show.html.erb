@@ -44,7 +44,8 @@
           <%= render :partial => 'report'%>
         </div>
         <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.location)) %>
-          <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+          <%= button_to "Submit this user's shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
+<%# this button is also in views/shifts/tooltips/_show.html.erb%>
         <% end %>
 
 <% if current_user == @report.user && !@report.departed %>
