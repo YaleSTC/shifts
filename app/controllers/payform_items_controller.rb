@@ -22,7 +22,7 @@ class PayformItemsController < ApplicationController
     else
       render :action => 'new'
     end
-  end
+  endw
 
   def edit
     @payform_item = PayformItem.find(params[:id])
