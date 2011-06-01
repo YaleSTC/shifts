@@ -1,2 +1,25 @@
---- {}
-
+--- 
+report_items_001: 
+  content: csw3 logged in at 127.0.0.1
+  created_at: 2011-06-01 19:24:53
+  id: "1"
+  ip_address: 127.0.0.1
+  report_id: "1"
+  time: 2011-06-01 19:24:53
+  updated_at: 2011-06-01 19:24:53
+report_items_002: 
+  content: "Updated Carol.  Paper added (reams): 5."
+  created_at: 2011-06-01 19:25:03
+  id: "2"
+  ip_address: 127.0.0.1
+  report_id: "1"
+  time: 2011-06-01 19:25:03
+  updated_at: 2011-06-01 19:25:03
+report_items_003: 
+  content: "Updated Carol.  Paper added (reams): 5."
+  created_at: 2011-06-01 19:29:15
+  id: "3"
+  ip_address: 127.0.0.1
+  report_id: "1"
+  time: 2011-06-01 19:29:15
+  updated_at: 2011-06-01 19:29:15
