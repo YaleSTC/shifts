@@ -1729,3 +1729,23 @@ user_configs_173:
   view_loc_groups: 
   view_week: ""
   watched_data_objects: ""
+user_configs_174: 
+  created_at: 2011-05-31 21:30:41
+  default_dept: "1"
+  id: "174"
+  taken_sub_email: "1"
+  updated_at: 2011-05-31 21:30:41
+  user_id: "174"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_175: 
+  created_at: 2011-05-31 21:31:45
+  default_dept: "1"
+  id: "175"
+  taken_sub_email: "1"
+  updated_at: 2011-05-31 21:31:45
+  user_id: "175"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
