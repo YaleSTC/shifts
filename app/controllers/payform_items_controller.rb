@@ -18,11 +18,11 @@ class PayformItemsController < ApplicationController
     @payform_item.source = current_user.name
     if @payform_item.save
       flash[:notice] = "Successfully created payform item."
-      redirect_to @payform_item.payform
+      redirect_to @payform_item.payform     
     else
       render :action => 'new'
     end
-  endw
+  end
 
   def edit
     @payform_item = PayformItem.find(params[:id])
