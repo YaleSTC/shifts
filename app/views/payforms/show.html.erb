@@ -20,7 +20,11 @@
     <%= render :partial => "status" %>
 <br />
 	<% if @payform.hours > current_department.department_config.payform_time_limit %>
+<% if @payform.user != current_user %>
 <h3> <%= "#{@payform.user.name} has submitted more than the allowed #{current_department.department_config.payform_time_limit} hours"%> </h3>
+<% else %>
+<h3> <%= " You have submitted more than the allowed #{current_department.department_config.payform_time_limit} hours"%> </h3>
+	<% end %>
 	<% end %>
   </div>
   <br /><br />
