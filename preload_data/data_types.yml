@@ -1,2 +1,8 @@
---- {}
-
+--- 
+data_types_001: 
+  created_at: 2011-06-01 19:22:19
+  department_id: "1"
+  description: ""
+  id: "2"
+  name: Printer
+  updated_at: 2011-06-01 19:22:19
