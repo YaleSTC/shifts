@@ -1802,7 +1802,7 @@ users_095:
   perishable_token: M3BARxFTmOO7v4ZH8Tvg
   persistence_token: 8c5255036b5ae83bba096d9a29c8a10dc920e7361ebd57341b8dba03780471acc9272c8390654419b7d755ef12872f4f18da187309e3a3e81d0e7b818d0d59fb
   supermode: "1"
-  superuser: 
+  superuser: "1"
   updated_at: 2010-08-28 01:48:24
 users_096: 
   auth_type: CAS
@@ -2106,7 +2106,7 @@ users_111:
   perishable_token: Q23MxjYTKUYIUbDSyjDu
   persistence_token: f5e99e85421f45f900c0eb8d9887c227179165982e22b14bd129cfb298d4e1f80167b2bfbd19f0704e1abd53a0a159b2b2eab17617aa92dcbec41dbbadad0251
   supermode: "1"
-  superuser: 
+  superuser: "1"
   updated_at: 2010-04-01 04:39:10
 users_112: 
   auth_type: CAS
@@ -2162,7 +2162,6 @@ users_114:
   password_salt: dwxckBApj9jOK8h3FunK
   perishable_token: nUcoYuEsUMF81z1cQJy5
   persistence_token: ed2b551bc1084c6495b71281c92657f80e78c6c5be0215f0d84f98b2e67502cee3bfe621248f6a09d3124013db9f0d2db4166c3fa6eae803166003a68667b56c
-
   supermode: "1"
   superuser: 
   updated_at: 2010-04-01 04:39:12
@@ -2335,7 +2334,7 @@ users_123:
   perishable_token: p-mhFqa0mHZpa4udLbdI
   persistence_token: 54b4223c29a155d28bd213a6f1010a4c45fa1c35046a7bad23b615e65d68781c6df8bb593c5079cbf3546b2f91eb7a479a6fdbedf7c8ee71e3f05129aeafcd90
   supermode: "1"
-  superuser: 
+  superuser: "1"
   updated_at: 2010-05-25 13:34:50
 users_124: 
   auth_type: CAS
@@ -2582,7 +2581,7 @@ users_136:
   perishable_token: qDe8BGDCuC0Ur4otq7T6
   persistence_token: 6df23e0398a9a5b654bf170698c96f7cfe4e5f3e149db0d59a976c31cb84f23e625e90954360d388cf63f398d6d90c07e427ccb093e28874b2a0aa3fc69eebd9
   supermode: "1"
-  superuser: 
+  superuser: "1"
   updated_at: 2010-08-31 18:20:44
 users_137: 
   auth_type: CAS
@@ -2845,11 +2844,11 @@ users_150:
   login: jfl32
   nick_name: ""
   password_salt: qvleYFHrQXhS3f1RxAxM
-  perishable_token: 9GKaONej3gnK_Fu5XNYr
+  perishable_token: irVUH5Hd8mzigeL7H1a9
   persistence_token: 8fd76b20889deeb9f9f61993a4567d1aa704b6fcb29d60e06403680b4880a43f6767b6f817f02dbf77897929751a2e867cbdabd621ac63a483258dbd3dce055a
   supermode: "1"
-  superuser: 
-  updated_at: 2010-09-07 02:26:57
+  superuser: "1"
+  updated_at: 2011-05-31 21:28:56
 users_151: 
   auth_type: CAS
   calendar_feed_hash: 
@@ -3287,3 +3286,41 @@ users_173:
   supermode: "1"
   superuser: 
   updated_at: 2010-09-20 16:11:43
+users_174: 
+  auth_type: CAS
+  calendar_feed_hash: 
+  created_at: 2011-05-31 21:30:40
+  crypted_password: afc001094655a2ce8fc080bd61a63a7f088031642d5218eefdea5a8800b59bff5af5991bb434c2995d9165106f29bea6a4adf96932464abe8ce9e7fdfea1bbf8
+  default_department_id: 
+  email: daniel.ribas@yale.edu
+  employee_id: ""
+  first_name: Daniel
+  id: "174"
+  last_name: Ribas
+  login: dtr3
+  nick_name: ""
+  password_salt: QfyYokdpbX9mwCQuH
+  perishable_token: rxcrGdqSXOLwhjVd8p0L
+  persistence_token: 321d18478abb6844f0e8329aa14832340b538c2527d4884f54cea1ff648207b31680e187014f0dbfbc6964cdd0d2d6510bfb8a5ddd4d886f96f3414e5b5ba5e8
+  supermode: "1"
+  superuser: "1"
+  updated_at: 2011-05-31 21:30:40
+users_175: 
+  auth_type: CAS
+  calendar_feed_hash: 
+  created_at: 2011-05-31 21:31:45
+  crypted_password: 8f5645c650f08d3500361c4f131a0327781da9f7b1781dfda7802a9cb8a98a3232a2555ad00f63382d3a8ef8329a84e3c269b1f102d9230a1f1ec4902fd4e306
+  default_department_id: 
+  email: machiste.quintana@yale.edu
+  employee_id: ""
+  first_name: Machiste
+  id: "175"
+  last_name: Quintana
+  login: mnq2
+  nick_name: ""
+  password_salt: 9hfUg42laB4EgqPTiv
+  perishable_token: N55EUMT85nkCyQNfVB
+  persistence_token: 72bc88cb6ae6e6c3fbac71d805ff6cc678844b574bd97e87fb3d8ddf62ce2a4f07778d211b9b5497e4d36152eb47dc9e0a289f7a1f26cdc1ee0bde56c507e319
+  supermode: "1"
+  superuser: "1"
+  updated_at: 2011-05-31 21:31:45
