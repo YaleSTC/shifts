@@ -18,6 +18,9 @@ class PayformItemsController < ApplicationController
     @payform_item.source = current_user.name
     if @payform_item.save
       flash[:notice] = "Successfully created payform item."
+        if @payform_item.user != current_user
+          AppMailer.deliver_payform_item_modify_notification(@payform_item, @payform_item.payform.department)
+        end
       redirect_to @payform_item.payform
     else
       render :action => 'new'
@@ -39,8 +42,7 @@ class PayformItemsController < ApplicationController
     @payform_item.updated_by = current_user.name
     if @payform_item.save
       if @payform_item.user != current_user
-        #TODO: we need a new way of determining what has changed.
-        #AppMailer.deliver_payform_item_change_notification(@payform_item.parent, @payform_item, @payform_item.payform.department)
+        AppMailer.deliver_payform_item_modify_notification(@payform_item, @payform_item.payform.department)
       end
       flash[:notice] = "Successfully edited payform item."
       redirect_to @payform_item.payform
