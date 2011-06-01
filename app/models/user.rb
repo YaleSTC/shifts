@@ -176,6 +176,11 @@ class User < ActiveRecord::Base
     [first_name, last_name].join(" ")
   end
 
+  # Useful for alphabetical sorting of lists containing duplicate last names
+  def reverse_name
+    [last_name, first_name].join(" ")
+  end
+  
   def full_name_with_nick
     if nick_name && !nick_name.blank?
       [first_name, "'#{nick_name}'" , last_name].join(" ")
