@@ -17,31 +17,23 @@
     <br /><br />
   <% end -%>
   <div id="payform_status">
-    <%= render :partial => "status" %>
-<br />
-	<% if @payform.hours > current_department.department_config.payform_time_limit %>
-<% if @payform.user != current_user %>
-<h3> <%= "#{@payform.user.name} has submitted more than the allowed #{current_department.department_config.payform_time_limit} hours"%> </h3>
-<% else %>
-<h3> <%= " You have submitted more than the allowed #{current_department.department_config.payform_time_limit} hours"%> </h3>
-	<% end %>
-	<% end %>
+	   <%= render :partial => "status" %>
   </div>
-  <br /><br />
+  <br />
 
   <div id="payform_buttons">
     <%= render :partial => "payform_buttons" %>
   </div>
 
-<div id="payform">
-  <h1>Payform Items</h1>
-  <table id="payformList" width="100%">
-      <%= render :partial => "category", :collection => (@payform.department.categories) %>
-    <tfoot><tr> <th scope="col" id="hours" colspan=7>
-      <div class="total-hours-right"><%= ((@payform.hours * 4).round / 4) %></div>
-      Total Hours:
-    </th></tr> </tfoot>
-  </table>
-  <br/>
-</div>
+	<div id="payform">
+	  <h1>Payform Items</h1>
+	  <table id="payformList" width="100%">
+	      <%= render :partial => "category", :collection => (@payform.department.categories) %>
+	    <tfoot><tr> <th scope="col" id="hours" colspan=7>
+	      <div class="total-hours-right"><%= ((@payform.hours * 4).round / 4) %></div>
+	      Total Hours:
+	    </th></tr> </tfoot>
+	  </table>
+	  <br/>
+	</div>
 <%= payform_add_button %>
