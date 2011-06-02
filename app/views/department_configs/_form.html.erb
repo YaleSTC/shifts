@@ -23,6 +23,10 @@
 		<%= f.label :admin_round_option, text = "Department payform rounding: "%>
 		<%= f.select :admin_round_option, @rounding_choices %>
 		</p>
+		<p>
+		  <%= f.label :early_signin, text = "The earliest a user can sign into a shift without getting a notice (in minutes):" %>
+		<%= f.text_field :early_signin, :size => 6 %>
+		</p>
       <p>
         <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
         <%= f.check_box :weekend_shifts %>
