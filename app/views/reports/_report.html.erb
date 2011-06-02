@@ -3,7 +3,7 @@
     <tr>
       <th class="list_header" colspan="2">
         <h3><%= @report.shift.start.to_s(:just_date) %> - <%= @report.shift.scheduled? ? "scheduled for #{@report.shift.start.to_s(:am_pm)} - #{@report.shift.end.to_s(:am_pm)}" : "unscheduled" %> <br />
-        <%= link_to @shift.user.name, user_profile_path(@shift.user.login) %> @ <%= @report.shift.location.name %></h3>
+        <%= link_to @report.shift.user.name, user_profile_path(@report.shift.user.login) %> @ <%= @report.shift.location.name %></h3>
       </th>
     </tr>
     <tbody id = "all_report_items">
