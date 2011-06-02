@@ -64,9 +64,9 @@
         <% end %>
 
         <% if current_user == @shift.user and !@shift.has_passed? %>
-			<% if (@shift.start - Time.now) <= current_department.department_config.early_signin.minutes%>
+			<% if within_sign_in_window?(@shift)%>
           <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
-			<% else (@shift.start - Time.now) > current_department.department_config.early_signin.minutes%>
+			<% else %>
 		 <%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift early?", :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
 			<% end %>
         <% end %>
