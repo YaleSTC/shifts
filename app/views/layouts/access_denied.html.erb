@@ -1,4 +1,18 @@
-<% inside_layout 'application' do %>
-  <div>Access Denied.  Don't refresh this page.</div>
-<% end -%>
+<div align="center">
+<h1>Access Denied</h1>
+
+<div style = "font-size:12px;">
+<% if @appconfig.login_options.include?('built-in') %>
+Maybe you want to <%= link_to "try", login_path %> to log in with built in notification? 
+<% end %>
+<br>
+<% if current_user && current_user.departments %>
+Maybe you want to go <%= link_to "here", department_path(current_user.departments.first)%>?<br>
+If you think you are redirected here wrongly, please contact the application administrator at <%= "#{AppConfig.first.admin_email}"%>.</br>
+<% end %>
+</br>
+</div>
+</div>
+
+
 
