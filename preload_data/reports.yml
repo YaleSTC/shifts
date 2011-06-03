@@ -1,2 +1,8 @@
---- {}
-
+--- 
+reports_001: 
+  arrived: 2011-06-01 19:24:53
+  created_at: 2011-06-01 19:24:53
+  departed: 
+  id: "1"
+  shift_id: "71230"
+  updated_at: 2011-06-01 19:24:53

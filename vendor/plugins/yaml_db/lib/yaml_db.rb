@@ -43,7 +43,7 @@ module YamlDb::Utils
 		records.each_with_index do |record, index|
 			records[index] = unhash(record, keys)	
 		end
-		
+
 		records
 	end
 
@@ -97,7 +97,7 @@ module YamlDb::Dump
 
 	def self.dump_table_records(io, table)
 		table_record_header(io)	
-	
+
 		column_names = table_column_names(table)
 
 		each_table_page(table) do |records|
@@ -120,7 +120,7 @@ module YamlDb::Dump
 		id = table_column_names(table).first
 		boolean_columns = YamlDb::Utils.boolean_columns(table)
 		quoted_table_name = YamlDb::Utils.quote_table(table)
-		
+
 		(0..pages).to_a.each do |page|
 			sql = ActiveRecord::Base.connection.add_limit_offset!("SELECT * FROM #{quoted_table_name} ORDER BY #{id}",
 				:limit => records_per_page, :offset => records_per_page * page

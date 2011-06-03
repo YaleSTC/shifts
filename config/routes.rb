@@ -127,7 +127,7 @@ ActionController::Routing::Routes.draw do |map|
   map.access_denied '/access_denied', :controller => 'application', :action => 'access_denied'
 
   map.rt_add_job '/rt', :controller => 'hooks', :action => 'add_job'
-	
+
 	map.resources :templates, :collection => {:update_locations => :post} do |template|
 		template.resources :requested_shifts
 		template.resources :shift_preferences
