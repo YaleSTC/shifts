@@ -8,5 +8,8 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @requested_shift %> |
-<%= link_to 'Back', requested_shifts_path %>
+<%= link_to 'Show', [@week_template, @requested_shift] %> |
+<%# why doesn't
+template_requested_shifts_path(@week_template, @requested_shift.id)
+work here? %>
+<%= link_to 'Back', requested_shifts_path(@week_template) %>
