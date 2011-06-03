@@ -70,7 +70,7 @@ class SubRequest < ActiveRecord::Base
   end
 
   def user_is_eligible?(user)
-    return false if self.user == user
+    #return false if self.user == user
     user.can_signup?(self.shift.loc_group)
   end
 
