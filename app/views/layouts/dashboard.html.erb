@@ -5,7 +5,7 @@
 
 <% content_for :left_nav do %>
   <ul id="navigationList">
-	
+
 	<% if current_user.is_superuser? %>
     <h3> Superuser Options </h3>
       <li><%= link_to_unless_current "Application Settings", edit_app_config_path %></li>
@@ -26,12 +26,12 @@
     	<li><%= link_to "My Profile", edit_user_profile_path(current_user.login) %></li>
 			<li><%= link_to_unless_current "My Calendar Feeds", calendar_feeds_path %></li>
 			<li><%= link_to_unless_current "SubRequests", sub_requests_path %></li>
-		
+
 		<h3>Notice Links</h3>
 			<li><%= link_to_post_a_sticky() %></li>
 			<li><%= link_to_post_an_announcement %></li>
 			<li><%= link_to "View all notices", notices_path %></li>
-			
+
 		<h3>Useful Links</h3>
 			<div id = "dashboard_links">
 				<% unless current_department.links.empty? %>		
