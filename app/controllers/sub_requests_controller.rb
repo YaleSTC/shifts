@@ -103,10 +103,19 @@ class SubRequestsController < ApplicationController
   def destroy
     @sub_request = SubRequest.find(params[:id])
     return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
+    
+    @shift = @sub_request.shift
+    
     @sub_request.destroy
     UserSinksUserSource.delete_all("user_sink_type = 'SubRequest' AND user_sink_id = #{params[:id].to_sql}")
-    flash[:notice] = "Successfully destroyed sub request."
-    redirect_to sub_requests_path
+    #the user can cancel a sub request and sign into their shift
+    if params[:sign_in]
+      flash[:notice] = "Successfully destroyed sub request. You can know sign into your shift."
+      redirect_to shift_path(@shift)
+    else
+      flash[:notice] = "Successfully destroyed sub request."
+      redirect_to sub_requests_path
+    end
   end
 
   def get_take_info
@@ -132,7 +141,7 @@ class SubRequestsController < ApplicationController
     just_mandatory = params[:sub_request][:mandatory_start] == "true" ? true : false
     begin
       SubRequest.take(@sub_request, current_user, just_mandatory)
-      flash[:notice] = 'Sub request was successfully taken.'
+      flash[:notice] = 'Sub request was successfully taken'
       redirect_to dashboard_path
     rescue Exception => e
       if !@sub_request.user_is_eligible?(current_user)
