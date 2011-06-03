@@ -56,8 +56,9 @@ class Payform < ActiveRecord::Base
   
   # Total payform hours rounded according to department rounding option.
   def hours
-    hours = payform_items.select{|p| p.active}.map{|i| i.hours}.sum
-    (hours.to_f * 60 / department.department_config.admin_round_option.to_f).round * (department.department_config.admin_round_option.to_f / 60)
+    raw_hours = payform_items.select{|p| p.active}.map{|i| i.hours}.sum
+    rounded_hours = ((raw_hours.to_f * 60 / department.department_config.admin_round_option.to_f).round * (department.department_config.admin_round_option.to_f / 60))
+    sprintf( "%0.02f", rounded_hours).to_f
   end
   
   def hours_minutes_string
