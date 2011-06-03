@@ -16,18 +16,18 @@
 			<span class="sub_time_mandatory">(<%=h sub_request.mandatory_start.to_s(:twelve_hour) %> - <%=h  sub_request.mandatory_end.to_s(:twelve_hour) %>)</span>
 		<% end %>
 	</td>
-	
+
 	<td class="sub_location"><%=h sub_request.shift.location.name.to_s %></td>
 	<td class="sub_requestor"><%= link_to sub_request.shift.user.name.to_s, user_path(sub_request.shift.user)%></td>
 	<td class="sub_reason"><div class="sub_reason_container"><%=h truncate(sub_request.reason.gsub(/\r\n/, "    "), 215, "...") %></div></td>
 	<td class="sub_show_link"><%= link_to 'Show', sub_request %></td>
-	
+
 	<% if current_user.can_take_sub?(sub_request) %>
 		<td class="sub_take_link"><%= link_to 'Take', get_take_info_sub_request_path(sub_request) %></td>
 	<% else %>
 		<td class="sub_invalid">Take</td>
 	<% end %>
-	
+
 	<% if current_user.is_admin_of?(sub_request.shift.department) or current_user == sub_request.user %>
     	<td class="sub_edit_link"><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td> 
     	<td class="sub_destroy_link"><%= link_to 'Destroy', sub_request, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -35,7 +35,7 @@
 		<td class="sub_invalid">Edit</td>
 		<td class="sub_invalid">Destroy</td>
 	<% end %>
-		
+
   </tr>
 <% end %>
 </table>
