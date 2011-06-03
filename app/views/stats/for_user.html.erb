@@ -37,7 +37,7 @@
 				<% s = Shift.find_by_id(stat_entry[:id]) %>
 				<td><%=h s.start.to_date.strftime("%b %d, %Y") %></td>
 				<td><%=h s.location.short_name %></td>
-				<% if !s.report.nil? %><td id="shift<%=s.id%>" class="<%= s.css_class(current_user) %> click_to_show"><font color="#00008B"><%= stat_entry[:shift] %></font></td><% else %><td><%= stat_entry[:shift] %></td><% end %>
+				<% if !s.report.nil? %><td id="shift<%=s.id%>" class="<%= s.css_class(current_user) %> click_to_show"><a href="#"><%= stat_entry[:shift] %></td><% else %></a><td><%= stat_entry[:shift] %></td><% end %>
 				<td><%=h stat_entry[:notes] %></td>
 			</tr>
 		<% end %>
