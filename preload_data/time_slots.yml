@@ -13792,73 +13792,73 @@ time_slots_2162:
 time_slots_2163: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 19:41:39
-  end: 2011-06-06 04:00:00
-  id: "6891"
-  location_id: "13"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-06 21:00:00
+  id: "6890"
+  location_id: "1"
   repeating_event_id: "4884"
-  start: 2011-06-05 13:00:00
-  updated_at: 2011-05-30 19:41:39
+  start: 2011-06-06 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_2164: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 19:41:39
-  end: 2011-06-06 04:00:00
-  id: "6892"
-  location_id: "14"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-13 21:00:00
+  id: "6891"
+  location_id: "1"
   repeating_event_id: "4884"
-  start: 2011-06-05 13:00:00
-  updated_at: 2011-05-30 19:41:39
+  start: 2011-06-13 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_2165: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 21:13:03
-  end: 2011-06-06 04:00:00
-  id: "6893"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-20 21:00:00
+  id: "6892"
   location_id: "1"
-  repeating_event_id: "4885"
-  start: 2011-06-05 13:00:00
-  updated_at: 2011-05-30 21:13:03
+  repeating_event_id: "4884"
+  start: 2011-06-20 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_2166: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 21:13:03
-  end: 2011-06-01 04:00:00
-  id: "6894"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-27 21:00:00
+  id: "6893"
   location_id: "1"
-  repeating_event_id: "4885"
-  start: 2011-05-31 13:00:00
-  updated_at: 2011-05-30 21:13:03
+  repeating_event_id: "4884"
+  start: 2011-06-27 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_2167: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 21:13:03
-  end: 2011-06-02 04:00:00
-  id: "6895"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-04 21:00:00
+  id: "6894"
   location_id: "1"
-  repeating_event_id: "4885"
-  start: 2011-06-01 13:00:00
-  updated_at: 2011-05-30 21:13:03
+  repeating_event_id: "4884"
+  start: 2011-07-04 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_2168: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 21:13:03
-  end: 2011-06-03 04:00:00
-  id: "6896"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-11 21:00:00
+  id: "6895"
   location_id: "1"
-  repeating_event_id: "4885"
-  start: 2011-06-02 13:00:00
-  updated_at: 2011-05-30 21:13:03
+  repeating_event_id: "4884"
+  start: 2011-07-11 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_2169: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 21:13:03
-  end: 2011-06-04 04:00:00
-  id: "6897"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-18 21:00:00
+  id: "6896"
   location_id: "1"
-  repeating_event_id: "4885"
-  start: 2011-06-03 13:00:00
-  updated_at: 2011-05-30 21:13:03
+  repeating_event_id: "4884"
+  start: 2011-07-18 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_217: 
   active: "1"
   calendar_id: "1"
@@ -13872,13 +13872,103 @@ time_slots_217:
 time_slots_2170: 
   active: "1"
   calendar_id: "1"
-  created_at: 2011-05-30 21:13:03
-  end: 2011-06-05 04:00:00
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-25 21:00:00
+  id: "6897"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-25 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2171: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-01 21:00:00
   id: "6898"
   location_id: "1"
-  repeating_event_id: "4885"
-  start: 2011-06-04 13:00:00
-  updated_at: 2011-05-30 21:13:03
+  repeating_event_id: "4884"
+  start: 2011-08-01 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2172: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-08 21:00:00
+  id: "6899"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-08 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2173: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-15 21:00:00
+  id: "6900"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-15 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2174: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-22 21:00:00
+  id: "6901"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-22 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2175: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-29 21:00:00
+  id: "6902"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-29 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2176: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-08 21:00:00
+  id: "6903"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-08 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2177: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-15 21:00:00
+  id: "6904"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-15 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2178: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-22 21:00:00
+  id: "6905"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-22 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2179: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-29 21:00:00
+  id: "6906"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-29 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_218: 
   active: "1"
   calendar_id: "1"
@@ -13889,6 +13979,106 @@ time_slots_218:
   repeating_event_id: "19"
   start: 2009-10-01 19:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2180: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-06 21:00:00
+  id: "6907"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-06 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2181: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-13 21:00:00
+  id: "6908"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-13 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2182: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-20 21:00:00
+  id: "6909"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-20 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2183: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-27 21:00:00
+  id: "6910"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-27 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2184: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-03 21:00:00
+  id: "6911"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-03 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2185: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-10 21:00:00
+  id: "6912"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-10 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2186: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-17 21:00:00
+  id: "6913"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-17 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2187: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-24 21:00:00
+  id: "6914"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-24 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2188: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-31 21:00:00
+  id: "6915"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-31 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2189: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-03 21:00:00
+  id: "6916"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-03 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_219: 
   active: "1"
   calendar_id: "1"
@@ -13899,6 +14089,106 @@ time_slots_219:
   repeating_event_id: "19"
   start: 2009-10-08 19:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2190: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-10 21:00:00
+  id: "6917"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-10 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2191: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-17 21:00:00
+  id: "6918"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-17 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2192: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-24 21:00:00
+  id: "6919"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-06-24 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2193: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-01 21:00:00
+  id: "6920"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-01 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2194: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-08 21:00:00
+  id: "6921"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-08 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2195: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-15 21:00:00
+  id: "6922"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-15 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2196: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-22 21:00:00
+  id: "6923"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-22 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2197: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-29 21:00:00
+  id: "6924"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-07-29 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2198: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-05 21:00:00
+  id: "6925"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-05 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2199: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-12 21:00:00
+  id: "6926"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-12 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_220: 
   active: "1"
   calendar_id: "1"
@@ -13909,6 +14199,106 @@ time_slots_220:
   repeating_event_id: "19"
   start: 2009-10-15 19:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2200: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-19 21:00:00
+  id: "6927"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-19 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2201: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-26 21:00:00
+  id: "6928"
+  location_id: "1"
+  repeating_event_id: "4884"
+  start: 2011-08-26 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2202: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-06 21:00:00
+  id: "6929"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-06 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2203: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-13 21:00:00
+  id: "6930"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-13 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2204: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-20 21:00:00
+  id: "6931"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-20 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2205: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-27 21:00:00
+  id: "6932"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-27 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2206: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-04 21:00:00
+  id: "6933"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-04 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2207: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-11 21:00:00
+  id: "6934"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-11 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2208: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-18 21:00:00
+  id: "6935"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-18 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2209: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-25 21:00:00
+  id: "6936"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-25 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_221: 
   active: "1"
   calendar_id: "1"
@@ -13919,6 +14309,106 @@ time_slots_221:
   repeating_event_id: "19"
   start: 2009-10-22 19:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2210: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-01 21:00:00
+  id: "6937"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-01 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2211: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-08 21:00:00
+  id: "6938"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-08 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2212: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-15 21:00:00
+  id: "6939"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-15 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2213: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-22 21:00:00
+  id: "6940"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-22 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2214: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-29 21:00:00
+  id: "6941"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-29 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2215: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-08 21:00:00
+  id: "6942"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-08 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2216: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-15 21:00:00
+  id: "6943"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-15 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2217: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-22 21:00:00
+  id: "6944"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-22 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2218: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-29 21:00:00
+  id: "6945"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-29 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2219: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-06 21:00:00
+  id: "6946"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-06 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_222: 
   active: "1"
   calendar_id: "1"
@@ -13929,6 +14419,106 @@ time_slots_222:
   repeating_event_id: "19"
   start: 2009-10-29 19:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2220: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-13 21:00:00
+  id: "6947"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-13 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2221: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-20 21:00:00
+  id: "6948"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-20 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2222: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-27 21:00:00
+  id: "6949"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-27 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2223: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-03 21:00:00
+  id: "6950"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-03 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2224: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-10 21:00:00
+  id: "6951"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-10 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2225: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-17 21:00:00
+  id: "6952"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-17 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2226: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-24 21:00:00
+  id: "6953"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-24 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2227: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-31 21:00:00
+  id: "6954"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-31 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2228: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-03 21:00:00
+  id: "6955"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-03 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2229: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-10 21:00:00
+  id: "6956"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-10 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_223: 
   active: "1"
   calendar_id: "1"
@@ -13939,6 +14529,106 @@ time_slots_223:
   repeating_event_id: "19"
   start: 2009-11-05 20:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2230: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-17 21:00:00
+  id: "6957"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-17 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2231: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-06-24 21:00:00
+  id: "6958"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-06-24 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2232: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-01 21:00:00
+  id: "6959"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-01 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2233: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-08 21:00:00
+  id: "6960"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-08 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2234: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-15 21:00:00
+  id: "6961"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-15 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2235: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-22 21:00:00
+  id: "6962"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-22 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2236: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-07-29 21:00:00
+  id: "6963"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-07-29 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2237: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-05 21:00:00
+  id: "6964"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-05 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2238: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-12 21:00:00
+  id: "6965"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-12 19:00:00
+  updated_at: 2011-06-01 19:32:07
+time_slots_2239: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-19 21:00:00
+  id: "6966"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-19 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_224: 
   active: "1"
   calendar_id: "1"
@@ -13949,6 +14639,16 @@ time_slots_224:
   repeating_event_id: "19"
   start: 2009-11-12 20:00:00
   updated_at: 2009-09-22 17:38:49
+time_slots_2240: 
+  active: "1"
+  calendar_id: "1"
+  created_at: 2011-06-01 19:32:07
+  end: 2011-08-26 21:00:00
+  id: "6967"
+  location_id: "2"
+  repeating_event_id: "4884"
+  start: 2011-08-26 19:00:00
+  updated_at: 2011-06-01 19:32:07
 time_slots_225: 
   active: "1"
   calendar_id: "1"

@@ -39,7 +39,7 @@ class RequestedShift < ActiveRecord::Base
   def length
     self.acceptable_end - self.acceptable_start
   end
-	
+
   def day_string
     RequestedShift.day_in_words(self.day)
   end
@@ -64,7 +64,7 @@ class RequestedShift < ActiveRecord::Base
 		errors.add_to_base("Your preferred shift length is longer than the maximum shift hours per day you
 												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > shift_preference.max_hours_per_day
 	end
-	
+
 	def request_is_within_time_slot
 		b = self.locations
 		c = 0

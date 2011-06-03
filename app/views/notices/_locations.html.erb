@@ -5,7 +5,7 @@
 	 		<%= check_box_tag :department_wide_locations, current_department.id, department_check(current_department, notice), :style => "display: none;" %>
     	<%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
 		<% end %>
-	
+
 	<div id = "all_locations">
     <% for loc_group in current_department.loc_groups do %>
       <% if current_user.permission_list.select{|p| p.loc_group == loc_group} %>

@@ -1,5 +1,5 @@
 jQuery($("#TB_ajaxContent")).ready(function(){ 
-		
+
     if(($("#page_title").text() != "Notices") && ($("#page_title").text() != "My Dashboard")) {
         $("#advanced_options_div").hide();
         $("#toggle_link").html('Show advanced options');

@@ -1,2 +1,85 @@
---- {}
-
+--- 
+data_fields_001: 
+  active: "0"
+  created_at: 2011-06-01 19:00:21
+  data_type_id: "1"
+  display_type: select
+  exact_alert: ""
+  id: "1"
+  lower_bound: 
+  name: Open
+  updated_at: 2011-06-01 19:21:52
+  upper_bound: 
+  values: 1; 2; 3; 4; 5; 6
+data_fields_002: 
+  active: "0"
+  created_at: 2011-06-01 19:22:31
+  data_type_id: "2"
+  display_type: text_area
+  exact_alert: 
+  id: "2"
+  lower_bound: 
+  name: Paper added
+  updated_at: 2011-06-01 19:23:39
+  upper_bound: 
+  values: 
+data_fields_003: 
+  active: "1"
+  created_at: 2011-06-01 19:23:34
+  data_type_id: "2"
+  display_type: text_field
+  exact_alert: Cannot add more than 8 reams of paper to a printer.
+  id: "3"
+  lower_bound: "0"
+  name: Paper added (reams)
+  updated_at: 2011-06-01 19:23:34
+  upper_bound: "8"
+  values: 
+data_fields_004: 
+  active: "0"
+  created_at: 2011-06-01 19:24:08
+  data_type_id: "2"
+  display_type: check_box
+  exact_alert: ""
+  id: "4"
+  lower_bound: 
+  name: Toner?
+  updated_at: 2011-06-01 19:26:34
+  upper_bound: 
+  values: ""
+data_fields_005: 
+  active: "0"
+  created_at: 2011-06-01 19:26:19
+  data_type_id: "2"
+  display_type: check_box
+  exact_alert: 
+  id: "5"
+  lower_bound: 
+  name: Toner
+  updated_at: 2011-06-01 19:26:27
+  upper_bound: 
+  values: 
+data_fields_006: 
+  active: "0"
+  created_at: 2011-06-01 19:26:54
+  data_type_id: "2"
+  display_type: check_box
+  exact_alert: ""
+  id: "6"
+  lower_bound: 
+  name: Has toner?
+  updated_at: 2011-06-01 19:27:32
+  upper_bound: 
+  values: 0, 1; 2
+data_fields_007: 
+  active: "0"
+  created_at: 2011-06-01 19:28:49
+  data_type_id: "2"
+  display_type: select
+  exact_alert: 
+  id: "7"
+  lower_bound: 
+  name: Spare Toner?
+  updated_at: 2011-06-01 19:29:04
+  upper_bound: 
+  values: 
