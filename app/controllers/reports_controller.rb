@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
 
     if current_user.current_shift || current_user.punch_clock
       flash[:error] = "You are already signed into a shift or punch clock."
-    elsif @report.user!=current_user 
+    elsif @report.user!=current_user
       flash[:error] = "You can't sign into someone else's report."
     else
       @report.save
@@ -36,8 +36,8 @@ class ReportsController < ApplicationController
   #Submitting a shift
   def update
     @report = Report.find(params[:id])
-    return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department)
-    
+    return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department) || current_user.is_admin_of?(@report.shift.location)
+
     if (params[:sign_out] and @report.departed.nil?) #don't allow duplicate signout messages
       @report.departed = Time.now
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
       # with shift.adjust_sub_requests if it ever does run. -ben
       @add_payform_item = true;
     end
-    
+
     if @report.update_attributes(params[:report]) && @report.shift.update_attribute(:signed_in, false)
       if (@add_payform_item) #don't allow duplicate payform items for a shift
         @payform_item=PayformItem.new("hours" => @report.duration,
@@ -63,7 +63,7 @@ class ReportsController < ApplicationController
         end
       else
         flash[:error] = "That report has already been submitted."
-      end    
+      end
       respond_to do |format|
         format.html {redirect_to dashboard_path}
         format.js
