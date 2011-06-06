@@ -4,11 +4,11 @@
 	<% form_tag(:controller => 'stats', :action => 'for_user', :method => :get, :id => @user.id) do %>
 		<p>
 	    <%= label_tag :start_date %><br />
-	    <%= text_field_tag :start_date, "#{@start_date}" %>
+	    <%= date_select(:stat, :start_date)%>
 	  </p>
 	  <p>
 	    <%= label_tag :end_date %><br />
-	    <%= text_field_tag :end_date, "#{@end_date}" %>
+	    <%= date_select(:stat, :end_date)%>
 	  </p>
 	  <div><%= submit_tag 'Update dates' %></div>
 	<% end -%>
