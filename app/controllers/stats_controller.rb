@@ -33,8 +33,8 @@ class StatsController < ApplicationController
   def for_user
     @user = User.find(params[:id])
     return unless user_is_owner_or_admin_of(@user, current_department)
-    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : 1.week.ago.to_date
-    @end_date = params[:end_date] ? Date.parse(params[:end_date]) : 1.day.ago.to_date
+    @start_date = params[:stat] ? Date.civil(params[:stat][:"start_date(1i)"].to_i,params[:stat][:"start_date(2i)"].to_i,params[:stat][:"start_date(3i)"].to_i) : 1.week.ago.to_date
+    @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : 1.day.ago.to_date
     @shifts = @user.shifts.on_days(@start_date, @end_date).active
     @stats_hash = @user.detailed_stats(@start_date, @end_date)
   end
