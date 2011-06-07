@@ -113,7 +113,52 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
+  def summary_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    summary_stats = {}
+    
+    summary_stats[:start_date] = start_date
+    summary_stats[:end_date] = end_date
+    summary_stats[:total] = shifts_set.size
+    summary_stats[:late] = shifts_set.select{|s| s.late == true}.size
+    summary_stats[:missed] = shifts_set.select{|s| s.missed == true}.size
+    summary_stats[:left_early] = shifts_set.select{|s| s.left_early == true}.size
+    
+    return summary_stats
+  end
+    
+  def detailed_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    detailed_stats = {}
+  
+    shifts_set.each do |s|
+       stat_entry = {}
+       stat_entry[:id] = s.id
+       stat_entry[:shift] = s.short_display
+       stat_entry[:in] = s.created_at
+       stat_entry[:out] = s.updated_at
 
+       if s.missed
+         stat_entry[:notes] = "Missed"
+       elsif s.late && s.left_early
+         stat_entry[:notes] = "Late and left early"
+       elsif s.late
+         stat_entry[:notes] = "Late"
+       elsif s.left_early
+         stat_entry[:notes] = "Left early"
+       else
+         stat_entry[:notes]
+       end
+       stat_entry[:missed] = s.missed
+       stat_entry[:late] = s.late
+       stat_entry[:left_early] = s.left_early
+       stat_entry[:updates_hour] = s.updates_hour
+       detailed_stats[s.id] = stat_entry
+    end
+    
+    return detailed_stats
+  end
+  
   protected
 
   def max_staff_greater_than_min_staff

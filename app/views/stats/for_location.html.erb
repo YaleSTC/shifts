@@ -1,7 +1,7 @@
-<h1>Stats for <%= @user.name%></h1>
+<h1>Stats for <%= @location.name%></h1>
 
 <div id="left_stuff">
-	<% form_tag(:controller => 'stats', :action => 'for_user', :method => :get, :id => @user.id) do %>
+	<% form_tag(:controller => 'stats', :action => 'for_location', :method => :get, :id => @location.id) do %>
 		<p>
 		  <%= label_tag :start_date %><br />
 		  <%= date_select(:stat, :start_date, :default => @start_date)%>
@@ -17,7 +17,7 @@
 <div id="right_stuff">
 	<p>
 		<h3>Summary</h3>
-			<% @summary = @user.summary_stats(@start_date, @end_date) %>
+			<% @summary = @location.summary_stats(@start_date, @end_date) %>
 			<%= render :partial => 'stats/stats_summary', :object => @summary %>
 	</p>
 </div>
@@ -26,7 +26,7 @@
   <thead>
     <tr>
       <th align="left">Date</th>
-      <th align="left">Location</th>
+      <th align="left">Name</th>
 			<th align="left">Shift</th>
       <th align="left">Notes</th>
       <th align="left">Updates/Hour</th>
@@ -37,7 +37,7 @@
 			<tr>
 				<% s = Shift.find_by_id(stat_entry[:id]) %>
 				<td><%=h s.start.to_date %></td>
-				<td><%=h s.location.short_name %></td>
+				<td><%=h s.user.name %></td>
 				<% if !s.report.nil? %><td id="shift<%=s.id%>" class="<%= s.css_class(current_user) %> click_to_show"><a href="#"><%= stat_entry[:shift] %></td><% else %></a><td><%= stat_entry[:shift] %></td><% end %>
 				<td><%=h stat_entry[:notes] %></td>
 				<td><%=h stat_entry[:updates] %></td>
@@ -45,7 +45,7 @@
 		<% end %>
 	</tbody>
 </table>
-<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[1,0],[0,1]]});});</script>
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[0,1]]});});</script>
 
 <div id="AJAX_status"></div><%# for AJAX status updates %>
 
