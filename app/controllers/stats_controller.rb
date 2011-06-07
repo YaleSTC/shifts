@@ -2,8 +2,8 @@ class StatsController < ApplicationController
  
   def index
     return unless user_is_admin_of(current_department)
-    @start_date = params[:start_date] ? Date.parse(params[:start_date]) : 1.week.ago.to_date
-    @end_date = params[:end_date] ? Date.parse(params[:end_date]) : 1.day.ago.to_date
+    @start_date = params[:stat] ? Date.civil(params[:stat][:"start_date(1i)"].to_i,params[:stat][:"start_date(2i)"].to_i,params[:stat][:"start_date(3i)"].to_i) : 1.week.ago.to_date
+    @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : Date.today.to_date
     
     @stats = {}
     
