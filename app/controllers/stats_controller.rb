@@ -4,10 +4,11 @@ class StatsController < ApplicationController
     return unless user_is_admin_of(current_department)
     @start_date = params[:stat] ? Date.civil(params[:stat][:"start_date(1i)"].to_i,params[:stat][:"start_date(2i)"].to_i,params[:stat][:"start_date(3i)"].to_i) : 1.week.ago.to_date
     @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : Date.today.to_date
-    
-    @stats = {}
+    @user_stats = {}
+    @location_stats = {}
     
     users = current_department.active_users.sort_by(&:last_name)
+    locations = current_department.locations.active.sort_by(&:short_name)
 
     users.each do |u|
       user_stats = {}
@@ -26,7 +27,27 @@ class StatsController < ApplicationController
       else
         user_stats[:updates] = valid_report_stats.sum/valid_report_stats.size
       end
-      @stats[u.id] = user_stats
+      @user_stats[u.id] = user_stats
+    end
+    
+    locations.each do |l|
+      location_stats = {}
+      
+      shifts = l.shifts.on_days(@start_date, @end_date).active
+
+      location_stats[:l] = l
+      location_stats[:name] = l.name
+      location_stats[:num_shifts] = shifts.size
+      location_stats[:num_late] = shifts.select{|s| s.late == true}.size
+      location_stats[:num_missed] = shifts.select{|s| s.missed == true}.size
+      location_stats[:num_left_early] = shifts.select{|s| s.left_early == true}.size
+      valid_report_stats = shifts.select{|s| s.parsed == true}.collect(&:updates_hour).delete_if{|r| r == nil}
+      if valid_report_stats.size == 0
+        location_stats[:updates] = nil
+      else
+        location_stats[:updates] = valid_report_stats.sum/valid_report_stats.size
+      end
+      @location_stats[l.id] = location_stats
     end
   end
 
@@ -37,6 +58,15 @@ class StatsController < ApplicationController
     @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : Date.today.to_date
     @shifts = @user.shifts.on_days(@start_date, @end_date).active
     @stats_hash = @user.detailed_stats(@start_date, @end_date)
+  end
+  
+  def for_location
+    @location = Location.find(params[:id])
+    return unless user_is_admin_of(current_department)
+    @start_date = params[:stat] ? Date.civil(params[:stat][:"start_date(1i)"].to_i,params[:stat][:"start_date(2i)"].to_i,params[:stat][:"start_date(3i)"].to_i) : 1.week.ago.to_date
+    @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : Date.today.to_date
+    @shifts = @location.shifts.on_days(@start_date, @end_date).active
+    @stats_hash = @location.detailed_stats(@start_date, @end_date)
   end
   
   def show
