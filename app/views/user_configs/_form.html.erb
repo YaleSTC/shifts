@@ -33,6 +33,7 @@
     <legend>Data</legend>
     <small>Control which data objects will show updates on your
     dashboard.</small><br />
+    <% #It might be best to switch from using the multiple select plugin to javascript to handle checkboxes. Thoughts? %> 
     <%= collection_multiple_select( :user_config, :watched_data_objects,
                                     @data_objects, :id, :name,
                                     :selected_items => @selected_data_objects) %>
