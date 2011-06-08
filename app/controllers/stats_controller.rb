@@ -1,20 +1,30 @@
 class StatsController < ApplicationController
  
   def index
-    return unless user_is_admin_of(current_department)
+    # return unless user_is_admin_of(current_department)
     @start_date = params[:stat] ? Date.civil(params[:stat][:"start_date(1i)"].to_i,params[:stat][:"start_date(2i)"].to_i,params[:stat][:"start_date(3i)"].to_i) : 1.week.ago.to_date
     @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : Date.today.to_date
     @user_stats = {}
     @location_stats = {}
     
-    users = current_department.active_users.sort_by(&:last_name)
-    locations = current_department.locations.active.sort_by(&:short_name)
-
+    users = current_user.to_a
+    locations = []
+    if current_user.loc_groups_to_admin(current_department) != []
+      loc_groups = current_user.loc_groups_to_admin(current_department)
+      loc_groups.each do |lg|
+        lg.locations.each do |l|
+          locations << l
+        end
+      end
+    end
+    if current_user.is_admin_of?(current_department)
+      users = current_department.active_users.sort_by(&:last_name)
+      locations = current_department.locations.active.sort_by(&:short_name)
+    end
+    
     users.each do |u|
       user_stats = {}
-      
       shifts = u.shifts.on_days(@start_date, @end_date).active
-
       user_stats[:u] = u
       user_stats[:name] = u.name
       user_stats[:num_shifts] = shifts.size
@@ -29,7 +39,7 @@ class StatsController < ApplicationController
       end
       @user_stats[u.id] = user_stats
     end
-    
+
     locations.each do |l|
       location_stats = {}
       
