@@ -49,6 +49,9 @@ class StatsController < ApplicationController
       end
       @location_stats[l.id] = location_stats
     end
+  rescue
+    redirect_to stats_path
+    flash[:notice] = "Please enter a valid date range."
   end
 
   def for_user
@@ -58,15 +61,21 @@ class StatsController < ApplicationController
     @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : Date.today.to_date
     @shifts = @user.shifts.on_days(@start_date, @end_date).active
     @stats_hash = @user.detailed_stats(@start_date, @end_date)
+  rescue
+    redirect_to :action => 'for_user', :id => @user.id
+    flash[:notice] = "Please enter a valid date range."
   end
   
   def for_location
     @location = Location.find(params[:id])
-    return unless user_is_admin_of(current_department)
+    return unless user_is_admin_of(@location.loc_group)
     @start_date = params[:stat] ? Date.civil(params[:stat][:"start_date(1i)"].to_i,params[:stat][:"start_date(2i)"].to_i,params[:stat][:"start_date(3i)"].to_i) : 1.week.ago.to_date
     @end_date = params[:stat] ? Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i) : Date.today.to_date
     @shifts = @location.shifts.on_days(@start_date, @end_date).active
     @stats_hash = @location.detailed_stats(@start_date, @end_date)
+  rescue
+    redirect_to :action => 'for_location', :id => @location.id
+    flash[:notice] = "Please enter a valid date range."  
   end
   
   def show

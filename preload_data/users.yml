@@ -2844,11 +2844,11 @@ users_150:
   login: jfl32
   nick_name: ""
   password_salt: qvleYFHrQXhS3f1RxAxM
-  perishable_token: irVUH5Hd8mzigeL7H1a9
+  perishable_token: nNYWE0aOe8MGfJjEzLQ
   persistence_token: 8fd76b20889deeb9f9f61993a4567d1aa704b6fcb29d60e06403680b4880a43f6767b6f817f02dbf77897929751a2e867cbdabd621ac63a483258dbd3dce055a
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-05-31 21:28:56
+  updated_at: 2011-06-08 15:14:11
 users_151: 
   auth_type: CAS
   calendar_feed_hash: 
