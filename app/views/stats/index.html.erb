@@ -1,5 +1,11 @@
 <h1><%="Stats between #{@start_date.to_date.strftime("%b %d, %Y")} and #{@end_date.to_date.strftime("%b %d, %Y")}"%></h1>
 
+
+
+
+
+
+
 <div id="left_stuff">
 	<fieldset class ="index">
 		<legend>Date Select</legend>
@@ -16,55 +22,73 @@
 		<% end -%>
 	</fieldset>
 </div>
- 
-<table id="user_stats_table" class="tablesorter">
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Total Shifts</th>
-      <th align="left">Late</th>
-      <th align="left">Left Early</th>
-      <th align="left">Missed</th>
-			<th align="left">Updates/Hour</th>
-    </tr>
-  </thead>
-  <tbody id="user_list">
-    <% @user_stats.each do |key, stat| %>
-      <tr>
-        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date } %></td>
-        <td><%=h stat[:num_shifts] %></td>
-        <td><%=h stat[:num_late] %></td>
-        <td><%=h stat[:num_left_early] %></td>
-        <td><%=h stat[:num_missed] %></td>
-				<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
- 			</tr>
-    <% end %>
-  </tbody>
-</table>
 
-<table id="location_stats_table" class="tablesorter">
-  <thead>
-    <tr>
-      <th align="left">Name</th>
-      <th align="left">Total Shifts</th>
-      <th align="left">Late</th>
-      <th align="left">Left Early</th>
-      <th align="left">Missed</th>
-			<th align="left">Updates/Hour</th>
-    </tr>
-  </thead>
-  <tbody id="user_list">
-    <% @location_stats.each do |key, stat| %>
-      <tr>
-        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_location', :id => stat[:l], :start_date => @start_date, :end_date => @end_date } %></td>
-        <td><%=h stat[:num_shifts] %></td>
-        <td><%=h stat[:num_late] %></td>
-        <td><%=h stat[:num_left_early] %></td>
-        <td><%=h stat[:num_missed] %></td>
-				<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
- 			</tr>
-    <% end %>
-  </tbody>
-</table>
+<h2 id="user_click" ><a href="#">User Stats</a></h2>
+<div id="user_slide">
+	<table id="user_stats_table" class="tablesorter">
+	  <thead>
+	    <tr>
+	      <th align="left">Name</th>
+	      <th align="left">Total Shifts</th>
+	      <th align="left">Late</th>
+	      <th align="left">Left Early</th>
+	      <th align="left">Missed</th>
+				<th align="left">Updates/Hour</th>
+	    </tr>
+	  </thead>
+	  <tbody id="user_list">
+	    <% @user_stats.each do |key, stat| %>
+	      <tr>
+	        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date } %></td>
+	        <td><%=h stat[:num_shifts] %></td>
+	        <td><%=h stat[:num_late] %></td>
+	        <td><%=h stat[:num_left_early] %></td>
+	        <td><%=h stat[:num_missed] %></td>
+					<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
+	 			</tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<h2 id="location_click" ><a href="#">Location Stats</a></h2>
+<div id="location_slide">
+	<table id="location_stats_table" class="tablesorter">
+	  <thead>
+	    <tr>
+	      <th align="left">Name</th>
+	      <th align="left">Total Shifts</th>
+	      <th align="left">Late</th>
+	      <th align="left">Left Early</th>
+	      <th align="left">Missed</th>
+				<th align="left">Updates/Hour</th>
+	    </tr>
+	  </thead>
+	  <tbody id="user_list">
+	    <% @location_stats.each do |key, stat| %>
+	      <tr>
+	        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_location', :id => stat[:l], :start_date => @start_date, :end_date => @end_date } %></td>
+	        <td><%=h stat[:num_shifts] %></td>
+	        <td><%=h stat[:num_late] %></td>
+	        <td><%=h stat[:num_left_early] %></td>
+	        <td><%=h stat[:num_missed] %></td>
+					<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
+	 			</tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#user_click').click(function(){
+    $('#user_slide').slideToggle();
+  });
+  $('#location_click').click(function(){
+    $('#location_slide').slideToggle();
+  });
+});
+</script>
 
 <script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#user_stats_table").tablesorter({sortList: [[0,0]]});$("#location_stats_table").tablesorter({sortList: [[0,0]]});});</script>
