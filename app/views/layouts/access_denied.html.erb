@@ -8,7 +8,7 @@ Maybe you want to <%= link_to "try", login_path %> to log in with built in notif
 <br>
 <% if current_user && current_user.departments %>
 Maybe you want to go <%= link_to "here", dashboard_path %>?<br>
-If you think you are redirected here wrongly, please contact the application administrator at <%= "#{AppConfig.first.admin_email}"%>.</br>
+If you think you are redirected here wrongly, please contact the application administrator at <%= mail_to "#{AppConfig.first.admin_email}"%>.</br>
 <% end %>
 </br>
 </div>
