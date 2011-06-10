@@ -26,12 +26,8 @@ class ApplicationController < ActionController::Base
     @appconfig = AppConfig.first
   end
 
-  # We should improve this page, probably on the actual template -ben
   def access_denied
-    text = "Access denied"
-    text += "<br>Maybe you want to <a href=\"#{login_path}\">try logging in with built-in authentication</a>?" if @appconfig.login_options.include?('built-in')
-    text += "<br>Maybe you want to go <a href=\"#{department_path(current_user.departments.first)}/users\">here</a>?" if current_user && current_user.departments
-    render :text => text, :layout => true
+    render :file => "layouts/access_denied.html.erb", :layout => true
   end
 
   def using_CAS?
