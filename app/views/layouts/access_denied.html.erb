@@ -3,7 +3,7 @@
 
 <div style = "font-size:12px;">
 <% if @appconfig.login_options.include?('built-in') %>
-Maybe you want to <%= link_to "try", login_path %> to log in with built in notification? 
+Maybe you want to <%= link_to "try", login_path %> to log in with built-in authentication? 
 <% end %>
 <br>
 <% if current_user && current_user.departments %>
