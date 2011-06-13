@@ -33,10 +33,13 @@
     <legend>Data</legend>
     <small>Control which data objects will show updates on your
     dashboard.</small><br />
-    <% #It might be best to switch from using the multiple select plugin to javascript to handle checkboxes. Thoughts? %> 
-    <%= collection_multiple_select( :user_config, :watched_data_objects,
-                                    @data_objects, :id, :name,
-                                    :selected_items => @selected_data_objects) %>
+    <% #It might be best to eventually switch from using the multiple select plugin to javascript to handle checkboxes. Thoughts? %> 
+    <% #Group data objects by data type, sort by name, make a collection of checkboxes for each data type group, print data type name for each group. %>
+    <% @grouped_data_objects = @data_objects.sort_by(&:data_type_id).group_by(&:data_type_id) %>
+    <% for dt_id in 1..@grouped_data_objects.size %>
+      <%= "Object Type: #{dt_id}"  %>
+      <%=  collection_multiple_select( :user_config, :watched_data_objects, @grouped_data_objects[dt_id].sort_by(&:name), :id, :name, :selected_items => @selected_data_objects ) %>
+    <% end %>
   </fieldset>
   <fieldset class = "index">
 	<legend>Email Notifications</legend>
