@@ -5,6 +5,7 @@ class UserConfigsController < ApplicationController
     @dept_select = current_user.departments.map{|d| [d.name, d.id]}
     @loc_group_select = {}
     @data_objects = []
+    @data_type = DataType
     current_user.departments.each do |dept|
       @loc_group_select.store(dept.id, current_user.loc_groups(dept))
       @data_objects << dept.data_objects
@@ -12,6 +13,9 @@ class UserConfigsController < ApplicationController
     end
     @selected_loc_groups = @user_config.view_loc_groups.collect{|lg| lg.id }
     @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj| obj.to_i }
+    
+
+   
   end
 
   def update
