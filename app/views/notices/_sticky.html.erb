@@ -5,8 +5,8 @@
       :confirm => "Are you sure you want to remove this sticky? It will be removed for all users and all locations.",
       :method => :delete %><% end %>
   </div>
-  <%= sticky.content_with_formatting %>
-  <br />
+
+  <%= sticky.content_with_formatting %> <br />
   <div class="grayleft">
     <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start, Time.now, true)} ago" %>
   </div>
