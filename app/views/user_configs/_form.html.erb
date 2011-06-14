@@ -37,7 +37,9 @@
     <% #Group data objects by data type, sort by name, make a collection of checkboxes for each data type group, print data type name for each group. %>
     <% @grouped_data_objects = @data_objects.sort_by(&:data_type_id).group_by(&:data_type_id) %>
     <% for dt_id in 1..@grouped_data_objects.size %>
-      <%= "#{DataType.find(dt_id).name}"  %>
+      <br /><h3>
+      <%= "#{@data_type.find(dt_id).name}"  %>
+      </h3>
       <%=  collection_multiple_select( :user_config, :watched_data_objects, @grouped_data_objects[dt_id].sort_by(&:name), :id, :name, :selected_items => @selected_data_objects ) %>
     <% end %>
   </fieldset>
