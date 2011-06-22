@@ -97,6 +97,10 @@ module ShiftsHelper
     @open_at[time.to_s(:am_pm)] && people_count[time.to_s(:am_pm)] < location.min_staff
   end
 
+#calculates whether the student is signing into a shift earlier than the allowed dept time
+  def within_sign_in_window?(shift)
+    (shift.start - Time.now)  <=  current_department.department_config.early_signin.minutes
+  end
 
 #calculates default_start/end and range_start/end_time
   def calculate_default_times
