@@ -141,7 +141,7 @@ class SubRequestsController < ApplicationController
     just_mandatory = params[:sub_request][:mandatory_start] == "true" ? true : false
     begin
       SubRequest.take(@sub_request, current_user, just_mandatory)
-      flash[:notice] = 'Sub request was successfully taken'
+      flash[:notice] = 'Sub request was successfully taken.'
       redirect_to dashboard_path
     rescue Exception => e
       if !@sub_request.user_is_eligible?(current_user)
