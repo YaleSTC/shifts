@@ -65,7 +65,6 @@
       <legend>Shift Statistics</legend>
 				<% @summary = current_user.summary_stats(Date.today - 7, Date.today) %>
 				<%= render :partial => 'stats/stats_summary', :object => @summary %>
-				<%= link_to "More Info", {:controller => :stats, :action => 'for_user', :id => current_user.id} %><br />
     </fieldset>
 
     <% unless @watched_objects.empty? %>
