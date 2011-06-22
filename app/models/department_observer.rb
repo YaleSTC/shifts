@@ -18,7 +18,8 @@ class DepartmentObserver < ActiveRecord::Observer
                         :warning_weeks => 2,
                         :description_min => 4,
                         :reason_min => 4,
-                        :mailer_address => "noreply@shifts.app"
+                        :mailer_address => "noreply@shifts.app",
+                        :early_signin => 60
                         })
 
     Category.create!(:name => "Shifts",        :department_id => department.id, :built_in => true)

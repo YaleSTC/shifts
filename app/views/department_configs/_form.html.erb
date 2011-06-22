@@ -20,6 +20,10 @@
       <%= f.text_field :grace_period, :size => 6 %>
     </p>
 	<p>
+	  <%= f.label :early_signin, text = "The earliest a user can sign into a shift without getting a notice:" %>
+	<%= f.text_field :early_signin, :size => 6 %>
+	</p>
+	<p>
 		<%= f.label :admin_round_option, text = "Department payform rounding: "%>
 		<%= f.select :admin_round_option, @rounding_choices %>
 		</p>
