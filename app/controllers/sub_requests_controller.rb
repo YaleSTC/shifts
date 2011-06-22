@@ -110,7 +110,7 @@ class SubRequestsController < ApplicationController
     UserSinksUserSource.delete_all("user_sink_type = 'SubRequest' AND user_sink_id = #{params[:id].to_sql}")
     #the user can cancel a sub request and sign into their shift
     if params[:sign_in]
-      flash[:notice] = "Successfully destroyed sub request. You can know sign into your shift."
+      flash[:notice] = "Successfully destroyed sub request. You can now sign into your shift."
       redirect_to shift_path(@shift)
     else
       flash[:notice] = "Successfully destroyed sub request."
