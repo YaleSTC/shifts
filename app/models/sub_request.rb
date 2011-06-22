@@ -70,7 +70,8 @@ class SubRequest < ActiveRecord::Base
   end
 
   def user_is_eligible?(user)
-    return false if self.user == user
+    #can uncomment line below to prevent a user from taking their own shift. 
+    #return false if self.user == user
     user.can_signup?(self.shift.loc_group)
   end
 
