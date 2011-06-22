@@ -2,7 +2,7 @@
 
 <div id="left_stuff">
 	<fieldset class ="index">
-		<legend>Date Select</legend>
+		<legend>Date Range</legend>
 		<% form_tag(:controller => 'stats', :action => 'for_location', :method => :get, :id => @location.id) do %>
 			<p>
 			  <%= label_tag :start_date %><br />
@@ -36,6 +36,9 @@
     </tr>
   </thead>
 	<tbody>
+		<% if @stats_hash == {} %>
+			<tr><td colspan="5">There are no stats for this period.</td></tr>
+		<% end %>
 		<% @stats_hash.each do |shift_id, stat_entry| %>
 			<tr>
 				<% s = Shift.find_by_id(stat_entry[:id]) %>
