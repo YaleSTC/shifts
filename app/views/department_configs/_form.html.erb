@@ -27,6 +27,8 @@
 		<%= f.label :admin_round_option, text = "Department payform rounding: "%>
 		<%= f.select :admin_round_option, @rounding_choices %>
 		</p>
+		<%= f.label :payform_time_limit, text = " Maximum amount of hours allowed to be submitted without getting a warning: "%>
+		<%= f.text_field :payform_time_limit, :size => 6 %>
       <p>
         <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
         <%= f.check_box :weekend_shifts %>

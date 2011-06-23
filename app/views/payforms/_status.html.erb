@@ -11,4 +11,11 @@
   <strong>Printed:</strong> <%= @payform.printed.strftime(date_format + " at " + time_format) %><br/>
   <em><%=@payform.department.department_config.printed_message%></em><br/>
 <%end -%>
+<% if @payform.hours > current_department.department_config.payform_time_limit %>
+	<% if @payform.user != current_user %>
+	<h3><font color='red'><%= "#{@payform.user.name} has listed more than the allowed #{current_department.department_config.payform_time_limit} hours"%></font></h3>
+	<% else %>
+	<h3><font color='red'><%= "You have listed more than the allowed #{current_department.department_config.payform_time_limit} hours"%></font></h3>
+	<% end %>
+<% end %>
 </fieldset>
