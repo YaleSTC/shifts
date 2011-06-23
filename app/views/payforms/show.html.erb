@@ -5,6 +5,7 @@
   <% title "Payform for #{payform_span}" -%>
 <% end -%>
 
+
   <% unless current_user.is_admin_of?(current_department) %>
     <div id="cols">
       <div id="cols-header"><%= error_messages_for 'payform' %></div>
@@ -16,9 +17,9 @@
     <br /><br />
   <% end -%>
   <div id="payform_status">
-    <%= render :partial => "status" %>
+	   <%= render :partial => "status" %>
   </div>
-  <br /><br />
+  <br />
 
   <div id="payform_buttons">
     <%= render :partial => "payform_buttons" %>
@@ -35,4 +36,5 @@
   </table>
   <br/>
 </div>
+
 <%= payform_add_button %>
