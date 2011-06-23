@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
 
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
+    @tasks = Task.in_location(@report.shift.location).after_now
     return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
   end

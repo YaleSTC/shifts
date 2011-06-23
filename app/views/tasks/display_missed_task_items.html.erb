@@ -1,0 +1,17 @@
+<% content_for :head do %>
+  <% stylesheet 'report'%>  
+<% end %>
+
+
+<table id="missed_task_view_table">
+   <thead><tr>
+     <th class="list_header" colspan="4">
+      <h2>Recently missed tasks: <%= Task.find(@tasks.task_id).name %></h2>
+     </th>
+    </tr></thead>
+    <tbody id ="all_missed_task_items">
+    <%= render :partial => "missed_task_items", :collection => @ShiftsTask %>
+    </tbody>
+  </table>
+<%= render :partial => "missed_task_item_form" %>
+

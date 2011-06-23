@@ -8,6 +8,8 @@ class Shift < ActiveRecord::Base
   belongs_to :location
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
+  has_many :shifts_tasks
+  has_many :tasks, :through => :shifts_tasks
   before_update :disassociate_from_repeating_event
 
   validates_presence_of :location

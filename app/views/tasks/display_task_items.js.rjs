@@ -1,0 +1,4 @@
+page.replace_html("all_task_items", :partial => "task_items", :collection => @ShiftsTask)
+page['task_item_form'].attr("action", url_for(:action => 'display_task_items', :start_time => (@start_time - 5.hours).to_s, :only_path => true) )
+
+#Same as in Locations, this is an ajax implementation
