@@ -1,0 +1,3 @@
+<% form_tag({:action => 'display_task_items', :start_time => (@start_time - 5.hours).to_s}, :class => "ajaxed_form", :id => "task_item_form") do %>
+  <%= submit_tag "view more" %>
+<% end %>

@@ -1,0 +1,23 @@
+<% content_for :head do %>
+  <% stylesheet 'report'%>  
+<% end %>
+
+<table id="task_view_table">
+    <thead><tr>
+      <th class="list_header" colspan="3">
+        <h2>Recent completions of task: <%= Task.find(@tasks.task_id).name %></h2>
+      </th>
+    </tr></thead>
+    <tbody id = "all_task_items">
+		<%= render :partial => "task_items", :collection => @ShiftsTasks %>
+    </tbody>
+  </table>
+<%= render :partial => "task_item_form" %>
+
+<% #TODO: Clean up View to be more report style orientated %>
+
+
+
+<%# form_remote_tag :url => { :action => 'display_task_items' } do %>
+ <%#= submit_tag "view more", :class => "view_more" %>
+<%# end %>

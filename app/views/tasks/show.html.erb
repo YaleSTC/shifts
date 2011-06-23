@@ -1,0 +1,44 @@
+
+
+<p>
+  <b>Name:</b>
+  <%=h @task.name %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%=h @task.kind %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= Location.find_by_id(@task.location_id).name %>
+</p>
+
+<p>
+  <b>Start:</b>
+  <%=h @task.start.to_s(:just_date_long) %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%=h @task.end.to_s(:just_date_long) %>
+</p>
+
+<p>
+  <b>Time of Day:</b>
+  <%=h @task.time_of_day.to_s(:am_pm) %>
+</p>
+
+<p>
+  <b>Day in Week:</b>
+  <%=h @task.day_in_week %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @task.active %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

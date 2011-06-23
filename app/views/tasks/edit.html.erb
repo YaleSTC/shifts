@@ -1,0 +1,44 @@
+<h1>Editing Task</h1>
+
+<% form_for(@task) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :kind %><br />
+    <%= select_tag 'task[kind]', options_for_select(["Hourly", "Daily", "Weekly"], "Daily") %>
+  </p>
+  <p>
+    <%= f.label :location_id, text = 'Location' %><br />
+    <%= select_tag 'task[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name)%><br />
+  </p>
+  <p>
+    <%= f.label :start %><br />
+    <%= f.datetime_select :start %>
+  </p>
+  <p>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </p>
+  <p>
+    <%= f.label :time_of_day %><br />
+    <%= f.time_select :time_of_day %>
+  </p>
+  <p>
+    <%= f.label :day_in_week %><br />
+    <%= select_tag 'task[day_in_week]', options_for_select(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "Mon") %>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @task %> |
+<%= link_to 'Back', tasks_path %>

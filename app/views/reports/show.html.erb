@@ -19,23 +19,30 @@
       <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
     </fieldset>
 
-    <fieldset class="index" id = "useful_links">
+    <fieldset id = "useful_links" class = "index" >
       <legend>Useful Links</legend>
 			<ul id = "useful_links">
       	<div id = "report_links">
         	<%= render :partial => 'links/report_links' %>
       	</div>
     		<li><%= link_to_post_a_link %></li>
-
-
 			</ul>
     </fieldset>
+
+		<%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 5*60 -%>
+
+		<fieldset id = "shift_tasks" class= "index" >
+			<legend>Shift Tasks</legend>
+			<ul id = "dashboard_right">
+				<!-- <div id = "shift_tasks"> -->
+				<%= render :partial => 'tasks' %>
+				<!-- </div> -->
+			</ul>
+		</fieldset>
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
         <%= render :partial => 'new_report_item_form' %>
-
-
       <div id="report_relative_size">
 
 <% end %>
@@ -44,8 +51,7 @@
           <%= render :partial => 'report'%>
         </div>
         <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.location)) %>
-          <%= button_to "Submit this user's shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
-<%# this button is also in views/shifts/tooltips/_show.html.erb%>
+          <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
         <% end %>
 
 <% if current_user == @report.user && !@report.departed %>
@@ -62,4 +68,3 @@
 <% elsif !@report.departed %>
   <p>This report is still in progress.</p>
 <% end %>
-
