@@ -31,7 +31,7 @@
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
     <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
     <td><%= link_to 'Show Completed', :action => :display_task_items, :id => task %></td>  
-
+	<td><%= link_to 'Show Missed', :action => :display_missed_task_items, :id => task %></td>
 
   </tr>
 <% end %>
