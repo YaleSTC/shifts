@@ -2,12 +2,14 @@
   <% stylesheet 'report'%>  
 <% end %>
 
+<h2>Recent completions of: <%= Task.find(@tasks.task_id).name%></h2>
 <table id="task_view_table">
-    <thead><tr>
-      <th class="list_header" colspan="3">
-        <h2>Recent completions of: <%= Task.find(@tasks.task_id).name %></h2>
-      </th>
-    </tr></thead>
+	<tr>
+		<th>User</th>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Location</th>
+	</tr>
     <tbody id = "all_task_items">
 		<%= render :partial => "task_items", :collection => @ShiftsTasks %>
     </tbody>
@@ -17,6 +19,7 @@
 <% #TODO: Clean up View to be more report style orientated %>
 
 
+<%= link_to "Back to List", tasks_path%>
 
 <%# form_remote_tag :url => { :action => 'display_task_items' } do %>
  <%#= submit_tag "view more", :class => "view_more" %>
