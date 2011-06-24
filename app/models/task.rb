@@ -125,6 +125,6 @@ class Task < ActiveRecord::Base
   private
   
   def start_less_than_end
-    errors.add(:start, "must be earlier than end time.") if (self.end <= start)
+    errors.add(:start, "time must be earlier than end time.") if (self.end <= start)
   end
 end
