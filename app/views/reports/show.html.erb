@@ -29,7 +29,7 @@
 			</ul>
     </fieldset>
 
-		<%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 5*60 -%>
+		<%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 10 -%>
 
 		<fieldset id = "shift_tasks" class= "index" >
 			<legend>Shift Tasks</legend>

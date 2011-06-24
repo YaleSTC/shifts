@@ -71,14 +71,14 @@ class Task < ActiveRecord::Base
   
   #returns boolean if today is the correct day for a weekly task
   def right_day
-    if self.day_in_week
+    if self.kind == "Weekly"
       if self.day_in_week == Time.now.strftime("%a")
         return true
       else
         return false
       end
     else
-      return false
+      return true
     end
   end
   
@@ -116,6 +116,7 @@ class Task < ActiveRecord::Base
   
   def completed_this_week?(shifts_task)
     if Time.now.strftime("%U") == shifts_task.created_at.strftime("%U")
+      return true
     else
       return false
     end
