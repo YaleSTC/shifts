@@ -4,6 +4,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
+    @active_tasks = Task.find(:all, :conditions => ["#{:active} = ?", true])
+    @inactive_tasks = Task.find(:all, :conditions => ["#{:active} = ?", false])
+    
 
     respond_to do |format|
       format.html # index.html.erb
