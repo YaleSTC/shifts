@@ -1,0 +1,21 @@
+<% content_for :head do %>
+  <% stylesheet 'report'%>  
+<% end %>
+
+
+<h2>Recent Missed Instances of: <%= Task.find(@tasks.task_id).name%></h2>
+<table id="task_view_table">
+	<tr>
+		<th>User</th>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Location</th>
+	</tr>
+    <tbody id = "all_task_items">
+		<%= render :partial => "task_items", :collection => @ShiftsTasks %>
+    </tbody>
+  </table>
+
+
+
+<%= link_to "Back to List", tasks_path%>
