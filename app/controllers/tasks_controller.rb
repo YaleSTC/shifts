@@ -107,27 +107,20 @@ class TasksController < ApplicationController
   end
   
   def update_tasks
-    @shift = current_user.current_shift
-    @tasks = Task.in_location(current_user.current_shift.location).after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
+    @tasks = Task.in_location(current_user.current_shift.location).after_now
     respond_to do |format|
       format.js
     end
   end
 
 
-  def display_task_items
+  def completed_tasks
     @tasks = ShiftsTask.find_by_task_id(params[:id])
-    @start_time = (params[:start_time].nil? ? 3.hours.ago.utc : Time.parse(params[:start_time]))
-    respond_to do |format|
-      format.js { }
-      format.html { } #this is necessary!
-    end
-     @ShiftsTasks = ShiftsTask.after_time(@start_time).find(:all, :conditions => {:task_id => Task.find(@tasks.task_id)})
-
+    @completed_tasks = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id)})
   end
   
 #TODO: Currently Display Missed Task breaks when given time intervals between tasks larger than a certain amount. The instructions to refactor are below -SP
-  def display_missed_task_items
+  def missed_tasks
     @tasks = ShiftsTask.find_by_task_id(params[:id])
     @start_time = (params[:start_time].nil? ? 100.hours.ago.utc : Time.parse(params[:start_time]))
     @finish_tasks = ShiftsTask.after_time(@start_time).find(:all, :conditions => {:task_id => Task.find(@tasks.task_id)}) 
