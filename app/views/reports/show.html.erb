@@ -31,13 +31,8 @@
 
 		<%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 10 -%>
 
-		<fieldset id = "shift_tasks" class= "index" >
-			<legend>Shift Tasks</legend>
-			<ul id = "dashboard_right">
-				<!-- <div id = "shift_tasks"> -->
-				<%= render :partial => 'tasks' %>
-				<!-- </div> -->
-			</ul>
+		<fieldset id = "shift_tasks" class= "index">
+					<%= render :partial => 'tasks' %>
 		</fieldset>
 
   <div id="active_report_area">
