@@ -14,7 +14,8 @@ class Task < ActiveRecord::Base
   named_scope :daily, lambda {{:conditions => {:kind => "Daily"}}}
   named_scope :weekly, lambda {{:conditions => {:kind => "Weekly"}}}
   named_scope :after_time, lambda { |time| {:conditions => ["time > ?", time]}}
-  named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}} 
+  named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  
   #done shifts are crossed out in their locations
   def done
     @last_completion = ShiftsTask.all.select{|st| st.task_id == self.id}.last
@@ -120,6 +121,33 @@ class Task < ActiveRecord::Base
     else
       return false
     end
+  end
+  
+  # returns an array containing times when a task could have been completed by an active shift but was not
+  def missed_between(start_date, end_date)
+    interval_completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.created_at >= start_date && st.created_at <= end_date}
+    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| s.start > start_date && s.start < end_date && s.submitted?}
+    
+    missed_shifts_tasks_slots = []
+    
+    if self.kind == "Hourly"
+      missed_shifts_tasks_slots = (start_date.to_time..end_date.to_time).step(3600).to_a
+    elsif self.kind == "Daily"
+      missed_shifts_tasks_slots = (start_date..end_date).to_a
+    elsif self.kind == "Weekly"
+      missed_shifts_tasks_slots = (start_date..end_date).to_a.select{|d| d.strftime("%a") == self.day_in_week}
+    end
+    
+    for slot in 0..(missed_shifts_tasks_slots.size - 2)
+      if !interval_completed_shifts_task.select{|st| st.created_at > missed_shifts_tasks_slots[slot] && st.created_at < missed_shifts_tasks_slots[slot + 1]}.empty?
+        missed_shifts_tasks_slots[slot] = "done"
+      elsif shifts_at_location.select{|s| s.start > missed_shifts_tasks_slots[slot] || s.end < missed_shifts_tasks_slots[slot + 1]}.empty?
+        missed_shifts_tasks_slots[slot] = "no_shifts"
+      end
+    end
+    
+    return missed_shifts_tasks_slots.delete_if{|s| s == "done" || s == "no_shifts"}
+    
   end
   
   private
