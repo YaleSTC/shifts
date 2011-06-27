@@ -85,7 +85,7 @@ class TasksController < ApplicationController
   end
   
   def make_entry
-    #raise params.to_yaml
+    # raise params.to_yaml
     @tasks = Task.in_location(current_user.current_shift.location).after_now
     @shift = current_user.current_shift
     
