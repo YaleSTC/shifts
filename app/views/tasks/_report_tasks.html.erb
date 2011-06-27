@@ -1,0 +1,11 @@
+<legend>Shift Tasks</legend>
+
+<% @tasks.each do |task| %>
+	<li>
+		<% if task.done %>
+			<strike><%= "#{task.name}" %></strike>
+		<% else %>
+			<%= link_to_remote (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name} - Not Done"), :url => { :action => 'make_entry', "task_ids[]" => task.id} %>
+		<% end %>
+	</li>
+<% end %>
