@@ -107,6 +107,7 @@ class TasksController < ApplicationController
   end
   
   def update_tasks
+    @shift = current_user.current_shift
     @tasks = Task.in_location(current_user.current_shift.location).after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
     respond_to do |format|
       format.js
