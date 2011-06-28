@@ -1,7 +1,7 @@
 <tr<%= " class='disabled'" unless task.active %>>
     <td><%=link_to task.name, task%></td>
     <td><%=h task.kind %></td>
-    <td><%=h Location.find_by_id(task.location_id).name %></td>
+    <td><%=h Location.find_by_id(task.location_id).short_name %></td>
     <td><%=h task.start.to_s(:just_date_long) %></td>
     <td><%=h task.end.to_s(:just_date_long) %></td>
     <td><%=h task.time_of_day.to_s(:am_pm) %></td>
