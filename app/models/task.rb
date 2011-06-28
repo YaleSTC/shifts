@@ -123,12 +123,13 @@ class Task < ActiveRecord::Base
     end
   end
   
-  # returns an array containing times when a task could have been completed by an active shift but was not
+  # returns a hash containing times associated with shifts tasks that were not completed, and the shifts that failed to do them
   def missed_between(start_date, end_date)
-    interval_completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.created_at >= start_date && st.created_at <= end_date}
-    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| s.start >= start_date && s.start <= end_date && s.submitted?}
+    slot_completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| (st.created_at >= start_date) && (st.created_at <= end_date)}
+    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| (s.start >= start_date) && (s.start <= end_date) && (!s.signed_in) }
     
     missed_shifts_tasks_slots = []
+    missed_shifts_hash = {}
     
     if self.kind == "Hourly"
       missed_shifts_tasks_slots = (start_date.to_time..end_date.to_time).step(3600).to_a
@@ -139,15 +140,17 @@ class Task < ActiveRecord::Base
     end
     
     for slot in 0..(missed_shifts_tasks_slots.size - 2)
-      if !interval_completed_shifts_task.select{|st| st.created_at > missed_shifts_tasks_slots[slot] && st.created_at < missed_shifts_tasks_slots[slot + 1]}.empty?
-        missed_shifts_tasks_slots[slot] = "done"
-      elsif shifts_at_location.select{|s| s.start > missed_shifts_tasks_slots[slot] || s.end < missed_shifts_tasks_slots[slot + 1]}.empty?
-        missed_shifts_tasks_slots[slot] = "no_shifts"
+      guilty_shifts = []
+      shifts_tasks_in_slot = slot_completed_shifts_task.select{|st| (st.created_at > missed_shifts_tasks_slots[slot]) || (st.created_at < missed_shifts_tasks_slots[slot + 1])}
+      shifts_in_slot = shifts_at_location.select{|s| (s.start > missed_shifts_tasks_slots[slot]) || (s.start < missed_shifts_tasks_slots[slot + 1])}
+      if shifts_tasks_in_slot.empty? && !shifts_in_slot.empty?
+        guilty_shifts << shifts_in_slot
+        guilty_shifts.flatten!
+        missed_shifts_hash[missed_shifts_tasks_slots[slot]] = guilty_shifts
       end
     end
     
-    return missed_shifts_tasks_slots.delete_if{|s| s == "done" || s == "no_shifts"}
-    
+    missed_shifts_hash
   end
   
   private
