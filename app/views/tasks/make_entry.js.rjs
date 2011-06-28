@@ -1,7 +1,7 @@
 
 if true
 	# if current_user.current_shift
-		page.replace_html "shift_tasks", :partial => 'reports/tasks'
+		page.replace_html "shift_tasks", :partial => 'tasks/report_tasks'
   # end
   # page.replace_html "all_notices", :partial => 'notices/all_notices'
   #   page << "tb_remove();"
