@@ -89,15 +89,15 @@ class TasksController < ApplicationController
   
   def make_entry
     # raise params.to_yaml
-    @tasks = Task.in_location(current_user.current_shift.location).after_now
     @shift = current_user.current_shift
-    
+    @tasks = Task.in_location(current_user.current_shift.location).after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
+
     params[:task_ids].each do |task_id|
       @shifts_task = ShiftsTask.new(:task_id => task_id, :shift_id => @shift.id )
   		@shifts_task.save
 		end
 		  if @report = current_user.current_shift.report
-        @report.report_items << ReportItem.new(:time => Time.now, :content => "Completed  #{Task.find(@shifts_task.task_id).name} task.", :ip_address => request.remote_ip)
+        @report.report_items << ReportItem.new(:time => Time.now, :content => "#{Task.find(@shifts_task.task_id).name} completed.", :ip_address => request.remote_ip)
       end
     respond_to do |format|
       format.js
@@ -107,7 +107,7 @@ class TasksController < ApplicationController
   end
   
   def update_tasks
-    @tasks = Task.in_location(current_user.current_shift.location).after_now
+    @tasks = Task.in_location(current_user.current_shift.location).after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
     respond_to do |format|
       format.js
     end
