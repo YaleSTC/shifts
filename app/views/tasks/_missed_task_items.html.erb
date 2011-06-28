@@ -1,8 +1,0 @@
-<% @bad_tasks.each do |undone_task| %>
-	<tr class=<%= cycle('list_undone_item_odd', 'list_undone_item_even')%> > 
-		<td class="user_name"><%=h User.find(Shift.find(undone_task.shift_id).user_id).name %> </td>
-		<td class="task_name"><%=h Task.find(undone_task.task_id).name %></td>
-    <td class="task_location"><%=h Shift.find(undone_task.shift_id).location.name  %> </td>
-    <td class="task_time"><%=h undone_task.created_at %> 
-	</tr>
-<% end %>

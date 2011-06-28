@@ -1,4 +1,0 @@
-page.replace_html("all_missed_task_items", :partial => "missed_task_items", :collection => @ShiftsTask)
-page['missed_task_item_form'].attr("action", url_for(:action => 'display_missed_task_items', :start_time => (@start_time - 5.hours).to_s, :only_path => true) )
-
-#Applies the form AJAX 
