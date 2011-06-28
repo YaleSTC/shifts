@@ -7,7 +7,14 @@
   </p>
   <p>
     <%= f.label :kind %><br />
-    <%= select_tag 'task[kind]', options_for_select(["Hourly", "Daily", "Weekly"], "Daily") %>
+	<%= radio_button_tag 'task[kind]', 'Hourly', true%> Hourly<br />
+	<%= radio_button_tag 'task[kind]', 'Daily'%> Daily<br />
+	<%= radio_button_tag 'task[kind]', 'Weekly'%> Weekly<br />
+    <%#= select_tag 'task[kind]', options_for_select(["Hourly", "Daily", "Weekly"], "Daily") %>
+  </p>
+  <p>
+    <%= f.label :day_in_week, text = "Weekday" %><br />
+    <%= select_tag 'task[day_in_week]', options_for_select(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "Mon") %>
   </p>
   <p>
     <%= f.label :location_id, text = 'Location' %><br />
@@ -30,15 +37,11 @@
                 :minute_interval => current_department.department_config.time_increment, } %>
   </p>
   <p>
-    <%= f.label :time_of_day %><br />
+    <%= f.label :time_of_day, text = "Time" %><br />
    <%= f.time_select :time_of_day, {
                 :simple_time_select => true,
                 :time_separator => "",
                 :minute_interval => current_department.department_config.time_increment, } %>
-  </p>
-  <p>
-    <%= f.label :day_in_week %><br />
-    <%= select_tag 'task[day_in_week]', options_for_select(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "Mon") %>
   </p>
   <p>
     <%= f.label :active %><br />
