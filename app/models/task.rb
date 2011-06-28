@@ -126,7 +126,7 @@ class Task < ActiveRecord::Base
   # returns an array containing times when a task could have been completed by an active shift but was not
   def missed_between(start_date, end_date)
     interval_completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.created_at >= start_date && st.created_at <= end_date}
-    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| s.start > start_date && s.start < end_date && s.submitted?}
+    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| s.start >= start_date && s.start <= end_date && s.submitted?}
     
     missed_shifts_tasks_slots = []
     
