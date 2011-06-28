@@ -21,6 +21,10 @@ every 1.day, :at => '1 am' do
  rake "email:daily_stats"
 end
 
+every 1.hour do 
+ rake "db:missed_tasks"
+end
+
 every 10.minutes do
   rake "email:stale_shift_reminders"
   rake "db:update_shift_stats"
