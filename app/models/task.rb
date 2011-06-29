@@ -18,7 +18,7 @@ class Task < ActiveRecord::Base
   
   #done shifts are crossed out in their locations
   def done
-    @last_completion = ShiftsTask.all.select{|st| st.task_id == self.id}.last
+    @last_completion = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.task_id == self.id}.last #use find method
     if @last_completion
       if (self.kind == "Hourly") && completed_this_hour?(@last_completion)
         return true
@@ -34,9 +34,9 @@ class Task < ActiveRecord::Base
     end
   end
   
-  #delayed tasks show up as bold in their locations
+  #delayed tasks show up with a 'needs doing' tag in their location
   def needs_doing
-    @last_completion = ShiftsTask.all.select{|st| st.task_id == self.id}.last
+    @last_completion = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.task_id == self.id}.last #use find method
     if @last_completion
       hours_since = (Time.now - @last_completion.created_at)/3600
       hours_since_scheduled = (Time.now)
@@ -56,14 +56,51 @@ class Task < ActiveRecord::Base
     end
   end
   
+  #missed tasks are tasks that need doing that have not been done past a certain time
+  def missed
+    @last_completion = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.task_id == self.id}.last #use find method
+    if @last_completion
+      hours_since = (Time.now - @last_completion.created_at)/3600
+      hours_since_scheduled = (Time.now)
+      if self.done
+        return false
+      elsif (self.kind == "Hourly") && (hours_since >= 2) #if a task has not been done for an hour after it has been done, it is considered missed
+        return true 
+      elsif (self.kind == "Daily") && (self.late_time)
+        return true
+      elsif (self.kind == "Weekly") && (self.delayed_day || (self.late_time && self.right_day))
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+  
+  
   #returns boolean if now is after scheduled time for task today; does not respect designated days for weekly tasks
   def right_time
     scheduled_time = self.time_of_day.seconds_since_midnight
     now_time = Time.now.seconds_since_midnight
     seconds_past_scheduled = now_time - scheduled_time
-    if seconds_past_scheduled > 0
+    if seconds_past_scheduled > 0 && seconds_past_scheduled < 3600 #needs doing if not done within an hour
       return true
-    elsif self.kind == "Hourly" #not extactly valid interpretation, since hourly tasks shouldn't have a time_of_day; to prevent nil value errors
+    elsif self.kind == "Hourly" #not exactly valid interpretation, since hourly tasks shouldn't have a time_of_day; to prevent nil value errors
+      return true
+    else
+      return false
+    end
+  end
+  
+  #returns a boolean if an hour has passed after the scheduled task was supposed to be done. 
+  def late_time
+    scheduled_time = self.time_of_day.seconds_since_midnight
+    now_time = Time.now.seconds_since_midnight
+    seconds_past_scheduled = now_time - scheduled_time
+    if seconds_past_scheduled >= 3600
+      return true
+    elsif self.kind == "Hourly" #not exactly valid interpretation, since hourly tasks shouldn't have a time_of_day; to prevent nil value errors
       return true
     else
       return false
