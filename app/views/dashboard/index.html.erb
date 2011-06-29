@@ -61,6 +61,12 @@
         <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
     </fieldset>
 
+    <fieldset class="index" id="shift_stats">
+      <legend>Shift Statistics</legend>
+				<% @summary = current_user.summary_stats(Date.today - 7, Date.today) %>
+				<%= render :partial => 'stats/stats_summary', :object => @summary %>
+    </fieldset>
+
     <% unless @watched_objects.empty? %>
       <fieldset class="index" id="watched_objects">
         <legend>Recent updates for your watched data objects</legend>

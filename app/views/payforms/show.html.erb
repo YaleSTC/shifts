@@ -30,8 +30,13 @@
   <table id="payformList" width="100%">
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
     <tfoot><tr> <th scope="col" id="hours" colspan=7>
+<<<<<<< HEAD
+      Total Time:
+	  	<div class="total-hours-right"><%= @payform.hours_minutes_string %></div>
+=======
       <div class="total-hours-right"><%= @payform.hours %></div>
       Total Hours:
+>>>>>>> d6c7f03765147e335377cc3b05ae5f0b26643015
     </th></tr> </tfoot>
   </table>
   <br/>
