@@ -1,0 +1,211 @@
+--- 
+shifts_tasks_001: 
+  created_at: 2011-06-23 20:13:30
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-23 20:13:30
+shifts_tasks_002: 
+  created_at: 2011-06-23 20:49:07
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-23 20:49:07
+shifts_tasks_003: 
+  created_at: 2011-06-23 21:03:16
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-23 21:03:16
+shifts_tasks_004: 
+  created_at: 2011-06-23 21:04:09
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-23 21:04:09
+shifts_tasks_005: 
+  created_at: 2011-06-24 14:08:13
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-24 14:08:13
+shifts_tasks_006: 
+  created_at: 2011-06-24 15:38:32
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-24 15:38:32
+shifts_tasks_007: 
+  created_at: 2011-06-24 15:57:25
+  missed: 
+  shift_id: "71258"
+  task_id: "2"
+  updated_at: 2011-06-24 15:57:25
+shifts_tasks_008: 
+  created_at: 2011-06-24 16:48:09
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-24 16:48:09
+shifts_tasks_009: 
+  created_at: 2011-06-27 14:14:09
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-27 14:14:09
+shifts_tasks_010: 
+  created_at: 2011-06-27 14:14:26
+  missed: 
+  shift_id: "71258"
+  task_id: "3"
+  updated_at: 2011-06-27 14:14:26
+shifts_tasks_011: 
+  created_at: 2011-06-27 14:14:52
+  missed: 
+  shift_id: "71258"
+  task_id: "2"
+  updated_at: 2011-06-27 14:14:52
+shifts_tasks_012: 
+  created_at: 2011-06-27 14:29:24
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-27 14:29:24
+shifts_tasks_013: 
+  created_at: 2011-06-27 14:29:25
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-27 14:29:25
+shifts_tasks_014: 
+  created_at: 2011-06-27 17:17:36
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-27 17:17:36
+shifts_tasks_015: 
+  created_at: 2011-06-27 17:20:15
+  missed: 
+  shift_id: "71258"
+  task_id: "3"
+  updated_at: 2011-06-27 17:20:15
+shifts_tasks_016: 
+  created_at: 2011-06-27 20:26:33
+  missed: 
+  shift_id: "71258"
+  task_id: "1"
+  updated_at: 2011-06-27 20:26:33
+shifts_tasks_017: 
+  created_at: 2011-06-28 14:10:43
+  missed: 
+  shift_id: "71259"
+  task_id: "3"
+  updated_at: 2011-06-28 14:10:43
+shifts_tasks_018: 
+  created_at: 2011-06-28 14:13:09
+  missed: 
+  shift_id: "71259"
+  task_id: "1"
+  updated_at: 2011-06-28 14:13:09
+shifts_tasks_019: 
+  created_at: 2011-06-28 14:13:48
+  missed: 
+  shift_id: "71259"
+  task_id: "2"
+  updated_at: 2011-06-28 14:13:48
+shifts_tasks_020: 
+  created_at: 2011-06-28 14:34:31
+  missed: 
+  shift_id: "71259"
+  task_id: "5"
+  updated_at: 2011-06-28 14:34:31
+shifts_tasks_021: 
+  created_at: 2011-06-28 14:35:24
+  missed: 
+  shift_id: "71259"
+  task_id: "5"
+  updated_at: 2011-06-28 14:35:24
+shifts_tasks_022: 
+  created_at: 2011-06-28 14:36:45
+  missed: 
+  shift_id: "71259"
+  task_id: "5"
+  updated_at: 2011-06-28 14:36:45
+shifts_tasks_023: 
+  created_at: 2011-06-28 14:37:14
+  missed: 
+  shift_id: "71259"
+  task_id: "5"
+  updated_at: 2011-06-28 14:37:14
+shifts_tasks_024: 
+  created_at: 2011-06-28 14:38:40
+  missed: 
+  shift_id: "71259"
+  task_id: "6"
+  updated_at: 2011-06-28 14:38:40
+shifts_tasks_025: 
+  created_at: 2011-06-28 15:12:33
+  missed: 
+  shift_id: "71259"
+  task_id: "3"
+  updated_at: 2011-06-28 15:12:33
+shifts_tasks_026: 
+  created_at: 2011-06-28 15:33:22
+  missed: 
+  shift_id: "71259"
+  task_id: "5"
+  updated_at: 2011-06-28 15:33:22
+shifts_tasks_027: 
+  created_at: 2011-06-28 15:37:44
+  missed: 
+  shift_id: "71259"
+  task_id: "6"
+  updated_at: 2011-06-28 15:37:44
+shifts_tasks_028: 
+  created_at: 2011-06-28 15:58:55
+  missed: 
+  shift_id: "71259"
+  task_id: "1"
+  updated_at: 2011-06-28 15:58:55
+shifts_tasks_029: 
+  created_at: 2011-06-28 15:59:00
+  missed: 
+  shift_id: "71259"
+  task_id: "7"
+  updated_at: 2011-06-28 15:59:00
+shifts_tasks_030: 
+  created_at: 2011-06-28 17:47:05
+  missed: 
+  shift_id: "71259"
+  task_id: "6"
+  updated_at: 2011-06-28 17:47:05
+shifts_tasks_031: 
+  created_at: 2011-06-28 20:20:37
+  missed: 
+  shift_id: "71260"
+  task_id: "1"
+  updated_at: 2011-06-28 20:20:37
+shifts_tasks_032: 
+  created_at: 2011-06-28 20:20:38
+  missed: 
+  shift_id: "71260"
+  task_id: "3"
+  updated_at: 2011-06-28 20:20:38
+shifts_tasks_033: 
+  created_at: 2011-06-28 20:20:39
+  missed: 
+  shift_id: "71260"
+  task_id: "6"
+  updated_at: 2011-06-28 20:20:39
+shifts_tasks_034: 
+  created_at: 2011-06-28 20:20:41
+  missed: 
+  shift_id: "71260"
+  task_id: "5"
+  updated_at: 2011-06-28 20:20:41
+shifts_tasks_035: 
+  created_at: 2011-06-28 20:20:45
+  missed: 
+  shift_id: "71260"
+  task_id: "7"
+  updated_at: 2011-06-28 20:20:45
