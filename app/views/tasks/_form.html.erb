@@ -12,12 +12,10 @@
 	<%= radio_button_tag 'task[kind]', 'Weekly' %> Weekly<br />
     <%#= select_tag 'task[kind]', options_for_select(["Hourly", "Daily", "Weekly"], "Daily") %>
   </p>
-<div class="day_in_week" <%unless @task.kind == "Weekly"%>id="hide"<%end%>>
   <p>
     <%= f.label :day_in_week, text = "Weekday" %><br />
     <%= select_tag 'task[day_in_week]', options_for_select(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "Mon") %>
   </p>
-</div>
   <p>
     <%= f.label :location_id, text = 'Location' %><br />
     <%= select_tag 'task[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name)%><br />
