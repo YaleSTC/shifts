@@ -8,11 +8,13 @@ department_configs_001:
   day: "6"
   department_id: "1"
   description_min: "4"
+  early_signin: "60"
   end_of_month: "0"
   grace_period: "7"
   id: "1"
   mailer_address: noreply@shifts.app
   monthly: "0"
+  payform_time_limit: 
   printed_message: |-
     This payform has already been printed and may no longer be edited.
     

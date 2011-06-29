@@ -93,7 +93,7 @@ class TasksController < ApplicationController
     @tasks = Task.in_location(current_user.current_shift.location).after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
 
     params[:task_ids].each do |task_id|
-      @shifts_task = ShiftsTask.new(:task_id => task_id, :shift_id => @shift.id )
+      @shifts_task = ShiftsTask.new(:task_id => task_id, :shift_id => @shift.id, :missed => false )
   		@shifts_task.save
 		end
 		  if @report = current_user.current_shift.report
@@ -117,18 +117,22 @@ class TasksController < ApplicationController
 
   def completed_tasks
     @tasks = ShiftsTask.find_by_task_id(params[:id])
-    @completed_tasks = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id)})
+    @completed_tasks = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id), :missed => false})
   end
   
   def missed_tasks
     @tasks = ShiftsTask.find_by_task_id(params[:id])
-    @missed = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id)})
-    @missed_tasks = []
-    @missed.each do |task|
-      if task.task.done
-        @missed_tasks << task
-      end
-    end
-    @missed_tasks
+    #@missed = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id)})
+    #@missed_tasks = []
+    #@missed.each do |task|
+    #  if task.task.done
+    #    @missed_tasks << task
+    #  end
+    #end
+  #  @missed_tasks
+  #end
+    @completed_tasks = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id), :missed => true})
   end
+  
+  
 end

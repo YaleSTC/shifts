@@ -2915,3 +2915,25 @@ sub_requests_264:
   start: 2010-10-16 16:00:00
   updated_at: 2010-10-13 15:23:43
   user_id: 
+sub_requests_265: 
+  created_at: 2011-06-28 20:35:10
+  end: 2011-06-28 22:00:00
+  id: "2091"
+  mandatory_end: 2011-06-28 22:00:00
+  mandatory_start: 2011-06-28 21:00:00
+  reason: test
+  shift_id: "71261"
+  start: 2011-06-28 21:00:00
+  updated_at: 2011-06-28 20:35:10
+  user_id: 
+sub_requests_266: 
+  created_at: 2011-06-28 20:36:13
+  end: 2011-06-28 23:00:00
+  id: "2092"
+  mandatory_end: 2011-06-28 23:00:00
+  mandatory_start: 2011-06-28 22:00:00
+  reason: test
+  shift_id: "71262"
+  start: 2011-06-28 22:00:00
+  updated_at: 2011-06-28 20:36:13
+  user_id: 

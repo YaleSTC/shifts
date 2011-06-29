@@ -53975,6 +53975,19 @@ repeating_events_4683:
   start_time: 2011-06-02 13:00:00
   updated_at: 2011-06-01 19:33:15
   user_id: "56"
+repeating_events_4684: 
+  calendar_id: "1"
+  created_at: 2011-06-23 16:14:35
+  days_of_week: "0,1,2,3,4,5,6"
+  end_date: 2011-08-26 04:00:00
+  end_time: 2011-06-25 04:00:00
+  id: "4886"
+  is_set_of_timeslots: "1"
+  loc_ids: "1,3,10"
+  start_date: 2011-06-23 04:00:00
+  start_time: 2011-06-24 13:00:00
+  updated_at: 2011-06-23 16:14:35
+  user_id: 
 repeating_events_469: 
   calendar_id: "1"
   created_at: 2010-01-19 22:05:13
