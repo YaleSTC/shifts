@@ -125,8 +125,8 @@ class Task < ActiveRecord::Base
   
   # returns a hash containing times associated with shifts tasks that were not completed, and the shifts that failed to do them
   def missed_between(start_date, end_date)
-    slot_completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| (st.created_at >= start_date) && (st.created_at <= end_date)}
-    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| (s.start >= start_date) && (s.start <= end_date) && (!s.signed_in) }
+    slot_completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| (st.created_at >= start_date) && (st.created_at <= end_date) && (st.missed != true)}
+    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| (s.start >= start_date) && (s.start <= end_date) && (!s.signed_in) && (s.submitted?)}
     
     missed_shifts_tasks_slots = []
     missed_shifts_hash = {}
