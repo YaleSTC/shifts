@@ -1,0 +1,92 @@
+<h1>Stats for <%= @location.name%></h1>
+
+<div id="left_stuff">
+	<fieldset class ="index">
+		<legend>Date Range</legend>
+		<% form_tag(:controller => 'stats', :action => 'for_location', :method => :get, :id => @location.id) do %>
+			<p>
+			  <%= label_tag :start_date %><br />
+			  <%= date_select(:stat, :start_date, :default => @start_date)%>
+			</p>
+			<p>
+			  <%= label_tag :end_date %><br />
+			  <%= date_select(:stat, :end_date, :default => @end_date)%>
+			</p>
+		  <div><%= submit_tag 'Update dates' %></div>
+		<% end -%>
+	</fieldset>
+</div>
+
+<div id="right_stuff">
+	<fieldset class ="index">
+		<legend>Summary</legend>
+		<% @summary = @location.summary_stats(@start_date, @end_date) %>
+		<%= render :partial => 'stats/stats_summary', :object => @summary %>
+	</fieldset>
+</div>
+
+<table id="stats_table" class="tablesorter">
+  <thead>
+    <tr>
+      <th align="left">Date</th>
+      <th align="left">Name</th>
+			<th align="left">Shift</th>
+      <th align="left">Notes</th>
+      <th align="left">Updates/Hour</th>
+    </tr>
+  </thead>
+	<tbody>
+		<% if @stats_hash == {} %>
+			<tr><td colspan="5">There are no stats for this period.</td></tr>
+		<% end %>
+		<% @stats_hash.each do |shift_id, stat_entry| %>
+			<tr>
+				<% s = Shift.find_by_id(stat_entry[:id]) %>
+				<td><%=h s.start.to_date %></td>
+				<td><%=h s.user.name %></td>
+				<% if !s.report.nil? %><td id="shift<%=s.id%>" class="<%= s.css_class(current_user) %> click_to_show"><a href="#"><%= stat_entry[:shift] %></td><% else %></a><td><%= stat_entry[:shift] %></td><% end %>
+				<td><%=h stat_entry[:notes] %></td>
+				<td><%=h stat_entry[:updates] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[0,1]]});});</script>
+
+<div id="AJAX_status"></div><%# for AJAX status updates %>
+
+<script>
+  initialize("body");
+  
+  function initialize(div){
+
+    $(div+' td.click_to_show').click(function (e) {
+      popup_show($(this), e);
+      return false;
+    });
+
+  }
+  
+  function popup_show(parent_element, e){
+    $("#tooltip").remove();
+    
+    var id = parent_element.attr('id').substring(5); //remove "shift" from id
+
+    loading_tooltip(e.pageX, e.pageY);
+		$.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+    // $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+  }
+
+  function loading_tooltip(x,y){
+    $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+  }
+  
+  function getXOffset(element){
+    var x = 0
+    while(element){
+        x += element.offsetLeft;
+        element = element.offsetParent;
+    }
+    return x;    
+  }
+</script>
