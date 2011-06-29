@@ -5,7 +5,7 @@ users_001:
   created_at: 2009-09-08 01:29:32
   crypted_password: 0ec345ac21a3d73c287842037df1b149a7805a723e520d7ddc0849749565ad6b75fd34385006076d1b19aa16cdc4244ccb3741de6abb94d3e8720255489bf00b
   default_department_id: 
-  email: adam.bray@yale.yale
+  email: adam.bray@yale.edu
   employee_id: ""
   first_name: Adam
   id: "1"
@@ -13,18 +13,18 @@ users_001:
   login: alb64
   nick_name: ""
   password_salt: V0VUzTE736UzBMUGPPUL
-  perishable_token: 0ppjPHj5ZwlDFSoSZla
+  perishable_token: 18KACkONi_lVXlXYUDtg
   persistence_token: 99e2c0b9815ddaf9a87c75b547e39a555bd6d7997c896d47428335ec09d327b74200b1b61d6dd70e03a0bc46196abe9f1411976fb77ee40ae8bb0772542d4e1e
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-09-30 18:14:13
 users_002: 
   auth_type: CAS
   calendar_feed_hash: e716485f0139c06cd359ad00bafa663eae4d4c35511390b190509b93565b7306
   created_at: 2009-09-14 02:05:29
   crypted_password: fb91496183f6205ec4701a61b26e045b3bdfe7b0b6e58e132d91611307006ac145f69e09983aa4d88ec3b0db2d40bceeb1826fab074ea5515c51dd915df3907f
   default_department_id: 
-  email: jharrett.bryantt@yale.yale
+  email: jharrett.bryantt@yale.edu
   employee_id: "103294"
   first_name: Jharrett
   id: "2"
@@ -32,18 +32,18 @@ users_002:
   login: jbc54
   nick_name: ""
   password_salt: USbqcw9rFF-wZqc4MSas
-  perishable_token: aMzCbGrm6XOSpsU72n
+  perishable_token: LO7i9C4I5lccmg44Eke9
   persistence_token: f13f1fb8c4e2a5ce443e9744bca6ef7097d002f2d6dbb0e47a22dac0c7f67f792d0329688d463eaafd04f668b0fed6dc8ed1a8bcec7e2206142764cf63b4c4b3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-08-29 19:55:53
 users_003: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:29
   crypted_password: b88f96338b8cda88ef1d68921d323dae76e04b81fa8191c6d5469e103bb53f8a7623a6f5f2f34e184e1c4ba5f79bb2b4f99285db67554334e266697d6c420f5d
   default_department_id: 
-  email: crystal.chen@yale.yale
+  email: crystal.chen@yale.edu
   employee_id: "89703"
   first_name: Crystal
   id: "3"
@@ -51,18 +51,18 @@ users_003:
   login: ccc56
   nick_name: ""
   password_salt: r8npgTgEDvAfxtlLxOkT
-  perishable_token: CNMfhISskD9Njcew1c2
+  perishable_token: SOy2nMOkkHTybsctVFPx
   persistence_token: 0026241044e6d43f4803285fbecb49c35b080285f08cdd97052c4789e39e57c6cffe322303151f361e0eefe179b3e0da96c067e31fffbda4f9b9b1acde875a3a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2009-09-22 04:15:43
 users_004: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:29
   crypted_password: d5f81e75ff758a5bc30523343df9c89ed03d52e7db0300ebafb10d9b7e7960a1b11419a8a92f618b1ffa8d6ca5cd95de7a056242ab020e31f44a585d2e360c6a
   default_department_id: 
-  email: zachary.enumah@yale.yale
+  email: zachary.enumah@yale.edu
   employee_id: "101489"
   first_name: Zachary
   id: "4"
@@ -70,18 +70,18 @@ users_004:
   login: zoe2
   nick_name: Zach
   password_salt: N36sNN6SDpIoc02ybePD
-  perishable_token: lJoS5odtWQu5P03FFFqk
+  perishable_token: rmBGOdG80Yd2s0aQXr7u
   persistence_token: dfba0f74b0bbbee0497a63eeb5bd67342895843422fd5f6786ace25a900eea7ff0fd72547d9c75e5177387939530abae0f6ac106da00fbf088329c997fdf900a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_005: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:29
   crypted_password: f4aeb7354d182f08607a80c6d65d2015c4b6eb68e91b7295828efa6385765af39b0d0d2367c760d2bc23570809807cdc8bc62a0c0b04000d2681235be550b935
   default_department_id: 
-  email: zhipeng.huang@yale.yale
+  email: zhipeng.huang@yale.edu
   employee_id: "103474"
   first_name: Zhipeng
   id: "5"
@@ -89,18 +89,18 @@ users_005:
   login: zh36
   nick_name: Nick
   password_salt: p9UKL4BUnNmwhJpvMzv6
-  perishable_token: FoMpicp9yvgVnDjiLm4M
+  perishable_token: gfTlpeHuhTcfTRMr6_9G
   persistence_token: cc0866c293e6173f4a913c9f194f65f7535fc6fbaad66ce69ca8aea9e7c67416af5cd0882e66433ae3b5543293b6270b1bb4e053b4c3e20b81ba400d39d3c4fe
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_006: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 6e5acc6a4dab6a3b3feb44efa8a8f76dc0c9da524a00cbab8487cbd50c803a5757f76159aecff1ad04117337f4946b0e90d04284be2124e2fce5dd7efe58f350
   default_department_id: 
-  email: joseph.lee@yale.yale
+  email: joseph.lee@yale.edu
   employee_id: "103301"
   first_name: Joseph
   id: "6"
@@ -108,18 +108,18 @@ users_006:
   login: jl849
   nick_name: ""
   password_salt: 1hXTo8qWbUgtlROT1wNm
-  perishable_token: E1JaTZ0fmIJ7bCAKMm1P
+  perishable_token: XOeks6EaDmikwJ2K_n2o
   persistence_token: af1018ed411a032f79835ca9e931db1b58d25d4dd4aa7ae474ff7e118b8bb1a79edd4b8cad7af4612f2016ab05c0af6a3430253def86c25a344cdba4305a60df
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_007: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 90390a995fc2ab3dd3ec0e763e54609c0d1f60901807351cac9e14eaa8631af6a3c1c6855fcab7f36dae311086b0cb0eb11c1aafe62b5e66721f089a20af864c
   default_department_id: 
-  email: ioannis.legmpelos@yale.yale
+  email: ioannis.legmpelos@yale.edu
   employee_id: "109721"
   first_name: Ioannis
   id: "7"
@@ -127,18 +127,18 @@ users_007:
   login: il8
   nick_name: Yanni
   password_salt: Mf24URyO2zAC3DipqjEM
-  perishable_token: 4sa3CYiSoLoqesAuC0O0
+  perishable_token: gGX23T4LZmWqtGo-DVlh
   persistence_token: dfaff423c5d602144975c56409ae78349b4c6446dfa24e5fdfa4bb9e2ba1568822147873b66850b8c9e7cc25041e0da6196d259d3d82086f7307f7d72da8eab8
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2009-09-14 02:05:30
 users_008: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: be63327bc35a74c7b3010fd3c964ac7c7cc2ff5681fc7a735a0303f923d59af1515ebaf108dbce90882369d382a8271d744b949da4d59faf070c6c86c91bcd23
   default_department_id: 
-  email: jacob.levine@yale.yale
+  email: jacob.levine@yale.edu
   employee_id: "111056"
   first_name: Jacob
   id: "8"
@@ -146,18 +146,18 @@ users_008:
   login: jjl68
   nick_name: ""
   password_salt: 7Gg3061AGeMfz0KsPxFp
-  perishable_token: zWllDUrX8mYDyT2tD8N
+  perishable_token: 9fjyKOP5ema845h2Eq2z
   persistence_token: e1034afbe0ccd3fa05572137d8b34914bbdd27c22df9d46877a93c481831f30d32424f1fc817be99677967cfa29d039b53144fa831406999b9a42981899f0444
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_009: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 93be25747c08b4f9f6c99291f4c5b6423fe6b739db880c70f03edcde8ff7cb1fec25e0bf3b5ea18823bba19efec96877e63a2561ec595ca6e89008937cc05efa
   default_department_id: 
-  email: hai.pham@yale.yale
+  email: hai.pham@yale.edu
   employee_id: "110824"
   first_name: Hai
   id: "9"
@@ -165,18 +165,18 @@ users_009:
   login: hhp5
   nick_name: ""
   password_salt: vu6Qtbxk43g-g9e_kBOx
-  perishable_token: mLgWditqhY98ecXXu1UL
+  perishable_token: clxdtuiwY_H64buNjD40
   persistence_token: 88ec32d9b6072855db54049242f88d7edf3771e8c74305d01935270b2da99ece3aca45a10edf7d94b674ad471da612d44c890e793deb033a427df507521b6fcc
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_010: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: bad38f74ed5688f5579012020ddc9aef0bcba47f7b05a7e1461f985115e48fcb59634aa6297ba7a0aeccc21506b6fad32996bc71393dd4f67a66f9a76fdad4d9
   default_department_id: 
-  email: umar.qadri@yale.yale
+  email: umar.qadri@yale.edu
   employee_id: "108522"
   first_name: Umar
   id: "10"
@@ -184,18 +184,18 @@ users_010:
   login: uaq3
   nick_name: ""
   password_salt: _9fYhbegj6tFO66-zT9U
-  perishable_token: J9hif6L2lz1fisCzwzg8
+  perishable_token: aKnh5sGhAhBDVZtM9vup
   persistence_token: b9f3ca6dd66a564275ba51911a7e0d7fde1acf7e2358605b8b3465be98be9393439f58f699942b196a9b8bc5ea4b82775fce4f492953a8a0f09ae84b50b48f6e
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_011: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 8e958d8d277f9bc75da97facaff8f6e2e717ef88299dc35d251a408944b47a5b11e57d216c1994afbff7807a41ded64c6b39a03ea04793f75bd86ee837e2b19d
   default_department_id: 
-  email: nicholas.rosenbaum@yale.yale
+  email: nicholas.rosenbaum@yale.edu
   employee_id: "102503"
   first_name: Nicholas
   id: "11"
@@ -203,18 +203,18 @@ users_011:
   login: nnr4
   nick_name: Nick
   password_salt: 7Zo2EdSDJlO0uz3ncYTG
-  perishable_token: iLl1ZIdQlk91tXrvq1mH
+  perishable_token: 8ikHtbqXG50oDWAC8jc9
   persistence_token: 6523d796dc85b76c8aff47c2aeb48cd7146efcd4c6e4880b9da35559c44283fcea213a2bb86c600eb87c9a1aff2bb114640369b6c3e3511909baf24de78d9699
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_012: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 53aae3b84d2fbcfb6b464a91cacc466acdf1bd8740e7aafbdcbc17ea606077d69b4520052dd8b5fe1c157183c21457a1b65ed7dad07e3784dfb9cf26aa71e072
   default_department_id: 
-  email: daniel.turcza@yale.yale
+  email: daniel.turcza@yale.edu
   employee_id: "103254"
   first_name: Daniel
   id: "12"
@@ -222,18 +222,18 @@ users_012:
   login: dft5
   nick_name: Dan
   password_salt: UuhIbAB6ABjyOWHbXi4g
-  perishable_token: hRq8lX9gcSkveOdYcB
+  perishable_token: Ux9kE7qf4-V9_DSHHdH4
   persistence_token: 4bf2d6800eadb60b5c11dd8bf12c1c16206c95bf49807737be2b646bdac7cc9e2f4398c437508a7d6415c018097e1a7b2fe4914769881e045e979e40491ab5e6
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_013: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 664a552c1836297a0f696e8f6494f4d84fe9658f1f66dcd677deebf459d941eb036117a44da55dc87828077ce5bee8b32daa264dc790cf8d5235e12d38a1bf36
   default_department_id: 
-  email: jared.wigdor@yale.yale
+  email: jared.wigdor@yale.edu
   employee_id: "104079"
   first_name: Jared
   id: "13"
@@ -241,18 +241,18 @@ users_013:
   login: jnw23
   nick_name: ""
   password_salt: ZamSBwvrXauoboe5p2uz
-  perishable_token: aisugkqaK8kwAL0xz6WL
+  perishable_token: HE65AlGtxcumRoAUMyK3
   persistence_token: 420dcf39413303ce60478c2ca3be138c6d435ffa2b61fe29ceb917459f57a4236008599473042f0d0f3b2f7144bdf81d9319c242b1fbe2c7021aa0c0f29d09f9
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_014: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 5af4a6ddcd56941027e2689d136299666aa2255d84d1e6672ef2efdbd2d2ec390c78e1f11ce7194135a65a3c3f243ea922e10ea781f3ae5e438b05640e60ca63
   default_department_id: 
-  email: ge.yang@yale.yale
+  email: ge.yang@yale.edu
   employee_id: "102898"
   first_name: Ge
   id: "14"
@@ -260,18 +260,18 @@ users_014:
   login: gy35
   nick_name: ""
   password_salt: ra4Tk_ALQutKT972myF-
-  perishable_token: aV3baUjqhB9VXgCjKQai
+  perishable_token: 0A3sNGh9HfX9Sd1UUVNg
   persistence_token: ee8960f5f770db825c2418ddf3aa336a27625b4ce51b95db1ed7b16a0c32097e4dcd2a933aae66272585a1d1f968f70f34be6d8781f197b6a8988e07024188f0
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 04:39:09
 users_015: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: c9bc6220aca5f166da048e090c9c88b7219fd227fda537940faed36bf1a5edc62d6aa5a489d08aec965b64dafa5334f290f497609044f807e0b560f19014572c
   default_department_id: 
-  email: ahmet.aktay@yale.yale
+  email: ahmet.aktay@yale.edu
   employee_id: "100714"
   first_name: Ahmet
   id: "15"
@@ -279,18 +279,18 @@ users_015:
   login: aa536
   nick_name: ""
   password_salt: 79xydm8M10e7sK1Bqgan
-  perishable_token: zPhnDWBNI7Qsl9jMACDH
+  perishable_token: RxV4p4XAZ79hGD5CjCzn
   persistence_token: 155a1a31f24eca18520565aff66f47ab5799575efb4e57675c161878c0b5880512490f51c3bb51162ed4c3405813fcd294e38ec2704d67322887bfefc9f42b42
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 16:41:01
 users_016: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: 73266b65279efdfd7ffb05b63d423353beb1f937fcd19b08b9e81520c482a358d90808c99ba64ff051c320c09ff92739435bcfa86fe6b398d32f1345381dc90f
   default_department_id: 
-  email: christian.csar@yale.yale
+  email: christian.csar@yale.edu
   employee_id: "100718"
   first_name: Christian
   id: "16"
@@ -298,18 +298,18 @@ users_016:
   login: cac229
   nick_name: ""
   password_salt: aywRl9yEGEUpa1aWbemU
-  perishable_token: 7bVlJIjOmCk0gsHy2Giy
+  perishable_token: pGiaS2OwRBkWW3vtS2g1
   persistence_token: fead652d0bdb1012b03daf0f54182a858cbebe06a74f9dd16ba77fe209131d1d9493efa2d03de41c5d79a8b407e40d4a8c2ac1a88fc2beebec0141ace0543606
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:12
+  updated_at: 2010-04-01 16:41:01
 users_017: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: c8dc10681a6d0b926808eca04057ac4bc2e93f9389b9a66cd59a89e2d2c1a4e1b4fda406b0d7c0f8145a36fc5553381c756a7fbb32aaaff8a47bdef5ba50b818
   default_department_id: 
-  email: stephen.dobeck@yale.yale
+  email: stephen.dobeck@yale.edu
   employee_id: "100720"
   first_name: Stephen
   id: "17"
@@ -317,18 +317,18 @@ users_017:
   login: scd29
   nick_name: ""
   password_salt: sj6NByX2Kuiwpcjau_LC
-  perishable_token: rBiVLg6eO0lDGJhFe8
+  perishable_token: 1o39VePuyLJgP1nti9u7
   persistence_token: 734f32334ee118d2dee6a2acf1c16db7d3f7554e65fa703f95e899f8536a4e9fce6cc2c10246089d6a1626838c04feb3ed0fefd62b76d1e9efc76e287c76f19f
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:01
 users_018: 
   auth_type: CAS
   calendar_feed_hash: 38c0f397d3f20ab796dafe3e908d064f22a9ebd613c8fff30e5eda131e38367a
   created_at: 2009-09-14 02:05:30
   crypted_password: 5a281044d3d06191e5f395f2da3da62c28b112b36cf1fcfe721ff2b2a8dbb640976f3caf42f7af817e77b9d8a06ecb60a86aba75d6a3071e23319a41a34fc8e5
   default_department_id: 
-  email: nathan.griffith@yale.yale
+  email: nathan.griffith@yale.edu
   employee_id: "95099"
   first_name: Nathan
   id: "18"
@@ -336,18 +336,18 @@ users_018:
   login: njg24
   nick_name: ""
   password_salt: PiJfI0QVq_Wny3zy4H49
-  perishable_token: HT5KL2QFL84RJJAYW3Sb
+  perishable_token: vX5KgiMFr3EjoETJHVdy
   persistence_token: 1ebb6b6fc24ea9be2b3a4b0960b0aa283af54f49345c8ada921cebf8e4f58432de7a444319b4be992b0a9b053f05bf42ff105fb03742f73a731dd932e90610ad
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-07-16 20:05:43
 users_019: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:30
   crypted_password: f3f47a67057cae944a1db0f6b9de8f96ccd40ac8a8834a6bd029ae3498a5dccdf98b038de783d6f4c6405965a7ca2f493160ab2b6749b61cdfe55a0137d58070
   default_department_id: 
-  email: andrew.gu@yale.yale
+  email: andrew.gu@yale.edu
   employee_id: "106063"
   first_name: Yingqi
   id: "19"
@@ -355,18 +355,18 @@ users_019:
   login: yg66
   nick_name: Andrew
   password_salt: KEr7nRdlEJ_eYwMHpEkO
-  perishable_token: Xst8TyVj3f4gyeg00eFY
+  perishable_token: h-6JhPxp9k_qhJmINH25
   persistence_token: f90d47033b7ff7974898f7c3efc059770b6a0e10e9e8d2a5fbdc86bb0b583044fcffe3671bba371e65225b4645b6e63678187e589fe695df5d50e514800f1bfb
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:01
 users_020: 
   auth_type: CAS
   calendar_feed_hash: d80c074f88e6b9cf78ed55e8bd1694e3ac81f695b60669f6eaeeb1ac78c62c07
   created_at: 2009-09-14 02:05:30
   crypted_password: 9a394ce90600818406c679fb68da83b48ced7a0bb13129517166c44050a6b834e205fb356cb1bf50602bf5eecf1b1242c69986d9d4735a29161543d2d2c4bc66
   default_department_id: 
-  email: amy.liao@yale.yale
+  email: amy.liao@yale.edu
   employee_id: "104283"
   first_name: Amy
   id: "20"
@@ -374,18 +374,18 @@ users_020:
   login: ayl8
   nick_name: ""
   password_salt: zKrpI_24NmtjLdj30ZSZ
-  perishable_token: LVTVVyvRYXDfwDWZ0kux
+  perishable_token: WHkcuX8_dyuIv3zm4qiM
   persistence_token: 5f813c12236898c16890100139a47febafb0cdfdafe55205c54753aa72f0a5618cf79e24e4255e143c62c521fab13a7ac6cca8fdc5ab92bef425b3bbfac30a43
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-09-27 15:42:44
 users_021: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: aac8d53a3db287eddf9497a64160d4d624a47a2edbdf47b1292fea85a855042bf490be4308cb046b31c70ee88673f4a06b3ec38abc1df39ba6ac3d7e741e904b
   default_department_id: 
-  email: michael.libertin@yale.yale
+  email: michael.libertin@yale.edu
   employee_id: "95907"
   first_name: Michael
   id: "21"
@@ -393,18 +393,18 @@ users_021:
   login: mpl36
   nick_name: ""
   password_salt: VpBz0oSgnmRfvkpO1S9y
-  perishable_token: SRmTjubvdCFj2W7hSMyc
+  perishable_token: aKg1-D2fqScP-AxpTk_e
   persistence_token: 51719759e516fcff73e6a7ec1c844aaabd3e6b6290fc77b195bb79c99184c341c4a5fafde34b8053ce4d530a6decdb5c36ba7fa109545e9006edf4d361af4754
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:01
 users_022: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 805d2e40dd23667634870ae719bc931cfe0551f8ee4063d0d8e84859c0afb791dc722169ab598f89abd9c07c060ae99934bd48653aa109e9f6ff3427dbb50c6a
   default_department_id: 
-  email: aashish.manchanda@yale.yale
+  email: aashish.manchanda@yale.edu
   employee_id: "102478"
   first_name: Aashish
   id: "22"
@@ -412,18 +412,18 @@ users_022:
   login: am846
   nick_name: ""
   password_salt: le2U-8XGKD97SEW5IiY5
-  perishable_token: aSU0AYnYfiLaDZBKiIFQ
+  perishable_token: MF6U9Dor0a__WKe9AsPd
   persistence_token: 1445b0349637892bb394061f32ffb101cb2d20caeed0a652c9f785f99e064892b7d63e6ef0823b353ed8666deaf2f948a01d258c911f4c4f04493b0aca40d0d3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:01
 users_023: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 9fc03672e56d5a531402931fbf15faa836e8edea05cf48ed63435937f07cfc0fbe5223a49fc8a422540b36685d760922c020c14bc552870be75adbbfb5be6983
   default_department_id: 
-  email: benjamin.muller@yale.yale
+  email: benjamin.muller@yale.edu
   employee_id: "100727"
   first_name: Benjamin
   id: "23"
@@ -431,18 +431,18 @@ users_023:
   login: bem27
   nick_name: Ben
   password_salt: zGpfnt8RPFIb8P5Z1myt
-  perishable_token: ff8JiczWYrXumZrp6FqE
+  perishable_token: 60zVfRunvaJPpisnTTiK
   persistence_token: 49492ec11265a1d307262d85c68fa330503a2f377a2735f83047a8947e47b28bc3ca1a39e1c73cae87af5d53283d3a1772bcfc2a5dc76e1b2668d82051a0937b
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:01
 users_024: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 32bf379193af826115c23c0ca8834af3644be7ba8291df075d99185cab3a112a5ccf9aa588c42517cdc8d21ac9819ac33b3c303d0748aa31668b26c06462cc5e
   default_department_id: 
-  email: sophia.popova@yale.yale
+  email: sophia.popova@yale.edu
   employee_id: "103966"
   first_name: Sophia
   id: "24"
@@ -450,18 +450,18 @@ users_024:
   login: sp448
   nick_name: ""
   password_salt: EDKBvw-XJiiEikadhU0C
-  perishable_token: iFIjtSJFkJEdjExSEcLY
+  perishable_token: cYVqcc55d4WCQcPyUukd
   persistence_token: a755d6c94185ae76eb544e25135ca6cbd56691afdf8f8316429dd302d7062927bb1ca4cb3f575fa37b6cbb460f5a2b2e1707f7aab51e94fbee2ffd3165bfd93f
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:02
 users_025: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 1f06b7bb74390c950b8e2bf2e9eceb8afc2a90fd84562d7348f84b81838659d8c326ebb38103f9aec44646b4291c5b6a262411e1f2431b3ed4e54bd41e3f9dfe
   default_department_id: 
-  email: christopher.roggenbuck@yale.yale
+  email: christopher.roggenbuck@yale.edu
   employee_id: "95793"
   first_name: Christopher
   id: "25"
@@ -469,18 +469,18 @@ users_025:
   login: cmr55
   nick_name: Chris
   password_salt: 2DKwWgYgeKgcKoPCNSYU
-  perishable_token: WDSKDoRRms1cO7UI8e1H
+  perishable_token: mr2eoo0gQPZ-Rp7aNJCx
   persistence_token: b1ef64303c33cd723aeee431403f1d532bb5b28363fc237d3aa27338628103e0cfb3e280aff3a841edacbfab39c0050d28a8940ed42def078baafedb6fe9c7c8
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:02
 users_026: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 78f5fce023ac50e510255c06bddb56bc8660700175c2018bcabc7c525b06f13879d75f1b9ea4d8d86e6e3276d8773f0a2027c49da0f32ede62a6dd3b0e0b0408
   default_department_id: 
-  email: ben.somers@yale.yale
+  email: ben.somers@yale.edu
   employee_id: "100733"
   first_name: Ben
   id: "26"
@@ -488,18 +488,18 @@ users_026:
   login: brs35
   nick_name: ""
   password_salt: 93vqpbLMRBt4twunn0Pj
-  perishable_token: ratS34pUIaXtUd5Wgz
+  perishable_token: 39VCjJZTMeIee-5UHdLT
   persistence_token: d0b016b10cf69c529b1c8ec01eb3fce2d5ed736c1e648dfb10115a1d22f292a17a0447046c1cd297dbdd574ce9fe58686454cc9d422ccc90301656ddf029ef53
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:02
 users_027: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 7c12f0c5cd1b0ed75d12fc79040a4203b37bf98286b33d90f8022812a97c4f170e26242486e311656a65d77b5f6f0d39a82a1fdd5416b0422326b90d6512ac98
   default_department_id: 
-  email: laura.tomas@yale.yale
+  email: laura.tomas@yale.edu
   employee_id: "100927"
   first_name: Laura
   id: "27"
@@ -507,18 +507,18 @@ users_027:
   login: lt275
   nick_name: ""
   password_salt: yxxo9LGHH4YqihSRU9hx
-  perishable_token: C34xoT6R8muwJhQUj3vQ
+  perishable_token: 4k5JRUtvb8UPALYCWsqD
   persistence_token: bc672768309c35f6d65d8a39a28964bd94b16decd2c148d16fe9b1dacf87b5fa1c3c2e719829c8666c0b8547ff6cbda1f4db98abf263e435398dd24369d7e410
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-08-30 06:20:16
 users_028: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: dde4ca2ffb93b3f0a5a234558dbef1ffb16885ab0ed6c321c22ece0cd6c83ce3c0ceaf4c7158aa0ad701f93589aac540113eca2cbcfa5329d55a183cd5f782bb
   default_department_id: 
-  email: harley.trung@yale.yale
+  email: harley.trung@yale.edu
   employee_id: "95522"
   first_name: Dung
   id: "28"
@@ -526,18 +526,18 @@ users_028:
   login: dtt22
   nick_name: Harley
   password_salt: hC27V5JCmd7QxYk0nes9
-  perishable_token: 5jhxQJkdXHwAL1TkGBQ
+  perishable_token: YDJdNJtQQPBG5A0I4Aax
   persistence_token: 638684d43502e523e847447da16977205bb506877310e8cc2b7930dd6807f6932896d149e405ca4beb6b220a2b4f7243ab01a69eff40116eeccab5b195a416d3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:02
 users_029: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 6933a2f5d5e8c7effe0ca6ba2cd3890fcc6ba743808f839ca0b5dc697f7434940a03ea52462b1063a48247a7b7bcfe748f5377b153eb8856538a453db1879fd6
   default_department_id: 
-  email: alan.wesson@yale.yale
+  email: alan.wesson@yale.edu
   employee_id: "101921"
   first_name: Alan
   id: "29"
@@ -545,18 +545,18 @@ users_029:
   login: adw38
   nick_name: ""
   password_salt: IyMJED5QOwAlNAAqCgY0
-  perishable_token: LRbe4sa9pwpQUnBQgDmp
+  perishable_token: mo8cIlStt6nwQPApBHiH
   persistence_token: df90e7e1dd5853c2d599c9488a4b7ebb1edca016e3fe422f6f872aba21e9a663696ecc417db3e23f21d16575fc5ef1b2cc8dce4036da74bd8a09e8e8a1974563
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:02
 users_030: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 8a8606eb8d4390351b016430895d46a115888ca65cef171f8b29d1996499274f0b8a7bb62d28f7f37d2746912e536b04a39b341b1feaaeb03b9b7c06a8b4f88b
   default_department_id: 
-  email: efan.wu@yale.yale
+  email: efan.wu@yale.edu
   employee_id: "102236"
   first_name: Efan
   id: "30"
@@ -564,18 +564,18 @@ users_030:
   login: ew275
   nick_name: ""
   password_salt: EWvavnT6SxPF9OYXZJpS
-  perishable_token: ahoDjzTRzQfAm3fXDJO5
+  perishable_token: CLNPOCFz_qXHWjtTa4rF
   persistence_token: 2b7de562848ca7e760ea58ab87d96b5aea5dea8954108ac8f8639008de09cf0499d6f64a8542548f5e2c910dea4d524687e76dd2b39c7131f80e5dfd8faa2a8d
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 16:41:02
 users_031: 
   auth_type: CAS
   calendar_feed_hash: 0cdc8bad1e2d3e9d233290d0e4b2823438adaa42d72d2cbd41f67c79af49a957
   created_at: 2009-09-14 02:05:31
   crypted_password: a083f03abf9815827f2d90ce0e286c53d88aee48df3ffbf58e95425f40157e1918310ce709821856f69ff9d7272cc28f90534a5bf4e88bb6873be35e10016486
   default_department_id: 
-  email: derek.zhao@yale.yale
+  email: derek.zhao@yale.edu
   employee_id: "96581"
   first_name: Derek
   id: "31"
@@ -583,18 +583,18 @@ users_031:
   login: dz65
   nick_name: ""
   password_salt: 9SuRdMJb8ZrpjVxTRxJV
-  perishable_token: LJfH0DDoQBHN2E0ChYX
+  perishable_token: rk7Cubw2ZVCUxY3dKNBq
   persistence_token: 3f6ad9426cbf4fbc12a14829756ce32f9b4d41c63278463f5255687d9d47d932a0ab24b4c51350cf2a9882ad68ef4e2ade53870d02c4ed0c9c57925d8af38477
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-09-28 18:31:06
 users_032: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: 7422c1dc525c8103fdc83d6bf862412e4e2d8dfd06d06ec94131fd064ea8d0ecb93877815fbcf0cdcc2a18e9f26895b05c4e09ae30cf4cb759fe2cedfe3a2ea4
   default_department_id: 
-  email: bashir.adeniyi@yale.yale
+  email: bashir.adeniyi@yale.edu
   employee_id: "94127"
   first_name: Bashir
   id: "32"
@@ -602,18 +602,18 @@ users_032:
   login: bba22
   nick_name: ""
   password_salt: MHPVI5HH0TDCbSTUA21q
-  perishable_token: I6GXOGvQrpqaGzLRprD
+  perishable_token: BHXjtBq9mzfiubZjxUGz
   persistence_token: d042afb19f05429f29451d8d54eeb2935ba8b7dd1d4c360ec69e4b47babca0474e2c3da88f1357a1347b200a5cd7577a67a75cd11e3aa585e0a019d8ff972e4c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 04:39:07
 users_033: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: adb39c96a1de06b9c4857ffcbddcc77c722815049b124ad5fb124d9e11111191b1bdc7d8905c5a03fb4e45234a1c8eae163ceedb9ce29a64754a7ebca8c2a23d
   default_department_id: 
-  email: salah.ahmed@yale.yale
+  email: salah.ahmed@yale.edu
   employee_id: "101724"
   first_name: Syed
   id: "33"
@@ -621,18 +621,18 @@ users_033:
   login: ssa32
   nick_name: Salah
   password_salt: mcrPzzeLJ6U7mM2sq-hQ
-  perishable_token: fn9sIgIDSTjl3JYVRYCm
+  perishable_token: IzRJftiVWhvJSUuF7sJh
   persistence_token: c540e6b39115d508d4016bbb98c69cdff01980350dd0bf4e2d65c7e63eb2fb1464be09b4ce9d229bb4521a07ba109dd7fed1a58c1cb79118bfa8a528c0147567
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 04:39:07
 users_034: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:31
   crypted_password: a760ae54c3148768b8e79285720c9baa818ca4bbe6cc5edbb7aba36a69addcb7d3ea78627850164570fe32ba7699ce6f3acb6880feb7bfc3649d36b87a5c88be
   default_department_id: 
-  email: nafez.aldakkak@yale.yale
+  email: nafez.aldakkak@yale.edu
   employee_id: "101823"
   first_name: Nafez
   id: "34"
@@ -640,18 +640,18 @@ users_034:
   login: nmd37
   nick_name: ""
   password_salt: PZqOM-johHlFxOg0U9bN
-  perishable_token: oNZdOgwrxqQfauUs479
+  perishable_token: 8F0m7w9KZ5N10uanFyA6
   persistence_token: 8bc7cde693e85a72629e4263432c037c0392b1d5b168bc70b51dea17c872ecc5ec67e73800f4d4e234cfeadd42cf238ce922286ae4e21a8ee1206db3513bad7f
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 04:39:08
 users_035: 
   auth_type: CAS
   calendar_feed_hash: 0b9f133752995dca95a019de937dd24999356534ef2338e9cbb49b1061069fb3
   created_at: 2009-09-14 02:05:31
   crypted_password: 828cef48a69da1222b6df32eb744e246a73770b57ed823803571e15ac4a3754aa6412560b99a8afa3dac6c5e0f6f9a97b37cc0a725af4beba9ee761018388518
   default_department_id: 
-  email: eric.d.anderson@yale.yale
+  email: eric.d.anderson@yale.edu
   employee_id: "111684"
   first_name: Eric
   id: "35"
@@ -659,18 +659,18 @@ users_035:
   login: eda32
   nick_name: ""
   password_salt: NQtiiyB4WrW8GetidhZ0
-  perishable_token: e45nYvd9ZQugDYj2zgB
+  perishable_token: BpuIYchh-J5Y5rixMwfB
   persistence_token: d1e435ea57b4ad04eb1bf2f766dde5f52ce64782826b7ce97d97fed5b5308b88cbbc0104436f74d5e92cdb87f88d8ddcd3c2964bca6ed0f5ae04e160bcc9d1d9
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-09-11 18:02:03
 users_036: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: cd7ed337846a80ef368361115be941794cf0b114e80b5a00f51d7b652206460aeddb6ce15fb9620edbc991408fa4a8aefe5d9820b590dcb7c957b5999165a52d
   default_department_id: 
-  email: kwabena.antwi-boasiako@yale.yale
+  email: kwabena.antwi-boasiako@yale.edu
   employee_id: "102059"
   first_name: Kwabena
   id: "36"
@@ -678,11 +678,11 @@ users_036:
   login: kaa43
   nick_name: Kobby
   password_salt: 2l5j6BAyE8e4ZBCpYsVg
-  perishable_token: qRGZdNi6VzTRPi6peNoa
+  perishable_token: Md6CNADYtfcRQG1g_hcq
   persistence_token: 0beae6eecdf2ea2a3ec76590b8f73c90c5eed8273034361b2a5076e5c368a78e211fa7ac3ab03c33b73d8c32815035f9fa9da9b81618247bd379075dc6944b20
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:13
+  updated_at: 2010-04-01 04:39:08
 users_037: 
   auth_type: CAS
   calendar_feed_hash: 
@@ -697,18 +697,18 @@ users_037:
   login: egb26
   nick_name: ""
   password_salt: VGAHFYnQrT8emSh87IpL
-  perishable_token: 40sD3YijeRN7HA5Tcd
+  perishable_token: BbfZi9Fk-BQmveayqOQH
   persistence_token: b6cf0808af666d2b292b3c7be023a40efb344157710185669a83f84e2fd8f8585072c93110641970444187c5c7371f1e469bc1d96e2d4239e33f1a85e254e9ad
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_038: 
   auth_type: CAS
   calendar_feed_hash: 8454460255e7a184c778c965ecb467a7d9393a196472834199d91af749c40411
   created_at: 2009-09-14 02:05:32
   crypted_password: be166caa8e3f789cf8b8fadac76966eda2fe8085fb190976a478f32778c87003e907a41e64603112859fed3f61ba95e034d6083e4d5df6d0f88ceffdb9b0b6c4
   default_department_id: 
-  email: jared.bard@yale.yale
+  email: jared.bard@yale.edu
   employee_id: "111686"
   first_name: Jared
   id: "38"
@@ -716,18 +716,18 @@ users_038:
   login: jab37
   nick_name: ""
   password_salt: ry7iC0jiCVmPDfspHnBU
-  perishable_token: QeOvr1ilUb52l7RsW3Br
+  perishable_token: P5_TFo1bNFYbzRGi6oAD
   persistence_token: e1e48e810153eac26c099253f9829fe554753c9f5cfa5c03de16c728feede7b62cc171d4234ad4c40107fd2dd3c109d8fd0ef153f12759a1ec82017c225c7edd
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-07-21 15:54:09
 users_039: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 4940350eb353523d4b04f4006cf25e2bedf1a2a1a49471a7d3442327e05ebe0dcf596c87c289f44b2dec1c25e005dc75c3fd0dccc07c5e9cac1b12ccc7c610b9
   default_department_id: 
-  email: alyssa.bernstein@yale.yale
+  email: alyssa.bernstein@yale.edu
   employee_id: "88272"
   first_name: Alyssa
   id: "39"
@@ -735,18 +735,18 @@ users_039:
   login: agb25
   nick_name: ""
   password_salt: VrUNB6_MiuYekhwoCjvH
-  perishable_token: MYCxWG0iUJDLtljlzA
+  perishable_token: fONvfnQVNKuMM0Nvz-gP
   persistence_token: ff8eba5e76d8b7209d08745dcb8acc3df25bb037a9fc387bae35f4b20f52a1b2501f56be65bb66f6a25ab916041d78d512c63cb324a464bacd23f79c9be5316c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_040: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 9fbfd025cbb13f1bbfb6bdaf45a2e96a1c90fa6c6da584082e54ef8589f56361159fa7d426fad94af167a9d7837279571d8c6b670b6639c9c5071d0e88a1893c
   default_department_id: 
-  email: jacob.berv@yale.yale
+  email: jacob.berv@yale.edu
   employee_id: "95792"
   first_name: Jacob
   id: "40"
@@ -754,18 +754,18 @@ users_040:
   login: jb755
   nick_name: Jake
   password_salt: h5dPyVdRbH7HRQK90laS
-  perishable_token: oR6mamqEckLFbQwbLGw
+  perishable_token: QGlduVqVis2n1kOyjIot
   persistence_token: af1778df6ee5d90894b24128a4dad940204e2d1c6e994e865997db82c034ca2a637ff9dc2acf8c40388383c8759b140be205dfe9df43385622c63826d1219aad
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_041: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 6eaa6545a8f712db068b90d8db49a2690139fcdd2806e36a1c06c7f6a08b9bade2a2d0f528aa8e4baa0c9881f8aa90efe650a6b311a7e886dafc226d98bdb6cd
   default_department_id: 
-  email: Lawrence.Cai@yale.yale
+  email: Lawrence.Cai@yale.edu
   employee_id: "104081"
   first_name: Lawrence
   id: "41"
@@ -773,18 +773,18 @@ users_041:
   login: lzc2
   nick_name: ""
   password_salt: Ts3tmXdVgTs2Rjj9P7Xn
-  perishable_token: VsvuqH7oQO1fWWOfDh8q
+  perishable_token: 5uQePBMqFGna7Dq1Ziaq
   persistence_token: 81b18acfb3e107a9715b7e26bacb4c453574595d28f8d48a32953f9751170628beced1340e6f9ff2847abed6cc0b596186c0625f40bc23d4a253f7acdb2f9dac
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 16:41:02
 users_042: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 3fc7b7b99fa9573e67b9c41c98f57709d910cc2dc3f64c2e0328fded8032d6b37188389684d9de03a5e8c922d74967c4e639f8d187461abf07353b64b525b985
   default_department_id: 
-  email: michael.cappuccio@yale.yale
+  email: michael.cappuccio@yale.edu
   employee_id: "103193"
   first_name: Michael
   id: "42"
@@ -792,18 +792,18 @@ users_042:
   login: mac269
   nick_name: ""
   password_salt: SgeZbpwFkQr-tZDHQsWd
-  perishable_token: l7g0xaez0KgpHB0BzXk
+  perishable_token: RrkcnW38_Jyd3ngPJPSF
   persistence_token: 8bfe5a4d09bc3b83feadab312df097c962bda266298d086269abad977d88b067e331207cac98877b2a44f16fee8161c29b8668eaeb83a9e81f68656d24e167a7
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_043: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 6023f2b49e79d233d5ab1ae1e4004ce53af737f8be9b4fc1f18a1f86b0ad71833e02c5650ddd54d066e2e22ddab3744fdb11b162ccdb2fd161ea0ace75fa83e8
   default_department_id: 
-  email: laura.chanan@yale.yale
+  email: laura.chanan@yale.edu
   employee_id: "96703"
   first_name: Laura
   id: "43"
@@ -811,18 +811,18 @@ users_043:
   login: lsc29
   nick_name: ""
   password_salt: dEEixTIJ3yjvo3IALhZ-
-  perishable_token: Q3YVohTppEtA1GfDsH7w
+  perishable_token: j9erFfjaY35arU58E0N0
   persistence_token: b93dc1813bbee819e95d66b1b9174569e0ac881ea0fd1e23485f44ed75a4194d8e6ac43694b406094ae40e2259c663028785773ebc10e863c30dfaa9553384d4
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_044: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 98c528f38fbeebc7e137fba8ff3c4bf0a91349cbce329676e3a6f7aad4dfa6feb77f37bb56b004f92c64734c12c65bbdb84cae39e7e2cbc53aaa1cbdf5fa3d23
   default_department_id: 
-  email: michael.chao@yale.yale
+  email: michael.chao@yale.edu
   employee_id: "96498"
   first_name: Michael
   id: "44"
@@ -830,18 +830,18 @@ users_044:
   login: mc785
   nick_name: ""
   password_salt: zLvMEgwqcUWmdFQyfH4W
-  perishable_token: uUlMEOiWsM8sszbXnO3m
+  perishable_token: FsYdfNlG8qwYzPVNnLBC
   persistence_token: 8e5148036ff3abcd057f2527c3d7750f4f4fb5cb50c9592f0fbada15f93df69c4a020affa7a4d57845f610d843466231bf65389b4ae7d8a37027d33a049f943a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_045: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 42253bf4a4778dffb9cfd9ed82ac630b28d7babce38f910c53930a7fd8f84c38be8a8c08dfb2620b92df1162c676ed7f4af301944f19a2e68a4655b6b914713d
   default_department_id: 
-  email: Nicholas.Clemm@yale.yale
+  email: Nicholas.Clemm@yale.edu
   employee_id: "108520"
   first_name: Nicholas
   id: "45"
@@ -849,18 +849,18 @@ users_045:
   login: ncc22
   nick_name: ""
   password_salt: lTZBB-LRvDQ52dCmsax4
-  perishable_token: KLyZM6rcJlhg8BZeuB
+  perishable_token: Dyo5lMZrDAtg7S-AFQkc
   persistence_token: bfc1e0cb058b1383f326c87d82eaa028dafdb6a29eee512466f52ae0702233e57c5139c2203aaf668e7d3309c583f5b7e6caf86e2a81fec2dd2b5c4398d9a440
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_046: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: f8c0dc4b8d309949a0074c2e74605431b445d70bcb7d5dea6214f1c3927d277e825d8342b727955613b7c9109c89b146cf64d352e725d0df07489896fd488a3f
   default_department_id: 
-  email: wilky.coutard@yale.yale
+  email: wilky.coutard@yale.edu
   employee_id: "82221"
   first_name: Wilky
   id: "46"
@@ -868,18 +868,18 @@ users_046:
   login: wc265
   nick_name: ""
   password_salt: EsCc2QEvhU1kZAQf78z3
-  perishable_token: 4zpDaqyQwSag2dlCZE3
+  perishable_token: Au2-EDXX_rIff-znotrf
   persistence_token: 07d8e7fdf23367244a060e9ab84454da9524c13ccb5ea021812ffe30b7af78123a9ed6f230911f5dcc228fc2a629acc55abef2371dad28f4bba6abb17cf3950c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2009-09-14 02:05:32
 users_047: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: 6e1d7907bdf6678fe2c7253548b71307c6f356d3bbbbf8b1044ecb3336b94bc217fdb74170a8952aa0890064dfa92c9c56d1dec714e97b9e3c05804df9b4def3
   default_department_id: 
-  email: brian.de@yale.yale
+  email: brian.de@yale.edu
   employee_id: "100719"
   first_name: Brian
   id: "47"
@@ -887,18 +887,18 @@ users_047:
   login: bsd8
   nick_name: ""
   password_salt: 7ihOSnxWt1HkvdY-fRE7
-  perishable_token: 1VP9D2LYTou1z0cl26
+  perishable_token: PQw68uAD9gvPXLQl-kFV
   persistence_token: 8843bcd71b10c148906b15802b9925944a57da6ac07e1f395c16141dcb83495c8523ecfd6304c0309693d891e95910b39933e27b574ed2baab7a78cafee33de9
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_048: 
   auth_type: CAS
   calendar_feed_hash: d69cd0a64ab47b2853048d6ef227c1cf7a59b575d7a3fa198878c4ad6c3c56d3
   created_at: 2009-09-14 02:05:32
   crypted_password: cb01a8989a2260c228abb30f0ee3f3f9334aca9afc6b0a2b9b6a8c917cf4fabca1931fc165627b6ccb93461a2bb61cbd38e374dba002019b2b15c6282563e087
   default_department_id: 
-  email: ifigeneia.derekli@yale.yale
+  email: ifigeneia.derekli@yale.edu
   employee_id: "102076"
   first_name: Ifigeneia
   id: "48"
@@ -906,18 +906,18 @@ users_048:
   login: id68
   nick_name: ""
   password_salt: 83y8DBgAKcg8DmrKNI0T
-  perishable_token: MVdwrPAF2WeamoOpRhrs
+  perishable_token: jdC4nCFwLuZyV87975Nb
   persistence_token: cb4d0648e64c4ebfe5ff1ce086b58cbc38499f2111f1f81a7c5c4cb0c2a628edab3db4d8de6a38fa6c0df39720f1314a20f01969ee940f47a966f8783c9f3021
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-07-26 17:00:02
 users_049: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: e317ec975c1f3c53c79fc252f75d9971cc265fdbc319572d4f3cc1b8c0563c67754d8e871a2d04f838f087d823ebbed4b3ec6eb674a73085ce8e57c88c217640
   default_department_id: 
-  email: matthew.dupont@yale.yale
+  email: matthew.dupont@yale.edu
   employee_id: "100721"
   first_name: Matthew
   id: "49"
@@ -925,18 +925,18 @@ users_049:
   login: mfd29
   nick_name: Matt
   password_salt: d9itwugYWLbLK1lumjXx
-  perishable_token: 9BGXxSnwmB2ofQnlqr
+  perishable_token: 2HV_yzs0oW2Oh9IJmgdY
   persistence_token: 27c493107fa947e280c37203e709b5dbc116c50b83c2db45c78c9fda816965eba2c501e1b248846bc2f317c87c44940f3dc9c1830de8edd725d9b5000070f43a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:11
 users_050: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: b28926a31ab7f1964dbdd3e244c891a78ab7defa764875360ed9785e6791ca1ca6a8926b493d583bba7da6e113f2be423296c81715faa6b346730d9f56ec6eeb
   default_department_id: 
-  email: yen.duong@yale.yale
+  email: yen.duong@yale.edu
   employee_id: "94998"
   first_name: Yen
   id: "50"
@@ -944,18 +944,18 @@ users_050:
   login: ynd2
   nick_name: ""
   password_salt: 8QCG6jBkpxDtsTa0xnFP
-  perishable_token: rNz7rohadg03bkRedig
+  perishable_token: Uw7u0-x8rzcqF_BqrFRn
   persistence_token: 622c711e02e6faf71342b4981099598695a75b77039e92a9360ec36add844a9a33a7010dd18384db0ca6e788353d050c8d22e51fd02805169a57bd76081cb618
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_051: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:32
   crypted_password: fc0ef22c1d692e2434b2a0d21fd01743f0c42a44bceabacb03a5eb34e5f0f7c701c5d5f2a5030417410c7a114bc1d2f2ab243dc041e107a37c911fee0f5d9c6e
   default_department_id: 
-  email: jonathan.eng@yale.yale
+  email: jonathan.eng@yale.edu
   employee_id: "110535"
   first_name: Jonathan
   id: "51"
@@ -963,18 +963,18 @@ users_051:
   login: jle29
   nick_name: ""
   password_salt: BHYW75v3cwno5crX5A_v
-  perishable_token: 4Fca3XKTPtCPLdX2bNi
+  perishable_token: LjVSIbvXJy53W5H81L3v
   persistence_token: 7cd6206a1e01427603c16f109ec076646eb259184ccedbe2ee48ea09958507952b632b226a32148dbf1c29a613264242010ef6e09dfa9c2771483de4a7267e5a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_052: 
   auth_type: CAS
   calendar_feed_hash: a814d3c55e2e10b1797bc84e7395acfa51a4c6c595ae14f2ef71004dc6fe191b
   created_at: 2009-09-14 02:05:33
   crypted_password: 7019fcaad0d4653b21a713bc586221ac7d3358d59a25f6083b1efe447c8949c87bd217838f0e416824c237dbed6308da27c59a7038f1a4cec4d0b1333d8a00a5
   default_department_id: 
-  email: rahil.esmail@yale.yale
+  email: rahil.esmail@yale.edu
   employee_id: "104085"
   first_name: Rahil
   id: "52"
@@ -982,18 +982,18 @@ users_052:
   login: rhe5
   nick_name: ""
   password_salt: V8E-8-jrXhPEdZYlufDX
-  perishable_token: pVAldZcHlyxRMj5TcNtx
+  perishable_token: afxqAzW_MYMPvy05XuGM
   persistence_token: 4a7d27dc1e6e6ea741f944d03855d15c7b84c1ea86cabaa406be126b3b9ca618ac7285f85a7bf915ca5cbd8145f2866ebf0f5186cbd8a0d60587d1a150000a4a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-08-28 01:27:12
 users_053: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 3b047c05cca68d5618a1d686610230afe9b0f69f9658177933692125762726ec78f352cf094505404f12b82131ec7c6acfc98ab8607caa7c198efd899413b9f6
   default_department_id: 
-  email: aj.espinosa@yale.yale
+  email: aj.espinosa@yale.edu
   employee_id: "94569"
   first_name: Alfonso
   id: "53"
@@ -1001,18 +1001,18 @@ users_053:
   login: aje29
   nick_name: AJ
   password_salt: qzYuKApndiEiyMFjN_8S
-  perishable_token: tBdTqZoTpmKgn9vrrfs
+  perishable_token: dCukEtT_6JNVfEJ_q2ap
   persistence_token: 955e3a57b0067301b07e1553c26c15d6a57937f8074f81f4c207d0b877c80661ee251fd386429f8f51d535826fd4c13d86bc2e7d7440e6799ba682d9f0194532
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_054: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 86b148918653ac8a6b8f431f8f19c357863085c02dfb7448057922a5a1eefdfcbde5109356edc52f52dfb241b6df34ba4c7f984449459790fa91a4cd5bc99ac6
   default_department_id: 
-  email: eric.feng@yale.yale
+  email: eric.feng@yale.edu
   employee_id: "117187"
   first_name: Eric
   id: "54"
@@ -1020,18 +1020,18 @@ users_054:
   login: ehf8
   nick_name: ""
   password_salt: lqIcegcd9MOjFrW9Is9g
-  perishable_token: 3YsgBPmQZNxFTzuXZyUe
+  perishable_token: sAVCHCYfprY1vrEcT64r
   persistence_token: 2adc313831bc57017ef757a1918fa09b9d57444357aae9dd5453ed1cec3d70adb93962426d370db2cceb523a43dc96d7b5c6ebeaa082e6b42dcc274f3026bcb9
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_055: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: d9cf036754d840f7619b633eb33724389bb8e1812e75a399a368d2712e7e010bbf3ef9c2285cc9f87e9ada10ef0d4753caf2f429544824c7cc7d599c72f23656
   default_department_id: 
-  email: james.ford@yale.yale
+  email: james.ford@yale.edu
   employee_id: "104216"
   first_name: James
   id: "55"
@@ -1039,18 +1039,18 @@ users_055:
   login: jef42
   nick_name: ""
   password_salt: vAW2obE8tHtcKJ-mgxk7
-  perishable_token: UOOco33ua0p5MF0dgYX
+  perishable_token: eb81HbWzVNwLEd2_X256
   persistence_token: e77a5ccb63ecf83f5790b3ccb366d2a40b95e7b0108b0f27d54de4833253fd3dd9b9559b8109976f2e6d9d5e81c513daced10f99009f545f98a265252663dc50
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_056: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: e98aa34b29742b8b288081f6259f913031fda895698cde4900d97a5fa2341967bddc918c9aa19fd407a8bcca6255861c3d089227debde3bdac8c89692185dc29
   default_department_id: 
-  email: sam.gensburg@yale.yale
+  email: sam.gensburg@yale.edu
   employee_id: "108515"
   first_name: David
   id: "56"
@@ -1058,18 +1058,18 @@ users_056:
   login: dsg42
   nick_name: Sam
   password_salt: jnLghGxL6oGFZaAsWTTa
-  perishable_token: cnnjLVVB4omt8NM0KhH2
+  perishable_token: xiS59cZJ_ZD8rcViqmWW
   persistence_token: 25767079914f42d9d07bf182342b5d9700e632c7a65dc07e9fd132afbd5a736c35ba975feed62e828b4e4eaed81ace28b8c4128e9979a31d9fbefaa4a45c0584
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 16:41:02
 users_057: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 34b4eb7ff87c5e11600e61a78725fcec75fab00a2e2630cf80985695ea38e5e4a54b4e16dad66aeaa5fa3784b0d2f2ca477f4a1bb7045d75b848939210ca3f7d
   default_department_id: 
-  email: david.golub@yale.yale
+  email: david.golub@yale.edu
   employee_id: "100723"
   first_name: David
   id: "57"
@@ -1077,18 +1077,18 @@ users_057:
   login: drg35
   nick_name: ""
   password_salt: NuifP4ArxEj8lcZYcU_6
-  perishable_token: a4VopVfXZFvnVlFjA8c
+  perishable_token: fvZi8bvwUwAv9Gg-7H_d
   persistence_token: 0332c0ef51d6e5b424289c20d58d849814f3edccef6e4d775c595dec48cd5f9dadc2b080c013029cbfd6cd6464019b86ee4a25297146a081e297de758e4c22b1
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_058: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 06d24ee89c4b56db59c32366a22e0c72b5d62f016246d3781065a05fc12a232ddcc30166ba58f1542dad22168e86bcc031175ad41f7fd6f98606b6eec9ff545c
   default_department_id: 
-  email: kate.hawkins@yale.yale
+  email: kate.hawkins@yale.edu
   employee_id: "95210"
   first_name: Kate
   id: "58"
@@ -1096,18 +1096,18 @@ users_058:
   login: ksh37
   nick_name: ""
   password_salt: RElwsHzrex_g0ykEffqy
-  perishable_token: c6tuulhf7by3mBBZlhH
+  perishable_token: MF8DVCRRXzFfSgt9enko
   persistence_token: e2afa0b8c8e440b9b0b43f0f3773dea471d456f55e6a1b74cb426b8833b977807b9c1952186afb9ef18a655f55748d54bc3080f18c1067877f3c3a9e6c34eb39
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 04:39:08
 users_059: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 722d5b7cb130bb8267a8936f8964da37d1f36711fdc49d70057d93e37e7f5a456a44cd388893133a3360e025656fbd3af801ddf237e82417695750b30cd7d74e
   default_department_id: 
-  email: jeffrey.huang@yale.yale
+  email: jeffrey.huang@yale.edu
   employee_id: "90238"
   first_name: Jeffrey
   id: "59"
@@ -1115,18 +1115,18 @@ users_059:
   login: jh583
   nick_name: ""
   password_salt: 6ZctT0_67V38LcLcTtug
-  perishable_token: I7JChmOlx0IaihTCdZVK
+  perishable_token: pbldT90NVLq4o0OK3Pk5
   persistence_token: d23bbb217ab0f2d9c2d9edf595cc8f4310650c7540de3c87736f54f90ccfc285f0251a05e1813db5caf56187072f854f9e52674aaf7227876d8c4177cec954af
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:14
+  updated_at: 2010-04-01 16:41:02
 users_060: 
   auth_type: CAS
   calendar_feed_hash: 2970892e7b3501ba5be81e5b12b562bba58fc92712be9c30e9a118f71370158c
   created_at: 2009-09-14 02:05:33
   crypted_password: 6259d793488c5d21499671951c23a77ee64487ed63771d42d36959b29dd6df4d04fe5b0dc264c3c7626b52a4be10ca8c15840d8b17f4ea325546aac6664d6c57
   default_department_id: 
-  email: bowei.ji@yale.yale
+  email: bowei.ji@yale.edu
   employee_id: "111682"
   first_name: Bowei
   id: "60"
@@ -1134,18 +1134,18 @@ users_060:
   login: bj63
   nick_name: Sharon
   password_salt: GMCkhhnCe2mVNbO9CiYT
-  perishable_token: zzXLSmMwsLlTXNM3FuDL
+  perishable_token: 9q9kIbd03Mhu1weQbVJ5
   persistence_token: 9ced834fd33f87dfbc43e653f629530c865005f56f05d5cf3337d028f89290c65bfebe57b670e989746d8c7ef32dfda8ac0c7f0842663606c34ff22d98f784d5
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-08-29 22:18:24
 users_061: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 98741152ad0f6d5058b21f2c04672275184d7433f368ba38d7fb2891018d6fb5c7945583572f8d203195b0b3b006589d3f341f890f5732637c253f7251196b9d
   default_department_id: 
-  email: joseph.kelly@yale.yale
+  email: joseph.kelly@yale.edu
   employee_id: "96974"
   first_name: Joseph
   id: "61"
@@ -1153,18 +1153,18 @@ users_061:
   login: jtk37
   nick_name: Joe
   password_salt: -OP21Yq0TY5kGGPabaa1
-  perishable_token: 9ZZjRUU4RwuyzPsMPT
+  perishable_token: n-uQ_pGet_dNs9n7LAgP
   persistence_token: d99fc795fce5b25398c614b25185d53a0e3f49413b6d96160555bf37d5165b6d84e03477e38a10d7cb555ee0c703a285e52ca5b8cda66c04865f06790494d31d
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_062: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 886a1fe30e55ee87e2235cd4b1a400cd2ae5d5b347e0524cb5e107761495db690a639b1292b9cf15f7ceec1f7054798967b7fcbaa971a9c299710690f2d5fe24
   default_department_id: 
-  email: khadija.khan@yale.yale
+  email: khadija.khan@yale.edu
   employee_id: "97065"
   first_name: Khadija
   id: "62"
@@ -1172,18 +1172,18 @@ users_062:
   login: kk388
   nick_name: ""
   password_salt: pCs90OCu8pbdMsvR8Eiw
-  perishable_token: fuNR0vVKl0XHu7OHE1v
+  perishable_token: nPp-jcDfGvIUh55QyYMW
   persistence_token: 5539048d05a4cf36be96d14486d3171c57e7059cbc3353d9aa5391e24ed674065ae019ac0b02465b9ef900f7b1010a0899a48da38fb3f7a5d8e5c9a41cc350cd
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_063: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: 1063cac79ff3510097c5be7c9a80d515de3bc022dd34082dc3060a11e116184b4351373900c0b4a1d62bd74a09e9ef3fff86105726c78f43a44cf287ef13a941
   default_department_id: 
-  email: cassandra.kildow@yale.yale
+  email: cassandra.kildow@yale.edu
   employee_id: "102272"
   first_name: Cassandra
   id: "63"
@@ -1191,18 +1191,18 @@ users_063:
   login: cmk49
   nick_name: ""
   password_salt: 8pRhHmObDuY6auKNMfBV
-  perishable_token: QWMbTjA7ENmtFwmcMCr0
+  perishable_token: x5P8HqF1eMFJmUHtLR8k
   persistence_token: ab106acbe7168cb4796e4ede1794ccab480640076542c748d83c5e3eff2e1ea03c4ce8b7ffa46b805c56a3bc3ada94025bc3ec19acfe418a0c1b96bfa0d34192
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 16:41:02
 users_064: 
   auth_type: CAS
   calendar_feed_hash: 0fd34c304eb37230c726e5f4bd74e7f6fe8a07d3c0052877d8e486d2896d8d04
   created_at: 2009-09-14 02:05:33
   crypted_password: 3b37803269ab231eed5566d1b4f825211568f9aa326c1f46dcd89ad3235105aa89929d61ab7daf76da1a31e9782e039c32091715477881f749602bab1200e413
   default_department_id: 
-  email: james.kim@yale.yale
+  email: james.kim@yale.edu
   employee_id: "108319"
   first_name: James
   id: "64"
@@ -1210,18 +1210,18 @@ users_064:
   login: jbk33
   nick_name: ""
   password_salt: OZAvSNXB02S1GTF6wes6
-  perishable_token: GNHk5aXkoRmKekOYGka6
+  perishable_token: HI5jFPYqQrQIYlbFSuf5
   persistence_token: 1bd31c0711874413c9a3e161f44b708e07ae8c402717dde28988c6af0b98d1dbfae6d62bd150ebb26ad35a469e609a5dbb14c75c08f756ff8715171ff425ff28
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-09-01 00:22:21
 users_065: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:33
   crypted_password: d6d81dc5267d725b47ee1880fcb3a29cd1b27ab0f51d7671cbebc3eeff22f6fbfc1f3a55fc0fbd380b4744a165c65bd9d9a80e034fa80f9fb51a876f053ec888
   default_department_id: 
-  email: david.klumpp@yale.yale
+  email: david.klumpp@yale.edu
   employee_id: "100725"
   first_name: David
   id: "65"
@@ -1229,18 +1229,18 @@ users_065:
   login: dtk23
   nick_name: ""
   password_salt: SbDMALNeoBPfDyrCgQfz
-  perishable_token: R67TRNqJ39CwgFK9qCZz
+  perishable_token: PqgGuF4ZJPycTO-Z10HB
   persistence_token: 806e4fd6afafcd781b0091e2264f2a06e6e18ad338d95ef6ca97b3209e2f6f4ecbd5a3f5c4d715978a4b9208538bb0fdc5f4c6153d050c1bb974eb2b81898a52
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_066: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: fd3e18c15f46724cfeda4d7b392f6314c6d493a4916bafeddf38b99f1154e0861c03c9ae7532b15606c47b60d7e6913b88245338f690664b155addad07410408
   default_department_id: 
-  email: gautam.kumar@yale.yale
+  email: gautam.kumar@yale.edu
   employee_id: "96545"
   first_name: Gautam
   id: "66"
@@ -1248,18 +1248,18 @@ users_066:
   login: gk224
   nick_name: ""
   password_salt: nJSWW9MAvjQzMiG3O_sM
-  perishable_token: kJJx8KR8EdZ480hqrpd2
+  perishable_token: zHf1fjI38e3qwYzam1-y
   persistence_token: ff1f0906ec7179d4be93e81c44829de2b17bcb97d6d87db3fa94118b470385b126ac325abfaea893dc7f76d65ede3d5f332a8e8dc2169afd5ba1a190564782bf
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_067: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: c8cc7a3124bcbb8e2f72dac7fb449559d97716b52cf14fa96372a806cd9b9ee156bde82659d37e708ea3a3ec7e8107dd082af4abc59025cb1a1fa61708f7b447
   default_department_id: 
-  email: ryan.laughlin@yale.yale
+  email: ryan.laughlin@yale.edu
   employee_id: "102757"
   first_name: Ryan
   id: "67"
@@ -1267,18 +1267,18 @@ users_067:
   login: rjl39
   nick_name: Ryan
   password_salt: wdG7JckVN8Pp6T4ockOn
-  perishable_token: Hi8GeG31n82MB7sHa9px
+  perishable_token: 5kbkFXPCSaUKwiJE8Jk8
   persistence_token: 7c4e53fd22fbe2b9f25bcae2253e1606964f79d5524e0a55a3e0b2cb98ed800e7607f01b4bce098dd074750aacc07e8fc1ec048e6f2d920bb3086eee7c33720d
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:09
 users_068: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: c2a61490c8844cfe9c92b368a314c1bb6b2b3140f0721ddf8ab17b3de4e34733bd8e09e26b1a49ca590a0766793c919f5ed5747480220573cf75d949c3757fa4
   default_department_id: 
-  email: eric.li@yale.yale
+  email: eric.li@yale.edu
   employee_id: "111679"
   first_name: Eric
   id: "68"
@@ -1286,18 +1286,18 @@ users_068:
   login: ecl3
   nick_name: ""
   password_salt: UZP9LTC_UqOTAvTUH01K
-  perishable_token: AEgDmCpJVng4tPKgVsU
+  perishable_token: fkvSX2t9CEbYHSN4xfiO
   persistence_token: 46d659f5b833536b45058150757220c51bde1d967813768fa3f4b26ec92936800b3fa48f283a1d665ba9374cdd345cbbf99505a57f8077807be77533fff426f3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_069: 
   auth_type: CAS
   calendar_feed_hash: d0cf1f0baa6d7cc5f3bee94d76f44cd739f0b7a6281948d82fdd7472226c54bc
   created_at: 2009-09-14 02:05:34
   crypted_password: 4eb3b241882930fc275982380661b9225ddfe4dd6047d34aa022c2066b1f3b5917139bc43a0c77f20fec6cec79e176a452d47992bd36ede865c425778305ab65
   default_department_id: 
-  email: j.li@yale.yale
+  email: j.li@yale.edu
   employee_id: "110367"
   first_name: Jian
   id: "69"
@@ -1305,18 +1305,18 @@ users_069:
   login: jl57
   nick_name: ""
   password_salt: odt3nZ8FA_yX4dkNYGWE
-  perishable_token: SFWBK18UTLegBtgov9db
+  perishable_token: yhmt6jQ82X9CG-2_z_Nd
   persistence_token: 307e2876475de3408ae35836a18dbf31707d248fba0b1e7cd9269e573a82a75f793464584b31d45d3d527608e1dd0a4ecd4e50f1b4f95852d54cdb5f6fa8b7ff
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-07-18 06:16:05
 users_070: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: 66aa87552195561375bac369c25c843dfdc380c234f828455d33241e1f1d0e2246113db5c6605a5b396fa2edea72ff9a55e6653e934d9f78fa972a5dcaf981af
   default_department_id: 
-  email: yijia.lu@yale.yale
+  email: yijia.lu@yale.edu
   employee_id: "100099"
   first_name: Yijia
   id: "70"
@@ -1324,18 +1324,18 @@ users_070:
   login: yl434
   nick_name: Eric
   password_salt: fee0c5XM1BAM5c-Ct__G
-  perishable_token: 4xTgWYo22MZdwT7QRU1z
+  perishable_token: ElL4HQxuealbjCpB5hnf
   persistence_token: 0f8e09a29b16f8919c20543854ce79e23ea7352f193edca2c44cea8bd9b495367e02e017a6d78967f97c1fee0ae90b54e0e5e2e653cf7bd80e7df60ba7cc5c1f
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:09
 users_071: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: 3b8090adf9e32bba3860f8f7144eb9cefff5d0fe3d8cc1b00921019ddc0d38945a5c673fccf0a981db7d86b77db15dbe44721e145d4d7f9bfa11ad6f64cfe3f0
   default_department_id: 
-  email: roy.luo@yale.yale
+  email: roy.luo@yale.edu
   employee_id: "104407"
   first_name: Roy
   id: "71"
@@ -1343,18 +1343,18 @@ users_071:
   login: rbl23
   nick_name: Bing
   password_salt: Fr3XVJEdHt1JFAWEL7_A
-  perishable_token: s1OLyzPdzPaBh4xlR6h9
+  perishable_token: qungmV9iKCTWq8UYd6Y3
   persistence_token: 8b729110686bd3bf3c0cf74f0aa55ca1d2e3d5e6afee6147522a56ba929e6d465e9c103478c23f9d41e701865800c8e8b62ad04c04b16d7aad7d9489b849c755
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2009-09-14 02:05:34
 users_072: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: df7e4a890fac63737f0d4d5437315a0e1f889a122026579f7f63658cb2c5ea1666ac68c8350d6228b126bdd49fa1c8211624d1488357ee4b91a24e2160896210
   default_department_id: 
-  email: amy.ly@yale.yale
+  email: amy.ly@yale.edu
   employee_id: "94078"
   first_name: Amy
   id: "72"
@@ -1362,18 +1362,18 @@ users_072:
   login: asl53
   nick_name: ""
   password_salt: mSwPt5oLscbcpn5c7SZ0
-  perishable_token: SRO2EUUS6u61bZ7mBFe
+  perishable_token: v94HpBgBOi-zyg3UaR59
   persistence_token: 4c5d3af25e615e71544ed60925b498188d3b0b84f19d2cce805b07737675ecac29cf67bd255c596c764bddea180bca75092cf1e5b312361f0bfbb3c1feae21d5
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_073: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: bbafd7b7e66fd93177178410bd692ac86bcf03f366cee38c24688a2b8c0a7e5fe07f6924c15eb43d1cf1c48c565770ebc587c336120912b76f71bcaeddcb9251
   default_department_id: 
-  email: aditya.mahalingam-dhingra@yale.yale
+  email: aditya.mahalingam-dhingra@yale.edu
   employee_id: "111695"
   first_name: Aditya
   id: "73"
@@ -1381,18 +1381,18 @@ users_073:
   login: am239
   nick_name: ""
   password_salt: ldVvIZfEgkkQPsg9C_6u
-  perishable_token: KH5QnvwT3zuAEkWv7Y
+  perishable_token: eUQL3Ud0yBNly71_eZ2h
   persistence_token: 1185a8ca0cdb4fcad28efb3c915c99e06704e1c165bf0645b0c602c6578b75cc56d2cec7a9cf7447bd93a841dcc0c4f5086df4e530ef196514fb6c76fd622501
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_074: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: 5a6ff28cd63a830163fbedc7f92b2f968b926448a29f22227b680dc6e72d8e2c7952ba6214994b547516a26e07003608f213dfb5d12593729831a5863c257a18
   default_department_id: 
-  email: robert.mcfadden@yale.yale
+  email: robert.mcfadden@yale.edu
   employee_id: "94443"
   first_name: Robert
   id: "74"
@@ -1400,18 +1400,18 @@ users_074:
   login: rfm28
   nick_name: Bobby
   password_salt: zwHZoIGutUThKkFXnGwM
-  perishable_token: XCnnsvysMUNoKoXxoJX
+  perishable_token: 0Ogp-H7OEd-nEsHo1BMg
   persistence_token: 86b649cec61b70d9bd9d1d3183d2630311400a44b4e088eb01b9013e9bea3795043c2f419f2ffab5fb52135b0b7baf04a44118d55b20b5f0940b260d0e7debff
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_075: 
   auth_type: CAS
   calendar_feed_hash: e57c762e72eee068326b91446833deed0fefdf1b06d5cead9ea23466cc5ffa9f
   created_at: 2009-09-14 02:05:34
   crypted_password: db02befc1e026f5692ebccb1f91352f7a4a2cc08f6674d00041b936afdb7811930f36d8b642c1b4406f350cd07ffdc43877e80d55e8d2c1e55f9631eeb622801
   default_department_id: 
-  email: tiffany.pang@yale.yale
+  email: tiffany.pang@yale.edu
   employee_id: "111248"
   first_name: Tiffany
   id: "75"
@@ -1419,18 +1419,18 @@ users_075:
   login: tp33
   nick_name: ""
   password_salt: Bt_gwpT1wd6LvBTfiWsF
-  perishable_token: vA27Svs42ReWsSCLTfln
+  perishable_token: bWwy2uio3tCBzSCIHFrg
   persistence_token: 357dcaeeebd0d37f03997749ead4a1b589ed4ae88828c4de827e4ae976a305de79bdef7245c06cf3477b7a408d88bf8aba60678786a6fb6ec7cbd26650a01b4c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-08-28 04:48:25
 users_076: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: 5ab9e5b79af2fa887c568f5fc4f60e746cd837a7ded9d324eb360695b94b1c3f6c213648a3aad819840b6d834ef6b0441ebb5ee10c8a6297b7cbf3b9d698c30e
   default_department_id: 
-  email: anton.petrov@yale.yale
+  email: anton.petrov@yale.edu
   employee_id: "109573"
   first_name: Anton
   id: "76"
@@ -1438,18 +1438,18 @@ users_076:
   login: avp2
   nick_name: ""
   password_salt: VIdXuLUclC0xo9xboTXL
-  perishable_token: KYLLKdySKsSDTJN3h8vD
+  perishable_token: ZGyyTFhCQ2z0-afyPd3H
   persistence_token: 2edcad7cb7baba1eb86d3f8abf22ebe805a075b1a4c40d34ab5fa554cb4563d9c9eaa7be386417c4ff2d6ee0155a5b2fa54f5cab572c72eaf52a50ddc1b29454
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-04-01 04:39:08
 users_077: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: f84c011e699b5ba2c557e7f6ca775aa965787f4f878a5b1863dbb82565acd50ff6af0151724f457d95ed876ba4c883402e6ced8f85f36be6462b5c4ee22633b2
   default_department_id: 
-  email: kirk.portas@yale.yale
+  email: kirk.portas@yale.edu
   employee_id: "90814"
   first_name: Kirk
   id: "77"
@@ -1457,18 +1457,18 @@ users_077:
   login: kdp22
   nick_name: ""
   password_salt: MCbrorc6zB9QWpJZBGIA
-  perishable_token: 2lOuTdkuTLcKR6eyWzPo
+  perishable_token: bTtwwQurHebT8qf_I2PH
   persistence_token: 9df5dbee35a90acf918d380f6ef30030be8f40ae07911385393fa803387970965ceb898b5592ac2b8ea5e561fdd04934098248ee16297f9a13e9e99b255ccf73
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2009-09-16 16:22:01
 users_078: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: 5b7e48e9ebd0c8b634e0c9369470de1d1d3c9fc4d447d2a5e9e64868610442d8320a0c401dc29fa7a643b6993f8f1410125e7b332b2aee7c412a674ad61c3278
   default_department_id: 
-  email: lucas.pratt@yale.yale
+  email: lucas.pratt@yale.edu
   employee_id: "111678"
   first_name: Lucas
   id: "78"
@@ -1476,18 +1476,18 @@ users_078:
   login: lmp6
   nick_name: ""
   password_salt: aROQWyAKMeIubQJOOmw7
-  perishable_token: hS58dJl4Dn4XZTd7wrPd
+  perishable_token: zFl-DT6G5CB-8aXMCHdS
   persistence_token: 5bb74c36b6412ed62e683d6310f76205d1807eb45bb8cba4639c198c7738deca0edc7d163ccffe8113347e1809e6c7db6cdeb2a91f14a732bbbe735e4da0cf65
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2010-05-10 06:10:36
 users_079: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:34
   crypted_password: bcac87364aaefb6c1901bd695d4a7255ba85db2263cad9b1c5b2c190eff8613896b691c8a2c448cf2eb66e22c9d13579164bd1e2869e8d0c6718d78446863563
   default_department_id: 
-  email: zheela.qaiser@yale.yale
+  email: zheela.qaiser@yale.edu
   employee_id: "101835"
   first_name: Zheela
   id: "79"
@@ -1495,18 +1495,18 @@ users_079:
   login: zkq2
   nick_name: ""
   password_salt: C1k1Lw7ljUXAxawoaF0-
-  perishable_token: KHe8LEf4Z8faV5n5DM
+  perishable_token: TjHGslFQW8B8mevwk-qp
   persistence_token: e60ce926cad578de07365089f87378a6bd82ad65e467eee065c328c6ededef72fc376402cb5590d29c5184fad700d3b428168c3a016d76598d011c871197c85c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:15
+  updated_at: 2009-09-14 02:05:34
 users_080: 
   auth_type: CAS
   calendar_feed_hash: a2d83176d8d71874762028e93df5f13e3a206446968b4252f19d51ccd6450516
   created_at: 2009-09-14 02:05:34
   crypted_password: fb171662fac749fae2579df474c707d0de2aa2b0229d9975f93b6904107744aafaf8134b8cf4a5e7230fef28c53106b33d770fa511f2d80cd59bb3e4d4df9217
   default_department_id: 
-  email: jack.qian@yale.yale
+  email: jack.qian@yale.edu
   employee_id: "108586"
   first_name: Jack
   id: "80"
@@ -1514,18 +1514,18 @@ users_080:
   login: jmq23
   nick_name: ""
   password_salt: xRzqPeniIlFr7XdElIQ5
-  perishable_token: uO2eNGRBjJlN8NCDCzo6
+  perishable_token: QN3CG5UXYHGaA_jnPvVb
   persistence_token: d336f96aa4cabea6838e631eabe064b15c725e6eff3058641496d3e4fdacd9482ae029f7893294fd169588f46fae68a271fd1ba6285235b61ab467e6769b1e56
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-08-29 21:58:30
 users_081: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 4bdbbe25def28c4c2a0bf2e292bc80d56edc9938a7f498ec9cc427adf84b5ace41adfa49775cf147ca99625a1afe3bdaf57f342270ad1c2e291a5ebfdf214546
   default_department_id: 
-  email: monica.qiu@yale.yale
+  email: monica.qiu@yale.edu
   employee_id: "103472"
   first_name: Monica
   id: "81"
@@ -1533,18 +1533,18 @@ users_081:
   login: mmq4
   nick_name: ""
   password_salt: CnosiKPj1Bu1Z5ANGDjx
-  perishable_token: 8JqaancWJ4pXjJTq7nEl
+  perishable_token: n52FvaA1-2V1ilL98UW1
   persistence_token: 8e888bc93c2f102bea6aafd839259085f20fcafe817ea296bddc18e002b723c35fc21a2e3e5884bfe38e7d2359246305f148ce7d7316efe67d8b35ac1dd08d0f
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:08
 users_082: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: f568a2e6f0ca745112dada35690621ae307049bb13cc311d017dce218a5e7dc54fb2e9a43ec803f1b46887d998919455b01723d9cf83bf4df08426698d1a045c
   default_department_id: 
-  email: bob.qu@yale.yale
+  email: bob.qu@yale.edu
   employee_id: "111680"
   first_name: Bo
   id: "82"
@@ -1552,18 +1552,18 @@ users_082:
   login: bq9
   nick_name: Bob
   password_salt: YXBYwWvrPeTjHAzlem-_
-  perishable_token: ldAAjF1xQtwxVQtFAXfH
+  perishable_token: __w0ORA5m846vTh9LeNN
   persistence_token: 4d5814d22199a4d8990733d2afe5059cc35df76d8b00f91b019d2d10ee33273e01663aa399731ce5b524c6d343ddd26b3eef91f4e138d14eb089cf9ba7c17b2d
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 16:41:02
 users_083: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 1b5256c0b3a009d4806e1643a693ac32889ec94c003de932d287345e4291ca19bf6ad32d36874d5ae5730371c79ca043977c0f9a5519b1069ac4a9fed0e3f2b7
   default_department_id: 
-  email: christopher.riederer@yale.yale
+  email: christopher.riederer@yale.edu
   employee_id: "98552"
   first_name: Christopher
   id: "83"
@@ -1571,18 +1571,18 @@ users_083:
   login: cjr49
   nick_name: Chris
   password_salt: 3h1xr1MYKBJzg8JTLU3A
-  perishable_token: Erltu31kypR2FPAq8iW2
+  perishable_token: UBmo9DEhGDSyMNVc4xsr
   persistence_token: 68830a5d506cadb7deca53b1d5c565e6df522093809e2ebfeeec83a24e555416d7e7bd6d052f113c633dc2a20b03a941e79eb71e18197b13cc91f94ea25846b6
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:08
 users_084: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 7891601b8df7e304e61ed5f1a35fa4289757c8b01ab9a102bc8a6d9d7a5378a3f8793d7ddb09ab0cfbcdb95574fed646bec036fe1ccf86ffe12e55377ad19b17
   default_department_id: 
-  email: adrian.ryan@yale.yale
+  email: adrian.ryan@yale.edu
   employee_id: "88499"
   first_name: Adrian
   id: "84"
@@ -1590,18 +1590,18 @@ users_084:
   login: amr86
   nick_name: ""
   password_salt: wvzQhNFOvuBLnmsONbws
-  perishable_token: WxnM7bZ4QMPkEHZjs4
+  perishable_token: Rwng7ErltgKAiEYAtm1Q
   persistence_token: f210fefdb538697b53490db5294496b747a79e7ef402f16111ba9cb63d6d91ee13ac618275ace806abcf1f22caa9bb538603e4e53c3ffa3c551939d29eac9daf
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:08
 users_085: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 2ed52dd9b7cbeac9ec537a876b4d40807630f14945b5e28d1a928f87528c239feac1f235f095063016b4d92185212463f86c593897f2dc49999ea8d36d39d0f6
   default_department_id: 
-  email: marina.santiago@yale.yale
+  email: marina.santiago@yale.edu
   employee_id: "94119"
   first_name: Marina
   id: "85"
@@ -1609,18 +1609,18 @@ users_085:
   login: mjs249
   nick_name: ""
   password_salt: cS39mJeRoANPVTqRjUsB
-  perishable_token: MrHTym4DHo4L8ngGLrNk
+  perishable_token: kQd0ViINtUPTxsCyHshy
   persistence_token: 397fcb741cfbddb92162af687de33ca50ead4cfe82b4a4951abdc7408b3e3632e30afbd2b3564d7bb2357ec8ae44d5e60949d47bfa5282f79e2cfa52d901206c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:08
 users_086: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: c25659f9c43ce02883986a0c6f8cf4f3fba4331f44562058b7a7195deae790eea9d4de5a87f278cf5c8372bbdf8ebeaa91e5665f5e4abb80ba333d7e49e5f898
   default_department_id: 
-  email: francesca.slade@yale.yale
+  email: francesca.slade@yale.edu
   employee_id: "100730"
   first_name: Francesca
   id: "86"
@@ -1628,18 +1628,18 @@ users_086:
   login: fes28
   nick_name: ""
   password_salt: 66rtvG3HFQx8_DLBK15F
-  perishable_token: dOyLBzHAfOJ93AYhgz
+  perishable_token: BODXrfrBfR_Tw2NVM4si
   persistence_token: ee7eb310284feb9c1fad31da4ee2b52b60d3c99fefc959b572858fe4b7c8101700ddb747fe95c216007fed91de6e5db6d8eb6d442da323a3d915bc802520c26e
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:12
 users_087: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 9ee5164c562f94cf02b94b0a6c2b3a8d12be3b7162e60c3404251e8abeeda9a72ec84173ff29a915496f6daf78b4f463d34036ca67c906589ffe350e256f26dc
   default_department_id: 
-  email: scott.snyder@yale.yale
+  email: scott.snyder@yale.edu
   employee_id: "100731"
   first_name: Scott
   id: "87"
@@ -1647,18 +1647,18 @@ users_087:
   login: shs35
   nick_name: ""
   password_salt: DWg2OjucGkSBsz1NwQRk
-  perishable_token: MkcsfeRqAuHfhkaUwaJ
+  perishable_token: H0cTtVIu5nJV2Ue0LC5c
   persistence_token: db5495963224e32f63ebff8124780590628221c90ca3626304af030f89ea3c99415610b0994097fde8266cfade64d84596c94b8c89aa7bbdbf57d0df4161fc82
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:08
 users_088: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 1e5ecb9add81240cfda49b534203c52e27def880ae0e57aecade2edd1683e2145ae6d8ab2cac6073b8ee290432961044db6b12dc278a555f02f043d5ff8fd96b
   default_department_id: 
-  email: adam.solomon@yale.yale
+  email: adam.solomon@yale.edu
   employee_id: "96998"
   first_name: Adam
   id: "88"
@@ -1666,18 +1666,18 @@ users_088:
   login: ars55
   nick_name: ""
   password_salt: YizEwpmg71OAxUoHi9AO
-  perishable_token: Ye5HkguGSCOju3GYzYqx
+  perishable_token: Yw1GRuJ377M8_7TFt4mu
   persistence_token: 7c8e254e2adee3568377cd818f81ad7b467effa79425fa6fe437301f184d8e697511ca8e261902791d69d1f06433f325075c6c7d3b5dc0ec9bb2899112b1841a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:08
 users_089: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: fb77a307a3b2c0a2d8274d1996ef45a3bdec72d3da2b712ba3f5cb7ad90cc653dfb2ae096fbb6c40a353ae6665f079aa3961fb9b52f646431452509bad7cb1f7
   default_department_id: 
-  email: mohammad.sultan@yale.yale
+  email: mohammad.sultan@yale.edu
   employee_id: "104220"
   first_name: Mohammad
   id: "89"
@@ -1685,18 +1685,18 @@ users_089:
   login: mms97
   nick_name: Muneeb
   password_salt: aaMdXpUfhLXSIZ2jIxO0
-  perishable_token: pdJwCuFB3gR8XHGDHkBZ
+  perishable_token: Cqi1u6fiSdLPDDAJKmkk
   persistence_token: 44f97a2dc3c55f66b7ad800d4b49650f86c1ddd683b192acda5ca210718aebd5373fe1fa2f18d54fdacfe93c840cf6f3eae31d784003915fae9c1496ea9185a3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:08
 users_090: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 7dcac85c5d37a02c56338a7790ebf63406fc504ae086e4798c8e45d901542d4bcc1bf2c5777c5db2dc16df2bb909c63c8dfc3a9ae9b595e53a2ee7f1ea8d236a
   default_department_id: 
-  email: jonathan.thirman@yale.yale
+  email: jonathan.thirman@yale.edu
   employee_id: "108587"
   first_name: Jonathan
   id: "90"
@@ -1704,18 +1704,18 @@ users_090:
   login: jet44
   nick_name: ""
   password_salt: inrc4xG-RVt1eh953EUp
-  perishable_token: uuvIpTNp1iMzNACIF3q
+  perishable_token: Yh4MhzAEFq7efrdBDBd1
   persistence_token: 68dec1669a6e42110fb70fa32189e529840f46278fe1c832b5c1ac4c2f35af21738c7636f0b4ba08a188983dbdb55e2ef0d33b6aa87c91753c4fbaa1210f14b4
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:09
 users_091: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 56c4f0f620fb7323e637fbc838521f8219a0508807e259445bc4490ae17edddc7020d51cb9d70e828f8d1a8fa6e51126fc786d672984468f2321aee65e5a8061
   default_department_id: 
-  email: qining.tian@yale.yale
+  email: qining.tian@yale.edu
   employee_id: "111692"
   first_name: Qi Ning
   id: "91"
@@ -1723,18 +1723,18 @@ users_091:
   login: qt6
   nick_name: Peter
   password_salt: xa8G0Nvg5m49Zp5UG2F2
-  perishable_token: zJa1CFmf5HpPdiRAZYZ
+  perishable_token: kfzplfihMFwFAfIx6tX2
   persistence_token: 2543e01366aa54050a64c58ad1abd63efc4c1a1f65e4d0c17a127a9aefd2e6626ed9726a8a8ce95b400b18fe6199cb73eb258c4fdb4ccb96fd9d77d9d81137e6
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:09
 users_092: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 245f8ce83b6915c2d30fb127e5434c0f02d540e4b107e041eebee18145d9936b94c17356b4bb3c157da08f17ce8f6481ae2f24bed1f8e4ccbde2e5f4a2538499
   default_department_id: 
-  email: max.uhlenhuth@yale.yale
+  email: max.uhlenhuth@yale.edu
   employee_id: "111690"
   first_name: Max
   id: "92"
@@ -1742,18 +1742,18 @@ users_092:
   login: meu3
   nick_name: ""
   password_salt: 5fVBWWVh0uJ3TOqG50Lf
-  perishable_token: MIxIiIC8hskjPmenKoD
+  perishable_token: wQvgGtZw_V4Zah7CTLkG
   persistence_token: c90926c6ccec2e581f1fcbceccc5218282f35216c6b201ef8c05ef62b9603d09ae1d2d2080f965e64064ed5288f5b07b621d1ad0b8f9dbb53548e767123776c0
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:09
 users_093: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: eab30f7756e18d5d1126bff293a5f904c55330939bc88347448438524a42ec1b98e7d78b1a13f1a3595c645e8e53260a17ed5ea66dda611ed370d27b7c5f9ac6
   default_department_id: 
-  email: michelle.vu@yale.yale
+  email: michelle.vu@yale.edu
   employee_id: "97118"
   first_name: Michelle
   id: "93"
@@ -1761,18 +1761,18 @@ users_093:
   login: mlv23
   nick_name: ""
   password_salt: p1emzEwK7vOlHEoQ6TkC
-  perishable_token: Xy2SAKei7vxjSTlPfcM
+  perishable_token: 3VbhXhYEpgJcfP_1mjsB
   persistence_token: 18f4fbc78cc60b69212ada1bfa6c730d4a274231d1a44ce58e420deb2fb6fb5d0bfb18fa41e7f90d06f520855c4d4dfb914c8936709977afa5bf9ce30e8c634d
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:11
 users_094: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 077291967ad575186c94ae2bd9392f628c47212717fde73ba218726fd6ea6f6fe6a440e9177b0fa4ac53f90d41488a794cc9aeb34710a578b41c504216d4385f
   default_department_id: 
-  email: kisho.watanabe@yale.yale
+  email: kisho.watanabe@yale.edu
   employee_id: "111687"
   first_name: Kisho
   id: "94"
@@ -1780,18 +1780,18 @@ users_094:
   login: kw324
   nick_name: ""
   password_salt: Bfbkd47j07xZ17SiSOeV
-  perishable_token: nKDunbR2lwIqSgO1MZjU
+  perishable_token: iJKl_6Zi2JqRC5uyYHlC
   persistence_token: 7e1e1c3d6db139c24beb1ca9fdc635aa30593e0c4002c8ef7ca23f863c6c238e51c39181c2a5bab2ffd1dfecef3010e03d22da0d1b725f9d80f657317e4514ee
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:09
 users_095: 
   auth_type: CAS
   calendar_feed_hash: 8542381114071f1c07449de06ddf6649d820751149941afe23c02bbc93398246
   created_at: 2009-09-14 02:05:35
   crypted_password: bb467714a11b40eb1fb058da9534d6a5ea8bcad72dbbec0a9de6233292eb3c6f9fdf5653772d9ce14b07b5b30eda7bb7f84cbff4c1d110db5f241085213f664e
   default_department_id: 
-  email: casey.watts@yale.yale
+  email: casey.watts@yale.edu
   employee_id: "111683"
   first_name: Casey
   id: "95"
@@ -1799,18 +1799,18 @@ users_095:
   login: csw3
   nick_name: ""
   password_salt: j20gLx_2pe1W4Heaa-V3
-  perishable_token: 70YNlQWp7GiEUyQZJjXD
+  perishable_token: M3BARxFTmOO7v4ZH8Tvg
   persistence_token: 8c5255036b5ae83bba096d9a29c8a10dc920e7361ebd57341b8dba03780471acc9272c8390654419b7d755ef12872f4f18da187309e3a3e81d0e7b818d0d59fb
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-08-28 01:48:24
 users_096: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:35
   crypted_password: 5af8e22725ba81d2fc1e255ed89f6e9cb9d6a2613a79507de61ffdc56c2a5eca5c38274d463c7fdadbb68903032af055b762acb5e79dfe95ba8d440c5eb2d546
   default_department_id: 
-  email: drew.westphal@yale.yale
+  email: drew.westphal@yale.edu
   employee_id: "100734"
   first_name: Drew
   id: "96"
@@ -1818,18 +1818,18 @@ users_096:
   login: dew47
   nick_name: ""
   password_salt: q_17i4YVJouz9uZXci2-
-  perishable_token: ropr9vCAMP4ges23dcqX
+  perishable_token: P1_Q7JdzpOIfTiIGWhhJ
   persistence_token: becca20559f1dc0d32d0a1eeddc05888645a7a233f3d9cbc05f8cfb2fce2165966c7777f4dd23d1fcc8b33c6e3be98162a75b61ecfcc0c76ba4f52cde6b50c0c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2009-09-23 02:05:24
 users_097: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:36
   crypted_password: 744831edd4054b087451b6b8f8d0b837f6cd3eb0ffe145665fcfcfeaec65da6c6315b34576fe749fae37c4953dd72baa4830298a0a1f520359301ef4edb5590d
   default_department_id: 
-  email: mark.wilson@yale.yale
+  email: mark.wilson@yale.edu
   employee_id: "93423"
   first_name: Mark
   id: "97"
@@ -1837,18 +1837,18 @@ users_097:
   login: mdw38
   nick_name: ""
   password_salt: fHd4W3xLXl4u4S8DGQtl
-  perishable_token: 8BUgRDKNrmdj98spgbI
+  perishable_token: k-DV3JKA6iNT1nVHTGvJ
   persistence_token: 46d2e6ed66362f23b35984e79a0bfadb2af4b5bdff9df6eb5c4a06240c5719b02c0dafe0df5bba82e934ccecbbc77cfacc4dd3803865ef0b7e1985dfd06ddb1d
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2009-09-16 16:22:14
 users_098: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:36
   crypted_password: 854817f985654f45555803ff49893c8cbb1147fc56a8ea7ed0ea7c6067c7bbf123f7131b6e3e100e24be44ac605b0052941f3e04f75939c97602cb0443381777
   default_department_id: 
-  email: ray.xiong@yale.yale
+  email: ray.xiong@yale.edu
   employee_id: "111693"
   first_name: Ray
   id: "98"
@@ -1856,18 +1856,18 @@ users_098:
   login: rx8
   nick_name: ""
   password_salt: sISNYNN2xQjY0vgxlPLA
-  perishable_token: gFAvO6rYlEQ2jI2Ov4G
+  perishable_token: wXJEWTfngUYxUeIOliAs
   persistence_token: 59a958881e3285d11163d8203aad180972d19c6e2de0f9ccf3d2b105885b7b0d0723207346fbf3b7fd2dfcdd48a60f0d5e5cc6f39bbdd9cf1295e48bdb54b9c5
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:09
 users_099: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:36
   crypted_password: 8118a3d259e97d45c80da907ee1e95f31c06212839f131f8e64da2d751012caa30ff05fbe861510ebdc7ddc12f8a360890affa50e4d5b80f4988773a5e65c305
   default_department_id: 
-  email: tim.xu@yale.yale
+  email: tim.xu@yale.edu
   employee_id: "109975"
   first_name: Tim
   id: "99"
@@ -1875,18 +1875,18 @@ users_099:
   login: tx2
   nick_name: ""
   password_salt: XgRmBEvK8ADDLeJ-31sF
-  perishable_token: fxquN9F83qN1zNwvahs
+  perishable_token: UvJ79U88KsQ8kgO1e9Nz
   persistence_token: 441ed5a1461eea084b23cd29cc51fc7583b49dac10bfcf7213eaff74b8eb573e5c7869c21b1ea8647d2c8c4cb4a7ffde7f4168d65df3d600a6e2f2ab70eacf97
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-04-01 04:39:09
 users_100: 
   auth_type: CAS
   calendar_feed_hash: 3fdf7e9d888b45f734374223c3473f7973ae9c911c621ee5d631e89b5b713515
   created_at: 2009-09-14 02:05:36
   crypted_password: 0f53966e2815852db11bfe5cdc42521ae82e2f01724d85d9420c1b1f739959896610659dd9fbeca02a589ec5bf9d2e14332927b75503a799a9ae649609e38464
   default_department_id: 
-  email: wei.yan@yale.yale
+  email: wei.yan@yale.edu
   employee_id: "111694"
   first_name: Wei
   id: "100"
@@ -1894,18 +1894,18 @@ users_100:
   login: wy59
   nick_name: ""
   password_salt: j2lWxlIpCLYitRltkvIJ
-  perishable_token: 9m52bVkpUvuAGuf5fSx
+  perishable_token: Pyvg4PPVr3U18DUrV-oT
   persistence_token: 0c3a53f469c848dc5cdd7d8b91c16661b04285bffcfad49e6adce62464f1a1974965241d99c787059011ea8fbb06f8787c6cfefdb01d8ee72cd38747fea55e12
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-08-24 15:10:14
 users_101: 
   auth_type: CAS
   calendar_feed_hash: 58435669bac8f6b4691f3c755c18e515ddada6fadc176f3fd08f2bf5402eb644
   created_at: 2009-09-14 02:05:36
   crypted_password: 8680b9071e036ec25d0f4e765c8da470f81b406ac44796ba2ea25a393ddbac914123f63e3dcc1eb8d8fc5e063f8a200524adcd6ca8443a34fbfa8aa99d9697af
   default_department_id: 
-  email: sherwin.yu@yale.yale
+  email: sherwin.yu@yale.edu
   employee_id: "111696"
   first_name: Sherwin
   id: "101"
@@ -1913,18 +1913,18 @@ users_101:
   login: sy23
   nick_name: ""
   password_salt: Pn8PqTcW60fFbsEbd7o7
-  perishable_token: qtLHnhzykcXGMRqHweYy
+  perishable_token: HmWR-RaZ0fWiUGW4cG8Z
   persistence_token: a00892a05d50ef777649184f03b782d05ef11bdfce98540f735492ecad9b7134537d502b68e8eea3bd0bd7001d798478f2fa868d89bf65d955a1cdcc63ebd32e
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2010-08-27 13:04:18
 users_102: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:36
   crypted_password: 054eb7956cd2e21a6e307f981b27783a7ca87935e5ecf6e4d628fcf04f6f6bebe36f0894153812dea8c41c680d04022742b45c8e0ea9d86ccc14279484f9d9de
   default_department_id: 
-  email: sandy.zhu@yale.yale
+  email: sandy.zhu@yale.edu
   employee_id: "110094"
   first_name: Sandy
   id: "102"
@@ -1932,18 +1932,18 @@ users_102:
   login: yz283
   nick_name: ""
   password_salt: hlU_BYrFBSorv9Ilw68Z
-  perishable_token: kLO5jsz58uRWx5RpTDBO
+  perishable_token: _qNTavEhcffTV2a0CLcP
   persistence_token: 84894703d58101d174c6d24e847214b21620c11ceeaa66afbb39e13853277626dbf95876e2a9ea4609202faaeed02eb1f14c646d6ca3996a858ba97b0759db14
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:16
+  updated_at: 2009-09-14 02:05:36
 users_103: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:05:55
   crypted_password: 10016b3fbc4523a49736782c5bcecec4d011cc42abd45d2bae057afe502ab26a0310e9fe10b36182ea426c3c403076e13bdf511b14633bdfa808c9200bd62a78
   default_department_id: 
-  email: loriann.higashi@yale.yale
+  email: loriann.higashi@yale.edu
   employee_id: ""
   first_name: Loriann
   id: "103"
@@ -1951,18 +1951,18 @@ users_103:
   login: lsh9
   nick_name: ""
   password_salt: 1Zm4LBocjEQfAEGAkjFd
-  perishable_token: SyqfrcaMZelX5mWITWj
+  perishable_token: X3Te9Sl3q8AbWxSlLuad
   persistence_token: 0ceb052df0b3006f6dd92c0ef6e7cb801ee4fd1546ce3a79599e784340c7c71651082d3e1192670bd17b4274d5f83beb50ca3906b9a85838cacc2879a07a0e17
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:07
 users_104: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-14 02:06:15
   crypted_password: b9d591588169ed1c089a0bd7ebc64d4fd1e46ea34ea3477952224e9b5086d4f72b4186694f19d9d254ed6574f456c6b182f115903c1745f4de38343bbe711647
   default_department_id: 
-  email: erin.scott@yale.yale
+  email: erin.scott@yale.edu
   employee_id: ""
   first_name: Erin
   id: "104"
@@ -1970,18 +1970,18 @@ users_104:
   login: es536
   nick_name: ""
   password_salt: pvETy1vu_J4SwIu9Kfx7
-  perishable_token: 344mAjIj3BqFUa2v2zAk
+  perishable_token: gsCNdSeC4w1qxmYNIzVu
   persistence_token: 5841cbd1dd53785bb8c035ac3361fd17db38b3f982623877c71de8fc8a85e4f6f9075566c9f178475bb4bddf4e4c2ef8d32dc4645f98dcbf8ee844055c7a7a33
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:07
 users_105: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2009-09-21 19:41:09
   crypted_password: cebffb4d1c55378323eda0a09dfcc8cf571a601295f979a3b3bd9a4b0e63223bb19ac03164b5df49d302e3593bb0ded5574235e85bbf082abdee6c35d1a09ea8
   default_department_id: 
-  email: scott.a.snyder@yale.yale
+  email: scott.a.snyder@yale.edu
   employee_id: "108935"
   first_name: Scott A.
   id: "105"
@@ -1989,11 +1989,11 @@ users_105:
   login: sas227
   nick_name: Scott A.
   password_salt: -CNKJURQELKnT7mzbmto
-  perishable_token: 2hUca8ltOoUWnqCMoJOr
+  perishable_token: UAIoZfhMEGUlTWGhoem2
   persistence_token: fcd189df847863dedcfef070c6ece10e536839bd8233527b66e2481e9e3a1452fdaf283653aaefb646041c9318529824775cdf616a880c5bff72cb852e9eb922
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:09
 users_106: 
   auth_type: CAS
   calendar_feed_hash: 
@@ -2008,18 +2008,18 @@ users_106:
   login: catest
   nick_name: ""
   password_salt: Ns3TiV3wIT9XHn4pE2sS
-  perishable_token: vgkDYVmmz6gBqEsLuZK
+  perishable_token: HcBemH5plzA6AttghzER
   persistence_token: 0f94f885083b6e88b25bd7ffb2a284a5ac40f250a1fcd49ba25f71f85236918c20704807a3324c06c4d9ecaedf6769a10fdad78e04cfa85dca36e8efca14be20
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-09-17 18:19:29
 users_107: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-12 19:01:09
   crypted_password: 65e4f80f7da9e1268a336df74e38d08ebe06e7d1c30b48fa02dd1148eaf77581f0847a715e432ac7e1aed5816c13d1e0ca10be091bcbbab98bc249e059bee0b0
   default_department_id: 
-  email: alan.jiang@yale.yale
+  email: alan.jiang@yale.edu
   employee_id: "103473"
   first_name: Alan
   id: "107"
@@ -2027,18 +2027,18 @@ users_107:
   login: ajj28
   nick_name: ""
   password_salt: dozVEvwrLduSC9L87uaA
-  perishable_token: mp37gYngeE4YIzebTvxS
+  perishable_token: DKG6BswTeFmaPIWYdoTG
   persistence_token: 18a841bb314f9c91bcc52e7891189ba26dbccaf293d99bcca23256ec4a1ce07f05321a9b48de151b5a94649931c53a1638bb1f7769ee8f6f4f3aeab9371bbb54
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_108: 
   auth_type: CAS
   calendar_feed_hash: 9ecc31a7b1b2d169c16f49182f51aa93dd14b3b1839986f9de7858bd1810a637
   created_at: 2010-01-16 21:26:20
   crypted_password: a08a0157b2802f7bc324bf713c700a23b848e3a7452f3df57c092a00d1784f155c41cb47fe25a43c57db1d1e45da3830c62b6ff61ba6b786a16f75b4259c46ca
   default_department_id: 
-  email: kai.chao@yale.yale
+  email: kai.chao@yale.edu
   employee_id: "108544"
   first_name: Kai
   id: "108"
@@ -2046,18 +2046,18 @@ users_108:
   login: kcc22
   nick_name: ""
   password_salt: 7fjvPrdOrzVfqSvaWy72
-  perishable_token: Nvlur1N5WXeHoauAsi1
+  perishable_token: jbSbtJzFG_zNlpuZcOZD
   persistence_token: 96b8f041a6f42ea1b5ab5462e8bf77f4f3a77894412057258887651ff82c0ce0f959ddfb4572c21fac730a3005e648164fc6fc3139839063233349ef1bac48cb
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-09-22 19:22:19
 users_109: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-16 22:48:01
   crypted_password: 2fe293525c20ba61b055472477a69d7f40b8c341ba61f22bc5414a2b851f5527ecdecad138e2bbfdcf3b5f3beb84de1269d25ca05cdeb81fd87264fa14d25c67
   default_department_id: 
-  email: paul.zeng@yale.yale
+  email: paul.zeng@yale.edu
   employee_id: "100032"
   first_name: Paul
   id: "109"
@@ -2065,18 +2065,18 @@ users_109:
   login: mpz4
   nick_name: ""
   password_salt: 440mcYJYECMWL-q5vxkC
-  perishable_token: NA9fbuut2O1Bvu6k0Kpz
+  perishable_token: 1XxuEY5EzLXEYdVjoClE
   persistence_token: 580d1b153bd201fb5f1ee77867999fe791fc9d2cf6db572d338a44dbd1d15bb2039e3968496e8e1f11f8f2d146b3ce5d022149fe69bc56387fca1c23a9a1162a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:12
 users_110: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:22
   crypted_password: 8996098a8a01da4f49cceebf6acd8ba2e2784cfd56c2d1abf6b12014fee52c73823259bb15e2ff5072dc8adcda376ccba21eb9f91207a0009e637554571a2bb8
   default_department_id: 
-  email: samuel.miles@yale.yale
+  email: samuel.miles@yale.edu
   employee_id: "104196"
   first_name: Samuel
   id: "110"
@@ -2084,18 +2084,18 @@ users_110:
   login: sbm36
   nick_name: Sam
   password_salt: uo-WsJBmHIzryRMRVYOQ
-  perishable_token: PgYwyusFdjTXZnIlpHN
+  perishable_token: 4MElkSf487pqKueRTuwC
   persistence_token: 29b4e8ca66118fbe71309053d44161ad4346cfec30c76ce323643b1b2ffc0d4b43be523d2b9ed1c66338ba5a94713bccc742ea316197febb4f9d9800ce0fe808
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_111: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:22
   crypted_password: d792397a157aa1d88ac7bc762d643297a798423f10fb331de87595f6432b05709a5e43d07bf2205f51914b345bf6938a94dabd6c17e3ddb82793ed3e4bdc4f0f
   default_department_id: 
-  email: shafqat.ahmed@yale.yale
+  email: shafqat.ahmed@yale.edu
   employee_id: "119804"
   first_name: Shafqat
   id: "111"
@@ -2103,18 +2103,18 @@ users_111:
   login: sa482
   nick_name: ""
   password_salt: NsquedmhOL0WNW8CgKiI
-  perishable_token: j1s0GAYPJLdjeWnnlW9o
+  perishable_token: Q23MxjYTKUYIUbDSyjDu
   persistence_token: f5e99e85421f45f900c0eb8d9887c227179165982e22b14bd129cfb298d4e1f80167b2bfbd19f0704e1abd53a0a159b2b2eab17617aa92dcbec41dbbadad0251
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_112: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:22
   crypted_password: 495c400cbed28b05cd6b476df6653eb3101883dae88fb8e6a0c428c37611d1a0ff3f48c9b47ad6de6218c4ed7e8e9fca77c8a19b16b12be320ace0cbf52b2f19
   default_department_id: 
-  email: sherry.zhou@yale.yale
+  email: sherry.zhou@yale.edu
   employee_id: "109446"
   first_name: Xiao-qiao
   id: "112"
@@ -2122,18 +2122,18 @@ users_112:
   login: xsz2
   nick_name: Sherry
   password_salt: 5J47IWR312cbB8W_iVRR
-  perishable_token: sTs0VK3ATTMv1P5XHY30
+  perishable_token: CjVEgwROCvGnjo3d90EZ
   persistence_token: 454863e4b64c0b39bf1268315ff4fa2cd740e40a94307f7bf8fdbe7a3deb9c08d2bcc974f198e4e5c2e98dce6c3593e776517f14eb84832f5c4bac1bc0c9617c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_113: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 0255bc09ed4ae035a666caa1cb19d5403a2403530f5829f07af138fe5307afa8bff78833707dfb8b59f97337545849b2ff3f236fb88b5efd476ff42cd3265aa6
   default_department_id: 
-  email: moses.balian@yale.yale
+  email: moses.balian@yale.edu
   employee_id: "119803"
   first_name: Moses
   id: "113"
@@ -2141,18 +2141,18 @@ users_113:
   login: mjb33
   nick_name: ""
   password_salt: AGnZS8jtFnx87O5f30Wv
-  perishable_token: OWyE3ISJlb4UMdyCvgan
+  perishable_token: z3VKzzvw1FBoABM2hHD6
   persistence_token: a93c0769d55d074e4c7d94eb4cb8a663d20781856603c22bf02d5626a351c8b2938460282dda80821aaf010a5a01c9f35a5dc52e9419d770a3eee4eff3745001
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_114: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 7a935d68f81b75370582e8ec70981ef35a4080aebdf04bc5c83a1064dbef037ee37013c9ed17e9557bc495dc6b2f9739b1803d82fda2db2c1ed41de184d9c357
   default_department_id: 
-  email: smith.shah@yale.yale
+  email: smith.shah@yale.edu
   employee_id: "119801"
   first_name: Smith
   id: "114"
@@ -2160,18 +2160,18 @@ users_114:
   login: ss2374
   nick_name: ""
   password_salt: dwxckBApj9jOK8h3FunK
-  perishable_token: D6cHhGijwxS1VdQQe1mo
+  perishable_token: nUcoYuEsUMF81z1cQJy5
   persistence_token: ed2b551bc1084c6495b71281c92657f80e78c6c5be0215f0d84f98b2e67502cee3bfe621248f6a09d3124013db9f0d2db4166c3fa6eae803166003a68667b56c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:12
 users_115: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 4f17aba76471d0e330dffecb7b2a93c9ada08c4abf288e6e1b2bfb5f4f316ad12f13da6c429d733a863f6ed57d79811918bbe346e96c2038ca580f15b80ac7e7
   default_department_id: 
-  email: shirin.ahmed@yale.yale
+  email: shirin.ahmed@yale.edu
   employee_id: "111842"
   first_name: Shirin
   id: "115"
@@ -2179,18 +2179,18 @@ users_115:
   login: saa2
   nick_name: ""
   password_salt: UermSbzWscRsd4pu5TSe
-  perishable_token: iiDS8Qs62gZZERAGxYI
+  perishable_token: WWxFtsA2KIkyWZMLctZN
   persistence_token: dbe5e1c3481b75ee95126922c2f7feb340aca0882c8384972c258f6529ceb5b4b22de7820c0c85916b0301c99c966789a86f70ebd1474351e377d4f9ee7b82cb
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_116: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: f3cb01ec0668238fdab400747136f4f2927ce775f9da3166c9890f7766d02c4c38a76976b87549cdca4e3a0e26ea076ed436471f0af0a3af4734b2ceea919246
   default_department_id: 
-  email: talha.ali@yale.yale
+  email: talha.ali@yale.edu
   employee_id: "118511"
   first_name: Talha
   id: "116"
@@ -2198,18 +2198,18 @@ users_116:
   login: ta256
   nick_name: ""
   password_salt: UwxU1gEWYK1hwv4KM61v
-  perishable_token: vVjr9MGjSvNP53ogNwmP
+  perishable_token: Ci-39O0VSOVUgSHSn46Q
   persistence_token: 09ab5436e08da26d2f8253be6fa135dc3bf17a984612241449caa9d1f04280a018850ac6da87a2d96bed5a4ff82a20d225422fb187f73b854ac11fec4ea76b16
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_117: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 5838904b8a3502a4f875aef1ce6620cbb84305b2b9efffd8252d39d679db86f09d57e15cfd05a3c02d209a6053edc97838ec90a028373135fabc4f163c5b139f
   default_department_id: 
-  email: xiaoqian.yu@yale.yale
+  email: xiaoqian.yu@yale.edu
   employee_id: "118745"
   first_name: Xiaoqian
   id: "117"
@@ -2217,18 +2217,18 @@ users_117:
   login: xy43
   nick_name: Annie
   password_salt: RBAI9eSWEm0X5DUYX6Ed
-  perishable_token: iUkt56U2B5bxntTTUlhs
+  perishable_token: iCGa9Bb9KI0VpqSi0biI
   persistence_token: 76e13a3b9c754b2815595851ab0f02aa083b41b0ca7544cd8844ee5ff78dc10f8298f131459ed99aafcedb7fe74847aa73d6123d334431383022f9b9aa2118f6
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:17
+  updated_at: 2010-04-01 04:39:10
 users_118: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 46e499ceb938f65b0facf401453c231cba00623d5a4f37ee569f67c9fdf7d2df5057da2a956c7dd29caac33bcc2426e813a29dc5963eede98ad7eca530934bd9
   default_department_id: 
-  email: frank.teng@yale.yale
+  email: frank.teng@yale.edu
   employee_id: "111764"
   first_name: Frank
   id: "118"
@@ -2236,18 +2236,18 @@ users_118:
   login: ft66
   nick_name: ""
   password_salt: 373ZnI_IesfCq80pUl0M
-  perishable_token: jZihIqXt36zGajP1LEV
+  perishable_token: vrmEE3Hg-udoPMbBfC00
   persistence_token: 339cf8d3d1e0366134718db0c9dab0725de858bac6cbcf750fd95d29c7fb450fc293c0f34933ae5ca19fe7ebaab2bdd325f5f40a981f6f6e9b293930f31740a9
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:12
 users_119: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 843702662f60f74132d97b21d37306001adfc3f3a41bbb5b0a606c99ac7a7b1d615decc77b2d5bec7baef23eb73b9d66580c1ac42d8ed10926449213be50e784
   default_department_id: 
-  email: wenbo.yang@yale.yale
+  email: wenbo.yang@yale.edu
   employee_id: "119800"
   first_name: Wenbo
   id: "119"
@@ -2255,18 +2255,18 @@ users_119:
   login: wy3
   nick_name: Roger
   password_salt: jAVduksxTAT5mVteUgLv
-  perishable_token: CqpMhv3hbS3muiI2DECm
+  perishable_token: RIfY7tWb__VcfRLxz_yU
   persistence_token: 3768cdd79cdf5158e0e5cdb9a9a2f45decc6bb0a0fd568ba1b0598ad15c52faf32009c55bfe32d1f7cae992e9e38243df798e9d96a30b2c6dacad656aa060862
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:11
 users_120: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 0f6ab76b279c6f5edc0a996c62f8b5d8264bc826b4bb5c24e1eabde1fe2b46b41ab9a43e9554260963fcc95747ba1185d31695ccda5c3af5da4c76c334522f8f
   default_department_id: 
-  email: christopher.medeiros@yale.yale
+  email: christopher.medeiros@yale.edu
   employee_id: "119802"
   first_name: Christopher
   id: "120"
@@ -2274,18 +2274,18 @@ users_120:
   login: clm22
   nick_name: Chris
   password_salt: aUESzAGb3Sx7vG4eWNS5
-  perishable_token: cSBpck9tCStpuq9agMa
+  perishable_token: P-qwgIENgizZuHtlwJvl
   persistence_token: 409352813cb25f5b7b84243525136b5f0b4cd30b539551d8e1918b1955b9b9fff65f1856a87dc2bd3d71b2637b0bfc586a9d45a04b4afe7121ff96b8b9e14c3e
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:11
 users_121: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: c5cd0ea1caf67aaaf623f08146cff8f11ad078b690aab34e1fb5889ba801ae402e57b566b00c969918b2d7d4641a6a6858b4b5263cada0aa6401b047cbd39306
   default_department_id: 
-  email: dana.miller@yale.yale
+  email: dana.miller@yale.edu
   employee_id: "119257"
   first_name: Dana
   id: "121"
@@ -2293,18 +2293,18 @@ users_121:
   login: dmm9
   nick_name: ""
   password_salt: tucMsGnV4KBQ6EJPZjEd
-  perishable_token: lZVKIZIT4INB0tOWGyli
+  perishable_token: E1C-D-ksHU8qBESXrPD6
   persistence_token: 2ec2710e9d08610d4985c8ce79e153cb0bee4740da1830bcffdcf228bb0dea38275b0e180699848697fbf51030b5fce42d93762f59de2b9ddfcd5eecb93b12a7
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_122: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: d7af0bb2be7ad910121ee9a900ba0e2a1453aa37b8a4bf03dc7bb33f7d4277f76de8766fbcaec6b169b2e99ba4a0b4880714f549c01e902044928863ded419f5
   default_department_id: 
-  email: brian.odhiambo@yale.yale
+  email: brian.odhiambo@yale.edu
   employee_id: "110238"
   first_name: Brian
   id: "122"
@@ -2312,18 +2312,18 @@ users_122:
   login: bwo6
   nick_name: ""
   password_salt: W5qBBcS14C20-WJw0kJm
-  perishable_token: zOd5Tej3atHFkcSAqd10
+  perishable_token: 9H8g3G5YtSJ2Egvv0R1-
   persistence_token: e3b555f071c287085dc0d9e229226947124ca2e40a1de1501e77923ddf6d29f1115ac69dc7378e88fa6bf8241359200c4c3f1ce40e4124378439e682c2a840a3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_123: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: ee19d884632b6605a6e1f0267818c74a5a74658ff8b86d657f6c1d709f3d8c982da8bda2d840654e9dfa9d8b7119a2c3e647a8495fae4a7178adf998b05be801
   default_department_id: 
-  email: patrick.kenney@yale.yale
+  email: patrick.kenney@yale.edu
   employee_id: "111647"
   first_name: Patrick
   id: "123"
@@ -2331,18 +2331,18 @@ users_123:
   login: pck24
   nick_name: ""
   password_salt: KXsvmoZ8FI9LMEBYXztD
-  perishable_token: SRU57njRVdCxe5FBd
+  perishable_token: p-mhFqa0mHZpa4udLbdI
   persistence_token: 54b4223c29a155d28bd213a6f1010a4c45fa1c35046a7bad23b615e65d68781c6df8bb593c5079cbf3546b2f91eb7a479a6fdbedf7c8ee71e3f05129aeafcd90
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-05-25 13:34:50
 users_124: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:23
   crypted_password: 36d193a4b5003b163dbd0acbfdef167565eed66dc3d87896ee3445b784d2950b2fe60132f0fa7e3b5fe269960feddf875277f0d68f7518f9f5bcc2d4722713fe
   default_department_id: 
-  email: sirui.sun@yale.yale
+  email: sirui.sun@yale.edu
   employee_id: "119810"
   first_name: Sirui
   id: "124"
@@ -2350,18 +2350,18 @@ users_124:
   login: ss2372
   nick_name: ""
   password_salt: jutRO8iZXx997hNJLa01
-  perishable_token: ZKbOBoqX2bM91mkawtDd
+  perishable_token: u4CCV5BEtGW0NEF08kAp
   persistence_token: 3cc5e2e577750b99d39b620db2e2576406d85e64c57bd83b24adc1caa8280eeeec59414cd5004c5e6b6a371ad069b12411794a1247c5f9e53115fd7c3d3fb68e
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:12
 users_125: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: 34253e8fe254e95f06a7ce23e56212e406a7850f6fefaa3282d0b28ca02fd42af061c22f36334e55883189f67812f09e6a56dd3db825531d94ad8f8c37cb033c
   default_department_id: 
-  email: zachary.maher@yale.yale
+  email: zachary.maher@yale.edu
   employee_id: "119816"
   first_name: Zachary
   id: "125"
@@ -2369,18 +2369,18 @@ users_125:
   login: zkm4
   nick_name: ""
   password_salt: Bcz4WbRPdChq9tx2Z3te
-  perishable_token: ayhf3kvn2fy33TfgieEL
+  perishable_token: erebKOtIJUgNzVFoXUkQ
   persistence_token: 4380e6549e5c1ddba65dd4ad01dafca240ae845c5eedfa5508fd9ba83b90341166e2b09f81f22a3d23183814a3ac38400bbfcee35ea06b8e348d3f889beb3fb0
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:11
 users_126: 
   auth_type: CAS
   calendar_feed_hash: ca7f690d26b40455b991369288b3a33919a04ab8881ed12c2cda1ba01136f80e
   created_at: 2010-01-18 06:18:24
   crypted_password: d9f52fb337f1998d3c2b8e259592efc1a625633b22fcc35b2544bef76eee5380a49c1a86933dabdac4116eb5b6922d9a53497a897db5303d450b6785f5f089c5
   default_department_id: 
-  email: alexander.fayette@yale.yale
+  email: alexander.fayette@yale.edu
   employee_id: "108892"
   first_name: Alex
   id: "126"
@@ -2388,18 +2388,18 @@ users_126:
   login: aef3
   nick_name: ""
   password_salt: ZBLs-tlErKm2p1ajM_eQ
-  perishable_token: yWLPNYjZJzYHZirvoaA
+  perishable_token: CQq7QMJxL7_OAMv5derz
   persistence_token: 6e1632482f8a308545eef2b7a8ab0b841599cef6f5abf3e4a1f6c045f15f55f7de983f923bbab96d329e5f8f8187bd5461ad396713c830fcc00e400ea2010738
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-08-30 05:37:03
 users_127: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: 398bb4f85ee7080710956a4da29a554834ac24ea40973f591fb7561040d89ab4088950fd85a75f7eba29f5d6dfbe34a97cbfae0a2631d87db35f67a6a2e142e0
   default_department_id: 
-  email: caroline.jaffe@yale.yale
+  email: caroline.jaffe@yale.edu
   employee_id: "119825"
   first_name: Caroline
   id: "127"
@@ -2407,18 +2407,18 @@ users_127:
   login: caj5
   nick_name: ""
   password_salt: KPn9hNxgBlI9_x59smQj
-  perishable_token: tmkoRTf0ZsdEs3eVjJy
+  perishable_token: BTayv4ft8sHiFubaN54W
   persistence_token: 9d10362039cca03af33be4ea136e0ec314c74347f19953b1126456fb5f054296559345bb5ca2952607d0a36cd38d141f234ba648569517efb06c8643e2e87cf5
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_128: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: 6eff3282aca3eef732781fd699b27721f57841e8b3d8a1a2559f1acfbf94c0d06d4956d396d4e1b1ca7bd541a498a7ea267856408d6efb8e8edeaa1860b132b2
   default_department_id: 
-  email: michael.giuffrida@yale.yale
+  email: michael.giuffrida@yale.edu
   employee_id: "109491"
   first_name: Michael
   id: "128"
@@ -2426,18 +2426,18 @@ users_128:
   login: mpg26
   nick_name: ""
   password_salt: PCRdP7ohRL66xa1rVV0L
-  perishable_token: tZcvGi73hhJ1YKDnwndy
+  perishable_token: b6W3QX6ACPQbDG_QrLn5
   persistence_token: b0bf4d8dc967791d35d966681ddf0bd5ac1bae257386d0fb3397c31509aab64415328f7062dc5475bd4507c4be7c7ca28860e07e9440113aed740dfae3d6f53e
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:12
 users_129: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: bd1c75d2c5e568cd0f7098c1ff056796441696c95c6d477644f0f1b9dffe51cf8b179b55b0d307b57dc52a09be027edc6e10c03882043e0c9725e62bb3629ae7
   default_department_id: 
-  email: nikola.chonkov@yale.yale
+  email: nikola.chonkov@yale.edu
   employee_id: "111320"
   first_name: Nikola
   id: "129"
@@ -2445,18 +2445,18 @@ users_129:
   login: nac2
   nick_name: ""
   password_salt: cX2OhIbHFtLE7k7-6Z9u
-  perishable_token: W0lO2CLvV6gpJrkx2vy
+  perishable_token: RYSZFLhvpuo04skrHCjm
   persistence_token: 33d5a54ed2e545e089e3a7006ac40faedcdc1b1aae9e5dfb08d465d683e5e63a8958206177488a6c420cba74ba9a79b986186823f2b88577dd113dc2b7491ba1
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_130: 
   auth_type: CAS
   calendar_feed_hash: d1f3d9113189051358ec76b1d5d14651a506a3d4f64dd47425467988b173e609
   created_at: 2010-01-18 06:18:24
   crypted_password: 9692f6d341408510a0857be978123e0642a4b0f6ec88ce674384bd929a88e129ac07f93471c54c871c47dc982c92239c61258a798d06c65d8a8d0083ac4c034c
   default_department_id: 
-  email: bay.gross@yale.yale
+  email: bay.gross@yale.edu
   employee_id: "119827"
   first_name: Bay
   id: "130"
@@ -2464,18 +2464,18 @@ users_130:
   login: bwg4
   nick_name: ""
   password_salt: bcZyrUP5t9zVSrGljiSX
-  perishable_token: SMrvgemsuD9lXOlKbFWc
+  perishable_token: mUcA54Oo4tBYPdDdS2Ke
   persistence_token: 4de76440e93aeb959fe034ea6aec8b81819ee8930380f5c14d375fff07d18a2521129d3d3267307ba374f20488a0ca3dd8da75811e99965d2ea543e3e2b59070
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-07-16 19:46:46
 users_131: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: ce2be7a7bd889857e2f0506caf4b3b69be3f475db83b71f1d757d3beaec9a7a12e83303dfb48a98eda83cc40fe5a1f7b274568c0cdb88b436f47ea9308ea1263
   default_department_id: 
-  email: laura.wellman@yale.yale
+  email: laura.wellman@yale.edu
   employee_id: "109652"
   first_name: Laura
   id: "131"
@@ -2483,18 +2483,18 @@ users_131:
   login: lew36
   nick_name: ""
   password_salt: i0tQWoOmJ7ZRCIuiszEg
-  perishable_token: WGOepMOA4mEwGoORfDZ3
+  perishable_token: t1f9nftfMSCgy2ififZo
   persistence_token: 472171fe8de536836499c12615f48fd1af52434072fd7c1f2986b947ff0e1016185709df6936806be7fa6e731e09fc0e430b1053fadf920df9696777876320cb
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_132: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: 5aa70f88db6cd7c94ccb957896d107ef1d65b54b7177dbf49e2eca4906ccae8ef58978597c13ccccfeb8a2883fff3b53758151bb89c323a22930017c214e61ef
   default_department_id: 
-  email: nnamdi.iregbulem@yale.yale
+  email: nnamdi.iregbulem@yale.edu
   employee_id: "119826"
   first_name: Nnamdi
   id: "132"
@@ -2502,18 +2502,18 @@ users_132:
   login: nii4
   nick_name: ""
   password_salt: mpm46yG94ijd5y6i0a-g
-  perishable_token: 6IquuINCHbITdRWjCaj
+  perishable_token: mQREs2P-6hYov2ZCVR_Z
   persistence_token: fe7913a390643ab8f30d95cb203f85a63f2cf902b8fca7136e040dbca709593d61d90c256360e387baa958cd3ba51e6e5b928c888b0345d6c4a8c2849e3b397a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:11
 users_133: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: 81e9a1ef85e4e5b06ac9ecc91a1531a8c39ac454c69d62cb64bea75102ce1b780483c8731f5899532019eac0cc952f40e6f14d0ad05fe1d051cdcde6df592576
   default_department_id: 
-  email: sikander.khan@yale.yale
+  email: sikander.khan@yale.edu
   employee_id: "118659"
   first_name: Sikander
   id: "133"
@@ -2521,18 +2521,18 @@ users_133:
   login: sak62
   nick_name: ""
   password_salt: N4vqtE7t66TJob7zSFjh
-  perishable_token: msAxYQsaXl3MUaJF4ui
+  perishable_token: 7zSk182uwIa91B9qvWS7
   persistence_token: 1140172e91040ac178ebbae7cbd8b73cc23412b0fc4929ecf8f37a82d5a28a9dc1c7bef1b0947350a0a777286aad5f9ef26da2b6c3b687097510fd64940990d1
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:11
 users_134: 
   auth_type: CAS
   calendar_feed_hash: 945e76866fd8795c6b20f77e1fd26bbf633c3445a651298053e4cf95d7f02aa5
   created_at: 2010-01-18 06:18:24
   crypted_password: 0a49f025f4b70a319981e1cd2e89a08fe680c67013fb9b094b7d215cbe58b48936a88923a84e31b79163e6f2f21b29f25065acf63c6be4fd94a571a8bf27cbf4
   default_department_id: 
-  email: anthony.hsu@yale.yale
+  email: anthony.hsu@yale.edu
   employee_id: "112775"
   first_name: Anthony
   id: "134"
@@ -2540,18 +2540,18 @@ users_134:
   login: ah59
   nick_name: ""
   password_salt: DeVzAwpq9ru-7OxaIPIr
-  perishable_token: NzbKigBEVpxx32uc9ExO
+  perishable_token: bu6s2i3ga5yh_Wm8th8U
   persistence_token: 799c12866df5a200e8d0267c3c55e82b3f3b61584027bcdc6c94b72bd374568d12d72043719036a165c63cbdf46147b7a6ac76cb68d37aa63d35b24b7202810a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-08-29 02:06:18
 users_135: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: 8224a23407d85cb683a10c25ff88496b991eea220fcbdd7c4d1d8fe0684a428fe39a2df614b84288de538096bbeea7a088e712b5a4f5cdd7b4fc3bc1d7717ddd
   default_department_id: 
-  email: bernie.kuan@yale.yale
+  email: bernie.kuan@yale.edu
   employee_id: "102870"
   first_name: Bernie
   id: "135"
@@ -2559,18 +2559,18 @@ users_135:
   login: bk277
   nick_name: ""
   password_salt: AMhRsQyhBTdHTiTW2aiz
-  perishable_token: 9KuNaREePD8FPvK3Tyb
+  perishable_token: 6NoHGZC0TE6M9M2Jlg2Z
   persistence_token: d85949648bb2e339392b5f85b75b2552e8611e059b6a57128d2c18a3643165f2bc243430dcf84cfad3f62e37a277f5336dac62b594f77daed3bf03441f7eef56
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_136: 
   auth_type: CAS
   calendar_feed_hash: 5274d5c74fa1f5c5b151744ea242c6bc34958cdbdf64c98ff569a8583a4ebe8d
   created_at: 2010-01-18 06:18:24
   crypted_password: 35cac2cfef94427738ee9d786145c849f84c8e03630182c9cf45178afbaea238326dc6c02b3c02a9033c97ad83bb26490bc72632f0403d6538c83005b9f03ab3
   default_department_id: 
-  email: maria.altyeva@yale.yale
+  email: maria.altyeva@yale.edu
   employee_id: "119830"
   first_name: Maria
   id: "136"
@@ -2578,18 +2578,18 @@ users_136:
   login: mya2
   nick_name: ""
   password_salt: 4Z-Odlc9XVb1K1qUS8rY
-  perishable_token: GMSnOI6l6f2909OGgVsE
+  perishable_token: qDe8BGDCuC0Ur4otq7T6
   persistence_token: 6df23e0398a9a5b654bf170698c96f7cfe4e5f3e149db0d59a976c31cb84f23e625e90954360d388cf63f398d6d90c07e427ccb093e28874b2a0aa3fc69eebd9
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-08-31 18:20:44
 users_137: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:24
   crypted_password: 754568386135b7ad87e36d95bfb7a0559a8d94a79610d6815dca1ea9b9a3ccf265e467c9b3a17ce23ee4c5b95569ea9de8cb362659fa02a647c889c8a92980fb
   default_department_id: 
-  email: najeeb.kazmi@yale.yale
+  email: najeeb.kazmi@yale.edu
   employee_id: "110063"
   first_name: Najeeb
   id: "137"
@@ -2597,18 +2597,18 @@ users_137:
   login: nhk3
   nick_name: ""
   password_salt: 9rZ-twxytaebveeIVAg2
-  perishable_token: TBZm1G1yTItLhDqy7q9h
+  perishable_token: CQO1W3WxFFE6Qh10pW68
   persistence_token: 3745baf9bd15673cc92ca4f1f9695c0b02fff7678656faacffa137bbe26131b98c5681aab8b6ae9ab5e50eb8ae04c7f415ebccaf18aea3012d6ce4797ffe5871
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_138: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:25
   crypted_password: f973053bdf7901049abcc38f506d416991011966cbf86ab7e9eb13b5b7fd1f33b64b9bdd59692ec8801402e68e1451217d1255715d254df29ebdec2c29e58882
   default_department_id: 
-  email: rui.bao@yale.yale
+  email: rui.bao@yale.edu
   employee_id: "103409"
   first_name: Rui
   id: "138"
@@ -2616,18 +2616,18 @@ users_138:
   login: rb524
   nick_name: ""
   password_salt: qiuqBm7UFrFrHiD3rr2X
-  perishable_token: BSVQNzzT5VvMlYQpjAj2
+  perishable_token: DvAPhADZU-f950Nn_4rc
   persistence_token: 7ad125bc4627638b8a1edc0b8087130e34313515b083998681c67e819ce80e36249bf6e85491a2665ae552f25c9b9c4a984e23e5c052563391ea833a04d47113
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_139: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:25
   crypted_password: 6783420b4d4819cc0950421dc9596e1c9674484a31c82da2bba103deb96630a631fb12b7d645476dd42b4af7e95bd9d2746c3ea655a5780249777384852c1da9
   default_department_id: 
-  email: branko.backovic@yale.yale
+  email: branko.backovic@yale.edu
   employee_id: "110224"
   first_name: Branko
   id: "139"
@@ -2635,18 +2635,18 @@ users_139:
   login: bb43
   nick_name: ""
   password_salt: Uu7Sfpb9RdS9Ue6tiOCU
-  perishable_token: qK7Uf8ZP8Lb9kGcgI1wh
+  perishable_token: FozrBEp5GpptCyw0jaYZ
   persistence_token: bf13821327db2d4e8c5b68e74a76e22c6f897ce7718df23a6059560b1ccfdc918d205a9bcf73ac237e2ee062a5e00602b012beed187c52af520617174f03775a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:10
 users_140: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:25
   crypted_password: aa1fb1b04a7e637547cd438c44db7a542044b69bdf800fe9cd0e220515b6254b9795ce12901054615c5f617ac1cadebda07bdbd286379871073fb2101d72340a
   default_department_id: 
-  email: ali.zia@yale.yale
+  email: ali.zia@yale.edu
   employee_id: "111062"
   first_name: Ali
   id: "140"
@@ -2654,18 +2654,18 @@ users_140:
   login: az2
   nick_name: ""
   password_salt: kYEoxXJ8rSaCmB9T_n9t
-  perishable_token: ubmiPvVbYHqRFHmdqHl2
+  perishable_token: lO2PRuwNBkGAyL8iLgOj
   persistence_token: ee35a1dc0caeae0470dfa0bb1c4c9dbff172d2fc5918b49e721c10ffd027c81fedcd3f6f3a28fc204d0e6f01f8853b7f2b2e7ebfbe2493e7f65688d558aa1f06
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:18
+  updated_at: 2010-04-01 04:39:11
 users_141: 
   auth_type: CAS
   calendar_feed_hash: 607dd89ce3d7308c16ba4898ffd54d3ad93d752887e6ae380e60b386e6d762a0
   created_at: 2010-01-18 06:18:25
   crypted_password: 030e3e904b5ca69aaa7911a853bfef566c6d039ec5c9388304aebdf2f37f92bef2d161ef2cdf78c040ba00c55fe342f7a33b1ff2b2688653a8e75d0cd71340ee
   default_department_id: 
-  email: irene.cai@yale.yale
+  email: irene.cai@yale.edu
   employee_id: "119829"
   first_name: Irene
   id: "141"
@@ -2673,18 +2673,18 @@ users_141:
   login: icc7
   nick_name: ""
   password_salt: QILHVB70gc1-3eBUsXwZ
-  perishable_token: cWW8VzIORm2P8jxH612
+  perishable_token: PPn5zJwAvn1NeMSnGRr8
   persistence_token: d2746a6c588f45906c6838b28c6f4d0566e4eb8600df7d4087a1334cdc1569cc4e38bb45dab89e58ab13116718c9ca1efbfbb17fe24a8390f71ed57e2933d317
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-08-26 01:07:00
 users_142: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:25
   crypted_password: bc7dc0024d626b80454971e62e88bc299aa83179da709413d7fd5d0747794dfb8c402bbe2c24cd99d49d56748ee6667e07bbe9de1fa9118f65c8d5a717e585c8
   default_department_id: 
-  email: john.wood@yale.yale
+  email: john.wood@yale.edu
   employee_id: "117735"
   first_name: John
   id: "142"
@@ -2692,18 +2692,18 @@ users_142:
   login: jdw58
   nick_name: ""
   password_salt: Y53aNd4oW2HGxZY-SiYF
-  perishable_token: 9E1vpURfUmuf9i4uddH
+  perishable_token: TaEF-07Nphr8ef8Jv4_x
   persistence_token: 15f37cc2db23ff9dcf2383f44753ddac701e5f3a312ba42a86c22ef65669280912c8d9be4e9c6a0ae0af3ff37b973b6c2fa8d754cbd691ccb958aeb838b24550
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-01 04:39:10
 users_143: 
   auth_type: CAS
   calendar_feed_hash: d3eb10ded48079b3688adaf2cd9669e05adb5775d8f68cb170c7d5acea5e2fe2
   created_at: 2010-01-18 06:18:25
   crypted_password: ccf5d5297eb0b65835e07ced2374f98af995117d7b599f6749d347b984813dfe1e1e49e802ac5e8b1075feb33dc117b48b546b712e23a66c3c921024d36ce0a9
   default_department_id: 
-  email: matthew.everts@yale.yale
+  email: matthew.everts@yale.edu
   employee_id: "119828"
   first_name: Matthew
   id: "143"
@@ -2711,18 +2711,18 @@ users_143:
   login: mme2
   nick_name: ""
   password_salt: ngpdOiWrMBrFY7DfRvjL
-  perishable_token: Q41nCqEfSRVz1bojRsNb
+  perishable_token: FFFnKLEAlxf8NZ_Fqghb
   persistence_token: 6a5d0836d11281df8e2afd0e10f4aca6332e26a7eb28beecbb5fbf89458ea7971cebe477fc7e5354e0e11077bc46649ca2d9b5e4feee652e0c20b259fda24143
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-09-29 08:56:23
 users_144: 
   auth_type: CAS
   calendar_feed_hash: e0894bf11258ab5249ff62cee77c954885ca1bde41200fb466ff5d2907807dd3
   created_at: 2010-01-18 06:18:25
   crypted_password: af87c636b9a7cbb3ec57837ab1b8d44e7e5a4d8a347b7cb6d290d8cb00ad7bfddcca6fb4939472fd13ce1425b8f4fcb79262a38d9f6153b67e64d13c4d33430b
   default_department_id: 
-  email: mu.li@yale.yale
+  email: mu.li@yale.edu
   employee_id: "119819"
   first_name: Mu
   id: "144"
@@ -2730,18 +2730,18 @@ users_144:
   login: ml686
   nick_name: ""
   password_salt: 7yANrgnXjIWhplVvHM3_
-  perishable_token: DnhDVmkh3ezlQzZnxGf
+  perishable_token: pfJBA4UKd9JSSrRsHhyO
   persistence_token: 9459cd09c31e8f6071cc3e543a61f49765b31c79402af14ffd149326c859021de0a86e7660cea1358d13bd1ee8bc8990236a8b88bd24391ede5088b3bc690e5a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-10-08 23:22:21
 users_145: 
   auth_type: CAS
   calendar_feed_hash: 7e1238d4eccbd357d6094f1d63ef339839046da1ac54a9aa938c8022b7c6ad98
   created_at: 2010-01-18 06:18:25
   crypted_password: c324b9e7010a91eb7a6a784a9a82d35396f23b9236395847a72e9557c9206540e035769fcb9acef77c0cf78ff351da14b80c3de2ada716b14d42842d7fafb2ae
   default_department_id: 
-  email: rachel.kurchin@yale.yale
+  email: rachel.kurchin@yale.edu
   employee_id: "119823"
   first_name: Rachel
   id: "145"
@@ -2749,18 +2749,18 @@ users_145:
   login: rck6
   nick_name: ""
   password_salt: iLyAGYFJWFRpLyb7zT8S
-  perishable_token: lMnayIFBZHyXhblyHfD
+  perishable_token: iEmYf1z7HA6NbN54aPv8
   persistence_token: 4a2e34c84f4bdce7c50aeb2909af111bae377333b67c94030f2776f8e0c925ab6dfca8da2616822094025ba47baed4394a1f573f22f99ed3f2e85d0bf9407eed
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-09-21 22:10:42
 users_146: 
   auth_type: CAS
   calendar_feed_hash: 1ac02435493b3a8539a073d750f5c197beea434808c36391f3b0907754779b6d
   created_at: 2010-01-18 06:18:25
   crypted_password: b7c6f2791c1a7b8baec9971c67a9188c38dc3cfa9be7b97127b321bfa45db6ca2ae326d66039238dcbfdaf12e918a0c86b0369108a37eb49973b0b11eed44bc9
   default_department_id: 
-  email: sebastian.park@yale.yale
+  email: sebastian.park@yale.edu
   employee_id: "119815"
   first_name: Sebastian
   id: "146"
@@ -2768,18 +2768,18 @@ users_146:
   login: syp5
   nick_name: ""
   password_salt: 7u_H6lMQeQhI2vR80PK8
-  perishable_token: OV615mDK7SqSl5TlImzy
+  perishable_token: z0KA64br3gK5VzlkQUt_
   persistence_token: 0b5f9fbb629209ce6f8b5c2e7ba61c469c1db58eb128c16f6a0c8ad776647d2662fe17c63ac2bfd4015f382b6c0cb2797e382eef71c9c1a714f6d25daff5a64c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-07-26 17:33:51
 users_147: 
   auth_type: CAS
   calendar_feed_hash: 5211fa63a6af87cad07e5195b2d61d72cae328126a28cfc887917cc336c623a6
   created_at: 2010-01-18 06:18:25
   crypted_password: 74e29d771500731144fae96c9604a2f9265f94f7a0c04f315fdea07cfb3107f70c0b12214f01433128b13d1eecc92abc58563c9f0d2b98e169c0843ffd5a36a7
   default_department_id: 
-  email: tasia.smith@yale.yale
+  email: tasia.smith@yale.edu
   employee_id: "109244"
   first_name: Tasia
   id: "147"
@@ -2787,18 +2787,18 @@ users_147:
   login: tns23
   nick_name: ""
   password_salt: 4gFtg8tFim7gLyWd7CTg
-  perishable_token: 9pqZB6oCuKltTNtunKrd
+  perishable_token: 7z-AdsotE-93tawD_x4W
   persistence_token: 4a0431f6b43eb5d1bacef170f0c25e805ec42b838652157822db7c1aec5ed7f953e96d4b8bb66b5471a83a32083989fff97c1e9d43159a74709de0c4d40d6682
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-08-27 14:02:54
 users_148: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:25
   crypted_password: 6e3664748843b0c49df7d93c24ed613983e96b1e4470b2b60288299a9437075c5c4e187ad71cbf7d79971664cac850dfd5131e9c4a4361cc1b5a98d01aa46f8c
   default_department_id: 
-  email: jack.oreilly@yale.yale
+  email: jack.oreilly@yale.edu
   employee_id: "119831"
   first_name: Jack
   id: "148"
@@ -2806,18 +2806,18 @@ users_148:
   login: jmo2
   nick_name: ""
   password_salt: Ml9vqB1ML-HMrijFPTrY
-  perishable_token: pzdYSUViGvDeYwP0Se
+  perishable_token: YBaX5gNLbcmKKWc4ulON
   persistence_token: f3e5db0039e83fe66cff7f9309b2ad7eb458977435736fc55741417e7ab5248b82467f0112105625cd990c400756eb79dd0a54f0da22e376b540b67d0cc7692e
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-01 04:39:11
 users_149: 
   auth_type: CAS
   calendar_feed_hash: 5e7c4a1578ff1c9a7c20c12517f075f9aef1d2d5232ef2a0b67f52f872fe5f72
   created_at: 2010-01-18 06:18:25
   crypted_password: 1236b467db2c6b808f0c8cece1d76e0d62b014727f0a79f6d229411330109f8b88771f4af94b362d868662b5dff9a8bb8e8ef15f8e326d112f43c415b1ca1837
   default_department_id: 
-  email: jonah.quinn@yale.yale
+  email: jonah.quinn@yale.edu
   employee_id: "119814"
   first_name: Jonah
   id: "149"
@@ -2825,18 +2825,18 @@ users_149:
   login: jrq3
   nick_name: ""
   password_salt: MukaaYLd3_lizYCB7mEN
-  perishable_token: 1h8MgSo93dkU3ANryDf
+  perishable_token: kzVmcJkQiT2NU7qH5Z4O
   persistence_token: d2e3d39b5f4d86b1976b6573686c201dea782f9d139b98a7e8fcd1b33bc87ce8e8713649de06489d9df196d4875a529f1ce3e34208a96faa42ec68cb9293c629
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-08-28 03:40:11
 users_150: 
   auth_type: CAS
   calendar_feed_hash: 9fa9ff67512673d185faea450b442aea9f578e5fc025b137641d15c6e3c09c26
   created_at: 2010-01-18 06:18:26
   crypted_password: 2c55892e5f574e32671dc7b292c95c2f0177de257fcf1edaf62d8fb3d8573ec690775886ba62f1554d1742a78c52c9fc75a41c721949f0b2b7ffa4f8bfa30a53
   default_department_id: 
-  email: james.luo@yale.yale
+  email: james.luo@yale.edu
   employee_id: "119818"
   first_name: James
   id: "150"
@@ -2844,18 +2844,18 @@ users_150:
   login: jfl32
   nick_name: ""
   password_salt: qvleYFHrQXhS3f1RxAxM
-  perishable_token: wVQ8z6RRptZE3Idgl1
+  perishable_token: FJzNh2yY8c3BHuAnhw
   persistence_token: 8fd76b20889deeb9f9f61993a4567d1aa704b6fcb29d60e06403680b4880a43f6767b6f817f02dbf77897929751a2e867cbdabd621ac63a483258dbd3dce055a
-  supermode: "1"
+  supermode: "0"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2011-06-28 20:38:31
 users_151: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:26
   crypted_password: b94a6b282d2eec365526620d0cd1cfe24abd95364fecd97a24d00dce5a11b33525f1680e83cd2decac96fc92ba44e74f5db5e7c079a1ec97573a73ccb4a51892
   default_department_id: 
-  email: jerry.choinski@yale.yale
+  email: jerry.choinski@yale.edu
   employee_id: "111836"
   first_name: Jedrzej
   id: "151"
@@ -2863,18 +2863,18 @@ users_151:
   login: jkc7
   nick_name: Jerry
   password_salt: GGvE3ht82hMqQECsEzMz
-  perishable_token: jhxtOXzSgkyUIWV7v7gM
+  perishable_token: GzHAQXegOQNNYUgsveny
   persistence_token: 5948e162fd70fc3781ba1dd768ef82aac789696961ab6c9024d4025fca6c55118e9c18f09a00bdf29f015cd8bac1868a3e066ea6940be6a879a14cfb66deb5b0
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-01 04:39:10
 users_152: 
   auth_type: CAS
   calendar_feed_hash: e1771d2cb82eb5e0b74d2de7666626a830f66b3ccd76b5bcd6cbdba684bc71d7
   created_at: 2010-01-18 06:18:26
   crypted_password: 5393fead1697a3724ccbec3da3cb75fd94e371c8415d8b754902209de2f7d8612b7c048efd3a345f3c688cc75861f12364b44402a3ec185edf46d82ddb9a33f2
   default_department_id: 
-  email: Kartik.Venkatraman@yale.yale
+  email: Kartik.Venkatraman@yale.edu
   employee_id: "119809"
   first_name: Kartik
   id: "152"
@@ -2882,18 +2882,18 @@ users_152:
   login: krv6
   nick_name: ""
   password_salt: KjvdIhaI8QR4-jYYhFzu
-  perishable_token: q188YQJNUrEQgnPIYqM
+  perishable_token: sGe1YHel16Y9i7oLpdt3
   persistence_token: b5765174137fbe4efc4a064ef9e2809e3ba399a4951ef51cc4fc4933a4d74dbbb04e188606b2f09c7f6018113f85b154b48c292b92d48c15ce9b8a6b3641b14f
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-08-29 01:31:30
 users_153: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:26
   crypted_password: df4c222091be9f202c020a1ad304fcb7ced8d8d5e4b402897ea8854ca967e3a347f758728ecb6dd80f118c29c3048161215d077e529919e94a2f29217745925f
   default_department_id: 
-  email: philip.hu@yale.yale
+  email: philip.hu@yale.edu
   employee_id: "112624"
   first_name: Philip
   id: "153"
@@ -2901,18 +2901,18 @@ users_153:
   login: pzh2
   nick_name: ""
   password_salt: 1pIosOGBH9IujNFwntDL
-  perishable_token: I5IzcXp1DkLG2P5yBXH4
+  perishable_token: pS1AXlflVFnZVhBvxdxn
   persistence_token: d9fbf11e5084fa631597b54a0ab36c3681b0f5ff0f2361e3ac29303e32b4e96adc937fbb6cbb52e7ba3867065ef65c932919ae24d1781300f6fb4ecf37dc757a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-12 15:59:28
 users_154: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:26
   crypted_password: ccc50250b97a95661ce93672ee709cf572214964fe5606a7884d13dd0a5ba25cfd45e7886c43bcd21497821c393a3c8138488943ea8505e2c53c72adf1abf083
   default_department_id: 
-  email: shunori.ramanathan@yale.yale
+  email: shunori.ramanathan@yale.edu
   employee_id: "119813"
   first_name: Shunori
   id: "154"
@@ -2920,18 +2920,18 @@ users_154:
   login: sr544
   nick_name: ""
   password_salt: A0HZJJlnQfxes1iKkYDN
-  perishable_token: Jlijdc4YC626scb5ek
+  perishable_token: O4qmNxtzSZSmV3yCsN9w
   persistence_token: 792ccd7ef7e1927cbc376c4378e08e64c487c61fe1342699e14ecd72463eb79df5c25084b71dbecd82db8c692fec1cfe1fac154db43e4c41f75f60814c4ccb42
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-01 04:39:12
 users_155: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:26
   crypted_password: 9cd65d0e0d6c6ecc95a9e07d0158148208dbf067af565006a7b85c23aa2c331578584474d3d5e2270fb1b248f623ca9ad05a0813364b67060afef31f206234fa
   default_department_id: 
-  email: wilson.matos@yale.yale
+  email: wilson.matos@yale.edu
   employee_id: "117405"
   first_name: Wilson
   id: "155"
@@ -2939,18 +2939,18 @@ users_155:
   login: wm23
   nick_name: ""
   password_salt: 1kSAAa7iTdVDfh4G18mT
-  perishable_token: Msu9cJh30in68cbEM3
+  perishable_token: 3IhFbWNhdTgqMlSzyVI5
   persistence_token: 0e011890cf76dae1a97ed4dba1de84fed1c44657d51024aeba93e07f98ec4c899a5da61547c363e884d2a05373f82e4f55cbc3a6358d48e91cb25149b112be81
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-01 04:39:10
 users_156: 
   auth_type: CAS
   calendar_feed_hash: 9f09e0bf1cb8c38d7babea4b8b0933ee1c59556bc52565d9bdbe3a9adde59e9d
   created_at: 2010-01-18 06:18:26
   crypted_password: 1bd6c7a6d192cbe046532db1de5d3b1b8aebac7393e95a2cbed5b316e7910c8a29d131321c18731f5aad010d7bbf14d6bd4f22a85244799ca8032a8bc26c11a2
   default_department_id: 
-  email: christina.wallin@yale.yale
+  email: christina.wallin@yale.edu
   employee_id: "119807"
   first_name: Christina
   id: "156"
@@ -2958,18 +2958,18 @@ users_156:
   login: caw28
   nick_name: ""
   password_salt: I5D4vT79mTDSng-KPPT1
-  perishable_token: HEbefOXdPGYyS5aOfQH
+  perishable_token: g7FfBGj_d4zUwY85A0fc
   persistence_token: 171f1b72d74be532ec41d8e2803748759eaa3fab7d413b1949a030a9c91413ab7a92a21d97dae79689125a4fa397b42f4dfc2044bbb789ed3bac858ceb1efba7
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-09-02 01:29:02
 users_157: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:26
   crypted_password: 946ec98f1993bace188c134f40ad4c1e0bacea276dde5be48e267d25c5b151fd1e7065a14de25e50207a1b1784ffa656ff3c1910029b0ed0ca79d2e5403eed2b
   default_department_id: 
-  email: shehzeen.kamil@yale.yale
+  email: shehzeen.kamil@yale.edu
   employee_id: "119824"
   first_name: Shehzeen
   id: "157"
@@ -2977,18 +2977,18 @@ users_157:
   login: sak59
   nick_name: ""
   password_salt: XmWxtdfKwqq07CZmgyxf
-  perishable_token: yoCkptTRqWdEPFJjBgH
+  perishable_token: 4CpsW8vu3UNL3p8L9QId
   persistence_token: 085bd85692726ed83025694608bc719ee7d14903a0759f7a727b66c882f0be557ebc2010613a0fd4134111284b244116fcd0aa09b69919575b3e3519639f24b3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-01 04:39:10
 users_158: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-01-18 06:18:26
   crypted_password: 13bdd3602693f12406ecbf64e08f504da2dd8f4de28aa1cf01dbefaedb83bd295ba996f174400cb5630f350954ce5d9305063d2f884c5f77697d106c0e365a59
   default_department_id: 
-  email: tony.wu@yale.yale
+  email: tony.wu@yale.edu
   employee_id: "119806"
   first_name: Tony
   id: "158"
@@ -2996,18 +2996,18 @@ users_158:
   login: tw297
   nick_name: ""
   password_salt: M-2CkqX4FNLHWhaAlVv2
-  perishable_token: WLKbsufQ0o5mMu456JHE
+  perishable_token: kA8ornL27e2xR9XGYcev
   persistence_token: 56076a8f5c2234fdbe2d995e5b050265ff5b103bb7a6e31550d771a96b1c6aac47536e8aa507550bb70249d362641a0f0055efe7b84eb280ac8e6b991c2f0a63
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-04-01 04:39:10
 users_159: 
   auth_type: CAS
   calendar_feed_hash: bbb6b43f78888e599b4a1bb1e1806a6cbd8e8ba15e4c68fd26eb6d8947848172
   created_at: 2010-01-18 06:18:26
   crypted_password: ce812ffe7dad239151d6e2d6edbd3746e31722e06af55c4aad58f7052078fc9e25fa7089d14aa04b143713f32d74a245d85f3cac6f4aa636a1f2f8fce75a54f2
   default_department_id: 
-  email: dashell.laryea@yale.yale
+  email: dashell.laryea@yale.edu
   employee_id: "119820"
   first_name: Dashell
   id: "159"
@@ -3015,18 +3015,18 @@ users_159:
   login: dnl2
   nick_name: ""
   password_salt: w-awJ95Fh7oB1kXowj_z
-  perishable_token: 8u1dhXeICGp88Os7dQt
+  perishable_token: greIXGsFG-npj5GVOQHK
   persistence_token: 735a4a7b881f7d02940e73bbb2f62e85d8db385b9d6210a600dff3ca62b4532b27bfb2fff24662b5e8f02684dbe3843eca0aa6951b392082f9fc9b07d2451b01
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-08-27 22:50:34
 users_160: 
   auth_type: CAS
   calendar_feed_hash: 9a5b263a3b3d30d85619333e8ab199f8e9c90da06e0fed6d8e28478b71143356
   created_at: 2010-01-18 06:18:26
   crypted_password: 40532e50e48b0bcd54e386d770eeeeb88aea372ab01d4cf5a05443a852ea5618a2d39af1f9e4784717993f59b73f2a44284c5f508d6bc047edcab10317e9e111
   default_department_id: 
-  email: ellen.su@yale.yale
+  email: ellen.su@yale.edu
   employee_id: "119812"
   first_name: Ellen
   id: "160"
@@ -3034,18 +3034,18 @@ users_160:
   login: efs8
   nick_name: ""
   password_salt: VcDZ68ylACr7nTgU2IpX
-  perishable_token: TZbY9ETcRRq27acEzVFf
+  perishable_token: Uo3nnPsTWmQvkr89UU7m
   persistence_token: 5c2477c7a92e4109ed048b4e00e5a3df36217fe19403eee491b27844e2e6264741bb20e6097680fccdd21b40106dff19b22cfb435711195f3f1c18d5de35998d
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-08-28 18:56:37
 users_161: 
   auth_type: CAS
   calendar_feed_hash: 2fd5adbb0cf1182faf8509841d81feceb9c57b42a171c80b06780982cd9aad52
   created_at: 2010-01-18 06:18:26
   crypted_password: 82475150ba9a2b89827a5bc08467bc4bede26fdf0047c406e11598ad32f090575292263f8e67a0e048fd85efd14b485ef3c34805ac6b9f7b4d5fbf6fa171c74b
   default_department_id: 
-  email: justin.yan@yale.yale
+  email: justin.yan@yale.edu
   employee_id: "119805"
   first_name: Justin
   id: "161"
@@ -3053,18 +3053,18 @@ users_161:
   login: jdy7
   nick_name: ""
   password_salt: ODAl5FRod6i69cCLTxFP
-  perishable_token: pQ05pDgIrDMwGeF3QvmL
+  perishable_token: bo-clvSxQxlD1yH4-ehB
   persistence_token: 9bae5adb71e0438de9036b148a5bbd67f7996a806c8cdaa284d7759962c7fc20b85536da994b56e7173f254911ebd774fedbc346e5637cad3badbf945fcb8c4c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:19
+  updated_at: 2010-09-01 20:15:53
 users_162: 
   auth_type: CAS
   calendar_feed_hash: 3acc7b72b321b98678238246db2cff96f54cfb127f360023ff461851efaf2295
   created_at: 2010-01-18 06:18:26
   crypted_password: 7c66d6817c71411d71c8cb59378532443c95223d28831f4af857bb47293a57eab39f3db146d1dc22b938da9ff95f82ef12df03010f0454c3ab6310ecacf65a54
   default_department_id: 
-  email: muhammadusman.anwer@yale.yale
+  email: muhammadusman.anwer@yale.edu
   employee_id: "119557"
   first_name: Muhammad Usman
   id: "162"
@@ -3072,18 +3072,18 @@ users_162:
   login: ma483
   nick_name: Usman
   password_salt: 2jzjWxKMaSoxeleLp1dZ
-  perishable_token: TbY7Os17lbpblwEz5fcr
+  perishable_token: Q3RnoWNi_QC6MwbpE-g1
   persistence_token: f1063a2b4740d4cdb1071ab8ce53cc1ae771ea772f4fec90fc7012a31570ff121bf3e1853d2ad1f977972951d8e6223d3807d1653bb87f1a3cc42aea51204aa6
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-09-01 05:02:11
 users_163: 
   auth_type: CAS
   calendar_feed_hash: 2598146e852bdcbc5ab0c0d3b1b04c9d01d1f03df5abaf9fba25d4d96b903c68
   created_at: 2010-01-18 06:18:26
   crypted_password: c2041ba3b33975a027699e204b0f93e167c8ec6b27c8fe906b105c331b9b6ec391c30110dce4f09eb741982bc63df91817dc859aa98c91d03e35eb07d52a33c6
   default_department_id: 
-  email: paul.rutland@yale.yale
+  email: paul.rutland@yale.edu
   employee_id: "117584"
   first_name: Paul
   id: "163"
@@ -3091,18 +3091,18 @@ users_163:
   login: par23
   nick_name: ""
   password_salt: H4kzth7NuN9QVV-SL17-
-  perishable_token: x6HEA0O4H2tcaQEG8P
+  perishable_token: mRnNuHkzfTH8ocMo8iRM
   persistence_token: 071b6dbb6d3527027d6a87a8e1403e2eae90fb8e37080017663cfdb8a5a264ae815898783889135ba04bb8de566d8d39ffaec0504eff99bc79bf7f3b49449889
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-09-22 15:10:19
 users_164: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-03-18 18:59:04
   crypted_password: 896271f6a7ae02c559fdf9f1123fab6cc6012bbf4a21b6b7af021e242bf073a109e58b2865f135e14c44a1f4e209fa1f3d2987e2f6457c050e6c30786953fa62
   default_department_id: 
-  email: patrick.lynch@yale.yale
+  email: patrick.lynch@yale.edu
   employee_id: ""
   first_name: Patrick
   id: "164"
@@ -3110,18 +3110,18 @@ users_164:
   login: plynch
   nick_name: Pat
   password_salt: lW5d8LiIeRgCPxDXOZHT
-  perishable_token: 2UKHuhiawQEKFKqSK5bB
+  perishable_token: DfeK7cEwbySOy8VrPbst
   persistence_token: 0d6ca473e2ce1ab0f0b61ebcba72fb711b51a1c20cdfe67c381ae4f4a2b10d73415cf94d6bc9e63685c31529a0096e4d86f9e5394e90846950fdb9062fdff8b3
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-03-18 18:59:04
 users_165: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-04-20 16:29:13
   crypted_password: 5a7303179c9f5a0c9a23b6dd017ae7333930d048e3a3ed76fdb121ce3f3e797abc25c31c9ea9be95cf9bdc9b69438fa46f72247a57519e819ed54d4cc37dae95
   default_department_id: 
-  email: pedro.monroy@yale.yale
+  email: pedro.monroy@yale.edu
   employee_id: ""
   first_name: Pedro
   id: "165"
@@ -3129,18 +3129,18 @@ users_165:
   login: pmonroy
   nick_name: ""
   password_salt: K4pg5EJeGfEY2aPjO3G7
-  perishable_token: vdiAzbBL4QUZKgczT
+  perishable_token: yBIQQY7PlaGo0Q2GKxvi
   persistence_token: 6b53ee654721a171c6eb560a6b890f3bf1cb079905a165bcc6e0dcbe6a89338d6a6c4ae5862f1fb498dac340388d5255d7d779cb186a44f541af458aa95b69ba
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-04-20 16:29:13
 users_166: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-04-27 14:54:22
   crypted_password: c6b04a952cf02aede92af082de16badcc82c9f25368ff38a366147b528162076a6bce2f5f06e0a457477c88a3d281a149cb574e8f97a00651e821785479ec03b
   default_department_id: 
-  email: adriana.corona@yale.yale
+  email: adriana.corona@yale.edu
   employee_id: ""
   first_name: Adriana
   id: "166"
@@ -3148,18 +3148,18 @@ users_166:
   login: amc95
   nick_name: ""
   password_salt: 2pfi11uY1zzC14zQ5KN1
-  perishable_token: v0iTeCAMqxI3wNPHd
+  perishable_token: 1eiUjj-bwArU1cHg5QFb
   persistence_token: a2c99ebb3877870eb92b8f2c3e36406064a37ad98e52010a0bef06016ac69b4558432b68b0637a6c1fa165710296a9c7027e22ac1457dae8d0d05d366fd25f0c
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-04-27 14:54:22
 users_167: 
   auth_type: CAS
   calendar_feed_hash: 03f1d60eec0235747a96bd0a7b48386f44d1b2100ab57dec282a3b6f2ab26813
   created_at: 2010-05-22 17:46:28
   crypted_password: c80da5ad4deea9bf828a2bf34746fffd1eb8aced4f9850e6f17aba1a1a5eca7650b91a28da3cebabca550f87c04ef0d37f9cf97d3364df7b4c84fb609a653586
   default_department_id: 
-  email: theodore.palenski@yale.yale
+  email: theodore.palenski@yale.edu
   employee_id: ""
   first_name: Theodore
   id: "167"
@@ -3167,11 +3167,11 @@ users_167:
   login: tpp22
   nick_name: Ted
   password_salt: 8fha9MpbmgF-knVjL6G4
-  perishable_token: ak2UQ1N13sl8ioBklCx
+  perishable_token: rpqgWafIa9JfErwuY36t
   persistence_token: 1789225b34bc0bcc48a0cf0f0b1c2f288f93b9ec6f9ea0c42047e98fe28a71e719b21c0a7f4702481bab0bf708d0589f7c2b279770db2dff062664204a00a17f
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-07-16 21:31:07
 users_168: 
   auth_type: CAS
   calendar_feed_hash: 
@@ -3186,11 +3186,11 @@ users_168:
   login: testing
   nick_name: Test
   password_salt: RpwX9sTPoLg8nmlcrqCS
-  perishable_token: f6uxpwgiYVtizSU3H7g
+  perishable_token: nzMj6ZFktQ7fQ9aGktKn
   persistence_token: 1ae6e09bacb09925277f65d83ecd7a549675e58040628bef75b7d1bbd616dc3eca2528eee3aae60a630fca6613a5990902d908fe90515cd5c70f93b92289bef6
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-06-10 18:38:12
 users_169: 
   auth_type: CAS
   calendar_feed_hash: 
@@ -3216,7 +3216,7 @@ users_170:
   created_at: 2010-08-28 14:27:16
   crypted_password: 5e65a029b7324957c8a789c056b9ccfec91f83d5eac9e358aa8e3b0b9ce687a362d0725b46688787c5ecabefb854b016bd8bf6185ffacd6f7bc4d7f63330ec8a
   default_department_id: 
-  email: cecelia.chen@yale.yale
+  email: cecelia.chen@yale.edu
   employee_id: "95270"
   first_name: Cecelia
   id: "170"
@@ -3224,18 +3224,18 @@ users_170:
   login: czc4
   nick_name: ""
   password_salt: OfdED5IRnzlf7nx2r0Rh
-  perishable_token: Czt68ajm7b9kAOzrxA7W
+  perishable_token: EqjWfXMms7JIfSPxbtQ6
   persistence_token: 7a6732c199de349a8327c4c33226dc041c4aea5b19187961c929cf363bbab6a0c5e054ad3ad270690ff25c195b013d254468fd53f6e43869ed5a0e8744a46940
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-09-07 15:48:38
 users_171: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2010-08-31 17:39:55
   crypted_password: fd1cbccd2683567794f8801d7c8ef54145c501e24f031520c3a807eb2aedabf9ac60e287e2e03566d86715866dc540d3f9ed5db3763bbd674b5e6d491f3e6e2c
   default_department_id: 
-  email: jingying.yang@yale.yale
+  email: jingying.yang@yale.edu
   employee_id: ""
   first_name: Jingying
   id: "171"
@@ -3243,18 +3243,18 @@ users_171:
   login: jy249
   nick_name: ""
   password_salt: _h12M4mPFpbROz_5At9H
-  perishable_token: qBcLR2qfQNI5usBzrwb4
+  perishable_token: U9BKnUgRyfFrZ6a4uqhY
   persistence_token: 766e0cae45a8540bd47a7c3e89bc83404151e0911ea0f1152e1a999a0b86676630fc4cf291ee4493ccbe8e97d5f210ba256b10ec374f982c98cd71651f661aa2
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-08-31 17:39:55
 users_172: 
   auth_type: CAS
   calendar_feed_hash: a68f6777f39071c623ab9ca3ca54347d7f110d3635b074821a4af57895ac49a8
   created_at: 2010-09-02 15:10:53
   crypted_password: b6e28170299f72ee58c42af7148fcd34eb33b25271959caba4077eccacf3cc96df5b55fc044034707777b338c2dc3d819f4e4924f36b143a52ec4848cf4e98fa
   default_department_id: 
-  email: usama.qadri@yale.yale
+  email: usama.qadri@yale.edu
   employee_id: "103477"
   first_name: Usama
   id: "172"
@@ -3262,18 +3262,18 @@ users_172:
   login: uaq2
   nick_name: ""
   password_salt: fwS_flTvkHcbzGOFRLJs
-  perishable_token: 8yJOL4Ok38E1aq7oZ5lb
+  perishable_token: S3_OMrcgVnFwDZ1ERe3h
   persistence_token: 84ac37aab34415910017ad361f2062b6f9656c8078ae07ab46f6da34bde5a468b6a4e569a420d635a38b35e3769f3ed767fa9e10fce6c24a197c09fa639548d8
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-09-27 13:26:30
 users_173: 
   auth_type: CAS
   calendar_feed_hash: b1de8b2c3eccedd01dffcf022265f7d191718fae45c425e9b6c226ff05253b62
   created_at: 2010-09-14 18:54:59
   crypted_password: 4c5f70fe05a8d24a2c45caa81bd3b2bb7052ceef2180421fc4ff7b4bb78d4c4629ca5ba25e6069afcb409ffcaa9c029c0224d3aacb997e56b822dcc28dfd5a9b
   default_department_id: 
-  email: bonner.reed@yale.yale
+  email: bonner.reed@yale.edu
   employee_id: "113174"
   first_name: Bonner
   id: "173"
@@ -3281,18 +3281,18 @@ users_173:
   login: bbr5
   nick_name: ""
   password_salt: tWoGhWpdVF2BrT2J20Hg
-  perishable_token: rJwt0JQKQ4UFoBgxVKdy
+  perishable_token: LjAb4Ay8ZaX4cvoXxy01
   persistence_token: 313b05ebd250e05991de1af920bd70a9a00723a9cc21a602d43984d6b236c385963b650d9d04117a27240adeb6aa50f8b14737eff6ad2e3907c77bbe393e737a
   supermode: "1"
   superuser: 
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2010-09-20 16:11:43
 users_174: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2011-05-31 21:30:40
   crypted_password: afc001094655a2ce8fc080bd61a63a7f088031642d5218eefdea5a8800b59bff5af5991bb434c2995d9165106f29bea6a4adf96932464abe8ce9e7fdfea1bbf8
   default_department_id: 
-  email: daniel.ribas@yale.yale
+  email: daniel.ribas@yale.edu
   employee_id: ""
   first_name: Daniel
   id: "174"
@@ -3300,18 +3300,18 @@ users_174:
   login: dtr3
   nick_name: ""
   password_salt: QfyYokdpbX9mwCQuH
-  perishable_token: fHMJFcCbkslvtHpia1OO
+  perishable_token: rxcrGdqSXOLwhjVd8p0L
   persistence_token: 321d18478abb6844f0e8329aa14832340b538c2527d4884f54cea1ff648207b31680e187014f0dbfbc6964cdd0d2d6510bfb8a5ddd4d886f96f3414e5b5ba5e8
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2011-05-31 21:30:40
 users_175: 
   auth_type: CAS
   calendar_feed_hash: 
   created_at: 2011-05-31 21:31:45
   crypted_password: 8f5645c650f08d3500361c4f131a0327781da9f7b1781dfda7802a9cb8a98a3232a2555ad00f63382d3a8ef8329a84e3c269b1f102d9230a1f1ec4902fd4e306
   default_department_id: 
-  email: machiste.quintana@yale.yale
+  email: machiste.quintana@yale.edu
   employee_id: ""
   first_name: Machiste
   id: "175"
@@ -3319,8 +3319,8 @@ users_175:
   login: mnq2
   nick_name: ""
   password_salt: 9hfUg42laB4EgqPTiv
-  perishable_token: l0BQ0TfqcLo9Xk0V5VY
+  perishable_token: N55EUMT85nkCyQNfVB
   persistence_token: 72bc88cb6ae6e6c3fbac71d805ff6cc678844b574bd97e87fb3d8ddf62ce2a4f07778d211b9b5497e4d36152eb47dc9e0a289f7a1f26cdc1ee0bde56c507e319
   supermode: "1"
   superuser: "1"
-  updated_at: 2011-06-06 21:14:20
+  updated_at: 2011-05-31 21:31:45
