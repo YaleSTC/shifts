@@ -125,8 +125,8 @@ class Task < ActiveRecord::Base
   
   # returns a hash containing times associated with shifts tasks that were not completed, and the shifts that failed to do them
   def missed_between(start_date, end_date)
-    slot_completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| (st.created_at >= start_date) && (st.created_at <= end_date) && (st.missed != true)}
-    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| (s.start >= start_date) && (s.start <= end_date) && (!s.signed_in) && (s.submitted?)}
+    completed_shifts_task = ShiftsTask.find_all_by_task_id(self.id).select{|st| (st.created_at >= start_date) && (st.created_at <= end_date) && !st.missed}
+    shifts_at_location = Shift.find_all_by_location_id(self.location_id).select{|s| (s.start >= start_date) && (s.start <= end_date) && (s.submitted?)}
     
     missed_shifts_tasks_slots = []
     missed_shifts_hash = {}
@@ -141,8 +141,8 @@ class Task < ActiveRecord::Base
     
     for slot in 0..(missed_shifts_tasks_slots.size - 2)
       guilty_shifts = []
-      shifts_tasks_in_slot = slot_completed_shifts_task.select{|st| (st.created_at > missed_shifts_tasks_slots[slot]) || (st.created_at < missed_shifts_tasks_slots[slot + 1])}
-      shifts_in_slot = shifts_at_location.select{|s| (s.start > missed_shifts_tasks_slots[slot]) || (s.start < missed_shifts_tasks_slots[slot + 1])}
+      shifts_tasks_in_slot = completed_shifts_task.select{|st| (st.created_at > missed_shifts_tasks_slots[slot]) && (st.created_at < missed_shifts_tasks_slots[slot + 1])}
+      shifts_in_slot = shifts_at_location.select{|s| (s.end > missed_shifts_tasks_slots[slot]) && (s.start < missed_shifts_tasks_slots[slot + 1])}
       if shifts_tasks_in_slot.empty? && !shifts_in_slot.empty?
         guilty_shifts << shifts_in_slot
         guilty_shifts.flatten!
