@@ -90,7 +90,7 @@ class TasksController < ApplicationController
   def make_entry
     # raise params.to_yaml
     @shift = current_user.current_shift
-    @tasks = Task.in_location(current_user.current_shift.location).after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
+    @tasks = Task.in_location(current_user.current_shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
 
     params[:task_ids].each do |task_id|
       @shifts_task = ShiftsTask.new(:task_id => task_id, :shift_id => @shift.id, :missed => false )
@@ -108,7 +108,7 @@ class TasksController < ApplicationController
   
   def update_tasks
     @shift = current_user.current_shift
-    @tasks = Task.in_location(current_user.current_shift.location).after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
+    @tasks = Task.in_location(current_user.current_shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a") }
     respond_to do |format|
       format.js
     end
