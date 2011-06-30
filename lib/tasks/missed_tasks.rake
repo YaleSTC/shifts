@@ -20,21 +20,18 @@ namespace :db do
     end
   end
   
-  # def clear_missed_tasks
-  #   shifts_tasks = ShiftsTask.find_all_by_missed(true)
-  #   shifts_tasks.each do |st|
-  #     st.
-  #   end
-  #   
-  # end
+  def clear_missed_tasks
+    ActiveRecord::Base.connection.execute "DELETE FROM SHIFTS_TASKS WHERE missed IS true;"
+  end
   
   desc "Populates shifts tasks join table with entries calculated to be missed"
   task (:populate_missed_tasks => :environment) do
     populate_missed_tasks(Date.today - 1, Date.today)
   end
   
-  # desc "Clears missed shifts tasks and repopulates full list (very computationally intensive!)"
-  # task (:reset_missed_tasks => :environment) do
-  # end
-
+  desc "Clears missed shifts tasks and repopulates full list (very computationally intensive!)"
+  task (:reset_missed_tasks => :environment) do
+    clear_missed_tasks
+    populate_missed_tasks(Task.all.collect{|t| t.start}.sort.first.to_date, Date.today)
+  end
 end
