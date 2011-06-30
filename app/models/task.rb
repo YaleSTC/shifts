@@ -180,6 +180,7 @@ class Task < ActiveRecord::Base
       guilty_shifts = []
       shifts_tasks_in_slot = completed_shifts_task.select{|st| (st.created_at > missed_shifts_tasks_slots[slot]) && (st.created_at < missed_shifts_tasks_slots[slot + 1])}
       shifts_in_slot = shifts_at_location.select{|s| (s.end > missed_shifts_tasks_slots[slot]) && (s.start < missed_shifts_tasks_slots[slot + 1])}
+      shifts_in_slot = shifts_in_slot.delete_if{|s| self.kind != "Hourly" && s.end.seconds_since_midnight < self.time_of_day.seconds_since_midnight }
       if shifts_tasks_in_slot.empty? && !shifts_in_slot.empty?
         guilty_shifts << shifts_in_slot
         guilty_shifts.flatten!
