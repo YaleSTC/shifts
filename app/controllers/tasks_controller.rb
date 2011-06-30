@@ -61,6 +61,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.xml
   def update
+    # raise params.to_yaml
     @task = Task.find(params[:id])
 
     respond_to do |format|
@@ -90,7 +91,7 @@ class TasksController < ApplicationController
   def make_entry
     # raise params.to_yaml
     @shift = current_user.current_shift
-    @tasks = Task.in_location(current_user.current_shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a")}
+    @tasks = tasks_during_shift
 
     params[:task_ids].each do |task_id|
       @shifts_task = ShiftsTask.new(:task_id => task_id, :shift_id => @shift.id, :missed => false )
@@ -103,12 +104,11 @@ class TasksController < ApplicationController
       format.js
       format.html {redirect_to @report ? @report : @shift_task.data_object}
     end
-    # flash[:notice] = 'Task has been completed.'
   end
   
   def update_tasks
     @shift = current_user.current_shift
-    @tasks = Task.in_location(current_user.current_shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a") }
+    @tasks = tasks_during_shift
     respond_to do |format|
       format.js
     end
@@ -122,17 +122,19 @@ class TasksController < ApplicationController
   
   def missed_tasks
     @tasks = ShiftsTask.find_by_task_id(params[:id])
-    #@missed = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id)})
-    #@missed_tasks = []
-    #@missed.each do |task|
-    #  if task.task.done
-    #    @missed_tasks << task
-    #  end
-    #end
-  #  @missed_tasks
-  #end
+    # should be renamed but currently constrained because of a dependency in a view partial (task items)
     @completed_tasks = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id), :missed => true})
   end
   
+  protected
   
+  def tasks_during_shift
+    # active, non-expired tasks
+    tasks = Task.in_location(current_user.current_shift.location).active.after_now
+    # filters out daily and weekly tasks scheduled for a time later in the day
+    tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight <= t.time_of_day.seconds_since_midnight}
+    # filters out weekly tasks on the wrong day
+    tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a") }
+  end
+    
 end
