@@ -4,7 +4,6 @@
 	  <td><%=h task.created_at.strftime("%A, %B %d %Y") %></td> 
 	  <td><%=h task.created_at.strftime("%I:%M %p")%></td>
     <td><%=h task.shift.location.name %></td>
-      <td><%= link_to "Shift", task.shift%>
 	</tr>
 <% end %>
 
