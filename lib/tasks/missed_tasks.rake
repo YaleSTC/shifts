@@ -9,16 +9,23 @@ namespace :db do
     
     tasks.each do |task|
       shifts_missed_task_hash = task.missed_between(start_date, end_date) #supposed to be run at 1 am according to schedule
-      shifts_missed_task_array = shifts_missed_task_hash.values.flatten
-      shifts_missed_task_array.each do |shift|
-        @shifts_task = ShiftsTask.new(:task_id => task.id, :shift_id => shift.id, :missed => true )
-    		@shifts_task.save
-  		end
+      hash_keys = shifts_missed_task_hash.keys
+      hash_keys.each do |key|
+        shifts_missed_task_array = shifts_missed_task_hash[key]
+        shifts_missed_task_array.each do |shift|
+          @shifts_task = ShiftsTask.new(:task_id => task.id, :shift_id => shift.id, :created_at => key, :missed => true )
+      		@shifts_task.save
+    		end
+      end
     end
   end
   
   # def clear_missed_tasks
-  #   shifts_tasks = ShiftsTasks.find_all_by_missed(true)
+  #   shifts_tasks = ShiftsTask.find_all_by_missed(true)
+  #   shifts_tasks.each do |st|
+  #     st.
+  #   end
+  #   
   # end
   
   desc "Populates shifts tasks join table with entries calculated to be missed"
