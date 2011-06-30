@@ -36,7 +36,7 @@
 			<% end %>
 	    <% @user_stats.each do |key, stat| %>
 	      <tr>
-	        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date } %></td>
+	        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date} %></td>
 	        <td><%=h stat[:num_shifts] %></td>
 	        <td><%=h stat[:num_late] %></td>
 	        <td><%=h stat[:num_left_early] %></td>
