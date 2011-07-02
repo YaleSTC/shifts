@@ -116,14 +116,14 @@ class TasksController < ApplicationController
 
 
   def completed_tasks
-    @tasks = ShiftsTask.find_by_task_id(params[:id])
-    @completed_tasks = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id), :missed => false})
+    @task = Task.find(params[:id])
+    @shifts_tasks = ShiftsTask.find(:all, :conditions => {:task_id => @task.id, :missed => false})
   end
   
   def missed_tasks
-    @tasks = ShiftsTask.find_by_task_id(params[:id])
+    @task = Task.find(params[:id])
     # should be renamed but currently constrained because of a dependency in a view partial (task items)
-    @completed_tasks = ShiftsTask.find(:all, :conditions => {:task_id => Task.find(@tasks.task_id), :missed => true})
+    @shifts_tasks = ShiftsTask.find(:all, :conditions => {:task_id => @task.id, :missed => true})
   end
   
   protected

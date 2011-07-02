@@ -1,9 +1,7 @@
 <% content_for :head do %>
   <% stylesheet 'report'%>  
 <% end %>
-<% task =  Task.find(@tasks.task_id)%></h2>
-
-<h2>Recent missed instances of: <%= task.name%></h2>
+<h2>Recent missed instances of: <%= @task.name%></h2>
 <table>
 	<tr>
 		<th>User</th>
@@ -11,9 +9,6 @@
 		<th>Time</th>
 		<th>Location</th>
 	</tr>
-	
 		<%= render :partial => "task_items" %>
   </table>
-
-
 <%= link_to "Back to List", tasks_path%>
