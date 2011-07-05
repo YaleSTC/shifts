@@ -1,9 +1,14 @@
-<% @shifts_tasks.each do |task| %>	
-	<tr> 
-	  <td><%=h task.shift.user.name%></td>
-	  <td><%=h task.created_at.strftime("%A, %B %d %Y") %></td> 
-	  <td><%=h task.created_at.strftime("%I:%M %p")%></td>
-    <td><%=h task.shift.location.name %></td>
+<% if @shifts_tasks.empty? %>
+	<tr>
+		<td colspan=4>There are no task records.</td>
 	</tr>
+<% else %>
+	<% @shifts_tasks.each do |task| %>	
+		<tr> 
+		  <td><%=h task.shift.user.name%></td>
+		  <td><%=h task.created_at.strftime("%A, %B %d %Y") %></td> 
+		  <td><%=h task.created_at.strftime("%I:%M %p")%></td>
+	    <td><%=h task.shift.location.name %></td>
+		</tr>
+	<% end %>
 <% end %>
-
