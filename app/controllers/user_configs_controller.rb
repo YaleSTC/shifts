@@ -15,21 +15,34 @@ class UserConfigsController < ApplicationController
   end
 
   def update
-    if @user_config.update_attributes(params[:user_config])
-      flash[:notice] = "Successfully updated user settings."
-      # if we came here from somewhere else, redirect us back
-      redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
-    else
-      render :action => 'edit'
-    end
-  end
+    if params[:commit] == "Submit"
+    	if @user_config.update_attributes(params[:user_config])
+    	  flash[:notice] = "Successfully updated user settings."
+    	  # if we came here from somewhere else, redirect us back
+    	  redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
+    	else
+    	  render :action => 'edit'
+    	end
+		else
+			@current_department = Department.find_by_id(session[:department_id])
+  		@users = User.all
+  
+ 			for user in @users
+ 				if(Department.find_by_id(user.user_config.default_dept) == @current_department)
+ 					this_user_config = user.user_config
+  		    this_user_config.due_payform_email = true
+  		    this_user_config.save
+  			end
+  		end
+  		redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
+		end
+	end
 
-  private
+	private
 
-  def set_var_and_check_owner
-    @user_config = UserConfig.find(params[:id])
-    return unless user_is_owner_of(@user_config)
-  end
-
+  		def set_var_and_check_owner
+    		@user_config = UserConfig.find(params[:id])
+    		return unless user_is_owner_of(@user_config)
+  		end
+  		
 end
-
