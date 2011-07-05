@@ -3,28 +3,7 @@
 
 //Don't load anything before the document is ready. (This should work okay, but if not ask Nathan for some workarounds)
 $(document).ready(function() {
-    // jQuery AJAX helper method:
-    $(document).ajaxSend(function(event, request, settings) {
-      if (settings.type == 'GET' || settings.type == 'get' || typeof(AUTH_TOKEN) == "undefined") return;
-      // settings.data is a serialized string like "foo=bar&baz=boink" (or null)
-      settings.data = settings.data || "";
-      settings.data += (settings.data ? "&" : "") + "authenticity_token=" + encodeURIComponent(AUTH_TOKEN);
-      request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    });
-    
-    // Any form with id "ajaxed_form" will be AJAXed!!! (needs respond_to format.js in the controller)
-    // Prepaer the form to be ajaxed
-    // requires jquery.form
-    $('.ajaxed_form').ajaxForm({
-    dataType: 'script' //by default, evaluates the data returned.
-    }); 
-    // attach handler to form's submit event 
-    $('.ajaxed_form').submit(function() { 
-      // submit the form 
-      $(this).ajaxSubmit(); 
-      // return false to prevent normal browser submit and page navigation 
-      return false; 
-    });
+
 
 
     // If javascript is enabled, anything with the class 'no_js' will be hidden
