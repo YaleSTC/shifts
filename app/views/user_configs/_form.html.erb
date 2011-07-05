@@ -33,14 +33,21 @@
     <legend>Data</legend>
     <small>Control which data objects will show updates on your
     dashboard.</small><br />
-    <% #It might be best to eventually switch from using the multiple select plugin to javascript to handle checkboxes. Thoughts? %> 
-    <% #Group data objects by data type, sort by name, make a collection of checkboxes for each data type group, print data type name for each group. %>
-    <% @grouped_data_objects = @data_objects.sort_by(&:data_type_id).group_by(&:data_type_id) %>
-    <% for dt_id in 1..@grouped_data_objects.size %>
+    <!-- @data_types.map! {|dt| [dt.name, dt.data_objects]} -->
+
+    <% @data_objects_grouped_by_type.each do |dt| %>
       <br /><h3>
-      <%= "#{@data_type.find(dt_id).name}"  %>
-      </h3>
-      <%=  collection_multiple_select( :user_config, :watched_data_objects, @grouped_data_objects[dt_id].sort_by(&:name), :id, :name, :selected_items => @selected_data_objects ) %>
+      <%= check_box_tag "#{dt[0]}" %>
+      <%= label_tag "#{dt[0]}", "#{dt[0]}" %>
+      </h3><br />
+      <% dt[1].each do |dt_obj| %>
+     
+        <%= check_box_tag "dt[#{dt_obj[1]}]", dt_obj[2], dt_obj[2] %>
+        <%= label_tag "dt[#{dt_obj[1]}]", "#{dt_obj[0]}" %>
+        <br />
+        
+      <% end %>
+     
     <% end %>
   </fieldset>
   <fieldset class = "index">
