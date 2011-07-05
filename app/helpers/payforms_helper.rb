@@ -24,7 +24,6 @@ module PayformsHelper
     date - subtract + 1.day
   end
 
-
   def days_in_period(payform)
     start_date = start_of_period(payform.date)
     end_date = (payform.date < Date.today ? payform.date : Date.today)

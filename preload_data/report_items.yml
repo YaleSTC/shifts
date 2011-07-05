@@ -24,330 +24,90 @@ report_items_003:
   time: 2011-06-01 19:29:15
   updated_at: 2011-06-01 19:29:15
 report_items_004: 
-  content: James Luo (jfl32) logged in from 127.0.0.1
-  created_at: 2011-06-23 20:13:24
+  content: jfl32 logged in at 127.0.0.1
+  created_at: 2011-06-03 20:23:24
   id: "4"
   ip_address: 127.0.0.1
   report_id: "2"
-  time: 2011-06-23 20:13:24
-  updated_at: 2011-06-23 20:13:24
+  time: 2011-06-03 20:23:24
+  updated_at: 2011-06-03 20:23:24
 report_items_005: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-23 20:13:30
+  content: testing
+  created_at: 2011-06-03 20:23:35
   id: "5"
   ip_address: 127.0.0.1
   report_id: "2"
-  time: 2011-06-23 20:13:30
-  updated_at: 2011-06-23 20:13:30
+  time: 2011-06-03 20:23:35
+  updated_at: 2011-06-03 20:23:35
 report_items_006: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-23 20:49:08
+  content: testing
+  created_at: 2011-06-03 20:23:38
   id: "6"
   ip_address: 127.0.0.1
   report_id: "2"
-  time: 2011-06-23 20:49:08
-  updated_at: 2011-06-23 20:49:08
+  time: 2011-06-03 20:23:38
+  updated_at: 2011-06-03 20:23:38
 report_items_007: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-23 21:03:16
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-03 20:23:43
   id: "7"
   ip_address: 127.0.0.1
   report_id: "2"
-  time: 2011-06-23 21:03:16
-  updated_at: 2011-06-23 21:03:16
+  time: 2011-06-03 20:23:43
+  updated_at: 2011-06-03 20:23:43
 report_items_008: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-23 21:04:09
+  content: jfl32 logged in at 127.0.0.1
+  created_at: 2011-06-06 15:36:12
   id: "8"
   ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-23 21:04:09
-  updated_at: 2011-06-23 21:04:09
+  report_id: "3"
+  time: 2011-06-06 15:36:12
+  updated_at: 2011-06-06 15:36:12
 report_items_009: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-24 14:08:13
+  content: hello hello
+  created_at: 2011-06-06 15:36:29
   id: "9"
   ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-24 14:08:13
-  updated_at: 2011-06-24 14:08:13
+  report_id: "3"
+  time: 2011-06-06 15:36:29
+  updated_at: 2011-06-06 15:36:29
 report_items_010: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-24 15:38:32
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-06 15:37:38
   id: "10"
   ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-24 15:38:32
-  updated_at: 2011-06-24 15:38:32
+  report_id: "3"
+  time: 2011-06-06 15:37:38
+  updated_at: 2011-06-06 15:37:38
 report_items_011: 
-  content: Completed  Check Voicemail task.
-  created_at: 2011-06-24 15:57:25
+  content: jfl32 logged in at 127.0.0.1
+  created_at: 2011-06-07 14:45:26
   id: "11"
   ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-24 15:57:25
-  updated_at: 2011-06-24 15:57:25
+  report_id: "4"
+  time: 2011-06-07 14:45:26
+  updated_at: 2011-06-07 14:45:26
 report_items_012: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-24 16:48:09
+  content: testing, testing, testing
+  created_at: 2011-06-07 14:51:57
   id: "12"
   ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-24 16:48:09
-  updated_at: 2011-06-24 16:48:09
+  report_id: "4"
+  time: 2011-06-07 14:51:57
+  updated_at: 2011-06-07 14:51:57
 report_items_013: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-27 14:14:10
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-07 14:52:13
   id: "13"
   ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 14:14:10
-  updated_at: 2011-06-27 14:14:10
+  report_id: "4"
+  time: 2011-06-07 14:52:13
+  updated_at: 2011-06-07 14:52:13
 report_items_014: 
-  content: Completed  Tidy Closet task.
-  created_at: 2011-06-27 14:14:26
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-07 15:26:52
   id: "14"
   ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 14:14:26
-  updated_at: 2011-06-27 14:14:26
-report_items_015: 
-  content: Completed  Check Voicemail task.
-  created_at: 2011-06-27 14:14:52
-  id: "15"
-  ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 14:14:52
-  updated_at: 2011-06-27 14:14:52
-report_items_016: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-27 14:29:24
-  id: "16"
-  ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 14:29:24
-  updated_at: 2011-06-27 14:29:24
-report_items_017: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-27 14:29:25
-  id: "17"
-  ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 14:29:25
-  updated_at: 2011-06-27 14:29:25
-report_items_018: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-27 17:17:36
-  id: "18"
-  ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 17:17:36
-  updated_at: 2011-06-27 17:17:36
-report_items_019: 
-  content: Completed  Tidy Closet task.
-  created_at: 2011-06-27 17:20:15
-  id: "19"
-  ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 17:20:15
-  updated_at: 2011-06-27 17:20:15
-report_items_020: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-27 20:26:33
-  id: "20"
-  ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 20:26:33
-  updated_at: 2011-06-27 20:26:33
-report_items_021: 
-  content: James Luo (jfl32) logged out from 127.0.0.1
-  created_at: 2011-06-27 20:26:47
-  id: "21"
-  ip_address: 127.0.0.1
-  report_id: "2"
-  time: 2011-06-27 20:26:47
-  updated_at: 2011-06-27 20:26:47
-report_items_022: 
-  content: jfl32 logged in at 127.0.0.1
-  created_at: 2011-06-28 14:08:46
-  id: "22"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:08:46
-  updated_at: 2011-06-28 14:08:46
-report_items_023: 
-  content: Completed  Tidy Closet task.
-  created_at: 2011-06-28 14:10:44
-  id: "23"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:10:43
-  updated_at: 2011-06-28 14:10:44
-report_items_024: 
-  content: Completed  Check Printer task.
-  created_at: 2011-06-28 14:13:09
-  id: "24"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:13:09
-  updated_at: 2011-06-28 14:13:09
-report_items_025: 
-  content: Completed  Check Voicemail task.
-  created_at: 2011-06-28 14:13:48
-  id: "25"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:13:48
-  updated_at: 2011-06-28 14:13:48
-report_items_026: 
-  content: Completed  Water plants task.
-  created_at: 2011-06-28 14:34:31
-  id: "26"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:34:31
-  updated_at: 2011-06-28 14:34:31
-report_items_027: 
-  content: Completed  Water plants task.
-  created_at: 2011-06-28 14:35:24
-  id: "27"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:35:24
-  updated_at: 2011-06-28 14:35:24
-report_items_028: 
-  content: Completed  Water plants task.
-  created_at: 2011-06-28 14:36:45
-  id: "28"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:36:45
-  updated_at: 2011-06-28 14:36:45
-report_items_029: 
-  content: Completed  Water plants task.
-  created_at: 2011-06-28 14:37:14
-  id: "29"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:37:14
-  updated_at: 2011-06-28 14:37:14
-report_items_030: 
-  content: Completed  Drink coffee or tea task.
-  created_at: 2011-06-28 14:38:40
-  id: "30"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 14:38:40
-  updated_at: 2011-06-28 14:38:40
-report_items_031: 
-  content: Tidy Closet completed.
-  created_at: 2011-06-28 15:12:33
-  id: "31"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 15:12:33
-  updated_at: 2011-06-28 15:12:33
-report_items_032: 
-  content: Water plants completed.
-  created_at: 2011-06-28 15:33:22
-  id: "32"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 15:33:22
-  updated_at: 2011-06-28 15:33:22
-report_items_033: 
-  content: Drink coffee or tea completed.
-  created_at: 2011-06-28 15:37:44
-  id: "33"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 15:37:44
-  updated_at: 2011-06-28 15:37:44
-report_items_034: 
-  content: Check Printer completed.
-  created_at: 2011-06-28 15:58:55
-  id: "34"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 15:58:55
-  updated_at: 2011-06-28 15:58:55
-report_items_035: 
-  content: Talk to Adam completed.
-  created_at: 2011-06-28 15:59:00
-  id: "35"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 15:59:00
-  updated_at: 2011-06-28 15:59:00
-report_items_036: 
-  content: Drink coffee or tea completed.
-  created_at: 2011-06-28 17:47:05
-  id: "36"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 17:47:05
-  updated_at: 2011-06-28 17:47:05
-report_items_037: 
-  content: James Luo (jfl32) logged out from 127.0.0.1
-  created_at: 2011-06-28 19:44:51
-  id: "37"
-  ip_address: 127.0.0.1
-  report_id: "3"
-  time: 2011-06-28 19:44:51
-  updated_at: 2011-06-28 19:44:51
-report_items_038: 
-  content: jfl32 logged in at 127.0.0.1
-  created_at: 2011-06-28 20:17:46
-  id: "38"
-  ip_address: 127.0.0.1
-  report_id: "4"
-  time: 2011-06-28 20:17:46
-  updated_at: 2011-06-28 20:17:46
-report_items_039: 
-  content: Check Printer completed.
-  created_at: 2011-06-28 20:20:37
-  id: "39"
-  ip_address: 127.0.0.1
-  report_id: "4"
-  time: 2011-06-28 20:20:37
-  updated_at: 2011-06-28 20:20:37
-report_items_040: 
-  content: Tidy Closet completed.
-  created_at: 2011-06-28 20:20:38
-  id: "40"
-  ip_address: 127.0.0.1
-  report_id: "4"
-  time: 2011-06-28 20:20:38
-  updated_at: 2011-06-28 20:20:38
-report_items_041: 
-  content: Drink coffee or tea completed.
-  created_at: 2011-06-28 20:20:39
-  id: "41"
-  ip_address: 127.0.0.1
-  report_id: "4"
-  time: 2011-06-28 20:20:39
-  updated_at: 2011-06-28 20:20:39
-report_items_042: 
-  content: Water plants completed.
-  created_at: 2011-06-28 20:20:41
-  id: "42"
-  ip_address: 127.0.0.1
-  report_id: "4"
-  time: 2011-06-28 20:20:41
-  updated_at: 2011-06-28 20:20:41
-report_items_043: 
-  content: Talk to Adam completed.
-  created_at: 2011-06-28 20:20:45
-  id: "43"
-  ip_address: 127.0.0.1
-  report_id: "4"
-  time: 2011-06-28 20:20:45
-  updated_at: 2011-06-28 20:20:45
-report_items_044: 
-  content: James Luo (jfl32) logged out from 127.0.0.1
-  created_at: 2011-06-28 20:20:50
-  id: "44"
-  ip_address: 127.0.0.1
-  report_id: "4"
-  time: 2011-06-28 20:20:50
-  updated_at: 2011-06-28 20:20:50
+  report_id: "1"
+  time: 2011-06-07 15:26:52
+  updated_at: 2011-06-07 15:26:52
