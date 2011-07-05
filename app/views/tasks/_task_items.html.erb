@@ -1,9 +1,9 @@
 <table>
 	<thead>
 		<tr>
+			<th>Date</th>
 			<th>User</th>
 			<th>Shift</th>
-			<th>Date</th>
 			<th>Time</th>
 		</tr>
 	</thead>
@@ -15,9 +15,9 @@
 <% else %>
 	<% @shifts_tasks.each do |task| %>	
 		<tr> 
+		  <td><%=h task.shift.start.strftime("%Y-%m-%d")%>	
 		  <td><%=h link_to task.shift.user.name, user_path(task.shift.user)%></td>
-		  <td><%=h link_to task.shift.time_string, shift_path(task.shift)%></td> 
-	   	  <td><%=h task.shift.tasks_display %></td>
+		  <td><%=h link_to task.shift.short_display, shift_path(task.shift)%></td> 
 		  <td><%=h task.created_at.strftime("%I:%M %p") %></td>
 		</tr>
 	<% end %>
