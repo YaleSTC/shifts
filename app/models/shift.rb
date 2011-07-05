@@ -372,7 +372,6 @@ class Shift < ActiveRecord::Base
     "#{user.name}, #{start.to_s(:just_date)}, #{start.to_s(:am_pm)}"
   end
 
-
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
   end
@@ -381,9 +380,6 @@ class Shift < ActiveRecord::Base
     SubRequest.find_by_shift_id(self.id)
   end
   
-  def tasks_display
-    " #{location.short_name}, #{start.to_s(:just_date)}"
-  end
   
   
 
