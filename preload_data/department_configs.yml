@@ -1,6 +1,6 @@
 --- 
 department_configs_001: 
-  admin_round_option: 
+  admin_round_option: "1"
   auto_remind: "1"
   auto_warn: "1"
   can_take_passed_sub: "1"
@@ -27,7 +27,7 @@ department_configs_001:
   stats_mailer_address: adam.bray@yale.edu, laura.tomas@yale.edu
   time_increment: "15"
   unscheduled_shifts: "1"
-  updated_at: 2010-10-04 20:19:46
+  updated_at: 2011-06-06 16:13:37
   warning_message: |-
     You have not submitted payforms for the weeks ending on the following dates:
     

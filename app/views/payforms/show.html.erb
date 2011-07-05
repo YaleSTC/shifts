@@ -30,8 +30,8 @@
   <table id="payformList" width="100%">
       <%= render :partial => "category", :collection => (@payform.department.categories) %>
     <tfoot><tr> <th scope="col" id="hours" colspan=7>
+      Total Time:
       <div class="total-hours-right"><%= @payform.hours %></div>
-      Total Hours:
     </th></tr> </tfoot>
   </table>
   <br/>
