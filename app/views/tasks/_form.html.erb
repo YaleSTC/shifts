@@ -23,25 +23,16 @@
   <p>
     <%= f.label :start %><br />
 	<%= f.date_select :start %>
-   <%= f.time_select :start, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment, } %>
+   <%= f.time_select :start, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %>
   </p>
   <p>
     <%= f.label :end %><br />
   	<%= f.date_select :end %>
-   <%= f.time_select :end, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment, } %>
+   <%= f.time_select :end, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %>
   </p>
   <p>
     <%= f.label :time_of_day, text = "Time" %><br />
-   <%= f.time_select :time_of_day, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment, } %>
+   <%= f.time_select :time_of_day, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %>
   </p>
   <p>
     <%= f.label :active %><br />
