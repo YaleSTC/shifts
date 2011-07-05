@@ -380,6 +380,12 @@ class Shift < ActiveRecord::Base
   def sub_request
     SubRequest.find_by_shift_id(self.id)
   end
+  
+  def tasks_display
+    " #{location.short_name}, #{start.to_s(:just_date)}"
+  end
+  
+  
 
   # ======================
   # = Validation helpers =
