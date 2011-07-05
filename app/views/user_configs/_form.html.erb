@@ -14,14 +14,19 @@
     <small>Control which location groups to view on your shift
     schedule and on the notices index page.  If you leave this blank, then it will default to all of your
     location groups.  </small><br />
-    <% for department in current_user.departments %>
-      <div class="multiple_select">
-        <h3><%= department.name %></h3>
-        <%= collection_multiple_select(:user_config, :view_loc_groups,
-                                    @loc_group_select[department.id], :id, :name,
-                                    :selected_items => @selected_loc_groups) %>
-      </div>
+         
+    <% @loc_groups_grouped_by_dept.each do |dept| %>
+      <h3>
+      <%= check_box_tag "#{dept[0]}" %>
+      <%= label_tag "#{dept[0]}", "#{dept[0]}"%>
+      </h3>
+      <% dept[1].each do |loc_grp| %>
+        <%= check_box_tag "loc[#{loc_grp[1]}]", loc_grp[2], loc_grp[2] %>
+        <%= label_tag "loc[#{loc_grp[1]}]", "#{loc_grp[0]}" %>
+        <br />
+      <% end %>
     <% end %>
+
   </fieldset>
 
   <fieldset class = "index">
@@ -54,7 +59,7 @@
 	<small>Control your notification preferences.</small><br />
 	<p>
      <%= f.check_box :taken_sub_email %>
-     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests:" %>
+     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests" %>
     </p>
 	</fieldset>
   <p>
