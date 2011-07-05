@@ -48,6 +48,11 @@
      <%= f.check_box :due_payform_email %>
      <%= f.label :due_payform_email, text = "Enable email notifications for due payforms" %>
     </p>
+    <%if current_user.is_admin_of?(@department)%>
+    <p>
+    	<%= link_to "Reset all department users' payform email preference to true", :onclick => reset_payform_pref%>
+    </p>
+    <%end%>
 	</fieldset>
   <p>
     <%= f.submit "Submit" %>
