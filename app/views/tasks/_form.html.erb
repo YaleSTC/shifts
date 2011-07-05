@@ -22,12 +22,12 @@
   </p>
   <p>
     <%= f.label :start %><br />
-	<%= f.date_select :start %>
+	<%= f.date_select :start %> <br />
    <%= f.time_select :start, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %>
   </p>
   <p>
     <%= f.label :end %><br />
-  	<%= f.date_select :end %>
+  	<%= f.date_select :end %> <br />
    <%= f.time_select :end, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %>
   </p>
   <p>
