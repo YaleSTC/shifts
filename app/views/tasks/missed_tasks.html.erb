@@ -3,12 +3,18 @@
 <% end %>
 <h2>Recent missed instances of: <%= @task.name%></h2>
 <table>
-	<tr>
-		<th>User</th>
-		<th>Date</th>
-		<th>Time</th>
-		<th>Location</th>
-	</tr>
+	<thead>
+		<tr>
+			<th>User</th>
+			<th>Shift</th>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Location</th>
+		</tr>
+	</thead>
+	<tbody>
 		<%= render :partial => "task_items" %>
-  </table>
+	</tbody>
+</table>
+
 <%= link_to "Back to List", tasks_path%>
