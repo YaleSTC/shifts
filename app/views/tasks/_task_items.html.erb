@@ -1,15 +1,27 @@
+<table>
+	<thead>
+		<tr>
+			<th>User</th>
+			<th>Shift</th>
+			<th>Date</th>
+			<th>Time</th>
+		</tr>
+	</thead>
+	<tbody>
 <% if @shifts_tasks.empty? %>
 	<tr>
-		<td colspan=5>There are no task records.</td>
+		<td colspan=5>There are no records for this task.</td>
 	</tr>
 <% else %>
 	<% @shifts_tasks.each do |task| %>	
 		<tr> 
 		  <td><%=h link_to task.shift.user.name, user_path(task.shift.user)%></td>
-			<td><%=h link_to task.shift.id, shift_path(task.shift)%></td>
-		  <td><%=h task.created_at.strftime("%A, %B %d %Y")%></td> 
+		  <td><%=h link_to task.shift.time_string, shift_path(task.shift)%></td> 
+	   	  <td><%=h task.shift.tasks_display %></td>
 		  <td><%=h task.created_at.strftime("%I:%M %p") %></td>
-	    <td><%=h task.shift.location.name %></td>
 		</tr>
 	<% end %>
 <% end %>
+</tbody>
+</table>
+

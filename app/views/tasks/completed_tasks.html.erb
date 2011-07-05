@@ -2,19 +2,8 @@
   <% stylesheet 'report'%>  
 <% end %>
 <h2>Recent completions of: <%= @task.name%></h2>
-<table>
-	<thead>
-		<tr>
-			<th>User</th>
-			<th>Shift</th>
-			<th>Date</th>
-			<th>Time</th>
-			<th>Location</th>
-		</tr>
-	</thead>
-	<tbody>
-		<%= render :partial => "task_items" %>
-	</tbody>
-</table>
 
+		<%= render :partial => "task_items" %>
+
+<br />
 <%= link_to "Back to List", tasks_path%>
