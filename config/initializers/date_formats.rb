@@ -20,7 +20,8 @@ my_formats = {
   :sql => "%Y-%m-%d %H:%M:%S",
   :us_icaldate => "%Y%m%dT%H%M%S",
   :us_icaldate_utc => "%Y%m%dT%H%M%SZ",
-  :task_date => "%d %B, %a"
+  :task_date => "%d %B, %a",
+  :date_with_year => "%A, %B %d %Y"
 }
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(my_formats)
