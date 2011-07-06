@@ -1,8 +1,7 @@
 <table id="tasks_records_table" class="tablesorter">
 	<thead>
 		<tr>
-			<th>Date</th>
-			<th>Time</th>
+			<th>Date/Time</th>
 			<th>User</th>
 			<th>Shift</th>
 		</tr>
@@ -15,10 +14,9 @@
 <% else %>
 	<% @shifts_tasks.each do |task| %>	
 		<tr> 
-		  <td><%=h task.shift.start.strftime("%Y-%m-%d")%>
-		  <td><%=h task.created_at.strftime("%I:%M %p") %></td>
+		  <td><%=h task.created_at.strftime("%Y-%m-%d, %I:%M %p") %></td>
 		  <td><%=h link_to task.shift.user.name, user_path(task.shift.user)%></td>
-		  <td><%=h link_to task.shift.short_display, shift_path(task.shift)%></td> 
+		  <td><%=h link_to task.shift.task_time, report_path(task.shift.report)%></td> 
 		</tr>
 	<% end %>
 <% end %>
