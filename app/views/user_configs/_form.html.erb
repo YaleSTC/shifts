@@ -11,18 +11,25 @@
   <% end %>
   <fieldset class = "index">
   <legend>Location Groups</legend>
+    
     <small>Control which location groups to view on your shift
     schedule and on the notices index page.  If you leave this blank, then it will default to all of your
     location groups.  </small><br />
          
     <% @loc_groups_grouped_by_dept.each do |dept| %>
       <h3>
-      <%= check_box_tag "#{dept[0]}" %>
-      <%= label_tag "#{dept[0]}", "#{dept[0]}"%>
+      <% dept_name = dept[0] %>
+      <% dept_loc_groups = dept[1] %>
+      <% dept_val = nil %>
+      <%= check_box_tag "#{dept_name}", "#{dept_val}", "{dept_val}", :class => dept_name.downcase %>
+      <%= label_tag "#{dept_name}", "#{dept_name}", :class => dept_name.downcase %>
       </h3>
-      <% dept[1].each do |loc_grp| %>
-        <%= check_box_tag "loc[#{loc_grp[1]}]", loc_grp[2], loc_grp[2] %>
-        <%= label_tag "loc[#{loc_grp[1]}]", "#{loc_grp[0]}" %>
+      <% dept_loc_groups.each do |loc_grp| %>
+        <% loc_grp_name = loc_grp[0] %>
+        <% loc_grp_id = loc_grp[1] %>
+        <% loc_grp_checkbox_value = loc_grp[2] %>
+        <%= check_box_tag "loc[#{loc_grp_id}]", loc_grp_checkbox_value, loc_grp_checkbox_value, :class => dept_name.downcase %>
+        <%= label_tag "loc[#{loc_grp_id}]", "#{loc_grp_name}", :class => dept_name.downcase %>
         <br />
       <% end %>
     <% end %>
@@ -41,13 +48,18 @@
 
     <% @data_objects_grouped_by_type.each do |dt| %>
       <br /><h3>
-      <%= check_box_tag "#{dt[0]}" %>
-      <%= label_tag "#{dt[0]}", "#{dt[0]}" %>
+      <% dt_name = dt[0] %>
+      <% dt_val = nil %>
+      <% dt_data_objects = dt[1] %>
+      <%= check_box_tag "#{dt_name}", dt_val, dt_val, :class => dt_name.downcase %>
+      <%= label_tag "#{dt_name}", dt_name %>
       </h3><br />
-      <% dt[1].each do |dt_obj| %>
-     
-        <%= check_box_tag "dt[#{dt_obj[1]}]", dt_obj[2], dt_obj[2] %>
-        <%= label_tag "dt[#{dt_obj[1]}]", "#{dt_obj[0]}" %>
+      <% dt_data_objects.each do |dt_obj| %>
+        <% dt_obj_name = dt_obj[0] %>
+        <% dt_obj_id = dt_obj[1] %>
+        <% dt_obj_val = dt_obj[2] %>
+        <%= check_box_tag "dt[#{dt_obj_id}]", dt_obj_val, dt_obj_val, :class => dt_name.downcase %>
+        <%= label_tag "dt[#{dt_obj_id}]", dt_obj_name, :class => dt_name.downcase %>
         <br />
         
       <% end %>
@@ -66,4 +78,5 @@
     <%= f.submit "Submit" %>
   </p>
 <% end %>
+<%= javascript_include_tag 'user_config' %>
 
