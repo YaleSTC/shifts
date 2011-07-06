@@ -116,19 +116,19 @@ class TasksController < ApplicationController
 
 
   def completed_tasks
-    @start_date = interpret_start
-    @end_date = interpret_end
+    @start = interpret_start
+    @end = interpret_end
     @task = Task.find(params[:id])
     @shifts = ShiftsTask.find(:all, :conditions => {:task_id => @task.id, :missed => false})
-    @shifts_tasks = @shifts.select{|st| st.created_at > @end_date && st.created_at < @start_date}
-  
-  
+    @shifts_tasks = @shifts.select{|st| st.created_at < @end && st.created_at > @start}
   end
   
   def missed_tasks
+    @start = interpret_start
+    @end = interpret_end
     @task = Task.find(params[:id])
-    # should be renamed but currently constrained because of a dependency in a view partial (task items)
-    @shifts_tasks = ShiftsTask.find(:all, :conditions => {:task_id => @task.id, :missed => true})
+    @shifts = ShiftsTask.find(:all, :conditions => {:task_id => @task.id, :missed => true})
+    @shifts_tasks = @shifts.select{|st| st.created_at < @end && st.created_at > @start}
   end
   
   protected
@@ -141,22 +141,24 @@ class TasksController < ApplicationController
     # filters out weekly tasks on the wrong day
     tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @shift.start.strftime("%a") }
   end
-    
-   def interpret_start
-    if params[:task]
-      return Date.civil(params[:task][:"start_date(1i)"].to_i,params[:task][:"start_date(2i)"].to_i,params[:task][:"start_date(3i)"].to_i)
-    elsif params[:start_date]
-      return params[:start_date].to_date
+
+  private
+
+  def interpret_start
+    if params[:dates]
+      return Date.civil(params[:dates][:"start(1i)"].to_i,params[:dates][:"start(2i)"].to_i,params[:dates][:"start(3i)"].to_i)
+    elsif params[:start]
+      return params[:start].to_date
     else
       return 1.week.ago.to_date
     end
   end
 
   def interpret_end
-    if params[:task]
-      return Date.civil(params[:task][:"end_date(1i)"].to_i,params[:task][:"end_date(2i)"].to_i,params[:task][:"end_date(3i)"].to_i)
-    elsif params[:end_date]
-      return params[:end_date].to_date
+    if params[:dates]
+      return Date.civil(params[:dates][:"end(1i)"].to_i,params[:dates][:"end(2i)"].to_i,params[:dates][:"end(3i)"].to_i)
+    elsif params[:end]
+      return params[:end].to_date
     else
       return Date.today.to_date
     end

@@ -1,8 +1,27 @@
 <% content_for :head do %>
   <% stylesheet 'report'%>  
 <% end %>
+
+<div id="left_stuff">
+	<fieldset class ="index">
+		<legend>Date Range</legend>
+		<% form_tag(:controller => 'tasks', :action => 'missed_tasks') do %>
+			<p>
+			  <%= label_tag :start_date %><br />
+			  <%= date_select("dates", "start", :default => @start)%>
+			</p>
+			<p>
+			  <%= label_tag :end_date %><br />
+			  <%= date_select("dates", "end", :default => @end )%>
+			</p>
+		  <div><%= submit_tag 'Update dates' %></div>
+		<% end -%>
+	</fieldset>
+</div>
+
 <h2>Recent missed instances of: <%= @task.name%></h2>
 
 		<%= render :partial => "task_items" %>
+		
 <br />
 <%= link_to "Back to List", tasks_path%>
