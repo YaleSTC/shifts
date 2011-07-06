@@ -64,7 +64,7 @@ class Task < ActiveRecord::Base
       hours_since_scheduled = (Time.now)
       if self.done
         return false
-      elsif (self.kind == "Hourly") && (hours_since >= (1 + (current_department.department_configs.task_leniency)/60) #if a task has not been done for an hour after it has been done, it is considered missed
+      elsif (self.kind == "Hourly") && (hours_since >= (1 + (current_department.department_configs.task_leniency)/60)) #if a task has not been done for an hour after it has been done, it is considered missed
         return true 
       elsif (self.kind == "Daily") && (self.late_time)
         return true
