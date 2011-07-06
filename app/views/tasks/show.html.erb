@@ -16,12 +16,12 @@
 
 <p>
   <b>Start:</b>
-  <%=h @task.start.to_s(:just_date_long) %>
+  <%=h @task.start.strftime("%A, %B %d %Y") %>
 </p>
 
 <p>
   <b>End:</b>
-  <%=h @task.end.to_s(:just_date_long) %>
+  <%=h @task.end.strftime("%A, %B %d %Y") %>
 </p>
 
 <p>

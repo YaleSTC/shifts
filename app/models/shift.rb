@@ -375,6 +375,11 @@ class Shift < ActiveRecord::Base
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
   end
+  
+  def task_time
+    scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled (#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)})"
+    
+  end
 
   def sub_request
     SubRequest.find_by_shift_id(self.id)
