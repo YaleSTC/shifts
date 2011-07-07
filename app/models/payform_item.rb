@@ -54,8 +54,8 @@ class PayformItem < ActiveRecord::Base
   
   def length_of_reason
     min = self.department.department_config.reason_min.to_i
-    errors.add(:reason, "must be at least #{min} characters long.") if self.reason.length < min
-  end   
+    errors.add(:reason, "must be at least #{min} characters long.") if self.reason.length < min unless self.reason? == false
+  end 
 
   def validate
     errors.add(:date, "cannot be in the future") if date > Date.today
