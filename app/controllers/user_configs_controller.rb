@@ -23,7 +23,7 @@ class UserConfigsController < ApplicationController
     	else
     	  render :action => 'edit'
     	end
-		elseif params[:commit] == "Reset"
+		elsif params[:commit] == "Reset"
   		@users = User.all
   
  			for user in @users
