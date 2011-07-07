@@ -11,7 +11,7 @@
     <tbody id = "all_report_items">
 		<%= render :partial => "report_items", :collection => @report_items %>
     </tbody>
-  </table>
-<% form_remote_tag :url => { :action => 'display_report_items' } do %>
- <%= submit_tag "view more", :class => "view_more" %>
-<% end %>
+</table>
+<% form_tag(:action => :display_report_items, :id => @location.id, :more_time => @start_time.to_datetime) do %>
+  <div><%= submit_tag 'View More' %></div>
+<% end -%>

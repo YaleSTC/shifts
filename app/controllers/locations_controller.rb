@@ -71,11 +71,15 @@ class LocationsController < ApplicationController
 
   def display_report_items
     @location = Location.find(params[:id])
-    @start_time = 3.hours.ago.utc
-    respond_to do |format|
-      format.js { @start_time = @start_time - 5.hours }
-      format.html { } #this is necessary!
+    if params[:more_time]
+      @start_time = params[:more_time].to_time - 3.hours
+    else
+      @start_time = 2.hours.ago.utc
     end
+    # respond_to do |format|
+    #   format.js { @start_time = @start_time - 50.hours }
+    #   format.html { } #this is necessary!
+    # end
     @report_items = ReportItem.in_location(@location).after_time(@start_time)
   end
 
