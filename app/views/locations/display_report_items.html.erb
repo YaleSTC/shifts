@@ -5,7 +5,7 @@
 <table id="report_view_table">
     <tr>
       <th class="list_header" colspan="3">
-        <h2>Recent updates for location: <%= @location.name %></h2>
+        <h2>Recent updates for: <%= @location.name %></h2>
       </th>
     </tr>
     <tbody id = "all_report_items">
@@ -13,5 +13,7 @@
     </tbody>
 </table>
 <% form_tag(:action => :display_report_items, :id => @location.id, :more_time => @start_time.to_datetime) do %>
-  <div><%= submit_tag 'View More' %></div>
+<br />  
+<div><%= submit_tag 'View More' %></div>
+
 <% end -%>
