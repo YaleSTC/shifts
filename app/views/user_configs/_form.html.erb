@@ -45,8 +45,8 @@
      <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests" %>
     </p>
     <p>
-     <%= f.check_box :due_payform_email %>
-     <%= f.label :due_payform_email, text = "Enable email notifications for due payforms" %>
+     <%= f.check_box :send_due_payform_email %>
+     <%= f.label :send_due_payform_email, text = "Enable email notifications for due payforms" %>
     </p>
     <%if current_user.is_admin_of?(@department)%>
     <p>
