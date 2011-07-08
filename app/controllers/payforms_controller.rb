@@ -87,6 +87,16 @@ class PayformsController < ApplicationController
      @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
    end
    
+   def unskip
+     @payform = Payform.find(params[:id]) 
+     @payform.skipped = nil
+     if @payform.save
+       flash[:notice] = "Sucessfully unskipped payform."
+     end
+     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
+     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+   end
+
 
   def unapprove
     @payform = Payform.find(params[:id])
