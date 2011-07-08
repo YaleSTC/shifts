@@ -3,21 +3,26 @@ li#notice_li {
     padding-left: 1em;
 }
 
-fieldset.sticky {
-  width: 97%;
+/* This is necessary because the overflow feature only works when a definite width is given. 
+Without separating the fieldsets, the view in the index and in the report would break */
+fieldset.sticky { 
+  width: 500px;
   padding: 5px;
   margin: 0 0 0 0;
   border:1px solid gray;
   background-color:#FFFF99;
+  word-wrap: break-word;
 }
 
+
 fieldset.announcement {
-  width: 97%;
+  width: 640px;
   padding: 5px;
   margin:0 0 0 0;
   clear: right;
   border:1px solid gray;
   background-color:#ADD8E6;
+  word-wrap: break-word;
 }
 
 a#toggle_link {text-decoration:underline;}
