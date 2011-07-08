@@ -4087,14 +4087,14 @@ notices_1135:
   content: Nnamdi - there's a computer here running Disk Cleanup because he only had like 2GB free space. If you could run a defragment after that, that'd be great. Also the fan is making strange noises but the computer doesn't crash or get particularly hot so I was thinking of just pulling off the cover and blowing some compressed air into it (the computer's way out of warranty so no worries on that front) to see if that helps. I didn't have a chance to file a ticket for this guy b/c it's been a crazy shift, but he's hanging out right outside the TTO and plans to drop in again as soon as you get here. I'd stick around to deal with it, but I have to go to class. Thanks!
   created_at: 2010-10-13 15:25:04
   department_id: "1"
-  end: 2011-06-28 14:44:11
+  end: 
   id: "1161"
-  indefinite: "0"
-  remover_id: "150"
+  indefinite: "1"
+  remover_id: 
   start: 2010-10-13 15:25:04
   sticky: "0"
   type: Sticky
-  updated_at: 2011-06-28 14:44:11
+  updated_at: 2010-10-13 15:25:04
   url: 
   useful_link: "0"
 notices_114: 

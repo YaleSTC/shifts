@@ -40,6 +40,7 @@ GEM
       activesupport (= 2.3.12)
       rake (>= 0.8.3)
     rake (0.9.2)
+    rdoc (3.6.1)
     ruby-net-ldap (0.0.4)
     ttfunk (1.0.1)
     vestal_versions (1.0.2)
@@ -62,6 +63,7 @@ DEPENDENCIES
   mysql
   prawn
   rails (= 2.3.12)
+  rdoc (~> 3.6.1)
   ruby-net-ldap
   vestal_versions
   whenever
