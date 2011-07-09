@@ -45,9 +45,9 @@ module PayformsHelper
   end
   
   def payform_skip_button
-    if @payform.submitted and !@payform.approved
+    if @payform.submitted and !@payform.approved and !@payform.printed
       if current_user.is_admin_of?(@payform.department)
-         if !@payform.skipped
+         if !@payform.skipped 
            link_to "<span><strong>Skip and go to next</strong></span>", skip_payform_path(@payform), :class => "button", :onclick => "this.blur();"
          else
            link_to "<span><strong>Unskip and go to next</strong></span>", unskip_payform_path(@payform), :class => "button", :onclick => "this.blur();"
