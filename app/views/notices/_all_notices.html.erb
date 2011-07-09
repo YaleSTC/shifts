@@ -4,7 +4,9 @@
   <div id = "upcoming">
     <fieldset class = "index">
       <legend>Upcoming</legend>
+	  <div class="index">
       <%= render :partial => 'notices/notice', :collection => Notice.upcoming %>
+      </div>
     </fieldset>
   </div>
   <br />
@@ -25,7 +27,7 @@
 		    <% unless @loc_current_notices.empty? %>
 		      <fieldset class ="index">
 		        <legend><%= loc.name %></legend>
-		        <%= render :partial => 'notices/notice', :collection => @loc_current_notices%>
+	<div class="index">	        <%= render :partial => 'notices/notice', :collection => @loc_current_notices%> </div>
 		      </fieldset>
 		      <br/>
 		    <% end %>
