@@ -1,6 +1,6 @@
 <% if notice.class.name == "Sticky" %>
-  <%= render :partial => 'notices/sticky', :object => notice %>
+   <div class="report">    <%= render :partial => 'notices/sticky', :object => notice %> </div>
 <% elsif notice.class.name == "Announcement" %>
-  <%= render :partial => 'notices/announcement', :object => notice %>
+   <div class="report">    <%= render :partial => 'notices/announcement', :object => notice %> </div>
 <% end %>
 

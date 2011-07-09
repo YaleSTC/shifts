@@ -45,13 +45,12 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 three areas of different fixed width */
 
 div.report {
-	max-width: 390px;
-  	overflow-x: auto;
+	width: 390px;
+    overflow-x: auto; 
 }
 
 div.index {
-	max-width: 650px;
-    overflow-x: auto;
+	width: 600px;
 }
 
 

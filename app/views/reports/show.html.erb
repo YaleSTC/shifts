@@ -4,8 +4,7 @@
   <fieldset class = "index" id = "report_message_center">
     <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
     <div id = "message_center">
-   <div class="report">   <%= render :partial => 'notices/notice', :collection => @report.get_notices %> </div>
-    </div>
+     <%= render :partial => 'notices/notice', :collection => @report.get_notices %> </div>
     <div id="new_notice">
       <%= link_to_post_a_sticky() %>
 			<%= link_to_post_an_announcement %>
