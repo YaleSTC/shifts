@@ -3,7 +3,7 @@
   border: 1px dashed #AAAAAA;
   margin: 20px;
   padding: 8px;
-  overflow-x: auto;
+  word-wrap: break-word;
 
   /* Word wrapping for <pre> tags */
   white-space: pre-wrap;       /* css-3 */
@@ -84,7 +84,7 @@
 	background: #e8edff;
 	padding: 4px;
 	max-width: 400px;
-	overflow-x: auto;
+    word-wrap: break-word;
 }
 #payformList tbody tr.edit_item td
 {
@@ -217,7 +217,7 @@ a.button:active span {
   width: 49%;
   text-align: center;
   height: 150px;
-  overflow: auto;
+  word-wrap: break-word;
 }
 
 #unselected a, #selected a {
@@ -274,7 +274,7 @@ div.category-item {
   border: 1px solid #AAAAAA;
   margin: 5px;
   padding: 5px;
-  overflow-x: auto;
+  word-wrap: break-word;
 }
 div.category-item a:link {
   color: #778899;
@@ -291,7 +291,7 @@ div.category-item-disabled {
   color: #778899;
   margin: 5px;
   padding: 5px;
-  overflow-x: auto;
+  word-wrap: break-word;
 }
 div.category-item-disabled a:link {
   color: #778899;
@@ -309,7 +309,7 @@ div.mass-clock-item {
   border: 1px solid #AAAAAA;
   margin: 5px;
   padding: 5px;
-  overflow-x: auto;
+  word-wrap: break-word;
 }
 div.mass-clock-item a:link {
   color: #778899;
