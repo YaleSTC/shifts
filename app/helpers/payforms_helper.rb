@@ -54,9 +54,7 @@ module PayformsHelper
          end
       end
     end
-  end
-        
-  
+  end  
 
   def payform_unsubmit_unapprove_button
     if @payform.submitted && !@payform.approved && !@payform.printed
