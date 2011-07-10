@@ -1,0 +1,3 @@
+unless current_user.current_shift.nil?
+		page.replace_html "report_view", :partial => 'report', :collection => current_user.current_shift.report.report_items
+end
