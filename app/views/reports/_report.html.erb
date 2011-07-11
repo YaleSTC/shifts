@@ -1,6 +1,6 @@
 <% @report ||= report %>
 
-<%= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 5 -%>
+<%= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
 
   <table id="report_view_table">
     <tr>
