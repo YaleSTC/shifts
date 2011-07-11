@@ -25,10 +25,12 @@
 		<% loc_group.locations.each do |loc| %>
 		    <% @loc_current_notices = loc.current_notices %>
 		    <% unless @loc_current_notices.empty? %>
+		<center>
 		      <fieldset class ="index">
 		        <legend><%= loc.name %></legend>
 	<div class="index">	        <%= render :partial => 'notices/notice', :collection => @loc_current_notices%> </div>
 		      </fieldset>
+		</center>
 		      <br/>
 		    <% end %>
 		  <% end %>

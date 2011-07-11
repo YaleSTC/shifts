@@ -1,6 +1,5 @@
 <% title "Shift Report: #{@report.shift.location.name}"%>
 <% if current_user == @report.user && !@report.departed %>
-
   <fieldset class = "index" id = "report_message_center">
     <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
     <div id = "message_center">

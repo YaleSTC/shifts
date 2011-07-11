@@ -94,7 +94,7 @@ tr.list_report_item_odd {
 }
 
 #report_message_center {
-	width: 48%;
+	width: 390px;
 	float: left;
 	clear: right;
 	margin-bottom: 5px;
