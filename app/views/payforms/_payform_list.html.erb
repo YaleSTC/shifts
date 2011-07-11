@@ -17,6 +17,9 @@
     <% if params[:submitted] %>
       <th>Submitted</th>
     <% end -%>
+    <% if params[:skipped] %>
+	  <th>Skipped</th>
+    <% end -%>
     <% if params[:approved] %>
       <th>Approved</th>
     <% end -%>
@@ -38,6 +41,9 @@
     <% if params[:submitted] %>
       <th><%= @payforms.select{|p| p.submitted && !p.approved}.length %></th>
     <% end -%>
+	<% if params[:skipped] %>
+	  <th><%= @payforms.select{|p| p.skipped}.length %></th>
+	<% end -%>
     <% if params[:approved] %>
       <th><%= @payforms.select{|p| p.approved  && !p.printed }.length %></th>
     <% end -%>
