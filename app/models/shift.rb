@@ -8,6 +8,8 @@ class Shift < ActiveRecord::Base
   belongs_to :location
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
+  has_many :shifts_tasks
+  has_many :tasks, :through => :shifts_tasks
   before_update :disassociate_from_repeating_event
 
   validates_presence_of :location
@@ -370,14 +372,21 @@ class Shift < ActiveRecord::Base
     "#{user.name}, #{start.to_s(:just_date)}, #{start.to_s(:am_pm)}"
   end
 
-
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
+  end
+  
+  def task_time
+    scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled (#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)})"
+    
   end
 
   def sub_request
     SubRequest.find_by_shift_id(self.id)
   end
+  
+  
+  
 
   # ======================
   # = Validation helpers =

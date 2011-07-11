@@ -19,6 +19,7 @@ end
 
 every 1.day, :at => '1 am' do 
  rake "email:daily_stats"
+ rake "db:populate_missed_tasks"
 end
 
 every 10.minutes do

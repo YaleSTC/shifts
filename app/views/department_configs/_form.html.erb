@@ -21,25 +21,31 @@
     </p>
 	<p>
 	  <%= f.label :early_signin, text = "The earliest a user can sign into a shift without getting a notice:" %>
-	<%= f.text_field :early_signin, :size => 6 %>
+	  <%= f.text_field :early_signin, :size => 6 %>
 	</p>
 	<p>
-		<%= f.label :admin_round_option, text = "Department payform rounding: "%>
-		<%= f.select :admin_round_option, @rounding_choices %>
-		</p>
-		<%= f.label :payform_time_limit, text = " Maximum amount of hours allowed to be submitted without getting a warning: "%>
-		<%= f.text_field :payform_time_limit, :size => 6 %>
-      <p>
-        <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
-        <%= f.check_box :weekend_shifts %>
-      </p>
-      <p>
-        <%= f.label :schedule_start, text = "Display unscheduled shifts:" %>
-        <%= f.check_box :unscheduled_shifts %>
-      </p>
-      <p>
-        <%= f.label :can_take_passed_sub, text = "Allow for sub request to be taken even if shift has already begun:" %>
-        <%= f.check_box :can_take_passed_sub %>
+     <%= f.label :admin_round_option, text = "Department payform rounding: "%>
+     <%= f.select :admin_round_option, @rounding_choices %>
+    </p>
+    <p>
+	 <%= f.label :payform_time_limit, text = " Maximum amount of hours allowed to be submitted without getting a warning: "%>
+     <%= f.text_field :payform_time_limit, :size => 6 %>
+    </p>
+    <p>
+    <%= f.label :task_leniency, text = " Amount of time before a task is displayed as missed in the report: "%>
+	<%= f.text_field :task_leniency, :size => 6 %>
+	</p>
+    <p>
+     <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
+     <%= f.check_box :weekend_shifts %>
+    </p>
+    <p>
+     <%= f.label :schedule_start, text = "Display unscheduled shifts:" %>
+     <%= f.check_box :unscheduled_shifts %>
+    </p>
+    <p>
+     <%= f.label :can_take_passed_sub, text = "Allow for sub request to be taken even if shift has already begun:" %>
+     <%= f.check_box :can_take_passed_sub %>
   </fieldset>
   <br/>
   <fieldset class = "index">
