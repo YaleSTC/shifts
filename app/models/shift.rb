@@ -187,6 +187,10 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  def end
+    read_attribute(:end).nil? ? Time.now : read_attribute(:end)
+  end
+  
 
   #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(shifts, wipe)

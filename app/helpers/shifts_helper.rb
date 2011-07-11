@@ -167,7 +167,7 @@ end
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
 
-    shifts = Shift.active.in_locations(@visible_locations).on_day(day).scheduled #TODO: .active
+    shifts = Shift.active.in_locations(@visible_locations).on_day(day) #TODO: .active
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 
