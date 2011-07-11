@@ -4,6 +4,12 @@ class ReportsController < ApplicationController
 
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
+    # @tasks = Task.in_location(@report.shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a")}
+    tasks = Task.in_location(@report.shift.location).active.after_now
+    # filters out daily and weekly tasks scheduled for a time later in the day
+    tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight < t.time_of_day.seconds_since_midnight}
+    # filters out weekly tasks on the wrong day
+    @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
     return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
   end

@@ -1,0 +1,63 @@
+<table id="tasks_records_table" class="tablesorter">
+	<thead>
+		<tr>
+			<th>Date/Time</th>
+			<th>User</th>
+			<th>Shift</th>
+		</tr>
+	</thead>
+	<tbody>
+<% if @shifts_tasks.empty? %>
+	<tr>
+		<td colspan=4>There are no records for this task.</td>
+	</tr>
+<% else %>
+	<% @shifts_tasks.each do |task| %>	
+		<tr> 
+		  <td><%=h task.created_at.strftime("%Y-%m-%d, %I:%M %p") %></td>
+		  <td><%=h link_to task.shift.user.name, user_path(task.shift.user)%></td>
+			<td id="shift<%=task.shift.id%>" class="<%= task.shift.css_class(current_user) %> click_to_show"><a href="#"><%= task.shift.task_time %></td> 
+		</tr>
+	<% end %>
+<% end %>
+</tbody>
+</table>
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#tasks_records_table").tablesorter({sortList: [[0,1]]});});</script>
+
+<div id="AJAX_status"></div><%# for AJAX status updates %>
+
+<script>
+  initialize("body");
+  
+  function initialize(div){
+
+    $(div+' td.click_to_show').click(function (e) {
+      popup_show($(this), e);
+      return false;
+    });
+
+  }
+  
+  function popup_show(parent_element, e){
+    $("#tooltip").remove();
+    
+    var id = parent_element.attr('id').substring(5); //remove "shift" from id
+
+    loading_tooltip(e.pageX, e.pageY);
+		$.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+    // $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+  }
+
+  function loading_tooltip(x,y){
+    $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+  }
+  
+  function getXOffset(element){
+    var x = 0
+    while(element){
+        x += element.offsetLeft;
+        element = element.offsetParent;
+    }
+    return x;    
+  }
+</script>
