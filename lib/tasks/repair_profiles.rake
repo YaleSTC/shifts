@@ -14,7 +14,7 @@ namespace :db do
       puts "#{user.name}, entries added: #{missing_fields.size}"
     end
   rescue
-    puts "#{department_name} is not a valid department name. Please enter a valid one."    
+    puts "#{department_name} is not a valid department name. Please enter a valid name."    
   end
   
   desc "Populates profiles with empty instances of all department profile fields"
