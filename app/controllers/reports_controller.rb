@@ -41,6 +41,7 @@ class ReportsController < ApplicationController
   
   #periodically call remote function to update reports dynamically
   def update_reports
+     @report = current_user.current_shift.report
      respond_to do |format|
        format.js
      end
