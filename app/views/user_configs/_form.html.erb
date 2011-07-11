@@ -9,6 +9,7 @@
       <%= f.select :default_dept, @dept_select %>
     </fieldset>
   <% end %>
+  <p>
   <fieldset class = "index">
   <legend>Location Groups</legend>
     <small>Control which location groups to view on your shift
@@ -40,10 +41,18 @@
   <fieldset class = "index">
 	<legend>Email Notifications</legend>
 	<small>Control your notification preferences.</small><br />
-	<p>
      <%= f.check_box :taken_sub_email %>
-     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests:" %>
+     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests" %>
     </p>
+    <p>
+     <%= f.check_box :send_due_payform_email %>
+     <%= f.label :send_due_payform_email, text = "Enable email notifications for due payforms" %>
+    </p>
+    <%if current_user.is_admin_of?(@department)%>
+    <p>
+    	<%= f.submit "Reset" %>Reset preference to send email reminders for all users in the current department
+    </p>
+    <%end%>
 	</fieldset>
   <p>
     <%= f.submit "Submit" %>
