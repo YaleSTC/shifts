@@ -10,14 +10,14 @@
     </div>
   </fieldset>
 
-  <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 10 -%>
+  <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 60 -%>
 
     <fieldset id = "report_data_objects" class = "index">
       <legend>Data Objects</legend>
       <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
     </fieldset>
 
-    <fieldset id = "useful_links" class = "index" >
+    <fieldset id = "useful_links" class = "index" >	
       <legend>Useful Links</legend>
 			<ul id = "useful_links">
       	<div id = "report_links">
@@ -29,9 +29,9 @@
 
 		<%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 60 -%>
 
-		<fieldset id = "shift_tasks" class= "index">
-					<%= render :partial => 'tasks/report_tasks' %>
-		</fieldset>
+	<fieldset id = "shift_tasks" class= "index">
+		   <%= render :partial => 'tasks/report_tasks' %>
+	</fieldset>
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
@@ -39,6 +39,8 @@
       <div id="report_relative_size">
 
 <% end %>
+
+
 
         <div id="report_view">
           <%= render :partial => 'report'%>
