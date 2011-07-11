@@ -6,7 +6,7 @@
     <td><%= link_to payform.date.to_s(:long), payform if !payform.submitted %></td>
   <% end %>
   <% if  params[:submitted] %>
-    <td><%= link_to payform.date.to_s(:long), payform if payform.submitted && !payform.approved && !payform.skipped %></td>
+    <td><%= link_to payform.date.to_s(:long), payform if payform.submitted && !payform.approved %></td>
   <% end %>
   <% if params[:skipped] %>
 	<td><%= link_to payform.date.to_s(:long), payform if payform.skipped %> </td>
