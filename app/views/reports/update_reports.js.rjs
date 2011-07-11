@@ -1,3 +1,4 @@
 unless current_user.current_shift.nil?
-		page.replace_html "report_view", :partial => 'report'
+		page.replace_html "report_view", :partial => 'reports/report_item', :collection => @report.report_items
+		page << "tb_init('a#edit');"
 end
