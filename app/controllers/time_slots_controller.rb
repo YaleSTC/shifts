@@ -1,6 +1,5 @@
 class TimeSlotsController < ApplicationController
   before_filter :require_department_admin
-  layout 'shifts'
 
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
