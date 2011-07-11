@@ -3,16 +3,15 @@ li#notice_li {
     padding-left: 1em;
 }
 
-fieldset.sticky {
-  width: 97%;
+fieldset.sticky { 
   padding: 5px;
   margin: 0 0 0 0;
   border:1px solid gray;
   background-color:#FFFF99;
 }
 
+
 fieldset.announcement {
-  width: 97%;
   padding: 5px;
   margin:0 0 0 0;
   clear: right;
@@ -41,5 +40,19 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
   color:DarkRed;
   font-size: 90%;
 }
+
+/*Adding a div class variable to pass, to ensure that the word wrap feature works in 
+three areas of different fixed width */
+
+div.report {
+	width: 390px;
+    overflow-x: auto; 
+}
+
+div.index {
+	width: 400px;
+	text-align: lefT;
+}
+
 
 .gray_url {float:right; overflow:hidden; white-space:none; text-align:right; color:gray;}
