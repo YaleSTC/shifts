@@ -193,13 +193,16 @@ class PayformsController < ApplicationController
   protected
 
   def narrow_down(payforms)
-    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed] )
-      params[:unsubmitted] = params[:submitted] = params[:approved] = true
+    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:skipped] and !params[:printed]  )
+      params[:unsubmitted] = params[:submitted] = params[:approved] = params[:skipped] = true
     end
     scope = []
     if params[:unsubmitted]
       scope += payforms.unsubmitted
     end
+    if params[:skipped]
+      scope += payforms.skipped
+    end  
     if params[:submitted]
       scope += payforms.unapproved
     end
