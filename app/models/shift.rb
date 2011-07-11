@@ -186,7 +186,7 @@ class Shift < ActiveRecord::Base
       return out.collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
-
+  
 
   #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(shifts, wipe)
@@ -259,6 +259,12 @@ class Shift < ActiveRecord::Base
       return number_report_items/shift_time
     end
   end
+  
+  #to enable the view of unscheduled shifts, a shift that lacks an end attribute is viewed as ending right now
+  # else, the end attribute is read (referenced in shifts_helper)
+  def end
+     read_attribute(:end).nil? ? Time.now : read_attribute(:end)
+   end
 
   #a shift has been signed in to if it has a report
   # NOTE: this evaluates whether a shift is CURRENTLY signed in
