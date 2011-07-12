@@ -263,7 +263,7 @@ class Shift < ActiveRecord::Base
   #to enable the view of unscheduled shifts, a shift that lacks an end attribute is viewed as ending right now
   # else, the end attribute is read (referenced in shifts_helper)
   def end
-     read_attribute(:end).nil? ? Time.now : read_attribute(:end)
+     read_attribute(:end).nil? ? Time.now : read_attribute(:end).localtime
    end
 
   #a shift has been signed in to if it has a report
@@ -303,21 +303,25 @@ class Shift < ActiveRecord::Base
   def combine_with_surrounding_shifts
     #if (shift_later = Shift.find(:first, :conditions => {:start => self.end, :user_id => self.user_id, :location_id => self.location_id, :calendar_id => self.calendar.id}))
     if (shift_later = Shift.find(:first, :include => :calendar, :conditions => ["start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?]))
-      self.end = shift_later.end
-      shift_later.sub_requests.each { |s| s.shift = self }
-      shift_later.destroy
-      self.save(false)
+      unless self.submitted?
+       self.end = shift_later.end
+       shift_later.sub_requests.each { |s| s.shift = self }
+       shift_later.destroy
+       self.save(false)
+      end
     end
     #if (shift_earlier = Shift.find(:first, :conditions => {:end => self.start, :user_id => self.user_id, :location_id => self.location_id, :calendar_id => self.calendar.id}))
     if (shift_earlier = Shift.find(:first, :include => :calendar, :conditions => ["end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?]))
-      self.start = shift_earlier.start
-      shift_earlier.sub_requests.each {|s| s.shift = self}
-      unless shift_earlier.report.nil?
-        shift_earlier.report.shift = nil
-        shift_earlier.report.save! #we have to disassociate the report first, or it will be destroyed too
-        self.report = shift_earlier.report
-        shift_earlier.report = nil
+      unless shift_earlier.submitted?
+        self.start = shift_earlier.start
+        shift_earlier.sub_requests.each {|s| s.shift = self}
+        unless shift_earlier.report.nil?
+          shift_earlier.report.shift = nil
+          shift_earlier.report.save! #we have to disassociate the report first, or it will be destroyed too
+          self.report = shift_earlier.report
+          shift_earlier.report = nil
       end
+    end
       self.signed_in = shift_earlier.signed_in
       shift_earlier.destroy
       self.save(false)
