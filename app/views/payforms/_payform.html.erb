@@ -1,7 +1,7 @@
 <tr>
-	<% if current_user.is_admin_of?(current_department) -%>
-	  <td><%= payform.user.name unless @previous_user && payform.user == @previous_user%></td>
-	<% end -%>
+  <% if current_user.is_admin_of?(current_department) -%>
+	<td><%= payform.user.name unless @previous_user && payform.user == @previous_user%></td>
+  <% end -%>
   <% if params[:unsubmitted] %>
     <td><%= link_to payform.date.to_s(:long), payform if !payform.submitted %></td>
   <% end %>
