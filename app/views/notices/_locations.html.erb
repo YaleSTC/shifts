@@ -8,7 +8,7 @@
 
 	<div id = "all_locations">
     <% for loc_group in current_department.loc_groups do %>
-      <% if current_user.permission_list.select{|p| p.loc_group == loc_group} %>
+      <% if current_user.is_admin_of?(loc_group) %>
 				<li id = "notice_li">
 		      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
 		      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
