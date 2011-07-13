@@ -2,6 +2,9 @@
 <table>
   <tr>
     <th>Users</th>
+		<% @user_profile_fields.each do |upf| %>
+			<th><%= upf.name %></th>
+		<% end %>
   </tr>
   <% for user_profile in @user_profiles %>
     <tr>
@@ -10,7 +13,11 @@
     <% elsif user_profile.user == current_user %>
       <td><%= link_to "#{user_profile.user.proper_name}", edit_user_profile_path(user_profile.user.login) %></td>
     <% end %>
-    </tr>
+		<% user_profile.user_profile_entries.each do |upe| %>
+			<td><%= upe.content %></td>
+		<% end %>
+		</tr>
   <% end %>
 </table>
 
+<!-- started work on adding content to the profile table... but currently breaks search -->
