@@ -262,9 +262,9 @@ class Shift < ActiveRecord::Base
   
   #to enable the view of unscheduled shifts, a shift that lacks an end attribute is viewed as ending right now
   # else, the end attribute is read (referenced in shifts_helper)
-  def end
-     read_attribute(:end).nil? ? Time.now : read_attribute(:end).localtime
-   end
+  # def end
+  #    read_attribute(:end).nil? ? Time.now : read_attribute(:end).to_datetime()
+  # end
 
   #a shift has been signed in to if it has a report
   # NOTE: this evaluates whether a shift is CURRENTLY signed in
@@ -301,8 +301,8 @@ class Shift < ActiveRecord::Base
   # If new shift runs up against another compatible shift, combine them and save,
   # preserving the earlier shift's information
   def combine_with_surrounding_shifts
-    if shift_later = Shift.all.select{|s| s.start == self.end && s.user_id == self.user_id && s.location_id == self.location_id && s.calendar.active = self.calendar.active }.first # (shift_later = Shift.find(:first, :include => :calendar, :conditions => ["start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?]))
-      if (self.report.nil? || self.report.departed.nil?) && (shift_later.report.nil? || shift_earlier.report.departed.nil?)
+    if (shift_later = Shift.find(:first, :include => :calendar, :conditions => ["start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?]))
+      if (self.report.nil? || self.report.departed.nil?) && (shift_later.report.nil? || shift_later.report.departed.nil?)
         self.end = shift_later.end
         shift_later.sub_requests.each { |s| s.shift = self }
         shift_later.destroy
