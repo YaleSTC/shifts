@@ -1,0 +1,17 @@
+<% @data_objects_grouped_by_type.each do |dt| %>
+  <br /><h3>
+  <% dt_name = dt[0] %>
+  <% dt_val = nil %>
+  <% dt_data_objects = dt[1] %>
+  <%= check_box_tag "#{dt_name}", dt_val, dt_val, :class => dt_name.downcase %>
+  <%= label_tag "#{dt_name}", dt_name %>
+  </h3><br />
+  <% dt_data_objects.each do |dt_obj| %>
+    <% dt_obj_name = dt_obj[0] %>
+    <% dt_obj_id = dt_obj[1] %>
+    <% dt_obj_val = dt_obj[2] %>
+    <%= check_box_tag "dt[#{dt_obj_id}]", dt_obj_val, dt_obj_val, :class => dt_name.downcase %>
+    <%= label_tag "dt[#{dt_obj_id}]", dt_obj_name, :class => dt_name.downcase %>
+    <br />
+  <% end %>
+<% end %>

@@ -13,26 +13,8 @@
   <legend>Location Groups</legend>
     
     <small>Control which location groups to view on your shift
-    schedule and on the notices index page.  If you leave this blank, then it will default to all of your
-    location groups.  </small><br />
-         
-    <% @loc_groups_grouped_by_dept.each do |dept| %>
-      <h3>
-      <% dept_name = dept[0] %>
-      <% dept_loc_groups = dept[1] %>
-      <% dept_val = nil %>
-      <%= check_box_tag "#{dept_name}", nil, nil, :class => "header_#{dept_name.downcase}" %>
-      <%= label_tag "#{dept_name}", "#{dept_name}", :class => "header_#{dept_name.downcase}" %>
-      </h3>
-      <% dept_loc_groups.each do |loc_grp| %>
-        <% loc_grp_name = loc_grp[0] %>
-        <% loc_grp_id = loc_grp[1] %>
-        <% loc_grp_checkbox_value = loc_grp[2] %>
-        <%= check_box_tag "loc[#{loc_grp_id}]", loc_grp_checkbox_value, loc_grp_checkbox_value, :class => dept_name.downcase %>
-        <%= label_tag "loc[#{loc_grp_id}]", "#{loc_grp_name}", :class => dept_name.downcase %>
-        <br />
-      <% end %>
-    <% end %>
+    schedule and on the notices index page.</small><br />
+    <%= render :partial => 'loc_groups' %>
 
   </fieldset>
 
@@ -45,26 +27,8 @@
     <legend>Data</legend>
     <small>Control which data objects will show updates on your
     dashboard.</small><br />
-
-    <% @data_objects_grouped_by_type.each do |dt| %>
-      <br /><h3>
-      <% dt_name = dt[0] %>
-      <% dt_val = nil %>
-      <% dt_data_objects = dt[1] %>
-      <%= check_box_tag "#{dt_name}", dt_val, dt_val, :class => dt_name.downcase %>
-      <%= label_tag "#{dt_name}", dt_name %>
-      </h3><br />
-      <% dt_data_objects.each do |dt_obj| %>
-        <% dt_obj_name = dt_obj[0] %>
-        <% dt_obj_id = dt_obj[1] %>
-        <% dt_obj_val = dt_obj[2] %>
-        <%= check_box_tag "dt[#{dt_obj_id}]", dt_obj_val, dt_obj_val, :class => dt_name.downcase %>
-        <%= label_tag "dt[#{dt_obj_id}]", dt_obj_name, :class => dt_name.downcase %>
-        <br />
-        
-      <% end %>
-     
-    <% end %>
+    <%= render :partial => 'dt_objects' %>
+    
   </fieldset>
   <fieldset class = "index">
 	<legend>Email Notifications</legend>
@@ -78,5 +42,5 @@
     <%= f.submit "Submit" %>
   </p>
 <% end %>
-<%= javascript_include_tag 'user_config' %>
+
 
