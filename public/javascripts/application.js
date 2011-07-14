@@ -9,7 +9,7 @@ $(document).ready(function() {
     // If javascript is enabled, anything with the class 'no_js' will be hidden
     $('.no_js').hide();
 
-    // If javascript is enabled, anything with the class 'no_js' will be hidden
+    // If javascript is enabled, anything with the class 'no_js' will be shown
     $('.only_js').show();
     
     // When any form with the class "onchange_submit" is altered, the form gets submitted.
