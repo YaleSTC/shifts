@@ -44,15 +44,19 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 /*Adding a div class variable to pass, to ensure that the word wrap feature works in 
 three areas of different fixed width */
 
-div.report {
-	width: 390px;
-    overflow-x: auto; 
+div.report_notice {
+	width: 350px;
+	word-wrap: break-word;
 }
 
-div.index {
-	width: 400px;
-	text-align: lefT;
+div.dashboard_notice {
+	width: 280px;
+	word-wrap: break-word;
 }
 
+div.index_notice {
+	width: 600px;
+	word-wrap: break-word;
+}
 
 .gray_url {float:right; overflow:hidden; white-space:none; text-align:right; color:gray;}
