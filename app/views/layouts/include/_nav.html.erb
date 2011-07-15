@@ -9,7 +9,7 @@
     <% if current_user && current_user.is_admin_of?(@department) && current_user.is_active?(@department) || current_user.is_superuser? -%>
       <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
       <% else %>
-      <li class="<%= tab('user_profiles') %>"><%= link_to "Profiles", user_profiles_path %></li>
+      <li class="<%= tab('user_profiles') %>"><%= link_to "Profiles", user_profile_path(current_user.login) %></li>
     <% end -%>
     <% if current_user.departments.include?(current_department) %>
       <li class="<%= tab('shifts') %>"><%= link_to "Shifts", shifts_path %></li>
