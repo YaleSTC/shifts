@@ -5,6 +5,7 @@
     <th>Name</th>
     <th>Display Type</th>
     <th>Values</th>
+	<th>Displayed in Index
     <th>Public</th>
     <th>User Editable</th>
   </tr>
@@ -13,6 +14,7 @@
       <td><%=h user_profile_field.name %></td>
       <td><%=h UserProfileField::DISPLAY_TYPE_VIEW[user_profile_field.display_type] %></td>
       <td><%=h user_profile_field.values %></td>
+	  <td><%=h user_profile_field.index_display %></td>
       <td><%=h user_profile_field.public %></td>
       <td><%=h user_profile_field.user_editable %></td>
       <td><%= link_to "Show", user_profile_field %></td>

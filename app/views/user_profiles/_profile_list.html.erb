@@ -1,10 +1,9 @@
 
-
 <br/>
 <table>
   <tr>
     <th>Users</th>
-		<% @user_profile_fields.each do |upf| %>
+		<% @index_profiles.each do |upf| %>
 			<th><%= upf.name %></th>
 		<% end %>
   </tr>
@@ -22,4 +21,5 @@
   <% end %>
 </table>
 
-<!-- started work on adding content to the profile table... but currently breaks search -->
+<!-- started work on adding content to the profile table... but currently breaks search  -James -->
+<!-- started work on filtering content of the profile table, still a WIP -->

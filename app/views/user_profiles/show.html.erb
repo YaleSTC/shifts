@@ -1,5 +1,6 @@
 <% title "#{@user_profile.user.proper_name}'s Profile" %>
 <div class='profile'>
     <%= render :partial => 'user_profile_entries' %>
+<br />
+<%= link_to 'Edit', edit_user_profile_path(current_user.login)%> | <%= link_to 'Back', user_profiles_path %>
 </div>
-
