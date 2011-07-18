@@ -16,9 +16,9 @@
       <li><%= link_to_unless_current "Show All Roles", department_roles_path(@department) %></li>
       <li><%= link_to_unless_current "Add a Role", new_department_role_path(@department) %></li><br/>
       <h3>User Profiles</h3>
-      <li><%= link_to_unless_current "Show All Profiles", user_profiles_path %></li>
-      <li><%= link_to_unless_current "Add a Profile Field", new_user_profile_field_path %></li>
       <li><%= link_to_unless_current "Show Profile Fields", user_profile_fields_path %></li>
+      <li><%= link_to_unless_current "Add a Profile Field", new_user_profile_field_path %></li>
+	  <li><%= link_to_unless_current "Show All Profiles", user_profiles_path %></li>
       <li><%= link_to_unless_current "My Profile", user_profile_path(current_user.login) %></li>
     </ul>
     <div id="contentNav">
