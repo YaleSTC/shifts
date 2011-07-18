@@ -8,7 +8,7 @@
   <% end %>
 </div>
 
-<table>
+<table id="user_profiles_table" class="tablesorter">
   <thead>
 		<tr>
 	    <th align="left">Users</th>
@@ -26,3 +26,6 @@
   $('input#search_submit').toggle();
 </script>
 <%= observe_field :search, :frequency => 0.2, :url => search_user_profiles_path, :with => :search %>
+
+<!-- tablesorting does not work yet; it interferes with the search function -->
+<!-- <script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#user_profiles_table").tablesorter({sortList: [[0,0]]});});</script> -->

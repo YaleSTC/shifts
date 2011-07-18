@@ -1,6 +1,7 @@
 class UserProfilesController < ApplicationController
 before_filter :user_login
   def index
+    @user_profiles = []
     @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.reverse_name}
     @user_profile_fields =  UserProfileField.find(:all, :conditions => {:index_display => true, :department_id => @department.id})
   end
@@ -104,7 +105,8 @@ before_filter :user_login
       @user_profiles << UserProfile.find_by_user_id(user.id)
     end
   end
-private
+  
+  private
   def user_login
     @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
   end
