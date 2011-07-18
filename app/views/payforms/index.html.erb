@@ -26,6 +26,18 @@
 		<% end -%>
 	</fieldset>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <script type="text/javascript">
   $('input#search_submit').toggle();
@@ -38,7 +50,6 @@
 <div id="payform_list">
   <%= render :partial => "payform_list" %>
 </div>
-<br/>
 
 <%= link_to "<span>Your Current Payform</span>", go_payforms_path, :class=>"button" %>
 <% if current_user.is_admin_of?(current_department) %>

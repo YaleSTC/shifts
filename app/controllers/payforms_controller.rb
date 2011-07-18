@@ -2,10 +2,8 @@ class PayformsController < ApplicationController
   before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit, :unsubmit]
 
   def index
-    # raise params.to_yaml
     @start_date = interpret_start
     @end_date = interpret_end
-    #@payforms = Payform.find(:all, :conditions => ["#{:date} >= ? AND #{:date} <= ?", interpret_start, interpret_end])
     @payforms = narrow_down(current_user.is_admin_of?(current_department) ?
                             current_department.payforms :
                             current_department.payforms && current_user.payforms)
@@ -197,6 +195,8 @@ class PayformsController < ApplicationController
     end
     scope
   end
+  
+
   
   private
   

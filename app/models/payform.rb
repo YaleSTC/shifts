@@ -6,6 +6,9 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
+  
+  attr_accessor :start_date
+  attr_accessor :end_date
 
   acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
 
@@ -17,7 +20,6 @@ class Payform < ActiveRecord::Base
   named_scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
   named_scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
   named_scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
-  # named_scope :within_range, lambda {:conditions => ["payforms.date BETWEEN ? AND ?", @start_date, @end_date] }
 
   before_create :set_payrate
 
