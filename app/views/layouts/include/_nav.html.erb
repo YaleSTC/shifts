@@ -1,6 +1,7 @@
 <ul id="application_tabs">
   <% unless current_user.nil? -%>
-    <li class="<%= tab('dashboard') %>"><%= link_to "Dashboard", dashboard_path %></li>
+    <li class="<%= tab('dashboard') %>">
+    <%= link_to "Dashboard", dashboard_path %></li>
   <% end -%>
   <% if current_user.is_superuser? -%>
     <li class="<%= tab('departments') %>"><%= link_to "Departments", departments_path %></li>
@@ -17,3 +18,15 @@
     <% end %>
 </ul>
 
+
+<link href="jMenu.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="jquery.js" ></script>
+<script type="text/javascript" src="jquery-ui.js" ></script>
+<script type="text/javascript" src="jMenu.js" ></script>
+
+<script type="text/javascript">
+$(selector).jMenu({options});
+$(document).ready(function(){
+  $("#jMenu").jMenu();
+});
+</script>
