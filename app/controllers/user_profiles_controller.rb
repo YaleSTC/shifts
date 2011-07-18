@@ -2,8 +2,7 @@ class UserProfilesController < ApplicationController
 before_filter :user_login
   def index
     @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.reverse_name}
-    @user_profile_fields = UserProfileField.find_all_by_department_id(@department.id)
-    @index_profiles = UserProfileField.find(:all, :conditions => {:index_display => true})
+    @user_profile_fields =  UserProfileField.find(:all, :conditions => {:index_display => true, :department_id => @department.id})
   end
 
   def show
@@ -87,6 +86,7 @@ before_filter :user_login
   end
 
   def search
+    @user_profile_fields =  UserProfileField.find(:all, :conditions => {:index_display => true, :department_id => @department.id})
     users = current_department.active_users
     #filter results if we are searching
     if params[:search]

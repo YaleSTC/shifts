@@ -1,25 +1,13 @@
-
-<br/>
-<table>
+<% for user_profile in @user_profiles %>
   <tr>
-    <th>Users</th>
-		<% @index_profiles.each do |upf| %>
-			<th><%= upf.name %></th>
+  	<td><%= link_to "#{user_profile.user.proper_name}", user_profile_path(user_profile.user.login) %></td>
+		<% for upf in @user_profile_fields %>
+			<td>
+				<%= user_profile.user_profile_entries.find(:first, :conditions => {:user_profile_field_id => upf.id}).content %>
+			</td>
 		<% end %>
   </tr>
-  <% for user_profile in @user_profiles %>
-    <tr>
-    <% if user_profile.user != current_user %>
-      <td><%= link_to "#{user_profile.user.proper_name}", user_profile_path(user_profile.user.login) %></td>
-    <% elsif user_profile.user == current_user %>
-      <td><%= link_to "#{user_profile.user.proper_name}", edit_user_profile_path(user_profile.user.login) %></td>
-    <% end %>
-		<% user_profile.user_profile_entries.each do |upe| %>
-			<td><%= upe.content %></td>
-		<% end %>
-		</tr>
-  <% end %>
-</table>
-
+<% end %>
+	
 <!-- started work on adding content to the profile table... but currently breaks search  -James -->
 <!-- started work on filtering content of the profile table, still a WIP -->
