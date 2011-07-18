@@ -14,6 +14,7 @@
     <% elsif user_profile.user == current_user %>
       <td><%= link_to "#{user_profile.user.proper_name}", edit_user_profile_path(user_profile.user.login) %></td>
     <% end %>
+		
 		<% user_profile.user_profile_entries.each do |upe| %>
 			<td><%= upe.content %></td>
 		<% end %>
