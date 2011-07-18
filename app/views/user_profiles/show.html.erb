@@ -1,7 +1,9 @@
 <% title "#{@user_profile.user.proper_name}'s Profile" %>
 <div class='profile'>
+	
+	<%= image_tag @user_profile.photo.url%>
+  
     <%= render :partial => 'user_profile_entries' %>
-  <%= image_tag @user_profile.photo.url%>
 
 <br />
 <%= link_to 'Edit', edit_user_profile_path(current_user.login)%> | <%= link_to 'Back', user_profiles_path %>
