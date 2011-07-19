@@ -1,7 +1,7 @@
 <% unless givencollection.empty? %>
   <fieldset class = "index">
     <legend><%= legend %></legend>
-      <%= render :partial => 'notices/notice', :collection => givencollection %>
+      <%= render :partial => 'notices/notice', :collection => givencollection, :locals => {:html_class => "index_notice"} %>
   </fieldset>
   <br />
 <% end %>
