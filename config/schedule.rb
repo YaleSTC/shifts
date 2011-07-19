@@ -13,21 +13,21 @@
 #   rake "some:great:rake:task"
 # end
 every :sunday, :at => '9am' do
-  command "bundle exec email:payform_reminders"
-  command "bundle exec email:late_payform_warnings"
+  command "bundle exec email:payform_reminders RAILS_ENV=production"
+  command "bundle exec email:late_payform_warnings RAILS_ENV=production"
 end
 
 every 1.day, :at => '1am' do 
- command "bundle exec rake email:daily_stats"
- command "bundle exec db:populate_missed_tasks"
+ command "bundle exec rake email:daily_stats RAILS_ENV=production"
+ command "bundle exec db:populate_missed_tasks RAILS_ENV=production"
 end
 
 every 10.minutes do
-  command "bundle exec email:stale_shift_reminders"
-  command "bundle exec db:update_shift_stats"
+  command "bundle exec email:stale_shift_reminders RAILS_ENV=production"
+  command "bundle exec db:update_shift_stats RAILS_ENV=production"
 end
 
 every 3.minutes do
-  command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production"
+  command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production "
 end
 
