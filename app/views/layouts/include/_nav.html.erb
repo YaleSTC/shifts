@@ -1,4 +1,4 @@
-<ul id = "jMenu"><ul id="application_tabs">
+<ul id="application_tabs">
   <% unless current_user.nil? -%>
     <li class="<%= tab('dashboard') %>">
     <%= link_to "Dashboard", dashboard_path %></li>
@@ -16,17 +16,4 @@
       <li class="<%= tab('payforms') %>"><%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %></li>
     <% end %>
 </ul>
-</ul>
 
-
-<link href="jMenu.css" rel="stylesheet" type="text/css" media="screen" />
-<script type="text/javascript" src="jquery.js" ></script>
-<script type="text/javascript" src="jquery-ui.js" ></script>
-<script type="text/javascript" src="jMenu.js" ></script>
-
-<script type="text/javascript">
-$(selector).jMenu({options});
-$(document).ready(function(){
-  $("#jMenu").jMenu();
-});
-</script>
