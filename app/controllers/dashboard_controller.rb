@@ -4,6 +4,12 @@ class DashboardController < ApplicationController
   helper :punch_clocks
 
   def index
+  	if params[:date].blank?
+  		@current_date = Date.today
+  	else
+  		@current_date = params[:date]
+  		@current_date = Date.parse(params[:date])
+  	end
     @user = current_user
     @signed_in_shifts = Shift.signed_in(current_department).sort_by(&:start).group_by(&:loc_group)
     @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true], :order => :start, :limit => 5)

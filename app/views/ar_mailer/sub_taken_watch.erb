@@ -4,7 +4,7 @@ The following sub-request for <%= @sub_request.shift.user.name %> has been taken
 
 Cluster:  <%= @new_shift.location.name%>
 Date:     <%= @new_shift.start.to_s(:just_date) %>
-Time:     <%= @new_shift.start.to_s(:am_pm) %> - <%= @new_shift.end.to_s(:am_pm) %>
+Time:     <%= @email_start.to_s(:am_pm) %> - <%= @email_end.to_s(:am_pm) %>
 
 
 Have a nice day!
