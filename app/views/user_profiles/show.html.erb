@@ -1,7 +1,7 @@
 <% title "#{@user_profile.user.proper_name}'s Profile" %>
 <div class='profile'>
 	
-	<%= image_tag @user_profile.photo.url%>
+	<%= image_tag @user_profile.photo.url(:medium)%>
   
     <%= render :partial => 'user_profile_entries' %>
 
