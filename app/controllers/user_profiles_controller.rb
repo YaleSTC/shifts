@@ -46,6 +46,7 @@ before_filter :user_login
 
   def update
     @user_profile = UserProfile.find(params[:id])
+    @user_profile.update_attributes(params[:user_profile]) #necessary for profile pics to save 
 
     @user = User.find(@user_profile.user_id)
     begin
