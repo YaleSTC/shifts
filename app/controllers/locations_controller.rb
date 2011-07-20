@@ -72,9 +72,9 @@ class LocationsController < ApplicationController
   def display_report_items
     @location = Location.find(params[:id])
     if params[:more_time] == nil
-      session[:start_time] = Time.now
+      session[:start_time] = Time.now.in_time_zone
     end
-    @start_time = find_start_time - 3.hours
+    @start_time = find_start_time - 30.minutes
     session[:start_time] = @start_time
     @report_items = ReportItem.in_location(@location).after_time(@start_time).reverse
     respond_to do |format|
@@ -85,7 +85,7 @@ class LocationsController < ApplicationController
 
 private
   def find_start_time
-     session[:start_time] ||= Time.now
+     session[:start_time] ||= Time.now.in_time_zone
   end
   
   def find_allowed_locations
