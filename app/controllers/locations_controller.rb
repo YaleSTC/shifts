@@ -71,20 +71,23 @@ class LocationsController < ApplicationController
 
   def display_report_items
     @location = Location.find(params[:id])
-    if params[:more_time]
-      @start_time = params[:more_time].to_time - 3.hours
-    else
-      @start_time = 3.hours.ago.utc
+    if params[:more_time] == nil
+      session[:start_time] = Time.now
     end
-    # respond_to do |format|
-    #   format.js { @start_time = @start_time - 50.hours }
-    #   format.html { } #this is necessary!
-    # end
+    @start_time = find_start_time - 3.hours
+    session[:start_time] = @start_time
     @report_items = ReportItem.in_location(@location).after_time(@start_time).reverse
+    respond_to do |format|
+      format.js { @report_items }
+      format.html { } #this is necessary!
+    end
   end
 
 private
-
+  def find_start_time
+     session[:start_time] ||= Time.now
+  end
+  
   def find_allowed_locations
     @locations = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
   end
