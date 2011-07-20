@@ -1,1 +1,1 @@
-page.replace_html("all_report_items", :partial => "report_items", :collection => @report_items)
+page.replace_html("all_report_items", :partial => "report_items", :collection => @report_items )
