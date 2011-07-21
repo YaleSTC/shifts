@@ -76,7 +76,7 @@ class LocationsController < ApplicationController
     end
     item_number = find_item_number + 5
     session[:items] = item_number
-    @report_items = ReportItem.in_location(@location).reverse.first(item_number)
+    @report_items = ReportItem.in_location(@location).last(item_number).reverse
     respond_to do |format|
       format.js { @report_items }
       format.html { } #this is necessary!
