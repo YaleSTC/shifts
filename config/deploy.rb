@@ -127,7 +127,7 @@ namespace :deploy do
 
   desc "Create database"
   task :create_db, :roles => :app do
-    run "cd #{release_path} && #{sudo} bundle exec rake db:create RAILS_ENV=production"
+    run "cd #{release_path} && bundle exec rake db:create RAILS_ENV=production"
   end
 
   task :start, :roles => :app do
