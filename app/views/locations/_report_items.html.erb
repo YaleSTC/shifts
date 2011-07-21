@@ -1,10 +1,10 @@
 <% if @report_items.empty? %>
-	<tr>
+	<tr class="odd">
 		<td>There are no recent report items here</td>
 	</tr>
 <% else %>
 	<% @report_items.each do |report_item| %>
-		<tr class=<%= cycle('list_report_item_odd', 'list_report_item_even')%> > 
+		<tr <%= "class= #{cycle("odd", "even")}" %> > 
 			<td class="user_name"><%=h link_to report_item.user.name, user_profile_path(report_item.user.login) %>
 			<td class="timestamp"><%=h report_item.time.getlocal.to_s(:am_pm) %></td>
 			<td class="report_item_content"><%= report_item.content_with_formatting %></td>
