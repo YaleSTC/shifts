@@ -49,33 +49,36 @@ before_filter :user_login
     @user_profile.update_attributes(params[:user_profile]) #necessary for profile pics to save 
 
     @user = User.find(@user_profile.user_id)
-    begin
-      UserProfile.transaction do
-        @failed = []
-        @user_profile_entries = params[:user_profile_entries]
-        @user_profile_entries.each do |entry_id, entry_content|
-          entry = UserProfileEntry.find(entry_id)
-          @content = ""
-          if entry.display_type == "check_box"
-            UserProfileEntry.find(entry_id).values.split(", ").each do |value|
-              c = entry_content[value]
-              @content += value + ", " if c == "1"
-            end
-          @content.gsub!(/, \Z/, "")
-          entry.content = @content
-          @failed << entry.field_name unless entry.save
+    
+    if params[:user_profile_entries]
+      begin
+        UserProfile.transaction do
+          @failed = []
+          @user_profile_entries = params[:user_profile_entries]
+          @user_profile_entries.each do |entry_id, entry_content|
+            entry = UserProfileEntry.find(entry_id)
+            @content = ""
+            if entry.display_type == "check_box"
+              UserProfileEntry.find(entry_id).values.split(", ").each do |value|
+                c = entry_content[value]
+                @content += value + ", " if c == "1"
+              end
+            @content.gsub!(/, \Z/, "")
+            entry.content = @content
+            @failed << entry.field_name unless entry.save
 
-          elsif entry.display_type == "radio_button"
-            entry.content = entry_content["1"]
-            @failed << entry.field_name unless entry.save
-          else
-            entry.content = entry_content[entry_id]
-            @failed << entry.field_name unless entry.save
+            elsif entry.display_type == "radio_button"
+              entry.content = entry_content["1"]
+              @failed << entry.field_name unless entry.save
+            else
+              entry.content = entry_content[entry_id]
+              @failed << entry.field_name unless entry.save
+            end
           end
         end
+      rescue
+        flash[:error] = @failed.to_sentence + " all failed to save."
       end
-    rescue
-      flash[:error] = @failed.to_sentence + " all failed to save."
     end
     redirect_to user_profile_path(@user.login)
   end
