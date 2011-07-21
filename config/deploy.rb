@@ -113,7 +113,7 @@ namespace :deploy do
   task :first, :roles => :app do
     setup
     update
-    #create_db
+    create_db
     passenger_config
     migrate
     restart_apache
