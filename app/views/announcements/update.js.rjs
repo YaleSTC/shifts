@@ -1,7 +1,7 @@
 if @announcement.errors.empty?
   page.replace_html "all_notices", :partial => 'notices/all_notices'
   if current_user.current_shift
-    page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices
+    page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices, :locals => {:html_class => "report_notice"}
   end
   page << "tb_remove();"
   page << "tb_init('a#edit');"

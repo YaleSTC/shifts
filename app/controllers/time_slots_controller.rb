@@ -24,7 +24,6 @@ class TimeSlotsController < ApplicationController
 
   def create
     errors = []
-    raise params.to_yaml
     parse_date_and_time_output(params[:time_slot])
     join_date_and_time(params[:time_slot])
     @time_slot = TimeSlot.new(params[:time_slot])
