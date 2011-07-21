@@ -1,20 +1,21 @@
 <% title "Manage superusers" -%>
 <% field_set_tag 'Add superuser' do -%>
-<div>With great power comes great responsiblity.  Please use this wisely. (That's why you can only add one at a time)</div>
+<div>With great power comes great responsiblity.  Please use this wisely. (That's why you can only add one at a time)</div> <br />
   <% form_tag add_superusers_path do -%>
+
   <%# TODO: Make this an autocomplete box %>
-    Enter login of the user who want to make superuser:
+    Enter login of the user who want to make superuser:<br />
     <%= text_field_tag 'new_su_login' %>
     <%= submit_tag "Add" %>
   <% end -%>
-<% end -%>
+<% end -%> <br  />
 <h2>Existing superuser list:</h2>
 <% form_tag remove_superusers_path do %>
-  <table class="table_listing">
-    <tr>
+  <table class="tablesorter">
+    <tr <%= "class= #{cycle("odd", "even")}"%>>
       <th>Login</th>
       <th>Name</th>
-      <th>Remove su?</th>
+      <th>Remove superuser?</th>
     </tr>
     <% @superusers.each do |su| -%>
     <tr>
@@ -23,7 +24,7 @@
       <td><%= check_box_tag('remove_su_ids[]', su.id) %></td>
     </tr>
     <% end -%>
-  </table>
+  </table> 
   <%= submit_tag "Remove selected" %>
 <% end %>
 
