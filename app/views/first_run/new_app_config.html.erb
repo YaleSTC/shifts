@@ -54,6 +54,13 @@
     <small>This is used for the "From" field on any generated email that is not department-specific.</small><br />
     <%= f.text_field :mailer_address %>
   </p>
+
+  <p>
+	<%= f.label :admin_email, text = 'Admin email address' %> <br />
+	<small>This is the administrator email that any non-department-specific correspondences are sent to. </small><br />
+	<%= f.text_field :admin_email %>
+  </p>	
+
   <p>
     <%= f.label :footer, text = "Footer Text", :class => "form_label_large" %><br />
     <small>Any text or HTML you place here will be placed in the footer of each page. Be careful to close your tags,

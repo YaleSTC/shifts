@@ -10,7 +10,10 @@
     </div>
   <% end %>
 
-  <%= announcement.content_with_formatting %> <br />
+  <div class="<%= html_class %>">
+	<%= announcement.content_with_formatting %>
+  </div>
+  <br />
   <div class="grayleft">
     <%= "by #{(announcement.author.name)}" -%>
   </div>

@@ -1,14 +1,14 @@
 <% title "Departments" %>
 
-<table>
+<table class = "tablesorter	">
   <tr>
     <th>Name</th>
   </tr>
   <% for department in @departments %>
     <tr>
       <td><%= link_to "#{department.name}", department %></td>
-      <td><%= link_to "Edit", edit_department_path(department) %></td>
-      <td><%= link_to "Edit department settings", edit_department_config_path(department.department_config)%>
+      <td><%= link_to "Edit Department", edit_department_path(department) %></td>
+      <td><%= link_to "Edit Settings", edit_department_config_path(department.department_config)%>
       <td><%= link_to "Destroy", department, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>

@@ -18,6 +18,7 @@ GEM
       activesupport
     builder (3.0.0)
     chronic (0.5.0)
+    cocaine (0.1.0)
     fastercsv (1.5.4)
     has_many_polymorphs (2.13)
       activerecord
@@ -25,7 +26,13 @@ GEM
       activesupport
       builder
     icalendar (1.1.6)
+    mime-types (1.16)
     mysql (2.8.1)
+    paperclip (2.3.15)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
     pdf-reader (0.10.0)
       Ascii85 (~> 1.0.0)
     prawn (0.11.1)
@@ -61,6 +68,7 @@ DEPENDENCIES
   hoptoad_notifier
   icalendar
   mysql
+  paperclip (~> 2.3.15)
   prawn
   rails (= 2.3.12)
   rdoc (~> 3.6.1)

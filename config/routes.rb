@@ -68,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payforms,
                 :collection => { :prune => :delete, :go => :get, :search => :post},
-                :member => {:submit => :get, :unsubmit => :get, :approve => :get, :unapprove => :get, :print => :get},
+                :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
                 :shallow => true do |payform|
     payform.resources :payform_items, :member => {:delete => :get}
   end
