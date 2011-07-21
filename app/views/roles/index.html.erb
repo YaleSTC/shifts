@@ -5,7 +5,7 @@
     <th>Role Name</th>
   </tr>
   <% for role in @roles %>
-    <tr>
+    <tr <%= "class= #{cycle("odd", "even")}"%>>
       <td><%= link_to role.name, role_path(role) %></td>
       <td><%= link_to "Edit", edit_role_path(role)%></td>
       <td><%= link_to "Delete", role, :confirm => 'Are you sure?', :method => :delete %></td>
