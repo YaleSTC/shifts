@@ -301,7 +301,7 @@ class Shift < ActiveRecord::Base
   # If new shift runs up against another compatible shift, combine them and save,
   # preserving the earlier shift's information
   def combine_with_surrounding_shifts
-    if (shift_later = Shift.find(:first, :include => :calendar, :conditions => ["start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?]))
+    if (shift_later = Shift.find(:first, :include => :calendar, :conditions => ["start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?])) && (!shift_later.has_sub?)
           if (self.report.nil? || self.report.departed.nil?) && (shift_later.report.nil?)
             self.end = shift_later.end
             shift_later.sub_requests.each { |s| s.shift = self }
@@ -309,7 +309,7 @@ class Shift < ActiveRecord::Base
             self.save(false)
           end
         end
-        if (shift_earlier = Shift.find(:first, :include => :calendar, :conditions => ["end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?]))
+        if (shift_earlier = Shift.find(:first, :include => :calendar, :conditions => ["end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?])) && (!shift_earlier.has_sub?)
           if (self.report.nil?) && (shift_earlier.report.nil? || shift_earlier.report.departed.nil?)
             self.start = shift_earlier.start
             shift_earlier.sub_requests.each {|s| s.shift = self}
