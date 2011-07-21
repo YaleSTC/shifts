@@ -97,6 +97,10 @@ module ShiftsHelper
     @open_at[time.to_s(:am_pm)] && people_count[time.to_s(:am_pm)] < location.min_staff
   end
 
+#calculates whether the student is signing into a shift earlier than the allowed dept time
+  def within_sign_in_window?(shift)
+    (shift.start - Time.now)  <=  current_department.department_config.early_signin.minutes
+  end
 
 #calculates default_start/end and range_start/end_time
   def calculate_default_times
@@ -162,8 +166,12 @@ end
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
-
-    shifts = Shift.active.in_locations(@visible_locations).on_day(day).scheduled #TODO: .active
+    #adding the option to view unscheduled shifts   
+    if current_department.department_config.unscheduled_shifts == true
+        shifts = Shift.active.in_locations(@visible_locations).on_day(day) #TODO: .active
+    else
+      shifts = Shift.active.in_locations(@visible_locations).on_day(day).scheduled
+    end
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 

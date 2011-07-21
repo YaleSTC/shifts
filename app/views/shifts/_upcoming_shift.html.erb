@@ -4,6 +4,8 @@
     link_name << " (sub requested)"
   elsif upcoming_shift.signed_in?
     link_name << " (signed in)"
+  elsif upcoming_shift.left_early?
+	link_name << " (submitted)"
   end
 %>
 <li>

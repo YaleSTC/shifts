@@ -62,6 +62,18 @@ class Payform < ActiveRecord::Base
     rounded_hours = ((raw_hours.to_f * 60 / department.department_config.admin_round_option.to_f).round * (department.department_config.admin_round_option.to_f / 60))
     sprintf( "%0.02f", rounded_hours).to_f
   end
+  
+  def hours_minutes_string
+    hours = self.hours
+    return "0:00" if hours.nil? || hours == 0
+    hrs_i = hours.to_i
+    hrs_f = hours.to_f
+    units = hrs_f % hrs_i
+    units = ((units / 5) * 300)
+    hrs_s = "#{hours.to_i.to_s}:#{units.to_i.to_s}"
+    hrs_s += "0" if hrs_s =~ /:0$/
+    return hrs_s
+  end
 
   def start_date
     subtract = (department.department_config.monthly ? 1.month : 1.week)

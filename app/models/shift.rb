@@ -8,6 +8,8 @@ class Shift < ActiveRecord::Base
   belongs_to :location
   has_one :report, :dependent => :destroy
   has_many :sub_requests, :dependent => :destroy
+  has_many :shifts_tasks
+  has_many :tasks, :through => :shifts_tasks
   before_update :disassociate_from_repeating_event
 
   validates_presence_of :location
@@ -184,7 +186,7 @@ class Shift < ActiveRecord::Base
       return out.collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
-
+  
 
   #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(shifts, wipe)
@@ -257,6 +259,12 @@ class Shift < ActiveRecord::Base
       return number_report_items/shift_time
     end
   end
+  
+  #to enable the view of unscheduled shifts, a shift that lacks an end attribute is viewed as ending right now
+  # else, the end attribute is read (referenced in shifts_helper)
+  def end
+      read_attribute(:end).nil? ? Time.now : read_attribute(:end).in_time_zone
+  end
 
   #a shift has been signed in to if it has a report
   # NOTE: this evaluates whether a shift is CURRENTLY signed in
@@ -293,34 +301,29 @@ class Shift < ActiveRecord::Base
   # If new shift runs up against another compatible shift, combine them and save,
   # preserving the earlier shift's information
   def combine_with_surrounding_shifts
-    #if (shift_later = Shift.find(:first, :conditions => {:start => self.end, :user_id => self.user_id, :location_id => self.location_id, :calendar_id => self.calendar.id}))
     if (shift_later = Shift.find(:first, :include => :calendar, :conditions => ["start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?]))
-      self.end = shift_later.end
-      shift_later.sub_requests.each { |s| s.shift = self }
-      shift_later.destroy
-      self.save(false)
-    end
-    #if (shift_earlier = Shift.find(:first, :conditions => {:end => self.start, :user_id => self.user_id, :location_id => self.location_id, :calendar_id => self.calendar.id}))
-    if (shift_earlier = Shift.find(:first, :include => :calendar, :conditions => ["end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?]))
-      self.start = shift_earlier.start
-      shift_earlier.sub_requests.each {|s| s.shift = self}
-      unless shift_earlier.report.nil?
-        shift_earlier.report.shift = nil
-        shift_earlier.report.save! #we have to disassociate the report first, or it will be destroyed too
-        self.report = shift_earlier.report
-        shift_earlier.report = nil
-      end
-      self.signed_in = shift_earlier.signed_in
-      shift_earlier.destroy
-      self.save(false)
-      # the below doesn't work...
-      # shift_earlier.end = self.end
-      # self.sub_requests.each {|s| s.shift = shift_earlier}
-      # shift_earlier.report = self.report if shift_earlier.report.nil? #only replace report if it doesn't exist
-      #shift_earlier.save!
-      #return false
-      #self.destroy #how do we cancel creation of this shift but return success?
-    end
+          if (self.report.nil? || self.report.departed.nil?) && (shift_later.report.nil?)
+            self.end = shift_later.end
+            shift_later.sub_requests.each { |s| s.shift = self }
+            shift_later.destroy
+            self.save(false)
+          end
+        end
+        if (shift_earlier = Shift.find(:first, :include => :calendar, :conditions => ["end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?]))
+          if (self.report.nil?) && (shift_earlier.report.nil? || shift_earlier.report.departed.nil?)
+            self.start = shift_earlier.start
+            shift_earlier.sub_requests.each {|s| s.shift = self}
+            unless shift_earlier.report.nil?
+              shift_earlier.report.shift = nil
+              shift_earlier.report.save! #we have to disassociate the report first, or it will be destroyed too
+              self.report = shift_earlier.report
+              shift_earlier.report = nil
+            end
+            self.signed_in = shift_earlier.signed_in
+            shift_earlier.destroy
+            self.save(false)
+          end
+        end
   end
 
   def exceeds_max_staff?
@@ -370,14 +373,21 @@ class Shift < ActiveRecord::Base
     "#{user.name}, #{start.to_s(:just_date)}, #{start.to_s(:am_pm)}"
   end
 
-
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
+  end
+  
+  def task_time
+    scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled (#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)})"
+    
   end
 
   def sub_request
     SubRequest.find_by_shift_id(self.id)
   end
+  
+  
+  
 
   # ======================
   # = Validation helpers =

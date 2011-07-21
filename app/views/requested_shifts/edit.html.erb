@@ -8,5 +8,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @requested_shift %> |
-<%= link_to 'Back', requested_shifts_path %>
+<%= link_to 'Show', template_requested_shift_path(@week_template, @requested_shift) %> |
+<%= link_to 'Back', template_path(@week_template) %>

@@ -1,2 +1,91 @@
---- {}
-
+--- 
+payform_items_001: 
+  active: "1"
+  category_id: "9"
+  created_at: 2011-06-03 20:01:11
+  date: "2010-06-19"
+  description: hello
+  hours: "5.42"
+  id: "1"
+  payform_id: "4413"
+  payform_item_set_id: 
+  reason: 
+  source: James Luo
+  source_url: 
+  updated_at: 2011-06-03 20:01:11
+  user_id: 
+payform_items_002: 
+  active: "1"
+  category_id: "1"
+  created_at: 2011-06-03 20:23:44
+  date: "2011-06-03"
+  description: Shift in Technology Troubleshooting Office (04:23PM-04:23PM)
+  hours: "0.01"
+  id: "2"
+  payform_id: "5462"
+  payform_item_set_id: 
+  reason: 
+  source: 
+  source_url: /shifts/71257/report
+  updated_at: 2011-06-03 20:23:44
+  user_id: 
+payform_items_003: 
+  active: "1"
+  category_id: "1"
+  created_at: 2011-06-06 15:37:39
+  date: "2011-06-06"
+  description: Shift in Technology Troubleshooting Office (11:36AM-11:37AM)
+  hours: "0.02"
+  id: "3"
+  payform_id: "5463"
+  payform_item_set_id: 
+  reason: 
+  source: 
+  source_url: /shifts/71258/report
+  updated_at: 2011-06-06 15:37:39
+  user_id: 
+payform_items_004: 
+  active: "1"
+  category_id: "1"
+  created_at: 2011-06-06 16:18:28
+  date: "2011-06-06"
+  description: Shift in Technology Troubleshooting Office (12:17PM-12:18PM)
+  hours: "0.01"
+  id: "4"
+  payform_id: "5463"
+  payform_item_set_id: 
+  reason: 
+  source: 
+  source_url: /shifts/71260/report
+  updated_at: 2011-06-06 16:18:28
+  user_id: 
+payform_items_005: 
+  active: "1"
+  category_id: "1"
+  created_at: 2011-06-07 14:52:14
+  date: "2011-06-07"
+  description: Shift in Technology Troubleshooting Office (10:45AM-10:52AM)
+  hours: "0.11"
+  id: "5"
+  payform_id: "5463"
+  payform_item_set_id: 
+  reason: 
+  source: 
+  source_url: /shifts/71259/report
+  updated_at: 2011-06-07 14:52:14
+  user_id: 
+payform_items_006: 
+  active: "1"
+  category_id: "1"
+  created_at: 2011-06-07 15:26:53
+  date: "2011-06-07"
+  description: Shift in io (03:24PM-11:26AM)
+  hours: "140.03"
+  id: "6"
+  payform_id: "5464"
+  payform_item_set_id: 
+  reason: 
+  source: 
+  source_url: /shifts/71230/report
+  updated_at: 2011-06-07 15:26:53
+  user_id: 

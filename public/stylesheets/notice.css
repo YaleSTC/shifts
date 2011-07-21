@@ -3,16 +3,15 @@ li#notice_li {
     padding-left: 1em;
 }
 
-fieldset.sticky {
-  width: 97%;
+fieldset.sticky { 
   padding: 5px;
   margin: 0 0 0 0;
   border:1px solid gray;
   background-color:#FFFF99;
 }
 
+
 fieldset.announcement {
-  width: 97%;
   padding: 5px;
   margin:0 0 0 0;
   clear: right;
@@ -40,6 +39,24 @@ fieldset.sticky .grayleft, fieldset.sticky .grayright {
 fieldset.announcement .grayleft, fieldset.announcement .grayright {
   color:DarkRed;
   font-size: 90%;
+}
+
+/*Adding a div class variable to pass, to ensure that the word wrap feature works in 
+three areas of different fixed width */
+
+div.report_notice {
+	width: 350px;
+	word-wrap: break-word;
+}
+
+div.dashboard_notice {
+	width: 280px;
+	word-wrap: break-word;
+}
+
+div.index_notice {
+	width: 600px;
+	word-wrap: break-word;
 }
 
 .gray_url {float:right; overflow:hidden; white-space:none; text-align:right; color:gray;}
