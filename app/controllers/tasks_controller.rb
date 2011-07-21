@@ -3,11 +3,11 @@ class TasksController < ApplicationController
   # GET /tasks.xml
 
   def index
+    return unless user_is_admin_of(current_department)
     @tasks = Task.all
     @active_tasks = Task.find(:all, :conditions => ["#{:active} = ?", true])
     @inactive_tasks = Task.find(:all, :conditions => ["#{:active} = ?", false])
     
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tasks }
@@ -17,8 +17,8 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.xml
   def show
+    return unless user_is_admin_of(current_department)
     @task = Task.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @task }
@@ -28,6 +28,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.xml
   def new
+    return unless user_is_admin_of(current_department)
     @task = Task.new
 
     respond_to do |format|
@@ -38,6 +39,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    return unless user_is_admin_of(current_department)
     @task = Task.find(params[:id])
   end
 
@@ -63,7 +65,7 @@ class TasksController < ApplicationController
   def update
     # raise params.to_yaml
     @task = Task.find(params[:id])
-
+    
     respond_to do |format|
       if @task.update_attributes(params[:task])
         flash[:notice] = 'Task was successfully updated.'
