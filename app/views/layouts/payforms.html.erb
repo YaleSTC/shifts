@@ -11,6 +11,7 @@
         <h3>View Payforms</h3>
             <li><%= link_to_unless same_page?(payforms_path), "All", payforms_path %></li>
             <li><%= link_to_unless_current "Submitted", payforms_path(:submitted => true)%></li>
+			<li><%= link_to_unless_current "Skipped", payforms_path (:skipped => true)%></li>
             <li><%= link_to_unless_current "Approved", payforms_path(:approved => true)%></li>
             <li><%= link_to_unless_current "Printed", payforms_path(:printed => true) %></li>
             <li><%= link_to_unless_current "History", payform_sets_path %></li>
