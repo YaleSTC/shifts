@@ -1,6 +1,6 @@
 <% title "User Profile Fields" %>
 
-<table>
+<table class="tablesorter">
   <tr>
     <th>Name</th>
     <th>Display Type</th>
@@ -10,8 +10,8 @@
     <th>User Editable</th>
   </tr>
   <% for user_profile_field in @user_profile_fields %>
-    <tr>
-      <td><%=h user_profile_field.name %></td>
+    <tr <%= "class= #{cycle("odd", "even")}"%>>
+	  <td><%=h user_profile_field.name %></td>
       <td><%=h UserProfileField::DISPLAY_TYPE_VIEW[user_profile_field.display_type] %></td>
       <td><%=h user_profile_field.values %></td>
 	  <td><%=h user_profile_field.index_display %></td>
