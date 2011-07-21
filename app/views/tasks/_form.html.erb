@@ -1,10 +1,16 @@
 <% form_for @task do |f| %>
 
 
-<p>
+  <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+
   <p>
     <%= f.label :kind %><br />
 	<%= radio_button_tag 'task[kind]', 'Hourly', true %> Hourly<br />
