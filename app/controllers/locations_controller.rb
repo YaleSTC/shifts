@@ -74,7 +74,7 @@ class LocationsController < ApplicationController
     if params[:more_items] == nil
       session[:items] = 0
     end
-    item_number = find_item_number + 10
+    item_number = find_item_number + 5
     session[:items] = item_number
     @report_items = ReportItem.in_location(@location).reverse.first(item_number)
     respond_to do |format|
