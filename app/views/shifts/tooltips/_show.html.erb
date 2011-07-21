@@ -22,8 +22,8 @@
       <p>
         <% if @shift.signed_in? && (current_user == @shift.user) %>
           <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
-        <% elsif @shift.signed_in? && current_user.is_admin_of?(@shift.location) %>
-          <%= button_to "Submit this user's shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => "Are you sure you wish to sign the user out of this shift?" %>
+        <% elsif @shift.signed_in? && current_user.is_admin_of?(@shift.loc_group) %>
+          <%= button_to "Submit #{@shift.user.name}'s shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => "Are you sure you wish to sign the user out of this shift?" %>
         <% end %>
         <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
           <% @shift.sub_requests.each do |sub| %>
@@ -66,7 +66,11 @@
         <% end %>
 
         <% if current_user == @shift.user and !@shift.has_passed? %>
+			<% if within_sign_in_window?(@shift)%>
           <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
+			<% else %>
+		 <%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift early?", :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
+			<% end %>
         <% end %>
 
         <% if !@shift.has_passed? and !@shift.submitted? %>

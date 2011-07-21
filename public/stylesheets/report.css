@@ -68,6 +68,7 @@ tr.list_report_item_odd {
 
 #report_view_table td.report_item_content{
   word-wrap: break-word;
+  max-width: 50px;
 }
 
 #report_view_table td.timestamp{
@@ -87,13 +88,19 @@ tr.list_report_item_odd {
   margin-bottom: 5px;
 }
 
+#shift_tasks {
+  width: 48%;
+  float: right;
+  margin-bottom: 5px;
+}
+
 #report_view_table td.user_name{
   width: 100px;
   padding: 4px;
 }
 
 #report_message_center {
-	width: 48%;
+	width: 390px;
 	float: left;
 	clear: right;
 	margin-bottom: 5px;
@@ -108,4 +115,3 @@ textarea#item {
   float: right;
   clear: right;
 }
-

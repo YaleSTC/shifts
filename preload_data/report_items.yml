@@ -23,3 +23,91 @@ report_items_003:
   report_id: "1"
   time: 2011-06-01 19:29:15
   updated_at: 2011-06-01 19:29:15
+report_items_004: 
+  content: jfl32 logged in at 127.0.0.1
+  created_at: 2011-06-03 20:23:24
+  id: "4"
+  ip_address: 127.0.0.1
+  report_id: "2"
+  time: 2011-06-03 20:23:24
+  updated_at: 2011-06-03 20:23:24
+report_items_005: 
+  content: testing
+  created_at: 2011-06-03 20:23:35
+  id: "5"
+  ip_address: 127.0.0.1
+  report_id: "2"
+  time: 2011-06-03 20:23:35
+  updated_at: 2011-06-03 20:23:35
+report_items_006: 
+  content: testing
+  created_at: 2011-06-03 20:23:38
+  id: "6"
+  ip_address: 127.0.0.1
+  report_id: "2"
+  time: 2011-06-03 20:23:38
+  updated_at: 2011-06-03 20:23:38
+report_items_007: 
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-03 20:23:43
+  id: "7"
+  ip_address: 127.0.0.1
+  report_id: "2"
+  time: 2011-06-03 20:23:43
+  updated_at: 2011-06-03 20:23:43
+report_items_008: 
+  content: jfl32 logged in at 127.0.0.1
+  created_at: 2011-06-06 15:36:12
+  id: "8"
+  ip_address: 127.0.0.1
+  report_id: "3"
+  time: 2011-06-06 15:36:12
+  updated_at: 2011-06-06 15:36:12
+report_items_009: 
+  content: hello hello
+  created_at: 2011-06-06 15:36:29
+  id: "9"
+  ip_address: 127.0.0.1
+  report_id: "3"
+  time: 2011-06-06 15:36:29
+  updated_at: 2011-06-06 15:36:29
+report_items_010: 
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-06 15:37:38
+  id: "10"
+  ip_address: 127.0.0.1
+  report_id: "3"
+  time: 2011-06-06 15:37:38
+  updated_at: 2011-06-06 15:37:38
+report_items_011: 
+  content: jfl32 logged in at 127.0.0.1
+  created_at: 2011-06-07 14:45:26
+  id: "11"
+  ip_address: 127.0.0.1
+  report_id: "4"
+  time: 2011-06-07 14:45:26
+  updated_at: 2011-06-07 14:45:26
+report_items_012: 
+  content: testing, testing, testing
+  created_at: 2011-06-07 14:51:57
+  id: "12"
+  ip_address: 127.0.0.1
+  report_id: "4"
+  time: 2011-06-07 14:51:57
+  updated_at: 2011-06-07 14:51:57
+report_items_013: 
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-07 14:52:13
+  id: "13"
+  ip_address: 127.0.0.1
+  report_id: "4"
+  time: 2011-06-07 14:52:13
+  updated_at: 2011-06-07 14:52:13
+report_items_014: 
+  content: James Luo (jfl32) logged out from 127.0.0.1
+  created_at: 2011-06-07 15:26:52
+  id: "14"
+  ip_address: 127.0.0.1
+  report_id: "1"
+  time: 2011-06-07 15:26:52
+  updated_at: 2011-06-07 15:26:52

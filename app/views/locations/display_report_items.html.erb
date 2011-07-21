@@ -5,13 +5,15 @@
 <table id="report_view_table">
     <tr>
       <th class="list_header" colspan="3">
-        <h2>Recent updates for location: <%= @location.name %></h2>
+        <h2>Recent updates for: <%= @location.name %></h2>
       </th>
     </tr>
     <tbody id = "all_report_items">
 		<%= render :partial => "report_items", :collection => @report_items %>
     </tbody>
-  </table>
-<% form_remote_tag :url => { :action => 'display_report_items' } do %>
- <%= submit_tag "view more", :class => "view_more" %>
-<% end %>
+</table>
+<% form_tag(:action => :display_report_items, :id => @location.id, :more_time => @start_time.to_datetime) do %>
+<br />  
+<div><%= submit_tag 'View More' %></div>
+
+<% end -%>

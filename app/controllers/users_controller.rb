@@ -69,6 +69,9 @@ class UsersController < ApplicationController
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
         @user.set_payrate(params[:payrate], @department)
+        UserProfileField.all.each do |field|
+          UserProfileEntry.create!(:user_profile_id => @user.user_profile.id, :user_profile_field_id => field.id)
+        end
         if @user.auth_type == 'built-in'
           @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n, current_department)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."

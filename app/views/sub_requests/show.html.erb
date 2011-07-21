@@ -32,6 +32,7 @@
 <% end %>
 <% if current_user.is_admin_of?(@department) or current_user == @sub_request.user %>
   <%= link_to 'Cancel Request', @sub_request, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%> | 
   <%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
 <% end %>
   <%= link_to 'See all subs', sub_requests_path %>

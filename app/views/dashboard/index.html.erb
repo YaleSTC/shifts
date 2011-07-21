@@ -61,6 +61,12 @@
         <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
     </fieldset>
 
+    <fieldset class="index" id="shift_stats">
+      <legend>Shift Statistics</legend>
+				<% @summary = current_user.summary_stats(Date.today - 7, Date.today) %>
+				<%= render :partial => 'stats/stats_summary', :object => @summary %>
+    </fieldset>
+
     <% unless @watched_objects.empty? %>
       <fieldset class="index" id="watched_objects">
         <legend>Recent updates for your watched data objects</legend>
@@ -72,8 +78,10 @@
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
-  <legend>Today's schedule</legend>
-  <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
+  <legend>Daily Schedule</legend>
+  <%= link_to "&lt;&lt; Previous", :date => (@current_date - 1)-%>
+  <span style="float:right;text-align:right;"><%= link_to "Next &gt;&gt;", :date => (@current_date + 1)%></span>
+  <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
 </fieldset>
 <% end %>
 
