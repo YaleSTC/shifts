@@ -99,6 +99,17 @@
 	</p>
 </fieldset>
 <fieldset class = "index">
+		<legend>Edit Custom Search Engine</legend>
+	<p>
+		<%= f.label :search_engine, text = "Search Engine Name:"%>
+		<%= f.text_field :search_engine_name %>
+	</p>
+	<p>
+		<%= f.label :search_engine, text = "Url:"%>
+		<%= f.text_field :search_engine_url %>
+	</p>
+</fieldset>
+<fieldset class = "index">
     <legend>Edit Stale Shift Configuration</legend>
 	<p>
 		<%= f.label :stale_shift, text = "Send emails to users regarding stale shifts (leave blank to disable):"%>

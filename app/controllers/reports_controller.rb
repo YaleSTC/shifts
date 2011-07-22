@@ -89,6 +89,18 @@ class ReportsController < ApplicationController
     end
 end
 
+#  def redirect_to_external_url
+ #   redirect_to "http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=#{@key_words}&go=Go"
+  #end
+  
+  def search(key_words)
+    @search_engines = [Weke, Google, Bing]
+    @key_words = key_words
+    @key_words.tr(" ", "+")
+    @url = "http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=#{@key_words}&go=Go"
+    
+  end
+
 
 
 # Do we want this action? -ben
