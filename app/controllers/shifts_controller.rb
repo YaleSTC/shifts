@@ -225,6 +225,7 @@ class ShiftsController < ApplicationController
       end
     end
   end
+  
 
   # def rerender
   #   #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
