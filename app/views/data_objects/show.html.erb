@@ -1,23 +1,12 @@
 <% title "#{@data_object.name}" %>
-<h4 id="subtitle"><%= link_to_if current_user.is_admin_of?(current_department),  @data_object.data_type.name, @data_object.data_type %></h4>
-<div style="width:25%; float:left">
+<h3 id="subtitle"><%= link_to_if current_user.is_admin_of?(current_department),  @data_object.data_type.name, @data_object.data_type %></h3>
   <p>
     <strong>Description:</strong>
-    <%=h @data_object.description %>
-  </p>
-  <p>
+    <%=h @data_object.description %> <br />
     <strong>Locations:</strong>
     <%=h @data_object.locations.map{|l| l.short_name}.join(', ') %>
-  </p>
-  <% if current_user.is_admin_of?(current_department) %>
-    <p><%= link_to "Edit data object", edit_data_object_path(@data_object) %><br/>
-    <%= link_to "Destroy", @data_object,
-    :confirm => 'Are you sure? This will destroy all data entries belonging to this object.',
-    :method => :delete %><br/>
-  <% end %>
-  <%= link_to "View all data objects", data_objects_path %></p>
-</div>
-<div style="width:75%; float:left">
+
+
   <% unless @data_entries.empty? %>
 
     <%= form_tag data_object_path(@data_object), :method => :get %>
@@ -25,13 +14,12 @@
       <%= select_date(@data_entries.last.created_at, :prefix => 'start') %>
       to
       <%= select_date(@data_entries.first.created_at, :prefix => 'end') %>
-    <%= submit_tag 'Select Dates' %><br/>
+    <%= submit_tag 'Select Dates' %><br/><br />
 
 
     <p>
-      <strong>Data entries for this object:</strong><br/>
-      <br/>
-      <table>
+      <strong>Data entries for this object:</strong>
+      <table class = "tablesorter">
         <%# this requires some rewriting, since data fields may change over time %>
         <thead>
           <tr>
@@ -48,12 +36,17 @@
         </tbody>
       </table>
       <br>
-      <%# TODO: this should be removed or improved, it is commented out for now -ben %>
-      <%#= link_to "Add new data entry", new_data_object_data_entry_path(@data_object) %>
     </p>
 
   <% else %>
     There are no data entries to view.
   <% end %>
-</div>
+
+  <% if current_user.is_admin_of?(current_department) %>
+    <p><%= link_to "Edit", edit_data_object_path(@data_object) %> | 
+    <%= link_to "Destroy", @data_object,
+    :confirm => 'Are you sure? This will destroy all data entries belonging to this object.',
+    :method => :delete %> | 
+  <% end %>
+  <%= link_to "View all data objects", data_objects_path %></p>
 
