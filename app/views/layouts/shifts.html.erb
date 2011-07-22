@@ -47,6 +47,7 @@
 					<ul>
 		        <li><%= link_to "Stats", stats_path %></li>
 		        <li><%= link_to "Restrictions", restrictions_path %></li>
+						<li><%= link_to "Templates", templates_path %></li>
 					</ul>
 			</li>
    </ul>
@@ -80,7 +81,7 @@
 		        <li><%= link_to "Stats", stats_path %></li>
 					</ul>
 			</li>
-	 </ul>
+	 	</ul>
 	  <div id="contentNav">
 	<% end %>
 <% end %>
@@ -88,8 +89,8 @@
 <% content_for :body do %>
 
   <%= yield %>
-
   <div class="clear"></div>
-<% end -%>
+
+<% end %>
 
 <%= render :file => "layouts/application.html.erb" %>
