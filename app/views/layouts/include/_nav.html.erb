@@ -1,11 +1,11 @@
 <ul id="application_tabs">
   <% unless current_user.nil? -%>
-    <li class="<%= tab('dashboard') %>"><%= link_to "Dashboard", dashboard_path %></li>
+    <li class="<%= tab('dashboard') %>">
+    <%= link_to "Dashboard", dashboard_path %></li>
   <% end -%>
   <% if current_user.is_superuser? -%>
     <li class="<%= tab('departments') %>"><%= link_to "Departments", departments_path %></li>
   <% end -%>
-
     <% if current_user && current_user.is_admin_of?(@department) && current_user.is_active?(@department) || current_user.is_superuser? -%>
       <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
       <% else %>
