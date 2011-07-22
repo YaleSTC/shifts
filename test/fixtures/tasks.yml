@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  type: MyString
+  start: 2010-07-02 13:19:01
+  end: 2010-07-02 13:19:01
+  interval: 1
+  interval_completed: false
+  active: false
+
+two:
+  name: MyString
+  type: MyString
+  start: 2010-07-02 13:19:01
+  end: 2010-07-02 13:19:01
+  interval: 1
+  interval_completed: false
+  active: false

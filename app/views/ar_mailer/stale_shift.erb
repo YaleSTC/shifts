@@ -1,0 +1,10 @@
+Hello <%= @user.name %>, 
+
+
+The following shift has not been updated in the past hour:
+
+	Cluster:  <%= @stale_shift.location.name %>
+	Date:     <%= @stale_shift.start.to_s(:just_date) %>
+	Time:     <%= @stale_shift.start.to_s(:am_pm) %>
+
+Please update your shift report or sign out if you had forgotten to do so at the end of your shift. 

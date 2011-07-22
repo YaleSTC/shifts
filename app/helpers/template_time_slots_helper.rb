@@ -1,0 +1,2 @@
+module TemplateTimeSlotsHelper
+end

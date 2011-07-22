@@ -1,0 +1,23 @@
+<% content_for :head do %>
+  <% stylesheet 'shift', 'timeline'%>
+  <% javascript 'sorttable' %>
+<% end %>
+
+<% content_for :left_nav do %>
+  <ul id="navigationList">
+		<h3>Templates</h3>
+    	<li><%= link_to_unless_current "View all", templates_path %></li>
+      <li><%= link_to_unless_current "Create new", new_template_path %></li>
+  </ul>
+  <div id="contentNav">
+<% end %>
+
+<% content_for :body do %>
+
+  <%= yield %>
+
+  <div class="clear"></div>
+<% end -%>
+
+<%= render :file => "layouts/application.html.erb" %>
+

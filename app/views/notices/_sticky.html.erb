@@ -1,13 +1,17 @@
-<fieldset class="sticky", title= "<%= "Posted on #{sticky.start_time.to_date} at #{sticky.start_time.to_s(:am_pm)}" %>" >
+<fieldset class="sticky", title= "<%= "Posted on #{sticky.start.to_date} at #{sticky.start.to_s(:am_pm)}" %>" >
   <div class="right">
+	 <% if sticky.active?%>  
     <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => sticky.id },
-      :confirm => "Are you sure you want to remove this notice? It will be removed for all users and all locations.",
-      :method => :delete %>
+      :confirm => "Are you sure you want to remove this sticky? It will be removed for all users and all locations.",
+      :method => :delete %><% end %>
   </div>
-  <%= sticky.content_with_formatting %>
+
+  <div class="<%= html_class%>">
+	<%= sticky.content_with_formatting %>
+  </div> 
   <br />
   <div class="grayleft">
-    <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start_time, Time.now, true)} ago" %>
+    <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start, Time.now, true)} ago" %>
   </div>
   <div class="grayright">
     <%= sticky.display_for %>

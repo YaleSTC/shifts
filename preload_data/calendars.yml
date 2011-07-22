@@ -1,23 +1,45 @@
 --- 
 calendars_001: 
-  active: true
-  created_at: 2009-08-04 19:49:35
-  default: true
+  active: "1"
+  created_at: 2009-09-08 01:29:16
+  default: "1"
   department_id: "1"
   end_date: 
   id: "1"
   name: STC Default Calendar
   public: 
-  start_date: 2000-07-11 13:00:00
-  updated_at: 2009-08-04 19:49:35
+  start_date: 2009-09-07 04:00:00
+  updated_at: 2009-09-08 01:29:16
 calendars_002: 
-  active: true
-  created_at: 2009-08-04 19:49:35
-  default: true
-  department_id: "2"
-  end_date: 
-  id: "2"
-  name: DOJ Default Calendar
-  public: 
-  start_date: 2000-07-11 13:00:00
-  updated_at: 2009-08-04 19:49:35
+  active: "0"
+  created_at: 2010-01-20 18:35:53
+  default: "0"
+  department_id: "1"
+  end_date: 2010-03-01 05:00:00
+  id: "10"
+  name: Spring 2010 - public
+  public: "0"
+  start_date: 2010-01-24 05:00:00
+  updated_at: 2010-01-25 15:47:13
+calendars_003: 
+  active: "1"
+  created_at: 2010-01-28 20:45:06
+  default: "0"
+  department_id: "1"
+  end_date: 2010-05-04 04:00:00
+  id: "16"
+  name: Spring 2010-combined
+  public: "0"
+  start_date: 2010-01-31 05:00:00
+  updated_at: 2010-01-30 03:47:58
+calendars_004: 
+  active: "1"
+  created_at: 2010-09-27 15:09:58
+  default: "0"
+  department_id: "1"
+  end_date: 2010-12-05 05:00:00
+  id: "26"
+  name: Fall 2010 ST Signups - Copy
+  public: "0"
+  start_date: 2010-09-30 04:00:00
+  updated_at: 2010-09-30 14:11:33

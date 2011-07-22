@@ -23,10 +23,7 @@ class DataEntriesController < ApplicationController
       if @report = current_user.current_shift.report
         content = []
         @data_entry.data_fields_with_contents.each {|entry| content.push("#{DataField.find(entry.first).name.humanize}: #{entry.second}")}
-        @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}.  #{content.join(', ')}.", :ip_address => request.remote_ip)
-      else
-        #TODO Remove after fixing #213
-        raise "Error raised in finding current_user.current_shift.report. This is probably related to bug #213. If you see this message, please email a report to adam.bray@yale.edu with your Browser, OS, and Date/Time that you saw this message"
+        @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}: #{"\n"} #{content.join("\n")}", :ip_address => request.remote_ip)
       end
     else
       flash[:error] = "Could not update #{@data_entry.data_object.name}."

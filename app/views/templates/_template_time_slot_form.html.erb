@@ -1,0 +1,24 @@
+<td>					<%= collection_select(locations, :id, "time_slot_#{time_slot.id}[location]") %>
+							<%#= check_box_tag "for_locations[]", location.id %></td>
+			<!--		<td><%#= label_tag "location_#{.id}", text = location.short_name %></td> -->
+					<td><%= time_select "time_slot_#{time_slot.id}[start]", {
+													:simple_time_select => true,
+										      :time_separator => "",
+										      :minute_interval => current_department.department_config.time_increment,
+													:start_time => Time.now-5000,
+										      :end_time => Time.now+5000,
+										      :include_start_time => true,
+										      :include_end_time => false,
+										      :default => Time.now} %></td>
+					<td><%= time_select "time_slot_#{time_slot.id}[end]", {
+													:simple_time_select => true,
+										      :time_separator => "",
+										      :minute_interval => current_department.department.department_config.time_increment,
+													:start_time => Time.now-5000,
+										      :end_time => Time.now+5000,
+										      :include_start_time => true,
+										      :include_end_time => false,
+										      :default => Time.now} %></td>
+					<td><% RequestedShift::WEEK_DAY_SELECT.each do |day| %>
+								 <%= check_box "time_slot_#{time_slot.id}[day]}", day[1].to_i" %> <%= "#{day[0][0..2]}" %>
+							<% end %></td>

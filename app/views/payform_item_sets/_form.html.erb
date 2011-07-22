@@ -4,9 +4,14 @@
     <%= f.label :date %><br />
     <%= f.date_select :date %>
   </p>
-  <p>
+	<p>
     <%= f.label :hours %><br />
-    <%= f.text_field :hours %>
+    <%= radio_button_tag "calculate_hours", "user_input", true %><strong>Input</strong>
+    <%= select_integer(:other, :hours, 0, 15, 1, selected_hours(@payform_item_set) )%> hrs
+    <%= select_integer(:other, :minutes, 0, 59, 5, selected_min(@payform_item_set) )%> min<br />
+    <%= radio_button_tag "calculate_hours", "time_input", false %><strong>Compute</strong>
+    <%= time_select "time_input", "start", {:twelve_hour => true}, {:value => 1.hour.ago} %> to 
+    <%= time_select "time_input", "end", {:twelve_hour => true} %>
   </p>
   <p>
      <%= f.label :category %><br />
@@ -17,9 +22,12 @@
     <%= f.text_area :description %>
   </p>
   <p>
-    <div class="no_js">
-      <%= collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})%>
-    </div>
+    <%= label_tag "Leave blank to send to everyone" %><br />
+    <%= tokenized_users_autocomplete( @payform_item_set, "users") %>
+  </p>
+
+  <p class="no_js">
+    <%= collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})%>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

@@ -26,14 +26,14 @@ class Department < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_uniqueness_of :admin_permission_id
 
-  def get_links
-    self.current_notices.select{|n| n.useful_link}
+  def links
+     ActiveRecord::Base.transaction do
+        a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+        b = Link.active.collect(&:id)
+        Link.find(a & b) 
+      end
   end
-
-  def current_notices
-    Notice.active_links.select {|n| n.departments.include?(self)}
-  end
-
+  
 # Returns all users active in a given department
   def active_users
     joins = DepartmentsUser.find(:all, :conditions => {:department_id => self, :active => true })
@@ -44,7 +44,19 @@ class Department < ActiveRecord::Base
   def department
     self
   end
-
+  
+  def current_notices
+    ActiveRecord::Base.transaction do
+      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+      y = Announcement.active.collect(&:id)
+      Notice.find(a & y).sort_by{|n| n.start}
+    end
+  end
+    
+  def sub_requests
+    SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| sub.shift.department == self }
+  end
+  
 #  has_and_belongs_to_many :users
   private
   def create_permissions

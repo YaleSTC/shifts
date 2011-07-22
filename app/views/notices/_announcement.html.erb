@@ -1,16 +1,21 @@
-<fieldset class="announcement", title= "<%= "Posted on #{announcement.start_time.to_date} at #{announcement.start_time.to_s(:am_pm)}" %>" >
-  <% if current_user.is_admin_of?(current_department) %>
+<fieldset class="announcement", title= "<%= "Posted on #{announcement.start.to_date} at #{announcement.start.to_s(:am_pm)}" %>" >
+  <% if current_user.is_admin_of?(current_department) || announcement.author == current_user%>
     <div class="right">
-      <%= link_to 'Edit', edit_notice_path(announcement, :width => 530, :height => 530), :title => "Edit Announcement", :class => "thickbox", :id => "edit" %>
-      <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => announcement.id },
+      <%= link_to 'Edit', edit_announcement_path(announcement, :width => 530, :height => 350), :title => "Edit Announcement", :class => "thickbox", :id => "edit" %>
+ 	  <% if announcement.active? %>    
+		<%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => announcement.id },
                            :confirm => "Are you sure you want to remove this announcement?",
                            :method => :delete %>
+	  <% end %>
     </div>
   <% end %>
 
-  <%= announcement.content_with_formatting %> <br />
+  <div class="<%= html_class %>">
+	<%= announcement.content_with_formatting %>
+  </div>
+  <br />
   <div class="grayleft">
-    <%= "by #{(announcement.author.name )}" -%>
+    <%= "by #{(announcement.author.name)}" -%>
   </div>
 </fieldset>
 

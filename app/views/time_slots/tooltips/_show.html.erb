@@ -1,6 +1,5 @@
-<div class="close_link">
-  <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
-</div>
+<%= render :partial => '/tooltips/close_tooltip'%>
+
 <% if current_user.is_admin_of?(@department) %>
   <% if params[:delete_options] and @time_slot.repeating_event %>
     <div id="repeating_event_delete_options">
@@ -12,22 +11,7 @@
   <% else %>
     <h2>Edit Timeslot</h2>
     <% remote_form_for @time_slot do |f| %>
-      <p>
-        <%= f.label :start %><br />
-        <%= f.time_select :start, :twelve_hour => true %>
-      </p>
-      <p>
-        <%= f.label :end %><br />
-        <%= f.time_select :end, :twelve_hour => true %>
-      </p>
-      <p>
-        <%= f.label :location %><br />
-        <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location_id)%><br />
-      </p>
-      <p>
-        <%= f.label :calendar %><br />
-        <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
-      </p>
+      <%= render :partial => 'time_slots/form', :locals => {:f => f}  %>
       <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'time_slots', :action => 'update', :calendar => (params[:calendar] || true) } %></p>
     <% end %>
     <p>
@@ -57,9 +41,6 @@
   </p>
 <% end %>
 
-<script type="text/javascript">
-  // don't retrigger the action when clicking the tooltip :P
-  $(".tooltip").click(function(e){
-    e.stopPropagation();
-  });
-</script>
+
+<%= render :partial => '/tooltips/close_tooltip'%>
+

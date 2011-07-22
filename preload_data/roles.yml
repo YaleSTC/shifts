@@ -1,13 +1,31 @@
 --- 
 roles_001: 
-  created_at: 2009-06-22 17:28:14
+  created_at: 2009-09-08 01:30:15
   department_id: "1"
   id: "1"
-  name: STC Dept Admin
-  updated_at: 2009-06-22 17:28:14
+  name: Admin
+  updated_at: 2009-09-08 01:30:15
 roles_002: 
-  created_at: 2009-08-11 22:15:34
+  created_at: 2009-09-11 02:38:45
   department_id: "1"
   id: "2"
+  name: Bass Media Tech
+  updated_at: 2009-09-11 02:38:45
+roles_003: 
+  created_at: 2009-09-11 02:38:52
+  department_id: "1"
+  id: "3"
+  name: ST
+  updated_at: 2009-09-11 02:38:52
+roles_004: 
+  created_at: 2009-09-11 02:39:00
+  department_id: "1"
+  id: "4"
   name: Coordinator
-  updated_at: 2009-08-11 22:15:34
+  updated_at: 2009-09-11 02:39:00
+roles_005: 
+  created_at: 2009-09-22 13:33:43
+  department_id: "1"
+  id: "5"
+  name: io ST
+  updated_at: 2009-09-22 13:33:43

@@ -9,8 +9,9 @@
   <% content_for :left_nav do %>
       <ul id="navigationList">
         <h3>View Payforms</h3>
-            <li><%= link_to_unless_current "All", payforms_path %></li>
+            <li><%= link_to_unless same_page?(payforms_path), "All", payforms_path %></li>
             <li><%= link_to_unless_current "Submitted", payforms_path(:submitted => true)%></li>
+			<li><%= link_to_unless_current "Skipped", payforms_path (:skipped => true)%></li>
             <li><%= link_to_unless_current "Approved", payforms_path(:approved => true)%></li>
             <li><%= link_to_unless_current "Printed", payforms_path(:printed => true) %></li>
             <li><%= link_to_unless_current "History", payform_sets_path %></li>
@@ -18,7 +19,8 @@
         <h3>Punch Clocks</h3>
         <li><%= link_to_unless_current "View Active", punch_clocks_path %></li>
         <li><%= link_to_unless_current "View Group", punch_clock_sets_path %></li>
-        <li><%= link_to_unless_current "Add Group", new_punch_clock_set_path %></li>        <p></p>
+        <li><%= link_to_unless_current "Add Group", new_punch_clock_set_path %></li>
+        <p></p>
         <h3>Group Jobs</h3>
         <li><%= link_to_unless_current "View All", payform_item_sets_path %></li>
         <li><%= link_to_unless_current "Add", new_payform_item_set_path %></li>

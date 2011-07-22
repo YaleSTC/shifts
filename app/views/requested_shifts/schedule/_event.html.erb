@@ -1,0 +1,7 @@
+<% width = (event.length/60.0/60.0)/(22.0-8.0+1.0)*100.0 %>
+
+<% left =  event.preferred_start ? ((event.preferred_start - (event.preferred_start.beginning_of_day + 9.hours))/60.0/60.0)/(22.0-8.0+1.0)*100.0 : ((event.acceptable_start - (event.acceptable_start.beginning_of_day + 9.hours))/60.0/60.0)/(22.0-8.0+1.0)*100.0  %>
+
+
+<li class="user" id="event_<%= event.id %>"style="width:<%=width%>%;left:<%= left %>%;"><%= event.locations.collect{|loc| loc.short_name}.to_sentence %> ID: <%= event.id %> </li>
+
