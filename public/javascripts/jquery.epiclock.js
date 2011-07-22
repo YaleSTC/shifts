@@ -12,14 +12,14 @@ var EC_HALT = 'disable', EC_RUN = 'enable', EC_KILL = 'destroy',
 // Clock Types
 EC_CLOCK = 0, EC_COUNTDOWN = 1, EC_COUNTUP = 2, EC_ROLLOVER = 3, 
 EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
-	
+
 (function($){
-	
+
 	/**
 	 * Setup a placeholder for clock styles
 	 */
 	$.epiclocks = {};
-	
+
 	var defaults = {
 		epiClock: {
 			offset: {
@@ -71,7 +71,7 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 	loop = null,
 		// The clocks we're managing
 	clocks = [];
-	
+
 	/**
 	 * jQuery Entry Point - CSS Loader
 	 * 
@@ -80,14 +80,14 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 	$.cssIncludes = {};
 	$.cssInclude = function(href, media){
 		if ($.cssIncludes[href]) return false;
-		
+
 		$.cssIncludes[href] = true;
 		media = media || 'screen';
-		
+
 		$('<link type="text/css" rel="stylesheet" href="' + href + '" media="' + media + '"/>')
 			.appendTo('head');
 	}
-	
+
 	/** 
 	 * jQuery Entry Point - Clock Manager
 	 * 
@@ -97,7 +97,7 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 		mode = mode || EC_RUN;
 		precision = precision || 5e2;
 		if (mode == current) return;
-		
+
 		switch (mode){
 			case EC_KILL:
 				$.each(clocks, function(){
@@ -119,23 +119,23 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 				current = mode;
 				break;
 		}
-		
+
 		return this;
 	}
-	
+
 	function cycleClocks(){
 		$.each(clocks, function(i){
 			this.data('epiClock').render();
 		})
 	}
-	
+
 	/** 
 	 * jQuery Entry Point
 	 * 
 	 * Creates the clock displays
 	 */
 	$.fn.epiclock = function(options, predefined){
-		
+
 		if (typeof options == 'string' && $.epiclocks && $.epiclocks[options])
 			options = $.epiclocks[options];
 		else if (predefined && $.epiclocks && $.epiclocks[predefined])
@@ -164,7 +164,7 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 				options = $.extend(true, {}, defaults.epiClock, options);
 				break;
 		}
-		
+
 		this.each(function(){
 			var object = $(this),
 				format = (options.format || defaults.formats[options.mode]).split(''),
@@ -172,7 +172,7 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 				tpl = options.tpl || defaults.tpl, 
 				buffer = '',
 				clock = new epiClock(options, object);
-			
+
 			object.data('epiClock', clock);
 
 			$.each(format, function(){
@@ -207,22 +207,22 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 						break;
 				}
 			});
-			
+
 			clock.selfLoc = clocks.push(object) - 1;
 			if ($.isFunction(clock.onSetup)) clock.onSetup.call(clock, []);
 			if (clock.stylesheet) $.cssInclude(clock.stylesheet);
 			if (clock.containerClass) object.addClass(clock.containerClass);
 		})
-		
+
 		return this;
 	}
-	
+
 	function epiClock(options, element){
 		if (this instanceof epiClock)
 			return this.init(options, element);
 		else return new epiClock(options, element);
 	}
-	
+
 	epiClock.prototype = {
 		Q:	function() { return this.arbitrary.years },
 		E:	function() { return this.arbitrary.days },
@@ -244,7 +244,7 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 			// Remove and Renumber Clocks Array
 			clocks.splice(this.selfLoc,1);
 			$.each(clocks, function(i){this.data('epiClock').selfLoc = i});
-			
+
 			// Call on kill, set dead
 			if ($.isFunction(this.onKill)) this.onKill();
 			this.dead = true;
@@ -252,12 +252,12 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 		init:	function(options, element){
 			if (options.mode < EC_CLOCK || options.mode > EC_HOLDUP) 
 				throw new Exception( 'Invalid Clock Mode.' );
-				
+
 			var clock = this;
 			$.each(options, function(k, v){
 				clock[k] = v;
 			});
-			
+
 			switch (this.mode){
 				case EC_LOOP:
 				case EC_EXPIRE:
@@ -279,10 +279,10 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 					this.variance = 0;
 					break;
 			}
-			
+
 			if (this.gmt)
 				this.normalize();
-			
+
 			switch (true){
 				case this.target instanceof Date:
 					this.target = this.target.valueOf();
@@ -291,7 +291,7 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 					this.target = new Date(this.target).valueOf();
 					break;
 			}
-			
+
 			this.displace += this.modifier * this.calculateOffset();
 		},
 		calculateOffset:	function(offset){
@@ -322,7 +322,7 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 		tick:	function(){
 			if (this.dead) return false;
 			var now = new Date().valueOf() + this.displace;
-			
+
 			switch (this.mode){
 				case EC_HOLDUP:
 					if (this.target < now) this.mode = EC_COUNTUP;
@@ -340,24 +340,24 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 					if (now < this.tolerance) return this.timerEnd();
 					break;
 			}
-			
+
 			this.now = new Date(now);
-			
+
 			var days = this.now.V();
 			if (days <= this.daysadded) return true;
-			
+
 			this.daysadded = days;
 			this.arbitrary.days += days;
-			
+
 			if (this.arbitrary.days < 365) return true;
 			this.arbitrary.years += Math.floor(this.arbitrary.days/365.4 % 365.4);
 			this.arbitrary.days = Math.floor(this.arbitrary.days % 365.4);
-			
+
 			return true;
 		},
 		timerEnd:	function(){
 			if ($.isFunction(this.onTimer)) this.onTimer();
-			
+
 			switch (this.mode){
 				case EC_COUNTDOWN:
 				case EC_EXPIRE:
@@ -370,17 +370,17 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 					this.mode = EC_COUNTUP;
 					return true;
 			}
-			
+
 			this.now = new Date(0);
 			return true;
 		}
 	};
-	
+
 	$.extend(String.prototype, {
 		pad: function(s,l){ l=l||2; return this.length < l ? new Array(1+l-this.length).join(s) + this : this },
 		rpad: function(s,l){ l=l||2; return this.length < l ? this + new Array(1+l-this.length).join(s) : this }
 	})
-	
+
 	$.extend(Number.prototype, {
 		pad: function(s,l){ return (this+'').pad(s,l) },
 		rpad: function(s,l){ return (this+'').rpad(s,l) }
@@ -441,5 +441,5 @@ EC_EXPIRE = 4, EC_LOOP = 5, EC_STOPWATCH = 6, EC_HOLDUP = 7;
 		r: function() { return this.toString() },
 		U: function() { return this.getTime() / 1000 }
 	});
-	
+
 })(jQuery);

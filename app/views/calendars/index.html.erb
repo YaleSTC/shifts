@@ -56,7 +56,7 @@
   <p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
 
   <%# HIDE the new timeslot link when javascript is enabled.%>
-  <script type='text/javascript' charset='utf-8'>
+ <script type='text/javascript' charset='utf-8'>
     $('#new_time_slot_link').toggle();
   </script>
 <% end %>
@@ -65,7 +65,7 @@
 
 <%= render :partial => 'shifts/schedule/header' %>
 <%= render :partial => 'calendars/schedule/day', :collection => @day_collection %>
-
+<%= render :partial => 'shifts/schedule/footer' %>
 
 <!-- <h2>Shifts:</h2>
 <ul>
@@ -112,12 +112,12 @@
       popup_edit_timeslot($(this), e);
       return false;
     });
-    
+
     $(element+' a.click_to_delete_repeating_shift').click(function (e) {
       popup_delete_repeating_shift($(this), e);
       return false;
     });
-    
+
     $(element+' a.click_to_delete_repeating_timeslot').click(function (e) {
       popup_delete_repeating_timeslot($(this), e);
       return false;
@@ -131,11 +131,11 @@
     // $(element+' li.click_to_edit_shift a').click(function (e) {
     //   e.stopPropagation();
     // });
-    
+
     $(element+' li.click_to_edit_shift a.delete_link').click(function (e) {
       e.stopPropagation();
     });
-    
+
     $(element+' li.click_to_edit_timeslot a.delete_link').click(function (e) {
       e.stopPropagation();
     });
@@ -193,7 +193,7 @@
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
-  
+
   function popup_delete_repeating_shift(parent_element, e){
     $("#tooltip").remove();
 
@@ -202,7 +202,7 @@
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
-  
+
   function popup_delete_repeating_timeslot(parent_element, e){
     $("#tooltip").remove();
 

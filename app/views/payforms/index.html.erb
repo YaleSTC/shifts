@@ -1,18 +1,19 @@
 <% title "Payforms" %>
-
+<% if current_user.is_admin_of?(current_department) %>
 <div id="searchbox" style="margin-bottom: 1em">
   <% form_tag(payforms_path, :method => :get) do %>
     Search for a user: <%= text_field_tag :search %>
     <%= submit_tag "Submit", :id => "search_submit" %>
   <% end %>
 </div>
+<% end %>
 
 <script type="text/javascript">
   $('input#search_submit').toggle();
 </script>
 
 <%= observe_field :search, :frequency => 0.2, 
-                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :approved => params[:approved], :printed => params[:printed]}, 
+                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :skipped => params[:skipped], :approved => params[:approved], :printed => params[:printed]}, 
                            :with => :search %>
 
 
@@ -21,6 +22,9 @@
   <%= render :partial => "payform_list" %>
 </div>
 <br/>
-<%= link_to "<span>Print all approved payforms</span>", payform_sets_path, :method => :post, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
-<%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :method => :delete, :class=>"button" %>
+
 <%= link_to "<span>Your Current Payform</span>", go_payforms_path, :class=>"button" %>
+<% if current_user.is_admin_of?(current_department) %>
+	<%= link_to "<span>Print all approved payforms</span>", payform_sets_path, :method => :post, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
+	<%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :method => :delete, :class=>"button" %>
+<% end %>

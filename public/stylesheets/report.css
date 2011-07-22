@@ -4,7 +4,7 @@
 }
 
 #active_report_area {
-  width: 98.6%;
+  width: 99%;
   border-style:solid;
   clear: both;
   background-color: #ddd;
@@ -12,9 +12,13 @@
 }
 
 #report_relative_size {
-  width: 49.5%;
+  width: 50%;
   float: right;
   clear: right;
+}
+
+#announcement_link {
+	float: right;
 }
 
 #report_view  {
@@ -23,11 +27,11 @@
   margin-top: 5px;
 }
 
-#report_view .list_report_item_even {
+tr.list_report_item_even {
   background:   #f5f5f5;
 }
 
-#report_view .list_report_item_odd {
+tr.list_report_item_odd {
   background:   #e6e6fa;
 }
 
@@ -64,6 +68,7 @@
 
 #report_view_table td.report_item_content{
   word-wrap: break-word;
+  max-width: 50px;
 }
 
 #report_view_table td.timestamp{
@@ -71,16 +76,34 @@
   padding: 4px;
 }
 
-#useful_links_div {
-  width: 49.5%;
-  float: right;
-  margin-bottom: 5px
+#useful_links {
+  width: 48%;
+	float: right;
+  margin-bottom: 5px;
 }
 
-#useful_links_div fieldset {
-  padding: 5px;
-  border: 1px solid gray;
-  background-color:#DDDDFF
+#report_data_objects {
+  width: 48%;
+  float: right;
+  margin-bottom: 5px;
+}
+
+#shift_tasks {
+  width: 48%;
+  float: right;
+  margin-bottom: 5px;
+}
+
+#report_view_table td.user_name{
+  width: 100px;
+  padding: 4px;
+}
+
+#report_message_center {
+	width: 390px;
+	float: left;
+	clear: right;
+	margin-bottom: 5px;
 }
 
 textarea#item {
@@ -88,20 +111,7 @@ textarea#item {
   height:90%;
 }
 
-#report_data_objects {
-  width: 49.5%;
-  float: left;
-  margin-bottom: 5px
-}
-
-#report_data_objects fieldset {
-  padding: 5px;
-  border: 1px solid gray;
-  background-color:#DDDDFF
-}
-
 #submit_button {
   float: right;
   clear: right;
 }
-

@@ -1,9 +1,8 @@
 page.remove "#tooltip"
-@time_slots.each do |time_slot|
-  page.insert_html :bottom, "location#{time_slot.location.id}_#{time_slot.start.strftime("%Y-%m-%d")}_timeslots", :partial => "time_slots/time_slot", :object => time_slot
-  page["#timeslot#{time_slot.id}"].visual_effect :highlight
-  page << "$('#timeslot#{time_slot.id}').click(function (e) {popup_edit_timeslot($(this), e); return false;});"
+
+  page.insert_html :bottom, "location#{@time_slot.location.id}_#{@time_slot_day.strftime("%Y-%m-%d")}_timeslots", :partial => "time_slots/time_slot", :object => @time_slot, :locals => {:time_slot_day => @time_slot_day}
+  page["#timeslot#{@time_slot.id}"].visual_effect :highlight
+  page << "$('#timeslot#{@time_slot.id}').click(function (e) {popup_edit_timeslot($(this), e); return false;});"
 
   # display alert
   ajax_alert(page, "timeslot created");
-end

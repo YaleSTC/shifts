@@ -1,4 +1,5 @@
-<%= unobtrusive_datepicker_include_tags %>
+<% calculate_default_times_repeating_events %>
+
 <% form_for @repeating_event do |f| %>
   <%if @errors%>
 <strong>The repeating event could not be applied for the following reasons</strong>
@@ -10,11 +11,11 @@
 <%end%>
   <p>
     <%= f.label :start_date %><br />
-    <%= f.date_select :start_date %>
+    <%= f.date_select :start_date, :default => @default_start_date.previous_sunday.to_date %>
   </p>
   <p>
     <%= f.label :end_date %><br />
-    <%= f.date_select :end_date %>
+    <%= f.date_select :end_date, :default => @default_start_date.previous_sunday.to_date + 6.days %>
   </p>
   <p>
     <%= f.label :calendar %><br />
@@ -34,11 +35,32 @@
   </p>
   <p>
     <%= f.label :start_time %><br />
-    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => Time.now %>
+    <%= f.time_select :start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => @repeating_event.start_time
+#                :default => Time.now.to_date + current_department.department_config.schedule_start.minutes,
+                                          } %>
   </p>
   <p>
     <%= f.label :end_time %><br />
-    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => Time.now + 1.hour %>
+    <%= f.time_select :end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => @repeating_event.end_time
+#                :default => Time.now.to_date + current_department.department_config.schedule_end.minutes,
+                                          } %>
   </p>
     <p>
     <%= f.label "wipe_conflicts?" %><br />
@@ -53,17 +75,27 @@
 <div id = "time_slot_fields">
   <h3> Time Slot </h3>
 
-  <% @department.loc_groups.each do |loc_group| %>
-    <% unless loc_group.locations.empty? %>
-      <p>
-        <strong><%= loc_group.name %></strong><br/>
-        <% loc_group.locations.each do |loc| %>
-          <%= check_box_tag "location_ids[]", loc.id, @repeating_event.location_ids && @repeating_event.location_ids.include?(loc.id), {:id => "location_#{loc.id}"} %>
-          <%= loc.short_name %>
-        <% end %>
-      </p>
+  <p>
+  <%# isn't this view restricted to admins anyway? %>
+		<%# if current_user.is_admin_of?(current_department) %>
+	 		<%#= check_box_tag :department_wide_locations, current_department.id, false, :style => "display: none;" %>
+    	<%#= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
+		<%# end %>
+
+	<div id = "all_locations">
+    <% for loc_group in current_department.loc_groups do %>
+			<li id = "repeating_event_li">
+	      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked?(loc_group, @repeating_event), :style => "display: none;", :class => "only_js" %>
+	      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
+	      <% for location in loc_group.locations do %>
+	        <%= check_box_tag "for_locations[]", location.id, location_checked?(location, @repeating_event) %>
+	        <%= label_tag "location_#{location.id}", text = location.short_name %>
+	        <% unless location == loc_group.locations.last %> , <%end%>
+	      <% end %>
+	    </li>
     <% end %>
-  <%- end -%>
+  	</div>
+
   </p>
 </div>
 <div id="shift_fields">
@@ -75,7 +107,8 @@
     </p>
   <p>
     <%= f.label :location %><br />
-    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @repeating_event.location_ids ? @repeating_event.location_ids[0] : nil)%><br />
+    <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @repeating_event.location_ids ? @repeating_event.location_ids[0] : nil)%><br/>
+
   </p>
 
 </div>
@@ -84,4 +117,28 @@
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"repeating_event_start_date_3i":"j",
+                              "repeating_event_start_date_1i":"Y",
+                              "repeating_event_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"repeating_event_end_date_3i":"j",
+                              "repeating_event_end_date_1i":"Y",
+                              "repeating_event_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
 

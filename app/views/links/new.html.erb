@@ -1,0 +1,24 @@
+<br/>
+<% form_remote_for(@link) do |f| %>
+  <div id ="errors">
+    <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
+  </div>
+	<fieldset class = "index">
+		<legend>Link label</legend>
+		<%= f.text_area :content, :id=>"content", :size => "30x1" %>
+	</fieldset>
+      
+	<fieldset class = "index">
+		<legend>URL</legend>
+		<%= f.text_area :url, :id=>"url", :size => "50x3" %>
+	</fieldset>
+	<div id="variable_height_box">
+		<%= render :partial => "notices/locations", :locals => {:notice => @link} %> 
+	</div>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+<%= javascript_include_tag 'notices' %> 
+<%=  stylesheet_link_tag 'notice' %>

@@ -1,0 +1,12 @@
+<%# REQUESTED SHIFTS %>
+<% rows = current_user.requested_shifts %>
+<div class="event-group-title" style="height:<%=rows.length*25 + (rows.length-1)%>px;line-height:<%=rows.length*25 + (rows.length-1)%>px">Requested</div>
+<% if rows.empty? %>
+  <ul class="event-row"></ul>
+<% else %> 
+  <% for row in rows %>
+    <ul class="event-row">
+      <%= render :partial => "/requested_shifts/schedule/event", :object => row, :locals => {:location => event_group} %>
+    </ul>
+  <% end %>
+<% end %>

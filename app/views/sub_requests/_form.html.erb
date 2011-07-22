@@ -1,32 +1,77 @@
-<% unobtrusive_datepicker_includes %>
+<% calculate_default_times %>
 
 <% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
-  <% @shift = Shift.find(params[:shift_id]) if params[:shift_id] %>
   <div id ="errors">
     <%= render :partial => "error_messages", :locals => {:f => f} %>
   </div>
 
   <p><h3>Time that you need someone to take for this sub request:</h3></p>
+<%
+
+%>
+
   <p>
-    <%= f.label "Start" %><br />
-    <%= f.unobtrusive_datetime_picker :mandatory_start, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.mandatory_start : @shift.start) %>
+    <%= f.label :start %><br />
+    <%= f.hidden_field :mandatory_start_date, :value => @default_start_date %>
+    <%= f.time_select :mandatory_start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+                :start_time => @sub_request.shift.start,
+                :end_time => @sub_request.shift.end,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => @sub_request.mandatory_start
+    } %>
+
   </p>
   <p>
-    <%= f.label "End" %><br />
-    <%= f.unobtrusive_datetime_picker :mandatory_end, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.mandatory_end : @shift.end) %>
+    <%= f.label :end %><br />
+    <%#= f.hidden_field :mandatory_end_date, :value => @default_end_date %>
+    <%= f.time_select :mandatory_end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+                :start_time => @sub_request.shift.start,
+                :end_time => @sub_request.shift.end,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => @sub_request.mandatory_end,
+    } %>
+
   </p>
   <p><h3>Maximum amount of time you're willing to give up (bribe):</h3></p>
   <p>
     <%= f.label :start %><br />
-    <%= f.unobtrusive_datetime_picker :start, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.start : @shift.start) %>
+    <%= f.hidden_field :start_date, :value => @sub_request.shift.start.to_date%>
+    <%= f.time_select :start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+                :start_time => @sub_request.shift.start,
+                :end_time => @sub_request.shift.end,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => @sub_request.start,
+                                          } %>
   </p>
   <p>
     <%= f.label :end %><br />
-    <%= f.unobtrusive_datetime_picker :end, :minute_step => @department.department_config.time_increment, :default => (params[:id] ? @sub_request.end : @shift.end) %>
-  </p>
-  <p>
-    <%= label_tag "Leave blank to send to everyone eligible in <b>#{@sub_request.shift.location.loc_group.name}</b>, or specify below" %><br />
-    <%= tokenized_users_autocomplete(@sub_request, "user_sources", "list_of_logins") %>
+    <%#= f.hidden_field :end_date, :value => @sub_request.shift.end.to_date %>
+    <%= f.time_select :end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+                :start_time => @sub_request.shift.start,
+                :end_time => @sub_request.shift.end,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => @sub_request.end,
+                                          } %>
+
+  </p><p>
+	    <%= f.label :selected_users, "Leave blank to send to everyone eligible in <b>#{@sub_request.shift.location.loc_group.name}</b>, or specify individual users below" %><br />
+	    <%= tokenized_users_autocomplete @sub_request, :requested_users, :hint_text => "Type a netID or name", :style => "facebook", :classes => ["User"] %>
   </p>
   <p>
     <%= f.label :reason %><br />

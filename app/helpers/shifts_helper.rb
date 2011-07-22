@@ -97,6 +97,50 @@ module ShiftsHelper
     @open_at[time.to_s(:am_pm)] && people_count[time.to_s(:am_pm)] < location.min_staff
   end
 
+#calculates whether the student is signing into a shift earlier than the allowed dept time
+  def within_sign_in_window?(shift)
+    (shift.start - Time.now)  <=  current_department.department_config.early_signin.minutes
+  end
+
+#calculates default_start/end and range_start/end_time
+  def calculate_default_times
+    if @shift.new_record? #true for new html&tooltip
+      @default_start_date = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+    else # true for edit html&tooltip
+      @default_start_date = @shift.start
+    end
+    
+    #set default range for time_select box. Not limited by time_slot since user not in ToolTip view
+    #the date doesn't matter for range_start_time, only the time
+      @range_start_time = Date.today.to_time + current_department.department_config.schedule_start.minutes
+      @range_end_time = Date.today.to_time  + current_department.department_config.schedule_end.minutes 
+
+    if params[:xPercentage] #Using ToolTip view
+        @shift.start = @default_start_date
+        @dept_start_minutes ||= current_department.department_config.schedule_start
+        @dept_end_minutes ||= current_department.department_config.schedule_end
+        @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
+        @shift.start += @dept_start_minutes.minutes
+        @shift.start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
+        #if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
+        #if the schedule starts at 9:30, I'm not sure what happens ~Casey
+        @shift.end = @shift.start + 1.hour   
+      #limit time_select range to valid time_slots (note: this only applys to ToolTip view)
+        timeslot_start = TimeSlot.overlaps(@shift.start, @shift.end).ordered_by_start.first
+        timeslot_end = TimeSlot.overlaps(@shift.start, @shift.end).ordered_by_start.last
+        if timeslot_start && timeslot_end && !params[:power_signed_up]
+          @range_start_time = timeslot_start.start
+          @range_end_time = timeslot_end.end
+        end
+    else   # Not using ToolTip View 
+      #start already exists when editing, this just sets it for the new html view
+        @shift.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
+        @shift.end ||= @shift.start + 1.hour
+    end
+end
+
+
+
   def day_preprocessing(day)
     @location_rows = {}
 
@@ -122,8 +166,12 @@ module ShiftsHelper
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
-
-    shifts = Shift.active.in_locations(@visible_locations).on_day(day).scheduled #TODO: .active
+    #adding the option to view unscheduled shifts   
+    if current_department.department_config.unscheduled_shifts == true
+        shifts = Shift.active.in_locations(@visible_locations).on_day(day) #TODO: .active
+    else
+      shifts = Shift.active.in_locations(@visible_locations).on_day(day).scheduled
+    end
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 
@@ -281,3 +329,4 @@ module ShiftsHelper
   end
 
 end
+

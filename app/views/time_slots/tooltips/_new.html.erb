@@ -1,7 +1,5 @@
+<%= render :partial => '/tooltips/close_tooltip'%>
 
-  <div class="close_link">
-    <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
-  </div>
   <h2>Add New Time Slot</h2>
 
   <% if current_user.is_admin_of?(@department) %>
@@ -13,46 +11,7 @@
   <div class="toggle_me">
     <% remote_form_for @time_slot do |f| %>
       <%= f.error_messages %>
-      <% if params[:calendar] %>
-        <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
-      <% else %>
-        <p>
-          <%= f.label :calendar %><br />
-          <%= select_tag 'time_slot[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%>
-        </p>
-      <% end %>
-      <%= hidden_field_tag "days[]", Time.parse(params[:date]).wday %>
-      <p>
-        <%
-          if params[:xPercentage]
-            @dept_start_hour = current_department.department_config.schedule_start / 60
-            @dept_end_hour = current_department.department_config.schedule_end / 60
-            @hours_per_day = (@dept_end_hour - @dept_start_hour)
-            start_time = Date.today.to_time + @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f) * 3600
-          else
-            start_time = Time.now
-          end
-        %>
-        <%= f.label :start %><br />
-        <%= f.time_select :start, :default => start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-      </p>
-      <p>
-        <%= f.label :end %><br />
-        <%= f.time_select :end, :default => start_time + 1.hour, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %>
-      </p>
-      <% @department.loc_groups.each do |loc_group| %>
-        <% unless loc_group.locations.empty? %>
-          <p>
-            <strong><%= loc_group.name %></strong><br/>
-            <% loc_group.locations.each_with_index do |loc, i| %>
-              <%= check_box_tag "location_ids[]", loc.id, params[:location_id] == loc.id.to_s, {:id => "location_#{loc.id}"} %>
-              <%= loc.short_name %><%= "<br>" if i % 5 == 4 %>
-            <% end %>
-          </p>
-        <% end %>
-      <%- end -%>
-      </p>
-      <%= (hidden_field_tag 'date', params[:date]) if params[:date] %>
+      <%= render :partial => 'time_slots/form', :locals => {:f => f}  %>
       <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create' } %></p>
     <% end %>
   </div>
@@ -66,3 +25,4 @@
       <% end %>
     </div>
   <% end %>
+

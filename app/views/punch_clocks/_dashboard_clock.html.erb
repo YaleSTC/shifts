@@ -1,4 +1,8 @@
+<% if !dashboard_clock.paused? %>
       <%= render :partial => 'punch_clocks/punch_clock_timer', :object => current_user.punch_clock %>
+<% else %>
+	<h2> Paused at <%= dashboard_clock.running_time %> </h2>
+<% end %>
       <%= image_tag("icons/clock_pause.png", :class => "mini_icon") %>
       <% if dashboard_clock.paused? %>
         <%= link_to "Unpause Clock", punch_clock_path(dashboard_clock, :unpause => true), :method => :put %>

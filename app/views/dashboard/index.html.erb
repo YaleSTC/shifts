@@ -1,11 +1,12 @@
+<div id = "notice"></div>
 <% title "My Dashboard" %>
 
-<% unless current_user.notices.empty? %>
-  <%= render :partial => 'notices/for_you' %>
-<% end %>
+
+
 
 <div id="left_stuff">
-
+  
+  
   <fieldset class="index" id="shifts">
     <legend>Your Shifts</legend>
       <h4>Current Shift</h4>
@@ -33,6 +34,7 @@
           <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
         </ul>
     <% end %>
+	<span style="float:right;text-align:right;margin-top:1em"><%= link_to "All Subs", sub_requests_path %></span>
   </fieldset>
 
   <fieldset class="index" id="punch_clock">
@@ -46,11 +48,23 @@
   </fieldset>
 
   </div>
+ 
   <div id="right_stuff">
-
+    
+    <fieldset class ="index" id="notices_for_you">
+      <legend>Announcements</legend>
+        <%= render :partial => 'notices/dashboard' %>
+    </fieldset>
+    
     <fieldset class="index" id="shifts">
       <legend>Active Shifts</legend>
         <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
+    </fieldset>
+
+    <fieldset class="index" id="shift_stats">
+      <legend>Shift Statistics</legend>
+				<% @summary = current_user.summary_stats(Date.today - 7, Date.today) %>
+				<%= render :partial => 'stats/stats_summary', :object => @summary %>
     </fieldset>
 
     <% unless @watched_objects.empty? %>
@@ -64,8 +78,10 @@
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
-  <legend>Today's schedule</legend>
-  <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
+  <legend>Daily Schedule</legend>
+  <%= link_to "&lt;&lt; Previous", :date => (@current_date - 1)-%>
+  <span style="float:right;text-align:right;"><%= link_to "Next &gt;&gt;", :date => (@current_date + 1)%></span>
+  <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
 </fieldset>
 <% end %>
 

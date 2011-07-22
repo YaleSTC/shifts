@@ -1,0 +1,49 @@
+<% form_for(@week_template) do |f| %>
+  <%= f.error_messages %>  
+	<p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label "Maximum hours per week" %><br />
+    <%= f.text_field :max_total_hours %>
+  </p>
+  <p>
+    <%= f.label "Minimum hours per week" %><br />
+    <%= f.text_field :min_total_hours %>
+  </p>
+  <p>
+    <%= f.label "Maximum number of shifts per week" %><br />
+    <%= f.text_field :max_number_of_shifts %>
+  </p>
+  <p>
+    <%= f.label "Minimum number of shifts per week" %><br />
+    <%= f.text_field :min_number_of_shifts %>
+  </p>
+	<p>
+    <%= f.label "Maximum continuous hours per day" %><br />
+    <%= f.text_field :max_continuous_hours %>
+  </p>
+  <p>
+    <%= f.label "Minimum continuous hours per day" %><br />
+    <%= f.text_field :min_continuous_hours %>
+  </p>
+  <p>
+    <%= f.label "Maximum hours per day" %><br />
+    <%= f.text_field :max_hours_per_day %>
+  </p>
+	Enable this template for the following roles:
+	<% current_department.roles.each do |role| %>
+		<%= check_box_tag "for_role[]", role.id %>
+		<%= label_tag "role_#{role.id}", text = role.name %>
+		<%= ", " unless role == current_department.roles.last %>
+	<% end %>
+	<p>
+		Let users add their requested shifts to this template:
+		<%= check_box_tag :public %>
+	</p>
+
+	<p>
+    <%= f.submit 'Save' %>
+	<p>
+<% end %>

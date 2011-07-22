@@ -1,0 +1,14 @@
+if @link.errors.empty? 
+	if current_user.current_shift
+		page.replace_html "report_links", :partial => 'report_links'
+	else
+		page.replace_html "dashboard_links", :partial => 'dashboard_links'
+		page.replace_html "links_index", :partial => 'links_index'	
+  end
+	page << "tb_remove();"
+	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	flash.discard
+else
+  page.replace_html "errors", :partial => 'notices/error_messages'
+end
+

@@ -2,15 +2,15 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :date %><br />
-    <%= f.collection_select :date, days_in_period(@payform), :to_s, :to_s, {:selected => (@payform_item.date || Date.today).to_s} %>
+    <%= f.collection_select :date, days_in_period(@payform_item.payform).reverse, :to_s, :to_weekday_date, {:selected => (@payform_item.date || Date.today).to_s} %>
   </p>
   <p>
     <%= f.label :hours %><br />
     <%= radio_button_tag "calculate_hours", "user_input", true %><strong>Input</strong>
-    <%= select_integer(:other, :hours, 0, 15, selected_hours(@payform_item) )%> hrs
-    <%= select_integer(:other, :minutes, 0, 59, selected_min(@payform_item) )%> min<br />
+    <%= select_integer(:other, :hours, 0, 15, 1, selected_hours(@payform_item) )%> hrs
+    <%= select_integer(:other, :minutes, 0, 55, 5, selected_min(@payform_item) )%> min<br />
     <%= radio_button_tag "calculate_hours", "time_input", false %><strong>Compute</strong>
-    <%= time_select "time_input", "start", {:twelve_hour => true}, {:value => 1.hour.ago} %> to 
+    <%= time_select "time_input", "start", {:twelve_hour => true}, {:value => 1.hour.ago} %> to
     <%= time_select "time_input", "end", {:twelve_hour => true} %>
   </p>
   <p>

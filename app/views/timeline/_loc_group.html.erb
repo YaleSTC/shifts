@@ -1,0 +1,2 @@
+<%= render :partial => "shifts/schedule/location", :collection => Location.active.in_group(loc_group).sort_by(&:short_name).reverse.sort_by(&:priority).reverse, :locals => {:day => day} %>
+<div class="day divider" style="height: <%= @divider_height %>px;"></div>

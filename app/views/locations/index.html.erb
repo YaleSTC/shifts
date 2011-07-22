@@ -10,23 +10,26 @@
         <th>Max Staff</th>
         <th>Priority</th>
         <th>Min Staff</th>
+        <th>Shifts</th>
       </tr>
     </thead>
     <tbody>
       <%- group.locations.sort_by{ |loc| [- loc.priority, loc.name] }.each do |loc| -%>
-        <tr>
+        <tr<%= " class='disabled'" if !loc.active %> id="loc<%= loc.id %>">
           <td><%= link_to loc.name, edit_location_path(loc) %></td>
           <td><%= loc.short_name %></td>
           <td><%= loc.report_email ? loc.report_email : "-" %></td>
           <td><%= loc.max_staff %></td>
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
-          <td><%= link_to "Delete Location", loc, :confirm => 'Are you sure?', :method => :delete %></td>
+		  <td><%= link_to "All Shifts", :action => :display_report_items, :id => loc %> </td>
+          <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
+		  <!--  td><%= link_to "Delete Location", loc, :confirm => 'Are you sure?', :method => :delete %></td  -->
         </tr>
       <% end -%>
     </tbody>
   </table>
-<% end -%>  
+<% end -%>
 <br />
 <%= render :partial => 'form', :locals => {:title => "Create a new location"} %>
 

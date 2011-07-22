@@ -1,15 +1,5 @@
-<%= unobtrusive_datepicker_include_tags %>
+<% calculate_default_times_repeating_events %>
 
-<%
-  if params[:xPercentage]
-    @dept_start_hour = current_department.department_config.schedule_start / 60
-    @dept_end_hour = current_department.department_config.schedule_end / 60
-    @hours_per_day = (@dept_end_hour - @dept_start_hour)
-    start_time = Date.today.to_time + @dept_start_hour.hours + (@hours_per_day * params[:xPercentage].to_f) * 3600
-  else
-    start_time = Time.now
-  end
-%>
 <p style="margin-top: -10px">
   <%= check_box_tag "whole_calendar", "1", false, :onclick => "$('#date_selects').toggle()" %> Apply to entire calendar (does not work on default calendar)
 </p>
@@ -18,33 +8,57 @@
   <div id="date_selects">
     <p>
       <%= f.label :start_date %><br />
-      <%= f.date_select :start_date, :default => start_time %>
+      <%= f.date_select :start_date, :default => @default_start_date.previous_sunday.to_date %>
     </p>
     <p>
       <%= f.label :end_date %><br />
-      <%= f.date_select :end_date, :default => start_time %>
+      <%= f.date_select :end_date, :default => @default_start_date.previous_sunday.to_date + 6.days %>
     </p>
   </div>
   <p>
     <%= f.label :start_time %><br />
-    <%= f.time_select :start_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => start_time %>
+    <%= f.time_select :start_time, {
+            :simple_time_select => true,
+            :time_separator => "",
+            :minute_interval => @department.department_config.time_increment,
+
+            :start_time => @range_start_time,
+            :end_time => @range_end_time,
+
+            :default => @repeating_event.start_time,
+            :include_start_time => true,
+            :include_end_time => false,
+                                      } %>
   </p>
   <p>
     <%= f.label :end_time %><br />
-    <%= f.time_select :end_time, :minute_step => current_department.department_config.time_increment, :twelve_hour => true, :default => start_time + 1.hour %>
+    <%= f.time_select :end_time, {
+            :simple_time_select => true,
+            :time_separator => "",
+            :minute_interval => @department.department_config.time_increment,
+
+            :start_time => @range_start_time,
+            :end_time => @range_end_time,
+
+            :default => @repeating_event.end_time,
+            :include_start_time => false,
+            :include_end_time => true,
+                                      } %>
   </p>
   <p>
-    <% @department.loc_groups.each do |loc_group| %>
-      <% unless loc_group.locations.empty? %>
-        <p>
-          <strong><%= loc_group.name %></strong><br/>
-          <% loc_group.locations.each_with_index do |loc, i| %>
-            <%= check_box_tag "location_ids[]", loc.id, @repeating_event.location_ids && @repeating_event.location_ids.include?(loc.id), {:id => "location_#{loc.id}"} %>
-            <%= loc.short_name %><%= "<br>" if i % 5 == 4 %>
-          <% end %>
-        </p>
-      <% end %>
-    <%- end -%>
+	<div id = "all_locations">
+    <% for loc_group in current_department.loc_groups do %>
+			<li id = "repeating_event_li">
+	      <%= check_box_tag "for_location_groups[]", loc_group.id, false, :style => "display: none;" %>
+	      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
+	      <% loc_group.locations.each_with_index do |location, i| %>
+	        <%= check_box_tag "for_locations[]", location.id, (@repeating_event.location_ids && @repeating_event.location_ids.include?(location.id)) %>
+	        <%= label_tag "location_#{location.id}", text = location.short_name -%>
+          <%= "<br>" if (i == 1) || ((i-2) % 5 == 4) %>
+	      <% end %>
+	    </li>
+    <% end %>
+  	</div>
   </p>
 </div>
 <div style="float:left; margin-left: 7px; padding-left: 7px; border-left: 1px solid black">
@@ -54,7 +68,7 @@
   </p>
   <p>
     <% params[:date] ? default_day = Time.parse(params[:date]).wday : false %>
-    <strong>Days:</strong><br />
+    <i>Days:</i><br />
     <% WEEK_DAYS.each_with_index do |day, i| %>
       <%= check_box_tag "days[]", i, ((i == default_day) or (@repeating_event.days && @repeating_event.days.include?(day))), {:id => "days_#{i}"} %>
       <%= day %><br>
@@ -66,3 +80,27 @@
   </p>
   <%= f.hidden_field :slot_or_shift, :value => "time_slot"%>
 </div>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"repeating_event_start_date_3i":"j",
+                              "repeating_event_start_date_1i":"Y",
+                              "repeating_event_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"repeating_event_end_date_3i":"j",
+                              "repeating_event_end_date_1i":"Y",
+                              "repeating_event_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
+

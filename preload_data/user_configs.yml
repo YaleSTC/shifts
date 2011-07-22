@@ -1,226 +1,1751 @@
 --- 
 user_configs_001: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-08 01:29:32
   default_dept: "1"
   id: "1"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "13"
-  view_loc_groups: ""
-  view_week: ""
+  taken_sub_email: "1"
+  updated_at: 2010-10-12 23:29:48
+  user_id: "1"
+  view_loc_groups: 1, 2, 4
+  view_week: whole_period
   watched_data_objects: ""
 user_configs_002: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:29
   default_dept: "1"
   id: "2"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "14"
-  view_loc_groups: ""
+  taken_sub_email: "1"
+  updated_at: 2010-03-28 23:16:35
+  user_id: "2"
+  view_loc_groups: "3"
   view_week: ""
   watched_data_objects: ""
 user_configs_003: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:29
   default_dept: "1"
   id: "3"
-  updated_at: 2009-08-06 16:56:41
-  user_id: "15"
-  view_loc_groups: 2, 3
+  taken_sub_email: "1"
+  updated_at: 2009-10-26 23:39:05
+  user_id: "3"
+  view_loc_groups: "3"
   view_week: ""
   watched_data_objects: ""
 user_configs_004: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:29
   default_dept: "1"
   id: "4"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "16"
-  view_loc_groups: ""
-  view_week: ""
-  watched_data_objects: ""
-user_configs_005: 
-  created_at: 2009-06-22 17:42:57
-  default_dept: "1"
-  id: "5"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "17"
-  view_loc_groups: ""
-  view_week: ""
-  watched_data_objects: ""
-user_configs_006: 
-  created_at: 2009-06-22 17:42:57
-  default_dept: "1"
-  id: "6"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "18"
-  view_loc_groups: ""
-  view_week: ""
-  watched_data_objects: ""
-user_configs_007: 
-  created_at: 2009-06-22 17:42:57
-  default_dept: "1"
-  id: "7"
-  updated_at: 2009-07-11 14:39:06
-  user_id: "20"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2010-01-24 17:56:17
+  user_id: "4"
+  view_loc_groups: 1, 2, 3
   view_week: whole_period
   watched_data_objects: ""
+user_configs_005: 
+  created_at: 2009-09-14 02:05:29
+  default_dept: "1"
+  id: "5"
+  taken_sub_email: "1"
+  updated_at: 2009-12-06 19:05:52
+  user_id: "5"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_006: 
+  created_at: 2009-09-14 02:05:30
+  default_dept: "1"
+  id: "6"
+  taken_sub_email: "1"
+  updated_at: 2010-05-02 19:01:11
+  user_id: "6"
+  view_loc_groups: 1, 3
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_007: 
+  created_at: 2009-09-14 02:05:30
+  default_dept: "1"
+  id: "7"
+  taken_sub_email: "1"
+  updated_at: 2010-06-11 14:35:54
+  user_id: "7"
+  view_loc_groups: ""
+  view_week: ""
+  watched_data_objects: ""
 user_configs_008: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "8"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "21"
-  view_loc_groups: ""
+  taken_sub_email: "1"
+  updated_at: 2009-10-02 20:02:49
+  user_id: "8"
+  view_loc_groups: 1, 3
   view_week: ""
   watched_data_objects: ""
 user_configs_009: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "9"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "22"
-  view_loc_groups: ""
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "9"
+  view_loc_groups: 
   view_week: ""
   watched_data_objects: ""
 user_configs_010: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "10"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "23"
-  view_loc_groups: ""
+  taken_sub_email: "1"
+  updated_at: 2010-04-19 18:24:17
+  user_id: "10"
+  view_loc_groups: "3"
   view_week: ""
   watched_data_objects: ""
 user_configs_011: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "11"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "24"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2009-10-31 18:28:12
+  user_id: "11"
+  view_loc_groups: 1, 2, 3
   view_week: whole_period
   watched_data_objects: ""
 user_configs_012: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "12"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "26"
-  view_loc_groups: ""
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:30
+  user_id: "12"
+  view_loc_groups: 
   view_week: ""
   watched_data_objects: ""
 user_configs_013: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "13"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "27"
-  view_loc_groups: ""
-  view_week: ""
+  taken_sub_email: "1"
+  updated_at: 2009-09-23 20:02:01
+  user_id: "13"
+  view_loc_groups: "3"
+  view_week: remainder
   watched_data_objects: ""
 user_configs_014: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "14"
-  updated_at: 2009-06-22 17:56:18
-  user_id: "28"
-  view_loc_groups: ""
+  taken_sub_email: "1"
+  updated_at: 2010-01-16 17:32:17
+  user_id: "14"
+  view_loc_groups: 1, 2, 3, 4
   view_week: ""
   watched_data_objects: ""
 user_configs_015: 
-  created_at: 2009-06-30 19:58:09
-  default_dept: 
-  id: "19"
-  updated_at: 2009-06-30 19:58:09
-  user_id: "49"
-  view_loc_groups: ""
-  view_week: ""
+  created_at: 2009-09-14 02:05:30
+  default_dept: "1"
+  id: "15"
+  taken_sub_email: "1"
+  updated_at: 2010-01-27 15:33:14
+  user_id: "15"
+  view_loc_groups: 1, 2, 3
+  view_week: remainder
   watched_data_objects: ""
 user_configs_016: 
-  created_at: 2009-06-30 19:58:26
-  default_dept: 
+  created_at: 2009-09-14 02:05:30
+  default_dept: "1"
   id: "16"
-  updated_at: 2009-06-30 19:58:26
-  user_id: "50"
-  view_loc_groups: ""
+  taken_sub_email: "1"
+  updated_at: 2009-09-21 02:45:45
+  user_id: "16"
+  view_loc_groups: 1, 2, 3
   view_week: ""
   watched_data_objects: ""
 user_configs_017: 
-  created_at: 2009-06-30 20:23:05
-  default_dept: 
+  created_at: 2009-09-14 02:05:30
+  default_dept: "1"
   id: "17"
-  updated_at: 2009-06-30 20:23:05
-  user_id: "51"
-  view_loc_groups: ""
-  view_week: ""
+  taken_sub_email: "1"
+  updated_at: 2009-11-19 15:58:14
+  user_id: "17"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
   watched_data_objects: ""
 user_configs_018: 
-  created_at: 2009-07-10 12:59:25
-  default_dept: 
+  created_at: 2009-09-14 02:05:30
+  default_dept: "1"
   id: "18"
-  updated_at: 2009-07-10 12:59:25
-  user_id: "52"
-  view_loc_groups: ""
-  view_week: ""
+  taken_sub_email: "1"
+  updated_at: 2010-06-10 19:15:40
+  user_id: "18"
+  view_loc_groups: 1, 2
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_019: 
+  created_at: 2009-09-14 02:05:30
+  default_dept: "1"
+  id: "19"
+  taken_sub_email: "1"
+  updated_at: 2010-01-27 14:09:46
+  user_id: "19"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: current_day
   watched_data_objects: ""
 user_configs_020: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:30
   default_dept: "1"
   id: "20"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "99"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2009-12-12 22:41:25
+  user_id: "20"
+  view_loc_groups: 1, 2, 3
   view_week: whole_period
   watched_data_objects: ""
 user_configs_021: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:31
   default_dept: "1"
   id: "21"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "100"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2010-04-07 19:10:10
+  user_id: "21"
+  view_loc_groups: 1, 2, 4
   view_week: whole_period
   watched_data_objects: ""
 user_configs_022: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:31
   default_dept: "1"
   id: "22"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "101"
-  view_loc_groups: 2, 3, 4
-  view_week: whole_period
+  taken_sub_email: "1"
+  updated_at: 2009-09-21 10:40:26
+  user_id: "22"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: remainder
   watched_data_objects: ""
 user_configs_023: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:31
   default_dept: "1"
   id: "23"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "102"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2010-01-20 21:39:58
+  user_id: "23"
+  view_loc_groups: "2"
   view_week: whole_period
   watched_data_objects: ""
 user_configs_024: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:31
   default_dept: "1"
   id: "24"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "103"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2009-11-17 15:56:54
+  user_id: "24"
+  view_loc_groups: 1, 2, 3, 4
   view_week: whole_period
   watched_data_objects: ""
 user_configs_025: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:31
   default_dept: "1"
   id: "25"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "104"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2009-10-05 17:32:32
+  user_id: "25"
+  view_loc_groups: 1, 2, 4
   view_week: whole_period
   watched_data_objects: ""
 user_configs_026: 
-  created_at: 2009-06-22 17:42:57
+  created_at: 2009-09-14 02:05:31
   default_dept: "1"
   id: "26"
-  updated_at: 2009-10-19 15:51:49
-  user_id: "105"
-  view_loc_groups: 2, 3, 4
+  taken_sub_email: "1"
+  updated_at: 2009-10-07 16:38:21
+  user_id: "26"
+  view_loc_groups: 1, 2, 3
   view_week: whole_period
-  watched_data_objects: ""  
+  watched_data_objects: ""
+user_configs_027: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "27"
+  taken_sub_email: "1"
+  updated_at: 2010-10-06 18:53:46
+  user_id: "27"
+  view_loc_groups: 1, 2, 3, 4, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_028: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "28"
+  taken_sub_email: "1"
+  updated_at: 2009-10-15 15:31:23
+  user_id: "28"
+  view_loc_groups: 1, 2
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_029: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "29"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "29"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_030: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "30"
+  taken_sub_email: "1"
+  updated_at: 2009-12-14 23:44:17
+  user_id: "30"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_031: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "31"
+  taken_sub_email: "0"
+  updated_at: 2010-09-30 19:32:12
+  user_id: "31"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_032: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "32"
+  taken_sub_email: "1"
+  updated_at: 2010-10-08 06:34:46
+  user_id: "32"
+  view_loc_groups: 1, 2, 3, 5, 6
+  view_week: ""
+  watched_data_objects: ""
+user_configs_033: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "33"
+  taken_sub_email: "1"
+  updated_at: 2009-09-29 23:53:40
+  user_id: "33"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_034: 
+  created_at: 2009-09-14 02:05:31
+  default_dept: "1"
+  id: "34"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:31
+  user_id: "34"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_035: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "35"
+  taken_sub_email: "0"
+  updated_at: 2010-09-29 00:20:32
+  user_id: "35"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_036: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "36"
+  taken_sub_email: "1"
+  updated_at: 2010-09-25 03:12:48
+  user_id: "36"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: ""
+  watched_data_objects: ""
+user_configs_037: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "37"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "37"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_038: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "38"
+  taken_sub_email: "0"
+  updated_at: 2010-10-06 18:12:52
+  user_id: "38"
+  view_loc_groups: 1, 2
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_039: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "39"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "39"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_040: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "40"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "40"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_041: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "41"
+  taken_sub_email: "1"
+  updated_at: 2010-08-27 14:05:43
+  user_id: "41"
+  view_loc_groups: 1, 2, 3, 5
+  view_week: ""
+  watched_data_objects: ""
+user_configs_042: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "42"
+  taken_sub_email: "1"
+  updated_at: 2010-09-23 20:49:17
+  user_id: "42"
+  view_loc_groups: 1, 2
+  view_week: ""
+  watched_data_objects: ""
+user_configs_043: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "43"
+  taken_sub_email: "1"
+  updated_at: 2009-10-26 19:02:13
+  user_id: "43"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_044: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "44"
+  taken_sub_email: "1"
+  updated_at: 2010-10-12 04:06:06
+  user_id: "44"
+  view_loc_groups: 1, 2
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_045: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "45"
+  taken_sub_email: "1"
+  updated_at: 2009-09-21 05:34:28
+  user_id: "45"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_046: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "46"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "46"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_047: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "47"
+  taken_sub_email: "1"
+  updated_at: 2010-01-22 01:11:15
+  user_id: "47"
+  view_loc_groups: 1, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_048: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "48"
+  taken_sub_email: "1"
+  updated_at: 2009-11-10 06:15:51
+  user_id: "48"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_049: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "49"
+  taken_sub_email: "1"
+  updated_at: 2009-10-21 15:07:50
+  user_id: "49"
+  view_loc_groups: 1, 2, 3, 5
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_050: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "50"
+  taken_sub_email: "1"
+  updated_at: 2009-12-16 04:13:54
+  user_id: "50"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_051: 
+  created_at: 2009-09-14 02:05:32
+  default_dept: "1"
+  id: "51"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:32
+  user_id: "51"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_052: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "52"
+  taken_sub_email: "1"
+  updated_at: 2010-08-28 01:28:27
+  user_id: "52"
+  view_loc_groups: 1, 3, 5
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_053: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "53"
+  taken_sub_email: "1"
+  updated_at: 2010-04-01 17:26:36
+  user_id: "53"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_054: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "54"
+  taken_sub_email: "0"
+  updated_at: 2010-08-31 03:46:37
+  user_id: "54"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_055: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "55"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "55"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_056: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "56"
+  taken_sub_email: "1"
+  updated_at: 2010-01-28 01:11:11
+  user_id: "56"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_057: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "57"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "57"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_058: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "58"
+  taken_sub_email: "1"
+  updated_at: 2010-04-21 14:49:05
+  user_id: "58"
+  view_loc_groups: 1, 2, 3, 6
+  view_week: ""
+  watched_data_objects: ""
+user_configs_059: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "59"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "59"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_060: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "60"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "60"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_061: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "61"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "61"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_062: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "62"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:33
+  user_id: "62"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_063: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "63"
+  taken_sub_email: "1"
+  updated_at: 2010-10-08 05:57:09
+  user_id: "63"
+  view_loc_groups: 1, 2, 3, 4, 5
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_064: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "64"
+  taken_sub_email: "1"
+  updated_at: 2010-10-12 00:11:33
+  user_id: "64"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_065: 
+  created_at: 2009-09-14 02:05:33
+  default_dept: "1"
+  id: "65"
+  taken_sub_email: "1"
+  updated_at: 2009-09-21 06:39:17
+  user_id: "65"
+  view_loc_groups: 1, 2
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_066: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "66"
+  taken_sub_email: "1"
+  updated_at: 2009-11-09 18:58:06
+  user_id: "66"
+  view_loc_groups: 1, 2
+  view_week: ""
+  watched_data_objects: ""
+user_configs_067: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "67"
+  taken_sub_email: "1"
+  updated_at: 2009-11-09 23:22:37
+  user_id: "67"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_068: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "68"
+  taken_sub_email: "1"
+  updated_at: 2010-07-06 17:51:43
+  user_id: "68"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_069: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "69"
+  taken_sub_email: "1"
+  updated_at: 2010-10-05 22:24:42
+  user_id: "69"
+  view_loc_groups: 1, 2, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_070: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "70"
+  taken_sub_email: "1"
+  updated_at: 2010-03-11 20:59:42
+  user_id: "70"
+  view_loc_groups: "5"
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_071: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "71"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "71"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_072: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "72"
+  taken_sub_email: "1"
+  updated_at: 2010-05-11 16:04:59
+  user_id: "72"
+  view_loc_groups: 1, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_073: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "73"
+  taken_sub_email: "1"
+  updated_at: 2010-01-23 21:57:56
+  user_id: "73"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: ""
+  watched_data_objects: ""
+user_configs_074: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "74"
+  taken_sub_email: "1"
+  updated_at: 2010-01-26 16:04:44
+  user_id: "74"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_075: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "75"
+  taken_sub_email: "1"
+  updated_at: 2010-10-02 01:12:38
+  user_id: "75"
+  view_loc_groups: 1, 2
+  view_week: ""
+  watched_data_objects: ""
+user_configs_076: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "76"
+  taken_sub_email: "1"
+  updated_at: 2010-06-02 01:31:21
+  user_id: "76"
+  view_loc_groups: 1, 2, 3, 4, 5
+  view_week: ""
+  watched_data_objects: ""
+user_configs_077: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "77"
+  taken_sub_email: "1"
+  updated_at: 2010-02-02 19:43:49
+  user_id: "77"
+  view_loc_groups: ""
+  view_week: ""
+  watched_data_objects: ""
+user_configs_078: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "78"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:34
+  user_id: "78"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_079: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "79"
+  taken_sub_email: "1"
+  updated_at: 2010-08-29 14:31:56
+  user_id: "79"
+  view_loc_groups: 1, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_080: 
+  created_at: 2009-09-14 02:05:34
+  default_dept: "1"
+  id: "80"
+  taken_sub_email: "1"
+  updated_at: 2010-10-13 14:27:20
+  user_id: "80"
+  view_loc_groups: 1, 2, 4
+  view_week: ""
+  watched_data_objects: ""
+user_configs_081: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "81"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "81"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_082: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "82"
+  taken_sub_email: "1"
+  updated_at: 2010-02-04 14:13:46
+  user_id: "82"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_083: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "83"
+  taken_sub_email: "1"
+  updated_at: 2010-02-23 20:02:02
+  user_id: "83"
+  view_loc_groups: 1, 2, 3, 5
+  view_week: ""
+  watched_data_objects: ""
+user_configs_084: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "84"
+  taken_sub_email: "1"
+  updated_at: 2009-09-20 17:58:27
+  user_id: "84"
+  view_loc_groups: 1, 2
+  view_week: ""
+  watched_data_objects: ""
+user_configs_085: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "85"
+  taken_sub_email: "1"
+  updated_at: 2010-08-12 17:28:18
+  user_id: "85"
+  view_loc_groups: ""
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_086: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "86"
+  taken_sub_email: "1"
+  updated_at: 2009-10-28 20:40:25
+  user_id: "86"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_087: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "87"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "87"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_088: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "88"
+  taken_sub_email: "1"
+  updated_at: 2009-12-16 20:01:12
+  user_id: "88"
+  view_loc_groups: 1, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_089: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "89"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "89"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_090: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "90"
+  taken_sub_email: "1"
+  updated_at: 2010-09-23 19:55:04
+  user_id: "90"
+  view_loc_groups: 1, 2
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_091: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "91"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "91"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_092: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "92"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "92"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_093: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "93"
+  taken_sub_email: "1"
+  updated_at: 2010-01-21 15:33:27
+  user_id: "93"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_094: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "94"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "94"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_095: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "95"
+  taken_sub_email: "1"
+  updated_at: 2010-10-12 01:33:28
+  user_id: "95"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_096: 
+  created_at: 2009-09-14 02:05:35
+  default_dept: "1"
+  id: "96"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:35
+  user_id: "96"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_097: 
+  created_at: 2009-09-14 02:05:36
+  default_dept: "1"
+  id: "97"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "97"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_098: 
+  created_at: 2009-09-14 02:05:36
+  default_dept: "1"
+  id: "98"
+  taken_sub_email: "1"
+  updated_at: 2010-10-13 07:54:06
+  user_id: "98"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_099: 
+  created_at: 2009-09-14 02:05:36
+  default_dept: "1"
+  id: "99"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "99"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_100: 
+  created_at: 2009-09-14 02:05:36
+  default_dept: "1"
+  id: "100"
+  taken_sub_email: "0"
+  updated_at: 2010-10-10 23:20:32
+  user_id: "100"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_101: 
+  created_at: 2009-09-14 02:05:36
+  default_dept: "1"
+  id: "101"
+  taken_sub_email: "1"
+  updated_at: 2010-04-29 03:21:59
+  user_id: "101"
+  view_loc_groups: 1, 2, 3
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_102: 
+  created_at: 2009-09-14 02:05:36
+  default_dept: "1"
+  id: "102"
+  taken_sub_email: "1"
+  updated_at: 2009-09-14 02:05:36
+  user_id: "102"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_103: 
+  created_at: 2009-09-14 02:05:55
+  default_dept: "1"
+  id: "103"
+  taken_sub_email: "0"
+  updated_at: 2010-10-13 05:15:58
+  user_id: "103"
+  view_loc_groups: 1, 2, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_104: 
+  created_at: 2009-09-14 02:06:15
+  default_dept: "1"
+  id: "104"
+  taken_sub_email: "1"
+  updated_at: 2010-08-28 12:21:15
+  user_id: "104"
+  view_loc_groups: 1, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_105: 
+  created_at: 2009-09-21 19:41:09
+  default_dept: "1"
+  id: "105"
+  taken_sub_email: "1"
+  updated_at: 2009-09-21 19:41:09
+  user_id: "105"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_106: 
+  created_at: 2009-09-21 20:35:14
+  default_dept: "1"
+  id: "106"
+  taken_sub_email: "1"
+  updated_at: 2010-09-29 17:17:38
+  user_id: "106"
+  view_loc_groups: "1"
+  view_week: ""
+  watched_data_objects: ""
+user_configs_107: 
+  created_at: 2010-01-12 19:01:09
+  default_dept: "1"
+  id: "107"
+  taken_sub_email: "1"
+  updated_at: 2010-03-03 20:19:32
+  user_id: "107"
+  view_loc_groups: 1, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_108: 
+  created_at: 2010-01-16 21:26:20
+  default_dept: "1"
+  id: "108"
+  taken_sub_email: "1"
+  updated_at: 2010-09-22 19:23:43
+  user_id: "108"
+  view_loc_groups: 1, 3, 6
+  view_week: ""
+  watched_data_objects: ""
+user_configs_109: 
+  created_at: 2010-01-16 22:48:01
+  default_dept: "1"
+  id: "109"
+  taken_sub_email: "1"
+  updated_at: 2010-01-29 17:04:04
+  user_id: "109"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_110: 
+  created_at: 2010-01-18 06:18:22
+  default_dept: "1"
+  id: "110"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:22
+  user_id: "110"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_111: 
+  created_at: 2010-01-18 06:18:22
+  default_dept: "1"
+  id: "111"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:22
+  user_id: "111"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_112: 
+  created_at: 2010-01-18 06:18:22
+  default_dept: "1"
+  id: "112"
+  taken_sub_email: "1"
+  updated_at: 2010-01-30 04:14:22
+  user_id: "112"
+  view_loc_groups: "3"
+  view_week: ""
+  watched_data_objects: ""
+user_configs_113: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "113"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "113"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_114: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "114"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "114"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_115: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "115"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "115"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_116: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "116"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "116"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_117: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "117"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "117"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_118: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "118"
+  taken_sub_email: "1"
+  updated_at: 2010-01-20 06:44:50
+  user_id: "118"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_119: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "119"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "119"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_120: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "120"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "120"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_121: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "121"
+  taken_sub_email: "1"
+  updated_at: 2010-03-25 18:10:24
+  user_id: "121"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_122: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "122"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "122"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_123: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "123"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:23
+  user_id: "123"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_124: 
+  created_at: 2010-01-18 06:18:23
+  default_dept: "1"
+  id: "124"
+  taken_sub_email: "1"
+  updated_at: 2010-01-20 21:59:52
+  user_id: "124"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_125: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "125"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "125"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_126: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "126"
+  taken_sub_email: "1"
+  updated_at: 2010-01-28 05:12:42
+  user_id: "126"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_127: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "127"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "127"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_128: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "128"
+  taken_sub_email: "1"
+  updated_at: 2010-02-23 04:10:07
+  user_id: "128"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_129: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "129"
+  taken_sub_email: "1"
+  updated_at: 2010-01-27 16:28:10
+  user_id: "129"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_130: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "130"
+  taken_sub_email: "1"
+  updated_at: 2010-10-12 01:32:09
+  user_id: "130"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_131: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "131"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "131"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_132: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "132"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "132"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_133: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "133"
+  taken_sub_email: "1"
+  updated_at: 2010-09-26 19:39:12
+  user_id: "133"
+  view_loc_groups: 1, 2, 3, 4
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_134: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "134"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:24
+  user_id: "134"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_135: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "135"
+  taken_sub_email: "1"
+  updated_at: 2010-06-10 20:53:21
+  user_id: "135"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_136: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "136"
+  taken_sub_email: "1"
+  updated_at: 2010-10-07 16:47:53
+  user_id: "136"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_137: 
+  created_at: 2010-01-18 06:18:24
+  default_dept: "1"
+  id: "137"
+  taken_sub_email: "1"
+  updated_at: 2010-04-21 23:07:58
+  user_id: "137"
+  view_loc_groups: 1, 2, 3
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_138: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "138"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "138"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_139: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "139"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "139"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_140: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "140"
+  taken_sub_email: "1"
+  updated_at: 2010-04-08 04:04:45
+  user_id: "140"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_141: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "141"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "141"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_142: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "142"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "142"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_143: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "143"
+  taken_sub_email: "0"
+  updated_at: 2010-10-07 02:30:34
+  user_id: "143"
+  view_loc_groups: 1, 2, 4
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_144: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "144"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "144"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_145: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "145"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "145"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_146: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "146"
+  taken_sub_email: "1"
+  updated_at: 2010-09-22 19:28:35
+  user_id: "146"
+  view_loc_groups: 1, 2
+  view_week: ""
+  watched_data_objects: ""
+user_configs_147: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "147"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "147"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_148: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "148"
+  taken_sub_email: "1"
+  updated_at: 2010-01-30 19:22:03
+  user_id: "148"
+  view_loc_groups: 1, 2, 3
+  view_week: ""
+  watched_data_objects: ""
+user_configs_149: 
+  created_at: 2010-01-18 06:18:25
+  default_dept: "1"
+  id: "149"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:25
+  user_id: "149"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_150: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "150"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "150"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_151: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "151"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "151"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_152: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "152"
+  taken_sub_email: "1"
+  updated_at: 2010-10-02 18:39:22
+  user_id: "152"
+  view_loc_groups: 1, 2
+  view_week: ""
+  watched_data_objects: ""
+user_configs_153: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "153"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "153"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_154: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "154"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "154"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_155: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "155"
+  taken_sub_email: "1"
+  updated_at: 2010-01-21 01:33:34
+  user_id: "155"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: remainder
+  watched_data_objects: ""
+user_configs_156: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "156"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "156"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_157: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "157"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "157"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_158: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "158"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "158"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_159: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "159"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "159"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_160: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "160"
+  taken_sub_email: "1"
+  updated_at: 2010-01-18 06:18:26
+  user_id: "160"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_161: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "161"
+  taken_sub_email: "1"
+  updated_at: 2010-03-11 15:12:07
+  user_id: "161"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_162: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "162"
+  taken_sub_email: "1"
+  updated_at: 2010-03-28 04:03:02
+  user_id: "162"
+  view_loc_groups: 1, 2, 3, 4, 5, 6
+  view_week: whole_period
+  watched_data_objects: ""
+user_configs_163: 
+  created_at: 2010-01-18 06:18:26
+  default_dept: "1"
+  id: "163"
+  taken_sub_email: "1"
+  updated_at: 2010-10-10 16:18:25
+  user_id: "163"
+  view_loc_groups: 1, 2, 4
+  view_week: ""
+  watched_data_objects: ""
+user_configs_164: 
+  created_at: 2010-03-18 18:59:04
+  default_dept: "1"
+  id: "164"
+  taken_sub_email: "1"
+  updated_at: 2010-03-18 18:59:04
+  user_id: "164"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_165: 
+  created_at: 2010-04-20 16:29:13
+  default_dept: "1"
+  id: "165"
+  taken_sub_email: "1"
+  updated_at: 2010-04-20 16:29:13
+  user_id: "165"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_166: 
+  created_at: 2010-04-27 14:54:22
+  default_dept: "1"
+  id: "166"
+  taken_sub_email: "1"
+  updated_at: 2010-04-27 14:54:22
+  user_id: "166"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_167: 
+  created_at: 2010-05-22 17:46:28
+  default_dept: "1"
+  id: "167"
+  taken_sub_email: "1"
+  updated_at: 2010-05-22 17:46:28
+  user_id: "167"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_168: 
+  created_at: 2010-06-10 18:38:12
+  default_dept: "1"
+  id: "168"
+  taken_sub_email: "1"
+  updated_at: 2010-06-10 18:38:12
+  user_id: "168"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_169: 
+  created_at: 2010-07-01 16:56:22
+  default_dept: "1"
+  id: "169"
+  taken_sub_email: "1"
+  updated_at: 2010-07-01 16:56:22
+  user_id: "169"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_170: 
+  created_at: 2010-08-28 14:27:16
+  default_dept: "1"
+  id: "170"
+  taken_sub_email: "1"
+  updated_at: 2010-10-03 21:04:46
+  user_id: "170"
+  view_loc_groups: 1, 2
+  view_week: ""
+  watched_data_objects: ""
+user_configs_171: 
+  created_at: 2010-08-31 17:39:55
+  default_dept: "1"
+  id: "171"
+  taken_sub_email: "1"
+  updated_at: 2010-08-31 17:39:55
+  user_id: "171"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_172: 
+  created_at: 2010-09-02 15:10:53
+  default_dept: "1"
+  id: "172"
+  taken_sub_email: "1"
+  updated_at: 2010-09-02 15:10:53
+  user_id: "172"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_173: 
+  created_at: 2010-09-14 18:54:59
+  default_dept: "1"
+  id: "173"
+  taken_sub_email: "1"
+  updated_at: 2010-09-14 18:54:59
+  user_id: "173"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_174: 
+  created_at: 2011-05-31 21:30:41
+  default_dept: "1"
+  id: "174"
+  taken_sub_email: "1"
+  updated_at: 2011-05-31 21:30:41
+  user_id: "174"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""
+user_configs_175: 
+  created_at: 2011-05-31 21:31:45
+  default_dept: "1"
+  id: "175"
+  taken_sub_email: "1"
+  updated_at: 2011-05-31 21:31:45
+  user_id: "175"
+  view_loc_groups: 
+  view_week: ""
+  watched_data_objects: ""

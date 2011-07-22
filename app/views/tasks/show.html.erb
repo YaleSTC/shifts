@@ -1,0 +1,49 @@
+
+<p>
+  <b>Name:</b>
+  <%=h @task.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @task.description %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%=h @task.kind %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= Location.find_by_id(@task.location_id).name %>
+</p>
+
+<p>
+  <b>Start:</b>
+  <%=h @task.start.strftime("%A, %B %d %Y") %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%=h @task.end.strftime("%A, %B %d %Y") %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%=h @task.time_of_day.to_s(:am_pm) %>
+</p>
+
+<p>
+  <b>Weekday:</b>
+  <%=h @task.day_in_week %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @task.active %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Destroy', @task, :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to 'Back', tasks_path %>

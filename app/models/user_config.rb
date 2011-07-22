@@ -29,7 +29,11 @@ class UserConfig < ActiveRecord::Base
   end
 
   def view_loc_groups
-    read_attribute(:view_loc_groups).nil? ? self.user.loc_groups(default_department) : read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
+    if read_attribute(:view_loc_groups).nil? 
+       user.loc_groups(default_department) 
+    else
+       user.loc_groups(default_department) & read_attribute(:view_loc_groups).split(', ').map{|lg|LocGroup.find(lg)}
+     end
   end
 
   # if default_dept is not specified, returns first department;

@@ -7,6 +7,7 @@ class DepartmentObserver < ActiveRecord::Observer
                         :schedule_end => 17*60,
                         :time_increment => 15,
                         :grace_period => 7,
+                        :admin_round_option => 15,
                         :end_of_month => false,
                         :monthly => false,
                         :weekend_shifts => true,
@@ -17,7 +18,8 @@ class DepartmentObserver < ActiveRecord::Observer
                         :warning_weeks => 2,
                         :description_min => 4,
                         :reason_min => 4,
-                        :mailer_address => "noreply@shifts.app"
+                        :mailer_address => "noreply@shifts.app",
+                        :early_signin => 60
                         })
 
     Category.create!(:name => "Shifts",        :department_id => department.id, :built_in => true)

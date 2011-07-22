@@ -4,12 +4,15 @@ class ReportItem < ActiveRecord::Base
   belongs_to :report
   delegate :user, :to => 'report.shift'
   validates_presence_of :content, :report_id
-  
   before_save :check_for_ip_address_change
+  
+  named_scope :after_time, lambda{ |time| {:conditions => ["time > ?", time] } }
+  named_scope :in_location, lambda{ |loc| {:joins =>"INNER JOIN reports ON report_items.report_id = reports.id INNER JOIN shifts on reports.shift_id = shifts.id", :conditions => { :shifts => {:location_id => loc.id} } } }
   
   def content_with_formatting
     content.sanitize_and_format
   end
+  
   
   def check_for_ip_address_change
     #if ip has changed from previous line item, note this

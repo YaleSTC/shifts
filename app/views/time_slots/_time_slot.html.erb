@@ -1,4 +1,4 @@
-<li id="timeslot<%=time_slot.id%>" style="<%=time_slot_style(time_slot)%>" class="click_to_edit_timeslot timeslot">
+<li id="timeslot<%=time_slot.id%>" style="<%=time_slot_style(time_slot, time_slot_day)%>" class="click_to_edit_timeslot timeslot">
   <div class="time-slot">
     <% if @right_overflow or @left_overflow %>
       <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => 17 } if @right_overflow %>
