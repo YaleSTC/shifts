@@ -1,0 +1,9 @@
+<fieldset class = "index">
+		<legend>Search</legend>
+	<div id="searchbox" style="margin-bottom: 1em">
+  	<% form_tag(href = "http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=#{@key_words}&go=Go", :target => "_blank", :method => :get) do %>
+   	Search Weke: <%= text_field_tag :search %>
+   	<%= submit_tag "Go", :id => "search_submit" %>
+ 		<% end %>
+	</div>
+</fieldset>
