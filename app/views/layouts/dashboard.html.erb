@@ -37,6 +37,9 @@
 	  </ul>
 	  <div id="contentNav">
 	<% end %>
+	
+
+	
 <% else %>
 <%# Non-admin Menu %>
 	<% content_for :left_nav do %>
@@ -54,6 +57,7 @@
 	<% end %>
 <% end %>
 
+
 <% content_for :body do %>
 
   <%= yield %>
@@ -62,13 +66,3 @@
 <% end -%>
 
 <%= render :file => "layouts/application.html.erb" %>
-
-<script> 
-    $(document).ready(function(){ 
-        $("ul.sf-menu").superfish({ 
-            animation: {height:'show'},   // slide-down effect without fade-in 
-            delay:     1200               // 1.2 second delay on mouseout 
-        }); 
-    }); 
- 
-</script>
