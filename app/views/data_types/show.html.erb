@@ -3,24 +3,28 @@
 <strong>Description:</strong>
 <%=h @data_type.description %> <br /> <br />
 
-<strong>Data fields:</strong>
-    <ul>
-      <% for field in @data_type.data_fields %>
-        <li>
-          <strong><%= field.name %></strong>
-          <%= link_to "[edit]", edit_data_type_data_field_path(@data_type, field) %>
-          <%= link_to "[x]", data_type_data_field_path(@data_type, field), :confirm => 'Delete this data field?', :method => :delete %>
-        </li>
-        <ul style="margin-left: 1em">
-          <li>Type: <%= field.display_type.humanize %>
-          <li>Values: <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %>
-        </ul>
-      <% end %>
-    </ul>
-    <br>
-    <%= button_to "Add a new data field", new_data_type_data_field_path(@data_type), :method => :get %>
-  </p>
-  <strong>Data objects of this type:</strong>
+<h2><strong>Data fields:</strong></h2>
+
+<table class = "tablesorter">
+	<tr>
+       <th>Name</th>
+	   <th>Type</th>
+       <th>Values </th>
+	</tr>
+	<% for field in @data_type.data_fields %>
+	<tr>
+	  <td> <%= field.name%> </td>
+	  <td> <%= field.display_type.humanize %></td>
+	  <td> <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %> </td>
+	  <td> <%= link_to "Edit", edit_data_type_data_field_path(@data_type, field) %> </td>
+	  <td> <%= link_to "Delete", data_type_data_field_path(@data_type, field), :confirm => 'Delete this data field?', :method => :delete %></td>
+	<% end %>		
+	</tr>
+</table>
+    <%= link_to "New Data Field", new_data_type_data_field_path(@data_type), :method => :get %> <br /> <br  />
+
+
+  <h2><strong>Data objects of this type:</strong></h2>
   <table class = "tablesorter">
     <tr>
       <th>Name</th>
@@ -28,28 +32,30 @@
       <% @data_type.data_fields.each do |df| %>
       <th>
         <%= df.name %>
-       </th>
+      </th>
       <% end %>
     </tr>
     <% for obj in @data_type.data_objects %>
       <% entry = obj.data_entries.last.data_fields_with_contents unless obj.data_entries.empty? %>
-      <tr>
-        <td>
-          <%= link_to "#{obj.name}", obj %>
-        </td>
-        <td>
-          <%= obj.description %>
-	   </td>
+    <tr>
+      <td>
+        <%= link_to "#{obj.name}", obj %>
+      </td>
+      <td>
+        <%= obj.description %>
+	  </td>
         <% @data_type.data_fields.each do |df| %>
-        <td>
-         <%= entry[df.id.to_s] if entry %>
-          </td>
-		<td>  <%= link_to "Delete", obj,  
-            :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.', 
-            :method => :delete %>
-			</td>
-        <% end %>
-      </tr>
+      <td>
+        <%= entry[df.id.to_s] if entry %>
+      </td>
+    <% end %>
+	  <td>
+		<%= link_to "Edit", edit_data_object_path(obj) %>
+	  </td>
+      <td>  
+		<%= link_to "Delete", obj, :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.',:method => :delete %>
+	  </td>
+    </tr>
     <% end %>
   </table>
   <%= link_to "New Data Object", new_data_type_data_object_path(@data_type), :method => :get %> <br /> <br />
