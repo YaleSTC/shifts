@@ -1,6 +1,8 @@
 <% title "Edit Data Type" %>
 
 <%= render :partial => 'form' %>
+<%= render :partial => "summary", :locals => {:data_type => @data_type} %>
+
 
 <p>
   <%= link_to "Show", @data_type %> |
