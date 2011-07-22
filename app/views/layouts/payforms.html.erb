@@ -1,40 +1,38 @@
 <% content_for :head do %>
-  <%= javascript 'jquery', 'jquery-ui', 'jrails' %>
   <%= stylesheet 'thickbox', 'payforms' %>
-
 <% end %>
 
 
 <% if current_user.is_admin_of?(current_department) %>
   <% content_for :left_nav do %>
-      <ul id="navigationList" class="sf-menu sf-vertical">
-				<li>
-		    <a class="sf-with-ul" href="#">View Payforms<span class="sf-sub-indicator"> &#187;</span></a>
-					<ul>
-            <li><%= link_to "All", payforms_path %></li>
-            <li><%= link_to "Submitted", payforms_path(:submitted => true)%></li>
-						<li><%= link_to "Skipped", payforms_path (:skipped => true)%></li>
-            <li><%= link_to "Approved", payforms_path(:approved => true)%></li>
-            <li><%= link_to "Printed", payforms_path(:printed => true) %></li>
-            <li><%= link_to "History", payform_sets_path %></li>
-					</ul>
-				</li>
-				<li>
-				<a class="sf-with-ul" href="#">Punch Clocks<span class="sf-sub-indicator"> &#187;</span></a>
-					<ul>
-		        <li><%= link_to "View Active", punch_clocks_path %></li>
-		        <li><%= link_to "View Group", punch_clock_sets_path %></li>
-		        <li><%= link_to "Add Group", new_punch_clock_set_path %></li>
-					</ul>
-				</li>
-				<li>
-				<a class="sf-with-ul" href="#">Group Jobs<span class="sf-sub-indicator"> &#187;</span></a>
-					<ul>
-		        <li><%= link_to "View All", payform_item_sets_path %></li>
-		        <li><%= link_to "Add", new_payform_item_set_path %></li>
-					</ul>
-				</li>
-      </ul>
+  	<ul id="navigationList" class="sf-menu sf-vertical">
+			<li>
+	    <a class="sf-with-ul" href="#">View Payforms<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+           <li><%= link_to "All", payforms_path %></li>
+           <li><%= link_to "Submitted", payforms_path(:submitted => true)%></li>
+					<li><%= link_to "Skipped", payforms_path (:skipped => true)%></li>
+           <li><%= link_to "Approved", payforms_path(:approved => true)%></li>
+           <li><%= link_to "Printed", payforms_path(:printed => true) %></li>
+           <li><%= link_to "History", payform_sets_path %></li>
+				</ul>
+			</li>
+			<li>
+			<a class="sf-with-ul" href="#">Punch Clocks<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+	        <li><%= link_to "View Active", punch_clocks_path %></li>
+	        <li><%= link_to "View Group", punch_clock_sets_path %></li>
+	        <li><%= link_to "Add Group", new_punch_clock_set_path %></li>
+				</ul>
+			</li>
+			<li>
+			<a class="sf-with-ul" href="#">Group Jobs<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+	        <li><%= link_to "View All", payform_item_sets_path %></li>
+	        <li><%= link_to "Add", new_payform_item_set_path %></li>
+				</ul>
+			</li>
+	  </ul>
     <div id="contentNav">
   <% end %>
 <% end %>
@@ -42,6 +40,7 @@
 <% content_for :body do %>
 
   <%= yield %>
+  <div class="clear"></div>
 
 <% end %>
 
