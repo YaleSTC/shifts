@@ -59,7 +59,7 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu a {
 	border-left:	1px solid #fff;
-	border-top:		1px solid #CFDEFF;
+	border-top:		1px solid #EEF;
 	padding: 		.75em 1em;
 	text-decoration:none;
 }
@@ -67,17 +67,17 @@ ul.sf-menu li li li.sfHover ul {
 	color:			#13a;
 }
 .sf-menu li {
-	background:		#BDD2FF;
+	background:		#DDF;
 }
 .sf-menu li li {
-	background:		#AABDE6;
+	background:		#CCE;
 }
 .sf-menu li li li {
-	background:		#9AAEDB;
+	background:		#BBD;
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
-	background:		#CFDEFF;
+	background:		#EEF;
 	outline:		0;
 }
 
