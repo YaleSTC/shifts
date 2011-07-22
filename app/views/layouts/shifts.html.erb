@@ -7,49 +7,47 @@
 <%# Admin Menu %>
   <% content_for :left_nav do %>
   	<ul id="navigationList" class="sf-menu sf-vertical">
-			<li class="current">
-				<li>
-		      <a class="sf-with-ul" href="#">Schedule<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-			        <li><%= link_to_unless_current "Shift Schedule", shifts_path %></li>
-			        <li><%= link_to_unless_current "Active Shifts", show_active_shifts_path %></li>
-			        <li><%= link_to_unless_current "Sub Requests", sub_requests_path %></li>
-			        <li><%= link_to_unless_current "Calendars", calendars_path %></li>
-			        <li><%= link_to_unless_current "Time Slots", time_slots_path %></li>
-			        <li><%= link_to_unless_current "Tasks", tasks_path %></li>
-						</ul>
-				</li>
-				<li>
-		      <a class="sf-with-ul" href="#">Locations<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-			        <li><%= link_to_unless_current "Locations", department_locations_path(@department) %></li>
-			        <li><%= link_to_unless_current "Location Groups", department_loc_groups_path(@department) %></li>
-						</ul>
-				</li>
-				<li>
-		      <a class="sf-with-ul" href="#">Data<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-			        <li><%= link_to_unless_current "Data Objects", data_objects_path %></li>
-			        <li><%= link_to_unless_current "Data Types", data_types_path %></li>
-						</ul>
-				</li>
-				<li>
-			    <a class="sf-with-ul" href="#">Notices<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-							<li><%= link_to_post_a_sticky() %></li>
-							<li><%= link_to_post_an_announcement %></li>
-							<li><%= link_to_unless_current "All links", links_path %></li>
-							<li><%= link_to_unless_current "All notices", notices_path %></li>
-				      <li><%= link_to_unless_current 'Inactive notices', archive_notices_path %></li>
-						</ul>
-				</li>
-				<li>
-		      <a class="sf-with-ul" href="#">Misc<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-			        <li><%= link_to_unless_current "Stats", stats_path %></li>
-			        <li><%= link_to_unless_current "Restrictions", restrictions_path %></li>
-						</ul>
-				</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Schedule<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Shift Schedule", shifts_path %></li>
+		        <li><%= link_to "Active Shifts", show_active_shifts_path %></li>
+		        <li><%= link_to "Sub Requests", sub_requests_path %></li>
+		        <li><%= link_to "Calendars", calendars_path %></li>
+		        <li><%= link_to "Time Slots", time_slots_path %></li>
+		        <li><%= link_to "Tasks", tasks_path %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Locations<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Locations", department_locations_path(@department) %></li>
+		        <li><%= link_to "Location Groups", department_loc_groups_path(@department) %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Data<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Data Objects", data_objects_path %></li>
+		        <li><%= link_to "Data Types", data_types_path %></li>
+					</ul>
+			</li>
+			<li>
+		    <a class="sf-with-ul" href="#">Notices<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+						<li><%= link_to_post_a_sticky() %></li>
+						<li><%= link_to_post_an_announcement %></li>
+						<li><%= link_to "All links", links_path %></li>
+						<li><%= link_to "All notices", notices_path %></li>
+			      <li><%= link_to 'Inactive notices', archive_notices_path %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Misc<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Stats", stats_path %></li>
+		        <li><%= link_to "Restrictions", restrictions_path %></li>
+					</ul>
 			</li>
    </ul>
     <div id="contentNav">
@@ -58,31 +56,29 @@
 <%# Non-admin Menu %>
 	<% content_for :left_nav do %>
 		<ul id="navigationList" class="sf-menu sf-vertical">
-			<li class="current">
-				<li>
-		      <a class="sf-with-ul" href="#">Schedule<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-			        <li><%= link_to_unless_current "Shift Schedule", shifts_path %></li>
-			        <li><%= link_to_unless_current "Active Shifts", show_active_shifts_path %></li>
-			        <li><%= link_to_unless_current "Sub Requests", sub_requests_path %></li>
-						</ul>
-				</li>
-				<li>
-			    <a class="sf-with-ul" href="#">Notices<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-							<li><%= link_to_post_a_sticky() %></li>
-							<li><%= link_to_post_an_announcement %></li>
-							<li><%= link_to_unless_current "All links", links_path %></li>
-							<li><%= link_to_unless_current "All notices", notices_path %></li>
-						</ul>
-				</li>
-				<li>
-		      <a class="sf-with-ul" href="#">Misc<span class="sf-sub-indicator"> &#187;</span></a>
-						<ul>
-			        <li><%= link_to_unless_current "Data Objects", data_objects_path %></li>
-			        <li><%= link_to_unless_current "Stats", stats_path %></li>
-						</ul>
-				</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Schedule<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Shift Schedule", shifts_path %></li>
+		        <li><%= link_to "Active Shifts", show_active_shifts_path %></li>
+		        <li><%= link_to "Sub Requests", sub_requests_path %></li>
+					</ul>
+			</li>
+			<li>
+		    <a class="sf-with-ul" href="#">Notices<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+						<li><%= link_to_post_a_sticky() %></li>
+						<li><%= link_to_post_an_announcement %></li>
+						<li><%= link_to "All links", links_path %></li>
+						<li><%= link_to "All notices", notices_path %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Misc<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Data Objects", data_objects_path %></li>
+		        <li><%= link_to "Stats", stats_path %></li>
+					</ul>
 			</li>
 	 </ul>
 	  <div id="contentNav">
@@ -100,6 +96,10 @@
  
 <script> 
     $(document).ready(function(){ 
-        $("ul.navigationList").superfish(); 
-    });
+        $("ul.sf-menu").superfish({ 
+            animation: {height:'show'},   // slide-down effect without fade-in 
+            delay:     1200               // 1.2 second delay on mouseout 
+        }); 
+    }); 
+ 
 </script>
