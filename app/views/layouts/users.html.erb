@@ -5,52 +5,7 @@
 
 <% end %>
 
-<%# Admin Menu %>
-<% if current_user && current_user.is_admin_of?(@department) && !@no_nav -%>
-	<% content_for :left_nav do -%>
-		<ul id="navigationList" class="sf-menu sf-vertical">
-			<li>
-	    <a class="sf-with-ul" href="#">Manage Users<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
-		      <li><%= link_to "Show All Users", department_users_path(@department) %></li>
-		      <li><%= link_to "Add a User", new_department_user_path(@department) %></li><br/>
-				</ul>
-			</li>
-			<li>
-		  <a class="sf-with-ul" href="#">Manage Permissions<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
-		      <li><%= link_to "Show All Roles", department_roles_path(@department) %></li>
-		      <li><%= link_to "Add a Role", new_department_role_path(@department) %></li><br/>
-				</ul>
-			</li>
-			<li>
-		    <a class="sf-with-ul" href="#">User Profiles<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
-		      <li><%= link_to "Show Profile Fields", user_profile_fields_path %></li>
-		      <li><%= link_to "Add a Profile Field", new_user_profile_field_path %></li>
-			  	<li><%= link_to "Show All Profiles", user_profiles_path %></li>
-		      <li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
-				</ul>
-			</li>
-		</ul>
-	<div id="contentNav">
-	<% end -%>
-<% else -%>
-  <% content_for :left_nav do -%>
-		<ul id="navigationList" class="sf-menu sf-vertical">
-			<li>
-		   <a class="sf-with-ul" href="#">User Profiles<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
-		      <li><%= link_to "Show Profile Fields", user_profile_fields_path %></li>
-		      <li><%= link_to "Add a Profile Field", new_user_profile_field_path %></li>
-			  	<li><%= link_to "Show All Profiles", user_profiles_path %></li>
-		      <li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
-				</ul>
-			</li>
-		</ul>
-  <div id="contentNav">
-  <% end -%>
-<% end -%>
+<%= render :partial => "layouts/users_menu.html.erb" %>
 
 <% content_for :body do %>
 
