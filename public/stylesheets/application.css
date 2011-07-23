@@ -256,10 +256,10 @@ ul#application_tabs a:hover {
 }
 
 
-/* = navigation-related classes
+/* = navigation-related classes --> not needed with Superfish menu
 ======================================================================= */
 
-ul#navigationList {
+/*ul#navigationList {
   color: #415578;
   font-family: Verdana, Geneva, Arial, sans-serif;
   font-size: 11px;
@@ -299,7 +299,7 @@ ul#navigationList a:hover {
   color: #FF9933;
   text-decoration: none;
 }
-
+*/
 /* = main content classes
 ======================================================================= */
 
@@ -312,8 +312,8 @@ ul#navigationList a:hover {
   padding: 0px 0px 5px 0px;
 }
 #contentNav {
-  float: right;
-  padding: 30px 30px 10px 10px;
+  float: left;
+  padding: 30px 30px 10px 30px;
   width: 650px;
 }
 #contentNoNav {

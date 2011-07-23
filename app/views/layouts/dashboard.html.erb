@@ -2,41 +2,61 @@
   <%= stylesheet_link_tag 'shift', 'timeline', 'notice'%>
 <% end %>
 
-<% content_for :left_nav do %>
-  <ul id="navigationList" class="sf-menu sf-vertical">
-		<% if current_user.is_superuser? %>
-			<li class="current">
-				<li>
-					<a class="sf-with-ul" href="#">Superuser Options<span class="sf-sub-indicator"> &#187;</span></a>
-					<ul>
-					  <li><%= link_to_unless_current "Application Settings", edit_app_config_path %></li>
-					  <li><%= link_to_unless_current "Manage Superusers", superusers_path %></li><br/>
-					</ul>
-				</li>
-				<% if current_user.is_admin_of?(@department) %>
-				<li>
-					<a class="sf-with-ul" href="#">Admin Options<span class="sf-sub-indicator"> &#187;</span></a>
-					<ul>
-						<li><%= link_to_unless_current "Department Settings", edit_department_config_path(@department.department_config) %></li>
-						<li><%= link_to_unless_current "Calendars", calendars_path %></li>
-						<li><%= link_to_unless_current "Roles", department_roles_path(@department) %></li> 
-						<li><%= link_to_unless_current "Templates", templates_path %></li><br/>
-					</ul>
-				</li>
-				<% end %>
-				<li>
-					<a class="sf-with-ul" href="#">Application Links<span class="sf-sub-indicator"> &#187;</span></a>
-					<ul>
-						<li><%= link_to_unless_current "My Preferences", edit_user_config_path(current_user.user_config) %></li>
-						<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
-						<li><%= link_to_unless_current "My Calendar Feeds", calendar_feeds_path %></li>
-					</ul>
-				</li>
-		</li>
-  </ul>
-  <div id="contentNav">
+<% if current_user.is_admin_of?(current_department) %>
+<%# Admin Menu %>
+	<% content_for :left_nav do %>
+	  <ul id="navigationList" class="sf-menu sf-vertical">
+			<% if current_user.is_superuser? %>
+			<li>
+				<a class="sf-with-ul" href="#">Superuser Options<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+				  <li><%= link_to "Application Settings", edit_app_config_path %></li>
+				  <li><%= link_to "Manage Superusers", superusers_path %></li><br/>
+				</ul>
+			</li>
+			<% end %>
+			<% if current_user.is_admin_of?(@department) %>
+			<li>
+				<a class="sf-with-ul" href="#">Admin Options<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+					<li><%= link_to "Department Settings", edit_department_config_path(@department.department_config) %></li>
+					<li><%= link_to "Calendars", calendars_path %></li>
+					<li><%= link_to "Roles", department_roles_path(@department) %></li> 
+					<li><%= link_to "Templates", templates_path %></li><br/>
+				</ul>
+			</li>
+			<% end %>
+			<li>
+				<a class="sf-with-ul" href="#">Application Links<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+					<li><%= link_to "My Preferences", edit_user_config_path(current_user.user_config) %></li>
+					<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
+					<li><%= link_to "My Calendar Feeds", calendar_feeds_path %></li>
+				</ul>
+			</li>
+	  </ul>
+	  <div id="contentNav">
+	<% end %>
+	
+
+	
+<% else %>
+<%# Non-admin Menu %>
+	<% content_for :left_nav do %>
+	  <ul id="navigationList" class="sf-menu sf-vertical">
+			<li>
+				<a class="sf-with-ul" href="#">Application Links<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+					<li><%= link_to "My Preferences", edit_user_config_path(current_user.user_config) %></li>
+					<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
+					<li><%= link_to "My Calendar Feeds", calendar_feeds_path %></li>
+				</ul>
+			</li>
+	  </ul>
+	  <div id="contentNav">
 	<% end %>
 <% end %>
+
 
 <% content_for :body do %>
 
@@ -44,15 +64,5 @@
 
   <div class="clear"></div>
 <% end -%>
-
-<script> 
-    $(document).ready(function(){ 
-        $("ul.sf-menu").superfish({ 
-            animation: {height:'show'},   // slide-down effect without fade-in 
-            delay:     1200               // 1.2 second delay on mouseout 
-        }); 
-    }); 
- 
-</script>
 
 <%= render :file => "layouts/application.html.erb" %>
