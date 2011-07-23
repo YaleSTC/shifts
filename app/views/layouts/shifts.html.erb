@@ -3,9 +3,10 @@
   <% javascript 'sorttable' %>
 <% end %>
 
-<%# Admin Menu %>
 <% if current_user.is_admin_of?(current_department) %>
+<%# Admin Menu %>
   <% content_for :left_nav do %>
+<<<<<<< HEAD
     <ul id="navigationList">
       <h3>Schedule</h3>
         <li><%= link_to_unless_current "Shift Schedule", shifts_path %></li>
@@ -31,12 +32,59 @@
       <h3>Miscellaneous</h3>
         <li><%= link_to_unless_current "Stats", stats_path %></li>
         <li><%= link_to_unless_current "Restrictions", restrictions_path %></li>
+=======
+  	<ul id="navigationList" class="sf-menu sf-vertical">
+			<li>
+	      <a class="sf-with-ul" href="#">Schedule<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Shift Schedule", shifts_path %></li>
+		        <li><%= link_to "Active Shifts", show_active_shifts_path %></li>
+		        <li><%= link_to "Sub Requests", sub_requests_path %></li>
+		        <li><%= link_to "Calendars", calendars_path %></li>
+		        <li><%= link_to "Time Slots", time_slots_path %></li>
+		        <li><%= link_to "Tasks", tasks_path %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Locations<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Locations", department_locations_path(@department) %></li>
+		        <li><%= link_to "Location Groups", department_loc_groups_path(@department) %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Data<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Data Objects", data_objects_path %></li>
+		        <li><%= link_to "Data Types", data_types_path %></li>
+					</ul>
+			</li>
+			<li>
+		    <a class="sf-with-ul" href="#">Notices<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+						<li><%= link_to_post_a_sticky() %></li>
+						<li><%= link_to_post_an_announcement %></li>
+						<li><%= link_to "All links", links_path %></li>
+						<li><%= link_to "All notices", notices_path %></li>
+			      <li><%= link_to 'Inactive notices', archive_notices_path %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Misc<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Stats", stats_path %></li>
+		        <li><%= link_to "Restrictions", restrictions_path %></li>
+						<li><%= link_to "Templates", templates_path %></li>
+					</ul>
+			</li>
+>>>>>>> jmenu
    </ul>
-
     <div id="contentNav">
   <% end %>
 <% else %>
+<%# Non-admin Menu %>
 	<% content_for :left_nav do %>
+<<<<<<< HEAD
     <ul id="navigationList">
       <h3>Schedule</h3>
         <li><%= link_to_unless_current "Shift Schedule", shifts_path %></li>
@@ -54,26 +102,43 @@
 
     <div id="contentNav">
   <% end %>
+=======
+		<ul id="navigationList" class="sf-menu sf-vertical">
+			<li>
+	      <a class="sf-with-ul" href="#">Schedule<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Shift Schedule", shifts_path %></li>
+		        <li><%= link_to "Active Shifts", show_active_shifts_path %></li>
+		        <li><%= link_to "Sub Requests", sub_requests_path %></li>
+					</ul>
+			</li>
+			<li>
+		    <a class="sf-with-ul" href="#">Notices<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+						<li><%= link_to_post_a_sticky() %></li>
+						<li><%= link_to_post_an_announcement %></li>
+						<li><%= link_to "All links", links_path %></li>
+						<li><%= link_to "All notices", notices_path %></li>
+					</ul>
+			</li>
+			<li>
+	      <a class="sf-with-ul" href="#">Misc<span class="sf-sub-indicator"> &#187;</span></a>
+					<ul>
+		        <li><%= link_to "Data Objects", data_objects_path %></li>
+		        <li><%= link_to "Stats", stats_path %></li>
+					</ul>
+			</li>
+	 	</ul>
+	  <div id="contentNav">
+	<% end %>
+>>>>>>> jmenu
 <% end %>
 
 <% content_for :body do %>
 
   <%= yield %>
-
   <div class="clear"></div>
-<% end -%>
+
+<% end %>
 
 <%= render :file => "layouts/application.html.erb" %>
-
-
-
-<link rel="stylesheet" media="screen" href="superfish.css" /> 
- 
-<script src="superfish.js"></script> 
- 
-<script> 
-    $(document).ready(function(){ 
-        $("ul.navigationList").superfish(); 
-    }); 
- 
-</script>
