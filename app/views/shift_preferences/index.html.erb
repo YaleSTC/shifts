@@ -1,17 +1,17 @@
 <h1>All general shift preferences for <%= @week_template.name %> </h1>
 
-<table>
+<table class = "tablesorter">
   <tr>
-		<th>Name</th>
+	<th>Name</th>
     <th colspan=2 >Total hours</th>
     <th colspan=2 >Continuous hours</th>
     <th colspan=2 >Number of shifts</th>
     <th>Hours per day</th>
-		<th colspan=3 >Locations</th>
+	<th colspan=3 >Locations</th>
   </tr>
 
   <tr>
-		<th></th>
+	<th></th>
     <th>Max</th>
     <th>Min</th>
     <th>Max</th>
@@ -36,11 +36,11 @@
 		    <td><%=h shift_preference.min_number_of_shifts %></td>
 		    <td><%=h shift_preference.max_hours_per_day %></td>
 				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "yes"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
-				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "maybe"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td
+				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "maybe"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
 				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "no"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
 		    <td><%= link_to 'Show', template_shift_preference_path(@week_template, shift_preference) %></td>
 		    <td><%= link_to 'Edit', edit_template_shift_preference_path(@week_template, shift_preference) %></td>
-		    <td><%= link_to 'X', template_shift_preference_path(@week_template, shift_preference), :confirm => 'Are you sure?', :method => :delete %></td>
+		    <td><%= link_to 'Delete', template_shift_preference_path(@week_template, shift_preference), :confirm => 'Are you sure?', :method => :delete %></td>
 		  </tr>
 		<% end %>
 	</tbody>

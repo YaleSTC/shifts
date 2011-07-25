@@ -10,7 +10,7 @@
 		  	<%= render :partial => "template_time_slots/error_messages", :locals => {:f => f} %>
 			</div>
 			<p>
-				Where:
+				Where:<br />
 				<% @week_template.signup_locations.each do |location| %> 
 					<%= check_box_tag "for_locations[]", location.id %>
 					<%= label_tag "location_#{location.id}", text = location.short_name %>
@@ -18,7 +18,7 @@
 				<% end %>
 			</p>
 			<p>
-				Start time:
+				Start time:<br />
 				<%= f.time_select "start_time", {
 																:simple_time_select => true,
 																:time_separator => "",
@@ -30,7 +30,7 @@
 																:default => @start} %>
 			</p>
 			<p>
-				End time:
+				End time:<br />
 				<%= f.time_select "end_time", {
 																:simple_time_select => true,
 																:time_separator => "",
@@ -42,7 +42,7 @@
 																:default => @end} %>
 			</p>
 			<p>
-				Day:
+				Day:<br />
 				<% RequestedShift::WEEK_DAY_SELECT.each do |day| %>
 					<%= check_box "template_time_slot[day]", day[1].to_i %> <%= "#{day[0][0..2]}" %>
 				<% end %>
