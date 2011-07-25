@@ -211,12 +211,12 @@ div#login{
 #chooser {
   float: left;
   width: 250px;
+	font-family: Trebuchet MS, Verdana, Arial, serif;
+	color: #FFFFFF;
+	font-size: 12px;
   padding: 0px 5px 0px 10px;
   margin-top: 1px;
-  font-size: 12px;
-  color: #FFFFFF;
-  font-family: Verdana, Geneva, Arial, sans-serif;
-  line-height: 1.6em;
+  line-height: 2em;
 }
 
 /* tabs
@@ -227,16 +227,18 @@ div#login{
 }
 ul#application_tabs {
   float: right;
-  font-family: Verdana, Geneva, Arial, sans-serif;
-  font-size: 12px;
-  margin: 0pt 5px 0pt 0pt;
+	background-color: #8B9B6C;
   padding: 0pt;
+  list-style-type: square;
+  margin: 0pt 5px 0pt 0pt;
+/*  font-size: 12px;
+
   line-height: 1.6em;
   list-style-image: none;
   list-style-position: outside;
-  list-style-type: square;
+*/
 }
-ul#application_tabs li {
+/*ul#application_tabs li {
   display: inline;
   line-height: 11px;
   list-style-type: none;
@@ -253,13 +255,19 @@ ul#application_tabs a {
 ul#application_tabs a:hover {
     border-bottom:2px solid #EEF0AE;
     padding-bottom:1px;
-}
+}*/
 
 
-/* = navigation-related classes
+/* = navigation-related classes --> not needed with Superfish menu
 ======================================================================= */
 
 ul#navigationList {
+	margin-left: 	30px;
+	padding-top: 40px;
+  float: 				left;
+}
+
+/*ul#navigationList {
   color: #415578;
   font-family: Verdana, Geneva, Arial, sans-serif;
   font-size: 11px;
@@ -299,7 +307,7 @@ ul#navigationList a:hover {
   color: #FF9933;
   text-decoration: none;
 }
-
+*/
 /* = main content classes
 ======================================================================= */
 
@@ -312,8 +320,8 @@ ul#navigationList a:hover {
   padding: 0px 0px 5px 0px;
 }
 #contentNav {
-  float: right;
-  padding: 30px 30px 10px 10px;
+  float: left;
+  padding: 30px 30px 10px 30px;
   width: 650px;
 }
 #contentNoNav {
