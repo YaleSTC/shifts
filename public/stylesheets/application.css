@@ -211,12 +211,12 @@ div#login{
 #chooser {
   float: left;
   width: 250px;
+	font-family: Trebuchet MS, Verdana, Arial, serif;
+	color: #FFFFFF;
+	font-size: 12px;
   padding: 0px 5px 0px 10px;
   margin-top: 1px;
-  font-size: 12px;
-  color: #FFFFFF;
-  font-family: Verdana, Geneva, Arial, sans-serif;
-  line-height: 1.6em;
+  line-height: 2em;
 }
 
 /* tabs

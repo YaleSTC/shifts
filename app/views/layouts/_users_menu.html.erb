@@ -19,10 +19,10 @@
 			<li>
 		    <a class="sf-with-ul" href="#">User Profiles<span class="sf-sub-indicator"> &#187;</span></a>
 				<ul>
+		      <li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
+			  	<li><%= link_to "Show All Profiles", user_profiles_path %></li>
 		      <li><%= link_to "Show Profile Fields", user_profile_fields_path %></li>
 		      <li><%= link_to "Add a Profile Field", new_user_profile_field_path %></li>
-			  	<li><%= link_to "Show All Profiles", user_profiles_path %></li>
-		      <li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
 				</ul>
 			</li>
 		</ul>
@@ -31,10 +31,8 @@
 <% else -%>
   <% content_for :left_nav do -%>
 		<ul id="navigationList" class="sf-menu sf-vertical">
-      <li><%= link_to "Show Profile Fields", user_profile_fields_path %></li>
-      <li><%= link_to "Add a Profile Field", new_user_profile_field_path %></li>
-	  	<li><%= link_to "Show All Profiles", user_profiles_path %></li>
       <li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
+	  	<li><%= link_to "Show All Profiles", user_profiles_path %></li>
 		</ul>
   <div id="contentNav">
   <% end -%>
