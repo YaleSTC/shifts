@@ -24,3 +24,11 @@
   </tbody>
 </table>
 
+<script type="text/javascript">
+$(document).ready(
+  function(){
+    $.tablesorter.defaults.widgets = ['zebra'];
+    $("#user_list").tablesorter({sortList: [[0,0]]});
+  }
+);
+</script>
