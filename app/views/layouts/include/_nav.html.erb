@@ -4,9 +4,9 @@
 			<%= link_to "Dashboard", dashboard_path %>
 			<% if current_user.departments.include?(current_department) %>
 			<ul>
-				<li><%= link_to "Department Settings", edit_department_config_path(@department.department_config) %></li>
+				<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
 				<li><%= link_to "Calendars", calendars_path %></li>
-				<li><%= link_to "Roles", department_roles_path(@department) %></li>
+				<li><%= link_to "Roles", department_roles_path(current_department) %></li>
 			</ul>
 			<% end %>
 	  </li>
