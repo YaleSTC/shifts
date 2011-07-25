@@ -106,11 +106,10 @@ ul.sf-menu li li li.sfHover ul {
 
 /*** Navbar ***/
 .sf-menu#application_tabs a {
-	border-left:	1px solid #9A7;
-	border-top:		1px solid #9A7;
-
 /*	padding: 		.75em 1em;
 	text-decoration:none;*/
+	border-left:	none;
+	border-top:		none;
 }
 .sf-menu#application_tabs a, .sf-menu#application_tabs a:visited  {
 	color:			#FFFFFF;
@@ -119,9 +118,13 @@ ul.sf-menu li li li.sfHover ul {
 	background:		#8B9B6C;
 }
 .sf-menu#application_tabs li li {
+	border-left:	1px solid #9A7;
+	border-top:		1px solid #9A7;
 	background:		#785;
 }
 .sf-menu#application_tabs li li li {
+	border-left:	1px solid #9A7;
+	border-top:		1px solid #9A7;
 	background:		#674;
 }
 .sf-menu#application_tabs li:hover, .sf-menu#application_tabs li.sfHover,
