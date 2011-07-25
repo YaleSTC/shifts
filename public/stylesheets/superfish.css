@@ -22,6 +22,7 @@
 .sf-menu li {
 	float:			left;
 	position:		relative;
+	z-index:	150;
 }
 .sf-menu a {
 	display:		block;
