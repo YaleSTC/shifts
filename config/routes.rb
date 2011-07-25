@@ -106,7 +106,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :data_objects do |data_object|
-    data_object.resources :data_entries
+    data_object.resources :data_entries, :member => {:edit => :put, :update => :put}
   end
 
   map.resources :departments, :shallow => true do |departments|

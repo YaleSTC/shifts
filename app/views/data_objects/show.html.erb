@@ -32,7 +32,7 @@
         <tbody>
           <%= render(:partial => "data_entries/data_entry_row",
                      :collection => @data_entries,
-                     :locals => {:data_fields => @data_fields}) %>
+                     :locals => {:data_fields => @data_fields, :data_object => @data_object}) %>
         </tbody>
       </table>
       <br>
