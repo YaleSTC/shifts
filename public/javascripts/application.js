@@ -44,7 +44,7 @@ $(document).ready(function() {
 	    var $sidebar   = $("#navigationList"),
 	        $window    = $(window),
 	        offset     = $sidebar.offset(),
-	        topPadding = 15;
+	        topPadding = 0;
 
 	    $window.scroll(function() {
 	        if ($window.scrollTop() > offset.top) {

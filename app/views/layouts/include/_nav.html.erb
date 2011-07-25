@@ -1,19 +1,66 @@
-<ul id="application_tabs">
+<ul class="sf-menu" id="application_tabs">
   <% unless current_user.nil? -%>
-    <li class="<%= tab('dashboard') %>">
-    <%= link_to "Dashboard", dashboard_path %></li>
+		<li>
+			<%= link_to "Dashboard", dashboard_path %>
+			<% if current_user.is_superuser? %>
+			<ul>
+				<li><%= link_to "Application Settings", edit_app_config_path %></li>
+				<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
+			  <li><%= link_to "Superusers", superusers_path %></li>
+				<li><%= link_to "Calendars", calendars_path %></li>
+				<li><%= link_to "Roles", department_roles_path(current_department) %></li> 
+				<li><%= link_to "Templates", templates_path %></li>
+			</ul>
+			<% elsif current_user.departments.include?(current_department) %>
+			<ul>
+				<li><%= link_to "Department Settings", edit_department_config_path(@department.department_config) %></li>
+				<li><%= link_to "Calendars", calendars_path %></li>
+				<li><%= link_to "Roles", department_roles_path(@department) %></li> 
+				<li><%= link_to "Templates", templates_path %></li>
+			</ul>
+			<% end %>
+	  </li>
   <% end -%>
   <% if current_user.is_superuser? -%>
-    <li class="<%= tab('departments') %>"><%= link_to "Departments", departments_path %></li>
+    <li><%= link_to "Departments", departments_path %></li>
   <% end -%>
-    <% if current_user && current_user.is_admin_of?(@department) && current_user.is_active?(@department) || current_user.is_superuser? -%>
-      <li class="<%= tab('users') %>"><%= link_to "Users", department_users_path(current_department) %></li>
-      <% else %>
-      <li class="<%= tab('user_profiles') %>"><%= link_to "Profiles", user_profile_path(current_user.login) %></li>
-    <% end -%>
-    <% if current_user.departments.include?(current_department) %>
-      <li class="<%= tab('shifts') %>"><%= link_to "Shifts", shifts_path %></li>
-      <li class="<%= tab('payforms') %>"><%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %></li>
-    <% end %>
+  <% if current_user.is_admin_of?(current_department) && current_user.is_active?(current_department) || current_user.is_superuser? -%>
+    <li>
+			<%= link_to "Users", department_users_path(current_department) %>
+			<ul>
+	      <li><%= link_to "Permissions", department_roles_path(current_department) %></li>
+		  	<li><%= link_to "Profiles", user_profiles_path %></li>
+				<li><%= link_to "Profile Fields", user_profile_fields_path %></li>
+			</ul>
+		</li>
+  <% else %>
+    <li>
+			<%= link_to "Profiles", user_profile_path(current_user.login) %>
+		</li>
+  <% end -%>
+  <% if current_user.departments.include?(current_department) %>
+    <li>
+			<%= link_to "Shifts", shifts_path %>
+			<ul>
+	      <li><%= link_to "Links", links_path %></li>
+	      <li><%= link_to "Notices", notices_path %></li>
+	      <li><%= link_to "Data Objects", data_objects_path %></li>
+	      <li><%= link_to "Stats", stats_path %></li>
+			</ul>
+		</li>
+     	<li>
+			<%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %>
+			<% if current_user.is_admin_of?(current_department) -%>
+			<ul>
+	      <li><%= link_to "Punch Clocks", punch_clocks_path %></li>
+		  	<li><%= link_to "Group Jobs", payform_item_sets_path %></li>
+			</ul>
+			<% else %>
+			<ul>
+	      <li><%= link_to "All Payforms", payforms_path %></li>
+			</ul>				
+			<% end %>
+		</li>
+   <% end %>
 </ul>
 

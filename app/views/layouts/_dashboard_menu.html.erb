@@ -7,7 +7,7 @@
 				<a class="sf-with-ul" href="#">Superuser Options<span class="sf-sub-indicator"> &#187;</span></a>
 				<ul>
 				  <li><%= link_to "Application Settings", edit_app_config_path %></li>
-				  <li><%= link_to "Manage Superusers", superusers_path %></li><br/>
+				  <li><%= link_to "Manage Superusers", superusers_path %></li>
 				</ul>
 			</li>
 			<% end %>
@@ -18,7 +18,7 @@
 					<li><%= link_to "Department Settings", edit_department_config_path(@department.department_config) %></li>
 					<li><%= link_to "Calendars", calendars_path %></li>
 					<li><%= link_to "Roles", department_roles_path(@department) %></li> 
-					<li><%= link_to "Templates", templates_path %></li><br/>
+					<li><%= link_to "Templates", templates_path %></li>
 				</ul>
 			</li>
 			<% end %>
@@ -37,14 +37,9 @@
 <%# Non-admin Menu %>
 	<% content_for :left_nav do %>
 	  <ul id="navigationList" class="sf-menu sf-vertical">
-			<li>
-				<a class="sf-with-ul" href="#">Application Links<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
-					<li><%= link_to "My Preferences", edit_user_config_path(current_user.user_config) %></li>
-					<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
-					<li><%= link_to "My Calendar Feeds", calendar_feeds_path %></li>
-				</ul>
-			</li>
+			<li><%= link_to "My Preferences", edit_user_config_path(current_user.user_config) %></li>
+			<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
+			<li><%= link_to "My Calendar Feeds", calendar_feeds_path %></li>
 	  </ul>
 	  <div id="contentNav">
 	<% end %>
