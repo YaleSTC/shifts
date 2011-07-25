@@ -50,7 +50,8 @@ class RolesController < ApplicationController
   
   #returns all of the users for a given role
   def users
-    @roles = @department.roles
+    @role = Role.find(params[:id])
+    @role_users =  Role.find(params[:id]).users
   end
   
   
