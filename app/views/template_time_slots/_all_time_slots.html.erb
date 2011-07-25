@@ -1,4 +1,4 @@
-<table>
+<table class = "tablesorter">
 		<tr>
 		  <th>Day</th>
 		  <th>Start</th>
@@ -14,7 +14,7 @@
 			<td><%=h template_time_slot.location.short_name %></td>
 			<% if current_user.is_admin_of?(@week_template.department) %>
 				<td><%= link_to 'Edit', edit_template_template_time_slot_path(@week_template, template_time_slot) %></td>
-				<td><%= link_to 'X', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
+				<td><%= link_to 'Delete', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
 			<% end %>
 		</tr>
 	<% end %>

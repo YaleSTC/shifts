@@ -1,6 +1,6 @@
 <h1 id="page_title">Templates for <%= @department.name %></h1>
 
-<table>
+<table class = "tablesorter">
   <tr>
     <th>Name</th>
     <th colspan=2>Total hours</th>
@@ -34,12 +34,12 @@
     <td><%=h template.max_hours_per_day %></td>
 		<td><%= template.roles.collect{|role| role.name}.to_sentence %></td>
 		<td><%= template.timeslot_locations.uniq.collect{|loc| loc.short_name}.to_sentence %></td>
-    <td><%= link_to 'View', template %></td>
-    <td><%= link_to 'Edit', edit_template_path(template) %></td>
 		<td><%= link_to 'Shift Preferences', template_shift_preferences_path(template) %></td>
 		<td><%= link_to 'Requested Shifts', template_requested_shifts_path(template) %></td>
 		<td><%= link_to 'Timeslots', template_template_time_slots_path(template) %></td>
-    <td><%= link_to 'X', template, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'View', template %></td>
+    <td><%= link_to 'Edit', edit_template_path(template) %></td>
+    <td><%= link_to 'Delete', template, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
