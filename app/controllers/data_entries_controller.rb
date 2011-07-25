@@ -34,21 +34,21 @@ class DataEntriesController < ApplicationController
     end
   end
 
-## Are we removing this feature?
-#  def edit
-#    @data_entry = DataEntry.find(params[:id])
-#    @data_object = DataObject.find(params[:data_object_id])
-#  end
-#
-#  def update
-#    @data_entry = DataEntry.find(params[:id])
-#    if @data_entry.update_attributes(params[:data_entry])
-#      flash[:notice] = "Successfully updated data entry."
-#      redirect_to data_object_path(params[:data_object_id])
-#    else
-#      render :action => 'edit'
-#    end
-#  end
+# Are we removing this feature?
+ def edit
+   @data_entry = DataEntry.find(params[:id])
+   @data_object = DataObject.find(params[:data_object_id])
+ end
+
+ def update
+   @data_entry = DataEntry.find(params[:id])
+   if @data_entry.update_attributes(params[:data_entry])
+     flash[:notice] = "Successfully updated data entry."
+     redirect_to data_object_path(params[:data_object_id])
+   else
+     render :action => 'edit'
+   end
+ end
 
   private
 
