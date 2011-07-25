@@ -168,9 +168,14 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-  # These three methods all return true/false, so they can be tested to trigger return statements
+  # These three methods all return true/false, so they can be tested to 
+  # trigger return statements
+
+  # TODO: Ultimately, we should abstract all this away into a permissions
+  # module, and include that into the application. Ideally, after that we'd
+  # refactor to to have these methods share the redirect code
+  
   # Takes a department, location, or loc_group
-  # TODO: This is mixing model logic!!!
   def user_is_admin_of(thing)
     unless current_user.is_admin_of?(thing)
       error_message = "You are not authorized to administer this #{thing.class.name.decamelize}."

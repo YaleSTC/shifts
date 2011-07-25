@@ -6,7 +6,8 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    @report_notices =  (self.shift.location.current_notices + self.shift.department.current_notices)
+    @report_notices =  (self.shift.location.current_notices)
+    # department.current_notices is not necessary because a department-wide notice is already posted in location. 
 		a = @report_notices.select{|n| n.class.name == "Announcement"}.sort_by{|n| n.start}
 		s = @report_notices.select{|n| n.class.name == "Sticky"}.sort_by{|n| n.start}
 		return a + s
