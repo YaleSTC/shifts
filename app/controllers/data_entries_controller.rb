@@ -34,7 +34,6 @@ class DataEntriesController < ApplicationController
     end
   end
 
-# Are we removing this feature?
  def edit
    @data_entry = DataEntry.find(params[:id])
    @data_object = DataObject.find(params[:data_object_id])
