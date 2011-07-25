@@ -11,28 +11,16 @@
   <% end %>
 </div>
 
-<p><%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%> |  
-<% if params[:show_inactive].nil? %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true), :class => "action_with_icon" %>
-<% else %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), :class => "action_with_icon" %>
-<% end %>
+<p>
+	<%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%> |  
+	<% if params[:show_inactive].nil? %>
+	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true), :class => "action_with_icon" %>
+	<% else %>
+	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), :class => "action_with_icon" %>
+	<% end %>
 </p>
-<table class="tablesorter">
-  <thead>
-    <tr>
-      <th align="left">Login</th>
-      <th align="left">First Name</th>
-      <th align="left">Last Name</th>
-      <th align="left">Nickname</th>
-      <th>Employee ID</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody id="user_list">
-    <%= render :partial => 'user_list' %>
-  </tbody>
-</table>
+
+<%= render :partial => 'user_list' %>
 
 
 <script type="text/javascript">
