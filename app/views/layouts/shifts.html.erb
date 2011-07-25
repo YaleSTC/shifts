@@ -3,65 +3,13 @@
   <% javascript 'sorttable' %>
 <% end %>
 
-<%# Admin Menu %>
-<% if current_user.is_admin_of?(current_department) %>
-  <% content_for :left_nav do %>
-    <ul id="navigationList">
-      <h3>Schedule</h3>
-        <li><%= link_to_unless_current "Shift Schedule", shifts_path %></li>
-        <li><%= link_to_unless_current "Active Shifts", show_active_shifts_path %></li>
-        <li><%= link_to_unless_current "Sub Requests", sub_requests_path %></li>
-        <li><%= link_to_unless_current "Calendars", calendars_path %></li>
-        <li><%= link_to_unless_current "Time Slots", time_slots_path %></li>
-        <li><%= link_to_unless_current "Tasks", tasks_path %></li>
-      <p></p>
-      <h3>Locations</h3>
-        <li><%= link_to_unless_current "Locations", department_locations_path(@department) %></li>
-        <li><%= link_to_unless_current "Location Groups", department_loc_groups_path(@department) %></li>
-      <p></p>
-      <h3>Data</h3>
-        <li><%= link_to_unless_current "Data Objects", data_objects_path %></li>
-        <li><%= link_to_unless_current "Data Types", data_types_path %></li>
-      <p></p>
-	    <h3>Notices</h3>
-		<li><%= link_to_unless_current "Links", links_path %></li>
-		<li><%= link_to_unless_current "Notices", notices_path %></li>
-	    <li><%= link_to_unless_current 'Notices Archive', archive_notices_path %></li>
-	    <p></p>
-      <h3>Miscellaneous</h3>
-        <li><%= link_to_unless_current "Stats", stats_path %></li>
-        <li><%= link_to_unless_current "Restrictions", restrictions_path %></li>
-   </ul>
-
-    <div id="contentNav">
-  <% end %>
-<% else %>
-	<% content_for :left_nav do %>
-    <ul id="navigationList">
-      <h3>Schedule</h3>
-        <li><%= link_to_unless_current "Shift Schedule", shifts_path %></li>
-        <li><%= link_to_unless_current "Active Shifts", show_active_shifts_path %></li>
-        <li><%= link_to_unless_current "Sub Requests", sub_requests_path %></li>
-	    <p></p>
-	   <h3>Notices</h3>
-	    <li><%= link_to_unless_current "Links", links_path %></li>
-		<li><%= link_to_unless_current "Notices", notices_path %></li>
-	    <p></p>
-      <h3>Status</h3>
-        <li><%= link_to_unless_current "Data Objects", data_objects_path %></li>
-        <li><%= link_to_unless_current "Stats", stats_path %></li>
-   </ul>
-
-    <div id="contentNav">
-  <% end %>
-<% end %>
+<%= render :partial => "layouts/shifts_menu.html.erb" %>
 
 <% content_for :body do %>
 
   <%= yield %>
-
   <div class="clear"></div>
-<% end -%>
+
+<% end %>
 
 <%= render :file => "layouts/application.html.erb" %>
-
