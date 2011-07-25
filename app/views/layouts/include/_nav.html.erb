@@ -31,19 +31,24 @@
   <% else %>
     <li>
 			<%= link_to "Profiles", user_profile_path(current_user.login) %>
+			<ul>
+		  	<li><%= link_to "All Profiles", user_profiles_path %></li>
+			</ul>
 		</li>
   <% end -%>
   <% if current_user.departments.include?(current_department) %>
     <li>
 			<%= link_to "Shifts", shifts_path %>
 			<ul>
-	      <li><%= link_to "Locations", department_locations_path(current_department) %></li>
-	      <li><%= link_to "Location Groups", department_loc_groups_path(current_department) %></li>
+	      <% if current_user.is_admin_of?(current_department) %>
+					<li><%= link_to "Locations", department_locations_path(current_department) %></li>
+		      <li><%= link_to "Location Groups", department_loc_groups_path(current_department) %></li>
+					<li><%= link_to "Templates", templates_path %></li>
+				<% end %>
 				<li><%= link_to "Links", links_path %></li>
 	      <li><%= link_to "Notices", notices_path %></li>
 	      <li><%= link_to "Data Objects", data_objects_path %></li>
 	      <li><%= link_to "Stats", stats_path %></li>
-				<li><%= link_to "Templates", templates_path %></li>
 			</ul>
 		</li>
      	<li>
