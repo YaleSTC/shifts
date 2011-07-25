@@ -52,19 +52,19 @@ ul.sf-menu li li li.sfHover ul {
 	top:			0;
 }
 
-/*** DEMO SKIN ***/
+/*** Basic ***/
 .sf-menu {
 	float:			left;
 	margin-bottom:	1em;
 }
 .sf-menu a {
-	border-left:	1px solid #fff;
+	border-left:	1px solid #EEF;
 	border-top:		1px solid #EEF;
 	padding: 		.75em 1em;
 	text-decoration:none;
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
-	color:			#13a;
+	color:			#104e8b;
 }
 .sf-menu li {
 	background:		#DDF;
@@ -78,6 +78,55 @@ ul.sf-menu li li li.sfHover ul {
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
 	background:		#EEF;
+	outline:		0;
+}
+
+/*** Sidebar ***/
+.sf-menu#navigationList {
+	float:			left;
+	margin-bottom:	1em;
+}
+.sf-men#navigationListu a, .sf-menu#navigationList a:visited  { /* visited pseudo selector so IE6 applies text colour*/
+	color:			#104e8b;
+}
+.sf-menu#navigationList li {
+	background:		#DDF;
+}
+.sf-menu#navigationList li li {
+	background:		#CCE;
+}
+.sf-menu#navigationList li li li {
+	background:		#BBD;
+}
+.sf-menu#navigationList li:hover, .sf-menu#navigationList li.sfHover,
+.sf-menu#navigationList a:focus, .sf-menu#navigationList a:hover, .sf-menu#navigationList a:active {
+	background:		#EEF;
+	outline:		0;
+}
+
+/*** Navbar ***/
+.sf-menu#application_tabs a {
+	border-left:	1px solid #9A7;
+	border-top:		1px solid #9A7;
+
+/*	padding: 		.75em 1em;
+	text-decoration:none;*/
+}
+.sf-menu#application_tabs a, .sf-menu#application_tabs a:visited  {
+	color:			#FFFFFF;
+}
+.sf-menu#application_tabs li {
+	background:		#8B9B6C;
+}
+.sf-menu#application_tabs li li {
+	background:		#785;
+}
+.sf-menu#application_tabs li li li {
+	background:		#674;
+}
+.sf-menu#application_tabs li:hover, .sf-menu#application_tabs li.sfHover,
+.sf-menu#application_tabs a:focus, .sf-menu#application_tabs a:hover, .sf-menu#application_tabs a:active {
+	background:		#9A7;
 	outline:		0;
 }
 
