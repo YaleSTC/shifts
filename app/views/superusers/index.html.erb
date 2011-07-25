@@ -1,14 +1,16 @@
 <% title "Manage superusers" -%>
 <% field_set_tag 'Add superuser' do -%>
-<div>With great power comes great responsiblity.  Please use this wisely. (That's why you can only add one at a time)</div> <br />
+<div>
+	With great power comes great responsiblity.  Please use this wisely. (That's why you can only add one at a time)
+</div> <br />
   <% form_tag add_superusers_path do -%>
 
-  <%# TODO: Make this an autocomplete box %>
-    Enter login of the user who want to make superuser:<br />
-    <%= text_field_tag 'new_su_login' %>
-    <%= submit_tag "Add" %>
+  Enter login of the user who want to make superuser:<br />
+  <%= text_field_tag 'new_su_login' %>
+  <%= submit_tag "Add" %>
   <% end -%>
 <% end -%> <br  />
+
 <h2>Existing superuser list:</h2>
 <% form_tag remove_superusers_path do %>
   <table class="tablesorter">
