@@ -1,5 +1,5 @@
 source :rubygems
-gem "rails", "2.3.11"
+gem "rails", "2.3.12"
 gem "ruby-net-ldap", :require => "net/ldap"
 gem "fastercsv"
 gem "icalendar"
@@ -12,3 +12,4 @@ gem "whenever"
 gem "hoptoad_notifier"
 gem "mysql"
 gem "vestal_versions"
+gem "rdoc", "~> 3.6.1"

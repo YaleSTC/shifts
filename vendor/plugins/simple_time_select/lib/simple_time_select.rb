@@ -25,7 +25,7 @@ module ActionView::Helpers
 
         if @options[:end_time]
           end_minute = @options[:end_time].hour * 60 + @options[:end_time].min
-          end_minute += 1440    if (@options[:end_time].day == (@options[:start_time].day + 1))
+          end_minute += 1440    if (@options[:end_time].day == ((@options[:start_time] + 1.day).day))
         else
           end_minute = 1439
         end

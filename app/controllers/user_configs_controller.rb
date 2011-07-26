@@ -34,6 +34,7 @@ class UserConfigsController < ApplicationController
   end
 
   def update
+
     #raise params[:user_config].to_yaml
     params[:user_config][:view_loc_groups] = params[:loc].keys.join(",")
     # adding watched data objects to the params hash
@@ -47,12 +48,11 @@ class UserConfigsController < ApplicationController
     end
   end
 
-  private
+
+	private
 
   def set_var_and_check_owner
     @user_config = UserConfig.find(params[:id])
     return unless user_is_owner_of(@user_config)
   end
-
 end
-

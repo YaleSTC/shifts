@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :shifts_tasks
+
+  map.resources :tasks, :member => {:make_entry => :post}  
+  
   map.resources :template_time_slots
 
   # map.resources :templates
@@ -64,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :payforms,
                 :collection => { :prune => :delete, :go => :get, :search => :post},
-                :member => {:submit => :get, :unsubmit => :get, :approve => :get, :unapprove => :get, :print => :get},
+                :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
                 :shallow => true do |payform|
     payform.resources :payform_items, :member => {:delete => :get}
   end
@@ -93,7 +97,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 #TODO Fix report items routing, this is temporary
-  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :member => {:display_report_items => :get, :toggle => [:get, :post]}
+  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_report_items => [:get, :post], :toggle => [:get, :post]}
+  #map.resources :locations, :collection => {:display_report_items => [:post, :get], :toggle => [:post, :get], :index => [:post, :get]}, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
@@ -119,7 +124,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
-  map.resources :stats, :collection => {:for_user => [:post, :get], :index => [:post, :get]}
+  map.resources :stats, :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
 
   #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 

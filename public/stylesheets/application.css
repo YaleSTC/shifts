@@ -489,6 +489,27 @@ ul#useful_links li a{
     display: inline !important;
 }
 
+/* = Dashboard right
+======================================================================= */
+/*this is used for indexes in dashboard right*/
+
+ul#dashboard_right {
+    list-style-type: none;
+    display: inline !important;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
+}
+ul#dashboard_right li a {
+    list-style-type: none;
+    display: inline !important;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
+}
+
 /* = Progress bar
 ======================================================================= */
 span#progress_bar {
@@ -701,4 +722,3 @@ div.feed_bottom a {float:right;}
 
 /* button for report_item_view on location index */
 input.view_more {float:right;}
-

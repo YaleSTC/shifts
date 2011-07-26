@@ -1,6 +1,6 @@
 class AppConfig < ActiveRecord::Base
   validates_presence_of :auth_types
-  validates_presence_of :mailer_address
+  validates_presence_of :mailer_address, :admin_email
 
   LOGIN_OPTIONS = [
     # Displayed               stored in db

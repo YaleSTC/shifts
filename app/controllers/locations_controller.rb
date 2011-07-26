@@ -71,16 +71,23 @@ class LocationsController < ApplicationController
 
   def display_report_items
     @location = Location.find(params[:id])
-    @start_time = 3.hours.ago.utc
+    if params[:more_items] == nil
+      session[:items] = 0
+    end
+    item_number = find_item_number + 5
+    session[:items] = item_number
+    @report_items = ReportItem.in_location(@location).last(item_number).reverse
     respond_to do |format|
-      format.js { @start_time = @start_time - 5.hours }
+      format.js { @report_items }
       format.html { } #this is necessary!
     end
-    @report_items = ReportItem.in_location(@location).after_time(@start_time)
   end
 
 private
-
+  def find_item_number
+     session[:items] ||= 0
+  end
+  
   def find_allowed_locations
     @locations = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
   end

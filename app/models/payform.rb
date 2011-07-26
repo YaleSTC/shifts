@@ -15,6 +15,8 @@ class Payform < ActiveRecord::Base
 
   named_scope :unsubmitted, {:conditions => ["#{:submitted.to_sql_column} IS #{nil.to_sql}"] }
   named_scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
+  named_scope :skipped,     {:conditions => ["#{:skipped.to_sql_column} IS NOT #{nil.to_sql}"] }
+  named_scope :unskipped,   {:conditions => ["#{:skipped.to_sql_column} IS #{nil.to_sql}"] }
   named_scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
   named_scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
 
@@ -59,6 +61,18 @@ class Payform < ActiveRecord::Base
     raw_hours = payform_items.select{|p| p.active}.map{|i| i.hours}.sum
     rounded_hours = ((raw_hours.to_f * 60 / department.department_config.admin_round_option.to_f).round * (department.department_config.admin_round_option.to_f / 60))
     sprintf( "%0.02f", rounded_hours).to_f
+  end
+  
+  def hours_minutes_string
+    hours = self.hours
+    return "0:00" if hours.nil? || hours == 0
+    hrs_i = hours.to_i
+    hrs_f = hours.to_f
+    units = hrs_f % hrs_i
+    units = ((units / 5) * 300)
+    hrs_s = "#{hours.to_i.to_s}:#{units.to_i.to_s}"
+    hrs_s += "0" if hrs_s =~ /:0$/
+    return hrs_s
   end
 
   def start_date

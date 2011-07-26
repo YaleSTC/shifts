@@ -1,0 +1,27 @@
+<h1>Tasks Index</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Kind</th>
+		<th>Location</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Time</th>
+    <th>Week Day</th>
+    <th>Active</th>
+    <th colspan=2>Task Records</th>
+  </tr>
+
+<%= render :partial => "task", :collection => @active_tasks  %>
+</table>
+
+<br /><h4>Expired/Inactive Tasks:</h4>
+
+<table>
+<%= render :partial => "task", :collection => @inactive_tasks %>
+</table>
+
+<br />
+
+<%= link_to 'New Task', new_task_path %>

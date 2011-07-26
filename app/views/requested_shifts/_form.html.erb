@@ -1,7 +1,7 @@
 <%# calculate_default_times %>
 
 	<p>
-    <%= f.label :acceptable_start %>:
+    <%= f.label :acceptable_start %>
     <%= f.time_select :acceptable_start, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -17,7 +17,7 @@
   </p>
 
 	<p>
-    <%= f.label :acceptable_end %>:
+    <%= f.label :acceptable_end %>
 		<%= f.time_select :acceptable_end, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -33,7 +33,7 @@
   </p>
 
   <p>
-    <%= f.label :preferred_start %>:
+    <%= f.label :preferred_start %>
 		<%= f.time_select :preferred_start, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -49,7 +49,7 @@
 		<%= check_box_tag "preferred_start_choice", true %> include optional preferred start time
   </p>
   <p>
-    <%= f.label :preferred_end %>:
+    <%= f.label :preferred_end %>
 		<%= f.time_select :preferred_end, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -65,9 +65,9 @@
 		<%= check_box_tag "preferred_end_choice", true %> include optional preferred end time
   </p>
 
-  
+
   <p>
-    <%= f.label :day, "What day" %>:
+    <%= f.label :day, "What day" %>
     <%= f.select :day, RequestedShift::WEEK_DAY_SELECT %>
   </p>
 	Locations:
