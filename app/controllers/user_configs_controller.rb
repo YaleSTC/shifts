@@ -10,8 +10,17 @@ class UserConfigsController < ApplicationController
       @data_objects = dept.data_objects
       @data_types = dept.data_types
     end
-    @selected_loc_groups = @user_config.read_attribute(:view_loc_groups).split(',').map{|lg| lg.to_i }
-    @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj| obj.to_i }
+    if @user_config.read_attribute(:view_loc_groups)
+      @selected_loc_groups = @user_config.read_attribute(:view_loc_groups).split(', ').map{|lg| lg.to_i }
+    else
+      @selected_loc_groups = []
+    end
+    
+    if @user_config.watched_data_objects
+      @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj| obj.to_i }
+    else
+      @selected_data_objects = []
+    end  
 
     @loc_groups_grouped_by_dept = []
       @departments.each do |dept|
@@ -33,21 +42,41 @@ class UserConfigsController < ApplicationController
    
   end
 
+
   def update
-
     #raise params[:user_config].to_yaml
-    params[:user_config][:view_loc_groups] = params[:loc].keys.join(",")
-    # adding watched data objects to the params hash
-    params[:user_config][:watched_data_objects] = params[:dt].keys.join(",")
-    if @user_config.update_attributes(params[:user_config])
-      flash[:notice] = "Successfully updated user settings."
-      # if we came here from somewhere else, redirect us back
-      redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
+    if params[:loc]
+      params[:user_config][:view_loc_groups] = params[:loc].keys.join(", ")
     else
-      render :action => 'edit'
+      params[:user_config][:view_loc_groups] = []
     end
-  end
-
+    if params[:dt]
+      params[:user_config][:watched_data_objects] = params[:dt].keys.join(", ")
+    else
+      params[:user_config][:watched_data_objects] = []
+    end
+    # adding watched data objects to the params hash
+    if params[:commit] == "Submit"
+    	if @user_config.update_attributes(params[:user_config])
+    	  flash[:notice] = "Successfully updated user settings."
+    	  # if we came here from somewhere else, redirect us back
+    	  redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
+    	else
+    	  render :action => 'edit'
+    	end
+		elsif params[:commit] == "Reset"
+  		@users = User.all
+  
+ 			for user in @users
+ 				if (Department.find_by_id(user.user_config.default_dept) == current_department)
+ 					this_user_config = user.user_config
+  		    this_user_config.send_due_payform_email = true
+  		    this_user_config.save
+  			end
+  		end
+  		redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
+		end
+	end
 
 	private
 
