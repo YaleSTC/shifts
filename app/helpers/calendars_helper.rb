@@ -45,63 +45,6 @@ module CalendarsHelper
     "width: #{width}%; left: #{left}%;"
   end
   
-  # def day_preprocessing(day)
-  #   @location_rows = {}
-  #
-  #   for location in @visible_locations
-  #     @location_rows[location] = [] #initialize rows
-  #   end
-  #
-  #   # @hidden_shifts = Shift.hidden_search(day.beginning_of_day + @dept_start_hour.hours + @time_increment.minutes,
-  #   #                                      day.beginning_of_day + @dept_end_hour.hours - @time_increment.minutes,
-  #   #                                      day.beginning_of_day, day.end_of_day, locations.map{|l| l.id})
-  #   # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
-  #   #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
-  #   shifts = @shifts[day.to_s("%Y-%m-%d")]
-  #   shifts ||= []
-  #   shifts = shifts.sort_by{|s| [s.location_id, s.start]}
-  #
-  #   timeslots = @time_slots[day.to_s("%Y-%m-%d")]
-  #   timeslots ||= []
-  #   timeslots = timeslots.sort_by{|t| [t.location_id, t.start]}
-  #
-  #   rejected = []
-  #   location_row = 0
-  #
-  #   until shifts.empty?
-  #     shift = shifts.shift
-  #     @location_rows[shift.location][location_row] = [shift]
-  #     (0...shifts.length).each do |i|
-  #       if shift.location == shifts.first.location
-  #         if shift.end > shifts.first.start
-  #           rejected << shifts.shift
-  #         else
-  #           shift = shifts.shift
-  #           @location_rows[shift.location][location_row] << shift
-  #         end
-  #       else
-  #         shift = shifts.shift
-  #         @location_rows[shift.location][location_row] = [shift]
-  #       end
-  #     end
-  #     location_row += 1
-  #     shifts = rejected
-  #   end
-  #
-  #   # insert an extra empty row for timeslots in calendar view
-  #   # for location in @visible_locations
-  #   #   @location_rows[location][@location_rows[location].length] = [nil]
-  #   # end
-  #
-  #   rowcount = 1 #starts with the bar on top
-  #   for location in @visible_locations
-  #     rowcount += @location_rows[location].length
-  #     rowcount += 0.5 #timeslot bar
-  #   end
-  #
-  #   @table_height = rowcount + @visible_loc_groups.length * 0.25
-  #   @table_pixels = 26 * rowcount + rowcount+1
-  # end
   def calendar_day_preprocessing(day)
     @location_rows = {}
     @location_rows_timeslots = {}

@@ -34,19 +34,6 @@ class NoticesController < ApplicationController
 
   def set_sources(notice)
     
-  #Removed user_sources as an option. (Not removing them from the database though -- at least not yet)
-#		if params[:for_users] && notice.type == "Sticky"
-#			params[:for_users].split(",").each do |l|
-#		  	if l == l.split("||").first #This is for if javascript is disabled
-#		    	l = l.strip
-#		      user_source = User.search(l) || Role.find_by_name(l)
-#		      notice.user_sources << user_source if user_source
-#				else
-#		      l = l.split("||")
-#		      notice.user_sources << l[0].constantize.find(l[1]) if l.length == 2 #javascript or not javascript
-#		    end
-#		  end
-#		end
     if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
       notice.user_sources << current_department
     end

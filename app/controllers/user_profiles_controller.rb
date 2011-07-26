@@ -1,7 +1,7 @@
 class UserProfilesController < ApplicationController
 before_filter :user_login
   def index
-    @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department) }
+    @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.reverse_name}
   end
 
   def show
@@ -89,17 +89,17 @@ before_filter :user_login
     #filter results if we are searching
     if params[:search]
       params[:search] = params[:search].downcase
-      @search_result = []
+      search_result = []
       users.each do |user|
         if user.login.downcase.include?(params[:search]) or user.name.downcase.include?(params[:search])
-          @search_result << user
+          search_result << user
         end
       end
-      users = @search_result.sort_by(&:last_name)
+      users = search_result.sort_by(&:last_name)
     end
     @user_profiles = []
     for user in users
-      @user_profiles << UserProfile.find_by_user_id(user.user_id)
+      @user_profiles << UserProfile.find_by_user_id(user.id)
     end
   end
 private
