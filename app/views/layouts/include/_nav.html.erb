@@ -12,7 +12,7 @@
 				<% if current_user.departments.include?(current_department) %>
 					<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
 					<li><%= link_to "Calendars", calendars_path %></li>
-					<li><%= link_to "Roles", department_roles_path(current_department) %></li>
+					<li><%= link_to "Permissions", department_roles_path(current_department) %></li>
 				<% end %>
 			</ul>
 		</li>
@@ -21,7 +21,7 @@
     <li>
 			<%= link_to "Users", department_users_path(current_department) %>
 			<ul>
-				<li><%= link_to "Manage Users", department_users_path(current_department) %></li>
+				<li><%= link_to "Users", department_users_path(current_department) %></li>
 	      <li><%= link_to "Permissions", department_roles_path(current_department) %></li>
 		  	<li><%= link_to "Profiles", user_profiles_path %></li>
 				<li><%= link_to "Profile Fields", user_profile_fields_path %></li>
