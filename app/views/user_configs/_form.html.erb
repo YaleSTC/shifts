@@ -36,8 +36,6 @@
 	<small>Control your notification preferences.</small><br />
      <%= f.check_box :taken_sub_email %>
      <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests" %>
-<<<<<<< HEAD
-=======
     </p>
     <p>
      <%= f.check_box :send_due_payform_email %>
@@ -46,7 +44,6 @@
     <%if current_user.is_admin_of?(@department)%>
     <p>
     	<%= f.submit "Reset" %>Reset preference to send email reminders for all users in the current department
->>>>>>> development
     </p>
     <%end%>
 	</fieldset>
