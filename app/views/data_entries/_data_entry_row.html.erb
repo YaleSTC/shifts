@@ -1,4 +1,4 @@
-    <tr class=<%= data_entry_class(data_entry_row) %>>
+    <tr class=<%= "#{cycle("odd", "even")}" %>>
       <td><%= data_entry_row.updated_at.to_s(:am_pm_long) %></td>
         <% data_fields.each do |df| %>
         <td><%= data_entry_row.data_fields_with_contents[df.id.to_s] %></td>
