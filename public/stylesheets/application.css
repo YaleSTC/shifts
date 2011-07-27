@@ -403,7 +403,7 @@ table.manage_table th {
 fieldset.index {
   padding: 5px;
   margin: 0px 0px 5px 0px;
-  border: 1px solid gray;
+  /*border: 1px solid gray;*/
   background-color:#DDDDFF
 }
 fieldset#warning {
