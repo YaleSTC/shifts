@@ -43,7 +43,8 @@
     <%= f.check_box :active %>
   </p>
   <p>
-    <%= f.submit 'Submit' %>
+    <%= f.submit 'Submit and add another task', :name => "add_another" %>
+	<%= f.submit 'Submit and finish', :name => "submit" %>
   </p>
 
 <% end %>

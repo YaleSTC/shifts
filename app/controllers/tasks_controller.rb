@@ -51,7 +51,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         flash[:notice] = 'Task was successfully created.'
-        format.html { redirect_to(@task) }
+        format.html { redirect_to(params[:add_another] ? new_task_path : @task) }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
       else
         format.html { render :action => "new" }
