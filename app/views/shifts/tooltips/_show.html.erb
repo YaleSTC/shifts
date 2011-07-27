@@ -30,8 +30,12 @@
             <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user) %>
           <% end %>
         <% elsif current_user == @shift.user %>
-          <% unless @shift.has_passed? or @shift.submitted? %>
-            <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+         <% unless @shift.has_passed? or @shift.submitted? %>
+        <% if @shift.has_sub?%>
+          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %>
+        <% else%>
+          <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+        <% end %>
           <% end %>
         <% end %>
       </p>
@@ -149,7 +153,11 @@
       <% end %>
     <% elsif current_user == @shift.user %>
       <% unless @shift.has_passed? or @shift.submitted? %>
-        <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+        <% if @shift.has_sub?%>
+          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %>
+        <% else%>
+          <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+        <% end %>
       <% end %>
     <% end %>
   </p>

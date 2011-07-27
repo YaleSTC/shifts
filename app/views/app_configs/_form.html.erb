@@ -16,7 +16,7 @@
 	<small>This is the administrator email that any non-department-specific correspondences are sent to. </small><br />
 	<%= f.text_field :admin_email %>
   </p>	
-  <input type="checkbox" class = "trigger"><%="Allow LDAP for importing users?"%>
+  <input type="checkbox" id="toggle"><%="Allow LDAP for importing users?"%>
  	 <div id = "ldap_fields" style="display:none">
   	  <p>
     	  <%= f.label :ldap_host_address, text = "LDAP Host address" %> <br />
@@ -53,8 +53,8 @@
 <% end %>
 
 <script>
-$('#hide').toggle();
-$('#ldap_check_box').click(function () {
-  $('.ldap_fields').toggle();
+$('#toggle').click(function() {
+  $('#ldap_fields').slideToggle('fast', function() {
+  });
 });
 </script>
