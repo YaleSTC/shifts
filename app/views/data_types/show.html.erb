@@ -1,7 +1,9 @@
 <% title @data_type.name %>
 
+<% unless !@data_type.description? %>
 <strong>Description:</strong>
 <%=h @data_type.description %> <br /> <br />
+<% end %>
 
 <h2><strong>Data fields:</strong></h2>
 
