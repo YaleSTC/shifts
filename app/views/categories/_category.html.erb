@@ -1,12 +1,13 @@
-<div class=<%= text == 'enable' ? "\"category-item-disabled\"" : "\"category-item\"" %>>
-<div style="float: right">
-  
-  <%= link_to '[' + text + ']', { :action => text, :id => category}, { :method  => :put } %>
-  <%= link_to '[X]', category_path(category), { :method  => :delete } if text == 'enable' %>
-</div>
-<strong>
-  <%= link_to '[edit]', edit_category_path(category) %><%= category.name %>
-</strong>
-<br/>
-<%= " (" + category.payform_items.count.to_s + " payform item" + (category.payform_items.count == 1 ? ")" : "s)" ) %>
-</div>
+<tr <%=  category.active ? "class=#{cycle("odd", "even")}" : "class='disabled'" %>>
+	<td><%= category.name %></td>
+	<td><%= category.payform_items.count.to_s%></td>
+	<td><%= link_to 'Edit', edit_category_path(category)%></td>
+	<td><%= link_to 'Delete', category_path(category, {:method => :delete} )%></td>
+	<% if category.active?%>
+	<td><%= link_to 'Disable', {:action => :disable, :id => category}, {:method => :put} %></td>
+	<% else%>
+	<td><%= link_to 'Enable', {:action => :enable, :id => category}, {:method => :put}%></td>
+	<% end %>
+</tr>
+
+
