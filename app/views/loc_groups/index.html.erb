@@ -11,9 +11,11 @@
   <tbody>
   <% for loc_group in @loc_groups %>
     <tr class=<%= "#{cycle("odd", "even")}" %>>
-      <td><%= link_to loc_group.name, edit_loc_group_path(loc_group) %></td>
+      <td><%= link_to loc_group.name, loc_group_path(loc_group) %></td>
       <td><%= loc_group.sub_request_email %></td>
       <td><%=h loc_group.locations.collect{|loc| loc.name} * ", " %></td>
+	  <td><%= link_to "Edit", edit_loc_group_path(loc_group)%></td>
+	  <td><%= link_to "Destroy", loc_group, :confirm => "Are you sure?", :method => :destroy%></td>
   <% end %>
   </tbody>
 </table>

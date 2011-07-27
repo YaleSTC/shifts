@@ -23,7 +23,8 @@
 	<% end %>		
 	</tr>
 </table>
-    <%= link_to "New Data Field", new_data_type_data_field_path(@data_type), :method => :get %> <br /> <br  />
+    <%= link_to "New Data Field", new_data_type_data_field_path(@data_type), :method => :get %> | 
+    <%= link_to "All Data Fields", data_type_data_fields_path(@data_type) %><br /> <br  />
 
 
   <h2><strong>Data objects of this type:</strong></h2>
