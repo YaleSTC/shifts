@@ -31,7 +31,7 @@
     <th>Active</th>
   </tr>
   <% for calendar in @calendars %>
-    <tr<%= " class='disabled'" if (!calendar.active? and @calendar.nil?) %>>
+    <tr<%= (!calendar.active? and @calendar.nil?) ? "class = 'disabled'" : "class= #{cycle("odd", "even")}" %>>
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
