@@ -21,7 +21,7 @@ class DepartmentObserver < ActiveRecord::Observer
                         :mailer_address => "noreply@shifts.app",
                         :early_signin => 60,
                         :search_engine_name => "Google",
-                        :search_engine_url => "http://www.google.com"
+                        :search_engine_url => "http://www.google.com/search?q="
                         })
 
     Category.create!(:name => "Shifts",        :department_id => department.id, :built_in => true)
