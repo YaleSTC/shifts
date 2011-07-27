@@ -18,7 +18,7 @@
   <% else%>
     <% if @shift.report %>
       <%= stylesheet_link_tag "report" %>
-      <%= render :partial => 'reports/report', :object => @shift.report %>
+      <%= render :partial => 'reports/report', :object => @shift.report, :locals => {:html_id => "shift_report_view"} %>
       <p>
         <% if @shift.signed_in? && (current_user == @shift.user) %>
           <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
@@ -118,7 +118,7 @@
 
   <% if @shift.report %>
     <%= stylesheet_link_tag "report" %>
-    <%= render :partial => 'reports/report', :object => @shift.report %>
+    <%= render :partial => 'reports/report', :object => @shift.report, :locals => {:html_id => "shift_report_view"}%>
     <% if @shift.signed_in? && (current_user == @shift.user || current_user.is_admin_of?(@shift.location)) %>
       <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
     <% end %>
