@@ -12,6 +12,8 @@ class ReportsController < ApplicationController
     @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
     return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
+    @search_engine_name = current_department.department_config.search_engine_name
+    @search_engine_url = current_department.department_config.search_engine_url
   end
 
   #Signing into a shift
@@ -93,12 +95,19 @@ end
  #   redirect_to "http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=#{@key_words}&go=Go"
   #end
   
-  def search(key_words)
-    @search_engines = [Weke, Google, Bing]
-    @key_words = key_words
-    @key_words.tr(" ", "+")
-    @url = "http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=#{@key_words}&go=Go"
+  def custom_search
+    @key_word = params[:search]
+    @search_engine_url = current_department.department_config.search_engine_url
+    @search_url = @search_engine_url.concat(@key_word)
     
+    flash[:notice] = "Search Url: #{@search_url}"
+    
+    respond_to do |format|
+          format.js
+          #format.html{}
+        end
+        
+    #redirect_to report_path(params[:id])
   end
 
 
