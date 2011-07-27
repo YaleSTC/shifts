@@ -9,8 +9,9 @@
     <%= f.date_select :start_date %>
   </p>
   <p>
-    <%= f.label :end_date %> (note that the calendar ends at midnight, so events cannot be created on this day)<br />
-    <%= f.date_select :end_date %>
+    <%= f.label :end_date %> <br />
+    <%= f.date_select :end_date %><br />
+	(note that the calendar ends at midnight, so events cannot be created on this day)<br />
   </p>
   <% if @calendar.new_record? %>
     <p>
