@@ -23,7 +23,7 @@
 		<th></th>
   </tr>
 <% @week_templates.each do |template| %>
-  <tr>
+<tr <%= "class= #{cycle("odd", "even")}" %> > 
     <td><%=h template.name %></td>
     <td><%=h template.max_total_hours %></td>
     <td><%=h template.min_total_hours %></td>

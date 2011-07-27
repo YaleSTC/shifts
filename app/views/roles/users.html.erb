@@ -7,8 +7,8 @@
 		<th> Name </th>
 		<th> Email </th>
 	</tr>
-	<tr>
 	<% for user in @role_users %>
+	<tr <%= "class= #{cycle("odd", "even")}" %> > 
 	    <td><%= user.login%></td>
 		<td><%= link_to user.name, user_profile_path(user.login) %></td>
 		<td><%= mail_to user.email%></td>

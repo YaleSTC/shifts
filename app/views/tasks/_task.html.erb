@@ -1,4 +1,4 @@
-<tr<%= " class='disabled'" unless task.active %>>
+  <tr <%=  task.active ? "class=#{cycle("odd", "even")}" : "class='disabled'" %>>
     <td title='<%= task.description %>'>
 	<%=link_to task.name, task%></td>
     <td><%=h task.kind %></td>

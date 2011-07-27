@@ -10,7 +10,7 @@
   </thead>
   <tbody>
   <% for loc_group in @loc_groups %>
-    <tr>
+    <tr class=<%= "#{cycle("odd", "even")}" %>>
       <td><%= link_to loc_group.name, edit_loc_group_path(loc_group) %></td>
       <td><%= loc_group.sub_request_email %></td>
       <td><%=h loc_group.locations.collect{|loc| loc.name} * ", " %></td>
