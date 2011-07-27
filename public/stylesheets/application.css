@@ -565,6 +565,8 @@ table.tablesorter tbody td {
 	padding: 4px;
 	background-color: #fff;
 	vertical-align: top;
+	max-width: 400px;
+	word-wrap: break-word;
 }
 table.tablesorter tbody tr.odd td {
 	background-color:#F0F0F6;
