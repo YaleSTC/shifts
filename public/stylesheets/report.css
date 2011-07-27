@@ -87,19 +87,19 @@ tr.list_report_item_odd {
 #useful_links {
   width: 48%;
 	float: right;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 #report_data_objects {
   width: 48%;
   float: right;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 #shift_tasks {
   width: 48%;
   float: right;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 #report_view_table td.user_name{
@@ -111,7 +111,7 @@ tr.list_report_item_odd {
 	width: 390px;
 	float: left;
 	clear: right;
-	margin-bottom: 5px;
+	margin-bottom: 15px;
 }
 
 textarea#item {
