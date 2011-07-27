@@ -117,7 +117,7 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu#application_tabs li {
 	background:		#8B9B6C;
-	z-index:	130;
+	z-index:	121;
 }
 .sf-menu#application_tabs li#highlight {
 	background:		#785;
