@@ -22,7 +22,7 @@
 .sf-menu li {
 	float:			left;
 	position:		relative;
-	z-index:	150;
+	z-index:	120;
 }
 .sf-menu a {
 	display:		block;
@@ -117,6 +117,7 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu#application_tabs li {
 	background:		#8B9B6C;
+	z-index:	130;
 }
 .sf-menu#application_tabs li#highlight {
 	background:		#785;
