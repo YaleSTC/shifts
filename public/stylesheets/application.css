@@ -214,9 +214,7 @@ div#login{
 	font-family: Trebuchet MS, Verdana, Arial, serif;
 	color: #FFFFFF;
 	font-size: 12px;
-  padding: 0px 5px 0px 10px;
-  margin-top: 1px;
-  line-height: 2em;
+	margin-top: 6px;
 }
 
 /* tabs
@@ -224,16 +222,16 @@ div#login{
 #application_tab_bar {
   float: right;
   width: 600px;
+	margin-top: -3px;
 }
 ul#application_tabs {
   float: right;
 	background-color: #8B9B6C;
   padding: 0pt;
   list-style-type: square;
-  margin: 0pt 5px 0pt 0pt;
-/*  font-size: 12px;
+	font-size: 12px;
 
-  line-height: 1.6em;
+/*  line-height: 1.6em;
   list-style-image: none;
   list-style-position: outside;
 */
@@ -265,6 +263,7 @@ ul#navigationList {
 	margin-left: 	30px;
 	padding-top: 40px;
   float: 				left;
+	font-size: 11px;
 }
 
 /*ul#navigationList {
