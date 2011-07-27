@@ -210,18 +210,16 @@ div#login{
 --------------------------------------------------------- */
 #chooser {
   float: left;
-  width: 250px;
 	font-family: Trebuchet MS, Verdana, Arial, serif;
 	color: #FFFFFF;
 	font-size: 12px;
-	margin-top: 6px;
 }
 
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  float: right;
-  width: 600px;
+  width: 100%;
+	float: left;
 	margin-top: -3px;
 }
 ul#application_tabs {

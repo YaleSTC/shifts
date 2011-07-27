@@ -4,8 +4,9 @@
 			<%= link_to "Dashboard", dashboard_path %>
 	  </li>
   <% end -%>
+
   <% if current_user.is_superuser? -%>
-    <li  id=<%=  navbar_highlight(params[:controller]) == "departments" ? "highlight" : "not" %> ><%= link_to "Departments", departments_path %>
+    <li id=<%=  navbar_highlight(params[:controller]) == "departments" ? "highlight" : "not" %> ><%= link_to "Departments", departments_path %>
 			<ul>
 				<li><%= link_to "Application Settings", edit_app_config_path %></li>
 			  <li><%= link_to "Superusers", superusers_path %></li>
@@ -15,6 +16,7 @@
 			</ul>
 		</li>
   <% end -%>
+
   <% if current_user.is_admin_of?(current_department) && current_user.is_active?(current_department) || current_user.is_superuser? -%>
     <li id=<%=  navbar_highlight(params[:controller]) == "users" ? "highlight" : "not" %> >
 			<%= link_to "Users", department_users_path(current_department) %>
@@ -33,34 +35,34 @@
 			</ul>
 		</li>
   <% end -%>
-  <% if current_user.departments.include?(current_department) %>
-    <li id=<%=  navbar_highlight(params[:controller]) == "shifts" ? "highlight" : "not" %> >
-			<%= link_to "Shifts", shifts_path %>
-			<ul>
-				<li><%= link_to "Shifts Schedule", shifts_path %></li>
-	      <% if current_user.is_admin_of?(current_department) %>
-					<li><%= link_to "Calendars", calendars_path %></li>
-					<li><%= link_to "Locations", department_locations_path(current_department) %></li>
-		      <li><%= link_to "Location Groups", department_loc_groups_path(current_department) %></li>
-					<li><%= link_to "Templates", templates_path %></li>
-				<% end %>
-				<li><%= link_to "Links", links_path %></li>
-	      <li><%= link_to "Notices", notices_path %></li>
-	      <li><%= link_to "Data Objects", data_objects_path %></li>
-	      <li><%= link_to "Stats", stats_path %></li>
-			</ul>
-		</li>
-     	<li id=<%=  navbar_highlight(params[:controller]) == "payforms" ? "highlight" : "not" %> >
-			<%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %>
 
-			<ul>
-	      <li><%= link_to "All Payforms", payforms_path %></li>
-				<% if current_user.is_admin_of?(current_department) -%>	
-					<li><%= link_to "Punch Clocks", punch_clocks_path %></li>
-			  	<li><%= link_to "Group Jobs", payform_item_sets_path %></li>
-				<% end %>
-			</ul>				
-		</li>
-   <% end %>
+  <li id=<%=  navbar_highlight(params[:controller]) == "shifts" ? "highlight" : "not" %> >
+		<%= link_to "Shifts", shifts_path %>
+		<ul>
+			<li><%= link_to "Shifts Schedule", shifts_path %></li>
+      <% if current_user.is_admin_of?(current_department) %>
+				<li><%= link_to "Calendars", calendars_path %></li>
+				<li><%= link_to "Locations", department_locations_path(current_department) %></li>
+	      <li><%= link_to "Location Groups", department_loc_groups_path(current_department) %></li>
+				<li><%= link_to "Templates", templates_path %></li>
+			<% end %>
+			<li><%= link_to "Links", links_path %></li>
+      <li><%= link_to "Notices", notices_path %></li>
+      <li><%= link_to "Data Objects", data_objects_path %></li>
+      <li><%= link_to "Stats", stats_path %></li>
+		</ul>
+	</li>
+	
+	<li id=<%=  navbar_highlight(params[:controller]) == "payforms" ? "highlight" : "not" %> >
+		<%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %>
+		<ul>
+	     <li><%= link_to "All Payforms", payforms_path %></li>
+			<% if current_user.is_admin_of?(current_department) -%>	
+				<li><%= link_to "Punch Clocks", punch_clocks_path %></li>
+		  	<li><%= link_to "Group Jobs", payform_item_sets_path %></li>
+				<li><%= link_to "Categories", department_categories_path(current_department) %></li>
+			<% end %>
+		</ul>				
+	</li>
 </ul>
 
