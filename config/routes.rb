@@ -102,7 +102,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
-    data_type.resources :data_objects, :only => [:new, :create]
+    data_type.resources :data_objects, :only => [:new, :create, :index]
   end
 
   map.resources :data_objects do |data_object|
