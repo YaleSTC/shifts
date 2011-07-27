@@ -571,6 +571,9 @@ table.tablesorter tbody td {
 table.tablesorter tbody tr.odd td {
 	background-color:#F0F0F6;
 }
+table.tablesorter tbody tr.disabled td {
+	background-color:#CCC;
+}
 table.tablesorter thead tr .headerSortUp {
 	background-image: url(../images/tables/asc.gif);
 }
