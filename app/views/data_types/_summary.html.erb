@@ -16,7 +16,7 @@
 	       <th>Values </th>
 		</tr>
 		<% for field in data_type.data_fields %>
-		<tr>
+	    <tr class=<%= "#{cycle("odd", "even")}" %>>        
 		  <td> <%= field.name%> </td>
 		  <td> <%= field.display_type.humanize %></td>
 		  <td> <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %> </td>
@@ -33,7 +33,7 @@
       <th>Name</th>
    </tr>
    <% for obj in data_type.data_objects %>
-   <tr>
+   <tr class=<%= "#{cycle("odd", "even")}" %>>        
 	  <td><%= link_to "#{obj.name}", obj %></td>
 	  <td><%= link_to "Edit", edit_data_object_path(obj) %></td>
       <td><%= link_to "Delete", obj,  
