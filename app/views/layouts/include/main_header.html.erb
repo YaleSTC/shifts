@@ -21,9 +21,9 @@
       <div id="main_banner">
       </div>
       <div id="link_bar">
-    	  <%= render :partial => "layouts/include/chooser" if current_user%>
         <div id="application_tab_bar">
-          <%= render :partial => "layouts/include/nav" if current_user %>
+          <%= render :partial => "layouts/include/chooser" if current_user%>	
+					<%= render :partial => "layouts/include/nav" if current_user %>
         </div>
       </div>
 
