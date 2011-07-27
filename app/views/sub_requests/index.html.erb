@@ -1,5 +1,5 @@
 <% title "Sub Requests" %>
-<table id="requests_table">
+<table id="requests_table", class = "tablesorter">
   <tr>
     <th>Date/Time</th>
     <th>Location</th>
@@ -8,7 +8,7 @@
   </tr>
 
 <% @subs.first(@limit).each do |sub_request| %>
-  <tr>
+  <tr <%= "class= #{cycle("odd", "even")}" %> > 
     <td class="sub_date">
 		<%=h sub_request.start.to_s(:gg) %><br>
 		<%=h sub_request.start.to_s(:am_pm) %> - <%=h  sub_request.end.to_s(:am_pm) %><br>

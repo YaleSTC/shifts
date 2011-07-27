@@ -1,6 +1,6 @@
 <h1>Your shift requests for <%= @week_template.name %></h1>
 
-	<table>
+	<table class = "tablesorter">
 		<tr>
 			<th>User</th>
 		  <th colspan=2>Preferred</th>
@@ -8,7 +8,7 @@
 		  <th>Day</th>
 			<th>Locations</th>
 		</tr>
-		<tr>
+		<tr <%= "class= #{cycle("odd", "even")}" %> > 
 			<th></th>
 		  <th>Start</th>
 		  <th>End</th>

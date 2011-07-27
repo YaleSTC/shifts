@@ -2,13 +2,13 @@
 
 <% @user_profile_fields.each do |profile_field| %>
     <h2><%= link_to "#{profile_field.name}", profile_field.name %></h2>
-      <table>
+      <table class = "tablesorter">
     <tr>
       <th>User</th>
       <th>Contents</th>
     </tr>
     <% UserProfileEntry.find(:all, :conditions => {:user_profile_field_id => profile_field.id}).each do |profile_entry| %>
-      <tr>
+	<tr <%= "class= #{cycle("odd", "even")}" %> > 
         <td><%=h User.find(profile_entry.user_id).proper_name %>
         <td><%= profile_entry.content %>
       </tr>
