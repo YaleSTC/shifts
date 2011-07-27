@@ -18,13 +18,13 @@ body {
   background-image: none;
 }
 table, td, th{
-	border:1px solid #666;
+	/*border:1px solid #666;*/
 	padding: 2px;
 	border-collapse:collapse;
 }
 th{
 	background: #778899;
-	border:1px solid black;
+/*	border:1px solid black;*/	
 	color: white;
 }
 h1, h2, h3, h4, h5, h6 {
