@@ -21,6 +21,14 @@
 	float: right;
 }
 
+#shift_report_view  { /*in order minimize the height of the report_show page*/
+  float: right;
+  width: 98.6%;
+  margin-top: 5px;
+  height: 200px;
+  overflow-y: auto;
+}
+
 #report_view  {
   float: right;
   width: 98.6%;
