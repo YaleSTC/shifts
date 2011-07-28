@@ -168,7 +168,7 @@ div.datePicker th span.next-but
         {
         font-weight:lighter;
         font-size:2.4em;
-        font-family: georgia, times new roman, palatino, times, bookman, serif;
+			  font-family: trebuchet, sans-serif;	
         cursor:pointer !important;
         }
 /* Hover effect for Next & Previous (month, year) buttons */

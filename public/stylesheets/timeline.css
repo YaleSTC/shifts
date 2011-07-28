@@ -197,7 +197,7 @@ div#tooltip{
 	min-width: 200px;
 	font-style: normal;
 	font-weight: normal;
-    font-family: Verdana, Arial, serif;
+  font-family: trebuchet, sans-serif;	
 	font-size: 12px;
 	border: 1px solid gray;
 }
@@ -262,7 +262,7 @@ div.loading{
 	padding: 5px;
 	font-style: normal;
 	font-weight: normal;
-    font-family: Verdana, Arial, serif;
+  font-family: trebuchet, sans-serif;	
 	font-size: 12px;
 	border: 1px solid gray;
 }
