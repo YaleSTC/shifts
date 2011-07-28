@@ -30,7 +30,7 @@
 	border-style:solid;
 	color:#039;
 	font-weight:bold;
-  font-family: trebuchet, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
 	font-size:90%;
 	padding:3px 3px;
 	margin:0px 0px 10px -30px;
@@ -38,7 +38,7 @@
 
 /* MORE PAYFORM: */
 #payform h1 {
-  font-family: trebuchet, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
   color: #2758B3;
 }
 
@@ -47,7 +47,7 @@
 
 #payformList
 {
-  font-family: trebuchet, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
 	font-size: 12px;
 	margin: 0px;
 	width: 100%;
@@ -194,7 +194,7 @@ a.button:active span {
 }
 #emailReminders fieldset.reminders legend {
   color: #53662E;
-  font-family: trebuchet, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
   font-size: 15px;
   font-weight: normal;
   background: #FFFFFF none repeat scroll 0% 0%;
@@ -210,7 +210,7 @@ a.button:active span {
 
 #unselected, #selected {
   color: #415578;
-  font-family: trebuchet, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
   font-size: 12px;
   margin: 5px auto;
   border: solid 1px #ddd;

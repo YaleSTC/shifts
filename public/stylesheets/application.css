@@ -12,7 +12,7 @@ body {
 	color: #000;
   margin: 0pt;
   padding: 0pt;
-  font-family: trebuchet, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-size: 11px;
   background-color: #E9E9E9;
   background-image: none;
@@ -179,7 +179,7 @@ div#login{
 #login p {
   margin: 9pt 10px 0pt 0pt;
   font-size: 12px;
-  font-family: trebuchet, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   line-height: 1.1em;
   color: #FFFFFF;
   float: right;
@@ -209,7 +209,7 @@ div#login{
 --------------------------------------------------------- */
 #chooser {
   float: left;
-  font-family: trebuchet, sans-serif;	color: #FFFFFF;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
 	font-size: 12px;
 }
 
@@ -273,7 +273,7 @@ ul#navigationList {
 
 /*ul#navigationList {
   color: #415578;
-  font-family: trebuchet, sans-serif;	color: #FFFFFF;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   font-size: 11px;
   font-weight: bold;
   line-height: 1.7em;
@@ -363,7 +363,7 @@ ul#navigationList a:hover {
 }
 p.footer {
   color: #FFFFFF;
-  font-family: trebuchet, sans-serif;	color: #FFFFFF;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   font-size: 10px;
   line-height: 1.6em;
   margin: 0px 0px 0px 180px;
@@ -428,7 +428,7 @@ div#left_stuff {
 legend {
   color: #eef;
   background: #0F2B5B;
-  font-family: trebuchet, sans-serif;	color: #FFFFFF;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   padding: 0.2em 1em;
 }
 
@@ -439,7 +439,7 @@ legend {
 #blue_fieldset fieldset legend {
   color: #eef;
   background: #123456;
-  font-family: trebuchet, sans-serif;	color: #FFFFFF;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   padding: 0.2em 1em;
 }
 
@@ -549,7 +549,7 @@ span#progress_bar #other_step {
 /* = Tables
 ======================================================================= */	
 table.tablesorter {
-  font-family: trebuchet, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
   color: #FFFFFF;/*	background-color: #CDCDCD; */
 	margin:10px 0pt 15px;
 	font-size: 8pt;
