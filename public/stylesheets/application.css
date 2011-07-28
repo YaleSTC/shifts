@@ -722,3 +722,8 @@ div.feed_bottom a {float:right;}
 
 /* button for report_item_view on location index */
 input.view_more {float:right;}
+
+/* removing bullets for multiple select checkboxes */
+li#loc_group_list {
+	list-style-type: none;
+}
