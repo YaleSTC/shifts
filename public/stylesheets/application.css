@@ -443,7 +443,9 @@ legend {
 ======================================================================= */
 
 #errorExplanation {
-  width: 400px;
+  width: 75%;
+	margin-left: auto;
+	margin-right: auto;
   border-style: solid;
   border-color: #CF0000;
   border-width:2px;
@@ -454,7 +456,7 @@ legend {
   background-color: #f0f0f0;
 }
 #errorExplanation h2 {
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
   font-size: 12px;
@@ -464,6 +466,7 @@ legend {
 }
 #errorExplanation p {
   color: #333;
+	font-size: 12px;
   margin-bottom: 0;
   padding: 8px;
 }
@@ -647,6 +650,9 @@ img.loading_icon {
   margin-right: 5px;
 }
 
+#result_list{
+	z-index: 110;
+}
 
 #timer{
   font-size: 20px;
