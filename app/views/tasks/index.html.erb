@@ -1,22 +1,25 @@
-<h1>Tasks Index</h1>
+<% title "Tasks Index" %>
 
-<table id = "task_table" class = "tablesorter">
-  <tr>
-    <th>Name</th>
-    <th>Kind</th>
-		<th>Location</th>
-    <th>Start</th>
-    <th>End</th>
-    <th>Time</th>
-    <th>Week Day</th>
-    <th>Active</th>
-    <th colspan=2>Task Records</th>
-  </tr>
-
-<%= render :partial => "task", :collection => @active_tasks  %>
+<table id="tasks_table" class="tablesorter">
+	<thead>
+	  <tr>
+	    <th>Name</th>
+	    <th>Kind</th>
+			<th>Location</th>
+	    <th>Start</th>
+	    <th>End</th>
+	    <th>Time</th>
+	    <th>Weekday</th>
+	    <th>Active</th>
+	    <th colspan=2>Task Records</th>
+	  </tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "task", :collection => @active_tasks  %>
+	</tbody>
 </table>
 
-<br /><h4>Expired/Inactive Tasks:</h4>
+<h4>Expired/Inactive Tasks:</h4>
 
 <table class = "tablesorter">
 <%= render :partial => "task", :collection => @inactive_tasks %>
@@ -26,4 +29,4 @@
 
 <%= link_to 'New Task', new_task_path %>
 
-
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#tasks_table").tablesorter({sortList: [1,0]});});</script>
