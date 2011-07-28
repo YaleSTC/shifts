@@ -1,5 +1,6 @@
 <% title "STC Shifts" %>
 
 <%for location in @locations%>
-<%= location.short_name %> <br />
+	<%= location.short_name %><br />
+	<%= render :partial => "location", :locals => {:location => location} %>
 <%end %>
