@@ -48,7 +48,7 @@
 }
 
 #TB_window {
-	position: fixed;
+	position: absolute;
 	background: #ffffff;
 	z-index: 152;
 	color:#000000;
