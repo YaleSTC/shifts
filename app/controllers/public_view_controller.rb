@@ -7,6 +7,7 @@ class PublicViewController < ApplicationController
     #@date = params[:date].to_date
 		@loc_group = LocGroup.first #change later
 		@locations = @loc_group.locations.active
+    @view_days = (Date.today..Date.today+7)
 		
   end
 

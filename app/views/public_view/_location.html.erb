@@ -1,0 +1,3 @@
+<%for day in @view_days%>
+	<%= render :partial => "day", :locals => {:location => location, :day => day} %>
+<%end %>
