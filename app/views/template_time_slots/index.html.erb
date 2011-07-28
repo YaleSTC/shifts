@@ -42,7 +42,7 @@
 																:default => @end} %>
 			</p>
 			<p>
-				Day:<br />
+				Weekday:<br />
 				<% RequestedShift::WEEK_DAY_SELECT.each do |day| %>
 					<%= check_box "template_time_slot[day]", day[1].to_i %> <%= "#{day[0][0..2]}" %>
 				<% end %>
