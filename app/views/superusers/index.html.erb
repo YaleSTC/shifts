@@ -1,5 +1,5 @@
-<% title "Manage superusers" -%>
-<% field_set_tag 'Add superuser' do -%>
+	<% title "Manage superusers" -%>
+<% field_set_tag 'Add superuser' do -%> <br />
 <div>
 	With great power comes great responsiblity.  Please use this wisely. (That's why you can only add one at a time)
 </div> <br />
@@ -22,7 +22,7 @@
     <% @superusers.each do |su| -%>
 	<tr <%= "class= #{cycle("odd", "even")}" %> > 
       <td><%= su.login %></td>
-      <td><%= su.name %></td>
+      <td><%= link_to su.name, user_path(su) %></td>
       <td><%= check_box_tag('remove_su_ids[]', su.id) %></td>
     </tr>
     <% end -%>

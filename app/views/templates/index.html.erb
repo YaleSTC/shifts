@@ -24,7 +24,7 @@
   </tr>
 <% @week_templates.each do |template| %>
 <tr <%= "class= #{cycle("odd", "even")}" %> > 
-    <td><%=h template.name %></td>
+    <td><%=h link_to template.name, template_path(template)%></td>
     <td><%=h template.max_total_hours %></td>
     <td><%=h template.min_total_hours %></td>
     <td><%=h template.max_continuous_hours %></td>
