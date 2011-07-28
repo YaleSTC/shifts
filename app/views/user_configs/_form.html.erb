@@ -10,11 +10,11 @@
     </fieldset>
   <% end %>
   <p>
-  <fieldset class = "index">
+  <fieldset class = "index" >
   <legend>Location Groups</legend>
     
     <small>Control which location groups to view on your shift
-    schedule and on the notices index page.</small><br />
+    schedule and on the notices index page.</small><br /><br />
     <%= render :partial => 'loc_groups' %>
 
   </fieldset>
@@ -41,15 +41,13 @@
      <%= f.check_box :send_due_payform_email %>
      <%= f.label :send_due_payform_email, text = "Enable email notifications for due payforms" %>
     </p>
-    <%if current_user.is_admin_of?(@department)%>
+    <% if current_user.is_admin_of?(@department) %>
     <p>
-    	<%= f.submit "Reset" %>Reset preference to send email reminders for all users in the current department
+    	<%= f.submit "Reset" %> Reset preference to send email reminders for all users in the current department
     </p>
-    <%end%>
+    <% end %>
 	</fieldset>
   <p>
     <%= f.submit "Submit" %>
   </p>
 <% end %>
-
-
