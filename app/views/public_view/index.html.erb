@@ -1,1 +1,5 @@
-<%= @cluster.short_name %>
+<% title "STC Shifts" %>
+
+<%for location in @locations%>
+<%= location.short_name %> <br />
+<%end %>
