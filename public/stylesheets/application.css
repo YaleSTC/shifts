@@ -213,6 +213,15 @@ div#login{
 	font-size: 12px;
 }
 
+/* shift indicator
+--------------------------------------------------------- */
+#shift_indicator {
+  float: left;
+	font-family: Trebuchet MS, Verdana, Arial, serif;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
