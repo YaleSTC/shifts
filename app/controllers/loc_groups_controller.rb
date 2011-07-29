@@ -38,21 +38,21 @@ class LocGroupsController < ApplicationController
   end
   
   
-  # def toggle
-  #     @location = Location.find(params[:id])
-  #     ActiveRecord::Base.transaction do
-  #       if @location.active
-  #         @location.deactivate
-  #       else
-  #         @location.activate
-  #       end
-  #     end
-  #     flash[:notice] = "Changed activation status of " + @location.name.to_s + "."
-  #     respond_to do |format|
-  #       format.js 
-  #       format.html {redirect_to notices_path}
-  #     end
-  #   end
+  def toggle
+      @location = LocGroup.find(params[:id])
+      ActiveRecord::Base.transaction do
+        if @loc_group.active
+          @loc_group.deactivate
+        else
+          @loc_group.activate
+        end
+      end
+      flash[:notice] = "Changed activation status of " + @loc_group.name.to_s + "."
+      respond_to do |format|
+        format.js 
+        format.html {redirect_to notices_path}
+      end
+    end
   
   def destroy
     @loc_group = LocGroup.find(params[:id])

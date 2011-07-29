@@ -41,26 +41,21 @@ class LocGroup < ActiveRecord::Base
   def deactivate
     self.active = false
     self.save!
-    #Location activation must be set prior to individual shift activation; Shift class before_save
-    locations.after_date(Time.now.utc).update_all :active => false
-    for location in locations
-      shifts.after_date(Time.now.utc).update_all :active => false
+    self.locations.each do |location|
+      location.deactivate
+      location.save!
     end
   end
   
   def activate
     self.active = true
     self.save!
-    #Location activation must be set prior to individual shift activation; Shift class before_save
-    @shifts = shifts.after_date(Time.now.utc)
-    @shifts.each do |shift|
-      if shift.user.is_active?(shift.department) && shift.calendar.active
-        shift.active = true
-      end
-      shift.save
-    end    
+    self.locations.each do |location|
+      location.activate
+      location.save!
+    end
   end
-  
+
   private
 
   def create_permissions
