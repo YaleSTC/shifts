@@ -1,4 +1,4 @@
-<% title "STC Shifts" %>
+<% title "Staffing from #{@view_days.first.strftime("%b %e, %Y ")} to #{@view_days.last.strftime("%b %e, %Y ")}" %>
 
 <%for loc_group in @loc_groups%>
 	<h2><%= loc_group.name %></h2><br />
