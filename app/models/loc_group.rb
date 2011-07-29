@@ -13,7 +13,9 @@ class LocGroup < ActiveRecord::Base
               :foreign_key => "admin_perm_id",
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
-
+  
+  named_scope :active, :conditions => {:active => true}
+  
   before_validation_on_create :create_permissions
   before_validation_on_update :update_permissions
 
@@ -34,6 +36,29 @@ class LocGroup < ActiveRecord::Base
   
   def roles
       department.roles.select { |u| u.permissions.include?(signup_permission) }
+  end
+  
+  def deactivate
+    self.active = false
+    self.save!
+    #Location activation must be set prior to individual shift activation; Shift class before_save
+    locations.after_date(Time.now.utc).update_all :active => false
+    for location in locations
+      shifts.after_date(Time.now.utc).update_all :active => false
+    end
+  end
+  
+  def activate
+    self.active = true
+    self.save!
+    #Location activation must be set prior to individual shift activation; Shift class before_save
+    @shifts = shifts.after_date(Time.now.utc)
+    @shifts.each do |shift|
+      if shift.user.is_active?(shift.department) && shift.calendar.active
+        shift.active = true
+      end
+      shift.save
+    end    
   end
   
   private

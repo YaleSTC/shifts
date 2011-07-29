@@ -86,18 +86,18 @@ class Location < ActiveRecord::Base
     shifts.after_date(Time.now.utc).update_all :active => false
   end
   
-  def activate
-    self.active = true
-    self.save!
-    #Location activation must be set prior to individual shift activation; Shift class before_save
-    @shifts = shifts.after_date(Time.now.utc)
-    @shifts.each do |shift|
-      if shift.user.is_active?(shift.department) && shift.calendar.active
-        shift.active = true
-      end
-      shift.save
-    end    
-  end
+  # def activate
+  #   self.active = true
+  #   self.save!
+  #   #Location activation must be set prior to individual shift activation; Shift class before_save
+  #   @shifts = shifts.after_date(Time.now.utc)
+  #   @shifts.each do |shift|
+  #     if shift.user.is_active?(shift.department) && shift.calendar.active
+  #       shift.active = true
+  #     end
+  #     shift.save
+  #   end    
+  # end
 
   def count_people_for(shift_list, min_block)
     people_count = {}
