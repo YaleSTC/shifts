@@ -39,7 +39,7 @@ class LocGroupsController < ApplicationController
   
   
   def toggle
-      @location = LocGroup.find(params[:id])
+      @loc_group = LocGroup.find(params[:id])
       ActiveRecord::Base.transaction do
         if @loc_group.active
           @loc_group.deactivate
@@ -50,7 +50,7 @@ class LocGroupsController < ApplicationController
       flash[:notice] = "Changed activation status of " + @loc_group.name.to_s + "."
       respond_to do |format|
         format.js 
-        format.html {redirect_to notices_path}
+        format.html
       end
     end
   
