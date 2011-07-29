@@ -39,7 +39,7 @@ class LocGroupsController < ApplicationController
   
   
   def toggle
-      @location = LocGroup.find(params[:id])
+      @loc_group = LocGroup.find(params[:id])
       ActiveRecord::Base.transaction do
         if @loc_group.active
           @loc_group.deactivate
