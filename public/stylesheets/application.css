@@ -597,10 +597,12 @@ table tr.alert_entry {
 
 table.tablesorter td#staffed {
   background-color: #536E8D;
+	border: 1px solid #FFF;
 }
 
 table.tablesorter td#unstaffed {
   background-color: #EEF;
+	border: 1px solid #FFF;
 }
 
 table.tablesorter td#date {
