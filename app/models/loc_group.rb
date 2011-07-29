@@ -41,19 +41,17 @@ class LocGroup < ActiveRecord::Base
   def deactivate
     self.active = false
     self.save!
-    #self.locations.each do |location|
-     # location.deactivate
-      #location.save!
-   # end
+    self.locations.each do |location|
+     location.deactivate 
+    end
   end
   
   def activate
     self.active = true
     self.save!
-    #self.locations.each do |location|
-     # location.activate
-      #location.save!
-    #end
+    self.locations.each do |location|
+      location.activate
+    end
   end
 
   private
