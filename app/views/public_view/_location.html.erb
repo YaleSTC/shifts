@@ -1,9 +1,9 @@
 <table class="tablesorter">
-	<thead>
+	<thead id="centered">
 		<tr>
-			<th>Date</th>
+			<th >Date</th>
 			<% for hour in 1..@hours_per_day %>
-				<th colspan=<%="#{@blocks_per_hour}"%> ><%= (@dept_start_time + (hour - 1).hours).hour %></th>
+				<th colspan=<%="#{@blocks_per_hour}"%> ><%= (@dept_start_time + (hour - 1).hours).strftime("%l%p") %></th>
 			<% end %>		
 		<tr>
 	</thead>

@@ -595,6 +595,22 @@ table tr.alert_entry {
   background-color:#ff0033;
 }
 
+table.tablesorter td#staffed {
+  background-color: #536E8D;
+}
+
+table.tablesorter td#unstaffed {
+  background-color: #EEF;
+}
+
+table.tablesorter td#date {
+  background-color: #CCE;
+}
+table.tablesorter thead#centered {
+	text-align: center;	
+}
+
+
 /*
 /* Sortable tables 
 table.sortable th:hover {
