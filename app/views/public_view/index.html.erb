@@ -1,6 +1,7 @@
 <% title "STC Shifts" %>
 
-<%for location in @locations%>
-	<%= location.name %><br />
-	<%= render :partial => "location", :locals => {:location => location} %>
+<%for loc_group in @loc_groups%>
+	<%= loc_group.name %><br />
+	<% preprocess_loc_group(loc_group) %>
+	<%= render :partial => "loc_group", :locals => {:loc_group => loc_group} %>
 <%end %>
