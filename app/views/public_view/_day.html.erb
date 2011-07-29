@@ -1,11 +1,11 @@
 <tr>
-	<td><%= day %></td>
+	<td id="date"><%= day.strftime("%b %e") %></td>
 	<% @day_blockset.each do |block| %>
 		<% block_time = block.change(:day => day.day, :month => day.month, :year => day.year) %>
 		<% if location.is_staffed?(shifts, block_time) %>
-			<td><%= 1 %></td>
+			<td id="staffed" title="Staffed"></td>
 		<% else %>
-			<td><%= 0 %></td>
+			<td id="unstaffed" title="Unstaffed"></td>
 		<% end %>
 	<% end %>
 </tr>
