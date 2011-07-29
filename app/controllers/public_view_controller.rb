@@ -12,10 +12,10 @@ class PublicViewController < ApplicationController
 		
 		
 		#TODO:simplify this stuff:
-    @dept_start_hour = current_department.department_config.schedule_start / 60
-    @dept_end_hour = current_department.department_config.schedule_end / 60
+    @dept_start_hour = Department.first.department_config.schedule_start / 60
+    @dept_end_hour = Department.first.department_config.schedule_end / 60
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
-    @time_increment = current_department.department_config.time_increment
+    @time_increment = Department.first.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
     @blocks_per_day = @blocks_per_hour * @hours_per_day
   end
