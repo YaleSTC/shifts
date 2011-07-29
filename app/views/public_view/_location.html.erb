@@ -1,10 +1,17 @@
-<table>
+<table class="tablesorter">
 	<thead>
+		<tr>
+			<th>Date</th>
+			<% for hour in 1..@hours_per_day %>
+				<th colspan=<%="#{@blocks_per_hour}"%> ><%= (@dept_start_time + (hour - 1).hours).hour %></th>
+			<% end %>		
+		<tr>
 	</thead>
 	<tbody>
-		<%for day in @view_days%>
-			<%= render :partial => "day", :locals => {:location => location, :day => day} %>
-		<%end %>
+		<% shifts = location.shifts_between(@view_days.first, @view_days.last)%>
+		<% for day in @view_days %>
+			<%= render :partial => "day", :locals => {:location => location, :day => day, :shifts => shifts} %>
+		<% end %>
 	</tbody>
 </table>
 

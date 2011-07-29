@@ -1,5 +1,11 @@
 <tr>
-	<td><%= "This is the partial for #{location.name} on day #{day}"%></td>
-	<td><%= @dept_start_hour %></td>
-	<td><%= @dept_end_hour %></td>
+	<td><%= day %></td>
+	<% @day_blockset.each do |block| %>
+		<% block_time = block.change(:day => day.day, :month => day.month, :year => day.year) %>
+		<% if location.is_staffed?(shifts, block_time) %>
+			<td><%= 1 %></td>
+		<% else %>
+			<td><%= 0 %></td>
+		<% end %>
+	<% end %>
 </tr>
