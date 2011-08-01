@@ -45,7 +45,11 @@
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
-	<% select_lg = Location.find(params[:location_id]).loc_group %>
+	<% if @shift.location.nil? %>
+     <% select_lg = Location.find(params[:location_id]).loc_group %>
+	<% else %>
+	 <% select_lg = @shift.location.loc_group%>
+	<% end %>
 
   <% if current_user.is_admin_of?(current_department) %>    
 		<% if current_user.is_superuser? %>    
