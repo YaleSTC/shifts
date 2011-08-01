@@ -7,14 +7,14 @@
     <th>Values</th>
   </tr>
   <% for data_field in @data_fields %>
-  <tr class=<%= "#{cycle("odd", "even")}" %>>        
+  <tr>
       <td><%=h data_field.name %></td>
       <td><%=h data_field.display_type %></td>
       <td><%=h data_field.values %></td>
       <td><%= link_to "Show", data_type_data_field_path(params[:data_type_id], data_field) %></td>
       <td><%= link_to "Edit", edit_data_type_data_field_path(params[:data_type_id], data_field) %></td>
       <td><%= link_to "Destroy", data_type_data_field_path(params[:data_type_id], data_field),
-                                                        :confirm => "Are you sure?", 
+                                                        :confirm => "Are you sure?",
                                                         :method => :delete %></td>
     </tr>
   <% end %>
