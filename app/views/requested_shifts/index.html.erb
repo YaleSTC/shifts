@@ -21,7 +21,7 @@
 		</tr>
 
 	<% @requested_shifts.sort_by{|s| [s.day, s.acceptable_start, s.acceptable_end]}.each do |requested_shift| %>
-	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+	<tr> 
 			<td><%=h requested_shift.user.name %></td>
 		  <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") if requested_shift.preferred_start %></td>
 		  <td><%=h requested_shift.preferred_end.strftime("%I:%M %p") if requested_shift.preferred_end %></td>

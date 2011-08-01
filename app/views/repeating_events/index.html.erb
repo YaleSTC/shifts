@@ -8,7 +8,7 @@
     <th>Locations</th>
   </tr>
   <% for repeating_event in @repeating_events %>
-	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+	<tr> 
       <td><%=h repeating_event.start_date.strftime("%D") %></td>
       <td><%=h repeating_event.end_date.strftime("%D") %></td>
       <td><%=h repeating_event.days.join(", ") %></td>

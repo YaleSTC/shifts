@@ -14,7 +14,7 @@
   </tr>
   <% if @results && !@results.empty? %>
     <% @results.each do |result| %>
-    <tr <%= "class= #{cycle("odd", "even")}"%>>
+    <tr>
         <td><%= result[:login] %></td>
         <td><%= result[:first_name] %></td>
         <td><%= result[:last_name] %></td>

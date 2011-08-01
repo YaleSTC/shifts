@@ -8,7 +8,7 @@
     <th>Max Hours</th>
   </tr>
   <% for restriction in @restrictions %>
-	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+	<tr> 
       <td><%=h restriction.starts %></td>
       <td><%=h restriction.expires %></td>
       <td><%=h restriction.max_subs %></td>
