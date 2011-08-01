@@ -1,11 +1,4 @@
-*~
-log/*
-tmp/*
-db/schema.rb
-Rakefile
-.DS_Store
-.project
-*.orig
-*.sqlite3
-cleangit
-config/database.yml
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
