@@ -31,6 +31,7 @@
     <li id=<%=  navbar_highlight(params[:controller]) == "users" ? "highlight" : "not" %> >
 			<%= link_to "Profiles", user_profile_path(current_user.login) %>
 			<ul>
+				<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
 		  	<li><%= link_to "All Profiles", user_profiles_path %></li>
 			</ul>
 		</li>
