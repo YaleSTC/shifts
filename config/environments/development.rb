@@ -31,5 +31,6 @@ Shifts::Application.configure do
     :address => "mail.yale.edu",
     :port => 25,
     :domain => "yale.edu"
+  }
 end
 
