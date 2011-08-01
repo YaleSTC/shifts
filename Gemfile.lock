@@ -47,8 +47,6 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastercsv (1.5.4)
-    has_many_polymorphs (2.13)
-      activerecord
     highline (1.6.2)
     hoptoad_notifier (2.4.11)
       activesupport
@@ -124,7 +122,6 @@ DEPENDENCIES
   capistrano
   chronic
   fastercsv
-  has_many_polymorphs
   hoptoad_notifier
   icalendar
   mysql
