@@ -14,7 +14,7 @@
        <th>Values </th>
 	</tr>
 	<% for field in @data_type.data_fields %>
-    <tr class=<%= "#{cycle("odd", "even")}" %>>
+    <tr>
 	  <td> <%= field.name%> </td>
 	  <td> <%= field.display_type.humanize %></td>
 	  <td> <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %> </td>
@@ -40,7 +40,7 @@
     </tr>
     <% for obj in @data_type.data_objects %>
       <% entry = obj.data_entries.last.data_fields_with_contents unless obj.data_entries.empty? %>
-    <tr class=<%= "#{cycle("odd", "even")}" %>>
+    <tr>
       <td>
         <%= link_to "#{obj.name}", obj %>
       </td>

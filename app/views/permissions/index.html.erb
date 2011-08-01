@@ -5,7 +5,7 @@
     <th>Name</th>
   </tr>
   <% for permission in @permissions %>
-  	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+  	<tr> 
       <td><%=h permission.name %></td>
     </tr>
   <% end %>

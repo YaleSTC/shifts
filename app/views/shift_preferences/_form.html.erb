@@ -38,7 +38,7 @@
 			</tr>
 			<% f.label :location_preference %>
 			<% @locations.uniq.each do |current_location| %>
-		    <tr <%= "class= #{cycle("odd", "even")}"%>>
+		    <tr>
 					<td><%= current_location.name %></td>
 					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "yes", location_preference_check(current_location, "yes")) %></td>
 					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "maybe", location_preference_check(current_location, "maybe")) %></td>

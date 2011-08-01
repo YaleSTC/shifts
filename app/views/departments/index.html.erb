@@ -5,7 +5,7 @@
     <th>Name</th>
   </tr>
   <% for department in @departments %>
-   <tr class=<%= "#{cycle("odd", "even")}" %>>      
+   <tr>      
 	  <td><%= link_to "#{department.name}", department %></td>
       <td><%= link_to "Edit Department", edit_department_path(department) %></td>
       <td><%= link_to "Edit Settings", edit_department_config_path(department.department_config)%>

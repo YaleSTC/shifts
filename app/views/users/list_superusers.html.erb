@@ -16,7 +16,7 @@
       <th>Remove su?</th>
     </tr>
     <% User.superusers.each do |su| -%>
-	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+	<tr> 
       <td><%= su.login %></td>
       <td><%= su.name %></td>
       <td><%= check_box_tag('remove_su_ids', su.id) %></td>

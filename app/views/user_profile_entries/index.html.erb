@@ -8,7 +8,7 @@
       <th>Contents</th>
     </tr>
     <% UserProfileEntry.find(:all, :conditions => {:user_profile_field_id => profile_field.id}).each do |profile_entry| %>
-	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+	<tr> 
         <td><%=h User.find(profile_entry.user_id).proper_name %>
         <td><%= profile_entry.content %>
       </tr>
