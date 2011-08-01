@@ -724,6 +724,14 @@ div.feed_bottom a {float:right;}
 input.view_more {float:right;}
 
 /* removing bullets for multiple select checkboxes */
-li#loc_group_list {
+fieldset#child_checkbox li {
 	list-style-type: none;
+	display: inline;
+}
+fieldset#child_checkbox ul {
+	list-style-type: none;
+	display: inline;
+}
+div.hide {
+	display: inline;
 }

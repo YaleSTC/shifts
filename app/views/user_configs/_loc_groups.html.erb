@@ -3,18 +3,19 @@
   <% dept_name = dept[0] %>
   <% dept_loc_groups = dept[1] %>
   <% dept_val = nil %>
-  <%= check_box_tag "#{dept_name}", nil, nil, :class => "header_#{dept_name.downcase}" %>
-  <%= label_tag "#{dept_name}", "#{dept_name}", :class => "header_#{dept_name.downcase}" %>
-  </h3>
+  <%= check_box_tag "#{dept_name}", nil, nil, :class => "header_#{dept_name.downcase}" -%>
+  <%= label_tag "#{dept_name}", "#{dept_name}", :class => "header_#{dept_name.downcase}" -%>
+	</h3>
+  <%= "<div class=\"hide\">Hide</div>" %>
 	<ul>
   <% dept_loc_groups.each do |loc_grp| %>
-    <li id = "loc_group_list" >
+    <div class="toggle"><li>
 	<% loc_grp_name = loc_grp[0] %>
     <% loc_grp_id = loc_grp[1] %>
     <% loc_grp_checkbox_value = loc_grp[2] %>
     <%= check_box_tag "loc[#{loc_grp_id}]", loc_grp_checkbox_value, loc_grp_checkbox_value, :class => dept_name.downcase %>
     <%= label_tag "loc[#{loc_grp_id}]", "#{loc_grp_name}", :class => dept_name.downcase %>
-	</li>
+	</li></div>
   <% end %>
 	</ul>
 <% end %>
