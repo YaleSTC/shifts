@@ -1,6 +1,4 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-
   def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"

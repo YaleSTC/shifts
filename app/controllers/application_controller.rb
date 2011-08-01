@@ -1,6 +1,3 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
@@ -174,7 +171,7 @@ class ApplicationController < ActionController::Base
   # TODO: Ultimately, we should abstract all this away into a permissions
   # module, and include that into the application. Ideally, after that we'd
   # refactor to to have these methods share the redirect code
-  
+
   # Takes a department, location, or loc_group
   def user_is_admin_of(thing)
     unless current_user.is_admin_of?(thing)
@@ -354,7 +351,7 @@ class ApplicationController < ActionController::Base
     end
     Time.utc(date_array[0], nil, nil, date_array[3], date_array[4])
   end
-  
+
 
   def join_date_and_time(form_output)
   #join date and time
@@ -401,6 +398,4 @@ class ApplicationController < ActionController::Base
   def prepare_mail_url
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
-
-
 end
