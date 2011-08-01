@@ -45,10 +45,12 @@
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
-	<% if @shift.location.nil? %>
+	<% if @shift.location.nil? && params[:location_id] %>
      <% select_lg = Location.find(params[:location_id]).loc_group %>
-	<% else %>
+	<% elsif @shift.location %>
 	 <% select_lg = @shift.location.loc_group%>
+	<% else %>
+	<% select_lg = current_user.loc_groups.first%>
 	<% end %>
 
   <% if current_user.is_admin_of?(current_department) %>    
