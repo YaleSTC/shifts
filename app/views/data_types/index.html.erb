@@ -9,14 +9,14 @@
       <th># of objects</th>
     </tr>
     <% for data_type in @data_types %>
-      <tr class=<%= "#{cycle("odd", "even")}" %>>
+      <tr>
         <td><%= link_to data_type.name, data_type %></td>
         <td><%=h data_type.description %></td>
         <td><%= data_type.data_fields.map{|df| h df.name}.join(', ') %></td>
         <td><%= data_type.data_objects.count %></td>
         <td><%= link_to "Show", data_type %></td>
         <td><%= link_to "Edit", edit_data_type_path(data_type) %></td>
-        <td><%= link_to "Destroy", data_type, :confirm => "Are you sure? This will also delete any data objects associated with this type, as well as any entries belonging to those objects.",  
+        <td><%= link_to "Destroy", data_type, :confirm => "Are you sure? This will also delete any data objects associated with this type, as well as any entries belonging to those objects.",
                                               :method => :delete %></td>
       </tr>
     <% end %>
@@ -25,6 +25,6 @@
   You have not created any data types yet!
 <% end %>
 <p>
-<%= link_to "New Data Type", new_data_type_path %> | 
+<%= link_to "New Data Type", new_data_type_path %> |
 <%= link_to "View all Data Objects", data_objects_path %>
 </p>
