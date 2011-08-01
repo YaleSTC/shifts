@@ -100,12 +100,12 @@ end
     @search_engine_url = current_department.department_config.search_engine_url
     @search_url = @search_engine_url.concat(@key_word)
     
-    flash[:notice] = "Search Url: #{@search_url}"
+    
     
     respond_to do |format|
-          format.js
-          #format.html{}
-        end
+      format.js
+      #format.html{}
+    end
         
     #redirect_to report_path(params[:id])
   end
