@@ -46,15 +46,13 @@
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
 	<% if @shift.location.nil? && params[:location_id] %>
-     <% select_lg = Location.find(params[:location_id]).loc_group %>
+    <% select_lg = Location.find(params[:location_id]).loc_group %>
 	<% elsif @shift.location %>
-	 <% select_lg = @shift.location.loc_group%>
-	<% else %>
-	<% select_lg = current_user.loc_groups.first%>
+	  <% select_lg = @shift.location.loc_group%>
 	<% end %>
 
-  <% if current_user.is_admin_of?(current_department) %>    
-		<% if current_user.is_superuser? %>    
+  <% if current_user.is_admin_of?(current_department) %>
+		<% if select_lg.nil? || current_user.is_superuser? %>
 			<p>
 		    <%= f.label :user %><br />
 		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.reverse_name}, :id, :name, {:prompt => "Select a user"}) %>
@@ -98,4 +96,3 @@ var opts = {
 datePickerController.createDatePicker(opts);
 
 </script>
-
