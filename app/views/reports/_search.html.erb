@@ -1,9 +1,9 @@
 <fieldset class = "index">
 		<legend>Search</legend>
 	<div id="searchbox" style="margin-bottom: 1em">
-  	<% form_remote_tag(:controller => 'reports', :action => 'custom_search', :method => :put, :id => @report.id) do %>
-   	Search <%= @search_engine_name %>: <%= text_field_tag :search %>
-   	<%= submit_tag "Go" %>
+  	<% form_remote_tag :url => {:controller => :reports, :action => :custom_search, :id => @report.id} do %>
+   		Search <%= @search_engine_name %>: <%= text_field_tag :search %>
+   	<%= submit_tag "Search" %>
  		<% end %>
 	</div>
 </fieldset>
