@@ -61,7 +61,7 @@ class Shift < ActiveRecord::Base
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
-  validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
+  validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}, :on => :create
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
   validate :obeys_signup_priority, :if => Proc.new{|shift| !shift.power_signed_up? && shift.scheduled}

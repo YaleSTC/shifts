@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   helper :layout # include all helpers, all the time (whyy? -Nathan)
   helper_method :current_user
   helper_method :current_department
-
+  
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details

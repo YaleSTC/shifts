@@ -6,7 +6,7 @@ class PunchClock < ActiveRecord::Base
   belongs_to :punch_clock_set
   
   validates_presence_of :user
-  validate_on_create :conflicting_shifts_or_clocks?
+  validate :conflicting_shifts_or_clocks?, :on => :create
   
   def running_time
     no_of_sec = self.paused ? self.runtime : (Time.now - self.last_touched + runtime)
