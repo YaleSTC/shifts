@@ -16,7 +16,7 @@
     <% end %>
     <p>
       <% unless @time_slot.repeating_event %>
-        <%= link_to_remote "Destroy this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => (params[:calendar] || true)}, :confirm => 'Are you sure?', :method => :delete} %>
+        <%= link_to "Destroy this time slot", {:url => {:controller => 'time_slots', :action => 'destroy', :id => @time_slot.id, :calendar => (params[:calendar] || true)}, :remote => true, :confirm => 'Are you sure?', :method => :delete} %>
       <% else %>
         <%= link_to_function "Destroy this time slot", "$('#repeating_event_delete_options').toggle()" %>
         <div id="repeating_event_delete_options" style="display:none">

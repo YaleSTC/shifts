@@ -26,7 +26,7 @@
           <td><%= loc.min_staff %></td>
 		  <td><%= link_to "Edit", edit_location_path(loc)%></td>
 		  <td><%= link_to "Destroy", loc, :confirm => 'Are you sure?', :method => :delete %></td>
-          <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
+          <td><%= link_to (loc.active ? "Deactivate" : "Restore"), :remote => true, :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
         </tr>
       <% end -%>
     </tbody>
