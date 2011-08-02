@@ -5,14 +5,18 @@
 	  </li>
   <% end -%>
 
-  <% if current_user.is_superuser? -%>
+	<% if current_user.is_admin_of?(current_department) && current_user.is_active?(current_department) || current_user.is_superuser? -%>
     <li id=<%=  navbar_highlight(params[:controller]) == "departments" ? "highlight" : "not" %> ><%= link_to "Departments", departments_path %>
 			<ul>
-				<li><%= link_to "Application Settings", edit_app_config_path %></li>
-			  <li><%= link_to "Superusers", superusers_path %></li>
-				<% if current_user.departments.include?(current_department) %>
-					<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
-				<% end %>
+				<% if current_user.is_superuser? -%>
+					<li><%= link_to "Application Settings", edit_app_config_path %></li>				
+				<% end %>				
+				<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
+				<li><%= link_to "Location Groups", department_loc_groups_path(current_department) %></li>
+				<li><%= link_to "Locations", department_locations_path(current_department) %></li>
+				<li><%= link_to "Time Slots", time_slots_path %></li>
+				<li><%= link_to "Calendars", calendars_path %></li>
+				<li><%= link_to "Templates", templates_path %></li>
 			</ul>
 		</li>
   <% end -%>
@@ -22,7 +26,10 @@
 			<%= link_to "Users", department_users_path(current_department) %>
 			<ul>
 				<li><%= link_to "Users", department_users_path(current_department) %></li>
-	      <li><%= link_to "Permissions", department_roles_path(current_department) %></li>
+	      <% if current_user.is_superuser? -%>
+			  	<li><%= link_to "Superusers", superusers_path %></li>
+				<% end %>
+				<li><%= link_to "Permissions", department_roles_path(current_department) %></li>
 		  	<li><%= link_to "Profiles", user_profiles_path %></li>
 				<li><%= link_to "Profile Fields", user_profile_fields_path %></li>
 			</ul>
@@ -42,11 +49,8 @@
 		<ul>
 			<li><%= link_to "Shifts Schedule", shifts_path %></li>
       <% if current_user.is_admin_of?(current_department) %>
-				<li><%= link_to "Calendars", calendars_path %></li>
-				<li><%= link_to "Locations", department_locations_path(current_department) %></li>
-	      <li><%= link_to "Location Groups", department_loc_groups_path(current_department) %></li>
 				<li><%= link_to "Tasks", tasks_path %></li>
-				<li><%= link_to "Templates", templates_path %></li>
+
 			<% end %>
 			<li><%= link_to "Links", links_path %></li>
       <li><%= link_to "Notices", notices_path %></li>
