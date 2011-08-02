@@ -14,8 +14,8 @@ class LocGroup < ActiveRecord::Base
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
 
-  before_validation_on_create :create_permissions
-  before_validation_on_update :update_permissions
+  before_validation(:on => :create) {:create_permissions}
+  before_validation(:on => :update) {:update_permissions}
 
   validates_presence_of :department
 

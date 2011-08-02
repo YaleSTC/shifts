@@ -17,8 +17,10 @@ namespace :db do
   end
   
   desc "Populates profiles with empty instances of all department profile fields"
-  task :repair_profiles, :department_name, :needs => :environment do |t, args|
-    department_name = args[:department_name]
-    make_empty_profile_entries(department_name)
+  task :repair_profiles, :environment do |t|
+  # task :repair_profiles, :department_name, :needs => :environment do |t, args|
+    # department_name = args[:department_name]
+    # make_empty_profile_entries(department_name)
+    make_empty_profile_entries("STC")
   end
 end
