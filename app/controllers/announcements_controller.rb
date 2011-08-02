@@ -77,7 +77,8 @@ class AnnouncementsController < NoticesController
 	def set_author_dept_and_time
 		@announcement.author = current_user
 		@announcement.department = current_department
-		@announcement.start = Time.now if params[:start_time_choice] == "now"
+#    @announcement.start = Time.now if params[:start_time_choice] == "now"
+    @announcement.start = Time.now
 		if params[:end_time_choice] == "indefinite"
     	@announcement.end = nil 
     	@announcement.indefinite = true
