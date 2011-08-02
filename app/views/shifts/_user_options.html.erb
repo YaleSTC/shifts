@@ -4,7 +4,7 @@
   </p>
 <% else %>
   <p>
-    <%= image_tag("icons/add.png", :class => "mini_icon") %> <%= link_to_remote "Start an unscheduled shift", {:url => unscheduled_new_shift_path, :method => :get}, :href => unscheduled_new_shift_path, :class => "action_with_icon" %>
+    <%= image_tag("icons/add.png", :class => "mini_icon") %> <%= link_to "Start an unscheduled shift", {:url => unscheduled_new_shift_path, :method => :get}, :remote => true, :href => unscheduled_new_shift_path, :class => "action_with_icon" %>
   </p>
   <div id="unscheduled", style="display:none">
   </div>
