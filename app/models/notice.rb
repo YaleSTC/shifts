@@ -7,11 +7,11 @@ class Notice < ActiveRecord::Base
   validate :content_or_label, :presence_of_locations_and_viewers, :proper_time	 	
 
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
-  named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
-  named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
-  named_scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
-  named_scope :not_link, :conditions => ["type != ?", "Link"]
-  named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
+  scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
+  scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
+  scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
+  scope :not_link, :conditions => ["type != ?", "Link"]
+  scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
   
   def self.active_links
      Link.active

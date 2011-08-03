@@ -10,8 +10,8 @@ class Calendar < ActiveRecord::Base
 
   validates_uniqueness_of :name, :scope => :department_id
 
-  named_scope :active, lambda {{ :conditions => {:active => true}}}
-  named_scope :public, lambda {{ :conditions => {:public => true}}}
+  scope :active, lambda {{ :conditions => {:active => true}}}
+  scope :public, lambda {{ :conditions => {:public => true}}}
 
   def self.destroy_self_and_future(calendar)
     default_id = calendar.department.calendars.default.id
