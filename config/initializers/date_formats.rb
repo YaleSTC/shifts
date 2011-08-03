@@ -24,6 +24,6 @@ my_formats = {
   :date_with_year => "%A, %B %d %Y"
 }
 
-# ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(my_formats)
-# ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(my_formats)
+Time::DATE_FORMATS.merge!(my_formats)
+Date::DATE_FORMATS.merge!(my_formats)
 
