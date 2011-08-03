@@ -23,6 +23,8 @@ class AnnouncementsController < NoticesController
   end
 
   def create
+    parse_date_and_time_output(params[:announcement])
+    join_date_and_time(params[:announcement])
     @announcement = Announcement.new(params[:announcement])
 		set_author_dept_and_time
 		begin
@@ -49,6 +51,8 @@ class AnnouncementsController < NoticesController
 
   def update
     @announcement = Announcement.find_by_id(params[:id]) || Announcement.new 
+    parse_date_and_time_output(params[:announcement])
+    join_date_and_time(params[:announcement])
 		@announcement.update_attributes(params[:announcement])
 		set_author_dept_and_time
     begin
