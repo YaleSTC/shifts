@@ -18,7 +18,7 @@
   <% else%>
     <% if @shift.report %>
       <%= stylesheet_link_tag "report" %>
-      <%= render :partial => 'reports/report', :object => @shift.report %>
+      <%= render :partial => 'reports/report', :object => @shift.report, :locals => {:html_id => "shift_report_view"} %>
       <p>
         <% if @shift.signed_in? && (current_user == @shift.user) %>
           <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
@@ -30,8 +30,14 @@
             <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user) %>
           <% end %>
         <% elsif current_user == @shift.user %>
-          <% unless @shift.has_passed? or @shift.submitted? %>
-            <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+         <% unless @shift.has_passed? or @shift.submitted? %>
+        <% if @shift.has_sub?%>
+          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> | 
+		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%>
+
+        <% else%>
+          <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+        <% end %>
           <% end %>
         <% end %>
       </p>
@@ -112,7 +118,7 @@
 
   <% if @shift.report %>
     <%= stylesheet_link_tag "report" %>
-    <%= render :partial => 'reports/report', :object => @shift.report %>
+    <%= render :partial => 'reports/report', :object => @shift.report, :locals => {:html_id => "shift_report_view"}%>
     <% if @shift.signed_in? && (current_user == @shift.user || current_user.is_admin_of?(@shift.location)) %>
       <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
     <% end %>
@@ -149,7 +155,12 @@
       <% end %>
     <% elsif current_user == @shift.user %>
       <% unless @shift.has_passed? or @shift.submitted? %>
-        <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+        <% if @shift.has_sub?%>
+          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> | 
+		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%>
+        <% else%>
+          <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+        <% end %>
       <% end %>
     <% end %>
   </p>

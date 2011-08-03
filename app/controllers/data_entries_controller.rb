@@ -23,7 +23,7 @@ class DataEntriesController < ApplicationController
       if @report = current_user.current_shift.report
         content = []
         @data_entry.data_fields_with_contents.each {|entry| content.push("#{DataField.find(entry.first).name.humanize}: #{entry.second}")}
-        @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}.  #{content.join(', ')}.", :ip_address => request.remote_ip)
+        @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}: #{"\n"} #{content.join("\n")}", :ip_address => request.remote_ip)
       end
     else
       flash[:error] = "Could not update #{@data_entry.data_object.name}."
@@ -34,21 +34,21 @@ class DataEntriesController < ApplicationController
     end
   end
 
-## Are we removing this feature?
-#  def edit
-#    @data_entry = DataEntry.find(params[:id])
-#    @data_object = DataObject.find(params[:data_object_id])
-#  end
-#
-#  def update
-#    @data_entry = DataEntry.find(params[:id])
-#    if @data_entry.update_attributes(params[:data_entry])
-#      flash[:notice] = "Successfully updated data entry."
-#      redirect_to data_object_path(params[:data_object_id])
-#    else
-#      render :action => 'edit'
-#    end
-#  end
+ def edit
+   @data_entry = DataEntry.find(params[:id])
+   @data_object = DataObject.find(params[:data_object_id])
+ end
+
+ def update
+   @data_entry = DataEntry.find(params[:id])
+   if @data_entry.update_attributes(params[:data_entry])
+     flash[:notice] = "Successfully updated data entry."
+     redirect_to data_object_path(params[:data_object_id])
+   else
+     flash[:error] = "ERROR ERROR"
+     render :action => 'edit'
+   end
+ end
 
   private
 

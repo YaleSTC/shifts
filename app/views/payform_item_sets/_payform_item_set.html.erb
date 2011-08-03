@@ -1,4 +1,4 @@
-<tr<%= " class='disabled'" unless payform_item_set.active %>>
+<tr <%= payform_item_set.active ? "class = #{cycle("odd", "even")}" : "class = 'disabled'"%>>	
   <td><%= payform_item_set.date %></td>
   <td><%= payform_item_set.hours %></td>
   <td><%=h payform_item_set.category.name %></td>

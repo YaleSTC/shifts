@@ -1,16 +1,17 @@
 <h1>List of all Data Objects</h1>
 <hr />
+
 <table>
-<tr>
-<th>Name</th>
-<th>Data Type</th>
-</tr>
-<%- for obj in @data_objects -%>
-<tr>
-<td><%= obj.name %></td>
-<td><%= DataType.find(obj.data_type_id).name %></td>  <!-- should this logic go elsewhere? -->
-</tr>
-<%- end -%>
+  <tr>
+    <th>Name</th>
+    <th>Data Type</th>
+  </tr>
+   <%- for obj in @data_objects -%>
+    <tr class=<%= "#{cycle("odd", "even")}" %>>
+   <td><%= obj.name %></td>
+   <td><%= DataType.find(obj.data_type_id).name %></td>  <!-- should this logic go elsewhere? -->
+  </tr>
+   <%- end -%>
 </table>
 <p><%= link_to "Back to Data Types List", data_types_path %></p>
 

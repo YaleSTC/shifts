@@ -1,0 +1,4 @@
+<%for location in loc_group.locations.active %>
+	<h4><%= location.name %></h4><br />
+	<%= render :partial => "location", :locals => {:location => location} %>
+<%end %>

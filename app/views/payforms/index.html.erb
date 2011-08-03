@@ -27,7 +27,7 @@
 </div>
 
 <%= observe_field :search, :frequency => 0.2, 
-                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :approved => params[:approved], :printed => params[:printed]}, 
+                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :skipped => params[:skipped], :approved => params[:approved], :printed => params[:printed]}, 
                            :with => :search %>
 
 <div id="payform_list">

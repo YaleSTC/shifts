@@ -1,19 +1,20 @@
 <% content_for :head do %>
   <% stylesheet 'report'%>
+	<%= javascript_include_tag :defaults %>
 <% end %>
 
-<table id="report_view_table">
-    <tr>
-      <th class="list_header" colspan="3">
-        <h2>Recent updates for: <%= @location.name %></h2>
-      </th>
-    </tr>
-    <tbody id = "all_report_items">
-		<%= render :partial => "report_items", :collection => @report_items %>
-    </tbody>
-</table>
-<% form_tag(:action => :display_report_items, :id => @location.id, :more_time => @start_time.to_datetime) do %>
-<br />  
-<div><%= submit_tag 'View More' %></div>
 
-<% end -%>
+<table class="tablesorter">
+	<thead>
+		<tr>
+		 <th colspan=3>Recent Report Items at the <%= @location.name %></th>
+		</tr>
+	</thead>
+	<tbody id="all_report_items">
+		<%= render :partial => 'report_items' %>
+	</tbody>
+</table>
+
+<% form_remote_tag :url => { :action => :display_report_items, :id => @location.id, :more_items => true } do %>
+	<%= submit_tag "Display More" %>
+<% end %>

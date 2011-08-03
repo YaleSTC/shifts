@@ -67,8 +67,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :department_configs, :only => [:edit, :update]
 
   map.resources :payforms,
-                :collection => { :prune => :delete, :go => :get, :search => :post, :index => [:post, :get]},
-                :member => {:submit => :get, :unsubmit => :get, :approve => :get, :unapprove => :get, :print => :get},
+                :collection => { :prune => :delete, :go => :get, :search => :post},
+                :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
                 :shallow => true do |payform|
     payform.resources :payform_items, :member => {:delete => :get}
   end
@@ -88,7 +88,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :requested_shifts
   map.resources :templates
-
+  
+  map.resources :public_view
+  
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
@@ -102,18 +104,18 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :data_types do |data_type|
     data_type.resources :data_fields
-    data_type.resources :data_objects, :only => [:new, :create]
+    data_type.resources :data_objects, :only => [:new, :create, :index]
   end
 
   map.resources :data_objects do |data_object|
-    data_object.resources :data_entries
+    data_object.resources :data_entries, :member => {:edit => :put, :update => :put}
   end
 
   map.resources :departments, :shallow => true do |departments|
     departments.resources :users, :collection => {:mass_add => :get, :mass_create => :post, :restore => :post, :autocomplete => :get, :search => :post, :import => :get, :save_import => :post}
     departments.resources :loc_groups
     departments.resources :locations
-    departments.resources :roles
+    departments.resources :roles, :member => {:users => [:post,:get] }
     departments.resources :categories
   end
 

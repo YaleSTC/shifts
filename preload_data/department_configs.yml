@@ -14,7 +14,6 @@ department_configs_001:
   id: "1"
   mailer_address: noreply@shifts.app
   monthly: "0"
-  payform_time_limit: 
   printed_message: |-
     This payform has already been printed and may no longer be edited.
     

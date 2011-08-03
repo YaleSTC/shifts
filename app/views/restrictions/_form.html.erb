@@ -2,7 +2,7 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :starts %><br />
-    <%= f.date_select :start_date, :default => @restriction.starts, :id => :start_date  %>
+    <%= f.date_select :start_date, :default => @restriction.starts, :id => :start_date  %><br />
     <%= f.time_select :start_time, {
                 :simple_time_select => true,
                 :time_separator => "",
@@ -15,7 +15,7 @@
   </p>
   <p>
     <%= f.label :expires %><br />
-    <%= f.date_select :end_date, :default => @restriction.expires.to_date, :id => :end_date  %>
+    <%= f.date_select :end_date, :default => @restriction.expires.to_date, :id => :end_date  %><br /	>
     <%= f.time_select :end_time, {
                 :simple_time_select => true,
                 :time_separator => "",
