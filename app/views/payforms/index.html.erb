@@ -1,19 +1,20 @@
 <% title "Payforms between #{@start_date.to_date.strftime("%b %d, %Y")} and #{@end_date.to_date.strftime("%b %d, %Y")}" %>
 
-<div id="right_stuff">
-	<fieldset class="index">
-		<% form_tag(:controller => 'payforms', :action => 'index', :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed], :method => :get) do %>
+<div id="left_stuff">
+	<fieldset class="index" id="date_selector">
+		<% form_tag(:controller => 'payforms', :action => 'index', :method => :get, :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed]) do %>
 			  <%= label_tag :start_date %>
-			  <%= date_select(:payform, :start_date, :default => @start_date)%>
+				<%= date_select(:payform, :start_date, :default => @start_date)%>
 				<br />
 			  <%= label_tag :end_date %>
 			  <%= date_select(:payform, :end_date, :default => @end_date)%>
 				<br />
-				<%= submit_tag 'Update dates' %>
-		<% end -%>
+				<%= submit_tag 'Update' %>
+		<% end %>
 	</fieldset>
 </div>
-<div id="left_stuff">
+
+<div id="right_stuff">
 	<fieldset class="index">
 	<% if current_user.is_admin_of?(current_department) %>
 	<div id="searchbox" style="margin-bottom: 1em">
