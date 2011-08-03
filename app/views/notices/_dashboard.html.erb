@@ -1,9 +1,5 @@
-
-<% unless @current_notices.empty? %>
-      <%= render :partial => 'notices/notice', :collection => @current_notices, :locals => {:html_class => "dashboard_notice"} %>
-<% else %>
+<%# unless @current_notices.empty? %>
+<%= render :partial => 'notices/notice', :collection => @current_notices, :locals => {:html_class => "dashboard_notice"} %>
+<%# else %>
       <em>There are no department-wide announcements at this time.</em>	
-<br />
-<%= link_to_post_a_sticky() %>
-<%= link_to_post_an_announcement %>
-<% end %>
+<%# end %>
