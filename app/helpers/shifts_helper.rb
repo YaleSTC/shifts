@@ -13,7 +13,7 @@ module ShiftsHelper
 
     if !shift.end
       shift.end = Time.now
-  elsif shift.end <= shift.start + current_department.department_config.time_increment.minutes
+    elsif shift.end <= shift.start + current_department.department_config.time_increment.minutes
       shift.end = shift.start + current_department.department_config.time_increment.minutes
     end
 
