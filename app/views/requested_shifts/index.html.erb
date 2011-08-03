@@ -3,6 +3,7 @@
 <h1>All requested shifts for <%= @week_template.name %></h1>
 <p>
 	<table class = "tablesorter">
+	 <thead>
 		<tr>
 			<th>User</th>
 		  <th colspan=2>Preferred</th>
@@ -19,8 +20,10 @@
 		  <th></th>
 			<th></th>
 		</tr>
+	</thead>
 
 	<% @requested_shifts.sort_by{|s| [s.day, s.acceptable_start, s.acceptable_end]}.each do |requested_shift| %>
+   <tbody>
 	<tr> 
 			<td><%=h requested_shift.user.name %></td>
 		  <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") if requested_shift.preferred_start %></td>
@@ -32,6 +35,7 @@
 		  <td><%= link_to 'Edit', edit_template_requested_shift_path(@week_template, requested_shift) %></td>
 		  <td><%= link_to 'Delete', template_requested_shift_path(@week_template, requested_shift), :confirm => 'Are you sure?', :method => :delete %></td>
 		</tr>
+   </tbody>
 	<% end %>
 	</table>
 </p>

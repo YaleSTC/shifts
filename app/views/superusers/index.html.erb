@@ -14,17 +14,21 @@
 <h2>Existing superuser list:</h2>
 <% form_tag remove_superusers_path do %>
   <table class="tablesorter">
-    <tr>
+   <thead>
+	<tr>
       <th>Login</th>
       <th>Name</th>
       <th>Remove superuser?</th>
     </tr>
+   </thead>
     <% @superusers.each do |su| -%>
+	<tbody>
 	<tr> 
       <td><%= su.login %></td>
       <td><%= link_to su.name, user_path(su) %></td>
       <td><%= check_box_tag('remove_su_ids[]', su.id) %></td>
     </tr>
+    </tbody>
     <% end -%>
   </table> 
   <%= submit_tag "Remove selected" %>

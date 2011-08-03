@@ -8,12 +8,15 @@
 <h2><strong>Data fields:</strong></h2>
 
 <table class = "tablesorter">
+ <thead>
 	<tr>
        <th>Name</th>
 	   <th>Type</th>
        <th>Values </th>
 	</tr>
+ </thead>
 	<% for field in @data_type.data_fields %>
+ <tbody>
     <tr>
 	  <td> <%= field.name%> </td>
 	  <td> <%= field.display_type.humanize %></td>
@@ -22,6 +25,7 @@
 	  <td> <%= link_to "Delete", data_type_data_field_path(@data_type, field), :confirm => 'Delete this data field?', :method => :delete %></td>
 	<% end %>		
 	</tr>
+ </tbody>
 </table>
     <%= link_to "New Data Field", new_data_type_data_field_path(@data_type), :method => :get %> | 
     <%= link_to "All Data Fields", data_type_data_fields_path(@data_type) %><br /> <br  />
@@ -29,6 +33,7 @@
 
   <h2><strong>Data objects of this type:</strong></h2>
   <table class = "tablesorter">
+ <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
@@ -38,8 +43,10 @@
       </th>
       <% end %>
     </tr>
+ </thead>
     <% for obj in @data_type.data_objects %>
       <% entry = obj.data_entries.last.data_fields_with_contents unless obj.data_entries.empty? %>
+ <tbody>
     <tr>
       <td>
         <%= link_to "#{obj.name}", obj %>
@@ -59,6 +66,7 @@
 		<%= link_to "Delete", obj, :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.',:method => :delete %>
 	  </td>
     </tr>
+ </tbody>
     <% end %>
   </table>
   <%= link_to "New Data Object", new_data_type_data_object_path(@data_type), :method => :get %> <br /> <br />

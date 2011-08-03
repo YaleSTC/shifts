@@ -1,15 +1,19 @@
 <% title "Print History" %>
 
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th>Printed</th>
     <th>Number of Payforms</th>
   </tr>
+ </thead>
   <% for payform_set in @payform_sets %>
+ <tbody>
 	<tr> 
       <td><%=h payform_set.created_at.strftime(date_format) %></td>
       <td><%=  payform_set.payforms.length %></td>
       <td><%= link_to "Show", payform_set %></td>
     </tr>
+ </tbody>
   <% end %>
 </table>

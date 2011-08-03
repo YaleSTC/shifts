@@ -1,5 +1,6 @@
 <center><strong>LDAP Search Results</strong></center>
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th>Login</th>
     <th>First Name</th>
@@ -12,15 +13,18 @@
       <center><%= image_tag("loading.gif", :align=>:center, :class => "loading_icon") %>Searching...</center>
     </td>
   </tr>
+ </thead>
   <% if @results && !@results.empty? %>
     <% @results.each do |result| %>
-    <tr>
+   <tbody>
+   	<tr>
         <td><%= result[:login] %></td>
         <td><%= result[:first_name] %></td>
         <td><%= result[:last_name] %></td>
         <td><%= result[:email] %></td>
         <td><%= button_to_remote "Add Me!", :url=> {:action => "fill_form", :params => {:user=>result}}%></td>
       </tr>
+   </tbody>
     <% end %>
   <% elsif @results && @results.empty? %>
     <tr class="result">

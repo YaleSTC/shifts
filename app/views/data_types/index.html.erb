@@ -2,13 +2,16 @@
 
 <% unless @data_types.empty? %>
   <table class = "tablesorter">
+ <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
       <th>Data fields</th>
       <th># of objects</th>
     </tr>
+ </thead>
     <% for data_type in @data_types %>
+ <tbody>
       <tr>
         <td><%= link_to data_type.name, data_type %></td>
         <td><%=h data_type.description %></td>
@@ -19,6 +22,7 @@
         <td><%= link_to "Destroy", data_type, :confirm => "Are you sure? This will also delete any data objects associated with this type, as well as any entries belonging to those objects.",
                                               :method => :delete %></td>
       </tr>
+ </tbody>
     <% end %>
   </table>
 <% else %>

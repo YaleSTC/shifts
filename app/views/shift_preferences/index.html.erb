@@ -1,6 +1,7 @@
 <h1>All general shift preferences for <%= @week_template.name %> </h1>
 
 <table class = "tablesorter">
+ <thead>
   <tr>
 	<th>Name</th>
     <th colspan=2 >Total hours</th>
@@ -23,6 +24,7 @@
 		<th>Able</th>
 		<th>Unable</th>
   </tr>
+ <thead>
 
 	<tbody>
 		<% @shift_preferences.each do |shift_preference| %>
