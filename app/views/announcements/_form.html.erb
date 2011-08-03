@@ -24,16 +24,20 @@ start time cannot currently be set. We need to simultaneously develop the abilit
 
 	<fieldset class = "index">
 		<legend>End time:</legend>
+    <span class="end_time_choice_indefinite">
 		<%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
-		<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
-      <%= f.label :end %>
-      <%= f.date_select :end_date, :default => @default_end_date %>
-      <%= f.time_select :end_time, {
-              :simple_time_select => true,
-              :time_separator => "",
-              :minute_interval => @department.department_config.time_increment,
-              :default => @announcement.end
-                                        } %>
+    </span>
+    <span class="end_time_choice_date">
+  	<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
+    <%= f.label :end %>
+    <%= f.date_select :end_date, :default => @default_end_date %>
+    <%= f.time_select :end_time, {
+            :simple_time_select => true,
+            :time_separator => "",
+            :minute_interval => @department.department_config.time_increment,
+            :default => @announcement.end
+                                      } %>
+    </span>
 	</fieldset>
 
   </div>
@@ -61,4 +65,12 @@ var opts = {
                 noFadeEffect:true,
                        };
 datePickerController.createDatePicker(opts);
+
+
+  $("span[class='end_time_choice_indefinite']").mousedown(function(){
+      $("#end_time_choice_indefinite").attr('checked', true)
+  });
+  $("span[class='end_time_choice_date']").mousedown(function(){
+      $("#end_time_choice_date").attr('checked', true)
+  });
 </script>
