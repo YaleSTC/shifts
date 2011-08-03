@@ -6,6 +6,7 @@
     <th>Name</th>
     <th>Sub Request Email</th>
     <th>Locations</th>
+    <th>Public</th>
   </tr>
   </thead>
   <tbody>
@@ -14,6 +15,7 @@
       <td><%= link_to loc_group.name, loc_group_path(loc_group) %></td>
       <td><%= loc_group.sub_request_email %></td>
       <td><%=h loc_group.locations.collect{|loc| loc.name} * ", " %></td>
+      <td><%= loc_group.public %></td>
 	  <td><%= link_to "Edit", edit_loc_group_path(loc_group)%></td>
 	  <td><%= link_to_remote (loc_group.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc_group.id }, :html => { :class => 'toggle_link' }%></td>
   <% end %>
