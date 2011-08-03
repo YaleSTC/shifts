@@ -13,8 +13,8 @@ module ShiftsHelper
 
     if !shift.end
       shift.end = Time.now
-    elsif shift.end <= shift.start + 15.minutes
-      shift.end = shift.start + 15.minutes
+  elsif shift.end <= shift.start + current_department.department_config.time_increment.minutes
+      shift.end = shift.start + current_department.department_config.time_increment.minutes
     end
 
     left = (((after ? after : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
