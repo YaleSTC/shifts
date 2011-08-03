@@ -30,13 +30,13 @@ start time cannot currently be set. We need to simultaneously develop the abilit
     <span class="end_time_choice_date">
   	<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
     <%= f.label :end %>
-    <%= f.date_select :end_date, :default => @default_end_date %>
     <%= f.time_select :end_time, {
             :simple_time_select => true,
             :time_separator => "",
             :minute_interval => @department.department_config.time_increment,
             :default => @announcement.end
                                       } %>
+    <%= f.date_select :end_date, :default => @default_end_date %>
     </span>
 	</fieldset>
 
