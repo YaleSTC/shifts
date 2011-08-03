@@ -44,7 +44,7 @@ module CalendarsHelper
 
     "width: #{width}%; left: #{left}%;"
   end
-  
+
   def calendar_day_preprocessing(day)
     @location_rows = {}
     @location_rows_timeslots = {}
@@ -107,6 +107,7 @@ module CalendarsHelper
     rejected = []
     location_row = 0
 
+#much of this logic goes toward having three rows in the TTO - 'rejected' just means rejected from the current line, being placed instead on a lower line. Nothing should be permanently 'rejected' in this process
     until shifts.empty?
       shift = shifts.shift
       @location_rows[shift.location][location_row] = [shift]
