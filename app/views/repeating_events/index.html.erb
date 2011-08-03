@@ -1,13 +1,16 @@
 <% title "Repeating Events" %>
 
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th>Start Date</th>
     <th>End Date</th>
     	<th>Days Of Week</th>
     <th>Locations</th>
   </tr>
+ </thead>
   <% for repeating_event in @repeating_events %>
+ <tbody>
 	<tr> 
       <td><%=h repeating_event.start_date.strftime("%D") %></td>
       <td><%=h repeating_event.end_date.strftime("%D") %></td>
@@ -17,6 +20,7 @@
       <td><%= link_to "Edit", edit_repeating_event_path(repeating_event) %></td>
       <td><%= link_to "Destroy", repeating_event, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
+ </tbody>
   <% end %>
 </table>
 

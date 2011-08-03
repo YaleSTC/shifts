@@ -3,15 +3,19 @@
 <% @user_profile_fields.each do |profile_field| %>
     <h2><%= link_to "#{profile_field.name}", profile_field.name %></h2>
       <table class = "tablesorter">
+	 <thead>
     <tr>
       <th>User</th>
       <th>Contents</th>
     </tr>
+     </thead>
     <% UserProfileEntry.find(:all, :conditions => {:user_profile_field_id => profile_field.id}).each do |profile_entry| %>
+    <tbody>
 	<tr> 
         <td><%=h User.find(profile_entry.user_id).proper_name %>
         <td><%= profile_entry.content %>
       </tr>
+     </tbody>
     <% end %>
   </table><br />
 <% end %>

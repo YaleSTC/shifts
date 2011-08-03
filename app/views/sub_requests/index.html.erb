@@ -1,13 +1,15 @@
 <% title "Sub Requests" %>
-<table id="requests_table", class = "tablesorter">
+<table id="requests_table", class = "tablesorter"> 
+ <thead>
   <tr>
     <th>Date/Time</th>
     <th>Location</th>
 	<th>Requestor</th>
     <th>Reason</th>
   </tr>
-
+ </thead>
 <% @subs.first(@limit).each do |sub_request| %>
+ <tbody>
   <tr> 
     <td class="sub_date">
 		<%=h sub_request.start.to_s(:gg) %><br>
@@ -37,6 +39,7 @@
 	<% end %>
 
   </tr>
+ </tbody>
 <% end %>
 </table>
 <% if @index_link %>

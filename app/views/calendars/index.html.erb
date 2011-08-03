@@ -23,6 +23,7 @@
 <%= render :partial => 'shifts/view_preferences' %>
 
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th>Name</th>
     <th>Start Date</th>
@@ -30,7 +31,9 @@
     <th>Public</th>
     <th>Active</th>
   </tr>
+ </thead>
   <% for calendar in @calendars %>
+ <tbody>
   <%= (!calendar.active? and @calendar.nil?) ? "<tr class='disabled'>" : "<tr>" %>
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
@@ -45,6 +48,7 @@
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
+  </tbody>
     <script>calendar_visible[<%=calendar.id%>] = <%= (@calendar ? calendar == @calendar : calendar.active?) %>;</script>
   <% end %>
 </table>

@@ -1,12 +1,15 @@
 <% title "Data Fields for \"#{DataType.find(params[:data_type_id]).name}\" data type" %>
 
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th>Name</th>
     <th>Display Type</th>
     <th>Values</th>
   </tr>
+ </thead>
   <% for data_field in @data_fields %>
+ <tbody>
   <tr>
       <td><%=h data_field.name %></td>
       <td><%=h data_field.display_type %></td>
@@ -17,6 +20,7 @@
                                                         :confirm => "Are you sure?",
                                                         :method => :delete %></td>
     </tr>
+ </tbody>
   <% end %>
 </table>
 
