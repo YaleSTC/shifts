@@ -28,8 +28,8 @@ class PayformItem < ActiveRecord::Base
   validate :length_of_description
   validate :length_of_reason, :on => :update
 
-  named_scope :active, :conditions => {:active =>  true}
-  named_scope :in_category, lambda { |category| { :conditions => {:category_id => category.id}}}
+  scope :active, :conditions => {:active =>  true}
+  scope :in_category, lambda { |category| { :conditions => {:category_id => category.id}}}
   
   def add_errors(e)
     e = e.to_s.gsub("Validation failed: ", "")

@@ -17,16 +17,16 @@ class TimeSlot < ActiveRecord::Base
   attr_accessor :end_date
   attr_accessor :end_time
 
-  named_scope :active, lambda {{:conditions => {:active => true}}}
-  named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
-  named_scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
-  named_scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
-  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
-  named_scope :on_day, lambda {|day| { :conditions => ["#{:end.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
-  named_scope :on_48h, lambda {|day| { :conditions => ["#{:end.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{(day.end_of_day + 1.day).utc.to_sql}"]}}
-  named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
-  named_scope :ordered_by_start, :order => 'start'
-  named_scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
+  scope :active, lambda {{:conditions => {:active => true}}}
+  scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
+  scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
+  scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
+  scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
+  scope :on_day, lambda {|day| { :conditions => ["#{:end.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
+  scope :on_48h, lambda {|day| { :conditions => ["#{:end.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{(day.end_of_day + 1.day).utc.to_sql}"]}}
+  scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  scope :ordered_by_start, :order => 'start'
+  scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
 
 
   #This method creates the multitude of shifts required for repeating_events to work

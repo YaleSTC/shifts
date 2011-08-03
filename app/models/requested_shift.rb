@@ -11,11 +11,11 @@ class RequestedShift < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :template
 
- 	named_scope :assigned, :conditions => ["requested_shifts.assigned_start < ?", Time.now.utc]
- 	named_scope :unassigned, :conditions => ["requested_shifts.assigned_start is null"]
-# 	named_scope :unassigned, lambda {|location| {:conditions => ["requested_shifts.assigned_start = ? AND locations_requested_shifts.location_id = ?", nil,  location.id], :joins => :locations_requested_shifts }}
-	named_scope :on_day, lambda {|day| {:conditions => {:day => day}}}
-  # named_scope :at_location, lambda {|location| {:conditions => ["locations_requested_shifts.location_id = ?", location.id], :joins => :locations_requested_shifts }}
+ 	scope :assigned, :conditions => ["requested_shifts.assigned_start < ?", Time.now.utc]
+ 	scope :unassigned, :conditions => ["requested_shifts.assigned_start is null"]
+# 	scope :unassigned, lambda {|location| {:conditions => ["requested_shifts.assigned_start = ? AND locations_requested_shifts.location_id = ?", nil,  location.id], :joins => :locations_requested_shifts }}
+	scope :on_day, lambda {|day| {:conditions => {:day => day}}}
+  # scope :at_location, lambda {|location| {:conditions => ["locations_requested_shifts.location_id = ?", location.id], :joins => :locations_requested_shifts }}
 
 	WEEK_DAY_SELECT = [	["Monday", 0],
     									["Tuesday", 1],
