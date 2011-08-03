@@ -24,8 +24,7 @@
           <td><%= loc.min_staff %></td>
 		  <td><%= link_to "All Shifts", :action => :display_report_items, :id => loc %> </td>
           <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
-		  <!--  td><%= link_to "Delete Location", loc, :confirm => 'Are you sure?', :method => :delete %></td  -->
-        </tr>
+         </tr>
       <% end -%>
     </tbody>
   </table>
