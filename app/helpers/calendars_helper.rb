@@ -84,7 +84,7 @@ module CalendarsHelper
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
 
-    shifts = Shift.in_calendars(@calendars).in_locations(@visible_locations).on_day(day).scheduled
+    shifts = Shift.in_calendars(@calendars).in_locations(@visible_locations).on_day(day)
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 
@@ -107,9 +107,10 @@ module CalendarsHelper
     rejected = []
     location_row = 0
 
-#much of this logic goes toward having three rows in the TTO - 'rejected' just means rejected from the current line, being placed instead on a lower line. Nothing should be permanently 'rejected' in this process
+#much of this logic goes toward having three rows in the TTO - 'rejected' just means rejected from the current line, being placed instead on a lower line. Nothing should be permanently 'rejected' in this process.
     until shifts.empty?
       shift = shifts.shift
+      shift.end ||= Time.now
       @location_rows[shift.location][location_row] = [shift]
       (0...shifts.length).each do |i|
         if shift.location == shifts.first.location
