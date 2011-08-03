@@ -1,25 +1,21 @@
 <% title "Stats for #{@location.name}" %>
 
 <div id="left_stuff">
-	<fieldset class ="index">
-		<legend>Date Range</legend>
+	<fieldset class="index" id="date_selector">
 		<% form_tag(:controller => 'stats', :action => 'for_location', :method => :get, :id => @location.id) do %>
-			<p>
-			  <%= label_tag :start_date %><br />
-			  <%= date_select(:stat, :start_date, :default => @start_date)%>
-			</p>
-			<p>
-			  <%= label_tag :end_date %><br />
-			  <%= date_select(:stat, :end_date, :default => @end_date)%>
-			</p>
-		  <div><%= submit_tag 'Update dates' %></div>
+			  <%= label_tag :start_date %>
+			  <%= date_select(:stats, :start_date, :default => @start_date)%>
+				<br />
+			  <%= label_tag :end_date %>
+			  <%= date_select(:stats, :end_date, :default => @end_date)%>
+				<br />
+				<%= submit_tag 'Update dates' %>
 		<% end -%>
 	</fieldset>
 </div>
 
 <div id="right_stuff">
 	<fieldset class ="index">
-		<legend>Summary</legend>
 		<% @summary = @location.summary_stats(@start_date, @end_date) %>
 		<%= render :partial => 'stats/stats_summary', :object => @summary %>
 	</fieldset>
