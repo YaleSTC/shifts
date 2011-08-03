@@ -1,18 +1,16 @@
 <% title "Repeating Events" %>
 
-<table>
+<table class = "tablesorter">
   <tr>
     <th>Start Date</th>
     <th>End Date</th>
-    <th>Calendar</th>
-    <th>Days Of Week</th>
+    	<th>Days Of Week</th>
     <th>Locations</th>
   </tr>
   <% for repeating_event in @repeating_events %>
-    <tr>
-      <td><%=h repeating_event.start_date %></td>
-      <td><%=h repeating_event.end_date %></td>
-      <td><%=h repeating_event.calendar.name %></td>
+	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+      <td><%=h repeating_event.start_date.strftime("%D") %></td>
+      <td><%=h repeating_event.end_date.strftime("%D") %></td>
       <td><%=h repeating_event.days.join(", ") %></td>
       <td><%=h repeating_event.locations.map{|l| l.short_name}.join(", ") %></td>
       <td><%= link_to "Show", repeating_event %></td>

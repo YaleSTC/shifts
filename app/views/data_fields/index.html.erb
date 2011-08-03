@@ -1,13 +1,13 @@
 <% title "Data Fields for \"#{DataType.find(params[:data_type_id]).name}\" data type" %>
 
-<table>
+<table class = "tablesorter">
   <tr>
     <th>Name</th>
     <th>Display Type</th>
     <th>Values</th>
   </tr>
   <% for data_field in @data_fields %>
-    <tr>
+  <tr class=<%= "#{cycle("odd", "even")}" %>>        
       <td><%=h data_field.name %></td>
       <td><%=h data_field.display_type %></td>
       <td><%=h data_field.values %></td>

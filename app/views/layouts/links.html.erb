@@ -2,22 +2,4 @@
   <%= stylesheet_link_tag 'shift', 'links'%>
 <% end %>
 
-
-<% content_for :left_nav do %>
-  <ul id="navigationList">
-    <h3>Link Actions</h3>
-      <li><%= link_to_post_a_link %></li>
-			<li><%= link_to "View all notices", notices_path %></li>
-  </ul>
-  <div id="contentNav">
-<% end %>
-
-
-<% content_for :body do %>
-
-  <%= yield %>
-
-  <div class="clear"></div>
-<% end -%>
-
-<%= render :file => "layouts/application.html.erb" %>
+<%= render :file => "layouts/shifts.html.erb" %>

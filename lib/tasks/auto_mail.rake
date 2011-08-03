@@ -5,8 +5,10 @@ namespace :email do
       @users = department.users.select {|u| if u.is_active?(department) then u.email end }
       users_reminded = []
       for user in @users
+        if user.due_payform_email
         ArMailer.deliver(ArMailer.create_due_payform_reminder(user, message, department))
         users_reminded << "#{user.name} (#{user.login})"
+        end
       end
       puts "#{users_reminded.length} users in the #{department.name} department "  +
            "have been reminded to submit their due payforms."

@@ -26,10 +26,10 @@
     <%= f.label "Minimum number of shifts per week" %>:
     <%= select_tag 'shift_preference[min_number_of_shifts]', options_for_select(@shifts_week, @shift_preference.min_number_of_shifts) %>
   </p>
-
+<br />
 	<p>
-		Please select your location preferences: <br/>
-		<table>
+	<strong></h3>	Please select your location preferences:</h3></strong> <br/>
+		<table class = "tablesorter">
 			<tr>
 				<th>Location</th>
 				<th>Prefer</th>
@@ -38,7 +38,7 @@
 			</tr>
 			<% f.label :location_preference %>
 			<% @locations.uniq.each do |current_location| %>
-				<tr>
+		    <tr <%= "class= #{cycle("odd", "even")}"%>>
 					<td><%= current_location.name %></td>
 					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "yes", location_preference_check(current_location, "yes")) %></td>
 					<td align=center><%= radio_button_tag("kind"+current_location.id.to_s, "maybe", location_preference_check(current_location, "maybe")) %></td>

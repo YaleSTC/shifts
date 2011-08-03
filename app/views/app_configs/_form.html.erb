@@ -1,11 +1,17 @@
 <% form_for @app_config do |f| %>
   <%= f.error_messages %>
+
+<fieldset class='index'>
+  <legend>Footer</legend>
   <p>
-    <%= f.label :footer %><br />
     <small>You can edit this footer with HTML.  Be careful to close your tags,
     or you may produce broken pages.</small><br/>
     <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
   </p>
+</fieldset>
+
+<fieldset class = 'index'>
+	<legend>Email Configuration</legend>
   <p>
     <%= f.label :mailer_address, text = 'App email address' %><br />
     <small>This is used for the "From" field on any generated email that is not department-specific.</small><br />
@@ -15,8 +21,12 @@
 	<%= f.label :admin_email, text = 'Admin email address' %> <br />
 	<small>This is the administrator email that any non-department-specific correspondences are sent to. </small><br />
 	<%= f.text_field :admin_email %>
-  </p>	
-  <input type="checkbox" class = "trigger"><%="Allow LDAP for importing users?"%>
+  </p>
+</fieldset>
+
+<fieldset class = 'index'>
+	<legend>LDAP</legend>	
+  <input type="checkbox" id="toggle"><%="Allow LDAP for importing users?"%>
  	 <div id = "ldap_fields" style="display:none">
   	  <p>
     	  <%= f.label :ldap_host_address, text = "LDAP Host address" %> <br />
@@ -45,16 +55,18 @@
       </p>
       <p>
         <%= f.label :ldap_email, text = "LDAP Email address" %> <br />
-        <%= f.text_field :ldap_email %>
+        <%= f.text_field :ldap_email %> <br />
       </p>
   </div>
+</fieldset>
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
+
 <script>
-$('#hide').toggle();
-$('#ldap_check_box').click(function () {
-  $('.ldap_fields').toggle();
+$('#toggle').click(function() {
+  $('#ldap_fields').slideToggle('fast', function() {
+  });
 });
 </script>

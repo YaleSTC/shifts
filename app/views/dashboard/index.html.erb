@@ -54,6 +54,8 @@
     <fieldset class ="index" id="notices_for_you">
       <legend>Announcements</legend>
         <%= render :partial => 'notices/dashboard' %>
+		<br /><%= link_to_post_a_sticky() %>
+				<%= link_to_post_an_announcement %>
     </fieldset>
     
     <fieldset class="index" id="shifts">
@@ -78,8 +80,10 @@
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
-  <legend>Today's schedule</legend>
-  <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
+  <legend>Daily Schedule</legend>
+  <%= link_to "&lt;&lt; Previous", :date => (@current_date - 1)-%>
+  <span style="float:right;text-align:right;"><%= link_to "Next &gt;&gt;", :date => (@current_date + 1)%></span>
+  <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
 </fieldset>
 <% end %>
 

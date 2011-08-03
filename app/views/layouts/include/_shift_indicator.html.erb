@@ -1,0 +1,9 @@
+<div id="shift_indicator">
+	<ul class="sf-menu" id="application_tabs">
+		<% if current_user.current_shift %>
+		<li id=<%= (params[:controller].to_s == "reports" && params[:id].to_i == current_user.current_shift.report.id) ? "highlight" : "not" %>>
+			<%= link_to "Current Shift", (current_user.current_shift.report.nil? ? shift_path(current_user.current_shift) : report_path(current_user.current_shift.report)) %>
+		</li>
+		<% end %>
+	</ul>
+</div>

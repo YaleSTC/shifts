@@ -1,36 +1,46 @@
-<%= link_to 'Edit This Template', edit_template_path(@week_template) %> |
-<%= link_to 'Back', templates_path %>
-<p>
-	<b>Name:</b>
-	<%= @week_template.name %>
-	<p>
-  <b>Max Total Hours:</b>
-  <%= @week_template.max_total_hours %>
-	<p>
-  <b>Min Total Hours:</b>
-  <%= @week_template.min_total_hours %>
-	<p>
-	<b>Max Continuous Hours:</b>
-  <%= @week_template.max_continuous_hours %>
-	<p>
-  <b>Min Continuous Hours:</b>
-  <%= @week_template.min_continuous_hours %>
-	<p>
-  <b>Max Number Of Shifts:</b>
-  <%= @week_template.max_number_of_shifts %>
-	<p>
-  <b>Min Number Of Shifts:</b>
-  <%= @week_template.min_number_of_shifts %>
-	<p>
-	<b>Max Hours Per Day:</b>
-  <%= @week_template.max_hours_per_day %>
-	<p>
-	<b>Roles:</b>
-	<%= @week_template.roles.collect{|role| role.name}.to_sentence %>
-	<p>
-	<b>Locations:</b>
-	<%= @week_template.timeslot_locations.uniq.collect{|loc| loc.short_name}.to_sentence %>
-	<p>
+<% title @week_template.name%>
+
+
+<span style = "float:right"><%= link_to 'Edit This Template', edit_template_path(@week_template) %> |
+<%= link_to 'Back', templates_path %> </span> <br /> <br />
+
+
+<table class = "tablesorter">
+  <tr>
+    <th colspan=2>Total hours</th>
+    <th colspan=2>Continuous hours</th>
+    <th colspan=2>Number of shifts</th>
+    <th>Hours per day</th>
+		<th>Roles</th>
+		<th>Locations</th>
+  </tr>
+  <tr>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Min</th>
+    <th>Max</th>
+		<th></th>
+		<th></th>
+  </tr>
+<tr <%= "class= #{cycle("odd", "even")}" %> > 
+    <td><%=h @week_template.max_total_hours %></td>
+    <td><%=h @week_template.min_total_hours %></td>
+    <td><%=h @week_template.max_continuous_hours %></td>
+    <td><%=h @week_template.min_continuous_hours %></td>
+    <td><%=h @week_template.max_number_of_shifts %></td>
+    <td><%=h @week_template.min_number_of_shifts %></td>
+    <td><%=h @week_template.max_hours_per_day %></td>
+		<td><%= @week_template.roles.collect{|role| role.name}.to_sentence %></td>
+		<td><%= @week_template.timeslot_locations.uniq.collect{|loc| loc.short_name}.to_sentence %></td>
+    <td><%= link_to 'View', @week_template %></td>
+    <td><%= link_to 'Edit', edit_template_path(@week_template) %></td>
+    <td><%= link_to 'Delete', @week_template, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+</table>
+
 	<%= link_to 'View all submitted shift preferences', template_shift_preferences_path(@week_template) %> |
 	<%= link_to 'View all requested shifts', template_requested_shifts_path(@week_template) %> 
 	</p>

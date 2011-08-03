@@ -19,6 +19,8 @@ class DataObjectsController < ApplicationController
       @selected_type = @group_type_options.select{|a|a.include? params[:group_type]}.flatten
     end
     @types_objects_hash = @data_objects.group_by &:data_type
+    #this is for users who are not admins
+    @personal_types_objects_hash = DataObject.find(current_user.user_config.watched_data_objects.split(', ')).group_by(&:data_type)
     respond_to do |format|
       format.html #{ update_page{|page| page.hide 'submit'}}
       format.js

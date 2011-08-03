@@ -1,7 +1,7 @@
 <% title "Data Types" %>
 
 <% unless @data_types.empty? %>
-  <table>
+  <table class = "tablesorter">
     <tr>
       <th>Name</th>
       <th>Description</th>
@@ -9,7 +9,7 @@
       <th># of objects</th>
     </tr>
     <% for data_type in @data_types %>
-      <tr>
+      <tr class=<%= "#{cycle("odd", "even")}" %>>
         <td><%= link_to data_type.name, data_type %></td>
         <td><%=h data_type.description %></td>
         <td><%= data_type.data_fields.map{|df| h df.name}.join(', ') %></td>

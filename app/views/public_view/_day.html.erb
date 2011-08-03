@@ -1,0 +1,12 @@
+<tr>
+	<td id="date"><%= day == @view_days.first ? "Today" : day.strftime("%A") %></td>
+	<% @day_blockset.each do |block| %>
+		<% block_time = block.change(:day => day.day, :month => day.month, :year => day.year) %>
+		<% if location.is_staffed_in_list?(shifts, block_time) %>
+			<% message = "Staffed at #{block_time.strftime("%l:%M%p")}" %>
+			<td id="staffed" title='<%=message%>'</td>
+		<% else %>
+			<td id="unstaffed" title="Unstaffed"></td>
+		<% end %>
+	<% end %>
+</tr>

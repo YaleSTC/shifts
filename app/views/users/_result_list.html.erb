@@ -1,13 +1,11 @@
-<table>
+<center><strong>LDAP Search Results</strong></center>
+<table class = "tablesorter">
   <tr>
-    <th colspan="5">LDAP Search Results</th>
-  </tr>
-  <tr>
-    <td>Login</td>
-    <td>First Name</td>
-    <td>Last Name</td>
-    <td>Email</td>
-    <td>Add</td>
+    <th>Login</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Add</th	>
   </tr>
   <tr id="loading_row">
     <td colspan="5">
@@ -16,7 +14,7 @@
   </tr>
   <% if @results && !@results.empty? %>
     <% @results.each do |result| %>
-      <tr class="result">
+    <tr <%= "class= #{cycle("odd", "even")}"%>>
         <td><%= result[:login] %></td>
         <td><%= result[:first_name] %></td>
         <td><%= result[:last_name] %></td>

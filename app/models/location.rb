@@ -113,6 +113,17 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
+  
+  def is_staffed_in_list?(shift_list, time)
+    time = time.in_time_zone
+    remaining_shifts = shift_list.select{|s| s.start <= time && s.end >= time && !s.missed?}
+    return remaining_shifts == [] ? false : true
+  end
+  
+  def shifts_between(start_time, end_time)
+    shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql}"]).delete_if{|s| s.has_sub?}
+  end
+  
   def summary_stats(start_date, end_date)
     shifts_set = shifts.on_days(start_date, end_date).active
     summary_stats = {}
