@@ -10,7 +10,7 @@ module CalendarsHelper
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
 
     left = ((shift.start - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
-    width = ((shift.end - shift.start)/3600.0) / @hours_per_day * 100
+    width = (((shift.end ? shift.end : Time.now) - shift.start)/3600.0) / @hours_per_day * 100
     if left < 0
       width += left
       left = 0
@@ -19,6 +19,8 @@ module CalendarsHelper
     if left + width > 100
       width -= (left+width)-100
       @right_overflow = true
+    elsif width < 2 #important for very short unscheduled shifts
+      width = 2
     end
     "width: #{width}%; left: #{left}%;"
   end
@@ -110,7 +112,7 @@ module CalendarsHelper
 #much of this logic goes toward having three rows in the TTO - 'rejected' just means rejected from the current line, being placed instead on a lower line. Nothing should be permanently 'rejected' in this process.
     until shifts.empty?
       shift = shifts.shift
-      shift.end ||= Time.now
+#      shift.end ||= Time.now
       @location_rows[shift.location][location_row] = [shift]
       (0...shifts.length).each do |i|
         if shift.location == shifts.first.location
