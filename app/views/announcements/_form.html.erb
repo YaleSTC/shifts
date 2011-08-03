@@ -1,3 +1,5 @@
+<% calculate_default_times %>
+
 <br/>
 <% form_remote_for(@announcement) do |f| %>
   <div id ="errors">
@@ -24,7 +26,15 @@ start time cannot currently be set. We need to simultaneously develop the abilit
 		<legend>End time:</legend>
 		<%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
 		<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
-		<label><%= f.datetime_select :end, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %></label>
+      <%= f.label :end %>
+      <%= f.date_select :end_date, :default => @default_end_date %>
+      <%= f.time_select :end_time, {
+              :simple_time_select => true,
+              :time_separator => "",
+              :minute_interval => @department.department_config.time_increment,
+              :default => @announcement.end
+                                        } %>
+<%raise @announcement.to_yaml%>
 	</fieldset>
 
   </div>
@@ -41,3 +51,15 @@ start time cannot currently be set. We need to simultaneously develop the abilit
 
 <%= javascript_include_tag 'notices' %>
 <%= stylesheet_link_tag 'notice' %>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"announcement_end_date_3i":"j",
+                              "announcement_end_date_1i":"Y",
+                              "announcement_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+</script>
