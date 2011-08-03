@@ -1,7 +1,7 @@
 <div class="shifts_top">
   <div class="shift_links">
-    <%= link_to "&lt;&lt; Earlier", {:date => (@period_start - 7)}, :class => "last_week" %>
-    <%= link_to "Later &gt;&gt;",   {:date => (@period_start + 7)}, :class => "next_week" %>
+    <%= link_to HTMLEntities.new.decode("&lt;&lt; Earlier"), {:date => (@period_start - 7)}, :class => "last_week" %>
+    <%= link_to HTMLEntities.new.decode("Later &gt;&gt;"),   {:date => (@period_start + 7)}, :class => "next_week" %>
   </div>
   <div class="week_title">
     <%= @period_start.to_s(:just_date_long) %> to <%= (@period_start + 6.days).to_s(:just_date_long) %>

@@ -3,3 +3,6 @@
 
 en:
   hello: "Hello world"
+  date:
+    formats:
+      just_date: "%a, %b %d"

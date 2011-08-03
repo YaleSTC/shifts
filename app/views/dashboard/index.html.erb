@@ -81,8 +81,8 @@
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
   <legend>Daily Schedule</legend>
-  <%= link_to "&lt;&lt; Previous", :date => (@current_date - 1)-%>
-  <span style="float:right;text-align:right;"><%= link_to "Next &gt;&gt;", :date => (@current_date + 1)%></span>
+  <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), :date => (@current_date - 1)-%>
+  <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), :date => (@current_date + 1)%></span>
   <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
 </fieldset>
 <% end %>

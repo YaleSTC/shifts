@@ -15,6 +15,7 @@ gem "vestal_versions"
 gem "rdoc", "~> 3.6.1"
 gem "paperclip", "~> 2.3.15"
 gem "capistrano"
+gem "htmlentities"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
