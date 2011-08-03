@@ -21,6 +21,8 @@ module ShiftsHelper
     if left + width > 100
       width -= (left+width)-100
       @right_overflow = true
+    elsif width < 2 #important for very short unscheduled shifts
+      width = 2
     end
     "width: #{width}%; left: #{left}%;"
   end
