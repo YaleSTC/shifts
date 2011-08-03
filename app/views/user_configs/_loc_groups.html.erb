@@ -4,7 +4,7 @@
   <% dept_loc_groups = dept[1] %>
   <% dept_val = nil %>
   <%= check_box_tag "#{dept_name}", nil, nil, :class => "header_#{dept_name.downcase}" -%>
-  <%= label_tag "#{dept_name}", "#{dept_name}", :class => "header_#{dept_name.downcase}" -%>
+  <%= label_tag "#{dept_name}", "#{dept_name}", :class => "header_#{dept_name.downcase}" -%><span> Hide!</span>
 	</h3>
   <%= "<div class=\"hide\">Hide</div>" %>
 	<ul>

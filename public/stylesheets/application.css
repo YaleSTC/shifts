@@ -728,10 +728,6 @@ fieldset#child_checkbox li {
 	list-style-type: none;
 	display: inline;
 }
-fieldset#child_checkbox ul {
-	list-style-type: none;
-	display: inline;
-}
 div.hide {
 	display: inline;
 }
