@@ -44,7 +44,7 @@ class UserConfigsController < ApplicationController
 
 
   def update
-    #raise params[:user_config].to_yaml
+    raise params[:user_config].to_yaml
     if params[:loc]
       params[:user_config][:view_loc_groups] = params[:loc].keys.join(", ")
     else
