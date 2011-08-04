@@ -92,3 +92,26 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#user_stats_table").tablesorter({sortList: [[0,0]]});$("#location_stats_table").tablesorter({sortList: [[0,0]]});});</script>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"stat_start_date_3i":"j",
+                              "stat_start_date_1i":"Y",
+                              "stat_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"stat_end_date_3i":"j",
+                              "stat_end_date_1i":"Y",
+                              "stat_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>
