@@ -1,13 +1,17 @@
 <% title "Permissions" %>
 
-<table>
+<table class = "tablesorter">
+ <thead>
   <tr>
     <th>Name</th>
   </tr>
+ </thead>
   <% for permission in @permissions %>
-    <tr>
+ <tbody>
+  	<tr> 
       <td><%=h permission.name %></td>
     </tr>
+ </tbody>
   <% end %>
 </table>
 

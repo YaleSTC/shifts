@@ -1,7 +1,7 @@
 <% title "Locations" %>
 <% for group in @department.loc_groups %>
-  <table class="manage_table">
-    <caption><%= group.name %></caption>
+  <table class="tablesorter">
+   <center> <h2><%= group.name %></h2></center>
     <thead>
       <tr>
         <th width="30%">Long Name</th>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <%- group.locations.sort_by{ |loc| [- loc.priority, loc.name] }.each do |loc| -%>
-        <tr<%= " class='disabled'" if !loc.active %> id="loc<%= loc.id %>">
+        <tr <%=  loc.active ? "" : "class='disabled'" %> id="loc<%= loc.id %>">
           <td><%= link_to loc.name, edit_location_path(loc) %></td>
           <td><%= loc.short_name %></td>
           <td><%= loc.report_email ? loc.report_email : "-" %></td>
@@ -24,8 +24,7 @@
           <td><%= loc.min_staff %></td>
 		  <td><%= link_to "All Shifts", :action => :display_report_items, :id => loc %> </td>
           <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
-		  <!--  td><%= link_to "Delete Location", loc, :confirm => 'Are you sure?', :method => :delete %></td  -->
-        </tr>
+         </tr>
       <% end -%>
     </tbody>
   </table>

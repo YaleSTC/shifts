@@ -1,10 +1,16 @@
 <% form_for @task do |f| %>
 
 
-<p>
+  <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+
   <p>
     <%= f.label :kind %><br />
 	<%= radio_button_tag 'task[kind]', 'Hourly', true %> Hourly<br />
@@ -22,22 +28,23 @@
   </p>
   <p>
     <%= f.label :start %><br />
-	<%= f.date_select :start %> 
+	<%= f.date_select :start %>
 	</p>
   <p>
     <%= f.label :end %><br />
-  	<%= f.date_select :end %> 
+  	<%= f.date_select :end %>
   </p>
   <p>
     <%= f.label :time_of_day, text = "Time" %><br />
-   <%= f.time_select :time_of_day, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %>
+<label><%= f.time_select :time_of_day, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %></label>
   </p>
   <p>
     <%= f.label :active %><br />
     <%= f.check_box :active %>
   </p>
   <p>
-    <%= f.submit 'Submit' %>
+    <%= f.submit 'Submit and add another task', :name => "add_another" %>
+	<%= f.submit 'Submit and finish', :name => "submit" %>
   </p>
 
 <% end %>
@@ -49,4 +56,25 @@ $('#hide').toggle();
 $('#day_in_week').click(function () {
   $('.day_in_week').toggle();
 });
+</script>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"task_start_3i":"j",
+                              "task_start_1i":"Y",
+                              "task_start_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+var opts = {
+                formElements:{"task_end_3i":"j",
+                              "task_end_1i":"Y",
+                              "task_end_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
 </script>

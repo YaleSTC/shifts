@@ -5,17 +5,15 @@ li#notice_li {
 
 fieldset.sticky { 
   padding: 5px;
-  margin: 0 0 0 0;
-  border:1px solid gray;
+  margin: 5px 0 5px 5px;
   background-color:#FFFF99;
 }
 
 
 fieldset.announcement {
   padding: 5px;
-  margin:0 0 0 0;
+  margin:5px 0 5px 5px;
   clear: right;
-  border:1px solid gray;
   background-color:#ADD8E6;
 }
 

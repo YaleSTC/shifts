@@ -93,6 +93,10 @@ module ShiftsHelper
     end
   end
 
+  def staffed?(time, location)
+    @open_at[time.to_s(:am_pm)] && people_count[time.to_s(:am_pm)] < 1
+  end
+
   def min_staff_not_met?(time, location)
     @open_at[time.to_s(:am_pm)] && people_count[time.to_s(:am_pm)] < location.min_staff
   end

@@ -2,7 +2,6 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
-
 require 'rake/dsl_definition'
 require 'rake'
 require 'rake/testtask'

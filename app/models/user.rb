@@ -175,11 +175,6 @@ class User < ActiveRecord::Base
   def proper_name
     [first_name, last_name].join(" ")
   end
-  
-  # Useful for alphabetical sorting of lists containing duplicate last names
-  def reverse_name
-    [last_name, first_name].join(" ")
-  end
 
   # Useful for alphabetical sorting of lists containing duplicate last names
   def reverse_name

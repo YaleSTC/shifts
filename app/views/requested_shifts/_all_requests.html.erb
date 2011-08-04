@@ -1,6 +1,7 @@
 <h1>Your shift requests for <%= @week_template.name %></h1>
 
-	<table>
+	<table class = "tablesorter">
+	 <thead>
 		<tr>
 			<th>User</th>
 		  <th colspan=2>Preferred</th>
@@ -8,7 +9,9 @@
 		  <th>Day</th>
 			<th>Locations</th>
 		</tr>
-		<tr>
+	  </thead>
+	  <tbody>
+		<tr> 
 			<th></th>
 		  <th>Start</th>
 		  <th>End</th>
@@ -17,6 +20,7 @@
 		  <th></th>
 			<th></th>
 		</tr>
+	  </tbody>
 
 	<% @requested_shifts.sort_by{|s| [s.day, s.acceptable_start, s.acceptable_end]}.each do |requested_shift| %>
 		<tr <%= 'id="last_request"' if requested_shifts.last == requested_shift %> >

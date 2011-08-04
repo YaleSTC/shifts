@@ -48,6 +48,13 @@ class RolesController < ApplicationController
     redirect_to department_roles_path(@department)
   end
   
+  #returns all of the users for a given role
+  def users
+    @role = Role.find(params[:id])
+    @role_users =  Role.find(params[:id]).users
+  end
+  
+  
 private 
 
   def require_admin_or_superuser
