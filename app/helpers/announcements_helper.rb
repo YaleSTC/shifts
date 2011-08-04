@@ -16,7 +16,7 @@ module AnnouncementsHelper
     end
 
 #    @announcement.start ||= @default_start_date.to_time + current_department.department_config.schedule_start.minutes
-    @announcement.end ||= @default_end_date.to_time  + current_department.department_config.schedule_end.minutes
+#    @announcement.end ||= @default_end_date.to_time  + current_department.department_config.schedule_end.minutes
 
   end
 
