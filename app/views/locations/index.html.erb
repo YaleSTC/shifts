@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <%- group.locations.sort_by{ |loc| [- loc.priority, loc.name] }.each do |loc| -%>
-        <tr <%=  loc.active ? "class=#{cycle("odd", "even")}" : "class='disabled'" %> id="loc<%= loc.id %>">
+        <tr <%=  loc.active ? "" : "class='disabled'" %> id="loc<%= loc.id %>">
           <td><%= link_to loc.name, edit_location_path(loc) %></td>
           <td><%= loc.short_name %></td>
           <td><%= loc.report_email ? loc.report_email : "-" %></td>
