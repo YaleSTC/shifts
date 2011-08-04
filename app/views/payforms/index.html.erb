@@ -2,7 +2,7 @@
 
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
-		<% form_tag(:controller => 'payforms', :action => 'index', :method => :get, :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed]) do %>
+		<% form_tag(:controller => 'payforms', :action => 'index', :method => :get, :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed], :skipped => params[:skipped]) do %>
 			  <%= label_tag :start_date %>
 				<%= date_select(:payform, :start_date, :default => @start_date)%>
 				<br />
