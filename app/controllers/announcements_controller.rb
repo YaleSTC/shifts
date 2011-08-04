@@ -32,6 +32,7 @@ class AnnouncementsController < NoticesController
         @announcement.save(false)
         set_sources(@announcement)
         @announcement.save!
+        @current_notices = current_department.current_notices
     	end
 		rescue Exception
       respond_to do |format|
