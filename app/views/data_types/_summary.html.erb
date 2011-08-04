@@ -6,42 +6,50 @@
     <strong>Description:</strong>
     <%=h data_type.description %>
   </p>
-  
+
    <h3><strong>Data fields:</strong></h3>
 
 	<table class = "tablesorter">
+	 <thead>
 		<tr>
 	       <th>Name</th>
 		   <th>Type</th>
 	       <th>Values </th>
 		</tr>
+	  </thead>
 		<% for field in data_type.data_fields %>
-	    <tr class=<%= "#{cycle("odd", "even")}" %>>        
+	  <tbody>
+	    <tr>
 		  <td> <%= field.name%> </td>
 		  <td> <%= field.display_type.humanize %></td>
 		  <td> <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %> </td>
 		  <td> <%= link_to "Edit", edit_data_type_data_field_path(data_type, field) %> </td>
 		  <td> <%= link_to "Delete", data_type_data_field_path(data_type, field), :confirm => 'Delete this data field?', :method => :delete %></td>
-		<% end %>		
+		<% end %>
 		</tr>
+	  </tbody>
 	</table>
 
     <h3><strong>Data objects:</strong></h3>
 
 <table class = "tablesorter">
+ <thead>
    <tr>
       <th>Name</th>
    </tr>
+ </thead>
    <% for obj in data_type.data_objects %>
-   <tr class=<%= "#{cycle("odd", "even")}" %>>        
+ <tbody>
+   <tr>
 	  <td><%= link_to "#{obj.name}", obj %></td>
 	  <td><%= link_to "Edit", edit_data_object_path(obj) %></td>
-      <td><%= link_to "Delete", obj,  
-	          :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.', 
+      <td><%= link_to "Delete", obj,
+	          :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.',
 	          :method => :delete %></td>
    <% end %>
-   </tr>			
+   </tr>
+ <tbody>
 </table>
-  
+
 
 </fieldset>
