@@ -89,25 +89,17 @@ class ReportsController < ApplicationController
       flash[:notice] = "Report not submitted.  You may not be the owner of this report."
       render :action => 'show'
     end
-end
+  end
 
-#  def redirect_to_external_url
- #   redirect_to "http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=#{@key_words}&go=Go"
-  #end
-  
+
   def custom_search
     @key_word = params[:search]
     @search_engine_url = current_department.department_config.search_engine_url
     @search_url = @search_engine_url.concat(@key_word)
-    
-    
-    
     respond_to do |format|
       format.js
-      #format.html{}
+      format.html{}
     end
-        
-    #redirect_to report_path(params[:id])
   end
 
 
