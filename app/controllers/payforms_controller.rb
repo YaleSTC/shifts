@@ -7,7 +7,7 @@ class PayformsController < ApplicationController
     @payforms = narrow_down(current_user.is_admin_of?(current_department) ?
                             current_department.payforms :
                             current_department.payforms && current_user.payforms)
-    @payforms = @payforms.select{|payform| payform.date >= interpret_start && payform.date <= interpret_end}
+    @payforms = @payforms.select{|payform| payform.date >= @start_date && payform.date <= @end_date}
     @payforms = @payforms.sort_by{|payform| [payform.user.reverse_name, Date.today - payform.date]}
   end
 
@@ -131,7 +131,8 @@ class PayformsController < ApplicationController
 
   def search
     users = current_department.active_users
-
+    start_date = interpret_start
+    end_date = interpret_end
     #filter results if we are searching
     if params[:search]
       search_result = []
@@ -146,6 +147,7 @@ class PayformsController < ApplicationController
     for user in users
       @payforms += narrow_down(user.payforms)
     end
+    @payforms = @payforms.select{|payform| payform.date >= start_date && payform.date <= end_date}
   end
 
   def email_reminders

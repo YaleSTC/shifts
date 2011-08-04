@@ -70,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
 
   map.resources :payforms,
-                :collection => {:index => [:post, :get], :prune => :delete, :go => :get, :search => :post},
+                :collection => {:index => [:post, :get], :prune => :delete, :go => :get, :search => [:post, :get]},
                 :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
                 :shallow => true do |payform|
                     payform.resources :payform_items, :member => {:delete => :get}
