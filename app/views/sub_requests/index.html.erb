@@ -1,14 +1,16 @@
-<% title "Sub Requests" + @title_add %>
-<table id="requests_table">
+<% title "Sub Requests" %>
+<table id="requests_table", class = "tablesorter"> 
+ <thead>
   <tr>
     <th>Date/Time</th>
     <th>Location</th>
 	<th>Requestor</th>
     <th>Reason</th>
   </tr>
-
+ </thead>
 <% @subs.first(@limit).each do |sub_request| %>
-  <tr>
+ <tbody>
+  <tr> 
     <td class="sub_date">
 		<%=h sub_request.start.to_s(:gg) %><br>
 		<%=h sub_request.start.to_s(:am_pm) %> - <%=h  sub_request.end.to_s(:am_pm) %><br>
@@ -18,7 +20,7 @@
 	</td>
 
 	<td class="sub_location"><%=h sub_request.shift.location.name.to_s %></td>
-	<td class="sub_requestor"><%= link_to sub_request.shift.user.name.to_s, user_path(sub_request.shift.user)%></td>
+	<td class="sub_requestor"><%= link_to sub_request.shift.user.name.to_s, user_profile_path(sub_request.shift.user.login)%></td>
 	<td class="sub_reason"><div class="sub_reason_container"><%=h truncate(sub_request.reason.gsub(/\r\n/, "    "), 215, "...") %></div></td>
 	<td class="sub_show_link"><%= link_to 'Show', sub_request %></td>
 
@@ -37,6 +39,7 @@
 	<% end %>
 
   </tr>
+ </tbody>
 <% end %>
 </table>
 <% if @index_link %>

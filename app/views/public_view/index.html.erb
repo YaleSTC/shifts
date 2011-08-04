@@ -1,1 +1,7 @@
-<%= @cluster.short_name %>
+<% title "Staffing from #{@view_days.first.strftime("%b %e, %Y ")} to #{@view_days.last.strftime("%b %e, %Y ")}" %>
+
+<%for loc_group in @loc_groups%>
+	<h2><%= loc_group.name %></h2><br />
+	<% preprocess_loc_group(loc_group) %>
+	<%= render :partial => "loc_group", :locals => {:loc_group => loc_group} %>
+<%end %>

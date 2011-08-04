@@ -1,6 +1,5 @@
-active = @location.active
 page << "$('#loc#{@location.id}').toggleClass('disabled');"
-if active
+if @location.active
   page << "$('#loc#{@location.id} a.toggle_link').text('Deactivate');"
 else
   page << "$('#loc#{@location.id} a.toggle_link').text('Restore');"

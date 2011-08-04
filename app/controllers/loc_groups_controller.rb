@@ -36,7 +36,24 @@ class LocGroupsController < ApplicationController
       render :action => 'edit'
     end
   end
-
+  
+  
+  def toggle
+      @loc_group = LocGroup.find(params[:id])
+      ActiveRecord::Base.transaction do
+        if @loc_group.active
+          @loc_group.deactivate
+        else
+          @loc_group.activate
+        end
+      end
+      flash[:notice] = "Changed activation status of " + @loc_group.name.to_s + "."
+      respond_to do |format|
+        format.js 
+        format.html
+      end
+    end
+  
   def destroy
     @loc_group = LocGroup.find(params[:id])
     @loc_group.destroy

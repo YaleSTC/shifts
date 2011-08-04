@@ -12,11 +12,11 @@
       <p>Permissions for actions like viewing or signing up for shifts are granted per-location group. Please add one or more location groups to include the relevant permissions in your roles.</p>
     <% end -%>
     <% for lg in @role.department.loc_groups -%>
-        <li><%= lg.name %></li>
+        <li><%= lg.name %></li><br />
           <ul>
           <% for perm in lg.permissions -%>
               <%= "<li>"+perm.name+"</li>" if @role.permissions.include?(perm) %>
-          <% end -%>
+          <% end -%><br />
           </ul>
     <% end -%>
   </ul>

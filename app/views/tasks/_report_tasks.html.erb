@@ -4,13 +4,13 @@
 	<%= task_kind %>
 	<% these_tasks = @tasks.select{|t| t.kind == task_kind} %>
 	<% these_tasks.each do |task| %>
-		<li>
+		<li title='<%= task.description %>'>
 			<% if task.done %>
 			<strike><%= "#{task.name}" %></strike>
 			<% elsif task.missed %>
-			  <h3><%= link_to_remote "#{task.name} - Needs Doing ASAP!", :url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id} %></h3>
+			  <h3><%= link_to_remote ("#{task.name} - Needs Doing ASAP!", {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}) %></h3>
 			<% else %>
-				<%= link_to_remote (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), :url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id} %>
+				<%= link_to_remote ((task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}) %>
 			<% end %>
 		</li>
 	<% end %>

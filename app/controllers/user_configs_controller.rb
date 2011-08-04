@@ -15,6 +15,7 @@ class UserConfigsController < ApplicationController
   end
 
   def update
+    # raise params.to_yaml
     if params[:commit] == "Submit"
     	if @user_config.update_attributes(params[:user_config])
     	  flash[:notice] = "Successfully updated user settings."
