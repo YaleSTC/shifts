@@ -326,7 +326,7 @@ ul#navigationList a:hover {
 }
 #contentNav {
   float: left;
-  padding: 30px 30px 10px 30px;
+  padding: 10px 30px 10px 30px;
   width: 650px;
 }
 #contentNoNav {
