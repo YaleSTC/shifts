@@ -7,9 +7,10 @@ class AppMailer < ActionMailer::Base
 
   def shift_report(shift, report, dept)
     recipients  shift.user.email
-    unless shift.location.report_email.blank?
-      cc        shift.location.report_email
-    end
+    #commenting out for now. 
+    # unless shift.location.report_email.blank?
+    #       cc        shift.location.report_email
+    #     end
     from        shift.user.email
     subject     "Shift Report: #{shift.short_display}"
     sent_on     Time.now
