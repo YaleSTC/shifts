@@ -1,10 +1,10 @@
 #report_log{
-  width: 100%;
+  width: auto;
   clear: uboth;
 }
 
 #active_report_area {
-  width: 99%;
+  width: auto;
   border-style:solid;
   clear: both;
   background-color: #ddd;
@@ -12,26 +12,26 @@
 }
 
 #report_relative_size {
-  width: 50%;
-  float: right;
+  width: auto;
+  float: none;
   clear: right;
 }
 
 #announcement_link {
-	float: right;
+	float: none;
 }
 
 #shift_report_view  { /*in order minimize the height of the report_show page*/
-  float: right;
-  width: 98.6%;
+  float: none;
+  width: auto;
   margin-top: 5px;
   height: 200px;
   overflow-y: auto;
 }
 
 #report_view  {
-  float: right;
-  width: 98.6%;
+  float: none;
+  width: auto;
   margin-top: 5px;
 }
 
@@ -59,13 +59,13 @@ tr.list_report_item_odd {
   padding: 5px;
   margin: 0px;
   border-spacing: 2px;
-  width: 100%;
+  width: auto;
 }
 
 #report_item_form{
   border-collapse: collapse;
-  width: 49.5%;
-  float: left;
+  width: auto;
+  float: none;
   margin-top: 5px;
 }
 
@@ -80,46 +80,46 @@ tr.list_report_item_odd {
 }
 
 #report_view_table td.timestamp{
-  width: 69px;
+  width: auto;
   padding: 4px;
 }
 
 #useful_links {
-  width: 48%;
-	float: right;
+  width: auto;
+	float: none;
   margin-bottom: 15px;
 }
 
 #report_data_objects {
-  width: 48%;
-  float: right;
+  width: auto;
+  float: none;
   margin-bottom: 15px;
 }
 
 #shift_tasks {
-  width: 48%;
-  float: right;
+  width: auto;
+  float: none;
   margin-bottom: 15px;
 }
 
 #report_view_table td.user_name{
-  width: 100px;
+  width: auto;
   padding: 4px;
 }
 
 #report_message_center {
-	width: 390px;
-	float: left;
+	width: auto;
+	float: none;
 	clear: right;
 	margin-bottom: 15px;
 }
 
 textarea#item {
-  width: 99%;
+  width: auto;
   height:90%;
 }
 
 #submit_button {
-  float: right;
+  float: none;
   clear: right;
 }
