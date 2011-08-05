@@ -24,7 +24,7 @@ table, td, th{
 }
 th{
 	background: #778899;
-/*	border:1px solid black;*/	
+/*	border:1px solid black;*/
 	color: white;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -114,7 +114,7 @@ label {
 #pagebox {
   background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
   margin: 0px auto;
-  margin-top: 16px;  
+  margin-top: 16px;
   padding: 0pt 12px;
   width: 900px;
   border: medium none;
@@ -548,9 +548,9 @@ span#progress_bar #other_step {
 }
 
 /* = Tables
-======================================================================= */	
+======================================================================= */
 table.tablesorter {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   color: #FFFFFF;/*	background-color: #CDCDCD; */
 	margin:10px 0pt 15px;
 	font-size: 8pt;
@@ -577,7 +577,7 @@ table.tablesorter tbody td {
 	max-width: 400px;
 	word-wrap: break-word;
 }
-table.tablesorter tbody tr:nth-child(odd) td {
+table.tablesorter tbody tr.odd td {
 	background-color:#F0F0F6;
 }
 table.tablesorter tbody tr.disabled td {
@@ -597,14 +597,14 @@ table tr.alert_entry {
 }
 
 /*
-/* Sortable tables 
+/* Sortable tables
 table.sortable th:hover {
 	color:orange;
 }
 table.sortable th {
 	text-decoration: underline;
 }
-/* Sortable tables hack for AJAX 
+/* Sortable tables hack for AJAX
 table.sortable_style th:hover {
 	color:orange;
 }
@@ -714,7 +714,7 @@ ul.activeShifts {
 
 
 /* Sub Request Table Index
-======================================================================= */	
+======================================================================= */
 table#requests_table {margin-bottom:5px;}
 table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; white-space:nowrap;}
 table#requests_table tr td ul {
@@ -731,7 +731,7 @@ td.sub_location {text-align:center;}
 .sub_invalid {color:#6E6E6E;}
 a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}
 /* Sub Request Show
-======================================================================= */	
+======================================================================= */
 p.sub_show {margin-top:0px; margin-left:1.5em; line-height:120%;}
 p.sub_show h4{padding-left:0px;}
 ul#user_sources {margin-top:0px; margin-left:1.5em; list-style-type:none;}
