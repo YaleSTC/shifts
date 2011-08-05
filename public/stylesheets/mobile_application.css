@@ -16,6 +16,7 @@ body {
   font-size: 11px;
   background-color: #E9E9E9;
   background-image: none;
+  width: 320px;
 }
 table, td, th{
 	/*border:1px solid #666;*/
@@ -116,7 +117,7 @@ label {
   margin: 0px auto;
   margin-top: 0px;
   padding: 0pt 0px;
-  width: auto;
+  width: 320px;
   border: medium none;
 }
 #pageboxBottom {
@@ -135,25 +136,25 @@ label {
   padding: 0px;
 }
 #page_header h2 {
-  background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%;
+  background: transparent url(../images/theme/header_mobile.gif) no-repeat scroll 0% 0%;
   float: left;
   font-size: 12px;
-  margin: 0pt;
+  margin-top: 4px;
   text-indent: -9999px;
   border-bottom: none;
   width: 42px;
 }
 #page_header h2 a {
   display: block;
-  height: 36px;
+  height: 29px;
   width: auto;
 }
 #main_banner {
-  background: #869FC7 url(../images/theme/main_banner.jpg) no-repeat scroll 0% 0%;
+  background: #29435E url(../images/theme/main_banner_mobile.jpg) no-repeat scroll 0% 0%;
   border-bottom: 1px solid #FFFFFF;
   color: #FFFFFF;
   clear: both;
-  height: 85px;
+  height: 62px;
   margin: 0px auto;
   padding: 0px;
 }
