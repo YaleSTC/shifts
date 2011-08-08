@@ -130,34 +130,34 @@ label {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
 	float: none;
-  height: 35px;
+  height: 34px;
   padding: 0px;
   width: auto;
 }
 #page_header h2 {
   background: transparent url(../images/theme/header_mobile.gif) no-repeat scroll 0% 0%;
   float: left;
-  font-size: 12px;
-  margin: 0pt;
-	margin-top: 3px;
-  text-indent: -9999px;
+  font-size: 10px;
+  margin: 2pt;
+  margin-left: 4px;
+	text-indent: -9999px;
   border-bottom: none;
   width: 42px;
 }
 #page_header h2 a {
   display: block;
-  height: 36px;
+  height: 30px;
   width: auto;
 }
 #main_banner {
-  background: #869FC7 url(../images/theme/main_banner_mobile.jpg) no-repeat scroll 0% 0%;
-  border-bottom: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  background: #29435E url(../images/theme/main_banner_mobile.png) no-repeat scroll 0% 0%;
+  border-bottom: 1px solid #29435E;
+  color: #29435E;
   clear: both;
   height: 65px;
   margin: 0px auto;
   padding: 0px;
-	width: auto;
+/*	width: 320px;*/
 }
 #main_banner h1 {
   float: none;
@@ -239,6 +239,8 @@ div#login{
 /*  width: 100%;
 	float: left;
 	margin-top: -3px;*/
+	border-top: 1px solid #FFFFFF;
+	background-color: #8B9B6C;
 }
 ul#application_tabs {
   float: none;
@@ -284,6 +286,8 @@ ul#navigationList {
 	margin-right: auto;*/
 	margin: 0px auto;
 	width: 100%;
+	background-color: #DDF;
+	border-top: 1px solid #FFFFFF;
 }
 
 /*ul#navigationList {
