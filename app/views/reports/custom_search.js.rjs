@@ -1,1 +1,4 @@
-page << "window.open('#{@search_url.to_s}', '_blank');"
+if @key_word.empty?
+else
+  page << "window.open('#{@search_url.to_s}', '_blank','menubar=1,resizable=1');"
+end
