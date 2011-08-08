@@ -349,7 +349,7 @@ ul#navigationList a:hover {
 }
 #contentNoNav {
   float: left;
-  padding: 30px;
+  padding: 10px 12px 0px 12px;
   width: auto;
 }
 #page_title {
