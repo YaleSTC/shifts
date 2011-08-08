@@ -85,20 +85,16 @@ tr.list_report_item_odd {
 }
 
 #useful_links {
-  width: 200px;
+  width: auto;
 	float: none;
   margin-bottom: 15px;
-}
-
-#shift_tasks {
-	width: 200px;
-	float: none;
 }
 
 #report_data_objects {
   width: auto;
   float: none;
   margin-bottom: 15px;
+	font-size: 12px;
 }
 
 #shift_tasks {
@@ -113,7 +109,7 @@ tr.list_report_item_odd {
 }
 
 #report_message_center {
-	width: 200px;
+	width: auto;
 	float: none;
 	clear: right;
 	margin-bottom: 15px;
