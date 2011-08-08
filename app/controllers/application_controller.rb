@@ -22,9 +22,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
-  layout :detect_browser
-
+  
   def load_app_config
     @appconfig = AppConfig.first
   end

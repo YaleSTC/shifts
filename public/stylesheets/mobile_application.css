@@ -205,8 +205,13 @@ div#login{
   background-color: transparent;
   border-bottom: 0px solid #FFFFFF;
 /*  height: 25px;*/
-  padding: 0px 0px 0px;
-	float: top;
+/*  padding: 0px 0px 0px;
+	float: center;
+	margin-left: auto;
+	margin-right: auto;*/
+	width: 320px;
+	margin: 0px auto;
+  padding: 0px;
 }
 
 /* chooser
@@ -235,10 +240,10 @@ div#login{
 	margin-top: -3px;*/
 }
 ul#application_tabs {
-    float: none;
+  float: none;
 	background-color: transparent;
 	padding-top: 4px;
-    list-style-type: none;
+  list-style-type: none;
 	font-size: 10px;
 	margin-left: 10px;
 
@@ -269,13 +274,15 @@ ul#application_tabs a:hover {
 
 /* = navigation-related classes --> not needed with Superfish menu
 ======================================================================= */
-
 ul#navigationList {
-	margin-left: 10px;
-	padding-top: 4px;
+	padding-top: 0;
   float: top;
 	font-size: 10px;
-    list-style-type: none;
+  list-style-type: none;
+/*	margin-left: auto;
+	margin-right: auto;*/
+	margin: 0px auto;
+	width: 320px;
 }
 
 /*ul#navigationList {
