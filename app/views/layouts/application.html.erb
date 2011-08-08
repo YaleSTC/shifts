@@ -1,4 +1,7 @@
-<meta name = "viewport" content = "width = device-width">
+<% if mobile_device?%>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+<% end %>
+
 <%= render :file => "layouts/include/main_header.html.erb" %>
 
 
