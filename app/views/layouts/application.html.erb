@@ -4,6 +4,7 @@
 
 <%#must be removed after done%>
 <%= stylesheet_link_tag 'mobile_application', 'superfish-vertical_mobile' if mobile_device? %>
+<%= stylesheet_link_tag "superfish-vertical" if !mobile_device? %>
 <%= javascript_include_tag 'navigationlist' if !mobile_device? %>
 
     <%= yield(:left_nav) || '<div id="contentNoNav">' %>
@@ -24,13 +25,7 @@
       <%= yield(:body) || yield %>
 
     </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
-<p>
-	<% if mobile_device?%>
-		<%= link_to "Full Site", :mobile => 0 %>
-	<% else %>	
-		<%= link_to "Mobile Site", :mobile => 1%>
-	<% end %>
-</p>
+
     <div id="footer">
         <p class="footer">
           <%if @appconfig%>
@@ -46,6 +41,12 @@
 
                 <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
           <% end -%>
+					<br />
+					<% if mobile_device?%>
+						<%= link_to "Full Site", :mobile => 0 %>
+					<% else %>	
+						<%= link_to "Mobile Site", :mobile => 1%>
+					<% end %>
         </p>
       </div>
 
