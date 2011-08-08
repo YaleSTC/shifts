@@ -1,10 +1,10 @@
 #report_log{
-  width: auto;
+  width: 100%;
   clear: uboth;
 }
 
 #active_report_area {
-  width: auto;
+  width: 99%;
   border-style:solid;
   clear: both;
   background-color: #ddd;
@@ -12,35 +12,35 @@
 }
 
 #report_relative_size {
-  width: auto;
-  float: none;
+  width: 50%;
+  float: right;
   clear: right;
 }
 
 #announcement_link {
-	float: none;
+	float: right;
 }
 
 #shift_report_view  { /*in order minimize the height of the report_show page*/
-  float: none;
-  width: auto;
+  float: right;
+  width: 98.6%;
   margin-top: 5px;
   height: 200px;
   overflow-y: auto;
 }
 
 #report_view  {
-  float: none;
-  width: auto;
+  float: right;
+  width: 98.6%;
   margin-top: 5px;
 }
 
-tr.list_report_item_even {
-  background:   #f5f5f5;
+#all_report_items tr:nth-child(odd) {
+  background:   #e6e6fa;
 }
 
-tr.list_report_item_odd {
-  background:   #e6e6fa;
+#all_report_items tr:nth-child(even) {
+  background:   #f5f5f5;
 }
 
 #report_view .list_actions {
@@ -59,13 +59,13 @@ tr.list_report_item_odd {
   padding: 5px;
   margin: 0px;
   border-spacing: 2px;
-  width: auto;
+  width: 100%;
 }
 
 #report_item_form{
   border-collapse: collapse;
-  width: auto;
-  float: none;
+  width: 49.5%;
+  float: left;
   margin-top: 5px;
 }
 
@@ -80,46 +80,46 @@ tr.list_report_item_odd {
 }
 
 #report_view_table td.timestamp{
-  width: auto;
+  width: 69px;
   padding: 4px;
 }
 
 #useful_links {
-  width: auto;
-	float: none;
+  width: 48%;
+	float: right;
   margin-bottom: 15px;
 }
 
 #report_data_objects {
-  width: auto;
-  float: none;
+  width: 48%;
+  float: right;
   margin-bottom: 15px;
 }
 
 #shift_tasks {
-  width: auto;
-  float: none;
+  width: 48%;
+  float: right;
   margin-bottom: 15px;
 }
 
 #report_view_table td.user_name{
-  width: auto;
+  width: 100px;
   padding: 4px;
 }
 
 #report_message_center {
-	width: auto;
-	float: none;
+	width: 390px;
+	float: left;
 	clear: right;
 	margin-bottom: 15px;
 }
 
 textarea#item {
-  width: auto;
+  width: 99%;
   height:90%;
 }
 
 #submit_button {
-  float: none;
+  float: right;
   clear: right;
 }
