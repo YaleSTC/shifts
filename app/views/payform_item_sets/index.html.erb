@@ -1,15 +1,17 @@
 <% title "Group Jobs" %>
 
-<table class = "tablesorter">
+<table class = "tablesorter"> 
+ <thead>
   <tr>
     <th>Date Added</th>
     <th>Hours Added</th>
     <th>Category</th>
     <th>Description</th>
   </tr>
-  
+ </thead>
+  <tbody>
   <%= render :partial => "payform_item_set", :collection => @active_sets %>
-  
+  </tbody>
 </table>
 Expired sets:
 <table class = "tablesorter">

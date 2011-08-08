@@ -53,9 +53,10 @@
     
     <fieldset class ="index" id="notices_for_you">
       <legend>Announcements</legend>
-        <%= render :partial => 'notices/dashboard' %>
-		<br /><%= link_to_post_a_sticky() %>
-				<%= link_to_post_an_announcement %>
+       <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
+		<br />	
+		<%= link_to_post_a_sticky() %>
+		<%= link_to_post_an_announcement %>
     </fieldset>
     
     <fieldset class="index" id="shifts">
