@@ -21,6 +21,14 @@
 	float: right;
 }
 
+#shift_report_view  { /*in order minimize the height of the report_show page*/
+  float: right;
+  width: 98.6%;
+  margin-top: 5px;
+  height: 200px;
+  overflow-y: auto;
+}
+
 #report_view  {
   float: right;
   width: 98.6%;
@@ -79,19 +87,19 @@ tr.list_report_item_odd {
 #useful_links {
   width: 48%;
 	float: right;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 #report_data_objects {
   width: 48%;
   float: right;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 #shift_tasks {
   width: 48%;
   float: right;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 #report_view_table td.user_name{
@@ -103,7 +111,7 @@ tr.list_report_item_odd {
 	width: 390px;
 	float: left;
 	clear: right;
-	margin-bottom: 5px;
+	margin-bottom: 15px;
 }
 
 textarea#item {

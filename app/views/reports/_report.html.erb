@@ -1,3 +1,4 @@
+<div id= <%= html_id%>>
 <% @report ||= report %>
   <table id="report_view_table">
     <tr>
@@ -10,4 +11,4 @@
       <%= render :partial => 'reports/report_item', :collection => @report.report_items %>
     </tbody>
   </table>
-
+</div>

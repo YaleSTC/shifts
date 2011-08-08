@@ -5,7 +5,7 @@
     <%= javascript_include_tag 'data_field_input'%>
   
     <div class="delete_link">
-      <%= link_to_function "remove this data field [x]", "$(this).closest('.data_field').remove()"%>
+      <%= link_to_function "remove this data field", "$(this).closest('.data_field').remove()"%>
     </div>
     <p>
       <%= df_form.label :name %><br />

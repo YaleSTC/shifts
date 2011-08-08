@@ -1,10 +1,10 @@
-<tr<%= " class='disabled'" unless task.active %>>
+  <tr <%=  task.active ? "class=#{cycle("odd", "even")}" : "class='disabled'" %>>
     <td title='<%= task.description %>'>
 	<%=link_to task.name, task%></td>
     <td><%=h task.kind %></td>
     <td><%=h Location.find_by_id(task.location_id).short_name %></td>
-    <td><%=h task.start.strftime("%a, %B %d %Y") %></td>
-    <td><%=h task.end.strftime("%a, %B %d %Y")%></td>
+    <td><%=h task.start.strftime("%B %d %Y") %></td>
+    <td><%=h task.end.strftime("%B %d %Y")%></td>
     <td><%=h task.time_of_day.to_s(:am_pm) %></td>
     <td><%=h task.day_in_week %></td>
 	<% if task.active %>
@@ -16,7 +16,6 @@
  <% else %>
     <td>Expired or Inactive</td>
   <% end %>
-
   </tr>
 
 <%# this partial is used for the index menu%>

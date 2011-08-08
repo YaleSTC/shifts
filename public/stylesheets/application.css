@@ -12,19 +12,19 @@ body {
 	color: #000;
   margin: 0pt;
   padding: 0pt;
-  font-family: Trebuchet MS, Verdana, Arial, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-size: 11px;
   background-color: #E9E9E9;
   background-image: none;
 }
 table, td, th{
-	border:1px solid #666;
+	/*border:1px solid #666;*/
 	padding: 2px;
 	border-collapse:collapse;
 }
 th{
 	background: #778899;
-	border:1px solid black;
+/*	border:1px solid black;*/	
 	color: white;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -65,47 +65,46 @@ label {
 ======================================================================= */
 #flash_error {
   background-color: #FCC;
-  border: solid 1px #C66;
+/*  border: solid 1px #C66;*/
   font-size:11px;
   margin-top:10px;
   padding:5px 8px;
 }
 #flash_warning {
   background-color:#FFF0AA;
-  border:1px solid #908C99;
-}
+/*  border:1px solid #908C99;*/}
 #flash_notice {
   background-color:#98EEC3;
-  border:1px solid #21A454;
+  /*border:1px solid #21A454;*/
   font-size:11px;
   margin-top:10px;
   padding:5px 8px;
 }
 #flash_big_notice {
   background-color:#FFCCCC;
-  border:1px solid #CC6666;
+  /*border:1px solid #CC6666;*/
   font-size:11px;
   margin-top:10px;
   padding:5px 8px;
 }
 
 .flash {
-  border: 1px solid;
+/*  border: 1px solid;*/
   font-size:11px;
   margin:2px;
   padding:2px;
 }
 .flash#flash_error {
   background-color: #ffcccc;
-  border-color: #cc6666;
+  /*border-color: #cc6666;*/
 }
 .flash#flash_warning {
   background-color:#fff0aa;
-  border-color: #908c99;
+ /* border-color: #908c99;*/
 }
 .flash#flash_notice {
   background-color:#98eec3;
-  border-color: #21a454;
+  /*border-color: #21a454;*/
 }
 
 
@@ -180,7 +179,7 @@ div#login{
 #login p {
   margin: 9pt 10px 0pt 0pt;
   font-size: 12px;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   line-height: 1.1em;
   color: #FFFFFF;
   float: right;
@@ -210,33 +209,39 @@ div#login{
 --------------------------------------------------------- */
 #chooser {
   float: left;
-  width: 250px;
-  padding: 0px 5px 0px 10px;
-  margin-top: 1px;
-  font-size: 12px;
-  color: #FFFFFF;
-  font-family: Verdana, Geneva, Arial, sans-serif;
-  line-height: 1.6em;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
+	font-size: 12px;
+}
+
+/* shift indicator
+--------------------------------------------------------- */
+#shift_indicator {
+  float: left;
+	font-family: Trebuchet MS, Verdana, Arial, serif;
+	color: #FFFFFF;
+	font-size: 12px;
 }
 
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  float: right;
-  width: 600px;
+  width: 100%;
+	float: left;
+	margin-top: -3px;
 }
 ul#application_tabs {
   float: right;
-  font-family: Verdana, Geneva, Arial, sans-serif;
-  font-size: 12px;
-  margin: 0pt 5px 0pt 0pt;
+	background-color: #8B9B6C;
   padding: 0pt;
-  line-height: 1.6em;
+  list-style-type: square;
+	font-size: 12px;
+
+/*  line-height: 1.6em;
   list-style-image: none;
   list-style-position: outside;
-  list-style-type: square;
+*/
 }
-ul#application_tabs li {
+/*ul#application_tabs li {
   display: inline;
   line-height: 11px;
   list-style-type: none;
@@ -253,15 +258,22 @@ ul#application_tabs a {
 ul#application_tabs a:hover {
     border-bottom:2px solid #EEF0AE;
     padding-bottom:1px;
-}
+}*/
 
 
-/* = navigation-related classes
+/* = navigation-related classes --> not needed with Superfish menu
 ======================================================================= */
 
 ul#navigationList {
+	margin-left: 	30px;
+	padding-top: 40px;
+  float: 				left;
+	font-size: 11px;
+}
+
+/*ul#navigationList {
   color: #415578;
-  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   font-size: 11px;
   font-weight: bold;
   line-height: 1.7em;
@@ -299,7 +311,7 @@ ul#navigationList a:hover {
   color: #FF9933;
   text-decoration: none;
 }
-
+*/
 /* = main content classes
 ======================================================================= */
 
@@ -312,8 +324,8 @@ ul#navigationList a:hover {
   padding: 0px 0px 5px 0px;
 }
 #contentNav {
-  float: right;
-  padding: 30px 30px 10px 10px;
+  float: left;
+  padding: 30px 30px 10px 30px;
   width: 650px;
 }
 #contentNoNav {
@@ -351,7 +363,7 @@ ul#navigationList a:hover {
 }
 p.footer {
   color: #FFFFFF;
-  font-family: Verdana, Geneva, Arial, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   font-size: 10px;
   line-height: 1.6em;
   margin: 0px 0px 0px 180px;
@@ -395,8 +407,8 @@ table.manage_table th {
 
 fieldset.index {
   padding: 5px;
-  margin: 0px 0px 5px 0px;
-  border: 1px solid gray;
+  margin: 0px 0px 15px 0px;
+  /*border: 1px solid gray;*/
   background-color:#DDDDFF
 }
 fieldset#warning {
@@ -415,8 +427,8 @@ div#left_stuff {
 }
 legend {
   color: #eef;
-  background: #123456;
-  font-family: sans-serif;
+  background: #0F2B5B;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   padding: 0.2em 1em;
 }
 
@@ -427,7 +439,7 @@ legend {
 #blue_fieldset fieldset legend {
   color: #eef;
   background: #123456;
-  font-family: sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   padding: 0.2em 1em;
 }
 
@@ -438,7 +450,9 @@ legend {
 ======================================================================= */
 
 #errorExplanation {
-  width: 400px;
+  width: 75%;
+	margin-left: auto;
+	margin-right: auto;
   border-style: solid;
   border-color: #CF0000;
   border-width:2px;
@@ -449,7 +463,7 @@ legend {
   background-color: #f0f0f0;
 }
 #errorExplanation h2 {
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
   font-size: 12px;
@@ -459,6 +473,7 @@ legend {
 }
 #errorExplanation p {
   color: #333;
+	font-size: 12px;
   margin-bottom: 0;
   padding: 8px;
 }
@@ -534,8 +549,8 @@ span#progress_bar #other_step {
 /* = Tables
 ======================================================================= */	
 table.tablesorter {
-	font-family:arial;
-	background-color: #CDCDCD;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
+  color: #FFFFFF;/*	background-color: #CDCDCD; */
 	margin:10px 0pt 15px;
 	font-size: 8pt;
 	width: 100%;
@@ -558,9 +573,14 @@ table.tablesorter tbody td {
 	padding: 4px;
 	background-color: #fff;
 	vertical-align: top;
+	max-width: 400px;
+	word-wrap: break-word;
 }
 table.tablesorter tbody tr.odd td {
 	background-color:#F0F0F6;
+}
+table.tablesorter tbody tr.disabled td {
+	background-color:#CCC;
 }
 table.tablesorter thead tr .headerSortUp {
 	background-image: url(../images/tables/asc.gif);
@@ -637,6 +657,9 @@ img.loading_icon {
   margin-right: 5px;
 }
 
+#result_list{
+	z-index: 110;
+}
 
 #timer{
   font-size: 20px;
@@ -728,6 +751,12 @@ fieldset#child_checkbox li {
 	list-style-type: none;
 	display: inline;
 }
-div.hide {
+fieldset#child_checkbox h3 {
 	display: inline;
+}
+fieldset#child_checkbox a.hide {
+	display: inline;
+	vertical-align: baseline;
+	font-style: italic, underline;
+	padding-left: 6pt;
 }

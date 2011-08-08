@@ -2,7 +2,6 @@ class UserProfileEntry < ActiveRecord::Base
 
   belongs_to :user_profile_field
   belongs_to :user_profile
-  has_one :user_profile_pic #if UserProfileField.find(self.user_profile_field_id).display_type == "upload_pic"
 
   def field_name
     field_name = UserProfileField.find(self.user_profile_field_id).name

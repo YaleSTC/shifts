@@ -1,4 +1,4 @@
-<% form_for @user_profile do |f| %>
+<% form_for @user_profile, :html => { :multipart => true} do |f| %>
   <%= f.error_messages %>
 
 <%= render :partial => 'user_info' %>
@@ -27,6 +27,9 @@
 
       <% end %>
     <% end %>
+  </p>
+  <p>
+   <%= f.file_field :photo %>
   </p>
 
   <p><%= f.submit "Update" %></p>
