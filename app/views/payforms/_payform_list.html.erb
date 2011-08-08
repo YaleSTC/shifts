@@ -1,11 +1,14 @@
-<% if params[:printed].nil? %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Finalized Payforms", payforms_path(:unsubmitted =>true, :submitted => true, :skipped => true, :approved => true, :printed => true), :class => "action_with_icon" %>
-<% else %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Finalized Payforms", payforms_path, :class => "action_with_icon" %>
-<% end %>
+<div id="right_stuff">
+	<fieldset class="index">
+		<% if params[:printed].nil? %>
+		  <div><%= image_tag("icons/flag_purple.png", :class => "mini_icon")%><%= link_to "Include Finalized Payforms", payforms_path(:unsubmitted => true, :submitted => true, :approved => true, :printed => true, :start_date => @start_date, :end_date => @end_date), :class => "action_with_icon" %></div>
+		<% else %>
+		  <div><%= image_tag("icons/flag_purple.png", :class => "mini_icon")%><%= link_to "Hide Finalized Payforms", payforms_path(:start_date => @start_date, :end_date => @end_date), :class => "action_with_icon" %></div>
+		<% end %>
+	</fieldset>
+</div>
 
 <table id="payformList" width="100%">
-
 
   <thead><tr>
     <% if current_user.is_admin_of?(current_department) -%>
@@ -51,4 +54,5 @@
       <th><%= @payforms.select{|p| p.printed}.length %></th>
     <% end -%>
   </tr></tfoot>
+
 </table>

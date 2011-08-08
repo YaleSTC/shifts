@@ -66,12 +66,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :payform_sets
   map.resources :department_configs, :only => [:edit, :update]
 
+  map.resources :stats,
+                :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
+
   map.resources :payforms,
-                :collection => { :prune => :delete, :go => :get, :search => :post},
+                :collection => {:index => [:post, :get], :prune => :delete, :go => :get, :search => [:post, :get]},
                 :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
                 :shallow => true do |payform|
-    payform.resources :payform_items, :member => {:delete => :get}
-  end
+                    payform.resources :payform_items, :member => {:delete => :get}
+                end
 
   map.resources :payform_items
 
@@ -126,7 +129,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
-  map.resources :stats, :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
 
   #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 
