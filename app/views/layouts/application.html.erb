@@ -6,8 +6,8 @@
 
 
 <%#must be removed after done%>
-<%= stylesheet_link_tag 'mobile_application' if mobile_device? %>
-<%#= javascript_include_tag 'navigationlist' %>
+<%= stylesheet_link_tag 'mobile_application', 'superfish-vertical_mobile' if mobile_device? %>
+<%= javascript_include_tag 'navigationlist' if !mobile_device? %>
 
     <%= yield(:left_nav) || '<div id="contentNoNav">' %>
 
