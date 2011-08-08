@@ -34,7 +34,7 @@
 <div id="payform_list">
   <%= render :partial => "payform_list" %>
 </div>
-
+<br />
 <%= link_to "<span>Your Current Payform</span>", go_payforms_path, :class=>"button" %>
 <% if current_user.is_admin_of?(current_department) %>
 	<%= link_to "<span>Print all approved payforms</span>", payform_sets_path, :method => :post, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
