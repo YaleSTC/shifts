@@ -214,7 +214,7 @@ div#login{
 #chooser {
   float: top;
   font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 10px;
 }
 
 /* shift indicator
@@ -223,7 +223,7 @@ div#login{
   float: top;
 	font-family: Trebuchet MS, Verdana, Arial, serif;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 10px;
 	display: none;
 }
 
@@ -239,8 +239,8 @@ ul#application_tabs {
 	background-color: transparent;
 	padding-top: 4px;
     list-style-type: none;
-	font-size: 12px;
-	margin-left: 11px;
+	font-size: 10px;
+	margin-left: 10px;
 
 /*  line-height: 1.6em;
   list-style-image: none;
@@ -271,10 +271,10 @@ ul#application_tabs a:hover {
 ======================================================================= */
 
 ul#navigationList {
-	margin-left: 11px;
+	margin-left: 10px;
 	padding-top: 4px;
   float: top;
-	font-size: auto;
+	font-size: 10px;
     list-style-type: none;
 }
 
