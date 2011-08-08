@@ -116,7 +116,7 @@ label {
   margin: 0px auto;
   margin-top: 0px;
   padding: 0pt 0px;
-  width: auto;
+  width: 500px;
   border: medium none;
 }
 #pageboxBottom {
@@ -130,9 +130,9 @@ label {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
   float: none;
-  width: auto;
   height: 35px;
   padding: 0px;
+  width: 320px;
 }
 #page_header h2 {
   background: transparent url(../images/theme/header_mobile.gif) no-repeat scroll 0% 0%;
@@ -156,6 +156,7 @@ label {
   height: 85px;
   margin: 0px auto;
   padding: 0px;
+	width: 320px;
 }
 #main_banner h1 {
   float: none;
@@ -359,6 +360,7 @@ ul#navigationList a:hover {
   clear: both;
   padding: 0px 0px 0px;
   text-align: center;
+	width: 320px;
 }
 #footer a {
   color: #999999;
