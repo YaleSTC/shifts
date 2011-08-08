@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
+  before_filter :prepare_for_mobile
   #before_filter :load_user
 
 
@@ -404,6 +405,18 @@ class ApplicationController < ActionController::Base
   def prepare_mail_url
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
-
+  
+  def mobile_device?
+    if session[:mobile_param]
+      session[:mobile_param] == "1"
+    else
+    request.user_agent =~ /Mobile|webOS/
+  end
+  end
+  helper_method :mobile_device?
+  
+  def prepare_for_mobile
+    session[:mobile_param] = params[:mobile] if params[:mobile]
+  end
 
 end
