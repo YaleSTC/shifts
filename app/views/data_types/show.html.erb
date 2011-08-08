@@ -1,69 +1,71 @@
 <% title @data_type.name %>
-<% subtitle "Data Type" %>
-<div style="width:35%; float:left">
-  <p>
-    <strong>Description:</strong>
-    <%=h @data_type.description %>
-  </p>
-  <p>
-    <strong>Data fields:</strong>
-    <ul>
-      <% for field in @data_type.data_fields %>
-        <li>
-          <strong><%= field.name %></strong>
-          <%= link_to "[edit]", edit_data_type_data_field_path(@data_type, field) %>
-          <%= link_to "[x]", data_type_data_field_path(@data_type, field), :confirm => 'Delete this data field?', :method => :delete %>
-        </li>
-        <ul style="margin-left: 1em">
-          <li>Type: <%= field.display_type.humanize %>
-          <li>Values: <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %>
-        </ul>
-      <% end %>
-    </ul>
-    <br>
-    <%= button_to "Add a new data field", new_data_type_data_field_path(@data_type), :method => :get %>
-  </p>
-  <p>
-    <!-- <%= link_to "New data object", new_data_type_data_object_path(@data_type.id) %> | 
-    <%= link_to "Edit and add new data fields", edit_data_type_path(@data_type) %><br> -->
-    <%= link_to "Edit this data type", edit_data_type_path(@data_type) %> | 
-    <%= link_to "Destroy", @data_type,  
-    :confirm => 'Are you sure? This will destroy all data objects of this type, as well as their associated entries.', 
-    :method => :delete %> |
-    <%= link_to "View all data types", data_types_path %>
-  </p>
-</div>
-<div style="width: 65%; float:left">
-  <strong>Data objects of this type:</strong>
-  <table>
+
+<% unless !@data_type.description? %>
+<strong>Description:</strong>
+<%=h @data_type.description %> <br /> <br />
+<% end %>
+
+<h2><strong>Data fields:</strong></h2>
+
+<table class = "tablesorter">
+	<tr>
+       <th>Name</th>
+	   <th>Type</th>
+       <th>Values </th>
+	</tr>
+	<% for field in @data_type.data_fields %>
+    <tr class=<%= "#{cycle("odd", "even")}" %>>
+	  <td> <%= field.name%> </td>
+	  <td> <%= field.display_type.humanize %></td>
+	  <td> <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %> </td>
+	  <td> <%= link_to "Edit", edit_data_type_data_field_path(@data_type, field) %> </td>
+	  <td> <%= link_to "Delete", data_type_data_field_path(@data_type, field), :confirm => 'Delete this data field?', :method => :delete %></td>
+	<% end %>		
+	</tr>
+</table>
+    <%= link_to "New Data Field", new_data_type_data_field_path(@data_type), :method => :get %> | 
+    <%= link_to "All Data Fields", data_type_data_fields_path(@data_type) %><br /> <br  />
+
+
+  <h2><strong>Data objects of this type:</strong></h2>
+  <table class = "tablesorter">
     <tr>
       <th>Name</th>
       <th>Description</th>
       <% @data_type.data_fields.each do |df| %>
-        <th>
-          <%= df.name %>
-        </th>
+      <th>
+        <%= df.name %>
+      </th>
       <% end %>
     </tr>
-
     <% for obj in @data_type.data_objects %>
       <% entry = obj.data_entries.last.data_fields_with_contents unless obj.data_entries.empty? %>
-      <tr>
-        <td>
-          <%= link_to "#{obj.name}", obj %>
-          <%= link_to "[x]", obj,  
-            :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.', 
-            :method => :delete %>
-        </td>
-        <td><%= obj.description %></td>
+    <tr class=<%= "#{cycle("odd", "even")}" %>>
+      <td>
+        <%= link_to "#{obj.name}", obj %>
+      </td>
+      <td>
+        <%= obj.description %>
+	  </td>
         <% @data_type.data_fields.each do |df| %>
-          <td>
-            <%= entry[df.id.to_s] if entry %>
-          </td>
-        <% end %>
-      </tr>
+      <td>
+        <%= entry[df.id.to_s] if entry %>
+      </td>
+    <% end %>
+	  <td>
+		<%= link_to "Edit", edit_data_object_path(obj) %>
+	  </td>
+      <td>  
+		<%= link_to "Delete", obj, :confirm => 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.',:method => :delete %>
+	  </td>
+    </tr>
     <% end %>
   </table>
-  <br>
-  <%= button_to "Create a new instance of this data type", new_data_type_data_object_path(@data_type), :method => :get %>
-</div>
+  <%= link_to "New Data Object", new_data_type_data_object_path(@data_type), :method => :get %> <br /> <br />
+
+
+  <p>
+    <%= link_to "Edit", edit_data_type_path(@data_type) %> | 
+    <%= link_to "Destroy", @data_type, :confirm => 'Are you sure? This will destroy all data objects of this type, as well as their associated entries.', :method => :delete %> |
+    <%= link_to "View All", data_types_path %>
+  </p>

@@ -1,5 +1,9 @@
 <% title "Users" %>
 
+<div align="right"><br/>
+<%= link_to "Import from CSV", import_department_users_path(@department) %><br/>
+<%= link_to "Export to CSV", :action => 'index', :format => 'csv' %><br/></div>
+
 <div id="searchbox" style="margin-bottom: 1em">
   <% form_tag(department_users_path(current_department), :method => :get) do %>
     Find a user: <%= text_field_tag :search %>
@@ -7,31 +11,17 @@
   <% end %>
 </div>
 
-<p><%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%></p>
-
-<table class="sortable">
-  <thead>
-    <tr>
-      <th align="left">Login</th>
-      <th align="left">First Name</th>
-      <th align="left">Last Name</th>
-      <th align="left">Nickname</th>
-      <th>Employee ID</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody id="user_list">
-    <%= render :partial => 'user_list' %>
-  </tbody>
-</table>
-
 <p>
-<% if params[:show_inactive].nil? %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true), :class => "action_with_icon" %>
-<% else %>
-  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), :class => "action_with_icon" %>
-<% end %>
+	<%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%> |  
+	<% if params[:show_inactive].nil? %>
+	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true), :class => "action_with_icon" %>
+	<% else %>
+	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), :class => "action_with_icon" %>
+	<% end %>
 </p>
+
+<%= render :partial => 'user_list' %>
+
 
 <script type="text/javascript">
   //$('div#searchbox').toggle();

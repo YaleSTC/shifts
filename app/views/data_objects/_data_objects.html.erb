@@ -1,3 +1,7 @@
   <div id="data_objects"> 
-  <%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>
+  <% if current_user.is_admin_of?(current_department) %>
+    <%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>
+  <% else %>
+  	<%= render(:partial => "data_objects_table" , :collection => @personal_types_objects_hash) %>
+  <% end %>
   </div> 

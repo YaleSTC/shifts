@@ -1,6 +1,6 @@
 <% title "Location Groups" %>
 
-<table class = "manage_table">
+<table class = "tablesorter">
   <thead>
   <tr>
     <th>Name</th>
@@ -10,10 +10,12 @@
   </thead>
   <tbody>
   <% for loc_group in @loc_groups %>
-    <tr>
-      <td><%= link_to loc_group.name, edit_loc_group_path(loc_group) %></td>
+ <tr id="loc_group<%= loc_group.id%>" <%=  loc_group.active ? "class=#{cycle("odd", "even")}" : "class='disabled'" %>>
+      <td><%= link_to loc_group.name, loc_group_path(loc_group) %></td>
       <td><%= loc_group.sub_request_email %></td>
       <td><%=h loc_group.locations.collect{|loc| loc.name} * ", " %></td>
+	  <td><%= link_to "Edit", edit_loc_group_path(loc_group)%></td>
+	  <td><%= link_to_remote (loc_group.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc_group.id }, :html => { :class => 'toggle_link' }%></td>
   <% end %>
   </tbody>
 </table>

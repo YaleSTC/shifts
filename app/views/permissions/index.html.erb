@@ -1,11 +1,11 @@
 <% title "Permissions" %>
 
-<table>
+<table class = "tablesorter">
   <tr>
     <th>Name</th>
   </tr>
   <% for permission in @permissions %>
-    <tr>
+  	<tr <%= "class= #{cycle("odd", "even")}" %> > 
       <td><%=h permission.name %></td>
     </tr>
   <% end %>

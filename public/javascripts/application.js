@@ -4,8 +4,6 @@
 //Don't load anything before the document is ready. (This should work okay, but if not ask Nathan for some workarounds)
 $(document).ready(function() {
 
-
-
     // If javascript is enabled, anything with the class 'no_js' will be hidden
     $('.no_js').hide();
 
@@ -33,5 +31,33 @@ $(document).ready(function() {
     $("[class*=trigger]").each(function() {
         $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
+
+    $(document).ready(function(){ 
+        $("ul.sf-menu").superfish({ 
+            animation: {height:'show'},   // slide-down effect without fade-in 
+            delay:     1200               // 1.2 second delay on mouseout 
+        });
+    });
+
+		$(function() {
+
+	    var $sidebar   = $("#navigationList"),
+	        $window    = $(window),
+	        offset     = $sidebar.offset(),
+	        topPadding = 0;
+
+	    $window.scroll(function() {
+	        if ($window.scrollTop() > offset.top) {
+	            $sidebar.stop().animate({
+	                marginTop: $window.scrollTop() - offset.top + topPadding
+	            });
+	        } else {
+	            $sidebar.stop().animate({
+	                marginTop: 0
+	            });
+	        }
+	    });
+
+	});
 
 });

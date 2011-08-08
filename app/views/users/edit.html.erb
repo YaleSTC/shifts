@@ -7,7 +7,9 @@
 <div class='clear'>
 </div>
   <p>
-    <%= link_to "Show", @user %>
+    <%= link_to "Show Profile", user_profile_path(@user.login)%> | 
+    <%= link_to "All Profiles",  user_profiles_path %> | 
+    <%= link_to "Back", department_users_path(@department) %>
   </p>
 </div>
 

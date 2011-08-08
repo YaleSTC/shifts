@@ -8,13 +8,24 @@
   <% end %>
 </div>
 
+<table id="user_profiles_table" class="tablesorter">
+  <thead>
+		<tr>
+	    <th align="left">Users</th>
+			<% @user_profile_fields.each do |upf| %>
+				<th align="left"><%= upf.name %></th>
+			<% end %>
+		</tr>
+  </thead>
+	<tbody id="profile_list">
+  	<%= render :partial => "profile_list" %>
+	</tbody>
+</table>
+
 <script type="text/javascript">
   $('input#search_submit').toggle();
 </script>
-
 <%= observe_field :search, :frequency => 0.2, :url => search_user_profiles_path, :with => :search %>
 
-<div id="profile_list">
-  <%= render :partial => "profile_list" %>
-</div>
-
+<!-- tablesorting does not work yet; it interferes with the search function -->
+<!-- <script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#user_profiles_table").tablesorter({sortList: [[0,0]]});});</script> -->

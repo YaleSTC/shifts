@@ -1,12 +1,12 @@
 <% title "Print History" %>
 
-<table>
+<table class = "tablesorter">
   <tr>
     <th>Printed</th>
     <th>Number of Payforms</th>
   </tr>
   <% for payform_set in @payform_sets %>
-    <tr>
+	<tr <%= "class= #{cycle("odd", "even")}" %> > 
       <td><%=h payform_set.created_at.strftime(date_format) %></td>
       <td><%=  payform_set.payforms.length %></td>
       <td><%= link_to "Show", payform_set %></td>

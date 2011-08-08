@@ -1,7 +1,9 @@
 class UserProfilesController < ApplicationController
 before_filter :user_login
   def index
+    @user_profiles = []
     @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.reverse_name}
+    @user_profile_fields =  UserProfileField.find(:all, :conditions => {:index_display => true, :department_id => @department.id})
   end
 
   def show
@@ -44,35 +46,39 @@ before_filter :user_login
 
   def update
     @user_profile = UserProfile.find(params[:id])
+    @user_profile.update_attributes(params[:user_profile]) #necessary for profile pics to save 
 
     @user = User.find(@user_profile.user_id)
-    begin
-      UserProfile.transaction do
-        @failed = []
-        @user_profile_entries = params[:user_profile_entries]
-        @user_profile_entries.each do |entry_id, entry_content|
-          entry = UserProfileEntry.find(entry_id)
-          @content = ""
-          if entry.display_type == "check_box"
-            UserProfileEntry.find(entry_id).values.split(", ").each do |value|
-              c = entry_content[value]
-              @content += value + ", " if c == "1"
-            end
-          @content.gsub!(/, \Z/, "")
-          entry.content = @content
-          @failed << entry.field_name unless entry.save
+    
+    if params[:user_profile_entries]
+      begin
+        UserProfile.transaction do
+          @failed = []
+          @user_profile_entries = params[:user_profile_entries]
+          @user_profile_entries.each do |entry_id, entry_content|
+            entry = UserProfileEntry.find(entry_id)
+            @content = ""
+            if entry.display_type == "check_box"
+              UserProfileEntry.find(entry_id).values.split(", ").each do |value|
+                c = entry_content[value]
+                @content += value + ", " if c == "1"
+              end
+            @content.gsub!(/, \Z/, "")
+            entry.content = @content
+            @failed << entry.field_name unless entry.save
 
-          elsif entry.display_type == "radio_button"
-            entry.content = entry_content["1"]
-            @failed << entry.field_name unless entry.save
-          else
-            entry.content = entry_content[entry_id]
-            @failed << entry.field_name unless entry.save
+            elsif entry.display_type == "radio_button"
+              entry.content = entry_content["1"]
+              @failed << entry.field_name unless entry.save
+            else
+              entry.content = entry_content[entry_id]
+              @failed << entry.field_name unless entry.save
+            end
           end
         end
+      rescue
+        flash[:error] = @failed.to_sentence + " all failed to save."
       end
-    rescue
-      flash[:error] = @failed.to_sentence + " all failed to save."
     end
     redirect_to user_profile_path(@user.login)
   end
@@ -85,6 +91,7 @@ before_filter :user_login
   end
 
   def search
+    @user_profile_fields =  UserProfileField.find(:all, :conditions => {:index_display => true, :department_id => @department.id})
     users = current_department.active_users
     #filter results if we are searching
     if params[:search]
@@ -102,7 +109,8 @@ before_filter :user_login
       @user_profiles << UserProfile.find_by_user_id(user.id)
     end
   end
-private
+  
+  private
   def user_login
     @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
   end

@@ -1,8 +1,4 @@
-<%= render :partial => 'data_types/progress_bar', :locals => {:current_step => 1} %>
-<div style="width:30%; float:right" id="data_type_display">
-  <%= render :partial => "summary", :locals => {:data_type => @data_type} %>
-</div>
-<div style="width: 60%; float:left">
+<%#= render :partial => 'data_types/progress_bar', :locals => {:current_step => 1} %>
   <% form_for @data_type do |form| %>
     <%= form.error_messages %>
     <p>
@@ -13,27 +9,21 @@
       <%= form.label :description %><br />
       <%= form.text_field :description %>
     </p>
-<!-- 
-    <br>
 
- 
-    <div id="data_fields" style="display:none">
-      <h2>Data Fields</h2>
-      <%= render :partial => 'data_field', :collection => @data_type.data_fields %>
-    </div>
-    <div class="javascript_link" style="display:none">
-      <%= add_data_field_link "Add a data field" %>
-    </div>
-    <%# toggle javascript elements%>
+  <div id="data_fields" style="display:none">
+    <h2>Data Fields</h2>
+    <%= render :partial => 'data_field', :collection => @data_type.data_fields %>
+  </div>
+  <div class="javascript_link" style="display:none">
+    <%= add_data_field_link "Add a data field" %>
+  </div>
+ <br /> <br />
+<%= form.submit "Submit" %>  
+
+<% end %>
+
+  <%# toggle javascript elements%>
     <script type="text/javascript">
       $('#data_fields').toggle();
       $('.javascript_link').toggle();
     </script>
--->
-    <p>
-      <%= form.submit "Submit" %>
-    </p>
-  <% end %>
-</div>
-<div style="clear:both"></div>
-

@@ -6,7 +6,7 @@ class ShiftPreferencesController < ApplicationController
 
   def index
     @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
-    @shift_preferences = @week_template.shift_preferences
+    @shift_preferences = @week_template.shift_preferences.sort_by{|shift_preferences| [shift_preferences.user.reverse_name]}
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @shift_preferences }

@@ -153,4 +153,18 @@ module ApplicationHelper
     end
     return ret
 	end
+	
+  def navbar_highlight(controller_name)
+    navbar_hash = Hash[ "dashboard" => ["dashboard"],
+                        "departments" => ["departments", "app_configs", "superusers", "department_configs", "application"],
+                        "users" => ["users", "roles", "user_profiles", "user_profile_fields"],
+                        "shifts" => ["shifts", "locations", "loc_groups", "calendars", "templates", "links", "notices", "data_objects", "stats", "announcements", "calendar_feeds", "data_entries", "data_fields", "data_types", "repeating_events", "report_items", "stickies", "tasks", "reports"],
+                        "payforms" => ["payforms", "payform_items", "punch_clocks", "punch_clock_sets", "payform_item_sets", "categories"]]
+    navbar_hash.select{|key, value| value.include?(controller_name) }.flatten.first
+  end
+  
+  
+  def normalize_str
+    downcase.gsub( /[^a-zA-Z0-9_\.]/, '_')
+  end
 end
