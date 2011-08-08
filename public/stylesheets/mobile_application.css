@@ -135,7 +135,7 @@ label {
   padding: 0px;
 }
 #page_header h2 {
-  background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%;
+  background: transparent url(../images/theme/header_mobile.gif) no-repeat scroll 0% 0%;
   float: left;
   font-size: 12px;
   margin: 0pt;
@@ -203,14 +203,15 @@ div#login{
 #link_bar {
   background-color: transparent;
   border-bottom: 0px solid #FFFFFF;
-  height: 25px;
+/*  height: 25px;*/
   padding: 0px 0px 0px;
+	float: top;
 }
 
 /* chooser
 --------------------------------------------------------- */
 #chooser {
-  float: none;
+  float: top;
   font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
 	font-size: 12px;
 }
@@ -218,7 +219,7 @@ div#login{
 /* shift indicator
 --------------------------------------------------------- */
 #shift_indicator {
-  float: none;
+  float: top;
 	font-family: Trebuchet MS, Verdana, Arial, serif;
 	color: #FFFFFF;
 	font-size: 12px;
@@ -227,9 +228,9 @@ div#login{
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  width: 100%;
+/*  width: 100%;
 	float: left;
-	margin-top: -3px;
+	margin-top: -3px;*/
 }
 ul#application_tabs {
     float: none;
