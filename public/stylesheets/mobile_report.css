@@ -1,0 +1,130 @@
+#report_log{
+  width: auto;
+  clear: uboth;
+}
+
+#active_report_area {
+  width: auto;
+  border-style:solid;
+  clear: both;
+  background-color: #ddd;
+  padding: 5px;
+}
+
+#report_relative_size {
+  width: auto;
+  float: none;
+  clear: right;
+}
+
+#announcement_link {
+	float: none;
+}
+
+#shift_report_view  { /*in order minimize the height of the report_show page*/
+  float: none;
+  width: auto;
+  margin-top: 5px;
+  height: 200px;
+  overflow-y: auto;
+}
+
+#report_view  {
+  float: none;
+  width: auto;
+  margin-top: 5px;
+}
+
+tr.list_report_item_even {
+  background:   #f5f5f5;
+}
+
+tr.list_report_item_odd {
+  background:   #e6e6fa;
+}
+
+#report_view .list_actions {
+  text-align:   right;
+  padding-left: 1em;
+}
+
+#report_view .list_header {
+  background-color:#778899;
+  text-align: left;
+}
+
+#report_view_table{
+  border-collapse: collapse;
+  border-color: gray;
+  padding: 5px;
+  margin: 0px;
+  border-spacing: 2px;
+  width: auto;
+}
+
+#report_item_form{
+  border-collapse: collapse;
+  width: auto;
+  float: none;
+  margin-top: 5px;
+}
+
+
+#report_view_table tr{
+  padding: 4px;
+}
+
+#report_view_table td.report_item_content{
+  word-wrap: break-word;
+  max-width: 50px;
+}
+
+#report_view_table td.timestamp{
+  width: auto;
+  padding: 4px;
+}
+
+#useful_links {
+  width: 200px;
+	float: none;
+  margin-bottom: 15px;
+}
+
+#shift_tasks {
+	width: 200px;
+	float: none;
+}
+
+#report_data_objects {
+  width: auto;
+  float: none;
+  margin-bottom: 15px;
+}
+
+#shift_tasks {
+  width: auto;
+  float: none;
+  margin-bottom: 15px;
+}
+
+#report_view_table td.user_name{
+  width: auto;
+  padding: 4px;
+}
+
+#report_message_center {
+	width: auto;
+	float: none;
+	clear: right;
+	margin-bottom: 15px;
+}
+
+textarea#item {
+  width: auto;
+  height:90%;
+}
+
+#submit_button {
+  float: none;
+  clear: right;
+}
