@@ -129,7 +129,7 @@ label {
 #page_header {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
-  float: none;
+	float: none;
   height: 35px;
   padding: 0px;
   width: auto;
@@ -139,6 +139,7 @@ label {
   float: left;
   font-size: 12px;
   margin: 0pt;
+	margin-top: 3px;
   text-indent: -9999px;
   border-bottom: none;
   width: 42px;
@@ -156,7 +157,7 @@ label {
   height: 65px;
   margin: 0px auto;
   padding: 0px;
-	width: 320px;
+/*	width: 320px;*/
 }
 #main_banner h1 {
   float: none;
@@ -209,7 +210,7 @@ div#login{
 	float: center;
 	margin-left: auto;
 	margin-right: auto;*/
-	width: 320px;
+	width: 100%;
 	margin: 0px auto;
   padding: 0px;
 }
@@ -245,7 +246,7 @@ ul#application_tabs {
 	padding-top: 4px;
   list-style-type: none;
 	font-size: 10px;
-	margin-left: 10px;
+	margin: 0px auto;
 
 /*  line-height: 1.6em;
   list-style-image: none;
@@ -282,7 +283,7 @@ ul#navigationList {
 /*	margin-left: auto;
 	margin-right: auto;*/
 	margin: 0px auto;
-	width: 320px;
+	width: 100%;
 }
 
 /*ul#navigationList {
