@@ -157,7 +157,7 @@ label {
   height: 65px;
   margin: 0px auto;
   padding: 0px;
-/*	width: 320px;*/
+	width: auto;
 }
 #main_banner h1 {
   float: none;
