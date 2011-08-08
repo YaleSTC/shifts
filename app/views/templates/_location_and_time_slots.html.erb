@@ -2,6 +2,7 @@
 	Please select roles first
 <% else %>
 	<table class = "tablesorter">
+	  <thead>
 		<tr>
 			<th>Enable</th>
 			<th>Where</th>
@@ -9,7 +10,9 @@
 			<th>End</th>
 			<th>Days</th>
 		</tr>
-		<tr <%= "class= #{cycle("odd", "even")}" %> > 
+	  </thead>
+	  <tbody>
+		<tr> 
 			<% if @template_time_slots.empty? %>
 				Please select roles first
 			<% else %>
@@ -19,7 +22,8 @@
 					<% end %>
 				<% end %>
 			<% end %>
-		</tr>		
+		</tr>	
+	   </tbody>	
 	</table>
 <% end %>
 
