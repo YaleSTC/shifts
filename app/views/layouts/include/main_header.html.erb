@@ -17,7 +17,7 @@
           <a href="http://www.yale.edu">Shifts by Yale University</a>
         </h2>
       <% if (detect_browser == "application") && (current_user || session[:cas_user]) %>
-        <%= render :partial => "layouts/include/mobile_login" %>
+        <%= render :partial => "layouts/include/login" %>
       <% elsif (detect_browser == "mobile_application") && (current_user || session[:cas_user]) %>
         <%= render :partial => "layouts/include/mobile_login" %>
       <% end %>
