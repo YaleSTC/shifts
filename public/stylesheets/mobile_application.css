@@ -224,6 +224,7 @@ div#login{
 	font-family: Trebuchet MS, Verdana, Arial, serif;
 	color: #FFFFFF;
 	font-size: 12px;
+	display: none;
 }
 
 /* tabs
@@ -272,7 +273,7 @@ ul#application_tabs a:hover {
 ul#navigationList {
 	margin-left: 11px;
 	padding-top: 4px;
-    float: left;
+  float: top;
 	font-size: auto;
     list-style-type: none;
 }
