@@ -432,7 +432,8 @@ fieldset.index {
   padding: 5px;
   margin: 0px 0px 15px 0px;
   /*border: 1px solid gray;*/
-  background-color:#DDDDFF
+  background-color:#DDDDFF; 
+	width: auto ;
 }
 fieldset#warning {
   background: #C0C0C0;
