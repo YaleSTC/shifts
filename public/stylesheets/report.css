@@ -103,6 +103,11 @@
 }
 
 
+#user_searchbox{ 
+	float: center;
+	width: 200px;
+}
+
 #search {
 	text-align: top;
 }
