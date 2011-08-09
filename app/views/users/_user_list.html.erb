@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% for user in @users %>
-      <tr <%= !user.is_active?(current_department) ? "class='disabled'" : "class= #{cycle("odd", "even")}" %> id="user<%= user.id %>">
+      <tr <%= !user.is_active?(current_department) ? "class='disabled'" : "" %> id="user<%= user.id %>">
         <td><%= link_to user.login, edit_user_path(user.id) %></td>
         <td><%=h user.first_name %></td>
         <td><%=h user.last_name %></td>

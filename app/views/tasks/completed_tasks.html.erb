@@ -5,21 +5,19 @@
 <% end %>
 
 <div id="left_stuff">
-	<fieldset class ="index">
-		<legend>Date Range</legend>
+	<fieldset class="index" id="date_selector">
 		<% form_tag(:controller => 'tasks', :action => 'completed_tasks') do %>
-			<p>
-			  <%= label_tag :start_date %><br />
-			  <%= date_select("dates", "start", :default => @start)%>
-			</p>
-			<p>
-			  <%= label_tag :end_date %><br />
-			  <%= date_select("dates", "end", :default => @end )%>
-			</p>
-		  <div><%= submit_tag 'Update dates' %></div>
+			  <%= label_tag :start_date %>
+				<%= date_select(:dates, :start, :default => @start)%>
+				<br />
+			  <%= label_tag :end_date %>
+			  <%= date_select(:dates, :end, :default => @end)%>
+				<br />
+				<%= submit_tag 'Update dates' %>
 		<% end -%>
 	</fieldset>
 </div>
+
 
 <h2>Recent completions of: <%= @task.name%></h2>
 

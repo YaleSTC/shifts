@@ -1,30 +1,47 @@
-<% title "Payforms" %>
-<% if current_user.is_admin_of?(current_department) %>
-<div id="searchbox" style="margin-bottom: 1em">
-  <% form_tag(payforms_path, :method => :get) do %>
-    Search for a user: <%= text_field_tag :search %>
-    <%= submit_tag "Submit", :id => "search_submit" %>
-  <% end %>
-</div>
-<% end %>
+<% title "Payforms between #{@start_date.to_date.strftime("%b %d, %Y")} and #{@end_date.to_date.strftime("%b %d, %Y")}" %>
 
-<script type="text/javascript">
-  $('input#search_submit').toggle();
-</script>
+<div id="left_stuff">
+	<fieldset class="index" id="date_selector">
+		<% form_tag(:controller => 'payforms', :action => 'index', :method => :get, :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed], :skipped => params[:skipped]) do %>
+			  <%= label_tag :start_date %>
+				<%= date_select(:payform, :start_date, :default => @start_date)%>
+				<br />
+			  <%= label_tag :end_date %>
+			  <%= date_select(:payform, :end_date, :default => @end_date)%>
+				<br />
+				<%= submit_tag 'Update' %>
+		<% end %>
+	</fieldset>
+</div>
+
+<div id="right_stuff">
+	<fieldset class="index">
+	<% if current_user.is_admin_of?(current_department) %>
+	<div id="searchbox" style="margin-bottom: 1em">
+	  <% form_tag(payforms_path, :method => :get) do %>
+	    Search for a user: <%= text_field_tag :search %>
+	    <%= submit_tag "Submit", :id => "search_submit" %>
+	  <% end %>
+	</div>
+	<% end %>
+	</fieldset>
+</div>
 
 <%= observe_field :search, :frequency => 0.2, 
-                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :skipped => params[:skipped], :approved => params[:approved], :printed => params[:printed]}, 
+                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :skipped => params[:skipped], :approved => params[:approved], :printed => params[:printed], :start_date => @start_date, :end_date => @end_date}, 
                            :with => :search %>
 
-
-<h1>All Payforms</h1>
 <div id="payform_list">
   <%= render :partial => "payform_list" %>
 </div>
-<br/>
-
+<br />
 <%= link_to "<span>Your Current Payform</span>", go_payforms_path, :class=>"button" %>
 <% if current_user.is_admin_of?(current_department) %>
 	<%= link_to "<span>Print all approved payforms</span>", payform_sets_path, :method => :post, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
 	<%= link_to "<span>Prune all empty payforms</span>", prune_payforms_path, :method => :delete, :class=>"button" %>
 <% end %>
+
+
+<script type="text/javascript">
+  $('input#search_submit').toggle();
+</script>

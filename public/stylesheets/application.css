@@ -577,7 +577,7 @@ table.tablesorter tbody td {
 	max-width: 400px;
 	word-wrap: break-word;
 }
-table.tablesorter tbody tr.odd td {
+table.tablesorter tbody tr:nth-child(odd) td {
 	background-color:#F0F0F6;
 }
 table.tablesorter tbody tr.disabled td {
