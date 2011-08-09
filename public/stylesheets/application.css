@@ -114,7 +114,6 @@ label {
 #pagebox {
   background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
   margin: 0px auto;
-  margin-top: 16px;
   padding: 0pt 12px;
   width: 900px;
   border: medium none;
@@ -200,10 +199,11 @@ div#login{
 /* Link bar (chooser + tabs)
 ======================================================================= */
 #link_bar {
+	height: 3.1em;
   background-color: #8B9B6C;
-  border-bottom: 1px solid #FFFFFF;
-  height: 25px;
-  padding: 5px 10px 4px;
+/*  border-bottom: 1px solid #FFFFFF;*/
+/*  height: 25px;*/
+/*  padding: 5px 10px 4px;*/
 }
 
 /* chooser
@@ -226,9 +226,10 @@ div#login{
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  width: 100%;
+  margin-top: 2px;
+	width: 100%;
 	float: left;
-	margin-top: -3px;
+/*	margin-top: -3px;*/
 }
 ul#application_tabs {
   float: right;

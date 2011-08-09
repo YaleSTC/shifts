@@ -203,16 +203,15 @@ div#login{
 /* Link bar (chooser + tabs)
 ======================================================================= */
 #link_bar {
-  background-color: transparent;
-  border-bottom: 0px solid #FFFFFF;
-/*  height: 25px;*/
-/*  padding: 0px 0px 0px;
-	float: center;
-	margin-left: auto;
-	margin-right: auto;*/
-	width: 100%;
-	margin: 0px auto;
-  padding: 0px;
+	border-top: 1px solid #FFFFFF;
+	height: 2.6em;
+  background-color: #8B9B6C;
+/*  background-color: transparent;
+  border: none;
+	height: auto;
+  padding: none;
+	float: top;
+	margin: none;*/
 }
 
 /* chooser
@@ -226,10 +225,6 @@ div#login{
 /* shift indicator
 --------------------------------------------------------- */
 #shift_indicator {
-  float: top;
-	font-family: Trebuchet MS, Verdana, Arial, serif;
-	color: #FFFFFF;
-	font-size: 10px;
 	display: none;
 }
 
@@ -239,17 +234,18 @@ div#login{
 /*  width: 100%;
 	float: left;
 	margin-top: -3px;*/
-	border-top: 1px solid #FFFFFF;
-	background-color: #8B9B6C;
+/*	border-top: 1px solid #FFFFFF;
+	background-color: #8B9B6C;*/
 }
 ul#application_tabs {
-  float: none;
-	background-color: transparent;
-	padding-top: 4px;
+/*  float: none;
+	background-color: #8B9B6C;
+	padding-top: none;
+	padding-bottom: none;
   list-style-type: none;
-	font-size: 10px;
-	margin: 0px auto;
 
+	margin: 0px auto;*/
+	font-size: 10px;
 /*  line-height: 1.6em;
   list-style-image: none;
   list-style-position: outside;
@@ -278,16 +274,14 @@ ul#application_tabs a:hover {
 /* = navigation-related classes --> not needed with Superfish menu
 ======================================================================= */
 ul#navigationList {
-	padding-top: 0;
-  float: top;
+	margin-top: -7px;
+	margin-left: 	0px;
+	padding-top: 0px;
+  float: 			left;
 	font-size: 10px;
-  list-style-type: none;
-/*	margin-left: auto;
-	margin-right: auto;*/
-	margin: 0px auto;
+	height: 2.6em;
 	width: 100%;
 	background-color: #DDF;
-	border-top: 1px solid #FFFFFF;
 }
 
 /*ul#navigationList {
