@@ -17,7 +17,7 @@
 <% if current_user.is_admin_of?(current_department) %>
 	<div id="right_stuff">
 		<fieldset class="index">
-			<div id="searchbox">
+			<div id="search">
 			  <% form_tag(payforms_path, :method => :get) do %>
 			    Search for a user: <%= text_field_tag :search %>
 			    <%= submit_tag "Submit", :id => "search_submit" %>
