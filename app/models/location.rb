@@ -121,7 +121,7 @@ class Location < ActiveRecord::Base
   end
   
   def shifts_between(start_time, end_time)
-    shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql}"]).delete_if{|s| s.has_sub?}
+    shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql}"])
   end
   
   def summary_stats(start_date, end_date)
