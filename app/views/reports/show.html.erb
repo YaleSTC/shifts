@@ -9,9 +9,9 @@
 			<%= link_to_post_an_announcement %>
     </div>
   </fieldset>
-
+  <% unless mobile_device?%>
   <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 60 -%>
-
+  <% end %>
    <fieldset id = "report_data_objects" class = "index">
      <legend>Data Objects</legend>
      <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
@@ -26,9 +26,9 @@
     	<li><%= link_to_post_a_link %></li>
 		</ul>
    </fieldset>
-
+<% unless mobile_device?%>
 <%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 60 -%>
-
+<% end %>
    <fieldset id = "shift_tasks" class= "index">
 	   <%= render :partial => 'tasks/report_tasks' %>
    </fieldset>
@@ -37,9 +37,9 @@
         <h2>Update Your Report</h2>
         <%= render :partial => 'new_report_item_form' %>
       <div id="report_relative_size">
-	
+<% unless mobile_device? %>	
 <%= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
-
+<% end %>
 <% end %>
 
 
