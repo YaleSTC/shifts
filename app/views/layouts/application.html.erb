@@ -1,14 +1,11 @@
-<% if mobile_device?%>
+<% if mobile_device?%> <!-- establishes the initial width for mobile browser. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
 <% end %>
 
 <%= render :file => "layouts/include/main_header.html.erb" %>
 
-
-<%#must be removed after done%>
-<%= stylesheet_link_tag 'mobile_application', 'superfish-vertical_mobile' if mobile_device? %>
-<%= stylesheet_link_tag "superfish-vertical" if !mobile_device? %>
-<%= javascript_include_tag 'navigationlist' if !mobile_device? %>
+<!--this is necessary here for consistent layouts -->
+<%= stylesheet_link_tag 'mobile_application' if mobile_device? %>
 
     <%= yield(:left_nav) || '<div id="contentNoNav">' %>
 

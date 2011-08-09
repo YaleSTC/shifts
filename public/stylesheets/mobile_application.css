@@ -563,14 +563,12 @@ span#progress_bar #other_step {
 	padding: 3px;
 }
 
-/* = Tables
-======================================================================= */
 table.tablesorter {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   color: #FFFFFF;/*	background-color: #CDCDCD; */
 	margin:10px 0pt 15px;
 	font-size: 8pt;
-	width: auto;
+	width: 100%;
 	text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
@@ -593,7 +591,7 @@ table.tablesorter tbody td {
 	max-width: 400px;
 	word-wrap: break-word;
 }
-table.tablesorter tbody tr.odd td {
+table.tablesorter tbody tr:nth-child(odd) td {
 	background-color:#F0F0F6;
 }
 table.tablesorter tbody tr.disabled td {
@@ -612,22 +610,28 @@ table tr.alert_entry {
   background-color:#ff0033;
 }
 
-/*
-/* Sortable tables
-table.sortable th:hover {
-	color:orange;
+table.tablesorter td#staffed {
+  background-color: #536E8D;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
 }
-table.sortable th {
-	text-decoration: underline;
+
+table.tablesorter td#unstaffed {
+  background-color: #EEF;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
 }
-/* Sortable tables hack for AJAX
-table.sortable_style th:hover {
-	color:orange;
+
+table.tablesorter td#date {
+	border: 1px solid #FFF;
 }
-table.sortable_style th {
-	text-decoration: underline;
+
+table.tablesorter td#date {
+  background-color: #CCE;
 }
-*/
+table.tablesorter thead#centered {
+	text-align: center;	
+}
 
 /* = TO BE CLEANED UP
 ======================================================================= */
