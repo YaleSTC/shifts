@@ -34,13 +34,15 @@
   margin-top: 5px;
 }
 
-tr.list_report_item_even {
+
+#all_report_items tr:nth-child(odd) {
+  background:   #e6e6fa;
+}
+
+#all_report_items tr:nth-child(even) {
   background:   #f5f5f5;
 }
 
-tr.list_report_item_odd {
-  background:   #e6e6fa;
-}
 
 #report_view .list_actions {
   text-align:   right;
