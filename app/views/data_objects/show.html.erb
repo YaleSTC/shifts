@@ -3,10 +3,10 @@
 	<div id="left_stuff">
 		<fieldset class="index" id="date_selector">
 		  <%= form_tag data_object_path(@data_object), :method => :get %>
-				<%= label_tag :start_date %>
+				<%= label_tag :start_date %><br />
 	      <%= select_date(@start_date, :prefix => 'start') %>
 				<br />
-				<%= label_tag :end_date %>
+				<%= label_tag :end_date %><br />
 	      <%= select_date(@end_date, :prefix => 'end') %>
 				<br />
 	    <%= submit_tag 'Update Dates' %>
