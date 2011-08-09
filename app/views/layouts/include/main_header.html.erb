@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title><%= h(yield(:title) || 'Shifts') %></title>
-    <%= stylesheet_link_tag 'reset', 'application', 'nav', 'tokeninput-facebook', 'thickbox', 'report', 'datepicker', 'superfish' %>
+    <%= stylesheet_link_tag 'reset', 'nav', 'tokeninput-facebook', 'thickbox', 'report','datepicker', 'superfish' %>
     <%= javascript_include_tag 'jquery','jquery-ui', 'jquery.tools.min','jquery.tablesorter', 'jrails', 'jquery.tokeninput', 'department_config', 'application', 'datepicker', 'locationcheckboxes', 'jquery.hoverIntent', 'superfish' %>
    
 
  	<% if !mobile_device? %>
 		<%= javascript_include_tag 'thickbox-compressed','navigationlist' %>
-		<%= stylesheet_link_tag "superfish-vertical"%>
+		<%= stylesheet_link_tag "superfish-vertical", 'application' %>
 	<% else %>
 		<%= stylesheet_link_tag 'superfish-vertical_mobile' %>	
     <% end %>
