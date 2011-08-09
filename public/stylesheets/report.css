@@ -102,6 +102,17 @@
   margin-bottom: 15px;
 }
 
+#search {
+  width: 48%;
+  float: right;
+  margin-bottom: 15px;
+}
+
+#searchbox {
+  float: left;
+	width: 60%;
+}
+
 #report_view_table td.user_name{
   width: 100px;
   padding: 4px;
