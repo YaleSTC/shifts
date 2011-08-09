@@ -228,10 +228,7 @@ div#login{
 --------------------------------------------------------- */
 #application_tab_bar {
 	float: left;
-/*  width: 100%;
-	margin-top: -3px;*/
-/*	border-top: 1px solid #FFFFFF;
-	background-color: #8B9B6C;*/
+	margin-top: 2px;
 }
 ul#application_tabs {
 /*  float: none;
