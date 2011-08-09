@@ -338,6 +338,7 @@ ul#navigationList a:hover {
   background: transparent none no-repeat scroll 0% 0%;
   height: auto !important;
   min-height: 450px;
+	width: auto;
 }
 #contentNav h1, #contentNoNav h1 {
   padding: 0px 0px 5px 0px;
