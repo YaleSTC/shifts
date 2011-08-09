@@ -1,10 +1,29 @@
 .sf-menu a {
+	margin-top: none;
 	border-top: none;
 }
-/*** adding sf-vertical in addition to sf-menu creates a vertical menu ***/
-.sf-vertical, .sf-vertical li {
-	width: auto;
+
+.sf-menu#navigationlist{
+	margin-bottom: none;
+	float: left;
 }
+
+/*** adding sf-vertical in addition to sf-menu creates a vertical menu ***/
+
+.sf-vertical a {
+	margin-top: 2px;
+}
+
+.sf-vertical {
+	width: auto;
+	border-bottom: none;
+}
+
+.sf-vertical li {
+	width: auto;
+	border-bottom: 1px solid #FFFFFF;
+}
+
 /* this lacks ul at the start of the selector, so the styles from the main CSS file override it where needed */
 .sf-vertical li:hover ul,
 .sf-vertical li.sfHover ul {
