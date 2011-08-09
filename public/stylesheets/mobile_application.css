@@ -205,21 +205,18 @@ div#login{
 #link_bar {
 	border-top: 1px solid #FFFFFF;
 	height: 2.6em;
+	width: 100%;
   background-color: #8B9B6C;
-/*  background-color: transparent;
-  border: none;
-	height: auto;
-  padding: none;
-	float: top;
-	margin: none;*/
+	float: none;
 }
 
 /* chooser
 --------------------------------------------------------- */
 #chooser {
-  float: top;
+  float: left;
   font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
 	font-size: 10px;
+	height: 27px;
 }
 
 /* shift indicator
@@ -231,8 +228,8 @@ div#login{
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-/*  width: 100%;
 	float: left;
+/*  width: 100%;
 	margin-top: -3px;*/
 /*	border-top: 1px solid #FFFFFF;
 	background-color: #8B9B6C;*/
@@ -245,6 +242,7 @@ ul#application_tabs {
   list-style-type: none;
 
 	margin: 0px auto;*/
+	float: top;
 	font-size: 10px;
 /*  line-height: 1.6em;
   list-style-image: none;
@@ -339,7 +337,7 @@ ul#navigationList a:hover {
 }
 #contentNav {
   float: left;
-  padding: 0px 12px 0px 12px;
+  padding: 10px 12px 0px 12px;
   width: auto;
 }
 #contentNoNav {
