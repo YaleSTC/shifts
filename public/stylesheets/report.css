@@ -108,6 +108,11 @@
 	width: 200px;
 }
 
+#payform_searchbox{ 
+	float: center;
+	width: 200px;
+}
+
 #search {
 	text-align: top;
 }
