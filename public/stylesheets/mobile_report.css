@@ -25,8 +25,7 @@
   float: none;
   width: auto;
   margin-top: 5px;
-  height: 200px;
-  overflow-y: auto;
+  height: auto;
 }
 
 #report_view  {
