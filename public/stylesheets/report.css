@@ -102,15 +102,15 @@
   margin-bottom: 15px;
 }
 
-#searchbox {
-  float: left;
-	width: 200px;
-}
 
 #search {
-  width: 120px;
-  float: top;
-  margin-bottom: none;
+	text-align: top;
+}
+
+#searchbox {
+  width: 48%;
+  float: right;
+  margin-bottom: 15px;
 }
 
 #report_view_table td.user_name{

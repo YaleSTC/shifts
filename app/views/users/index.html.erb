@@ -4,11 +4,11 @@
 <%= link_to "Import from CSV", import_department_users_path(@department) %><br/>
 <%= link_to "Export to CSV", :action => 'index', :format => 'csv' %><br/></div>
 
-<div id="searchbox" style="margin-bottom: 1em">
-  <% form_tag(department_users_path(current_department), :method => :get) do %>
-    Find a user: <%= text_field_tag :search %>
-    <%= submit_tag "Submit", :id => "search_submit" %>
-  <% end %>
+<div id="searchbox">
+	  <% form_tag(department_users_path(current_department), :method => :get) do %>
+	    Find a user: <%= text_field_tag :search %>
+	    <%= submit_tag "Submit", :id => "search_submit" %>
+	  <% end %>
 </div>
 
 <p>

@@ -1,5 +1,5 @@
 <legend><%= "Search " + "#{@search_engine_name}"%></legend>
-<% form_remote_tag :url => {:controller => :reports, :action => :custom_search, :id => @report.id} do %>
-<div id="searchbox"><%= text_field_tag :search %></div>
-<%= submit_tag "Search" %>
-<% end %>
+	<% form_remote_tag :url => {:controller => :reports, :action => :custom_search, :id => @report.id} do %>
+	<%= text_field_tag :search %>
+	<%= submit_tag "Search" %>
+	<% end %>
