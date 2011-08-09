@@ -6,10 +6,10 @@
   <% end -%>
 
 	<% if current_user.is_admin_of?(current_department) && current_user.is_active?(current_department) || current_user.is_superuser? -%>
-    <li id=<%=  navbar_highlight(params[:controller]) == "departments" ? "highlight" : "not" %> ><%= link_to "Departments", departments_path %>
+    <li id=<%= navbar_highlight(params[:controller]) == "departments" ? "highlight" : "not" %> ><%= link_to "Departments", current_user.is_superuser? ? departments_path : edit_department_config_path(current_department.department_config) %>
 			<ul>
-				<li><%= link_to "All Departments", departments_path %></li>
 				<% if current_user.is_superuser? -%>
+					<li><%= link_to "All Departments", departments_path %></li>
 					<li><%= link_to "Application Settings", edit_app_config_path %></li>				
 				<% end %>				
 				<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
