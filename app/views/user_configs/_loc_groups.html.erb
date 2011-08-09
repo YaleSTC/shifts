@@ -3,19 +3,20 @@
   <% dept_name = dept[0] %>
   <% dept_loc_groups = dept[1] %>
   <% dept_val = nil %>
-	<% header_class = "header_#{dept_name.normalize_str}" %>
-  <%= check_box_tag "#{dept_name}", nil, nil, :class => header_class -%>
-  <%= label_tag "#{dept_name}", "#{dept_name}", :class => header_class -%></h3><a class="hide" href="#">Hide</a>
-	<%= "<ul class=\"header_#{dept_name.normalize_str}\">" %>
+	<% header_class = "header_#{normalize_str(dept_name)}" %>
+  <%= check_box_tag "#{normalize_str(dept_name)}", nil, nil, :class => header_class -%>
+  <%= label_tag "#{normalize_str(dept_name)}", "#{dept_name}", :class => header_class -%></h3>
+	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>" -%>		
+	<%= "<ul class=\"#{header_class}\" id=\"ul\">" %>
   <% dept_loc_groups.each do |loc_grp| %>
   <div class="toggle"><li>
 	<% loc_grp_name = loc_grp[0] %>
     <% loc_grp_id = loc_grp[1] %>
     <% loc_grp_checkbox_value = loc_grp[2] %>
-    <%= check_box_tag "loc[#{loc_grp_id}]", loc_grp_checkbox_value, loc_grp_checkbox_value, :class => dept_name.normalize_str %>
-    <%= label_tag "loc[#{loc_grp_id}]", "#{loc_grp_name}", :class => dept_name.normalize_str %>
+    <%= check_box_tag "loc[#{loc_grp_id}]", loc_grp_checkbox_value, loc_grp_checkbox_value, :class => normalize_str(dept_name) %>
+    <%= label_tag "loc[#{loc_grp_id}]", "#{loc_grp_name}", :class => normalize_str(dept_name) %>
 	</li></div>
   <% end %>
-	</ul>
+	</ul><br />
 <% end %>
 <%= javascript_include_tag 'user_config' %>

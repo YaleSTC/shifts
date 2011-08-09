@@ -162,9 +162,9 @@ module ApplicationHelper
                         "payforms" => ["payforms", "payform_items", "punch_clocks", "punch_clock_sets", "payform_item_sets", "categories"]]
     navbar_hash.select{|key, value| value.include?(controller_name) }.flatten.first
   end
-  
-  
-  def normalize_str
-    downcase.gsub( /[^a-zA-Z0-9_\.]/, '_')
+
+  def normalize_str(string)
+    string.downcase.gsub( /[^a-zA-Z0-9_\.]/, '_')
   end
+
 end

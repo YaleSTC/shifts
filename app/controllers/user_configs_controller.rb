@@ -1,13 +1,10 @@
 class UserConfigsController < ApplicationController
   before_filter :set_var_and_check_owner
-  helper_method :normalize_str
-
+  
   def edit
     @dept_select = current_user.departments.map{|d| [d.name, d.id]}
-    #@loc_groups_by_dept = current_user.departments.map{|dept| [dept.name, dept.loc_groups]}
     @departments = current_user.departments
     current_user.departments.each do |dept|
-      #@loc_groups = dept.loc_groups
       @data_objects = dept.data_objects
       @data_types = dept.data_types
     end
@@ -44,7 +41,6 @@ class UserConfigsController < ApplicationController
 
 
   def update
-    # raise params[:user_config].to_yaml
     if params[:loc]
       params[:user_config][:view_loc_groups] = params[:loc].keys.join(", ")
     else
@@ -56,7 +52,6 @@ class UserConfigsController < ApplicationController
       params[:user_config][:watched_data_objects] = []
     end
     # adding watched data objects to the params hash
-    # raise params.to_yaml
     if params[:commit] == "Submit"
     	if @user_config.update_attributes(params[:user_config])
     	  flash[:notice] = "Successfully updated user settings."
@@ -78,7 +73,9 @@ class UserConfigsController < ApplicationController
   		redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
 		end
 	end
+	
 
+  
 	private
 
   def set_var_and_check_owner
