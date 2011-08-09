@@ -29,9 +29,13 @@
 
 <%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 60 -%>
 
-   <fieldset id = "shift_tasks" class= "index">
-	   <%= render :partial => 'tasks/report_tasks' %>
-   </fieldset>
+	<fieldset id = "shift_tasks" class= "index">
+		<%= render :partial => 'tasks/report_tasks' %>
+	</fieldset>
+	
+	<fieldset id = "search" class = "index">
+		<%= render :partial => 'reports/search'%>
+	</fieldset>
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
