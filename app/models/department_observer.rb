@@ -7,6 +7,7 @@ class DepartmentObserver < ActiveRecord::Observer
                         :schedule_end => 17*60,
                         :time_increment => 15,
                         :grace_period => 7,
+                        :payform_time_limit => 19,
                         :admin_round_option => 15,
                         :end_of_month => false,
                         :monthly => false,
