@@ -23,6 +23,8 @@ class AnnouncementsController < NoticesController
   end
 
   def create
+    parse_date_and_time_output(params[:announcement])
+    join_date_and_time(params[:announcement])
     @announcement = Announcement.new(params[:announcement])
 		set_author_dept_and_time
 		begin
@@ -30,6 +32,7 @@ class AnnouncementsController < NoticesController
         @announcement.save(false)
         set_sources(@announcement)
         @announcement.save!
+        @current_notices = current_department.current_notices
     	end
 		rescue Exception
       respond_to do |format|
@@ -49,6 +52,8 @@ class AnnouncementsController < NoticesController
 
   def update
     @announcement = Announcement.find_by_id(params[:id]) || Announcement.new 
+    parse_date_and_time_output(params[:announcement])
+    join_date_and_time(params[:announcement])
 		@announcement.update_attributes(params[:announcement])
 		set_author_dept_and_time
     begin
@@ -77,7 +82,8 @@ class AnnouncementsController < NoticesController
 	def set_author_dept_and_time
 		@announcement.author = current_user
 		@announcement.department = current_department
-		@announcement.start = Time.now if params[:start_time_choice] == "now"
+#    @announcement.start = Time.now if params[:start_time_choice] == "now"
+    @announcement.start = Time.now
 		if params[:end_time_choice] == "indefinite"
     	@announcement.end = nil 
     	@announcement.indefinite = true

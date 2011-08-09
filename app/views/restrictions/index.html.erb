@@ -1,14 +1,17 @@
 <% title "Restrictions" %>
 
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th>Starts</th>
     <th>Expires</th>
     <th>Max Subs</th>
     <th>Max Hours</th>
   </tr>
+ </thead>
   <% for restriction in @restrictions %>
-	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+ <tbody>
+	<tr> 
       <td><%=h restriction.starts %></td>
       <td><%=h restriction.expires %></td>
       <td><%=h restriction.max_subs %></td>
@@ -17,6 +20,7 @@
       <td><%= link_to "Edit", edit_restriction_path(restriction) %></td>
       <td><%= link_to "Destroy", restriction, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
+ </tbody>
   <% end %>
 </table>
 

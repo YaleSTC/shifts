@@ -2,9 +2,13 @@ class PayformsController < ApplicationController
   before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit, :unsubmit]
 
   def index
+    # raise params.to_yaml
+    @start_date = interpret_start
+    @end_date = interpret_end
     @payforms = narrow_down(current_user.is_admin_of?(current_department) ?
                             current_department.payforms :
                             current_department.payforms && current_user.payforms)
+    @payforms = @payforms.select{|payform| payform.date >= @start_date && payform.date <= @end_date}
     @payforms = @payforms.sort_by{|payform| [payform.user.reverse_name, Date.today - payform.date]}
   end
 
@@ -128,7 +132,8 @@ class PayformsController < ApplicationController
 
   def search
     users = current_department.active_users
-
+    start_date = interpret_start
+    end_date = interpret_end
     #filter results if we are searching
     if params[:search]
       search_result = []
@@ -143,6 +148,7 @@ class PayformsController < ApplicationController
     for user in users
       @payforms += narrow_down(user.payforms)
     end
+    @payforms = @payforms.select{|payform| payform.date >= start_date && payform.date <= end_date}
   end
 
   def email_reminders
@@ -215,6 +221,30 @@ class PayformsController < ApplicationController
       scope += payforms.printed
     end
     scope
+  end
+  
+
+  
+  private
+  
+  def interpret_start
+    if params[:payform]
+      return Date.civil(params[:payform][:"start_date(1i)"].to_i,params[:payform][:"start_date(2i)"].to_i,params[:payform][:"start_date(3i)"].to_i)
+    elsif params[:start_date]
+      return params[:start_date].to_date
+    else
+      return 1.week.ago.to_date
+    end
+  end
+  
+  def interpret_end
+    if params[:payform]
+      return Date.civil(params[:payform][:"end_date(1i)"].to_i,params[:payform][:"end_date(2i)"].to_i,params[:payform][:"end_date(3i)"].to_i)
+    elsif params[:end_date]
+      return params[:end_date].to_date
+    else
+      return Date.today.to_date
+    end
   end
 
 end
