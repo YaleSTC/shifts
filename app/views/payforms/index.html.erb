@@ -15,16 +15,16 @@
 </div>
 
 <div id="right_stuff">
+ <% if current_user.is_admin_of?(current_department) %>
 	<fieldset class="index">
-	<% if current_user.is_admin_of?(current_department) %>
 	<div id="payform_searchbox" style="margin-bottom: 1em">
 	  <% form_tag(payforms_path, :method => :get) do %>
 	    Search for a user: <%= text_field_tag :search %>
 	    <%= submit_tag "Submit", :id => "search_submit" %>
 	  <% end %>
 	</div>
-	<% end %>
 	</fieldset>
+	<% end %>
 </div>
 
 <%= observe_field :search, :frequency => 0.2, 

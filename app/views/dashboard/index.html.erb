@@ -10,10 +10,9 @@
   <fieldset class="index" id="shifts">
     <legend>Your Shifts</legend>
     <% if user_has_active_shift?%>  
-	<h4>Current Shift</h4>
+	<h4>Current Shift </h4>
 	 <% end %>
       <%= render :partial => "shifts/user_options" %>
-
       <% unless @upcoming_shifts.empty? %>
       <h4>My Upcoming Shifts</h4>
         <ul>
