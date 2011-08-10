@@ -4,10 +4,13 @@ class UserConfigsController < ApplicationController
   def edit
     @dept_select = current_user.departments.map{|d| [d.name, d.id]}
     @departments = current_user.departments
+    @data_objects = []
+    @data_types = []
     current_user.departments.each do |dept|
-      @data_objects = dept.data_objects
-      @data_types = dept.data_types
+      @data_objects << dept.data_objects
+      @data_types << dept.data_types
     end
+    @data_types = @data_types.flatten!
     if @user_config.read_attribute(:view_loc_groups)
       @selected_loc_groups = @user_config.read_attribute(:view_loc_groups).split(', ').map{|lg| lg.to_i }
     else
@@ -18,7 +21,7 @@ class UserConfigsController < ApplicationController
       @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj| obj.to_i }
     else
       @selected_data_objects = []
-    end  
+    end
 
     @loc_groups_grouped_by_dept = []
       @departments.each do |dept|
@@ -37,6 +40,7 @@ class UserConfigsController < ApplicationController
         end
         @data_objects_grouped_by_type << [data_type.name, @data_objects_list]
       end
+      
   end
 
 
