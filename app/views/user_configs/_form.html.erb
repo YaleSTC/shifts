@@ -24,27 +24,22 @@
     <small>Control which portion of the shift schedule you would like to see.</small><br />
     <%= f.select :view_week, UserConfig::VIEW_WEEK_OPTIONS %>
   </fieldset>
-  <fieldset class = "index">
+  <fieldset class = "index" id = "child_checkbox_2">
     <legend>Data</legend>
     <small>Control which data objects will show updates on your
-    dashboard.</small><br />
+    dashboard.</small><br /><br />
     <%= render :partial => 'dt_objects' %>
     
   </fieldset>
   <fieldset class = "index">
 	<legend>Email Notifications</legend>
-	<small>Control your notification preferences.</small><br />
+	<small>Control your notification preferences.</small><br /><br />
      <%= f.check_box :taken_sub_email %>
-     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests" %>
-    </p>
-    <p>
+     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests" %><br />
      <%= f.check_box :send_due_payform_email %>
-     <%= f.label :send_due_payform_email, text = "Enable email notifications for due payforms" %>
-    </p>
+     <%= f.label :send_due_payform_email, text = "Enable email notifications for due payforms" %><br />
     <% if current_user.is_admin_of?(@department) %>
-    <p>
-    	<%= f.submit "Reset" %> Reset preference to send email reminders for all users in the current department
-    </p>
+    	<%= f.submit "Reset" %> <span id="reset_txt">Reset preference to send email reminders for all users in the current department</span>
     <% end %>
 	</fieldset>
   <p>
