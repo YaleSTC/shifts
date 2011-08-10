@@ -1,0 +1,10 @@
+<div id="login">
+  <p class="login_status">
+  <strong><%= current_user ? (current_user.name + " (" + current_user.login + ") ") : session[:cas_user] %></strong>
+    <% if @user_session && @user_session.user %>
+    <%= link_to "[Logout]", logout_path %>
+    <% else %>
+    <%= link_to "[Logout]", cas_logout_path %>
+    <% end %>
+  </p>
+</div>

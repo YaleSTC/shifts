@@ -1,25 +1,21 @@
 <% title "Stats for #{@location.name}" %>
 
 <div id="left_stuff">
-	<fieldset class ="index">
-		<legend>Date Range</legend>
+	<fieldset class="index" id="date_selector">
 		<% form_tag(:controller => 'stats', :action => 'for_location', :method => :get, :id => @location.id) do %>
-			<p>
 			  <%= label_tag :start_date %><br />
-			  <%= date_select(:stat, :start_date, :default => @start_date)%>
-			</p>
-			<p>
+			  <%= date_select(:stats, :start_date, :default => @start_date)%>
+				<br />
 			  <%= label_tag :end_date %><br />
-			  <%= date_select(:stat, :end_date, :default => @end_date)%>
-			</p>
-		  <div><%= submit_tag 'Update dates' %></div>
+			  <%= date_select(:stats, :end_date, :default => @end_date)%>
+				<br />
+				<%= submit_tag 'Update dates' %>
 		<% end -%>
 	</fieldset>
 </div>
 
 <div id="right_stuff">
 	<fieldset class ="index">
-		<legend>Summary</legend>
 		<% @summary = @location.summary_stats(@start_date, @end_date) %>
 		<%= render :partial => 'stats/stats_summary', :object => @summary %>
 	</fieldset>
@@ -57,7 +53,7 @@
 
 <script>
   initialize("body");
-  
+
   function initialize(div){
 
     $(div+' td.click_to_show').click(function (e) {
@@ -66,10 +62,10 @@
     });
 
   }
-  
+
   function popup_show(parent_element, e){
     $("#tooltip").remove();
-    
+
     var id = parent_element.attr('id').substring(5); //remove "shift" from id
 
     loading_tooltip(e.pageX, e.pageY);
@@ -80,13 +76,36 @@
   function loading_tooltip(x,y){
     $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
   }
-  
+
   function getXOffset(element){
     var x = 0
     while(element){
         x += element.offsetLeft;
         element = element.offsetParent;
     }
-    return x;    
+    return x;
   }
+</script>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"stat_start_date_3i":"j",
+                              "stat_start_date_1i":"Y",
+                              "stat_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"stat_end_date_3i":"j",
+                              "stat_end_date_1i":"Y",
+                              "stat_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
 </script>

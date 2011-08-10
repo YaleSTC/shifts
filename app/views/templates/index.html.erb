@@ -1,6 +1,7 @@
 <h1 id="page_title">Templates for <%= @department.name %></h1>
 
-<table class = "tablesorter">
+<table class = "tablesorter"> 
+ <thead>
   <tr>
     <th>Name</th>
     <th colspan=2>Total hours</th>
@@ -22,8 +23,11 @@
 		<th></th>
 		<th></th>
   </tr>
+</thead>
+
 <% @week_templates.each do |template| %>
-<tr <%= "class= #{cycle("odd", "even")}" %> > 
+<tbody>
+<tr> 
     <td><%=h link_to template.name, template_path(template)%></td>
     <td><%=h template.max_total_hours %></td>
     <td><%=h template.min_total_hours %></td>
@@ -41,6 +45,7 @@
     <td><%= link_to 'Edit', edit_template_path(template) %></td>
     <td><%= link_to 'Delete', template, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
+ </tbody>
 <% end %>
 </table>
 

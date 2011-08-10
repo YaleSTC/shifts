@@ -24,7 +24,7 @@ table, td, th{
 }
 th{
 	background: #778899;
-/*	border:1px solid black;*/	
+/*	border:1px solid black;*/
 	color: white;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -199,10 +199,11 @@ div#login{
 /* Link bar (chooser + tabs)
 ======================================================================= */
 #link_bar {
+	height: 3.1em;
   background-color: #8B9B6C;
-  border-bottom: 1px solid #FFFFFF;
-  height: 25px;
-  padding: 5px 10px 4px;
+/*  border-bottom: 1px solid #FFFFFF;*/
+/*  height: 25px;*/
+/*  padding: 5px 10px 4px;*/
 }
 
 /* chooser
@@ -225,9 +226,10 @@ div#login{
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  width: 100%;
+  margin-top: 2px;
+	width: 100%;
 	float: left;
-	margin-top: -3px;
+/*	margin-top: -3px;*/
 }
 ul#application_tabs {
   float: right;
@@ -325,7 +327,7 @@ ul#navigationList a:hover {
 }
 #contentNav {
   float: left;
-  padding: 30px 30px 10px 30px;
+  padding: 10px 30px 10px 30px;
   width: 650px;
 }
 #contentNoNav {
@@ -547,9 +549,9 @@ span#progress_bar #other_step {
 }
 
 /* = Tables
-======================================================================= */	
+======================================================================= */
 table.tablesorter {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;	
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   color: #FFFFFF;/*	background-color: #CDCDCD; */
 	margin:10px 0pt 15px;
 	font-size: 8pt;
@@ -576,7 +578,7 @@ table.tablesorter tbody td {
 	max-width: 400px;
 	word-wrap: break-word;
 }
-table.tablesorter tbody tr.odd td {
+table.tablesorter tbody tr:nth-child(odd) td {
 	background-color:#F0F0F6;
 }
 table.tablesorter tbody tr.disabled td {
@@ -595,15 +597,38 @@ table tr.alert_entry {
   background-color:#ff0033;
 }
 
+table.tablesorter td#staffed {
+  background-color: #536E8D;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+}
+
+table.tablesorter td#unstaffed {
+  background-color: #EEF;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+}
+
+table.tablesorter td#date {
+	border: 1px solid #FFF;
+}
+
+table.tablesorter td#date {
+  background-color: #CCE;
+}
+table.tablesorter thead#centered {
+	text-align: center;	
+}
+
 /*
-/* Sortable tables 
+/* Sortable tables
 table.sortable th:hover {
 	color:orange;
 }
 table.sortable th {
 	text-decoration: underline;
 }
-/* Sortable tables hack for AJAX 
+/* Sortable tables hack for AJAX
 table.sortable_style th:hover {
 	color:orange;
 }
@@ -713,7 +738,7 @@ ul.activeShifts {
 
 
 /* Sub Request Table Index
-======================================================================= */	
+======================================================================= */
 table#requests_table {margin-bottom:5px;}
 table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; white-space:nowrap;}
 table#requests_table tr td ul {
@@ -730,7 +755,7 @@ td.sub_location {text-align:center;}
 .sub_invalid {color:#6E6E6E;}
 a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}
 /* Sub Request Show
-======================================================================= */	
+======================================================================= */
 p.sub_show {margin-top:0px; margin-left:1.5em; line-height:120%;}
 p.sub_show h4{padding-left:0px;}
 ul#user_sources {margin-top:0px; margin-left:1.5em; list-style-type:none;}
