@@ -27,6 +27,7 @@ class AnnouncementsController < NoticesController
     join_date_and_time(params[:announcement])
     @announcement = Announcement.new(params[:announcement])
 		set_author_dept_and_time
+		current_user.current_shift ? @current_shift = current_user.current_shift : nil
 		begin
       Announcement.transaction do
         @announcement.save(false)
@@ -56,6 +57,7 @@ class AnnouncementsController < NoticesController
     join_date_and_time(params[:announcement])
 		@announcement.update_attributes(params[:announcement])
 		set_author_dept_and_time
+		current_user.current_shift ? @current_shift = current_user.current_shift : nil
     begin
       Announcement.transaction do
         @announcement.save(false)
