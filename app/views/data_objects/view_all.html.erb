@@ -1,17 +1,20 @@
 <h1>List of all Data Objects</h1>
 <hr />
 
-<table>
+<table class = "tablesorter">
+ <thead>
   <tr>
     <th>Name</th>
     <th>Data Type</th>
   </tr>
+ </thead>
    <%- for obj in @data_objects -%>
-    <tr class=<%= "#{cycle("odd", "even")}" %>>
+ <tbody>
+    <tr>
    <td><%= obj.name %></td>
    <td><%= DataType.find(obj.data_type_id).name %></td>  <!-- should this logic go elsewhere? -->
   </tr>
+ </tbody>
    <%- end -%>
 </table>
 <p><%= link_to "Back to Data Types List", data_types_path %></p>
-

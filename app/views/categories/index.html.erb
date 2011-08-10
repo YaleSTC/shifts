@@ -2,11 +2,15 @@
 <% title "Payform Categories"%>
 
 <table class = "tablesorter">
+ <thead>
 	<tr>
 		<th>Name</th>
 		<th>Payform Items</th>
 	</tr>
+ </thead>
+ <tbody>
 		<%= render :partial => "category", :collection => @categories.active %>
+ </tbody>
 </table>
 
 <br /><h4>Disabled Categories:</h4>

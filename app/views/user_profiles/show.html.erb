@@ -1,10 +1,13 @@
 <% title "#{@user_profile.user.proper_name}'s Profile" %>
 <div class='profile'>
-	
 	<%= image_tag @user_profile.photo.url(:medium)%>
+	
   
     <%= render :partial => 'user_profile_entries' %>
 
 <br />
-	<%= link_to 'Edit', edit_user_profile_path(@user_profile.user.login)%> | <%= link_to 'Back', user_profiles_path %>
+	<% if current_user.is_admin_of?(current_department) || current_user = @user_profile.user %>
+	<%= link_to 'Edit', edit_user_profile_path(@user_profile.user.login) %> |
+	<% end %>  
+	<%= link_to 'Show All', user_profiles_path %>
 </div>

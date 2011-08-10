@@ -1,8 +1,11 @@
+<% if mobile_device?%> <!-- establishes the initial width for mobile browser. -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+<% end %>
+
 <%= render :file => "layouts/include/main_header.html.erb" %>
 
-<%#must be removed after done%>
-<%= stylesheet_link_tag 'mobile_application' %>
-<%#= javascript_include_tag 'navigationlist' %>
+<!--this is necessary here for consistent layouts -->
+<%= stylesheet_link_tag 'mobile_application' if mobile_device? %>
 
     <%= yield(:left_nav) || '<div id="contentNoNav">' %>
 
@@ -35,12 +38,16 @@
           <% if current_user && current_user.superuser? -%>
             Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
                 {:su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
-
                 <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
           <% end -%>
+					<br />
+					<% if mobile_device? %>
+						<%= link_to "Full Site", :mobile => 0 %>
+					<% else %>	
+						<%= link_to "Mobile Site", :mobile => 1 %>
+					<% end %>
         </p>
       </div>
-
   </div> <!-- End pagebox container generated in main_header -->
 
   <div id="pageboxBottom"> <!-- do not remove -->
