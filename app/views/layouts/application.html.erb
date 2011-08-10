@@ -1,5 +1,5 @@
 <% if mobile_device?%> <!-- establishes the initial width for mobile browser. -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <% end %>
 
 <%= render :file => "layouts/include/main_header.html.erb" %>
@@ -41,9 +41,10 @@
                 <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
           <% end -%>
 					<br />
+          Switch to
 					<% if mobile_device? %>
 						<%= link_to "Full Site", :mobile => 0 %>
-					<% else %>	
+					<% else %>
 						<%= link_to "Mobile Site", :mobile => 1 %>
 					<% end %>
         </p>
