@@ -1,6 +1,6 @@
 <% for user_profile in @user_profiles %>
   <tr>
-  	<td><%= link_to "#{user_profile.user.proper_name}", user_profile_path(user_profile.user.login) %></td>
+  	<td><%= link_to "#{user_profile.user.name}", user_profile_path(user_profile.user.login) %></td>
 		<% for upf in @user_profile_fields %>
 			<td>
 				<%= user_profile.user_profile_entries.find(:first, :conditions => {:user_profile_field_id => upf.id}).content %>
