@@ -7,10 +7,10 @@
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
 		<% form_tag(:controller => 'tasks', :action => 'completed_tasks') do %>
-			  <%= label_tag :start_date %>
+			  <%= label_tag :start_date %><br />
 				<%= date_select(:dates, :start, :default => @start)%>
 				<br />
-			  <%= label_tag :end_date %>
+			  <%= label_tag :end_date %><br />
 			  <%= date_select(:dates, :end, :default => @end)%>
 				<br />
 				<%= submit_tag 'Update dates' %>

@@ -85,19 +85,40 @@
 }
 
 #useful_links {
-  width: 48%;
+  width: 100%;
 	float: right;
   margin-bottom: 15px;
 }
 
 #report_data_objects {
-  width: 48%;
+  width: 100%;
   float: right;
   margin-bottom: 15px;
 }
 
 #shift_tasks {
-  width: 48%;
+  width: 100%;
+  float: right;
+  margin-bottom: 15px;
+}
+
+
+#user_searchbox{ 
+	float: center;
+	width: 200px;
+}
+
+#payform_searchbox{ 
+	float: center;
+	width: 200px;
+}
+
+#search {
+	text-align: top;
+}
+
+#searchbox {
+  width: 100%;
   float: right;
   margin-bottom: 15px;
 }

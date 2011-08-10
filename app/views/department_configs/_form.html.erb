@@ -99,6 +99,17 @@
 	</p>
 </fieldset>
 <fieldset class = "index">
+		<legend>Edit Custom Search Engine</legend>
+	<p>
+		<%= f.label :search_engine_name, text = "Search engine name:"%>
+		<%= f.text_field :search_engine_name %>
+	</p>
+	<p>
+		<%= f.label :search_engine_url, text = "Search URL prefix:"%>
+		<%= f.text_field :search_engine_url %>
+	</p>
+</fieldset>
+<fieldset class = "index">
     <legend>Edit Stale Shift Configuration</legend>
 	<p>
 		<%= f.check_box :stale_shift %>
