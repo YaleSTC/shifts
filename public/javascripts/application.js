@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     // If javascript is enabled, anything with the class 'no_js' will be shown
     $('.only_js').show();
-    
+
     // When any form with the class "onchange_submit" is altered, the form gets submitted.
     $('.onchange_submit').change(function() { $
         (this).submit();
@@ -20,7 +20,7 @@ $(document).ready(function() {
 	$(".trigger").click(function(){
 		$(this).toggleClass("triggered").next().slideToggle('fast');
 		event.preventDefault(); //don't actually follow the link/action (even '#' goes to top of page in some cases)
-	});  
+	});
     //Anything of class "trigger-<id>" will cause something of class "toggle-<id>" with the same <id> to be toggled
     //Also, the trigger will gain the class "triggered" in case any styling needs to be changed on the trigger
 	$("[class*=trigger-]").click(function(){
@@ -32,32 +32,11 @@ $(document).ready(function() {
         $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
 
-    $(document).ready(function(){ 
-        $("ul.sf-menu").superfish({ 
-            animation: {height:'show'},   // slide-down effect without fade-in 
-            delay:     1200               // 1.2 second delay on mouseout 
+    $(document).ready(function(){
+        $("ul.sf-menu").superfish({
+            animation: {height:'show'},   // slide-down effect without fade-in
+            delay:     1200               // 1.2 second delay on mouseout
         });
     });
-
-		$(function() {
-
-	    var $sidebar   = $("#navigationList"),
-	        $window    = $(window),
-	        offset     = $sidebar.offset(),
-	        topPadding = 0;
-
-	    $window.scroll(function() {
-	        if ($window.scrollTop() > offset.top) {
-	            $sidebar.stop().animate({
-	                marginTop: $window.scrollTop() - offset.top + topPadding
-	            });
-	        } else {
-	            $sidebar.stop().animate({
-	                marginTop: 0
-	            });
-	        }
-	    });
-
-	});
 
 });

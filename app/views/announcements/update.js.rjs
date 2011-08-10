@@ -4,8 +4,17 @@ if @announcement.errors.empty?
   if current_user.current_shift
     page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices, :locals => {:html_class => "report_notice"}
   end
-  page << "tb_remove();"
-  page << "tb_init('a#edit');"
+  if session[:mobile_param] != "1"
+    page << "tb_remove();"
+    page << "tb_init('a#edit');"
+  end
+  if session[:mobile_param] == "1"
+    if @current_shift
+      page.redirect_to(:controller => 'reports', :action => 'show', :id => @current_shift.report.id)
+    else
+      page.redirect_to(:controller => 'dashboard', :action => 'index')
+    end
+  end  
 else
   page.replace_html "errors", :partial => 'notices/error_messages'
 end

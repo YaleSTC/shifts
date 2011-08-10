@@ -112,51 +112,54 @@ label {
 ======================================================================= */
 
 #pagebox {
-  background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
+  background: #FFFFFF;
   margin: 0px auto;
-  padding: 0pt 12px;
-  width: 900px;
+  margin-top: 0px;
+  padding: 0pt 0px;
+  width: auto;
   border: medium none;
 }
 #pageboxBottom {
   background: transparent url(../images/pagebox_shadow_bottom.gif) no-repeat scroll 0% 0%;
   height: 12px;
   margin: 0px auto;
-  padding-bottom: 2px;
-  width: 924px;
+  padding-bottom: 0px;
+  width: auto;
 }
 #page_header {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
-  float: left;
-  width: 100%;
-  height: 35px;
+	float: none;
+  height: 34px;
   padding: 0px;
+  width: auto;
 }
 #page_header h2 {
-  background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%;
+  background: transparent url(../images/theme/header_mobile.gif) no-repeat scroll 0% 0%;
   float: left;
-  font-size: 12px;
-  margin: 0pt;
-  text-indent: -9999px;
+  font-size: 10px;
+  margin: 2pt;
+  margin-left: 4px;
+	text-indent: -9999px;
   border-bottom: none;
+  width: 42px;
 }
 #page_header h2 a {
   display: block;
-  height: 36px;
-  width: 130px;
+  height: 30px;
+  width: auto;
 }
 #main_banner {
-  background: #869FC7 url(../images/theme/main_banner.jpg) no-repeat scroll 0% 0%;
-  border-bottom: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  background: #29435E url(../images/theme/main_banner_mobile.png) no-repeat scroll 0% 0%;
+  border-bottom: 1px solid #29435E;
+  color: #29435E;
   clear: both;
-  height: 85px;
+  height: 65px;
   margin: 0px auto;
   padding: 0px;
 }
 #main_banner h1 {
-  float: left;
+  float: none;
   font-size: 12px;
   height: 0pt;
   margin: 0pt;
@@ -171,7 +174,7 @@ label {
 --------------------------------------------------------- */
 div#login{
   float: right;
-  width: 84.2%;
+  width: auto;
   margin: 0 auto;
   text-align: right;
   color: whitesmoke;
@@ -182,7 +185,7 @@ div#login{
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   line-height: 1.1em;
   color: #FFFFFF;
-  float: right;
+  float: none;
 }
 #login p.login_status {
   color: #fff;
@@ -199,11 +202,11 @@ div#login{
 /* Link bar (chooser + tabs)
 ======================================================================= */
 #link_bar {
-	height: 3.1em;
+	border-top: 1px solid #FFFFFF;
+	height: 2.6em;
+	width: 100%;
   background-color: #8B9B6C;
-/*  border-bottom: 1px solid #FFFFFF;*/
-/*  height: 25px;*/
-/*  padding: 5px 10px 4px;*/
+	float: none;
 }
 
 /* chooser
@@ -211,33 +214,32 @@ div#login{
 #chooser {
   float: left;
   font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 10px;
+	height: 27px;
 }
 
 /* shift indicator
 --------------------------------------------------------- */
 #shift_indicator {
-  float: left;
-	font-family: Trebuchet MS, Verdana, Arial, serif;
-	color: #FFFFFF;
-	font-size: 12px;
+	display: none;
 }
 
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  margin-top: 2px;
-	width: 100%;
 	float: left;
-/*	margin-top: -3px;*/
+	margin-top: 2px;
 }
 ul#application_tabs {
-  float: right;
+/*  float: none;
 	background-color: #8B9B6C;
-  padding: 0pt;
-  list-style-type: square;
-	font-size: 12px;
+	padding-top: none;
+	padding-bottom: none;
+  list-style-type: none;
 
+	margin: 0px auto;*/
+	float: top;
+	font-size: 10px;
 /*  line-height: 1.6em;
   list-style-image: none;
   list-style-position: outside;
@@ -265,12 +267,15 @@ ul#application_tabs a:hover {
 
 /* = navigation-related classes --> not needed with Superfish menu
 ======================================================================= */
-
 ul#navigationList {
-	margin-left: 	30px;
-	padding-top: 40px;
-  float: 				left;
-	font-size: 11px;
+	margin-top: -7px;
+	margin-left: 	0px;
+	padding-top: 0px;
+  float: 			left;
+	font-size: 10px;
+	height: 2.7em;
+	width: 100%;
+	background-color: #DDF;
 }
 
 /*ul#navigationList {
@@ -321,24 +326,27 @@ ul#navigationList a:hover {
   background: transparent none no-repeat scroll 0% 0%;
   height: auto !important;
   min-height: 450px;
+	width: auto;
 }
 #contentNav h1, #contentNoNav h1 {
   padding: 0px 0px 5px 0px;
 }
 #contentNav {
   float: left;
-  padding: 10px 30px 10px 30px;
-  width: 650px;
+  padding: 10px 12px 0px 12px;
+  width: auto;
 }
 #contentNoNav {
-  padding: 30px;
-  width: 840px;
+  float: left;
+  padding: 10px 12px 0px 12px;
+  width: auto;
 }
 #page_title {
   padding: 0 0 0;
   margin-bottom: 15px;
   border-bottom: thin solid #408080;
 }
+
 #subtitle {
   padding: 0 0;
   margin-top: -8px;
@@ -353,7 +361,9 @@ ul#navigationList a:hover {
   border-bottom: medium none;
   border-top: medium none;
   clear: both;
-  padding: 5px 10px 15px;
+  padding: 0px 0px 0px;
+  text-align: center;
+	width: auto;
 }
 #footer a {
   color: #999999;
@@ -368,7 +378,7 @@ p.footer {
   font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
   font-size: 10px;
   line-height: 1.6em;
-  margin: 0px 0px 0px 180px;
+  margin: 0px 0px 0px 0px;
   padding: 0em;
 }
 
@@ -379,7 +389,7 @@ p.footer {
 table.manage_table{
   border: 1px solid #666666;
   border-collapse: collapse;
-  width: 100%;
+  width: auto;
   padding: 4px;
 }
 table.manage_table caption{
@@ -398,7 +408,7 @@ table.manage_table th {
 }
 .admin_form label {
   width: 20em;
-  float: left;
+  float: none;
   text-align: right;
   margin-right: 0.5em;
   display: block;
@@ -411,7 +421,8 @@ fieldset.index {
   padding: 5px;
   margin: 0px 0px 15px 0px;
   /*border: 1px solid gray;*/
-  background-color:#DDDDFF
+  background-color:#DDDDFF; 
+	width: auto ;
 }
 fieldset#warning {
   background: #C0C0C0;
@@ -420,12 +431,12 @@ fieldset#schedule{
 	clear: both;
 }
 div#right_stuff {
- float:right;
- width: 47.5%;
+ float: none;
+ width: auto;
 }
 div#left_stuff {
- float:left;
- width: 47.5%;
+ float: none;
+ width: auto;
 }
 legend {
   color: #eef;
@@ -452,7 +463,7 @@ legend {
 ======================================================================= */
 
 #errorExplanation {
-  width: 75%;
+  width: auto;
 	margin-left: auto;
 	margin-right: auto;
   border-style: solid;
@@ -497,7 +508,7 @@ span.success_notification{
 ul#useful_links {
     list-style-type: none;
     display: inline !important;
-    float: left;
+    float: none;
     text-align: left;
     list-style-position: outside;
     margin-left: 0px;
@@ -513,7 +524,7 @@ ul#useful_links li a{
 ul#dashboard_right {
     list-style-type: none;
     display: inline !important;
-    float: left;
+    float: none;
     text-align: left;
     list-style-position: outside;
     margin-left: 0px;
@@ -521,7 +532,7 @@ ul#dashboard_right {
 ul#dashboard_right li a {
     list-style-type: none;
     display: inline !important;
-    float: left;
+    float: none;
     text-align: left;
     list-style-position: outside;
     margin-left: 0px;
@@ -548,8 +559,6 @@ span#progress_bar #other_step {
 	padding: 3px;
 }
 
-/* = Tables
-======================================================================= */
 table.tablesorter {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   color: #FFFFFF;/*	background-color: #CDCDCD; */
@@ -620,23 +629,6 @@ table.tablesorter thead#centered {
 	text-align: center;	
 }
 
-/*
-/* Sortable tables
-table.sortable th:hover {
-	color:orange;
-}
-table.sortable th {
-	text-decoration: underline;
-}
-/* Sortable tables hack for AJAX
-table.sortable_style th:hover {
-	color:orange;
-}
-table.sortable_style th {
-	text-decoration: underline;
-}
-*/
-
 /* = TO BE CLEANED UP
 ======================================================================= */
 
@@ -655,18 +647,18 @@ div.note {
 
 /*Forms w/ tables next to them*/
 div.form_left {
-  width:45%;
-  float:left;
+  width: auto;
+  float: none;
 }
 div.form_right {
   position:absolute;
-  width:25%;
+  width:auto;
   top:500;
   right:450px;
 }
 div.table_right {
-  width:50%;
-  float:right;
+  width:auto;
+  float: none;
   margin:12px;
   visibility:hidden;
 }
@@ -694,7 +686,7 @@ img.loading_icon {
 }
 
 .delete_link {
-	float: right;
+	float: none;
 	text-align: right;
 }
 .form_label_large {
@@ -714,7 +706,7 @@ img.loading_icon {
 /*this is used for the department_config form*/
 .centered_form label {
   width: 30em;
-  float: left;
+  float: none;
   text-align: right;
   margin-right: 0.5em;
   display: block;
@@ -743,17 +735,17 @@ table#requests_table {margin-bottom:5px;}
 table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; white-space:nowrap;}
 table#requests_table tr td ul {
 	 list-style-type: none;
-   float: left;
+   float: none;
    text-align: left;
    list-style-position: outside;
 	 margin-left:0px;
 }
-td.sub_reason {width:100%;}
+td.sub_reason {width:auto;}
 .sub_reason_container {white-space:pre-wrap;}
 .sub_time_mandatory {color:#8A0808;}
 td.sub_location {text-align:center;}
 .sub_invalid {color:#6E6E6E;}
-a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}
+a#view_more, a#view_all {float: none; padding-right:4px; clear:both;}
 /* Sub Request Show
 ======================================================================= */
 p.sub_show {margin-top:0px; margin-left:1.5em; line-height:120%;}
@@ -763,10 +755,28 @@ ul#user_sources {margin-top:0px; margin-left:1.5em; list-style-type:none;}
 ======================================================================= */
 div.feed_subs h3, div.feed_shifts h3 {margin-left:1em; margin-top:1em;}
 div.feed_subs a, div.feed_shifts a {margin-left:2em; line-height:120%}
-div.feed_subs {float:left; margin-left:4em;}
-div.feed_shifts {float:left; max-width:25em;}
+div.feed_subs {float: none; margin-left:4em;}
+div.feed_shifts {float: none; max-width:25em;}
 div.feed_bottom {clear:both}
-div.feed_bottom a {float:right;}
+div.feed_bottom a {float: none;}
 
 /* button for report_item_view on location index */
-input.view_more {float:right;}
+input.view_more {float: none;}
+
+
+
+/* for Notices */
+div.report_notice {
+	width: auto;
+	word-wrap: break-word;
+}
+
+div.dashboard_notice {
+	width: auto;
+	word-wrap: break-word;
+}
+
+div.index_notice {
+	width: auto;
+	word-wrap: break-word;
+}
