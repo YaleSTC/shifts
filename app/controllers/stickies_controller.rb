@@ -19,6 +19,9 @@ class StickiesController < NoticesController
     @sticky = Sticky.new(params[:sticky])
 		set_author_dept_and_times
 		current_user.current_shift ? @in_shift = true : @in_shift = false
+		if @in_shift
+		  @current_shift = current_user.current_shift
+		end
 		begin
       Sticky.transaction do
         @sticky.save(false)

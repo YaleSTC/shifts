@@ -20,6 +20,7 @@ class LinksController < NoticesController
 		@link.start = Time.now
     @link.end = nil
     @link.indefinite = true
+    current_user.current_shift ? @current_shift = current_user.current_shift : nil
 		begin
       Link.transaction do
         @link.save(false)
