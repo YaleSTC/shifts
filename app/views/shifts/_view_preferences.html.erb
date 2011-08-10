@@ -3,14 +3,12 @@
   <div class="no_js" style="position:absolute;background:#fff;border:#ccc 1px solid;width:160px;z-index:999;text-align:left;padding-left:10px;">
     <% form_for current_user.user_config do |f| %>
       <p>
-        <% for department in current_user.departments %>
           <div class="multiple_select">
-            <h3><%= department.name %></h3>
+            <h3><%= current_department.name %></h3>
             <%= collection_multiple_select(:user_config, :view_loc_groups, 
-                                        @loc_group_select[department.id], :id, :name,
+                                        @loc_group_select[current_department.id], :id, :name,
                                         :selected_items => @selected_loc_groups) %>
           </div>
-        <% end %>
       </p>
       <%= hidden_field_tag :redirect_to, request.request_uri %>
       <p><%= f.submit "Submit" %></p>
