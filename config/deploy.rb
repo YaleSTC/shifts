@@ -73,15 +73,16 @@ EOF
 
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
       run "ln -nsf #{shared_path}/config/hoptoad.rb #{current_path}/config/initializers/hoptoad.rb"
-
       run "mkdir -p #{shared_path}/log"
       run "mkdir -p #{shared_path}/pids"
       run "mkdir -p #{shared_path}/sessions"
       run "mkdir -p #{shared_path}/system/datas"
+      run "mkdir -p #{shared_path}/assets/user_profiles"
       run "ln -nsfF #{shared_path}/log/ #{current_path}/log"
       run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"      
       run "ln -nsfF #{shared_path}/sessions/ #{current_path}/tmp/sessions"
       run "ln -nsfF #{shared_path}/system/ #{current_path}/public/system"
+      run "ln -nsfF #{shared_path}/assets/ #{current_path}/public/assets"
     end    
   end  
 end
@@ -150,7 +151,7 @@ namespace :deploy do
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :app do
-    run "cd #{release_path} && whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
   end
 
 end
