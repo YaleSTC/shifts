@@ -9,7 +9,9 @@
   
   <fieldset class="index" id="shifts">
     <legend>Your Shifts</legend>
-      <h4>Current Shift</h4>
+    <% if user_has_active_shift?%>  
+	<h4>Current Shift</h4>
+	 <% end %>
       <%= render :partial => "shifts/user_options" %>
 
       <% unless @upcoming_shifts.empty? %>
@@ -47,6 +49,13 @@
     <% end %>
   </fieldset>
 
+ <% unless @watched_objects.empty? %>
+      <fieldset class="index" id="watched_objects">
+        <legend>Watched Data Objects</legend>
+          <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
+      </fieldset>
+    <% end %>
+
   </div>
  
   <div id="right_stuff">
@@ -69,14 +78,6 @@
 				<% @summary = current_user.summary_stats(Date.today - 7, Date.today) %>
 				<%= render :partial => 'stats/stats_summary', :object => @summary %>
     </fieldset>
-
-    <% unless @watched_objects.empty? %>
-      <fieldset class="index" id="watched_objects">
-        <legend>Recent updates for your watched data objects</legend>
-          <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
-      </fieldset>
-    <% end %>
-
   </div>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>

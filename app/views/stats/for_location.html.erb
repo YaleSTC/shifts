@@ -3,10 +3,10 @@
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
 		<% form_tag(:controller => 'stats', :action => 'for_location', :method => :get, :id => @location.id) do %>
-			  <%= label_tag :start_date %>
+			  <%= label_tag :start_date %><br />
 			  <%= date_select(:stats, :start_date, :default => @start_date)%>
 				<br />
-			  <%= label_tag :end_date %>
+			  <%= label_tag :end_date %><br />
 			  <%= date_select(:stats, :end_date, :default => @end_date)%>
 				<br />
 				<%= submit_tag 'Update dates' %>
