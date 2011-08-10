@@ -41,11 +41,10 @@
                 <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
           <% end -%>
 					<br />
-          Switch to
 					<% if mobile_device? %>
-						<%= link_to "Full Site", :mobile => 0 %>
+						Mobile Site | <%= link_to "Full Site", :mobile => 0 %>
 					<% else %>
-						<%= link_to "Mobile Site", :mobile => 1 %>
+						<%= link_to "Mobile Site", :mobile => 1 %> | Full Site
 					<% end %>
         </p>
       </div>

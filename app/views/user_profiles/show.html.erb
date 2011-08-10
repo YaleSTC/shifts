@@ -1,7 +1,12 @@
 <% title "#{@user_profile.user.full_name_with_nick}'s Profile" %>
 <div class='profile'>
-	<%= image_tag @user_profile.photo.url(:medium)%>
 	
+	<% if !mobile_device?%>
+	<%= image_tag @user_profile.photo.url(:medium)%>
+	<% else %>
+	<%= image_tag @user_profile.photo.url(:thumbnail)%>
+	<% end %>
+
   
     <%= render :partial => 'user_profile_entries' %>
 
