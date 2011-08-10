@@ -112,10 +112,10 @@ label {
 ======================================================================= */
 
 #pagebox {
-  background: #FFFFFF;
+  background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
   margin: 0px auto;
-  margin-top: 0px;
-  padding: 0pt 0px;
+  margin-top: 16px;
+  padding: 0pt 12px;
   width: auto;
   border: medium none;
 }
@@ -123,7 +123,7 @@ label {
   background: transparent url(../images/pagebox_shadow_bottom.gif) no-repeat scroll 0% 0%;
   height: 12px;
   margin: 0px auto;
-  padding-bottom: 0px;
+  padding-bottom: 2px;
   width: auto;
 }
 #page_header {
@@ -204,7 +204,7 @@ div#login{
   background-color: transparent;
   border-bottom: 0px solid #FFFFFF;
   height: 25px;
-  padding: 0px 0px 0px;
+  padding: 5px 10px 4px;
 }
 
 /* chooser
@@ -232,12 +232,11 @@ div#login{
 	margin-top: 0px;
 }
 ul#application_tabs {
-    float: none;
+  float: none;
 	background-color: transparent;
 	padding-top: 4px;
-    list-style-type: none;
+  list-style-type: square;
 	font-size: 12px;
-	margin-left: 11px;
 
 /*  line-height: 1.6em;
   list-style-image: none;
@@ -268,11 +267,10 @@ ul#application_tabs a:hover {
 ======================================================================= */
 
 ul#navigationList {
-	margin-left: 11px;
+	margin-left: 	none;
 	padding-top: 4px;
     float: left;
 	font-size: auto;
-    list-style-type: none;
 }
 
 /*ul#navigationList {
@@ -329,7 +327,7 @@ ul#navigationList a:hover {
 }
 #contentNav {
   float: left;
-  padding: 0px 12px 0px 12px;
+  padding: 10px 30px 10px 30px;
   width: auto;
 }
 #contentNoNav {
