@@ -44,11 +44,10 @@ class UserConfigsController < ApplicationController
   end
 
 
-  def update
+  def update      
+    
     if params[:loc]
       params[:user_config][:view_loc_groups] = params[:loc].keys.join(", ")
-    else
-      params[:user_config][:view_loc_groups] = []
     end
     if params[:dt]
       params[:user_config][:watched_data_objects] = params[:dt].keys.join(", ")
