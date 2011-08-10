@@ -114,7 +114,6 @@ label {
 #pagebox {
   background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
   margin: 0px auto;
-  margin-top: 16px;
   padding: 0pt 12px;
   width: 900px;
   border: medium none;
@@ -200,10 +199,11 @@ div#login{
 /* Link bar (chooser + tabs)
 ======================================================================= */
 #link_bar {
+	height: 3.1em;
   background-color: #8B9B6C;
-  border-bottom: 1px solid #FFFFFF;
-  height: 25px;
-  padding: 5px 10px 4px;
+/*  border-bottom: 1px solid #FFFFFF;*/
+/*  height: 25px;*/
+/*  padding: 5px 10px 4px;*/
 }
 
 /* chooser
@@ -226,9 +226,10 @@ div#login{
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  width: 100%;
+  margin-top: 2px;
+	width: 100%;
 	float: left;
-	margin-top: -3px;
+/*	margin-top: -3px;*/
 }
 ul#application_tabs {
   float: right;
@@ -577,7 +578,7 @@ table.tablesorter tbody td {
 	max-width: 400px;
 	word-wrap: break-word;
 }
-table.tablesorter tbody tr.odd td {
+table.tablesorter tbody tr:nth-child(odd) td {
 	background-color:#F0F0F6;
 }
 table.tablesorter tbody tr.disabled td {
@@ -594,6 +595,29 @@ background-color: #536E8D;
 }
 table tr.alert_entry {
   background-color:#ff0033;
+}
+
+table.tablesorter td#staffed {
+  background-color: #536E8D;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+}
+
+table.tablesorter td#unstaffed {
+  background-color: #EEF;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+}
+
+table.tablesorter td#date {
+	border: 1px solid #FFF;
+}
+
+table.tablesorter td#date {
+  background-color: #CCE;
+}
+table.tablesorter thead#centered {
+	text-align: center;	
 }
 
 /*

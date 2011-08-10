@@ -129,31 +129,32 @@ label {
 #page_header {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
-  float: none;
-  width: auto;
-  height: 35px;
+	float: none;
+  height: 34px;
   padding: 0px;
+  width: auto;
 }
 #page_header h2 {
-  background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%;
+  background: transparent url(../images/theme/header_mobile.gif) no-repeat scroll 0% 0%;
   float: left;
-  font-size: 12px;
-  margin: 0pt;
-  text-indent: -9999px;
+  font-size: 10px;
+  margin: 2pt;
+  margin-left: 4px;
+	text-indent: -9999px;
   border-bottom: none;
   width: 42px;
 }
 #page_header h2 a {
   display: block;
-  height: 36px;
+  height: 30px;
   width: auto;
 }
 #main_banner {
-  background: #869FC7 url(../images/theme/main_banner.jpg) no-repeat scroll 0% 0%;
-  border-bottom: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  background: #29435E url(../images/theme/main_banner_mobile.png) no-repeat scroll 0% 0%;
+  border-bottom: 1px solid #29435E;
+  color: #29435E;
   clear: both;
-  height: 85px;
+  height: 65px;
   margin: 0px auto;
   padding: 0px;
 }
@@ -201,44 +202,44 @@ div#login{
 /* Link bar (chooser + tabs)
 ======================================================================= */
 #link_bar {
-  background-color: transparent;
-  border-bottom: 0px solid #FFFFFF;
-  height: 25px;
-  padding: 0px 0px 0px;
+	border-top: 1px solid #FFFFFF;
+	height: 2.6em;
+	width: 100%;
+  background-color: #8B9B6C;
+	float: none;
 }
 
 /* chooser
 --------------------------------------------------------- */
 #chooser {
-  float: none;
+  float: left;
   font-family: "Trebuchet MS", Helvetica, sans-serif;	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 10px;
+	height: 27px;
 }
 
 /* shift indicator
 --------------------------------------------------------- */
 #shift_indicator {
-  float: none;
-	font-family: Trebuchet MS, Verdana, Arial, serif;
-	color: #FFFFFF;
-	font-size: 12px;
+	display: none;
 }
 
 /* tabs
 --------------------------------------------------------- */
 #application_tab_bar {
-  width: 100%;
 	float: left;
-	margin-top: -3px;
+	margin-top: 2px;
 }
 ul#application_tabs {
-    float: none;
-	background-color: transparent;
-	padding-top: 4px;
-    list-style-type: none;
-	font-size: 12px;
-	margin-left: 11px;
+/*  float: none;
+	background-color: #8B9B6C;
+	padding-top: none;
+	padding-bottom: none;
+  list-style-type: none;
 
+	margin: 0px auto;*/
+	float: top;
+	font-size: 10px;
 /*  line-height: 1.6em;
   list-style-image: none;
   list-style-position: outside;
@@ -266,13 +267,15 @@ ul#application_tabs a:hover {
 
 /* = navigation-related classes --> not needed with Superfish menu
 ======================================================================= */
-
 ul#navigationList {
-	margin-left: 11px;
-	padding-top: 4px;
-    float: left;
-	font-size: auto;
-    list-style-type: none;
+	margin-top: -7px;
+	margin-left: 	0px;
+	padding-top: 0px;
+  float: 			left;
+	font-size: 10px;
+	height: 2.7em;
+	width: 100%;
+	background-color: #DDF;
 }
 
 /*ul#navigationList {
@@ -323,18 +326,19 @@ ul#navigationList a:hover {
   background: transparent none no-repeat scroll 0% 0%;
   height: auto !important;
   min-height: 450px;
+	width: auto;
 }
 #contentNav h1, #contentNoNav h1 {
   padding: 0px 0px 5px 0px;
 }
 #contentNav {
   float: left;
-  padding: 0px 12px 0px 12px;
+  padding: 10px 12px 0px 12px;
   width: auto;
 }
 #contentNoNav {
   float: left;
-  padding: 30px;
+  padding: 10px 12px 0px 12px;
   width: auto;
 }
 #page_title {
@@ -342,6 +346,7 @@ ul#navigationList a:hover {
   margin-bottom: 15px;
   border-bottom: thin solid #408080;
 }
+
 #subtitle {
   padding: 0 0;
   margin-top: -8px;
@@ -358,6 +363,7 @@ ul#navigationList a:hover {
   clear: both;
   padding: 0px 0px 0px;
   text-align: center;
+	width: auto;
 }
 #footer a {
   color: #999999;
@@ -415,7 +421,8 @@ fieldset.index {
   padding: 5px;
   margin: 0px 0px 15px 0px;
   /*border: 1px solid gray;*/
-  background-color:#DDDDFF
+  background-color:#DDDDFF; 
+	width: auto ;
 }
 fieldset#warning {
   background: #C0C0C0;
@@ -552,14 +559,12 @@ span#progress_bar #other_step {
 	padding: 3px;
 }
 
-/* = Tables
-======================================================================= */
 table.tablesorter {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   color: #FFFFFF;/*	background-color: #CDCDCD; */
 	margin:10px 0pt 15px;
 	font-size: 8pt;
-	width: auto;
+	width: 100%;
 	text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
@@ -582,7 +587,7 @@ table.tablesorter tbody td {
 	max-width: 400px;
 	word-wrap: break-word;
 }
-table.tablesorter tbody tr.odd td {
+table.tablesorter tbody tr:nth-child(odd) td {
 	background-color:#F0F0F6;
 }
 table.tablesorter tbody tr.disabled td {
@@ -601,22 +606,28 @@ table tr.alert_entry {
   background-color:#ff0033;
 }
 
-/*
-/* Sortable tables
-table.sortable th:hover {
-	color:orange;
+table.tablesorter td#staffed {
+  background-color: #536E8D;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
 }
-table.sortable th {
-	text-decoration: underline;
+
+table.tablesorter td#unstaffed {
+  background-color: #EEF;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
 }
-/* Sortable tables hack for AJAX
-table.sortable_style th:hover {
-	color:orange;
+
+table.tablesorter td#date {
+	border: 1px solid #FFF;
 }
-table.sortable_style th {
-	text-decoration: underline;
+
+table.tablesorter td#date {
+  background-color: #CCE;
 }
-*/
+table.tablesorter thead#centered {
+	text-align: center;	
+}
 
 /* = TO BE CLEANED UP
 ======================================================================= */

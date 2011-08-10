@@ -54,4 +54,3 @@ class NoticesController < ApplicationController
     end
   end
 end
-

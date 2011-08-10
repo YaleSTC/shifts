@@ -6,6 +6,7 @@
 
 
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th colspan=2>Total hours</th>
     <th colspan=2>Continuous hours</th>
@@ -25,7 +26,9 @@
 		<th></th>
 		<th></th>
   </tr>
-<tr <%= "class= #{cycle("odd", "even")}" %> > 
+ </thead>
+ <tbody>
+<tr> 
     <td><%=h @week_template.max_total_hours %></td>
     <td><%=h @week_template.min_total_hours %></td>
     <td><%=h @week_template.max_continuous_hours %></td>
@@ -39,6 +42,7 @@
     <td><%= link_to 'Edit', edit_template_path(@week_template) %></td>
     <td><%= link_to 'Delete', @week_template, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
+ </tbody>
 </table>
 
 	<%= link_to 'View all submitted shift preferences', template_shift_preferences_path(@week_template) %> |

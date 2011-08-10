@@ -1,17 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  MOBILE_BROWSERS = ["android", "ipod", "opera mini", "blackberry", "palm","hiptop","avantgo","plucker", "xiino","blazer","elaine", "windows ce; ppc;", "windows ce; smartphone;","windows ce; iemobile", "up.browser","up.link","mmp","symbian","smartphone", "midp","wap","vodafone","o2","pocket","kindle", "mobile","pda","psp","treo"]
-
-  def detect_browser
-    agent = request.headers["HTTP_USER_AGENT"].downcase
-    MOBILE_BROWSERS.each do |m|
-      return "mobile_application" if agent.match(m)
-    end
-    return "application"
-  end
-
-
   def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
@@ -167,9 +156,9 @@ module ApplicationHelper
 
   def navbar_highlight(controller_name)
     navbar_hash = Hash[ "dashboard" => ["dashboard"],
-                        "departments" => ["departments", "app_configs", "superusers", "department_configs", "application"],
-                        "users" => ["users", "roles", "user_profiles", "user_profile_fields"],
-                        "shifts" => ["shifts", "locations", "loc_groups", "calendars", "templates", "links", "notices", "data_objects", "stats", "announcements", "calendar_feeds", "data_entries", "data_fields", "data_types", "repeating_events", "report_items", "stickies", "tasks", "reports"],
+                        "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups", "calendars", "application", "templates", "calendar_feeds", "time_slots"],
+                        "users" => ["users", "roles", "user_profiles", "superusers", "user_profile_fields"],
+                        "shifts" => ["shifts", "links", "notices", "data_objects", "stats", "announcements",  "data_entries", "data_fields", "data_types", "repeating_events", "report_items", "stickies", "tasks", "reports"],
                         "payforms" => ["payforms", "payform_items", "punch_clocks", "punch_clock_sets", "payform_item_sets", "categories"]]
     navbar_hash.select{|key, value| value.include?(controller_name) }.flatten.first
   end

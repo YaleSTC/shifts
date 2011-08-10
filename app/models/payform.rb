@@ -6,6 +6,9 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
+  
+  attr_accessor :start_date
+  attr_accessor :end_date
 
   acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
 
