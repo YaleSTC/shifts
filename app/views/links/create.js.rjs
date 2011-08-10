@@ -5,7 +5,7 @@ if @link.errors.empty?
 		page.replace_html "dashboard_links", :partial => 'dashboard_links'
 		page.replace_html "links_index", :partial => 'links_index'	
   end
-  if session[:mobile_param] == "0"
+  if session[:mobile_param] != "1"
 	  page << "tb_remove();"
 	end
 	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
