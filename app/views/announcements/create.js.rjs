@@ -4,7 +4,7 @@ if @announcement.errors.empty?
 	end
 	page.replace_html "dashboard_notices", :partial => 'notices/dashboard'
 	page.replace_html "all_notices", :partial => 'notices/all_notices'
-  if session[:mobile_param] == "0"
+  if session[:mobile_param] != "1"
     page << "tb_remove();"
     page << "tb_init('a#edit');"
   end
