@@ -429,6 +429,8 @@ fieldset#warning {
 }
 fieldset#schedule{
 	clear: both;
+	height: 300px;
+	overflow-y: auto;
 }
 div#right_stuff {
  float: none;
