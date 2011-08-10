@@ -7,6 +7,7 @@ class DepartmentObserver < ActiveRecord::Observer
                         :schedule_end => 17*60,
                         :time_increment => 15,
                         :grace_period => 7,
+                        :payform_time_limit => 19,
                         :admin_round_option => 15,
                         :end_of_month => false,
                         :monthly => false,
@@ -19,7 +20,9 @@ class DepartmentObserver < ActiveRecord::Observer
                         :description_min => 4,
                         :reason_min => 4,
                         :mailer_address => "noreply@shifts.app",
-                        :early_signin => 60
+                        :early_signin => 60,
+                        :search_engine_name => "Google",
+                        :search_engine_url => "http://www.google.com/search?q="
                         })
 
     Category.create!(:name => "Shifts",        :department_id => department.id, :built_in => true)
