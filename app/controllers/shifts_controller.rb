@@ -56,7 +56,7 @@ class ShiftsController < ApplicationController
     @hours_per_day = (@dept_end_hour - @dept_start_hour)
     @time_increment = current_department.department_config.time_increment
     @blocks_per_hour = 60/@time_increment.to_f
-
+    @blocks_per_day = @blocks_per_hour * @hours_per_day
 
   end
 
@@ -226,6 +226,7 @@ class ShiftsController < ApplicationController
       end
     end
   end
+  
 
   # def rerender
   #   #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week

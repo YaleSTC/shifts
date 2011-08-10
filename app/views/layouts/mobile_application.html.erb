@@ -1,0 +1,52 @@
+<%= render :file => "layouts/include/main_header.html.erb" %>
+
+<%#overwrites application's css%>
+<%= stylesheet_link_tag 'mobile_application' %>
+<%#= javascript_include_tag 'navigationlist' %>
+
+    <%= yield(:left_nav) || '<div id="contentNoNav">' %>
+
+      <div id="flash">
+        <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+      </div>
+
+      <!-- Main Content -->
+
+      <%- if show_title? -%>
+        <h1 id="page_title"><%=h yield(:title) %></h1>
+        <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
+      <%- end -%>
+
+      <!-- Body Content -->
+
+      <%= yield(:body) || yield %>
+
+    </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
+
+    <div id="footer">
+        <p class="footer">
+          <%if @appconfig%>
+            <%= @appconfig.footer %>
+          <%end%>
+        </p>
+        <p class="footer">
+          For help with Shifts, please visit our repository on <a href="http://github.com/YaleSTC/shifts/tree/master">Github</a>.<br />
+          Please report bugs to our <a href="http://mahi.its.yale.edu/bugs">Bug Tracker</a>.<br />
+          <% if current_user && current_user.superuser? -%>
+            Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
+                {:su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
+
+                <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
+          <% end -%>
+        </p>
+      </div>
+
+  </div> <!-- End pagebox container generated in main_header -->
+
+  <div id="pageboxBottom"> <!-- do not remove -->
+    <script type='text/javascript' charset='utf-8'>
+      <%= yield(:javascript) %>
+    </script>
+  </div>
+  </body>
+</html>

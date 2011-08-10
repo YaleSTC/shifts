@@ -14,7 +14,7 @@
     <tbody>
     <% data_objects_table.second.each do |obj| %>
       <% entry = obj.data_entries.last.data_fields_with_contents unless obj.data_entries.empty? %>
-    <tr class=<%= "#{cycle("odd", "even")}" %>>        
+    <tr>        
 	<td><%= link_to obj.name, obj %></td>
         <td><%= obj.description %></td>
         <% data_objects_table.first.data_fields.each do |df| %>

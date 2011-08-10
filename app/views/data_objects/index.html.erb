@@ -30,8 +30,9 @@
   <br>
   <% if current_user.is_admin_of?(current_department) %>
     <%= link_to "New Data Object", new_data_object_path %>
+    <br>
+    <%= link_to "New Data Type", new_data_type_path %>
   <% end %>
 <% else %>
   You must set up a <%= link_to_if current_user.is_admin_of?(current_department), "data type", new_data_type_path %> before you can create any data objects.
 <% end %>
-

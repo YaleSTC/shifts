@@ -6,9 +6,10 @@
   <% end -%>
 
 	<% if current_user.is_admin_of?(current_department) && current_user.is_active?(current_department) || current_user.is_superuser? -%>
-    <li id=<%=  navbar_highlight(params[:controller]) == "departments" ? "highlight" : "not" %> ><%= link_to "Departments", departments_path %>
+    <li id=<%= navbar_highlight(params[:controller]) == "departments" ? "highlight" : "not" %> ><%= link_to "Departments", current_user.is_superuser? ? departments_path : edit_department_config_path(current_department.department_config) %>
 			<ul>
 				<% if current_user.is_superuser? -%>
+					<li><%= link_to "All Departments", departments_path %></li>
 					<li><%= link_to "Application Settings", edit_app_config_path %></li>				
 				<% end %>				
 				<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
@@ -62,7 +63,10 @@
 	<li id=<%=  navbar_highlight(params[:controller]) == "payforms" ? "highlight" : "not" %> >
 		<%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %>
 		<ul>
-	     <li><%= link_to "All Payforms", payforms_path %></li>
+		 <% unless current_user.is_admin_of?(current_department)%>
+		 <li><%= link_to "My Payform", go_payforms_path%></li>
+		 <% end %>
+		 <li><%= link_to "All Payforms", payforms_path %></li>
 			<% if current_user.is_admin_of?(current_department) -%>	
 				<li><%= link_to "Punch Clocks", punch_clocks_path %></li>
 		  	<li><%= link_to "Group Jobs", payform_item_sets_path %></li>

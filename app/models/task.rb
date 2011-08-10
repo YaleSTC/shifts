@@ -20,7 +20,7 @@ class Task < ActiveRecord::Base
   def done
     @last_completion = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.task_id == self.id}.last #use find method
     if @last_completion
-      if (self.kind == "Hourly") && completed_this_hour?(@last_completion)
+      if (self.kind == "Hourly") && completed_this_hour?(@last_completion) && completed_today?(@last_completion)
         return true
       elsif (self.kind == "Daily") && completed_today?(@last_completion)
         return true

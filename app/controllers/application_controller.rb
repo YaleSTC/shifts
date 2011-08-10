@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
+  before_filter :prepare_for_mobile
   #before_filter :load_user
 
 
@@ -22,7 +23,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
+  
   def load_app_config
     @appconfig = AppConfig.first
   end
@@ -169,13 +170,13 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-  # These three methods all return true/false, so they can be tested to 
+  # These three methods all return true/false, so they can be tested to
   # trigger return statements
 
   # TODO: Ultimately, we should abstract all this away into a permissions
   # module, and include that into the application. Ideally, after that we'd
   # refactor to to have these methods share the redirect code
-  
+
   # Takes a department, location, or loc_group
   def user_is_admin_of(thing)
     unless current_user.is_admin_of?(thing)
@@ -355,7 +356,7 @@ class ApplicationController < ActionController::Base
     end
     Time.utc(date_array[0], nil, nil, date_array[3], date_array[4])
   end
-  
+
 
   def join_date_and_time(form_output)
   #join date and time
@@ -371,6 +372,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
 
   def department_chooser
     if (params[:su_mode] && current_user.superuser?)
@@ -402,6 +404,18 @@ class ApplicationController < ActionController::Base
   def prepare_mail_url
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
-
+  
+  def mobile_device?
+    if session[:mobile_param]
+      session[:mobile_param] == "1"
+    else
+      request.user_agent =~ /Mobile|webOS/
+    end
+  end
+  helper_method :mobile_device?
+  
+  def prepare_for_mobile
+    session[:mobile_param] = params[:mobile] if params[:mobile]
+  end
 
 end
