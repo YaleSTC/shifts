@@ -20,6 +20,7 @@ class Location < ActiveRecord::Base
 
   validates_presence_of :loc_group
   validates_presence_of :name
+  validates_presence_of :description
   validates_presence_of :short_name
   validates_presence_of :min_staff
   validates_numericality_of :max_staff
