@@ -8,8 +8,8 @@
    
 
  	<% if !mobile_device? %>
-		<%= javascript_include_tag 'thickbox-compressed','navigationlist','thickbox' %>
-		<%= stylesheet_link_tag "superfish-vertical", 'application', 'report'%>
+		<%= javascript_include_tag 'thickbox-compressed','navigationlist' %>
+		<%= stylesheet_link_tag "superfish-vertical", 'application', 'report', 'thickbox'%>
 	<% else %>
 		<%= stylesheet_link_tag 'superfish-vertical_mobile', 'mobile_report' %>	
     <% end %>
