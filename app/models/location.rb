@@ -117,7 +117,7 @@ class Location < ActiveRecord::Base
   
   def is_staffed_in_list?(shift_list, time)
     time = time.in_time_zone
-    remaining_shifts = shift_list.select{|s| s.start <= time && s.end >= time && !s.missed?}
+    remaining_shifts = shift_list.select{|s| s.start <= time && (s.submitted? ? s.report.departed : s.end) >= time && !s.missed? && (s.start + s.department.department_config.grace_period.minutes <= Time.now ? s.signed_in? : true)}
     return remaining_shifts == [] ? false : true
   end
   
