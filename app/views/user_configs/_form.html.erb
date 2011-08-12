@@ -5,12 +5,12 @@
       <legend>Default Department Preferences</legend>
       <small>Control which department your account will be logged into when you sign in to the
       application.  You can then change it through the department chooser.  If you
-      leave this blank, then it will default to your first department.</small><br />
+      leave this blank, then it will default to your first department.</small><br /><br />
       <%= f.select :default_dept, @dept_select %>
     </fieldset>
   <% end %>
   <p>
-  <fieldset class = "index" id = "child_checkbox">
+  <fieldset class = "index" id = "checkboxes_1">
   <legend>Location Groups</legend>
     
     <small>Control which location groups to view on your shift
@@ -21,10 +21,10 @@
 
   <fieldset class = "index">
     <legend>Schedule View</legend>
-    <small>Control which portion of the shift schedule you would like to see.</small><br />
+    <small>Control which portion of the shift schedule you would like to see.</small><br /><br />
     <%= f.select :view_week, UserConfig::VIEW_WEEK_OPTIONS %>
   </fieldset>
-  <fieldset class = "index" id = "child_checkbox_2">
+  <fieldset class = "index" id = "checkboxes_2">
     <legend>Data</legend>
     <small>Control which data objects will show updates on your
     dashboard.</small><br /><br />
@@ -46,3 +46,4 @@
     <%= f.submit "Submit" %>
   </p>
 <% end %>
+<%= javascript_include_tag 'user_config' %>
