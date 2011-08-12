@@ -4,6 +4,7 @@
 	<thead>
 	  <tr>
 	    <th>Name</th>
+		<% unless mobile_device?%>
 	    <th>Kind</th>
 			<th>Location</th>
 	    <th>Start</th>
@@ -12,6 +13,7 @@
 	    <th>Weekday</th>
 	    <th>Active</th>
 	    <th colspan=2>Task Records</th>
+	    <% end %>
 	  </tr>
 	</thead>
 	<tbody>
