@@ -1,0 +1,21 @@
+<% title "Staffing at #{@location.name} from #{@view_days.first.strftime("%b %e, %Y ")} to #{@view_days.last.strftime("%b %e, %Y ")}" %>
+<% preprocess_loc_group(@location.loc_group) %>
+
+Upcoming Shifts: <br />
+
+<table class="tablesorter">
+	<thead>
+		<th>Name</th>
+		<th>Picture</th>
+	</thead>
+	<tbody>
+	<% @upcoming_shifts.each do |shift| %>
+		<tr>
+			<td><%= shift.user.name %></td>
+			<td><%= image_tag shift.user.user_profile.photo.url(:thumbnail) %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<%= render :partial => "location", :locals => {:location => @location} %>
