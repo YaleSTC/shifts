@@ -11,5 +11,7 @@ class PublicViewController < ApplicationController
     @view_days = (Date.today..Date.today+7)
   end
 
+  def for_location
+  end
 end
 
