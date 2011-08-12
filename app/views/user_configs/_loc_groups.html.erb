@@ -1,12 +1,12 @@
 <% @loc_groups_grouped_by_dept.each do |dept| %>
- <h3>
+ <div class="header_container"><h3>
   <% dept_name = dept[0] %>
   <% dept_loc_groups = dept[1] %>
   <% dept_val = nil %>
 	<% header_class = "header_#{normalize_str(dept_name)}" %>
   <%= check_box_tag "#{normalize_str(dept_name)}", nil, nil, :class => header_class -%>
   <%= label_tag "#{normalize_str(dept_name)}", "#{dept_name}", :class => header_class -%></h3>
-	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>" -%>		
+	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>" -%></div>
 	<%= "<ul class=\"#{header_class}\" id=\"ul\">" %>
   <% dept_loc_groups.each do |loc_grp| %>
   <div class="toggle"><li>
@@ -19,4 +19,3 @@
   <% end %>
 	</ul><br />
 <% end %>
-<%= javascript_include_tag 'user_config' %>
