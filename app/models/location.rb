@@ -115,12 +115,14 @@ class Location < ActiveRecord::Base
     people_count
   end
   
+  #necessary for the public cluster view
   def is_staffed_in_list?(shift_list, time)
     time = time.in_time_zone
     remaining_shifts = shift_list.select{|s| s.start <= time && (s.submitted? ? s.report.departed : s.end) >= time && !s.missed? && (s.start + s.department.department_config.grace_period.minutes <= Time.now ? s.signed_in? : true)}
     return remaining_shifts == [] ? false : true
   end
   
+  #necessary for tasks
   def shifts_between(start_time, end_time)
     shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql}"])
   end
