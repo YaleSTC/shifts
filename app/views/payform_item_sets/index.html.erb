@@ -4,9 +4,11 @@
  <thead>
   <tr>
     <th>Date Added</th>
+	<% unless mobile_device?%>
     <th>Hours Added</th>
     <th>Category</th>
     <th>Description</th>
+	<% end %>
   </tr>
  </thead>
   <tbody>
