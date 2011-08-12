@@ -4,6 +4,7 @@
  <thead>
   <tr>
     <th>Name</th>
+	<% unless mobile_device?%>
     <th colspan=2>Total hours</th>
     <th colspan=2>Continuous hours</th>
     <th colspan=2>Number of shifts</th>
@@ -22,6 +23,7 @@
     <th>Max</th>
 		<th></th>
 		<th></th>
+	<% end %>
   </tr>
 </thead>
 
@@ -29,6 +31,7 @@
 <tbody>
 <tr> 
     <td><%=h link_to template.name, template_path(template)%></td>
+	<% unless mobile_device?%>
     <td><%=h template.max_total_hours %></td>
     <td><%=h template.min_total_hours %></td>
     <td><%=h template.max_continuous_hours %></td>
@@ -44,6 +47,7 @@
     <td><%= link_to 'View', template %></td>
     <td><%= link_to 'Edit', edit_template_path(template) %></td>
     <td><%= link_to 'Delete', template, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% end %>
   </tr>
  </tbody>
 <% end %>

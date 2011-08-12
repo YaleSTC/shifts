@@ -26,16 +26,19 @@
  <thead>
   <tr>
     <th>Name</th>
+	<% unless mobile_device?%>
     <th>Start Date</th>
     <th>End Date</th>
     <th>Public</th>
     <th>Active</th>
+	<% end %>
   </tr>
  </thead>
   <% for calendar in @calendars %>
  <tbody>
   <%= (!calendar.active? and @calendar.nil?) ? "<tr class='disabled'>" : "<tr>" %>
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
+	  <% unless mobile_device?%>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.public %></td>
@@ -47,6 +50,7 @@
         <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
+	  <% end %>
     </tr>
   </tbody>
     <script>calendar_visible[<%=calendar.id%>] = <%= (@calendar ? calendar == @calendar : calendar.active?) %>;</script>

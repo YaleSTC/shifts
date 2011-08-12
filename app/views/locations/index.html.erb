@@ -5,18 +5,21 @@
     <thead>
       <tr>
         <th width="30%">Long Name</th>
+		<% unless mobile_device?%> <!-- makes table able to fit into mobile interface -->
         <th>Short Name</th>
         <th>Report Email</th>
         <th>Max Staff</th>
         <th>Priority</th>
         <th>Min Staff</th>
         <th>Shifts</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <%- group.locations.sort_by{ |loc| [- loc.priority, loc.name] }.each do |loc| -%>
         <tr <%=  loc.active ? "" : "class='disabled'" %> id="loc<%= loc.id %>">
           <td title='<%= loc.description %>'><%= link_to loc.name, edit_location_path(loc) %></td>
+		  <% unless mobile_device?%>
           <td><%= loc.short_name %></td>
           <td><%= loc.report_email ? loc.report_email : "-" %></td>
           <td><%= loc.max_staff %></td>
@@ -24,6 +27,7 @@
           <td><%= loc.min_staff %></td>
 		  <td><%= link_to "All Shifts", :action => :display_report_items, :id => loc %> </td>
           <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
+		  <% end %>
          </tr>
       <% end -%>
     </tbody>
