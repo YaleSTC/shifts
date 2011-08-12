@@ -12,6 +12,9 @@ class PublicViewController < ApplicationController
   end
 
   def for_location
+    @location = Location.find(params[:id])
+    @view_days = (Date.today..Date.today+7)
+    @upcoming_shifts = @location.shifts_between(Time.now, @view_days.last)
   end
 end
 
