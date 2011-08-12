@@ -54,6 +54,7 @@
 	text-align: left;
 	border-collapse: collapse;
 	border: none;
+	clear:	both;
 }
 #payformList th
 {
