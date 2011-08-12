@@ -3,7 +3,7 @@
 	
 	<% if !mobile_device?%>
 	<%= image_tag @user_profile.photo.url(:medium)%>
-	<% else %>
+	<% elsif @user_profile.photo? %>
 	<%= image_tag @user_profile.photo.url(:thumbnail)%>
 	<% end %>
 
