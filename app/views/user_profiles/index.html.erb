@@ -12,8 +12,10 @@
   <thead>
 		<tr>
 	    <th align="left">Users</th>
+	        <% unless mobile_device? %>
 			<% @user_profile_fields.each do |upf| %>
 				<th align="left"><%= upf.name %></th>
+			<% end %>
 			<% end %>
 		</tr>
   </thead>
