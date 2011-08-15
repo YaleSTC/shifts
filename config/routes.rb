@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :requested_shifts
   map.resources :templates
   
-  map.resources :public_view
+  map.resources :public_view, :collection => {:for_location => [:post, :get]}
   
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
