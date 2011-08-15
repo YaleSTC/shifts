@@ -3,7 +3,8 @@ class Task < ActiveRecord::Base
   has_many :shifts, :through => :shifts_tasks
   belongs_to :location
   
-  validates_presence_of :name, :kind
+  validates_uniqueness_of :name
+  validates_presence_of :name, :kind, :description
   validate :start_less_than_end
   
   named_scope :active, lambda {{:conditions => {:active => true}}}

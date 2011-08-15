@@ -21,15 +21,15 @@
       <th>Remove superuser?</th>
     </tr>
    </thead>
-    <% @superusers.each do |su| -%>
 	<tbody>
+    <% @superusers.each do |su| -%>
 	<tr> 
       <td><%= su.login %></td>
       <td><%= link_to su.name, user_path(su) %></td>
       <td><%= check_box_tag('remove_su_ids[]', su.id) %></td>
     </tr>
-    </tbody>
     <% end -%>
+	</tbody>
   </table> 
   <%= submit_tag "Remove selected" %>
 <% end %>
