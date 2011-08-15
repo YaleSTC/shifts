@@ -11,6 +11,12 @@ module ShiftsHelper
     @dept_end_hour ||= current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
 
+    if !shift.end
+      shift.end = Time.now
+    elsif shift.end <= shift.start + current_department.department_config.time_increment.minutes
+      shift.end = shift.start + current_department.department_config.time_increment.minutes
+    end
+
     left = (((after ? after : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
     width = ((shift.end - (after ? after : shift.start))/3600.0) / @hours_per_day * 100
     if left < 0
@@ -58,7 +64,11 @@ module ShiftsHelper
       shifts.each do |shift|
         time = shift.start
         time = time.hour*60+time.min
-        end_time = shift.end
+        if shift.end
+          end_time = shift.end
+        else
+          end_time = Time.now
+        end
         end_time = end_time.hour*60+end_time.min
         end_time += (24*60) if end_time <= time #for slots ending at/after midnight
         while (time < end_time)
@@ -113,11 +123,11 @@ module ShiftsHelper
     else # true for edit html&tooltip
       @default_start_date = @shift.start
     end
-    
+
     #set default range for time_select box. Not limited by time_slot since user not in ToolTip view
     #the date doesn't matter for range_start_time, only the time
       @range_start_time = Date.today.to_time + current_department.department_config.schedule_start.minutes
-      @range_end_time = Date.today.to_time  + current_department.department_config.schedule_end.minutes 
+      @range_end_time = Date.today.to_time  + current_department.department_config.schedule_end.minutes
 
     if params[:xPercentage] #Using ToolTip view
         @shift.start = @default_start_date
@@ -128,7 +138,7 @@ module ShiftsHelper
         @shift.start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
         #if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
         #if the schedule starts at 9:30, I'm not sure what happens ~Casey
-        @shift.end = @shift.start + 1.hour   
+        @shift.end = @shift.start + 1.hour
       #limit time_select range to valid time_slots (note: this only applys to ToolTip view)
         timeslot_start = TimeSlot.overlaps(@shift.start, @shift.end).ordered_by_start.first
         timeslot_end = TimeSlot.overlaps(@shift.start, @shift.end).ordered_by_start.last
@@ -136,7 +146,7 @@ module ShiftsHelper
           @range_start_time = timeslot_start.start
           @range_end_time = timeslot_end.end
         end
-    else   # Not using ToolTip View 
+    else   # Not using ToolTip View
       #start already exists when editing, this just sets it for the new html view
         @shift.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
         @shift.end ||= @shift.start + 1.hour
@@ -170,9 +180,9 @@ end
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
-    #adding the option to view unscheduled shifts   
+    #adding the option to view unscheduled shifts
     if current_department.department_config.unscheduled_shifts == true
-        shifts = Shift.active.in_locations(@visible_locations).on_day(day) #TODO: .active
+      shifts = Shift.active.in_locations(@visible_locations).on_day(day) #TODO: .active
     else
       shifts = Shift.active.in_locations(@visible_locations).on_day(day).scheduled
     end
@@ -197,8 +207,14 @@ end
     rejected = []
     location_row = 0
 
+#much of this logic goes toward having three rows in the TTO - 'rejected' just means rejected from the current line, being placed instead on a lower line. Nothing should be permanently 'rejected' in this process.
     until shifts.empty?
       shift = shifts.shift
+      if !shift.end
+        shift.end = Time.now
+      elsif shift.end <= shift.start + current_department.department_config.time_increment.minutes
+        shift.end = shift.start + current_department.department_config.time_increment.minutes
+      end
       @location_rows[shift.location][location_row] = [shift]
       (0...shifts.length).each do |i|
         if shift.location == shifts.first.location
@@ -333,4 +349,3 @@ end
   end
 
 end
-
