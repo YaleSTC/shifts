@@ -4,7 +4,7 @@ class UserProfile < ActiveRecord::Base
   has_many :user_profile_entries
    
   has_attached_file :photo, #generates profile picture 
-      :styles => { :medium => "250x250>", :small => "150x150>", :thumbnail => "100x100>"},
+      :styles => { :medium => "250x250>", :small => "150x150>", :thumbnail => "100x100#"},
       :default_url => "/assets/user_profiles/default.jpg",
       :url => "/assets/user_profiles/:id/:style/:normalized_photo_name.extension", 
       :path => ":rails_root/public/assets/user_profiles/:id/:style/:normalized_photo_name.extension"
