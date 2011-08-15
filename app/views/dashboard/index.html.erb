@@ -5,11 +5,11 @@
 
 
 <div id="left_stuff">
-  
-  
+
+
   <fieldset class="index" id="shifts">
     <legend>Your Shifts</legend>
-    <% if user_has_active_shift?%>  
+    <% if user_has_active_shift?%>
 	<h4>Current Shift </h4>
 	 <% end %>
       <%= render :partial => "shifts/user_options" %>
@@ -20,6 +20,7 @@
           <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
         </ul>
       <% end %>
+      <br />
   </fieldset>
 
   <fieldset class="index" id="subs">
@@ -47,6 +48,7 @@
       <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
       <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
     <% end %>
+    <br /><br />
   </fieldset>
 
  <% unless @watched_objects.empty? %>
@@ -57,17 +59,17 @@
     <% end %>
 
   </div>
- 
+
   <div id="right_stuff">
-    
+
     <fieldset class ="index" id="notices_for_you">
       <legend>Announcements</legend>
        <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
-		<br />	
+		<br />
 		<%= link_to_post_a_sticky() %>
 		<%= link_to_post_an_announcement %>
     </fieldset>
-    
+
     <fieldset class="index" id="shifts">
       <legend>Active Shifts</legend>
         <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
@@ -197,4 +199,3 @@
     return x;
   }
 </script>
-
