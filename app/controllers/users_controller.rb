@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if params[:show_inactive]
       @users = @department.users
     else
-      @users = current_department.active_users
+      @users = current_department.active_users.sort_by(&:reverse_name)
     end
 
     if params[:search]
