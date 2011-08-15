@@ -124,6 +124,8 @@ class Location < ActiveRecord::Base
   
   #necessary for tasks
   def shifts_between(start_time, end_time)
+    start_time = start_time.to_time
+    end_time = end_time.to_time
     shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql}"])
   end
   
