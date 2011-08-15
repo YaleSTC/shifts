@@ -124,7 +124,12 @@ module CalendarsHelper
       @location_rows[shift.location][location_row] = [shift]
       (0...shifts.length).each do |i|
         if shift.location == shifts.first.location
-          if shift.end > shifts.first.start
+          if shift.end
+            shift_end = shift.end
+          else
+            shift_end = Time.now
+          end
+          if shift_end > shifts.first.start
             rejected << shifts.shift
           else
             shift = shifts.shift
