@@ -686,12 +686,6 @@ img.loading_icon {
 	z-index: 110;
 }
 
-#user_box{
-	width: 100px;
-	margin-right: 10px;
-	float: left;
-}
-
 #timer{
   font-size: 20px;
 }

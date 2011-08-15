@@ -1,8 +1,5 @@
-<fieldset class="index" id="user_box">
+<div id="user_box">
 	<%= image_tag shift.user.user_profile.photo.url(:thumbnail) %><br />
-	<br />
 	<strong><%= shift.user.name %></strong><br />
-	<%= shift.start.strftime(time_format) %> to 
-	<%= shift.end.strftime(time_format) %><br />
-	<%= shift.signed_in? ? "Currently On Duty!" : "Not On Duty" %>
-</fieldset>
+	Until <%= shift.end.strftime(time_format) %>
+</div>
