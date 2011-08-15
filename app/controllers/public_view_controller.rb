@@ -16,7 +16,7 @@ class PublicViewController < ApplicationController
     @view_days = (Date.today..Date.today+7)
 
     @current_shifts = Shift.in_location(@location).signed_in(@location.department)
-    @upcoming_shifts = @location.shifts_between(Time.now, Time.now + 12.hours).sort_by{|shift| [shift.start]}.drop(@current_shifts.size).first(5)
+    @upcoming_shifts = @location.shifts_between(Time.now, Time.now + 12.hours).delete_if{|shift| shift.submitted?}.sort_by{|shift| [shift.start]}.drop(@current_shifts.size).first(5)
   end
 end
 
