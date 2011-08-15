@@ -14,7 +14,7 @@ class PublicViewController < ApplicationController
   def for_location
     @location = Location.find(params[:id])
     @view_days = (Date.today..Date.today+7)
-    @upcoming_shifts = @location.shifts_between(Time.now, Date.today+1).sort_by{|shift| [shift.start]}
+    @upcoming_shifts = @location.shifts_between(Time.now, Time.now + 24.hours).sort_by{|shift| [shift.start]}.first(7)
   end
 end
 
