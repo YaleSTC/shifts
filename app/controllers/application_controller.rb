@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 
 
   helper :layout # include all helpers, all the time (whyy? -Nathan)
+  helper :application
   helper_method :current_user
   helper_method :current_department
 

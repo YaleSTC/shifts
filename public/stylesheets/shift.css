@@ -101,3 +101,7 @@ div.restriction {
 div.signup_bar{
 	color: #999;
 }
+
+div.multiple_select li{
+  list-style-type: none;
+}
