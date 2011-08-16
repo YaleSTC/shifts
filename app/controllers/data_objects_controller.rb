@@ -89,9 +89,6 @@ class DataObjectsController < ApplicationController
     flash[:notice] = "Successfully destroyed data object."
     redirect_to data_type_path(@data_type)
   end
-  
-  def unified_obj_update
-  end
 
 private
 
