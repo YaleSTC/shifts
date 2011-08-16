@@ -18,7 +18,6 @@
    <fieldset id = "report_data_objects" class = "index">
      <legend>Data Objects</legend>
      <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
-		 <%= link_to "Update all objects for this location", "data_objects/unified_obj_update_path.html.erb" %>
    </fieldset>
 
    <fieldset id = "useful_links" class = "index" >	
