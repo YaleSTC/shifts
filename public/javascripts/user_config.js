@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
 	//Multiple select checkboxes code  
 
 	var	header = $('[class^="header"]').not("ul"),
-			header_no_label = $("fieldset#location_groups_prefs").children("div.header_container").children("h3").children('[class^="header"]').not("ul, label");
+			header_no_label = $("fieldset#location_groups_prefs").children("div.header_container").children().children('[class^="header"]').not("ul, label");
 
 	//loading initial states - the header checkbox will be checked iff all of its child checkboxes are checked.
 	header_no_label.each(function(){
@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 	    $(this).attr('checked', false);
 	  }
 	});
-	var header_no_label = $("fieldset#data_objects_prefs").children("div.header_container").children("h3").children('[class^="header"]').not("label");
+	var header_no_label = $("fieldset#data_objects_prefs").children("div.header_container").children().children('[class^="header"]').not("label");
 	header_no_label.each(function(){
 		var header_id = $(this).attr("id"),
 				child_checkboxes_dt = $('[class='+header_id+'][id^="dt"]'),
