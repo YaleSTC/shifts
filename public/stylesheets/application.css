@@ -172,12 +172,12 @@ label {
 div#login{
   float: right;
   width: 84.2%;
-  margin: 0 auto;
+  margin: 7px 5px;
   text-align: right;
   color: whitesmoke;
 }
 #login p {
-  margin: 9pt 10px 0pt 0pt;
+  margin: 5pt 5px 0pt 0pt;
   font-size: 12px;
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   line-height: 1.1em;
@@ -186,6 +186,7 @@ div#login{
 }
 #login p.login_status {
   color: #fff;
+	margin-left: 10px;
 }
 #login a.login_status {
   color: #660000;
