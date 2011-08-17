@@ -13,6 +13,9 @@
 <div id="right_stuff">	
 	<fieldset class="index" >
 		<legend>Upcoming Shifts</legend>
+		 <% if @upcoming_shifts.empty? %>
+			There are no upcoming shifts in this location for today. 
+			<% else %>
 			<table class="tablesorter">
 			<% @upcoming_shifts.each do |shift| %>
 				<tr>
@@ -21,6 +24,7 @@
 				</tr>
 			<% end %>
 			</table>
+		 <% end %>
 	</fieldset>
 </div>
 
