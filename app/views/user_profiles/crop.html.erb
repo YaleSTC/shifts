@@ -1,0 +1,19 @@
+<head>  
+  <title><%= h(yield(:title) || "Untitled") %></title>  
+  <%= stylesheet_link_tag 'jquery.Jcrop', 'jquery.Jcrop.min', 'jquery.min' %>  
+  <%= javascript_include_tag 'jquery.Jcrop' %>  
+  <%= yield(:head) %>  
+</head>
+<% title "Crop Avatar" %>  
+<% content_for (:head) do %>  
+<%= stylesheet_link_tag "jquery.Jcrop" %>  
+<%= javascript_include_tag "jquery.Jcrop.min" %>  
+
+<script type="text/javascript">  
+  $(function() {  
+    $('#cropbox').Jcrop();  
+  });  
+</script>  
+<% end %>  
+  
+<%= image_tag @user_profile.photo.url(:medium), :id => "cropbox" %>
