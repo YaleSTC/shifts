@@ -21,25 +21,12 @@
 
 	   <fieldset id = "report_data_objects" class = "index">
 	     <legend>Data Objects</legend>
-	       <% unless @report.data_objects.empty? %>
-	         <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
-	       <% else %>
-	         <em>There are no data objects in this location.</em>
-	       <% end %>
+	     <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
 	   </fieldset>
 
 	  <fieldset id = "useful_links" class = "index" >
 	    <legend>Useful Links</legend>
-	    <% unless @report.get_links.empty? %>
-	      <ul id = "useful_links">
-	      	<div id = "report_links">
-	        	<%= render :partial => 'links/report_links' %>
-	      	</div> <br />
-		      <li><%= link_to_post_a_link %></li>
-	      </ul>
-	    <% else %>
-	      <em>There are no links in this location.</em>
-	    <% end %>
+	   	<%= render :partial => 'links/report_links' %>
 	  </fieldset>
 
 	  <% unless mobile_device?%>
