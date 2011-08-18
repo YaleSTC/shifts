@@ -32,7 +32,7 @@
 #dashboard_report_view {
 	  float: right;
 	  width: 98.6%;
-	  min-width: 300px;
+	  min-width: 400px;
 	  margin-top: 5px;
 	  height: 300px;
 	  overflow-y: auto;
