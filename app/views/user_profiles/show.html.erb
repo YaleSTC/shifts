@@ -3,7 +3,8 @@
 <fieldset class = "index">
 	<div id = "left_stuff">
 	<% if !mobile_device?%>
-	<%= image_tag @user_profile.photo.url(:medium)%>
+
+		<%= image_tag @user_profile.photo.url(:medium)%>
 	<% elsif @user_profile.photo? %>
 	<%= image_tag @user_profile.photo.url(:thumbnail)%>
 	<% end %>
