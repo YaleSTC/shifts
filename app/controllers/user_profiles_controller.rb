@@ -23,7 +23,11 @@ before_filter :user_login
     @user_profile = UserProfile.new(params[:user_profile])
     if @user_profile.save
       flash[:noticcurrent_user.is_admin_of(@department)] = "Successfully created user profile."
-      redirect_to @user_profile
+      if params[:user_profile][:photo].blank?
+        redirect_to @user_profile
+      else
+        render :action => 'crop'
+      end
     else
       render :action => 'new'
     end
@@ -45,6 +49,7 @@ before_filter :user_login
   end
 
   def update
+    # raise params.to_yaml
     @user_profile = UserProfile.find(params[:id])
     @user_profile.update_attributes(params[:user_profile]) #necessary for profile pics to save 
 
@@ -80,7 +85,11 @@ before_filter :user_login
         flash[:error] = @failed.to_sentence + " all failed to save."
       end
     end
-    redirect_to user_profile_path(@user.login)
+    if !params[:user_profile][:photo].blank?
+      render :action => 'crop'
+    else
+      redirect_to user_profile_path(@user.login)
+    end
   end
 
   def destroy
