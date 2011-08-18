@@ -25,8 +25,16 @@
   float: right;
   width: 98.6%;
   margin-top: 5px;
-  height: 300px;
+  height: 200px;
   overflow-y: auto;
+}
+
+#dashboard_report_view {
+	  float: right;
+	  width: 98.6%;
+	  margin-top: 5px;
+	  height: 300px;
+	  overflow-y: auto;
 }
 
 #report_view  {
