@@ -10,10 +10,28 @@
 <%= javascript_include_tag "jquery.Jcrop.min" %>  
 
 <script type="text/javascript">  
-  $(function() {  
-    $('#cropbox').Jcrop();  
-  });  
+	$(function() {  
+	  $('#cropbox').Jcrop({  
+	    onChange: update_crop,  
+	    onSelect: update_crop,  
+	    setSelect: [0, 0, 500, 500],  
+	    aspectRatio: 1  
+	  });
+	});
+	function update_crop(coords) {  
+	  $('#crop_x').val(coords.x);  
+	  $('#crop_y').val(coords.y);  
+	  $('#crop_w').val(coords.w);  
+	  $('#crop_h').val(coords.h);    
+	}
 </script>  
 <% end %>  
   
 <%= image_tag @user_profile.photo.url(:medium), :id => "cropbox" %>
+
+<% form_for @user_profile do |form| %>  
+  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>  
+    <%= form.text_field attribute, :id => attribute %>  
+  <% end %>  
+  <p><%= form.submit "Crop" %></p>  
+<% end %>
