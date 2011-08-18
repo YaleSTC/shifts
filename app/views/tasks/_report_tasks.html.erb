@@ -1,4 +1,3 @@
-<legend>Shift Tasks</legend>
 <% unless @tasks.empty? %>
   <% task_kinds = @tasks.collect{|t| t.kind}.uniq %>
   <% task_kinds.each do |task_kind| %>
