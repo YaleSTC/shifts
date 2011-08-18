@@ -1,5 +1,5 @@
 if true
-		page.replace_html "shift_tasks", :partial => 'tasks/report_tasks'
+  page.replace_html "shift_tasks", :partial => 'tasks/report_tasks'
 else
   page.replace_html "errors", :partial => 'reports/report'
 end
