@@ -52,7 +52,7 @@
 
 
  <% if current_user == @report.user && !@report.departed %>
-       <%= render :partial => 'report', :locals => {:html_id => "shift_report_view"}%>
+       <%= render :partial => 'report', :locals => {:html_id => "report_view"}%>
  <% else %>
      <%= render :partial => 'report', :locals => {:html_id => "report_view"}%>
  <% end %>
