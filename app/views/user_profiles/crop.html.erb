@@ -27,7 +27,7 @@
 </script>  
 <% end %>  
   
-<%= image_tag @user_profile.photo.url(:medium), :id => "cropbox" %>
+<%= image_tag @user_profile.photo.url(:original), :id => "cropbox" %>
 
 <% form_for @user_profile do |form| %>  
   <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>  
