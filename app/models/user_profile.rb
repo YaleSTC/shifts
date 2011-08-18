@@ -2,6 +2,7 @@ class UserProfile < ActiveRecord::Base
 
   belongs_to :user
   has_many :user_profile_entries
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
    
   has_attached_file :photo, #generates profile picture 
       :styles => { :large => "500x500>", :medium => "250x250>", :small => "150x150>", :thumbnail => "100x100#", :pico => "22x22#"},
