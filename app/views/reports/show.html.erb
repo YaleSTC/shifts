@@ -21,7 +21,7 @@
        <% unless @report.data_objects.empty? %>
          <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
        <% else %>
-         <em>There are no data objects at this time.</em>
+         <em>There are no data objects at this location.</em>
        <% end %>
    </fieldset>
 
