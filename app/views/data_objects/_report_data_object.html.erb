@@ -1,6 +1,10 @@
+<% report_data_objects =  @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
+
 <% unless @report.data_objects.empty? %>
 <div style="width: 60%; float:left">
+	 <% for report_data_object in report_data_objects%>
       <%= link_to "Update #{report_data_object.name}", new_data_object_data_entry_path(report_data_object, :height => "400", :width => "600"), :title => "Record New Data Entry", :class => "thickbox", :onclick => "this.blur();" %><br />
+	<% end %>
 </div>
 <% else %>
      <em>There are no data objects in this location.</em>
