@@ -429,6 +429,17 @@ div#left_stuff {
  float:left;
  width: 47.5%;
 }
+
+/*for user profiles*/
+div#profile_left{ 
+	float:left;
+ 	width: 42%;
+}
+
+div#profile_right { 
+	float: right;
+	width: 58%;
+}
 legend {
   color: #eef;
   background: #0F2B5B;

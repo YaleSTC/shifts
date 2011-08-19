@@ -1,5 +1,7 @@
 <div id="login">
-<%= image_tag current_user.user_profile.photo(:pico) %>
+	<% unless !current_user.user_profile.photo.file?%>
+		<%= image_tag current_user.user_profile.photo(:pico) %>
+	<% end %>
   <p class="login_status">
    	<strong><%= current_user ? (current_user.name + " (" + current_user.login + ") ") : session[:cas_user] %></strong>
     <% if @user_session && @user_session.user %>
