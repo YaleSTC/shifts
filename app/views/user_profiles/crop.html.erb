@@ -24,14 +24,27 @@
 	  $('#crop_w').val(coords.w);  
 	  $('#crop_h').val(coords.h);    
 	}
+	
+	$(document).ready(function(){
+	 $(".cropFields").hide();
+	  $(".show_hide").show();
+	    $('.show_hide').click(function(){
+	    $(".cropFields").slideToggle();
+	    });
+	});
+	
 </script>  
 <% end %>  
   
 <%= image_tag @user_profile.photo.url(:original), :id => "cropbox" %>
 
-<% form_for @user_profile do |form| %>  
-  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>  
-    <%= form.text_field attribute, :id => attribute %>  
-  <% end %>  
-  <p><%= form.submit "Crop" %></p>  
-<% end %>
+<a href="#" class="show_hide">Show/hide crop dimensions</a>
+	<div class="cropFields">
+	<% form_for @user_profile do |form| %>  
+	  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>  
+	    <%= form.text_field attribute, :id => attribute %>  
+	  <% end %> 
+	</div>
+	  <p><%= form.submit "Crop" %></p>  
+	<% end %> 
+
