@@ -9,3 +9,4 @@ Rakefile
 *.sqlite3
 cleangit
 config/database.yml
+public/assets/user_profiles

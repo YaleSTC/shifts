@@ -1,7 +1,7 @@
 <% title "#{@user_profile.user.full_name_with_nick}'s Profile" %>
 
 <fieldset class = "index">
-	<div id = "left_stuff">
+	<div id = "profile_left">
 	<% if !mobile_device?%>
 
 		<%= image_tag @user_profile.photo.url(:medium)%>
@@ -10,7 +10,7 @@
 	<% end %>
     </div>  
 
-    <div id = "right_stuff">
+    <div id = "profile_right">
     <%= render :partial => 'user_profile_entries' %>
     </div>
 </fieldset>
