@@ -85,7 +85,7 @@ before_filter :user_login
         flash[:error] = @failed.to_sentence + " all failed to save."
       end
     end
-    if !params[:user_profile][:photo].blank?
+    if params[:user_profile] && params[:user_profile][:photo]
       render :action => 'crop'
     else
       redirect_to user_profile_path(@user.login)
