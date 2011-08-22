@@ -23,10 +23,10 @@ before_filter :user_login
     @user_profile = UserProfile.new(params[:user_profile])
     if @user_profile.save
       flash[:noticcurrent_user.is_admin_of(@department)] = "Successfully created user profile."
-      if params[:user_profile][:photo].blank?
-        redirect_to @user_profile
-      else
+      if params[:user_profile] && params[:user_profile][:photo]
         render :action => 'crop'
+      else
+        redirect_to @user_profile
       end
     else
       render :action => 'new'
@@ -49,11 +49,12 @@ before_filter :user_login
   end
 
   def update
-    # raise params.to_yaml
     @user_profile = UserProfile.find(params[:id])
     @user_profile.update_attributes(params[:user_profile]) #necessary for profile pics to save 
 
     @user = User.find(@user_profile.user_id)
+    
+    check_crop_attributes
     
     if params[:user_profile_entries]
       begin
@@ -85,6 +86,8 @@ before_filter :user_login
         flash[:error] = @failed.to_sentence + " all failed to save."
       end
     end
+    
+    #If user uploaded a new photo, crop it
     if params[:user_profile] && params[:user_profile][:photo]
       render :action => 'crop'
     else
@@ -123,5 +126,13 @@ before_filter :user_login
   def user_login
     @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
   end
+  
+  def check_crop_attributes
+    if params[:user_profile] && (params[:user_profile][:crop_w] == 0 or params[:user_profile][:crop_h] == 0)
+      flash[:error] = "Cropping failed, please try again."
+      render :action => 'crop' and return
+    end
+  end
+  
 end
 
