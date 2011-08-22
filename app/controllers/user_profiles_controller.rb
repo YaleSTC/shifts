@@ -54,8 +54,11 @@ before_filter :user_login
 
     @user = User.find(@user_profile.user_id)
     
-    check_crop_attributes
-    
+    if crop_errors
+      flash[:error] = "Cropping failed, please try again."
+      render :action => 'crop' and return
+    end
+      
     if params[:user_profile_entries]
       begin
         UserProfile.transaction do
@@ -127,11 +130,8 @@ before_filter :user_login
     @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
   end
   
-  def check_crop_attributes
-    if params[:user_profile] && (params[:user_profile][:crop_w] == 0 or params[:user_profile][:crop_h] == 0)
-      flash[:error] = "Cropping failed, please try again."
-      render :action => 'crop' and return
-    end
+  def crop_errors
+    return params[:user_profile] && (params[:user_profile][:crop_w] == "0" or params[:user_profile][:crop_h] == "0")
   end
   
 end
