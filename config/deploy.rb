@@ -82,6 +82,7 @@ EOF
       run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"      
       run "ln -nsfF #{shared_path}/sessions/ #{current_path}/tmp/sessions"
       run "ln -nsfF #{shared_path}/system/ #{current_path}/public/system"
+      run "rm -rf #{current_path}/public/assets/user_profiles/"
       run "ln -nsfF #{shared_path}/assets/user_profiles #{current_path}/public/assets/"
       run "mv #{current_path}/public/assets/default.jpg #{shared_path}/assets/user_profiles"
     end    
