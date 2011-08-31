@@ -1,89 +1,80 @@
 <% title "Shift Report: #{@report.shift.location.name}"%>
+
 <% if current_user == @report.user && !@report.departed %>
-<div id = "left_stuff">
-  <fieldset class = "index" id = "report_message_center">
-    <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
-    <div id = "message_center">
-     <%= render :partial => 'notices/notice', :collection => @report.get_notices, :locals => {:html_class => "report_notice"} %> </div>
-    <div id="new_notice">
-      <%= link_to_post_a_sticky() %>
-			<%= link_to_post_an_announcement %>
-    </div>
-  </fieldset>
-  <% unless mobile_device?%>
-  <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 60 -%>
-  <% end %>
-</div>
-<div id = "right_stuff">
+	<div id = "left_stuff">
+		
+	  <fieldset class = "index" id = "report_message_center">
+	    <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
+	    <div id = "message_center">
+	    	<%= render :partial => 'notices/notice', :collection => @report.get_notices, :locals => {:html_class => "report_notice"} %> </div>
+	    <div id="new_notice">
+	    <%= link_to_post_a_sticky() %> <%= link_to_post_an_announcement %>
+	    </div>
+	  </fieldset>
+	
+	  <% unless mobile_device?%>
+	  	<%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 60 -%>
+	  <% end %>
+	</div>
+	
+	<div id = "right_stuff">
 
-   <fieldset id = "report_data_objects" class = "index">
-     <legend>Data Objects</legend>
-       <% unless @report.data_objects.empty? %>
-         <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
-       <% else %>
-         <em>There are no data objects at this location.</em>
-       <% end %>
-   </fieldset>
+	   <fieldset id = "report_data_objects" class = "index">
+	     <legend>Data Objects</legend>
+	     <%= render :partial => 'data_objects/report_data_object' %>
+	   </fieldset>
 
-  <fieldset id = "useful_links" class = "index" >
-    <legend>Useful Links</legend>
-    <% unless @report.get_links.empty? %>
-      <ul id = "useful_links">
-      	<div id = "report_links">
-        	<%= render :partial => 'links/report_links' %>
-      	</div> <br />
-	      <li><%= link_to_post_a_link %></li>
-      </ul>
-    <% else %>
-      <em>There are no links at this time.</em>
-    <% end %>
-  </fieldset>
+	  <fieldset id = "useful_links" class = "index" >
+	    <legend>Useful Links</legend>
+	   	<%= render :partial => 'links/report_links' %>
+	  </fieldset>
 
-  <% unless mobile_device?%>
-    <%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 60 -%>
-  <% end %>
+	  <% unless mobile_device?%>
+	    <%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 60 -%>
+	  <% end %>
 
-  <fieldset id = "shift_tasks" class= "index">
-    <%= render :partial => 'tasks/report_tasks' %>
-  </fieldset>
+	  <fieldset id = "shift_tasks" class= "index">
+		<legend>Shift Tasks</legend>
+		<div id = "tasks">
+	    <%= render :partial => 'tasks/report_tasks' %>
+		</div>
+	  </fieldset>
 
-	<fieldset id="searchbox" class = "index">
-		<%= render :partial => 'reports/search'%>
-	</fieldset>
-</div>
+	  <fieldset id="searchbox" class = "index">
+	    <legend><%= "Search " + "#{@search_engine_name}"%></legend>
+	    <%= render :partial => 'reports/search'%>
+	  </fieldset>
+	</div>
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
         <%= render :partial => 'new_report_item_form' %>
-      <div id="report_relative_size">
-<% unless mobile_device? %>
-<%= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
-<% end %>
+  <div id="report_relative_size">
+		<% unless mobile_device? %>
+			<%= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
+		<% end %>
+		
 <% end %>
 
 
  <% if current_user == @report.user && !@report.departed %>
-       <%= render :partial => 'report', :locals => {:html_id => "report_view"}%>
+       <%= render :partial => 'report', :locals => {:html_id => "dashboard_report_view"}%>
  <% else %>
      <%= render :partial => 'report', :locals => {:html_id => "report_view"}%>
  <% end %>
 
-        <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.loc_group)) %>
-          <%= button_to "Submit #{@report.shift.user.name}'s shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
-          <!--this button is also in views/shifts/tooltips/_show.html.erb%> -->
+ <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.loc_group)) %>
+ 	<%= button_to "Submit #{@report.shift.user.name}'s shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
+ <% end %>
 
-        <% end %>
+ <% if current_user == @report.user && !@report.departed %>
 
-<% if current_user == @report.user && !@report.departed %>
+</div> <!-- close report_relative_size -->
 
-      </div> <!-- close report_relative_size -->
+ <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
 
-      <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
-
-      <div class='clear'></div>
-    </div> <!--close active_report_area -->
-
-  <%#= javascript_include_tag 'leave_confirm'%>
+<div class='clear'></div>
+</div> <!--close active_report_area -->
 
 
 <% end %>
