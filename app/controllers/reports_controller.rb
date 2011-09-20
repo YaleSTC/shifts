@@ -47,7 +47,7 @@ class ReportsController < ApplicationController
      respond_to do |format|
        format.js
      end
-   end
+  end
   
   # TODO: refactor into a model method on Report
   #Submitting a shift
