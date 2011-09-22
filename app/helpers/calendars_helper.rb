@@ -58,7 +58,7 @@ module CalendarsHelper
 
     #different calendars are different colors
     unless defined? @color
-      @color_array ||= ["9f9", "9ff", "ff9", "f9f", "f99", "99f", "399","933","393","c60","60c","0c6","6c0","c06","06c"]
+      @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f"]
       @color ||= {}
       @calendar ||= (params[:calendar] == "true" ? nil : Calendar.find(params[:calendar]) )
       @calendars ||= (params[:calendar] == "true" ? @department.calendars : [Calendar.find(params[:calendar])] )
