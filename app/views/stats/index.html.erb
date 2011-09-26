@@ -26,6 +26,7 @@
 	      <th align="left">Left Early</th>
 	      <th align="left">Missed</th>
 		  <th align="left">Scheduled Hours</th>
+		  <th align="left">io Scheduled Hours</th>
 		  <th align="left">Updates/Hour</th>
 		  <% end %>
 	    </tr>
@@ -43,6 +44,7 @@
 	        <td><%=h stat[:num_left_early] %></td>
 		    <td><%=h stat[:num_missed] %></td>
 	        <td><%=h sprintf("%.1f", stat[:hours_scheduled]) %></td>
+	        <td><%=h sprintf("%.1f", stat[:io_hours_scheduled]) %></td>
 			<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
 			<% end %>
 	 			</tr>
