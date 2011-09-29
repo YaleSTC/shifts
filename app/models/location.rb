@@ -123,10 +123,11 @@ class Location < ActiveRecord::Base
   end
   
   #necessary for tasks
+  #this really should be on the shift model I think
   def shifts_between(start_time, end_time)
     start_time = start_time.to_time
     end_time = end_time.to_time
-    shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql}"])
+    shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql} AND active=1"])
   end
   
   def summary_stats(start_date, end_date)
