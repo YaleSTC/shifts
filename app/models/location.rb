@@ -118,7 +118,7 @@ class Location < ActiveRecord::Base
   #necessary for the public cluster view
   def is_staffed_in_list?(shift_list, time)
     time = time.in_time_zone
-    remaining_shifts = shift_list.select{|s| s.start <= time && (s.submitted? ? s.report.departed : s.end) >= time && !s.missed? && (s.start + s.department.department_config.grace_period.minutes <= Time.now ? s.signed_in? : true)}
+    remaining_shifts = shift_list.select{|s| s.start <= time && (s.submitted? ? s.report.departed : s.end) >= time && !s.missed? && (s.start + s.department.department_config.grace_period.minutes <= Time.now ? (s.signed_in? || s.submitted?) : true)}
     return remaining_shifts == [] ? false : true
   end
   
