@@ -16,7 +16,7 @@ class Calendar < ActiveRecord::Base
   def self.active_in(department, start_date = Time.now, end_date = Time.now)
     active = Calendar.find(:all, :conditions => ["department_id = ? and start_date <= ? and end_date >= ? and active is true", department.id, start_date.utc, end_date.utc])
     default = Calendar.find(:first, :conditions => ["department_id = ? and `default` is true", department.id])
-    [active, default].flatten
+    [default, active].flatten
   end
   
   def self.destroy_self_and_future(calendar)
