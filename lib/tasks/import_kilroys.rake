@@ -1,40 +1,29 @@
 namespace :shifts do
   task (:import_kilroys => :environment) do
-    kilroys = "Ben Silver,6,BR
-Dan Liu,6,CC
-Sijia Song,6,DC
-Anthony Hsu,6,ES
-Sean Haufler,6,JE
-Sherwin Yu,6,MC
-Mu Li,6,PC
-Kartik Ventrakaman,6,SY
-Wonyong Chung,6,SM
-Brian Mwiti,6,TD
-Matt Griffith,6,TC
-Hobart Lim,7,BK
-Ayesha Muhammad,7,BR
-Dan Liu,7,CC
-Nnamdi Irregbulem,7,DC
-Maria Altyeva,7,ES
-Victor Zhao,7,MC
-Mu Li,7,PC
-Harry Yu,7,SY
-Ray Xiong,7,SM
-Ellen Su,7,TD
-Victor Kang,7,TC
-Sharon Ji,1,BR
-Michael Giuffrida,1,CC
-Lucas Pratt,1,DC
-Maria Altyeva,1,ES
-Tiffany Pang,1,JE
-Pat Toth,1,MC
-Tasia Smith,1,PC
-Rick Caraballo,1,SY
-James Luo,1,SY
-Machiste Quintana,1,SM
-Usman Anwer,1,TD
-Andrew Kim,1,TC
-Tony Wu,1,TC"
+    kilroys = "Casey Watts,2,BK
+Josh Rozner,2,BR
+Alex Fayette,2,CC
+Chris Zheng,2,DC
+Yuan Kang,2,ES
+Wei Yan,2,JE
+Ali Zia,2,MC
+Tasia Smith,2,PC
+Shinori Ramanathan,2,SY
+Jonah Quinn,2,SM
+Eddie Chen,2,TD
+Jan Kolmas,2,TC
+Jared Bard,3,BK
+Brian Odhiambo,3,BR
+Caroline Jaffe,3,CC
+Sikander Khan,3,DC
+Mike Jin,3,ES
+Pat Toth,3,JE
+Peter Xu,3,MC
+Rachel Kurchin,3,PC
+Zach Maher,3,SY
+Jared Shenson,3,SM
+Ellen Su,3,TD
+Andrew Kim,3,TC"
 
     message = ""
 
