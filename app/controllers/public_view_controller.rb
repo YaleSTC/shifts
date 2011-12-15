@@ -7,11 +7,16 @@ class PublicViewController < ApplicationController
   
   def index
     #@date = params[:date].to_date
+    @skip_layout = params[:plain]
+    
     @loc_groups = LocGroup.find(:all, :conditions => ["#{:public} = ?", true])
     @view_days = (Date.today..Date.today+7)
+    
   end
 
   def for_location
+    @skip_layout = params[:plain]
+    
     @location = Location.find(params[:id])
     @view_days = (Date.today..Date.today+7)
 
