@@ -1,6 +1,7 @@
 <% title "User Profile Fields" %>
 
 <table class="tablesorter">
+ <thead>
   <tr>
     <th>Name</th>
     <th>Display Type</th>
@@ -9,8 +10,10 @@
     <th>Public</th>
     <th>User Editable</th>
   </tr>
+ </thead>
+ <tbody>
   <% for user_profile_field in @user_profile_fields %>
-    <tr <%= "class= #{cycle("odd", "even")}"%>>
+    <tr>
 	  <td><%=h link_to user_profile_field.name, user_profile_field %></td>
       <td><%=h UserProfileField::DISPLAY_TYPE_VIEW[user_profile_field.display_type] %></td>
       <td><%=h user_profile_field.values %></td>
@@ -21,6 +24,7 @@
       <td><%= link_to "Destroy", user_profile_field, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
+ </tbody>
 </table>
 
 <p><%= link_to "New User Profile Field", new_user_profile_field_path %></p>

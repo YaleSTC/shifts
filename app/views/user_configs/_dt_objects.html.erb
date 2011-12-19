@@ -1,0 +1,21 @@
+<% @data_objects_grouped_by_type.each do |dt| %>
+ <div class="header_container"><h3>
+  <% dt_name = dt[0] %>
+  <% dt_data_objects = dt[1] %>
+  <% dt_val = nil %>
+	<% header_class = "header_#{normalize_str(dt_name)}" %>
+  <%= check_box_tag "#{normalize_str(dt_name)}", nil, nil, :class => header_class -%>
+  <%= label_tag "#{normalize_str(dt_name)}", "#{dt_name}", :class => header_class -%></h3>
+	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>" -%></div>
+	<%= "<ul class=\"#{header_class}\" id=\"ul\">" %>
+  <% dt_data_objects.each do |dt_obj| %>
+  	<div class="toggle"><li>
+		<% dt_obj_name = dt_obj[0] %>
+    <% dt_obj_id = dt_obj[1] %>
+    <% dt_obj_val = dt_obj[2] %>
+    <%= check_box_tag "dt[#{dt_obj_id}]", dt_obj_val, dt_obj_val, :class => normalize_str(dt_name) %>
+    <%= label_tag "dt[#{dt_obj_id}]", "#{dt_obj_name}", :class => normalize_str(dt_name) %>
+		</li></div>
+  <% end %>
+	</ul><br />
+<% end %>

@@ -1,12 +1,5 @@
 if true
-	# if current_user.current_shift
-		page.replace_html "shift_tasks", :partial => 'tasks/report_tasks'
-  # end
-  # page.replace_html "all_notices", :partial => 'notices/all_notices'
-  #   page << "tb_remove();"
-  #   page << "tb_init('a#edit');"
-   #page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
-  # flash.discard
+  page.replace_html "tasks", :partial => 'tasks/report_tasks'
 else
   page.replace_html "errors", :partial => 'reports/report'
 end

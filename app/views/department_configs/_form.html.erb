@@ -52,15 +52,15 @@
     <legend>Edit Payform Configuration</legend>
     <p>
       <%= f.label :schedule_start, text = "Default Printed Payform Message:" %><br />
-      <%= f.text_area :printed_message, :size => "50x5" %>
+      <%= f.text_area :printed_message, :size => "30x5" %>
     </p>
     <p>
       <%= f.label :schedule_start, text = "Default Payform Reminder:" %><br />
-      <%= f.text_area :reminder_message, :size => "50x5" %>
+      <%= f.text_area :reminder_message, :size => "30x5" %>
     </p>
     <p>
       <%= f.label :schedule_start, text = "Default Late Payform Warning:" %><br />
-      <%= f.text_area :warning_message, :size => "50x5" %>
+      <%= f.text_area :warning_message, :size => "30x5" %>
     </p>
     <p>
       <%= f.text_field :mailer_address %>
@@ -95,7 +95,18 @@
     <legend>Edit Email Statistics Configuration</legend>
 	<p>
 		<%= f.label :stats_mailer_address, text = "Emails of users to receive shift statistics (separated by commas):"%> <br />
-		<%= f.text_area :stats_mailer_address, :size => "50x5"%>
+		<%= f.text_area :stats_mailer_address, :size => "30x5"%>
+	</p>
+</fieldset>
+<fieldset class = "index">
+		<legend>Edit Custom Search Engine</legend>
+	<p>
+		<%= f.label :search_engine_name, text = "Search engine name:"%>
+		<%= f.text_field :search_engine_name %>
+	</p>
+	<p>
+		<%= f.label :search_engine_url, text = "Search URL prefix:"%>
+		<%= f.text_field :search_engine_url %>
 	</p>
 </fieldset>
 <fieldset class = "index">
@@ -106,6 +117,6 @@
 	</p>
 </fieldset>
 <%= submit_tag "Save Settings" %>
-<% end %>
+<% end %><br />
 </div>
 

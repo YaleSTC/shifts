@@ -1,0 +1,32 @@
+<% title "Staffing at #{@location.name} from #{@view_days.first.strftime("%b %e, %Y ")} to #{@view_days.last.strftime("%b %e, %Y ")}" %>
+<% preprocess_loc_group(@location.loc_group) %>
+
+<div id="left_stuff">
+	<fieldset class="index">
+		<legend>On Duty Now</legend>
+		<% @current_shifts.each do |shift| %>
+			<%= render :partial => "shift_user", :locals => { :shift => shift } %>
+		<% end %>
+	</fieldset>
+</div>	
+
+<div id="right_stuff">	
+	<fieldset class="index" >
+		<legend>Upcoming Shifts</legend>
+		 <% if @upcoming_shifts.empty? %>
+			There are no upcoming shifts in this location for today. 
+			<% else %>
+			<table class="tablesorter">
+			<% @upcoming_shifts.each do |shift| %>
+				<tr>
+					<td width="50%"><%= shift.user.name %></td>
+					<td width="50%">From <%= shift.start.strftime(time_format) %> to <%= shift.end.strftime(time_format) %></td>
+				</tr>
+			<% end %>
+			</table>
+		 <% end %>
+	</fieldset>
+</div>
+
+<%= render :partial => "location", :locals => {:location => @location} %>
+Dark regions indicate staffing

@@ -1,4 +1,4 @@
-<tr <%=  category.active ? "class=#{cycle("odd", "even")}" : "class='disabled'" %>>
+<%= category.active ? "<tr>" : "<tr class='disabled'>" %>
 	<td><%= category.name %></td>
 	<td><%= category.payform_items.count.to_s%></td>
 	<td><%= link_to 'Edit', edit_category_path(category)%></td>
@@ -9,5 +9,3 @@
 	<td><%= link_to 'Enable', {:action => :enable, :id => category}, {:method => :put}%></td>
 	<% end %>
 </tr>
-
-

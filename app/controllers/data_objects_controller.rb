@@ -19,6 +19,8 @@ class DataObjectsController < ApplicationController
       @selected_type = @group_type_options.select{|a|a.include? params[:group_type]}.flatten
     end
     @types_objects_hash = @data_objects.group_by &:data_type
+    #this is for users who are not admins
+    @personal_types_objects_hash = DataObject.find(current_user.user_config.watched_data_objects.split(', ')).group_by(&:data_type)
     respond_to do |format|
       format.html #{ update_page{|page| page.hide 'submit'}}
       format.js
@@ -30,10 +32,12 @@ class DataObjectsController < ApplicationController
     require_department_membership(@data_object.department)
     @data_fields = @data_object.data_type.data_fields
     offset = params[:offset] || 0
+    @start_date = 1.week.ago
+    @end_date = Date.today
     if params[:start] && params[:end]
-      startdate = Date.civil(params[:start][:year].to_i, params[:start][:month].to_i, params[:start][:day].to_i)
-      enddate = Date.civil(params[:end][:year].to_i, params[:end][:month].to_i, params[:end][:day].to_i)
-      @data_entries = DataEntry.for_data_object(@data_object).between_days(startdate, enddate)
+      @start_date = Date.civil(params[:start][:year].to_i, params[:start][:month].to_i, params[:start][:day].to_i)
+      @end_date = Date.civil(params[:end][:year].to_i, params[:end][:month].to_i, params[:end][:day].to_i)
+      @data_entries = DataEntry.for_data_object(@data_object).between_days(@start_date, @end_date)
     else
       @data_entries = DataEntry.find(:all, :conditions => {:data_object_id => @data_object.id},
                                            :limit => 50, :offset => offset,

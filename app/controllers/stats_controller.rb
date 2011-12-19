@@ -24,13 +24,19 @@ class StatsController < ApplicationController
     
     users.each do |u|
       user_stats = {}
-      shifts = u.shifts.on_days(@start_date, @end_date).active
+      if params[:calendar]
+        shifts = u.shifts.on_days(@start_date, @end_date).in_calendars(params[:calendar].split(","))
+      else
+        shifts = u.shifts.on_days(@start_date, @end_date).active
+      end
       user_stats[:u] = u
       user_stats[:name] = u.name
       user_stats[:num_shifts] = shifts.size
       user_stats[:num_late] = shifts.select{|s| s.late == true}.size
       user_stats[:num_missed] = shifts.select{|s| s.missed == true}.size
       user_stats[:num_left_early] = shifts.select{|s| s.left_early == true}.size
+      user_stats[:hours_scheduled] = shifts.select{|s| s.location_id != 3}.collect(&:duration).sum
+      user_stats[:io_hours_scheduled] = shifts.select{|s| s.location_id == 3}.collect(&:duration).sum
       valid_report_stats = shifts.select{|s| s.parsed == true}.collect(&:updates_hour).delete_if{|r| r == nil}
       if valid_report_stats.size == 0
         user_stats[:updates] = nil

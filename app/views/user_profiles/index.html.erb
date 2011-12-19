@@ -1,19 +1,24 @@
 <% title "User Profiles" %>
 
 <p><%= link_to "Edit Your Profile", edit_user_profile_path(current_user.login) %></p>
-<div id="searchbox" style="margin-bottom: 1em">
-  <% form_tag(user_profiles_path, :method => :get) do %>
-    Search for a user by name or login: <%= text_field_tag :search %>
-    <%= submit_tag "Submit", :id => "search_submit" %>
-  <% end %>
-</div>
+
+
+<!-- tablesorting and search conflict -->
+<!-- <div id="searchbox" style="margin-bottom: 1em"> -->
+  <%# form_tag(user_profiles_path, :method => :get) do %>
+<!--    Search for a user by name or login:--> <%#= text_field_tag :search %>
+    <%#= submit_tag "Submit", :id => "search_submit" %>
+  <%# end %>
+<!-- </div> -->
 
 <table id="user_profiles_table" class="tablesorter">
   <thead>
 		<tr>
 	    <th align="left">Users</th>
+	        <% unless mobile_device? %>
 			<% @user_profile_fields.each do |upf| %>
 				<th align="left"><%= upf.name %></th>
+			<% end %>
 			<% end %>
 		</tr>
   </thead>
@@ -27,5 +32,4 @@
 </script>
 <%= observe_field :search, :frequency => 0.2, :url => search_user_profiles_path, :with => :search %>
 
-<!-- tablesorting does not work yet; it interferes with the search function -->
-<!-- <script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#user_profiles_table").tablesorter({sortList: [[0,0]]});});</script> -->
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#user_profiles_table").tablesorter({sortList: [[0,0]]});});</script>

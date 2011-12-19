@@ -1,17 +1,21 @@
 <% title "Roles" %>
 <p><%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New Role", new_department_role_path(@department), :class => "action_with_icon"%></p>
 <table class = "tablesorter">
+ <thead>
   <tr>
     <th>Role Name</th>
   </tr>
-  <% for role in @roles %>
-    <tr <%= "class= #{cycle("odd", "even")}"%>>
+ </thead>
+ <tbody>
+	<% for role in @roles %>
+	<tr>
       <td><%= link_to role.name, role_path(role) %></td>
       <td><%= link_to "Show all users", users_role_path(role)%></td>
       <td><%= link_to "Edit", edit_role_path(role)%></td>
       <td><%= link_to "Delete", role, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
-  <% end %>
+	<% end %>
+ </tbody>
 </table>
 
 

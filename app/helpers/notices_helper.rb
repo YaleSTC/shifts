@@ -24,9 +24,9 @@ module NoticesHelper
 
   def end_time_check(indefinite)
     if indefinite
-      return true unless @announcement.end
+      return true unless @announcement.created_at
     else
-      return true if @announcement.end
+      return true if @announcement.created_at
     end
   end
 

@@ -18,6 +18,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-size: 100%;
 	vertical-align: bottom;
 	background: transparent;
+	word-wrap: break-word;
 }
 body {
 	line-height: 1;

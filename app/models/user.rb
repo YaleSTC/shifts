@@ -191,7 +191,7 @@ class User < ActiveRecord::Base
 
   def self.search(search_string)
     User.all.each do |u|
-      return u if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+      return u if u.name == search_string || u.proper_name == search_string || u.full_name_with_nick == search_string || u.login == search_string
     end
     nil
   end

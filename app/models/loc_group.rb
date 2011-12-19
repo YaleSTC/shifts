@@ -13,9 +13,12 @@ class LocGroup < ActiveRecord::Base
               :foreign_key => "admin_perm_id",
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
+  named_scope :active, :conditions => {:active => true}
 
   before_validation(:on => :create) {:create_permissions}
   before_validation(:on => :update) {:update_permissions}
+#  before_validation_on_create :create_permissions
+#  before_validation_on_update :update_permissions
 
   validates_presence_of :department
 
@@ -36,6 +39,22 @@ class LocGroup < ActiveRecord::Base
       department.roles.select { |u| u.permissions.include?(signup_permission) }
   end
   
+  def deactivate
+    self.active = false
+    self.save!
+    self.locations.each do |location|
+     location.deactivate 
+    end
+  end
+  
+  def activate
+    self.active = true
+    self.save!
+    self.locations.each do |location|
+      location.activate
+    end
+  end
+
   private
 
   def create_permissions

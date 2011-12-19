@@ -13,6 +13,12 @@ class Calendar < ActiveRecord::Base
   scope :active, lambda {{ :conditions => {:active => true}}}
   scope :public, lambda {{ :conditions => {:public => true}}}
 
+  def self.active_in(department, start_date = Time.now, end_date = Time.now)
+    active = Calendar.find(:all, :conditions => ["department_id = ? and start_date <= ? and end_date >= ? and active is true", department.id, start_date.utc, end_date.utc])
+    default = Calendar.find(:first, :conditions => ["department_id = ? and `default` is true", department.id])
+    [default, active].flatten
+  end
+  
   def self.destroy_self_and_future(calendar)
     default_id = calendar.department.calendars.default.id
     TimeSlot.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
@@ -47,7 +53,7 @@ class Calendar < ActiveRecord::Base
       new_shift.calendar = new_calendar
       new_shift.active = new_calendar.active
       new_shift.power_signed_up = true
-      new_shift.save!
+      new_shift.save(false)
     end
     errors
   end
