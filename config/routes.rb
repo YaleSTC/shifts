@@ -119,6 +119,16 @@ Shifts::Application.routes.draw do |map|
 
     map.resources :sub_requests
     map.resources :notices, :collection => {:archive => :get}
+    
+    map.resources :stats,
+                :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
+
+    map.resources :payforms,
+                :collection => {:index => [:post, :get], :prune => :delete, :go => :get, :search => [:post, :get]},
+                :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
+                :shallow => true do |payform|
+                    payform.resources :payform_items, :member => {:delete => :get}
+                end
 
     map.resources :payform_item_sets
     map.resources :payform_sets
@@ -144,6 +154,7 @@ Shifts::Application.routes.draw do |map|
                                       :as => "subs"
     end
 
+
     map.resources :requested_shifts
     map.resources :templates
 
@@ -153,6 +164,18 @@ Shifts::Application.routes.draw do |map|
     map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
       report.resources :report_items
     end
+
+  map.resources :requested_shifts
+  map.resources :templates
+  
+  map.resources :public_view, :member => {:for_location => [:post, :get]}
+  
+  map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
+    user.resources :punch_clocks
+  end
+  map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
+    report.resources :report_items
+  end
 
   #TODO Fix report items routing, this is temporary
     map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_report_items => [:get, :post], :toggle => [:get, :post]}

@@ -4,21 +4,25 @@
       <th align="left">Login</th>
       <th align="left">First Name</th>
       <th align="left">Last Name</th>
+	  <% unless mobile_device?%>
       <th align="left">Nickname</th>
       <th>Employee ID</th>
       <th>Email</th>
+	  <% end %>
     </tr>
   </thead>
   <tbody>
     <% for user in @users %>
-      <tr <%= !user.is_active?(current_department) ? "class='disabled'" : "class= #{cycle("odd", "even")}" %> id="user<%= user.id %>">
+      <tr <%= !user.is_active?(current_department) ? "class='disabled'" : "" %> id="user<%= user.id %>">
         <td><%= link_to user.login, edit_user_path(user.id) %></td>
         <td><%=h user.first_name %></td>
         <td><%=h user.last_name %></td>
+		<% unless mobile_device?%>
         <td><%=h user.nick_name %></td>
         <td><%=h user.employee_id %></td>
         <td><%=h user.email %></td>
         <td><%= deactivate_link(user) %></td>
+		<% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,7 +32,7 @@
 $(document).ready(
   function(){
     $.tablesorter.defaults.widgets = ['zebra'];
-    $("#user_list").tablesorter({sortList: [[0,0]]});
+    $("#user_list").tablesorter({sortList: [[2,0]]});
   }
 );
 </script>

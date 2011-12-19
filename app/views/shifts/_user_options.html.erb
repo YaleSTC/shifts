@@ -1,11 +1,8 @@
 <% if user_has_active_shift?%>
-  <p>
     <%= image_tag("icons/asterisk_orange.png", :class => "mini_icon") %> <%=link_to "Return to your current shift report", (current_user.current_shift.report.nil? ? shift_path(current_user.current_shift) : report_path(current_user.current_shift.report)) %>
-  </p>
 <% else %>
-  <p>
-    <%= image_tag("icons/add.png", :class => "mini_icon") %> <%= link_to "Start an unscheduled shift", {:url => unscheduled_new_shift_path, :method => :get}, :remote => true, :href => unscheduled_new_shift_path, :class => "action_with_icon" %>
-  </p>
+    <%= image_tag("icons/add.png", :class => "mini_icon") %> <%= link_to_remote "Start an unscheduled shift", {:url => unscheduled_new_shift_path, :method => :get}, :href => unscheduled_new_shift_path, :class => "action_with_icon" %> 
   <div id="unscheduled", style="display:none">
   </div>
 <% end %>
+<br />

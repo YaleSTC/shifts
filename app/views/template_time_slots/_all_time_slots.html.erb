@@ -1,13 +1,16 @@
 <table class = "tablesorter">
+	<thead>
 		<tr>
 		  <th>Day</th>
 		  <th>Start</th>
 		  <th>End</th>
 			<th>Location</th>
 		</tr>
+	 </thead>
 
 	<% template_time_slots.each do |template_time_slot| %>
-	<tr <%= "class= #{cycle("odd", "even")}" %> > 
+  <tbody>
+	<tr> 
 		  <td><%=h RequestedShift::WEEK_DAY_SELECT[template_time_slot.day][0] %></td>
 		  <td><%=h template_time_slot.start_time.strftime("%I:%M %p") %></td>
 		  <td><%=h template_time_slot.end_time.strftime("%I:%M %p") %></td>
@@ -17,6 +20,7 @@
 				<td><%= link_to 'Delete', template_time_slot, :confirm => 'Are you sure?', :method => :delete %></td>
 			<% end %>
 		</tr>
+   </tbody>
 	<% end %>
 </table>
 <% if template_time_slots.empty? %>

@@ -9,6 +9,12 @@ module CalendarsHelper
     @dept_end_hour = current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
 
+    if !shift.end
+      shift.end = Time.now
+    elsif shift.end <= shift.start + current_department.department_config.time_increment.minutes
+      shift.end = shift.start + current_department.department_config.time_increment.minutes
+    end
+
     left = ((shift.start - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
     width = ((shift.end - shift.start)/3600.0) / @hours_per_day * 100
     if left < 0
@@ -44,7 +50,7 @@ module CalendarsHelper
 
     "width: #{width}%; left: #{left}%;"
   end
-  
+
   def calendar_day_preprocessing(day)
     @location_rows = {}
     @location_rows_timeslots = {}
@@ -52,7 +58,7 @@ module CalendarsHelper
 
     #different calendars are different colors
     unless defined? @color
-      @color_array ||= ["9f9", "9ff", "ff9", "f9f", "f99", "99f", "399","933","393","c60","60c","0c6","6c0","c06","06c"]
+      @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f"]
       @color ||= {}
       @calendar ||= (params[:calendar] == "true" ? nil : Calendar.find(params[:calendar]) )
       @calendars ||= (params[:calendar] == "true" ? @department.calendars : [Calendar.find(params[:calendar])] )
@@ -84,7 +90,7 @@ module CalendarsHelper
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten.select{|l| l.active?}
 
-    shifts = Shift.in_calendars(@calendars).in_locations(@visible_locations).on_day(day).scheduled
+    shifts = Shift.in_calendars(@calendars).in_locations(@visible_locations).on_day(day)
     shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 
@@ -107,12 +113,23 @@ module CalendarsHelper
     rejected = []
     location_row = 0
 
+#much of this logic goes toward having three rows in the TTO - 'rejected' just means rejected from the current line, being placed instead on a lower line. Nothing should be permanently 'rejected' in this process.
     until shifts.empty?
       shift = shifts.shift
+      if !shift.end
+        shift.end = Time.now
+      elsif shift.end <= shift.start + current_department.department_config.time_increment.minutes
+        shift.end = shift.start + current_department.department_config.time_increment.minutes
+      end
       @location_rows[shift.location][location_row] = [shift]
       (0...shifts.length).each do |i|
         if shift.location == shifts.first.location
-          if shift.end > shifts.first.start
+          if shift.end
+            shift_end = shift.end
+          else
+            shift_end = Time.now
+          end
+          if shift_end > shifts.first.start
             rejected << shifts.shift
           else
             shift = shifts.shift

@@ -3,7 +3,8 @@ class Task < ActiveRecord::Base
   has_many :shifts, :through => :shifts_tasks
   belongs_to :location
   
-  validates_presence_of :name, :kind
+  validates_uniqueness_of :name
+  validates_presence_of :name, :kind, :description
   validate :start_less_than_end
   
   scope :active, lambda {{:conditions => {:active => true}}}
@@ -20,7 +21,7 @@ class Task < ActiveRecord::Base
   def done
     @last_completion = ShiftsTask.find_all_by_task_id(self.id).select{|st| st.task_id == self.id}.last #use find method
     if @last_completion
-      if (self.kind == "Hourly") && completed_this_hour?(@last_completion)
+      if (self.kind == "Hourly") && completed_this_hour?(@last_completion) && completed_today?(@last_completion)
         return true
       elsif (self.kind == "Daily") && completed_today?(@last_completion)
         return true

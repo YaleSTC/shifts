@@ -54,6 +54,7 @@
 	text-align: left;
 	border-collapse: collapse;
 	border: none;
+	clear:	both;
 }
 #payformList th
 {
@@ -135,40 +136,62 @@ div.total-hours-right {
     float: right;
 }
 
-/*PRETTY BUTTONS*/
-/*Inspiration from: http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html */
+/*PRETTY LION-STYLE BUTTONS*/
+/*Inspiration from: http://pixify.com/blog/use-os-x-lion-to-improve-your-ui/ */
 .clear { /* generic container (i.e. div) for floating buttons */
     overflow: hidden;
     width: 100%;
 }
 a.button {
-    background: transparent url('../images/payforms/bg_button_a.gif') no-repeat scroll top right;
-    color: #444;
+    color: #484848;
+    text-decoration: none;
+    font: 12px "Trebuchet MS", Helvetica, Arial, sans-serif;
+    line-height: 21px;
+    height: auto;
     display: block;
     float: right;
-    font: normal 12px arial, sans-serif;
-    height: 24px;
-    margin-right: 6px;
-    padding-right: 18px; /* sliding doors padding */
-    text-decoration: none;
+    margin-right: 0px;
+    margin-left: 4px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    padding: 0 10px;
+    background: #f0f0f0;
+    background: -webkit-linear-gradient(top, #f7f7f7, #d1d1d1);
+    background: -webkit-gradient(linear, center top, center bottom, from(#f7f7f7), to(#d1d1d1));
+    background: -moz-linear-gradient(top, #f7f7f7, #d1d1d1);
+    background: -ms-linear-gradient(top, #f7f7f7, #d1d1d1);
+    background: -o-linear-gradient(top, #f7f7f7, #d1d1d1);
+    border: solid 1px #7f7f7f;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=90, Color='#ffffff')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=90, Color='#ffffff');
+    -webkit-transition: border-color .218s;
+    -moz-transition: border .218s;
+    -o-transition: border-color .218s;
+    transition: border-color .218s;
 }
-
-a.button span {
-    background: transparent url('../images/payforms/bg_button_span.gif') no-repeat;
-    display: block;
-    line-height: 14px;
-    padding: 5px 0 5px 18px;
-} 
+a.button:hover {
+    border: solid 1px #333;
+    color: #282828;
+    background: -webkit-linear-gradient(top, #ffffff, #dfdfdf);
+    background: -moz-linear-gradient(top, #ffffff, #dfdfdf);
+    background: -ms-linear-gradient(top, #ffffff, #dfdfdf);
+    background: -o-linear-gradient(top, #ffffff, #dfdfdf);
+}
 a.button:active {
-    background-position: bottom right;
-    color: #000;
-    outline: none; /* hide dotted outline in Firefox */
+    border: solid 1px #7f7f7f;
+    background: #d0d0d0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#a8a8a8), color-stop(0.15, #c6c6c6), to(#d8d8d8));
+    background: -webkit-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
+    background: -moz-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
+    background: -ms-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
+    background: -o-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
 }
-
-a.button:active span {
-    background-position: bottom left;
-    padding: 6px 0 4px 18px; /* push text down 1px */
-} 
 
 /* EMAIL REMINDERS: */
 #emailreminders h3 {

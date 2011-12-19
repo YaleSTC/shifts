@@ -9,15 +9,9 @@
 		        <li><%= link_to "Active Shifts", show_active_shifts_path %></li>
 		        <li><%= link_to "Sub Requests", sub_requests_path %></li>
 		        <li><%= link_to "Calendars", calendars_path %></li>
+				<li><%= link_to "Templates", templates_path %></li>
 		        <li><%= link_to "Time Slots", time_slots_path %></li>
 		        <li><%= link_to "Tasks", tasks_path %></li>
-					</ul>
-			</li>
-			<li>
-	      <a class="sf-with-ul" href="#">Locations<span class="sf-sub-indicator"> &#187;</span></a>
-					<ul>
-		        <li><%= link_to "Locations", department_locations_path(@department) %></li>
-		        <li><%= link_to "Location Groups", department_loc_groups_path(@department) %></li>
 					</ul>
 			</li>
 			<li>
@@ -42,7 +36,6 @@
 					<ul>
 		        <li><%= link_to "Stats", stats_path %></li>
 		        <li><%= link_to "Restrictions", restrictions_path %></li>
-						<li><%= link_to "Templates", templates_path %></li>
 					</ul>
 			</li>
    </ul>

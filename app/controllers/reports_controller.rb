@@ -12,6 +12,8 @@ class ReportsController < ApplicationController
     @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
     return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
+    @search_engine_name = current_department.department_config.search_engine_name
+    @search_engine_url = current_department.department_config.search_engine_url
   end
 
   #Signing into a shift
@@ -45,7 +47,7 @@ class ReportsController < ApplicationController
      respond_to do |format|
        format.js
      end
-   end
+  end
   
   # TODO: refactor into a model method on Report
   #Submitting a shift
@@ -87,7 +89,18 @@ class ReportsController < ApplicationController
       flash[:notice] = "Report not submitted.  You may not be the owner of this report."
       render :action => 'show'
     end
-end
+  end
+
+
+  def custom_search
+    @key_word = params[:search]
+    @search_engine_url = current_department.department_config.search_engine_url
+    @search_url = @search_engine_url.concat(@key_word)
+    respond_to do |format|
+      format.js
+      format.html{}
+    end
+  end
 
 
 

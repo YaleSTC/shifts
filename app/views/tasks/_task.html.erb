@@ -1,6 +1,7 @@
   <tr <%=  task.active ? "class=#{cycle("odd", "even")}" : "class='disabled'" %>>
     <td title='<%= task.description %>'>
 	<%=link_to task.name, task%></td>
+	<% unless mobile_device?%>
     <td><%=h task.kind %></td>
     <td><%=h Location.find_by_id(task.location_id).short_name %></td>
     <td><%=h task.start.strftime("%B %d %Y") %></td>
@@ -15,6 +16,7 @@
     <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
  <% else %>
     <td>Expired or Inactive</td>
+  <% end %>
   <% end %>
   </tr>
 

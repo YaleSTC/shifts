@@ -18,6 +18,13 @@ class RestrictionsController < ApplicationController
   def create
     parse_date_and_time_output(params[:restriction])
     join_date_and_time(params[:restriction])
+
+    #rename start => starts, end=> expires
+    params[:restriction][:starts] = params[:restriction][:start]
+    params[:restriction].delete :start
+    params[:restriction][:expires] = params[:restriction][:end]
+    params[:restriction].delete :end
+
     @restriction = Restriction.new(params[:restriction])
     begin
       Restriction.transaction do
@@ -92,4 +99,3 @@ class RestrictionsController < ApplicationController
   end
 
 end
-

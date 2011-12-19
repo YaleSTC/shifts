@@ -20,6 +20,7 @@ class Location < ActiveRecord::Base
 
   validates_presence_of :loc_group
   validates_presence_of :name
+  validates_presence_of :description
   validates_presence_of :short_name
   validates_presence_of :min_staff
   validates_numericality_of :max_staff
@@ -113,6 +114,22 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
+  
+  #necessary for the public cluster view
+  def is_staffed_in_list?(shift_list, time)
+    time = time.in_time_zone
+    remaining_shifts = shift_list.select{|s| s.start <= time && (s.submitted? ? s.report.departed : s.end) >= time && !s.missed? && (s.start + s.department.department_config.grace_period.minutes <= Time.now ? (s.signed_in? || s.submitted?) : true)}
+    return remaining_shifts == [] ? false : true
+  end
+  
+  #necessary for tasks
+  #this really should be on the shift model I think
+  def shifts_between(start_time, end_time)
+    start_time = start_time.to_time
+    end_time = end_time.to_time
+    shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql} AND active is true"])
+  end
+  
   def summary_stats(start_date, end_date)
     shifts_set = shifts.on_days(start_date, end_date).active
     summary_stats = {}

@@ -4,7 +4,12 @@ class Notice < ActiveRecord::Base
   belongs_to :remover, :class_name => "User"
   belongs_to :department
 
-  validate :content_or_label, :presence_of_locations_and_viewers, :proper_time	 	
+  validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
+
+  attr_accessor :start_date
+  attr_accessor :start_time
+  attr_accessor :end_date
+  attr_accessor :end_time
 
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
   scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
@@ -49,7 +54,7 @@ class Notice < ActiveRecord::Base
     self.remover = user
     true if self.save
   end
-  
+
   def content_with_formatting
     content.sanitize_and_format
   end
@@ -65,7 +70,7 @@ class Notice < ActiveRecord::Base
   def proper_time
     errors.add_to_base "Start/end time combination is invalid." if self.end && self.start >= self.end
   end
-  
+
   def destroy_user_sinks_user_sources
     UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"Notice".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
   end
@@ -80,4 +85,3 @@ class Notice < ActiveRecord::Base
 		end
 	end
 end
-
