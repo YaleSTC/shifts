@@ -10,7 +10,7 @@
                                         :selected_items => @selected_loc_groups) %>
           </div>
       </p>
-      <%= hidden_field_tag :redirect_to, request.request_uri %>
+      <%= hidden_field_tag :redirect_to, request.url %>
       <p><%= f.submit "Submit" %></p>
     <% end %>
   </div>

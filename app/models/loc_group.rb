@@ -13,7 +13,7 @@ class LocGroup < ActiveRecord::Base
               :foreign_key => "admin_perm_id",
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
-  named_scope :active, :conditions => {:active => true}
+  scope :active, :conditions => {:active => true}
 
   before_validation(:on => :create) {:create_permissions}
   before_validation(:on => :update) {:update_permissions}

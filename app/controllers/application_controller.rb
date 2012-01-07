@@ -12,8 +12,12 @@ class ApplicationController < ActionController::Base
   #before_filter :load_user
 
   helper :layout # include all helpers, all the time (whyy? -Nathan)
-  helper :prototype #TODO including this helper is a stopgap for the shift to Rails 3; contained methods should be rewritten
   helper :application
+
+  #Replaced with similar prototype legacy helper plugin
+  #helper :prototype #TODO including this helper is a stopgap for the shift to Rails 3; contained methods should be rewritten
+
+
   helper_method :current_user
   helper_method :current_department
   
