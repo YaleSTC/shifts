@@ -1,29 +1,8 @@
 namespace :shifts do
   task (:import_kilroys => :environment) do
-    kilroys = "Farrah Kahn,1,SW
-David Hu,3,SW
-Machiste Quintana,5,SW
-Yuan Kang,7,SW
-Rachel Kurchin,2,SCL
-Abby Hu,4,SCL
-Alan Elbaum,5,SCL
-Farrah Kahn,6,SCL
-Derrik Petrin,2,HGS
-Raph Leung,3,HGS
-Nat Harrington,4,HGS
-Tasia Smith,5,HGS
-Derrik Petrin,6,HGS
-Toshihiko Shimasaki,1,HHH
-Toshihiko Shimasaki,2,HHH
-Toshihiko Shimasaki,3,HHH
-Toshihiko Shimasaki,4,HHH
-Toshihiko Shimasaki,5,HHH
-Toshihiko Shimasaki,6,HHH
-Toshihiko Shimasaki,7,HHH
-Erin Maher,2,PR276
-Nick Wang,3,PR276
-Nick Wang,5,PR276
-Erin Maher,6,PR276"
+    kilroys = "Farrah Khan,1,SW
+Farrah Khan,6,SCL
+"
 
     message = ""
 
@@ -40,8 +19,8 @@ Erin Maher,6,PR276"
       	a = RepeatingEvent.new
       	a.start_date = Time.parse("2012-01-25 00:00:00").utc
       	a.end_date = Time.parse("2012-05-20 00:00:00").utc
-      	a.start_time = Time.parse("2011-10-10 07:00:00")
-      	a.end_time = Time.parse("2011-10-10 07:30:00")
+      	a.start_time = Time.parse("2011-10-10 06:00:00")
+      	a.end_time = Time.parse("2011-10-10 06:30:00")
       	a.calendar_id = 1
       	a.user_id = user.id
       	a.loc_ids = "#{location.id}"
