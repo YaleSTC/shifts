@@ -35,7 +35,7 @@ class StatsController < ApplicationController
       user_stats[:num_late] = shifts.select{|s| s.late == true}.size
       user_stats[:num_missed] = shifts.select{|s| s.missed == true}.size
       user_stats[:num_left_early] = shifts.select{|s| s.left_early == true}.size
-      user_stats[:hours_scheduled] = shifts.select{|s| s.location_id != 3}.collect(&:duration).sum
+      user_stats[:hours_scheduled] = shifts.select{|s| (s.location_id != 3 && s.location_id != 36)}.collect(&:duration).sum
       user_stats[:io_hours_scheduled] = shifts.select{|s| (s.location_id == 3 || s.location_id == 36)}.collect(&:duration).sum
       valid_report_stats = shifts.select{|s| s.parsed == true}.collect(&:updates_hour).delete_if{|r| r == nil}
       if valid_report_stats.size == 0
