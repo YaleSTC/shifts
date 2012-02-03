@@ -3,9 +3,11 @@
     <% if @user_profile_entries.empty? %>
     <strong><h3> This user does not have any publicly viewable information for this department </h3></strong>
     <% else %>
+    	<strong><%=h "NetID: " %></strong>
+	    <%=h @user.login %>
+
       <% for entry in @user_profile_entries %>
       <p>
-
         <% if entry.content.nil? %>
         <% elsif entry.display_type == "picture_link" && entry.content != '' %>
           <div class='pic_box'>

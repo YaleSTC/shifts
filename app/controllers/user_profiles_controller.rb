@@ -7,7 +7,8 @@ before_filter :user_login
   end
 
   def show
-    @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
+    @user = User.find_by_login(params[:id])
+    @user_profile = UserProfile.find_by_user_id(@user.id)
     unless @user_profile.user.departments.include?(@department)
       flash[:error] = "This user does not have a profile in this department."
     end
