@@ -1,13 +1,15 @@
+require 'bundler/capistrano'
+
 # == DEPLOYMENT DEFAULTS =========
-default_domain = ENV['DOMAIN'] ? ENV['DOMAIN'] : "mahi.its.yale.edu"
-default_application_prefix = ENV['PREFIX'] ? ENV['PREFIX'] : "test"
+default_domain = ENV['DOMAIN'] ? ENV['DOMAIN'] : "weke.its.yale.edu"
+default_application_prefix = ENV['PREFIX'] ? ENV['PREFIX'] : "shifts_test"
 default_branch = ENV['BRANCH'] ? ENV['BRANCH'] : "master"
 
 # == INITIAL CONFIG ==============
 set :application, "shifts"
-set :repository,  "git@github.com:YaleSTC/shifts.git"
-set :apache_config_dir, "/etc/apache2/vhosts.d"
-set :document_root, "/srv/www/htdocs"
+set :repository,  "git://github.com/YaleSTC/shifts.git"
+set :apache_config_dir, "/etc/httpd/conf.d"
+set :document_root, "/var/www/html"
 
 set :user, "deploy"
 set :runner, "deploy"
@@ -22,7 +24,7 @@ set :domain, default_domain if (ENV['DOMAIN'] || fetch(:domain) == "")
 set :application_prefix, default_application_prefix if (ENV['PREFIX'] || fetch(:application_prefix) == "")
 set :branch, default_branch if (ENV['BRANCH'] || fetch(:branch) == "")
 
-set :deploy_to, "/srv/www/rails/#{application}/#{application_prefix}"
+set :deploy_to, "/var/www/rails/#{application}/#{application_prefix}"
 
 set :scm, :git
 set :scm_verbose, false
@@ -46,7 +48,7 @@ production:
   adapter: mysql
   database: #{application}_#{application_prefix}_production
   host: localhost
-  user: #{mysql_user}
+  username: #{mysql_user}
   password: #{mysql_pass}
 
 EOF
@@ -54,33 +56,34 @@ EOF
       put database_configuration, "#{shared_path}/config/database.yml"
     end
 
-    desc "Enter Hoptoad API code"
-    task :hoptoad do
-      set :api_key, Capistrano::CLI.ui.ask("Hoptoad API Key: ")
-      hoptoad_config=<<-EOF
-HoptoadNotifier.configure do |config|
+    desc "Enter Airbrake API code"
+    task :airbrake do
+      set :api_key, Capistrano::CLI.ui.ask("Airbrake API Key: ")
+      airbrake_config=<<-EOF
+Airbrake.configure do |config|
   config.api_key = '#{api_key}'
 end
-
 EOF
-      put hoptoad_config, "#{shared_path}/config/hoptoad.rb"
+      put airbrake_config, "#{shared_path}/config/airbrake.rb"
     end
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
 
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
-      #Temporarily disabled until hoptoad integration is complete
-      run "ln -nsf #{shared_path}/config/hoptoad.rb #{current_path}/config/initializers/hoptoad.rb"
-
+      run "ln -nsf #{shared_path}/config/airbrake.rb #{current_path}/config/initializers/airbrake.rb"
       run "mkdir -p #{shared_path}/log"
       run "mkdir -p #{shared_path}/pids"
       run "mkdir -p #{shared_path}/sessions"
       run "mkdir -p #{shared_path}/system/datas"
+      run "mkdir -p #{shared_path}/assets/user_profiles"
       run "ln -nsfF #{shared_path}/log/ #{current_path}/log"
       run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"      
       run "ln -nsfF #{shared_path}/sessions/ #{current_path}/tmp/sessions"
       run "ln -nsfF #{shared_path}/system/ #{current_path}/public/system"
+      run "rm -rf #{current_path}/public/assets/user_profiles/"
+      run "ln -nsfF #{shared_path}/assets/user_profiles #{current_path}/public/assets/"
+      run "mv #{current_path}/public/assets/default.jpg #{shared_path}/assets/user_profiles"
     end    
   end  
 end
@@ -120,13 +123,13 @@ namespace :deploy do
 
   desc "Create vhosts file for Passenger config"
   task :passenger_config, :roles => :app do
-    run "#{sudo} sh -c \'echo \"RailsBaseURI /#{application_prefix}\" > #{apache_config_dir}/rails_#{application}_#{application_prefix}.conf\'"
-    run "#{sudo} ln -s #{deploy_to}/current/public #{document_root}/#{application_prefix}"    
+    run "sh -c \'echo \"RailsBaseURI /#{application_prefix}\" > #{apache_config_dir}/rails/rails_#{application}_#{application_prefix}.conf\'"
+    run "ln -s #{deploy_to}/current/public #{document_root}/#{application_prefix}"    
   end
 
   desc "Create database"
   task :create_db, :roles => :app do
-    run "cd #{release_path} && #{sudo} rake db:create RAILS_ENV=production"
+    run "cd #{release_path} && bundle exec rake db:create RAILS_ENV=production"
   end
 
   task :start, :roles => :app do
@@ -144,19 +147,25 @@ namespace :deploy do
 
   desc "Restart Apache"
   task :restart_apache, :roles => :app do
-      run "#{sudo} /etc/init.d/apache2 restart"
+      run "#{sudo} /etc/init.d/httpd restart"
   end
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :app do
-    run "cd #{release_path} && whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
   end
 
 end
 
 after "deploy:setup", "init:config:database"
-after "deploy:setup", "init:config:hoptoad"
+after "deploy:setup", "init:config:airbrake"
 after "deploy:symlink", "init:config:localize"
 after "deploy:symlink", "deploy:update_crontab"
 after "deploy", "deploy:cleanup"
 after "deploy:migrations", "deploy:cleanup"
+
+Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].each do |vendored_notifier|
+  $: << File.join(vendored_notifier, 'lib')
+end
+
+require 'airbrake/capistrano'

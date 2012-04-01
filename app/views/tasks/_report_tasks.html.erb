@@ -1,0 +1,20 @@
+<% unless @tasks.empty? %>
+  <% task_kinds = @tasks.collect{|t| t.kind}.uniq %>
+  <% task_kinds.each do |task_kind| %>
+	  <%= task_kind %>
+	  <% these_tasks = @tasks.select{|t| t.kind == task_kind} %>
+	  <% these_tasks.each do |task| %>
+		  <li title='<%= task.description %>'>
+			  <% if task.done %>
+			  <strike><%= "#{task.name}" %></strike>
+			  <% elsif task.missed %>
+			    <h3><%= link_to_remote ("#{task.name} - Needs Doing ASAP!", {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}) %></h3>
+			  <% else %>
+				  <%= link_to_remote ((task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}) %>
+			  <% end %>
+		  </li>
+	  <% end %>
+  <% end %>
+<% else %>
+ <em>There are no tasks at this time.</em>
+<% end %>

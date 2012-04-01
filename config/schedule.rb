@@ -12,10 +12,26 @@
 #   runner "MyModel.some_method"
 #   rake "some:great:rake:task"
 # end
-every :sunday, :at => "9am" do
-  rake "auto_remind"
+
+# Override 'rake' command to use Bundler
+job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
+
+every :sunday, :at => '9am' do
+  rake "email:payform_reminders"
+  rake "email:late_payform_warnings"
+end
+
+every 1.day, :at => '1am' do 
+  rake "email:daily_stats"
+  rake "db:populate_missed_tasks"
+end
+
+every 10.minutes do
+  rake "email:stale_shift_reminders"
+  rake "db:update_shift_stats"
 end
 
 every 3.minutes do
-  command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production"
+  command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production "
 end
+

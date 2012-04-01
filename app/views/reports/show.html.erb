@@ -1,71 +1,91 @@
-<% title "Sea Voyage aboard the #{@report.shift.location.name}" %>
+<% title "Sea Voyage aboard the #{@report.shift.location.name}"%>
+
 <% if current_user == @report.user && !@report.departed %>
+	
+	<fieldset class = "index" >
+	<legend>Tactical Simulation Room</legend>
+	<div id = "battleshifts">
+	</div>
+	
+	
+	<div id = "left_stuff">
+		
+	  <fieldset class = "index" id = "report_message_center">
+	    <legend><%= "Radio room for the #{@report.shift.location.short_name}"%></legend>
+	    <div id = "message_center">
+	    	<%= render :partial => 'notices/notice', :collection => @report.get_notices, :locals => {:html_class => "report_notice"} %> </div>
+	    <div id="new_notice">
+	    <%= link_to_post_a_sticky() %> <%= link_to_post_an_announcement %>
+	    </div>
+	  </fieldset>
+	
+	  <% unless mobile_device?%>
+	  	<%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 240 -%>
+	  <% end %>
+	</div>
+	
+	<div id = "right_stuff">
 
-<fieldset class = "index" >
-<legend>Tactical Simulation Room</legend>
-<div id = "battleshifts">
-</div>
-</fieldset>
+	   <fieldset id = "report_data_objects" class = "index">
+	     <legend>Logistics</legend>
+	     <%= render :partial => 'data_objects/report_data_object' %>
+	   </fieldset>
 
-  <fieldset class = "index" >
-    <legend><%= "Radio room for the #{@report.shift.location.short_name}"%></legend>
-    <div id = "message_center">
-      <%= render :partial => 'notices/notice', :collection => @report.get_notices %>
-    </div>
-    <div id="new_notice">
-      <%= link_to_post_a_new_notice(true) %>
-    </div>
-  </fieldset>
-  <%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 5*60 -%>
+	  <fieldset id = "useful_links" class = "index" >
+	    <legend>Useful Remote Communications</legend>
+	   	<%= render :partial => 'links/report_links' %>
+	  </fieldset>
 
+	  <% unless mobile_device?%>
+	    <%# TODO: Re-enable this once we figure out why it's crashing%>
+		<%#= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 60 -%>
+	  <% end %>
 
-  <div id="report_data_objects">
-    <fieldset>
-      <legend>Logistics</legend>
-      <%= render :partial => 'data_objects/report_data_object', :collection => @report.data_objects.sort_by{|d| [d.data_type_id, d.name]}%>
-    </fieldset>
-  </div>
+	  <fieldset id = "shift_tasks" class= "index">
+		<legend>Naval Duties</legend>
+		<div id = "tasks">
+	    <%= render :partial => 'tasks/report_tasks' %>
+		</div>
+	  </fieldset>
 
-
-<div id = "useful_links_div">
-    <fieldset>
-      <legend>Useful Links</legend>
-      <div id = "report_useful_links">
-          <%= render :partial => 'notices/report_useful_links' %>
-          </div>
-    </fieldset>
-    </div>
-
+	  <fieldset id="searchbox" class = "index">
+	    <legend><%= "Search " + "#{@search_engine_name}"%></legend>
+	    <%= render :partial => 'reports/search'%>
+	  </fieldset>
+	</div>
 
   <div id="active_report_area">
         <h2><%= current_user.rank %>'s Logbook</h2>
         <%= render :partial => 'new_report_item_form' %>
-
-
-      <div id="report_relative_size">
-
+  <div id="report_relative_size">
+		<% unless mobile_device? %>
+	    	<%# TODO: Re-enable this once we figure out why it's crashing%>
+			<%#= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
+		<% end %>
+		
 <% end %>
 
-        <div id="report_view">
-          <%= render :partial => 'report'%>
-        </div>
-        <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.location)) %>
-          <%= button_to "Disembark from vessel", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
-        <% end %>
 
-<% if current_user == @report.user && !@report.departed %>
+ <% if current_user == @report.user && !@report.departed %>
+       <%= render :partial => 'report', :locals => {:html_id => "dashboard_report_view"}%>
+ <% else %>
+     <%= render :partial => 'report', :locals => {:html_id => "report_view"}%>
+ <% end %>
 
-      </div> <%# close report_relative_size %>
+ <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.loc_group)) %>
+ 	<%= button_to "Disembark from vessel", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
+ <% end %>
 
-      <%= button_to "Disembark from vessel", {:action => :update, :id => @report, :sign_out => true, :method => :put}, {:confirm => 'Ahoy matey! Are you sure you wish to disembark?', :id => 'submit_button'} %>
+ <% if current_user == @report.user && !@report.departed %>
 
-      <div class='clear'></div>
-    </div> <%# close active_report_area %>
+</div> <!-- close report_relative_size -->
 
-  <%#= javascript_include_tag 'leave_confirm'%>
+ <%= button_to "Disembark from vessel", {:action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
 
-<% elsif !@report.departed %>
-  <p>This report is still in progress.</p>
+<div class='clear'></div>
+</div> <!--close active_report_area -->
+
+
 <% end %>
 
 <script type="text/javascript">

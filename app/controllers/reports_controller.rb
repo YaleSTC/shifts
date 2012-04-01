@@ -4,14 +4,16 @@ class ReportsController < ApplicationController
 
   def show
     @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
+    # @tasks = Task.in_location(@report.shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a")}
+    tasks = Task.in_location(@report.shift.location).active.after_now
+    # filters out daily and weekly tasks scheduled for a time later in the day
+    tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight < t.time_of_day.seconds_since_midnight}
+    # filters out weekly tasks on the wrong day
+    @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
     return unless require_department_membership(@report.shift.department)
     @report_item = ReportItem.new
-  end
-
-  def popup
-    @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
-    return unless user_is_owner_of(@report.shift)
-    render :layout => false
+    @search_engine_name = current_department.department_config.search_engine_name
+    @search_engine_url = current_department.department_config.search_engine_url
   end
 
   #Signing into a shift
@@ -20,8 +22,8 @@ class ReportsController < ApplicationController
 
     if current_user.current_shift || current_user.punch_clock
       flash[:error] = "You are already signed into a shift or punch clock."
-    elsif @report.user!=current_user 
-      flash[:error] = "You can't sign into someone else's report!"
+    elsif @report.user!=current_user
+      flash[:error] = "You can't sign into someone else's report."
     else
       @report.save
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged in from #{request.remote_ip}", :ip_address => request.remote_ip)
@@ -37,13 +39,22 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department)
   end
-
+  
+  
+  #periodically call remote function to update reports dynamically
+  def update_reports
+     @report = current_user.current_shift.report
+     respond_to do |format|
+       format.js
+     end
+  end
+  
   # TODO: refactor into a model method on Report
   #Submitting a shift
   def update
     @report = Report.find(params[:id])
-    return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department)
-    
+    return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department) || current_user.is_admin_of?(@report.shift.location)
+
     if (params[:sign_out] and @report.departed.nil?) #don't allow duplicate signout messages
       @report.departed = Time.now
       @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
@@ -52,7 +63,7 @@ class ReportsController < ApplicationController
       # with shift.adjust_sub_requests if it ever does run. -ben
       @add_payform_item = true;
     end
-    
+
     if @report.update_attributes(params[:report]) && @report.shift.update_attribute(:signed_in, false)
       if (@add_payform_item) #don't allow duplicate payform items for a shift
         @payform_item=PayformItem.new("hours" => @report.duration,
@@ -68,8 +79,8 @@ class ReportsController < ApplicationController
           flash[:notice] = "Successfully submitted report, but payform did not update. Please manually add the job to your payform."
         end
       else
-        flash[:error] = "That report has already been submitted!"
-      end    
+        flash[:error] = "That report has already been submitted."
+      end
       respond_to do |format|
         format.html {redirect_to dashboard_path}
         format.js
@@ -80,13 +91,26 @@ class ReportsController < ApplicationController
     end
   end
 
+
+  def custom_search
+    @key_word = params[:search]
+    @search_engine_url = current_department.department_config.search_engine_url
+    @search_url = @search_engine_url.concat(@key_word)
+    respond_to do |format|
+      format.js
+      format.html{}
+    end
+  end
+
+
+
 # Do we want this action? -ben
 #  def destroy
 #    @report = Report.find(params[:id])
-#    @report.destroy
-#    #ArMailer.deliver()
-#    flash[:notice] = "Successfully destroyed report."
-#    redirect_to reports_url
+ #   @report.destroy
+  #  #ArMailer.deliver()
+   # flash[:notice] = "Successfully destroyed report."
+    #redirect_to reports_url
 #  end
 end
 

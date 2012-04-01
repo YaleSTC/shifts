@@ -2,43 +2,48 @@
   <%= f.error_messages %>
   <% unless @dept_select.length == 1 %>
     <fieldset class = "index">
-      <legend>Default Department Preferences"</legend>
-      <small>This is the department you will be logged into when you sign in to the
+      <legend>Default Department Preferences</legend>
+      <small>Control which department your account will be logged into when you sign in to the
       application.  You can then change it through the department chooser.  If you
-      leave this blank, then it will default to your first department.</small><br />
+      leave this blank, then it will default to your first department.</small><br /><br />
       <%= f.select :default_dept, @dept_select %>
     </fieldset>
   <% end %>
-  <fieldset class = "index">
+  <p>
+  <fieldset class = "checkboxes" id = "location_groups_prefs">
   <legend>Location Groups</legend>
-    <small>These are the location groups you will view by default on the shift
-    schedule and on the notice index page.  If you leave this blank, then it will default to all of your
-    location groups.  </small><br />
-    <% for department in current_user.departments %>
-      <div class="multiple_select">
-        <h3><%= department.name %></h3>
-        <%= collection_multiple_select(:user_config, :view_loc_groups,
-                                    @loc_group_select[department.id], :id, :name,
-                                    :selected_items => @selected_loc_groups) %>
-      </div>
-    <% end %>
+    
+    <small>Control which location groups to view on your shift
+    schedule and on the notices index page.</small><br /><br />
+    <%= render :partial => 'loc_groups' %>
+
   </fieldset>
 
   <fieldset class = "index">
     <legend>Schedule View</legend>
-    <small>This controls what portion of the shift schedule you see.</small><br />
+    <small>Control which portion of the shift schedule you would like to see.</small><br /><br />
     <%= f.select :view_week, UserConfig::VIEW_WEEK_OPTIONS %>
   </fieldset>
-  <fieldset class = "index">
+  <fieldset class = "checkboxes" id = "data_objects_prefs">
     <legend>Data</legend>
-    <small>This controls which data objects you will see updates for on your
-    dashboard.</small><br />
-    <%= collection_multiple_select( :user_config, :watched_data_objects,
-                                    @data_objects, :id, :name,
-                                    :selected_items => @selected_data_objects) %>
+    <small>Control which data objects will show updates on your
+    dashboard.</small><br /><br />
+    <%= render :partial => 'dt_objects' %>
+    
   </fieldset>
+  <fieldset class = "index">
+	<legend>Email Notifications</legend>
+	<small>Control your notification preferences.</small><br /><br />
+     <%= f.check_box :taken_sub_email %>
+     <%= f.label :taken_sub_email, text = "Enable email notifications for all taken sub requests" %><br />
+     <%= f.check_box :send_due_payform_email %>
+     <%= f.label :send_due_payform_email, text = "Enable email notifications for due payforms" %><br />
+    <% if current_user.is_admin_of?(@department) %>
+    	<%= f.submit "Reset" %> <span id="reset_txt">Reset preference to send email reminders for all users in the current department</span>
+    <% end %>
+	</fieldset>
   <p>
     <%= f.submit "Submit" %>
   </p>
 <% end %>
-
+<%= javascript_include_tag 'user_config' %>

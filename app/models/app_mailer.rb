@@ -1,4 +1,4 @@
-#This line may be unnessecary. See line 6.
+ #This line may be unnessecary. See line 6.
 ActionMailer::Base.delivery_method = :smtp
 
 class AppMailer < ActionMailer::Base
@@ -33,19 +33,19 @@ class AppMailer < ActionMailer::Base
     body        :sub_request => sub_request, :new_shift => new_shift
   end
 
-  def payform_item_change_notification(old_payform_item, new_payform_item, dept)
+  def payform_item_modify_notification(new_payform_item, dept)
     recipients  new_payform_item.user.email
     from        dept.department_config.mailer_address
     sent_on     Time.now
-    subject     "Your payform item has been modified by #{new_payform_item.source}"
-    body        :old_payform_item => old_payform_item, :new_payform_item => new_payform_item
+    subject     "Your payform has been modified by #{new_payform_item.source}"
+    body        :new_payform_item => new_payform_item
   end
 
   def payform_item_deletion_notification(old_payform_item, dept)
     recipients  old_payform_item.user.email
     from        dept.department_config.mailer_address
     sent_on     Time.now
-    subject     "Your payform item has been deleted by #{old_payform_item.source}"
+    subject     "Your payform item has been deleted by #{old_payform_item.versions.last.user}"
     body        :old_payform_item => old_payform_item
   end
 

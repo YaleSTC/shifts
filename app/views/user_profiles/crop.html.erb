@@ -1,0 +1,51 @@
+<head>  
+  <title><%= h(yield(:title) || "Untitled") %></title>  
+  <%= stylesheet_link_tag 'jquery.Jcrop' %>  
+  <%= javascript_include_tag 'jquery.Jcrop' %>  
+  <%= yield(:head) %>  
+</head>
+<% title "Crop Photo" %>  
+<% content_for (:head) do %>  
+<%= stylesheet_link_tag "jquery.Jcrop" %>  
+<%= javascript_include_tag "jquery.Jcrop.min" %>  
+
+<script type="text/javascript">  
+	$(function() {  
+	  $('#cropbox').Jcrop({  
+	    onChange: update_crop,  
+	    onSelect: update_crop,  
+	    setSelect: [0, 0, 500, 500],  
+	    aspectRatio: 1  
+	  });
+	});
+	function update_crop(coords) {  
+	  $('#crop_x').val(coords.x);  
+	  $('#crop_y').val(coords.y);  
+	  $('#crop_w').val(coords.w);  
+	  $('#crop_h').val(coords.h);    
+	}
+	
+	$(document).ready(function(){
+	 $(".cropFields").hide();
+	  $(".show_hide").show();
+	    $('.show_hide').click(function(){
+	    $(".cropFields").slideToggle();
+		return false;
+	    });
+	});
+	
+</script>  
+<% end %>  
+  
+<%= image_tag @user_profile.photo.url(:original), :id => "cropbox" %>
+
+<a href="#" class="show_hide">Show/hide crop dimensions</a>
+	<div class="cropFields">
+	<% form_for @user_profile do |form| %>  
+	  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>  
+	    <%= form.text_field attribute, :id => attribute %>  
+	  <% end %> 
+	</div>
+	  <p><%= form.submit "Crop" %></p>  
+	<% end %> 
+

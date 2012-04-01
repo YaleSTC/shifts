@@ -1,40 +1,48 @@
+<div id = "notice"></div>
 <% title "Radar Screen" %>
 
-<% unless current_user.notices.empty? %>
-  <%= render :partial => 'notices/for_you' %>
-<% end %>
 
 <div id="left_stuff">
 
+
   <fieldset class="index" id="shifts">
     <legend>Your Voyages</legend>
-      <h4>Current Voyage</h4>
+    <% if user_has_active_shift?%>
+	<h4>Current Voyage </h4>
+	 <% end %>
       <%= render :partial => "shifts/user_options" %>
-      
       <% unless @upcoming_shifts.empty? %>
-      <h4>Upcoming Voyages</h4>
+<br />
+      <h4>My Upcoming Voyages</h4>
         <ul>
           <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
         </ul>
       <% end %>
+      <br />
   </fieldset>
 
   <fieldset class="index" id="subs">
     <legend>Submarine Requests</legend>
-    <% unless @subs_you_requested.empty? %>
-      <h4>Submarines you've requested</h4>
-      <ul>
-        <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
-      </ul>
-    <% end %>
-    <% unless @subs_you_can_take.empty? %>
-      <h4>Submarines You Can Take</h4>
+    <%unless @subs_you_requested.empty? and @subs_you_can_take.empty? %>
+      <% unless @subs_you_requested.empty? %>
+        <h4>Submarines You've Requested</h4>
         <ul>
-          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
         </ul>
+      <% end %>
+      <% unless @subs_you_can_take.empty? %>
+        <h4>Submarines You Can Take</h4>
+          <ul>
+            <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+          </ul>
+      <% end %>
+    <% else %>
+          <em>There are no submarine requests at this time.</em>
     <% end %>
+
+	<span style="float:right;text-align:right;margin-top:1em"><%= link_to "All Subs", sub_requests_path %></span>
   </fieldset>
-  
+
   <fieldset class="index" id="punch_clock">
     <legend>Punch Clock</legend>
     <% if current_user.punch_clock %>
@@ -43,29 +51,50 @@
       <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
       <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
     <% end %>
+    <br /><br />
   </fieldset>
 
-  </div>
-  <div id="right_stuff">
-    
-    <fieldset class="index" id="shifts">
-      <legend>Active Voyages</legend>
-        <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
-    </fieldset>
-
-    <% unless @watched_objects.empty? %>
+ <% unless @watched_objects.empty? %>
       <fieldset class="index" id="watched_objects">
-        <legend>Recent updates for your watched data objects</legend>
+        <legend>System Status Reports</legend>
           <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
       </fieldset>
     <% end %>
 
   </div>
 
+  <div id="right_stuff">
+
+    <fieldset class ="index" id="notices_for_you">
+      <legend>Announcements</legend>
+       <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
+		<br />
+		<%= link_to_post_a_sticky() %>
+		<%= link_to_post_an_announcement %>
+    </fieldset>
+
+    <fieldset class="index" id="shifts">
+      <legend>Active Voyages</legend>
+      <%unless @signed_in_shifts.empty? %>
+        <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
+      <% else %>
+        <em>There are no active voyages at this time.</em>
+      <% end %>
+    </fieldset>
+
+    <fieldset class="index" id="shift_stats">
+      <legend>Shift Statistics</legend>
+				<% @summary = current_user.summary_stats(Date.today - 7, Date.today) %>
+				<%= render :partial => 'stats/stats_summary', :object => @summary %>
+    </fieldset>
+  </div>
+
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
   <legend>Who's aboard today</legend>
-  <%= render :partial => 'shifts/schedule/day', :object => Date.today %>
+  <%= link_to "&lt;&lt; Previous", :date => (@current_date - 1)-%>
+  <span style="float:right;text-align:right;"><%= link_to "Next &gt;&gt;", :date => (@current_date + 1)%></span>
+  <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
 </fieldset>
 <% end %>
 
@@ -177,4 +206,3 @@
     return x;
   }
 </script>
-

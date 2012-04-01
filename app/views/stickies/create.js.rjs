@@ -1,0 +1,21 @@
+if @sticky.errors.empty? 
+if @in_shift
+	page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices, :locals => {:html_class => "report_notice"}
+end
+	page.replace_html "all_notices", :partial => 'notices/all_notices'
+  if session[:mobile_param] != "1"
+    page << "tb_remove();"
+    page << "tb_init('a#edit');"
+  end
+	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	flash.discard
+  if session[:mobile_param] == "1"
+    if @in_shift
+      page.redirect_to(:controller => 'reports', :action => 'show', :id => @current_shift.report.id)
+    else
+      page.redirect_to(:controller => 'dashboard', :action => 'index')
+    end
+  end
+else
+  page.replace_html "errors", :partial => 'notices/error_messages'
+end

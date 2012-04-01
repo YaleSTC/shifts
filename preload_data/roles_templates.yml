@@ -1,0 +1,11 @@
+--- 
+roles_templates_001: 
+  created_at: 2009-09-11 02:38:52
+  role_id: "3"
+  template_id: "1"
+  updated_at: 2009-09-11 02:38:52
+roles_templates_002: 
+  created_at: 2009-09-11 02:39:00
+  role_id: "4"
+  template_id: "1"
+  updated_at: 2009-09-11 02:39:00

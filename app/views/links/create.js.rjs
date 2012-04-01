@@ -1,0 +1,23 @@
+if @link.errors.empty? 
+	if current_user.current_shift
+		page.replace_html "report_links", :partial => 'report_links'
+	else
+		page.replace_html "dashboard_links", :partial => 'dashboard_links'
+		page.replace_html "links_index", :partial => 'links_index'	
+  end
+  if session[:mobile_param] != "1"
+	  page << "tb_remove();"
+	end
+	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	flash.discard
+  if session[:mobile_param] == "1"
+    if @current_shift
+      page.redirect_to(:controller => 'reports', :action => 'show', :id => @current_shift.report.id)
+    else
+      page.redirect_to(:controller => 'dashboard', :action => 'index')
+    end
+  end
+else
+  page.replace_html "errors", :partial => 'notices/error_messages'
+end
+

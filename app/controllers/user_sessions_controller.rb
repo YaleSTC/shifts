@@ -11,7 +11,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     @user = User.find_by_login(params[:user_session][:login])
     if @user && @user.auth_type!='built-in'
-      flash[:notice] = "You\'re not supposed to be using built in authentication. Please click the relevant link below to log in using CAS."
+      flash[:notice] = "You are not supposed to be using built in authentication. Please click the relevant link below to log in using CAS."
       render :action => 'new'
     elsif @user_session.save
       flash[:notice] = "Successfully logged in."
@@ -24,7 +24,7 @@ class UserSessionsController < ApplicationController
   def destroy
     @user_session = UserSession.find
     @user_session.destroy
-    flash[:notice] = "Successfully logged out"
+    flash[:notice] = "Successfully logged out."
     redirect_to login_path
   end
 

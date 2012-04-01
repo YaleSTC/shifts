@@ -16,7 +16,7 @@ class PasswordResetsController < ApplicationController
       flash[:notice] = "Instructions to reset the password have been emailed. "
       redirect_to login_path
     else
-      flash[:notice] = "No user using built-in authentication was found with that email address"
+      flash[:notice] = "No user using built-in authentication was found with that email address."
       render :action => :new
     end
   end
@@ -29,7 +29,7 @@ class PasswordResetsController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
-      flash[:notice] = "Password successfully updated"
+      flash[:notice] = "Password successfully updated."
       redirect_to login_path
     else
       render :action => :edit
@@ -49,7 +49,7 @@ private
   end
   def require_no_user
     if current_user
-      flash[:notice] = "You\'re logged in. Someone resetting their password shouldn\'t be logged in."
+      flash[:notice] = "You are logged in. Someone resetting their password should not be logged in."
       redirect_to root_url
     end
 

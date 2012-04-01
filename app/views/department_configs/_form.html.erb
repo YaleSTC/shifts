@@ -1,70 +1,89 @@
-<div class="centered_form">
 <% form_for @department_config do |f| %>
   <%= f.error_messages %>
   <fieldset class = "index">
     <legend>Edit Shift Configuration</legend>
     <p>
-      <%= f.label :schedule_start, text = "Schedule view start time:" %>
+      <%= f.label :schedule_start, text = "Schedule view start time:" %><br />
       <%= f.select :schedule_start, @time_choices %>
     </p>
     <p>
-      <%= f.label :schedule_end, text = "Schedule view end time:" %>
+      <%= f.label :schedule_end, text = "Schedule view end time:" %><br />
       <%= f.select :schedule_end, @time_choices2 %>
     </p>
+	<p>
+     <%= f.label :admin_round_option, text = "Department payform rounding: "%> <br /	>
+     <%= f.select :admin_round_option, @rounding_choices %>
+    </p>
     <p>
-      <%= f.label :time_increment, text = "Shift time increment:" %>
+	 <%= f.check_box :weekend_shifts %>
+     <%= f.label :schedule_start, text = "Display weekends on shift schedule." %>
+    </p>
+    <p>
+     <%= f.check_box :unscheduled_shifts %>
+     <%= f.label :schedule_start, text = "Display unscheduled shifts." %>
+    </p>
+    <p>
+     <%= f.check_box :can_take_passed_sub %>
+     <%= f.label :can_take_passed_sub, text = "Allow for sub request to be taken even if shift has already begun." %>
+<h3> Department Time Options (in minutes)</h3>
+    <p>
       <%= f.text_field :time_increment, :size => 6 %>
+      <%= f.label :time_increment, text = "Shift time increment." %>
     </p>
     <p>
-      <%= f.label :grace_period, text = "Late sign-in grace period:" %>
       <%= f.text_field :grace_period, :size => 6 %>
+      <%= f.label :grace_period, text = "Late sign-in grace period." %>
     </p>
-      <p>
-        <%= f.label :schedule_start, text = "Display weekends on shift schedule:" %>
-        <%= f.check_box :weekend_shifts %>
-      </p>
-      <p>
-        <%= f.label :schedule_start, text = "Display unscheduled shifts:" %>
-        <%= f.check_box :unscheduled_shifts %>
-      </p>
+	<p>
+	  <%= f.text_field :early_signin, :size => 6 %>
+	  <%= f.label :early_signin, text = "The earliest a user can sign into a shift without getting a notice." %>
+	</p>
+    <p>
+     <%= f.text_field :payform_time_limit, :size => 6 %>
+	 <%= f.label :payform_time_limit, text = " Maximum amount of hours allowed to be submitted without getting a warning. "%>
+    </p>
+    <p>
+	<%= f.text_field :task_leniency, :size => 6 %>
+    <%= f.label :task_leniency, text = " Amount of time before a task is displayed as missed in the report."%>
+	</p>
   </fieldset>
   <br/>
   <fieldset class = "index">
     <legend>Edit Payform Configuration</legend>
     <p>
-      <%= f.label :schedule_start, text = "Default Printed Payform Message:" %>
-      <%= f.text_area :printed_message, :size => "50x5" %>
+      <%= f.label :schedule_start, text = "Default Printed Payform Message:" %><br />
+      <%= f.text_area :printed_message, :size => "30x5" %>
     </p>
     <p>
-      <%= f.label :schedule_start, text = "Default Payform Reminder:" %>
-      <%= f.text_area :reminder_message, :size => "50x5" %>
+      <%= f.label :schedule_start, text = "Default Payform Reminder:" %><br />
+      <%= f.text_area :reminder_message, :size => "30x5" %>
     </p>
     <p>
-      <%= f.label :schedule_start, text = "Default Late Payform Warning:" %>
-      <%= f.text_area :warning_message, :size => "50x5" %>
+      <%= f.label :schedule_start, text = "Default Late Payform Warning:" %><br />
+      <%= f.text_area :warning_message, :size => "30x5" %>
     </p>
     <p>
-      <%= f.label :schedule_start, text = "'From' address on automated emails" %>
       <%= f.text_field :mailer_address %>
+      <%= f.label :schedule_start, text = "'From' address on automated emails" %>
     </p>
     <p>
-      <%= f.label :schedule_start, text = "Elapsed weeks before warning admin about lateness of payform:" %>
       <%= f.text_field :warning_weeks, :size => 6 %>
+      <%= f.label :schedule_start, text = "Elapsed weeks before warning admin about lateness of payform." %>
     </p>
     <p>
-      <%= f.label :schedule_start, text = "Minimum Length for Item Description (in characters; '0' to disable):" %>
       <%= f.text_field :description_min, :size => 6 %>
+      <%= f.label :schedule_start, text = "Minimum Length for Item Description (in characters; '0' to disable)." %>
     </p>
     <p>
-      <%= f.label :schedule_start, text = "Minimum Length for Edit or Deletion Reason (in characters; '0' to disable):" %>
       <%= f.text_field :reason_min, :size => 6 %>
+      <%= f.label :schedule_start, text = "Minimum Length for Edit or Deletion Reason (in characters; '0' to disable)." %>
     </p>
     <p>
-      <%= f.label :schedule_start, text = "Payform Period:" %>
+      <%= f.label :schedule_start, text = "Payform Period:" %> <br />
       <%= f.select :monthly, DepartmentConfig::PAYFORM_PERIOD %>
     </p>
     <p id = "week">
-      <%= f.label :schedule_start, text = "Last day of payform week:" %>
+      <%= f.label :schedule_start, text = "Last day of payform week:" %> <br/>
       <%= f.select :day, DepartmentConfig::WEEK_DAY_SELECT %>
     </p>
     <p id = "month">
@@ -72,7 +91,32 @@
       <%= f.select :day, (1..28).step + DepartmentConfig::LAST_DAY_SELECT %>
     </p>
   </fieldset>
+<fieldset class = "index">
+    <legend>Edit Email Statistics Configuration</legend>
+	<p>
+		<%= f.label :stats_mailer_address, text = "Emails of users to receive shift statistics (separated by commas):"%> <br />
+		<%= f.text_area :stats_mailer_address, :size => "30x5"%>
+	</p>
+</fieldset>
+<fieldset class = "index">
+		<legend>Edit Custom Search Engine</legend>
+	<p>
+		<%= f.label :search_engine_name, text = "Search engine name:"%>
+		<%= f.text_field :search_engine_name %>
+	</p>
+	<p>
+		<%= f.label :search_engine_url, text = "Search URL prefix:"%>
+		<%= f.text_field :search_engine_url %>
+	</p>
+</fieldset>
+<fieldset class = "index">
+    <legend>Edit Stale Shift Configuration</legend>
+	<p>
+		<%= f.check_box :stale_shift %>
+		<%= f.label :stale_shift, text = "Send emails to users regarding stale shifts (leave blank to disable)."%>
+	</p>
+</fieldset>
 <%= submit_tag "Save Settings" %>
-<% end %>
+<% end %><br />
 </div>
 

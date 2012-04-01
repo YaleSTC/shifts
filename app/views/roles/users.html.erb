@@ -1,0 +1,22 @@
+<% title "#{@role.name.pluralize}" %>
+
+
+<table class = "tablesorter">
+ <thead>
+	<tr>
+		<th> Login </th>
+		<th> Name </th>
+		<th> Email </th>
+	</tr>
+  </thead>
+  <tbody>
+	<% for user in @role_users %>
+	<tr> 
+	    <td><%= user.login%></td>
+		<td><%= link_to user.name, user_profile_path(user.login) %></td>
+		<td><%= mail_to user.email%></td>
+		<td><%= link_to "Edit", edit_user_path(user)%></td>
+		</tr>
+ <% end %>
+  </tbody>
+</table>

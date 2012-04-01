@@ -1,0 +1,1 @@
+page.replace_html "tooltip", :partial => "shifts/tooltips/show", :object => @shift

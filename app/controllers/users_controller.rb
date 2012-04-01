@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if params[:show_inactive]
       @users = @department.users
     else
-      @users = current_department.active_users
+      @users = current_department.active_users.sort_by(&:reverse_name)
     end
 
     if params[:search]
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user_profile = UserProfile.find_by_user_id((params[:id]))
     unless @user_profile.user.departments.include?(@department)
-      flash[:error] = "This user does not have a profile in this department"
+      flash[:error] = "This user does not have a profile in this department."
     end
     @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
   end
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def create
     if @user = User.find_by_login(params[:user][:login])
       if @user.departments.include? @department #if user is already in this department
-        flash[:notice] = "This user already exists in this department!"
+        flash[:notice] = "This user already exists in this department."
       else
         @user.roles += (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
         @user.departments << @department unless @user.departments.include?(@department)
@@ -69,6 +69,9 @@ class UsersController < ApplicationController
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
         @user.set_payrate(params[:payrate], @department)
+        UserProfileField.all.each do |field|
+          UserProfileEntry.create!(:user_profile_id => @user.user_profile.id, :user_profile_field_id => field.id)
+        end
         if @user.auth_type == 'built-in'
           @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_new_user_password_instructions(n, current_department)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
@@ -96,9 +99,14 @@ class UsersController < ApplicationController
     #remove all roles associated with this department
     department_roles = @user.roles.select{|role| role.department == current_department}
     updated_roles = @user.roles - department_roles
-    #now add back all checked roles associated with this department
-    updated_roles |= (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
-
+    #now add back all checked roles associated with this department (or empty if none were checked)
+    updated_roles += (params[:user][:role_ids] ? params[:user][:role_ids].collect{|id| Role.find(id)} : [])
+    #We can't save the roles association via update attributes, so we have to do it manually
+    @user.roles = updated_roles
+    @user.save!
+    #Finally to prevent the @user.update_attribues from attempting to update the roles, we must remove them from params
+    params[:user].delete(:role_ids)
+    
     #So that the User Profile can be updated as well
       @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
       @user_profile_entries = params[:user_profile_entries]
@@ -127,9 +135,11 @@ class UsersController < ApplicationController
 
     @user_profile = UserProfile.find_by_user_id(@user.id)
     @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
-    params[:user][:role_ids] = updated_roles
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
+    
+    
+    
     if @user.update_attributes(params[:user])
       @user.set_payrate(params[:payrate].gsub(/\$/,""), @department) if params[:payrate]
       flash[:notice] = "Successfully updated user."
@@ -141,12 +151,12 @@ class UsersController < ApplicationController
   end
 
   def destroy #the preferred action. really only disables the user for that department.
-# DRAFT IMPROVEMENT -ben
-#    @user = User.find(params[:id])
-#    @user.destroy
-#    flash[:notice] = "Successfully destroyed user."
-#    redirect_to department_users_path(current_department)
-# END DRAFT
+  # DRAFT IMPROVEMENT -ben
+  #    @user = User.find(params[:id])
+  #    @user.destroy
+  #    flash[:notice] = "Successfully destroyed user."
+  #    redirect_to department_users_path(current_department)
+  # END DRAFT
     @user = User.find(params[:id])
     if @user.toggle_active(@department) #new_entry.save
       flash[:notice] = "Successfully deactivated user."
@@ -156,35 +166,35 @@ class UsersController < ApplicationController
     end
   end
 
-# I believe that neither of these two actions is in use anymore -ben
-# Replacement for destroy action
-#  def deactivate
-#    @user = User.find(params[:id])
-#    if @user.toggle_active(@department) #new_entry.save
-#      flash[:notice] = "Successfully deactivated user."
-#      redirect_to @user
-#    else
-#      render :action => 'edit'
-#    end
-#  end
+  # I believe that neither of these two actions is in use anymore -ben
+  # Replacement for destroy action
+  #  def deactivate
+  #    @user = User.find(params[:id])
+  #    if @user.toggle_active(@department) #new_entry.save
+  #      flash[:notice] = "Successfully deactivated user."
+  #      redirect_to @user
+  #    else
+  #      render :action => 'edit'
+  #    end
+  #  end
 
-# Reactivates the user
-#  def restore
-#    @user = User.find(params[:id])
-#    new_entry = DepartmentsUser.new();
-#    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
-#    new_entry.attributes = old_entry.attributes
-#    new_entry.active = true
-#    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
-#    if new_entry.save
-#      flash[:notice] = "Successfully restored user."
-#      redirect_to @user
-#    else
-#      render :action => 'edit'
-#    end
-#  end
+  # Reactivates the user
+  #  def restore
+  #    @user = User.find(params[:id])
+  #    new_entry = DepartmentsUser.new();
+  #    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => @user, :department_id => @department})
+  #    new_entry.attributes = old_entry.attributes
+  #    new_entry.active = true
+  #    DepartmentsUser.delete_all( :user_id => @user, :department_id => @department )
+  #    if new_entry.save
+  #      flash[:notice] = "Successfully restored user."
+  #      redirect_to @user
+  #    else
+  #      render :action => 'edit'
+  #    end
+  #  end
 
-# To be replaced with destroy
+  # To be replaced with destroy
   def really_destroy #if we ever need an action that actually destroys users.
     @user = User.find(params[:id])
     @user.destroy
@@ -192,12 +202,12 @@ class UsersController < ApplicationController
     redirect_to department_users_path(current_department)
   end
 
-# Empty action, necessary for a view -ben
-# Used for importing from CSV
+  # Empty action, necessary for a view -ben
+  # Used for importing from CSV
   def import
   end
 
-# Used for importing from CSV
+  # Used for importing from CSV
   def verify_import
     file = params[:file]
     flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
@@ -210,7 +220,7 @@ class UsersController < ApplicationController
     end
   end
 
-# Used for importing from CSV
+  # Used for importing from CSV
   def save_import
     if params[:commit]=="Cancel"
       redirect_to import_department_users_path(@department) and return
@@ -241,7 +251,7 @@ class UsersController < ApplicationController
       end
     end
     if failures.empty?
-      flash[:notice] = "All users successfully added!"
+      flash[:notice] = "All users successfully added."
       redirect_to department_users_path(@department)
     else
       @users=failures.collect{|e| User.new(e[:user])}
@@ -252,27 +262,41 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
-    departments = current_user.departments.sort_by(&:name)
-    users = Department.find(params[:department_id]).users.sort_by(&:first_name)
-    roles = Department.find(params[:department_id]).roles.sort_by(&:name)
-
     @list = []
-    users.each do |user|
-      if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
-      #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
-        @list << {:id => "User||#{user.id}", :name => "#{user.name} (#{user.login})"}
+    
+    classes = params[:classes]
+    
+    if classes.include?("User")
+      users = Department.find(params[:department_id]).users.sort_by(&:first_name)
+      users.each do |user|
+        if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
+        #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
+          @list << {:id => "User||#{user.id}", :name => "#{user.name} (#{user.login})"}
+        end
       end
     end
-    departments.each do |department|
-      if department.name.downcase.include?(params[:q])
-        #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
-        @list << {:id => "Department||#{department.id}", :name => "Department: #{department.name}"}
+    if classes.include?("Department")
+      departments = current_user.departments.sort_by(&:name)
+      departments.each do |department|
+        if department.name.downcase.include?(params[:q])
+          #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
+         # department.users.each do |user|
+          #  @list << {:id => "User||#{user.id}", :name => "#{user.name} (#{user.login})"}  
+          #end
+          @list << {:id => "Department||#{department.id}", :name => "Department: #{department.name}"}
+        end
       end
     end
-    roles.each do |role|
-      if role.name.downcase.include?(params[:q])
-        #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
-        @list << {:id => "Role||#{role.id}", :name => "Role: #{role.name}"}
+    if classes.include?("Role")
+      roles = Department.find(params[:department_id]).roles.sort_by(&:name)
+      roles.each do |role|
+        if role.name.downcase.include?(params[:q])
+          #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
+          #role.users.each do |u|
+          #  @list << {:id => "User||#{u.id}", :name => "#{u.name} (#{u.login})"}  
+          #end
+          @list << {:id => "Role||#{role.id}", :name => "Role: #{role.name}"}
+        end
       end
     end
 

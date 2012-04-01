@@ -1,9 +1,5 @@
 <% fields_for @user do |f| %>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :nick_name %><br />
-    <%= f.text_field :nick_name %>
-  </p>
 
   <% if @user.auth_type == "built-in"%>
     <p>
@@ -13,5 +9,5 @@
     <%= f.label :password_confirmation %> <br />
     <%= f.password_field :password_confirmation %></p>
   <% end %>
-<% end %>
 
+<% end %>

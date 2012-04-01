@@ -88,9 +88,9 @@
 (function($) {
 	$.extend({
 		tablesorter: new function() {
-			
+
 			var parsers = [], widgets = [];
-			
+
 			this.defaults = {
 				cssHeader: "header",
 				cssAsc: "headerSortUp",
@@ -112,14 +112,14 @@
 				decimal: '.',
 				debug: false
 			};
-			
+
 			/* debuging utils */
 			function benchmark(s,d) {
 				log(s + "," + (new Date().getTime() - d.getTime()) + "ms");
 			}
-			
+
 			this.benchmark = benchmark;
-			
+
 			function log(s) {
 				if (typeof console != "undefined" && typeof console.debug != "undefined") {
 					console.log(s);
@@ -127,44 +127,44 @@
 					alert(s);
 				}
 			}
-						
+
 			/* parsers utils */
 			function buildParserCache(table,$headers) {
-				
+
 				if(table.config.debug) { var parsersDebug = ""; }
-				
+
 				var rows = table.tBodies[0].rows;
-				
+
 				if(table.tBodies[0].rows[0]) {
 
 					var list = [], cells = rows[0].cells, l = cells.length;
-					
+
 					for (var i=0;i < l; i++) {
 						var p = false;
-						
+
 						if($.metadata && ($($headers[i]).metadata() && $($headers[i]).metadata().sorter)  ) {
-						
+
 							p = getParserById($($headers[i]).metadata().sorter);	
-						
+
 						} else if((table.config.headers[i] && table.config.headers[i].sorter)) {
-	
+
 							p = getParserById(table.config.headers[i].sorter);
 						}
 						if(!p) {
 							p = detectParserForColumn(table,cells[i]);
 						}
-	
+
 						if(table.config.debug) { parsersDebug += "column:" + i + " parser:" +p.id + "\n"; }
-	
+
 						list.push(p);
 					}
 				}
-				
+
 				if(table.config.debug) { log(parsersDebug); }
 
 				return list;
 			};
-			
+
 			function detectParserForColumn(table,node) {
 				var l = parsers.length;
 				for(var i=1; i < l; i++) {
@@ -175,7 +175,7 @@
 				// 0 is always the generic parser (text)
 				return parsers[0];
 			}
-			
+
 			function getParserById(name) {
 				var l = parsers.length;
 				for(var i=0; i < l; i++) {
@@ -185,45 +185,45 @@
 				}
 				return false;
 			}
-			
+
 			/* utils */
 			function buildCache(table) {
-				
+
 				if(table.config.debug) { var cacheTime = new Date(); }
-				
-				
+
+
 				var totalRows = (table.tBodies[0] && table.tBodies[0].rows.length) || 0,
 					totalCells = (table.tBodies[0].rows[0] && table.tBodies[0].rows[0].cells.length) || 0,
 					parsers = table.config.parsers, 
 					cache = {row: [], normalized: []};
-				
+
 					for (var i=0;i < totalRows; ++i) {
-					
+
 						/** Add the table data to main data array */
 						var c = table.tBodies[0].rows[i], cols = [];
-					
+
 						cache.row.push($(c));
-						
+
 						for(var j=0; j < totalCells; ++j) {
 							cols.push(parsers[j].format(getElementText(table.config,c.cells[j]),table,c.cells[j]));	
 						}
-												
+
 						cols.push(i); // add position for rowCache
 						cache.normalized.push(cols);
 						cols = null;
 					};
-				
+
 				if(table.config.debug) { benchmark("Building cache for " + totalRows + " rows:", cacheTime); }
-				
+
 				return cache;
 			};
-			
+
 			function getElementText(config,node) {
-				
+
 				if(!node) return "";
-								
+
 				var t = "";
-				
+
 				if(config.textExtraction == "simple") {
 					if(node.childNodes[0] && node.childNodes[0].hasChildNodes()) {
 						t = node.childNodes[0].innerHTML;
@@ -239,11 +239,11 @@
 				}
 				return t;
 			}
-			
+
 			function appendToTable(table,cache) {
-				
+
 				if(table.config.debug) {var appendTime = new Date()}
-				
+
 				var c = cache, 
 					r = c.row, 
 					n= c.normalized, 
@@ -251,80 +251,80 @@
 					checkCell = (n[0].length-1), 
 					tableBody = $(table.tBodies[0]),
 					rows = [];
-				
+
 				for (var i=0;i < totalRows; i++) {
 					rows.push(r[n[i][checkCell]]);	
 					if(!table.config.appender) {
-						
+
 						var o = r[n[i][checkCell]];
 						var l = o.length;
 						for(var j=0; j < l; j++) {
-							
+
 							tableBody[0].appendChild(o[j]);
-						
+
 						}
-						
+
 						//tableBody.append(r[n[i][checkCell]]);
 					}
 				}	
-				
+
 				if(table.config.appender) {
-				
+
 					table.config.appender(table,rows);	
 				}
-				
+
 				rows = null;
-				
+
 				if(table.config.debug) { benchmark("Rebuilt table:", appendTime); }
-								
+
 				//apply table widgets
 				applyWidget(table);
-				
+
 				// trigger sortend
 				setTimeout(function() {
 					$(table).trigger("sortEnd");	
 				},0);
-				
+
 			};
-			
+
 			function buildHeaders(table) {
-				
+
 				if(table.config.debug) { var time = new Date(); }
-				
+
 				var meta = ($.metadata) ? true : false, tableHeadersRows = [];
-			
+
 				for(var i = 0; i < table.tHead.rows.length; i++) { tableHeadersRows[i]=0; };
-				
+
 				$tableHeaders = $("thead th",table);
-		
+
 				$tableHeaders.each(function(index) {
-							
+
 					this.count = 0;
 					this.column = index;
 					this.order = formatSortingOrder(table.config.sortInitialOrder);
-					
+
 					if(checkHeaderMetadata(this) || checkHeaderOptions(table,index)) this.sortDisabled = true;
-					
+
 					if(!this.sortDisabled) {
 						$(this).addClass(table.config.cssHeader);
 					}
-					
+
 					// add cell to headerList
 					table.config.headerList[index]= this;
 				});
-				
+
 				if(table.config.debug) { benchmark("Built headers:", time); log($tableHeaders); }
-				
+
 				return $tableHeaders;
-				
+
 			};
-						
+
 		   	function checkCellColSpan(table, rows, row) {
                 var arr = [], r = table.tHead.rows, c = r[row].cells;
-				
+
 				for(var i=0; i < c.length; i++) {
 					var cell = c[i];
-					
+
 					if ( cell.colSpan > 1) { 
 						arr = arr.concat(checkCellColSpan(table, headerArr,row++));
 					} else  {
@@ -336,27 +336,27 @@
 				}
 				return arr;
 			};
-			
+
 			function checkHeaderMetadata(cell) {
 				if(($.metadata) && ($(cell).metadata().sorter === false)) { return true; };
 				return false;
 			}
-			
+
 			function checkHeaderOptions(table,i) {	
 				if((table.config.headers[i]) && (table.config.headers[i].sorter === false)) { return true; };
 				return false;
 			}
-			
+
 			function applyWidget(table) {
 				var c = table.config.widgets;
 				var l = c.length;
 				for(var i=0; i < l; i++) {
-					
+
 					getWidgetById(c[i]).format(table);
 				}
-				
+
 			}
-			
+
 			function getWidgetById(name) {
 				var l = widgets.length;
 				for(var i=0; i < l; i++) {
@@ -365,9 +365,9 @@
 					}
 				}
 			};
-			
+
 			function formatSortingOrder(v) {
-				
+
 				if(typeof(v) != "Number") {
 					i = (v.toLowerCase() == "desc") ? 1 : 0;
 				} else {
@@ -375,7 +375,7 @@
 				}
 				return i;
 			}
-			
+
 			function isValueInArray(v, a) {
 				var l = a.length;
 				for(var i=0; i < l; i++) {
@@ -385,24 +385,24 @@
 				}
 				return false;
 			}
-				
+
 			function setHeadersCss(table,$headers, list, css) {
 				// remove all header information
 				$headers.removeClass(css[0]).removeClass(css[1]);
-				
+
 				var h = [];
 				$headers.each(function(offset) {
 						if(!this.sortDisabled) {
 							h[this.column] = $(this);					
 						}
 				});
-				
+
 				var l = list.length; 
 				for(var i=0; i < l; i++) {
 					h[list[i][0]].addClass(css[list[i][1]]);
 				}
 			}
-			
+
 			function fixColumnWidth(table,$headers) {
 				var c = table.config;
 				if(c.widthFixed) {
@@ -413,7 +413,7 @@
 					$(table).prepend(colgroup);
 				};
 			}
-			
+
 			function updateHeaderSortCount(table,sortList) {
 				var c = table.config, l = sortList.length;
 				for(var i=0; i < l; i++) {
@@ -422,125 +422,125 @@
 					o.count++;
 				}
 			}
-			
+
 			/* sorting methods */
 			function multisort(table,sortList,cache) {
-				
+
 				if(table.config.debug) { var sortTime = new Date(); }
-				
+
 				var dynamicExp = "var sortWrapper = function(a,b) {", l = sortList.length;
-					
+
 				for(var i=0; i < l; i++) {
-					
+
 					var c = sortList[i][0];
 					var order = sortList[i][1];
 					var s = (getCachedSortType(table.config.parsers,c) == "text") ? ((order == 0) ? "sortText" : "sortTextDesc") : ((order == 0) ? "sortNumeric" : "sortNumericDesc");
-					
+
 					var e = "e" + i;
-					
+
 					dynamicExp += "var " + e + " = " + s + "(a[" + c + "],b[" + c + "]); ";
 					dynamicExp += "if(" + e + ") { return " + e + "; } ";
 					dynamicExp += "else { ";
 				}
-				
+
 				// if value is the same keep orignal order	
 				var orgOrderCol = cache.normalized[0].length - 1;
 				dynamicExp += "return a[" + orgOrderCol + "]-b[" + orgOrderCol + "];";
-						
+
 				for(var i=0; i < l; i++) {
 					dynamicExp += "}; ";
 				}
-				
+
 				dynamicExp += "return 0; ";	
 				dynamicExp += "}; ";	
-				
+
 				eval(dynamicExp);
-				
+
 				cache.normalized.sort(sortWrapper);
-				
+
 				if(table.config.debug) { benchmark("Sorting on " + sortList.toString() + " and dir " + order+ " time:", sortTime); }
-				
+
 				return cache;
 			};
-			
+
 			function sortText(a,b) {
 				return ((a < b) ? -1 : ((a > b) ? 1 : 0));
 			};
-			
+
 			function sortTextDesc(a,b) {
 				return ((b < a) ? -1 : ((b > a) ? 1 : 0));
 			};	
-			
+
 	 		function sortNumeric(a,b) {
 				return a-b;
 			};
-			
+
 			function sortNumericDesc(a,b) {
 				return b-a;
 			};
-			
+
 			function getCachedSortType(parsers,i) {
 				return parsers[i].type;
 			};
-			
+
 			/* public methods */
 			this.construct = function(settings) {
 
 				return this.each(function() {
-					
+
 					if(!this.tHead || !this.tBodies) return;
-					
+
 					var $this, $document,$headers, cache, config, shiftDown = 0, sortOrder;
-					
+
 					this.config = {};
-					
+
 					config = $.extend(this.config, $.tablesorter.defaults, settings);
-					
+
 					// store common expression for speed					
 					$this = $(this);
-					
+
 					// build headers
 					$headers = buildHeaders(this);
-					
+
 					// try to auto detect column type, and store in tables config
 					this.config.parsers = buildParserCache(this,$headers);
-					
-					
+
+
 					// build the cache for the tbody cells
 					cache = buildCache(this);
-					
+
 					// get the css class names, could be done else where.
 					var sortCSS = [config.cssDesc,config.cssAsc];
-					
+
 					// fixate columns if the users supplies the fixedWidth option
 					fixColumnWidth(this);
-					
+
 					// apply event handling to headers
 					// this is to big, perhaps break it out?
 					$headers.click(function(e) {
-						
+
 						$this.trigger("sortStart");
-						
+
 						var totalRows = ($this[0].tBodies[0] && $this[0].tBodies[0].rows.length) || 0;
-						
+
 						if(!this.sortDisabled && totalRows > 0) {
-							
-							
+
+
 							// store exp, for speed
 							var $cell = $(this);
-	
+
 							// get current column index
 							var i = this.column;
-							
+
 							// get current column sort order
 							this.order = this.count++ % 2;
-							
+
 							// user only whants to sort on one column
 							if(!e[config.sortMultiSortKey]) {
-								
+
 								// flush the sort list
 								config.sortList = [];
-								
+
 								if(config.sortForce != null) {
 									var a = config.sortForce; 
 									for(var j=0; j < a.length; j++) {
@@ -549,15 +549,15 @@
 										}
 									}
 								}
-								
+
 								// add column to sort list
 								config.sortList.push([i,this.order]);
-							
+
 							// multi column sorting
 							} else {
 								// the user has clicked on an all ready sortet column.
 								if(isValueInArray(i,config.sortList)) {	 
-									
+
 									// revers the sorting direction for all tables.
 									for(var j=0; j < config.sortList.length; j++) {
 										var s = config.sortList[j], o = config.headerList[s[0]];
@@ -587,48 +587,48 @@
 							return false;
 						}
 					});
-					
+
 					// apply easy methods that trigger binded events
 					$this.bind("update",function() {
-						
+
 						// rebuild parsers.
 						this.config.parsers = buildParserCache(this,$headers);
-						
+
 						// rebuild the cache map
 						cache = buildCache(this);
-						
+
 					}).bind("sorton",function(e,list) {
-						
+
 						$(this).trigger("sortStart");
-						
+
 						config.sortList = list;
-						
+
 						// update and store the sortlist
 						var sortList = config.sortList;
-						
+
 						// update header count index
 						updateHeaderSortCount(this,sortList);
-						
+
 						//set css for headers
 						setHeadersCss(this,$headers,sortList,sortCSS);
-						
-						
+
+
 						// sort the table and append it to the dom
 						appendToTable(this,multisort(this,sortList,cache));
 
 					}).bind("appendCache",function() {
-						
+
 						appendToTable(this,cache);
-					
+
 					}).bind("applyWidgetId",function(e,id) {
-						
+
 						getWidgetById(id).format(this);
-						
+
 					}).bind("applyWidgets",function() {
 						// apply widgets
 						applyWidget(this);
 					});
-					
+
 					if($.metadata && ($(this).metadata() && $(this).metadata().sortlist)) {
 						config.sortList = $(this).metadata().sortlist;
 					}
@@ -636,12 +636,12 @@
 					if(config.sortList.length > 0) {
 						$this.trigger("sorton",[config.sortList]);	
 					}
-					
+
 					// apply widgets
 					applyWidget(this);
 				});
 			};
-			
+
 			this.addParser = function(parser) {
 				var l = parsers.length, a = true;
 				for(var i=0; i < l; i++) {
@@ -651,11 +651,11 @@
 				}
 				if(a) { parsers.push(parser); };
 			};
-			
+
 			this.addWidget = function(widget) {
 				widgets.push(widget);
 			};
-			
+
 			this.formatFloat = function(s) {
 				var i = parseFloat(s);
 				return (isNaN(i)) ? 0 : i;
@@ -664,13 +664,13 @@
 				var i = parseInt(s);
 				return (isNaN(i)) ? 0 : i;
 			};
-			
+
 			this.isDigit = function(s,config) {
 				var DECIMAL = '\\' + config.decimal;
 				var exp = '/(^[+]?0(' + DECIMAL +'0+)?$)|(^([-+]?[1-9][0-9]*)$)|(^([-+]?((0?|[1-9][0-9]*)' + DECIMAL +'(0*[1-9][0-9]*)))$)|(^[-+]?[1-9]+[0-9]*' + DECIMAL +'0+$)/';
 				return RegExp(exp).test($.trim(s));
 			};
-			
+
 			this.clearTableBody = function(table) {
 				if($.browser.msie) {
 					function empty() {
@@ -683,14 +683,14 @@
 			};
 		}
 	});
-	
+
 	// extend plugin scope
 	$.fn.extend({
         tablesorter: $.tablesorter.construct
 	});
-	
+
 	var ts = $.tablesorter;
-	
+
 	// add default parsers
 	ts.addParser({
 		id: "text",
@@ -702,7 +702,7 @@
 		},
 		type: "text"
 	});
-	
+
 	ts.addParser({
 		id: "digit",
 		is: function(s,table) {
@@ -714,7 +714,7 @@
 		},
 		type: "numeric"
 	});
-	
+
 	ts.addParser({
 		id: "currency",
 		is: function(s) {
@@ -725,7 +725,7 @@
 		},
 		type: "numeric"
 	});
-	
+
 	ts.addParser({
 		id: "ipAddress",
 		is: function(s) {
@@ -745,7 +745,7 @@
 		},
 		type: "numeric"
 	});
-	
+
 	ts.addParser({
 		id: "url",
 		is: function(s) {
@@ -756,7 +756,7 @@
 		},
 		type: "text"
 	});
-	
+
 	ts.addParser({
 		id: "isoDate",
 		is: function(s) {
@@ -767,7 +767,7 @@
 		},
 		type: "numeric"
 	});
-		
+
 	ts.addParser({
 		id: "percent",
 		is: function(s) { 
@@ -822,8 +822,8 @@
 	    },
 	  type: "numeric"
 	});
-	
-	
+
+
 	ts.addParser({
 	    id: "metadata",
 	    is: function(s) {
@@ -835,7 +835,7 @@
 	    },
 	  type: "numeric"
 	});
-	
+
 	// add default widgets
 	ts.addWidget({
 		id: "zebra",

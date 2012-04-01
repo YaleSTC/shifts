@@ -6,7 +6,7 @@
   <% form_for @data_object do |f| %>
     <%= f.error_messages %>
     <p>
-      <%= f.label :data_type %><br />
+     <h2> <%= f.label :data_type %></h2>
       <% if params[:data_type_id] %>
         <strong><%= DataType.find(params[:data_type_id]).name %></strong>
         <%= hidden_field_tag :data_type_id, params[:data_type_id] %>

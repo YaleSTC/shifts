@@ -43,17 +43,51 @@ class LocationsController < ApplicationController
       render :action => 'edit'
     end
   end
-
-  def destroy
+  
+  def toggle
     @location = Location.find(params[:id])
-    redirect_to access_denied_path unless @locations.include?(@location)
-    @location.destroy
-    flash[:notice] = "Successfully destroyed location."
-    redirect_to department_locations_path(current_department)
+    ActiveRecord::Base.transaction do
+      if @location.active
+        @location.deactivate
+      else
+        @location.activate
+      end
+    end
+    flash[:notice] = "Changed activation status of " + @location.name.to_s + "."
+    respond_to do |format|
+      format.js 
+      format.html {redirect_to notices_path}
+    end
+  end
+    
+  def destroy
+     @location = Location.find(params[:id])
+     redirect_to access_denied_path unless @locations.include?(@location)
+     @location.destroy
+     flash[:notice] = "Successfully destroyed location."
+     redirect_to department_locations_path(current_department)
+   end
+
+
+  def display_report_items
+    @location = Location.find(params[:id])
+    if params[:more_items] == nil
+      session[:items] = 0
+    end
+    item_number = find_item_number + 5
+    session[:items] = item_number
+    @report_items = ReportItem.in_location(@location).last(item_number).reverse
+    respond_to do |format|
+      format.js { @report_items }
+      format.html { } #this is necessary!
+    end
+  end
+
+private
+  def find_item_number
+     session[:items] ||= 0
   end
   
-private
-
   def find_allowed_locations
     @locations = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
   end

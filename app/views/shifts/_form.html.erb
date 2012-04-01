@@ -1,35 +1,98 @@
-<%= unobtrusive_datepicker_include_tags %>
+<% calculate_default_times %>
+
+  <% if params[:xPercentage] %>
+    <%= f.hidden_field :start_date, :value => @default_start_date, :id => :start_date  %>
+  <% else %>
+    <p>
+      <%= f.label :date %><br />
+      <%= f.date_select :start_date, :default => @default_start_date, :id => :start_date  %>
+    </p>
+  <% end %>
   <p>
-    <%
-      start_time = (params[:date] ? Time.parse(params[:date]) : Time.now)
-      if params[:xPercentage]
-        @dept_start_hour ||= current_department.department_config.schedule_start
-        @dept_end_hour ||= current_department.department_config.schedule_end
-        @minutes_per_day ||= (@dept_end_hour - @dept_start_hour)
-        start_time += @dept_start_hour.minutes + (@minutes_per_day * params[:xPercentage].to_f) * 60
-      end
-    %>
-    <%= f.label :start_time %><br />
-    <%= f.unobtrusive_datetime_picker :start, :default => start_time, :minute_step => current_department.department_config.time_increment %>
+    <%= f.label :start %><br />
+    <%= f.time_select :start_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => true,
+                :include_end_time => false,
+                :default => @shift.start,
+                                          } %>
   </p>
   <p>
-    <%= f.label :end_time %><br />
-    <%= f.unobtrusive_datetime_picker :end, :default => start_time + 1.hour, :minute_step => current_department.department_config.time_increment %>
+  <%# if params[:xPercentage] %>
+    <%#= f.hidden_field :end_date, :value => @default_end_date, :id => :end_date  %>
+  <%# else %>
+    <%#= f.date_select :end_date, :default => @default_end_date, :id => :end_date  %>
+  <%# end %>
+    <%= f.label :end %><br />
+    <%= f.time_select :end_time, {
+                :simple_time_select => true,
+                :time_separator => "",
+                :minute_interval => current_department.department_config.time_increment,
+
+                :start_time => @range_start_time,
+                :end_time => @range_end_time,
+                :include_start_time => false,
+                :include_end_time => true,
+                :default => @shift.end,
+                                          } %>
   </p>
   <p>
     <%= f.label :location %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
+	<% if @shift.location.nil? && params[:location_id] %>
+    <% select_lg = Location.find(params[:location_id]).loc_group %>
+	<% elsif @shift.location %>
+	  <% select_lg = @shift.location.loc_group%>
+	<% end %>
+
   <% if current_user.is_admin_of?(current_department) %>
+		<% if select_lg.nil? || current_user.is_superuser? %>
+			<p>
+		    <%= f.label :user %><br />
+		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.reverse_name}, :id, :name, {:prompt => "Select a user"}) %>
+		  </p>
+		<% else %>
+			<p>
+	      <%= f.label :user %><br />
+	      <%= f.collection_select(:user_id, current_department.active_users.delete_if{|u| !u.can_signup?(select_lg)}.sort_by{|u| u.reverse_name}, :id, :name, {:prompt => "Select a user"}) %>
+	    </p>
+		<% end %>
     <p>
       <%= f.label :calendar %><br />
       <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
     </p>
     <p>
-      <%= f.label :user %><br />
-      <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+      <%= f.check_box :power_signed_up %> Power signup
     </p>
-    <p>
-      <%= f.check_box :power_signed_up %> Power signup (ignores restrictions and time slots)
-    </p>
+  <% elsif params[:calendar] %>
+    <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
   <% end %>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"shift_start_date_3i":"j",
+                              "shift_start_date_1i":"Y",
+                              "shift_start_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+var opts = {
+                formElements:{"shift_end_date_3i":"j",
+                              "shift_end_date_1i":"Y",
+                              "shift_end_date_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+
+</script>

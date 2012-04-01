@@ -1,0 +1,34 @@
+<% title "Tasks Index" %>
+
+<table id="tasks_table" class="tablesorter">
+	<thead>
+	  <tr>
+	    <th>Name</th>
+		<% unless mobile_device?%>
+	    <th>Kind</th>
+			<th>Location</th>
+	    <th>Start</th>
+	    <th>End</th>
+	    <th>Time</th>
+	    <th>Weekday</th>
+	    <th>Active</th>
+	    <th colspan=2>Task Records</th>
+	    <% end %>
+	  </tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "task", :collection => @active_tasks  %>
+	</tbody>
+</table>
+
+<h4>Expired/Inactive Tasks:</h4>
+
+<table class = "tablesorter">
+<%= render :partial => "task", :collection => @inactive_tasks %>
+</table>
+
+<br />
+
+<%= link_to 'New Task', new_task_path %>
+
+<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#tasks_table").tablesorter({sortList: [1,0]});});</script>

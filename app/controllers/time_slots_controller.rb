@@ -1,6 +1,5 @@
 class TimeSlotsController < ApplicationController
   before_filter :require_department_admin
-  layout 'shifts'
 
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
@@ -20,46 +19,42 @@ class TimeSlotsController < ApplicationController
 
   def new
     @time_slot = TimeSlot.new
-    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
+    @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday.to_date : Date.today.previous_sunday.to_date
   end
 
   def create
-    @time_slots = []
     errors = []
-    date = (params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday).to_time
-    for location_id in params[:location_ids]
-      for day in params[:days]
-        time_slot = TimeSlot.new(params[:time_slot])
-        time_slot.location_id = location_id
-        time_slot.start = date + day.to_i.days + time_slot.start.seconds_since_midnight
-        time_slot.end = date + day.to_i.days + time_slot.end.seconds_since_midnight
-        time_slot.calendar = @department.calendars.default unless time_slot.calendar
-        if !time_slot.save
-          errors << "Error saving timeslot for #{WEEK_DAYS[day.to_i]}"
-        else
-          @time_slots << time_slot
-        end
-      end
+    parse_date_and_time_output(params[:time_slot])
+    join_date_and_time(params[:time_slot])
+    @time_slot = TimeSlot.new(params[:time_slot])
+    if !@time_slot.save
+      errors << "Error saving timeslot"
     end
+
     respond_to do |format|
       format.html do
-        if errors.empty?
-          flash[:notice] = "Successfully created timeslot(s)."
-        else
-          flash[:error] =  "Error: "+errors*"<br/>"
-        end
-        redirect_to time_slots_path
+          if errors.empty?
+            flash[:notice] = "Successfully created timeslot(s)."
+          else
+            flash[:error] =  "Error: "+errors*"<br/>"
+          end
+          redirect_to time_slots_path
       end
       format.js do
-        if errors.empty?
-          @dept_start_hour = current_department.department_config.schedule_start / 60
-          @dept_end_hour = current_department.department_config.schedule_end / 60
-          @hours_per_day = (@dept_end_hour - @dept_start_hour)
-        else
-          render :update do |page|
-            ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")
+          if errors.empty?
+            @dept_start_hour = current_department.department_config.schedule_start / 60
+            @dept_end_hour = current_department.department_config.schedule_end / 60
+            @hours_per_day = (@dept_end_hour - @dept_start_hour)
+            if (@time_slot.start.beginning_of_day + current_department.department_config.schedule_start.minutes) <= @time_slot.start ##in the normal day (up to midnight)
+              @time_slot_day = @time_slot.start.to_date
+            else #after midnight
+              @time_slot_day = @time_slot.start.to_date - 1.day
+            end
+          else
+            render :update do |page|
+              ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")
+            end
           end
-        end
       end
     end
   end
@@ -70,7 +65,8 @@ class TimeSlotsController < ApplicationController
 
   def update
     @time_slot = TimeSlot.find(params[:id])
-
+    parse_date_and_time_output(params[:time_slot])
+    join_date_and_time(params[:time_slot])
     if @time_slot.update_attributes(params[:time_slot])
       respond_to do |format|
         format.js
@@ -87,12 +83,13 @@ class TimeSlotsController < ApplicationController
             @time_slot.errors.each do |attr_name, message|
               error_string += "<br><br>#{attr_name}: #{message}"
             end
-            ajax_alert(page, "<strong>error:</strong> updated time slot could not be saved"+error_string, 2.5 + (@time_slot.errors.size))
+            ajax_alert(page, "<strong>error:</strong> updated time slot could not be saved."+error_string, 2.5 + (@time_slot.errors.size))
           end
         end
         format.html {render :action => 'edit'}
       end
     end
+
   end
 
   def destroy
@@ -104,3 +101,4 @@ class TimeSlotsController < ApplicationController
     end
   end
 end
+

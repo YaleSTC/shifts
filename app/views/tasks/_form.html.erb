@@ -1,0 +1,80 @@
+<% form_for @task do |f| %>
+
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <%= f.label :kind %><br />
+	<%= radio_button_tag 'task[kind]', 'Hourly', true %> Hourly<br />
+	<%= radio_button_tag 'task[kind]', 'Daily'%> Daily<br />
+	<%= radio_button_tag 'task[kind]', 'Weekly' %> Weekly<br />
+    <%#= select_tag 'task[kind]', options_for_select(["Hourly", "Daily", "Weekly"], "Daily") %>
+  </p>
+  <p>
+    <%= f.label :day_in_week, text = "Weekday" %><br />
+    <%= select_tag 'task[day_in_week]', options_for_select(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "Mon") %>
+  </p>
+  <p>
+    <%= f.label :location_id, text = 'Location' %><br />
+    <%= select_tag 'task[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name)%><br />
+  </p>
+  <p>
+    <%= f.label :start %><br />
+	<%= f.date_select :start %>
+	</p>
+  <p>
+    <%= f.label :end %><br />
+  	<%= f.date_select :end %>
+  </p>
+  <p>
+    <%= f.label :time_of_day, text = "Time" %><br />
+<label><%= f.time_select :time_of_day, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %></label>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>
+  <p>
+    <%= f.submit 'Submit and add another task', :name => "add_another" %>
+	<%= f.submit 'Submit and finish', :name => "submit" %>
+  </p>
+
+<% end %>
+
+
+
+<script>
+$('#hide').toggle();
+$('#day_in_week').click(function () {
+  $('.day_in_week').toggle();
+});
+</script>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"task_start_3i":"j",
+                              "task_start_1i":"Y",
+                              "task_start_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+var opts = {
+                formElements:{"task_end_3i":"j",
+                              "task_end_1i":"Y",
+                              "task_end_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+</script>

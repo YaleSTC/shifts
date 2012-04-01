@@ -11,8 +11,9 @@ class DataEntriesController < ApplicationController
 
   def create
     @data_entry = DataEntry.new({:data_object_id => params[:data_object_id]})
-    #TODO: Fix this bug related to current_user.current_shift / .report
-    unless current_user.current_shift && current_user.current_shift.report.data_objects.include?(@data_entry.data_object)
+    #TODO: Fix this bug related to current_user.current_shift /.report
+    current_user.current_shift ? @current_shift = current_user.current_shift : nil
+    unless @current_shift && @current_shift.report.data_objects.include?(@data_entry.data_object)
       flash[:error] = "You are not signed into a shift."
       redirect_to(access_denied_path) and return false
     end
@@ -20,13 +21,10 @@ class DataEntriesController < ApplicationController
 
     if @data_entry.save
       flash[:notice] = "Successfully updated #{@data_entry.data_object.name}."
-      if @report = current_user.current_shift.report
+      if @report = @current_shift.report
         content = []
         @data_entry.data_fields_with_contents.each {|entry| content.push("#{DataField.find(entry.first).name.humanize}: #{entry.second}")}
-        @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}.  #{content.join(', ')}.", :ip_address => request.remote_ip)
-      else
-        #TODO Remove after fixing #213
-        raise "Error raised in finding current_user.current_shift.report. This is probably related to bug #213. If you see this message, please email a report to adam.bray@yale.edu with your Browser, OS, and Date/Time that you saw this message"
+        @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}: #{"\n"} #{content.join("\n")}", :ip_address => request.remote_ip)
       end
     else
       flash[:error] = "Could not update #{@data_entry.data_object.name}."
@@ -37,21 +35,21 @@ class DataEntriesController < ApplicationController
     end
   end
 
-## Are we removing this feature?
-#  def edit
-#    @data_entry = DataEntry.find(params[:id])
-#    @data_object = DataObject.find(params[:data_object_id])
-#  end
-#
-#  def update
-#    @data_entry = DataEntry.find(params[:id])
-#    if @data_entry.update_attributes(params[:data_entry])
-#      flash[:notice] = "Successfully updated data entry."
-#      redirect_to data_object_path(params[:data_object_id])
-#    else
-#      render :action => 'edit'
-#    end
-#  end
+ def edit
+   @data_entry = DataEntry.find(params[:id])
+   @data_object = DataObject.find(params[:data_object_id])
+ end
+
+ def update
+   @data_entry = DataEntry.find(params[:id])
+   if @data_entry.update_attributes(params[:data_entry])
+     flash[:notice] = "Successfully updated data entry."
+     redirect_to data_object_path(params[:data_object_id])
+   else
+     flash[:error] = "ERROR ERROR"
+     render :action => 'edit'
+   end
+ end
 
   private
 

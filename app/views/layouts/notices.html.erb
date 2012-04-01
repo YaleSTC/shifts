@@ -1,26 +1,6 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag 'shift' %>
+  <%= stylesheet_link_tag 'notice' %>
 <% end %>
 
-
-<% content_for :left_nav do %>
-  <ul id="navigationList">
-    <h3>Notice Actions</h3>
-      <li><%= link_to_post_a_new_notice %></li>
-    <% if current_user.is_admin_of?(current_department) %>
-      <li><%= link_to 'View All Notices', archive_notices_path %></li>
-    <% end %>
-  </ul>
-  <div id="contentNav">
-<% end %>
-
-
-<% content_for :body do %>
-
-  <%= yield %>
-
-  <div class="clear"></div>
-<% end -%>
-
-<%= render :file => "layouts/application.html.erb" %>
+<%= render :file => "layouts/shifts.html.erb" %>
 

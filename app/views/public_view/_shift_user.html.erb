@@ -1,0 +1,7 @@
+<div id="user_box">
+	<%= image_tag shift.user.user_profile.photo.url(:thumbnail) %><br />
+	<strong><%= shift.user.name %></strong><br />
+	<% unless shift.scheduled == false %>
+	Until <%= shift.end.strftime(time_format) %>
+	<% end %>
+</div>

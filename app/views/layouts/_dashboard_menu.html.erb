@@ -1,0 +1,46 @@
+<% if current_user.is_admin_of?(current_department) %>
+<%# Admin Menu %>
+	<% content_for :left_nav do %>
+	  <ul id="navigationList" class="sf-menu sf-vertical">
+			<% if current_user.is_superuser? %>
+			<li>
+				<a class="sf-with-ul" href="#">Superuser Options<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+				  <li><%= link_to "Application Settings", edit_app_config_path %></li>
+				  <li><%= link_to "Manage Admirals", superusers_path %></li>
+				</ul>
+			</li>
+			<% end %>
+			<% if current_user.is_admin_of?(@department) %>
+			<li>
+				<a class="sf-with-ul" href="#">Admin Options<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+					<li><%= link_to "Ship Settings", edit_department_config_path(@department.department_config) %></li>
+					<li><%= link_to "Duty Logs", calendars_path %></li>
+					<li><%= link_to "Autorizations", department_roles_path(@department) %></li> 
+					<li><%= link_to "Templates", templates_path %></li>
+				</ul>
+			</li>
+			<% end %>
+			<li>
+				<a class="sf-with-ul" href="#">Application Links<span class="sf-sub-indicator"> &#187;</span></a>
+				<ul>
+					<li><%= link_to "My Elistments", edit_user_config_path(current_user.user_config) %></li>
+					<li><%= link_to "My Dossier", user_profile_path(current_user.login) %></li>
+					<li><%= link_to "My Duty Log", calendar_feeds_path %></li>
+				</ul>
+			</li>
+	  </ul>
+	  <div id="contentNav">
+	<% end %>
+<% else %>
+<%# Non-admin Menu %>
+	<% content_for :left_nav do %>
+	  <ul id="navigationList" class="sf-menu sf-vertical">
+			<li><%= link_to "My Enlistments", edit_user_config_path(current_user.user_config) %></li>
+			<li><%= link_to "My Dossier", user_profile_path(current_user.login) %></li>
+			<li><%= link_to "My Duty Log", calendar_feeds_path %></li>
+	  </ul>
+	  <div id="contentNav">
+	<% end %>
+<% end %>

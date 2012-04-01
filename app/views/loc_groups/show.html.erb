@@ -1,28 +1,47 @@
 <% title @loc_group.name %>
-<h4 id="subtitle">Location Group (<%= link_to @loc_group.department.name, @loc_group.department %>)</h4>
+<h4 id="subtitle">Location Group (<%= link_to @loc_group.department.name, @loc_group.department %>)</h4><br /	>
+
+
+<h2>Locations in this location group</h2>
+
+  <table class="tablesorter">
+    <thead>
+      <tr>
+        <th width="30%">Long Name</th>
+		<% unless mobile_device?%>
+        <th>Short Name</th>
+        <th>Report Email</th>
+        <th>Max Staff</th>
+        <th>Priority</th>
+        <th>Min Staff</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @loc_group.locations.sort_by{ |loc| [- loc.priority, loc.name] }.each do |loc| -%>
+        <tr <%=  loc.active ? "" : "class='disabled'" %> id="loc<%= loc.id %>">
+          <td title='<%= loc.description %>'><%= link_to loc.name, location_path(loc) %></td>
+		  <% unless mobile_device?%>
+          <td><%= loc.short_name %></td>
+          <td><%= loc.report_email ? loc.report_email : "-" %></td>
+          <td><%= loc.max_staff %></td>
+          <td><%= loc.priority %></td>
+          <td><%= loc.min_staff %></td>
+		  <td><%= link_to "Edit", edit_location_path(loc)%></td>
+		  <td><%= link_to "Destroy", loc, :confirm => 'Are you sure?', :method => :delete %></td>
+          <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :controller => 'locations', :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
+		  <% end %>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+
+  <%= link_to "Create a new location", new_department_location_path(@department) %>
+	
+
 
 <p>
   <%= link_to "Edit", edit_loc_group_path(@loc_group) %> |
   <%= link_to "Destroy", @loc_group, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All Location Groups", department_loc_groups_path(@loc_group.department) %>
 </p>
-
-<h2>Locations in this location group</h2>
-<% @loc_group.locations.each do |location| %>
-<div class="admin_form">
-  <fieldset>
-    <legend><%= location.name %></legend>
-    <%= render :partial => 'locations/summary', :locals => {:location => location} %>
-    <p>
-      <%= link_to "Show", location %> |
-      <%= link_to "Edit", edit_location_path(location) %> |
-      <%= link_to "Destroy", location, :confirm => 'Are you sure?', :method => :delete %>
-    </p>
-  </fieldset>
-</div>
-<br />
-<% end %>
-
-
-  <%= link_to "Create a new location", new_department_location_path(@department) %>
-

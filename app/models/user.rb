@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   end
   
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :subs_requested, :class_name => 'SubRequest'
   has_many :departments_users
   has_many :departments, :through => :departments_users
   has_many :payforms
@@ -16,7 +17,10 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
-  has_many :sub_requests
+  has_many :sub_requests, :through => :shifts #the sub reqeusts this user owns
+	has_many :shift_preferences
+	has_many :requested_shifts
+
 
 # New user configs are created by a user observer, after create
   has_one :user_config, :dependent => :destroy
@@ -25,6 +29,8 @@ class User < ActiveRecord::Base
   attr_protected :superusercreate_
   named_scope :superusers, :conditions => { :superuser => true }, :order => :last_name
   delegate :default_department, :to => 'user_config'
+
+  
 
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -41,6 +47,10 @@ class User < ActiveRecord::Base
 
   def role
     self.roles.first.name if self.roles.first
+  end
+  
+  def active_departments
+    self.departments.select {|d| self.is_active?(d)}
   end
 
   def set_random_password(size=20)
@@ -91,21 +101,22 @@ class User < ActiveRecord::Base
     Shift.find(:first, :conditions=>{:user_id => self.id, :signed_in => true})
   end
 
-# Returns all the loc groups a user can view within a given department
-  def loc_groups(dept)
-    dept.loc_groups.delete_if{|lg| !self.can_view?(lg)}
-  end
-
   # check if a user can see locations and shifts under this loc group
   def can_view?(loc_group)
     return false unless loc_group
-    (permission_list.include?(loc_group.view_permission) || permission_list.include?(loc_group.department.admin_permission)) && self.is_active?(loc_group.department)
+    (self.is_superuser? || permission_list.include?(loc_group.view_permission) || permission_list.include?(loc_group.department.admin_permission)) && self.is_active?(loc_group.department)
   end
 
   # check if a user can sign up for a shift in this loc group
   def can_signup?(loc_group)
     return false unless loc_group
-    permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)
+    (permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)) if permission_list
+  end
+  
+  # check if a user has permission to take a sub
+  def can_take_sub?(sub_request)
+    return false unless sub_request
+    can_signup?(sub_request.loc_group)  && (sub_request.user != self) && (sub_request.users_with_permission.include?(self) || sub_request.users_with_permission.blank?)
   end
 
   # check for admin permission given a dept, location group, or location
@@ -140,6 +151,16 @@ class User < ActiveRecord::Base
   def is_loc_group_admin?(dept)
     dept.loc_groups.any?{|lg| self.is_admin_of?(lg)}
   end
+  
+  # given an object with roles, checks to see if the user belongs to one of those roles
+  def has_proper_role_for?(thing)
+    self.roles.each do |role|
+      if thing.roles.include?(role)
+        return true
+      end
+    end
+    return false
+  end
 
   # Given a department, return any location groups within that department that the user can admin
   def loc_groups_to_admin(dept)
@@ -156,6 +177,11 @@ class User < ActiveRecord::Base
     [first_name, last_name].join(" ")
   end
 
+  # Useful for alphabetical sorting of lists containing duplicate last names
+  def reverse_name
+    [last_name, first_name].join(" ")
+  end
+  
   def full_name_with_nick
     if nick_name && !nick_name.blank?
       [first_name, "'#{nick_name}'" , last_name].join(" ")
@@ -166,30 +192,51 @@ class User < ActiveRecord::Base
 
   def self.search(search_string)
     User.all.each do |u|
-      return u if u.name == search_string || u.proper_name == search_string || u.awesome_name == search_string || u.login == search_string
+      return u if u.name == search_string || u.proper_name == search_string || u.full_name_with_nick == search_string || u.login == search_string
     end
     nil
   end
-
+  
+  #Keeping permissions consistent.
+  def user
+    self
+  end
+  
   #We do still need this for polymorphism. I want to be able to call @user.users.
   def users
     [self]
   end
-
-  #TODO: This could possibly be further optimized
-  def available_sub_requests(departments = self.departments)
-    ActiveRecord::Base.transaction do #Wrapped in a transaction for performance reasons
-    a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'User' AND user_source_id = #{self.id.to_sql}"])
-    b = departments.collect do |department|
-      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Department' AND user_source_id = #{department.id.to_sql}"])
-    end
-    c = self.roles.select{|role| departments.include?(role.department)}.collect do |role|
-      UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'SubRequest' AND user_source_type = 'Role' AND user_source_id = #{role.id.to_sql}"])
-    end
-    (a + b.flatten + c.flatten).collect {|u| SubRequest.find(u.user_sink_id) }.select{ |subs| subs.user != self }
+  
+  def loc_groups(dept=nil)
+    if dept    #specified department
+      dept.loc_groups.select{|lg| self.can_view?(lg)}
+    else      #all departments
+      [departments.collect(&:loc_groups).flatten.select {|lg| self.can_view?(lg)}].flatten
     end
   end
-
+  
+  def locations(dept=nil)
+    [loc_groups(dept).collect(&:locations).flatten.uniq].flatten
+  end
+  
+  
+  #returns  upcoming sub_requests user has permission to take.  Default is for all departments
+  def available_sub_requests(source)
+    @all_subs = []
+    @all_subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| self.can_take_sub?(sub) }.select{ |sub| !sub.shift.missed?}
+   if !source.blank?
+       case 
+       when source.class.name == "Department"
+         @all_subs.select {|sub| source == sub.shift.department }
+       when source.class.name == "LocGroup"
+         @all_subs.select {|sub| source == sub.loc_group }
+       when source.class.name == "Location"
+         @all_subs.select {|sub| source == sub.shift.location }
+       end 
+    end
+    return @all_subs
+  end
+  
   def restrictions #TODO: this could probably be optimized
     Restriction.current.select{|r| r.users.include?(self)}
   end
@@ -197,10 +244,16 @@ class User < ActiveRecord::Base
   def toggle_active(department) #TODO why don't we just update the attribues on the current entry and save it?
     new_entry = DepartmentsUser.new();
     old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    shifts = Shift.for_user(self).select{|s| s.start > Time.now}
     new_entry.attributes = old_entry.attributes
     new_entry.active = !old_entry.active
     DepartmentsUser.delete_all( :user_id => self, :department_id => department)
     new_entry.save
+    shifts.each do |shift|
+      shift.active = new_entry.active
+      shift.save
+    end
+    return true
   end
 
   def deliver_password_reset_instructions!(mailer)
@@ -214,15 +267,6 @@ class User < ActiveRecord::Base
     (superuser? && supermode?) ? Department.all : departments
   end
 
-  def current_notices
-    Notice.active.select {|n| n.users.include?(self)}
-  end
-
-  def other_notices
-    Notice.active.select {|n| !n.users.include?(self) && n.locations.empty?}
-  end
-
-
   def payrate(department)
     DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
   end
@@ -235,7 +279,63 @@ class User < ActiveRecord::Base
     DepartmentsUser.delete_all(:user_id => self, :department_id => department)
     new_entry.save
   end
-
+  
+  def summary_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    summary_stats = {}
+    
+    summary_stats[:start_date] = start_date
+    summary_stats[:end_date] = end_date
+    summary_stats[:total] = shifts_set.size
+    summary_stats[:late] = shifts_set.select{|s| s.late == true}.size
+    summary_stats[:missed] = shifts_set.select{|s| s.missed == true}.size
+    summary_stats[:left_early] = shifts_set.select{|s| s.left_early == true}.size
+    
+    return summary_stats
+  end
+    
+  def detailed_stats(start_date, end_date)
+    shifts_set = shifts.on_days(start_date, end_date).active
+    detailed_stats = {}
+  
+    shifts_set.each do |s|
+       stat_entry = {}
+       stat_entry[:id] = s.id
+       stat_entry[:shift] = s.short_display
+       stat_entry[:in] = s.created_at
+       stat_entry[:out] = s.updated_at
+       # if s.missed
+       #   stat_entry[:notes] = "Missed"
+       # elsif s.late && s.left_early
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes, and left early " + (s.end - s.updated_at)/60 + " minutes"
+       # elsif s.late
+       #   stat_entry[:notes] = "Late " + (s.created_at - s.start)/60 + " minutes"
+       # elsif s.left_early
+       #   stat_entry[:notes] = "Left early " + (s.end - s.updated_at)/60 + " minutes"
+       # else
+       #   stat_entry[:notes]
+       # end
+       if s.missed
+         stat_entry[:notes] = "Missed"
+       elsif s.late && s.left_early
+         stat_entry[:notes] = "Late and left early"
+       elsif s.late
+         stat_entry[:notes] = "Late"
+       elsif s.left_early
+         stat_entry[:notes] = "Left early"
+       else
+         stat_entry[:notes]
+       end
+       stat_entry[:missed] = s.missed
+       stat_entry[:late] = s.late
+       stat_entry[:left_early] = s.left_early
+       stat_entry[:updates_hour] = s.updates_hour
+       detailed_stats[s.id] = stat_entry
+    end
+    
+    return detailed_stats
+  end
+  
   private
 
   def departments_not_empty

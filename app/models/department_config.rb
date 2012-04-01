@@ -3,8 +3,7 @@ class DepartmentConfig < ActiveRecord::Base
 
   validates_presence_of :department_id, :printed_message, :reminder_message, :warning_message
   validates_uniqueness_of :department_id
-  validates_numericality_of :time_increment, :grace_period, :schedule_start,
-                            :schedule_end, :description_min, :reason_min, :warning_weeks
+  validates_numericality_of :time_increment, :grace_period, :schedule_start, :schedule_end, :description_min, :reason_min, :warning_weeks, :admin_round_option, :early_signin, :task_leniency
   validate :increment_factor_of_60
 
   PAYFORM_PERIOD = [

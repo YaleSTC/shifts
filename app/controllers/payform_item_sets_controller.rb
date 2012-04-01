@@ -1,16 +1,13 @@
 class PayformItemSetsController < ApplicationController
   layout "payforms"
+  helper 'payforms'
   
   before_filter :require_department_admin
   
   # Shouldn't this filter by department?
   def index
-    @payform_item_sets = PayformItemSet.all
-  end
-  
-  def show
-    @payform_item_set = PayformItemSet.find(params[:id])
-    @payform_items = @payform_item_set.payform_items.select{|p| p.payform_id}
+    @active_sets = PayformItemSet.active
+    @expired_sets = PayformItemSet.expired
   end
   
   def new
@@ -20,7 +17,9 @@ class PayformItemSetsController < ApplicationController
   
   def create
     params[:user_ids].delete("")
+    set_payform_item_hours("payform_item_set")
     @payform_item_set = PayformItemSet.new(params[:payform_item_set])
+    @payform_item_set.active = true #TODO: set this as a default in the database
     date = build_date_from_params(:date, params[:payform_item_set])
     
     begin
@@ -33,10 +32,11 @@ class PayformItemSetsController < ApplicationController
           payform_item.payform = Payform.build(current_department, user, date)
           @payform_items << payform_item
         end
-      
+
+        
         if @payform_item_set.save and @payform_item_set.payform_items << @payform_items
           flash[:notice] = "Successfully created payform item set."
-          redirect_to @payform_item_set   
+          redirect_to payform_item_sets_path
         else
           flash[:error] = @payform_item_set.errors.full_messages.to_sentence
           @users_select = current_department.users.sort_by(&:name)
@@ -102,7 +102,7 @@ class PayformItemSetsController < ApplicationController
         
         if @payform_item_set.update_attributes(params[:payform_item_set])
           flash[:notice] = "Successfully updated payform item set."
-          redirect_to @payform_item_set   
+          redirect_to payform_item_sets_path
         else
           flash[:error] = @payform_item_set.errors.full_messages.to_sentence
           @users_select = current_department.users.sort_by(&:name)

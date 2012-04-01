@@ -1,61 +1,31 @@
 --- 
 user_profile_fields_001: 
-  created_at: 2009-10-19 15:38:01
-  department_id: "1"
-  display_type: text_field
-  id: "1"
-  name: Phone Number
-  public: t
-  updated_at: 2009-10-19 15:38:01
-  user_editable: t
-  values: text
-user_profile_fields_002: 
-  created_at: 2009-10-19 15:38:01
-  department_id: "1"
-  display_type: text_area
-  id: "2"
-  name: About Me
-  public: t
-  updated_at: 2009-10-19 15:38:01
-  user_editable: t
-  values: 
-user_profile_fields_003: 
-  created_at: 2009-10-19 15:38:01
-  department_id: "1"
-  display_type: select
-  id: "3"
-  name: Primary Operating system
-  public: t
-  updated_at: 2009-10-19 15:38:01
-  user_editable: t
-  values: Mac, Windows, Linux
-user_profile_fields_004: 
-  created_at: 2009-10-19 15:38:01
-  department_id: "1"
-  display_type: radio_button
-  id: "4"
-  name: Likes Peas?
-  public: t
-  updated_at: 2009-10-19 15:38:01
-  user_editable: t
-  values: yes, no
-user_profile_fields_005: 
-  created_at: 2009-10-19 15:38:01
-  department_id: "1"
-  display_type: check_box
-  id: "5"
-  name: Favorite Fruits
-  public: t
-  updated_at: 2009-10-19 15:38:01
-  user_editable: t
-  values: Apples, Bananas, Strawberries, Mangos
-user_profile_fields_006: 
-  created_at: 2009-10-19 15:38:01
+  created_at: 2009-09-16 03:52:31
   department_id: "1"
   display_type: picture_link
-  id: "6"
-  name: Profile Picture Link
-  public: t
-  updated_at: 2009-10-19 15:38:01
-  user_editable: t
+  id: "1"
+  name: Picture
+  public: "1"
+  updated_at: 2009-09-16 03:52:31
+  user_editable: "1"
+  values: ""
+user_profile_fields_002: 
+  created_at: 2009-09-16 03:53:27
+  department_id: "1"
+  display_type: select
+  id: "2"
+  name: Queue
+  public: "1"
+  updated_at: 2009-09-16 03:53:27
+  user_editable: "1"
+  values: BK, BR, CC, DC, ES, JE, MC, PC, SY, SM, TD, TC, OC1, OC2, OCG, OffCG
+user_profile_fields_003: 
+  created_at: 2010-09-30 18:14:00
+  department_id: "1"
+  display_type: text_area
+  id: "3"
+  name: Bio
+  public: "1"
+  updated_at: 2010-09-30 18:14:00
+  user_editable: "1"
   values: 

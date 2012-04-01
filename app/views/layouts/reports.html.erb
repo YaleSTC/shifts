@@ -1,6 +1,10 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag 'report' %>
-  <%= javascript 'battleshifts' %>
+	<%= javascript 'battleshifts' %>
+  <% if mobile_device?%>
+	<%= stylesheet_link_tag 'mobile_report', 'mobile_notice' %>
+  <% else %>
+ 	<%= stylesheet_link_tag 'report', 'notice' %>
+  <% end %>
 <% end %>
 
 <% content_for :body do %>

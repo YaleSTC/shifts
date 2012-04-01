@@ -22,17 +22,23 @@
 <script>var calendar_visible = {};</script>
 <%= render :partial => 'shifts/view_preferences' %>
 
-<table>
+<table class = "tablesorter">
+ <thead>
   <tr>
     <th>Name</th>
+	<% unless mobile_device?%>
     <th>Start Date</th>
     <th>End Date</th>
     <th>Public</th>
     <th>Active</th>
+	<% end %>
   </tr>
+ </thead>
   <% for calendar in @calendars %>
-    <tr<%= " class='disabled'" if (!calendar.active? and @calendar.nil?) %>>
+ <tbody>
+  <%= (!calendar.active? and @calendar.nil?) ? "<tr class='disabled'>" : "<tr>" %>
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
+	  <% unless mobile_device?%>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
       <td><%=h calendar.public %></td>
@@ -44,7 +50,9 @@
         <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
+	  <% end %>
     </tr>
+  </tbody>
     <script>calendar_visible[<%=calendar.id%>] = <%= (@calendar ? calendar == @calendar : calendar.active?) %>;</script>
   <% end %>
 </table>
@@ -56,7 +64,7 @@
   <p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
 
   <%# HIDE the new timeslot link when javascript is enabled.%>
-  <script type='text/javascript' charset='utf-8'>
+ <script type='text/javascript' charset='utf-8'>
     $('#new_time_slot_link').toggle();
   </script>
 <% end %>
@@ -65,7 +73,7 @@
 
 <%= render :partial => 'shifts/schedule/header' %>
 <%= render :partial => 'calendars/schedule/day', :collection => @day_collection %>
-
+<%= render :partial => 'shifts/schedule/footer' %>
 
 <!-- <h2>Shifts:</h2>
 <ul>
@@ -112,12 +120,12 @@
       popup_edit_timeslot($(this), e);
       return false;
     });
-    
+
     $(element+' a.click_to_delete_repeating_shift').click(function (e) {
       popup_delete_repeating_shift($(this), e);
       return false;
     });
-    
+
     $(element+' a.click_to_delete_repeating_timeslot').click(function (e) {
       popup_delete_repeating_timeslot($(this), e);
       return false;
@@ -131,11 +139,11 @@
     // $(element+' li.click_to_edit_shift a').click(function (e) {
     //   e.stopPropagation();
     // });
-    
+
     $(element+' li.click_to_edit_shift a.delete_link').click(function (e) {
       e.stopPropagation();
     });
-    
+
     $(element+' li.click_to_edit_timeslot a.delete_link').click(function (e) {
       e.stopPropagation();
     });
@@ -193,7 +201,7 @@
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
-  
+
   function popup_delete_repeating_shift(parent_element, e){
     $("#tooltip").remove();
 
@@ -202,7 +210,7 @@
     loading_tooltip(e.pageX, e.pageY);
     $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
   }
-  
+
   function popup_delete_repeating_timeslot(parent_element, e){
     $("#tooltip").remove();
 
@@ -237,4 +245,3 @@
     }
   }
 </script>
-

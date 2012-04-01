@@ -1,5 +1,19 @@
-<% title "#{@user_profile.user.proper_name}'s Profile" %>
-<div class='profile'>
-    <%= render :partial => 'user_profile_entries' %>
-</div>
+<% title "#{@user_profile.user.full_name_with_nick}'s Profile" %>
 
+<fieldset class = "index">
+	<div id = "profile_left">
+	<% if !mobile_device?%>
+
+		<%= image_tag @user_profile.photo.url(:medium)%>
+	<% elsif @user_profile.photo? %>
+	<%= image_tag @user_profile.photo.url(:thumbnail)%>
+	<% end %>
+    </div>  
+
+    <div id = "profile_right">
+    <%= render :partial => 'user_profile_entries' %>
+    </div>
+</fieldset>
+<br />
+	<%= link_to 'Edit', edit_user_profile_path(@user_profile.user.login) if current_user.is_admin_of?(current_department) or current_user == @user_profile.user %> | 
+	<%= link_to 'Show All', user_profiles_path %> | 

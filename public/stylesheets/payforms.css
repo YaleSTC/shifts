@@ -3,7 +3,7 @@
   border: 1px dashed #AAAAAA;
   margin: 20px;
   padding: 8px;
-  overflow-x: auto;
+  word-wrap: break-word;
 
   /* Word wrapping for <pre> tags */
   white-space: pre-wrap;       /* css-3 */
@@ -30,7 +30,7 @@
 	border-style:solid;
 	color:#039;
 	font-weight:bold;
-	font-family:Arial, Helvetica, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
 	font-size:90%;
 	padding:3px 3px;
 	margin:0px 0px 10px -30px;
@@ -38,7 +38,7 @@
 
 /* MORE PAYFORM: */
 #payform h1 {
-  font-family: Verdana, Arial, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
   color: #2758B3;
 }
 
@@ -47,13 +47,14 @@
 
 #payformList
 {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
 	font-size: 12px;
 	margin: 0px;
 	width: 100%;
 	text-align: left;
 	border-collapse: collapse;
 	border: none;
+	clear:	both;
 }
 #payformList th
 {
@@ -83,6 +84,8 @@
 	border-top: 1px solid transparent;
 	background: #e8edff;
 	padding: 4px;
+	max-width: 400px;
+    word-wrap: break-word;
 }
 #payformList tbody tr.edit_item td
 {
@@ -133,40 +136,62 @@ div.total-hours-right {
     float: right;
 }
 
-/*PRETTY BUTTONS*/
-/*Inspiration from: http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html */
+/*PRETTY LION-STYLE BUTTONS*/
+/*Inspiration from: http://pixify.com/blog/use-os-x-lion-to-improve-your-ui/ */
 .clear { /* generic container (i.e. div) for floating buttons */
     overflow: hidden;
     width: 100%;
 }
 a.button {
-    background: transparent url('../images/payforms/bg_button_a.gif') no-repeat scroll top right;
-    color: #444;
+    color: #484848;
+    text-decoration: none;
+    font: 12px "Trebuchet MS", Helvetica, Arial, sans-serif;
+    line-height: 21px;
+    height: auto;
     display: block;
     float: right;
-    font: normal 12px arial, sans-serif;
-    height: 24px;
-    margin-right: 6px;
-    padding-right: 18px; /* sliding doors padding */
-    text-decoration: none;
+    margin-right: 0px;
+    margin-left: 4px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    padding: 0 10px;
+    background: #f0f0f0;
+    background: -webkit-linear-gradient(top, #f7f7f7, #d1d1d1);
+    background: -webkit-gradient(linear, center top, center bottom, from(#f7f7f7), to(#d1d1d1));
+    background: -moz-linear-gradient(top, #f7f7f7, #d1d1d1);
+    background: -ms-linear-gradient(top, #f7f7f7, #d1d1d1);
+    background: -o-linear-gradient(top, #f7f7f7, #d1d1d1);
+    border: solid 1px #7f7f7f;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=90, Color='#ffffff')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=90, Color='#ffffff');
+    -webkit-transition: border-color .218s;
+    -moz-transition: border .218s;
+    -o-transition: border-color .218s;
+    transition: border-color .218s;
 }
-
-a.button span {
-    background: transparent url('../images/payforms/bg_button_span.gif') no-repeat;
-    display: block;
-    line-height: 14px;
-    padding: 5px 0 5px 18px;
-} 
+a.button:hover {
+    border: solid 1px #333;
+    color: #282828;
+    background: -webkit-linear-gradient(top, #ffffff, #dfdfdf);
+    background: -moz-linear-gradient(top, #ffffff, #dfdfdf);
+    background: -ms-linear-gradient(top, #ffffff, #dfdfdf);
+    background: -o-linear-gradient(top, #ffffff, #dfdfdf);
+}
 a.button:active {
-    background-position: bottom right;
-    color: #000;
-    outline: none; /* hide dotted outline in Firefox */
+    border: solid 1px #7f7f7f;
+    background: #d0d0d0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#a8a8a8), color-stop(0.15, #c6c6c6), to(#d8d8d8));
+    background: -webkit-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
+    background: -moz-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
+    background: -ms-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
+    background: -o-linear-gradient(top, #a8a8a8, #c6c6c6 15%, #d8d8d8);
 }
-
-a.button:active span {
-    background-position: bottom left;
-    padding: 6px 0 4px 18px; /* push text down 1px */
-} 
 
 /* EMAIL REMINDERS: */
 #emailreminders h3 {
@@ -192,7 +217,7 @@ a.button:active span {
 }
 #emailReminders fieldset.reminders legend {
   color: #53662E;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
   font-size: 15px;
   font-weight: normal;
   background: #FFFFFF none repeat scroll 0% 0%;
@@ -208,14 +233,14 @@ a.button:active span {
 
 #unselected, #selected {
   color: #415578;
-  font-family: Trebuchet, Helvetica, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;	
   font-size: 12px;
   margin: 5px auto;
   border: solid 1px #ddd;
   width: 49%;
   text-align: center;
   height: 150px;
-  overflow: auto;
+  word-wrap: break-word;
 }
 
 #unselected a, #selected a {
@@ -272,7 +297,7 @@ div.category-item {
   border: 1px solid #AAAAAA;
   margin: 5px;
   padding: 5px;
-  overflow-x: auto;
+  word-wrap: break-word;
 }
 div.category-item a:link {
   color: #778899;
@@ -289,7 +314,7 @@ div.category-item-disabled {
   color: #778899;
   margin: 5px;
   padding: 5px;
-  overflow-x: auto;
+  word-wrap: break-word;
 }
 div.category-item-disabled a:link {
   color: #778899;
@@ -307,7 +332,7 @@ div.mass-clock-item {
   border: 1px solid #AAAAAA;
   margin: 5px;
   padding: 5px;
-  overflow-x: auto;
+  word-wrap: break-word;
 }
 div.mass-clock-item a:link {
   color: #778899;

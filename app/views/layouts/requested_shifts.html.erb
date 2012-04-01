@@ -1,0 +1,14 @@
+<% content_for :head do %>
+  <% stylesheet 'shift', 'timeline'%>
+  <% javascript 'sorttable' %>
+<% end %>
+
+<% content_for :body do %>
+
+  <%= yield %>
+
+  <div class="clear"></div>
+<% end -%>
+
+<%= render :file => "layouts/application.html.erb" %>
+

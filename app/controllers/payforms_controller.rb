@@ -2,10 +2,14 @@ class PayformsController < ApplicationController
   before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit, :unsubmit]
 
   def index
+    # raise params.to_yaml
+    @start_date = interpret_start
+    @end_date = interpret_end
     @payforms = narrow_down(current_user.is_admin_of?(current_department) ?
                             current_department.payforms :
                             current_department.payforms && current_user.payforms)
-    @payforms = @payforms.sort_by{|payform| payform.user.last_name}
+    @payforms = @payforms.select{|payform| payform.date >= @start_date && payform.date <= @end_date}
+    @payforms = @payforms.sort_by{|payform| [payform.user.reverse_name, Date.today - payform.date]}
   end
 
   def show
@@ -47,7 +51,9 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform.submitted = Time.now
-    if @payform.save
+    if @payform.save && @payform.hours > current_department.department_config.payform_time_limit
+      flash[:notice] = "Successfully submitted payform, however, you have submitted more than the allowed #{current_department.department_config.payform_time_limit} hours this week."
+    elsif @payform.save &&  @payform.hours <= current_department.department_config.payform_time_limit
       flash[:notice] = "Successfully submitted payform."
     end
     respond_to do |format|
@@ -67,15 +73,36 @@ class PayformsController < ApplicationController
   end
 
   def approve
-    @payform = Payform.find(params[:id])
-    @payform.approved = Time.now
-    @payform.approved_by = current_user
-    if @payform.save
-      flash[:notice] = "Successfully approved payform. #{Payform.unapproved.select{|p| p.date == @payform.date}.size} payform(s) left for this week."
-    end
-    @next_unapproved_payform = Payform.unapproved.select{|p| p.date == @payform.date}.sort_by(&:submitted).last
-    @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
-  end
+     @payform = Payform.find(params[:id])
+     @payform.approved = Time.now
+     @payform.approved_by = current_user
+     if @payform.save
+       flash[:notice] = "Successfully approved payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
+     end
+     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
+     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+   end
+   
+   def skip
+     @payform = Payform.find(params[:id]) 
+     @payform.skipped = Time.now
+     if @payform.save
+       flash[:notice] = "Sucessfully skipped payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
+     end
+     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
+     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+   end
+   
+   def unskip
+     @payform = Payform.find(params[:id]) 
+     @payform.skipped = nil
+     if @payform.save
+       flash[:notice] = "Sucessfully unskipped payform."
+     end
+     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
+     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+   end
+
 
   def unapprove
     @payform = Payform.find(params[:id])
@@ -105,7 +132,8 @@ class PayformsController < ApplicationController
 
   def search
     users = current_department.active_users
-
+    start_date = interpret_start
+    end_date = interpret_end
     #filter results if we are searching
     if params[:search]
       search_result = []
@@ -120,11 +148,13 @@ class PayformsController < ApplicationController
     for user in users
       @payforms += narrow_down(user.payforms)
     end
+    @payforms = @payforms.select{|payform| payform.date >= start_date && payform.date <= end_date}
   end
 
   def email_reminders
     if !params[:id] or params[:id].to_i != @department.id
-      redirect_to :action => :email_reminders, :id => @department.id and return
+      redirect_to :email_reminders and return
+##originally we also had :id => @department.id  ~Casey
     end
     @default_reminder_msg = current_department.department_config.reminder_message
     @default_warning_msg = current_department.department_config.warning_message
@@ -137,10 +167,11 @@ class PayformsController < ApplicationController
     admin_user = current_user
     users_reminded = []
     for user in @users
-      ArMailer.deliver(ArMailer.create_due_payform_reminder(admin_user, user, message))
+      ArMailer.deliver(ArMailer.create_due_payform_reminder(user, message, current_department))
       users_reminded << "#{user.name} (#{user.login})"
     end
-    redirect_with_flash "E-mail reminders sent to the following: #{users_reminded.to_sentence}", :action => :email_reminders, :id => @department.id
+    flash[:notice] = "E-mail reminders sent to the following: #{users_reminded.to_sentence}"
+    redirect_to :email_reminders
   end
 
   def send_warnings
@@ -159,24 +190,27 @@ class PayformsController < ApplicationController
         for payform in unsubmitted_payforms
           weeklist += payform.date.strftime("\t%b %d, %Y\n")
         end
-        email = ArMailer.create_late_payform_warning(@admin_user, user, message.gsub("@weeklist@", weeklist))
-        ArMailer.deliver(email)
+        ArMailer.deliver(ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department))
         users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
       end
     end
-    redirect_with_flash "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}", :action => :email_reminders, :id => @department.id
+    flash[:notice] = "E-mail warnings sent to the following: <br/><br/>#{users_warned.join}"
+    redirect_to :email_reminders
   end
 
   protected
 
   def narrow_down(payforms)
-    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:printed] )
+    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:skipped] and !params[:printed]  )
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
     end
     scope = []
     if params[:unsubmitted]
       scope += payforms.unsubmitted
     end
+    if params[:skipped]
+      scope += payforms.skipped
+    end  
     if params[:submitted]
       scope += payforms.unapproved
     end
@@ -187,6 +221,30 @@ class PayformsController < ApplicationController
       scope += payforms.printed
     end
     scope
+  end
+  
+
+  
+  private
+  
+  def interpret_start
+    if params[:payform]
+      return Date.civil(params[:payform][:"start_date(1i)"].to_i,params[:payform][:"start_date(2i)"].to_i,params[:payform][:"start_date(3i)"].to_i)
+    elsif params[:start_date]
+      return params[:start_date].to_date
+    else
+      return 1.week.ago.to_date
+    end
+  end
+  
+  def interpret_end
+    if params[:payform]
+      return Date.civil(params[:payform][:"end_date(1i)"].to_i,params[:payform][:"end_date(2i)"].to_i,params[:payform][:"end_date(3i)"].to_i)
+    elsif params[:end_date]
+      return params[:end_date].to_date
+    else
+      return Date.today.to_date
+    end
   end
 
 end

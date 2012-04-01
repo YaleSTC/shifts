@@ -1,34 +1,8 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag 'shift', 'timeline'%>
+  <%= stylesheet_link_tag 'shift', 'timeline', 'notice'%>
 <% end %>
 
-
-<% content_for :left_nav do %>
-  <ul id="navigationList">
-		<% if current_user.is_superuser? %>
-      <h3> Superuser Options </h3>
-      <li><%= link_to_unless_current "Application Settings", edit_app_config_path %></li>
-      <li><%= link_to_unless_current "Manage Superusers", superusers_path %></li>
-    <% end %>
-    <% if current_user.is_admin_of?(@department) %>
-      <h3>Admin Options</h3>
-      <li><%= link_to_unless_current "Department Settings", edit_department_config_path(@department.department_config) %></li>
-      <li><%= link_to_unless_current "Calendars", calendars_path %></li>
-      <li><%= link_to_unless_current "Roles", department_roles_path(@department) %></li>
-    <% end %>
-    <h3>Application Links</h3>
-    <li><%= link_to_unless_current "My Enlistment", edit_user_config_path(current_user.user_config) %></li>
-    <li><%= link_to "My Dossier", edit_user_profile_path(current_user.login) %></li>
-    <li><%= link_to_unless_current "Notices", notices_path %></li>
-    <% if current_user.is_admin_of?(current_department) || !current_department.get_links.empty? %>
-      <h3>Useful Links</h3>
-      <div id = "dashboard_useful_links">
-        <%= render :partial => 'notices/dashboard_useful_links'%>
-      </div>
-    <% end %>
-  </ul>
-        <div id="contentNav">
-  <% end %>
+<%= render :partial => "layouts/dashboard_menu.html.erb" %>
 
 <% content_for :body do %>
 
@@ -38,4 +12,3 @@
 <% end -%>
 
 <%= render :file => "layouts/application.html.erb" %>
-

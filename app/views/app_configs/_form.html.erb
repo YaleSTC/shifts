@@ -1,59 +1,72 @@
 <% form_for @app_config do |f| %>
   <%= f.error_messages %>
+
+<fieldset class='index'>
+  <legend>Footer</legend>
   <p>
-    <%= f.label :footer %><br />
     <small>You can edit this footer with HTML.  Be careful to close your tags,
     or you may produce broken pages.</small><br/>
-    <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
+    <%= f.text_area :footer, {:class => "settings", :size => "30x10"} %>
   </p>
+</fieldset>
+
+<fieldset class = 'index'>
+	<legend>Email Configuration</legend>
   <p>
     <%= f.label :mailer_address, text = 'App email address' %><br />
     <small>This is used for the "From" field on any generated email that is not department-specific.</small><br />
     <%= f.text_field :mailer_address %>
   </p>
   <p>
-    <%= f.label :use_ldap, text = "Allow LDAP for importing users?" %> <br />
-    <%= f.check_box :use_ldap, {:id => "ldap_check_box"} %>
+	<%= f.label :admin_email, text = 'Admin email address' %> <br />
+	<small>This is the administrator email that any non-department-specific correspondences are sent to. </small><br />
+	<%= f.text_field :admin_email %>
   </p>
-  <div class="ldap_fields" <%unless @app_config.use_ldap%>id="hide"<%end%>>
-    <p>
-      <%= f.label :ldap_host_address, text = "LDAP Host address" %> <br />
-      <%= f.text_field :ldap_host_address %>
-    </p>
-    <p>
-      <%= f.label :ldap_port, text = "LDAP port" %> <br />
-      <%= f.text_field :ldap_port %>
-    </p>
+</fieldset>
+
+<fieldset class = 'index'>
+	<legend>LDAP</legend>	
+  <input type="checkbox" id="toggle"><%="Allow LDAP for importing users?"%>
+ 	 <div id = "ldap_fields" style="display:none">
+  	  <p>
+    	  <%= f.label :ldap_host_address, text = "LDAP Host address" %> <br />
+    	  <%= f.text_field :ldap_host_address %>
+    	</p>
+    	<p>
+    	  <%= f.label :ldap_port, text = "LDAP port" %> <br />
+    	  <%= f.text_field :ldap_port %>
+    	</p>
       <p>
-      <%= f.label :ldap_base, text = "LDAP base" %> <br />
-      <%= f.text_field :ldap_base %>
-    </p>
-    <h3>LDAP Database field names</h3>
-    <p>
-      <%= f.label :ldap_login, text = "LDAP Login " %> <br />
-      <%= f.text_field :ldap_login %>
-    </p>
+        <%= f.label :ldap_base, text = "LDAP base" %> <br />
+        <%= f.text_field :ldap_base %>
+      </p>
+      <h3>LDAP Database field names</h3>
       <p>
-      <%= f.label :ldap_first_name, text = "LDAP First Name" %> <br />
-      <%= f.text_field :ldap_first_name %>
-    </p>
-    <p>
-      <%= f.label :ldap_last_name, text = "LDAP Last Name" %> <br />
-      <%= f.text_field :ldap_last_name %>
-    </p>
+        <%= f.label :ldap_login, text = "LDAP Login " %> <br />
+        <%= f.text_field :ldap_login %>
+      </p>
       <p>
-      <%= f.label :ldap_email, text = "LDAP Email address" %> <br />
-      <%= f.text_field :ldap_email %>
-    </p>
+        <%= f.label :ldap_first_name, text = "LDAP First Name" %> <br />
+        <%= f.text_field :ldap_first_name %>
+      </p>
+      <p>
+        <%= f.label :ldap_last_name, text = "LDAP Last Name" %> <br />
+        <%= f.text_field :ldap_last_name %>
+      </p>
+      <p>
+        <%= f.label :ldap_email, text = "LDAP Email address" %> <br />
+        <%= f.text_field :ldap_email %> <br />
+      </p>
   </div>
+</fieldset>
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
+
 <script>
-$('#hide').toggle();
-$('#ldap_check_box').click(function () {
-  $('.ldap_fields').toggle();
+$('#toggle').click(function() {
+  $('#ldap_fields').slideToggle('fast', function() {
+  });
 });
 </script>
-

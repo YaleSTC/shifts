@@ -1,26 +1,19 @@
 <div id="chooser">
-<% if current_user %>
-  <p class="chooser_status">
-  <% ad = current_user.accessible_departments -%>
-  <% if ad.size==1 -%>
-    <%= ad.first.name %>
-  <% else -%>
-    <% form_tag('', {:id => 'form_chooser', :method => "get"}) do %>
-      <%= collection_select 'chooser', "dept_id",
-                  ad,
-                  :id,
-                  :name,
-                  @department!=current_department ? {:include_blank =>true} : {:selected => current_department.id},
-                  :onchange =>"$('#form_chooser').submit()"
-      %>
-      <%= submit_tag value = "Switch", :id => 'submit_deptchooser' %>
-      <%# hide the submit tag if javascript is enabled -%>
-      <script type='text/javascript' charset='utf-8'>
-        $('#submit_deptchooser').toggle();
-      </script>
-    <% end -%>
-  <% end -%>
-	</p>
-<% end %>
+	<% if current_user %>
+	  <% ad = current_user.accessible_departments %>
+	  <% ad.to_a %>
+		<ul class="sf-menu" id="application_tabs">
+			<% if ad.size == 1 %>
+				<li><%= link_to current_department.name, dashboard_path %></li>
+			<% else %>
+				<li><%= link_to current_department.name, dashboard_path %>
+					<ul>
+						<% ad.each do |department| %>
+						<li><%= link_to department.name, department_path(department.id) %></li>
+						<% end %>
+					</ul>
+				</li>
+			<% end %>
+		</ul>
+	<% end %>
 </div>
-

@@ -1,16 +1,12 @@
-<br/>
-<table>
+<% for user_profile in @user_profiles %>
   <tr>
-    <th>Users</th>
+  	<td><%= link_to "#{user_profile.user.name}", user_profile_path(user_profile.user.login) %></td>
+		<% unless mobile_device?%>
+		<% for upf in @user_profile_fields %>
+			<td>
+				<%= user_profile.user_profile_entries.find(:first, :conditions => {:user_profile_field_id => upf.id}).content rescue "" %>
+			</td>
+		<% end %>
+		<% end %>
   </tr>
-  <% for user_profile in @user_profiles %>
-    <tr>
-    <% if user_profile.user != current_user %>
-      <td><%= link_to "#{user_profile.user.name}", user_profile_path(user_profile.user.login) %></td>
-    <% elsif user_profile.user == current_user %>
-      <td><%= link_to "#{user_profile.user.name}", edit_user_profile_path(user_profile.user.login) %></td>
-    <% end %>
-    </tr>
-  <% end %>
-</table>
-
+<% end %>

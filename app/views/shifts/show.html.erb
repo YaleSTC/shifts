@@ -10,7 +10,7 @@
 </p>
 <p>
   <strong>User:</strong>
-  <%=h @shift.user.name %>
+    <%=h link_to @shift.user.name, user_profile_path(@shift.user.login) %>                               
 </p>
 <p>
   <strong>Ship:</strong>
@@ -23,14 +23,22 @@
     <p>
     <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
     </p>
-    <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
-  <% else %>
+	<% if within_sign_in_window?(@shift) %>
+	<p>
+	<%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+    </p>
+  	<% else %>
+   	<%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift early?", :method => :post %>
+	<% end %>
+	  <% else %>
     This shift has not yet been signed in to.
   <% end %>
 </p>
 <p>
+  <% if current_user.is_admin_of?(current_department) or current_user.is_admin_of?(@shift.location.loc_group) %>
   <%= link_to "Edit", edit_shift_path(@shift) %> |
   <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |
+  <% end %>
   <%= link_to "View All", shifts_path %>
 </p>
 

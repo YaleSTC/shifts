@@ -1,0 +1,13 @@
+<% if @report_items.empty? %>
+	<tr class="odd">
+		<td>There are no recent report items here</td>
+	</tr>
+<% else %>
+	<% @report_items.each do |report_item| %>
+		<tr> 
+			<td class="user_name" width="20%"><%=h link_to report_item.user.name, user_profile_path(report_item.user.login) %>
+			<td class="timestamp" width="30%"><%=h report_item.time.strftime(date_format + " at " + time_format) %></td>
+			<td class="report_item_content" width="50%"><%= report_item.content_with_formatting %></td>
+		</tr>
+	<% end %>
+<% end %>
