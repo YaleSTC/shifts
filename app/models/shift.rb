@@ -433,7 +433,7 @@ class Shift < ActiveRecord::Base
   #TODO: Fix this to check timeslots by time_increment
   def shift_is_within_time_slot
     unless self.power_signed_up
-      if self.calendar.default
+      if (self.calendar.default || self.calendar.active)
         c = TimeSlot.count(:all, :conditions => ["#{:location_id.to_sql_column} = #{self.location_id.to_sql} AND #{:start.to_sql_column} <= #{self.start.to_sql} AND #{:end.to_sql_column} >= #{self.end.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
       else
         #If users are signing up into a non-active calendar, we want to make sure we still respect the (non-active) timeslots present in that calendar
