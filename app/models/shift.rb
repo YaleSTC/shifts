@@ -64,7 +64,7 @@ class Shift < ActiveRecord::Base
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
-  validate :obeys_signup_priority, :if => Proc.new{|shift| !shift.power_signed_up? && shift.scheduled && shift.calendar.active}
+  validate :obeys_signup_priority, :if => Proc.new{|shift| (!shift.power_signed_up? && shift.scheduled && shift.calendar.active)}
   before_save :adjust_sub_requests
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
 
@@ -487,6 +487,7 @@ class Shift < ActiveRecord::Base
 
   def obeys_signup_priority
     #check for all higher-priority locations in this loc group
+    if 
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
     seconds_increment = self.department.department_config.time_increment * 60
     prioritized_locations.each do |prioritized_location|
