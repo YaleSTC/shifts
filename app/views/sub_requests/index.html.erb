@@ -19,7 +19,7 @@
 		<% end %>
 	</td>
 
-	<td class="sub_location"><%=h sub_request.shift.location.name.to_s %></td>
+	<td class="sub_location"><%=h sub_request.shift.location.short_name.to_s %></td>
 	<td class="sub_requestor"><%= link_to sub_request.shift.user.name.to_s, user_profile_path(sub_request.shift.user.login)%></td>
 	<td class="sub_reason"><div class="sub_reason_container"><%=h truncate(sub_request.reason.gsub(/\r\n/, "    "), 215, "...") %></div></td>
 	<td class="sub_show_link"><%= link_to 'Show', sub_request %></td>
