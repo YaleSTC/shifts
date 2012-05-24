@@ -62,7 +62,6 @@
 	      <th align="left">Late</th>
 	      <th align="left">Left Early</th>
 	      <th align="left">Missed</th>
-		  <th align="left">Updates/Hour</th>
 		  <% end %>
 	    </tr>
 	  </thead>
@@ -78,7 +77,6 @@
 	        <td><%=h stat[:num_late] %></td>
 	        <td><%=h stat[:num_left_early] %></td>
 	        <td><%=h stat[:num_missed] %></td>
-			<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
 			<% end %>
 	 			</tr>
 	    <% end %>
