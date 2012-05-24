@@ -1,7 +1,6 @@
 class StatsController < ApplicationController
  
   def index
-    # return unless user_is_admin_of(current_department)
     @start_date = interpret_start
     @end_date = interpret_end
     @user_stats = {}
@@ -29,23 +28,22 @@ class StatsController < ApplicationController
       else
         shifts = u.shifts.on_days(@start_date, @end_date).active
       end
-      user_stats[:u] = u
+      user_stats[:u_id] = u.id
       user_stats[:name] = u.name
       user_stats[:num_shifts] = shifts.size
-      user_stats[:num_late] = shifts.select{|s| s.late == true}.size
-      user_stats[:num_missed] = shifts.select{|s| s.missed == true}.size
-      user_stats[:num_left_early] = shifts.select{|s| s.left_early == true}.size
-      user_stats[:hours_scheduled] = shifts.select{|s| (s.location_id != 3 && s.location_id != 36)}.collect(&:duration).sum
-      user_stats[:io_hours_scheduled] = shifts.select{|s| (s.location_id == 3 || s.location_id == 36)}.collect(&:duration).sum
-      valid_report_stats = shifts.select{|s| s.parsed == true}.collect(&:updates_hour).delete_if{|r| r == nil}
-      if valid_report_stats.size == 0
+      user_stats[:num_late] = u.shifts.on_days(@start_date, @end_date).active.parsed.late.size
+      user_stats[:num_missed] = u.shifts.on_days(@start_date, @end_date).active.parsed.missed.size
+      user_stats[:num_left_early] = u.shifts.on_days(@start_date, @end_date).active.parsed.left_early.size
+      user_stats[:hours_scheduled] = shifts.collect(&:duration).sum
+      valid_report_stats = u.shifts.on_days(@start_date, @end_date).active.parsed.sum(:updates_hour)
+      valid_report_stats_size = u.shifts.on_days(@start_date, @end_date).active.parsed.select{|s| s.updates_hour}.size
+      if valid_report_stats.nil? || valid_report_stats_size == 0
         user_stats[:updates] = nil
       else
-        user_stats[:updates] = valid_report_stats.sum/valid_report_stats.size
+        user_stats[:updates] = valid_report_stats/valid_report_stats_size
       end
       @user_stats[u.id] = user_stats
     end
-
     locations.each do |l|
       location_stats = {}
       

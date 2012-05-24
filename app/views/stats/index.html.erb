@@ -25,8 +25,6 @@
 	      <th align="left">Late</th>
 	      <th align="left">Left Early</th>
 	      <th align="left">Missed</th>
-		  <th align="left">non-io Scheduled Hours</th>
-		  <th align="left">io Scheduled Hours</th>
 		  <th align="left">Total Scheduled Hours</th>
 		  <th align="left">Updates/Hour</th>
 		  <% end %>
@@ -38,15 +36,13 @@
 			<% end %>
 	    <% @user_stats.each do |key, stat| %>
 	      <tr>
-	        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u], :start_date => @start_date, :end_date => @end_date} %></td>
+	        <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_user', :id => stat[:u_id], :start_date => @start_date, :end_date => @end_date} %></td>
 	        <% unless mobile_device?%>
 			<td><%=h stat[:num_shifts] %></td>
 	        <td><%=h stat[:num_late] %></td>
 	        <td><%=h stat[:num_left_early] %></td>
 		    <td><%=h stat[:num_missed] %></td>
 	        <td><%=h sprintf("%.1f", stat[:hours_scheduled]) %></td>
-	        <td><%=h sprintf("%.1f", stat[:io_hours_scheduled]) %></td>
-	        <td><%=h sprintf("%.1f", (stat[:hours_scheduled] + stat[:io_hours_scheduled])) %></td>
 			<td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
 			<% end %>
 	 			</tr>
