@@ -22,38 +22,42 @@ class Shift < ActiveRecord::Base
   attr_accessor :end_date
   attr_accessor :end_time
 
-#TODO: remove all to_sql calls except where needed for booleans
+  #TODO: remove all to_sql calls except where needed for booleans
   named_scope :active, :conditions => {:active => true}
+  ####
   named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
   named_scope :not_for_user, lambda {|usr| { :conditions => ["user_id != #{usr.id}"]}}
+  ####
   named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
   named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
+  ####
   named_scope :in_department, lambda {|dept| {:conditions => {:department_id => dept.id}}}
   named_scope :in_departments, lambda {|dept_array| {:conditions => {:department_id => dept_array.collect(&:id)}}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
+  ####
   named_scope :scheduled, :conditions => {:scheduled => true}
   named_scope :unscheduled, :conditions => {:scheduled => false}
+  ####
   named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > #{(start.utc + incr).to_sql} and #{:end.to_sql_column} <= #{(stop.utc).to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{true.to_sql})"], :order => "#{:location_id.to_sql_column}, #{:start.to_sql}" }}
   named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
+  ####
   named_scope :signed_in, lambda{ |department| {:conditions => {:signed_in => true, :department_id => department.id} } }
   named_scope :ordered_by_start, :order => 'start'
-  named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
+  ####
   named_scope :stats_unsent, :conditions => {:stats_unsent => true}
   named_scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
   named_scope :unparsed, :conditions => {:parsed => false}
-  named_scope :missed,
-        :joins => "LEFT JOIN reports ON shifts.id = reports.shift_id",
-        :conditions => ["end < ? AND reports.id is null AND shifts.active = ?", Time.now.utc, true]
-  named_scope :late,
-        :joins => :report,
-        :conditions => ["#{:arrived.to_sql_column} - #{:start.to_sql_column} > ?",7*60] #TODO: inlcude department config (instead of defaulting to "7")
-  named_scope :left_early,
-        :joins => :report,
-        :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")
+  named_scope :parsed, :conditions => {:parsed => true}
+  ####
+  named_scope :missed, :conditions => {:parsed => true, :missed => true}
+  named_scope :late, :conditions => {:parsed => true, :late => true}
+  named_scope :left_early, :conditions => {:parsed => true, :left_early => true}
+
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
