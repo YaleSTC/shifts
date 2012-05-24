@@ -26,7 +26,7 @@ class StatsController < ApplicationController
       if params[:calendar]
         shifts = u.shifts.on_days(@start_date, @end_date).in_calendars(params[:calendar].split(","))
       else
-        shifts = u.shifts.on_days(@start_date, @end_date).active
+        shifts = u.shifts.on_days(@start_date, @end_date).active.parsed
       end
       user_stats[:u_id] = u.id
       user_stats[:name] = u.name
@@ -34,7 +34,7 @@ class StatsController < ApplicationController
       user_stats[:num_late] = u.shifts.on_days(@start_date, @end_date).active.parsed.late.size
       user_stats[:num_missed] = u.shifts.on_days(@start_date, @end_date).active.parsed.missed.size
       user_stats[:num_left_early] = u.shifts.on_days(@start_date, @end_date).active.parsed.left_early.size
-      user_stats[:hours_scheduled] = shifts.collect(&:duration).sum
+      user_stats[:hours_scheduled] = u.shifts.on_days(@start_date, @end_date).active.parsed.collect(&:duration).sum
       valid_report_stats = u.shifts.on_days(@start_date, @end_date).active.parsed.sum(:updates_hour)
       valid_report_stats_size = u.shifts.on_days(@start_date, @end_date).active.parsed.select{|s| s.updates_hour}.size
       if valid_report_stats.nil? || valid_report_stats_size == 0
@@ -44,22 +44,24 @@ class StatsController < ApplicationController
       end
       @user_stats[u.id] = user_stats
     end
+    
     locations.each do |l|
       location_stats = {}
       
-      shifts = l.shifts.on_days(@start_date, @end_date).active
+      shifts = l.shifts.on_days(@start_date, @end_date).active.parsed
 
-      location_stats[:l] = l
+      location_stats[:l_id] = l.id
       location_stats[:name] = l.name
       location_stats[:num_shifts] = shifts.size
-      location_stats[:num_late] = shifts.select{|s| s.late == true}.size
-      location_stats[:num_missed] = shifts.select{|s| s.missed == true}.size
-      location_stats[:num_left_early] = shifts.select{|s| s.left_early == true}.size
-      valid_report_stats = shifts.select{|s| s.parsed == true}.collect(&:updates_hour).delete_if{|r| r == nil}
-      if valid_report_stats.size == 0
+      location_stats[:num_late] = l.shifts.on_days(@start_date, @end_date).active.parsed.late.size
+      location_stats[:num_missed] = l.shifts.on_days(@start_date, @end_date).active.parsed.missed.size
+      location_stats[:num_left_early] = l.shifts.on_days(@start_date, @end_date).active.parsed.left_early.size
+      valid_report_stats = l.shifts.on_days(@start_date, @end_date).active.parsed.sum(:updates_hour)
+      valid_report_stats_size = l.shifts.on_days(@start_date, @end_date).active.parsed.select{|s| s.updates_hour}.size
+      if valid_report_stats.nil? || valid_report_stats_size == 0
         location_stats[:updates] = nil
       else
-        location_stats[:updates] = valid_report_stats.sum/valid_report_stats.size
+        location_stats[:updates] = valid_report_stats/valid_report_stats_size
       end
       @location_stats[l.id] = location_stats
     end
