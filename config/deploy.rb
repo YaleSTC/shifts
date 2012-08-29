@@ -115,6 +115,7 @@ namespace :deploy do
   task :first, :roles => :app do
     setup
     update
+    init.config.localize
     create_db
     passenger_config
     migrate
