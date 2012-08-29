@@ -163,6 +163,7 @@ after "deploy:setup", "init:config:airbrake"
 after "deploy:symlink", "init:config:localize"
 after "deploy:symlink", "deploy:update_crontab"
 after "deploy", "deploy:cleanup"
+after "deploy", "init:config:localize"
 after "deploy:migrations", "deploy:cleanup"
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].each do |vendored_notifier|
