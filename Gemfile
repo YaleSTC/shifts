@@ -15,4 +15,3 @@ gem "vestal_versions"
 gem "rdoc", "~> 3.6.1"
 gem "paperclip", "~> 2.3.15"
 gem "capistrano"
-gem 'newrelic_rpm'
