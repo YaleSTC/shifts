@@ -42,7 +42,6 @@ GEM
     net-ssh (2.1.4)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.1.2)
     paperclip (2.3.15)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -84,7 +83,6 @@ DEPENDENCIES
   has_many_polymorphs
   icalendar
   mysql
-  newrelic_rpm
   paperclip (~> 2.3.15)
   prawn
   rails (= 2.3.12)
