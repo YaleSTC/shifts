@@ -30,6 +30,9 @@ class StatsController < ApplicationController
       
       user_stats[:u_id]             =   u.id
       user_stats[:name]             =   u.name
+      user_stats[:first_name]       =   u.first_name
+      user_stats[:last_name]        =   u.last_name
+      user_stats[:email]            =   u.email
       user_stats[:num_shifts]       =   shifts.size
       user_stats[:num_late]         =   shifts.late.size
       user_stats[:num_missed]       =   shifts.missed.size
