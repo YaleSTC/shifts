@@ -29,6 +29,7 @@
 
 <br />
 
-<%= link_to 'New Task', new_task_path %>
-
+<% if current_user.is_admin_of?(current_department)%>
+  <%= link_to 'New Task', new_task_path %>
+<% end %>
 <script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#tasks_table").tablesorter({sortList: [1,0]});});</script>
