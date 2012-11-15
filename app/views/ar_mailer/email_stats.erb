@@ -1,30 +1,44 @@
 Hello,
+  <br />
 
-This is a report of shift statistics for: <%= (Time.now - 86400).strftime('%m/%d/%y') %>.
+This is a report of shift statistics for <%= (Time.now - 86400).strftime('%A, %m/%d/%y') %>.
+  <br />
+  <br />
 
-The following users have missed a shift in the past 24 hours:
+  The following users have <u>missed</u> a shift in the past 24 hours:
+  <br />
 	<% for shift in @missed_shifts %>
-	<%= shift.stats_display -%>
+	<%= shift.stats_display_missed -%>
+  <br />
 	<% end %>
 
 Total Shifts missed: <%= @missed_shifts.size %> 
----
+  <br />
+  <br />
 
-The following users have been late to a shift in the past 24 hours:
+  The following users have <u>been late</u> to a shift in the past 24 hours:
+  <br />
 	<% for shift in @late_shifts %>
-	<%= shift.stats_display -%>
+	<%= shift.stats_display_late -%>
+  <br />
 	<% end %>
 
 Total shifts signed into late: <%= @late_shifts.size %>  
----
+  <br />
+  <br />
 
-The following users have left a shift early in the past 24 hours:
+The following users have <u>left a shift early</u> in the past 24 hours:
+  <br />
 	<% for shift in @left_early_shifts %>
-	<%= shift.stats_display -%>
+	<%= shift.stats_display_left_early -%>
+  <br />
 	<% end %>
 
 Total shifts signed out of early: <%= @left_early_shifts.size %> 
+  <br />
 ---
+  <br />
+  <br />
 
 
 
