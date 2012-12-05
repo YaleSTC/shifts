@@ -14,14 +14,18 @@
           <div class="task_entry">
             <%= link_to_remote ("#{task.name} - Needs Doing ASAP!", {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title") %>
             <span class="task_description"><%=task.description%></span>
-            <a href="google.com">[link]</a>
+            <%if task.link%>
+              <a href=<%=task.link%>>[link]</a>
+            <%end%>
           </div>
 
         <% else %>
           <div class="task_entry">
             <%= link_to_remote ((task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title") %>
             <span class="task_description"><%=task.description%></span>
-            <a href="google.com">[link]</a>
+            <%if task.link%>
+              <a href=<%=task.link%>>[link]</a>
+            <%end%>
           </div>
         <% end %>
       </div>
