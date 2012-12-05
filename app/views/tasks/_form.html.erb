@@ -12,6 +12,11 @@
   </p>
 
   <p>
+    <%= f.label :link %><br />
+    <%= f.text_field :link %>
+  </p>
+
+  <p>
     <%= f.label :kind %><br />
 	<%= radio_button_tag 'task[kind]', 'Hourly', (true if @task.kind == "Hourly")%> Hourly<br />
 	<%= radio_button_tag 'task[kind]', 'Daily', (true if @task.kind == "Daily")%> Daily<br />
@@ -24,7 +29,7 @@
   </p>
   <p>
     <%= f.label :location_id, text = 'Location' %><br />
-    <%= select_tag 'task[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name, @task.location.id) %><br />
+    <%= select_tag 'task[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name, (@task.location ? @task.location.id : nil)) %><br />
   </p>
   <p>
     <%= f.label :start %><br />
