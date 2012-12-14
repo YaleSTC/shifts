@@ -30,8 +30,7 @@
 	  </fieldset>
 
 	  <% unless mobile_device?%>
-	    <%# TODO: Re-enable this once we figure out why it's crashing%>
-		<%#= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 60 -%>
+		  <%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 300 -%>
 	  <% end %>
 
 	  <fieldset id = "shift_tasks" class= "index">
