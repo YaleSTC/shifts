@@ -3,7 +3,10 @@
 
 Cluster:  <%= @sub.shift.location.name%>
 Date:     <%= @sub.shift.start.to_s(:just_date) %>
-Time:     <%= @sub.start.to_s(:am_pm) %> - <%= @sub.end.to_s(:am_pm) %>
+Required Time:     <%= @sub.mandatory_start.to_s(:am_pm) %> - <%= @sub.mandatory_end.to_s(:am_pm) %>
+<% if (@sub.start != @sub.mandatory_start) || (@sub.end != @sub.mandatory_end) %>
+Bribe Time:        <%= @sub.start.to_s(:am_pm) %> - <%= @sub.end.to_s(:am_pm) %>
+<% end %>
 
 Additional comments from <%= user_name %>:
 <%= h @sub.reason %>
