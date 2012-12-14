@@ -20,7 +20,7 @@ GEM
     authlogic (2.1.6)
       activesupport
     builder (3.0.0)
-    capistrano (2.6.0)
+    capistrano (2.13.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -31,7 +31,7 @@ GEM
     fastercsv (1.5.4)
     has_many_polymorphs (2.13)
       activerecord
-    highline (1.6.2)
+    highline (1.6.15)
     icalendar (1.1.6)
     mime-types (1.16)
     mysql (2.8.1)
@@ -39,7 +39,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.1.4)
+    net-ssh (2.6.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     paperclip (2.3.15)
