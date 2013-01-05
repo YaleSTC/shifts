@@ -128,9 +128,10 @@ module ApplicationHelper
 
   def calculate_default_times_repeating_events
     if params[:date]
-	  #sometimes from the tooltip, sometimes week start date
+      #From the parameters, including the entire current week
       @default_start_date = Date.parse(params[:date])
-    else #do we ever hit this? ~Casey
+    else
+      #The current week
       @default_start_date = Time.now.to_date
     end
     @repeating_event.start_time ||= @default_start_date.to_time + current_department.department_config.schedule_start.minutes
