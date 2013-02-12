@@ -13,7 +13,8 @@ class PayformSetsController < ApplicationController
     respond_to do |show|
       show.html #show.html.erb
       show.pdf  #show.pdf.prawn
-      show.csv {render :text => @payform_set.payforms.to_csv(:template => :normal)}
+      show.csv {render :text => @payform_set.payforms.export_payform}
+      #show.xls {render :file => @payform_set.payforms.export_payform({:col_sep => "\t"})}
     end
   end
 
