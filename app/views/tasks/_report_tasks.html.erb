@@ -2,7 +2,7 @@
   <% task_kinds = @tasks.collect{|t| t.kind}.uniq %>
   <% task_kinds.each do |task_kind| %>
     <div class="task_category"><%= task_kind %></div>
-    <% these_tasks = @tasks.select{|t| t.kind == task_kind} %>
+    <% these_tasks = @tasks.select{|t| t.kind == task_kind}.sort_by{|t| t.name} %>
     <% these_tasks.each do |task| %>
       <div class="tasklist">
         <% if task.done %>
