@@ -2,18 +2,18 @@
   <% task_kinds = @tasks.collect{|t| t.kind}.uniq %>
   <% task_kinds.each do |task_kind| %>
     <div class="task_category"><%= task_kind %></div>
-    <% these_tasks = @tasks.select{|t| t.kind == task_kind}.sort_by{|t| t.name} %>
+    <% these_tasks = @tasks.select{|t| t.kind == task_kind}.sort_by{|t| t.name}.sort_by{|t| t.time_of_day}%>
     <% these_tasks.each do |task| %>
       <div class="tasklist">
         <% if task.done %>
-          <div class="task_entry task_complete" title="<%=task.description%>">
+            <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
             <%= "#{task.name}" %>
           </div>
 
         <% elsif task.missed %>
           <div class="task_entry">
             <%= link_to_remote ("#{task.name} - Needs Doing ASAP!", {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title") %>
-            <span class="task_description"><%=task.description%></span>
+            <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
             <%if task.link%>
               <a href=<%=task.link%>>[link]</a>
             <%end%>
@@ -22,7 +22,7 @@
         <% else %>
           <div class="task_entry">
             <%= link_to_remote ((task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title") %>
-            <span class="task_description"><%=task.description%></span>
+            <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
             <%if task.link%>
               <a href=<%=task.link%>>[link]</a>
             <%end%>
