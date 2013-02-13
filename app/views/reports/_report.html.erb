@@ -3,7 +3,7 @@
   <table id="report_view_table">
     <tr>
       <th class="list_header" colspan="2">
-        <h3><%= link_to @report.shift.start.to_s(:just_date), shift_report_path(@report.shift) %> - <%= @report.shift.scheduled? ? "scheduled for #{@report.shift.start.to_s(:am_pm)} - #{@report.shift.end.to_s(:am_pm)}" : "unscheduled" %> <br />
+        <h3><%= link_to @report.shift.start.to_s(:just_date), shift_path(@report.shift) %> - <%= @report.shift.scheduled? ? "scheduled for #{@report.shift.start.to_s(:am_pm)} - #{@report.shift.end.to_s(:am_pm)}" : "unscheduled" %> <br />
         <%= link_to @report.shift.user.name, user_profile_path(@report.shift.user.login) %> @ <%= link_to @report.shift.location.name, :controller => :locations, :action => :display_report_items, :id => @report.shift.location %></h3>
       </th>
     </tr>
