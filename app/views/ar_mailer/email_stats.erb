@@ -1,41 +1,56 @@
 Hello,
   <br />
+  <% @missed_shifts << Shift.last %>
 
 This is a report of shift statistics for <%= (Time.now - 86400).strftime('%A, %m/%d/%y') %>.
   <br />
   <br />
+  <%userlist = []%>
 
+  <h2>Missed = <%= @missed_shifts.size %></h2>
   The following users have <u>missed</u> a shift in the past 24 hours:
   <br />
 	<% for shift in @missed_shifts %>
 	<%= shift.stats_display_missed -%>
+	<%= userlist << shift.user -%>
   <br />
 	<% end %>
 
-Total Shifts missed: <%= @missed_shifts.size %> 
   <br />
   <br />
 
+  <h2>Late = <%= @late_shifts.size %></h2>
   The following users have <u>been late</u> to a shift in the past 24 hours:
   <br />
 	<% for shift in @late_shifts %>
 	<%= shift.stats_display_late -%>
+	<%= userlist << shift.user -%>
   <br />
 	<% end %>
 
-Total shifts signed into late: <%= @late_shifts.size %>  
   <br />
   <br />
 
+
+  <h2>Left Early = <%= @left_early_shifts.size %></h2>
 The following users have <u>left a shift early</u> in the past 24 hours:
   <br />
 	<% for shift in @left_early_shifts %>
 	<%= shift.stats_display_left_early -%>
+	<%= userlist << shift.user -%>
   <br />
 	<% end %>
 
-Total shifts signed out of early: <%= @left_early_shifts.size %> 
   <br />
+  <br />
+  <br />
+
+  <h2>User Statistics</h2>
+  <% userlist.uniq.each do |user|%>
+    <h3><%= user.name %></h3>
+    <% @summary = user.summary_stats(Time.now, Time.now-1.month) %>
+    <%= render :partial => 'stats/stats_summary', :object => @summary %>
+  <% end %>
 ---
   <br />
   <br />
