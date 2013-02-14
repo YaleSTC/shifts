@@ -124,6 +124,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :user_profile_fields
   map.resources :user_profiles, :collection => {:search => :post}
+  map.facebook "/facebook", :controller => "user_profiles", :action => "facebook"
 
   map.resources :punch_clock_sets
 

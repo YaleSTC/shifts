@@ -1,0 +1,9 @@
+<% title "Shifts Facebook" %>
+
+<% @user_profiles.each do |profile| %>
+  <div style="display:inline-block; padding:5px; margin:10px; width:150px; text-align:center; font-size:14px;">
+    <%=link_to profile.user.name, user_profile_path(profile.user.login)%><br>
+	<%= image_tag profile.photo.url(:small)%>
+  </div>
+<% end %>
+

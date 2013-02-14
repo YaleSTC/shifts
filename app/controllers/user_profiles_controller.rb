@@ -125,6 +125,11 @@ before_filter :user_login
       @user_profiles << UserProfile.find_by_user_id(user.id)
     end
   end
+
+  def facebook
+    @user_profiles = []
+    @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.name}
+  end
   
   private
   def user_login
