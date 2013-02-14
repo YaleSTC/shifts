@@ -1,9 +1,21 @@
 <% title "Shifts Facebook" %>
 
+<% if current_user.is_admin_of?(current_department) %>
+<% mailto_photoless = "mailto:" + current_user.email + "?BCC="%>
+<ul>
+    <% @user_profiles.each do |profile| %>
+      <% if profile.photo_file_name == nil %>
+        <% mailto_photoless << profile.user.email %>
+        <% mailto_photoless << "," %>
+      <% end %>
+    <% end%>
+  </ul>
+  <%= link_to "Email employees who haven't uploaded photos", mailto_photoless %><br>
+<% end %>
+
 <% @user_profiles.each do |profile| %>
   <div style="display:inline-block; padding:5px; margin:10px; width:150px; text-align:center; font-size:14px;">
     <%=link_to profile.user.name, user_profile_path(profile.user.login)%><br>
-	<%= image_tag profile.photo.url(:small)%>
+    <%= image_tag profile.photo.url(:small)%>
   </div>
 <% end %>
-
