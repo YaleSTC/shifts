@@ -1,4 +1,9 @@
 <% title "Sub Requests" %>
+
+<% if current_user.is_admin_of?(current_department) %>
+<%= link_to "50 Most Recent Sub Requests", sub_requests_path(:include_past => 1, :limit => 50) %>
+<% end %>
+
 <table id="requests_table", class = "tablesorter"> 
  <thead>
   <tr>
