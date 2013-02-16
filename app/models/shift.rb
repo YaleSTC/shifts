@@ -230,6 +230,25 @@ class Shift < ActiveRecord::Base
     css_class
   end
 
+  def type
+    if self.start <= Time.now
+      if self.missed
+        return "Missed"
+      end
+
+      if late? && left_early?
+        return "Late & Left Early"
+      elsif self.late
+        return "Late"
+      elsif self.left_early
+        return "Left Early"
+      end
+      return "Completed"
+    else
+      return "Future"
+    end
+  end
+
   def too_early?
     self.start > 30.minutes.from_now
   end
