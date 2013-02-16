@@ -1,0 +1,35 @@
+<% title "Shifts for " + @user.name %>
+
+<table id="shifts_user_table", class = "tablesorter"> 
+ <thead>
+  <tr>
+    <th>Start</th>
+  	<th>Location</th>
+  	<th>Type</th>
+  </tr>
+ </thead>
+<% @shifts.each do |shift| %>
+ <tbody>
+   <tr class=<%= shift.css_class %>>
+    <td class="shift_date">
+		<%=h shift.start.to_s(:gg) %>: <%=h shift.start.to_s(:am_pm) %> - <%=h  shift.end.to_s(:am_pm) %><br>
+  	</td>
+
+	<td class="shift_location"><%=h shift.location.short_name.to_s %></td>
+	<td class="shift_type"><%=h shift.type %></td>
+	<td class="shift_show_link"><%= link_to 'Show', shift %></td>
+	<td class="shift_show_link"><%= link_to 'Report', shift_report_path(shift) if !shift.report.nil?%></td>
+
+	<% if current_user.is_admin_of?(shift.department) or current_user == shift.user %>
+    	<td class="shift_edit_link"><%= link_to 'Edit', edit_shift_path(shift) %></td> 
+    	<td class="shift_destroy_link"><%= link_to 'Destroy', shift, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% else %> 
+		<td class="shift_invalid">Edit</td>
+		<td class="shift_invalid">Destroy</td>
+	<% end %>
+
+  </tr>
+ </tbody>
+<% end %>
+</table>
+
