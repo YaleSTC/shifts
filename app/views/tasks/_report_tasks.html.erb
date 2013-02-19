@@ -6,8 +6,9 @@
     <% these_tasks.each do |task| %>
       <div class="tasklist">
         <% if task.done %>
-            <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
+          <div class="task_entry">
             <%= "#{task.name}" %>
+            <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
           </div>
 
         <% elsif task.missed %>
