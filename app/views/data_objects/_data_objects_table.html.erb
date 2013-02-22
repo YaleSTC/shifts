@@ -6,6 +6,7 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>When Updated</th>
         <% data_objects_table.first.data_fields.each do |df| %>
           <th><%= df.name %></th>
         <% end %>
@@ -17,6 +18,7 @@
     <tr>        
 	<td><%= link_to obj.name, obj %></td>
         <td><%= obj.description %></td>
+        <td><%= obj.updated_at.strftime("%m/%d/%Y %I:%M%p") %></td>
         <% data_objects_table.first.data_fields.each do |df| %>
           <td>
             <%= entry[df.id.to_s] if entry %>
