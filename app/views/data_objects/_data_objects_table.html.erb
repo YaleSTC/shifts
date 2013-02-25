@@ -6,6 +6,7 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>When Updated</th>
         <% data_objects_table.first.data_fields.each do |df| %>
           <th><%= df.name %></th>
         <% end %>
@@ -17,6 +18,11 @@
     <tr>        
 	<td><%= link_to obj.name, obj %></td>
         <td><%= obj.description %></td>
+        <%unless obj.data_entries == [] %>
+          <td><%= obj.data_entries.last.updated_at.strftime("%m-%d-%Y %-I:%M %p") %></td>
+        <%else %>
+          <td></td>
+        <%end %>
         <% data_objects_table.first.data_fields.each do |df| %>
           <td>
             <%= entry[df.id.to_s] if entry %>
@@ -28,4 +34,6 @@
   </table>
 </div>
 
-<script type="text/javascript">$(document).ready(function(){$(<%= "data_objects_table_#{data_objects_table.first.id}" %>).tablesorter({sortList: [[0,0]]});});</script>
+
+
+<script type="text/javascript">$(document).ready(function(){$(<%= "data_objects_table_#{data_objects_table.first.id}" %>).tablesorter({sortList: [[2,0]]});});</script>
