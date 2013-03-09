@@ -361,8 +361,12 @@ class ApplicationController < ActionController::Base
   def join_date_and_time(form_output)
   #join date and time
     %w{start end mandatory_start mandatory_end}.each do |field_name|
-      if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
-        form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
+      date = form_output["#{field_name}_date"]
+      time = form_output["#{field_name}_time"]
+      if date && time
+        #needed to acount for days where DST changes, since seconds since midnight becomes inaccurate
+        dst_offset = (date.end_of_day + 1.second) - (date.beginning_of_day) - 1.day
+        form_output["#{field_name}"] ||= date.beginning_of_day + time.seconds_since_midnight + dst_offset
         form_output.delete("#{field_name}_date")
         form_output.delete("#{field_name}_time")
       end

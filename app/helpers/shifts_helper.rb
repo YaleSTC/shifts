@@ -4,6 +4,9 @@ module ShiftsHelper
   def shift_style(shift, after = nil)
     @right_overflow = @left_overflow = false
 
+    #handle days where DST is active
+    @dst_offset ||= (shift.start.end_of_day + 1.second) - (shift.start.beginning_of_day) - 1.day
+    
     #necessary for AJAX rerendering
     #we should extract all of this stuff from controllers and here and make a universal shifts helper method -njg
     #(too much duplication -- shifts/dashboard/ajax,etc)
@@ -17,7 +20,8 @@ module ShiftsHelper
       shift.end = shift.start + current_department.department_config.time_increment.minutes
     end
 
-    left = (((after ? after : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
+
+    left = (((after ? after : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours) - @dst_offset )/3600.0)/@hours_per_day*100
     width = ((shift.end - (after ? after : shift.start))/3600.0) / @hours_per_day * 100
     if left < 0
       width += left
