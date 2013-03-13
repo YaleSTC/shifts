@@ -376,7 +376,7 @@ class ApplicationController < ActionController::Base
   end
 
   def department_day_end_time
-    DateTime.now.in_time_zone(Time.zone).beginning_of_day + current_department.department_config.schedule_end.minutes
+    DateTime.now.in_time_zone(Time.zone).beginning_of_day + current_department.department_config.schedule_end.minutes - 1.second
   end
 
   private
