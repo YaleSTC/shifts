@@ -1,0 +1,50 @@
+<% title "Shifts" %>
+
+  <fieldset class="index" id="date_selector">
+    <% form_tag(:controller => 'shifts', :action => 'email_group', :method => :get) do %>
+      <%= label_tag :start_time %><br />
+      <%= datetime_select(:email_group, :start_time, :default => @start_time)%>
+      <br />
+      <%= label_tag :end_time %><br />
+      <%= datetime_select(:email_group, :end_time, :default => @end_time)%>
+      <br />
+      <%= label_tag :locations %><br />
+      <%= select_tag :locations, option_groups_from_collection_for_select(@loc_groups, "locations.active", :name, :id, :name, @location_ids), {:multiple => true, :size => (@locations.length + @loc_groups.length)}%><br />
+      <br />
+      <%= submit_tag 'Update' %>
+    <% end -%>
+  </fieldset>
+
+  <h3>  Everyone working from <%= @start_time.strftime("%a%l:%M%p (%b %d)") %> to <%= @end_time.strftime("%a%l:%M%p (%b %d)") %>
+  </h3>
+
+  <%emails = [] %>
+  <% @included_shifts.each do |shift|%>
+    <% emails << shift.user.email %>
+  <% end %>
+
+  <% emails.uniq.each do |email|%>
+    <%= email %><br />
+  <% end %>
+
+<script type="text/javascript">
+var opts = {
+                formElements:{"email_group_start_time_3i":"j",
+                              "email_group_start_time_1i":"Y",
+                              "email_group_start_time_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+var opts = {
+                formElements:{"email_group_end_time_3i":"j",
+                              "email_group_end_time_1i":"Y",
+                              "email_group_end_time_2i":"n"
+                },
+                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+                noFadeEffect:true,
+                       };
+datePickerController.createDatePicker(opts);
+</script>
+  
