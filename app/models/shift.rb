@@ -1,4 +1,5 @@
 class Shift < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
 
   delegate :loc_group, :to => 'location'
   belongs_to :calendar
@@ -390,17 +391,25 @@ class Shift < ActiveRecord::Base
   end
 
   def stats_display_late
-     str = "#{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str = "#{self.how_much_arrived_late} late. #{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
      str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Late+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20were%20late%20to%20your%20#{location.short_name}%20shift%20this%20week.%20What%20happened%3F%0A%0A%0ADeCaL'>[this week]</a>".html_safe
      str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Late+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20were%20late%20to%20your%20#{location.short_name}%20shift%20yesterday.%20What%20happened%3F%0A%0A%0ADeCaL'>[yesterday]</a>".html_safe
      return str
   end
 
   def stats_display_left_early
-     str = "#{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str = "#{self.how_much_left_early} early. #{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
      str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Left+Early+From+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20left%20your%20#{location.short_name}%20shift%20early%20this%20week.%20What%20happened%3F%0A%0A%0ADeCaL'>[this week]</a>".html_safe
      str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Left+Early+From+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20left%20your%20#{location.short_name}%20shift%20early%20yesterday.%20What%20happened%3F%0A%0A%0ADeCaL'>[yesterday]</a>".html_safe
      return str
+  end
+
+  def how_much_arrived_late
+    distance_of_time_in_words(self.report.arrived, self.start)
+  end
+
+  def how_much_left_early
+    distance_of_time_in_words(self.end, self.report.departed)
   end
 
   def name_and_time
