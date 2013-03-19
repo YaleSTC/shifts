@@ -422,6 +422,17 @@ class Shift < ActiveRecord::Base
   # = Validation helpers =
   # ======================
 
+  def join_date_and_time
+    # scheduled shifts
+     if self.start_date
+       self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
+       self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
+     # unscheduled shifts
+     else
+       self.start = Time.now
+     end
+  end
+
   private
   
   def restrictions
