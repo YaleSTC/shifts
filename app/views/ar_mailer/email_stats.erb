@@ -11,7 +11,7 @@ This is a report of shift statistics for <%= (Time.now - 86400).strftime('%A, %m
   <br />
 	<% for shift in @missed_shifts %>
 	<%= shift.stats_display_missed -%>
-	<%= userlist << shift.user -%>
+	<% userlist << shift.user -%>
   <br />
 	<% end %>
 
@@ -23,7 +23,7 @@ This is a report of shift statistics for <%= (Time.now - 86400).strftime('%A, %m
   <br />
 	<% for shift in @late_shifts %>
 	<%= shift.stats_display_late -%>
-	<%= userlist << shift.user -%>
+	<% userlist << shift.user -%>
   <br />
 	<% end %>
 
@@ -36,7 +36,7 @@ The following users have <u>left a shift early</u> in the past 24 hours:
   <br />
 	<% for shift in @left_early_shifts %>
 	<%= shift.stats_display_left_early -%>
-	<%= userlist << shift.user -%>
+	<% userlist << shift.user -%>
   <br />
 	<% end %>
 
