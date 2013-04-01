@@ -543,7 +543,6 @@ class Shift < ActiveRecord::Base
     return if (self.power_signed_up || !self.scheduled || !self.calendar.active)
     
     #check for all higher-priority locations in this loc group
-    if 
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
     seconds_increment = self.department.department_config.time_increment * 60
     prioritized_locations.each do |prioritized_location|
