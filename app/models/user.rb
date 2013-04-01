@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
   end
 
   def goes_by
-    ((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name)
+    rank + " " + ((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name)
   end
 
   def proper_name
