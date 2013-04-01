@@ -261,11 +261,11 @@ end
 
     #different calendars are different colors
     unless defined? @color
-      @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f","9f9", "9ff", "ff9", "f9f", "f99", "99f"]
+      @color_array = ["9f9", "9ff", "ff9", "f9f", "f99", "99f"]
       @color ||= {}
       @calendar = (params[:calendar] == "true" ? nil : Calendar.find(params[:calendar]) )
       @calendars ||= (params[:calendar] == "true" ? @department.calendars : [Calendar.find(params[:calendar])] )
-      @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i]}
+      @calendars.each_with_index{ |calendar, i| @color[calendar] ||= @color_array[i%6]}
     end
 
     #for AJAX; needs cleanup if we have time

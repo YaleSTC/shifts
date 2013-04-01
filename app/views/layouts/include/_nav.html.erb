@@ -49,10 +49,7 @@
 		<%= link_to "Voyages", shifts_path %>
 		<ul>
 			<li><%= link_to "Master Voyage Schedule", shifts_path %></li>
-      <% if current_user.is_admin_of?(current_department) %>
-				<li><%= link_to "Duties", tasks_path %></li>
-
-			<% end %>
+			<li><%= link_to "Duties", tasks_path %></li>
 			<li><%= link_to "Remote Communications", links_path %></li>
       <li><%= link_to "Crew Notes", notices_path %></li>
       <li><%= link_to "Voyage Data Logs", data_objects_path %></li>

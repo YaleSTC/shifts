@@ -123,7 +123,7 @@
       <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
     <% end %>
   <% else %>
-    <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
+    <h2><%= link_to (@shift.scheduled? ? "Shift" : "Unscheduled Shift"), shift_path(@shift)  %></h2>
     <p>
       <strong>Start:</strong>
       <%= @shift.start.to_s(:short_name) %>

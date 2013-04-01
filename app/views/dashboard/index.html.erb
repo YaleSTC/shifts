@@ -84,7 +84,7 @@
 
     <fieldset class="index" id="shift_stats">
       <legend>Shift Statistics</legend>
-				<% @summary = current_user.summary_stats(Date.today - 7, Date.today) %>
+				<% @summary = current_user.summary_stats(Date.today-1.month, Date.today) %>
 				<%= render :partial => 'stats/stats_summary', :object => @summary %>
     </fieldset>
   </div>

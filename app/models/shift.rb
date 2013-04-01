@@ -1,4 +1,5 @@
 class Shift < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
 
   delegate :loc_group, :to => 'location'
   belongs_to :calendar
@@ -22,38 +23,42 @@ class Shift < ActiveRecord::Base
   attr_accessor :end_date
   attr_accessor :end_time
 
-#TODO: remove all to_sql calls except where needed for booleans
+  #TODO: remove all to_sql calls except where needed for booleans
   named_scope :active, :conditions => {:active => true}
+  ####
   named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
   named_scope :not_for_user, lambda {|usr| { :conditions => ["user_id != #{usr.id}"]}}
+  ####
   named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
   named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
   named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
+  ####
   named_scope :in_department, lambda {|dept| {:conditions => {:department_id => dept.id}}}
   named_scope :in_departments, lambda {|dept_array| {:conditions => {:department_id => dept_array.collect(&:id)}}}
   named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
   named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
   named_scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
+  ####
   named_scope :scheduled, :conditions => {:scheduled => true}
   named_scope :unscheduled, :conditions => {:scheduled => false}
+  ####
   named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > #{(start.utc + incr).to_sql} and #{:end.to_sql_column} <= #{(stop.utc).to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{true.to_sql})"], :order => "#{:location_id.to_sql_column}, #{:start.to_sql}" }}
   named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
+  ####
   named_scope :signed_in, lambda{ |department| {:conditions => {:signed_in => true, :department_id => department.id} } }
   named_scope :ordered_by_start, :order => 'start'
-  named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
+  ####
   named_scope :stats_unsent, :conditions => {:stats_unsent => true}
   named_scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
   named_scope :unparsed, :conditions => {:parsed => false}
-  named_scope :missed,
-        :joins => "LEFT JOIN reports ON shifts.id = reports.shift_id",
-        :conditions => ["end < ? AND reports.id is null AND shifts.active = ?", Time.now.utc, true]
-  named_scope :late,
-        :joins => :report,
-        :conditions => ["#{:arrived.to_sql_column} - #{:start.to_sql_column} > ?",7*60] #TODO: inlcude department config (instead of defaulting to "7")
-  named_scope :left_early,
-        :joins => :report,
-        :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")
+  named_scope :parsed, :conditions => {:parsed => true}
+  ####
+  named_scope :missed, :conditions => {:parsed => true, :missed => true}
+  named_scope :late, :conditions => {:parsed => true, :late => true}
+  named_scope :left_early, :conditions => {:parsed => true, :left_early => true}
+
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
@@ -64,7 +69,7 @@ class Shift < ActiveRecord::Base
   validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
-  validate :obeys_signup_priority, :if => Proc.new{|shift| (!shift.power_signed_up? && shift.scheduled && shift.calendar.active)}
+  validate :obeys_signup_priority
   before_save :adjust_sub_requests
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
 
@@ -82,18 +87,18 @@ class Shift < ActiveRecord::Base
       shift.destroy
     elsif start_of_delete == shift.start
       shift.start=end_of_delete
-      shift.save!
+      shift.save(false)
     elsif end_of_delete == shift.end
       shift.end=start_of_delete
-      shift.save!
+      shift.save(false)
     else
       later_shift = shift.clone
       later_shift.user = shift.user
       later_shift.location = shift.location
       shift.end = start_of_delete
       later_shift.start = end_of_delete
-      shift.save!
-      later_shift.save!
+      shift.save(false)
+      later_shift.save(false)
       shift.sub_requests.each do |s|
         if s.start >= later_shift.start
           s.shift = later_shift
@@ -226,6 +231,25 @@ class Shift < ActiveRecord::Base
     css_class
   end
 
+  def type
+    if self.start <= Time.now
+      if self.missed
+        return "Missed"
+      end
+
+      if late? && left_early?
+        return "Late & Left Early"
+      elsif self.late
+        return "Late"
+      elsif self.left_early
+        return "Left Early"
+      end
+      return "Completed"
+    else
+      return "Future"
+    end
+  end
+
   def too_early?
     self.start > 30.minutes.from_now
   end
@@ -356,8 +380,37 @@ class Shift < ActiveRecord::Base
   end
 
   def stats_display
-       "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
- end
+     "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+  end
+
+  def stats_display_missed
+     str = "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Missed+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20missed%20your%20#{location.short_name}%20shift%20this%20week.%20What%20happened%3F'>[this week]</a>".html_safe
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Missed+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20missed%20your%20#{location.short_name}%20shift%20yesterday.%20What%20happened%3F'>[yesterday]</a>".html_safe
+     return str
+  end
+
+  def stats_display_late
+     str = "#{self.how_much_arrived_late} late. #{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Late+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20were%20late%20to%20your%20#{location.short_name}%20shift%20this%20week.%20What%20happened%3F%0A%0A%0ADeCaL'>[this week]</a>".html_safe
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Late+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20were%20late%20to%20your%20#{location.short_name}%20shift%20yesterday.%20What%20happened%3F%0A%0A%0ADeCaL'>[yesterday]</a>".html_safe
+     return str
+  end
+
+  def stats_display_left_early
+     str = "#{self.how_much_left_early} early. #{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Left+Early+From+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20left%20your%20#{location.short_name}%20shift%20early%20this%20week.%20What%20happened%3F%0A%0A%0ADeCaL'>[this week]</a>".html_safe
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Left+Early+From+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20left%20your%20#{location.short_name}%20shift%20early%20yesterday.%20What%20happened%3F%0A%0A%0ADeCaL'>[yesterday]</a>".html_safe
+     return str
+  end
+
+  def how_much_arrived_late
+    distance_of_time_in_words(self.report.arrived, self.start)
+  end
+
+  def how_much_left_early
+    distance_of_time_in_words(self.end, self.report.departed)
+  end
 
   def name_and_time
     "#{user.name}, #{time_string}"
@@ -486,6 +539,9 @@ class Shift < ActiveRecord::Base
   end
 
   def obeys_signup_priority
+    
+    return if (self.power_signed_up || !self.scheduled || !self.calendar.active)
+    
     #check for all higher-priority locations in this loc group
     if 
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}

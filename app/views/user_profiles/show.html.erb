@@ -16,4 +16,5 @@
 </fieldset>
 <br />
 	<%= link_to 'Edit', edit_user_profile_path(@user_profile.user.login) if current_user.is_admin_of?(current_department) or current_user == @user_profile.user %> | 
+  <%= link_to 'Show Shift Reports', :controller => :users, :action => :show_shifts, :id => @user_profile.user %> | 
 	<%= link_to 'Show All', user_profiles_path %> | 

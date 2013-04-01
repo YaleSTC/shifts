@@ -10,7 +10,7 @@ class Payform < ActiveRecord::Base
   attr_accessor :start_date
   attr_accessor :end_date
 
-  acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
+  #acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
 
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
@@ -24,6 +24,18 @@ class Payform < ActiveRecord::Base
   named_scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
 
   before_create :set_payrate
+
+
+  def self.export_payform(options = {})
+    FasterCSV.generate(options) do |csv|
+      csv << ["End Date", "First Name", "Last Name", "User ID", "Employee ID", "Payrate", "Hours"]
+      sorted_payforms = all.delete_if{|payform| payform.hours == 0}.sort_by{|payform| User.find(payform.user_id).last_name}.sort_by{|payform| payform.date}
+      sorted_payforms.each do |payform|
+        user = User.find(payform.user_id)
+        csv << [payform.date, user.first_name, user.last_name, user.login, user.employee_id, payform.payrate, payform.hours]
+      end
+    end
+  end
 
 
   def status

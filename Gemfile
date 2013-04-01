@@ -1,5 +1,5 @@
 source :rubygems
-gem "rails", "2.3.12"
+gem "rails", "2.3.15"
 gem "ruby-net-ldap", :require => "net/ldap"
 gem "fastercsv"
 gem "icalendar"
@@ -15,4 +15,3 @@ gem "vestal_versions"
 gem "rdoc", "~> 3.6.1"
 gem "paperclip", "~> 2.3.15"
 gem "capistrano"
-gem 'newrelic_rpm'

@@ -36,6 +36,11 @@ class UsersController < ApplicationController
     @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id && entry.user_profile_field.public }
   end
 
+  def show_shifts
+    @user = User.find(params[:id])
+    @shifts = @user.shifts.sort_by{|s| s.start}.reverse
+  end
+
   def ldap_search
     @results=[]
     return @results unless params[:user][:first_name] || params[:user][:last_name] || params[:user][:email]
