@@ -245,7 +245,12 @@ class PayformsController < ApplicationController
   end
 
   def redirect_to_next_payform
-    payform_source = Payform.unapproved.unskipped.any? ? Payform.unapproved.unskipped : Payform.unapproved
+    if Payform.unapproved.unskipped.any?
+      payform_source = Payform.unapproved.unskipped
+    else
+      payform_source = Payform.unapproved
+      flash[:warning] = "Note: You are viewing a skipped payform"
+    end
     if payform_source.any?
       redirect_to payform_source.sort_by(&:date).last and return
     else
