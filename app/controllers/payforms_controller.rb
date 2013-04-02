@@ -79,8 +79,7 @@ class PayformsController < ApplicationController
      if @payform.save
        flash[:notice] = "Successfully approved payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
      end
-     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
-     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+     redirect_to_next_payform
    end
    
    def skip
@@ -89,8 +88,7 @@ class PayformsController < ApplicationController
      if @payform.save
        flash[:notice] = "Sucessfully skipped payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
      end
-     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
-     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+     redirect_to_next_payform
    end
    
    def unskip
@@ -99,8 +97,7 @@ class PayformsController < ApplicationController
      if @payform.save
        flash[:notice] = "Sucessfully unskipped payform."
      end
-     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
-     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+     redirect_to_next_payform
    end
 
 
@@ -209,7 +206,7 @@ class PayformsController < ApplicationController
       scope += payforms.unsubmitted
     end
     if params[:skipped]
-      scope += payforms.skipped
+      scope += payforms.skipped.unapproved
     end  
     if params[:submitted]
       scope += payforms.unapproved
@@ -246,6 +243,16 @@ class PayformsController < ApplicationController
       return Date.today.to_date
     end
   end
+
+  def redirect_to_next_payform
+    payform_source = Payform.unapproved.unskipped.any? ? Payform.unapproved.unskipped : Payform.unapproved
+    if payform_source.any?
+      redirect_to payform_source.sort_by(&:date).last and return
+    else
+      redirect_to :action => "index" and return
+    end
+  end
+
 
 end
 
