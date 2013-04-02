@@ -77,16 +77,16 @@ class PayformsController < ApplicationController
      @payform.approved = Time.now
      @payform.approved_by = current_user
      if @payform.save
-       flash[:notice] = "Successfully approved payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
+       flash[:notice] = "Successfully approved payform. #{Payform.unapproved.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
      end
      redirect_to_next_payform
    end
-   
+
    def skip
      @payform = Payform.find(params[:id]) 
      @payform.skipped = Time.now
      if @payform.save
-       flash[:notice] = "Sucessfully skipped payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
+       flash[:notice] = "Sucessfully skipped payform. #{Payform.unapproved.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
      end
      redirect_to_next_payform
    end
