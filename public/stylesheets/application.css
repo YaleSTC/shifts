@@ -65,48 +65,29 @@ label {
 ======================================================================= */
 #flash_error {
   background-color: #FCC;
-/*  border: solid 1px #C66;*/
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
+  border-color: #C66;
 }
+
 #flash_warning {
-  background-color:#FFF0AA;
-/*  border:1px solid #908C99;*/}
+  background-color: #FFC118;
+  border-color: #A67E10;
+}
+
 #flash_notice {
   background-color:#98EEC3;
-  /*border:1px solid #21A454;*/
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
+  border-color: #21A454;
 }
 #flash_big_notice {
   background-color:#FFCCCC;
-  /*border:1px solid #CC6666;*/
+  border-color: #CC6666;
+}
+
+.flash {
+  border: 1px solid;
   font-size:11px;
   margin-top:10px;
   padding:5px 8px;
 }
-
-.flash {
-/*  border: 1px solid;*/
-  font-size:11px;
-  margin:2px;
-  padding:2px;
-}
-.flash#flash_error {
-  background-color: #ffcccc;
-  /*border-color: #cc6666;*/
-}
-.flash#flash_warning {
-  background-color:#fff0aa;
- /* border-color: #908c99;*/
-}
-.flash#flash_notice {
-  background-color:#98eec3;
-  /*border-color: #21a454;*/
-}
-
 
 /* = Header-specific classes
 ======================================================================= */
