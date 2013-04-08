@@ -52,6 +52,11 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform.submitted = Time.now
+ 
+    if @payform.date > Date.today
+      flash[:warning] = "You have submitted a payform that ends on a future date. Please unsubmit this payform if this was unintentional"
+    end
+ 
     if @payform.save && @payform.hours > current_department.department_config.payform_time_limit
       flash[:notice] = "Successfully submitted payform, however, you have submitted more than the allowed #{current_department.department_config.payform_time_limit} hours this week."
     elsif @payform.save &&  @payform.hours <= current_department.department_config.payform_time_limit
