@@ -18,6 +18,12 @@ class ReportsController < ApplicationController
 
   #Signing into a shift
   def create
+    shift = Shift.find(params[:shift_id])
+    if shift.start > 1.day.from_now
+      flash[:error] = "You can't sign into a shift too far in advance"
+      redirect_to dashboard_path and return
+    end
+
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
 
     if current_user.current_shift || current_user.punch_clock
@@ -39,8 +45,8 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department)
   end
-  
-  
+
+
   #periodically call remote function to update reports dynamically
   def update_reports
      @report = current_user.current_shift.report
@@ -48,7 +54,7 @@ class ReportsController < ApplicationController
        format.js
      end
   end
-  
+
   # TODO: refactor into a model method on Report
   #Submitting a shift
   def update
