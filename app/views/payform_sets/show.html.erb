@@ -13,3 +13,15 @@
 <p>
   <%= link_to "Print History", payform_sets_path %>
 </p>
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Hours</th>
+  </tr>
+  <% @grouped_items.each do |category_name, items| %>
+    <tr>
+      <td><%= category_name %></td>
+      <td><%= items.map(&:hours).sum %> </td>
+    </tr>
+  <% end %>
+</table>
