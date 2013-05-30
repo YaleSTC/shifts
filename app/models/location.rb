@@ -17,6 +17,7 @@ class Location < ActiveRecord::Base
 	has_many :shift_preferences, :through => :locations_shift_preferences
   has_and_belongs_to_many :data_objects
 	has_and_belongs_to_many :requested_shifts
+  belongs_to :category
 
   validates_presence_of :loc_group
   validates_presence_of :name
