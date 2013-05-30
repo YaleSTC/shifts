@@ -6,7 +6,7 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
-  
+
   attr_accessor :start_date
   attr_accessor :end_date
 
@@ -70,14 +70,14 @@ class Payform < ActiveRecord::Base
     end
     (given_date - given_date_day.days + dept.department_config.day.days).to_date
   end
-  
+
   # Total payform hours rounded according to department rounding option.
   def hours
     raw_hours = payform_items.select{|p| p.active}.map{|i| i.hours}.sum
     rounded_hours = ((raw_hours.to_f * 60 / department.department_config.admin_round_option.to_f).round * (department.department_config.admin_round_option.to_f / 60))
     sprintf( "%0.02f", rounded_hours).to_f
   end
-  
+
   def hours_minutes_string
     hours = self.hours
     return "0:00" if hours.nil? || hours == 0
@@ -105,7 +105,7 @@ class Payform < ActiveRecord::Base
       errors.add("Cannot print unapproved payform.")
     end
   end
-  
+
   def set_payrate
     self.payrate = user.payrate(department)
   end
