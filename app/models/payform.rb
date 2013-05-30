@@ -29,7 +29,9 @@ class Payform < ActiveRecord::Base
   def self.export_payform(options = {})
     FasterCSV.generate(options) do |csv|
       csv << ["End Date", "First Name", "Last Name", "User ID", "Employee ID", "Payrate", "Hours", "Billing Code"]
-      sorted_payforms = all.delete_if{|payform| payform.hours == 0}.sort_by{|payform| User.find(payform.user_id).last_name}.sort_by{|payform| payform.date}
+      sorted_payforms = all.delete_if{|payform| payform.hours == 0}\
+        .sort_by{|payform| payform.user.last_name}\
+        .sort_by{|payform| payform.date}
       sorted_payforms.each do |payform|
         user = User.find(payform.user_id)
         grouped_items = payform.payform_items.group_by{|p| p.category.billing_code}
