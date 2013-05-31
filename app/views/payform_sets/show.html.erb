@@ -21,7 +21,7 @@
   <% @grouped_items.each do |category_name, items| %>
     <tr>
       <td><%= category_name %></td>
-      <td><%= items.map(&:hours).sum %> </td>
+      <td><%= PayformItem.rounded_hours(items) %> </td>
     </tr>
   <% end %>
 </table>
