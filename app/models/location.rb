@@ -24,7 +24,7 @@ class Location < ActiveRecord::Base
   validates_presence_of :description
   validates_presence_of :short_name
   validates_presence_of :min_staff
-  validates_presence_of :payform_category
+  validates_presence_of :category
   validates_numericality_of :max_staff
   validates_numericality_of :min_staff
   validates_numericality_of :priority
