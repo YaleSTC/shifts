@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   # GET /tasks.xml
 
   def index
-    return unless user_is_admin_of(current_department)
+    #return unless user_is_admin_of(current_department)
     @tasks = Task.all
     @active_tasks = Task.find(:all, :conditions => ["#{:active} = ?", true])
     @inactive_tasks = Task.find(:all, :conditions => ["#{:active} = ?", false])
@@ -17,7 +17,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.xml
   def show
-    return unless user_is_admin_of(current_department)
+    #return unless user_is_admin_of(current_department)
     @task = Task.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb

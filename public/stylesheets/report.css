@@ -153,3 +153,31 @@ textarea#item {
   float: right;
   clear: right;
 }
+
+
+.task_entry{
+  text-indent: -25px;
+  padding-left: 25px;   
+  margin-bottom: 4px;
+  line-height:10px;
+}
+.task_title {
+  font-weight:bold;
+  text-decoration:underline;
+
+}
+.task_description{
+  font-size:11px;
+}
+.task_reference{
+    
+}
+.task_complete{
+    text-decoration: line-through;
+}
+.task_category{
+font-size:14px;
+font-weight:bold;
+text-decoration:underline;
+margin-top:5px;
+}

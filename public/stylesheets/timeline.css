@@ -1,4 +1,5 @@
 
+
 ul.events li {                        color: #000; }
 ul.events li.timeslot {
     background: #eee;
@@ -29,6 +30,9 @@ div.timeline-data {
     float:right;
     position:relative;
     width: 93%;
+}
+
+div.timeline-data.timeslots {
     height: 100%;
 }
 
@@ -38,6 +42,7 @@ div.timeline div.days {
     width: 7%;
     height: 100%;
 }
+
 div.timeline div.day {
     border-bottom: 1px solid #fff;
     width: 100%;

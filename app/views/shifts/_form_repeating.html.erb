@@ -49,7 +49,7 @@
   </p>
   <p>
     <%= f.label :user %><br />
-    <%= f.collection_select(:user_id, current_department.active_users.sort_by(&:last_name), :id, :name, {:prompt => "Select a user"}) %>
+    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.reverse_name}, :id, :name, {:prompt => "Select a user"}) %>
   </p>
 </div>
 <div style="float:left; margin-left: 7px; padding-left: 7px; border-left: 1px solid black">

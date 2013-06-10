@@ -6,11 +6,11 @@ class Payform < ActiveRecord::Base
   belongs_to :department
   belongs_to :user
   belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
-  
+
   attr_accessor :start_date
   attr_accessor :end_date
 
-  acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
+  #acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
 
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
@@ -24,6 +24,23 @@ class Payform < ActiveRecord::Base
   scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
 
   before_create :set_payrate
+
+
+  def self.export_payform(options = {})
+    FasterCSV.generate(options) do |csv|
+      csv << ["End Date", "First Name", "Last Name", "User ID", "Employee ID", "Payrate", "Hours", "Billing Code"]
+      sorted_payforms = all.delete_if{|payform| payform.hours == 0}\
+        .sort_by{|payform| payform.user.last_name}\
+        .sort_by{|payform| payform.date}
+      sorted_payforms.each do |payform|
+        user = User.find(payform.user_id)
+        grouped_items = payform.payform_items.group_by{|p| p.category.billing_code}
+        grouped_items.each do |billing_code, payform_items|
+          csv << [payform.date, user.first_name, user.last_name, user.login, user.employee_id, payform.payrate, PayformItem.rounded_hours(payform_items), billing_code]
+        end
+      end
+    end
+  end
 
 
   def status
@@ -58,14 +75,14 @@ class Payform < ActiveRecord::Base
     end
     (given_date - given_date_day.days + dept.department_config.day.days).to_date
   end
-  
+
   # Total payform hours rounded according to department rounding option.
   def hours
     raw_hours = payform_items.select{|p| p.active}.map{|i| i.hours}.sum
     rounded_hours = ((raw_hours.to_f * 60 / department.department_config.admin_round_option.to_f).round * (department.department_config.admin_round_option.to_f / 60))
     sprintf( "%0.02f", rounded_hours).to_f
   end
-  
+
   def hours_minutes_string
     hours = self.hours
     return "0:00" if hours.nil? || hours == 0
@@ -93,7 +110,7 @@ class Payform < ActiveRecord::Base
       errors.add("Cannot print unapproved payform.")
     end
   end
-  
+
   def set_payrate
     self.payrate = user.payrate(department)
   end

@@ -1,4 +1,5 @@
 class Shift < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
 
   delegate :loc_group, :to => 'location'
   belongs_to :calendar
@@ -45,15 +46,10 @@ class Shift < ActiveRecord::Base
   scope :stats_unsent, :conditions => {:stats_unsent => true}
   scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
   scope :unparsed, :conditions => {:parsed => false}
-  scope :missed,
-        :joins => "LEFT JOIN reports ON shifts.id = reports.shift_id",
-        :conditions => ["end < ? AND reports.id is null AND shifts.active = ?", Time.now.utc, true]
-  scope :late,
-        :joins => :report,
-        :conditions => ["#{:arrived.to_sql_column} - #{:start.to_sql_column} > ?",7*60] #TODO: inlcude department config (instead of defaulting to "7")
-  scope :left_early,
-        :joins => :report,
-        :conditions => ["(#{:end.to_sql_column} - #{:departed.to_sql_column} > ?)",7*60] #TODO: inlcude department config (instead of defaulting to "7")
+  scope :missed, :conditions => {:parsed => true, :missed => true}
+  scope :late, :conditions => {:parsed => true, :late => true}
+  scope :left_early, :conditions => {:parsed => true, :left_early => true}
+
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
@@ -64,7 +60,7 @@ class Shift < ActiveRecord::Base
   validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}, :on => :create
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
-  validate :obeys_signup_priority, :if => Proc.new{|shift| !shift.power_signed_up? && shift.scheduled}
+  validate :obeys_signup_priority
   before_save :adjust_sub_requests
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
 
@@ -82,18 +78,18 @@ class Shift < ActiveRecord::Base
       shift.destroy
     elsif start_of_delete == shift.start
       shift.start=end_of_delete
-      shift.save!
+      shift.save(false)
     elsif end_of_delete == shift.end
       shift.end=start_of_delete
-      shift.save!
+      shift.save(false)
     else
       later_shift = shift.clone
       later_shift.user = shift.user
       later_shift.location = shift.location
       shift.end = start_of_delete
       later_shift.start = end_of_delete
-      shift.save!
-      later_shift.save!
+      shift.save(false)
+      later_shift.save(false)
       shift.sub_requests.each do |s|
         if s.start >= later_shift.start
           s.shift = later_shift
@@ -186,7 +182,7 @@ class Shift < ActiveRecord::Base
       return out.collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
-  
+
 
   #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(shifts, wipe)
@@ -224,6 +220,25 @@ class Shift < ActiveRecord::Base
       css_class += "_late"
     end
     css_class
+  end
+
+  def type
+    if self.start <= Time.now
+      if self.missed
+        return "Missed"
+      end
+
+      if late? && left_early?
+        return "Late & Left Early"
+      elsif self.late
+        return "Late"
+      elsif self.left_early
+        return "Left Early"
+      end
+      return "Completed"
+    else
+      return "Future"
+    end
   end
 
   def too_early?
@@ -356,8 +371,37 @@ class Shift < ActiveRecord::Base
   end
 
   def stats_display
-       "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
- end
+     "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+  end
+
+  def stats_display_missed
+     str = "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Missed+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20missed%20your%20#{location.short_name}%20shift%20this%20week.%20What%20happened%3F'>[this week]</a>".html_safe
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Missed+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20missed%20your%20#{location.short_name}%20shift%20yesterday.%20What%20happened%3F'>[yesterday]</a>".html_safe
+     return str
+  end
+
+  def stats_display_late
+     str = "#{self.how_much_arrived_late} late. #{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Late+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20were%20late%20to%20your%20#{location.short_name}%20shift%20this%20week.%20What%20happened%3F%0A%0A%0ADeCaL'>[this week]</a>".html_safe
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Late+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20were%20late%20to%20your%20#{location.short_name}%20shift%20yesterday.%20What%20happened%3F%0A%0A%0ADeCaL'>[yesterday]</a>".html_safe
+     return str
+  end
+
+  def stats_display_left_early
+     str = "#{self.how_much_left_early} early. #{self.report.id}: #{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}, #{user.name}, #{location.name}"
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Left+Early+From+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20left%20your%20#{location.short_name}%20shift%20early%20this%20week.%20What%20happened%3F%0A%0A%0ADeCaL'>[this week]</a>".html_safe
+     str << " <a href='mailto:#{user.email}?cc=#{user.default_department.department_config.stats_mailer_address}&subject=Left+Early+From+#{location.short_name}+Shift+&body=Hi%20#{user.goes_by}%2C%0A%0AYou%20left%20your%20#{location.short_name}%20shift%20early%20yesterday.%20What%20happened%3F%0A%0A%0ADeCaL'>[yesterday]</a>".html_safe
+     return str
+  end
+
+  def how_much_arrived_late
+    distance_of_time_in_words(self.report.arrived, self.start)
+  end
+
+  def how_much_left_early
+    distance_of_time_in_words(self.end, self.report.departed)
+  end
 
   def name_and_time
     "#{user.name}, #{time_string}"
@@ -370,18 +414,18 @@ class Shift < ActiveRecord::Base
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
   end
-  
+
   def task_time
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled (#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)})"
-    
+
   end
 
   def sub_request
     SubRequest.find_by_shift_id(self.id)
   end
-  
-  
-  
+
+
+
 
   # ======================
   # = Validation helpers =
@@ -399,7 +443,7 @@ class Shift < ActiveRecord::Base
   end
 
   private
-  
+
   def restrictions
     unless self.power_signed_up
       errors.add(:user, "is required") and return if self.user.nil?
@@ -429,11 +473,11 @@ class Shift < ActiveRecord::Base
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= self.start)
   end
-  
+
   #TODO: Fix this to check timeslots by time_increment
   def shift_is_within_time_slot
     unless self.power_signed_up
-      if self.calendar.default
+      if (self.calendar.default || self.calendar.active)
         c = TimeSlot.count(:all, :conditions => ["#{:location_id.to_sql_column} = #{self.location_id.to_sql} AND #{:start.to_sql_column} <= #{self.start.to_sql} AND #{:end.to_sql_column} >= #{self.end.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
       else
         #If users are signing up into a non-active calendar, we want to make sure we still respect the (non-active) timeslots present in that calendar
@@ -486,6 +530,9 @@ class Shift < ActiveRecord::Base
   end
 
   def obeys_signup_priority
+
+    return if (self.power_signed_up || !self.scheduled || !self.calendar.active)
+
     #check for all higher-priority locations in this loc group
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
     seconds_increment = self.department.department_config.time_increment * 60

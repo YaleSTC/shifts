@@ -33,7 +33,7 @@ class ShiftsController < ApplicationController
     @visible_loc_groups = current_user.user_config.view_loc_groups
     @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
     @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
-    
+
 
     # @calendars = @department.calendars.active
     # @shifts = []
@@ -226,7 +226,12 @@ class ShiftsController < ApplicationController
       end
     end
   end
-  
+
+  def email_group
+    default_email_group_settings
+    @loc_groups = current_department.loc_groups.active
+    @included_shifts = Shift.in_locations(@locations).between(@start_time, @end_time)
+  end
 
   # def rerender
   #   #@period_start = params[:date] ? Date.parse(params[:date]) : Date.today.end_of_week-1.week
@@ -245,6 +250,29 @@ class ShiftsController < ApplicationController
   # end
 
 
+  def default_email_group_settings
+    params[:email_group] ||= {}
+    if params[:email_group]["start_time(1i)"]
+      @start_time ||= DateTime.new(params[:email_group][:"start_time(1i)"].to_i,params[:email_group][:"start_time(2i)"].to_i,params[:email_group][:"start_time(3i)"].to_i,params[:email_group][:"start_time(4i)"].to_i,params[:email_group][:"start_time(5i)"].to_i)
+    else
+      @start_time ||= department_day_start_time
+    end
+
+    if params[:email_group]["end_time(1i)"]
+      @end_time ||= DateTime.new(params[:email_group][:"end_time(1i)"].to_i,params[:email_group][:"end_time(2i)"].to_i,params[:email_group][:"end_time(3i)"].to_i,params[:email_group][:"end_time(4i)"].to_i,params[:email_group][:"end_time(5i)"].to_i)
+    else
+      @end_time ||= department_day_end_time
+    end
+
+    if params[:locations]
+      @locations = Location.find(params[:locations])
+    else
+      #@locations = current_department.locations.active
+      @locations = []
+    end
+
+    @location_ids = @locations.collect{|l| l.id} #to make it easier for the option_groups_from_collection_for_select
+  end
 
 end
 

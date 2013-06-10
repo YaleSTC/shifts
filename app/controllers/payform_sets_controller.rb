@@ -10,10 +10,14 @@ class PayformSetsController < ApplicationController
 
   def show
     @payform_set = PayformSet.find(params[:id])
+    payform_items = @payform_set.payforms.map(&:payform_items).flatten
+    @grouped_items = payform_items.group_by{|pi| pi.category.name}
+
     respond_to do |show|
       show.html #show.html.erb
       show.pdf  #show.pdf.prawn
-      show.csv {render :text => @payform_set.payforms.to_csv(:template => :normal)}
+      show.csv {render :text => @payform_set.payforms.export_payform}
+      #show.xls {render :file => @payform_set.payforms.export_payform({:col_sep => "\t"})}
     end
   end
 
