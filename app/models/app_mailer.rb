@@ -6,12 +6,23 @@ class AppMailer < ActionMailer::Base
   self.delivery_method = :smtp
 
   def shift_report(shift, report, dept)
+    #If a profile field for queue exists, include it in subject
+    if queue_field = UserProfileField.find(:first, :conditions => {:name => "Queue"})
+      user = shift.user
+      queue_text = ""
+      profile_entry = UserProfileEntry.find(:first, :conditions => {
+                                  :user_profile_id => user.user_profile.id, 
+                                  :user_profile_field_id => queue_field.id} )
+      user_queue = profile_entry.content if profile_entry
+      queue_text = "(User Queue: #{user_queue})" if user_queue
+    end
+
     recipients  shift.user.email
     unless shift.location.report_email.blank?
       cc        shift.location.report_email
     end
     from        shift.user.email
-    subject     "Shift Report: #{shift.short_display}"
+    subject     "Shift Report: #{shift.short_display} #{queue_text}"
     sent_on     Time.now
     body        :shift => shift, :report => report
   end

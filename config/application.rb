@@ -38,8 +38,8 @@ module Shifts
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    
-    
+
+
       #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
       #ENV["HMP_DEBUG"] = 'true'
 
@@ -75,6 +75,8 @@ module Shifts
       # (by default production uses :info, the others :debug)
       # config.log_level = :debug
 
+      config.rubycas.cas_base_url = 'https://secure.its.yale.edu/cas/'
+
       # Make Time.zone default to the specified zone, and make Active Record store time values
       # in the database in UTC, and return them converted to the specified local zone.
       # Run "rake -D time" for a list of tasks for finding time zone names. Comment line to use default local time.
@@ -83,6 +85,6 @@ module Shifts
       # Activate observers that should always be running
       # Please note that observers generated using script/generate observer need to have an _observer suffix
       config.active_record.observers = :user_observer, :department_observer
-    
+
   end
 end

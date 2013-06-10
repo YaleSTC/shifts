@@ -127,7 +127,13 @@ module ApplicationHelper
   end
 
   def calculate_default_times_repeating_events
-    @default_start_date = Time.now.to_date
+    if params[:date]
+      #From the parameters, including the entire current week
+      @default_start_date = Date.parse(params[:date])
+    else
+      #The current week
+      @default_start_date = Time.now.to_date
+    end
     @repeating_event.start_time ||= @default_start_date.to_time + current_department.department_config.schedule_start.minutes
     @repeating_event.end_time ||= @default_start_date.to_time + current_department.department_config.schedule_end.minutes
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes

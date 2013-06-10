@@ -1,4 +1,9 @@
 <% title "Sub Requests" %>
+
+<% if current_user.is_admin_of?(current_department) %>
+<%= link_to "50 Most Recent Sub Requests", sub_requests_path(:include_past => 1, :limit => 50) %>
+<% end %>
+
 <table id="requests_table", class = "tablesorter"> 
  <thead>
   <tr>
@@ -19,10 +24,11 @@
 		<% end %>
 	</td>
 
-	<td class="sub_location"><%=h sub_request.shift.location.name.to_s %></td>
+	<td class="sub_location"><%=h sub_request.shift.location.short_name.to_s %></td>
 	<td class="sub_requestor"><%= link_to sub_request.shift.user.name.to_s, user_profile_path(sub_request.shift.user.login)%></td>
 	<td class="sub_reason"><div class="sub_reason_container"><%=h truncate(sub_request.reason.gsub(/\r\n/, "    "), 215, "...") %></div></td>
 	<td class="sub_show_link"><%= link_to 'Show', sub_request %></td>
+	<td class="sub_show_link"><%= link_to 'Show Shift', sub_request.shift %></td>
 
 	<% if current_user.can_take_sub?(sub_request) %>
 		<td class="sub_take_link"><%= link_to 'Take', get_take_info_sub_request_path(sub_request) %></td>

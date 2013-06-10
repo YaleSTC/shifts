@@ -32,7 +32,7 @@
         <% elsif current_user == @shift.user %>
          <% unless @shift.has_passed? or @shift.submitted? %>
         <% if @shift.has_sub?%>
-          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> | 
+          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> |
 		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%>
 
         <% else%>
@@ -75,7 +75,7 @@
 			<% if within_sign_in_window?(@shift)%>
           <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
 			<% else %>
-		 <%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift early?", :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
+		 <%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift #{distance_of_time_in_words(@shift.start, Time.now)} early?", :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
 			<% end %>
         <% end %>
 
@@ -123,7 +123,7 @@
       <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
     <% end %>
   <% else %>
-    <h2><%= @shift.scheduled? ? "Shift" : "Unscheduled Shift" %></h2>
+    <h2><%= link_to (@shift.scheduled? ? "Shift" : "Unscheduled Shift"), shift_path(@shift)  %></h2>
     <p>
       <strong>Start:</strong>
       <%= @shift.start.to_s(:short_name) %>
@@ -156,7 +156,7 @@
     <% elsif current_user == @shift.user %>
       <% unless @shift.has_passed? or @shift.submitted? %>
         <% if @shift.has_sub?%>
-          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> | 
+          <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> |
 		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%>
         <% else%>
           <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>

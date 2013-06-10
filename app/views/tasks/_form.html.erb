@@ -12,19 +12,24 @@
   </p>
 
   <p>
+    <%= f.label :link %><br />
+    <%= f.text_field :link %>
+  </p>
+
+  <p>
     <%= f.label :kind %><br />
-	<%= radio_button_tag 'task[kind]', 'Hourly', true %> Hourly<br />
-	<%= radio_button_tag 'task[kind]', 'Daily'%> Daily<br />
-	<%= radio_button_tag 'task[kind]', 'Weekly' %> Weekly<br />
+	<%= radio_button_tag 'task[kind]', 'Hourly', (true if @task.kind == "Hourly")%> Hourly<br />
+	<%= radio_button_tag 'task[kind]', 'Daily', (true if @task.kind == "Daily")%> Daily<br />
+	<%= radio_button_tag 'task[kind]', 'Weekly', (true if @task.kind == "Weekly") %> Weekly<br />
     <%#= select_tag 'task[kind]', options_for_select(["Hourly", "Daily", "Weekly"], "Daily") %>
   </p>
   <p>
     <%= f.label :day_in_week, text = "Weekday" %><br />
-    <%= select_tag 'task[day_in_week]', options_for_select(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "Mon") %>
+    <%= select_tag 'task[day_in_week]', options_for_select(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], @task.day_in_week) %>
   </p>
   <p>
     <%= f.label :location_id, text = 'Location' %><br />
-    <%= select_tag 'task[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name)%><br />
+    <%= select_tag 'task[location_id]', options_from_collection_for_select(@department.locations.active, :id, :name, (@task.location ? @task.location.id : nil)) %><br />
   </p>
   <p>
     <%= f.label :start %><br />
@@ -32,7 +37,7 @@
 	</p>
   <p>
     <%= f.label :end %><br />
-  	<%= f.date_select :end %>
+    <%= f.date_select :end, :default => (Date.today + 1.year)%>
   </p>
   <p>
     <%= f.label :time_of_day, text = "Time" %><br />
