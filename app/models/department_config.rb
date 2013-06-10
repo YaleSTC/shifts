@@ -46,6 +46,10 @@ class DepartmentConfig < ActiveRecord::Base
     self.time_increment * 60 #seconds
   end
 
+  def default_category
+    Category.find(self.default_category_id) || Category.active.built_in.first
+  end
+
 protected
 
   def increment_factor_of_60

@@ -14,3 +14,4 @@ public/assets/user_profiles
 Vagrantfile
 .vagrant/
 .ruby-version
+config/initializers/airbrake.rb

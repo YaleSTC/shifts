@@ -24,7 +24,7 @@ module TimeSlotsHelper
 
   def fetch_timeslots(time_slot_day,location)
     result = []
-    timeslots = TimeSlot.on_48h(time_slot_day).in_location(location)
+    timeslots = TimeSlot.on_48h(time_slot_day).in_location(location).active
     for timeslot in timeslots do
 
       if( ##between yesterday's work day and today's => show it in the hidden block

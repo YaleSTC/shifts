@@ -2,7 +2,7 @@
 
 <h3>Date/Time</h3>
 <p class="sub_show">
-	<%=h @sub_request.start.to_s(:gg) %><br>
+  <%=h @sub_request.start.to_s(:gg) %><br>
 	<%=h @sub_request.start.to_s(:am_pm) %> - <%=h  @sub_request.end.to_s(:am_pm) %>
 	<% if !(@sub_request.start==@sub_request.mandatory_start && @sub_request.end==@sub_request.mandatory_end) %>
 		<br><span class="sub_time_mandatory"><b>Required:</b> <%=h @sub_request.mandatory_start.to_s(:twelve_hour) %> - <%=h  @sub_request.mandatory_end.to_s(:twelve_hour) %></span>
@@ -27,12 +27,13 @@
   <%=h @sub_request.reason %>
 </p>
 
+<%= link_to "View Shift", @sub_request.shift %> |
 <% if @sub_request.user_is_eligible?(current_user) && @sub_request.user != current_user %>
   <%= link_to 'Take', get_take_info_sub_request_path(@sub_request) %> |
 <% end %>
 <% if current_user.is_admin_of?(@department) or current_user == @sub_request.user %>
   <%= link_to 'Cancel Request', @sub_request, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%> | 
+  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%> |
   <%= link_to 'Edit', edit_sub_request_path(@sub_request) %> |
 <% end %>
   <%= link_to 'See all subs', sub_requests_path %>

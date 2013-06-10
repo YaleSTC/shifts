@@ -37,6 +37,14 @@ class PayformItem < ActiveRecord::Base
       errors.add_to_base(error)
     end
   end
+
+  def self.rounded_hours(payform_items)
+    raw_hours = payform_items.map{|i| i.hours}.sum
+    dept = payform_items.first.payform.department
+    rounded_hours = ((raw_hours.to_f * 60 / dept.department_config.admin_round_option.to_f).round * (dept.department_config.admin_round_option.to_f / 60))
+    sprintf( "%0.02f", rounded_hours).to_f
+  end
+
   
   protected
   
