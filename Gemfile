@@ -16,3 +16,7 @@ gem "rdoc", "~> 3.6.1"
 gem "paperclip", "~> 2.3.15"
 gem "htmlentities"
 gem "capistrano"
+
+#authentication
+gem 'rubycas-client-rails'
+gem 'rubycas-client', '2.2.1'
