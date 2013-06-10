@@ -73,7 +73,7 @@ class ReportsController < ApplicationController
     if @report.update_attributes(params[:report]) && @report.shift.update_attribute(:signed_in, false)
       if (@add_payform_item) #don't allow duplicate payform items for a shift
         @payform_item=PayformItem.new("hours" => @report.duration,
-                                      "category"=>Category.find_by_name("Shifts"),
+                                      "category"=>(@report.shift.location.category || current_department.department_config.default_category),
                                       "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
                                       "date"=>Date.today,
                                       "description"=> @report.short_description,
