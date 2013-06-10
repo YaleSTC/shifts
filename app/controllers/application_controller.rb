@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_app_config
   before_filter :department_chooser
   before_filter :load_user_session
-  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
+  before_filter RubyCAS::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
@@ -20,11 +20,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :current_department
-  
+
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
+
   def load_app_config
     @appconfig = AppConfig.first
   end
@@ -413,7 +413,7 @@ class ApplicationController < ActionController::Base
   def prepare_mail_url
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
-  
+
   def mobile_device?
     if session[:mobile_param]
       session[:mobile_param] == "1"
@@ -422,7 +422,7 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :mobile_device?
-  
+
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]
   end
