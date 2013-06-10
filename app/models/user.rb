@@ -169,7 +169,11 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name), last_name].join(" ")
+    [self.goes_by, last_name].join(" ")
+  end
+
+  def goes_by
+    ((nick_name.nil? or nick_name.length == 0) ? first_name : nick_name)
   end
 
   def proper_name

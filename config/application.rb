@@ -38,8 +38,8 @@ module Shifts
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    
-    
+
+
       #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
       #ENV["HMP_DEBUG"] = 'true'
 
@@ -83,6 +83,12 @@ module Shifts
       # Activate observers that should always be running
       # Please note that observers generated using script/generate observer need to have an _observer suffix
       config.active_record.observers = :user_observer, :department_observer
-    
+
+      CASClient::Frameworks::Rails::Filter.configure(
+        :cas_base_url => "https://secure.its.yale.edu/cas/",
+        :username_session_key => :cas_user,
+        :extra_attributes_session_key => :cas_extra_attributes
+      )
+
   end
 end

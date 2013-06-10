@@ -46,7 +46,7 @@
       <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled'); calendar_visible[#{calendar.id}] = !calendar_visible[#{calendar.id}]"%></td>
       <% unless calendar.default? or !current_user.is_admin_of?(@department) %>
         <td><%= button_to calendar.active ? "Deactivate" : "Activate" , toggle_calendar_path(calendar) %></td>
-        <td><%= button_to "Apply Schedule", {:action => 'apply_schedule', :id => calendar.id}, :confirm => "Are you sure? This will apply the schedule and wipe any conflicts." %></td>
+        <td><%= button_to "Convert Shifts to Weekly Events", {:action => 'apply_schedule', :id => calendar.id}, :confirm => "Are you sure? This will convert all shifts on this calendar to weekly repeating events that span the dates of the calendar." %></td>
         <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
