@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :sub_requests, :through => :shifts #the sub reqeusts this user owns
 	has_many :shift_preferences
 	has_many :requested_shifts
+  has_many :restrictions
 
 
 # New user configs are created by a user observer, after create
