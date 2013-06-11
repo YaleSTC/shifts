@@ -15,6 +15,8 @@ class Department < ActiveRecord::Base
   has_many :punch_clocks
   has_many :punch_clock_sets
   has_many :user_profile_fields
+  has_many :notices, :as => :noticeable
+  has_many :restrictions, :as => :restrictable
   has_many :calendars, :dependent => :destroy do
     def default
       find(:first, :conditions => {:default => true})

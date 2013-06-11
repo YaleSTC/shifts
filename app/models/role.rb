@@ -1,6 +1,8 @@
 class Role < ActiveRecord::Base
 #  has_and_belongs_to_many :departments
   belongs_to :department
+  has_many :restrictions, :as => :restrictable
+  has_many :notices, :as => :noticeable
   has_and_belongs_to_many :template
   has_and_belongs_to_many :permissions
   has_and_belongs_to_many :users

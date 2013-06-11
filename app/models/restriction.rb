@@ -1,5 +1,6 @@
 class Restriction < ActiveRecord::Base
   belongs_to :department
+  belongs_to :restrictable, :polymorphic => true
 
   validates_presence_of :starts, :expires
   validates_presence_of :max_hours,  :unless => :max_subs, :message => "and Max subs can't both be blank"
