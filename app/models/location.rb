@@ -42,7 +42,7 @@ class Location < ActiveRecord::Base
   def locations
     [self]
   end
-
+  
   def current_notices
 		return self.announcements + self.stickies
 #   ActiveRecord::Base.transaction do
