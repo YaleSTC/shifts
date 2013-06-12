@@ -1,11 +1,11 @@
 class Notice < ActiveRecord::Base
 
+  belongs_to :noticeable, :polymorphic => true
   belongs_to :author, :class_name => "User"
   belongs_to :remover, :class_name => "User"
   belongs_to :department
   belongs_to :role
   belongs_to :user
-  belongs_to :noticeable, :polymorphic => true
 
   validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
 
