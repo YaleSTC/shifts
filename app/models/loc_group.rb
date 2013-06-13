@@ -13,6 +13,7 @@ class LocGroup < ActiveRecord::Base
               :foreign_key => "admin_perm_id",
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
+  has_many :loc_group_associations
   
   named_scope :active, :conditions => {:active => true}
   
