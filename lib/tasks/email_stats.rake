@@ -4,6 +4,7 @@ namespace :email do
     shifts_to_email = []
     shifts_to_email = Shift.in_department(department).active.between(1.day.ago.midnight, Time.now).stats_unsent
     
+    
     missed_shifts = []    #initializes as arrays in case only a single object is returned
     late_shifts = []
     left_early_shifts = []
@@ -12,14 +13,17 @@ namespace :email do
     late_shifts = shifts_to_email.late
     left_early_shifts = shifts_to_email.left_early
   
-    stats_email = ArMailer.create_email_stats(missed_shifts, late_shifts, left_early_shifts, department)
-    ArMailer.deliver(stats_email)
+    unless shifts_to_email.empty?
+      stats_email = ArMailer.create_email_stats(missed_shifts, late_shifts, left_early_shifts, department)
+      puts stats_email
+      ArMailer.deliver(stats_email)
+    end
   
     for shift in shifts_to_email
       shift.stats_unsent = false
        shift.save
     end
-   
+
   end
 
 

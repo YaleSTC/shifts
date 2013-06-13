@@ -8,6 +8,10 @@
     <%= f.check_box :active %>
     <%= f.label :active %>
   </p>
+  <p>
+    <%= f.label "Billing Code" %><br />
+    <%= f.text_field :billing_code %>
+  </p>
 
   <p><%= f.submit "Submit" %></p>
 <% end %>

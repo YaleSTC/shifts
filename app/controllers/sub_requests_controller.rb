@@ -6,7 +6,17 @@ class SubRequestsController < ApplicationController
       @subs=@shift.sub_requests
       @title_add=" for " + @shift.user.name + "'s shift in " + @shift.location.name + " on " + @shift.start.to_s(:gg)
       @index_link = true
-    else
+    elsif params[:include_past] #all sub requests ever (slow)
+      if params[:include_past] == "1"
+        @subs = SubRequest.all.sort_by{|s| s.start}.reverse
+        @title_add=" Index"
+        @index_link=false
+      else #all future sub requests
+        @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now], :order => 'start')
+        @title_add=" Index"
+        @index_link=false
+      end
+    else #all future sub requests
       @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now], :order => 'start')
       @title_add=" Index"
       @index_link=false
@@ -155,4 +165,3 @@ class SubRequestsController < ApplicationController
 
 
 end
-

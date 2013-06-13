@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
   belongs_to :department
   has_many :payform_items
+  has_many :locations
 
   validates_presence_of :name, :department_id
   validates_uniqueness_of :name, :scope => :department_id

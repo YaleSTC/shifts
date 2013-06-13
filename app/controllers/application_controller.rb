@@ -2,23 +2,15 @@ class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_app_config
-  #binding.pry
   before_filter :department_chooser
-  #binding.pry
   before_filter :load_user_session
-  #binding.pry
-  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
-  #binding.pry
+  before_filter RubyCAS::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
-  #binding.pry
   before_filter :load_department
-  #binding.pry
   before_filter :prepare_mail_url
-  #binding.pry
   before_filter :prepare_for_mobile
-  #binding.pry
   before_filter :load_user
-  #binding.pry
+
   helper :layout # include all helpers, all the time (whyy? -Nathan)
   helper :application
 
@@ -28,11 +20,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :current_department
-  
-  #filter_parameter_logging :password, :password_confirmation
+
+  filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
+
   def load_app_config
     @appconfig = AppConfig.first
   end
@@ -380,6 +372,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def department_day_start_time
+    DateTime.now.in_time_zone(Time.zone).beginning_of_day + current_department.department_config.schedule_start.minutes
+  end
+
+  def department_day_end_time
+    DateTime.now.in_time_zone(Time.zone).beginning_of_day + current_department.department_config.schedule_end.minutes - 1.second
+  end
+
   private
 
 
@@ -413,7 +413,7 @@ class ApplicationController < ActionController::Base
   def prepare_mail_url
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
-  
+
   def mobile_device?
     if session[:mobile_param]
       session[:mobile_param] == "1"
@@ -422,7 +422,7 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :mobile_device?
-  
+
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]
   end

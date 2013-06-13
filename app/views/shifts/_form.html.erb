@@ -55,12 +55,12 @@
 		<% if select_lg.nil? || current_user.is_superuser? %>
 			<p>
 		    <%= f.label :user %><br />
-		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.reverse_name}, :id, :name, {:prompt => "Select a user"}) %>
+		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.name}, :id, :name, {:prompt => "Select a user"}) %>
 		  </p>
 		<% else %>
 			<p>
 	      <%= f.label :user %><br />
-	      <%= f.collection_select(:user_id, current_department.active_users.delete_if{|u| !u.can_signup?(select_lg)}.sort_by{|u| u.reverse_name}, :id, :name, {:prompt => "Select a user"}) %>
+	      <%= f.collection_select(:user_id, current_department.active_users.delete_if{|u| !u.can_signup?(select_lg)}.sort_by{|u| u.name}, :id, :name, {:prompt => "Select a user"}) %>
 	    </p>
 		<% end %>
     <p>
