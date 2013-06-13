@@ -15,8 +15,7 @@ class Location < ActiveRecord::Base
 	has_many :requested_shifts, :through => :locations_requested_shifts
   has_many :locations_shift_preferences
 	has_many :shift_preferences, :through => :locations_shift_preferences
-  has_many :notices, :as => :noticeable
-  has_many :restrictions, :as => :restrictable
+  has_many :location_associations
   has_and_belongs_to_many :data_objects
 	has_and_belongs_to_many :requested_shifts
 
