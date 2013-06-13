@@ -24,7 +24,7 @@ class MoveDataFromLocationSinksSources < ActiveRecord::Migration
           next
         end
 
-        n.postable_id   = lsls.location_sink_id
+        n.postable_id = lsls.location_sink_id
         n.save!
       end
     end
