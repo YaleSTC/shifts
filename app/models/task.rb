@@ -4,8 +4,10 @@ class Task < ActiveRecord::Base
   belongs_to :location
   
   validates_uniqueness_of :name
-  validates_presence_of :name, :kind, :description
+  validates_presence_of :name, :kind
   validate :start_less_than_end
+  validates_format_of :link, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+  
   
   scope :active, lambda {{:conditions => {:active => true}}}
   scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}

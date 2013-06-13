@@ -56,23 +56,34 @@ EOF
       put database_configuration, "#{shared_path}/config/database.yml"
     end
 
-    desc "Enter Hoptoad API code"
-    task :hoptoad do
-      set :api_key, Capistrano::CLI.ui.ask("Hoptoad API Key: ")
-      hoptoad_config=<<-EOF
-HoptoadNotifier.configure do |config|
+    desc "Enter Airbrake API code"
+    task :airbrake do
+      set :api_key, Capistrano::CLI.ui.ask("Airbrake API Key: ")
+      airbrake_config=<<-EOF
+Airbrake.configure do |config|
   config.api_key = '#{api_key}'
 end
-
 EOF
-      put hoptoad_config, "#{shared_path}/config/hoptoad.rb"
+      put airbrake_config, "#{shared_path}/config/airbrake.rb"
+    end
+
+    task :prefix_initializer do
+      prefix_config_file =<<-EOF
+Reservations::Application.configure do
+  config.action_controller.relative_url_root = '/#{application_prefix}'
+end
+EOF
+
+      run "mkdir -p #{shared_path}/config"
+      put prefix_config_file, "#{shared_path}/config/prefix.rb"
     end
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
 
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
-      run "ln -nsf #{shared_path}/config/hoptoad.rb #{current_path}/config/initializers/hoptoad.rb"
+      run "ln -nsf #{shared_path}/config/airbrake.rb #{current_path}/config/initializers/airbrake.rb"
+      #run "ln -nsf #{shared_path}/config/prefix.rb #{release_path}/config/initializers/prefix.rb"
       run "mkdir -p #{shared_path}/log"
       run "mkdir -p #{shared_path}/pids"
       run "mkdir -p #{shared_path}/sessions"
@@ -115,8 +126,9 @@ namespace :deploy do
   desc "Initializer. Runs setup, copies code, creates and migrates db, and starts app"
   task :first, :roles => :app do
     setup
-    update
     create_db
+    update
+    init.config.localize
     passenger_config
     migrate
     restart_apache
@@ -130,7 +142,7 @@ namespace :deploy do
 
   desc "Create database"
   task :create_db, :roles => :app do
-    run "cd #{release_path} && bundle exec rake db:create RAILS_ENV=production"
+    run "mysqladmin --user=root --password=#{mysql_pass} create #{application}_#{application_prefix}_production"
   end
 
   task :start, :roles => :app do
@@ -159,8 +171,16 @@ namespace :deploy do
 end
 
 after "deploy:setup", "init:config:database"
-after "deploy:setup", "init:config:hoptoad"
-after "deploy:symlink", "init:config:localize"
-after "deploy:symlink", "deploy:update_crontab"
+after "deploy:setup", "init:config:airbrake"
+after "deploy:setup", "init:config:prefix_initializer"
+after "deploy:create_symlink", "init:config:localize"
+after "deploy:create_symlink", "deploy:update_crontab"
 after "deploy", "deploy:cleanup"
 after "deploy:migrations", "deploy:cleanup"
+before "deploy:assets:precompile", "init:config:localize"
+
+Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].each do |vendored_notifier|
+  $: << File.join(vendored_notifier, 'lib')
+end
+
+require 'airbrake/capistrano'

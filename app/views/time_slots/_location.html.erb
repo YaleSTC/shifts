@@ -9,7 +9,7 @@
     </div>
 
 <%# 'hour' is the header, 'time_slot_day' holds the actual time_slots %>
-    <div class="timeline-data">
+    <div class="timeline-data timeslots">
       <ul class="intervals" style="height: 22%;">
         <%= render :partial => "time_slots/hour_header", :collection =>  @dept_start_hour...@dept_end_hour %>
       </ul>

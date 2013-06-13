@@ -29,7 +29,7 @@ namespace :email do
             weeklist += payform.date.strftime("\t%b %d, %Y\n")
           end
           ArMailer.deliver(ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), department))
-          users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
+          users_warned << "#{user.name} (#{user.login}) <pre>#{user.email}</pre>"
         end
       end  # currently I am not doing anything with the list of users, it should be displayed somewhere
       puts "#{users_warned.length} users in the #{department.name} department "  +

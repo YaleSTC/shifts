@@ -49,10 +49,7 @@
 		<%= link_to "Shifts", shifts_path %>
 		<ul>
 			<li><%= link_to "Shifts Schedule", shifts_path %></li>
-      <% if current_user.is_admin_of?(current_department) %>
-				<li><%= link_to "Tasks", tasks_path %></li>
-
-			<% end %>
+			<li><%= link_to "Tasks", tasks_path %></li>
 			<li><%= link_to "Links", links_path %></li>
       <li><%= link_to "Notices", notices_path %></li>
       <li><%= link_to "Data Objects", data_objects_path %></li>

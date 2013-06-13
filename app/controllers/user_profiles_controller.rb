@@ -7,7 +7,8 @@ before_filter :user_login
   end
 
   def show
-    @user_profile = UserProfile.find_by_user_id(User.find_by_login(params[:id]).id)
+    @user = User.find_by_login(params[:id])
+    @user_profile = UserProfile.find_by_user_id(@user.id)
     unless @user_profile.user.departments.include?(@department)
       flash[:error] = "This user does not have a profile in this department."
     end
@@ -123,6 +124,11 @@ before_filter :user_login
     for user in users
       @user_profiles << UserProfile.find_by_user_id(user.id)
     end
+  end
+
+  def facebook
+    @user_profiles = []
+    @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.name}
   end
   
   private

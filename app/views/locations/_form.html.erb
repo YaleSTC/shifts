@@ -43,6 +43,10 @@
         <%= f.check_box :active %>
       </p>
       <p>
+        <%= f.label "Payform Category" %>
+        <%= f.collection_select(:category_id, Category.all, :id, :name, {:prompt => "Select a payform category"}) %>
+      </p>
+      <p>
         <label>&#8200;</label>
         <%= f.submit (@location.id.nil? ? "Create" : "Update") %>
       </p>

@@ -1,9 +1,10 @@
 <% payform_span = start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format) -%>
 <% if current_user.is_admin_of?(current_department) %>
-  <% title "#{@payform.user.name}'s payform for #{payform_span}" -%>
+  <% title "#{@payform.user.name}" -%>
 <% else -%>
-  <% title "Payform for #{payform_span}" -%>
+  <% title "Your Payform" -%>
 <% end -%>
+<h2><%= "#{payform_span}" -%></h2><br/>
 
 <% unless current_user.is_admin_of?(current_department) %>
    <div id="cols">
