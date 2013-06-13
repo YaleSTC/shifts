@@ -58,7 +58,7 @@
     <% for location in @week_template.timeslot_locations %>
       <div class="tooltip" id="tip_event_<%= event.id %>_<%= location.id %>">
           <a href="#" class="closetooltip" style="float:right;">[X]</a><br/>
-					<% form_for([@week_template, event]) do |f| %>
+					<%= form_for([@week_template, event]) do |f| %>
 						Submitted start - end:
 						<%= event.acceptable_start.strftime("%I:%M %p") %> - <%= event.acceptable_start.strftime("%I:%M %p") %> <br/>
 		        Set assigned start - end: 

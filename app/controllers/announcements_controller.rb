@@ -52,7 +52,7 @@ class AnnouncementsController < NoticesController
   end
 
   def update
-    @announcement = Announcement.find_by_id(params[:id]) || Announcement.new 
+    @announcement = Announcement.find_by_id(params[:id] ) || Announcement.new 
     parse_date_and_time_output(params[:announcement])
     join_date_and_time(params[:announcement])
 		@announcement.update_attributes(params[:announcement])

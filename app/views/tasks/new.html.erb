@@ -1,6 +1,6 @@
 <% title "New Task" %>
 
-<% form_for(@task) do |f| %>
+<%= form_for(@task) do |f| %>
   <%= f.error_messages %>
 
  <%= render :partial => 'form' %>

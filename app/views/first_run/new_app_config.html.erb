@@ -1,13 +1,13 @@
 <%= render :partial => 'progress_bar', :locals => {:current_step => 1} %>
 <% title "Configure Application Settings" %>
-<% form_for @app_config, :url => create_first_app_config_path do |f| %>
+<%= form_for @app_config, :url => create_first_app_config_path do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :auth_types, text = "Authentication Method", :class => "form_label_large" %>
   </p>
   <small>If your university uses CAS for authentication, select CAS; otherwise, select Built-in Authentication</small><br/>
   <p>
-    <%= multiple_select :app_config, :auth_types, AppConfig::LOGIN_OPTIONS %>
+    <%= f.select :auth_types, AppConfig::LOGIN_OPTIONS %>
   <p>
 
   <p>

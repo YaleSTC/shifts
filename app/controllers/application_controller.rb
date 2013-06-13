@@ -2,15 +2,23 @@ class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_app_config
+  #binding.pry
   before_filter :department_chooser
+  #binding.pry
   before_filter :load_user_session
+  #binding.pry
   before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
+  #binding.pry
   before_filter :login_check, :except => :access_denied
+  #binding.pry
   before_filter :load_department
+  #binding.pry
   before_filter :prepare_mail_url
+  #binding.pry
   before_filter :prepare_for_mobile
-  #before_filter :load_user
-
+  #binding.pry
+  before_filter :load_user
+  #binding.pry
   helper :layout # include all helpers, all the time (whyy? -Nathan)
   helper :application
 
@@ -21,7 +29,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :current_department
   
-  filter_parameter_logging :password, :password_confirmation
+  #filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
   
@@ -265,7 +273,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_check
-    if !User.first
+    if !User.all.any?
       redirect_to first_app_config_path
     elsif !current_user
       if @appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
