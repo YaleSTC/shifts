@@ -1,7 +1,7 @@
 <div class="admin_form">
   <fieldset class="index">
     <legend><%= title %></legend>
-    <% form_for (@loc_group.new_record? ? [@department,@loc_group] : @loc_group) do |f| %>
+    <%= form_for (@loc_group.new_record? ? [@department,@loc_group] : @loc_group) do |f| %>
       <%= f.error_messages %>
       <p>
         <%= f.label :name %>

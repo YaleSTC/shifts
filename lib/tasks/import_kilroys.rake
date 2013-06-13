@@ -1,5 +1,5 @@
 namespace :shifts do
-  task (:import_kilroys => :environment) do
+  task :import_kilroys => :environment do
     kilroys = "Casey Watts,3,BK
 Josh Rozner,3,BR
 Alex Fayette,3,CC

@@ -1,5 +1,5 @@
 <%#= render :partial => 'data_types/progress_bar', :locals => {:current_step => 1} %>
-  <% form_for @data_type do |form| %>
+  <%= form_for @data_type do |form| %>
     <%= form.error_messages %>
     <p>
       <%= form.label :name %> (e.g. "Printer")<br />

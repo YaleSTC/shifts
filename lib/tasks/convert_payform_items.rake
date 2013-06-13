@@ -1,7 +1,7 @@
 namespace :db do
   desc "Updates payform_items to use vestal versions plugin structure"
 
-  task (:update_payform_items => :environment) do
+  task :update_payform_items => :environment do
 
     #NOTE: probably make sure payform_items aren't already versioned when you run this script  
     #ALSO,  BACKUP YOUR DATABASE BEFORE RUNNING THIS!!!      
