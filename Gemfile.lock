@@ -29,8 +29,6 @@ GEM
     chronic (0.5.0)
     cocaine (0.1.0)
     fastercsv (1.5.4)
-    has_many_polymorphs (2.13)
-      activerecord
     highline (1.6.15)
     icalendar (1.1.6)
     mime-types (1.16)
@@ -80,7 +78,6 @@ DEPENDENCIES
   capistrano
   chronic
   fastercsv
-  has_many_polymorphs
   icalendar
   mysql
   paperclip (~> 2.3.15)

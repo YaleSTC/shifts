@@ -109,8 +109,8 @@ class Shift < ActiveRecord::Base
   end
 
 
-  #This method takes a list of shifts and deletes them, all their subrequests,
-  # and all the relevant UserSinksUserSource entries. Necessary for conflict
+  # This method takes a list of shifts and deletes them, all their subrequests. 
+  # Necessary for conflict
   # wiping in repeating_event and calendars, as well as wiping a date range -Mike
   def self.mass_delete_with_dependencies(shifts_to_erase)
     array_of_shift_arrays = shifts_to_erase.batch(450)
@@ -118,7 +118,6 @@ class Shift < ActiveRecord::Base
       subs_to_erase = SubRequest.find(:all, :conditions => [shifts.collect{|shift| "(#{:shift_id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")] )
       array_of_sub_arrays = subs_to_erase.batch(450)
       array_of_sub_arrays.each do |subs|
-        UserSinksUserSource.delete_all([subs.collect{|sub| "(#{:user_sink_type.to_sql_column} = #{'SubRequest'.to_sql} AND #{:user_sink_id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
         SubRequest.delete_all([subs.collect{|sub| "(#{:id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
       end
       Shift.delete_all([shifts.collect{|shift| "(#{:id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")])
