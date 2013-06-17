@@ -1,6 +1,5 @@
 class Restriction < ActiveRecord::Base
   belongs_to :department
-  belongs_to :restrictable, :polymorphic => true
 
   validates_presence_of :starts, :expires
   validates_presence_of :max_hours,  :unless => :max_subs, :message => "and Max subs can't both be blank"
@@ -11,14 +10,15 @@ class Restriction < ActiveRecord::Base
   before_validation :join_date_and_time
 
   named_scope :current, lambda {{ :conditions => ["#{:starts.to_sql_column} <= #{Time.now.to_sql} and #{:expires.to_sql_column} >= #{Time.now.to_sql}"]}}
+  # Need to make Restriction connect with locations (and users) in the same way
+  # that Notices and Locations/LocGroups are connected
+  # def users
+  #   self.user_sources.collect{|s| s.users}.flatten.uniq
+  # end
 
-  def users
-    self.user_sources.collect{|s| s.users}.flatten.uniq
-  end
-
-  def locations
-    self.location_sources.collect{|s| s.locations}.flatten.uniq
-  end
+  # def locations
+  #   self.location_sources.collect{|s| s.locations}.flatten.uniq
+  # end
 
   def join_date_and_time
     self.starts ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight

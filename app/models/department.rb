@@ -1,6 +1,7 @@
 class Department < ActiveRecord::Base
   belongs_to :admin_permission, :class_name => "Permission", :dependent => :destroy
   has_one :department_config, :dependent => :destroy
+  has_many :notices, :dependent => :destroy
   has_many :loc_groups, :dependent => :destroy
   has_many :departments_users, :dependent => :destroy
   has_many :users, :through => :departments_users
@@ -15,8 +16,6 @@ class Department < ActiveRecord::Base
   has_many :punch_clocks
   has_many :punch_clock_sets
   has_many :user_profile_fields
-  has_many :notices, :as => :noticeable
-  has_many :restrictions, :as => :restrictable
   has_many :calendars, :dependent => :destroy do
     def default
       find(:first, :conditions => {:default => true})
@@ -30,7 +29,7 @@ class Department < ActiveRecord::Base
 
   def links
      ActiveRecord::Base.transaction do
-        a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+        a = Department.find_by_id(self.id).notices.collect(&:id)
         b = Link.active.collect(&:id)
         Link.find(a & b) 
       end
@@ -49,7 +48,7 @@ class Department < ActiveRecord::Base
   
   def current_notices
     ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
+      a = Department.find_by_id(self.id).notices.collect(&:id)
       y = Announcement.active.collect(&:id)
       Notice.find(a & y).sort_by{|n| n.start}
     end

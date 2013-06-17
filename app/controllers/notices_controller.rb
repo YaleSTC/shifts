@@ -33,23 +33,28 @@ class NoticesController < ApplicationController
   protected
 
   def set_sources(notice)
-    
-    if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
-      notice.user_sources << current_department
-    end
+    # TODO add department wide column on notices -Hugh
+    # if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
+    #   notice.user_sources << current_department
+    # end
 		if params[:for_location_groups] 
       params[:for_location_groups].each do |loc_group|
 				@loc_group = LocGroup.find_by_id(loc_group)
 				if current_user.is_admin_of?(@loc_group) || notice.class.name == "Sticky"
-        	notice.location_sources << @loc_group	
-					notice.location_sources << @loc_group.locations
+          LocGroupAssociation.create :loc_group_id => loc_group.id, 
+                                     :postable_id => notice.id,
+                                     :postable_type => notice.class.name
       	end
 			end
 
     end
     if params[:for_locations]
       params[:for_locations].each do |loc|
-        notice.location_sources << Location.find_by_id(loc)
+        Location.create :location_id => loc.id,
+                        :postable_id => notice.id,
+                        :postable_type => notice.class.name
+        # Also what is this notation and is there a better way of doing the above?
+        # notice.location_sources << Location.find_by_id(loc)
       end
     end
   end

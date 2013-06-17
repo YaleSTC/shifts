@@ -16,7 +16,7 @@ module NoticesHelper
 
   def location_checked?(location, notice)
 		return @current_shift_location == location if @current_shift_location
-    notice.location_sources.each do |loc|
+    notice.display_locations.each do |loc|
       return true if loc == location
     end
 		false

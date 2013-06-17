@@ -13,7 +13,12 @@ class LocGroup < ActiveRecord::Base
               :foreign_key => "admin_perm_id",
               :dependent => :destroy
   has_many :locations, :dependent => :destroy
-  has_many :loc_group_associations
+
+  # These make loc groups connect to the superclass notice, as well as its subclasses
+  has_and_belongs_to_many :announcements, :join_table => :loc_groups_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :links,         :join_table => :loc_groups_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :stickies,      :join_table => :loc_groups_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :notices
   
   named_scope :active, :conditions => {:active => true}
   
