@@ -19,9 +19,9 @@ class Location < ActiveRecord::Base
   has_and_belongs_to_many :requested_shifts
   # These connect a location with the superclass notice and its subclasses
   has_and_belongs_to_many :notices
-  # has_and_belongs_to_many :announcements, :join_table => :locations_notices, :association_foreign_key => :notice_id
-  # has_and_belongs_to_many :links,         :join_table => :locations_notices, :association_foreign_key => :notice_id
-  # has_and_belongs_to_many :stickies,      :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :announcements, :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :links,         :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :stickies,      :join_table => :locations_notices, :association_foreign_key => :notice_id
   
   validates_presence_of :loc_group
   validates_presence_of :name
