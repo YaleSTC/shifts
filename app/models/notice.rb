@@ -20,7 +20,7 @@ class Notice < ActiveRecord::Base
   named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
   
   def self.active_links
-     Link.active
+    Link.active
   end
 
   def self.active_notices

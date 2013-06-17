@@ -41,7 +41,7 @@ class LocGroup < ActiveRecord::Base
   end
   
   def roles
-      department.roles.select { |u| u.permissions.include?(signup_permission) }
+    department.roles.select { |u| u.permissions.include?(signup_permission) }
   end
   
   def deactivate
