@@ -7,17 +7,12 @@ class MoveDataFromLocationSinksSources < ActiveRecord::Migration
         end
 
         if lsls.location_source_type == "Location"
-          n = LocationsNotice.new
-          n.location_id = lsls.location_source_id
+          notice.locations << Location.find(lsls.location_source_id)
         elsif lsls.location_source_type == "LocGroup"
-          n = LocGroupsNotice.new
-          n.loc_group_id = lsls.location_source_id
+          notice.loc_groups << LocGroup.find(lsls.location_source_id)
         else
           next
         end
-
-        n.notice_id = lsls.location_sink_id
-        n.save!
       end
     end
   end

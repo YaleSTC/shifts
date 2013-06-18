@@ -29,7 +29,7 @@ class Notice < ActiveRecord::Base
 
   def display_for
     display_for = []
-    display_for.push "for users #{self.users.collect{|n| n.name}.to_sentence}" unless self.users.empty?
+    # display_for.push "for users #{self.users.collect{|n| n.name}.to_sentence}" unless self.users.empty?
     display_for.push "for locations #{self.locations.collect{|l| l.short_name}.to_sentence}" unless self.locations.empty?
     display_for.join "<br/>"
   end
