@@ -34,6 +34,8 @@ class NoticesController < ApplicationController
 
   def set_sources(notice)
     # TODO add department wide column on notices -Hugh
+    # Also do we want to include add all locations to notice when we add something
+    # to the loc group?
     # if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
     #   notice.user_sources << current_department
     # end
@@ -48,7 +50,7 @@ class NoticesController < ApplicationController
     end
     if params[:for_locations]
       params[:for_locations].each do |loc|
-        notice.locations << loc
+        notice.locations << Location.find_by_id(loc)
       end
     end
   end
