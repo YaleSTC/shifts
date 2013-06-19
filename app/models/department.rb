@@ -39,11 +39,7 @@ class Department < ActiveRecord::Base
   end
   
   def current_notices
-    ActiveRecord::Base.transaction do
-      a = Department.find_by_id(self.id).notices.collect(&:id)
-      y = Announcement.active.collect(&:id)
-      Notice.find(a & y).sort_by{|n| n.start}
-    end
+    Notice.active.global
   end
     
   def sub_requests
