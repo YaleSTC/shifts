@@ -26,14 +26,6 @@ class Department < ActiveRecord::Base
   before_validation_on_update :update_permissions
   validates_uniqueness_of :name
   validates_uniqueness_of :admin_permission_id
-
-  def links
-     ActiveRecord::Base.transaction do
-        a = Department.find_by_id(self.id).notices.collect(&:id)
-        b = Link.active.collect(&:id)
-        Link.find(a & b) 
-      end
-  end
   
 # Returns all users active in a given department
   def active_users

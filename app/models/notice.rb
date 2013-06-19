@@ -18,6 +18,7 @@ class Notice < ActiveRecord::Base
   named_scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
   named_scope :not_link, :conditions => ["type != ?", "Link"]
   named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
+  named_scope :global,  :conditions => {:department_wide => true}
   
   def self.active_links
     Link.active
