@@ -18,5 +18,6 @@ class MoveDataFromLocationSinksSources < ActiveRecord::Migration
   end
 
   def self.down
+    # WHY WOULD YOU WANT TO DO THAT
   end
 end

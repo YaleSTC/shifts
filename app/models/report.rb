@@ -14,7 +14,7 @@ class Report < ActiveRecord::Base
   end
 
   def get_links
-    self.shift.location.department.links.sort_by{|l| l.start} + self.shift.location.links.sort_by{|l| l.start}
+    (self.shift.location.department.links.sort_by{|l| l.start} + self.shift.location.links.sort_by{|l| l.start}).uniq
   end
 
   def data_objects
@@ -29,4 +29,3 @@ class Report < ActiveRecord::Base
     (self.departed && self.arrived) ? ((self.departed - self.arrived) / 3600.0) : 0
   end
 end
-
