@@ -12,6 +12,7 @@ class Notice < ActiveRecord::Base
   attr_accessor :start_time
   attr_accessor :end_date
   attr_accessor :end_time
+  attr_accessor :global
 
   named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
   named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
