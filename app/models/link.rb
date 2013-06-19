@@ -1,7 +1,6 @@
 class Link < Notice
 
 	validate :proper_url
-  named_scope :active,  :conditions => {:end => nil}
   
   def active?
     self.end == nil 

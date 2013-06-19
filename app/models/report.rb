@@ -6,11 +6,16 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    @report_notices =  (self.shift.location.current_notices)
-    # department.current_notices is not necessary because a department-wide notice is already posted in location. 
-		a = @report_notices.select{|n| n.class.name == "Announcement"}.sort_by{|n| n.start}
-		s = @report_notices.select{|n| n.class.name == "Sticky"}.sort_by{|n| n.start}
-		return a + s
+    a = self.shift.location.stickies + self.shift.location.announcements
+    g = Notice.active.global.not_link
+    # Custom search that sorts first by class then by start
+    return (a + g).uniq.sort do |a, b|
+      if a.class != b.class
+        a.class.name <=> b.class.name
+      else
+        a.start <=> b.start
+      end
+    end
   end
 
   def get_links
