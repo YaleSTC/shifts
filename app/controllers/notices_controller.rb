@@ -36,9 +36,10 @@ class NoticesController < ApplicationController
     # TODO add department wide column on notices -Hugh
     # Also do we want to include add all locations to notice when we add something
     # to the loc group?
-    # if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
-    #   notice.user_sources << current_department
-    # end
+    if params[:department_wide_locations] && current_user.is_admin_of?(current_department)
+      notice.department_wide = true
+      notice.save!
+    end
 		if params[:for_location_groups] 
       params[:for_location_groups].each do |loc_group|
 				@loc_group = LocGroup.find_by_id(loc_group)
@@ -46,7 +47,6 @@ class NoticesController < ApplicationController
           notice.loc_groups << @loc_group
       	end
 			end
-
     end
     if params[:for_locations]
       params[:for_locations].each do |loc|
