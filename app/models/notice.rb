@@ -19,6 +19,7 @@ class Notice < ActiveRecord::Base
   named_scope :not_link, :conditions => ["type != ?", "Link"]
   named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
   named_scope :global,  :conditions => {:department_wide => true}
+  named_scope :active, lambda {{ :conditions => ["start <= ? AND end is ? OR end > ?", Time.now.utc, nil, Time.now.utc] }}
   
   def self.active_links
     Link.active
@@ -41,6 +42,9 @@ class Notice < ActiveRecord::Base
   end
 
   def display_locations
+    if self.department_wide
+      return self.department.locations
+    end
     a = self.locations
     b = self.loc_groups.collect(&:locations).flatten
     (a + b).uniq

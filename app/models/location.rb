@@ -46,11 +46,12 @@ class Location < ActiveRecord::Base
     [self]
   end
   
+  # Announcements and Stickies, not Links
   def current_notices
-    Notice.find(self.notices.collect(&:id) & Notice.active_notices.collect(&:id))
+    ((self.notices & Notice.active_notices) + Notice.active.global).uniq
   end
 
-  def restrictions #TODO: this could probalby be optimized
+  def restrictions #TODO: this could probalbly be optimized
     Restriction.current.select{|r| r.locations.include?(self)}
   end
   
