@@ -14,7 +14,9 @@ class Report < ActiveRecord::Base
   end
 
   def get_links
-     self.shift.location.links.sort_by(&:start).uniq
+     a = self.shift.location.links.active
+     b = Link.global.active
+     (a + b).sort_by(&:start).uniq
   end
 
   def data_objects
