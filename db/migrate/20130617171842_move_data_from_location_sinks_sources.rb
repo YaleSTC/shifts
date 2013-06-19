@@ -19,5 +19,7 @@ class MoveDataFromLocationSinksSources < ActiveRecord::Migration
 
   def self.down
     # WHY WOULD YOU WANT TO DO THAT
+    # But actually going down would break everything, because sinks/sources
+    # relies on an outdated gem called has_many_polymorphs.
   end
 end
