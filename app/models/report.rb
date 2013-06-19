@@ -6,7 +6,7 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    a = self.shift.location.stickies + self.shift.location.announcements
+    a = self.shift.location.stickies.active + self.shift.location.announcements.active
     g = Notice.active.global.not_link
     # Custom search that sorts first by class then by start
     return (a + g).uniq.sort do |a, b|
