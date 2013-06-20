@@ -1,5 +1,6 @@
-source :rubygems
-gem "rails", "2.3.15"
+source 'http://rubygems.org'
+
+gem 'rails', '3.0.9'
 gem "ruby-net-ldap", :require => "net/ldap"
 gem "fastercsv"
 gem "icalendar"
@@ -13,4 +14,9 @@ gem "mysql"
 gem "vestal_versions"
 gem "rdoc", "~> 3.6.1"
 gem "paperclip", "~> 2.3.15"
+gem "htmlentities"
 gem "capistrano"
+
+#authentication
+gem 'rubycas-client-rails'
+gem 'rubycas-client', '2.2.1'
