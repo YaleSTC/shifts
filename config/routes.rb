@@ -1,11 +1,10 @@
-ActionController::Routing::Routes.draw do |map|
+Shifts::Application.routes.draw do |map|
+
   map.resources :shifts_tasks
 
-  map.resources :tasks, :member => {:make_entry => :post}  
-  
-  map.resources :template_time_slots
+  map.resources :tasks, :member => {:make_entry => :post}
 
-  # map.resources :templates
+  map.resources :template_time_slots
 
   map.resources :stickies
 
@@ -62,19 +61,26 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :sub_requests
   map.resources :notices, :collection => {:archive => :get}
 
+  map.resources :stats,
+              :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
+
+  map.resources :payforms,
+              :collection => {:index => [:post, :get], :prune => :delete, :go => :get, :search => [:post, :get]},
+              :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
+              :shallow => true do |payform|
+                  payform.resources :payform_items, :member => {:delete => :get}
+              end
+
   map.resources :payform_item_sets
   map.resources :payform_sets
   map.resources :department_configs, :only => [:edit, :update]
 
-  map.resources :stats,
-                :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
-
   map.resources :payforms,
-                :collection => {:index => [:post, :get], :prune => :delete, :go => :get, :search => [:post, :get]},
+                :collection => { :prune => :delete, :go => :get, :search => :post},
                 :member => {:submit => :get, :unsubmit => :get, :approve => :get, :skip => :get, :unskip => :get, :unapprove => :get, :print => :get},
                 :shallow => true do |payform|
-                    payform.resources :payform_items, :member => {:delete => :get}
-                end
+    payform.resources :payform_items, :member => {:delete => :get}
+  end
 
   map.resources :payform_items
 
@@ -89,11 +95,10 @@ ActionController::Routing::Routes.draw do |map|
                                     :as => "subs"
   end
 
+
   map.resources :requested_shifts
   map.resources :templates
-  
-  map.resources :public_view, :member => {:for_location => [:post, :get]}
-  
+
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
@@ -101,7 +106,19 @@ ActionController::Routing::Routes.draw do |map|
     report.resources :report_items
   end
 
-#TODO Fix report items routing, this is temporary
+  map.resources :requested_shifts
+  map.resources :templates
+
+  map.resources :public_view, :member => {:for_location => [:post, :get]}
+
+  map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
+    user.resources :punch_clocks
+  end
+  map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
+    report.resources :report_items
+  end
+
+  #TODO Fix report items routing, this is temporary
   map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_report_items => [:get, :post], :toggle => [:get, :post]}
   #map.resources :locations, :collection => {:display_report_items => [:post, :get], :toggle => [:post, :get], :index => [:post, :get]}, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
 
@@ -131,6 +148,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # permission is always created indirectly so there is only index method that lists them
   map.resources :permissions, :only => :index
+  map.resources :stats, :collection => {:for_user => [:post, :get], :for_location => [:post, :get], :index => [:post, :get]}
 
   #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
 
@@ -145,49 +163,13 @@ ActionController::Routing::Routes.draw do |map|
 		template.resources :template_time_slots
   end
 
-  # The priority is based upon order of creation: first created -> highest priority.
-
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-
-  # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
-  #   end
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
-
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
   map.root :controller => "dashboard"
 
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing the them or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
-  
-  map.connect '/reports/http://www.google.com', :controller => "reports", :action => "redirect_to_external_url"
-  map.connect '/reports/http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=', :controller => "reports", :action => "redirect_to_external_url"
+
+  # TODO: What are these?
+  # map.connect '/reports/http://www.google.com', :controller => "reports", :action => "redirect_to_external_url"
+  # map.connect '/reports/http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=', :controller => "reports", :action => "redirect_to_external_url"
+
 end

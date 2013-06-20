@@ -9,7 +9,8 @@ class Restriction < ActiveRecord::Base
   attr_accessor :end_time
   before_validation :join_date_and_time
 
-  named_scope :current, lambda {{ :conditions => ["#{:starts.to_sql_column} <= #{Time.now.to_sql} and #{:expires.to_sql_column} >= #{Time.now.to_sql}"]}}
+
+  scope :current, lambda {{ :conditions => ["#{:starts.to_sql_column} <= #{Time.now.to_sql} and #{:expires.to_sql_column} >= #{Time.now.to_sql}"]}}
   # Need to make Restriction connect with locations (and users) in the same way
   # that Notices and Locations/LocGroups are connected
   # def users

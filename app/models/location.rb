@@ -1,33 +1,10 @@
 class Location < ActiveRecord::Base
-
-  named_scope :active, :conditions => {:active => true}
-  named_scope :in_group, 
-    lambda {|loc_group,*order| {
-      :conditions => {:loc_group_id => loc_group.id},
-      :order => order.flatten.first || 'priority ASC'                                  
-  }}
-
-  belongs_to :loc_group
-  has_many :time_slots
-	has_many :template_time_slots
-  has_many :shifts
-	has_many :locations_requested_shifts
-	has_many :requested_shifts, :through => :locations_requested_shifts
-  has_many :locations_shift_preferences
-	has_many :shift_preferences, :through => :locations_shift_preferences
-  has_and_belongs_to_many :data_objects
-  has_and_belongs_to_many :requested_shifts
-  # These connect a location with the superclass notice and its subclasses
-  has_and_belongs_to_many :notices
-  has_and_belongs_to_many :announcements, :join_table => :locations_notices, :association_foreign_key => :notice_id
-  has_and_belongs_to_many :links,         :join_table => :locations_notices, :association_foreign_key => :notice_id
-  has_and_belongs_to_many :stickies,      :join_table => :locations_notices, :association_foreign_key => :notice_id
-  
   validates_presence_of :loc_group
   validates_presence_of :name
   validates_presence_of :description
   validates_presence_of :short_name
   validates_presence_of :min_staff
+  validates_presence_of :category
   validates_numericality_of :max_staff
   validates_numericality_of :min_staff
   validates_numericality_of :priority
@@ -35,6 +12,30 @@ class Location < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :loc_group_id
   validates_uniqueness_of :short_name, :scope => :loc_group_id
   validate :max_staff_greater_than_min_staff
+
+  scope :active, :conditions => {:active => true}
+  scope :in_group,
+    lambda {|loc_group,*order| {
+      :conditions => {:loc_group_id => loc_group.id},
+      :order => order.flatten.first || 'priority ASC'
+  }}
+
+  belongs_to :loc_group
+  has_many :time_slots
+  has_many :template_time_slots
+  has_many :shifts
+  # has_many :locations_requested_shifts
+  # has_many :requested_shifts, :through => :locations_requested_shifts
+  #   has_many :locations_shift_preferences
+  # has_many :shift_preferences, :through => :locations_shift_preferences
+  has_and_belongs_to_many :data_objects
+  has_and_belongs_to_many :requested_shifts
+  # These connect a location with the superclass notice and its subclasses
+  has_and_belongs_to_many :notices
+  has_and_belongs_to_many :announcements, :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :links,         :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :stickies,      :join_table => :locations_notices, :association_foreign_key => :notice_id
+
 
   delegate :department, :to => :loc_group
 
@@ -54,14 +55,14 @@ class Location < ActiveRecord::Base
   def restrictions #TODO: this could probalbly be optimized
     Restriction.current.select{|r| r.locations.include?(self)}
   end
-  
+
   def deactivate
     self.active = false
     self.save!
     #Location activation must be set prior to individual shift activation; Shift class before_save
     shifts.after_date(Time.now.utc).update_all :active => false
   end
-  
+
   def activate
     self.active = true
     self.save!
@@ -72,7 +73,7 @@ class Location < ActiveRecord::Base
         shift.active = true
       end
       shift.save
-    end    
+    end
   end
 
   def count_people_for(shift_list, min_block)
@@ -89,14 +90,14 @@ class Location < ActiveRecord::Base
     end
     people_count
   end
-  
+
   #necessary for the public cluster view
   def is_staffed_in_list?(shift_list, time)
     time = time.in_time_zone
     remaining_shifts = shift_list.select{|s| s.start <= time && (s.submitted? ? s.report.departed : s.end) >= time && !s.missed? && (s.start + s.department.department_config.grace_period.minutes <= Time.now ? (s.signed_in? || s.submitted?) : true)}
     return remaining_shifts == [] ? false : true
   end
-  
+
   #necessary for tasks
   #this really should be on the shift model I think
   def shifts_between(start_time, end_time)
@@ -104,25 +105,25 @@ class Location < ActiveRecord::Base
     end_time = end_time.to_time
     shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql} AND active is true"])
   end
-  
+
   def summary_stats(start_date, end_date)
     shifts_set = shifts.on_days(start_date, end_date).active
     summary_stats = {}
-    
+
     summary_stats[:start_date] = start_date
     summary_stats[:end_date] = end_date
     summary_stats[:total] = shifts_set.size
     summary_stats[:late] = shifts_set.select{|s| s.late == true}.size
     summary_stats[:missed] = shifts_set.select{|s| s.missed == true}.size
     summary_stats[:left_early] = shifts_set.select{|s| s.left_early == true}.size
-    
+
     return summary_stats
   end
-    
+
   def detailed_stats(start_date, end_date)
     shifts_set = shifts.on_days(start_date, end_date).active
     detailed_stats = {}
-  
+
     shifts_set.each do |s|
        stat_entry = {}
        stat_entry[:id] = s.id
@@ -147,15 +148,15 @@ class Location < ActiveRecord::Base
        stat_entry[:updates_hour] = s.updates_hour
        detailed_stats[s.id] = stat_entry
     end
-    
+
     return detailed_stats
   end
-  
+
   protected
 
   def max_staff_greater_than_min_staff
     errors.add("The minimum number of staff cannot be larger than the maximum.", "") if (self.min_staff and self.max_staff and self.min_staff > self.max_staff)
   end
-  
+
 end
 

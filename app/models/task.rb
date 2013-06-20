@@ -9,15 +9,15 @@ class Task < ActiveRecord::Base
   validates_format_of :link, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
   
   
-  named_scope :active, lambda {{:conditions => {:active => true}}}
-  named_scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
-  named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
-  named_scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
-  named_scope :hourly, lambda {{:conditions => {:kind => "Hourly"}}}
-  named_scope :daily, lambda {{:conditions => {:kind => "Daily"}}}
-  named_scope :weekly, lambda {{:conditions => {:kind => "Weekly"}}}
-  named_scope :after_time, lambda { |time| {:conditions => ["time > ?", time]}}
-  named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  scope :active, lambda {{:conditions => {:active => true}}}
+  scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
+  scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
+  scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
+  scope :hourly, lambda {{:conditions => {:kind => "Hourly"}}}
+  scope :daily, lambda {{:conditions => {:kind => "Daily"}}}
+  scope :weekly, lambda {{:conditions => {:kind => "Weekly"}}}
+  scope :after_time, lambda { |time| {:conditions => ["time > ?", time]}}
+  scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
   
   #done shifts are crossed out in their locations
   def done
