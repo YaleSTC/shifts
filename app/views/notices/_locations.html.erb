@@ -10,11 +10,11 @@
         <% next if !loc_group.active %>
         <% if current_user.is_admin_of?(loc_group) || notice.class.name = "Sticky" %>
 		<li id = "notice_li">
-		   <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
+		   <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked_notice?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
 		   <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 		   <% for location in loc_group.locations do %>
           <% next if !location.active %>
-		      <%= check_box_tag "for_locations[]", location.id, location_checked?(location, notice) %>
+		      <%= check_box_tag "for_locations[]", location.id, location_checked_notice?(location, notice) %>
 		      <%= label_tag "location_#{location.id}", text = location.short_name %>
 		      <% unless location == loc_group.locations.last %>, <%end%>
 		   <% end %>
