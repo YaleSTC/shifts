@@ -16,6 +16,7 @@ gem "rdoc", "~> 3.6.1"
 gem "paperclip", "~> 2.3.15"
 gem "htmlentities"
 gem "capistrano"
+gem "letter_opener", :group => :development
 
 #authentication
 gem 'rubycas-client-rails'
