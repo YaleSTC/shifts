@@ -24,7 +24,7 @@ Shifts::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   
   # Mail format to use
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :letter_opener
 
   # SMTP configuration
   config.action_mailer.smtp_settings = {

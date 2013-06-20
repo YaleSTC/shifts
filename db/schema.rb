@@ -1,15 +1,16 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110729192819) do
+ActiveRecord::Schema.define(:version => 20130620135037) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.integer  "department_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "billing_code"
   end
 
   create_table "data_entries", :force => true do |t|
@@ -116,10 +118,13 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.boolean  "can_take_passed_sub",  :default => true
     t.string   "stats_mailer_address"
     t.boolean  "stale_shift",          :default => true
+    t.integer  "admin_round_option"
     t.integer  "payform_time_limit"
-    t.integer  "admin_round_option",   :default => 15
     t.integer  "early_signin",         :default => 60
     t.integer  "task_leniency",        :default => 60
+    t.string   "search_engine_name",   :default => "Google"
+    t.string   "search_engine_url",    :default => "http://www.google.com/search?q="
+    t.integer  "default_category_id"
   end
 
   create_table "departments", :force => true do |t|
@@ -163,11 +168,11 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.boolean  "active",            :default => true
   end
 
-  create_table "location_sinks_location_sources", :id => false, :force => true do |t|
-    t.integer "location_sink_id"
-    t.string  "location_sink_type"
-    t.integer "location_source_id"
-    t.string  "location_source_type"
+  create_table "loc_groups_notices", :id => false, :force => true do |t|
+    t.integer  "loc_group_id"
+    t.integer  "notice_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "locations", :force => true do |t|
@@ -180,12 +185,20 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.string   "report_email"
     t.boolean  "active"
     t.integer  "loc_group_id"
-    t.integer  "template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "description"
+    t.integer  "category_id"
+  end
+
+  create_table "locations_notices", :id => false, :force => true do |t|
+    t.integer  "location_id"
+    t.integer  "notice_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "locations_requested_shifts", :force => true do |t|
+  create_table "locations_requested_shifts", :id => false, :force => true do |t|
     t.integer  "requested_shift_id"
     t.integer  "location_id"
     t.boolean  "assigned",           :default => false
@@ -193,7 +206,7 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "updated_at"
   end
 
-  create_table "locations_shift_preferences", :force => true do |t|
+  create_table "locations_shift_preferences", :id => false, :force => true do |t|
     t.integer  "shift_preference_id"
     t.integer  "location_id"
     t.string   "kind"
@@ -202,9 +215,9 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
   end
 
   create_table "notices", :force => true do |t|
-    t.boolean  "sticky",        :default => false
-    t.boolean  "useful_link",   :default => false
-    t.boolean  "announcement",  :default => false
+    t.boolean  "sticky",          :default => false
+    t.boolean  "useful_link",     :default => false
+    t.boolean  "announcement",    :default => false
     t.boolean  "indefinite"
     t.text     "content"
     t.integer  "author_id"
@@ -216,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "updated_at"
     t.string   "url"
     t.string   "type"
+    t.boolean  "department_wide"
   end
 
   create_table "payform_item_sets", :force => true do |t|
@@ -243,6 +257,9 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.string   "source_url"
   end
 
+  add_index "payform_items", ["payform_id"], :name => "payform_id"
+  add_index "payform_items", ["user_id"], :name => "user_id"
+
   create_table "payform_sets", :force => true do |t|
     t.integer  "department_id"
     t.datetime "created_at"
@@ -266,6 +283,9 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.decimal  "payrate",        :precision => 10, :scale => 2
     t.datetime "skipped"
   end
+
+  add_index "payforms", ["payform_set_id"], :name => "payform_set_id"
+  add_index "payforms", ["user_id"], :name => "user_id"
 
   create_table "permissions", :force => true do |t|
     t.string   "name"
@@ -320,6 +340,8 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "updated_at"
   end
 
+  add_index "report_items", ["report_id"], :name => "report_id"
+
   create_table "reports", :force => true do |t|
     t.integer  "shift_id"
     t.datetime "arrived"
@@ -327,6 +349,8 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "reports", ["shift_id"], :name => "shift_id"
 
   create_table "requested_shifts", :force => true do |t|
     t.datetime "preferred_start"
@@ -407,6 +431,17 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.decimal  "updates_hour",        :precision => 5, :scale => 2, :default => 0.0
   end
 
+  add_index "shifts", ["department_id"], :name => "department"
+  add_index "shifts", ["location_id", "late"], :name => "loc_stats_late"
+  add_index "shifts", ["location_id", "left_early"], :name => "loc_stats_left_early"
+  add_index "shifts", ["location_id", "missed"], :name => "loc_stats_missed"
+  add_index "shifts", ["location_id"], :name => "location"
+  add_index "shifts", ["user_id", "late"], :name => "stats_late"
+  add_index "shifts", ["user_id", "left_early"], :name => "stats_left_early"
+  add_index "shifts", ["user_id", "missed"], :name => "stats_missed"
+  add_index "shifts", ["user_id"], :name => "index_shifts_on_user_id"
+  add_index "shifts", ["user_id"], :name => "user"
+
   create_table "shifts_tasks", :id => false, :force => true do |t|
     t.integer  "task_id"
     t.integer  "shift_id"
@@ -427,6 +462,9 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "updated_at"
   end
 
+  add_index "sub_requests", ["shift_id"], :name => "shift_id"
+  add_index "sub_requests", ["user_id"], :name => "user_id"
+
   create_table "sub_requests_users", :id => false, :force => true do |t|
     t.integer "sub_request_id"
     t.integer "user_id"
@@ -446,6 +484,7 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "updated_at"
     t.boolean  "expired",            :default => false
     t.string   "description"
+    t.string   "link"
   end
 
   create_table "template_time_slots", :force => true do |t|
@@ -504,6 +543,10 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "updated_at"
   end
 
+  add_index "user_profile_entries", ["user_profile_field_id"], :name => "user_profile_field_id"
+  add_index "user_profile_entries", ["user_profile_id", "user_profile_field_id"], :name => "user_profile_id_2"
+  add_index "user_profile_entries", ["user_profile_id"], :name => "user_profile_id"
+
   create_table "user_profile_fields", :force => true do |t|
     t.string   "name"
     t.string   "display_type"
@@ -524,14 +567,13 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "crop_x"
+    t.integer  "crop_y"
+    t.integer  "crop_h"
+    t.integer  "crop_w"
   end
 
-  create_table "user_sinks_user_sources", :id => false, :force => true do |t|
-    t.integer "user_sink_id"
-    t.string  "user_sink_type"
-    t.integer "user_source_id"
-    t.string  "user_source_type"
-  end
+  add_index "user_profiles", ["user_id"], :name => "user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login"
@@ -550,6 +592,7 @@ ActiveRecord::Schema.define(:version => 20110729192819) do
     t.datetime "updated_at"
     t.boolean  "superuser"
     t.boolean  "supermode",             :default => true
+    t.string   "rank"
     t.string   "calendar_feed_hash"
   end
 
