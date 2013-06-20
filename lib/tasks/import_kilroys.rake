@@ -1,5 +1,5 @@
 namespace :shifts do
-  task (:import_kilroys => :environment) do
+  task :import_kilroys => :environment do
     kilroys = "Dan Liu,5,ES"
 
     message = ""

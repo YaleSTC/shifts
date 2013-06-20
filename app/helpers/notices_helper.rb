@@ -8,14 +8,14 @@ module NoticesHelper
   #   false
   # end
 
-  def loc_group_checked?(loc_group, notice)
+  def loc_group_checked_notice?(loc_group, notice)
     notice.loc_groups.each do |lg|
       return true if lg == loc_group
     end
     false
   end
 
-  def location_checked?(location, notice)
+  def location_checked_notice?(location, notice)
 		return @current_shift_location == location if @current_shift_location
     notice.display_locations.each do |loc|
       return true if loc == location
