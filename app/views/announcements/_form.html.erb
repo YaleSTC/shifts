@@ -14,6 +14,7 @@
 	<div id = "time_choices">
 <!--
 start time cannot currently be set. We need to simultaneously develop the ability to see announcements which haven't posted yet. Also change in announcements_controller "def set_author_dept_and_time" to accept start time again.
+-->
 	<fieldset class = "index">
 		<legend>Start time:</legend>
 		<%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
@@ -40,7 +41,6 @@ start time cannot currently be set. We need to simultaneously develop the abilit
   </fieldset>
 
   </div>
--->
 <!-- set_sources method in notices controller doesn't handle removing polymorphic associations, so we can't unassociate locations
     from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
 		locations, but just disable all of the checkboxes -->
@@ -57,13 +57,13 @@ start time cannot currently be set. We need to simultaneously develop the abilit
 
 <script type="text/javascript">
 var opts = {
-                formElements:{"announcement_end_date_3i":"j",
-                              "announcement_end_date_1i":"Y",
-                              "announcement_end_date_2i":"n"
+  formElements:{"announcement_end_date_3i":"j",
+                "announcement_end_date_1i":"Y",
+                "announcement_end_date_2i":"n"
                 },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
+  statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+  noFadeEffect:true
+};
 datePickerController.createDatePicker(opts);
 
 
