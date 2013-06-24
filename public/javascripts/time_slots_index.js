@@ -35,7 +35,7 @@ function popup_new(parent_element, e, raw_element){
   var date = params[1];
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"elementID="+elementID+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+  $.ajax({data:"elementID="+elementID+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlot, async: false});
 }
 
 function popup_edit_timeslot(parent_element, e){
@@ -44,7 +44,7 @@ function popup_edit_timeslot(parent_element, e){
   var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+  $.ajax({dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit', async: false});
 }
 
 function popup_delete_repeating_timeslot(parent_element, e){
@@ -53,11 +53,11 @@ function popup_delete_repeating_timeslot(parent_element, e){
   var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"delete_options=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+  $.ajax({data:"delete_options=true", dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit', async: false});
 }
 
 function loading_tooltip(x,y){
-  $('#body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+  $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
 }
 
 function getXOffset(element){
