@@ -49,7 +49,7 @@ function popup_new(parent_element, e, raw_element){
   var widthPercentage = relX / parent_element.closest('.events').width();
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
+  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath, async: false});
 }
 
 function popup_generic_new(parent_element, e){
@@ -61,7 +61,7 @@ function popup_generic_new(parent_element, e){
   var date = params[1];
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"location_id="+locationID+"&date="+date, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
+  $.ajax({data:"location_id="+locationID+"&date="+date, dataType:'script', type:'get', url:newShiftPath, async: false});
 }
 
 function popup_show(parent_element, e){
@@ -70,7 +70,7 @@ function popup_show(parent_element, e){
   var id = parent_element.attr('id').substring(5); //remove "shift" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+  $.ajax({dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
 }
 
 // function popup_show_sub(parent_element, e){
@@ -91,7 +91,7 @@ function popup_show(parent_element, e){
 // }
 
 function loading_tooltip(x,y){
-  $('#body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+  $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
 }
 
 function getXOffset(element){

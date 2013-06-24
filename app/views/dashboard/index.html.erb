@@ -100,4 +100,9 @@
 
 <div id="AJAX_status"></div><%# for AJAX status updates %>
 
+<%= javascript_tag do %>
+  newShiftPath = '<%= new_shift_path %>'
+  shiftsPath = '<%= shifts_path %>'
+<% end %>
+
 <%= javascript_include_tag 'dashboard_index' %>

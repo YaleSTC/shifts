@@ -21,7 +21,7 @@ $(document).ready(function() {
     });
     
     //TODO: hide when clicked outside.
-    /*$('#body').click(function() {
+    /*$('body').click(function() {
       if (tooltip.isShown()) {
         tooltip.hide();
       }
