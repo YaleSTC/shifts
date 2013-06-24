@@ -126,7 +126,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
   }
 
   function loading_tooltip(x,y){
-    $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+    $('#body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
   }
 
   function getXOffset(element){
