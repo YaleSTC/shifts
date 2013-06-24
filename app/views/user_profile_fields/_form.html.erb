@@ -1,26 +1,5 @@
 <% form_for @user_profile_field do |f| %>
   <%= f.error_messages %>
-    <script type="text/javascript">
-      function description(type)
-      {
-        var return_value = "";
-        if(type == "text_area") return "";
-        else
-        {
-          return_value = "<%= escape_javascript(f.label :values) %><br /><%= escape_javascript(f.text_field :values) %><br /><em><small>";
-          if(type == "check_box" || type == "select" || type == "radio_button")
-          {
-            return_value += "Enter a comma-separated list of choices";
-          }
-          else if(type == "text_field")
-          {
-            return_value += "Value should be either 'integer', 'decimal', or 'text'";
-          }
-          return_value += "</small></em>";
-          return return_value;
-        }
-      }
-    </script>
 
   <p>
     <%= f.label :name %><br />
@@ -64,7 +43,5 @@
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
-<script>
-$('.form_right').toggle();
-</script>
+<%= javascript_include_tag 'user_profile_field_form' %>
 
