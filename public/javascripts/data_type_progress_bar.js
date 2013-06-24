@@ -1,0 +1,1 @@
+$('#progress_bar').toggle();

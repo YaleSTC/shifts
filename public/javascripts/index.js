@@ -1,3 +1,8 @@
+var calendar_visible = {};
+
+//Hide the new timeslot link when Javascript it enabled
+$('#new_time_slot_link').toggle();
+
 initialize("body");
 
 function initialize(element){
