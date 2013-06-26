@@ -10,7 +10,7 @@ class ReportItemsController < ApplicationController
 
 #  def new
 #    @report_item = ReportItem.new
-#   end
+#  end
 
   def create
     @report_item = ReportItem.new(params[:report_item])
