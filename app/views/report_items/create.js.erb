@@ -1,5 +1,21 @@
 $('#all_report_items').html('<%= escape_javascript render :partial => 'reports/report_item', :collection => @report.report_items  %>');
-$('#current_report_item').effect("highlight", {}, 1500);
+jQuery.fn.highlight = function() {
+  $(this).each(function () {
+    var el = $(this);
+    el.before("<div/>")
+    el.prev()
+      .width(el.width())
+      .height(el.height())
+      .css({
+        "position":"absolute",
+        "background-color":"#ffff99",
+        "opacity":".9"
+      })
+      .fadeOut(500);
+  });
+}
+$('#current_report_item').highlight();
+alert("Highlighted");
 $('#new_report_item').reset();
 
 // page.replace_html "all_report_items", :partial => 'reports/report_item', :collection => @report.report_items
