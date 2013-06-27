@@ -70,6 +70,13 @@
 <%= render :partial => 'calendars/schedule/day', :collection => @day_collection %>
 <%= render :partial => 'shifts/schedule/footer' %>
 
+<%= javascript_tag do %>
+  calendar = <%= calendar.nil? ? "true" : @calendar.id %>;
+  newTimeSlotPath = <%= new_time_slot_path %>;
+  newShiftPath = <%= new_shift_path %>;
+  timeSlotsPath = <%= time_slots_path %>;
+  shiftsPath = <%= shifts_path %>;
+<% end %>
 <%= javascript_include_tag 'index' %> 
 
 <!-- <h2>Shifts:</h2>
