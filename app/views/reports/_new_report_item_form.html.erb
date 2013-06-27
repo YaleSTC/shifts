@@ -1,5 +1,5 @@
 <div id = "report_item_form">
-  <% remote_form_for [@report, @report_item] do |f| %>
+  <%= remote_form_for [@report, @report_item] do |f| %>
     <%= f.error_messages %>
     <%= f.text_area :content, :id => 'item', :size => '40x3', :wrap => 'hard' %>
     <%= f.submit "Add to report" %>

@@ -70,7 +70,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
     var date = params[1];
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_time_slot_path %>', async: false});
+    $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath, async: false});
   }
 
   function popup_new_shift(parent_element, e, raw_element){
@@ -86,7 +86,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
     var widthPercentage = relX / parent_element.width();
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:'<%= new_shift_path %>', async: false});
+    $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath, async: false});
   }
 
   function popup_edit_timeslot(parent_element, e){
@@ -95,7 +95,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
     var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    $.ajax({data:"calendar="+calendar, dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit', async: false});
   }
 
   function popup_edit_shift(parent_element, e){
@@ -104,7 +104,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
     var id = parent_element.attr('id').substring(5); //remove "shift" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+    $.ajax({data:"calendar="+calendar, dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
   }
 
   function popup_delete_repeating_shift(parent_element, e){
@@ -113,7 +113,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
     var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+    $.ajax({data:"calendar="+calendar+"&delete_options=true", dataType:'script', type:'get', url:shiftsPath'/'+id, async: false});
   }
 
   function popup_delete_repeating_timeslot(parent_element, e){
@@ -122,7 +122,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
     var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
     loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar=<%= @calendar.nil? ? "true" : @calendar.id %>&delete_options=true", dataType:'script', type:'get', url:'<%= time_slots_path %>/'+id+'/edit', async: false});
+    $.ajax({data:"calendar="+calendar+"&delete_options=true", dataType:'script', type:'get', url:timeSlotsPath'/'+id+'/edit', async: false});
   }
 
   function loading_tooltip(x,y){

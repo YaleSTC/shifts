@@ -50,4 +50,7 @@
 
 <div id="AJAX_status"></div><%# for AJAX status updates %>
 
+<%= javascript_tag do %>
+  shiftsPath = <%= shifts_path %>;
+<% end %>
 <%= javascript_include_tag 'stats_for_user' %>
