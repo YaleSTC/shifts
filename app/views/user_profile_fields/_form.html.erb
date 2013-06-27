@@ -2,8 +2,8 @@
   <%= f.error_messages %>
   <%# I realize this is really messy, hopefully we can fix it when we upgrade to jquery 1.6, with ujs %>
   <% javascript_tag do %>
-    values = <%= escape_javascript(f.label :values) %>;
-    textField = <%= escape_javascript(f.text_field :values) %>;
+    values = '<%= escape_javascript(f.label :values) %>';
+    textField = '<%= escape_javascript(f.text_field :values) %>';
   <% end %>
   <%= javascript_include_tag 'user_profile_field_form' %>
 
