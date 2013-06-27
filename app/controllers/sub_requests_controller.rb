@@ -64,7 +64,7 @@ class SubRequestsController < ApplicationController
             @sub_request.requested_users << user
           end
         end
-        @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
+        @sub_request.requested_users << User.where(:login == l[0]) if l.length == 1
       end
     end
     unless @sub_request.save
@@ -94,7 +94,7 @@ class SubRequestsController < ApplicationController
                     @sub_request.requested_users << user
                   end
                 end
-                @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
+                @sub_request.requested_users << User.where(:login == l[0]) if l.length == 1
              end
            end
           parse_date_and_time_output(params[:sub_request])

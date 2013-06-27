@@ -38,7 +38,7 @@ class PunchClock < ActiveRecord::Base
     self.pause unless self.paused?
     if self.save
       payform_item = PayformItem.new({:date => Date.today,
-                                    :category => Category.find_by_name("Punch Clocks"),
+                                    :category => Category.where(:name == "Punch Clocks"),
                                     :hours => (self.runtime/3600.0), # sec -> hr
                                     :description => description})
       payform_item.payform = Payform.build(self.department, self.user, Date.today)

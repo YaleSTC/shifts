@@ -43,7 +43,7 @@ class UserConfig < ActiveRecord::Base
   # if default_dept is not specified, returns first department;
   # but if the user does not belong to any department, returns nil
   def default_department
-    Department.find_by_id(default_dept) || (user.departments.empty? ? nil : user.departments.first)
+    Department.where(:id == default_dept).first || (user.departments.empty? ? nil : user.departments.first)
   end
 
 end

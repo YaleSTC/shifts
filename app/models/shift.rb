@@ -421,7 +421,7 @@ class Shift < ActiveRecord::Base
   end
 
   def sub_request
-    SubRequest.find_by_shift_id(self.id)
+    SubRequest.where(:shift_id == self.id)
   end
 
 

@@ -1,7 +1,7 @@
 class PublicViewController < ApplicationController
 
   skip_before_filter :login_check
-  skip_before_filter CASClient::Frameworks::Rails::Filter
+  skip_before_filter RubyCAS::Filter
   helper :shifts
   helper :loc_groups
   

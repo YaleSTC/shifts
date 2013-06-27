@@ -1,9 +1,5 @@
 class FirstRunController < ApplicationController
   skip_before_filter :login_check
-  # skip_before_filter :load_user_session
-  # skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied' 
-  # skip_before_filter :load_department 
-  # skip_before_filter :prepare_mail_url
   skip_before_filter :load_user
   
 

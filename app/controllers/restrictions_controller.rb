@@ -70,8 +70,8 @@ class RestrictionsController < ApplicationController
       params[:for_users].split(",").each do |l|
         if l == l.split("||").first #This is for if javascript is disabled
           l = l.strip
-          user_source = User.search(l) || Role.find_by_name(l)
-          find_dept = Department.find_by_name(l)
+          user_source = User.search(l) || Role.where(:name == l)
+          find_dept = Department.where(:name == l)
           user_source = find_dept if find_dept && current_user.is_admin_of?(find_dept)
           @restriction.user_sources << user_source if user_source
         else
@@ -93,7 +93,7 @@ class RestrictionsController < ApplicationController
     end
     if params[:for_locations]
       params[:for_locations].each do |loc|
-        @restriction.locations << Location.find_by_id(loc)
+        @restriction.locations << Location.where(:id == loc).first
       end
     end
   end
