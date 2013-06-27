@@ -7,7 +7,7 @@ class AddLocationsNoticesLocGroupsNotices < ActiveRecord::Migration
 
     create_table :loc_groups_notices, :id => false do |t|
       t.references :loc_group
-      t.references :locations_notices
+      t.references :notice
     end
   end
 

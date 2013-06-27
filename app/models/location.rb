@@ -21,6 +21,7 @@ class Location < ActiveRecord::Base
   }}
 
   belongs_to :loc_group
+  belongs_to :category
   has_many :time_slots
   has_many :template_time_slots
   has_many :shifts
