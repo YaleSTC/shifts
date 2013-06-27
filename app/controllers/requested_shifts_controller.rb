@@ -17,9 +17,9 @@ class RequestedShiftsController < ApplicationController
     @hidden_timeslots = [] #for timeslots that don't show up on the view
 
     if current_department.department_config.weekend_shifts #show weekends
-      @day_collection = @period_start...(@period_start+7)
+      @day_collection = (@period_start...(@period_start+7)).to_a
     else #no weekends
-      @day_collection = (@period_start+1)...(@period_start+6)
+      @day_collection = ((@period_start+1)...(@period_start+6)).to_a
     end
 		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
 		@requested_shift = RequestedShift.new

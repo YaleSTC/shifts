@@ -18,15 +18,15 @@ class ShiftsController < ApplicationController
         @day_collection = [Date.today]
       elsif current_user.user_config.view_week == "remainder"
         if @department.department_config.weekend_shifts #show weekends
-          @day_collection = Date.today...(@period_start+7)
+          @day_collection = (Date.today...(@period_start+7)).to_a
         else
-          @day_collection = Date.today...(@period_start+6)
+          @day_collection = (Date.today...(@period_start+6)).to_a
         end
       end
     elsif @department.department_config.weekend_shifts #show weekends
-      @day_collection = @period_start...(@period_start+7)
+      @day_collection = (@period_start...(@period_start+7)).to_a
     else #no weekends
-      @day_collection = (@period_start+1)...(@period_start+6)
+      @day_collection = ((@period_start+1)...(@period_start+6)).to_a
     end
 
     @loc_groups = current_user.loc_groups(current_department)
