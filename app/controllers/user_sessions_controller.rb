@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
   skip_before_filter :login_check
-  skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}
+  skip_before_filter RubyCAS::Filter, :if => Proc.new{|s| s.using_CAS?}
 
   def new
     flash[:notice] = "Please login."
@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
 
   def create
     @user_session = UserSession.new(params[:user_session])
-    @user = User.find_by_login(params[:user_session][:login])
+    @user = User.where(:login == params[:user_session][:login]).first
     if @user && @user.auth_type!='built-in'
       flash[:notice] = "You are not supposed to be using built in authentication. Please click the relevant link below to log in using CAS."
       render :action => 'new'
@@ -30,7 +30,7 @@ class UserSessionsController < ApplicationController
 
   #Not called yet. Should be used once we migrate from using sessions_controller for CAS logout
   def cas_logout
-    CASClient::Frameworks::Rails::Filter.logout(self)
+    RubyCAS::Filter.logout(self)
   end
 
 end

@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   def role=(name)
-    self.roles << Role.find_by_name(name) if name && Role.find_by_name(name)
+    self.roles << Role.where(:name == name) if name && Role.where(:name == name)
   end
 
   def role
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   def self.mass_add(logins, department)
     failed = []
     logins.split(/\W+/).map do |n|
-      if user = self.find_by_login(n)
+      if user = self.where(:login == n)
         user.departments << department
       else
         user = import_from_ldap(n, department, true)

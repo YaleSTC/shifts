@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   def load_app_config
-    @appconfig = AppConfig.first
+    @appconfig = AppConfig.all.first
   end
 
   def access_denied
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def using_CAS?
-    User.first && (!current_user || current_user.auth_type=='CAS') && @appconfig && @appconfig.login_options.include?('CAS')
+    User.all.first && (!current_user || current_user.auth_type=='CAS') && @appconfig && @appconfig.login_options.include?('CAS')
   end
 
   protected
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     if @user_session
       @user_session.user
     elsif session[:cas_user]
-      User.find_by_login(session[:cas_user])
+      User.where(:login == session[:cas_user]).first
     else
       nil
     end)
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   def current_department
     unless @current_department
       if current_user
-        @current_department = Department.find_by_id(session[:department_id])
+        @current_department = Department.where(:id == session[:department_id]).first
         unless @current_department
           @current_department = current_user.default_department
           session[:department_id] = @current_department.id
@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
 
   def load_department
     if (params[:department_id])
-      @department = Department.find_by_id(params[:department_id])
+      @department = Department.where(:id == params[:department_id]).first
       if @department
         session[:department_id] = params[:department_id]
       end
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user
-    @current_user = @user_session.user || User.find_by_login(session[:cas_user]) || User.import_from_ldap(session[:cas_user], true)
+    @current_user = (@user_session && @user_session.user) || User.where(:login == session[:cas_user]).first || User.import_from_ldap(session[:cas_user], true)
   end
 
   def load_user_session
