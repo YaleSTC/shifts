@@ -1,5 +1,8 @@
 <% form_for @app_config do |f| %>
   <%= f.error_messages %>
+<%= content_for :head do %>
+  <%= javascript 'app_configs' %>
+<% end %>
 
 <fieldset class='index'>
   <legend>Footer</legend>
@@ -64,9 +67,3 @@
 <% end %>
 
 
-<script>
-$('#toggle').click(function() {
-  $('#ldap_fields').slideToggle('fast', function() {
-  });
-});
-</script>

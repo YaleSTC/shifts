@@ -1,58 +1,6 @@
-<% form_for @user_profile_field do |f| %>
-  <%= f.error_messages %>
-    <script type="text/javascript">
-      function description(type)
-      {
-        var return_value = "";
-        if(type == "text_area") return "";
-        else
-        {
-          return_value = "<%= escape_javascript(f.label :values) %><br /><%= escape_javascript(f.text_field :values) %><br /><em><small>";
-          if(type == "check_box" || type == "select" || type == "radio_button")
-          {
-            return_value += "Enter a comma-separated list of choices";
-          }
-          else if(type == "text_field")
-          {
-            return_value += "Value should be either 'integer', 'decimal', or 'text'";
-          }
-          return_value += "</small></em>";
-          return return_value;
-        }
-      }
-    </script>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-      <%= f.label :display_type %><br />
-      <%= f.select :display_type, options=(UserProfileField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
-          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
-    </p>
-    <p>
-      <div class="value_field">
-        <%= f.label :values %><br />
-        <div class = "form_right">
-        <fieldset>
-          <em><small>
-            Text field: Value should be either 'integer', 'decimal', or 'text'.
-            <p> Check boxes, Select from a list, Multiple choice: Enter a comma-separated list of choices</p>
-            <p>Paragraph text: nothing is needed here </p>
-          </small></em>
-        </fieldset>
-        </div>
-        <%= f.text_field :values %>
-      </div>
-    </p>
-
-
-  <p>
-	<%= f.label :index_display, "Displayed in Index?"%>
-	<%= f.check_box :index_display %>
-  </p>
-	
+ <%= content_for :head do %>
+  <%= javascript 'user_profile_fields' %>
+<% end %>
   <p>
     <%= f.label :public, "Public?"  %>
     <%= f.check_box :public %>
@@ -63,8 +11,4 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
-
-<script>
-$('.form_right').toggle();
-</script>
 

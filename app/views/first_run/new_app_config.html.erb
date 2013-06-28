@@ -1,5 +1,8 @@
 <%= render :partial => 'progress_bar', :locals => {:current_step => 1} %>
 <% title "Configure Application Settings" %>
+<%= content_for :head do %>
+  <%= javascript 'first_run' %>
+<% end %>
 <% form_for @app_config, :url => create_first_app_config_path do |f| %>
   <%= f.error_messages %>
   <p>
@@ -72,10 +75,5 @@
 
 <% end %>
 
-<script>
-$('#hide').toggle();
-$('#ldap_check_box').click(function () {
-  $('.ldap_fields').toggle();
-});
-</script>
+
 

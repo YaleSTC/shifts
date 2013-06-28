@@ -1,5 +1,8 @@
 <% stylesheet 'verify_import' %>
 <% title 'Verify Users to Import' %>
+<%= content_for :head do %>
+  <%= javascript 'users' %>
+<% end %>
 <div id="form_div">
 <% if @users%>
 <p><h3>Please examine what was uploaded and make changes as necessary.</h3></p>
@@ -9,10 +12,5 @@
 <% end %>
 
 
-<script>
-$('.activable').click(function () {
-  $('.active').toggleClass('active');
-  $(this).toggleClass('active');
-});
-</script>
+
 

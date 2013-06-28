@@ -67,6 +67,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     mysql (2.9.1)
+    mysql (2.9.1-x86-mingw32)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -131,6 +132,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   airbrake
@@ -141,6 +143,7 @@ DEPENDENCIES
   fastercsv
   htmlentities
   icalendar
+  mail
   mysql
   paperclip (~> 2.3.15)
   prawn
