@@ -1,5 +1,11 @@
 <% form_for @user_profile_field do |f| %>
   <%= f.error_messages %>
+  <%# I realize this is really messy, hopefully we can fix it when we upgrade to jquery 1.6, with ujs %>
+  <% javascript_tag do %>
+    values = '<%= escape_javascript(f.label :values) %>';
+    textField = '<%= escape_javascript(f.text_field :values) %>';
+  <% end %>
+  <%= javascript_include_tag 'user_profile_field_form' %>
 
   <p>
     <%= f.label :name %><br />
@@ -28,10 +34,10 @@
 
 
   <p>
-	<%= f.label :index_display, "Displayed in Index?"%>
-	<%= f.check_box :index_display %>
+  <%= f.label :index_display, "Displayed in Index?"%>
+  <%= f.check_box :index_display %>
   </p>
-	
+  
   <p>
     <%= f.label :public, "Public?"  %>
     <%= f.check_box :public %>
@@ -43,5 +49,4 @@
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
-<%= javascript_include_tag 'user_profile_field_form' %>
 

@@ -4,7 +4,7 @@ function description(type)
   if(type == "text_area") return "";
   else
   {
-    return_value = "<%= escape_javascript(f.label :values) %><br /><%= escape_javascript(f.text_field :values) %><br /><em><small>";
+    return_value = values+"<br />"+textField+"<br /><em><small>";
     if(type == "check_box" || type == "select" || type == "radio_button")
     {
       return_value += "Enter a comma-separated list of choices";

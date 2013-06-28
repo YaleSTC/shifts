@@ -114,9 +114,6 @@ Shifts::Application.routes.draw do |map|
   map.resources :users, :collection => {:update_superusers => :post}, :member => {:toggle => [:get, :post]} do |user|
     user.resources :punch_clocks
   end
-  map.resources :reports, :except => [:new], :member => {:popup => :get} do |report|
-    report.resources :report_items
-  end
 
   #TODO Fix report items routing, this is temporary
   map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_report_items => [:get, :post], :toggle => [:get, :post]}

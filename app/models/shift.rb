@@ -338,7 +338,7 @@ class Shift < ActiveRecord::Base
     count = 0
     shifts_in_period = []
     Shift.find(:all, :conditions => {:location_id => self.location_id, :scheduled => true}).each do |shift|
-      shifts_in_period << shift if (self.start..self.end).overlaps?(shift.start..shift.end) && self.end != shift.start && self.start != shift.end
+      shifts_in_period << shift if (self.start..self.end).to_a.overlaps((shift.start..shift.end).to_a) && self.end != shift.start && self.start != shift.end
     end
     increment = self.department.department_config.time_increment
     time = self.start + (increment / 2)

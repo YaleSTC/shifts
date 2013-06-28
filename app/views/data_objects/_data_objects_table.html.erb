@@ -34,4 +34,8 @@
   </table>
 </div>
 
-<%= javascript_include_for 'data_objects_table' %>
+<%= javascript_tag do %>
+   id = '<%= data_objects_table.first.id %>';
+<% end %>
+
+<%= javascript_include_tag 'data_objects_table' %>

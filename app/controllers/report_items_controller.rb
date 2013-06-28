@@ -33,7 +33,7 @@ class ReportItemsController < ApplicationController
   end
 
 
-# past 3 hours. Find all shifts that ended in that past one select those shifts then tkae all of their report items and then draw them in line items. More can't show that. So genearlize it end in the past x hours. If we take shifts that started of it. So what you want to t o.. Find MATCH 
+# past 3 hours. Find all shifts that ended in that past one select those shifts then take all of their report items and then draw them in line items. More can't show that. So genearlize it end in the past x hours. If we take shifts that started of it. So what you want to t o.. Find MATCH 
 #report_items.each do |report_item|
 #block of code. 
 #report_items.find(:cond time > sometime interface this way first so that it's flexibile and then move on. 

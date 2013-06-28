@@ -15,7 +15,7 @@ function popup_show(parent_element, e){
   var id = parent_element.attr('id').substring(5); //remove "shift" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
+  $.ajax({dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
   // $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
 }
 

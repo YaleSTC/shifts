@@ -21,13 +21,10 @@ class Location < ActiveRecord::Base
   }}
 
   belongs_to :loc_group
+  belongs_to :category
   has_many :time_slots
   has_many :template_time_slots
   has_many :shifts
-  # has_many :locations_requested_shifts
-  # has_many :requested_shifts, :through => :locations_requested_shifts
-  #   has_many :locations_shift_preferences
-  # has_many :shift_preferences, :through => :locations_shift_preferences
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :requested_shifts
   # These connect a location with the superclass notice and its subclasses

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620135037) do
+ActiveRecord::Schema.define(:version => 20130619210814) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -169,10 +169,8 @@ ActiveRecord::Schema.define(:version => 20130620135037) do
   end
 
   create_table "loc_groups_notices", :id => false, :force => true do |t|
-    t.integer  "loc_group_id"
-    t.integer  "notice_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "loc_group_id"
+    t.integer "notice_id"
   end
 
   create_table "locations", :force => true do |t|
@@ -192,10 +190,8 @@ ActiveRecord::Schema.define(:version => 20130620135037) do
   end
 
   create_table "locations_notices", :id => false, :force => true do |t|
-    t.integer  "location_id"
-    t.integer  "notice_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "location_id"
+    t.integer "notice_id"
   end
 
   create_table "locations_requested_shifts", :id => false, :force => true do |t|
