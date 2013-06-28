@@ -5,7 +5,7 @@
 <%# left column of the table; labels %>
     <div class="days">
       <div class="day" style="height: 22%;"></div>
-      <%= render :partial => "time_slots/left_day", :collection => (@period_start...(@period_start+1.day)).to_a.end_of_week %>
+      <%= render :partial => "time_slots/left_day", :collection => (@period_start...(@period_start+1.day)).to_a.collect(&:end_of_week) %>
     </div>
 
 <%# 'hour' is the header, 'time_slot_day' holds the actual time_slots %>
@@ -13,7 +13,7 @@
       <ul class="intervals" style="height: 22%;">
         <%= render :partial => "time_slots/hour_header", :collection =>  (@dept_start_hour...@dept_end_hour).to_a %>
       </ul>
-      <%= render :partial => "time_slots/time_slot_day", :collection => (@period_start...(@period_start+1.day)).to_a.end_of_week, :locals => {:location => location}  %>
+      <%= render :partial => "time_slots/time_slot_day", :collection => (@period_start...(@period_start+1.day)).to_a.collect(&:end_of_week), :locals => {:location => location}  %>
     </div>
   </div>
 

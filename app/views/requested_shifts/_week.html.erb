@@ -5,7 +5,7 @@
 <%# left column of the table; labels %>
     <div class="days">
       <div class="day" style="height: 25px;"></div>
-      <%= render :partial => "left_day", :collection => (@period_start...(@period_start+1.day)).to_a.end_of_week %>
+      <%= render :partial => "left_day", :collection => (@period_start...(@period_start+1.day)).to_a.collect(&:end_of_week) %>
 <%#Date.today.beginning_of_week...(Date.today.beginning_of_week+1.day).end_of_week%>
     </div>
 
