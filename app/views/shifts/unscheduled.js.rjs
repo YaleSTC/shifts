@@ -1,2 +1,0 @@
-page.replace_html "unscheduled", :partial => 'form_unscheduled'
-page.visual_effect :toggle_blind, "unscheduled", :duration => 0.3

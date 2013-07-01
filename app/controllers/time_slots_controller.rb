@@ -67,6 +67,12 @@ class TimeSlotsController < ApplicationController
     @time_slot = TimeSlot.find(params[:id])
     parse_date_and_time_output(params[:time_slot])
     join_date_and_time(params[:time_slot])
+    # if it was after midnight to begin with, then there is a problem... why?
+    if (@time_slot.start.beginning_of_day + current_department.department_config.schedule_start.minutes) <= @time_slot.start ##in the normal day (up to midnight)
+      @time_slot_day = @time_slot.start.to_date
+    else #after midnight
+      @time_slot_day = @time_slot.start.to_date - 1.day
+    end
     if @time_slot.update_attributes(params[:time_slot])
       respond_to do |format|
         format.js
