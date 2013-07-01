@@ -1,4 +1,4 @@
-<% form_for @app_config do |f| %>
+<%= form_for @app_config do |f| %>
   <%= f.error_messages %>
 
 <fieldset class='index'>
@@ -11,31 +11,31 @@
 </fieldset>
 
 <fieldset class = 'index'>
-	<legend>Email Configuration</legend>
+  <legend>Email Configuration</legend>
   <p>
     <%= f.label :mailer_address, text = 'App email address' %><br />
     <small>This is used for the "From" field on any generated email that is not department-specific.</small><br />
     <%= f.text_field :mailer_address %>
   </p>
   <p>
-	<%= f.label :admin_email, text = 'Admin email address' %> <br />
-	<small>This is the administrator email that any non-department-specific correspondences are sent to. </small><br />
-	<%= f.text_field :admin_email %>
+  <%= f.label :admin_email, text = 'Admin email address' %> <br />
+  <small>This is the administrator email that any non-department-specific correspondences are sent to. </small><br />
+  <%= f.text_field :admin_email %>
   </p>
 </fieldset>
 
 <fieldset class = 'index'>
-	<legend>LDAP</legend>	
+  <legend>LDAP</legend> 
   <input type="checkbox" id="toggle"><%="Allow LDAP for importing users?"%>
- 	 <div id = "ldap_fields" style="display:none">
-  	  <p>
-    	  <%= f.label :ldap_host_address, text = "LDAP Host address" %> <br />
-    	  <%= f.text_field :ldap_host_address %>
-    	</p>
-    	<p>
-    	  <%= f.label :ldap_port, text = "LDAP port" %> <br />
-    	  <%= f.text_field :ldap_port %>
-    	</p>
+   <div id = "ldap_fields" style="display:none">
+      <p>
+        <%= f.label :ldap_host_address, text = "LDAP Host address" %> <br />
+        <%= f.text_field :ldap_host_address %>
+      </p>
+      <p>
+        <%= f.label :ldap_port, text = "LDAP port" %> <br />
+        <%= f.text_field :ldap_port %>
+      </p>
       <p>
         <%= f.label :ldap_base, text = "LDAP base" %> <br />
         <%= f.text_field :ldap_base %>
