@@ -12,3 +12,7 @@ $(this).click(function(event) {
     return(false);
   }
 });
+
+$("#tooltip").click(function(e){
+  e.stopPropagation();
+});

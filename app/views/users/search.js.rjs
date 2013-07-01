@@ -1,1 +1,0 @@
-page.replace_html "user_list", :partial => 'user_list'

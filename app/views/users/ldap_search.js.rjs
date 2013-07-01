@@ -1,1 +1,0 @@
-page.replace_html "result_list", :partial => 'result_list'

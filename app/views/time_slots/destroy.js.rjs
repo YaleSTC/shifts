@@ -1,5 +1,0 @@
-page.remove "timeslot#{params[:id]}"
-page.remove "tooltip"
-
-# display alert
-ajax_alert(page, "timeslot destroyed");
