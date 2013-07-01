@@ -63,10 +63,4 @@
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
-
-<script>
-$('#toggle').click(function() {
-  $('#ldap_fields').slideToggle('fast', function() {
-  });
-});
-</script>
+<%= javascript_include_tag 'app_configs_form' %>

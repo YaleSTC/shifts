@@ -1,25 +1,30 @@
 class Notice < ActiveRecord::Base
-
   belongs_to :author, :class_name => "User"
   belongs_to :remover, :class_name => "User"
   belongs_to :department
 
-  validate :content_or_label, :presence_of_locations_and_viewers, :proper_time
+  has_and_belongs_to_many :locations
+  has_and_belongs_to_many :loc_groups
+
+  validate :content_or_label, :presence_of_locations, :proper_time
 
   attr_accessor :start_date
   attr_accessor :start_time
   attr_accessor :end_date
   attr_accessor :end_time
+  attr_accessor :global
 
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
-  named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
-  named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
-  named_scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
-  named_scope :not_link, :conditions => ["type != ?", "Link"]
-  named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
+  scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
+  scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
+  scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
+  scope :not_link, :conditions => ["type != ?", "Link"]
+  scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
+  scope :global,  :conditions => {:department_wide => true}
+  scope :active, lambda {{ :conditions => ["start <= ? AND end is ? OR end > ?", Time.now.utc, nil, Time.now.utc] }}
   
   def self.active_links
-     Link.active
+    Link.active
   end
 
   def self.active_notices
@@ -28,8 +33,9 @@ class Notice < ActiveRecord::Base
 
   def display_for
     display_for = []
-    display_for.push "for users #{self.users.collect{|n| n.name}.to_sentence}" unless self.users.empty?
-    display_for.push "for locations #{self.locations.collect{|l| l.short_name}.to_sentence}" unless self.locations.empty?
+    #TODO Figure out why users isn't a valid method
+    #display_for.push "for users #{self.users.collect{|n| n.name}.to_sentence}" unless self.users.empty?
+    #display_for.push "for locations #{self.locations.collect{|l| l.short_name}.to_sentence}" unless self.locations.empty?
     display_for.join "<br/>"
   end
 
@@ -38,12 +44,13 @@ class Notice < ActiveRecord::Base
     false
   end
 
-  def viewers
-    self.user_sources.collect{|us| us.users}.flatten.uniq
-  end
-
   def display_locations
-    self.location_sources.collect{|ls| ls.locations}.flatten.uniq
+    if self.department_wide
+      return self.department.locations
+    end
+    a = self.locations
+    b = self.loc_groups.collect(&:locations).flatten
+    (a + b).uniq
   end
 
   def remove(user)
@@ -61,18 +68,14 @@ class Notice < ActiveRecord::Base
 
   private
   #Validations
-  def presence_of_locations_and_viewers
-    if self.location_sources.empty? && self.user_sources.empty?
+  def presence_of_locations
+    if self.display_locations.empty?
 			errors.add_to_base "Your #{self.class.name.downcase} must display somewhere"
   	end
 	end
 
   def proper_time
     errors.add_to_base "Start/end time combination is invalid." if self.end && self.start >= self.end
-  end
-
-  def destroy_user_sinks_user_sources
-    UserSinksUserSource.delete_all("#{:user_sink_type.to_sql_column} = #{"Notice".to_sql} AND #{:user_sink_id.to_sql_column} = #{self.id.to_sql}")
   end
 
 	def content_or_label

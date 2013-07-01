@@ -17,9 +17,10 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
-  has_many :sub_requests, :through => :shifts #the sub reqeusts this user owns
+  has_many :sub_requests, :through => :shifts #the sub requests this user owns
 	has_many :shift_preferences
 	has_many :requested_shifts
+  has_many :restrictions
 
 
 # New user configs are created by a user observer, after create
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
   has_one :user_profile, :dependent => :destroy
 
   attr_protected :superusercreate_
-  named_scope :superusers, :conditions => { :superuser => true }, :order => :last_name
+  scope :superusers, :conditions => { :superuser => true }, :order => :last_name
   delegate :default_department, :to => 'user_config'
 
   

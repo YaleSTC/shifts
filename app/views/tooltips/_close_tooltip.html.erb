@@ -1,24 +1,6 @@
 <div class="close_link">
   <a onclick="$('#tooltip').fadeOut(function (){ $(this).remove() }); return false;" href="#">[esc]</a>
 </div>
-<script type="text/javascript">
-// don't retrigger the action when clicking the tooltip :P
-$('#tooltip').click(function(e){
-	e.stopPropagation();
-});
-//close window when pressing [esc]
-$(this).keyup(function(event) {
-  if (event.keyCode == 27) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
-	 return false;
-   }
-});
-//close window when clicking on the page
-$(this).click(function(event) {
-	if ($('#tooltip').length == 1) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
-		return(false);
-	}
-});
-</script>
+
+<%= javascript_include_tag 'close_tooltip', 'tooltips_show' %>
 

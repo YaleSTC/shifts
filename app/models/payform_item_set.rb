@@ -7,8 +7,8 @@ class PayformItemSet < ActiveRecord::Base
   validate :payform_item_creation
   delegate :users, :to => :payform_items
   
-  named_scope :active, :conditions => {:active => true }
-  named_scope :expired, :conditions => {:active => false }
+  scope :active, :conditions => {:active => true }
+  scope :expired, :conditions => {:active => false }
 
   def users
     return self.payform_items.collect { |item| item.user }.compact

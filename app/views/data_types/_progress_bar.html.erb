@@ -5,7 +5,5 @@
   <span id="<%= current_step == 2 ? "current_step" : "other_step"%>"><%= link_to_if (params[:data_type_id] or !@data_type.new_record?), "Step 2: Add fields", ( (params[:data_type_id] or !@data_type.new_record?) ? new_data_type_data_field_path(params[:data_type_id] || @data_type) : root_path ) %></span> &#8680; 
   <span id="<%= current_step == 3 ? "current_step" : "other_step"%>"><%= link_to_if (params[:data_type_id] or !@data_type.new_record?), "Step 3: Make objects", ( (params[:data_type_id] or !@data_type.new_record?) ? new_data_type_data_object_path(params[:data_type_id] || @data_type) : root_path ) %></span>
 </span>
-<script type="text/javascript">
-  //hide if javascript works
-  $('#progress_bar').toggle();
-</script>
+
+<%= javascript_include_tag 'data_type_progress_bar' %>
