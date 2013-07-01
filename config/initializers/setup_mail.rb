@@ -1,9 +1,6 @@
 ActionMailer::Base.smtp_settings = {
-  :address              => "smtp.gmail.com",
+  :address              => "mail.yale.edu",
   :port                 => 587,
-  :domain               => "gmail.com",
-  :user_name            => "tammerabiyu@gmail.com",
-  :password             => "",
-  :authentication       => "plain",
+  :domain               => "yale.edu",
   :enable_starttls_auto => true
 }
