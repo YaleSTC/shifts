@@ -17,6 +17,7 @@ gem "paperclip", "~> 2.3.15"
 gem "htmlentities"
 gem "capistrano"
 gem "letter_opener", :group => :development
+gem 'pry-rails', :group => :development
 
 #authentication
 gem 'rubycas-client-rails'
