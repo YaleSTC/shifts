@@ -1,1 +1,0 @@
-page.replace_html "new_user_form", :partial => 'form'
