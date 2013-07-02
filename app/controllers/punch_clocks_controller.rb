@@ -13,7 +13,7 @@ class PunchClocksController < ApplicationController
   end
 
   def edit
-    @punch_clock = PunchClock.where(:id == params[:id]).first
+    @punch_clock = PunchClock.where(:id => params[:id]).first
     return unless user_is_owner_or_admin_of(@punch_clock, @punch_clock.department)
   end
   

@@ -26,7 +26,10 @@
 
 	  <fieldset id = "useful_links" class = "index" >
 	    <legend>Useful Links</legend>
-	   	<%= render :partial => 'links/report_links' %>
+	    <ul id="useful_links">
+	   	<%= render :partial => 'links/report_links', :collection => current_user.current_shift.report.get_links, :as => :link %>
+	   	</ul>
+	   	<%= link_to_post_a_link %>
 	  </fieldset>
 
 	  <% unless mobile_device?%>

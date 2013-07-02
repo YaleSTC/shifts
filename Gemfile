@@ -19,6 +19,7 @@ gem "capistrano"
 gem "htmlentities"
 # gem "pry-rails", :group => :development
 # gem "jazz_hands"
+gem "letter_opener", :group => :development
 
 #authentication
 gem 'rubycas-client-rails'

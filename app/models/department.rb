@@ -1,6 +1,7 @@
 class Department < ActiveRecord::Base
   belongs_to :admin_permission, :class_name => "Permission", :dependent => :destroy
   has_one :department_config, :dependent => :destroy
+  has_many :notices, :dependent => :destroy
   has_many :loc_groups, :dependent => :destroy
   has_many :departments_users, :dependent => :destroy
   has_many :users, :through => :departments_users
@@ -25,18 +26,10 @@ class Department < ActiveRecord::Base
   before_validation(:on => :update) {:update_permissions}
   validates_uniqueness_of :name
   validates_uniqueness_of :admin_permission_id
-
-  def links
-     ActiveRecord::Base.transaction do
-        a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
-        b = Link.active.collect(&:id)
-        Link.find(a & b) 
-      end
-  end
   
 # Returns all users active in a given department
   def active_users
-    joins = DepartmentsUser.find(:all, :conditions => {:department_id => self, :active => true })
+    joins = DepartmentsUser.where(:department_id => self, :active => true)
     joins.map{|j| User.find(j.user_id)}
   end
 
@@ -46,15 +39,11 @@ class Department < ActiveRecord::Base
   end
   
   def current_notices
-    ActiveRecord::Base.transaction do
-      a = UserSinksUserSource.find(:all, :conditions => ["user_sink_type = 'Notice' AND user_source_type = 'Department' AND user_source_id = #{self.id.to_sql}"]).collect(&:user_sink_id)
-      y = Announcement.active.collect(&:id)
-      Notice.find(a & y).sort_by{|n| n.start}
-    end
+    Notice.active.global
   end
     
   def sub_requests
-    SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| sub.shift.department == self }
+    SubRequest.where("end >= ?", Time.now).select { |sub| sub.shift.department == self }
   end
   
 #  has_and_belongs_to_many :users

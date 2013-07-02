@@ -8,7 +8,7 @@ module UsersHelper
   end
 
   def determine_class(user)
-    if u = User.where(:login == user.login)
+    if u = User.where(:login => user.login).first
       if u.departments.include?(current_department)
         "stop"
       else
@@ -20,7 +20,7 @@ module UsersHelper
   end
 
   def determine_auth_type(user,l)
-    if u = User.where(:login == user.login)
+    if u = User.where(:login => user.login).first
       if u.auth_type == l
         true
       else
@@ -36,7 +36,7 @@ module UsersHelper
   end
 
   def should_be_checked(user)
-    if User.where(:loging == user.login) && User.where(:login == user.login).departments.include?(@department)
+    if User.where(:loging => user.login).first && User.where(:login => user.login).first.departments.include?(@department)
       false
     else
       true

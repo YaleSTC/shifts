@@ -33,3 +33,22 @@ jQuery($("#variable_height_box")).ajaxComplete(function(){
     }
 
 });
+
+// For the datepicker calendar in the new announcements box
+var opts = {
+  formElements:{"announcement_end_date_3i":"j",
+                "announcement_end_date_1i":"Y",
+                "announcement_end_date_2i":"n"
+                },
+  statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+  noFadeEffect:true
+};
+datePickerController.createDatePicker(opts);
+
+
+  $("span[class='end_time_choice_indefinite']").mousedown(function(){
+      $("#end_time_choice_indefinite").attr('checked', true)
+  });
+  $("span[class='end_time_choice_date']").mousedown(function(){
+      $("#end_time_choice_date").attr('checked', true)
+});

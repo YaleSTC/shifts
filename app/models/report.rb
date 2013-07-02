@@ -6,15 +6,22 @@ class Report < ActiveRecord::Base
   validates_uniqueness_of :shift_id
 
   def get_notices
-    @report_notices =  (self.shift.location.current_notices)
-    # department.current_notices is not necessary because a department-wide notice is already posted in location. 
-		a = @report_notices.select{|n| n.class.name == "Announcement"}.sort_by{|n| n.start}
-		s = @report_notices.select{|n| n.class.name == "Sticky"}.sort_by{|n| n.start}
-		return a + s
+    a = self.shift.location.stickies.active + self.shift.location.announcements.active
+    g = Notice.active.global.not_link
+    # Custom search that sorts first by class then by start
+    return (a + g).uniq.sort do |a, b|
+      if a.class != b.class
+        a.class.name <=> b.class.name
+      else
+        a.start <=> b.start
+      end
+    end
   end
 
   def get_links
-    self.shift.location.department.links.sort_by{|l| l.start} + self.shift.location.links.sort_by{|l| l.start}
+     a = self.shift.location.links.active
+     b = Link.global.active
+     (a + b).sort_by(&:start).uniq
   end
 
   def data_objects
@@ -29,4 +36,3 @@ class Report < ActiveRecord::Base
     (self.departed && self.arrived) ? ((self.departed - self.arrived) / 3600.0) : 0
   end
 end
-

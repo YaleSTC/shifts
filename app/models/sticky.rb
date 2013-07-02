@@ -1,5 +1,5 @@
 class Sticky < Notice
-  scope :active, lambda {{ :conditions => ["end is ? OR end > ?", nil, Time.now.utc] }}
+  
   scope :ordered_by_start, :order => 'start'
     
   def active?

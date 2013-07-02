@@ -1,4 +1,4 @@
-# Basic Guide to Shifts
+# Basic Guide to Shifts [![Code Climate](https://codeclimate.com/github/YaleSTC/shifts.png)](https://codeclimate.com/github/YaleSTC/shifts)
 **Creator:** Adam Bray
 
 **Original Contributors:**

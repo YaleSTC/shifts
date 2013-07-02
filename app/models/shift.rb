@@ -100,16 +100,15 @@ class Shift < ActiveRecord::Base
   end
 
 
-  #This method takes a list of shifts and deletes them, all their subrequests,
-  # and all the relevant UserSinksUserSource entries. Necessary for conflict
+  # This method takes a list of shifts and deletes them, all their subrequests. 
+  # Necessary for conflict
   # wiping in repeating_event and calendars, as well as wiping a date range -Mike
   def self.mass_delete_with_dependencies(shifts_to_erase)
     array_of_shift_arrays = shifts_to_erase.batch(450)
     array_of_shift_arrays.each do |shifts|
-      subs_to_erase = SubRequest.find(:all, :conditions => [shifts.collect{|shift| "(#{:shift_id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")] )
+      subs_to_erase = SubRequest.where(shifts.collect{|shift| "(#{:shift_id.to_sql_column} = #{shift.to_sql})"}.join(" OR "))
       array_of_sub_arrays = subs_to_erase.batch(450)
       array_of_sub_arrays.each do |subs|
-        UserSinksUserSource.delete_all([subs.collect{|sub| "(#{:user_sink_type.to_sql_column} = #{'SubRequest'.to_sql} AND #{:user_sink_id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
         SubRequest.delete_all([subs.collect{|sub| "(#{:id.to_sql_column} = #{sub.to_sql})"}.join(" OR ")])
       end
       Shift.delete_all([shifts.collect{|shift| "(#{:id.to_sql_column} = #{shift.to_sql})"}.join(" OR ")])
@@ -160,7 +159,7 @@ class Shift < ActiveRecord::Base
     #conflicts or make the new shifts
     if wipe
         outer_test.each do |sh|
-          Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => [sh.join(" OR ")]))
+          Shift.mass_delete_with_dependencies(Shift.where(sh.join(" OR ")))
         end
         outer_make.each do |s|
           sql = "INSERT INTO shifts (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:user_id.to_sql_column}, #{:department_id.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
@@ -170,7 +169,7 @@ class Shift < ActiveRecord::Base
     else
       out = []
         outer_test.each do |s|
-          out += Shift.find(:all, :conditions => [s.join(" OR ")])
+          out += Shift.where(s.join(" OR "))
         end
       if out.empty?
           outer_make.each do |s|
@@ -193,12 +192,12 @@ class Shift < ActiveRecord::Base
       ""
     elsif wipe
       big_array.each do |sh|
-        Shift.mass_delete_with_dependencies(Shift.find(:all, :conditions => [sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")]))
+        Shift.mass_delete_with_dependencies(Shift.where(sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")))
       end
       return ""
     else
       out=big_array.collect do |sh|
-        Shift.find(:all, :conditions => [sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
+        Shift.where(sh.collect{|s| "(#{:user_id.to_sql_column} = #{s.user_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:department_id.to_sql_column} = #{s.department_id.to_sql} AND #{:start.to_sql_column} <= #{s.end.utc.to_sql} AND #{:end.to_sql_column} >= #{s.start.utc.to_sql})"}.join(" OR ")).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
       end
       out.join(",")+","
     end
@@ -310,7 +309,7 @@ class Shift < ActiveRecord::Base
   # If new shift runs up against another compatible shift, combine them and save,
   # preserving the earlier shift's information
   def combine_with_surrounding_shifts
-    if (shift_later = Shift.find(:first, :include => :calendar, :conditions => ["start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?])) && (!shift_later.has_sub?)
+    if (shift_later = Shift.where("start = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.end, self.user_id, self.location_id, self.calendar.active?).includes(:calendar).first()) && (!shift_later.has_sub?)
           if (self.report.nil? || self.report.departed.nil?) && (shift_later.report.nil?)
             self.end = shift_later.end
             shift_later.sub_requests.each { |s| s.shift = self }
@@ -318,7 +317,7 @@ class Shift < ActiveRecord::Base
             self.save(false)
           end
         end
-        if (shift_earlier = Shift.find(:first, :include => :calendar, :conditions => ["end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?])) && (!shift_earlier.has_sub?)
+        if (shift_earlier = Shift.where("end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?).includes(:calendar).first()) && (!shift_earlier.has_sub?)
           if (self.report.nil?) && (shift_earlier.report.nil? || shift_earlier.report.departed.nil?)
             self.start = shift_earlier.start
             shift_earlier.sub_requests.each {|s| s.shift = self}
@@ -338,7 +337,7 @@ class Shift < ActiveRecord::Base
   def exceeds_max_staff?
     count = 0
     shifts_in_period = []
-    Shift.find(:all, :conditions => {:location_id => self.location_id, :scheduled => true}).each do |shift|
+    Shift.where(:location_id => self.location_id, :scheduled => true).each do |shift|
       shifts_in_period << shift if (self.start..self.end).overlaps?(shift.start..shift.end) && self.end != shift.start && self.start != shift.end
     end
     increment = self.department.department_config.time_increment
@@ -421,7 +420,7 @@ class Shift < ActiveRecord::Base
   end
 
   def sub_request
-    SubRequest.where(:shift_id == self.id)
+    SubRequest.where(:shift_id => self.id).first
   end
 
 
@@ -489,9 +488,9 @@ class Shift < ActiveRecord::Base
 
   def user_does_not_have_concurrent_shift
     if self.calendar.active
-      c = Shift.find(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}"])
+      c = Shift.where("#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:active.to_sql_column} = #{true.to_sql}")
     else
-      c = Shift.find(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}"])
+      c = Shift.where("#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:department_id.to_sql_column} = #{self.department.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql}")
     end
     unless c.empty?
       errors.add_to_base("#{self.user.name} has an overlapping shift in that period.") unless (c.length == 1  and  self.id == c.first.id)
