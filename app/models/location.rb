@@ -1,25 +1,4 @@
 class Location < ActiveRecord::Base
-  belongs_to :loc_group
-
-  scope :active, :conditions => {:active => true}
-  scope :in_group,
-    lambda {|loc_group,*order| {
-      :conditions => {:loc_group_id => loc_group.id},
-      :order => order.flatten.first || 'priority ASC'
-  }}
-
-  has_many :time_slots
-	has_many :template_time_slots
-  has_many :shifts
-  # has_many :locations_requested_shifts
-  # has_many :requested_shifts, :through => :locations_requested_shifts
-  #   has_many :locations_shift_preferences
-  # has_many :shift_preferences, :through => :locations_shift_preferences
-  has_and_belongs_to_many :data_objects
-
-	has_and_belongs_to_many :requested_shifts
-  belongs_to :category
-
   validates_presence_of :loc_group
   validates_presence_of :name
   validates_presence_of :description
@@ -34,6 +13,30 @@ class Location < ActiveRecord::Base
   validates_uniqueness_of :short_name, :scope => :loc_group_id
   validate :max_staff_greater_than_min_staff
 
+  scope :active, :conditions => {:active => true}
+  scope :in_group,
+    lambda {|loc_group,*order| {
+      :conditions => {:loc_group_id => loc_group.id},
+      :order => order.flatten.first || 'priority ASC'
+  }}
+
+  belongs_to :loc_group
+  has_many :time_slots
+  has_many :template_time_slots
+  has_many :shifts
+  # has_many :locations_requested_shifts
+  # has_many :requested_shifts, :through => :locations_requested_shifts
+  #   has_many :locations_shift_preferences
+  # has_many :shift_preferences, :through => :locations_shift_preferences
+  has_and_belongs_to_many :data_objects
+  has_and_belongs_to_many :requested_shifts
+  # These connect a location with the superclass notice and its subclasses
+  has_and_belongs_to_many :notices
+  has_and_belongs_to_many :announcements, :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :links,         :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :stickies,      :join_table => :locations_notices, :association_foreign_key => :notice_id
+
+
   delegate :department, :to => :loc_group
 
   def admin_permission
@@ -43,43 +46,13 @@ class Location < ActiveRecord::Base
   def locations
     [self]
   end
-
+  
+  # Announcements and Stickies, not Links
   def current_notices
-		return self.announcements + self.stickies
-#   ActiveRecord::Base.transaction do
-#       a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
-#       b = Sticky.active.collect(&:id)
-#       c = Announcement.active.collect(&:id)
-#       Notice.find(a & (b + c))
-#     end
-
+    ((self.notices & Notice.active_notices) + Notice.active.global).uniq
   end
 
-  def stickies
-     ActiveRecord::Base.transaction do
-        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
-        b = Sticky.active.collect(&:id)
-        Sticky.find(a & b).sort_by{|s| s.start}
-      end
-  end
-
-  def announcements
-     ActiveRecord::Base.transaction do
-        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
-        b = Announcement.active.collect(&:id)
-        Announcement.find(a & b).sort_by{|a| a.start}
-      end
-  end
-
-  def links
-     ActiveRecord::Base.transaction do
-        a = LocationSinksLocationSource.find(:all, :conditions => ["location_sink_type = 'Notice' AND location_source_type = 'Location' AND location_source_id = #{self.id.to_sql}"]).collect(&:location_sink_id)
-        b = Link.active.collect(&:id)
-        Link.find(a & b)
-      end
-  end
-
-  def restrictions #TODO: this could probalby be optimized
+  def restrictions #TODO: this could probalbly be optimized
     Restriction.current.select{|r| r.locations.include?(self)}
   end
 
@@ -130,7 +103,7 @@ class Location < ActiveRecord::Base
   def shifts_between(start_time, end_time)
     start_time = start_time.to_time
     end_time = end_time.to_time
-    shifts = Shift.find(:all, :conditions => ["start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql} AND active is true"])
+    shifts = Shift.where("start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql} AND active is true")
   end
 
   def summary_stats(start_date, end_date)

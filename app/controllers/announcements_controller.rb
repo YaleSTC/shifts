@@ -52,7 +52,7 @@ class AnnouncementsController < NoticesController
   end
 
   def update
-    @announcement = Announcement.where(:id == params[:id] ).first || Announcement.new 
+    @announcement = Announcement.where(:id => params[:id] ).first || Announcement.new 
     parse_date_and_time_output(params[:announcement])
     join_date_and_time(params[:announcement])
 		@announcement.update_attributes(params[:announcement])

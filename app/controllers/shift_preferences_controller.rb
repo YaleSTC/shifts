@@ -5,7 +5,7 @@ class ShiftPreferencesController < ApplicationController
   before_filter :require_proper_template_role
 
   def index
-    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+    @week_template = Template.where(:id => params[:template_id]).first()
     @shift_preferences = @week_template.shift_preferences.sort_by{|shift_preferences| [shift_preferences.user.reverse_name]}
     respond_to do |format|
       format.html # index.html.erb
@@ -23,13 +23,13 @@ class ShiftPreferencesController < ApplicationController
   end
 
   def new
-		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@week_template = Template.where(:id => params[:template_id]).first()
     @shift_preference = ShiftPreference.new
     @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
     @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
     @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
     @locations = @week_template.timeslot_locations
-    @user_shift_preference = @week_template.shift_preferences.where(:id == current_user.id)
+    @user_shift_preference = @week_template.shift_preferences.where(:id => current_user.id).first
     if @user_shift_preference
     	redirect_to edit_template_shift_preference_path(@week_template, @user_shift_preference) and return
     end
@@ -40,7 +40,7 @@ class ShiftPreferencesController < ApplicationController
   end
 
   def edit
-    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+    @week_template = Template.where(:id => params[:template_id]).first()
     @shift_preference = ShiftPreference.find(params[:id])
     @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
     @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
@@ -49,7 +49,7 @@ class ShiftPreferencesController < ApplicationController
   end
 
   def create
-		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@week_template = Template.where(:id => params[:template_id]).first()
     @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
     @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
     @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
@@ -84,7 +84,7 @@ class ShiftPreferencesController < ApplicationController
   end
 
   def update
-    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+    @week_template = Template.where(:id => params[:template_id]).first()
     @shift_preference = ShiftPreference.find(params[:id])
     @hours_week = (@week_template.min_total_hours..@week_template.max_total_hours).to_a
     @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
@@ -107,7 +107,7 @@ class ShiftPreferencesController < ApplicationController
   end
 
   def destroy
-    @week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+   @week_template = Template.where(:id => params[:template_id]).first()
     @shift_preference = ShiftPreference.find(params[:id])
     @shift_preference.destroy
     respond_to do |format|

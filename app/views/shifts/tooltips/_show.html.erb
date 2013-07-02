@@ -1,10 +1,3 @@
-<%#do we still need this ie code?%>
-<script type="text/javascript">var ie = false;</script>
-<!--[if IE]>
-<script type="text/javascript">ie = true;</script>
-<![endif]-->
-
-
 <%= render :partial => '/tooltips/close_tooltip'%>
 
 <% if (current_user.is_admin_of?(current_department) or ( current_user == @shift.user and @shift.calendar.public? and !@shift.calendar.active? )) and @shift.scheduled? %>

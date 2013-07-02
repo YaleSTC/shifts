@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   layout proc{ |c| c.params[:format] == "js" ? false : "reports" }
 
   def show
-    @report = params[:id] ? Report.find(params[:id]) : Report.where(:shift_id == params[:shift_id]).first
+    @report = params[:id] ? Report.find(params[:id]) : Report.where(:shift_id => params[:shift_id]).first
     # @tasks = Task.in_location(@report.shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a")}
     tasks = Task.in_location(@report.shift.location).active.after_now
     # filters out daily and weekly tasks scheduled for a time later in the day

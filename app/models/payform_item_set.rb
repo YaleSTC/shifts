@@ -16,7 +16,7 @@ class PayformItemSet < ActiveRecord::Base
 
 private
   def payform_item_creation
-    errors.add("Users did not add properly.", "") if PayformItem.where(:payform_item_set_id == self.id) == nil
+    errors.add("Users did not add properly.", "") if PayformItem.where(:payform_item_set_id => self.id).first == nil
   end
 
 end
