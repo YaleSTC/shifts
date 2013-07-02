@@ -147,7 +147,7 @@ class ShiftsController < ApplicationController
         format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
         format.js
       end
-  else
+    else
       respond_to do |format|
         format.html{ render :action => 'new' }
         format.js do

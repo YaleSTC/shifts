@@ -27,11 +27,6 @@ function initialize(element) {
     e.stopPropagation();
   });
 
-  $(element+' li.click_to_add_new').click(function (e) {
-    popup_new($(this), e, this);
-    return false;
-  });
-
   $(element+' li.click_to_show').click(function (e) {
     popup_show($(this), e);
     return false;
@@ -72,15 +67,6 @@ function initialize(element) {
     return false;
   });
 
-    //don't stop links from firing
-    // $(element+' li.click_to_edit_timeslot a').click(function (e) {
-    //   e.stopPropagation();
-    // });
-    //
-    // $(element+' li.click_to_edit_shift a').click(function (e) {
-    //   e.stopPropagation();
-    // });
-
   $(element+' li.click_to_edit_shift a.delete_link').click(function (e) {
     e.stopPropagation();
   });
@@ -99,7 +85,6 @@ function popup_show(parent_element, e){
 
   loading_tooltip(e.pageX, e.pageY);
   $.ajax({dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
-  // $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
 }
 
 function loading_tooltip(x,y){
@@ -113,16 +98,6 @@ function getXOffset(element){
       element = element.offsetParent;
   }
   return x;
-}
-
-function popup_show(parent_element, e){
-  $("#tooltip").remove();
-  
-  var id = parent_element.attr('id').substring(5); //remove "shift" from id
-
-  loading_tooltip(e.pageX, e.pageY);
-  $.ajax({dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
-  // $.ajax({dataType:'script', type:'get', url:'<%= shifts_path %>/'+id, async: false});
 }
 
 function popup_new(parent_element, e, raw_element){
@@ -177,15 +152,15 @@ function popup_new_timeslot(parent_element, e, raw_element){
 
   var elementID = parent_element.attr('id');
   var params = elementID.split("_", 2);
-    var locationID = params[0].substring(8); //remove "location" from id
+  var locationID = params[0].substring(8); //remove "location" from id
 
-    //cursor position magic
-    var relX = e.pageX - getXOffset(raw_element);
-    var widthPercentage = relX / parent_element.width();
-    var date = params[1];
+  //cursor position magic
+  var relX = e.pageX - getXOffset(raw_element);
+  var widthPercentage = relX / parent_element.width();
+  var date = params[1];
 
-    loading_tooltip(e.pageX, e.pageY);
-    $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath, async: false});
+  loading_tooltip(e.pageX, e.pageY);
+  $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath, async: false});
 }
 
 function popup_new_shift(parent_element, e, raw_element){
