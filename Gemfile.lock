@@ -156,6 +156,7 @@ DEPENDENCIES
   htmlentities
   icalendar
   letter_opener
+  mail
   mysql
   paperclip (~> 2.3.15)
   prawn

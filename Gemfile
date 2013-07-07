@@ -18,6 +18,7 @@ gem "htmlentities"
 gem "capistrano"
 gem "letter_opener", :group => :development
 gem 'pry-rails', :group => :development
+gem "mail"
 
 #authentication
 gem 'rubycas-client-rails'
