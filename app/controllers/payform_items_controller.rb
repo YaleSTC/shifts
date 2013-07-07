@@ -19,7 +19,7 @@ class PayformItemsController < ApplicationController
     if @payform_item.save
       flash[:notice] = "Successfully created payform item."
         if @payform_item.user != current_user
-          AppMailer.deliver_payform_item_modify_notification(@payform_item, @payform_item.payform.department)
+          UserMailer.deliver_payform_item_modify_notification(@payform_item, @payform_item.payform.department)
         end
       redirect_to @payform_item.payform
     else
@@ -42,7 +42,7 @@ class PayformItemsController < ApplicationController
     @payform_item.updated_by = current_user.name
     if @payform_item.save
       if @payform_item.user != current_user
-        AppMailer.deliver_payform_item_modify_notification(@payform_item, @payform_item.payform.department)
+        UserMailer.deliver_payform_item_modify_notification(@payform_item, @payform_item.payform.department)
       end
       flash[:notice] = "Successfully edited payform item."
       redirect_to @payform_item.payform
@@ -63,7 +63,7 @@ class PayformItemsController < ApplicationController
     return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.department)    
     if @payform_item.update_attributes(:reason => params[:payform_item][:reason], :active => false, :updated_by => current_user.name)
       if @payform_item.payform.user != current_user
-        AppMailer.deliver_payform_item_deletion_notification(@payform_item, @payform_item.department)
+        UserMailer.deliver_payform_item_deletion_notification(@payform_item, @payform_item.department)
       end
       flash[:notice] = "Payform item deleted."
       redirect_to @payform_item.payform
