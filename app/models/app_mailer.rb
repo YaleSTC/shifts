@@ -7,12 +7,12 @@ class AppMailer < ActionMailer::Base
 
   def shift_report(shift, report, dept)
     #If a profile field for queue exists, include it in subject
-    if queue_field = UserProfileField.find(:first, :conditions => {:name => "Queue"})
+    if queue_field = UserProfileField.where(:name => "Queue").first()
       user = shift.user
       queue_text = ""
-      profile_entry = UserProfileEntry.find(:first, :conditions => {
+      profile_entry = UserProfileEntry.where(
                                   :user_profile_id => user.user_profile.id, 
-                                  :user_profile_field_id => queue_field.id} )
+                                  :user_profile_field_id => queue_field.id).first()
       user_queue = profile_entry.content if profile_entry
       queue_text = "(User Queue: #{user_queue})" if user_queue
     end

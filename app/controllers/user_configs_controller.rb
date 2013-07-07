@@ -67,7 +67,7 @@ class UserConfigsController < ApplicationController
   		@users = User.all
   
  			for user in @users
- 				if (Department.find_by_id(user.user_config.default_dept) == current_department)
+ 				if (Department.where(:id => user.user_config.default_dept).first == current_department)
  					this_user_config = user.user_config
   		    this_user_config.send_due_payform_email = true
   		    this_user_config.save

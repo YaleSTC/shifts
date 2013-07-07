@@ -83,7 +83,7 @@ class TimeSlot < ActiveRecord::Base
     else
       out = []
         outer_test.each do |s|
-          out += TimeSlot.find(:all, :conditions => [s.join(" OR ")])
+          out += TimeSlot.where(s.join(" OR "))
         end
       if out.empty?
           outer_make.each do |s|
@@ -115,7 +115,7 @@ class TimeSlot < ActiveRecord::Base
       return ""
     else
       out=big_array.collect do |t_slots|
-        TimeSlot.find(:all, :conditions => [t_slots.collect{|t| "(location_id = #{t.location_id.to_sql} AND active = #{true.to_sql} AND start <= #{t.end.utc.to_sql} AND end >= #{t.start.utc.to_sql})"}.join(" OR ")]).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
+        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id.to_sql} AND active = #{true.to_sql} AND start <= #{t.end.utc.to_sql} AND end >= #{t.start.utc.to_sql})"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
       end
       return out.join(",")
     end

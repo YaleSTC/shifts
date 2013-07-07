@@ -1,5 +1,5 @@
 <% title "Create the first user" %>
-<% form_for @user, :url => create_first_user_path, :html=>{:id=>"first_user_form"} do |f| %>
+<%= form_for @user, :url => create_first_user_path, :html=>{:id=>"first_user_form"} do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :login %><br />
@@ -31,7 +31,7 @@
     <%= f.select(:auth_type, @appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
   </p>
   <% end %>
-  <% if @appconfig.login_options.include?('built-in') %>
+  <%# if @appconfig.login_options.include?('built-in') %>
 <h4> If you plan on using built-in authentication for this user, please provide a password. If you're just using CAS, feel free to leave in blank. </h4>
   <p>
     <%= f.label :password %><br />
@@ -41,7 +41,7 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
   </p>
-  <% end %>
+  <%# end %>
   <h4>After clicking "Submit", you will be redirected to a login page, after which you may use the app normally.</h4>
   <p><%= f.submit "Submit" %></p>
 <% end %>

@@ -39,9 +39,7 @@ class DataObjectsController < ApplicationController
       @end_date = Date.civil(params[:end][:year].to_i, params[:end][:month].to_i, params[:end][:day].to_i)
       @data_entries = DataEntry.for_data_object(@data_object).between_days(@start_date, @end_date)
     else
-      @data_entries = DataEntry.find(:all, :conditions => {:data_object_id => @data_object.id},
-                                           :limit => 50, :offset => offset,
-                                           :order => 'created_at DESC')
+      @data_entries = DataEntry.where(:data_object_id => @data_object.id).limit(50).offset(offset).order("created_at DESC')
     end
   end
 

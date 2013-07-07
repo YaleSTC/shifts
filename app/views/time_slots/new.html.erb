@@ -1,6 +1,6 @@
 <% title "New Time Slot" %>
 
-<% form_for @time_slot do |f| %>
+<%= form_for @time_slot do |f| %>
   <%= f.error_messages %>
   <%= render :partial => 'form', :locals => {:f => f}  %>
   <p><%= f.submit "Add" %></p>

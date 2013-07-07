@@ -1,6 +1,6 @@
 <% title "Edit Time Slot for " + @time_slot.start.to_date.to_s(:just_date_long) %>
 
-<% form_for @time_slot do |f| %>
+<%= form_for @time_slot do |f| %>
   <%= f.error_messages %>
   <%= render :partial => 'form', :locals => {:f => f}  %>
   <p><%= f.submit "Submit" %></p>

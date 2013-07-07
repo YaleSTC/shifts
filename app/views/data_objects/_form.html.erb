@@ -3,7 +3,7 @@
   <%= (render :partial => "data_types/summary", :locals => {:data_type => (params[:data_type_id] ? DataType.find(params[:data_type_id]) : @data_object.data_type) }) if params[:data_type_id]%>
 </div>
 <div style="width: 60%; float:left">
-  <% form_for @data_object do |f| %>
+  <%= form_for @data_object do |f| %>
     <%= f.error_messages %>
     <p>
      <h2> <%= f.label :data_type %></h2>

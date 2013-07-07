@@ -29,7 +29,7 @@ class Department < ActiveRecord::Base
   
 # Returns all users active in a given department
   def active_users
-    joins = DepartmentsUser.find(:all, :conditions => {:department_id => self, :active => true })
+    joins = DepartmentsUser.where(:department_id => self, :active => true)
     joins.map{|j| User.find(j.user_id)}
   end
 
@@ -43,7 +43,7 @@ class Department < ActiveRecord::Base
   end
     
   def sub_requests
-    SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| sub.shift.department == self }
+    SubRequest.where("end >= ?", Time.now).select { |sub| sub.shift.department == self }
   end
   
 #  has_and_belongs_to_many :users

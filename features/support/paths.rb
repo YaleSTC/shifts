@@ -16,7 +16,7 @@ module NavigationHelpers
     when /the list of departments/
       departments_path
     when /the page for the payform for the week "([^\"]*)"/i
-      payform_path(Payform.find_by_date($1.to_date))
+      payform_path(Payform.where(:date =>$1.to_date).first)
     when /the payform for this week/
       go_payforms_path
     when /the payforms page/
@@ -26,7 +26,7 @@ module NavigationHelpers
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/
-      edit_user_config_path(UserConfig.find_by_user_id(@current_user.id))
+      edit_user_config_path(UserConfig.where:user_id => current_user.id).first)
     when /the Application Settings page/
       edit_app_config_path
     when /the department settings page/
@@ -45,12 +45,12 @@ module NavigationHelpers
     when /the data objects page/i
       data_objects_path
     when /the categories page for the "([^\"]*)" department/
-      department_categories_path(Department.find_by_name($1))
+      department_categories_path(Department.where(:name => $1).first)
     when /the login page/
         @appconfig = AppConfig.first
       url_for(:controller => 'user_sessions', :action => 'new')
     when /the page for the user "([^\"]*)"/
-      edit_user_path(User.find_by_login($1))
+      edit_user_path(User.where(:login=> $1).first)
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

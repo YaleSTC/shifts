@@ -1,6 +1,6 @@
 namespace :db do
   def make_empty_profile_entries(department_name)
-    department = Department.find_by_name(department_name)
+    department = Department.where(:name => department_name).first
     users = User.all.select{|u| u.departments.include?(department)}
     all_field_ids = UserProfileField.all.select{|upf| upf.department_id == department.id}.map{|upf| upf.id}
     users.each do |user|

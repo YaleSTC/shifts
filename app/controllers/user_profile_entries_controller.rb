@@ -1,11 +1,11 @@
 class UserProfileEntriesController < ApplicationController
   def index
     @user_profile_entries = UserProfileEntry.all
-    @user_profile_fields = UserProfileField.find(:all, :conditions => {:department_id => @department.id})
+    @user_profile_fields = UserProfileField.where(:department_id => @department.id)
   end
 
   def show
-    @user_profile_fields = UserProfileField.find(:all, :conditions => {:department_id => @department.id})
+    @user_profile_fields = UserProfileField.where(:department_id => @department.id)
 #    @user_profile_entry = UserProfileEntry.find
   end
 
