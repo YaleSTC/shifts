@@ -133,7 +133,7 @@ before_filter :user_login
   
   private
   def user_login
-    @user_profile = UserProfile.where(:user_id => User.where(:login => params[:id]).first})
+    @user_profile = UserProfile.where(:user_id => User.where(:login => params[:id]).first)
   end
   
   def crop_errors
