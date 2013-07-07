@@ -36,14 +36,14 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
-  validates_presence_of :auth_type
+  #validates_presence_of :auth_type
   validates_uniqueness_of :login
   validate :departments_not_empty
 
   extend ActiveSupport::Memoizable
 
   def role=(name)
-    self.roles << Role.find_by_name(name) if name && Role.find_by_name(name)
+    self.roles << Role.where(:name => name).first if name && Role.where(:name => name).first
   end
 
   def role
@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   def self.mass_add(logins, department)
     failed = []
     logins.split(/\W+/).map do |n|
-      if user = self.find_by_login(n)
+      if user = self.where(:login => n).first
         user.departments << department
       else
         user = import_from_ldap(n, department, true)
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   end
 
   def current_shift
-    Shift.find(:first, :conditions=>{:user_id => self.id, :signed_in => true})
+    Shift.where(:user_id => self.id, :signed_in => true).first()
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
-    if DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => dept, :active => true})
+    if DepartmentsUser.where(:user_id => self, :department_id => dept, :active => true).first()
       true
     else
       false
@@ -227,7 +227,7 @@ class User < ActiveRecord::Base
   #returns  upcoming sub_requests user has permission to take.  Default is for all departments
   def available_sub_requests(source)
     @all_subs = []
-    @all_subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| self.can_take_sub?(sub) }.select{ |sub| !sub.shift.missed?}
+    @all_subs = SubRequest.where("end >= ?", Time.now).select { |sub| self.can_take_sub?(sub) }.select{ |sub| !sub.shift.missed?}
    if !source.blank?
        case 
        when source.class.name == "Department"
@@ -247,7 +247,7 @@ class User < ActiveRecord::Base
 
   def toggle_active(department) #TODO why don't we just update the attribues on the current entry and save it?
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first()
     shifts = Shift.for_user(self).select{|s| s.start > Time.now}
     new_entry.attributes = old_entry.attributes
     new_entry.active = !old_entry.active
@@ -272,12 +272,12 @@ class User < ActiveRecord::Base
   end
 
   def payrate(department)
-    DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
+    DepartmentsUser.where(:user_id => self, :department_id => department ).first().payrate
   end
   
   def set_payrate(value, department)
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first()
     new_entry.attributes = old_entry.attributes
     new_entry.payrate = value
     DepartmentsUser.delete_all(:user_id => self, :department_id => department)

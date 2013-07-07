@@ -44,7 +44,7 @@ class LinksController < NoticesController
   end
 
 	def update
-    @link = Link.find_by_id(params[:id]) || Link.new
+    @link = Link.where(:id => params[:id]).first || Link.new
     @link.update_attributes(params[:link])
 		@link.author = current_user		
 		@link.department = current_department

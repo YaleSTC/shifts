@@ -37,7 +37,7 @@
 		<% end %>
 		<% @stats_hash.each do |shift_id, stat_entry| %>
 			<tr>
-				<% s = Shift.find_by_id(stat_entry[:id]) %>
+				<% s = Shift.where(:id => stat_entry[:id]).first %>
 				<td><%=h s.start.to_date %></td>
 				<td><%=h s.user.name %></td>
 				<% if !s.report.nil? %><td id="shift<%=s.id%>" class="<%= s.css_class(current_user) %> click_to_show"><a href="#"><%= stat_entry[:shift] %></td><% else %></a><td><%= stat_entry[:shift] %></td><% end %>

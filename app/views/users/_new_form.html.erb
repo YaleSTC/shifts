@@ -1,4 +1,4 @@
-<% form_for user, :html=>{:id=>"user_form"} do |f| %>
+<%= form_for user, :html=>{:id=>"user_form"} do |f| %>
   <%= f.error_messages %>
   <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
    <h3>Reset Password?</h3>

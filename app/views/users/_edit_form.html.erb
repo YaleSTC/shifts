@@ -4,7 +4,7 @@
 
   <h2>User Information</h2>
 
-  <% form_for user, :html=>{:id=>"user_form"} do |f| %>
+  <%= form_for user, :html=>{:id=>"user_form"} do |f| %>
     <%= f.error_messages :object => [@user, @user_profile_entries] %>
   
     <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>

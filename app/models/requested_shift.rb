@@ -25,11 +25,11 @@ class RequestedShift < ActiveRecord::Base
     									["Saturday", 5],
     									["Sunday", 6] ]
 	def assigned(location)
-		LocationsRequestedShift.find(:all, :conditions => ['requested_shift_id = ?', self.id]).collect{|lrs| Location.find(lrs.location_id)}
+		LocationsRequestedShift.where('requested_shift_id = ?', self.id).collect{|lrs| Location.find(lrs.location_id)}
 	end
 
 	def locations
-		LocationsRequestedShift.find(:all, :conditions => ['requested_shift_id = ?', self.id]).collect{|lrs| Location.find(lrs.location_id)}
+		LocationsRequestedShift.where('requested_shift_id = ?', self.id).collect{|lrs| Location.find(lrs.location_id)}
 	end
 
   def self.day_in_words(day_int)
@@ -49,7 +49,7 @@ class RequestedShift < ActiveRecord::Base
   end
 
 	def assign(location)
-		@location_request = LocationsRequestedShift.find(:first, :conditions => {:requested_shift_id => self.id, :location_id => location.id})
+		@location_request = LocationsRequestedShift.where(:requested_shift_id => self.id, :location_id => location.id).first()
 		@location_request.assigned = true
 		@location_request.save
 	end
@@ -76,7 +76,7 @@ class RequestedShift < ActiveRecord::Base
 
   def user_does_not_have_concurrent_request
 #		Find all other requests of the user that occupy the same time (same day + overlapping acceptable start/end time)
-		c = RequestedShift.find(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:day.to_sql_column} = #{self.day.to_sql} AND #{:acceptable_start.to_sql_column} <= #{self.acceptable_end.to_sql} AND #{:acceptable_end.to_sql_column} >= #{self.acceptable_start.to_sql} AND #{:template_id.to_sql_column} = #{self.template.to_sql} AND #{:id.to_sql_column} != #{self.id.to_sql}"])
+		c = RequestedShift.where("#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:day.to_sql_column} = #{self.day.to_sql} AND #{:acceptable_start.to_sql_column} <= #{self.acceptable_end.to_sql} AND #{:acceptable_end.to_sql_column} >= #{self.acceptable_start.to_sql} AND #{:template_id.to_sql_column} = #{self.template.to_sql} AND #{:id.to_sql_column} != #{self.id.to_sql}")
 #		Now see if any of the other requests have locations that are the same as this request's locations
 		other_locations = c.collect{|request| request.locations}.flatten
 		self.locations.each do |location|	

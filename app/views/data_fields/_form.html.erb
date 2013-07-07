@@ -1,7 +1,7 @@
 <%#= render :partial => 'data_types/progress_bar', :locals => {:current_step => 2} %>
 
 <%= javascript_include_tag 'data_field_input'%>
-<% form_for (params[:id] ? [DataType.find(params[:data_type_id]), @data_field] : [:data_type, @data_field]) do |f| %>
+<%= form_for (params[:id] ? [DataType.find(params[:data_type_id]), @data_field] : [:data_type, @data_field]) do |f| %>
   <%= f.error_messages %>
    <p>
      <%= f.label :name %><br />

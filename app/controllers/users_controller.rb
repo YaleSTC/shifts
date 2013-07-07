@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @user_profile = UserProfile.find_by_user_id((params[:id]))
+    @user_profile = UserProfile.where(:user_id => params[:id]).first
     unless @user_profile.user.departments.include?(@department)
       flash[:error] = "This user does not have a profile in this department."
     end
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    if @user = User.find_by_login(params[:user][:login])
+    if @user = User.where(:login => params[:user][:login]).first
       if @user.departments.include? @department #if user is already in this department
         flash[:notice] = "This user already exists in this department."
       else
@@ -93,7 +93,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @user_profile = UserProfile.find_by_user_id(@user.id)
+    @user_profile = UserProfile.where(:user_id => @user.id).first
     @user_profile_entries = @user.user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
   end
 
@@ -114,7 +114,7 @@ class UsersController < ApplicationController
     params[:user].delete(:role_ids)
     
     #So that the User Profile can be updated as well
-      @user_profile = UserProfile.find_by_user_id(User.find(params[:id]).id)
+      @user_profile = UserProfile.where(:user_id => User.find(params[:id]).id).first
       @user_profile_entries = params[:user_profile_entries]
 
       if @user_profile_entries
@@ -139,7 +139,7 @@ class UsersController < ApplicationController
           end
       end
 
-    @user_profile = UserProfile.find_by_user_id(@user.id)
+    @user_profile = UserProfile.where(:user_id => @user.id).first
     @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
@@ -234,7 +234,7 @@ class UsersController < ApplicationController
     @users=params[:users_to_import].collect{|i| params[:user][i]}
     failures = []
     @users.each do |u|
-      if @user = User.find_by_login(u[:login])
+      if @user = User.where(:login => u[:login]).first
         if @user.departments.include? @department #if user is already in this department
           #don't modify any data, as this is probably a mistake
           failures << {:user=>u, :reason => "User already exists in this department!"}
