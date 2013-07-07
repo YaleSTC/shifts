@@ -45,6 +45,10 @@ class Department < ActiveRecord::Base
   def sub_requests
     SubRequest.where("end >= ?", Time.now).select { |sub| sub.shift.department == self }
   end
+
+  def links
+    Link.where(:department_wide => true)
+  end
   
 #  has_and_belongs_to_many :users
   private

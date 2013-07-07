@@ -7,9 +7,9 @@ class SetNotificationsGlobal < ActiveRecord::Migration
     Notice.active.each do |notice|
       a = notice.locations.active.sort_by(&:name).uniq
       if a == b
-        notice.global = true
+        notice.department_wide = true
       else
-        notice.global = false
+        notice.department_wide = false
       end
       notice.save
     end
@@ -17,7 +17,7 @@ class SetNotificationsGlobal < ActiveRecord::Migration
 
   def self.down
     Notice.active.each do |notice|
-      notice.global = nil
+      notice.department_wide = nil
       notice.save
     end
   end
