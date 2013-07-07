@@ -1,5 +1,4 @@
 class CalendarFeedsController < ApplicationController
-    skip_before_filter filter_chain, :except => [:index]
 
   def index
     @source_types = %w[User Department LocGroup Location]
