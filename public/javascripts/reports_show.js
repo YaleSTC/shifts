@@ -5,3 +5,10 @@ $('#item').keydown(function (e) {
     e.preventDefault;
   }
 });
+
+$('#report_item_submit').click(function () {
+  // $('#report_item_submit').attr('disabled', true);
+  $(this).hide();
+  $('#fake_button').show();
+  return true;
+});
