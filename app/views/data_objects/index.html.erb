@@ -5,6 +5,7 @@
     <div id="group_type">
       <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @selected_type) %>
 
+    <%#TODO: Change this to UJS style when we get jQuery 1.6 working%>
     <%= observe_field('view_options_group_type',
         :url => { :controller => :data_objects,
                   :action => :index,

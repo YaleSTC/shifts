@@ -3,11 +3,11 @@
   <% dt_name = dt[0] %>
   <% dt_data_objects = dt[1] %>
   <% dt_val = nil %>
-	<% header_class = "header_#{normalize_str(dt_name)}" %>
-  <%= check_box_tag "#{normalize_str(dt_name)}", nil, nil, :class => header_class -%>
-  <%= label_tag "#{normalize_str(dt_name)}", "#{dt_name}", :class => header_class -%></h3>
-	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>" -%></div>
-	<%= "<ul class=\"#{header_class}\" id=\"ul\">" %>
+	<% header_class = "header_#{normalize_str(dt_name)}".html_safe %>
+  <%= check_box_tag "#{normalize_str(dt_name)}".html_safe, nil, nil, :class => header_class -%>
+  <%= label_tag "#{normalize_str(dt_name)}", "#{dt_name}".html_safe, :class => header_class -%></h3>
+	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>".html_safe -%></div>
+	<%= "<ul class=\"#{header_class}\" id=\"ul\">".html_safe %>
   <% dt_data_objects.each do |dt_obj| %>
   	<div class="toggle"><li>
 		<% dt_obj_name = dt_obj[0] %>
