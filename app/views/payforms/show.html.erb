@@ -10,7 +10,7 @@
    <div id="cols">
      <div id="cols-header"><%= error_messages_for 'payform' %></div>
      <div id="left-col"><%= render :partial => 'date_select', :locals => {:date => @payform.date } %></div>
-     <div id="right-col"><%= link_to "<span>View all past payforms</span>", payforms_path, :class=>"button" %></div>
+     <div id="right-col"><%= link_to "<span>View all past payforms</span>".html_safe, payforms_path, :class=>"button" %></div>
      <div id="middle-col"></div> 
      <div id="cols-footer"></div>
     </div>
