@@ -6,7 +6,7 @@ class StatsController < ApplicationController
     @user_stats = {}
     @location_stats = {}
     
-    users = current_user.to_a
+    users = [current_user]
     locations = []
     if current_user.is_admin_of?(current_department)
       users = current_department.active_users.sort_by(&:last_name)
@@ -63,9 +63,9 @@ class StatsController < ApplicationController
       @location_stats[l.id] = location_stats
     end
 
-  rescue
-    redirect_to stats_path
-    flash[:notice] = "Please enter a valid date range."
+  # rescue
+  #   redirect_to dashboard_path
+  #   flash[:notice] = "Please enter a valid date range."
   end
 
   def for_user

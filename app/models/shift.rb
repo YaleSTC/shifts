@@ -45,6 +45,7 @@ class Shift < ActiveRecord::Base
   scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
   scope :stats_unsent, :conditions => {:stats_unsent => true}
   scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
+  scope :parsed, :conditions => {:parsed => true}
   scope :unparsed, :conditions => {:parsed => false}
   scope :missed, :conditions => {:parsed => true, :missed => true}
   scope :late, :conditions => {:parsed => true, :late => true}
