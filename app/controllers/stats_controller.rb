@@ -63,9 +63,9 @@ class StatsController < ApplicationController
       @location_stats[l.id] = location_stats
     end
 
-  # rescue
-  #   redirect_to dashboard_path
-  #   flash[:notice] = "Please enter a valid date range."
+  rescue
+    redirect_to dashboard_path
+    flash[:notice] = "Please enter a valid date range."
   end
 
   def for_user
