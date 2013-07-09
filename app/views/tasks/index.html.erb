@@ -21,11 +21,13 @@
 	</tbody>
 </table>
 
-<h4>Expired/Inactive Tasks:</h4>
+<% if !@inactive_tasks.empty? %>
+	<h4>Expired/Inactive Tasks:</h4>
 
-<table class = "tablesorter">
-<%= render :partial => "task", :collection => @inactive_tasks %>
-</table>
+	<table class = "tablesorter">
+	<%= render :partial => "task", :collection => @inactive_tasks %>
+	</table>
+<% end %>
 
 <br />
 

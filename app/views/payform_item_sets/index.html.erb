@@ -15,9 +15,10 @@
   <%= render :partial => "payform_item_set", :collection => @active_sets %>
   </tbody>
 </table>
-Expired sets:
-<table class = "tablesorter">
-  <%= render :partial => "payform_item_set", :collection => @expired_sets %>
-</table>
-
+<% if !@expired_sets.empty? %>
+  Expired sets:
+  <table class = "tablesorter">
+    <%= render :partial => "payform_item_set", :collection => @expired_sets %>
+  </table>
+<% end %>
 <p><%= link_to "Add a Group Job", new_payform_item_set_path %></p>
