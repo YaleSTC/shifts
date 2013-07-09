@@ -71,7 +71,7 @@ class ShiftsController < ApplicationController
         format.html #freak out
         format.js do
           render :update do |page|
-            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.")
+            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.".html_safe)
             page.hide "tooltip"
           end
         end
@@ -82,7 +82,9 @@ class ShiftsController < ApplicationController
   end
 
   def show_active
-    @signed_in_shifts = Shift.signed_in(current_department).group_by(&:loc_group).sort_by(&:id)
+    @signed_in_shifts = Shift.signed_in(current_department).group_by(&:loc_group).each do |loc_group, shifts|
+      shifts = shifts.sort_by(&:id)
+    end
   end
 
   def show_unscheduled

@@ -1,4 +1,4 @@
-<%= payform_item_set.active ? "<tr>" : "<tr class = 'disabled'>" %>	
+<%= payform_item_set.active ? "<tr>".html_safe : "<tr class='disabled'>".html_safe %>	
   <td><%= link_to payform_item_set.date, edit_payform_item_set_path(payform_item_set) %></td>
   <% unless mobile_device?%>
   <td><%= payform_item_set.hours %></td>
