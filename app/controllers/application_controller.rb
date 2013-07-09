@@ -265,7 +265,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_check
-    if !User.all.any?
+    if User.all.empty?
       redirect_to first_app_config_path
     elsif !current_user
       if @appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
