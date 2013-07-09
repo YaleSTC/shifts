@@ -35,7 +35,7 @@ class AppMailer < ActionMailer::Base
 #    body        :sub => sub
 #  end
 
- def sub_taken_notification(sub_request, new_shift, dept)
+  def sub_taken_notification(sub_request, new_shift, dept)
     recipients  sub_request.shift.user.email
     cc          new_shift.user.email
     from        dept.department_config.mailer_address
