@@ -1,4 +1,4 @@
-//if @key_word.empty?
-//else
+if @key_word.empty?
+else
 window.open('#{@search_url.to_s}', '_blank','menubar=1,resizable=1');
-//end
+end
