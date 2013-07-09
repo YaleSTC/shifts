@@ -1,6 +1,6 @@
 class FirstRunController < ApplicationController
-  skip_before_filter :login_check
-  skip_before_filter :load_user
+  skip_before_filter :login_check, :if => Proc.new {User.first}
+  before_filter :redirect_if_not_first_run
   
 
   def new_app_config 
