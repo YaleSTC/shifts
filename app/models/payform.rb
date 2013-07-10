@@ -10,8 +10,6 @@ class Payform < ActiveRecord::Base
   attr_accessor :start_date
   attr_accessor :end_date
 
-  #acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
-
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
