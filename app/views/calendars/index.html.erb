@@ -35,7 +35,7 @@
  </thead>
   <% for calendar in @calendars %>
  <tbody>
-  <%= (!calendar.active? and @calendar.nil?) ? "<tr class='disabled'>" : "<tr>" %>
+  <%= (!calendar.active? and @calendar.nil?) ? "<tr class='disabled'>".html_safe : "<tr>".html_safe %>
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
 	  <% unless mobile_device?%>
       <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
@@ -71,7 +71,7 @@
 <%= render :partial => 'shifts/schedule/footer' %>
 
 <%= javascript_tag do %>
-  calendar = "<%= calendar.nil? ? 'true' : @calendar.id %>";
+  calendar = "<%= @calendar.nil? ? 'true' : @calendar.id %>";
   newTimeSlotPath = '<%= new_time_slot_path %>';
   newShiftPath = '<%= new_shift_path %>';
   timeSlotsPath = '<%= time_slots_path %>';
