@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :prepare_for_mobile
   before_filter :load_user
 
-  helper :layout # include all helpers, all the time (whyy? -Nathan)
+  helper :layout
   helper :application
 
   #Replaced with similar prototype legacy helper plugin
