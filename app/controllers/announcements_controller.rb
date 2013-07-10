@@ -23,8 +23,11 @@ class AnnouncementsController < NoticesController
   end
 
   def create
+    binding.pry
     parse_date_and_time_output(params[:announcement])
+    binding.pry
     join_date_and_time(params[:announcement])
+    binding.pry
     @announcement = Announcement.new(params[:announcement])
 		set_author_dept_and_time
 		current_user.current_shift ? @current_shift = current_user.current_shift : nil
