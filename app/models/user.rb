@@ -1,7 +1,6 @@
 require 'net/ldap'
+require 'rails_extensions'
 class User < ActiveRecord::Base
-  acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
-  acts_as_csv_exportable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
@@ -340,12 +339,24 @@ class User < ActiveRecord::Base
     return detailed_stats
   end
 
+  # Defines the columns that we use for CSV files
+  def self.csv_headers
+    ['login', 'first_name', 'nick_name', 'last_name', 'email', 'employee_id', 'role']
+  end
+
   def self.to_csv
     CSV.generate do |csv|
-      csv << [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
+      csv << User.csv_headers
       all.each do |user|
-        csv << user.attributes.values_at 'login', 'first_name', 'nick_name', 'last_name', 'email', 'employee_id', 'role'
+        csv << user.attributes.values_at(*User.csv_headers)
       end
+    end
+  end
+
+  # Creates new User entries based on the specified CSV file
+  def self.import(file)
+    CSV.foreach(file.path, :headers => true) do |row|
+      User.create! row.to_hash
     end
   end
   
