@@ -33,6 +33,7 @@
 	<% end %>
   </tr>
  </thead>
+ <%= javascript_tag "var calendar_visible = new Array()" %>
   <% for calendar in @calendars %>
  <tbody>
   <%= (!calendar.active? and @calendar.nil?) ? "<tr class='disabled'>".html_safe : "<tr>".html_safe %>
@@ -49,10 +50,12 @@
         <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
         <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
-	  <% end %>
+    <% end %>
     </tr>
   </tbody>
-    <script>calendar_visible[<%=calendar.id%>] = <%= (@calendar ? calendar == @calendar : calendar.active?) %>;</script>
+  <%= javascript_tag do %>
+    calendar_visible[<%=calendar.id%>] = <%= (@calendar ? calendar == @calendar : calendar.active?) %>;
+  <% end %>
   <% end %>
 </table>
 
