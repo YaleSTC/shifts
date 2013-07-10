@@ -339,6 +339,15 @@ class User < ActiveRecord::Base
     
     return detailed_stats
   end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
+      all.each do |user|
+        csv << user.attributes.values_at 'login', 'first_name', 'nick_name', 'last_name', 'email', 'employee_id', 'role'
+      end
+    end
+  end
   
   private
 
