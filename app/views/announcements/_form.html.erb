@@ -1,4 +1,4 @@
-<% calculate_default_times_announcements %>
+  <% calculate_default_times_announcements %>
 
 <br/>
 <% form_remote_for(@announcement) do |f| %>
@@ -14,13 +14,15 @@
 	<div id = "time_choices">
 <!--
 start time cannot currently be set. We need to simultaneously develop the ability to see announcements which haven't posted yet. Also change in announcements_controller "def set_author_dept_and_time" to accept start time again.
+ALSO WATCH OUT. If we decide to make this work, you'll get a mass assignment error if you don't delete the parameters
+start(1i), start(2i).. start(5i) start(i)
+  <fieldset class = "index">
+    <legend>Start time:</legend>
+    <%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
+    <%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
+    <label><%= f.datetime_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %></label>
+  </fieldset>
 -->
-	<fieldset class = "index">
-		<legend>Start time:</legend>
-		<%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
-		<%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
-		<label><%= f.datetime_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %></label>
-	</fieldset>
 
   <fieldset class = "index">
     <legend>End time:</legend>
