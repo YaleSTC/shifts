@@ -8,7 +8,7 @@ class PunchClocksController < ApplicationController
 
   def create
     @punch_clock = PunchClock.new({:user => current_user, :department => current_department, :runtime => 0, :last_touched => Time.now})
-    @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in." + "<br/>" + @punch_clock.errors.full_messages.join("\n")
+    @punch_clock.save ? flash[:notice] = "Successfully clocked in." : flash[:error] = "Could not clock in.<br/>".html_safe + @punch_clock.errors.full_messages.join("\n")
     redirect_to dashboard_url
   end
 
