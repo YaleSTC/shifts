@@ -1,13 +1,4 @@
 module NoticesHelper
-
-  # This don't work anymore, fixing with dept-wide column in notices soon -Hugh
-  # def department_checked?(dept, notice)
-  #  notice.departments.each do |d|
-  #     return true if d == dept
-  #   end
-  #   false
-  # end
-
   def loc_group_checked_notice?(loc_group, notice)
     notice.loc_groups.each do |lg|
       return true if lg == loc_group
