@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 gem "ruby-net-ldap", :require => "net/ldap"
-gem "fastercsv"
 gem "icalendar"
 gem "prawn"
 gem "chronic"
