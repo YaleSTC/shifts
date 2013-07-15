@@ -113,7 +113,7 @@ function popup_new(parent_element, e, raw_element){
   var widthPercentage = relX / parent_element.closest('.events').width();
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath, async: false});
+  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath});
 }
 
 
