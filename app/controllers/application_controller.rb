@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user
-    @current_user = (@user_session && @user_session.user) || User.where(:login => session[:cas_user]).first || User.import_from_ldap(session[:cas_user], true)
+    @current_user = (@user_session && @user_session.user) || User.where(:login => session[:cas_user]).first
   end
 
   def load_user_session

@@ -85,8 +85,8 @@ class User < ActiveRecord::Base
     logins.split(/\W+/).map do |n|
       if user = self.where(:login => n).first
         user.departments << department
-      else
-        user = import_from_ldap(n, department, true)
+      # else
+      #   user = import_from_ldap(n, department, true)
       end
       failed << "From login #{user.login}: #{user.errors.full_messages.to_sentence} (LDAP import may have failed)" if user.new_record?
     end
