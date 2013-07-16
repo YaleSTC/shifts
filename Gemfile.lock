@@ -53,6 +53,11 @@ GEM
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
+    delayed_job (3.0.5)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.4.4)
+      activerecord (>= 2.1.0, < 4)
+      delayed_job (~> 3.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastercsv (1.5.5)
@@ -74,6 +79,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     mysql (2.9.1)
+    mysql (2.9.1-x86-mingw32)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -100,6 +106,11 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry (0.9.12.2-x86-mingw32)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     pry-rails (0.3.1)
       pry (>= 0.9.10)
     rack (1.2.8)
@@ -142,9 +153,11 @@ GEM
     whenever (0.8.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
+    win32console (1.3.2-x86-mingw32)
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   airbrake
@@ -152,6 +165,7 @@ DEPENDENCIES
   authlogic
   capistrano
   chronic
+  delayed_job_active_record
   fastercsv
   htmlentities
   icalendar

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619210814) do
+ActiveRecord::Schema.define(:version => 20121205044916) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.integer  "department_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "billing_code"
   end
 
   create_table "data_entries", :force => true do |t|
@@ -124,7 +123,6 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.integer  "task_leniency",        :default => 60
     t.string   "search_engine_name",   :default => "Google"
     t.string   "search_engine_url",    :default => "http://www.google.com/search?q="
-    t.integer  "default_category_id"
   end
 
   create_table "departments", :force => true do |t|
@@ -136,7 +134,7 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.datetime "updated_at"
   end
 
-  create_table "departments_users", :force => true do |t|
+  create_table "departments_users", :id => false, :force => true do |t|
     t.integer  "department_id"
     t.integer  "user_id"
     t.boolean  "active",                                       :default => true
@@ -168,9 +166,11 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.boolean  "active",            :default => true
   end
 
-  create_table "loc_groups_notices", :id => false, :force => true do |t|
-    t.integer "loc_group_id"
-    t.integer "notice_id"
+  create_table "location_sinks_location_sources", :id => false, :force => true do |t|
+    t.integer "location_sink_id"
+    t.string  "location_sink_type"
+    t.integer "location_source_id"
+    t.string  "location_source_type"
   end
 
   create_table "locations", :force => true do |t|
@@ -187,15 +187,9 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
-    t.integer  "category_id"
   end
 
-  create_table "locations_notices", :id => false, :force => true do |t|
-    t.integer "location_id"
-    t.integer "notice_id"
-  end
-
-  create_table "locations_requested_shifts", :id => false, :force => true do |t|
+  create_table "locations_requested_shifts", :force => true do |t|
     t.integer  "requested_shift_id"
     t.integer  "location_id"
     t.boolean  "assigned",           :default => false
@@ -203,7 +197,7 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.datetime "updated_at"
   end
 
-  create_table "locations_shift_preferences", :id => false, :force => true do |t|
+  create_table "locations_shift_preferences", :force => true do |t|
     t.integer  "shift_preference_id"
     t.integer  "location_id"
     t.string   "kind"
@@ -212,9 +206,9 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
   end
 
   create_table "notices", :force => true do |t|
-    t.boolean  "sticky",          :default => false
-    t.boolean  "useful_link",     :default => false
-    t.boolean  "announcement",    :default => false
+    t.boolean  "sticky",        :default => false
+    t.boolean  "useful_link",   :default => false
+    t.boolean  "announcement",  :default => false
     t.boolean  "indefinite"
     t.text     "content"
     t.integer  "author_id"
@@ -226,7 +220,6 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.datetime "updated_at"
     t.string   "url"
     t.string   "type"
-    t.boolean  "department_wide"
   end
 
   create_table "payform_item_sets", :force => true do |t|
@@ -542,6 +535,13 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.integer  "crop_y"
     t.integer  "crop_h"
     t.integer  "crop_w"
+  end
+
+  create_table "user_sinks_user_sources", :id => false, :force => true do |t|
+    t.integer "user_sink_id"
+    t.string  "user_sink_type"
+    t.integer "user_source_id"
+    t.string  "user_source_type"
   end
 
   create_table "users", :force => true do |t|
