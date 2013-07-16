@@ -19,14 +19,15 @@ class UserMailer < ActionMailer::Base
       queue_text = "(User Queue: #{user_queue})" if user_queue
     end
 
-    recipients  shift.user.email
-    unless shift.location.report_email.blank?
-      cc        shift.location.report_email
+    @shift = shift
+    @report = report
+    if shift.location.report_email.blank?
+      mail(:to => shift.user.email, :from => shift.user.email, 
+      :subject => "Shift Report: #{shift.short_display} #{queue_text}", :date => Time.now, )
+    else
+    mail(:to => shift.user.email, :from => shift.user.email, 
+      :subject => "Shift Report: #{shift.short_display} #{queue_text}", :date => Time.now, :cc => shift.location.report_email)
     end
-    from        shift.user.email
-    subject     "Shift Report: #{shift.short_display} #{queue_text}"
-    sent_on     Time.now
-    body        :shift => shift, :report => report
   end
 
 #  def sub_created_notify(sub)
