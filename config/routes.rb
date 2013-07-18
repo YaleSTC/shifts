@@ -165,6 +165,7 @@ Shifts::Application.routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
   # TODO: What are these?
   # map.connect '/reports/http://www.google.com', :controller => "reports", :action => "redirect_to_external_url"
   # map.connect '/reports/http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=', :controller => "reports", :action => "redirect_to_external_url"

@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "Yale@yale.edu"
+  default :from => "mail.yale.edu"
   
   def registration_confirmation(user)
     mail(:to => user.email, :subject => "Registered")
@@ -86,4 +86,100 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Password Creation Instructions",
     	:date => Time.now)
   end
+  
+  #///////////////////////
+  #Imported from ArMailer:
+  #///////////////////////
+
+  #For use when users are imported from csv
+  def new_user_password_instructions_csv(user, dept)
+    @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
+    mail(:to => user.email, :from => AppConfigfirst.mailer_address, 
+      :subject => "Password Creation Instructions", :date => Time.now, 
+  end
+
+  #Beginning of payform notification methods
+  def due_payform_reminder(user, message, dept)
+    @user => user
+    @message => message
+    mail(:to => "#{user.name} <#{user.email}>", :from => "#{dept.department_config.mailer_address}",
+      :subject => "Due Payforms Reminder", :date => Time.now)
+  end
+
+  def late_payform_warning(user, message, dept)
+    @user = user
+    @message = message
+    mail(:to => "#{user.name} <#{user.email}>", :from => "#{dept.department_config.mailer_address}",
+      :subject => "Late Payform Warning", :date => Time.now)
+  end
+
+  #this code is currently not used anywhere in the code so Adam told me to comment it out for now. - Maria
+  # def printed_payforms_notification(admin_user, message, attachment_name)
+  #   subject       'Printed Payforms ' + Date.today.strftime('%m/%d/%y')
+  #   recipients    "#{admin_user.email}"
+  #   from          "#{dept.department_config.mailer_address}"
+  #   sent_on       Time.now
+  #   content_type  'text/plain'
+  #   body        :message => message
+  #   attachment  :content_type => "application/pdf",
+  #               :body         => File.read("data/payforms/" + attachment_name),
+  #               :filename     => attachment_name
+  # end
+
+  #Notifies a user when somebody else edits their payform
+  def admin_edit_notification(payform, payform_item, edit_item, dept)
+    @payform = payform
+    @payform_item = payform_item
+    @edit_item = edit_item
+    user = payform.user
+    mail(:to => "#{user.name} <#{user.email}>", :from => dept.department_config.mailer.address,
+      :subject => "Your payform has been edited", :date => Time.now, :cc => User.where(:login => edit_item.edited_by).first.email
+      :content_type => 'text/plain')
+  end
+
+  # SUB REQUEST:
+  # email the specified list or default list of eligible takers
+  def sub_created_notify(user, sub)
+    @sub = sub
+    mail(:to => "#{user.name} <#{user.email}>", :from => sub.user.email,
+      :subject => "[Sub Request] Sub needed for " + sub.shift.short_display, :date => Time.now)
+  end
+
+  #email a group of users who want to see whenever a sub request is taken
+  def sub_taken_watch(user, sub_request, new_shift, email_start, email_end, dept)
+    @sub_request = sub_request
+    @new_shift = new_shift
+    @email_start = email_start
+    @email_end = email_end
+    mail(:to => "#{user.name} <#{user.email}>", :from => sub_request.shift.user.email,
+      :subject => "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display, :date => Time.now)
+  end
+
+
+  #email the user who took the sub and the requester of the sub that their shift has been taken
+  def sub_taken_notification(sub_request, new_shift, dept)
+    @sub_request = sub_request
+    @new_shift = new_shift
+    mail(:to => sub_request.shift.user.email, :from => dept.department_config.mailer_address, 
+      subject: "[Sub Request] #{new_shift.user.name} took your sub!", :date => Time.now)
+  end
+
+  #EMAILING STATS
+  #email notifies admin that a shift has been missed, was signed into late, or was left early
+  def email_stats (missed_shifts, late_shifts, left_early_shifts, dept)
+    @missed_shifts = missed_shifts
+    @late_shifts = late_shifts
+    @left_early_shifts = left_early_shifts
+    mail(:to => dept.department_config.stats_mailer_address, :from => dept.department_config.mailer_address, 
+      :subject => "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y'), :date => Time.now,
+      :content_type => "text/html") #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
+  end
+
+  #STALE SHIFTS
+  #an email is sent to a student if they have been inactive in their shift for an hour
+  def stale_shift(user, stale_shift, dept) 
+    @user = user
+    @stale_shift = stale_shift
+    mail(:to => "#{user.name} <#{user.email}>", :from => dept.department_config.mailer_address, 
+      :subject => "Your Shift in the #{stale_shift.location.name} has been inactive for at least an hour.", :date => Time.now)
 end

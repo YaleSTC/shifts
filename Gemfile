@@ -22,7 +22,9 @@ gem "htmlentities"
 gem "letter_opener", :group => :development
 gem 'pry-rails', :group => :development
 gem "mail"
+gem "tlsmail"
 gem "delayed_job_active_record"
+gem "delayed_job_web"
 #authentication
 gem 'rubycas-client-rails'
 gem 'rubycas-client', '2.2.1'
