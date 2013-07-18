@@ -73,13 +73,13 @@ class UsersController < ApplicationController
       @user.set_random_password
       @user.departments << @department unless @user.departments.include?(@department)
       if @user.save
-        UserMailer.registration_confirmation(@user).deliver
+        UserMailer.delay.registration_confirmation(@user)
         @user.set_payrate(params[:payrate], @department)
         UserProfileField.all.each do |field|
           UserProfileEntry.create!(:user_profile_id => @user.user_profile.id, :user_profile_field_id => field.id)
         end
         if @user.auth_type == 'built-in' #What is going on here?
-          @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.new_user_password_instructions(n, current_department).deliver})
+          @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.delay.new_user_password_instructions(n, current_department)})
           flash[:notice] = "Successfully created user and emailed instructions for setting password."
         else
           flash[:notice] = "Successfully created user."
@@ -141,15 +141,16 @@ class UsersController < ApplicationController
 
     @user_profile = UserProfile.where(:user_id => @user.id).first
     @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
+ 
     @user.set_random_password if params[:reset_password]
-    @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.change_auth_type_password_reset_instructions(n).deliver}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
+    @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.delay.change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
     
     
     
     if @user.update_attributes(params[:user])
       @user.set_payrate(params[:payrate].gsub(/\$/,""), @department) if params[:payrate]
       flash[:notice] = "Successfully updated user."
-      @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.admin_password_reset_instructions(n).deliver}) if params[:reset_password]
+      @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.delay.admin_password_reset_instructions(n)}) if params[:reset_password]
       redirect_to @user
     else
       render :action => 'edit'
@@ -250,7 +251,7 @@ class UsersController < ApplicationController
         @user.set_random_password
         @user.departments << @department unless @user.departments.include?(@department)
         if @user.save
-          @user.deliver_password_reset_instructions!(Proc.new {|n| ArMailer.deliver_new_user_password_instructions(n, current_department)}) if @user.auth_type=='built-in'
+          @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.delay.new_user_password_instructions_csv(n, current_department)}) if @user.auth_type=='built-in'
         else
           failures << {:user=>u, :reason => "Check all fields to make sure they\'re ok"}
         end

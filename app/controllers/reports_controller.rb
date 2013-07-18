@@ -78,7 +78,7 @@ class ReportsController < ApplicationController
                                       "date"=>Date.today,
                                       "description"=> @report.short_description,
                                       "source_url" => shift_report_path(@report.shift))
-        UserMailer.shift_report(@report.shift, @report, @report.shift.department).deliver
+        UserMailer.delay.shift_report(@report.shift, @report, @report.shift.department)
         if @payform_item.save
           flash[:notice] = "Successfully submitted report and updated payform."
         else
