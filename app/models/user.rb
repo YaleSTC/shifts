@@ -1,7 +1,6 @@
 require 'net/ldap'
+require 'rails_extensions'
 class User < ActiveRecord::Base
-  acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
-  acts_as_csv_exportable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
@@ -86,8 +85,8 @@ class User < ActiveRecord::Base
     logins.split(/\W+/).map do |n|
       if user = self.where(:login => n).first
         user.departments << department
-      else
-        user = import_from_ldap(n, department, true)
+      # else
+      #   user = import_from_ldap(n, department, true)
       end
       failed << "From login #{user.login}: #{user.errors.full_messages.to_sentence} (LDAP import may have failed)" if user.new_record?
     end
@@ -338,6 +337,27 @@ class User < ActiveRecord::Base
     end
     
     return detailed_stats
+  end
+
+  # Defines the columns that we use for CSV files
+  def self.csv_headers
+    ['login', 'first_name', 'nick_name', 'last_name', 'email', 'employee_id', 'role']
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << User.csv_headers
+      all.each do |user|
+        csv << user.attributes.values_at(*User.csv_headers)
+      end
+    end
+  end
+
+  # Creates new User entries based on the specified CSV file
+  def self.import(file)
+    CSV.foreach(file.path, :headers => true) do |row|
+      User.create! row.to_hash
+    end
   end
   
   private

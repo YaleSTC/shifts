@@ -10,8 +10,6 @@ class Payform < ActiveRecord::Base
   attr_accessor :start_date
   attr_accessor :end_date
 
-  #acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
-
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
@@ -28,7 +26,7 @@ class Payform < ActiveRecord::Base
 
 
   def self.export_payform(options = {})
-    FasterCSV.generate(options) do |csv|
+    CSV.generate(options) do |csv|
       csv << ["End Date", "First Name", "Last Name", "User ID", "Employee ID", "Payrate", "Hours", "Billing Code"]
       sorted_payforms = all.delete_if{|payform| payform.hours == 0}\
         .sort_by{|payform| payform.user.last_name}\
