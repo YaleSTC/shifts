@@ -15,6 +15,7 @@ class Payform < ActiveRecord::Base
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
+  validates :date, :uniqueness => {:scope => [:user_id, :department_id, :monthly]}
 
   scope :unsubmitted, {:conditions => ["#{:submitted.to_sql_column} IS #{nil.to_sql}"] }
   scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
@@ -54,8 +55,12 @@ class Payform < ActiveRecord::Base
 
   def self.build(dept, usr, given_date)
     period_date = Payform.default_period_date(given_date, dept)
-    Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first() ||
-    Payform.create(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+    begin
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first() ||
+      Payform.create!(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+    rescue ActiveRecord::RecordInvalid
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first()
+    end
   end
 
   def self.default_period_date(given_date, dept)
