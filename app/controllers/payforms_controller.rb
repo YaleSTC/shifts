@@ -23,7 +23,6 @@ class PayformsController < ApplicationController
     else
       respond_to do |show|
         show.html #show.html.erb
-        show.pdf  #show.pdf.prawn
         show.csv do
           csv_string = FasterCSV.generate do |csv|
             csv << ["First Name", "Last Name", "Employee ID", "Payrate", "Start Date", "End Date", "Total Hours"]
@@ -52,11 +51,11 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform.submitted = Time.now
- 
+
     if @payform.date > Date.today
       flash[:warning] = "You have submitted a payform that ends on a future date. Please unsubmit this payform if this was unintentional"
     end
- 
+
     if @payform.save && @payform.hours > current_department.department_config.payform_time_limit
       flash[:notice] = "Successfully submitted payform, however, you have submitted more than the allowed #{current_department.department_config.payform_time_limit} hours this week."
     elsif @payform.save &&  @payform.hours <= current_department.department_config.payform_time_limit
@@ -89,16 +88,16 @@ class PayformsController < ApplicationController
    end
 
    def skip
-     @payform = Payform.find(params[:id]) 
+     @payform = Payform.find(params[:id])
      @payform.skipped = Time.now
      if @payform.save
        flash[:notice] = "Sucessfully skipped payform. #{Payform.unapproved.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
      end
      redirect_to_next_payform
    end
-   
+
    def unskip
-     @payform = Payform.find(params[:id]) 
+     @payform = Payform.find(params[:id])
      @payform.skipped = nil
      if @payform.save
        flash[:notice] = "Sucessfully unskipped payform."
@@ -213,7 +212,7 @@ class PayformsController < ApplicationController
     end
     if params[:skipped]
       scope += payforms.skipped.unapproved
-    end  
+    end
     if params[:submitted]
       scope += payforms.unapproved
     end
@@ -225,11 +224,11 @@ class PayformsController < ApplicationController
     end
     scope
   end
-  
 
-  
+
+
   private
-  
+
   def interpret_start
     if params[:payform]
       return Date.civil(params[:payform][:"start_date(1i)"].to_i,params[:payform][:"start_date(2i)"].to_i,params[:payform][:"start_date(3i)"].to_i)
@@ -239,7 +238,7 @@ class PayformsController < ApplicationController
       return 1.week.ago.to_date
     end
   end
-  
+
   def interpret_end
     if params[:payform]
       return Date.civil(params[:payform][:"end_date(1i)"].to_i,params[:payform][:"end_date(2i)"].to_i,params[:payform][:"end_date(3i)"].to_i)
