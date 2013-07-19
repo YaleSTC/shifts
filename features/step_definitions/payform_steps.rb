@@ -82,10 +82,6 @@ Then /^I should see "([^\"]*)" under "([^\"]*)" in column ([0-9]+)$/ do |expecte
   end
 end
 
-Then /^I should have a pdf with "([^\"]*)" in it$/ do |text|
-    PDF::Inspector.parse(Prawn::PdfObject(text, true)).should == text
-end
-
 Then /^that payform_item should be inactive$/ do
   PayformItem.first.active.should be_false
 end
