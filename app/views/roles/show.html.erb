@@ -15,7 +15,7 @@
         <li><%= lg.name %></li><br />
           <ul>
           <% for perm in lg.permissions -%>
-              <%= "<li>"+perm.name+"</li>" if @role.permissions.include?(perm) %>
+              <%= "<li>".html_safe+perm.name+"</li>".html_safe if @role.permissions.include?(perm) %>
           <% end -%><br />
           </ul>
     <% end -%>

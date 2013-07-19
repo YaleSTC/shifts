@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :prepare_for_mobile
   before_filter :load_user
 
-  helper :layout # include all helpers, all the time (whyy? -Nathan)
+  helper :layout
   helper :application
 
   #Replaced with similar prototype legacy helper plugin
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user
-    @current_user = (@user_session && @user_session.user) || User.where(:login => session[:cas_user]).first || User.import_from_ldap(session[:cas_user], true)
+    @current_user = (@user_session && @user_session.user) || User.where(:login => session[:cas_user]).first
   end
 
   def load_user_session
@@ -265,7 +265,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login_check
-    if !User.all.any?
+    if User.all.empty?
       redirect_to first_app_config_path
     elsif !current_user
       if @appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
