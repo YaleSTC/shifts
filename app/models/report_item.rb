@@ -6,7 +6,7 @@ class ReportItem < ActiveRecord::Base
   validates_presence_of :content, :report_id
   before_save :check_for_ip_address_change
   
-  scope :after_time, lambda{ |time| {:conditions => ["time > ?", time] } }
+  scope :after_time, ->(time){where("time > ?", time) }
   scope :in_location, lambda{ |loc| {:joins =>"INNER JOIN reports ON report_items.report_id = reports.id INNER JOIN shifts on reports.shift_id = shifts.id", :conditions => { :shifts => {:location_id => loc.id} } } }
   
   def content_with_formatting

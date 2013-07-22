@@ -5,8 +5,8 @@ class TasksController < ApplicationController
   def index
     #return unless user_is_admin_of(current_department)
     @tasks = Task.all
-    @active_tasks = Task.where("#{:active} = ?", true)
-    @inactive_tasks = Task.where("#{:active} = ?", false)
+    @active_tasks = Task.where("active = ?", true)
+    @inactive_tasks = Task.where("active = ?", false)
     
     respond_to do |format|
       format.html # index.html.erb

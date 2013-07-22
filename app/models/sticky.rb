@@ -1,6 +1,6 @@
 class Sticky < Notice
   
-  scope :ordered_by_start, :order => 'start'
+  scope :ordered_by_start, order('start')
     
   def active?
     self.end == nil || self.end > Time.now

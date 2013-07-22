@@ -20,7 +20,7 @@ class LocGroup < ActiveRecord::Base
   has_and_belongs_to_many :stickies,      :join_table => :loc_groups_notices, :association_foreign_key => :notice_id
   has_and_belongs_to_many :notices
   
-  scope :active, :conditions => {:active => true}
+  scope :active, where(:active => true)
   
   before_validation(:on => :create) {:create_permissions}
   before_validation(:on => :update) {:update_permissions}
