@@ -14,7 +14,7 @@ class DataField < ActiveRecord::Base
   
   validates_uniqueness_of :name, :scope => :data_type_id
 
-  default_scope :conditions => { :active => true }
+  default_scope {where (:active => true) }
 
   #This should probably be moved to the data_entries helper
   #Based on the display type, returns the arguments for the formhelper methods

@@ -15,13 +15,13 @@ class Notice < ActiveRecord::Base
   attr_accessor :global
 
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
-  scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
-  scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
-  scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
-  scope :not_link, :conditions => ["type != ?", "Link"]
-  scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
-  scope :global,  :conditions => {:department_wide => true}
-  scope :active, lambda {{ :conditions => ["start <= ? AND end is ? OR end > ?", Time.now.utc, nil, Time.now.utc] }}
+  scope :in_department, ->(dept){ where(:department_id => dept)}
+  scope :created_by, ->(user){ where(:author_id => user)}
+  scope :inactive, -> {where(" end < ?", Time.now.utc)}
+  scope :not_link, where("type != ?", "Link")
+  scope :upcoming,  -> {where("start > ? ", Time.now.utc)}
+  scope :global,  where(:department_wide => true)
+  scope :active, -> {where("start <= ? AND end is ? OR end > ?", Time.now.utc, nil, Time.now.utc)}
   
   def self.active_links
     Link.active

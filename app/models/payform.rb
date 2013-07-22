@@ -16,12 +16,12 @@ class Payform < ActiveRecord::Base
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
 
-  scope :unsubmitted, {:conditions => ["#{:submitted.to_sql_column} IS #{nil.to_sql}"] }
-  scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
-  scope :skipped,     {:conditions => ["#{:skipped.to_sql_column} IS NOT #{nil.to_sql}"] }
-  scope :unskipped,   {:conditions => ["#{:skipped.to_sql_column} IS #{nil.to_sql}"] }
-  scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
-  scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
+  scope :unsubmitted, where("submitted  IS #{nil  }")
+  scope :unapproved,  where("submitted  IS NOT #{nil  } AND approved IS #{nil  }")
+  scope :skipped,     where("skipped  IS NOT #{nil  }")
+  scope :unskipped,   where("skipped  IS #{nil  }")
+  scope :unprinted,   where("approved  IS NOT #{nil  } AND printed  IS #{nil  }", nil, nil)
+  scope :printed,     where("printed  IS NOT #{nil  }")
 
   before_create :set_payrate
 

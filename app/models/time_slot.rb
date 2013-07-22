@@ -17,16 +17,16 @@ class TimeSlot < ActiveRecord::Base
   attr_accessor :end_date
   attr_accessor :end_time
 
-  scope :active, lambda {{:conditions => {:active => true}}}
-  scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
-  scope :in_location, lambda {|location| {:conditions => { :location_id => location }}}
-  scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
-  scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
-  scope :on_day, lambda {|day| { :conditions => ["#{:end.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
-  scope :on_48h, lambda {|day| { :conditions => ["#{:end.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} AND #{:start.to_sql_column} < #{(day.end_of_day + 1.day).utc.to_sql}"]}}
-  scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
-  scope :ordered_by_start, :order => 'start'
-  scope :after_now, lambda {{:conditions => ["#{:end} >= #{Time.now.utc.to_sql}"]}}
+  scope :active, -> {where(:active => true)}
+  scope :in_locations, ->(loc_array){where(:location_id => loc_array )}
+  scope :in_location, ->(location){where(:location_id => location)}
+  scope :in_calendars, ->(calendar_array){where(:calendar_id => calendar_array)}
+  scope :on_days, ->(start_day, end_day){where("start  >= #{start_day.beginning_of_day.utc  } and start  < #{end_day.end_of_day.utc  }")}
+  scope :on_day, ->(day){where("end  >= #{day.beginning_of_day.utc  } AND start  < #{day.end_of_day.utc  }")}
+  scope :on_48h, ->(day){where("end  >= #{day.beginning_of_day.utc  } AND start  < #{(day.end_of_day + 1.day).utc  }")}
+  scope :overlaps, ->(start, stop){where("end  > #{start.utc  } and start  < #{stop.utc  }")}
+  scope :ordered_by_start, order('start')
+  scope :after_now, -> {where("end >= #{Time.now.utc  }")}
 
 
   #This method creates the multitude of shifts required for repeating_events to work
@@ -47,11 +47,11 @@ class TimeSlot < ActiveRecord::Base
         seed_end_time = seed_start_time+diff
         while seed_end_time <= (end_date + 1.day)
           if active
-            inner_test.push "(#{:location_id.to_sql_column} = #{loc_id.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
+            inner_test.push "(location_id  = #{loc_id  } AND active  = #{true  } AND start  <= #{seed_end_time.utc  } AND end  >= #{seed_start_time.utc  })"
           else
-            inner_test.push "(#{:location_id.to_sql_column} = #{loc_id.to_sql} AND #{:calendar_id.to_sql_column} = #{cal_id.to_sql} AND #{:start.to_sql_column} <= #{seed_end_time.utc.to_sql} AND #{:end.to_sql_column} >= #{seed_start_time.utc.to_sql})"
+            inner_test.push "(location_id  = #{loc_id  } AND calendar_id  = #{cal_id  } AND start  <= #{seed_end_time.utc  } AND end  >= #{seed_start_time.utc  })"
           end
-          inner_make.push "#{loc_id.to_sql}, #{cal_id.to_sql}, #{r_e_id.to_sql}, #{seed_start_time.utc.to_sql}, #{seed_end_time.utc.to_sql}, #{Time.now.utc.to_sql}, #{Time.now.utc.to_sql}, #{active.to_sql}"
+          inner_make.push "#{loc_id  }, #{cal_id  }, #{r_e_id  }, #{seed_start_time.utc  }, #{seed_end_time.utc  }, #{Time.now.utc  }, #{Time.now.utc  }, #{active  }"
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
           #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -76,7 +76,7 @@ class TimeSlot < ActiveRecord::Base
           TimeSlot.delete_all(s.join(" OR "))
         end
         outer_make.each do |s|
-          sql = "INSERT INTO time_slots (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
+          sql = "INSERT INTO time_slots (location_id , calendar_id , repeating_event_id }, start , end , created_at }, updated_at , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
           ActiveRecord::Base.connection.execute sql
         end
       return false
@@ -87,7 +87,7 @@ class TimeSlot < ActiveRecord::Base
         end
       if out.empty?
           outer_make.each do |s|
-            sql = "INSERT INTO time_slots (#{:location_id.to_sql_column}, #{:calendar_id.to_sql_column}, #{:repeating_event_id.to_sql_column}, #{:start.to_sql_column}, #{:end.to_sql_column}, #{:created_at.to_sql_column}, #{:updated_at.to_sql_column}, #{:active.to_sql_column}) SELECT #{s.join(" UNION ALL SELECT ")};"
+            sql = "INSERT INTO time_slots (location_id , calendar_id , repeating_event_id , start , end , created_at , updated_at , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
             ActiveRecord::Base.connection.execute sql
           end
         return false
@@ -110,12 +110,12 @@ class TimeSlot < ActiveRecord::Base
       ""
     elsif wipe
       big_array.each do |t_slots|
-        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id.to_sql} AND active = #{true.to_sql} AND start <= #{t.end.utc.to_sql} AND end >= #{t.start.utc.to_sql})"}.join(" OR ")])
+        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id  } AND active = #{true  } AND start <= #{t.end.utc  } AND end >= #{t.start.utc  })"}.join(" OR ")])
       end
       return ""
     else
       out=big_array.collect do |t_slots|
-        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id.to_sql} AND active = #{true.to_sql} AND start <= #{t.end.utc.to_sql} AND end >= #{t.start.utc.to_sql})"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
+        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id  } AND active = #{true  } AND start <= #{t.end.utc  } AND end >= #{t.start.utc  })"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
       end
       return out.join(",")
     end
@@ -160,9 +160,9 @@ class TimeSlot < ActiveRecord::Base
     dont_conflict_with_self = (self.new_record? ? "" : "AND id != #{self.id}")
 
     if self.calendar.active
-      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:location_id.to_sql_column} = #{self.location.to_sql} AND #{:active.to_sql_column} = #{true.to_sql} #{dont_conflict_with_self}"])
+      c = TimeSlot.count(:all, :conditions => ["start  < #{self.end  } AND end  > #{self.start  } AND location_id  = #{self.location  } AND active  = #{true  } #{dont_conflict_with_self}"])
     else
-      c = TimeSlot.count(:all, :conditions => ["#{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql} AND #{:location_id.to_sql_column} = #{self.location.to_sql} AND #{:calendar_id.to_sql_column} = #{self.calendar.to_sql} #{dont_conflict_with_self}"])
+      c = TimeSlot.count(:all, :conditions => ["start  < #{self.end  } AND end  > #{self.start  } AND location_id  = #{self.location  } AND calendar_id  = #{self.calendar  } #{dont_conflict_with_self}"])
     end
     unless c.zero?
       errors.add_to_base("There is a conflicting timeslot.")
