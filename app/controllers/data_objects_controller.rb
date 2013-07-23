@@ -132,6 +132,7 @@ private
       redirect_to access_denied_path
       return false
     end
+    return true
   end
 
 end
