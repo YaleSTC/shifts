@@ -15,6 +15,7 @@ gem "paperclip", "~> 2.3.15"
 gem "htmlentities"
 gem "capistrano"
 gem "htmlentities"
+gem 'simple_form'
 # gem "jazz_hands"
 gem "letter_opener", :group => :development
 gem 'pry-rails', :group => :development

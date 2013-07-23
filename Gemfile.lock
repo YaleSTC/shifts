@@ -116,6 +116,9 @@ GEM
     rubycas-client-rails (0.1.0)
       rails (>= 3.0.0)
       rubycas-client (>= 2.2.0)
+    simple_form (2.0.4)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     slop (3.4.5)
     thor (0.14.6)
     treetop (1.4.14)
@@ -149,5 +152,6 @@ DEPENDENCIES
   ruby-net-ldap
   rubycas-client (= 2.2.1)
   rubycas-client-rails
+  simple_form
   vestal_versions
   whenever
