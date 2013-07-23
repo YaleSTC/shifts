@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619210814) do
+ActiveRecord::Schema.define(:version => 20130722195203) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -269,7 +269,7 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.integer  "day",                                           :default => 6
     t.datetime "submitted"
     t.datetime "approved"
-    t.datetime "printed"
+    t.datetime "archived"
     t.integer  "approved_by_id"
     t.integer  "department_id"
     t.integer  "user_id"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.datetime "updated_at"
     t.decimal  "payrate",        :precision => 10, :scale => 2
     t.datetime "skipped"
+    t.boolean  "print_payform"
   end
 
   add_index "payforms", ["payform_set_id"], :name => "payform_set_id"
@@ -590,6 +591,7 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.boolean  "supermode",             :default => true
     t.string   "rank"
     t.string   "calendar_feed_hash"
+    t.boolean  "print_payform"
   end
 
   create_table "versions", :force => true do |t|

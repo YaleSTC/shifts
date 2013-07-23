@@ -12,14 +12,14 @@ class Payform < ActiveRecord::Base
 
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
-  validates_presence_of :approved,  :if => :printed
+  validates_presence_of :approved,  :if => :archived
 
   scope :unsubmitted, {:conditions => ["#{:submitted.to_sql_column} IS #{nil.to_sql}"] }
   scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
   scope :skipped,     {:conditions => ["#{:skipped.to_sql_column} IS NOT #{nil.to_sql}"] }
   scope :unskipped,   {:conditions => ["#{:skipped.to_sql_column} IS #{nil.to_sql}"] }
-  scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
-  scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
+  scope :unarchived,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:archived.to_sql_column} IS #{nil.to_sql}", nil, nil] }
+  scope :archived,     {:conditions => ["#{:archived.to_sql_column} IS NOT #{nil.to_sql}"] }
 
   before_create :set_payrate
 
@@ -42,7 +42,7 @@ class Payform < ActiveRecord::Base
 
 
   def status
-    self.printed ? 'printed' : self.approved ? 'approved' : self.submitted ? 'submitted' : 'unsubmitted'
+    self.archived ? 'archived' : self.approved ? 'approved' : self.submitted ? 'submitted' : 'unsubmitted'
   end
 
   #CUSTOM URL -- STILL REQUIRES ID AT FRONT, BUT LOOKS FRIENDLIER
@@ -52,8 +52,14 @@ class Payform < ActiveRecord::Base
 
   def self.build(dept, usr, given_date)
     period_date = Payform.default_period_date(given_date, dept)
-    Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first() ||
-    Payform.create(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+
+    begin
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first() ||
+      Payform.create!(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+    rescue ActiveRecord::InvalidRecord
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first()
+    end
+
   end
 
   def self.default_period_date(given_date, dept)
@@ -101,10 +107,10 @@ class Payform < ActiveRecord::Base
   protected
 
   def validate
-    if (approved or printed) and !submitted
+    if (approved or archived) and !submitted
       errors.add("Cannot approve or print unsubmitted payform.")
     end
-    if printed and !approved
+    if archived and !approved
       errors.add("Cannot print unapproved payform.")
     end
   end

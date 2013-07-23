@@ -117,10 +117,10 @@ class PayformsController < ApplicationController
     redirect_to @payform
   end
 
-
+# do I need to filter by print attribute when doing PayformSet.new?
   def print
     @payform = Payform.find(params[:id])
-    @payform.printed = Time.now
+    @payform.archived = Time.now
     @payform_set = PayformSet.new
     @payform_set.department = @payform.department
     @payform_set.payforms << @payform
@@ -203,8 +203,9 @@ class PayformsController < ApplicationController
 
   protected
 
+#not really sure what scope += does
   def narrow_down(payforms)
-    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:skipped] and !params[:printed]  )
+    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:skipped] and !params[:archived]  )
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
     end
     scope = []
@@ -218,10 +219,10 @@ class PayformsController < ApplicationController
       scope += payforms.unapproved
     end
     if params[:approved]
-      scope += payforms.unprinted
+      scope += payforms.unarchived
     end
-    if params[:printed]
-      scope += payforms.printed
+    if params[:archived]
+      scope += payforms.archived
     end
     scope
   end

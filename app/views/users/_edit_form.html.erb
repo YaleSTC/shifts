@@ -60,6 +60,11 @@
     <% if @department.roles == []%>
       There don't appear to be any roles in this department. Want to <%= link_to "add one", new_department_role_path(@department) %>?
     <% end %>
+
+    <h3>Print Payform<h3>
+      <div>
+        <%= check_box "user", "print_payform", {}, true, false %>
+      </div>
   
 </div>
   

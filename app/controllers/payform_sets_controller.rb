@@ -24,8 +24,8 @@ class PayformSetsController < ApplicationController
   def create
     @payform_set = PayformSet.new
     @payform_set.department = current_department
-    @payform_set.payforms = current_department.payforms.unprinted
-    @payform_set.payforms.map {|p| p.printed = Time.now }
+    @payform_set.payforms = current_department.payforms.unarchived
+    @payform_set.payforms.map {|p| p.archived = Time.now }
     if @payform_set.save
       flash[:notice] = "Successfully created payform set."
       redirect_to @payform_set

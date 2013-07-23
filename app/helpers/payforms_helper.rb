@@ -33,9 +33,9 @@ module PayformsHelper
   def payform_update_button
     if @payform.submitted
       if current_user.is_admin_of?(@payform.department)
-        if @payform.approved && !@payform.printed
+        if @payform.approved && !@payform.archived
           link_to "<span><strong>Print</strong></span>".html_safe, print_payform_path(@payform), :class => "button", :onclick => "this.blur();"
-        elsif !@payform.printed
+        elsif !@payform.archived
           link_to "<span><strong>Approve and go to next</strong></span>".html_safe, approve_payform_path(@payform), :class => "button", :onclick => "this.blur();"
         end
       end
@@ -45,7 +45,7 @@ module PayformsHelper
   end
   
   def payform_skip_button
-    if @payform.submitted and !@payform.approved and !@payform.printed
+    if @payform.submitted and !@payform.approved and !@payform.archived
       if current_user.is_admin_of?(@payform.department)
          if !@payform.skipped 
            link_to "<span><strong>Skip and go to next</strong></span>".html_safe, skip_payform_path(@payform), :class => "button", :onclick => "this.blur();"
@@ -57,9 +57,9 @@ module PayformsHelper
   end  
 
   def payform_unsubmit_unapprove_button
-    if @payform.submitted && !@payform.approved && !@payform.printed
+    if @payform.submitted && !@payform.approved && !@payform.archived
       link_to "<span><strong>Unsubmit</strong></span>".html_safe, unsubmit_payform_path(@payform), :class => "button", :onclick => "this.blur();"
-    elsif @payform.approved && !@payform.printed
+    elsif @payform.approved && !@payform.archived
       link_to "<span><strong>Unapprove</strong></span>".html_safe, unapprove_payform_path(@payform), :class => "button", :onclick => "this.blur();"
     end
   end

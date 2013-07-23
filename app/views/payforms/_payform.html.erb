@@ -15,10 +15,10 @@
 	<td><%= link_to payform_description, payform if payform.skipped %> </td>
   <% end %>
   <% if  params[:approved] %>
-    <td><%= link_to payform_description, payform if payform.approved && !payform.printed %></td>
+    <td><%= link_to payform_description, payform if payform.approved && !payform.archived %></td>
   <% end %>
-  <% if  params[:printed] %>
-    <td><%= link_to payform_description, payform if payform.printed %></td>
+  <% if  params[:archived] %>
+    <td><%= link_to payform_description, payform if payform.archived %></td>
   <% end %>
 </tr>
 
