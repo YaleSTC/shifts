@@ -142,26 +142,7 @@ module ApplicationHelper
       @repeating_event.location_ids = [] << params[:location_id]
     end
   end
-  
-  # TODO: observe_field deprecated in Rails 3; the following method should be rewritten with unobtrusive JS
-  
-  def observe_fields(fields)
-    #prepare a value of the :with parameter
-    with = "'"
-    for field in fields
-      with += field + "=’$(’#" + field + "’).is(':checked')"
-      with += " + " if field != fields.last
-    end
-      with += "'"
-    #generate a call of the observer_field helper for each field
-    ret = "";
-    for field in fields
-      puts field
-      ret += observe_field(field.to_s, :url => {:controller => :templates, :action => "update_locations"}, :with => with, :on => "change")
-      end
-      return ret
-  end
-	
+
   def navbar_highlight(controller_name)
     navbar_hash = Hash[ "dashboard" => ["dashboard"],
                         "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups", "calendars", "application", "templates", "calendar_feeds", "time_slots"],
