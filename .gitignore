@@ -12,3 +12,4 @@ config/database.yml
 config/initializers/airbrake.rb
 public/assets/user_profiles
 .rbenv-version
+.ruby-version
