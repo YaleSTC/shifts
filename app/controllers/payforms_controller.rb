@@ -123,7 +123,12 @@ class PayformsController < ApplicationController
     @payform.archived = Time.now
     @payform_set = PayformSet.new
     @payform_set.department = @payform.department
-    @payform_set.payforms << @payform
+    @user = User.find(@payform.user_id)
+    # ask adam about this; not sure what happens to users who don't need payforms printed
+    if @user.print_payform
+      @payform_set.payforms << @payform
+    end
+
     if @payform_set.save && @payform.save
       flash[:notice] = "Successfully created payform set."
       redirect_to @payform_set
