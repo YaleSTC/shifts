@@ -16,12 +16,12 @@ class Payform < ActiveRecord::Base
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
 
-  scope :unsubmitted, where("submitted  IS #{nil  }")
-  scope :unapproved,  where("submitted  IS NOT #{nil  } AND approved IS #{nil  }")
-  scope :skipped,     where("skipped  IS NOT #{nil  }")
-  scope :unskipped,   where("skipped  IS #{nil  }")
-  scope :unprinted,   where("approved  IS NOT #{nil  } AND printed  IS #{nil  }", nil, nil)
-  scope :printed,     where("printed  IS NOT #{nil  }")
+  scope :unsubmitted, where("submitted IS ?", nil)
+  scope :unapproved,  where("submitted IS NOT ? AND approved IS ?", nil, nil)
+  scope :skipped,     where("skipped IS NOT ?", nil)
+  scope :unskipped,   where("skipped IS ?", nil)
+  scope :unprinted,   where("approved IS NOT ? AND printed IS ?", nil, nil)
+  scope :printed,     where("printed IS NOT ?", nil)
 
   before_create :set_payrate
 
