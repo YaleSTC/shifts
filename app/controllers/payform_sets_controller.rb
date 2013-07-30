@@ -10,9 +10,11 @@ class PayformSetsController < ApplicationController
 
   def show
     @payform_set = PayformSet.find(params[:id])
+    payform_items = @payform_set.payforms.map(&:payform_items).flatten
+    @grouped_items = payform_items.group_by{|pi| pi.category.name}
+
     respond_to do |show|
       show.html #show.html.erb
-      show.pdf  #show.pdf.prawn
       show.csv {render :text => @payform_set.payforms.export_payform}
       #show.xls {render :file => @payform_set.payforms.export_payform({:col_sep => "\t"})}
     end
@@ -21,8 +23,8 @@ class PayformSetsController < ApplicationController
   def create
     @payform_set = PayformSet.new
     @payform_set.department = current_department
-    @payform_set.payforms = current_department.payforms.unprinted
-    @payform_set.payforms.map {|p| p.printed = Time.now }
+    @payform_set.payforms = current_department.payforms.unarchived and current_department.payforms.print
+    @payform_set.payforms.map {|p| p.archived = Time.now }
     if @payform_set.save
       flash[:notice] = "Successfully created payform set."
       redirect_to @payform_set

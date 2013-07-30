@@ -4,7 +4,7 @@
 
   <h2>User Information</h2>
 
-  <% form_for user, :html=>{:id=>"user_form"} do |f| %>
+  <%= form_for user, :html=>{:id=>"user_form"} do |f| %>
     <%= f.error_messages :object => [@user, @user_profile_entries] %>
   
     <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
@@ -60,6 +60,11 @@
     <% if @department.roles == []%>
       There don't appear to be any roles in this department. Want to <%= link_to "add one", new_department_role_path(@department) %>?
     <% end %>
+
+    <h3>Print Payform<h3>
+      <div>
+        <%= check_box "user", "print_payform", {}, true, false %>
+      </div>
   
 </div>
   

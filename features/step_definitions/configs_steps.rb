@@ -120,7 +120,7 @@ end
 Given /^"([^\"]*)" has a current payform$/ do |user_name|
   user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
   period_date = Payform.default_period_date(Date.today, @department)
-  Payform.create!(:date => period_date, :user_id => user, :department_id => user.departments.first)
+  Payform.create!(:date => period_date, :user_id => user, :department_id => user.departments.first, :print_payform => user.print_payform)
 end
 
 Given /^"([^\"]*)" has the following current payform items?$/ do |user_name, table|

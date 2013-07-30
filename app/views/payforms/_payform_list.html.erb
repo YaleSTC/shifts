@@ -1,7 +1,7 @@
 <div id="right_stuff">
 	<fieldset class="index" id="payform_switch">
-		<% if params[:printed].nil? %>
-		  <div><%= image_tag("icons/flag_purple.png", :class => "mini_icon")%><%= link_to "Include Finalized Payforms", payforms_path(:unsubmitted => true, :submitted => true, :skipped => true, :approved => true, :printed => true, :start_date => @start_date, :end_date => @end_date), :class => "action_with_icon" %></div>
+		<% if params[:archived].nil? %>
+		  <div><%= image_tag("icons/flag_purple.png", :class => "mini_icon")%><%= link_to "Include Finalized Payforms", payforms_path(:unsubmitted => true, :submitted => true, :skipped => true, :approved => true, :archived => true, :start_date => @start_date, :end_date => @end_date), :class => "action_with_icon" %></div>
 		<% else %>
 		  <div><%= image_tag("icons/flag_purple.png", :class => "mini_icon")%><%= link_to "Hide Finalized Payforms", payforms_path(:start_date => @start_date, :end_date => @end_date), :class => "action_with_icon" %></div>
 		<% end %>
@@ -25,7 +25,7 @@
     <% if params[:approved] %>
       <th>Approved</th>
     <% end -%>
-    <% if params[:printed] %>
+    <% if params[:archived] %>
       <th>Finalized</th>
     <% end -%>
   </tr></thead>
@@ -47,10 +47,10 @@
 	  <th><%= @payforms.select{|p| p.skipped}.length %></th>
 	<% end -%>
     <% if params[:approved] %>
-      <th><%= @payforms.select{|p| p.approved  && !p.printed }.length %></th>
+      <th><%= @payforms.select{|p| p.approved  && !p.archived }.length %></th>
     <% end -%>
-    <% if params[:printed] %>
-      <th><%= @payforms.select{|p| p.printed}.length %></th>
+    <% if params[:archived] %>
+      <th><%= @payforms.select{|p| p.archived}.length %></th>
     <% end -%>
   </tr></tfoot>
 

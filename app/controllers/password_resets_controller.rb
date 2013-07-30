@@ -2,17 +2,16 @@ class PasswordResetsController < ApplicationController
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
   before_filter :require_no_user, :only => [:edit, :update]
   skip_before_filter :login_check
-  skip_before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS? && @appconfig.login_options.include?('CAS')}
-
+  skip_before_filter RubyCAS::Filter, :if => Proc.new{|s| s.using_CAS? && @appconfig.login_options.include?('CAS')}
 
   def new
     render
   end
 
   def create
-    @user = User.find_by_email(params[:email])
+    @user = User.where(:email => params[:email]).first
     if @user && @user.auth_type=='built-in'
-      @user.deliver_password_reset_instructions!(Proc.new {|n| AppMailer.deliver_password_reset_instructions(n)})
+      @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.deliver_password_reset_instructions(n)})
       flash[:notice] = "Instructions to reset the password have been emailed. "
       redirect_to login_path
     else

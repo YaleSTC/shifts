@@ -16,13 +16,13 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     flash[:error] = "Payform does not exist." unless @payform
     flash[:error] = "The payform (from #{@payform.department.name}) is not in this department (#{current_department.name})." unless @payform.department == current_department
+    flash[:warning] = "This payform is for a current/future time period" if @payform.date > Date.today
     return unless user_is_owner_or_admin_of(@payform, @payform.department)
     if flash[:error]
       redirect_to payforms_path
     else
       respond_to do |show|
         show.html #show.html.erb
-        show.pdf  #show.pdf.prawn
         show.csv do
           csv_string = FasterCSV.generate do |csv|
             csv << ["First Name", "Last Name", "Employee ID", "Payrate", "Start Date", "End Date", "Total Hours"]
@@ -31,6 +31,16 @@ class PayformsController < ApplicationController
           send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
         end
       end
+    end
+  end
+
+  def update
+    @payform = Payform.find(params[:id])
+    @payform.print_payform = 
+    @payform.save
+    if @payform.update_attributes(params[:payform])
+      flash[:notice] = "Successfully updated payform."
+      redirect_to @payform
     end
   end
 
@@ -51,6 +61,11 @@ class PayformsController < ApplicationController
     @payform = Payform.find(params[:id])
     return unless user_is_owner_or_admin_of(@payform, @payform.department)
     @payform.submitted = Time.now
+ 
+    if @payform.date > Date.today
+      flash[:warning] = "You have submitted a payform that ends on a future date. Please unsubmit this payform if this was unintentional"
+    end
+ 
     if @payform.save && @payform.hours > current_department.department_config.payform_time_limit
       flash[:notice] = "Successfully submitted payform, however, you have submitted more than the allowed #{current_department.department_config.payform_time_limit} hours this week."
     elsif @payform.save &&  @payform.hours <= current_department.department_config.payform_time_limit
@@ -77,20 +92,18 @@ class PayformsController < ApplicationController
      @payform.approved = Time.now
      @payform.approved_by = current_user
      if @payform.save
-       flash[:notice] = "Successfully approved payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
+       flash[:notice] = "Successfully approved payform. #{Payform.unapproved.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
      end
-     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
-     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+     redirect_to_next_payform
    end
-   
+
    def skip
      @payform = Payform.find(params[:id]) 
      @payform.skipped = Time.now
      if @payform.save
-       flash[:notice] = "Sucessfully skipped payform. #{Payform.unapproved.unskipped.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
+       flash[:notice] = "Sucessfully skipped payform. #{Payform.unapproved.select{|p| p.date == @payform.date}.size} payform(s) left for the week of #{@payform.date.strftime("%b %d %Y")}."
      end
-     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
-     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+     redirect_to_next_payform
    end
    
    def unskip
@@ -99,8 +112,7 @@ class PayformsController < ApplicationController
      if @payform.save
        flash[:notice] = "Sucessfully unskipped payform."
      end
-     @next_unapproved_payform = Payform.unapproved.unskipped.sort_by(&:date).last
-     @next_unapproved_payform ? (redirect_to @next_unapproved_payform and return) : (redirect_to :action => "index" and return)
+     redirect_to_next_payform
    end
 
 
@@ -114,13 +126,18 @@ class PayformsController < ApplicationController
     redirect_to @payform
   end
 
-
+# do I need to filter by print attribute when doing PayformSet.new?
   def print
     @payform = Payform.find(params[:id])
-    @payform.printed = Time.now
+    @payform.archived = Time.now
     @payform_set = PayformSet.new
     @payform_set.department = @payform.department
-    @payform_set.payforms << @payform
+    @user = User.find(@payform.user_id)
+    # ask adam about this; not sure what happens to users who don't need payforms printed
+    if @user.print_payform
+      @payform_set.payforms << @payform
+    end
+
     if @payform_set.save && @payform.save
       flash[:notice] = "Successfully created payform set."
       redirect_to @payform_set
@@ -200,8 +217,9 @@ class PayformsController < ApplicationController
 
   protected
 
+#not really sure what scope += does
   def narrow_down(payforms)
-    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:skipped] and !params[:printed]  )
+    if ( !params[:unsubmitted] and !params[:submitted] and !params[:approved] and !params[:skipped] and !params[:archived]  )
       params[:unsubmitted] = params[:submitted] = params[:approved] = true
     end
     scope = []
@@ -209,16 +227,16 @@ class PayformsController < ApplicationController
       scope += payforms.unsubmitted
     end
     if params[:skipped]
-      scope += payforms.skipped
+      scope += payforms.skipped.unapproved
     end  
     if params[:submitted]
       scope += payforms.unapproved
     end
     if params[:approved]
-      scope += payforms.unprinted
+      scope += payforms.unarchived
     end
-    if params[:printed]
-      scope += payforms.printed
+    if params[:archived]
+      scope += payforms.archived
     end
     scope
   end
@@ -246,6 +264,21 @@ class PayformsController < ApplicationController
       return Date.today.to_date
     end
   end
+
+  def redirect_to_next_payform
+    if Payform.unapproved.unskipped.any?
+      payform_source = Payform.unapproved.unskipped
+    else
+      payform_source = Payform.unapproved
+      flash[:warning] = "Note: You are viewing a skipped payform" if payform_source.any?
+    end
+    if payform_source.any?
+      redirect_to payform_source.sort_by(&:date).last and return
+    else
+      redirect_to :action => "index" and return
+    end
+  end
+
 
 end
 

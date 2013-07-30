@@ -6,9 +6,9 @@
 				<ul>
            <li><%= link_to "All", payforms_path(:start_date => @start_date, :end_date => @end_dat) %></li>
            <li><%= link_to "Submitted", payforms_path(:submitted => true, :start_date => @start_date, :end_date => @end_date)%></li>
-					<li><%= link_to "Skipped", payforms_path (:skipped => true, :start_date => @start_date, :end_date => @end_date)%></li>
+					<li><%= link_to "Skipped", payforms_path(:skipped => true, :start_date => @start_date, :end_date => @end_date)%></li>
            <li><%= link_to "Approved", payforms_path(:approved => true, :start_date => @start_date, :end_date => @end_date)%></li>
-           <li><%= link_to "Printed", payforms_path(:printed => true, :start_date => @start_date, :end_date => @end_date) %></li>
+           <li><%= link_to "Archived", payforms_path(:Archived => true, :start_date => @start_date, :end_date => @end_date) %></li>
            <li><%= link_to "History", payform_sets_path %></li>
 				</ul>
 			</li>

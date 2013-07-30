@@ -1,6 +1,6 @@
 namespace :db do
   def make_empty_profile_entries(department_name)
-    department = Department.find_by_name(department_name)
+    department = Department.where(:name => department_name).first
     users = User.all.select{|u| u.departments.include?(department)}
     all_field_ids = UserProfileField.all.select{|upf| upf.department_id == department.id}.map{|upf| upf.id}
     users.each do |user|
@@ -13,9 +13,9 @@ namespace :db do
       puts "#{user.name}, entries added: #{missing_field_ids.size}"
     end
   rescue
-    puts "#{department_name} is not a valid department name. Please enter a valid name."    
+    puts "#{department_name} is not a valid department name. Please enter a valid name."
   end
-  
+
   desc "Populates profiles with empty instances of all department profile fields"
   task :repair_profiles, [:department_name] => :environment do |t, args|
     department_name = args[:department_name]

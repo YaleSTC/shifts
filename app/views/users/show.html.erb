@@ -46,6 +46,12 @@
       </ul>
     </p>
     <p>
+      <strong>Print Payform:</strong><br />
+      <ul>
+        <%= @user.print_payform %>
+      </ul>
+    </p>
+    <p>
       <strong>Payrate:</strong>
       <%= number_to_currency(@user.payrate(current_department)) %>
   </div>

@@ -1,7 +1,7 @@
 <div id="preferences" style="float:right;position:relative;width:160px;text-align:right">
   <h2 class="only_js trigger" style="display:none;">Show/Hide Groups</h2>
   <div class="no_js" style="position:absolute;background:#fff;border:#ccc 1px solid;width:160px;z-index:999;text-align:left;padding-left:10px;">
-    <% form_for current_user.user_config do |f| %>
+    <%= form_for current_user.user_config do |f| %>
       <p>
           <div class="multiple_select">
             <h3><%= current_department.name %></h3>
@@ -10,7 +10,7 @@
                                         :selected_items => @selected_loc_groups) %>
           </div>
       </p>
-      <%= hidden_field_tag :redirect_to, request.request_uri %>
+      <%= hidden_field_tag :redirect_to, request.url %>
       <p><%= f.submit "Submit" %></p>
     <% end %>
   </div>

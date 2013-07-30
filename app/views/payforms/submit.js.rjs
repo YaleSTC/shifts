@@ -1,8 +1,0 @@
-page.replace_html "payform_status", :partial => 'status'
-page.replace_html "flash", :partial => 'layouts/flash', :locals => {:flash => flash}
-page.replace_html "payform_buttons", :partial => 'payform_buttons', :locals => {:flash => flash}
-
-#$('#payform_status').html("<%= escape_javascript(render :partial => 'status') %>");
-#$('#flash').html("<%= escape_javascript(render :partial => 'layouts/flash', :locals => {:flash => flash}) %>");
-#$('#payform_buttons').html("<%= escape_javascript(render :partial => 'payform_buttons', :locals => {:flash => flash}) %>");
-

@@ -1,6 +1,6 @@
 module RequestedShiftsHelper
 
-  def calculate_default_times
+  def calculate_default_times_requested_shifts
     if params[:xPercentage]
       @requested_shift.preferred_start ||= Date.today
       @dept_start_minutes ||= current_department.department_config.schedule_start

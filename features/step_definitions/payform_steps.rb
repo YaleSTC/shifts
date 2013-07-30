@@ -38,7 +38,7 @@ Given /^I have the following payforms?:$/ do |table|
     Payform.create!(:date => period_date , :department_id => department.id,
                     :user_id => user.id, :submitted => submitted,
                     :approved => approved, :approved_by => approval,
-                    :printed => printed)
+                    :printed => printed, :print_payform => user.print_payform)
   end
 end
 
@@ -55,7 +55,8 @@ Given /^"([^\"]*)" has an unsubmitted payform from "([^\"]*)" weeks ago with 1 p
 
   Payform.create!(:date => date ,
                   :department_id => @department.id,
-                  :user_id => user.id)
+                  :user_id => user.id,
+                  :print_payform => user.print_payform)
   PayformItem.create!(:category_id => Category.find(1),
                       :user_id => user.id,
                       :hours => 1,

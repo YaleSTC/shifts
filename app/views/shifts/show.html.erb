@@ -10,7 +10,7 @@
 </p>
 <p>
   <strong>User:</strong>
-    <%=h link_to @shift.user.name, user_profile_path(@shift.user.login) %>                               
+    <%=h link_to @shift.user.name, user_profile_path(@shift.user.login) %>
 </p>
 <p>
   <strong>Location:</strong>
@@ -28,7 +28,7 @@
 	<%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
     </p>
   	<% else %>
-   	<%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift early?", :method => :post %>
+   	<%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift #{distance_of_time_in_words(@shift.start, Time.now)} early?", :method => :post %>
 	<% end %>
 	  <% else %>
     This shift has not yet been signed in to.

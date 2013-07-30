@@ -1,7 +1,6 @@
 require 'net/ldap'
+require 'rails_extensions'
 class User < ActiveRecord::Base
-  acts_as_csv_importable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
-  acts_as_csv_exportable :normal, [:login, :first_name, :nick_name, :last_name, :email, :employee_id, :role]
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
@@ -17,9 +16,10 @@ class User < ActiveRecord::Base
   has_many :notices, :as => :author
   has_many :notices, :as => :remover
   has_one  :punch_clock
-  has_many :sub_requests, :through => :shifts #the sub reqeusts this user owns
+  has_many :sub_requests, :through => :shifts #the sub requests this user owns
 	has_many :shift_preferences
 	has_many :requested_shifts
+  has_many :restrictions
 
 
 # New user configs are created by a user observer, after create
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   has_one :user_profile, :dependent => :destroy
 
   attr_protected :superusercreate_
-  named_scope :superusers, :conditions => { :superuser => true }, :order => :last_name
+  scope :superusers, :conditions => { :superuser => true }, :order => :last_name
   delegate :default_department, :to => 'user_config'
 
   
@@ -35,14 +35,14 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :login
-  validates_presence_of :auth_type
+  #validates_presence_of :auth_type
   validates_uniqueness_of :login
   validate :departments_not_empty
 
   extend ActiveSupport::Memoizable
 
   def role=(name)
-    self.roles << Role.find_by_name(name) if name && Role.find_by_name(name)
+    self.roles << Role.where(:name => name).first if name && Role.where(:name => name).first
   end
 
   def role
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   def self.mass_add(logins, department)
     failed = []
     logins.split(/\W+/).map do |n|
-      if user = self.find_by_login(n)
+      if user = self.where(:login => n).first
         user.departments << department
       else
         user = import_from_ldap(n, department, true)
@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
 
   def current_shift
-    Shift.find(:first, :conditions=>{:user_id => self.id, :signed_in => true})
+    Shift.where(:user_id => self.id, :signed_in => true).first()
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
-    if DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => dept, :active => true})
+    if DepartmentsUser.where(:user_id => self, :department_id => dept, :active => true).first()
       true
     else
       false
@@ -226,7 +226,7 @@ class User < ActiveRecord::Base
   #returns  upcoming sub_requests user has permission to take.  Default is for all departments
   def available_sub_requests(source)
     @all_subs = []
-    @all_subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now]).select { |sub| self.can_take_sub?(sub) }.select{ |sub| !sub.shift.missed?}
+    @all_subs = SubRequest.where("end >= ?", Time.now).select { |sub| self.can_take_sub?(sub) }.select{ |sub| !sub.shift.missed?}
    if !source.blank?
        case 
        when source.class.name == "Department"
@@ -246,7 +246,7 @@ class User < ActiveRecord::Base
 
   def toggle_active(department) #TODO why don't we just update the attribues on the current entry and save it?
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first()
     shifts = Shift.for_user(self).select{|s| s.start > Time.now}
     new_entry.attributes = old_entry.attributes
     new_entry.active = !old_entry.active
@@ -271,12 +271,12 @@ class User < ActiveRecord::Base
   end
 
   def payrate(department)
-    DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department }).payrate
+    DepartmentsUser.where(:user_id => self, :department_id => department ).first().payrate
   end
   
   def set_payrate(value, department)
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.find(:first, :conditions => { :user_id => self, :department_id => department})
+    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first()
     new_entry.attributes = old_entry.attributes
     new_entry.payrate = value
     DepartmentsUser.delete_all(:user_id => self, :department_id => department)
@@ -337,6 +337,27 @@ class User < ActiveRecord::Base
     end
     
     return detailed_stats
+  end
+
+  # Defines the columns that we use for CSV files
+  def self.csv_headers
+    ['login', 'first_name', 'nick_name', 'last_name', 'email', 'employee_id', 'role']
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << User.csv_headers
+      all.each do |user|
+        csv << user.attributes.values_at(*User.csv_headers)
+      end
+    end
+  end
+
+  # Creates new User entries based on the specified CSV file
+  def self.import(file)
+    CSV.foreach(file.path, :headers => true) do |row|
+      User.create! row.to_hash
+    end
   end
   
   private

@@ -1,6 +1,6 @@
 module AnnouncementsHelper
 
-  def calculate_default_times
+  def calculate_default_times_announcements
 #the following start code was written together with the end code, but it has not been tested yet. ~Casey
 #    if @announcement.start
 #      @default_start_date = @announcement.start.to_date

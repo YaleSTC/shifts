@@ -1,1 +1,0 @@
-page.replace_html "user_form_div", :partial => 'new_form', :locals => {:submit => "Create", :user => [@department,@user]}
