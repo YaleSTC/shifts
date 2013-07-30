@@ -1,6 +1,6 @@
 class UserConfigsController < ApplicationController
   before_filter :set_var_and_check_owner
-  
+
   def edit
     @dept_select = current_user.departments.map{|d| [d.name, d.id]}
     @departments = current_user.departments
@@ -16,7 +16,7 @@ class UserConfigsController < ApplicationController
     else
       @selected_loc_groups = []
     end
-    
+
     if @user_config.watched_data_objects
       @selected_data_objects = @user_config.watched_data_objects.split(', ').map{|obj| obj.to_i }
     else
@@ -31,7 +31,7 @@ class UserConfigsController < ApplicationController
         end
       @loc_groups_grouped_by_dept << [dept.name, @loc_groups_list]
       end
-    
+
     @data_objects_grouped_by_type = []
       @data_types.each do |data_type|
         @data_objects_list = []
@@ -40,12 +40,12 @@ class UserConfigsController < ApplicationController
         end
         @data_objects_grouped_by_type << [data_type.name, @data_objects_list]
       end
-      
+
   end
 
 
-  def update      
-    
+  def update
+
     if params[:loc]
       params[:user_config][:view_loc_groups] = params[:loc].keys.join(", ")
     end
@@ -65,9 +65,9 @@ class UserConfigsController < ApplicationController
     	end
 		elsif params[:commit] == "Reset"
   		@users = User.all
-  
+
  			for user in @users
- 				if (Department.where(:id => user.user_config.default_dept).first == current_department)
+ 				if (Department.find(user.user_config.default_dept) == current_department)
  					this_user_config = user.user_config
   		    this_user_config.send_due_payform_email = true
   		    this_user_config.save
@@ -76,9 +76,9 @@ class UserConfigsController < ApplicationController
   		redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
 		end
 	end
-	
 
-  
+
+
 	private
 
   def set_var_and_check_owner

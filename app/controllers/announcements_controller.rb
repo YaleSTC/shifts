@@ -52,7 +52,7 @@ class AnnouncementsController < NoticesController
   end
 
   def update
-    @announcement = Announcement.where(:id => params[:id] ).first || Announcement.new 
+    @announcement = Announcement.find_by_id(params[:id] ) || Announcement.new
     parse_date_and_time_output(params[:announcement])
     join_date_and_time(params[:announcement])
 		@announcement.update_attributes(params[:announcement])
@@ -70,7 +70,7 @@ class AnnouncementsController < NoticesController
 					format.js
         end
       else
-        respond_to do |format|	
+        respond_to do |format|
         format.html {
           flash[:notice] = 'Announcement was successfully saved.'
           redirect_to :action => "index"
@@ -87,7 +87,7 @@ class AnnouncementsController < NoticesController
 #    @announcement.start = Time.now if params[:start_time_choice] == "now"
     @announcement.start = Time.now
 		if params[:end_time_choice] == "indefinite"
-    	@announcement.end = nil 
+    	@announcement.end = nil
     	@announcement.indefinite = true
 		end
 	end

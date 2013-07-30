@@ -6,7 +6,7 @@ class NoticesController < ApplicationController
   end
 
   def destroy
-    @notice = Notice.where(:id => params[:id]).first
+    @notice = Notice.find(params[:id])
     unless @notice.class.name == "Sticky" || current_user.is_admin_of?(current_department) || current_user == @notice.author
       flash[:error] = "You are not authorized to remove this #{@notice.type.downcase}"
       redirect_to :back and return
@@ -37,17 +37,17 @@ class NoticesController < ApplicationController
       notice.department_wide = true
       notice.save!
     end
-		if params[:for_location_groups] 
-      params[:for_location_groups].each do |loc_group|
-				@loc_group = LocGroup.where(:id => loc_group).first
+		if params[:for_location_groups]
+      params[:for_location_groups].each do |loc_group_id|
+				@loc_group = LocGroup.find(loc_group_id).first
 				if current_user.is_admin_of?(@loc_group) || notice.class.name == "Sticky"
           notice.loc_groups << @loc_group
       	end
 			end
     end
     if params[:for_locations]
-      params[:for_locations].each do |loc|
-        notice.locations << Location.where(:id => loc).first
+      params[:for_locations].each do |location_id|
+        notice.locations << Location.find(location_id)
       end
     end
   end
