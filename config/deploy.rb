@@ -56,16 +56,16 @@ EOF
       put database_configuration, "#{shared_path}/config/database.yml"
     end
 
-    desc "Enter Airbrake API code"
-    task :airbrake do
-      set :api_key, Capistrano::CLI.ui.ask("Airbrake API Key: ")
-      airbrake_config=<<-EOF
-Airbrake.configure do |config|
-  config.api_key = '#{api_key}'
-end
-EOF
-      put airbrake_config, "#{shared_path}/config/airbrake.rb"
-    end
+#     desc "Enter Airbrake API code"
+#     task :airbrake do
+#       set :api_key, Capistrano::CLI.ui.ask("Airbrake API Key: ")
+#       airbrake_config=<<-EOF
+# Airbrake.configure do |config|
+#   config.api_key = '#{api_key}'
+# end
+# EOF
+#       put airbrake_config, "#{shared_path}/config/airbrake.rb"
+#     end
 
     task :prefix_initializer do
       prefix_config_file =<<-EOF
@@ -78,11 +78,13 @@ EOF
       put prefix_config_file, "#{shared_path}/config/prefix.rb"
     end
 
+
+
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
 
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
-      run "ln -nsf #{shared_path}/config/airbrake.rb #{current_path}/config/initializers/airbrake.rb"
+      # run "ln -nsf #{shared_path}/config/airbrake.rb #{current_path}/config/initializers/airbrake.rb"
       #run "ln -nsf #{shared_path}/config/prefix.rb #{release_path}/config/initializers/prefix.rb"
       run "mkdir -p #{shared_path}/log"
       run "mkdir -p #{shared_path}/pids"
@@ -90,14 +92,14 @@ EOF
       run "mkdir -p #{shared_path}/system/datas"
       run "mkdir -p #{shared_path}/assets/user_profiles"
       run "ln -nsfF #{shared_path}/log/ #{current_path}/log"
-      run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"      
+      run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"
       run "ln -nsfF #{shared_path}/sessions/ #{current_path}/tmp/sessions"
       run "ln -nsfF #{shared_path}/system/ #{current_path}/public/system"
       run "rm -rf #{current_path}/public/assets/user_profiles/"
       run "ln -nsfF #{shared_path}/assets/user_profiles #{current_path}/public/assets/"
-      run "mv #{current_path}/public/assets/default.jpg #{shared_path}/assets/user_profiles"
-    end    
-  end  
+      # run "mv #{current_path}/public/assets/default.jpg #{shared_path}/assets/user_profiles"
+    end
+  end
 end
 
 # == DATABASE ==================================================================
@@ -137,7 +139,7 @@ namespace :deploy do
   desc "Create vhosts file for Passenger config"
   task :passenger_config, :roles => :app do
     run "sh -c \'echo \"RailsBaseURI /#{application_prefix}\" > #{apache_config_dir}/rails/rails_#{application}_#{application_prefix}.conf\'"
-    run "ln -s #{deploy_to}/current/public #{document_root}/#{application_prefix}"    
+    run "ln -s #{deploy_to}/current/public #{document_root}/#{application_prefix}"
   end
 
   desc "Create database"
@@ -171,7 +173,7 @@ namespace :deploy do
 end
 
 after "deploy:setup", "init:config:database"
-after "deploy:setup", "init:config:airbrake"
+# after "deploy:setup", "init:config:airbrake"
 after "deploy:setup", "init:config:prefix_initializer"
 after "deploy:create_symlink", "init:config:localize"
 after "deploy:create_symlink", "deploy:update_crontab"
@@ -179,8 +181,8 @@ after "deploy", "deploy:cleanup"
 after "deploy:migrations", "deploy:cleanup"
 before "deploy:assets:precompile", "init:config:localize"
 
-Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].each do |vendored_notifier|
+Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems')].each do |vendored_notifier|
   $: << File.join(vendored_notifier, 'lib')
 end
 
-require 'airbrake/capistrano'
+# require 'airbrake/capistrano'
