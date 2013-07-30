@@ -4,6 +4,17 @@
 <% if @payform.submitted -%>
   <strong>Submitted:</strong> <%=h @payform.submitted.strftime(date_format + " at " + time_format) %><br/>
 <% end -%>
+
+<% if @payform.submitted and current_user.is_admin_of?(@payform.department) -%>
+ <% form_for @payform, :html=>{:id=>"payform_form"} do |f| %>
+  <strong>Print Payform:</strong><br/>
+  <%= check_box "payform", "print_payform", {}, true, false %>
+ <div class='update_left'>
+  <p><%= f.submit "Update Payform" %></p>
+</div>
+<% end %>
+<% end -%>
+
 <% if @payform.approved and current_user.is_admin_of?(@payform.department) -%>
   <strong>Approved:</strong> <%=h @payform.approved.strftime(date_format + " at " + time_format) %> by <%=h @payform.approved_by.name %><br/>
 <% end -%>

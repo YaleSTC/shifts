@@ -18,8 +18,11 @@ class Payform < ActiveRecord::Base
   scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
   scope :skipped,     {:conditions => ["#{:skipped.to_sql_column} IS NOT #{nil.to_sql}"] }
   scope :unskipped,   {:conditions => ["#{:skipped.to_sql_column} IS #{nil.to_sql}"] }
-  scope :unarchived,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:archived.to_sql_column} IS #{nil.to_sql}", nil, nil] }
-  scope :archived,     {:conditions => ["#{:archived.to_sql_column} IS NOT #{nil.to_sql}"] }
+  scope :unarchived,  {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:archived.to_sql_column} IS #{nil.to_sql}", nil, nil] }
+  scope :archived,    {:conditions => ["#{:archived.to_sql_column} IS NOT #{nil.to_sql}"] }
+  
+  #TODO: check to make sure this scope gets the rows whose print_payform column is true
+  scope :print,       {:conditions => ["#{:print_payform.to_sql_column} IS #{true.to_sql}"] }
 
   before_create :set_payrate
 
@@ -55,7 +58,7 @@ class Payform < ActiveRecord::Base
 
     begin
       Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first() ||
-      Payform.create!(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+      Payform.create!(:user_id => usr.id, :department_id => dept.id, :date => period_date, :print_payform => usr.print_payform)
     rescue ActiveRecord::InvalidRecord
       Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first()
     end

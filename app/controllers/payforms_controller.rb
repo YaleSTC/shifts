@@ -23,7 +23,6 @@ class PayformsController < ApplicationController
     else
       respond_to do |show|
         show.html #show.html.erb
-        show.pdf  #show.pdf.prawn
         show.csv do
           csv_string = FasterCSV.generate do |csv|
             csv << ["First Name", "Last Name", "Employee ID", "Payrate", "Start Date", "End Date", "Total Hours"]
@@ -32,6 +31,16 @@ class PayformsController < ApplicationController
           send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
         end
       end
+    end
+  end
+
+  def update
+    @payform = Payform.find(params[:id])
+    @payform.print_payform = 
+    @payform.save
+    if @payform.update_attributes(params[:payform])
+      flash[:notice] = "Successfully updated payform."
+      redirect_to @payform
     end
   end
 

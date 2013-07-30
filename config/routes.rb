@@ -72,6 +72,10 @@ Shifts::Application.routes.draw do |map|
               end
 
   map.resources :payform_item_sets
+
+  #TODO: get rid of this route, just used for testing
+  map.print_payforms "payform_sets/print", controller: 'payform_sets', action: 'create', method: :get
+
   map.resources :payform_sets
   map.resources :department_configs, :only => [:edit, :update]
 
