@@ -14,11 +14,11 @@ class Calendar < ActiveRecord::Base
   scope :public, lambda {{ :conditions => {:public => true}}}
 
   def self.active_in(department, start_date = Time.now, end_date = Time.now)
-    active = Calendar.where("department_id = ? and start_date <= ? and end_date >= ? and active is true", department.id, start_date.utc, end_date.utc)
-    default = Calendar.where("department_id = ? and `default` is true", department.id).first()
+    active = Calendar.where("department_id = ? AND start_date <= ? and end_date >= ? and active is true", department.id, start_date.utc, end_date.utc)
+    default = Calendar.where("department_id = ? AND `default` is true", department.id).first
     [default, active].flatten
   end
-  
+
   def self.destroy_self_and_future(calendar)
     default_id = calendar.department.calendars.default.id
     TimeSlot.delete_all("#{:calendar_id.to_sql_column} = #{calendar.id.to_sql} AND #{:end.to_sql_column} > #{Time.now.utc.to_sql}")
