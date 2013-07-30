@@ -15,16 +15,16 @@
  *
  * @description Create a sortable table with multi-column sorting capabilitys
  * 
- * @example $('table').tablesorter();
+ * @example $('#table').tablesorter();
  * @desc Create a simple tablesorter interface.
  *
- * @example $('table').tablesorter({ sortList:[[0,0],[1,0]] });
+ * @example $('#table').tablesorter({ sortList:[[0,0],[1,0]] });
  * @desc Create a tablesorter interface and sort on the first and secound column in ascending order.
  * 
- * @example $('table').tablesorter({ headers: { 0: { sorter: false}, 1: {sorter: false} } });
+ * @example $('#table').tablesorter({ headers: { 0: { sorter: false}, 1: {sorter: false} } });
  * @desc Create a tablesorter interface and disableing the first and secound column headers.
  * 
- * @example $('table').tablesorter({ 0: {sorter:"integer"}, 1: {sorter:"currency"} });
+ * @example $('#table').tablesorter({ 0: {sorter:"integer"}, 1: {sorter:"currency"} });
  * @desc Create a tablesorter interface and set a column parser for the first and secound column.
  * 
  * 

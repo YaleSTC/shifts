@@ -49,7 +49,7 @@ module TimeSlotsHelper
 
 
 #calculates default_start/end and range_start/end_time
-  def calculate_default_times
+  def calculate_default_times_time_slots
     if params[:date]
 	  #sometimes from the tooltip, sometimes week start date
       @default_start_date = Date.parse(params[:date])

@@ -1,3 +1,4 @@
+.bundle
 *~
 log/*
 tmp/*
@@ -9,6 +10,9 @@ Rakefile
 *.sqlite3
 cleangit
 config/database.yml
-config/initializers/airbrake.rb
 public/assets/user_profiles
+Vagrantfile
+.vagrant/
+.ruby-version
 .rbenv-version
+config/initializers/airbrake.rb

@@ -1,0 +1,4 @@
+<%= @shift.location.name %> on <%= @shift.start.to_s(:just_date_long) %> from <%= @report.arrived.to_s(:am_pm) %> to <%= @report.departed.to_s(:am_pm) %>
+<%= @shift.user.name %> - <%= @report.shift.scheduled? ? "scheduled for #{@shift.start.to_s(:am_pm)} to #{@shift.end.to_s(:am_pm)}" : "unscheduled" %>
+
+<%= render :partial => "report_item", :collection => @report.report_items %>

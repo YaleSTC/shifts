@@ -1,0 +1,7 @@
+//page.remove "shift#{params[:id]}"
+$('#<%= @shift.start.strftime("%Y-%m-%d") %>').html('<%= render :partial => (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), :object => @shift.start.to_date %>')
+$('#tooltip').remove()
+initialize('##{@shift.start.strftime("%Y-%m-%d")}');
+
+// display alert
+alert("shift destroyed");

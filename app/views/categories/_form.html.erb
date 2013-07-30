@@ -1,4 +1,4 @@
-<% form_for category do |f| %>
+<%= form_for category do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :name %><br />
@@ -7,6 +7,10 @@
   <p>
     <%= f.check_box :active %>
     <%= f.label :active %>
+  </p>
+  <p>
+    <%= f.label "Billing Code" %><br />
+    <%= f.text_field :billing_code %>
   </p>
 
   <p><%= f.submit "Submit" %></p>

@@ -9,6 +9,10 @@
   <%=h @category.name %>
 </p>
 <p>
+  <strong>Billing Code:</strong>
+  <%=h @category.billing_code %>
+</p>
+<p>
   <%= link_to "Edit", edit_category_path(@category) %> |
   <%= link_to "Destroy", @category, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", department_categories_path(@department) %>

@@ -9,7 +9,7 @@ class UserProfileFieldsController < ApplicationController
   end
 
   def profile
-    @user_profile_fields = UserProfileField.find(:all, :conditions => {:department_id => @department.id})
+    @user_profile_fields = UserProfileField.where(:department_id => @department.id)
   end
 
   def new

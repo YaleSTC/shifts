@@ -15,7 +15,7 @@ namespace :email do
 
   desc "Sends out an e-mail whenever a student has been signed into a shift and has not updated for over an hour"
 
-  task (:stale_shift_reminders => :environment) do
+  task :stale_shift_reminders => :environment do
     departments_notified_about_stale_shifts = Department.all.select { |d| d.department_config.stale_shift }
     for dept in departments_notified_about_stale_shifts
       stale_shift_email(dept)

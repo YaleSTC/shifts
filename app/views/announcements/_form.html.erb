@@ -1,4 +1,4 @@
-<% calculate_default_times %>
+<% calculate_default_times_announcements %>
 
 <br/>
 <% form_remote_for(@announcement) do |f| %>
@@ -12,23 +12,23 @@
   </fieldset>
 
 	<div id = "time_choices">
-<!---
+<!--
 start time cannot currently be set. We need to simultaneously develop the ability to see announcements which haven't posted yet. Also change in announcements_controller "def set_author_dept_and_time" to accept start time again.
+-->
 	<fieldset class = "index">
 		<legend>Start time:</legend>
 		<%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
 		<%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
 		<label><%= f.datetime_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %></label>
 	</fieldset>
---->
 
-	<fieldset class = "index">
-		<legend>End time:</legend>
+  <fieldset class = "index">
+    <legend>End time:</legend>
     <span class="end_time_choice_indefinite">
-		<%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
+    <%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
     </span>
     <span class="end_time_choice_date">
-  	<%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
+    <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
     <%= f.label :end %>
     <%= f.time_select :end_time, {
             :simple_time_select => true,
@@ -38,11 +38,11 @@ start time cannot currently be set. We need to simultaneously develop the abilit
                                       } %>
     <%= f.date_select :end_date, :default => @default_end_date %>
     </span>
-	</fieldset>
+  </fieldset>
 
   </div>
 <!-- set_sources method in notices controller doesn't handle removing polymorphic associations, so we can't unassociate locations
-		from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
+    from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
 		locations, but just disable all of the checkboxes -->
 <div id="variable_height_box">
 	<%= render :partial => "notices/locations", :locals => {:notice => @announcement} %>
@@ -54,23 +54,3 @@ start time cannot currently be set. We need to simultaneously develop the abilit
 
 <%= javascript_include_tag 'notices' %>
 <%= stylesheet_link_tag 'notice' %>
-
-<script type="text/javascript">
-var opts = {
-                formElements:{"announcement_end_date_3i":"j",
-                              "announcement_end_date_1i":"Y",
-                              "announcement_end_date_2i":"n"
-                },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
-datePickerController.createDatePicker(opts);
-
-
-  $("span[class='end_time_choice_indefinite']").mousedown(function(){
-      $("#end_time_choice_indefinite").attr('checked', true)
-  });
-  $("span[class='end_time_choice_date']").mousedown(function(){
-      $("#end_time_choice_date").attr('checked', true)
-  });
-</script>

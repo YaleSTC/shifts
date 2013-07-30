@@ -7,8 +7,8 @@ class PayformItemSet < ActiveRecord::Base
   validate :payform_item_creation
   delegate :users, :to => :payform_items
   
-  named_scope :active, :conditions => {:active => true }
-  named_scope :expired, :conditions => {:active => false }
+  scope :active, where(:active => true)
+  scope :expired, where(:active => false)
 
   def users
     return self.payform_items.collect { |item| item.user }.compact
@@ -16,7 +16,7 @@ class PayformItemSet < ActiveRecord::Base
 
 private
   def payform_item_creation
-    errors.add("Users did not add properly.", "") if PayformItem.find_by_payform_item_set_id(self.id) == nil
+    errors.add("Users did not add properly.", "") if PayformItem.where(:payform_item_set_id => self.id).first == nil
   end
 
 end

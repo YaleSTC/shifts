@@ -6,16 +6,16 @@ class RequestedShift < ActiveRecord::Base
 	validate :user_does_not_have_concurrent_request
 	validate :request_is_within_time_slot
 
-	has_many :locations_requested_shifts
-	has_many :locations, :through => :locations_requested_shifts
+  # has_many :locations_requested_shifts
+  # has_many :locations, :through => :locations_requested_shifts
 	belongs_to :user
 	belongs_to :template
 
- 	named_scope :assigned, :conditions => ["requested_shifts.assigned_start < ?", Time.now.utc]
- 	named_scope :unassigned, :conditions => ["requested_shifts.assigned_start is null"]
-# 	named_scope :unassigned, lambda {|location| {:conditions => ["requested_shifts.assigned_start = ? AND locations_requested_shifts.location_id = ?", nil,  location.id], :joins => :locations_requested_shifts }}
-	named_scope :on_day, lambda {|day| {:conditions => {:day => day}}}
-	named_scope :at_location, lambda {|location| {:conditions => ["locations_requested_shifts.location_id = ?", location.id], :joins => :locations_requested_shifts }}
+ 	scope :assigned, where("requested_shifts.assigned_start < ?", Time.now.utc)
+ 	scope :unassigned, where("requested_shifts.assigned_start is null")
+# 	scope :unassigned, lambda {|location| {:conditions => ["requested_shifts.assigned_start = ? AND locations_requested_shifts.location_id = ?", nil,  location.id], :joins => :locations_requested_shifts }}
+	scope :on_day, ->(day){where(:day => day)}
+  # scope :at_location, lambda {|location| {:conditions => ["locations_requested_shifts.location_id = ?", location.id], :joins => :locations_requested_shifts }}
 
 	WEEK_DAY_SELECT = [	["Monday", 0],
     									["Tuesday", 1],
@@ -25,11 +25,11 @@ class RequestedShift < ActiveRecord::Base
     									["Saturday", 5],
     									["Sunday", 6] ]
 	def assigned(location)
-		LocationsRequestedShift.find(:all, :conditions => ['requested_shift_id = ?', self.id]).collect{|lrs| Location.find(lrs.location_id)}
+		LocationsRequestedShift.where('requested_shift_id = ?', self.id).collect{|lrs| Location.find(lrs.location_id)}
 	end
 
 	def locations
-		LocationsRequestedShift.find(:all, :conditions => ['requested_shift_id = ?', self.id]).collect{|lrs| Location.find(lrs.location_id)}
+		LocationsRequestedShift.where('requested_shift_id = ?', self.id).collect{|lrs| Location.find(lrs.location_id)}
 	end
 
   def self.day_in_words(day_int)
@@ -49,7 +49,7 @@ class RequestedShift < ActiveRecord::Base
   end
 
 	def assign(location)
-		@location_request = LocationsRequestedShift.find(:first, :conditions => {:requested_shift_id => self.id, :location_id => location.id})
+		@location_request = LocationsRequestedShift.where(:requested_shift_id => self.id, :location_id => location.id).first()
 		@location_request.assigned = true
 		@location_request.save
 	end
@@ -69,14 +69,14 @@ class RequestedShift < ActiveRecord::Base
 		b = self.locations
 		c = 0
 		b.each do |location|		
-			c += TemplateTimeSlot.count(:all, :conditions => ["#{:start_time.to_sql_column} <= #{self.acceptable_start.to_sql} AND #{:end_time.to_sql_column} >= #{self.acceptable_end.to_sql} AND #{:template_id.to_sql_column} = #{self.template_id.to_sql} AND #{:location_id.to_sql_column} = #{location.id.to_sql} AND #{:day.to_sql_column} = #{self.day.to_sql}"])
+			c += TemplateTimeSlot.count(:all, :conditions => ["start_time  <= #{self.acceptable_start  } AND end_time  >= #{self.acceptable_end  } AND template_id  = #{self.template_id  } AND location_id  = #{location.id  } AND day  = #{self.day  }"])
 		end
 		errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
   end
 
   def user_does_not_have_concurrent_request
 #		Find all other requests of the user that occupy the same time (same day + overlapping acceptable start/end time)
-		c = RequestedShift.find(:all, :conditions => ["#{:user_id.to_sql_column} = #{self.user_id.to_sql} AND #{:day.to_sql_column} = #{self.day.to_sql} AND #{:acceptable_start.to_sql_column} <= #{self.acceptable_end.to_sql} AND #{:acceptable_end.to_sql_column} >= #{self.acceptable_start.to_sql} AND #{:template_id.to_sql_column} = #{self.template.to_sql} AND #{:id.to_sql_column} != #{self.id.to_sql}"])
+		c = RequestedShift.where("user_id  = #{self.user_id  } AND day  = #{self.day  } AND acceptable_start  <= #{self.acceptable_end  } AND acceptable_end  >= #{self.acceptable_start  } AND template_id  = #{self.template  } AND id  != #{self.id  }")
 #		Now see if any of the other requests have locations that are the same as this request's locations
 		other_locations = c.collect{|request| request.locations}.flatten
 		self.locations.each do |location|	

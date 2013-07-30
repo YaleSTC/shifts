@@ -26,10 +26,10 @@ class PayformItem < ActiveRecord::Base
   validates_numericality_of :hours, :greater_than => 0
   validates_presence_of :reason, :on => :update
   validate :length_of_description
-  validate_on_update :length_of_reason
+  validate :length_of_reason, :on => :update
 
-  named_scope :active, :conditions => {:active =>  true}
-  named_scope :in_category, lambda { |category| { :conditions => {:category_id => category.id}}}
+  scope :active, where(:active =>  true)
+  scope :in_category, ->(category){where(:category_id => category.id)}
   
   def add_errors(e)
     e = e.to_s.gsub("Validation failed: ", "")
@@ -37,6 +37,14 @@ class PayformItem < ActiveRecord::Base
       errors.add_to_base(error)
     end
   end
+
+  def self.rounded_hours(payform_items)
+    raw_hours = payform_items.map{|i| i.hours}.sum
+    dept = payform_items.first.payform.department
+    rounded_hours = ((raw_hours.to_f * 60 / dept.department_config.admin_round_option.to_f).round * (dept.department_config.admin_round_option.to_f / 60))
+    sprintf( "%0.02f", rounded_hours).to_f
+  end
+
   
   protected
   

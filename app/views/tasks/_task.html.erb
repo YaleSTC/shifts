@@ -3,7 +3,7 @@
     <%=link_to task.name, task%></td>
   <% unless mobile_device?%>
     <td><%=h task.kind %></td>
-    <td><%=h Location.find_by_id(task.location_id).short_name %></td>
+    <td><%=h Location.where(:id => task.location_id).first.short_name %></td>
     <td><%=h task.start.strftime("%B %d %Y") %></td>
     <td><%=h task.end.strftime("%B %d %Y")%></td>
     <td><%=h task.time_of_day.to_s(:am_pm) %></td>

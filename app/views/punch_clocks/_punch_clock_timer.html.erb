@@ -1,6 +1,9 @@
-<%= javascript_include_tag 'jquery.epiclock' %>
 <% no_of_sec = punch_clock_timer.paused ? punch_clock_timer.runtime : (Time.now - punch_clock_timer.last_touched + punch_clock_timer.runtime) %>
 <div id="timer">
   <noscript><%= punch_clock_timer.running_time %></noscript>
 </div>
-<script type='text/javascript'>$('#timer').epiclock({format: 'x:i:s', mode: EC_COUNTUP, target: '<%= Time.now.to_s(:utc) %>', offset:{seconds: <%= no_of_sec %>}}); jQuery.epiclock(EC_RUN)</script>
+<%= javascript_tag do %>
+  time = '<%= Time.now.to_s(:utc) %>';
+  sec  = '<%= no_of_sec %>';
+<% end %>
+<%= javascript_include_tag 'jquery.epiclock', 'punch_clock_timer' %>

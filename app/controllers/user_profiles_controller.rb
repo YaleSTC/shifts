@@ -3,12 +3,12 @@ before_filter :user_login
   def index
     @user_profiles = []
     @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.reverse_name}
-    @user_profile_fields =  UserProfileField.find(:all, :conditions => {:index_display => true, :department_id => @department.id})
+    @user_profile_fields =  UserProfileField.where(:index_display => true, :department_id => @department.id)
   end
 
   def show
-    @user = User.find_by_login(params[:id])
-    @user_profile = UserProfile.find_by_user_id(@user.id)
+    @user = User.where(:login => params[:id]).first
+    @user_profile = UserProfile.where(:user_id => @user.id).first
     unless @user_profile.user.departments.include?(@department)
       flash[:error] = "This user does not have a profile in this department."
     end
@@ -35,8 +35,8 @@ before_filter :user_login
   end
 
   def edit
-    @user = User.find_by_login(params[:id])
-    @user_profile = UserProfile.find_by_user_id(@user.id)
+    @user = User.where(:login => params[:id]).first
+    @user_profile = UserProfile.where(:user_id => @user.id).first
     
     #The dept admin can edit all parts of any profile in their department, and a regular user can only edit their own profile entries that are user editable
     if current_user.is_admin_of?(@department)
@@ -107,7 +107,7 @@ before_filter :user_login
   end
 
   def search
-    @user_profile_fields =  UserProfileField.find(:all, :conditions => {:index_display => true, :department_id => @department.id})
+    @user_profile_fields =  UserProfileField.where(:index_display => true, :department_id => @department.id)
     users = current_department.active_users
     #filter results if we are searching
     if params[:search]
@@ -122,7 +122,7 @@ before_filter :user_login
     end
     @user_profiles = []
     for user in users
-      @user_profiles << UserProfile.find_by_user_id(user.id)
+      @user_profiles << UserProfile.where(:user_id => user.id).first
     end
   end
 
@@ -133,7 +133,7 @@ before_filter :user_login
   
   private
   def user_login
-    @user_profile = UserProfile.find(:all, :conditions => {:user_id => User.find_by_login(params[:id])})
+    @user_profile = UserProfile.where(:user_id => User.where(:login => params[:id]).first)
   end
   
   def crop_errors

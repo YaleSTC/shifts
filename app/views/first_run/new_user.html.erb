@@ -8,8 +8,5 @@
 <%= render :partial => 'users/result_list' %>
 </div>
 <% end %>
-<script type="text/javascript">
-  //hide unless javascript works
-  $('.table_right').css({'visibility' : 'visible'})
-</script>
 
+<%= javascript_include_tag 'first_run_new_user' %>
