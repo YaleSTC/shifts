@@ -89,6 +89,10 @@ function popup_show(parent_element, e){
 
 function loading_tooltip(x,y){
   $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+  // make sure that the tooltip doesn't disappear when you click on it
+  $("#tooltip").click(function(e){
+    e.stopPropagation();
+  });
 }
 
 function getXOffset(element){
@@ -231,10 +235,6 @@ $(this).click(function(event) {
      $('#tooltip').fadeOut(function (){ $(this).remove() });
     return(false);
   }
-});
-// make sure that the 
-$("#tooltip").click(function(e){
-  e.stopPropagation();
 });
 
 var calendar_visible = {};
