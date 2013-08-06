@@ -119,7 +119,7 @@ module ShiftsHelper
 #calculates default_start/end and range_start/end_time
   def calculate_default_times_shifts
     if @shift.new_record? #true for new html&tooltip
-      @default_start_date = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
+      @default_start_date = params[:date] ? Time.parse(params[:date].to_date : Date.today
     else # true for edit html&tooltip
       @default_start_date = @shift.start
     end
