@@ -89,6 +89,9 @@ function popup_show(parent_element, e){
 
 function loading_tooltip(x,y){
   $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+  $("#tooltip").click(function(e){
+    e.stopPropagation();
+  });
 }
 
 function getXOffset(element){
