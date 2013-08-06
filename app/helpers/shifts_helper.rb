@@ -119,7 +119,7 @@ module ShiftsHelper
 #calculates default_start/end and range_start/end_time
   def calculate_default_times_shifts
     if @shift.new_record? #true for new html&tooltip
-      @default_start_date = params[:date] ? Time.parse(params[:date].to_date : Date.today
+      @default_start_date = (params[:date] ? Time.parse(params[:date]) : Time.now).to_date
     else # true for edit html&tooltip
       @default_start_date = @shift.start
     end
@@ -151,11 +151,13 @@ module ShiftsHelper
         @shift.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
         @shift.end ||= @shift.start + 1.hour
     end
-  end
+end
 
 
 
   def day_preprocessing(day)
+    @location_rows = {}
+
     #for AJAX; needs cleanup if we have time
     @loc_groups = current_user.user_config.view_loc_groups.select{|l| !l.locations.empty?}
     @dept_start_hour ||= current_department.department_config.schedule_start / 60
@@ -166,8 +168,6 @@ module ShiftsHelper
 
     @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
     #locations = @loc_groups.map{|lg| lg.locations}.flatten
-
-    @location_rows = {}
     for location in @visible_locations
       @location_rows[location] = [] #initialize rows
       @location_rows[location][0] = [] #initialize rows
@@ -179,12 +179,14 @@ module ShiftsHelper
     # shifts = Shift.super_search(day.beginning_of_day + @dept_start_hour.hours,
     #                             day.beginning_of_day + @dept_end_hour.hours, @time_increment.minutes, locations.map{|l| l.id})
 
+    @visible_locations ||= current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
     #adding the option to view unscheduled shifts
     if current_department.department_config.unscheduled_shifts == true
       shifts = Shift.active.in_locations(@visible_locations).on_day(day) #TODO: .active
     else
       shifts = Shift.active.in_locations(@visible_locations).on_day(day).scheduled
     end
+    shifts ||= []
     shifts = shifts.sort_by{|s| [s.location_id, s.start]}
 
     # TODO: FIX ME
