@@ -232,7 +232,7 @@ $(this).keyup(function(event) {
 //close window when clicking on the page
 $(this).click(function(event) {
   if ($('#tooltip').length == 1) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
+    $('#tooltip').fadeOut(function (){ $(this).remove() });
     return(false);
   }
 });
