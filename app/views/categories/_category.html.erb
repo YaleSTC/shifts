@@ -1,4 +1,4 @@
-<%= category.active ? "<tr>" : "<tr class='disabled'>" %>
+<%= category.active ? "<tr>".html_safe : "<tr class='disabled'>".html_safe %>
 	<td><%= category.name %></td>
 	<td><%= category.payform_items.count.to_s%></td>
 	<td><%= link_to 'Edit', edit_category_path(category)%></td>

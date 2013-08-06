@@ -21,15 +21,18 @@
 	</tbody>
 </table>
 
-<h4>Expired/Inactive Tasks:</h4>
+<% if !@inactive_tasks.empty? %>
+	<h4>Expired/Inactive Tasks:</h4>
 
-<table class = "tablesorter">
-<%= render :partial => "task", :collection => @inactive_tasks %>
-</table>
+	<table class = "tablesorter">
+	<%= render :partial => "task", :collection => @inactive_tasks %>
+	</table>
+<% end %>
 
 <br />
 
 <% if current_user.is_admin_of?(current_department)%>
   <%= link_to 'New Task', new_task_path %>
 <% end %>
-<script type="text/javascript">$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#tasks_table").tablesorter({sortList: [1,0]});});</script>
+
+<%= javascript_include_tag 'tasks_index' %>

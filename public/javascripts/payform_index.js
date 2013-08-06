@@ -1,0 +1,1 @@
+$('input#search_submit').toggle();

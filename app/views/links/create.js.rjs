@@ -1,6 +1,6 @@
 if @link.errors.empty? 
 	if current_user.current_shift
-		page.replace_html "report_links", :partial => 'report_links'
+		page.replace_html "report_links", :partial => 'report_links', :collection => current_user.current_shift.report.get_links, :as => :link
 	else
 		page.replace_html "dashboard_links", :partial => 'dashboard_links'
 		page.replace_html "links_index", :partial => 'links_index'	

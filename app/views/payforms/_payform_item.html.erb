@@ -2,8 +2,8 @@
 <% if (payform_item.active && type != 'edit_item') || current_user.is_admin_of?(current_department) %>
 <tr class="<%= type %>">
   <td class="date">
-    <%= "&uarr;" if type == 'edit_item' %>
-    <%= payform_item.date.strftime('%b&nbsp;%d') %>
+    <%= "&uarr;".html_safe if type == 'edit_item' %>
+    <%= payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
     <% if payform_item.source_url -%>
@@ -32,7 +32,7 @@
     </td>
     <td class="rightside" id="delete">
       <% if payform_item.active && payform_item.payform && !payform_item.payform.approved %>
-        <%= link_to "&#x2716;", delete_payform_item_path(payform_item, :height => "180", :width => "600"), :title => "Delete Payform Item", :class => "thickbox" %>
+        <%= link_to "&#x2716;".html_safe, delete_payform_item_path(payform_item, :height => "180", :width => "600"), :title => "Delete Payform Item", :class => "thickbox" %>
       <% end %>
     </td>
   <% else %>

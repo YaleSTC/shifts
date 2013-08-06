@@ -1,0 +1,9 @@
+$("#tooltip").remove()
+
+$("#location<%= @time_slot.location.id %>_<%= @time_slot_day.strftime("%Y-%m-%d") %>_timeslots").append('<%= escape_javascript render :partial => "time_slots/time_slot", :object => @time_slot, :locals => {:time_slot_day => @time_slot_day} %>');
+//TODO How to do this in jQuery
+//page["#timeslot#{@time_slot.id}"].visual_effect :highlight
+$('#timeslot<%= @time_slot.id %>').click(function (e) {popup_edit_timeslot($(this), e); return false;});
+
+// display alert
+alert("timeslot created");

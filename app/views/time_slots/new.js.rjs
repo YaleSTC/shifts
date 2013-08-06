@@ -1,1 +1,0 @@
-page.replace_html "tooltip", :partial => "time_slots/tooltips/new", :object => @time_slot

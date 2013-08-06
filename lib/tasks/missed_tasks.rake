@@ -25,12 +25,12 @@ namespace :db do
   end
   
   desc "Populates shifts tasks join table with entries calculated to be missed"
-  task (:populate_missed_tasks => :environment) do
+  task :populate_missed_tasks => :environment do
     populate_missed_tasks(Date.today - 1, Date.today)
   end
   
   desc "Clears missed shifts tasks and repopulates full list (very computationally intensive!)"
-  task (:reset_missed_tasks => :environment) do
+  task :reset_missed_tasks => :environment do
     clear_missed_tasks
     populate_missed_tasks(Task.all.collect{|t| t.start}.sort.first.to_date, Date.today)
   end

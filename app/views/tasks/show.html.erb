@@ -17,7 +17,7 @@
 
 <p>
   <b>Location:</b>
-  <%= Location.find_by_id(@task.location_id).name %>
+  <%= Location.find(@task.location_id).name %>
 </p>
 
 <p>

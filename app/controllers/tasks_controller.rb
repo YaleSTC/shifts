@@ -5,8 +5,8 @@ class TasksController < ApplicationController
   def index
     #return unless user_is_admin_of(current_department)
     @tasks = Task.all
-    @active_tasks = Task.find(:all, :conditions => ["#{:active} = ?", true])
-    @inactive_tasks = Task.find(:all, :conditions => ["#{:active} = ?", false])
+    @active_tasks = Task.where("#{:active} = ?", true)
+    @inactive_tasks = Task.where("#{:active} = ?", false)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -121,7 +121,7 @@ class TasksController < ApplicationController
     @start = interpret_start
     @end = interpret_end
     @task = Task.find(params[:id])
-    @shifts = ShiftsTask.find(:all, :conditions => {:task_id => @task.id, :missed => false})
+    @shifts = ShiftsTask.where(:task_id => @task.id, :missed => false)
     @shifts_tasks = @shifts.select{|st| st.created_at < @end && st.created_at > @start}
   end
   
@@ -129,7 +129,7 @@ class TasksController < ApplicationController
     @start = interpret_start
     @end = interpret_end
     @task = Task.find(params[:id])
-    @shifts = ShiftsTask.find(:all, :conditions => {:task_id => @task.id, :missed => true})
+    @shifts = ShiftsTask.where(:task_id => @task.id, :missed => true)
     @shifts_tasks = @shifts.select{|st| st.created_at < @end && st.created_at > @start}
   end
   

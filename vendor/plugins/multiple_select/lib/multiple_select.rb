@@ -108,7 +108,7 @@ module FightTheMelons #:nodoc:
         multiple_select_with_path(name, options) do |selected_items|
           checkboxes_for_multiple_select(
             name, container, selected_items, options
-          )
+          ).html_safe
         end
       end
       

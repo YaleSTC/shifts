@@ -1,6 +1,6 @@
 <% title "Destroy Payform Item" %>
 
-<% form_for @payform_item, :html => {:method => :delete} do |f| %>
+<%= form_for @payform_item, :html => {:method => :delete} do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :reason %><br />

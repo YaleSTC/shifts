@@ -46,7 +46,7 @@ class DataEntriesController < ApplicationController
      flash[:notice] = "Successfully updated data entry."
      redirect_to data_object_path(params[:data_object_id])
    else
-     flash[:error] = "ERROR ERROR"
+     flash[:error] = "Error updating data entry."
      render :action => 'edit'
    end
  end

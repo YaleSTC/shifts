@@ -7,7 +7,7 @@ module RepeatingEventsHelper
     false
   end
 
-  def loc_group_checked?(loc_group, repeating_event)
+  def loc_group_checked_event?(loc_group, repeating_event)
     checked = true
     current_department.loc_groups.each do |lg|
       if lg == loc_group
@@ -19,7 +19,7 @@ module RepeatingEventsHelper
     return checked
   end
 
-  def location_checked?(location, repeating_event)
+  def location_checked_event?(location, repeating_event)
     return true if @repeating_event.location_ids && @repeating_event.location_ids.include?(location.id)
 #    current_department.locations.each do |loc|
 #      return true if loc == location
