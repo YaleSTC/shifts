@@ -136,9 +136,8 @@ module ShiftsHelper
         @shift.start += config.schedule_start
         @shift.start += (minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
         #if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
-        #if the schedule starts at 9:30, I'm not sure what happens ~Casey
         @shift.end = @shift.start + 1.hour
-      #limit time_select range to valid time_slots (note: this only applys to ToolTip view)
+        #limit time_select range to valid time_slots
         timeslot_start = TimeSlot.overlaps(@shift.start, @shift.end).ordered_by_start.first
         timeslot_end = TimeSlot.overlaps(@shift.start, @shift.end).ordered_by_start.last
         if timeslot_start && timeslot_end && !params[:power_signed_up]
@@ -146,7 +145,7 @@ module ShiftsHelper
           @range_end_time = timeslot_end.end
         end
     else   # Not using ToolTip View
-      #start already exists when editing, this just sets it for the new html view
+        #start already exists when editing, this just sets it for the new html view
         @shift.start ||= (params[:date] ? Time.parse(params[:date]) : Time.now).to_date.to_time + current_department.department_config.schedule_start.minutes
         @shift.end ||= @shift.start + 1.hour
     end
