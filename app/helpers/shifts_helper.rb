@@ -129,7 +129,7 @@ module ShiftsHelper
       @range_start_time = Date.today.to_time + current_department.department_config.schedule_start.minutes
       @range_end_time = Date.today.to_time  + current_department.department_config.schedule_end.minutes
 
-    if params[:xPercentage] #Using ToolTip view
+    if params[:xPercentage] #Using ToolTip view, xPercentage refers to the cursor position on schedule-box click
         @shift.start = @default_start_date
         config = current_department.department_config
         minutes_per_day = config.schedule_end - config.schedule_start
