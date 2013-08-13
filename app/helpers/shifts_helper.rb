@@ -135,7 +135,6 @@ module ShiftsHelper
         minutes_per_day = config.schedule_end - config.schedule_start
         @shift.start += config.schedule_start
         @shift.start += (minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
-        #if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
         @shift.end = @shift.start + 1.hour
         #limit time_select range to valid time_slots
         timeslot_start = TimeSlot.overlaps(@shift.start, @shift.end).ordered_by_start.first
