@@ -26,7 +26,10 @@
 
 	  <fieldset id = "useful_links" class = "index" >
 	    <legend>Useful Links</legend>
-	   	<%= render :partial => 'links/report_links' %>
+	    <ul id="useful_links">
+	   	<%= render :partial => 'links/report_links', :collection => current_user.current_shift.report.get_links, :as => :link %>
+	   	</ul>
+	   	<%= link_to_post_a_link %>
 	  </fieldset>
 
 	  <% unless mobile_device?%>
@@ -65,17 +68,19 @@
  <% end %>
 
  <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.loc_group)) %>
- 	<%= button_to "Submit #{@report.shift.user.name}'s shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
+ 	<%= button_to "Submit #{@report.shift.user.name}'s shift report", { :controller => 'reports', :action => :update, :id => @report, :sign_out => true }, :method => :put, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
  <% end %>
 
  <% if current_user == @report.user && !@report.departed %>
 
 </div> <!-- close report_relative_size -->
 
- <%= button_to "Submit your shift report", {:action => :update, :id => @report, :sign_out => true, :method => :put}, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+<%= button_to "Submit your shift report", {:action => :update, :id => @report.id, :sign_out => true}, :method => :put, :confirm => 'Are you sure you wish to sign out of this shift?' %>
 
 <div class='clear'></div>
 </div> <!--close active_report_area -->
 
 
 <% end %>
+
+<%= javascript_include_tag "reports_show" %>

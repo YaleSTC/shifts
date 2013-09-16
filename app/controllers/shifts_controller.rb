@@ -3,7 +3,7 @@ class ShiftsController < ApplicationController
 
   def index
     @period_start = params[:date] ? Date.parse(params[:date]).previous_sunday : Date.today.previous_sunday
-    @upcoming_shifts = Shift.find(:all, :conditions => ["#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true], :order => :start, :limit => 5)
+    @upcoming_shifts = Shift.where("#{:user_id} = ? and #{:end} > ? and #{:department_id} = ? and #{:scheduled} = ? and #{:active} = ?", current_user, Time.now.utc, current_department.id, true, true).order(:start).limit(5)
 
     # for user view preferences partial
     @loc_group_select = {}
@@ -18,22 +18,22 @@ class ShiftsController < ApplicationController
         @day_collection = [Date.today]
       elsif current_user.user_config.view_week == "remainder"
         if @department.department_config.weekend_shifts #show weekends
-          @day_collection = Date.today...(@period_start+7)
+          @day_collection = (Date.today...(@period_start+7)).to_a
         else
-          @day_collection = Date.today...(@period_start+6)
+          @day_collection = (Date.today...(@period_start+6)).to_a
         end
       end
     elsif @department.department_config.weekend_shifts #show weekends
-      @day_collection = @period_start...(@period_start+7)
+      @day_collection = (@period_start...(@period_start+7)).to_a
     else #no weekends
-      @day_collection = (@period_start+1)...(@period_start+6)
+      @day_collection = ((@period_start+1)...(@period_start+6)).to_a
     end
 
     @loc_groups = current_user.loc_groups(current_department)
     @visible_loc_groups = current_user.user_config.view_loc_groups
     @selected_loc_groups = @visible_loc_groups.collect{|l| l.id}
     @visible_locations = current_user.user_config.view_loc_groups.collect{|l| l.locations}.flatten
-    
+
 
     # @calendars = @department.calendars.active
     # @shifts = []
@@ -71,7 +71,7 @@ class ShiftsController < ApplicationController
         format.html #freak out
         format.js do
           render :update do |page|
-            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.")
+            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.".html_safe)
             page.hide "tooltip"
           end
         end
@@ -82,7 +82,9 @@ class ShiftsController < ApplicationController
   end
 
   def show_active
-    @signed_in_shifts = Shift.signed_in(current_department).group_by(&:loc_group).sort_by(&:id)
+    @signed_in_shifts = Shift.signed_in(current_department).group_by(&:loc_group).each do |loc_group, shifts|
+      shifts = shifts.sort_by(&:id)
+    end
   end
 
   def show_unscheduled
@@ -147,7 +149,7 @@ class ShiftsController < ApplicationController
         format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
         format.js
       end
-  else
+    else
       respond_to do |format|
         format.html{ render :action => 'new' }
         format.js do
@@ -226,7 +228,7 @@ class ShiftsController < ApplicationController
       end
     end
   end
-  
+
   def email_group
     default_email_group_settings
     @loc_groups = current_department.loc_groups.active
@@ -257,7 +259,7 @@ class ShiftsController < ApplicationController
     else
       @start_time ||= department_day_start_time
     end
-    
+
     if params[:email_group]["end_time(1i)"]
       @end_time ||= DateTime.new(params[:email_group][:"end_time(1i)"].to_i,params[:email_group][:"end_time(2i)"].to_i,params[:email_group][:"end_time(3i)"].to_i,params[:email_group][:"end_time(4i)"].to_i,params[:email_group][:"end_time(5i)"].to_i)
     else

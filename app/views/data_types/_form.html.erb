@@ -1,5 +1,5 @@
 <%#= render :partial => 'data_types/progress_bar', :locals => {:current_step => 1} %>
-  <% form_for @data_type do |form| %>
+  <%= form_for @data_type do |form| %>
     <%= form.error_messages %>
     <p>
       <%= form.label :name %> (e.g. "Printer")<br />
@@ -22,8 +22,4 @@
 
 <% end %>
 
-  <%# toggle javascript elements%>
-    <script type="text/javascript">
-      $('#data_fields').toggle();
-      $('.javascript_link').toggle();
-    </script>
+<%= javascript_include_tag 'data_types_form' %>

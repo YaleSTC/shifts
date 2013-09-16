@@ -1,7 +1,3 @@
-<script type="text/javascript">var ie = false;</script>
-<!--[if IE]>
-<script type="text/javascript">ie = true;</script>
-<![endif]-->
 
 <div class="close_link">
   <a onclick="$(this).parent().parent().fadeOut(function (){ $(this).remove() }); return false;" href="#">[x]</a>
@@ -36,7 +32,7 @@
       
       <% if @shift.submitted? %>
         <% unless @shift.repeating_event %>
-          <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+          <%= link_to "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :remote => true, :confirm => 'Are you sure?', :method => :delete} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">
@@ -103,12 +99,12 @@
         <% end %>
   
         <% unless @shift.repeating_event %>
-          <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+          <%= link_to "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">
             <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
-            <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
+            <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :remote => true, :confirm => 'Are you sure?', :method => :delete} %><br />
             <%= button_to_remote "This and all future shifts", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
             <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :rerender_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %>
           </div>
@@ -170,10 +166,5 @@
     <% end %>
   </p>
 <% end %>
- 
-<script type="text/javascript">
-  // don't retrigger the action when clicking the tooltip :P
-  $(".tooltip").click(function(e){
-    e.stopPropagation();
-  });
-</script>
+
+<%= javascript_include_tag 'tooltips_show' %>

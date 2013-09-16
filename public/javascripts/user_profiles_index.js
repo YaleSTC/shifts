@@ -1,0 +1,1 @@
+$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#user_profiles_table").tablesorter({sortList: [[0,0]]});});

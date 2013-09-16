@@ -1,0 +1,1 @@
+$(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#tasks_table").tablesorter({sortList: [1,0]});});

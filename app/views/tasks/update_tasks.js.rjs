@@ -1,6 +1,0 @@
-if true
-  page.visual_effect :highlight, "shift_tasks", :color => '#3bcc77', :duration => 2.0
-  page.replace_html("tasks", :partial => 'tasks/report_tasks');
-else
-  page.replace_html "errors", :partial => 'reports/report'
-end

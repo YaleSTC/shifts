@@ -1,7 +1,7 @@
 <div class="admin_form">
   <fieldset class="index">
     <legend><%= title %></legend>
-    <% form_for (@location.new_record? ? [@department,@location] : @location) do |f| %>
+    <%= form_for (@location.new_record? ? [@department,@location] : @location) do |f| %>
       <%= f.error_messages %>
       <p>
         <%= f.label :name %>
@@ -41,6 +41,10 @@
       <p>
         <%= f.label :active %>
         <%= f.check_box :active %>
+      </p>
+      <p>
+        <%= f.label "Payform Category" %>
+        <%= f.collection_select(:category_id, Category.all, :id, :name, {:prompt => "Select a payform category"}) %>
       </p>
       <p>
         <label>&#8200;</label>

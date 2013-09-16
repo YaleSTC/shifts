@@ -6,7 +6,7 @@ class SuperusersController < ApplicationController
   end
 
   def add
-    @new_su = User.find_by_login(params[:new_su_login])
+    @new_su = User.where(:login => params[:new_su_login]).first
     if @new_su
       if @new_su.is_superuser?
         flash[:notice] = "No change. <b>#{@new_su.name}</b> is already a superuser."

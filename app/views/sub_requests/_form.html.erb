@@ -1,6 +1,6 @@
-<% calculate_default_times %>
+<% calculate_default_times_sub_requests %>
 
-<% form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
+<%= form_for (params[:id] ? @sub_request : [:shift, @sub_request]) do |f| %>
   <div id ="errors">
     <%= render :partial => "error_messages", :locals => {:f => f} %>
   </div>

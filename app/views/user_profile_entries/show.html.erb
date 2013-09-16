@@ -2,7 +2,7 @@
 
   <% @user_profile_entries.each do |@user_profile_entry| %>
 
-  <% form_for @user_profile_entry do |f| %>
+  <%= form_for @user_profile_entry do |f| %>
   <%= f.error_messages %>
 
     <% args = @user_profile_entry.prepare_form_helpers %>

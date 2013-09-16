@@ -16,11 +16,12 @@ class String
   end
   
   def h
+    #TODO: Confirm this is the proper way to call sanitization in Rails 3
     ERB::Util::h self
   end
   
   def sanitize_and_format
-    h.links.n_to_br
+    h.to_str.links.n_to_br.html_safe
   end
   
   def decamelize

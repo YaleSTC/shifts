@@ -1,1 +1,0 @@
-page.replace_html "tooltip", :partial => "shifts/tooltips/new", :object => @shift

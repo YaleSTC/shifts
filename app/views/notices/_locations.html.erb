@@ -1,36 +1,24 @@
 <% if !@disable_locations %>
   <fieldset class = "index"><legend>Where:</legend>
 	<% if current_user.is_admin_of?(current_department) && notice.class.name != "Sticky" %>
-    	<%= check_box_tag :department_wide_locations, current_department.id, department_checked?(current_department, notice), :style => "display: none;", :class => "only_js" %>
+    	<%= check_box_tag :department_wide_locations, current_department.id, :style => "display: none;", :class => "only_js" %>
     	<%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
 	<% end %>
 
   <div id = "all_locations">
-	<% if notice.class.name == "Sticky"%>
-	  <% for loc_group in current_department.loc_groups do %>
-		<li id = "notice_li">
-		    <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
-		    <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
-		    <% for location in loc_group.locations do %>
-		      <%= check_box_tag "for_locations[]", location.id, location_checked?(location, notice) %>
-		      <%= label_tag "location_#{location.id}", text = location.short_name %>
-		      <% unless location == loc_group.locations.last %> , <%end%>
-		    <% end %>
-		 </li>
-      <% end %>
-   <% elsif notice.class.name == "Announcement" %>
    	 <% for loc_group in current_department.loc_groups do %>
-        <% if current_user.is_admin_of?(loc_group) %>
+        <% next if !loc_group.active %>
+        <% if current_user.is_admin_of?(loc_group) || notice.class.name = "Sticky" %>
 		<li id = "notice_li">
-		   <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
+		   <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked_notice?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
 		   <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 		   <% for location in loc_group.locations do %>
-		      <%= check_box_tag "for_locations[]", location.id, location_checked?(location, notice) %>
+          <% next if !location.active %>
+		      <%= check_box_tag "for_locations[]", location.id, location_checked_notice?(location, notice) %>
 		      <%= label_tag "location_#{location.id}", text = location.short_name %>
-		     <% unless location == loc_group.locations.last %> , <%end%>
+		      <% unless location == loc_group.locations.last %>, <%end%>
 		   <% end %>
 		</li>
-	 <% end %>
     <% end %>
   <% end %>
   	</div>

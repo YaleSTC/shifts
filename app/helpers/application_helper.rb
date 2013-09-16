@@ -1,6 +1,6 @@
-# Methods added to this helper will be available to all templates in the application.
-module ApplicationHelper
+# encoding: UTF-8
 
+module ApplicationHelper
   def link_toggle(id, name, speed = "slow")
     # "<a href='#' onclick=\"Element.toggle('%s'); return false;\">%s</a>" % [id, name]
     link_to_function name, "$('##{id}').slideToggle('#{speed}')"
@@ -142,23 +142,6 @@ module ApplicationHelper
       @repeating_event.location_ids = [] << params[:location_id]
     end
   end
-
-	def observe_fields(fields)
-		#prepare a value of the :with parameter
-		with = "'"
-		for field in fields
-			with += field + "=’$(’#" + field + "’).is(':checked')"
-			with += " + " if field != fields.last
-		end
- 		with += "'"
-		#generate a call of the observer_field helper for each field
-		ret = "";
-		for field in fields
-			puts field
-			ret += observe_field(field.to_s, :url => {:controller => :templates, :action => "update_locations"}, :with => with, :on => "change")
-    end
-    return ret
-	end
 
   def navbar_highlight(controller_name)
     navbar_hash = Hash[ "dashboard" => ["dashboard"],

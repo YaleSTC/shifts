@@ -11,7 +11,7 @@ class UserObserver < ActiveRecord::Observer
                         })
 
     profile = UserProfile.new({:user_id => user.id})
-      UserProfileField.find(:all, :conditions => {:department_id => user.departments.first.id}).each do |field|
+      UserProfileField.where(:department_id => user.departments.first.id).each do |field|
         UserProfileEntry.create!({:user_profile_id => profile.id,
                                   :user_profile_field_id => field.id})
       end

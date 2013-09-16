@@ -1,7 +1,0 @@
-#page.remove "shift#{params[:id]}"
-page.replace_html @shift.start.strftime("%Y-%m-%d"), :partial => (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), :object => @shift.start.to_date
-page.remove "#tooltip"
-page << "initialize('##{@shift.start.strftime("%Y-%m-%d")}');"
-
-# display alert
-ajax_alert(page, "shift destroyed");

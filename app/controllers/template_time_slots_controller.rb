@@ -38,7 +38,7 @@ class TemplateTimeSlotsController < ApplicationController
   def create
 		parse_just_time(params[:template_time_slot])
 
-		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@week_template = Template.find(params[:template_id])
 		begin
 			TemplateTimeSlot.transaction do
 				params[:template_time_slot][:day].each do |day|
@@ -80,7 +80,7 @@ class TemplateTimeSlotsController < ApplicationController
   def update
 		parse_just_time(params[:template_time_slot])
     @template_time_slot = TemplateTimeSlot.find(params[:id])
-		@week_template = Template.find(:first, :conditions => {:id => params[:template_id]})
+		@week_template = Template.find([:template_id)
     respond_to do |format|
       if @template_time_slot.update_attributes(params[:template_time_slot])
         flash[:notice] = "Timeslot for #{@week_template.name} successfully updated."
