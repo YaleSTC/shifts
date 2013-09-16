@@ -6,4 +6,5 @@ chronic
 has_many_polymorphs
 authlogic
 ar_mailer
+
 javan-whenever --source http://gems.github.com
