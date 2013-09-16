@@ -1,29 +1,30 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   # almost everything we do is restricted to a department so we always load_department
   # feel free to skip_before_filter when desired
   before_filter :load_app_config
   before_filter :department_chooser
   before_filter :load_user_session
-  before_filter CASClient::Frameworks::Rails::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
+  before_filter RubyCAS::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
   before_filter :login_check, :except => :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
   before_filter :prepare_for_mobile
   #before_filter :load_user
 
-
   helper :layout # include all helpers, all the time (whyy? -Nathan)
   helper :application
+
+  #Replaced with similar prototype legacy helper plugin
+  #helper :prototype #TODO including this helper is a stopgap for the shift to Rails 3; contained methods should be rewritten
+
+
   helper_method :current_user
   helper_method :current_department
 
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
+
   def load_app_config
     @appconfig = AppConfig.first
   end
@@ -412,7 +413,7 @@ class ApplicationController < ActionController::Base
   def prepare_mail_url
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
-  
+
   def mobile_device?
     if session[:mobile_param]
       session[:mobile_param] == "1"
@@ -421,7 +422,7 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :mobile_device?
-  
+
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]
   end

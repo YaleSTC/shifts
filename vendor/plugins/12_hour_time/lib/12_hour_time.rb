@@ -17,10 +17,10 @@ end
 
 module ActionView::Helpers
   class DateTimeSelector
-    POSITION = {
-      :year => 1, :month => 2, :day => 3, :hour => 4, :minute => 5,
-      :second => 6, :ampm => 7
-    }
+    # POSITION = {
+    #   :year => 1, :month => 2, :day => 3, :hour => 4, :minute => 5,
+    #   :second => 6, :ampm => 7
+    # }
     # XXX would like to do this, but it's frozen
     # POSITION[:ampm] = 7
 

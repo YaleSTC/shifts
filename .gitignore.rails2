@@ -1,0 +1,11 @@
+*~
+log/*
+tmp/*
+db/schema.rb
+Rakefile
+.DS_Store
+.project
+*.orig
+*.sqlite3
+cleangit
+config/database.yml
