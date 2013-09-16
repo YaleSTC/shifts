@@ -21,8 +21,8 @@ class Department < ActiveRecord::Base
     end
   end
 
-  before_validation_on_create :create_permissions
-  before_validation_on_update :update_permissions
+  before_validation(:on => :create) {:create_permissions}
+  before_validation(:on => :update) {:update_permissions}
   validates_uniqueness_of :name
   validates_uniqueness_of :admin_permission_id
 

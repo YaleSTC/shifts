@@ -12,11 +12,11 @@ class Notice < ActiveRecord::Base
   attr_accessor :end_time
 
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
-  named_scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
-  named_scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
-  named_scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
-  named_scope :not_link, :conditions => ["type != ?", "Link"]
-  named_scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
+  scope :in_department, lambda { |dept| {:conditions => {:department_id => dept}}}
+  scope :created_by, lambda { |user| {:conditions => {:author_id => user}}}
+  scope :inactive, lambda {{ :conditions => [" end < ?", Time.now.utc] }}
+  scope :not_link, :conditions => ["type != ?", "Link"]
+  scope :upcoming,  lambda {{ :conditions => ["start > ? ", Time.now.utc] }}
   
   def self.active_links
      Link.active
@@ -28,8 +28,9 @@ class Notice < ActiveRecord::Base
 
   def display_for
     display_for = []
-    display_for.push "for users #{self.users.collect{|n| n.name}.to_sentence}" unless self.users.empty?
-    display_for.push "for locations #{self.locations.collect{|l| l.short_name}.to_sentence}" unless self.locations.empty?
+    #TODO Figure out why users isn't a valid method
+    #display_for.push "for users #{self.users.collect{|n| n.name}.to_sentence}" unless self.users.empty?
+    #display_for.push "for locations #{self.locations.collect{|l| l.short_name}.to_sentence}" unless self.locations.empty?
     display_for.join "<br/>"
   end
 

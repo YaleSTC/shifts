@@ -44,7 +44,7 @@
 
       <% if @shift.submitted? %>
         <% unless @shift.repeating_event %>
-          <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+          <%= link_to "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :remote => true, :confirm => 'Are you sure?', :method => :delete} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">
@@ -91,7 +91,7 @@
         <% end %>
 
         <% unless @shift.repeating_event %>
-          <%= link_to_remote "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %>
+          <%= link_to "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :remote => true, :confirm => 'Are you sure?', :method => :delete} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">

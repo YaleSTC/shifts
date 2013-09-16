@@ -23,41 +23,32 @@ class Shift < ActiveRecord::Base
   attr_accessor :end_date
   attr_accessor :end_time
 
-  #TODO: remove all to_sql calls except where needed for booleans
-  named_scope :active, :conditions => {:active => true}
-  ####
-  named_scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
-  named_scope :not_for_user, lambda {|usr| { :conditions => ["user_id != #{usr.id}"]}}
-  ####
-  named_scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
-  named_scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
-  named_scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
-  named_scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
-  named_scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
-  ####
-  named_scope :in_department, lambda {|dept| {:conditions => {:department_id => dept.id}}}
-  named_scope :in_departments, lambda {|dept_array| {:conditions => {:department_id => dept_array.collect(&:id)}}}
-  named_scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
-  named_scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
-  named_scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
-  ####
-  named_scope :scheduled, :conditions => {:scheduled => true}
-  named_scope :unscheduled, :conditions => {:scheduled => false}
-  ####
-  named_scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > #{(start.utc + incr).to_sql} and #{:end.to_sql_column} <= #{(stop.utc).to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{true.to_sql})"], :order => "#{:location_id.to_sql_column}, #{:start.to_sql}" }}
-  named_scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
-  ####
-  named_scope :signed_in, lambda{ |department| {:conditions => {:signed_in => true, :department_id => department.id} } }
-  named_scope :ordered_by_start, :order => 'start'
-  ####
-  named_scope :stats_unsent, :conditions => {:stats_unsent => true}
-  named_scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
-  named_scope :unparsed, :conditions => {:parsed => false}
-  named_scope :parsed, :conditions => {:parsed => true}
-  ####
-  named_scope :missed, :conditions => {:parsed => true, :missed => true}
-  named_scope :late, :conditions => {:parsed => true, :late => true}
-  named_scope :left_early, :conditions => {:parsed => true, :left_early => true}
+#TODO: remove all to_sql calls except where needed for booleans
+  scope :active, :conditions => {:active => true}
+  scope :for_user, lambda {|usr| { :conditions => {:user_id => usr.id }}}
+  scope :not_for_user, lambda {|usr| { :conditions => ["user_id != #{usr.id}"]}}
+  scope :on_day, lambda {|day| { :conditions => ["#{:start.to_sql_column} >= #{day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{day.end_of_day.utc.to_sql}"]}}
+  scope :on_days, lambda {|start_day, end_day| { :conditions => ["#{:start.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql} and #{:start.to_sql_column} < #{end_day.end_of_day.utc.to_sql}"]}}
+  scope :between, lambda {|start, stop| { :conditions => ["#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  scope :overlaps, lambda {|start, stop| { :conditions => ["#{:end.to_sql_column} > #{start.utc.to_sql} and #{:start.to_sql_column} < #{stop.utc.to_sql}"]}}
+  scope :in_department, lambda {|dept| {:conditions => {:department_id => dept.id}}}
+  scope :in_departments, lambda {|dept_array| {:conditions => {:department_id => dept_array.collect(&:id)}}}
+  scope :in_location, lambda {|loc| {:conditions => {:location_id => loc.id}}}
+  scope :in_locations, lambda {|loc_array| {:conditions => { :location_id => loc_array }}}
+  scope :in_calendars, lambda {|calendar_array| {:conditions => { :calendar_id => calendar_array }}}
+  scope :scheduled, :conditions => {:scheduled => true}
+  scope :unscheduled, :conditions => {:scheduled => false}
+  scope :super_search, lambda {|start,stop, incr,locs| {:conditions => ["((#{:start.to_sql_column} >= #{start.utc.to_sql} and #{:start.to_sql_column} < #{(stop.utc - incr).to_sql}) or (#{:end.to_sql_column} > #{(start.utc + incr).to_sql} and #{:end.to_sql_column} <= #{(stop.utc).to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{true.to_sql})"], :order => "#{:location_id.to_sql_column}, #{:start.to_sql}" }}
+  scope :hidden_search, lambda {|start,stop,day_start,day_end,locs| {:conditions => ["((#{:start.to_sql_column} >= #{day_start.utc.to_sql} and #{:end.to_sql_column} < #{start.utc.to_sql}) or (#{:start.to_sql_column} >= #{stop.utc.to_sql} and #{:start.to_sql_column} < #{day_end.utc.to_sql})) and #{:scheduled.to_sql_column} = #{true.to_sql} and #{:location_id.to_sql_column} IN (#{locs.to_sql})"], :order => "#{:location_id.to_sql}, #{:start.to_sql}" }}
+  scope :signed_in, lambda{ |department| {:conditions => {:signed_in => true, :department_id => department.id} } }
+  scope :ordered_by_start, :order => 'start'
+  scope :after_date, lambda {|start_day| { :conditions => ["#{:end.to_sql_column} >= #{start_day.beginning_of_day.utc.to_sql}"]}}
+  scope :stats_unsent, :conditions => {:stats_unsent => true}
+  scope :stale_shifts_unsent, :conditions => {:stale_shifts_unsent => true}
+  scope :unparsed, :conditions => {:parsed => false}
+  scope :missed, :conditions => {:parsed => true, :missed => true}
+  scope :late, :conditions => {:parsed => true, :late => true}
+  scope :left_early, :conditions => {:parsed => true, :left_early => true}
 
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
@@ -66,7 +57,7 @@ class Shift < ActiveRecord::Base
   validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
   validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
-  validate_on_create :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}
+  validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}, :on => :create
   validate :restrictions
   validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
   validate :obeys_signup_priority
@@ -191,7 +182,7 @@ class Shift < ActiveRecord::Base
       return out.collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
-  
+
 
   #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(shifts, wipe)
@@ -423,18 +414,18 @@ class Shift < ActiveRecord::Base
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
   end
-  
+
   def task_time
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled (#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)})"
-    
+
   end
 
   def sub_request
     SubRequest.find_by_shift_id(self.id)
   end
-  
-  
-  
+
+
+
 
   # ======================
   # = Validation helpers =
@@ -452,7 +443,7 @@ class Shift < ActiveRecord::Base
   end
 
   private
-  
+
   def restrictions
     unless self.power_signed_up
       errors.add(:user, "is required") and return if self.user.nil?
@@ -482,7 +473,7 @@ class Shift < ActiveRecord::Base
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= self.start)
   end
-  
+
   #TODO: Fix this to check timeslots by time_increment
   def shift_is_within_time_slot
     unless self.power_signed_up
@@ -539,9 +530,9 @@ class Shift < ActiveRecord::Base
   end
 
   def obeys_signup_priority
-    
+
     return if (self.power_signed_up || !self.scheduled || !self.calendar.active)
-    
+
     #check for all higher-priority locations in this loc group
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
     seconds_increment = self.department.department_config.time_increment * 60
