@@ -1,0 +1,1 @@
+$('.table_right').css({'visibility' : 'visible'})

@@ -1,6 +1,6 @@
 <% title "New Role" %>
 
-<% form_for [@department, @role] do |f| %>
+<%= form_for [@department, @role] do |f| %>
 
   <%= render :partial => 'form', :locals => {:f => f} %>
   <p><%= f.submit "Create" %></p>

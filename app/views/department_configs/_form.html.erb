@@ -1,4 +1,4 @@
-<% form_for @department_config do |f| %>
+<%= form_for @department_config do |f| %>
   <%= f.error_messages %>
   <fieldset class = "index">
     <legend>Edit Shift Configuration</legend>
@@ -89,6 +89,11 @@
     <p id = "month">
       <%= f.label :schedule_start, text = "Last day of payform month:" %>
       <%= f.select :day, (1..28).step + DepartmentConfig::LAST_DAY_SELECT %>
+    </p>
+    <p>
+    <%= f.label "Default Payform Category" %><br/>
+      <%= f.collection_select(:default_category_id, Category.all, :id, :name, {:prompt => "Select a payform category"}) %>
+
     </p>
   </fieldset>
 <fieldset class = "index">

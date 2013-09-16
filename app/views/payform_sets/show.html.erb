@@ -5,11 +5,20 @@
 </p>
 
 <p>
-  <%= link_to "Print PDF", :action => "show", :id => @payform_set, :format => :pdf %>
-</p>
-<p>
-  <%= link_to "Export CSV", :action => "show", :id => @payform_set, :format => :csv %>
+  <%= link_to "Export Spreadsheet (CSV)", :action => "show", :id => @payform_set, :format => :csv %>
 </p>
 <p>
   <%= link_to "Print History", payform_sets_path %>
 </p>
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Hours</th>
+  </tr>
+  <% @grouped_items.each do |category_name, items| %>
+    <tr>
+      <td><%= category_name %></td>
+      <td><%= PayformItem.rounded_hours(items) %> </td>
+    </tr>
+  <% end %>
+</table>

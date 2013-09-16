@@ -12,12 +12,12 @@ class SubRequestsController < ApplicationController
         @title_add=" Index"
         @index_link=false
       else #all future sub requests
-        @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now], :order => 'start')
+        @subs = SubRequest.where("end >= ?", Time.now).order('start')
         @title_add=" Index"
         @index_link=false
       end
     else #all future sub requests
-      @subs = SubRequest.find(:all, :conditions => ["end >= ?", Time.now], :order => 'start')
+      @subs = SubRequest.where("end >= ?", Time.now).order('start')
       @title_add=" Index"
       @index_link=false
     end
@@ -64,7 +64,7 @@ class SubRequestsController < ApplicationController
             @sub_request.requested_users << user
           end
         end
-        @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
+        @sub_request.requested_users << User.where(:login => l[0]).first if l.length == 1
       end
     end
     unless @sub_request.save
@@ -94,7 +94,7 @@ class SubRequestsController < ApplicationController
                     @sub_request.requested_users << user
                   end
                 end
-                @sub_request.requested_users << User.find_by_login(l[0]) if l.length == 1
+                @sub_request.requested_users << User.where(:login => l[0]).first if l.length == 1
              end
            end
           parse_date_and_time_output(params[:sub_request])
@@ -117,7 +117,6 @@ class SubRequestsController < ApplicationController
     @shift = @sub_request.shift
     
     @sub_request.destroy
-    UserSinksUserSource.delete_all("user_sink_type = 'SubRequest' AND user_sink_id = #{params[:id].to_sql}")
     #the user can cancel a sub request and sign into their shift
     if params[:sign_in]
       flash[:notice] = "Successfully destroyed sub request. You can now sign into your shift."

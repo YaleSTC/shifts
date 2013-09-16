@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   layout proc{ |c| c.params[:format] == "js" ? false : "reports" }
 
   def show
-    @report = params[:id] ? Report.find(params[:id]) : Report.find_by_shift_id(params[:shift_id])
+    @report = params[:id] ? Report.find(params[:id]) : Report.where(:shift_id => params[:shift_id]).first
     # @tasks = Task.in_location(@report.shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a")}
     tasks = Task.in_location(@report.shift.location).active.after_now
     # filters out daily and weekly tasks scheduled for a time later in the day
@@ -18,6 +18,12 @@ class ReportsController < ApplicationController
 
   #Signing into a shift
   def create
+    shift = Shift.find(params[:shift_id])
+    if shift.start > 1.day.from_now
+      flash[:error] = "You can't sign into a shift too far in advance"
+      redirect_to dashboard_path and return
+    end
+
     @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
 
     if current_user.current_shift || current_user.punch_clock
@@ -39,8 +45,8 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     return unless user_is_owner_or_admin_of(@report.shift, @report.shift.department)
   end
-  
-  
+
+
   #periodically call remote function to update reports dynamically
   def update_reports
      @report = current_user.current_shift.report
@@ -48,7 +54,7 @@ class ReportsController < ApplicationController
        format.js
      end
   end
-  
+
   # TODO: refactor into a model method on Report
   #Submitting a shift
   def update
@@ -67,12 +73,12 @@ class ReportsController < ApplicationController
     if @report.update_attributes(params[:report]) && @report.shift.update_attribute(:signed_in, false)
       if (@add_payform_item) #don't allow duplicate payform items for a shift
         @payform_item=PayformItem.new("hours" => @report.duration,
-                                      "category"=>Category.find_by_name("Shifts"),
+                                      "category"=>(@report.shift.location.category || current_department.department_config.default_category),
                                       "payform"=>Payform.build(@report.shift.location.loc_group.department, @report.user, Time.now),
                                       "date"=>Date.today,
                                       "description"=> @report.short_description,
                                       "source_url" => shift_report_path(@report.shift))
-        AppMailer.deliver_shift_report(@report.shift, @report, @report.shift.department)
+        UserMailer.deliver_shift_report(@report.shift, @report, @report.shift.department)
         if @payform_item.save
           flash[:notice] = "Successfully submitted report and updated payform."
         else

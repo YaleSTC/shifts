@@ -1,4 +1,4 @@
-<% form_for (params[:shift_id] ? [:shift, :report, @report_item] : [:report, @report_item]) do |f| %>
+<%= form_for (params[:shift_id] ? [:shift, :report, @report_item] : [:report, @report_item]) do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :content %><br />

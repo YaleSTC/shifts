@@ -13,17 +13,19 @@
  </tbody>
 </table>
 
+<% if !@categories.empty? %>
 <br /><h4>Disabled Categories:</h4>
 
-<table class = "tablesorter">
-	<%= render :partial => "category", :collection => @categories.disabled %>
-</table>
+  <table class = "tablesorter">
+  	<%= render :partial => "category", :collection => @categories.disabled %>
+  </table>
 
-    <div class="note">
-      Note: Jobs cannot be added to disabled categories.
-      Payform items in disabled categories will appear under the "Miscellaneous" category.
-    </div>
-<br />
+      <div class="note">
+        Note: Jobs cannot be added to disabled categories.
+        Payform items in disabled categories will appear under the "Miscellaneous" category.
+      </div>
+  <br />
+<% end %>
 
 <fieldset class = "index">
     <legend>Add Category</legend><br />

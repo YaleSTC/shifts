@@ -1,12 +1,15 @@
 class FirstRunController < ApplicationController
-  skip_before_filter :login_check, :if => Proc.new {User.first}
+  skip_before_filter :login_check
+  skip_before_filter :load_user
   before_filter :redirect_if_not_first_run
+  
 
-  def new_app_config
+  def new_app_config 
     @app_config = AppConfig.first || AppConfig.new
   end
 
   def create_app_config
+    
     AppConfig.first.destroy if AppConfig.first
     @app_config=AppConfig.new(params[:app_config])
     @app_config.calendar_feed_hash = ActiveSupport::SecureRandom.hex(32) #must be 32 characters
@@ -20,11 +23,13 @@ class FirstRunController < ApplicationController
   end
 
   def new_department
+    
     @department = Department.first || Department.new
   end
 
   def create_department
-    Department.first.destroy if Department.first
+    
+    Department.destroy_all if Department.all.any?
     @department=Department.new(params[:department])
     if @department.save
       flash[:notice] = "The first department was successfully created."
@@ -35,11 +40,13 @@ class FirstRunController < ApplicationController
   end
 
   def new_user
+    
     @user = User.new
     @results=[]
   end
 
   def create_user
+    
     @user = User.new(params[:user])
     @user.auth_type = @appconfig.login_options[0] if @appconfig.login_options.size == 1
     @user.departments << Department.first
@@ -54,16 +61,19 @@ class FirstRunController < ApplicationController
   end
 
   def ldap_search
+    
     @results=User.search_ldap(params[:user][:first_name],params[:user][:last_name],params[:user][:email],5)
   end
 
   def fill_form
+    
     @user=User.new(params[:user])
   end
 
 private
   def redirect_if_not_first_run
-    if User.first
+    
+    if User.all.any?
       flash[:error] = "The setup wizard can only be run on first launch."
       redirect_to access_denied_path
     end

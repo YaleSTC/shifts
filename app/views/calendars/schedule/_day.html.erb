@@ -3,7 +3,7 @@
 <% @location_row = 1 %>
 <% @location_group_row = 0 %>
 
-<!-- #TODO: most of this is duplicated from shifts -- we should remove duplication, as complicated as it is -->
+<%#TODO: most of this is duplicated from shifts - we should remove duplication, as complicated as it is %>
 <div id="<%= day.to_s %>" class="day_partial">
   <h2 class="trigger"><%= day.to_s(:just_date_long) %></h2>
   <div class="timeline" id="day_<%=day.to_s %>">
@@ -13,7 +13,7 @@
     </div>
     <div class="timeline-data">
       <ul class="intervals" style="height: <%= @table_pixels / (@table_height)%>px;">
-        <%= render :partial => "shifts/schedule/hour_header", :collection =>  (@dept_start_hour...@dept_end_hour).map{ |hour| (Time.now.beginning_of_day + hour.hours).strftime("%l%p")} %>
+        <%= render :partial => "shifts/schedule/hour_header", :collection =>  (@dept_start_hour...@dept_end_hour).to_a.map{ |hour| (Time.now.beginning_of_day + hour.hours).strftime("%l%p")} %>
       </ul>
       <%= render :partial => "calendars/schedule/loc_group_row", :collection => @loc_groups, :locals => {:day => day} %>
     </div>

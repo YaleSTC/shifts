@@ -49,7 +49,7 @@ class ArMailer < ActionMailer::ARMailer
     subject       'Your payform has been edited'
     recipients    "#{user.name} <#{user.email}>"
     from          dept.department_config.mailer_address
-    cc            User.find_by_login(edit_item.edited_by).email
+    cc            User.where(:login => edit_item.edited_by).first.email
     sent_on       Time.now
     content_type  'text/plain'
     body          :payform => payform, :payform_item => payform_item, :edit_item => edit_item
