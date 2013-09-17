@@ -41,7 +41,7 @@ class RequestedShiftsController < ApplicationController
   end
 
   def new
-		@week_template = Template.find(params[:template_id]
+		@week_template = Template.find(params[:template_id])
 		@shift_preference = current_user.shift_preferences.select{|sp| sp.template_id == @week_template.id}.first
 		@template_time_slots = @week_template.template_time_slots
 #		If the user does not have a shift preference object for the given template, make sure they create one first

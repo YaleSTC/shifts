@@ -1,9 +1,9 @@
     <tr>
       <td><%= data_entry_row.updated_at.to_s(:am_pm_long) %></td>
-        <% data_fields.each do |df| %>
+        <% @data_fields.each do |df| %>
         <td><%= data_entry_row.data_fields_with_contents[df.id.to_s] %></td>
         <% end %>
        <% if current_user.is_admin_of?(current_department)%>
-      <td><%= link_to "Edit", edit_data_object_data_entry_path(@data_entry, @data_object)%></td>
+      <td><%= link_to "Edit", edit_data_object_data_entry_path(@data_object, data_entry_row)%></td>
       <% end %>
     </tr>

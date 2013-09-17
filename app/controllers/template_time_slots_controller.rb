@@ -37,6 +37,7 @@ class TemplateTimeSlotsController < ApplicationController
 
   def create
 		parse_just_time(params[:template_time_slot])
+
 		@week_template = Template.find(params[:template_id])
 		@template_time_slots = @week_template.template_time_slots
 

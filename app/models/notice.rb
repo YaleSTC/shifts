@@ -12,7 +12,6 @@ class Notice < ActiveRecord::Base
   attr_accessor :start_time
   attr_accessor :end_date
   attr_accessor :end_time
-  attr_accessor :global
 
   #before_destroy :destroy_user_sinks_user_sources    TODO:  this validation fails, but also is never called as we never delete notices.
   scope :in_department, ->(dept){ where(department_id: dept)}
