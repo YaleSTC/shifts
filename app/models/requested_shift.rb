@@ -76,7 +76,8 @@ class RequestedShift < ActiveRecord::Base
 
   def user_does_not_have_concurrent_request
 #		Find all other requests of the user that occupy the same time (same day + overlapping acceptable start/end time)
-		c = RequestedShift.where("user_id  = #{self.user_id  } AND day  = #{self.day  } AND acceptable_start  <= #{self.acceptable_end  } AND acceptable_end  >= #{self.acceptable_start  } AND template_id  = #{self.template  } AND id  != #{self.id  }")
+    values = [self.user_id, self.day, self.acceptable_end, self.acceptable_start, self.template, self.id]
+		c = RequestedShift.where(["user_id = ? AND day = ? AND acceptable_start  <= ? AND acceptable_end >= ? AND template_id = ? AND id != ?", *values])
 #		Now see if any of the other requests have locations that are the same as this request's locations
 		other_locations = c.collect{|request| request.locations}.flatten
 		self.locations.each do |location|

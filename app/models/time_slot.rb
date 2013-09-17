@@ -11,22 +11,23 @@ class TimeSlot < ActiveRecord::Base
   validate :start_less_than_end
   validate :is_within_calendar
   validate :no_concurrent_timeslots
-  
+
   attr_accessor :start_date
   attr_accessor :start_time
   attr_accessor :end_date
   attr_accessor :end_time
 
-  scope :active, -> {where(:active => true)}
-  scope :in_locations, ->(loc_array){where(:location_id => loc_array )}
-  scope :in_location, ->(location){where(:location_id => location)}
-  scope :in_calendars, ->(calendar_array){where(:calendar_id => calendar_array)}
-  scope :on_days, ->(start_day, end_day){where("start  >= #{start_day.beginning_of_day.utc  } and start  < #{end_day.end_of_day.utc  }")}
-  scope :on_day, ->(day){where("end  >= #{day.beginning_of_day.utc  } AND start  < #{day.end_of_day.utc  }")}
-  scope :on_48h, ->(day){where("end  >= #{day.beginning_of_day.utc  } AND start  < #{(day.end_of_day + 1.day).utc  }")}
-  scope :overlaps, ->(start, stop){where("end  > #{start.utc  } and start  < #{stop.utc  }")}
+  scope :active, -> { where(active: true) }
+  scope :in_locations, ->(loc_array){ where(location_id: loc_array ) }
+  scope :in_location, ->(location){ where(location_id: location) }
+  scope :in_calendars, ->(calendar_array){ where(calendar_id: calendar_array) }
+
+  scope :on_days, ->(start_day, end_day){ where(["start >= ? and start < ?", start_day.beginning_of_day.utc, end_day.end_of_day.utc]) }
+  scope :on_day, ->(day){ where(["end >= ? AND start < ?", day.beginning_of_day.utc, day.end_of_day.utc]) }
+  scope :on_48h, ->(day){ where(["end >= ? AND start < ?", day.beginning_of_day.utc, (day.end_of_day + 1.day).utc]) }
+  scope :overlaps, ->(start, stop){ where(["end > ? and start < ?", start.utc, stop.utc]) }
   scope :ordered_by_start, order('start')
-  scope :after_now, -> {where("end >= #{Time.now.utc  }")}
+  scope :after_now, -> { where(["end >= ?", Time.now.utc]) }
 
 
   #This method creates the multitude of shifts required for repeating_events to work

@@ -17,14 +17,15 @@ class RepeatingEvent < ActiveRecord::Base
   def self.destroy_self_and_future(repeating_event, time=false)
     should_update = !time
     time = Time.now unless time
-    if repeating_event.has_time_slots?
-        TimeSlot.delete_all("repeating_event_id  = #{repeating_event.id  } AND end  > #{time.utc  }")
-        TimeSlot.update_all("repeating_event_id } = #{nil  }", "repeating_event_id  = #{repeating_event.id  }") if should_update
-      else
-        Shift.mass_delete_with_dependencies(Shift.where("repeating_event_id  = #{repeating_event.id  } AND end  > #{time.utc  }"))
-        Shift.update_all("repeating_event_id  = #{nil  }", "repeating_event_id  = #{repeating_event.id  }") if should_update
+
+    TimeSlot.delete_all(["repeating_event_id = ? AND end > ? }", repeating_event.id, time.utc])
+    Shift.mass_delete_with_dependencies(Shift.where(["repeating_event_id = ? AND end > ?", repeating_event.id, time.utc]))
+
+    if should_update
+      TimeSlot.where(repeating_event_id: repeating_event.id).update_all(repeating_event_id: nil)
+      Shift.where(repeating_event_id: repeating_event.id).update_all(repeating_event_id: nil)
+      repeating_event.destroy
     end
-    repeating_event.destroy if should_update
   end
 
   def make_future(wipe)
