@@ -15,10 +15,10 @@ class Calendar < ActiveRecord::Base
 
   def self.active_in(department, start_date = Time.now, end_date = Time.now)
     active = Calendar.where("department_id = ? and start_date <= ? and end_date >= ? and active is true", department.id, start_date.utc, end_date.utc)
-    default = Calendar.where("department_id = ? and `default` is true", department.id).first()
+    default = Calendar.where("department_id = ? and `default` is true", department.id).first
     [default, active].flatten
   end
-  
+
   def self.destroy_self_and_future(calendar)
     default_id = calendar.department.calendars.default.id
     TimeSlot.delete_all("calendar_id  = #{calendar.id  } AND end  > #{Time.now.utc  }")
