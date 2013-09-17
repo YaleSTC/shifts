@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   def current_department
     unless @current_department
       if current_user
-        @current_department = Department.where(:id => session[:department_id]).first
+        @current_department = Department.find(session[:department_id])
         unless @current_department
           @current_department = current_user.default_department
           session[:department_id] = @current_department.id

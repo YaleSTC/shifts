@@ -29,7 +29,7 @@ class ShiftPreferencesController < ApplicationController
     @shifts_week = (@week_template.min_number_of_shifts..@week_template.max_number_of_shifts).to_a
     @hours_shift = (@week_template.min_continuous_hours..@week_template.max_continuous_hours).to_a
     @locations = @week_template.timeslot_locations
-    @user_shift_preference = @week_template.shift_preferences.where(:id => current_user.id).first
+    @user_shift_preference = @week_template.shift_preferences.where(:user_id => current_user.id).first
     if @user_shift_preference
     	redirect_to edit_template_shift_preference_path(@week_template, @user_shift_preference) and return
     end

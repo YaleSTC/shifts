@@ -2,7 +2,7 @@ class MoveDataFromLocationSinksSources < ActiveRecord::Migration
   def self.up
     LocationSinksLocationSource.all.each do |lsls|
       if lsls.location_sink_type == "Notice"
-        if !(notice = Notice.where(:id => lsls.location_sink_id).first).
+        if !(notice = Notice.where(:id => lsls.location_sink_id).first)
           next
         end
 
