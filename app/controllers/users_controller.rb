@@ -112,7 +112,7 @@ class UsersController < ApplicationController
     @user.save!
     #Finally to prevent the @user.update_attribues from attempting to update the roles, we must remove them from params
     params[:user].delete(:role_ids)
-    
+
     #So that the User Profile can be updated as well
       @user_profile = UserProfile.where(:user_id => User.find(params[:id]).id).first
       @user_profile_entries = params[:user_profile_entries]
@@ -143,9 +143,9 @@ class UsersController < ApplicationController
     @user_profile_entries = @user_profile.user_profile_entries.select{|entry| entry.user_profile_field.department_id == @department.id }
     @user.set_random_password if params[:reset_password]
     @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.deliver_change_auth_type_password_reset_instructions(n)}) if @user.auth_type=='CAS' && params[:user][:auth_type]=='built-in'
-    
-    
-    
+
+
+
     if @user.update_attributes(params[:user])
       @user.set_payrate(params[:payrate].gsub(/\$/,""), @department) if params[:payrate]
       flash[:notice] = "Successfully updated user."
@@ -269,14 +269,13 @@ class UsersController < ApplicationController
 
   def autocomplete
     @list = []
-    
+
     classes = params[:classes]
-    
+
     if classes.include?("User")
       users = Department.find(params[:department_id]).users.sort_by(&:first_name)
       users.each do |user|
         if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
-        #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
           @list << {:id => "User||#{user.id}", :name => "#{user.name} (#{user.login})"}
         end
       end
@@ -285,10 +284,6 @@ class UsersController < ApplicationController
       departments = current_user.departments.sort_by(&:name)
       departments.each do |department|
         if department.name.downcase.include?(params[:q])
-          #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
-         # department.users.each do |user|
-          #  @list << {:id => "User||#{user.id}", :name => "#{user.name} (#{user.login})"}  
-          #end
           @list << {:id => "Department||#{department.id}", :name => "Department: #{department.name}"}
         end
       end
@@ -297,17 +292,12 @@ class UsersController < ApplicationController
       roles = Department.find(params[:department_id]).roles.sort_by(&:name)
       roles.each do |role|
         if role.name.downcase.include?(params[:q])
-          #if (user.login and user.login.include?(params[:q])) or (user.name and user.name.include?(params[:q]))
-          #role.users.each do |u|
-          #  @list << {:id => "User||#{u.id}", :name => "#{u.name} (#{u.login})"}  
-          #end
           @list << {:id => "Role||#{role.id}", :name => "Role: #{role.name}"}
         end
       end
     end
 
-    #@users = @users.collect{|user| :id => user.id, :name => user.name}
-    render :layout => false
+    render json: @list
   end
 
   def search

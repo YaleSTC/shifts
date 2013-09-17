@@ -70,7 +70,7 @@ module ApplicationHelper
 
     #Tell the app to put javascript info at top and bottom of pages (Unobtrusive Javascript - style)
     content_for :javascript,
-      '$(document).ready(function() {
+      ('$(document).ready(function() {
         $("#'+options[:id]+'").tokenInput("'+autocomplete_department_users_path(current_department, :classes => options[:classes])+'", {
             prePopulate: ['+json_string+'],
             hintText: "'+options[:hint_text]+'",
@@ -78,7 +78,7 @@ module ApplicationHelper
               '+style+'
             }
           });
-        });'
+        });').html_safe
     if options[:include_headers]
       content_for :head, javascript_include_tag('jquery.tokeninput')
       content_for :head, stylesheet_link_tag(css_file)
