@@ -19,7 +19,7 @@ class RepeatingEvent < ActiveRecord::Base
     time = Time.now unless time
 
     TimeSlot.delete_all(["repeating_event_id = ? AND end > ? }", repeating_event.id, time.utc])
-    Shift.mass_delete_with_dependencies(Shift.where(["repeating_event_id = ? AND end > ?", repeating_event.id, time.utc]))
+    Shift.mass_delete_with_dependencies(Shift.where("repeating_event_id = ? AND end > ?", repeating_event.id, time.utc))
 
     if should_update
       TimeSlot.where(repeating_event_id: repeating_event.id).update_all(repeating_event_id: nil)

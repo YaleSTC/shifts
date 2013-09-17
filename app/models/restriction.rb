@@ -10,7 +10,7 @@ class Restriction < ActiveRecord::Base
   before_validation :join_date_and_time
 
 
-  scope :current, -> {where(["starts <= ? and expires >= ?", Time.now, Time.now])}
+  scope :current, -> {where("starts <= ? and expires >= ?", Time.now, Time.now)}
   # Need to make Restriction connect with locations (and users) in the same way
   # that Notices and Locations/LocGroups are connected
   # def users
