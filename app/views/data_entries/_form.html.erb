@@ -1,25 +1,25 @@
-<% form_remote_for [:data_object, @data_entry] do |f| %>
+<% form_remote_for [@data_object, @data_entry] do |f| %>
   <%= f.error_messages %>
-  
+
   <h2><%= @data_object.name %></h2>
-  <%= hidden_field_tag :thickbox, @thickbox %>  
-  
+  <%= hidden_field_tag :thickbox, @thickbox %>
+
   <% @data_object.data_type.data_fields.each do |field| %>
     <% args = field.prepare_form_helpers %>
     <p>
-      <%= label "data_fields[#{field.id}]", "#{field.name}" %><br/> 
-      
+      <%= label "data_fields[#{field.id}]", "#{field.name}" %><br/>
+
       <% if ["text_field", "select", "text_area"].include? field.display_type %>
         <%= send(field.display_type, *args) %>
       <% elsif ["check_box", "radio_button"].include? field.display_type %>
         <% args.each do |options| %>
-          <%= send(field.display_type, *options) %> 
-          <%= label "data_fields[#{field.id}]", "#{options.last}" %>      
+          <%= send(field.display_type, *options) %>
+          <%= label "data_fields[#{field.id}]", "#{options.last}" %>
         <% end %>
       <% end %>
-      
+
     </p>
   <% end %>
- 
+
   <p><%= f.submit "Submit" %></p>
 <% end %>

@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     respond_to do |wants|
       wants.html
-      wants.csv { render :text => @users.to_csv(:template => :normal) }
+      wants.csv { render :text => @users.to_csv_users }
     end
   end
 
@@ -218,7 +218,7 @@ class UsersController < ApplicationController
     file = params[:file]
     flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
     begin
-      @users = User.from_csv(file, :normal)
+      @users = User.import(file)
       @no_nav = true
     rescue Exception => e
       flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."

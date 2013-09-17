@@ -84,11 +84,15 @@ function popup_show(parent_element, e){
   var id = parent_element.attr('id').substring(5); //remove "shift" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
+  $.ajax({dataType:'script', type:'get', url:shiftsPath+'/'+id});
 }
 
 function loading_tooltip(x,y){
   $('body').append("<div id='tooltip' style='position: absolute; left:"+x+"px; top:"+y+"px'>Loading...</div>");
+  // make sure that the tooltip doesn't disappear when you click on it
+  $("#tooltip").click(function(e){
+    e.stopPropagation();
+  });
 }
 
 function getXOffset(element){
@@ -113,7 +117,7 @@ function popup_new(parent_element, e, raw_element){
   var widthPercentage = relX / parent_element.closest('.events').width();
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath, async: false});
+  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath});
 }
 
 
@@ -126,7 +130,7 @@ function popup_generic_new(parent_element, e){
   var date = params[1];
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"location_id="+locationID+"&date="+date, dataType:'script', type:'get', url:newShiftPath, async: false});
+  $.ajax({data:"location_id="+locationID+"&date="+date, dataType:'script', type:'get', url:newShiftPath});
 }
 
 function popup_edit_timeslot(parent_element, e){
@@ -135,7 +139,7 @@ function popup_edit_timeslot(parent_element, e){
   var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit', async: false});
+  $.ajax({dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit'});
 }
 
 function popup_delete_repeating_timeslot(parent_element, e){
@@ -144,7 +148,7 @@ function popup_delete_repeating_timeslot(parent_element, e){
   var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"delete_options=true", dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit', async: false});
+  $.ajax({data:"delete_options=true", dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit'});
 }
 
 function popup_new_timeslot(parent_element, e, raw_element){
@@ -160,7 +164,7 @@ function popup_new_timeslot(parent_element, e, raw_element){
   var date = params[1];
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath, async: false});
+  $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath});
 }
 
 function popup_new_shift(parent_element, e, raw_element){
@@ -176,7 +180,7 @@ function popup_new_shift(parent_element, e, raw_element){
   var widthPercentage = relX / parent_element.width();
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath, async: false});
+  $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newShiftPath});
 }
 
 function popup_edit_shift(parent_element, e){
@@ -185,7 +189,7 @@ function popup_edit_shift(parent_element, e){
   var id = parent_element.attr('id').substring(5); //remove "shift" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"calendar="+calendar, dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
+  $.ajax({data:"calendar="+calendar, dataType:'script', type:'get', url:shiftsPath+'/'+id});
 }
 
 function popup_delete_repeating_shift(parent_element, e){
@@ -194,7 +198,7 @@ function popup_delete_repeating_shift(parent_element, e){
   var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"calendar="+calendar+"&delete_options=true", dataType:'script', type:'get', url:shiftsPath+'/'+id, async: false});
+  $.ajax({data:"calendar="+calendar+"&delete_options=true", dataType:'script', type:'get', url:shiftsPath+'/'+id});
 }
 //show all calendars that are currently visible, even after rerender
 function show_visible(element){
@@ -228,13 +232,9 @@ $(this).keyup(function(event) {
 //close window when clicking on the page
 $(this).click(function(event) {
   if ($('#tooltip').length == 1) {
-     $('#tooltip').fadeOut(function (){ $(this).remove() });
+    $('#tooltip').fadeOut(function (){ $(this).remove() });
     return(false);
   }
-});
-// make sure that the 
-$("#tooltip").click(function(e){
-  e.stopPropagation();
 });
 
 var calendar_visible = {};

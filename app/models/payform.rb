@@ -10,11 +10,10 @@ class Payform < ActiveRecord::Base
   attr_accessor :start_date
   attr_accessor :end_date
 
-  #acts_as_csv_exportable :normal, [{:end_date=>"date"}, {:first_name => "user.first_name"}, {:last_name => "user.last_name"}, {:employee_id =>"user.employee_id"}, :payrate, :hours ]
-
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
+  validates :date, :uniqueness => {:scope => [:user_id, :department_id, :monthly]}
 
   scope :unsubmitted, where("submitted IS ?", nil)
   scope :unapproved,  where("submitted IS NOT ? AND approved IS ?", nil, nil)
@@ -27,14 +26,14 @@ class Payform < ActiveRecord::Base
 
 
   def self.export_payform(options = {})
-    FasterCSV.generate(options) do |csv|
+    CSV.generate(options) do |csv|
       csv << ["End Date", "First Name", "Last Name", "User ID", "Employee ID", "Payrate", "Hours", "Billing Code"]
       sorted_payforms = all.delete_if{|payform| payform.hours == 0}\
         .sort_by{|payform| payform.user.last_name}\
         .sort_by{|payform| payform.date}
       sorted_payforms.each do |payform|
         user = User.find(payform.user_id)
-        grouped_items = payform.payform_items.group_by{|p| p.category.billing_code}
+        grouped_items = payform.payform_items.select{|p| p.active}.group_by{|p| p.category.billing_code}
         grouped_items.each do |billing_code, payform_items|
           csv << [payform.date, user.first_name, user.last_name, user.login, user.employee_id, payform.payrate, PayformItem.rounded_hours(payform_items), billing_code]
         end
@@ -54,8 +53,12 @@ class Payform < ActiveRecord::Base
 
   def self.build(dept, usr, given_date)
     period_date = Payform.default_period_date(given_date, dept)
-    Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first ||
-    Payform.create(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+    begin
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first ||
+      Payform.create!(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+    rescue ActiveRecord::RecordInvalid #fix for multiple payforms being created at once
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first
+    end
   end
 
   def self.default_period_date(given_date, dept)

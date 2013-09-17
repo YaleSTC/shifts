@@ -29,8 +29,8 @@ class UserConfig < ActiveRecord::Base
   end
 
   def view_loc_groups
-    if read_attribute(:view_loc_groups).nil? 
-       user.loc_groups(default_department) 
+    if read_attribute(:view_loc_groups).nil?
+       user.loc_groups(default_department)
     else
        user.loc_groups(default_department) & read_attribute(:view_loc_groups).split(', ').map{|lg_id|LocGroup.find(lg_id)}
     end
@@ -43,7 +43,7 @@ class UserConfig < ActiveRecord::Base
   # if default_dept is not specified, returns first department;
   # but if the user does not belong to any department, returns nil
   def default_department
-    Department.where(:id => default_dept).first || (user.departments.empty? ? nil : user.departments.first)
+    Department.find_by_id(default_dept) || (user.departments.empty? ? nil : user.departments.first)
   end
 
 end
