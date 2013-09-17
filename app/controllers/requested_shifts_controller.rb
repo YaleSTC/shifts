@@ -115,7 +115,7 @@ class RequestedShiftsController < ApplicationController
 		respond_to do |format|
       if @requested_shift.update_attributes(params[:requested_shift])
 				if params[:assign_flag]
-					@lrs = LocationsRequestedShift.where('requested_shift_id = ? AND location_id = ?', @requested_shift, Location.find(params[:assigned_location])).first()
+					@lrs = LocationsRequestedShift.where('requested_shift_id = ? AND location_id = ?', @requested_shift, Location.find(params[:assigned_location])).first
 					@lrs.assigned = true
 					@lrs.save
 				end

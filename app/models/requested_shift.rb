@@ -49,7 +49,7 @@ class RequestedShift < ActiveRecord::Base
   end
 
 	def assign(location)
-		@location_request = LocationsRequestedShift.where(:requested_shift_id => self.id, :location_id => location.id).first()
+		@location_request = LocationsRequestedShift.where(:requested_shift_id => self.id, :location_id => location.id).first
 		@location_request.assigned = true
 		@location_request.save
 	end
@@ -68,7 +68,7 @@ class RequestedShift < ActiveRecord::Base
 	def request_is_within_time_slot
 		b = self.locations
 		c = 0
-		b.each do |location|		
+		b.each do |location|
 			c += TemplateTimeSlot.count(:all, :conditions => ["start_time  <= #{self.acceptable_start  } AND end_time  >= #{self.acceptable_end  } AND template_id  = #{self.template_id  } AND location_id  = #{location.id  } AND day  = #{self.day  }"])
 		end
 		errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
@@ -79,7 +79,7 @@ class RequestedShift < ActiveRecord::Base
 		c = RequestedShift.where("user_id  = #{self.user_id  } AND day  = #{self.day  } AND acceptable_start  <= #{self.acceptable_end  } AND acceptable_end  >= #{self.acceptable_start  } AND template_id  = #{self.template  } AND id  != #{self.id  }")
 #		Now see if any of the other requests have locations that are the same as this request's locations
 		other_locations = c.collect{|request| request.locations}.flatten
-		self.locations.each do |location|	
+		self.locations.each do |location|
 			errors.add_to_base("Your request is overlapping with another one of your requests at #{location.short_name}") if other_locations.include?(location)
 		end
   end

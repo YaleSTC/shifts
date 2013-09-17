@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |options|
     options.maintain_sessions false
   end
-  
+
   has_and_belongs_to_many :roles
   has_and_belongs_to_many :subs_requested, :class_name => 'SubRequest'
   has_many :departments_users
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   scope :superusers, -> {where(:superuser => true).order(:last_name)}
   delegate :default_department, :to => 'user_config'
 
-  
+
 
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   def role
     self.roles.first.name if self.roles.first
   end
-  
+
   def active_departments
     self.departments.select {|d| self.is_active?(d)}
   end
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   end
 
   def current_shift
-    Shift.where(:user_id => self.id, :signed_in => true).first()
+    Shift.where(:user_id => self.id, :signed_in => true).first
   end
 
   # check if a user can see locations and shifts under this loc group
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     return false unless loc_group
     (permission_list.include?(loc_group.signup_permission) && self.is_active?(loc_group.department)) if permission_list
   end
-  
+
   # check if a user has permission to take a sub
   def can_take_sub?(sub_request)
     return false unless sub_request
@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
 
   # check for admin permission given a dept, location group, or location
   def is_admin_of?(thing)
-    return false unless thing 
+    return false unless thing
     ((permission_list.include?(thing.department.admin_permission) || permission_list.include?(thing.admin_permission)) || self.is_superuser?) && self.is_active?(thing.department)
   end
 
@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
-    if DepartmentsUser.where(:user_id => self, :department_id => dept, :active => true).first()
+    if DepartmentsUser.where(:user_id => self, :department_id => dept, :active => true).first
       true
     else
       false
@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
   def is_loc_group_admin?(dept)
     dept.loc_groups.any?{|lg| self.is_admin_of?(lg)}
   end
-  
+
   # given an object with roles, checks to see if the user belongs to one of those roles
   def has_proper_role_for?(thing)
     self.roles.each do |role|
@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
   def reverse_name
     [last_name, first_name].join(" ")
   end
-  
+
   def full_name_with_nick
     if nick_name && !nick_name.blank?
       [first_name, "'#{nick_name}'" , last_name].join(" ")
@@ -200,17 +200,17 @@ class User < ActiveRecord::Base
     end
     nil
   end
-  
+
   #Keeping permissions consistent.
   def user
     self
   end
-  
+
   #We do still need this for polymorphism. I want to be able to call @user.users.
   def users
     [self]
   end
-  
+
   def loc_groups(dept=nil)
     if dept    #specified department
       dept.loc_groups.select{|lg| self.can_view?(lg)}
@@ -218,36 +218,36 @@ class User < ActiveRecord::Base
       [departments.collect(&:loc_groups).flatten.select {|lg| self.can_view?(lg)}].flatten
     end
   end
-  
+
   def locations(dept=nil)
     [loc_groups(dept).collect(&:locations).flatten.uniq].flatten
   end
-  
-  
+
+
   #returns  upcoming sub_requests user has permission to take.  Default is for all departments
   def available_sub_requests(source)
     @all_subs = []
     @all_subs = SubRequest.where("end >= ?", Time.now).select { |sub| self.can_take_sub?(sub) }.select{ |sub| !sub.shift.missed?}
    if !source.blank?
-       case 
+       case
        when source.class.name == "Department"
          @all_subs.select {|sub| source == sub.shift.department }
        when source.class.name == "LocGroup"
          @all_subs.select {|sub| source == sub.loc_group }
        when source.class.name == "Location"
          @all_subs.select {|sub| source == sub.shift.location }
-       end 
+       end
     end
     return @all_subs
   end
-  
+
   def restrictions #TODO: this could probably be optimized
     Restriction.current.select{|r| r.users.include?(self)}
   end
 
   def toggle_active(department) #TODO why don't we just update the attribues on the current entry and save it?
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first()
+    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first
     shifts = Shift.for_user(self).select{|s| s.start > Time.now}
     new_entry.attributes = old_entry.attributes
     new_entry.active = !old_entry.active
@@ -272,36 +272,36 @@ class User < ActiveRecord::Base
   end
 
   def payrate(department)
-    DepartmentsUser.where(:user_id => self, :department_id => department ).first().payrate
+    DepartmentsUser.where(:user_id => self, :department_id => department ).first.payrate
   end
-  
+
   def set_payrate(value, department)
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first()
+    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first
     new_entry.attributes = old_entry.attributes
     new_entry.payrate = value
     DepartmentsUser.delete_all(:user_id => self, :department_id => department)
     new_entry.save
   end
-  
+
   def summary_stats(start_date, end_date)
     shifts_set = shifts.on_days(start_date, end_date).active
     summary_stats = {}
-    
+
     summary_stats[:start_date] = start_date
     summary_stats[:end_date] = end_date
     summary_stats[:total] = shifts_set.size
     summary_stats[:late] = shifts_set.select{|s| s.late == true}.size
     summary_stats[:missed] = shifts_set.select{|s| s.missed == true}.size
     summary_stats[:left_early] = shifts_set.select{|s| s.left_early == true}.size
-    
+
     return summary_stats
   end
-    
+
   def detailed_stats(start_date, end_date)
     shifts_set = shifts.on_days(start_date, end_date).active
     detailed_stats = {}
-  
+
     shifts_set.each do |s|
        stat_entry = {}
        stat_entry[:id] = s.id
@@ -336,10 +336,10 @@ class User < ActiveRecord::Base
        stat_entry[:updates_hour] = s.updates_hour
        detailed_stats[s.id] = stat_entry
     end
-    
+
     return detailed_stats
   end
-  
+
   private
 
   def departments_not_empty
