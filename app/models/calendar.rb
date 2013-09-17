@@ -21,10 +21,14 @@ class Calendar < ActiveRecord::Base
 
   def self.destroy_self_and_future(calendar)
     default_id = calendar.department.calendars.default.id
-    TimeSlot.delete_all("calendar_id  = #{calendar.id  } AND end  > #{Time.now.utc  }")
-    TimeSlot.update_all("calendar_id  = #{default_id  }", "calendar_id  = #{calendar.id  }")
-    Shift.mass_delete_with_dependencies(Shift.where("calendar_id  = #{calendar.id  } AND end  > #{Time.now.utc  }"))
-    Shift.update_all("calendar_id  = #{default_id  }", "calendar_id  = #{calendar.id  }")
+
+    TimeSlot.delete_all(["calendar_id = ? AND start > ?", calendar.id, Time.now.utc)
+    TimeSlot.update_all(["calendar_id  = ", default_id], ["calendar_id  = ?"], calendar.id)
+
+    future_shifts_on_calendar = Shift.where(["calendar_id = ? AND start > ?"], calendar.id, Time.now.utc)
+    Shift.mass_delete_with_dependencies(future_shifts_on_calendar)
+    Shift.update_all(["calendar_id  = ?", default_id], ["calendar_id  = ?", calendar.id])
+
     calendar.destroy
   end
 
@@ -62,14 +66,16 @@ class Calendar < ActiveRecord::Base
     if wipe_timeslots
       loc_ids.each do |loc_id|
         cal_ids.each do |cal_id|
-          TimeSlot.delete_all("start  > #{start_time.utc  } AND start  < #{end_time  } AND calendar_id  = #{cal_id  } AND location_id  = #{loc_id  }")
+          values = [start_time.utc, end_time.utc, cal_id, loc_id]
+          TimeSlot.delete_all(["start > ? AND start  < ? AND calendar_id = ? AND location_id  = ?", *values])
         end
       end
     end
     if wipe_shifts
       loc_ids.each do |loc_id|
         cal_ids.each do |cal_id|
-          Shift.mass_delete_with_dependencies(Shift.where("start  > #{start_time.utc  } AND start  < #{end_time  } AND calendar_id  = #{cal_id  } AND location_id  = #{loc_id  }"))
+          values = [start_time.utc, end_time.utc, cal_id, loc_id]
+          Shift.mass_delete_with_dependencies(Shift.where(["start > ? AND start  < ? AND calendar_id = ? AND location_id  = ?", *values]))
         end
       end
     end
@@ -77,17 +83,20 @@ class Calendar < ActiveRecord::Base
 
   def deactivate
     self.active = false
-    TimeSlot.update_all("active  = #{false  }", "calendar_id  = #{self.id  } AND start > #{Time.now.utc  }")
-    Shift.update_all("active  = #{false  }", "calendar_id  = #{self.id  } AND start > #{Time.now.utc  }")
+    conditions = ["calendar_id  = ? AND start > ?", self.id, Time.now.utc]
+    TimeSlot.where(conditions).update_all(active: false)
+    Shift.where(conditions).update_all(active: false)
     self.save
   end
 
   def activate(wipe)
     self.active = true
-    conflicts = Shift.check_for_conflicts(Shift.where("calendar_id = #{self.id  } AND start > #{Time.now.utc  }"), wipe) + TimeSlot.check_for_conflicts(TimeSlot.where("calendar_id = #{self.id  } AND start > #{Time.now.utc  }"), wipe)
+    conditions = ["calendar_id  = ? AND start > ?", self.id, Time.now.utc]
+    conflicts = Shift.check_for_conflicts(Shift.where(conditions), wipe) +
+                TimeSlot.check_for_conflicts(TimeSlot.where(conditions), wipe)
     if conflicts.empty?
-      TimeSlot.update_all("active  = #{true  }", "calendar_id  = #{self.id  } AND start  > #{Time.now.utc  }")
-      Shift.update_all("active  = #{true  }", "calendar_id  = #{self.id  } AND start } > #{Time.now.utc  }")
+      TimeSlot.where(conditions).update_all(active: true)
+      Shift.where(conditions).update_all(active: true)
       self.save
       return false
     else

@@ -25,24 +25,25 @@ class Shift < ActiveRecord::Base
 
 #TODO: remove all   calls except where needed for booleans
   scope :active, where(:active => true)
-  scope :for_user, ->(usr){where(:user_id => usr.id)}
-  scope :not_for_user, ->(usr){where("user_id != #{usr.id}")}
-  scope :on_day, ->(day){where("start  >= #{day.beginning_of_day.utc  } and start  < #{day.end_of_day.utc  }")}
-  scope :on_days, ->(start_day, end_day){where("start  >= #{start_day.beginning_of_day.utc  } and start  < #{end_day.end_of_day.utc  }")}
-  scope :between, ->(start, stop){where("start  >= #{start.utc  } and start  < #{stop.utc  }")}
-  scope :overlaps, ->(start, stop){where("end  > #{start.utc  } and start  < #{stop.utc  }")}
-  scope :in_department, ->(dept){where(:department_id => dept.id)}
-  scope :in_departments, ->(dept_array){where(:department_id => dept_array.collect(&:id))}
-  scope :in_location, ->(loc){where(:location_id => loc.id)}
-  scope :in_locations, ->(loc_array){where(:location_id => loc_array)}
-  scope :in_calendars, ->(calendar_array){where(:calendar_id => calendar_array)}
+  scope :for_user, ->(usr){ where(:user_id => usr.id) }
+  scope :not_for_user, ->(usr){ where(["user_id != ?", usr.id]) }
+  scope :on_day, ->(day){ where(["start >= ? and start < ?", day.beginning_of_day.utc, day.end_of_day.utc]) }
+  scope :on_days, ->(start_day, end_day){ where(["start  >= ? and start < ?",start_day.beginning_of_day.utc , end_day.end_of_day.utc]) }
+  scope :between, ->(start, stop){ where(["start  >= ? and start  < ?", start.utc, stop.utc]) }
+  scope :overlaps, ->(start, stop){ where(["end > ? and start  < ?", start.utc, stop.utc]) }
+  scope :in_department, ->(dept){ where(:department_id => dept.id) }
+  scope :in_departments, ->(dept_array){ where(:department_id => dept_array.collect(&:id)) }
+  scope :in_location, ->(loc){ where(:location_id => loc.id) }
+  scope :in_locations, ->(loc_array){ where(:location_id => loc_array) }
+  scope :in_calendars, ->(calendar_array){ where(:calendar_id => calendar_array) }
   scope :scheduled, where(:scheduled => true)
   scope :unscheduled, where(:scheduled => false)
-  scope :super_search, ->(start, stop, incr, locs){where("((start  >= #{start.utc  } and start  < #{(stop.utc - incr)  }) or (end  > #{(start.utc + incr)  } and end  <= #{(stop.utc)  })) and scheduled  = #{true  } and location_id  IN (#{true  })").order("location_id , start  ") }
-  scope :hidden_search, ->(start,stop,day_start, day_end, locs){where("((start  >= #{day_start.utc  } and end  < #{start.utc  }) or (start  >= #{stop.utc  } and start  < #{day_end.utc  })) and scheduled  = #{true  } and location_id  IN (#{locs  })").order("location_id  , start  ")}
+  scope :super_search, ->(start, stop, incr, locs){ where(["( (start >= ? and start < ?) or (end > ? and end <= ?) ) and scheduled  = ? and location_id IN ?", start.utc, stop.utc - incr, start.utc + incr, stop.utc, true, locs]).order("location_id , start") }
+
+  scope :hidden_search, ->(start, stop, day_start, day_end, locs){ where(["( (start >= ? and end < ?) or (start >= ? and start < ?) ) and scheduled = ? and location_id IN (?)", day_start.utc, start.utc, stop.utc, day_end.utc, true, locs]).order("location_id  , start  ") }
   scope :signed_in, ->(department){where(:signed_in => true, :department_id => department.id)}
   scope :ordered_by_start, order('start')
-  scope :after_date, ->(start_day){where("end s >= #{start_day.beginning_of_day.utc  }")}
+  scope :after_date, ->(start_day){ where(["end >= ?}", start_day.beginning_of_day.utc]) }
   scope :stats_unsent, where(:stats_unsent => true)
   scope :stale_shifts_unsent, where(:stale_shifts_unsent => true)
   scope :parsed, where(:parsed => true)
@@ -107,12 +108,12 @@ class Shift < ActiveRecord::Base
   def self.mass_delete_with_dependencies(shifts_to_erase)
     array_of_shift_arrays = shifts_to_erase.batch(450)
     array_of_shift_arrays.each do |shifts|
-      subs_to_erase = SubRequest.where(shifts.collect{|shift| "(shift_id  = #{shift  })"}.join(" OR "))
+      subs_to_erase = SubRequest.where(shifts.collect{|shift| "(shift_id = #{shift})"}.join(" OR "))
       array_of_sub_arrays = subs_to_erase.batch(450)
       array_of_sub_arrays.each do |subs|
-        SubRequest.delete_all([subs.collect{|sub| "(id  = #{sub  })"}.join(" OR ")])
+        SubRequest.delete_all([subs.collect{|sub| "(id = #{sub})"}.join(" OR ")])
       end
-      Shift.delete_all([shifts.collect{|shift| "(id  = #{shift  })"}.join(" OR ")])
+      Shift.delete_all([shifts.collect{|shift| "(id = #{shift})"}.join(" OR ")])
     end
   end
 
@@ -135,11 +136,11 @@ class Shift < ActiveRecord::Base
       seed_end_time = seed_start_time+diff
       while seed_end_time <= (end_date + 1.day)
         if active
-          inner_test.push "(user_id  = #{user_id  } AND active  = #{true  } AND department_id  = #{department_id  } AND start  <= #{seed_end_time.utc  } AND end  >= #{seed_start_time.utc  })"
+          inner_test.push "(user_id = #{user_id} AND active = #{true} AND department_id = #{department_id} AND start <= #{seed_end_time.utc} AND end >= #{seed_start_time.utc})"
         else
-          inner_test.push "(user_id  = #{user_id  } AND calendar_id  = #{cal_id  } AND department_id  = #{department_id  } AND start  <= #{seed_end_time.utc  } AND end  >= #{seed_start_time.utc  })"
+          inner_test.push "(user_id  = #{user_id} AND calendar_id = #{cal_id} AND department_id = #{department_id} AND start <= #{seed_end_time.utc} AND end >= #{seed_start_time.utc})"
         end
-        inner_make.push "#{loc_id  }, #{cal_id  }, #{r_e_id  }, #{seed_start_time.utc  }, #{seed_end_time.utc  }, #{Time.now.utc  }, #{Time.now.utc  }, #{user_id  }, #{department_id  }, #{active  }"
+        inner_make.push "#{loc_id}, #{cal_id}, #{r_e_id}, #{seed_start_time.utc}, #{seed_end_time.utc}, #{Time.now.utc}, #{Time.now.utc}, #{user_id}, #{department_id}, #{active}"
         #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
         #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
         #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -193,12 +194,12 @@ class Shift < ActiveRecord::Base
       ""
     elsif wipe
       big_array.each do |sh|
-        Shift.mass_delete_with_dependencies(Shift.where(sh.collect{|s| "(user_id  = #{s.user_id  } AND active  = #{true  } AND department_id  = #{s.department_id  } AND start  <= #{s.end.utc  } AND end } >= #{s.start.utc  })"}.join(" OR ")))
+        Shift.mass_delete_with_dependencies(Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start <= #{s.end.utc} AND end >= #{s.start.utc})"}.join(" OR ")))
       end
       return ""
     else
       out=big_array.collect do |sh|
-        Shift.where(sh.collect{|s| "(user_id  = #{s.user_id  } AND active  = #{true  } AND department_id } = #{s.department_id  } AND start  <= #{s.end.utc  } AND end  >= #{s.start.utc  })"}.join(" OR ")).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
+        Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start <= #{s.end.utc} AND end >= #{s.start.utc})"}.join(" OR ")).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
       end
       out.join(",")+","
     end
