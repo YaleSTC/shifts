@@ -71,7 +71,7 @@ class SubRequest < ActiveRecord::Base
   end
 
   def user_is_eligible?(user)
-    #can uncomment line below to prevent a user from taking their own shift. 
+    #can uncomment line below to prevent a user from taking their own shift.
     #return false if self.user == user
     user.can_signup?(self.shift.loc_group)
   end
@@ -135,7 +135,7 @@ class SubRequest < ActiveRecord::Base
   end
 
   def user_does_not_have_concurrent_sub_request
-    c = SubRequest.count(:all, :conditions => ["#{:shift_id.to_sql_column} = #{self.shift_id.to_sql} AND #{:start.to_sql_column} < #{self.end.to_sql} AND #{:end.to_sql_column} > #{self.start.to_sql}"])
+    c = SubRequest.where("shift_id = ? AND start < ? AND end > ?", self.shift_id, self.end, self.start).count
     unless c.zero?
       errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period.") unless (self.id and c==1)
     end

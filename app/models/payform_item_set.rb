@@ -6,9 +6,9 @@ class PayformItemSet < ActiveRecord::Base
   validates_presence_of :description, :hours, :date, :category_id
   validate :payform_item_creation
   delegate :users, :to => :payform_items
-  
-  scope :active, :conditions => {:active => true }
-  scope :expired, :conditions => {:active => false }
+
+  scope :active, where(active: true)
+  scope :expired, where(active: false)
 
   def users
     return self.payform_items.collect { |item| item.user }.compact

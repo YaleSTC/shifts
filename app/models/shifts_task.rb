@@ -1,5 +1,5 @@
 class ShiftsTask < ActiveRecord::Base
-  scope :after_time, lambda { |time| {:conditions => ["created_at > ?", time]}}  
+  scope :after_time, ->(time){where("created_at > ?", time)}  
   belongs_to :task
   belongs_to :shift
 

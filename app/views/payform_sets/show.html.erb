@@ -5,10 +5,7 @@
 </p>
 
 <p>
-  <%= link_to "Print PDF", :action => "show", :id => @payform_set, :format => :pdf %>
-</p>
-<p>
-  <%= link_to "Export CSV", :action => "show", :id => @payform_set, :format => :csv %>
+  <%= link_to "Export Spreadsheet (CSV)", :action => "show", :id => @payform_set, :format => :csv %>
 </p>
 <p>
   <%= link_to "Print History", payform_sets_path %>

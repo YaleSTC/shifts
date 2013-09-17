@@ -13,10 +13,10 @@ class PunchClocksController < ApplicationController
   end
 
   def edit
-    @punch_clock = PunchClock.where(:id => params[:id]).first
+    @punch_clock = PunchClock.find(params[:id])
     return unless user_is_owner_or_admin_of(@punch_clock, @punch_clock.department)
   end
-  
+
 # Stops, restarts, or submits the punch clock depending on params
   def update
     @punch_clock = PunchClock.find(params[:id])

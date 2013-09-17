@@ -52,7 +52,7 @@ class DataObjectsController < ApplicationController
   def create
     @data_object = DataObject.new(params[:data_object])
     @data_object.data_type_id = params[:data_type_id] if params[:data_type_id]
-    check_data_object_admin_permission(@data_object)
+    return unless check_data_object_admin_permission(@data_object)
     if @data_object.save
       flash[:notice] = "Successfully created data object."
       redirect_to (params[:add_another] ? new_data_type_data_object_path(@data_object.data_type) : data_objects_path)
@@ -130,7 +130,9 @@ private
     if (current_user.loc_groups_to_admin(current_department).map{|lg| lg.locations}.flatten & obj.locations).empty?
       flash[:notice] = "You do not have permission to administer this data object."
       redirect_to access_denied_path
+      return false
     end
+    return true
   end
 
 end
