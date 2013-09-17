@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
 
   def load_department
     if (params[:department_id])
-      @department = Department.where(:id => params[:department_id]).first
+      @department = Department.find(params[:department_id])
       if @department
         session[:department_id] = params[:department_id]
       end
