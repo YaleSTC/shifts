@@ -45,7 +45,7 @@ class StickiesController < NoticesController
   end
 
 	def update
-    @sticky = Sticky.where(:id => params[:id]).first || Sticky.new
+    @sticky = Sticky.find(params[:id]) || Sticky.new
     @sticky.update_attributes(params[:sticky])
 		set_author_dept_and_times
     begin
