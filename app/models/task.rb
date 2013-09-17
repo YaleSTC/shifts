@@ -10,14 +10,14 @@ class Task < ActiveRecord::Base
 
 
   scope :active, -> { where(active: true) }
-  scope :after_now, -> { where(["end >= ?", Time.now.utc]) }
+  scope :after_now, -> { where("end >= ?", Time.now.utc) }
   scope :in_locations, ->(loc_array){ where(location_id: loc_array ) }
   scope :in_location, ->(location){ where(location_id: location) }
   scope :hourly, -> { where(kind: "Hourly") }
   scope :daily, -> { where(kind: "Daily") }
   scope :weekly, -> { where(kind: "Weekly") }
   scope :after_time, ->(time){ where("time > ?", time) }
-  scope :between, ->(start, stop){ where(["start >= ? and start < ?", start.utc, stop.utc]) }
+  scope :between, ->(start, stop){ where("start >= ? and start < ?", start.utc, stop.utc) }
 
   #done shifts are crossed out in their locations
   def done

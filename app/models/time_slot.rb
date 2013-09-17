@@ -22,12 +22,12 @@ class TimeSlot < ActiveRecord::Base
   scope :in_location, ->(location){ where(location_id: location) }
   scope :in_calendars, ->(calendar_array){ where(calendar_id: calendar_array) }
 
-  scope :on_days, ->(start_day, end_day){ where(["start >= ? and start < ?", start_day.beginning_of_day.utc, end_day.end_of_day.utc]) }
-  scope :on_day, ->(day){ where(["end >= ? AND start < ?", day.beginning_of_day.utc, day.end_of_day.utc]) }
-  scope :on_48h, ->(day){ where(["end >= ? AND start < ?", day.beginning_of_day.utc, (day.end_of_day + 1.day).utc]) }
-  scope :overlaps, ->(start, stop){ where(["end > ? and start < ?", start.utc, stop.utc]) }
+  scope :on_days, ->(start_day, end_day){ where("start >= ? and start < ?", start_day.beginning_of_day.utc, end_day.end_of_day.utc) }
+  scope :on_day, ->(day){ where("end >= ? AND start < ?", day.beginning_of_day.utc, day.end_of_day.utc) }
+  scope :on_48h, ->(day){ where("end >= ? AND start < ?", day.beginning_of_day.utc, (day.end_of_day + 1.day).utc) }
+  scope :overlaps, ->(start, stop){ where("end > ? and start < ?", start.utc, stop.utc) }
   scope :ordered_by_start, order('start')
-  scope :after_now, -> { where(["end >= ?", Time.now.utc]) }
+  scope :after_now, -> { where("end >= ?", Time.now.utc) }
 
 
   #This method creates the multitude of shifts required for repeating_events to work
@@ -48,11 +48,11 @@ class TimeSlot < ActiveRecord::Base
         seed_end_time = seed_start_time+diff
         while seed_end_time <= (end_date + 1.day)
           if active
-            inner_test.push "(location_id  = #{loc_id  } AND active  = #{true  } AND start  <= #{seed_end_time.utc  } AND end  >= #{seed_start_time.utc  })"
+            inner_test.push "(location_id = #{loc_id} AND active = #{true} AND start  <= #{seed_end_time.utc} AND end  >= #{seed_start_time.utc})"
           else
-            inner_test.push "(location_id  = #{loc_id  } AND calendar_id  = #{cal_id  } AND start  <= #{seed_end_time.utc  } AND end  >= #{seed_start_time.utc  })"
+            inner_test.push "(location_id = #{loc_id} AND calendar_id = #{cal_id} AND start  <= #{seed_end_time.utc} AND end  >= #{seed_start_time.utc})"
           end
-          inner_make.push "#{loc_id  }, #{cal_id  }, #{r_e_id  }, #{seed_start_time.utc  }, #{seed_end_time.utc  }, #{Time.now.utc  }, #{Time.now.utc  }, #{active  }"
+          inner_make.push "#{loc_id}, #{cal_id}, #{r_e_id}, #{seed_start_time.utc}, #{seed_end_time.utc}, #{Time.now.utc}, #{Time.now.utc}, #{active}"
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
           #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -111,12 +111,12 @@ class TimeSlot < ActiveRecord::Base
       ""
     elsif wipe
       big_array.each do |t_slots|
-        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id  } AND active = #{true  } AND start <= #{t.end.utc  } AND end >= #{t.start.utc  })"}.join(" OR ")])
+        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start <= #{t.end.utc} AND end >= #{t.start.utc})"}.join(" OR ")])
       end
       return ""
     else
       out=big_array.collect do |t_slots|
-        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id  } AND active = #{true  } AND start <= #{t.end.utc  } AND end >= #{t.start.utc  })"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
+        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start <= #{t.end.utc} AND end >= #{t.start.utc})"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
       end
       return out.join(",")
     end
@@ -161,11 +161,11 @@ class TimeSlot < ActiveRecord::Base
     dont_conflict_with_self = (self.new_record? ? "" : "AND id != #{self.id}")
 
     if self.calendar.active
-      c = TimeSlot.count(:all, :conditions => ["start  < #{self.end  } AND end  > #{self.start  } AND location_id  = #{self.location  } AND active  = #{true  } #{dont_conflict_with_self}"])
+      c = TimeSlot.where("start < ? AND end > ? AND location_id = ? AND active = ? #{dont_conflict_with_self}", self.end, self.start, self.location, true).count
     else
-      c = TimeSlot.count(:all, :conditions => ["start  < #{self.end  } AND end  > #{self.start  } AND location_id  = #{self.location  } AND calendar_id  = #{self.calendar  } #{dont_conflict_with_self}"])
+      c = TimeSlot.where("start < ? AND end > ? AND location_id = ? AND calendar_id = ? #{dont_conflict_with_self}", self.end, self.start, self.location, self.calendar.id).count
     end
-    unless c.zero?
+    unless c == 0
       errors.add_to_base("There is a conflicting timeslot.")
     end
   end

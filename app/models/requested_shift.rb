@@ -14,7 +14,7 @@ class RequestedShift < ActiveRecord::Base
  	scope :assigned, where("requested_shifts.assigned_start < ?", Time.now.utc)
  	scope :unassigned, where("requested_shifts.assigned_start is null")
 # 	scope :unassigned, lambda {|location| {:conditions => ["requested_shifts.assigned_start = ? AND locations_requested_shifts.location_id = ?", nil,  location.id], :joins => :locations_requested_shifts }}
-	scope :on_day, ->(day){where(:day => day)}
+	scope :on_day, ->(day){where(day: day)}
   # scope :at_location, lambda {|location| {:conditions => ["locations_requested_shifts.location_id = ?", location.id], :joins => :locations_requested_shifts }}
 
 	WEEK_DAY_SELECT = [	["Monday", 0],
@@ -69,7 +69,9 @@ class RequestedShift < ActiveRecord::Base
 		b = self.locations
 		c = 0
 		b.each do |location|
-			c += TemplateTimeSlot.count(:all, :conditions => ["start_time  <= #{self.acceptable_start  } AND end_time  >= #{self.acceptable_end  } AND template_id  = #{self.template_id  } AND location_id  = #{location.id  } AND day  = #{self.day  }"])
+      values = self.acceptable_start, self.acceptable_end, self.template_id, location.id, self.day
+      conditions = "start_time <= ? AND end_time >= ? AND template_id = ? AND location_id = ? AND day = ?}"
+			c += TemplateTimeSlot.where(conditions, *values).count
 		end
 		errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
   end
@@ -77,7 +79,7 @@ class RequestedShift < ActiveRecord::Base
   def user_does_not_have_concurrent_request
 #		Find all other requests of the user that occupy the same time (same day + overlapping acceptable start/end time)
     values = [self.user_id, self.day, self.acceptable_end, self.acceptable_start, self.template, self.id]
-		c = RequestedShift.where(["user_id = ? AND day = ? AND acceptable_start  <= ? AND acceptable_end >= ? AND template_id = ? AND id != ?", *values])
+		c = RequestedShift.where("user_id = ? AND day = ? AND acceptable_start  <= ? AND acceptable_end >= ? AND template_id = ? AND id != ?", *values)
 #		Now see if any of the other requests have locations that are the same as this request's locations
 		other_locations = c.collect{|request| request.locations}.flatten
 		self.locations.each do |location|

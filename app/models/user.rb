@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   has_one :user_profile, :dependent => :destroy
 
   attr_protected :superusercreate_
-  scope :superusers, -> {where(:superuser => true).order(:last_name)}
+  scope :superusers, -> { where(superuser: true).order(:last_name) }
   delegate :default_department, :to => 'user_config'
 
 
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   end
 
   def current_shift
-    Shift.where(:user_id => self.id, :signed_in => true).first
+    Shift.where(user_id: self.id, signed_in: true).first
   end
 
   # check if a user can see locations and shifts under this loc group

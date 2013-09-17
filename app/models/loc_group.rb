@@ -19,9 +19,9 @@ class LocGroup < ActiveRecord::Base
   has_and_belongs_to_many :links,         :join_table => :loc_groups_notices, :association_foreign_key => :notice_id
   has_and_belongs_to_many :stickies,      :join_table => :loc_groups_notices, :association_foreign_key => :notice_id
   has_and_belongs_to_many :notices
-  
-  scope :active, where(:active => true)
-  
+
+  scope :active, where(active: true)
+
   before_validation(:on => :create) {:create_permissions}
   before_validation(:on => :update) {:update_permissions}
 
@@ -29,7 +29,7 @@ class LocGroup < ActiveRecord::Base
 
   def permissions
     [view_permission, signup_permission, admin_permission]
-  end   
+  end
 
   # Conventional has_many :through won't work -Ben
   def data_objects
@@ -39,19 +39,19 @@ class LocGroup < ActiveRecord::Base
   def users
     department.users.select { |u| u.can_signup?(self) }
   end
-  
+
   def roles
     department.roles.select { |u| u.permissions.include?(signup_permission) }
   end
-  
+
   def deactivate
     self.active = false
     self.save!
     self.locations.each do |location|
-     location.deactivate 
+     location.deactivate
     end
   end
-  
+
   def activate
     self.active = true
     self.save!

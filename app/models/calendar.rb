@@ -25,7 +25,7 @@ class Calendar < ActiveRecord::Base
     TimeSlot.delete_all(["calendar_id = ? AND start > ?", calendar.id, Time.now.utc)
     TimeSlot.update_all(["calendar_id  = ", default_id], ["calendar_id  = ?"], calendar.id)
 
-    future_shifts_on_calendar = Shift.where(["calendar_id = ? AND start > ?"], calendar.id, Time.now.utc)
+    future_shifts_on_calendar = Shift.where("calendar_id = ? AND start > ?", calendar.id, Time.now.utc)
     Shift.mass_delete_with_dependencies(future_shifts_on_calendar)
     Shift.update_all(["calendar_id  = ?", default_id], ["calendar_id  = ?", calendar.id])
 
@@ -75,7 +75,7 @@ class Calendar < ActiveRecord::Base
       loc_ids.each do |loc_id|
         cal_ids.each do |cal_id|
           values = [start_time.utc, end_time.utc, cal_id, loc_id]
-          Shift.mass_delete_with_dependencies(Shift.where(["start > ? AND start  < ? AND calendar_id = ? AND location_id  = ?", *values]))
+          Shift.mass_delete_with_dependencies(Shift.where("start > ? AND start  < ? AND calendar_id = ? AND location_id  = ?", *values))
         end
       end
     end
