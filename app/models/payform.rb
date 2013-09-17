@@ -54,7 +54,7 @@ class Payform < ActiveRecord::Base
 
   def self.build(dept, usr, given_date)
     period_date = Payform.default_period_date(given_date, dept)
-    Payform.find(:first, :conditions => {:user_id => usr.id, :department_id => dept.id, :date => period_date}) ||
+    Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first() ||
     Payform.create(:user_id => usr.id, :department_id => dept.id, :date => period_date)
   end
 

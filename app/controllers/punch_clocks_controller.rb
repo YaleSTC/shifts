@@ -13,7 +13,7 @@ class PunchClocksController < ApplicationController
   end
 
   def edit
-    @punch_clock = PunchClock.find_by_id(params[:id])
+    @punch_clock = PunchClock.find(params[:id])
     return unless user_is_owner_or_admin_of(@punch_clock, @punch_clock.department)
   end
 

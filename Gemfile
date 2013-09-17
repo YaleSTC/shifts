@@ -16,6 +16,9 @@ gem "rdoc", "~> 3.6.1"
 gem "paperclip", "~> 2.3.15"
 gem "htmlentities"
 gem "capistrano"
+gem "htmlentities"
+# gem "pry-rails", :group => :development
+# gem "jazz_hands"
 gem "letter_opener", :group => :development
 
 #authentication

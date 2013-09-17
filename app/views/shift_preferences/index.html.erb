@@ -37,9 +37,9 @@
 		    <td><%=h shift_preference.max_number_of_shifts %></td>
 		    <td><%=h shift_preference.min_number_of_shifts %></td>
 		    <td><%=h shift_preference.max_hours_per_day %></td>
-				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "yes"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
-				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "maybe"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
-				<td><%=h Location.find(shift_preference.locations_shift_preferences.find(:all, :conditions => {:kind => "no"}).collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
+				<td><%=h Location.find(shift_preference.locations_shift_preferences.where(:kind => "yes").collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
+				<td><%=h Location.find(shift_preference.locations_shift_preferences.where(:kind => "maybe").collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
+				<td><%=h Location.find(shift_preference.locations_shift_preferences.where(:kind => "no").collect(&:location_id)).collect{|l| l.short_name}.to_sentence %></td>
 		    <td><%= link_to 'Show', template_shift_preference_path(@week_template, shift_preference) %></td>
 		    <td><%= link_to 'Edit', edit_template_shift_preference_path(@week_template, shift_preference) %></td>
 		    <td><%= link_to 'Delete', template_shift_preference_path(@week_template, shift_preference), :confirm => 'Are you sure?', :method => :delete %></td>

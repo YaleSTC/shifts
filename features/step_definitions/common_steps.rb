@@ -1,37 +1,37 @@
 Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |first_name, last_name, department, login|
-  d = Department.find_by_name("#{department}") or Department.create!(:name => department)
+  d = Department.where(:name == "#{department}") or Department.create!(:name => department)
 
   u = User.new(:first_name => first_name, :last_name => last_name, :login => login)
-  u.departments << Department.find_by_name("#{department}")
+  u.departments << Department.where(:name == "#{department}")
   u.save!
 end
 
 Given /^I have a role named "([^\"]*)" with permission "([^\"]*)" in the department "([^\"]*)"$/ do |role, permission, department|
-  u = Role.new(:name => role, :department => Department.find_by_name(department))
+  u = Role.new(:name => role, :department => Department.where(:name == department))
   u.save!
-  Role.find_by_name(role).permissions << Permission.find_by_name(permission)
+  Role.where(:name == role).permissions << Permission.where(:name == permission)
 end
 
 Given /^the role named "([^\"]*)" has permission "([^\"]*)"$/ do |role, permission|
-  Role.find_by_name(role).permissions << Permission.find_by_name(permission)
+  Role.where(:name == role).permissions << Permission.where(:name == permission)
 end
 
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
   user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
   user.should_not be_nil
-  role = Role.find_by_name(permissions + " role") || Role.new(:name => permissions + " role")
+  role = Role.where(:name == (permissions + " role")) || Role.new(:name => permissions + " role")
   role.department = user.departments.first
   permissions.split(", ").each do |permission_name|
-    permission = Permission.find_by_name(permission_name)
+    permission = Permission.where(:name == permission_name)
     permission.should_not be_nil
-    role.permissions << Permission.find_by_name(permission_name)
+    role.permissions << Permission.where(:name == permission_name)
   end
   role.save!
   user.roles << role
 end
 
 Given /^I am logged into CAS as "([^\"]*)"$/ do |login|
-  @current_user = User.find_by_login(login)
+  @current_user = User.where(:login == login)
   @current_user.should_not be_nil
   CASClient::Frameworks::Rails::Filter.fake(login)
 end
@@ -58,7 +58,7 @@ end
 
 Given /^I have locations "([^\"]*)" in location group "([^\"]*)" for the department "([^\"]*)"$/ do |locations, location_group, department|
   locations.split(", ").each do |location_name|
-  loc_group = LocGroup.create!(:name => location_group, :department_id => Department.find_by_name(department).id)
+  loc_group = LocGroup.create!(:name => location_group, :department_id => Department.where(:name == department).id)
   Location.create!(:name => location_name, :loc_group_id => loc_group.id,
                    :min_staff => 1, :max_staff => 3, :short_name => location_name,
                    :priority => 1)
@@ -72,7 +72,7 @@ end
 Then /^there should be a shift with user "(.+)" at location "(.+)"$/ do |user, location|
   @user = user
   @location = location
-  Shift.find_by_user(@user).find_by_location(@location)
+  Shift.where(:user == @user).where(:location == @location)
 end
 
 Then /^I should have ([0-9]+) (.+)$/ do |count, class_name|

@@ -5,8 +5,8 @@ namespace :db do
 
     #NOTE: probably make sure payform_items aren't already versioned when you run this script  
     #ALSO,  BACKUP YOUR DATABASE BEFORE RUNNING THIS!!!      
-    total = PayformItem.find(:all,:conditions => {:parent_id => nil}).size
-    PayformItem.find(:all,:conditions => {:parent_id => nil}).each_with_index do |p_i, i|
+    total = PayformItem.where(:parent_id => nil).size
+    PayformItem.where(:parent_id => nil).each_with_index do |p_i, i|
       #make sure payform_id is assigned to all payforms, based off of their kids
       #this method is made longer because I am only assuming that parent_id exists,
       #  NOT that acts_as_tree is enabled
@@ -28,8 +28,8 @@ namespace :db do
       end    
     end
    
-    total = PayformItem.find(:all,:conditions => {:parent_id => nil}).size
-    PayformItem.find(:all,:conditions => {:parent_id => nil}).each_with_index do |p_i, i| 
+    total = PayformItem.where(:parent_id => nil).size
+    PayformItem.where(:parent_id => nil).each_with_index do |p_i, i| 
     
       puts "#{i} / #{total}"
       #p_i.reset_to!(1)

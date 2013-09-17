@@ -21,9 +21,11 @@
       <%- end -%>
 
       <!-- Body Content -->
-
-      <%= yield(:body) || yield %>
-
+      <%if yield(:body) != "" %>
+        <%= yield(:body) %>
+      <% else %>
+        <%= yield %>
+      <% end %>
     </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
 
     <div id="footer">
