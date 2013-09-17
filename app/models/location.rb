@@ -43,7 +43,7 @@ class Location < ActiveRecord::Base
   def locations
     [self]
   end
-  
+
   # Announcements and Stickies, not Links
   def current_notices
     ((self.notices & Notice.active_notices) + Notice.active.global).uniq
@@ -100,7 +100,7 @@ class Location < ActiveRecord::Base
   def shifts_between(start_time, end_time)
     start_time = start_time.to_time
     end_time = end_time.to_time
-    shifts = Shift.where("start >= #{start_time.to_sql} AND end <= #{end_time.to_sql} AND location_id = #{self.id.to_sql} AND active is true")
+    shifts = Shift.where("start >= ? AND end <= ? AND location_id = ? AND active is ?", start_time, end_time, self.id, true)
   end
 
   def summary_stats(start_date, end_date)

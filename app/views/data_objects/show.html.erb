@@ -25,7 +25,7 @@
 			</p>
 		</fieldset>
 	</div>
-	
+
     <p>
       <table class = "tablesorter">
         <%# this requires some rewriting, since data fields may change over time %>
@@ -40,8 +40,7 @@
         <% unless @data_entries.empty? %>
  				<tbody>
           <%= render(:partial => "data_entries/data_entry_row",
-                     :collection => @data_entries,
-                     :locals => {:data_fields => @data_fields, :data_object => @data_object, :data_entry => @data_entry}) %>
+                     :collection => @data_entries) %>
         </tbody>
 				<% else %>
 				<tbody>
@@ -56,10 +55,10 @@
 
 
   <% if current_user.is_admin_of?(current_department) %>
-    <p><%= link_to "Edit", edit_data_object_path(@data_object) %> | 
+    <p><%= link_to "Edit", edit_data_object_path(@data_object) %> |
     <%= link_to "Destroy", @data_object,
     :confirm => 'Are you sure? This will destroy all data entries belonging to this object.',
-    :method => :delete %> | 
+    :method => :delete %> |
   <% end %>
   <%= link_to "View all data objects", data_objects_path %></p>
 

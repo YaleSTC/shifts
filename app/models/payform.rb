@@ -13,13 +13,14 @@ class Payform < ActiveRecord::Base
   validates_presence_of :department_id, :user_id, :date
   validates_presence_of :submitted, :if => :approved
   validates_presence_of :approved,  :if => :printed
+  validates :date, :uniqueness => {:scope => [:user_id, :department_id, :monthly]}
 
-  scope :unsubmitted, {:conditions => ["#{:submitted.to_sql_column} IS #{nil.to_sql}"] }
-  scope :unapproved,  {:conditions => ["#{:submitted.to_sql_column} IS NOT #{nil.to_sql} AND approved IS #{nil.to_sql}"] }
-  scope :skipped,     {:conditions => ["#{:skipped.to_sql_column} IS NOT #{nil.to_sql}"] }
-  scope :unskipped,   {:conditions => ["#{:skipped.to_sql_column} IS #{nil.to_sql}"] }
-  scope :unprinted,   {:conditions => ["#{:approved.to_sql_column} IS NOT #{nil.to_sql} AND #{:printed.to_sql_column} IS #{nil.to_sql}", nil, nil] }
-  scope :printed,     {:conditions => ["#{:printed.to_sql_column} IS NOT #{nil.to_sql}"] }
+  scope :unsubmitted, where("submitted IS ?", nil)
+  scope :unapproved,  where("submitted IS NOT ? AND approved IS ?", nil, nil)
+  scope :skipped,     where("skipped IS NOT ?", nil)
+  scope :unskipped,   where("skipped IS ?", nil)
+  scope :unprinted,   where("approved IS NOT ? AND printed IS ?", nil, nil)
+  scope :printed,     where("printed IS NOT ?", nil)
 
   before_create :set_payrate
 
@@ -32,7 +33,7 @@ class Payform < ActiveRecord::Base
         .sort_by{|payform| payform.date}
       sorted_payforms.each do |payform|
         user = User.find(payform.user_id)
-        grouped_items = payform.payform_items.group_by{|p| p.category.billing_code}
+        grouped_items = payform.payform_items.select{|p| p.active}.group_by{|p| p.category.billing_code}
         grouped_items.each do |billing_code, payform_items|
           csv << [payform.date, user.first_name, user.last_name, user.login, user.employee_id, payform.payrate, PayformItem.rounded_hours(payform_items), billing_code]
         end
@@ -52,8 +53,12 @@ class Payform < ActiveRecord::Base
 
   def self.build(dept, usr, given_date)
     period_date = Payform.default_period_date(given_date, dept)
-    Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first() ||
-    Payform.create(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+    begin
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first ||
+      Payform.create!(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+    rescue ActiveRecord::RecordInvalid #fix for multiple payforms being created at once
+      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first
+    end
   end
 
   def self.default_period_date(given_date, dept)

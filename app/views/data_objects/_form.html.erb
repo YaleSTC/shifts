@@ -3,28 +3,19 @@
   <%= (render :partial => "data_types/summary", :locals => {:data_type => (params[:data_type_id] ? DataType.find(params[:data_type_id]) : @data_object.data_type) }) if params[:data_type_id]%>
 </div>
 <div style="width: 60%; float:left">
-  <%= form_for @data_object do |f| %>
+  <%= simple_form_for @data_object do |f| %>
     <%= f.error_messages %>
     <p>
-     <h2> <%= f.label :data_type %></h2>
-      <% if params[:data_type_id] %>
-        <strong><%= DataType.find(params[:data_type_id]).name %></strong>
-        <%= hidden_field_tag :data_type_id, params[:data_type_id] %>
-      <% else %>
-        <%= f.select :data_type_id, @department.data_types.map{|dt| [dt.name, dt.id]} %>
-      <% end %>
+     <h2> <%= f.association :data_type, as: :select %></h2>
     </p>
     <p>
-      <%= f.label :name %><br />
-      <%= f.text_field :name %>
+      <%= f.input :name %><br />
     </p>
     <p>
-      <%= f.label :description %><br />
-      <%= f.text_field :description %>
+      <%= f.input :description %><br />
     </p>
     <p>
-      <%= f.label :locations %><br />
-      <%= collection_multiple_select(:data_object, :location_ids, @locations_select, :id, :name, :selected_items => @data_object.locations.map{|loc| loc.id}) %>
+      <%= f.association :locations, as: :check_boxes %><br />
     </p>
     <p>
       <%= f.submit "Save and add another object", :name => "add_another" %>

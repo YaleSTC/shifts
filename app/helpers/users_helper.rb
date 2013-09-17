@@ -36,7 +36,7 @@ module UsersHelper
   end
 
   def should_be_checked(user)
-    if User.where(:loging => user.login).first && User.where(:login => user.login).first.departments.include?(@department)
+    if User.where(:login => user.login).first && User.where(:login => user.login).first.departments.include?(@department)
       false
     else
       true

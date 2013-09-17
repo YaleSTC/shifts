@@ -13,7 +13,7 @@ class LinksController < NoticesController
 
   def create
     @link = Link.new(params[:link])
-		@link.author = current_user		
+		@link.author = current_user
 		@link.department = current_department
 		@link.url = "http://" << params[:link][:url] if @link.url[0,7] != "http://" && @link.url[0,8] != "https://"
 		@link.url.strip!
@@ -42,4 +42,5 @@ class LinksController < NoticesController
       end
     end
   end
+
 end
