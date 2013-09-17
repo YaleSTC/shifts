@@ -22,8 +22,8 @@ class Calendar < ActiveRecord::Base
   def self.destroy_self_and_future(calendar)
     default_id = calendar.department.calendars.default.id
 
-    TimeSlot.delete_all(["calendar_id = ? AND start > ?", calendar.id, Time.now.utc)
-    TimeSlot.update_all(["calendar_id  = ", default_id], ["calendar_id  = ?"], calendar.id)
+    TimeSlot.delete_all("calendar_id = ? AND start > ?", calendar.id, Time.now.utc)
+    TimeSlot.update_all(["calendar_id  = ", default_id], ["calendar_id  = ?", calendar.id])
 
     future_shifts_on_calendar = Shift.where("calendar_id = ? AND start > ?", calendar.id, Time.now.utc)
     Shift.mass_delete_with_dependencies(future_shifts_on_calendar)
