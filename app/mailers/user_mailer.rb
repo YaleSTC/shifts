@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default :from => "Yale@yale.edu"
-  
+
   def registration_confirmation(user)
     mail(:to => user.email, :subject => "Registered")
 
@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
       user = shift.user
       queue_text = ""
       profile_entry = UserProfileEntry.find(:first, :conditions => {
-                                  :user_profile_id => user.user_profile.id, 
+                                  :user_profile_id => user.user_profile.id,
                                   :user_profile_field_id => queue_field.id} )
       user_queue = profile_entry.content if profile_entry
       queue_text = "(User Queue: #{user_queue})" if user_queue
@@ -41,21 +41,21 @@ class UserMailer < ActionMailer::Base
     @sub_request = sub_request
     @new_shift = new_shift
     @dept = dept
-    mail(:to => sub_request.shift.user.email, :from => dept.department_config.mailer_address, 
+    mail(:to => sub_request.shift.user.email, :from => dept.department_config.mailer_address,
     	:subject => "[Sub Request] #{new_shift.user.name} took your sub!", :cc => new_shift.user.email, :date => Time.now)
   end
 
   def payform_item_modify_notification(new_payform_item, dept)
   	@new_payform_item = new_payform_item
     @dept = dept
-  	mail(:to => new_payform_item.user.email, :from => dept.department_config.mailer_address, 
+  	mail(:to => new_payform_item.user.email, :from => dept.department_config.mailer_address,
   		:subject => "Your payform has been modified by #{new_payform_item.source}", :date => Time.now)
   end
 
   def payform_item_deletion_notification(old_payform_item, dept)
     @old_payform_item = old_payform_item
     @dept = dept
-    mail(:to => old_payform_item.user.email, :from => dept.department_config.mailer_address, 
+    mail(:to => old_payform_item.user.email, :from => dept.department_config.mailer_address,
     	:subject=> "Your payform item has been deleted by #{old_payform_item.versions.last.user}", :date => Time.now)
   end
 
@@ -76,7 +76,7 @@ class UserMailer < ActionMailer::Base
     @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
     @user = user
     @dept = dept
-    mail(:to => user.email, :from => dept.department_config.mailer_address, 
+    mail(:to => user.email, :from => dept.department_config.mailer_address,
     	:subject => "Password Creation Instructions", :date => Time.now)
   end
 
