@@ -3,46 +3,37 @@ class UserMailer < ActionMailer::Base
 
   def registration_confirmation(user)
     mail(:to => user.email, :subject => "Registered")
-
-    self.delivery_method = :smtp
   end
 
   def shift_report(shift, report, dept) #Need to test this
     #If a profile field for queue exists, include it in subject
-    if queue_field = UserProfileField.find(:first, :conditions => {:name => "Queue"})
+    if queue_field = UserProfileField.where(name: "Queue").first
       user = shift.user
-      queue_text = ""
-      profile_entry = UserProfileEntry.find(:first, :conditions => {
+      profile_entry = UserProfileEntry.where(
                                   :user_profile_id => user.user_profile.id,
-                                  :user_profile_field_id => queue_field.id} )
+                                  :user_profile_field_id => queue_field.id).first
       user_queue = profile_entry.content if profile_entry
-      queue_text = "(User Queue: #{user_queue})" if user_queue
+      queue_text = user_queue ? "(User Queue: #{user_queue})" : ""
     end
 
-    recipients  shift.user.email
-    unless shift.location.report_email.blank?
-      cc        shift.location.report_email
-    end
-    from        shift.user.email
-    subject     "Shift Report: #{shift.short_display} #{queue_text}"
-    sent_on     Time.now
-    body        :shift => shift, :report => report
+    @shift = shift
+    @report = report
+    mail( to:       shift.user.email,
+          from:     shift.user.email,
+          cc:       shift.location.try(:report_email),
+          subject:  "Shift Report: #{shift.short_display} #{queue_text}",
+          date:     Time.now)
   end
-
-#  def sub_created_notify(sub)
-#    subject     "[Sub Request] Sub needed for " + sub.shift.short_display
-#    recipients  "sub.request.mailer@yale.edu"
-#    bcc         sub.email_list
-#    from        sub.user.email
-#    body        :sub => sub
-#  end
 
  def sub_taken_notification(sub_request, new_shift, dept)
     @sub_request = sub_request
     @new_shift = new_shift
     @dept = dept
-    mail(:to => sub_request.shift.user.email, :from => dept.department_config.mailer_address,
-    	:subject => "[Sub Request] #{new_shift.user.name} took your sub!", :cc => new_shift.user.email, :date => Time.now)
+    mail( to:       sub_request.shift.user.email,
+          from:     dept.department_config.mailer_address,
+          subject:  "[Sub Request] #{new_shift.user.name} took your sub!",
+          cc:       new_shift.user.email,
+          date:     Time.now)
   end
 
   def payform_item_modify_notification(new_payform_item, dept)
