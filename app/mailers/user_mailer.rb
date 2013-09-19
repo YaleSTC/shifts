@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "Yale@yale.edu"
+  default :from => "noreply@shifts.app"
 
   def registration_confirmation(user)
     mail(:to => user.email, :subject => "Registered")
