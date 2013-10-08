@@ -41,15 +41,6 @@ module Shifts
     config.filter_parameters += [:password]
 
 
-      #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
-      #ENV["HMP_DEBUG"] = 'true'
-
-      # Settings in config/environments/* take precedence over those specified here.
-      # Application configuration should go into files in config/initializers
-      # -- all .rb files in that directory are automatically loaded.
-      # See Rails::Configuration for more options.
-
-
       # Configure Rails Mail options
       config.action_mailer.delivery_method = :smtp
       config.action_mailer.smtp_settings = {
