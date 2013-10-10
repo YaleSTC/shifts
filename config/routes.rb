@@ -169,4 +169,6 @@ Shifts::Application.routes.draw do |map|
   # map.connect '/reports/http://www.google.com', :controller => "reports", :action => "redirect_to_external_url"
   # map.connect '/reports/http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=', :controller => "reports", :action => "redirect_to_external_url"
 
+  map.test_new_lists '/test_new_lists', :controller => 'reports', :action => 'tasks_and_objects_list'
+
 end
