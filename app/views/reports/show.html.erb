@@ -37,6 +37,7 @@
 	  <% end %>
 
 	  <fieldset id = "shift_tasks" class= "index">
+	  	<%= link_to "All Tasks/Objects", test_new_lists_path(:location_id => 1) %>
 		<legend>Shift Tasks</legend>
 		<div id = "tasks">
 	    <%= render :partial => 'tasks/report_tasks' %>

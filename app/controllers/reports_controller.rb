@@ -16,6 +16,15 @@ class ReportsController < ApplicationController
     @search_engine_url = current_department.department_config.search_engine_url
   end
 
+  def tasks_and_objects_list
+    @report = current_user.current_shift.report
+    tasks = Task.in_location(Location.find(params[:location_id])).active.after_now
+    # filters out daily and weekly tasks scheduled for a time later in the day
+    tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight < t.time_of_day.seconds_since_midnight}
+    # filters out weekly tasks on the wrong day
+    @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
+  end
+
   #Signing into a shift
   def create
     shift = Shift.find(params[:shift_id])
