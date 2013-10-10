@@ -1,13 +1,28 @@
-<div id = "right_stuff">
-  <fieldset id = "report_data_objects" class = "index">
-     <legend>Data Objects</legend>
-     <%= render :partial => 'data_objects/report_data_object' %>
-  </fieldset>
-
+<div id = "left_stuff">
   <fieldset id = "shift_tasks" class= "index">
 	<legend>Shift Tasks</legend>
 	<div id = "tasks">
     <%= render :partial => 'tasks/report_tasks' %>
 	</div>
+  </fieldset>
+</div>
+
+
+<div id = "right_stuff">
+  <fieldset id = "report_data_objects" class = "index">
+     <legend>Data Objects</legend>
+     <% @loc_groups.each do |loc_group| %>
+	     <div style="width: 60%; float:left">
+	     <%= loc_group.name %>
+	     </div>
+	     <% unless @loc_group.data_objects.empty? %>
+	     <%= loc_group.data_objects.each do |data_object| %>
+		 	<div style="width: 60%; float:left">
+		    <%= link_to "Update #{data_object.name}", new_data_object_data_entry_path(data_object, :height => "400", :width => "600"), :title => "Record New Data Entry", :class => "thickbox", :onclick => "this.blur();" %><br />
+			<% end %>
+		</div>
+		<% else %>
+		     <em>There are no data objects in this location.</em>
+		<% end %>
   </fieldset>
 </div>

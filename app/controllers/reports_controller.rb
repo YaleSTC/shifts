@@ -18,6 +18,7 @@ class ReportsController < ApplicationController
 
   def tasks_and_objects_list
     @report = current_user.current_shift.report
+    @loc_groups = LocGroup.all
     tasks = Task.in_location(Location.find(params[:location_id])).active.after_now
     # filters out daily and weekly tasks scheduled for a time later in the day
     tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight < t.time_of_day.seconds_since_midnight}
