@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
   end
 
   def tasks_and_objects_list
-    @report = current_user.current_shift.report
+    @report = current_user.current_shift.report if current_user.current_shift
     loc_groups = LocGroup.all
     @loc_groups = loc_groups.select{ |lg| lg.users.include?(current_user) }
     tasks = []
