@@ -1,6 +1,12 @@
-$("#shift_tasks").html('<%= escape_javascript render :partial => "tasks/report_tasks" %>');
-$('#all_report_items').html('<%= escape_javascript render :partial => "reports/report_item", :collection => @report.report_items %>');
-// TODO: Do this in jQuery
-// page.visual_effect :highlight, "current_report_item", :color => '#3bcc77', :duration => 2.0
-$('#new_report_item').reset();
+<% if @all_tasks == "true" %>
+	$("#shift_tasks").html('<%= escape_javascript render :partial => "tasks/report_tasks", locals: {all_tasks: true} %>');
+<% else %>
+	$("#shift_tasks").html('<%= escape_javascript render :partial => "tasks/report_tasks" %>');
+<% end %>
 
+<% if @report %>
+	$('#all_report_items').html('<%= escape_javascript render :partial => "reports/report_item", :collection => @report.report_items %>');
+	// TODO: Do this in jQuery
+	// page.visual_effect :highlight, "current_report_item", :color => '#3bcc77', :duration => 2.0
+	$('#new_report_item').reset();
+<% end %>
