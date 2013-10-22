@@ -1,3 +1,5 @@
+<% all_tasks = false if local_assigns[:all_tasks].nil? %> <!-- creates default value for all_tasks
+ -->
 
 <% unless @tasks.empty? %>
   <% task_kinds = @tasks.collect{|t| t.kind}.uniq %>
@@ -14,7 +16,11 @@
 
         <% elsif task.missed %>
           <div class="task_entry">
-            <%= link_to_remote "#{task.name} - Needs Doing ASAP!", {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title" %>
+            <% if all_tasks %>
+              <%= link_to_remote "#{task.name} - Needs Doing ASAP!", {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id, :all_tasks => true}}, :class => "task_title" %>
+            <% else %>
+              <%= link_to_remote "#{task.name} - Needs Doing ASAP!", {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title" %>
+            <% end %>
             <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
             <%if task.link%>
               <a href=<%=task.link%>>[link]</a>
@@ -23,7 +29,11 @@
 
         <% else %>
           <div class="task_entry">
-            <%= link_to_remote (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title" %>
+            <% if all_tasks %>
+              <%= link_to_remote (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id, :all_tasks => true}}, :class => "task_title"%>
+            <% else %>
+              <%= link_to_remote (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:url => { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}}, :class => "task_title" %>
+            <% end %>
             <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
             <%if task.link%>
               <a href=<%=task.link%>>[link]</a>
