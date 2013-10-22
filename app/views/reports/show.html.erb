@@ -26,9 +26,8 @@
 
 	  <fieldset id = "useful_links" class = "index" >
 	    <legend>Useful Links</legend>
-	    <div>
-	    <%= link_to "All Tasks/Objects", test_new_lists_path %>
-	    </div>
+	    <div><%= link_to "All Active Tasks", active_tasks_path %></div>
+		<div><%= link_to "All Data Objects", update_data_objects_path %></div>
 	    <ul id="useful_links">
 	   	<%= render :partial => 'links/report_links', :collection => current_user.current_shift.report.get_links, :as => :link %>
 	   	</ul>
