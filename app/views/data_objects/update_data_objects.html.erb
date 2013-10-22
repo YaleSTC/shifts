@@ -1,0 +1,19 @@
+
+<fieldset id = "report_data_objects" class = "index">
+  <legend>All Data Objects</legend>
+  <% @loc_groups.each do |loc_group| %>
+     <div >
+     	<strong><%= loc_group.name %></strong>
+     </div>
+     <% unless loc_group.data_objects.empty? %>
+	    <% loc_group.data_objects.each do |data_object| %>
+		 	<div style="width: 33%; float:left">
+		    <%= link_to "Update #{data_object.name}", new_data_object_data_entry_path(data_object, :height => "400", :width => "600"), :title => "Record New Data Entry", :class => "thickbox", :onclick => "this.blur();" %><br />
+			</div>
+		<% end %>
+	<% else %>
+	     <em>There are no data objects in this location.</em>
+	<% end %>
+	<div style="clear:both"></div>
+  <% end %>
+</fieldset>
