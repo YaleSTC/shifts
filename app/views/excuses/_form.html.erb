@@ -1,0 +1,21 @@
+<%= form_for(@excuse) do |f| %>
+  <% if @excuse.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@excuse.errors.count, "error") %> prohibited this excuse from being saved:</h2>
+
+      <ul>
+      <% @excuse.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :excuse %><br />
+    <%= f.text_area :excuse %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

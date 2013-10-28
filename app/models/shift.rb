@@ -8,6 +8,7 @@ class Shift < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   has_one :report, :dependent => :destroy
+  has_one :excuse
   has_many :sub_requests, :dependent => :destroy
   has_many :shifts_tasks
   has_many :tasks, :through => :shifts_tasks

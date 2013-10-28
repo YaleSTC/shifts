@@ -1,5 +1,7 @@
 Shifts::Application.routes.draw do |map|
 
+  resources :excuses
+
   map.resources :shifts_tasks
 
   map.resources :tasks, :member => {:make_entry => :post}

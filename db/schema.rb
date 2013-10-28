@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619210814) do
+ActiveRecord::Schema.define(:version => 20131027092814) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -151,6 +151,13 @@ ActiveRecord::Schema.define(:version => 20130619210814) do
     t.integer  "last_send_attempt", :default => 0
     t.text     "mail"
     t.datetime "created_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "excuses", :force => true do |t|
+    t.text     "excuse"
+    t.integer  "shift_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

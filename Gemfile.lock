@@ -57,6 +57,9 @@ GEM
     htmlentities (4.3.1)
     i18n (0.5.0)
     icalendar (1.4.0)
+    jquery-rails (2.3.0)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
@@ -142,6 +145,7 @@ DEPENDENCIES
   chronic
   htmlentities
   icalendar
+  jquery-rails (~> 2.1)
   letter_opener
   mail
   mysql

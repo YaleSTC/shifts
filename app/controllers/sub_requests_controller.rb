@@ -51,6 +51,10 @@ class SubRequestsController < ApplicationController
   end
 
   def create
+    if params[:private_reason]
+      @excuse = Excuse.new(:shift_id => params[:shift_id])
+      @excuse.save
+    end
     parse_date_and_time_output(params[:sub_request])
     join_date_and_time(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
@@ -73,7 +77,7 @@ class SubRequestsController < ApplicationController
       flash[:notice] = 'Sub request was successfully created.'
       @users = @sub_request.potential_takers
       for user in @users
-        ArMailer.deliver(ArMailer.create_sub_created_notify(user, @sub_request))
+        ArMailer.deliver(ArMailer.sub_created_notify(user, @sub_request))
       end
       redirect_to :action => "show", :id => @sub_request
     end

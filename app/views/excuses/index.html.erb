@@ -1,0 +1,23 @@
+<h1>Listing excuses</h1>
+
+<table>
+  <tr>
+    <th>Excuse</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @excuses.each do |excuse| %>
+  <tr>
+    <td><%= excuse.excuse %></td>
+    <td><%= link_to 'Show', excuse %></td>
+    <td><%= link_to 'Edit', edit_excuse_path(excuse) %></td>
+    <td><%= link_to 'Destroy', excuse, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Excuse', new_excuse_path %>

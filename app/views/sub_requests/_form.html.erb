@@ -77,6 +77,10 @@
     <%= f.label :reason %><br />
     <%= f.text_area :reason, :size => "50x3" %>
   </p>
+  <p>
+    <%= check_box_tag :private_reason %>
+    Request Excuse
+  <p><br />
     <%= f.submit 'Submit' %>
   </p>
 <% end %>

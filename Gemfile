@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
+gem 'jquery-rails', '~> 2.1'
 gem "ruby-net-ldap", :require => "net/ldap"
 gem "icalendar"
 gem "chronic"
