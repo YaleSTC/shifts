@@ -162,6 +162,8 @@ Shifts::Application.routes.draw do |map|
 
   map.root :controller => "dashboard"
 
+  get '/status' => 'status#index'
+
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
