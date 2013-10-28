@@ -17,6 +17,7 @@ gem "htmlentities"
 gem "capistrano"
 gem "htmlentities"
 gem 'simple_form'
+gem 'superfish-rails'
 # gem "jazz_hands"
 gem "letter_opener", :group => :development
 gem 'pry-rails', :group => :development

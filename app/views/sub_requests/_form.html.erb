@@ -80,6 +80,12 @@
   <p>
     <%= check_box_tag :private_reason %>
     Request Excuse
+    <p>
+      <div id=excuse>
+        Excuse<br/>
+        <%= text_area_tag :excuse, nil, {rows: 3, cols: 50} %>
+      </div>
+    </p>
   <p><br />
     <%= f.submit 'Submit' %>
   </p>

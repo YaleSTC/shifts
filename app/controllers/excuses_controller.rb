@@ -59,8 +59,8 @@ class ExcusesController < ApplicationController
     @excuse = Excuse.find(params[:id])
 
     respond_to do |format|
-      if @excuse.update_attributes(params[:excuse])
-        format.html { redirect_to(@excuse, :notice => 'Excuse was successfully updated.') }
+      if @excuse.update_attributes(excused: params[:excused])
+        format.html { redirect_to(excuses_url) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20131027092814) do
 
   create_table "excuses", :force => true do |t|
     t.text     "excuse"
+    t.boolean  "excused"
     t.integer  "shift_id"
     t.datetime "created_at"
     t.datetime "updated_at"

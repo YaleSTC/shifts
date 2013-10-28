@@ -1,18 +1,23 @@
 <h1>Listing excuses</h1>
 
-<table>
+<table id="excuse_list" class="tablesorter">
   <tr>
+    <th>User</th>
+    <th>Shift Start</th>
     <th>Excuse</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Excused?</th>
   </tr>
 
 <% @excuses.each do |excuse| %>
+  <% shift = excuse.shift %>
+  <% user  = excuse.shift.user %>
   <tr>
+    <td><%= user.first_name + " " + user.last_name %></td>
+    <td><%= shift.start.to_s %></td>
     <td><%= excuse.excuse %></td>
-    <td><%= link_to 'Show', excuse %></td>
-    <td><%= link_to 'Edit', edit_excuse_path(excuse) %></td>
+    <td><%= excuse.excused ? "Yes" : "No" %></td>
+    <td></td>
+    <td><%= link_to 'Excuse', excuse_path(excuse, excused: true), method: :put %></td>
     <td><%= link_to 'Destroy', excuse, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

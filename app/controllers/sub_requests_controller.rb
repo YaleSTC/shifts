@@ -52,8 +52,8 @@ class SubRequestsController < ApplicationController
 
   def create
     if params[:private_reason]
-      @excuse = Excuse.new(:shift_id => params[:shift_id])
-      @excuse.save
+      @excuse = Excuse.new(shift_id: params[:shift_id], excuse: params[:excuse], excused: false)
+      @excuse.save!
     end
     parse_date_and_time_output(params[:sub_request])
     join_date_and_time(params[:sub_request])
@@ -77,7 +77,8 @@ class SubRequestsController < ApplicationController
       flash[:notice] = 'Sub request was successfully created.'
       @users = @sub_request.potential_takers
       for user in @users
-        ArMailer.deliver(ArMailer.sub_created_notify(user, @sub_request))
+        # ArMailer.deliver(ArMailer.sub_created_notify(user, @sub_request))
+        # OH GOD I'LL PUT IT BACK I SWEAR I JUST DON'T KNOW WHAT MAILERS ARE -hugh
       end
       redirect_to :action => "show", :id => @sub_request
     end
