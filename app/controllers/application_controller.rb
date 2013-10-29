@@ -17,11 +17,8 @@ class ApplicationController < ActionController::Base
   #Replaced with similar prototype legacy helper plugin
   #helper :prototype #TODO including this helper is a stopgap for the shift to Rails 3; contained methods should be rewritten
 
-
   helper_method :current_user
   helper_method :current_department
-
-  filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
