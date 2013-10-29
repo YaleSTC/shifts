@@ -38,21 +38,22 @@ module Shifts
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :password_confirmation]
 
 
-      # Configure Rails Mail options
-      config.action_mailer.delivery_method = :smtp
-      config.action_mailer.smtp_settings = {
-        :address => "mail.yale.edu",
-        :port => 587,
-        :domain => "yale.edu",
+    # Configure Rails Mail options
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address => "mail.yale.edu",
+      :port => 587,
+      :domain => "yale.edu",
 
-        #for some reason, :authentication => login is not working
-        #thus, for now, the server will have to be connected to the yale network
-        #to be able to send emails
-      }
-    #  config.action_mailer.raise_delivery_errors = true
+      #for some reason, :authentication => login is not working
+      #thus, for now, the server will have to be connected to the yale network
+      #to be able to send emails
+    }
+
+      # config.action_mailer.raise_delivery_errors = true
       config.action_mailer.default_charset = "utf-8"
 
       # Only load the plugins named here, in the order given. By default, all plugins
