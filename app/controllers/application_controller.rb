@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
+
   def load_app_config
     @appconfig = AppConfig.first
   end
@@ -362,7 +362,12 @@ class ApplicationController < ActionController::Base
   #join date and time
     %w{start end mandatory_start mandatory_end}.each do |field_name|
       if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
-        form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
+        date = form_output["#{field_name}_date"]
+        time = form_output["#{field_name}_time"]
+        zone = date.end_of_day.zone
+        form_output["#{field_name}"] ||= DateTime.new( date.year, date.month,
+                                                       date.day, time.hour,
+                                                       time.min, time.sec, zone)
         form_output.delete("#{field_name}_date")
         form_output.delete("#{field_name}_time")
       end
@@ -412,7 +417,7 @@ class ApplicationController < ActionController::Base
   def prepare_mail_url
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
-  
+
   def mobile_device?
     if session[:mobile_param]
       session[:mobile_param] == "1"
@@ -421,7 +426,7 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :mobile_device?
-  
+
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]
   end
