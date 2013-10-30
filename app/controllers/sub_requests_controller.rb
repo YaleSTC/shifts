@@ -113,9 +113,9 @@ class SubRequestsController < ApplicationController
   def destroy
     @sub_request = SubRequest.find(params[:id])
     return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
-    
+
     @shift = @sub_request.shift
-    
+
     @sub_request.destroy
     #the user can cancel a sub request and sign into their shift
     if params[:sign_in]
