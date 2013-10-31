@@ -10,6 +10,7 @@ module ShiftsHelper
     @dept_start_hour ||= current_department.department_config.schedule_start / 60
     @dept_end_hour ||= current_department.department_config.schedule_end / 60
     @hours_per_day ||= (@dept_end_hour - @dept_start_hour)
+    @schedule_width ||= (3600.0 * @hours_per_day)
 
     if !shift.end
       shift.end = Time.now
@@ -17,8 +18,12 @@ module ShiftsHelper
       shift.end = shift.start + current_department.department_config.time_increment.minutes
     end
 
-    left = (((after ? after : shift.start) - (shift.start.beginning_of_day + @dept_start_hour.hours))/3600.0)/@hours_per_day*100
-    width = ((shift.end - (after ? after : shift.start))/3600.0) / @hours_per_day * 100
+    schedule_start_time = shift.start.change(:hour => @dept_start_hour)
+    draw_start_time = after || shift.start
+
+    left  = 100 * (draw_start_time - schedule_start_time) / @schedule_width
+    width = 100 * (shift.end - draw_start_time) / @schedule_width
+
     if left < 0
       width += left
       left = 0
