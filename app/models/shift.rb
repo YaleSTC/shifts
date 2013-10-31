@@ -191,7 +191,7 @@ class Shift < ActiveRecord::Base
       return out.collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
-  
+
 
   #Used for activating calendars, check/wipe conflicts -Mike
   def self.check_for_conflicts(shifts, wipe)
@@ -423,36 +423,25 @@ class Shift < ActiveRecord::Base
   def time_string
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled"
   end
-  
+
   def task_time
     scheduled? ? "#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)}" : "unscheduled (#{start.to_s(:am_pm)} - #{self.end.to_s(:am_pm)})"
-    
+
   end
 
   def sub_request
     SubRequest.find_by_shift_id(self.id)
   end
-  
-  
-  
+
+
+
 
   # ======================
   # = Validation helpers =
   # ======================
 
-  def join_date_and_time
-    # scheduled shifts
-     if self.start_date
-       self.start = self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-       self.end = self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
-     # unscheduled shifts
-     else
-       self.start = Time.now
-     end
-  end
-
   private
-  
+
   def restrictions
     unless self.power_signed_up
       errors.add(:user, "is required") and return if self.user.nil?
@@ -482,7 +471,7 @@ class Shift < ActiveRecord::Base
   def start_less_than_end
     errors.add(:start, "must be earlier than end time") if (self.end <= self.start)
   end
-  
+
   #TODO: Fix this to check timeslots by time_increment
   def shift_is_within_time_slot
     unless self.power_signed_up
@@ -539,9 +528,9 @@ class Shift < ActiveRecord::Base
   end
 
   def obeys_signup_priority
-    
+
     return if (self.power_signed_up || !self.scheduled || !self.calendar.active)
-    
+
     #check for all higher-priority locations in this loc group
     prioritized_locations = self.loc_group.locations.select{|l| l.priority > self.location.priority}
     seconds_increment = self.department.department_config.time_increment * 60
