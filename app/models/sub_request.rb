@@ -100,14 +100,6 @@ class SubRequest < ActiveRecord::Base
     end                                             #work-around: lists are printed as "item,,item,,item" which now swap to "item, item, item"
   end
 
-  def join_date_and_time
-    self.start ||= self.start_date.to_date.to_time + self.start_time.seconds_since_midnight
-    self.end ||= self.end_date.to_date.to_time + self.end_time.seconds_since_midnight
-    self.mandatory_start ||= self.mandatory_start_date.to_date.to_time + self.mandatory_start_time.seconds_since_midnight
-    self.mandatory_end ||= self.mandatory_end_date.to_date.to_time + self.mandatory_end_time.seconds_since_midnight
-  end
-
-
   private
 
 

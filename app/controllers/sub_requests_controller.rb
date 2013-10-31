@@ -54,7 +54,6 @@ class SubRequestsController < ApplicationController
     parse_date_and_time_output(params[:sub_request])
     join_date_and_time(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
-#    @sub_request.join_date_and_time
     @sub_request.shift = Shift.find(params[:shift_id])
     unless params[:list_of_logins].empty?
       params[:list_of_logins].split(",").each do |l|
@@ -81,7 +80,6 @@ class SubRequestsController < ApplicationController
 
   def update
     @sub_request = SubRequest.find(params[:id])
-#    @sub_request.join_date_and_time
     return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)
     begin
       SubRequest.transaction do
