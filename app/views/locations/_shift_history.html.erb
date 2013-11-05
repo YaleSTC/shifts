@@ -1,0 +1,18 @@
+<% if @shift_history.empty? %>
+	<tr class="odd">
+		<td>There are no recent shifts here</td>
+	</tr>
+<% else %>
+		<tr> 
+			<td class="user_name" width="20%">User Name</td>
+			<td class="timestamp" width="30%">Start</td>
+			<td class="report_item_content" width="50%">End</td>
+		</tr>
+	<% @shift_history.each do |shift| %>
+		<tr> 
+			<td class="user_name" width="20%"><%=h link_to shift.user.name, user_profile_path(shift.user.login) %></td>
+			<td class="timestamp" width="30%"><%=h shift.start.strftime(date_format + " at " + time_format) %></td>
+			<td class="report_item_content" width="50%"><%=h shift.end.strftime(date_format + " at " + time_format) %></td>
+		</tr>
+	<% end %>
+<% end %>

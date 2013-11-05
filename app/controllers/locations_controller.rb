@@ -83,6 +83,20 @@ class LocationsController < ApplicationController
     end
   end
 
+  def display_shift_history
+    @location = Location.find(params[:id])
+    if params[:more_items] == nil
+      session[:items] = 0
+    end
+    item_number = find_item_number + 5
+    session[:items] = item_number
+    @shift_history = @location.shifts.last(item_number).reverse
+    respond_to do |format|
+      format.js { @shift_history }
+      format.html { } #this is necessary!
+    end
+  end
+
 private
   def find_item_number
      session[:items] ||= 0

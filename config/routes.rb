@@ -117,6 +117,7 @@ Shifts::Application.routes.draw do |map|
 
   #TODO Fix report items routing, this is temporary
   map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_report_items => [:get, :post], :toggle => [:get, :post]}
+  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_shift_history => [:get, :post], :toggle => [:get, :post]}
   #map.resources :locations, :collection => {:display_report_items => [:post, :get], :toggle => [:post, :get], :index => [:post, :get]}, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
 
   map.resources :data_types do |data_type|
@@ -161,6 +162,8 @@ Shifts::Application.routes.draw do |map|
   end
 
   map.root :controller => "dashboard"
+
+  get '/status' => 'status#index'
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
