@@ -84,13 +84,10 @@ class LocationsController < ApplicationController
   end
 
   def display_shift_history
-    @location = Location.find(params[:id])
-    if params[:more_items] == nil
-      session[:items] = 0
-    end
-    item_number = find_item_number + 5
-    session[:items] = item_number
-    @shift_history = @location.shifts.last(item_number).reverse
+    @location = Location.find(params[:id] || params[:location][:id])
+    @start_date = interpret_start
+    @end_date = interpret_end
+    @shift_history = @location.shifts.select{ |shift| (shift.start >= @start_date && shift.start <= @end_date) }
     respond_to do |format|
       format.js { @shift_history }
       format.html { } #this is necessary!
@@ -106,5 +103,21 @@ private
     @locations = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
   end
 
-end
 
+  def interpret_start
+    if params[:shift]
+      return Date.civil(params[:shift][:"start_date(1i)"].to_i,params[:shift][:"start_date(2i)"].to_i,params[:shift][:"start_date(3i)"].to_i)
+    else
+      return 1.week.ago.to_date
+    end
+  end
+
+  def interpret_end
+    if params[:shift][:end_date]
+      return Date.civil(params[:shift][:"end_date(1i)"].to_i,params[:shift][:"end_date(2i)"].to_i,params[:shift][:"end_date(3i)"].to_i)
+    else
+      return Date.today.to_date
+    end
+  end
+
+end
