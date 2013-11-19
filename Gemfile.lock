@@ -24,13 +24,14 @@ GEM
       activesupport (= 3.0.9)
       arel (~> 2.0.10)
       tzinfo (~> 0.3.23)
+    activerecord-mysql2-adapter (0.0.3)
+      mysql2
     activeresource (3.0.9)
       activemodel (= 3.0.9)
       activesupport (= 3.0.9)
     activesupport (3.0.9)
     addressable (2.3.4)
-    airbrake (3.1.12)
-      activesupport
+    airbrake (3.1.14)
       builder
       json
     ar_mailer (1.5.1)
@@ -57,7 +58,7 @@ GEM
     htmlentities (4.3.1)
     i18n (0.5.0)
     icalendar (1.4.0)
-    json (1.8.0)
+    json (1.8.1)
     launchy (2.3.0)
       addressable (~> 2.3)
     letter_opener (1.1.1)
@@ -69,7 +70,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
-    mysql (2.9.1)
+    mysql2 (0.3.11)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -135,6 +136,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-mysql2-adapter
   airbrake
   ar_mailer
   authlogic
@@ -144,7 +146,7 @@ DEPENDENCIES
   icalendar
   letter_opener
   mail
-  mysql
+  mysql2
   paperclip (~> 2.3.15)
   pry-rails
   rails (= 3.0.9)
