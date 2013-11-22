@@ -4,20 +4,20 @@ class UserProfile < ActiveRecord::Base
   has_many :user_profile_entries
 
   has_attached_file :photo, #generates profile picture
-      :styles => { :large => "500x500>", :medium => "250x250>", :small => "150x150>", :thumbnail => "100x100#", :pico => "22x22#"},
-      :processors => [:cropper],
-      :default_url => "/assets/default_:style.jpg",
-      :url => "/assets/user_profiles/:id/:style/:normalized_photo_name.extension",
-      :path => ":rails_root/public/assets/user_profiles/:id/:style/:normalized_photo_name.extension"
-  validates_attachment_size :photo, :less_than => 3.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/jpg']
+      styles: { large: "500x500>", medium: "250x250>", small: "150x150>", thumbnail: "100x100#", pico: "22x22#"},
+      processors: [:cropper],
+      default_url: "/assets/default_:style.jpg",
+      url: "/assets/user_profiles/:id/:style/:normalized_photo_name.extension",
+      path: ":rails_root/public/assets/user_profiles/:id/:style/:normalized_photo_name.extension"
+  validates_attachment_size :photo, less_than: 3.megabytes
+  validates_attachment_content_type :photo, content_type: ['image/jpeg', 'image/png', 'image/jpg']
 
   Paperclip.interpolates :normalized_photo_name do |attachment, style|
     attachment.instance.normalized_photo_name
   end
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  after_update :reprocess_photo , :if => :cropping?
+  after_update :reprocess_photo , if: :cropping?
 
 
   def cropping?

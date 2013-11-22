@@ -1,5 +1,5 @@
 class PunchClockSet < ActiveRecord::Base
-  has_many :punch_clocks, :dependent => :destroy
+  has_many :punch_clocks, dependent: :destroy
   belongs_to :department
 
   validates_presence_of :description

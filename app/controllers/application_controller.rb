@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :load_app_config
   before_filter :department_chooser
   before_filter :load_user_session
-  before_filter RubyCAS::Filter, :if => Proc.new{|s| s.using_CAS?}, :except => 'access_denied'
-  before_filter :login_check, :except => :access_denied
+  before_filter RubyCAS::Filter, if: Proc.new{|s| s.using_CAS?}, except: 'access_denied'
+  before_filter :login_check, except: :access_denied
   before_filter :load_department
   before_filter :prepare_mail_url
   before_filter :prepare_for_mobile
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied
-    render :file => "layouts/access_denied.html.erb", :layout => true
+    render file: "layouts/access_denied.html.erb", layout: true
   end
 
   def using_CAS?
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     if @user_session
       @user_session.user
     elsif session[:cas_user]
-      User.where(:login => session[:cas_user]).first
+      User.where(login: session[:cas_user]).first
     else
       nil
     end)
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user
-    @current_user = (@user_session && @user_session.user) || User.where(:login => session[:cas_user]).first
+    @current_user = (@user_session && @user_session.user) || User.where(login: session[:cas_user]).first
   end
 
   def load_user_session
@@ -389,7 +389,7 @@ class ApplicationController < ActionController::Base
     if (params[:su_mode] && current_user.superuser?)
       current_user.update_attribute(:supermode, params[:su_mode]=='ON')
       flash[:notice] = "Supermode is now #{current_user.supermode? ? 'ON' : 'OFF'}"
-      redirect_to :action => "index" and return
+      redirect_to action: "index" and return
     end
     if (params["chooser"] && params["chooser"]["dept_id"])
       session[:department_id] = params["chooser"]["dept_id"]
@@ -400,7 +400,7 @@ class ApplicationController < ActionController::Base
   #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
   def layout_check(action = action_name, controller = controller_name)
      if params[:layout] == "false"
-      render :controller => controller, :action => action, :layout => false
+      render controller: controller, action: action, layout: false
     end
   end
 

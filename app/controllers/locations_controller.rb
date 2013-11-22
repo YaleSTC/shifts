@@ -19,12 +19,12 @@ class LocationsController < ApplicationController
     @location = Location.new(params[:location])
     if !current_user.loc_groups_to_admin(@department).include?(@location.loc_group)  
       flash[:error] = "You do not have permission to create locations in that location group."
-      redirect_to :action => "new"   
+      redirect_to action: "new"   
     elsif @location.save
       flash[:notice] = "Successfully created location."
       redirect_to department_locations_path(current_department)
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -40,7 +40,7 @@ class LocationsController < ApplicationController
       flash[:notice] = "Successfully updated location."
       redirect_to @location
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
   

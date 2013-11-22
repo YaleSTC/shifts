@@ -7,7 +7,7 @@ class RolesControllerTest < ActionController::TestCase
   end
   
   def test_show
-    get :show, :id => Role.first
+    get :show, id: Role.first
     assert_template 'show'
   end
   
@@ -29,25 +29,25 @@ class RolesControllerTest < ActionController::TestCase
   end
   
   def test_edit
-    get :edit, :id => Role.first
+    get :edit, id: Role.first
     assert_template 'edit'
   end
   
   def test_update_invalid
     Role.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Role.first
+    put :update, id: Role.first
     assert_template 'edit'
   end
   
   def test_update_valid
     Role.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Role.first
+    put :update, id: Role.first
     assert_redirected_to role_url(assigns(:role))
   end
   
   def test_destroy
     role = Role.first
-    delete :destroy, :id => role
+    delete :destroy, id: role
     assert_redirected_to roles_url
     assert !Role.exists?(role.id)
   end

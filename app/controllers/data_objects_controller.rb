@@ -39,7 +39,7 @@ class DataObjectsController < ApplicationController
       @end_date = Date.civil(params[:end][:year].to_i, params[:end][:month].to_i, params[:end][:day].to_i)
       @data_entries = DataEntry.for_data_object(@data_object).between_days(@start_date, @end_date)
     else
-      @data_entries = DataEntry.where(:data_object_id => @data_object.id).limit(50).offset(offset).order("created_at DESC")
+      @data_entries = DataEntry.where(data_object_id: @data_object.id).limit(50).offset(offset).order("created_at DESC")
     end
   end
 
@@ -58,7 +58,7 @@ class DataObjectsController < ApplicationController
       redirect_to (params[:add_another] ? new_data_type_data_object_path(@data_object.data_type) : data_objects_path)
     else
       @locations_select = options_for_location_select
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -75,7 +75,7 @@ class DataObjectsController < ApplicationController
       flash[:notice] = "Successfully updated data object."
       redirect_to @data_object
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

@@ -41,7 +41,7 @@ class SubRequestsController < ApplicationController
   def new
     shift = Shift.find_by_id(params[:shift_id])
     if shift && shift.scheduled? #avoids attempting to call for start times of a non-existant shift
-      @sub_request = SubRequest.new(:shift_id => params[:shift_id])
+      @sub_request = SubRequest.new(shift_id: params[:shift_id])
       @sub_request.mandatory_start = @sub_request.start = @sub_request.shift.start
       @sub_request.mandatory_end = @sub_request.end = @sub_request.shift.end
       return unless user_is_owner_or_admin_of(@sub_request.shift, current_department)    #is 'return unless' unnessecary here? -Bay
@@ -69,18 +69,18 @@ class SubRequestsController < ApplicationController
             @sub_request.requested_users << user
           end
         end
-        @sub_request.requested_users << User.where(:login => l[0]).first if l.length == 1
+        @sub_request.requested_users << User.where(login: l[0]).first if l.length == 1
       end
     end
     unless @sub_request.save
-      render :action => "new"
+      render action: "new"
     else
       flash[:notice] = 'Sub request was successfully created.'
       @users = @sub_request.potential_takers
       for user in @users
         UserMailer.sub_created_notify(user, @sub_request)
       end
-      redirect_to :action => "show", :id => @sub_request
+      redirect_to action: "show", id: @sub_request
     end
   end
 
@@ -98,7 +98,7 @@ class SubRequestsController < ApplicationController
                     @sub_request.requested_users << user
                   end
                 end
-                @sub_request.requested_users << User.where(:login => l[0]).first if l.length == 1
+                @sub_request.requested_users << User.where(login: l[0]).first if l.length == 1
              end
            end
           parse_date_and_time_output(params[:sub_request])
@@ -107,10 +107,10 @@ class SubRequestsController < ApplicationController
           @sub_request.save!
         end
       rescue Exception => e
-        render :action => "edit", :id => @sub_request
+        render action: "edit", id: @sub_request
       else
         flash[:notice] = 'Sub Request was successfully updated.'
-        redirect_to :action => "show", :id => @sub_request
+        redirect_to action: "show", id: @sub_request
       end
   end
 
@@ -162,7 +162,7 @@ class SubRequestsController < ApplicationController
       else
         flash[:error] = e.message.gsub("Validation failed: ", "")
       end
-      render :action => "get_take_info"
+      render action: "get_take_info"
      end
   end
 

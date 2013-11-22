@@ -18,7 +18,7 @@ module ShiftsHelper
       shift.end = shift.start + current_department.department_config.time_increment.minutes
     end
 
-    schedule_start_time = shift.start.change(:hour => @dept_start_hour)
+    schedule_start_time = shift.start.change(hour: @dept_start_hour)
     draw_start_time = after || shift.start
 
     left  = 100 * (draw_start_time - schedule_start_time) / @schedule_width

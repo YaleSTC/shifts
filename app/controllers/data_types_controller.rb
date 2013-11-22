@@ -15,13 +15,13 @@ class DataTypesController < ApplicationController
   end
   
   def create
-    @data_type = DataType.new({:department => current_department})
+    @data_type = DataType.new({department: current_department})
     @data_type.update_attributes(params[:data_type])
     if @data_type.save
       flash[:notice] = "Successfully created data type."
       redirect_to (@data_type.data_fields.empty? ? new_data_type_data_field_path(@data_type) : @data_type)
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
   
@@ -36,7 +36,7 @@ class DataTypesController < ApplicationController
       flash[:notice] = "Successfully updated data type."
       redirect_to @data_type
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
   

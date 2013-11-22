@@ -1,5 +1,5 @@
 class AnnouncementsController < NoticesController
-	before_filter :require_any_loc_group_admin, :except => [:index, :show]
+	before_filter :require_any_loc_group_admin, except: [:index, :show]
 
   def index
     redirect_to(notices_path)
@@ -44,7 +44,7 @@ class AnnouncementsController < NoticesController
 
     rescue Exception
       respond_to do |format|
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
         format.js  #create.js.rjs
       end
   end
@@ -64,14 +64,14 @@ class AnnouncementsController < NoticesController
       end
     rescue Exception
         respond_to do |format|
-          format.html { render :action => "new" }
+          format.html { render action: "new" }
 					format.js
         end
       else
         respond_to do |format|
         format.html {
           flash[:notice] = 'Announcement was successfully saved.'
-          redirect_to :action => "index"
+          redirect_to action: "index"
         }
 				format.js
       end

@@ -1,5 +1,5 @@
 Given /^"([^\"]*)" had a shift yesterday in "([^\"]*)"$/ do |name, location|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
 
   creation_time = ((Date.today - 3.days).to_time + 13.hours)
   start_time = ((Date.today - 1.day).to_time + 13.hours)
@@ -7,22 +7,22 @@ Given /^"([^\"]*)" had a shift yesterday in "([^\"]*)"$/ do |name, location|
   shift_taken = (Time.now - 2.days)
   loc = Location.find_by_name(location).id
 
-  TimeSlot.create!(:location_id => loc,
-                   :start => start_time,
-                   :end => end_time,
-                   :created_at => creation_time)
+  TimeSlot.create!(location_id: loc,
+                   start: start_time,
+                   end: end_time,
+                   created_at: creation_time)
 
-  this_shift = Shift.new(:start => start_time, :end => end_time,
-                        :user_id => user.id, :location_id => loc,
-                        :scheduled => true, :created_at => shift_taken,
-                        :updated_at => shift_taken)
+  this_shift = Shift.new(start: start_time, end: end_time,
+                        user_id: user.id, location_id: loc,
+                        scheduled: true, created_at: shift_taken,
+                        updated_at: shift_taken)
   this_shift.save_without_validation!
 
-  Report.create!(:shift_id => this_shift.id,
-                 :arrived => start_time,
-                 :departed => end_time,
-                 :created_at => start_time,
-                 :updated_at => end_time)
+  Report.create!(shift_id: this_shift.id,
+                 arrived: start_time,
+                 departed: end_time,
+                 created_at: start_time,
+                 updated_at: end_time)
 
 end
 
@@ -36,15 +36,15 @@ Given /^I have a shift tomorrow in "([^\"]*)"$/ do |location|
 
   loc = Location.find_by_name(location).id
 
-  TimeSlot.create!(:location_id => loc,
-                   :start => start_time,
-                   :end => end_time,
-                   :created_at => creation_time)
+  TimeSlot.create!(location_id: loc,
+                   start: start_time,
+                   end: end_time,
+                   created_at: creation_time)
 
-  Shift.create!(:start => start_time, :end => end_time,
-                :user_id => @current_user.id, :location_id => loc,
-                :scheduled => true, :created_at => shift_taken,
-                :updated_at => shift_taken)
+  Shift.create!(start: start_time, end: end_time,
+                user_id: @current_user.id, location_id: loc,
+                scheduled: true, created_at: shift_taken,
+                updated_at: shift_taken)
 end
 
 Given /^today is not Sunday$/ do
@@ -54,7 +54,7 @@ end
 
 Given /^I have a LocGroup named "([^\"]*)" with location "([^\"]*)"$/ do |loc_group_name, location|
   loc_group = LocGroup.find_by_name(loc_group_name)
-  Location.create!(:name => location, :short_name => location, :loc_group_id => loc_group.id, :max_staff => 2, :min_staff => 1, :priority => 1)
+  Location.create!(name: location, short_name: location, loc_group_id: loc_group.id, max_staff: 2, min_staff: 1, priority: 1)
 end
 
 Then /^the page should indicate that I am in the department "([^\"]*)"$/ do |department|
@@ -118,24 +118,24 @@ Then /^I should be redirected to (.+)$/ do |page_name|
 end
 
 Given /^"([^\"]*)" has a current payform$/ do |user_name|
-  user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
+  user = User.find(:first, conditions: {first_name: user_name.split.first, last_name: user_name.split.last})
   period_date = Payform.default_period_date(Date.today, @department)
-  Payform.create!(:date => period_date, :user_id => user, :department_id => user.departments.first)
+  Payform.create!(date: period_date, user_id: user, department_id: user.departments.first)
 end
 
 Given /^"([^\"]*)" has the following current payform items?$/ do |user_name, table|
-  user = User.find(:first, :conditions => {:first_name => user_name.split.first, :last_name => user_name.split.last})
+  user = User.find(:first, conditions: {first_name: user_name.split.first, last_name: user_name.split.last})
   table.hashes.each do |row|
     category = Category.find_by_name(row[:category])
 
       p = Payform.build(user.departments.first, user, Date.today)
 
-    PayformItem.create!(:category_id => category,
-                        :user_id => user,
-                        :hours => row[:hours].to_f,
-                        :description => row[:description],
-                        :date => Date.today,
-                        :payform_id => p.id)
+    PayformItem.create!(category_id: category,
+                        user_id: user,
+                        hours: row[:hours].to_f,
+                        description: row[:description],
+                        date: Date.today,
+                        payform_id: p.id)
   end
 end
 
@@ -155,7 +155,7 @@ end
 
 Then /^I should have a (.+) named "([^\"]*)"$/ do |object, name|
   if object =~ /user/
-    user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+    user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
     user.should_not be_nil
   else
     object.classify.constantize.find_by_name(name).should_not be_nil

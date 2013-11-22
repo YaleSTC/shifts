@@ -7,7 +7,7 @@ class LocGroupsControllerTest < ActionController::TestCase
   end
   
   def test_show
-    get :show, :id => LocGroup.first
+    get :show, id: LocGroup.first
     assert_template 'show'
   end
   
@@ -29,25 +29,25 @@ class LocGroupsControllerTest < ActionController::TestCase
   end
   
   def test_edit
-    get :edit, :id => LocGroup.first
+    get :edit, id: LocGroup.first
     assert_template 'edit'
   end
   
   def test_update_invalid
     LocGroup.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => LocGroup.first
+    put :update, id: LocGroup.first
     assert_template 'edit'
   end
   
   def test_update_valid
     LocGroup.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => LocGroup.first
+    put :update, id: LocGroup.first
     assert_redirected_to loc_group_url(assigns(:loc_group))
   end
   
   def test_destroy
     loc_group = LocGroup.first
-    delete :destroy, :id => loc_group
+    delete :destroy, id: loc_group
     assert_redirected_to loc_groups_url
     assert !LocGroup.exists?(loc_group.id)
   end

@@ -10,7 +10,7 @@ describe PunchClocksController do
   end
   
   it "show action should render show template" do
-    get :show, :id => PunchClock.first
+    get :show, id: PunchClock.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe PunchClocksController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => PunchClock.first
+    get :edit, id: PunchClock.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     PunchClock.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => PunchClock.first
+    put :update, id: PunchClock.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     PunchClock.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => PunchClock.first
+    put :update, id: PunchClock.first
     response.should redirect_to(punch_clock_url(assigns[:punch_clock]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     punch_clock = PunchClock.first
-    delete :destroy, :id => punch_clock
+    delete :destroy, id: punch_clock
     response.should redirect_to(punch_clocks_url)
     PunchClock.exists?(punch_clock.id).should be_false
   end

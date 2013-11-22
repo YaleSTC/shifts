@@ -6,7 +6,7 @@ class DataEntry < ActiveRecord::Base
   
   scope :on_day, ->(day){ where("created_at > ? and created_at < ?", day.beginning_of_day, day.end_of_day) }
   scope :between_days, ->(first, last){ where("created_at  > ? and created_at  < ?", first.beginning_of_day, last.end_of_day)}
-  scope :for_data_object, ->(data_object){where(:data_object_id => data_object.id)}
+  scope :for_data_object, ->(data_object){where(data_object_id: data_object.id)}
   # Write DataEntry content as a string with the following delimiters:
   #   Double semicolon between each datafield
   #   Double colon between the id of the datafield and the information it holds

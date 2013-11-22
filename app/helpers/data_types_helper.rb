@@ -1,7 +1,7 @@
 module DataTypesHelper
   def add_data_field_link(name)
     link_to_function name do |page|
-      page.insert_html :bottom, :data_fields, :partial => 'data_field', :object => DataField.new
+      page.insert_html :bottom, :data_fields, partial: 'data_field', object: DataField.new
     end
   end
   

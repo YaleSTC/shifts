@@ -4,7 +4,7 @@ describe User do
   before(:each) do
 # the commented bits below don't work yet. -cmk
 #    Department.new(:name => "STC")
-    @user = User.new(:name => "Wee Willy", :login => "ww")
+    @user = User.new(name: "Wee Willy", login: "ww")
 #stubbing CAS?
 #     controller.stub!(CASClient::Frameworks::Rails::Filter).and_return(true)
 #    @user.departments << Department.find_by_name("STC")

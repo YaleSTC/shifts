@@ -23,7 +23,7 @@ class DepartmentConfigsController < ApplicationController
     @time_choices = (0..1440).step(60).map{|t| [t.min_to_am_pm, t]}
     @time_choices2 = (0..1380).step(60).map{|t| [t.min_to_am_pm, t]} + (1440..2160).step(60).map{|t| ["*"+t.min_to_am_pm, t]}
     @rounding_choices = [1, 15, 30, 60].map{|r| ["#{r} min", r]}
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

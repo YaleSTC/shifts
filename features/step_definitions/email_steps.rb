@@ -61,11 +61,11 @@ Then %r{^I should see "([^"]*?)" in the email$} do |text|
 end
 
 When %r{^"([^"]*?)" opens? the email with subject "([^"]*?)"$} do |address, subject|
-  open_email(address, :with_subject => subject)
+  open_email(address, with_subject: subject)
 end
 
 When %r{^"([^"]*?)" opens? the email with text "([^"]*?)"$} do |address, text|
-  open_email(address, :with_text => text)
+  open_email(address, with_text: text)
 end
 
 When /^I click the first link in the email$/ do

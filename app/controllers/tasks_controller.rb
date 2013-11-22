@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @tasks }
+      format.xml  { render xml: @tasks }
     end
   end
 
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @task }
+      format.xml  { render xml: @task }
     end
   end
 
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @task }
+      format.xml  { render xml: @task }
     end
   end
 
@@ -52,10 +52,10 @@ class TasksController < ApplicationController
       if @task.save
         flash[:notice] = 'Task was successfully created.'
         format.html { redirect_to(params[:add_another] ? new_task_path : @task) }
-        format.xml  { render :xml => @task, :status => :created, :location => @task }
+        format.xml  { render xml: @task, status: :created, location: @task }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -72,8 +72,8 @@ class TasksController < ApplicationController
         format.html { redirect_to(@task) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -100,12 +100,12 @@ class TasksController < ApplicationController
       @tasks = tasks_during_shift
     end
     params[:task_ids].each do |task_id|
-      @shifts_task = ShiftsTask.new(:task_id => task_id, :shift_id => @shift ? @shift.id : nil, :missed => false )
+      @shifts_task = ShiftsTask.new(task_id: task_id, shift_id: @shift ? @shift.id : nil, missed: false )
       @shifts_task.save
     end
     if @shift #avoids error when completing tasks when not on shift
   		if @report = current_user.current_shift.report
-          @report.report_items << ReportItem.new(:time => Time.now, :content => "#{Task.find(@shifts_task.task_id).name} completed.", :ip_address => request.remote_ip)
+          @report.report_items << ReportItem.new(time: Time.now, content: "#{Task.find(@shifts_task.task_id).name} completed.", ip_address: request.remote_ip)
       end
     end
     respond_to do |format|
@@ -127,7 +127,7 @@ class TasksController < ApplicationController
     @start = interpret_start
     @end = interpret_end
     @task = Task.find(params[:id])
-    @shifts = ShiftsTask.where(:task_id => @task.id, :missed => false)
+    @shifts = ShiftsTask.where(task_id: @task.id, missed: false)
     @shifts_tasks = @shifts.select{|st| st.created_at < @end && st.created_at > @start}
   end
   
@@ -135,7 +135,7 @@ class TasksController < ApplicationController
     @start = interpret_start
     @end = interpret_end
     @task = Task.find(params[:id])
-    @shifts = ShiftsTask.where(:task_id => @task.id, :missed => true)
+    @shifts = ShiftsTask.where(task_id: @task.id, missed: true)
     @shifts_tasks = @shifts.select{|st| st.created_at < @end && st.created_at > @start}
   end
 

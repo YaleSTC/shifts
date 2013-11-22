@@ -12,12 +12,12 @@ Given /^I have the following payform items?$/ do |table|
     date = Date.parse(row[:date])
     payform = Payform.build(user.departments.first, user, date)
 
-    PayformItem.create!(:category_id => category.id,
-                    :user_id => user.id,
-                    :hours => row[:hours].to_f,
-                    :description => row[:description],
-                    :date => date,
-                    :payform_id => payform.id)
+    PayformItem.create!(category_id: category.id,
+                    user_id: user.id,
+                    hours: row[:hours].to_f,
+                    description: row[:description],
+                    date: date,
+                    payform_id: payform.id)
   end
 end
 
@@ -28,22 +28,22 @@ Given /^I have the following payforms?:$/ do |table|
 
     department = Department.find_by_name(row[:department])
     period_date = Payform.default_period_date(date, department)
-    user = User.find(:first, :conditions => {:first_name => row[:user_first], :last_name => row[:user_last]})
+    user = User.find(:first, conditions: {first_name: row[:user_first], last_name: row[:user_last]})
 
     submitted = row[:submitted] == "true" ? period_date + 2 : nil
     approved = row[:approved] == "true" ? Time.now - 120 : nil
     approval = row[:approved] == "true" ? @current_user : nil
     printed = row[:printed] == "true" ? Time.now - 60 : nil
 
-    Payform.create!(:date => period_date , :department_id => department.id,
-                    :user_id => user.id, :submitted => submitted,
-                    :approved => approved, :approved_by => approval,
-                    :printed => printed)
+    Payform.create!(date: period_date , department_id: department.id,
+                    user_id: user.id, submitted: submitted,
+                    approved: approved, approved_by: approval,
+                    printed: printed)
   end
 end
 
 When /^I check off "([^\"]*)"$/ do |name|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
   field = "user_ids[" + user.id.to_s + "]"
   check(field)
 end
@@ -51,17 +51,17 @@ end
 Given /^"([^\"]*)" has an unsubmitted payform from "([^\"]*)" weeks ago with 1 payform_item$/ do |name, count|
   date = Payform.default_period_date(count.to_i.weeks.ago.to_date, @department)
 
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
 
-  Payform.create!(:date => date ,
-                  :department_id => @department.id,
-                  :user_id => user.id)
-  PayformItem.create!(:category_id => Category.find(1),
-                      :user_id => user.id,
-                      :hours => 1,
-                      :description => "He did things. We are not sure what exactly",
-                      :date => date,
-                      :payform_id => Payform.find_by_date(date).id)
+  Payform.create!(date: date ,
+                  department_id: @department.id,
+                  user_id: user.id)
+  PayformItem.create!(category_id: Category.find(1),
+                      user_id: user.id,
+                      hours: 1,
+                      description: "He did things. We are not sure what exactly",
+                      date: date,
+                      payform_id: Payform.find_by_date(date).id)
 end
 
 Then /^payform item ([0-9]+) should be a child of payform item ([0-9]+)$/ do |id_1, id_2|
@@ -87,7 +87,7 @@ Then /^that payform_item should be inactive$/ do
 end
 
 Then /^"([^\"]*)" should have one payform item$/ do |name|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
   PayformItem.find_by_user_id(user.id).should_not be_nil
 end
 

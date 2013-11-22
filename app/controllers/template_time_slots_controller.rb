@@ -10,7 +10,7 @@ class TemplateTimeSlotsController < ApplicationController
 		@end = Time.local(2000,"jan", 1, 0, 0, 0) + @department_config.schedule_end * 60
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @template_time_slots }
+      format.xml  { render xml: @template_time_slots }
     end
   end
 
@@ -57,7 +57,7 @@ class TemplateTimeSlotsController < ApplicationController
 	  respond_to do |format|
 			flash[:notice] = 'Time slot successfully created.'
 			format.html { redirect_to(template_template_time_slots_path(@week_template)) }
-			format.xml  { render :xml => @template_time_slot, :status => :created, :location => @template_time_slot }
+			format.xml  { render xml: @template_time_slot, status: :created, location: @template_time_slot }
 			format.js
 		end
   rescue Exception
@@ -76,7 +76,7 @@ class TemplateTimeSlotsController < ApplicationController
         flash[:notice] = "Timeslot for #{@week_template.name} successfully updated."
         format.html { redirect_to(:back) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end

@@ -23,7 +23,7 @@ describe UserSessionsController do
   
   it "destroy action should destroy model and redirect to index action" do
     user_session = UserSession.first
-    delete :destroy, :id => user_session
+    delete :destroy, id: user_session
     response.should redirect_to(root_url)
     UserSession.exists?(user_session.id).should be_false
   end

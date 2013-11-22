@@ -1,13 +1,13 @@
 Given /^I have a user named "([^\"]*)" "([^\"]*)", department "([^\"]*)", login "([^\"]*)"$/ do |first_name, last_name, department, login|
-  d = Department.where(:name == "#{department}") or Department.create!(:name => department)
+  d = Department.where(:name == "#{department}") or Department.create!(name: department)
 
-  u = User.new(:first_name => first_name, :last_name => last_name, :login => login)
+  u = User.new(first_name: first_name, last_name: last_name, login: login)
   u.departments << Department.where(:name == "#{department}")
   u.save!
 end
 
 Given /^I have a role named "([^\"]*)" with permission "([^\"]*)" in the department "([^\"]*)"$/ do |role, permission, department|
-  u = Role.new(:name => role, :department => Department.where(:name == department))
+  u = Role.new(name: role, department: Department.where(:name == department))
   u.save!
   Role.where(:name == role).permissions << Permission.where(:name == permission)
 end
@@ -17,9 +17,9 @@ Given /^the role named "([^\"]*)" has permission "([^\"]*)"$/ do |role, permissi
 end
 
 Given /^the user "([^\"]*)" has permissions? "([^\"]*)"$/ do |name, permissions|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
   user.should_not be_nil
-  role = Role.where(:name == (permissions + " role")) || Role.new(:name => permissions + " role")
+  role = Role.where(:name == (permissions + " role")) || Role.new(name: permissions + " role")
   role.department = user.departments.first
   permissions.split(", ").each do |permission_name|
     permission = Permission.where(:name == permission_name)
@@ -41,7 +41,7 @@ Given /^I am "([^\"]*)"$/ do |name|
 #for some reason cucumber was not seeing this global variable in the app controller.
 #remove it at your own peril.
   @appconfig = AppConfig.first
-  @current_user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  @current_user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
   @current_user.should_not be_nil
   @department = Department.find(@current_user.user_config.default_dept)
   @department.should_not be_nil
@@ -58,10 +58,10 @@ end
 
 Given /^I have locations "([^\"]*)" in location group "([^\"]*)" for the department "([^\"]*)"$/ do |locations, location_group, department|
   locations.split(", ").each do |location_name|
-  loc_group = LocGroup.create!(:name => location_group, :department_id => Department.where(:name == department).id)
-  Location.create!(:name => location_name, :loc_group_id => loc_group.id,
-                   :min_staff => 1, :max_staff => 3, :short_name => location_name,
-                   :priority => 1)
+  loc_group = LocGroup.create!(name: location_group, department_id: Department.where(:name == department).id)
+  Location.create!(name: location_name, loc_group_id: loc_group.id,
+                   min_staff: 1, max_staff: 3, short_name: location_name,
+                   priority: 1)
   end
 end
 
@@ -90,7 +90,7 @@ end
 
 
 Then /^"([^\"]*)" should have ([0-9]+) (.+)$/ do |name, count, object|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
   begin
     user.send(object.pluralize).should have(count.to_i).objects
   rescue
@@ -110,7 +110,7 @@ Then /^"([^\"]*)" should have ([0-9]+) (.+)$/ do |name, count, object|
 end
 
 Given /^the user "([^\"]*)" is a superuser$/ do |name|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
-  user.update_attributes!(:superuser => true, :supermode => true)
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
+  user.update_attributes!(superuser: true, supermode: true)
 end
 

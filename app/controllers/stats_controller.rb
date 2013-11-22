@@ -76,7 +76,7 @@ class StatsController < ApplicationController
     @shifts = @user.shifts.on_days(@start_date, @end_date).active
     @stats_hash = @user.detailed_stats(@start_date, @end_date)
   rescue
-    redirect_to :action => 'for_user', :id => @user.id
+    redirect_to action: 'for_user', id: @user.id
     flash[:notice] = "Please enter a valid date range."
   end
   
@@ -88,7 +88,7 @@ class StatsController < ApplicationController
     @shifts = @location.shifts.on_days(@start_date, @end_date).active
     @stats_hash = @location.detailed_stats(@start_date, @end_date)
   rescue
-    redirect_to :action => 'for_location', :id => @location.id
+    redirect_to action: 'for_location', id: @location.id
     flash[:notice] = "Please enter a valid date range."  
   end
   

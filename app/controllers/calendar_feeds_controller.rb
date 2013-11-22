@@ -18,7 +18,7 @@ class CalendarFeedsController < ApplicationController
     current_user.calendar_feed_hash = nil
     current_user.save!
     flash[:notice] = 'All calendars reset.  NOTE: Your old feeds are now inactive'
-    redirect_to :action => "index"
+    redirect_to action: "index"
   end
 
   def grab
@@ -26,7 +26,7 @@ class CalendarFeedsController < ApplicationController
       @token_array = resolve_token(params[:token], params[:user_id])
       @user = User.find(params[:user_id])
     rescue Exception => e
-      redirect_to :action => "index"
+      redirect_to action: "index"
       flash[:error] = 'Could not load calendar feed.  This feed may be invalid, inactive, or disabled.'
       return
     end
@@ -47,7 +47,7 @@ class CalendarFeedsController < ApplicationController
             @shifts = Shift.active.in_departments(@source.active_departments).for_user(@source).after_date(Time.now.utc - 3.weeks).flatten
       end
     end
-    render :text => generate_ical
+    render text: generate_ical
   end
 
   private

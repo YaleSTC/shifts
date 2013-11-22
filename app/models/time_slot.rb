@@ -2,7 +2,7 @@ class TimeSlot < ActiveRecord::Base
   belongs_to :location
   belongs_to :calendar
   belongs_to :repeating_event
-  has_many :shifts, :through => :location
+  has_many :shifts, through: :location
   before_save :set_active
   before_validation :adjust_for_multi_day
   before_update :disassociate_from_repeating_event

@@ -2,7 +2,7 @@ class Restriction < ActiveRecord::Base
   belongs_to :department
 
   validates_presence_of :starts, :expires
-  validates_presence_of :max_hours,  :unless => :max_subs, :message => "and Max subs can't both be blank"
+  validates_presence_of :max_hours,  unless: :max_subs, message: "and Max subs can't both be blank"
   attr_accessor :start_date
   attr_accessor :start_time
   attr_accessor :end_date

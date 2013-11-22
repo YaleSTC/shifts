@@ -30,7 +30,7 @@ class StickiesController < NoticesController
     	end
 		rescue Exception
       respond_to do |format|
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
         format.js  #create.js.rjs
       end
     else
@@ -56,13 +56,13 @@ class StickiesController < NoticesController
       end
     rescue Exception
         respond_to do |format|
-          format.html { render :action => "new" }
+          format.html { render action: "new" }
         end
       else
         respond_to do |format|
         format.html {
           flash[:notice] = 'Sticky was successfully created.'
-          redirect_to :action => "index"
+          redirect_to action: "index"
         }
       end
     end
