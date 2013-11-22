@@ -25,7 +25,7 @@ module LayoutHelper
   def inside_layout(layout, &block)
     layout = layout.include?('/') ? layout : "layouts/#{layout}"
     @template.instance_variable_set('@content_for_layout', capture(&block))
-    concat(@template.render( :file => layout, :use_full_path => true ))
+    concat(@template.render( file: layout, use_full_path: true ))
   end
 
   def stylesheet(*args)

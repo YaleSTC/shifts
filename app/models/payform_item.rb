@@ -17,16 +17,16 @@ class PayformItem < ActiveRecord::Base
   #belongs_to :payform_item_set
   belongs_to :category
 
-  delegate :department, :to => :payform
-  delegate :user, :to => :payform
+  delegate :department, to: :payform
+  delegate :user, to: :payform
 
   before_validation :unsubmit_payform #note -- perhaps this is not the best place to unsubmit
 
   validates_presence_of :date, :category_id, :payform_id
-  validates_numericality_of :hours, :greater_than => 0
-  validates_presence_of :reason, :on => :update
+  validates_numericality_of :hours, greater_than: 0
+  validates_presence_of :reason, on: :update
   validate :length_of_description
-  validate :length_of_reason, :on => :update
+  validate :length_of_reason, on: :update
 
   scope :active, where(active:  true)
   scope :in_category, ->(category){ where(category_id: category.id) }

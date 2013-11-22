@@ -10,7 +10,7 @@ describe UserProfileFieldsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => UserProfileField.first
+    get :show, id: UserProfileField.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe UserProfileFieldsController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => UserProfileField.first
+    get :edit, id: UserProfileField.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     UserProfileField.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => UserProfileField.first
+    put :update, id: UserProfileField.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     UserProfileField.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => UserProfileField.first
+    put :update, id: UserProfileField.first
     response.should redirect_to(user_profile_field_url(assigns[:user_profile_field]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     user_profile_field = UserProfileField.first
-    delete :destroy, :id => user_profile_field
+    delete :destroy, id: user_profile_field
     response.should redirect_to(user_profile_fields_url)
     UserProfileField.exists?(user_profile_field.id).should be_false
   end

@@ -11,8 +11,8 @@ class Template < ActiveRecord::Base
 	#validate :max_hours_per_day_greater_than_continuous
   validate :feasibility_of_preferences
 	validates_presence_of :roles
-	validates_numericality_of :max_number_of_shifts, :only_integer => true, :message => "can only be whole number"
-	validates_numericality_of :min_number_of_shifts, :only_integer => true, :message => "can only be whole number"
+	validates_numericality_of :max_number_of_shifts, only_integer: true, message: "can only be whole number"
+	validates_numericality_of :min_number_of_shifts, only_integer: true, message: "can only be whole number"
 	#validates_presence_of :locations
 
 	accepts_nested_attributes_for :template_time_slots

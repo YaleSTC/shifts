@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   layout proc{ |c| c.params[:format] == "js" ? false : "reports" }
 
   def show
-    @report = params[:id] ? Report.find(params[:id]) : Report.where(:shift_id => params[:shift_id]).first
+    @report = params[:id] ? Report.find(params[:id]) : Report.where(shift_id: params[:shift_id]).first
     # @tasks = Task.in_location(@report.shift.location).active.after_now.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a")}
     tasks = Task.in_location(@report.shift.location).active.after_now
     # filters out daily and weekly tasks scheduled for a time later in the day
@@ -40,7 +40,7 @@ class ReportsController < ApplicationController
       redirect_to dashboard_path and return
     end
 
-    @report = Report.new(:shift_id => params[:shift_id], :arrived => Time.now)
+    @report = Report.new(shift_id: params[:shift_id], arrived: Time.now)
 
     if current_user.current_shift || current_user.punch_clock
       flash[:error] = "You are already signed into a shift or punch clock."
@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
       flash[:error] = "You can't sign into someone else's report."
     else
       @report.save
-      @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged in from #{request.remote_ip}", :ip_address => request.remote_ip)
+      @report.report_items << ReportItem.new(time: Time.now, content: "#{current_user.name} (#{current_user.login}) logged in from #{request.remote_ip}", ip_address: request.remote_ip)
       a = @report.shift
       a.signed_in = true
       a.save(false) #ignore validations because this is an existing shift or an unscheduled shift
@@ -79,7 +79,7 @@ class ReportsController < ApplicationController
 
     if (params[:sign_out] and @report.departed.nil?) #don't allow duplicate signout messages
       @report.departed = Time.now
-      @report.report_items << ReportItem.new(:time => Time.now, :content => "#{current_user.name} (#{current_user.login}) logged out from #{request.remote_ip}", :ip_address => request.remote_ip)
+      @report.report_items << ReportItem.new(time: Time.now, content: "#{current_user.name} (#{current_user.login}) logged out from #{request.remote_ip}", ip_address: request.remote_ip)
       @report.shift.update_attribute(:end, Time.now) unless @report.shift.scheduled?
       # above method call isn't safe; it works because there are never sub requests on unscheduled shifts, but it'll cause validation problems
       # with shift.adjust_sub_requests if it ever does run. -ben
@@ -109,7 +109,7 @@ class ReportsController < ApplicationController
       end
     else
       flash[:notice] = "Report not submitted.  You may not be the owner of this report."
-      render :action => 'show'
+      render action: 'show'
     end
   end
 

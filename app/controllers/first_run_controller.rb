@@ -17,7 +17,7 @@ class FirstRunController < ApplicationController
       flash[:notice] = "App Settings have been configured."
       redirect_to first_department_path
     else
-      render :action => 'new_app_config'
+      render action: 'new_app_config'
     end
   end
 
@@ -32,7 +32,7 @@ class FirstRunController < ApplicationController
       flash[:notice] = "The first department was successfully created."
       redirect_to first_user_path
     else
-      render :action => 'new_department'
+      render action: 'new_department'
     end
   end
 
@@ -51,7 +51,7 @@ class FirstRunController < ApplicationController
       flash[:notice] = "Successfully set up application."
       redirect_to @user
     else
-      render :action => 'new_user'
+      render action: 'new_user'
     end
   end
 

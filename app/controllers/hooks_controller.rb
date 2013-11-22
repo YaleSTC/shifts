@@ -27,7 +27,7 @@ class HooksController < ApplicationController
 
     session[:external][:ip] = request.remote_ip
 
-    redirect_to :action => :add_job_after
+    redirect_to action: :add_job_after
   end
 
   def add_job_after
@@ -48,12 +48,12 @@ class HooksController < ApplicationController
       elsif p[:total] && p[:comments] && p[:date]
         #only bill to STC
         if (dept = Department.find_by_name "STC")
-          @payform_item = PayformItem.new(:hours => p[:total].to_f,
-                                          :description => p[:comments],
-                                          :category => Category.find_by_name("RT"),
-                                          :payform => Payform.build(dept, current_user, Time.now),
-                                          :source_url => p[:url],
-                                          :date => Date.today)
+          @payform_item = PayformItem.new(hours: p[:total].to_f,
+                                          description: p[:comments],
+                                          category: Category.find_by_name("RT"),
+                                          payform: Payform.build(dept, current_user, Time.now),
+                                          source_url: p[:url],
+                                          date: Date.today)
 
           if @payform_item.save
             flash[:notice] = "Successfully updated payform."

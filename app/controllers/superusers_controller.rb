@@ -6,7 +6,7 @@ class SuperusersController < ApplicationController
   end
 
   def add
-    @new_su = User.where(:login => params[:new_su_login]).first
+    @new_su = User.where(login: params[:new_su_login]).first
     if @new_su
       if @new_su.is_superuser?
         flash[:notice] = "No change. <b>#{@new_su.name}</b> is already a superuser."
@@ -17,7 +17,7 @@ class SuperusersController < ApplicationController
       redirect_to(superusers_path)
     else
       flash[:notice] = "<b>#{params[:new_su_login]}</b> is an invalid login. Please enter a valid login name."
-      redirect_to :action => 'index'
+      redirect_to action: 'index'
     end
   end
 

@@ -2,10 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 module DataObjectHelper
   def valid_data_object_attributes
-    { :data_type_id => "1",
-      :location_id => "1",
-      :name => "cat",
-      :description => "makes me sneeze"
+    { data_type_id: "1",
+      location_id: "1",
+      name: "cat",
+      description: "makes me sneeze"
     }
   end
 end

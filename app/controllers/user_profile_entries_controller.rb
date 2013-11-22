@@ -1,11 +1,11 @@
 class UserProfileEntriesController < ApplicationController
   def index
     @user_profile_entries = UserProfileEntry.all
-    @user_profile_fields = UserProfileField.where(:department_id => @department.id)
+    @user_profile_fields = UserProfileField.where(department_id: @department.id)
   end
 
   def show
-    @user_profile_fields = UserProfileField.where(:department_id => @department.id)
+    @user_profile_fields = UserProfileField.where(department_id: @department.id)
 #    @user_profile_entry = UserProfileEntry.find
   end
 
@@ -21,7 +21,7 @@ class UserProfileEntriesController < ApplicationController
       flash[:notice] = "Successfully created user profile entry."
       redirect_to @user_profile_entry
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -36,7 +36,7 @@ class UserProfileEntriesController < ApplicationController
       flash[:notice] = "Successfully updated user profile entry."
       redirect_to @user_profile_entry
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

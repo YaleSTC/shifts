@@ -21,19 +21,19 @@ class PunchClockSetsController < ApplicationController
       flash[:notice] = "Mass punch clock was successfully created."
       failed = []      
       params[:users].remove_blank.each do |uid|
-        clock = PunchClock.new({:description => @punch_clock_set.description, 
-                                :department => current_department, 
-                                :user_id => uid, 
-                                :runtime => 0, 
-                                :last_touched => Time.now, 
-                                :punch_clock_set_id => @punch_clock_set.id})
+        clock = PunchClock.new({description: @punch_clock_set.description, 
+                                department: current_department, 
+                                user_id: uid, 
+                                runtime: 0, 
+                                last_touched: Time.now, 
+                                punch_clock_set_id: @punch_clock_set.id})
         failed << User.find(uid).name unless clock.save
       end
       flash[:warning] = "Could not clock in the following users: #{failed.to_sentence}." unless failed.empty?
-      redirect_to :action => :index
+      redirect_to action: :index
     else
       @users_select = current_department.active_users.sort_by(&:name)
-      render :action => :new
+      render action: :new
     end
   end
 

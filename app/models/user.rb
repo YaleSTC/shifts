@@ -6,29 +6,29 @@ class User < ActiveRecord::Base
   end
 
   has_and_belongs_to_many :roles
-  has_and_belongs_to_many :subs_requested, :class_name => 'SubRequest'
+  has_and_belongs_to_many :subs_requested, class_name: 'SubRequest'
   has_many :departments_users
-  has_many :departments, :through => :departments_users
+  has_many :departments, through: :departments_users
   has_many :payforms
-  has_many :payform_items, :through => :payforms
-  has_many :permissions, :through => :roles
+  has_many :payform_items, through: :payforms
+  has_many :permissions, through: :roles
   has_many :shifts
-  has_many :notices, :as => :author
-  has_many :notices, :as => :remover
+  has_many :notices, as: :author
+  has_many :notices, as: :remover
   has_one  :punch_clock
-  has_many :sub_requests, :through => :shifts #the sub requests this user owns
+  has_many :sub_requests, through: :shifts #the sub requests this user owns
 	has_many :shift_preferences
 	has_many :requested_shifts
   has_many :restrictions
 
 
 # New user configs are created by a user observer, after create
-  has_one :user_config, :dependent => :destroy
-  has_one :user_profile, :dependent => :destroy
+  has_one :user_config, dependent: :destroy
+  has_one :user_profile, dependent: :destroy
 
   attr_protected :superusercreate_
   scope :superusers, -> { where(superuser: true).order(:last_name) }
-  delegate :default_department, :to => 'user_config'
+  delegate :default_department, to: 'user_config'
 
 
 
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   def role=(name)
-    self.roles << Role.where(:name => name).first if name && Role.where(:name => name).first
+    self.roles << Role.where(name: name).first if name && Role.where(name: name).first
   end
 
   def role
@@ -65,12 +65,12 @@ class User < ActiveRecord::Base
     email+='*'
     # Set up our LDAP connection
     begin
-      ldap = Net::LDAP.new( :host => appconfig.ldap_host_address, :port => appconfig.ldap_port )
+      ldap = Net::LDAP.new( host: appconfig.ldap_host_address, port: appconfig.ldap_port )
       filter = Net::LDAP::Filter.eq(appconfig.ldap_first_name, first_name) & Net::LDAP::Filter.eq(appconfig.ldap_last_name, last_name) & Net::LDAP::Filter.eq(appconfig.ldap_email, email)
       out=[]
       ldap.open do |ldap|
-        ldap.search(:base => appconfig.ldap_base, :filter => filter, :return_result => false) do |entry|
-          out << {:login => entry[appconfig.ldap_login][0], :email => entry[appconfig.ldap_email][0], :first_name => entry[appconfig.ldap_first_name][0], :last_name => entry[appconfig.ldap_last_name][0]}
+        ldap.search(base: appconfig.ldap_base, filter: filter, return_result: false) do |entry|
+          out << {login: entry[appconfig.ldap_login][0], email: entry[appconfig.ldap_email][0], first_name: entry[appconfig.ldap_first_name][0], last_name: entry[appconfig.ldap_last_name][0]}
          break if out.length>=limit
         end
       end
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   def self.mass_add(logins, department)
     failed = []
     logins.split(/\W+/).map do |n|
-      if user = self.where(:login => n).first
+      if user = self.where(login: n).first
         user.departments << department
       # else
       #   user = import_from_ldap(n, department, true)
@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
 
   # check to make sure the user is "active" in the given dept
   def is_active?(dept)
-    if DepartmentsUser.where(:user_id => self, :department_id => dept, :active => true).first
+    if DepartmentsUser.where(user_id: self, department_id: dept, active: true).first
       true
     else
       false
@@ -246,11 +246,11 @@ class User < ActiveRecord::Base
 
   def toggle_active(department) #TODO why don't we just update the attribues on the current entry and save it?
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first
+    old_entry = DepartmentsUser.where(user_id: self, department_id: department).first
     shifts = Shift.for_user(self).select{|s| s.start > Time.now}
     new_entry.attributes = old_entry.attributes
     new_entry.active = !old_entry.active
-    DepartmentsUser.delete_all( :user_id => self, :department_id => department)
+    DepartmentsUser.delete_all( user_id: self, department_id: department)
     new_entry.save
     shifts.each do |shift|
       shift.active = new_entry.active
@@ -271,15 +271,15 @@ class User < ActiveRecord::Base
   end
 
   def payrate(department)
-    DepartmentsUser.where(:user_id => self, :department_id => department ).first.payrate
+    DepartmentsUser.where(user_id: self, department_id: department ).first.payrate
   end
 
   def set_payrate(value, department)
     new_entry = DepartmentsUser.new();
-    old_entry = DepartmentsUser.where(:user_id => self, :department_id => department).first
+    old_entry = DepartmentsUser.where(user_id: self, department_id: department).first
     new_entry.attributes = old_entry.attributes
     new_entry.payrate = value
-    DepartmentsUser.delete_all(:user_id => self, :department_id => department)
+    DepartmentsUser.delete_all(user_id: self, department_id: department)
     new_entry.save
   end
 
@@ -355,7 +355,7 @@ class User < ActiveRecord::Base
 
   # Creates new User entries based on the specified CSV file
   def self.import(file)
-    CSV.foreach(file.path, :headers => true) do |row|
+    CSV.foreach(file.path, headers: true) do |row|
       User.create! row.to_hash
     end
   end

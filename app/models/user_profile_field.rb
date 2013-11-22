@@ -1,5 +1,5 @@
 class UserProfileField < ActiveRecord::Base
-  has_many :user_profile_entries, :dependent => :destroy
+  has_many :user_profile_entries, dependent: :destroy
   has_one :department
 
   validates_presence_of :department_id

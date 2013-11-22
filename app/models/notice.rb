@@ -1,6 +1,6 @@
 class Notice < ActiveRecord::Base
-  belongs_to :author, :class_name => "User"
-  belongs_to :remover, :class_name => "User"
+  belongs_to :author, class_name: "User"
+  belongs_to :remover, class_name: "User"
   belongs_to :department
 
   has_and_belongs_to_many :locations

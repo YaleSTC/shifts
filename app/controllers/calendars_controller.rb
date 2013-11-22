@@ -1,6 +1,6 @@
 class CalendarsController < ApplicationController
   layout 'calendar'
-  before_filter :require_department_admin, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :require_department_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @calendars = (current_user.is_admin_of?(@department) ? @department.calendars : @department.calendars.public)
@@ -16,7 +16,7 @@ class CalendarsController < ApplicationController
     end
     @calendars = [@calendar]
     index_prep
-    render :action => 'index'
+    render action: 'index'
   end
 
   def new
@@ -30,7 +30,7 @@ class CalendarsController < ApplicationController
       flash[:notice] = "Successfully created calendar."
       redirect_to calendars_path
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -44,7 +44,7 @@ class CalendarsController < ApplicationController
       flash[:notice] = "Successfully updated calendar."
       redirect_to @calendar
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
@@ -68,7 +68,7 @@ class CalendarsController < ApplicationController
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
       @calendar = @new_calendar.clone
-      render :action => 'prepare_copy'
+      render action: 'prepare_copy'
     end
   end
 
@@ -117,10 +117,10 @@ class CalendarsController < ApplicationController
     end
     if @problems
       @problems = @problems.split(",")
-      render :action => "warn"
+      render action: "warn"
     else
       flash[:notice] = "The calendar was successfully #{@calendar.active ? 'activated' : 'deactivated'}"
-      redirect_to :action => "index"
+      redirect_to action: "index"
     end
   end
   

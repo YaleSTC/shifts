@@ -5,15 +5,15 @@ class Payform < ActiveRecord::Base
   belongs_to :payform_set #group of printed payforms
   belongs_to :department
   belongs_to :user
-  belongs_to :approved_by, :class_name => "User", :foreign_key => "approved_by_id"
+  belongs_to :approved_by, class_name: "User", foreign_key: "approved_by_id"
 
   attr_accessor :start_date
   attr_accessor :end_date
 
   validates_presence_of :department_id, :user_id, :date
-  validates_presence_of :submitted, :if => :approved
-  validates_presence_of :approved,  :if => :printed
-  validates :date, :uniqueness => {:scope => [:user_id, :department_id, :monthly]}
+  validates_presence_of :submitted, if: :approved
+  validates_presence_of :approved,  if: :printed
+  validates :date, uniqueness: {scope: [:user_id, :department_id, :monthly]}
 
   scope :unsubmitted, where("submitted IS ?", nil)
   scope :unapproved,  where("submitted IS NOT ? AND approved IS ?", nil, nil)
@@ -54,10 +54,10 @@ class Payform < ActiveRecord::Base
   def self.build(dept, usr, given_date)
     period_date = Payform.default_period_date(given_date, dept)
     begin
-      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first ||
-      Payform.create!(:user_id => usr.id, :department_id => dept.id, :date => period_date)
+      Payform.where(user_id: usr.id, department_id: dept.id, date: period_date).first ||
+      Payform.create!(user_id: usr.id, department_id: dept.id, date: period_date)
     rescue ActiveRecord::RecordInvalid #fix for multiple payforms being created at once
-      Payform.where(:user_id => usr.id, :department_id => dept.id, :date => period_date).first
+      Payform.where(user_id: usr.id, department_id: dept.id, date: period_date).first
     end
   end
 

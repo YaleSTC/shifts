@@ -1,7 +1,7 @@
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
-  delegate :user, :to => :shift
-  has_and_belongs_to_many :requested_users, :class_name => 'User'
+  delegate :user, to: :shift
+  has_and_belongs_to_many :requested_users, class_name: 'User'
   validates_presence_of :reason, :shift
   validate :shift_is_scheduled,
            :start_and_end_are_within_shift,

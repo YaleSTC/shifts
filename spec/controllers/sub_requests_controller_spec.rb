@@ -10,7 +10,7 @@ describe SubRequestsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => SubRequest.first
+    get :show, id: SubRequest.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe SubRequestsController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => SubRequest.first
+    get :edit, id: SubRequest.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     SubRequest.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => SubRequest.first
+    put :update, id: SubRequest.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     SubRequest.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => SubRequest.first
+    put :update, id: SubRequest.first
     response.should redirect_to(sub_request_url(assigns[:sub_request]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     sub_request = SubRequest.first
-    delete :destroy, :id => sub_request
+    delete :destroy, id: sub_request
     response.should redirect_to(sub_requests_url)
     SubRequest.exists?(sub_request.id).should be_false
   end

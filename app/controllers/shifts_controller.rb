@@ -135,11 +135,11 @@ class ShiftsController < ApplicationController
     end
     if @shift.save
       if !@shift.scheduled
-        @report = Report.new(:shift => @shift, :arrived => Time.now)
+        @report = Report.new(shift: @shift, arrived: Time.now)
         @shift.signed_in = true
         @shift.save
         if @report.save
-          @report.report_items << ReportItem.new(:time => Time.now, :content => current_user.login+" logged in at "+request.remote_ip, :ip_address => request.remote_ip)
+          @report.report_items << ReportItem.new(time: Time.now, content: current_user.login+" logged in at "+request.remote_ip, ip_address: request.remote_ip)
           redirect_to @report and return
         end
       end
@@ -149,7 +149,7 @@ class ShiftsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html{ render :action => 'new' }
+        format.html{ render action: 'new' }
         format.js do
           render :update do |page|
             error_string = ""
@@ -200,7 +200,7 @@ class ShiftsController < ApplicationController
             ajax_alert(page, "<strong>error:</strong> updated shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
           end
         end
-        format.html {render :action => 'edit'}
+        format.html {render action: 'edit'}
       end
     end
   end

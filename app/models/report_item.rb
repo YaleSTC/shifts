@@ -2,7 +2,7 @@ require 'socket'
 
 class ReportItem < ActiveRecord::Base
   belongs_to :report
-  delegate :user, :to => 'report.shift'
+  delegate :user, to: 'report.shift'
   validates_presence_of :content, :report_id
   before_save :check_for_ip_address_change
 

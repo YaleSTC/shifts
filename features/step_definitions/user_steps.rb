@@ -1,5 +1,5 @@
 Given /^I have roles named "(.+)"$/ do |role_list|
-  role_list.split(/\W/).map { |role| Role.create(:name => role) }
+  role_list.split(/\W/).map { |role| Role.create(name: role) }
 end
 
 Given /^the user with netid (.+) belongs to the department (.+)$/ do |netid, department|
@@ -8,6 +8,6 @@ Given /^the user with netid (.+) belongs to the department (.+)$/ do |netid, dep
 end
 
 Given /^I have a department named "(.+)"$/ do |department|
-  @department = Department.create!(:name => department)
+  @department = Department.create!(name: department)
 end
 

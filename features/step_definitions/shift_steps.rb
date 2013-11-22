@@ -12,27 +12,27 @@ end
 
 Given /^there is a scheduled shift:$/ do |table|
   table.hashes.each do |row|
-    TimeSlot.create!(:location_id => Location.find_by_name(row[:location]).id,
-                     :start       => Time.parse(row[:start_time]),
-                     :end         => Time.parse(row[:end_time]),
-                     :calendar_id => Calendar.find(1))
-    user = User.find(:first, :conditions => {:first_name => row[:user].split.first, :last_name => row[:user].split.last})
-    @that_shift = Shift.create!(:user_id     => user.id,
-                           :location_id => Location.find_by_name(row[:location]).id,
-                           :start       => Time.parse(row[:start_time]),
-                           :end         => Time.parse(row[:end_time]),
-                           :department_id => user.departments.first,
-                           :calendar_id => Calendar.find(1))
+    TimeSlot.create!(location_id: Location.find_by_name(row[:location]).id,
+                     start:       Time.parse(row[:start_time]),
+                     end:         Time.parse(row[:end_time]),
+                     calendar_id: Calendar.find(1))
+    user = User.find(:first, conditions: {first_name: row[:user].split.first, last_name: row[:user].split.last})
+    @that_shift = Shift.create!(user_id:     user.id,
+                           location_id: Location.find_by_name(row[:location]).id,
+                           start:       Time.parse(row[:start_time]),
+                           end:         Time.parse(row[:end_time]),
+                           department_id: user.departments.first,
+                           calendar_id: Calendar.find(1))
   end
 end
 
 Given /^"([^\"]*)" signs in at "([^\"]*)"$/ do |user, arrived|
-  @that_report = Report.create!(:shift_id => @that_shift.id,
-                                :arrived  => Time.parse(arrived))
+  @that_report = Report.create!(shift_id: @that_shift.id,
+                                arrived:  Time.parse(arrived))
 end
 
 When /^I comment in that_report "([^\"]*)"$/ do |content|
-  ReportItem.create!(:report_id => @that_report.id, :time => Time.now, :content => content)
+  ReportItem.create!(report_id: @that_report.id, time: Time.now, content: content)
 end
 
 Then /^that_shift should not be late$/ do
@@ -53,7 +53,7 @@ Then /^the current time should appear$/ do
 end
 
 Then /^"([^\"]*)" should have "([^\"]*)" shift$/ do |name, count|
-  user = User.find(:first, :conditions => {:first_name => name.split.first, :last_name => name.split.last})
+  user = User.find(:first, conditions: {first_name: name.split.first, last_name: name.split.last})
   if count == "one"
     Shift.find_by_user_id(user.id).should_not be_nil
   elsif count == "no"

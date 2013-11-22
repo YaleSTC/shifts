@@ -9,15 +9,15 @@ class Location < ActiveRecord::Base
   validates_numericality_of :min_staff
   validates_numericality_of :priority
 
-  validates_uniqueness_of :name, :scope => :loc_group_id
-  validates_uniqueness_of :short_name, :scope => :loc_group_id
+  validates_uniqueness_of :name, scope: :loc_group_id
+  validates_uniqueness_of :short_name, scope: :loc_group_id
   validate :max_staff_greater_than_min_staff
 
-  scope :active, :conditions => {:active => true}
+  scope :active, conditions: {active: true}
   scope :in_group,
     lambda {|loc_group,*order| {
-      :conditions => {:loc_group_id => loc_group.id},
-      :order => order.flatten.first || 'priority ASC'
+      conditions: {loc_group_id: loc_group.id},
+      order: order.flatten.first || 'priority ASC'
   }}
 
   belongs_to :loc_group
@@ -30,12 +30,12 @@ class Location < ActiveRecord::Base
   has_and_belongs_to_many :requested_shifts
   # These connect a location with the superclass notice and its subclasses
   has_and_belongs_to_many :notices
-  has_and_belongs_to_many :announcements, :join_table => :locations_notices, :association_foreign_key => :notice_id
-  has_and_belongs_to_many :links,         :join_table => :locations_notices, :association_foreign_key => :notice_id
-  has_and_belongs_to_many :stickies,      :join_table => :locations_notices, :association_foreign_key => :notice_id
+  has_and_belongs_to_many :announcements, join_table: :locations_notices, association_foreign_key: :notice_id
+  has_and_belongs_to_many :links,         join_table: :locations_notices, association_foreign_key: :notice_id
+  has_and_belongs_to_many :stickies,      join_table: :locations_notices, association_foreign_key: :notice_id
 
 
-  delegate :department, :to => :loc_group
+  delegate :department, to: :loc_group
 
   def admin_permission
     self.loc_group.admin_permission
@@ -58,7 +58,7 @@ class Location < ActiveRecord::Base
     self.active = false
     self.save!
     #Location activation must be set prior to individual shift activation; Shift class before_save
-    shifts.after_date(Time.now.utc).update_all :active => false
+    shifts.after_date(Time.now.utc).update_all active: false
   end
 
   def activate

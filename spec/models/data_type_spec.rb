@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 module DataTypeHelper
   def valid_data_type_attributes
-    { :name => "pet",
-      :description => "warm and cuddly",
-      :department_id => "1"
+    { name: "pet",
+      description: "warm and cuddly",
+      department_id: "1"
     }
   end
 end

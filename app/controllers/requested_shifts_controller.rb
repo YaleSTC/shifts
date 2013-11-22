@@ -27,7 +27,7 @@ class RequestedShiftsController < ApplicationController
     @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @requested_shifts }
+      format.xml  { render xml: @requested_shifts }
     end
   end
 
@@ -36,7 +36,7 @@ class RequestedShiftsController < ApplicationController
 		@week_template = Template.find(params[:template_id])
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @requested_shift }
+      format.xml  { render xml: @requested_shift }
     end
   end
 
@@ -93,7 +93,7 @@ class RequestedShiftsController < ApplicationController
 			@requested_shifts = current_user.requested_shifts.select{|rs| rs.template == @week_template}
 		  @requested_shifts = @week_template.requested_shifts if current_user.is_admin_of?(current_department)
 			respond_to do |format|
-		  	format.html { render :action => "edit" }
+		  	format.html { render action: "edit" }
 				format.js
 		  end
 		else
@@ -124,7 +124,7 @@ class RequestedShiftsController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { redirect_to(edit_template_requested_shift_path(@week_template, @requested_shift)) }
-        format.xml  { render :xml => @requested_shift.errors, :status => :unprocessable_entity }
+        format.xml  { render xml: @requested_shift.errors, status: :unprocessable_entity }
       end
     end
   end

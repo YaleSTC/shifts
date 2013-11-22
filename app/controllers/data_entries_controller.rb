@@ -10,7 +10,7 @@ class DataEntriesController < ApplicationController
   end
 
   def create
-    @data_entry = DataEntry.new({:data_object_id => params[:data_object_id]})
+    @data_entry = DataEntry.new({data_object_id: params[:data_object_id]})
     #TODO: Fix this bug related to current_user.current_shift /.report
     @current_shift = current_user.current_shift
     @data_entry.write_content(params[:data_fields])
@@ -21,7 +21,7 @@ class DataEntriesController < ApplicationController
         if @report = @current_shift.report
           content = []
           @data_entry.data_fields_with_contents.each {|entry| content.push("#{DataField.find(entry.first).name.humanize}: #{entry.second}")}
-          @report.report_items << ReportItem.new(:time => Time.now, :content => "Updated #{@data_entry.data_object.name}: #{"\n"} #{content.join("\n")}", :ip_address => request.remote_ip)
+          @report.report_items << ReportItem.new(time: Time.now, content: "Updated #{@data_entry.data_object.name}: #{"\n"} #{content.join("\n")}", ip_address: request.remote_ip)
         end
       end
     else
@@ -45,7 +45,7 @@ class DataEntriesController < ApplicationController
      redirect_to data_object_path(params[:data_object_id])
    else
      flash[:error] = "Error updating data entry."
-     render :action => 'edit'
+     render action: 'edit'
    end
  end
 

@@ -10,7 +10,7 @@ describe CalendarsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => Calendar.first
+    get :show, id: Calendar.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe CalendarsController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => Calendar.first
+    get :edit, id: Calendar.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     Calendar.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Calendar.first
+    put :update, id: Calendar.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     Calendar.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Calendar.first
+    put :update, id: Calendar.first
     response.should redirect_to(calendar_url(assigns[:calendar]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     calendar = Calendar.first
-    delete :destroy, :id => calendar
+    delete :destroy, id: calendar
     response.should redirect_to(calendars_url)
     Calendar.exists?(calendar.id).should be_false
   end

@@ -10,7 +10,7 @@ describe RepeatingEventsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => RepeatingEvent.first
+    get :show, id: RepeatingEvent.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe RepeatingEventsController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => RepeatingEvent.first
+    get :edit, id: RepeatingEvent.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     RepeatingEvent.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => RepeatingEvent.first
+    put :update, id: RepeatingEvent.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     RepeatingEvent.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => RepeatingEvent.first
+    put :update, id: RepeatingEvent.first
     response.should redirect_to(repeating_event_url(assigns[:repeating_event]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     repeating_event = RepeatingEvent.first
-    delete :destroy, :id => repeating_event
+    delete :destroy, id: repeating_event
     response.should redirect_to(repeating_events_url)
     RepeatingEvent.exists?(repeating_event.id).should be_false
   end

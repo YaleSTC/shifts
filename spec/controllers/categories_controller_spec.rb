@@ -10,7 +10,7 @@ describe CategoriesController do
   end
   
   it "show action should render show template" do
-    get :show, :id => Category.first
+    get :show, id: Category.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe CategoriesController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => Category.first
+    get :edit, id: Category.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     Category.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Category.first
+    put :update, id: Category.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     Category.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Category.first
+    put :update, id: Category.first
     response.should redirect_to(category_url(assigns[:category]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     category = Category.first
-    delete :destroy, :id => category
+    delete :destroy, id: category
     response.should redirect_to(categories_url)
     Category.exists?(category.id).should be_false
   end

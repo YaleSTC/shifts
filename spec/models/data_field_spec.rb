@@ -2,10 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 module DataFieldHelper
   def valid_data_field_attributes
-    { :data_type_id => "1",
-      :name => "Color",
-      :display_type => "check_box",
-      :values => "green, yellow, blue, orange"
+    { data_type_id: "1",
+      name: "Color",
+      display_type: "check_box",
+      values: "green, yellow, blue, orange"
     }
   end
 end
