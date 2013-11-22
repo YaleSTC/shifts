@@ -25,6 +25,7 @@ class Location < ActiveRecord::Base
   has_many :time_slots
   has_many :template_time_slots
   has_many :shifts
+  has_many :tasks
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :requested_shifts
   # These connect a location with the superclass notice and its subclasses

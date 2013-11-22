@@ -33,7 +33,7 @@ class LocGroup < ActiveRecord::Base
 
   # Conventional has_many :through won't work -Ben
   def data_objects
-    self.locations.map{|loc| loc.data_objects}.flatten.compact
+    self.locations.map{|loc| loc.data_objects}.flatten.uniq.compact
   end
 
   def users
