@@ -167,4 +167,5 @@ Shifts::Application.routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
 end

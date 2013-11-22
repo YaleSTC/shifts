@@ -21,7 +21,7 @@ every :sunday, :at => '9am' do
   rake "email:late_payform_warnings"
 end
 
-every 1.day, :at => '1am' do 
+every 1.day, :at => '1am' do
   rake "email:daily_stats"
   rake "db:populate_missed_tasks"
 end
@@ -32,6 +32,6 @@ every 10.minutes do
 end
 
 every 3.minutes do
-  command "/usr/bin/ar_sendmail -o --chdir #{rails_root} --environment production "
+  rake "jobs:workoff"
 end
 
