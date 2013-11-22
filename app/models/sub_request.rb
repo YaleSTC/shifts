@@ -47,7 +47,7 @@ class SubRequest < ActiveRecord::Base
           UserMailer.delay.sub_taken_notification(sub_request, new_shift, new_shift.department)
           sub_watch_users = sub_request.potential_takers.select {|u| u.user_config.taken_sub_email}
           for user in sub_watch_users
-            UserMailer.delay.sub_taken_watch(user, sub_request, new_shift, email_start, email_end, new_shift.department))
+            UserMailer.delay.sub_taken_watch(user, sub_request, new_shift, email_start, email_end, new_shift.department)
           end
           return true
         end
