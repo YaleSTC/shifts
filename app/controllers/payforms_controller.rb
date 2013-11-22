@@ -169,7 +169,7 @@ class PayformsController < ApplicationController
     admin_user = current_user
     users_reminded = []
     for user in @users
-      ArMailer.deliver(ArMailer.create_due_payform_reminder(user, message, current_department))
+      UserMailer.delay.due_payform_reminder(user, message, current_department)
       users_reminded << "#{user.name} (#{user.login})"
     end
     flash[:notice] = "E-mail reminders sent to the following: #{users_reminded.to_sentence}"
@@ -192,7 +192,7 @@ class PayformsController < ApplicationController
         for payform in unsubmitted_payforms
           weeklist += payform.date.strftime("\t%b %d, %Y\n")
         end
-        ArMailer.deliver(ArMailer.create_late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department))
+        UserMailer.delay.late_payform_warning(user, message.gsub("@weeklist@", weeklist), @department)
         users_warned << "#{user.name} (#{user.login}) <pre>#{email.encoded}</pre>"
       end
     end

@@ -10,8 +10,8 @@
 			<ul>
 				<% if current_user.is_superuser? -%>
 					<li><%= link_to "All Departments", departments_path %></li>
-					<li><%= link_to "Application Settings", edit_app_config_path %></li>				
-				<% end %>				
+					<li><%= link_to "Application Settings", edit_app_config_path %></li>
+				<% end %>
 				<li><%= link_to "Department Settings", edit_department_config_path(current_department.department_config) %></li>
 				<li><%= link_to "Location Groups", department_loc_groups_path(current_department) %></li>
 				<li><%= link_to "Locations", department_locations_path(current_department) %></li>
@@ -32,7 +32,9 @@
 				<% end %>
 				<li><%= link_to "Permissions", department_roles_path(current_department) %></li>
 		  	<li><%= link_to "Profiles", user_profiles_path %></li>
+				<li><%= link_to "Facebook View", facebook_path %></li>
 				<li><%= link_to "Profile Fields", user_profile_fields_path %></li>
+				<li><%= link_to "Email Group", email_group_path %></li>
 			</ul>
 		</li>
   <% else %>
@@ -41,6 +43,8 @@
 			<ul>
 				<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
 		  	<li><%= link_to "All Profiles", user_profiles_path %></li>
+				<li><%= link_to "Facebook View", facebook_path %></li>
+				<li><%= link_to "Email Group", email_group_path %></li>
 			</ul>
 		</li>
   <% end -%>
@@ -49,6 +53,7 @@
 		<%= link_to "Shifts", shifts_path %>
 		<ul>
 			<li><%= link_to "Shifts Schedule", shifts_path %></li>
+			<li><%= link_to "Public Schedule", :controller => 'public_view', :action => 'index' %></li>
 			<li><%= link_to "Tasks", tasks_path %></li>
 			<li><%= link_to "Links", links_path %></li>
       <li><%= link_to "Notices", notices_path %></li>
@@ -64,7 +69,7 @@
 			<li><%= link_to "Update Data Objects", update_data_objects_path %></li>
 		</ul>
 	</li>
-	
+
 	<li id=<%=  navbar_highlight(params[:controller]) == "payforms" ? "highlight" : "not" %> >
 		<%= link_to "Payforms", (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path) %>
 		<ul>
@@ -72,12 +77,12 @@
 		 <li><%= link_to "My Payform", go_payforms_path%></li>
 		 <% end %>
 		 <li><%= link_to "All Payforms", payforms_path %></li>
-			<% if current_user.is_admin_of?(current_department) -%>	
+			<% if current_user.is_admin_of?(current_department) -%>
 				<li><%= link_to "Punch Clocks", punch_clocks_path %></li>
 		  	<li><%= link_to "Group Jobs", payform_item_sets_path %></li>
 				<li><%= link_to "Categories", department_categories_path(current_department) %></li>
 			<% end %>
-		</ul>				
+		</ul>
 	</li>
 </ul>
 

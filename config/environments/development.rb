@@ -22,15 +22,11 @@ Shifts::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
-  
+
   # Mail format to use
   config.action_mailer.delivery_method = :letter_opener
 
-  # SMTP configuration
-  config.action_mailer.smtp_settings = {
-    :address => "mail.yale.edu",
-    :port => 25,
-    :domain => "yale.edu"
-  }
+  config.action_mailer.raise_delivery_errors = true
+
 end
 

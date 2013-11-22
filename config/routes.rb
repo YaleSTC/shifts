@@ -162,15 +162,14 @@ Shifts::Application.routes.draw do |map|
 
   map.root :controller => "dashboard"
 
+  get '/status' => 'status#index'
+
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
-
-  # TODO: What are these?
-  # map.connect '/reports/http://www.google.com', :controller => "reports", :action => "redirect_to_external_url"
-  # map.connect '/reports/http://weke.its.yale.edu/wiki/index.php?title=Special%3ASearch&search=', :controller => "reports", :action => "redirect_to_external_url"
 
   map.test_new_lists '/test_new_lists', :controller => 'reports', :action => 'tasks_and_objects_list'
   map.update_data_objects '/update_data_objects', :controller => 'data_objects', :action => 'update_data_objects'
   map.active_tasks '/active_tasks', :controller => 'tasks', :action => 'active_tasks'
 
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
 end
