@@ -1,0 +1,1 @@
+page.replace_html("shift_history", :partial => "shift_history")

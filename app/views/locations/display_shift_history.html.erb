@@ -1,0 +1,28 @@
+<% content_for :head do %>
+  <% stylesheet 'report'%>
+	<%= javascript_include_tag :defaults %>
+<% end %>
+
+
+<fieldset class="index" id="date_selector">
+	<% form_tag(:controller => 'locations', :action => 'display_shift_history', :method => :get) do %>
+		  <%= label_tag :start_date %> <br>
+			<%= date_select(:shift, :start_date, :default => @start_date)%><br>
+		  <%= label_tag :end_date %><br>
+		  <%= date_select(:shift, :end_date, :default => @end_date)%>
+			<%= hidden_field(:location, :id) %>
+			<br>
+			<%= submit_tag 'Update' %>
+	<% end %>
+</fieldset>
+
+<table class="tablesorter">
+	<thead>
+		<tr>
+		 <th colspan=4>Recent Shifts at the <%= @location.name %></th>
+		</tr>
+	</thead>
+	<tbody id="shift_history">
+		<%= render :partial => 'shift_history' %>
+	</tbody>
+</table>

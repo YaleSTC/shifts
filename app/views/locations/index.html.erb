@@ -25,7 +25,9 @@
           <td><%= loc.max_staff %></td>
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
-		  <td><%= link_to "All Shifts", :action => :display_report_items, :id => loc %> </td>
+		  <td><%= link_to "All Report Items", :action => :display_report_items, :id => loc %> </td>
+          <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
+      <td><%= link_to "Shift History", :action => :display_shift_history, :id => loc %> </td>
           <td><%= link_to_remote (loc.active ? "Deactivate" : "Restore"), :url => { :action => 'toggle', :id => loc.id }, :html => { :class => 'toggle_link' }%></td>
 		  <% end %>
          </tr>
