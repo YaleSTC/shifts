@@ -96,7 +96,7 @@ module ApplicationHelper
         output << ">#{i}"
       end
     end
-    output + "</select>"
+    (output + "</select>").html_safe
   end
 
 

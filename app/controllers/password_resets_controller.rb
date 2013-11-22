@@ -11,7 +11,7 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.where(:email => params[:email]).first
     if @user && @user.auth_type=='built-in'
-      @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.deliver_password_reset_instructions(n)})
+      @user.deliver_password_reset_instructions!(Proc.new {|n| UserMailer.delay.password_reset_instructions(n)})
       flash[:notice] = "Instructions to reset the password have been emailed. "
       redirect_to login_path
     else
