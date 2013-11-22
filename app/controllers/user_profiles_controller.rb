@@ -37,7 +37,7 @@ before_filter :user_login
   def edit
     @user = User.where(:login => params[:id]).first
     @user_profile = UserProfile.where(:user_id => @user.id).first
-    
+
     #The dept admin can edit all parts of any profile in their department, and a regular user can only edit their own profile entries that are user editable
     if current_user.is_admin_of?(@department)
       @user_profile_entries = @user_profile.user_profile_entries.select{ |entry| entry.user_profile_field.department_id == @department.id }
@@ -51,15 +51,15 @@ before_filter :user_login
 
   def update
     @user_profile = UserProfile.find(params[:id])
-    @user_profile.update_attributes(params[:user_profile]) #necessary for profile pics to save 
+    @user_profile.update_attributes(params[:user_profile]) #necessary for profile pics to save
 
     @user = User.find(@user_profile.user_id)
-    
+
     if crop_errors
       flash[:error] = "Cropping failed, please try again."
       render :action => 'crop' and return
     end
-      
+
     if params[:user_profile_entries]
       begin
         UserProfile.transaction do
@@ -90,7 +90,7 @@ before_filter :user_login
         flash[:error] = @failed.to_sentence + " all failed to save."
       end
     end
-    
+
     #If user uploaded a new photo, crop it
     if params[:user_profile] && params[:user_profile][:photo]
       render :action => 'crop'
@@ -130,15 +130,15 @@ before_filter :user_login
     @user_profiles = []
     @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.name}
   end
-  
+
   private
   def user_login
     @user_profile = UserProfile.where(:user_id => User.where(:login => params[:id]).first)
   end
-  
+
   def crop_errors
     return params[:user_profile] && (params[:user_profile][:crop_w] == "0" or params[:user_profile][:crop_h] == "0")
   end
-  
+
 end
 

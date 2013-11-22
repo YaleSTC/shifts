@@ -38,30 +38,22 @@ module Shifts
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :password_confirmation]
 
 
-      #HAS_MANY_POLYMORPHS will create a folder generated_models to show you what is going on:
-      #ENV["HMP_DEBUG"] = 'true'
+    # Configure Rails Mail options
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address => "mail.yale.edu",
+      :port => 587,
+      :domain => "yale.edu",
 
-      # Settings in config/environments/* take precedence over those specified here.
-      # Application configuration should go into files in config/initializers
-      # -- all .rb files in that directory are automatically loaded.
-      # See Rails::Configuration for more options.
+      #for some reason, :authentication => login is not working
+      #thus, for now, the server will have to be connected to the yale network
+      #to be able to send emails
+    }
 
-
-      # Configure Rails Mail options
-      config.action_mailer.delivery_method = :smtp
-      config.action_mailer.smtp_settings = {
-        :address => "mail.yale.edu",
-        :port => 587,
-        :domain => "yale.edu",
-
-        #for some reason, :authentication => login is not working
-        #thus, for now, the server will have to be connected to the yale network
-        #to be able to send emails
-      }
-    #  config.action_mailer.raise_delivery_errors = true
+      # config.action_mailer.raise_delivery_errors = true
       config.action_mailer.default_charset = "utf-8"
 
       # Only load the plugins named here, in the order given. By default, all plugins
@@ -70,7 +62,7 @@ module Shifts
       # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
       # Add additional load paths for your own custom dirs
-      # config.load_paths += %W( #{RAILS_ROOT}/extras )
+      # config.load_paths += %W( #{config.root}/extras )
 
       # Force all environments to use the same logger level
       # (by default production uses :info, the others :debug)

@@ -1,62 +1,52 @@
 class UserMailer < ActionMailer::Base
-  default :from => "mail.yale.edu"
-  
+  default :from => "noreply@shifts.app"
+
   def registration_confirmation(user)
     mail(:to => user.email, :subject => "Registered")
-
-    self.delivery_method = :smtp
   end
 
   def shift_report(shift, report, dept) #Need to test this
     #If a profile field for queue exists, include it in subject
-    if queue_field = UserProfileField.find(:first, :conditions => {:name => "Queue"})
+    if queue_field = UserProfileField.where(name: "Queue").first
       user = shift.user
-      queue_text = ""
-      profile_entry = UserProfileEntry.find(:first, :conditions => {
-                                  :user_profile_id => user.user_profile.id, 
-                                  :user_profile_field_id => queue_field.id} )
+      profile_entry = UserProfileEntry.where(
+                                  :user_profile_id => user.user_profile.id,
+                                  :user_profile_field_id => queue_field.id).first
       user_queue = profile_entry.content if profile_entry
-      queue_text = "(User Queue: #{user_queue})" if user_queue
+      queue_text = user_queue ? "(User Queue: #{user_queue})" : ""
     end
 
     @shift = shift
     @report = report
-    if shift.location.report_email.blank?
-      mail(:to => shift.user.email, :from => shift.user.email, 
-      :subject => "Shift Report: #{shift.short_display} #{queue_text}", :date => Time.now, )
-    else
-    mail(:to => shift.user.email, :from => shift.user.email, 
-      :subject => "Shift Report: #{shift.short_display} #{queue_text}", :date => Time.now, :cc => shift.location.report_email)
-    end
+    mail( to:       shift.user.email,
+          from:     shift.user.email,
+          cc:       shift.location.try(:report_email),
+          subject:  "Shift Report: #{shift.short_display} #{queue_text}",
+          date:     Time.now)
   end
 
-#  def sub_created_notify(sub)
-#    subject     "[Sub Request] Sub needed for " + sub.shift.short_display
-#    recipients  "sub.request.mailer@yale.edu"
-#    bcc         sub.email_list
-#    from        sub.user.email
-#    body        :sub => sub
-#  end
-
- def sub_taken_notification(sub_request, new_shift, dept)
+  def sub_taken_notification(sub_request, new_shift, dept)
     @sub_request = sub_request
     @new_shift = new_shift
     @dept = dept
-    mail(:to => sub_request.shift.user.email, :from => dept.department_config.mailer_address, 
-    	:subject => "[Sub Request] #{new_shift.user.name} took your sub!", :cc => new_shift.user.email, :date => Time.now)
+    mail( to:       sub_request.shift.user.email,
+          from:     dept.department_config.mailer_address,
+          subject:  "[Sub Request] #{new_shift.user.name} took your sub!",
+          cc:       new_shift.user.email,
+          date:     Time.now)
   end
 
   def payform_item_modify_notification(new_payform_item, dept)
   	@new_payform_item = new_payform_item
     @dept = dept
-  	mail(:to => new_payform_item.user.email, :from => dept.department_config.mailer_address, 
+  	mail(:to => new_payform_item.user.email, :from => dept.department_config.mailer_address,
   		:subject => "Your payform has been modified by #{new_payform_item.source}", :date => Time.now)
   end
 
   def payform_item_deletion_notification(old_payform_item, dept)
     @old_payform_item = old_payform_item
     @dept = dept
-    mail(:to => old_payform_item.user.email, :from => dept.department_config.mailer_address, 
+    mail(:to => old_payform_item.user.email, :from => dept.department_config.mailer_address,
     	:subject=> "Your payform item has been deleted by #{old_payform_item.versions.last.user}", :date => Time.now)
   end
 
@@ -72,12 +62,12 @@ class UserMailer < ActionMailer::Base
     	:date => Time.now)
   end
 
-# For use when users are imported from csv #duplicate found in ar_mailer, not DRY -ben
+  # For use when users are imported from csv #duplicate found in ar_mailer, not DRY -ben
   def new_user_password_instructions(user, dept)
     @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
     @user = user
     @dept = dept
-    mail(:to => user.email, :from => dept.department_config.mailer_address, 
+    mail(:to => user.email, :from => dept.department_config.mailer_address,
     	:subject => "Password Creation Instructions", :date => Time.now)
   end
 
@@ -86,7 +76,7 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Password Creation Instructions",
     	:date => Time.now)
   end
-  
+
   #///////////////////////
   #Imported from ArMailer:
   #///////////////////////
@@ -94,14 +84,14 @@ class UserMailer < ActionMailer::Base
   #For use when users are imported from csv
   def new_user_password_instructions_csv(user, dept)
     @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
-    mail(:to => user.email, :from => AppConfigfirst.mailer_address, 
-      :subject => "Password Creation Instructions", :date => Time.now, 
+    mail(:to => user.email, :from => AppConfigfirst.mailer_address,
+      :subject => "Password Creation Instructions", :date => Time.now)
   end
 
   #Beginning of payform notification methods
   def due_payform_reminder(user, message, dept)
-    @user => user
-    @message => message
+    @user = user
+    @message = message
     mail(:to => "#{user.name} <#{user.email}>", :from => "#{dept.department_config.mailer_address}",
       :subject => "Due Payforms Reminder", :date => Time.now)
   end
@@ -133,7 +123,7 @@ class UserMailer < ActionMailer::Base
     @edit_item = edit_item
     user = payform.user
     mail(:to => "#{user.name} <#{user.email}>", :from => dept.department_config.mailer.address,
-      :subject => "Your payform has been edited", :date => Time.now, :cc => User.where(:login => edit_item.edited_by).first.email
+      :subject => "Your payform has been edited", :date => Time.now, :cc => User.where(:login => edit_item.edited_by).first.email,
       :content_type => 'text/plain')
   end
 
@@ -160,7 +150,7 @@ class UserMailer < ActionMailer::Base
   def sub_taken_notification(sub_request, new_shift, dept)
     @sub_request = sub_request
     @new_shift = new_shift
-    mail(:to => sub_request.shift.user.email, :from => dept.department_config.mailer_address, 
+    mail(:to => sub_request.shift.user.email, :from => dept.department_config.mailer_address,
       subject: "[Sub Request] #{new_shift.user.name} took your sub!", :date => Time.now)
   end
 
@@ -170,16 +160,17 @@ class UserMailer < ActionMailer::Base
     @missed_shifts = missed_shifts
     @late_shifts = late_shifts
     @left_early_shifts = left_early_shifts
-    mail(:to => dept.department_config.stats_mailer_address, :from => dept.department_config.mailer_address, 
+    mail(:to => dept.department_config.stats_mailer_address, :from => dept.department_config.mailer_address,
       :subject => "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y'), :date => Time.now,
       :content_type => "text/html") #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
   end
 
   #STALE SHIFTS
   #an email is sent to a student if they have been inactive in their shift for an hour
-  def stale_shift(user, stale_shift, dept) 
+  def stale_shift(user, stale_shift, dept)
     @user = user
     @stale_shift = stale_shift
-    mail(:to => "#{user.name} <#{user.email}>", :from => dept.department_config.mailer_address, 
+    mail(:to => "#{user.name} <#{user.email}>", :from => dept.department_config.mailer_address,
       :subject => "Your Shift in the #{stale_shift.location.name} has been inactive for at least an hour.", :date => Time.now)
+  end
 end
