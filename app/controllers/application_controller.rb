@@ -17,11 +17,8 @@ class ApplicationController < ActionController::Base
   #Replaced with similar prototype legacy helper plugin
   #helper :prototype #TODO including this helper is a stopgap for the shift to Rails 3; contained methods should be rewritten
 
-
   helper_method :current_user
   helper_method :current_department
-
-  filter_parameter_logging :password, :password_confirmation
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -363,7 +360,12 @@ class ApplicationController < ActionController::Base
   #join date and time
     %w{start end mandatory_start mandatory_end}.each do |field_name|
       if form_output["#{field_name}_date"] && form_output["#{field_name}_time"]
-        form_output["#{field_name}"] ||= form_output["#{field_name}_date"].beginning_of_day + form_output["#{field_name}_time"].seconds_since_midnight
+        date = form_output["#{field_name}_date"]
+        time = form_output["#{field_name}_time"]
+        zone = date.end_of_day.zone
+        form_output["#{field_name}"] ||= DateTime.new( date.year, date.month,
+                                                       date.day, time.hour,
+                                                       time.min, time.sec, zone)
         form_output.delete("#{field_name}_date")
         form_output.delete("#{field_name}_time")
       end

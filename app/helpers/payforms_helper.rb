@@ -40,21 +40,21 @@ module PayformsHelper
         end
       end
     else
-      link_to "<span><strong>Submit</strong></span>".html_safe, :url => submit_payform_path(@payform), :remote => true, :method => :get, :html => {:href => submit_payform_path(@payform), :class => "button", :onclick => "this.blur();"}
+      link_to "<span><strong>Submit</strong></span>".html_safe, submit_payform_path(@payform), :remote => true, :method => :get, :class => "button", :onclick => "this.blur();"
     end
   end
-  
+
   def payform_skip_button
     if @payform.submitted and !@payform.approved and !@payform.printed
       if current_user.is_admin_of?(@payform.department)
-         if !@payform.skipped 
+         if !@payform.skipped
            link_to "<span><strong>Skip and go to next</strong></span>".html_safe, skip_payform_path(@payform), :class => "button", :onclick => "this.blur();"
          else
            link_to "<span><strong>Unskip and go to next</strong></span>".html_safe, unskip_payform_path(@payform), :class => "button", :onclick => "this.blur();"
          end
       end
     end
-  end  
+  end
 
   def payform_unsubmit_unapprove_button
     if @payform.submitted && !@payform.approved && !@payform.printed
