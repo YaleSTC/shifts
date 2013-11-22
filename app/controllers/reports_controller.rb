@@ -16,6 +16,22 @@ class ReportsController < ApplicationController
     @search_engine_url = current_department.department_config.search_engine_url
   end
 
+  def tasks_and_objects_list
+    @report = current_user.current_shift.report if current_user.current_shift
+    loc_groups = LocGroup.all
+    @loc_groups = loc_groups.select{ |lg| lg.users.include?(current_user) }
+    tasks = []
+    @loc_groups.each do |loc_group|
+      tasks << loc_group.locations.map{ |loc| loc.tasks }.flatten.uniq.compact
+    end
+    tasks = tasks.flatten.uniq.compact
+    tasks = Task.active.after_now & tasks
+    # filters out daily and weekly tasks scheduled for a time later in the day
+    tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight < t.time_of_day.seconds_since_midnight}
+    # filters out weekly tasks on the wrong day
+    @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
+  end
+
   #Signing into a shift
   def create
     shift = Shift.find(params[:shift_id])

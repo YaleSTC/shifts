@@ -167,5 +167,9 @@ Shifts::Application.routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 
+  map.test_new_lists '/test_new_lists', :controller => 'reports', :action => 'tasks_and_objects_list'
+  map.update_data_objects '/update_data_objects', :controller => 'data_objects', :action => 'update_data_objects'
+  map.active_tasks '/active_tasks', :controller => 'tasks', :action => 'active_tasks'
+
   match "/delayed_job" => DelayedJobWeb, :anchor => false
 end
