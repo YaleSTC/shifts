@@ -4,8 +4,9 @@ namespace :email do
     stale_shifts = Shift.stale_shifts_with_unsent_emails(department)
   
     for shift in stale_shifts     
-      email = ArMailer.create_stale_shift(shift.user, shift, department)
-      ArMailer.deliver(email)
+      UserMailer.stale_shift(shift.user, shift, department)
+      # email = ArMailer.create_stale_shift(shift.user, shift, department)
+      # ArMailer.deliver(email)
       shift.stale_shifts_unsent = false
       shift.save
     end

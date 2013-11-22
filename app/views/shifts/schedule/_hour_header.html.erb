@@ -2,7 +2,7 @@
   <div class="hours">
     <div class="center_container">
       <div class="center_content">
-        <%= hour_header %>
+        <%= Time.now.change(:hour => hour_header).strftime("%l%p") %>
       </div>
     </div>
   </div>
