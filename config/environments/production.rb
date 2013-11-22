@@ -16,9 +16,6 @@ Shifts::Application.configure do
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
 
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
-
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
@@ -28,5 +25,13 @@ Shifts::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
+
+  # Configure Rails Mail options
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => "mail.yale.edu",
+    :port => 587,
+    :domain => "yale.edu",
+  }
 
 end
