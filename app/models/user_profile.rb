@@ -6,7 +6,7 @@ class UserProfile < ActiveRecord::Base
   has_attached_file :photo, #generates profile picture
       styles: { large: "500x500>", medium: "250x250>", small: "150x150>", thumbnail: "100x100#", pico: "22x22#"},
       processors: [:cropper],
-      default_url: "/attachments/user_profiles/default/default_:style.jpg",
+      default_url: "/default_attachments/user_profiles/default_:style.jpg",
       url: "/attachments/user_profiles/:id/:style/:normalized_photo_name.extension",
       path: ":rails_root/public/attachments/user_profiles/:id/:style/:normalized_photo_name.extension"
   validates_attachment_size :photo, less_than: 3.megabytes
