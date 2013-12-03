@@ -10,9 +10,9 @@ Rakefile
 *.sqlite3
 cleangit
 config/database.yml
-public/assets/user_profiles
 Vagrantfile
 .vagrant/
 .ruby-version
 .rbenv-version
 config/initializers/airbrake.rb
+public/attachments
