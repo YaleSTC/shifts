@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/laserlemon/vestal_versions.git
+  revision: c7aa512666b22e1a47b4fb36bb1679cb847a532e
+  specs:
+    vestal_versions (1.2.3)
+      activerecord (~> 3.0)
+      activesupport (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -145,8 +153,6 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
-    vestal_versions (1.0.2)
-      activerecord (>= 2.1.0)
     whenever (0.8.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -176,5 +182,5 @@ DEPENDENCIES
   rubycas-client (= 2.2.1)
   rubycas-client-rails
   simple_form
-  vestal_versions
+  vestal_versions!
   whenever
