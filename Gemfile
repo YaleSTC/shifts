@@ -1,8 +1,12 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'activerecord-mysql2-adapter'
+
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+
 
 # ldap integration
 gem 'ruby-net-ldap', :require => 'net/ldap'
@@ -13,6 +17,7 @@ gem 'icalendar'
 # authentication
 gem 'authlogic'
 
+# simpler forms
 gem 'simple_form'
 
 # image upload

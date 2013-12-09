@@ -1,7 +1,9 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+//= require jquery
+//= require jquery_ujs
+//= require jquery.ui.all
+//= require_tree .
 
-//Don't load anything before the document is ready. (This should work okay, but if not ask Nathan for some workarounds)
+//Don't load anything before the document is ready.
 $(document).ready(function() {
 
     // If javascript is enabled, anything with the class 'no_js' will be hidden
