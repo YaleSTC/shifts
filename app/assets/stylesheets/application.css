@@ -1,8 +1,20 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ *= require jquery.ui.all
+*/
+
+
 /* Main Styles and IDs */
-
-/* Make the vertical scrollbar always appear */
-
-
 /* =CORE GLOBAL STYLES
 ======================================================================= */
 html {
@@ -412,12 +424,12 @@ div#left_stuff {
 }
 
 /*for user profiles*/
-div#profile_left{ 
+div#profile_left{
 	float:left;
  	width: 42%;
 }
 
-div#profile_right { 
+div#profile_right {
 	float: right;
 	width: 58%;
 }
@@ -611,7 +623,7 @@ table.tablesorter td#date {
   background-color: #CCE;
 }
 table.tablesorter thead#centered {
-	text-align: center;	
+	text-align: center;
 }
 
 /*
@@ -765,7 +777,7 @@ div.feed_bottom a {float:right;}
 /* button for report_item_view on location index */
 input.view_more {float:right;}
 
-/* Styling & alignment for multiple select checkboxes 
+/* Styling & alignment for multiple select checkboxes
 ======================================================*/
 fieldset.checkboxes > div > * {
   display: inline;
@@ -778,7 +790,7 @@ fieldset.checkboxes div.header_container a#hide {
 	padding-left: 6pt;
 } /* a#hide has alignment issues in non-webkit browsers */
 
-/* Alignment for Reset email preferences button text 
+/* Alignment for Reset email preferences button text
 ====================================================*/
 span#reset_txt {
   vertical-align: baseline;
