@@ -13,7 +13,7 @@ module ApplicationHelper
 		end
   end
 
-	def link_to_post_a_sticky()
+	def link_to_post_a_sticky
 		link_to_unless_current('Post a new sticky', new_sticky_path(height: 200, width: 515, type: "Sticky"), title: "Post a new sticky", class: "thickbox", id: "post_link" )
   end
 
