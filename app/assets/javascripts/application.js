@@ -1,6 +1,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery-tablesorter
+//= require jcrop
+//= require superfish
+//= require hoverIntent
 //= require_tree .
 
 //Don't load anything before the document is ready.
@@ -37,10 +41,10 @@ $(document).ready(function() {
     });
 
     $(document).ready(function(){
-        $("ul.sf-menu").superfish({
-            animation: {height:'show'},   // slide-down effect without fade-in
-            delay:     1200               // 1.2 second delay on mouseout
-        });
+        // $("ul.sf-menu").superfish({
+        //     animation: {height:'show'},   // slide-down effect without fade-in
+        //     delay:     1200               // 1.2 second delay on mouseout
+        // });
     });
 
 });

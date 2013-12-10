@@ -5,7 +5,9 @@ gem 'mysql2'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-
+gem 'jquery-tablesorter'
+gem 'jcrop-rails'
+gem 'superfish-rails'
 
 # ldap integration
 gem 'ruby-net-ldap', :require => 'net/ldap'

@@ -269,9 +269,6 @@ Shifts::Application.routes.draw do
 
   get '/status' => 'status#index'
 
-  match ':controller/:action/:id'
-  match ':controller/:action/:id.:format'
-
   match '/test_new_lists', :controller => 'reports', :action => 'tasks_and_objects_list', as: :test_new_lists
   match '/update_data_objects', :controller => 'data_objects', :action => 'update_data_objects', as: :update_data_objects
   match '/active_tasks', :controller => 'tasks', :action => 'active_tasks', as: :active_tasks

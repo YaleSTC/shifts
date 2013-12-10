@@ -244,25 +244,25 @@ $('#new_time_slot_link').toggle();
 
 
 
-// For the stats pages 
+// For the stats pages
 $(document).ready(function(){$.tablesorter.defaults.widgets = ['zebra'];$("#stats_table").tablesorter({sortList: [[1,0],[0,1]]});});
 
-var opts = {
-                formElements:{"stat_start_date_3i":"j",
-                              "stat_start_date_1i":"Y",
-                              "stat_start_date_2i":"n"
-                },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
-datePickerController.createDatePicker(opts);
+// var opts = {
+//                 formElements:{"stat_start_date_3i":"j",
+//                               "stat_start_date_1i":"Y",
+//                               "stat_start_date_2i":"n"
+//                 },
+//                 statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+//                 noFadeEffect:true,
+//                        };
+// datePickerController.createDatePicker(opts);
 
-var opts = {
-                formElements:{"stat_end_date_3i":"j",
-                              "stat_end_date_1i":"Y",
-                              "stat_end_date_2i":"n"
-                },
-                statusFormat:"l-cc-sp-d-sp-F-sp-Y",
-                noFadeEffect:true,
-                       };
-datePickerController.createDatePicker(opts);
+// var opts = {
+//                 formElements:{"stat_end_date_3i":"j",
+//                               "stat_end_date_1i":"Y",
+//                               "stat_end_date_2i":"n"
+//                 },
+//                 statusFormat:"l-cc-sp-d-sp-F-sp-Y",
+//                 noFadeEffect:true,
+//                        };
+// datePickerController.createDatePicker(opts);
