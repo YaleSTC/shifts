@@ -79,10 +79,6 @@ module ApplicationHelper
             }
           });
         });').html_safe
-    if options[:include_headers]
-      content_for :head, javascript_include_tag('jquery.tokeninput')
-      content_for :head, stylesheet_link_tag(css_file)
-    end
     text_field_tag(options[:id])
   end
 

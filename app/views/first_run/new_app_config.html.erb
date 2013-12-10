@@ -48,7 +48,7 @@
     <%= f.text_field :ldap_email %>
   </p>
   </div>
-  
+
   <p>
     <%= f.label :mailer_address, text = 'App email address' %><br />
     <small>This is used for the "From" field on any generated email that is not department-specific.</small><br />
@@ -59,7 +59,7 @@
 	<%= f.label :admin_email, text = 'Admin email address' %> <br />
 	<small>This is the administrator email that any non-department-specific correspondences are sent to. </small><br />
 	<%= f.text_field :admin_email %>
-  </p>	
+  </p>
 
   <p>
     <%= f.label :footer, text = "Footer Text", :class => "form_label_large" %><br />
@@ -67,10 +67,7 @@
     or you may produce broken pages.</small><br/>
     <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
   </p>
-  
+
   <p><%= f.submit "Submit" %></p>
 
 <% end %>
-
-<%= javascript_include_tag 'new_app_config' %>
-

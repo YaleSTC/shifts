@@ -105,14 +105,14 @@ label {
 ======================================================================= */
 
 #pagebox {
-  background: #FFFFFF url(../images/pagebox_shadow_bkgd.gif) repeat scroll 0% 0%;
+  background: #FFFFFF image-url("pagebox_shadow_bkgd.gif") repeat scroll 0% 0%;
   margin: 0px auto;
   padding: 0pt 12px;
   width: 900px;
   border: medium none;
 }
 #pageboxBottom {
-  background: transparent url(../images/pagebox_shadow_bottom.gif) no-repeat scroll 0% 0%;
+  background: transparent image-url("pagebox_shadow_bottom.gif") no-repeat scroll 0% 0%;
   height: 12px;
   margin: 0px auto;
   padding-bottom: 2px;
@@ -127,7 +127,7 @@ label {
   padding: 0px;
 }
 #page_header h2 {
-  background: transparent url(../images/theme/header.gif) no-repeat scroll 0% 0%;
+  background: transparent image-url("theme/header.gif") no-repeat scroll 0% 0%;
   float: left;
   font-size: 12px;
   margin: 0pt;
@@ -571,7 +571,7 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	padding: 4px;
 }
 table.tablesorter thead tr .header {
-	background-image: url(../images/tables/bg.gif);
+	background-image: image-url("tables/bg.gif");
 	background-repeat: no-repeat;
 	background-position: center right;
 	cursor: pointer;
@@ -591,10 +591,10 @@ table.tablesorter tbody tr.disabled td {
 	background-color:#CCC;
 }
 table.tablesorter thead tr .headerSortUp {
-	background-image: url(../images/tables/asc.gif);
+	background-image: image-url("tables/asc.gif");
 }
 table.tablesorter thead tr .headerSortDown {
-	background-image: url(../images/tables/desc.gif);
+	background-image: image-url("tables/desc.gif");
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 background-color: #536E8D;

@@ -103,7 +103,7 @@ a.date-picker-control:visited
         border:0 none;
         padding:0;
         margin:0 0 0 4px;
-        background:transparent url(../media/cal-grey.gif) no-repeat 50% 50%;
+        background:transparent image-url("media/cal-grey.gif") no-repeat 50% 50%;
         min-width:16px;
         line-height:1;
         cursor:pointer;
@@ -120,7 +120,7 @@ a.dp-button-active:hover,
 a.dp-button-active:active,
 a.dp-button-active:focus
         {
-        background:transparent url(../media/cal.gif) no-repeat 50% 50% !important;
+        background:transparent image-url("media/cal.gif") no-repeat 50% 50% !important;
         }
 /* Feed IE6 the following rule, IE7 should handle the min-width declared above */
 * html a.date-picker-control
@@ -168,7 +168,7 @@ div.datePicker th span.next-but
         {
         font-weight:lighter;
         font-size:2.4em;
-			  font-family: "Trebuchet MS", Helvetica, sans-serif;	
+			  font-family: "Trebuchet MS", Helvetica, sans-serif;
         cursor:pointer !important;
         }
 /* Hover effect for Next & Previous (month, year) buttons */
@@ -223,7 +223,7 @@ div.datePicker table
         margin:0;
         padding:0;
         border:1px solid #ccc;
-        background:#fff url(../media/gradient-e5e5e5-ffffff.gif) repeat-x 0 -20px;
+        background:#fff image-url("media/gradient-e5e5e5-ffffff.gif") repeat-x 0 -20px;
         text-align:center;
         border-spacing:2px;
         padding:0.3em;
@@ -242,7 +242,7 @@ div.datePicker table tbody th
         text-align:center;
         vertical-align:middle;
         cursor:pointer;
-        background:#fff url(../media/gradient-e5e5e5-ffffff.gif) repeat-x 0 -40px;
+        background:#fff image-url("media/gradient-e5e5e5-ffffff.gif") repeat-x 0 -40px;
         width:3em;
         height:3em;
         overflow:hidden;
@@ -304,7 +304,7 @@ div.datePicker tfoot th
 /* TD cell that is _not_ used to display a day of the month */
 div.datePicker table tbody td.date-picker-unused
         {
-        background:#fff url(../media/backstripes.gif);
+        background:#fff image-url("media/backstripes.gif");
         border-color:#dcdcdc;
         cursor:default !important;
         }
@@ -326,7 +326,7 @@ div.datePicker table thead th.date-picker-day-header
 /* The "todays date" style */
 div.datePicker table tbody td.date-picker-today
         {
-        background:#fff url(../media/bullet2.gif) no-repeat 0 0;
+        background:#fff image-url("media/bullet2.gif") no-repeat 0 0;
         color:rgb(100,100,100) !important;
         }
 
@@ -343,7 +343,7 @@ div.datePicker table thead th.date-picker-highlight
 /* The "active cursor" style */
 div.datePicker table tbody td.date-picker-hover
         {
-        background:#fff url(../media/bg_header.jpg) no-repeat 0 0;
+        background:#fff image-url("media/bg_header.jpg") no-repeat 0 0;
         cursor:pointer;
         border-color:rgb(100,130,170) !important;
         color:rgb(100,130,170);
@@ -352,7 +352,7 @@ div.datePicker table tbody td.date-picker-hover
 /* The "disabled days" style */
 div.datePicker table tbody td.day-disabled
         {
-        background:#fff url(../media/backstripes.gif) no-repeat 0 0;
+        background:#fff image-url("media/backstripes.gif") no-repeat 0 0;
         color:#aaa !important;
         cursor:default;
         text-decoration:line-through;
@@ -361,7 +361,7 @@ div.datePicker table tbody td.month-out
         {
         border-color:#ddd;
         color:#aaa !important;
-        background:#fff url(../media/gradient-e5e5e5-ffffff.gif) repeat-x 0 -40px;
+        background:#fff image-url("media/gradient-e5e5e5-ffffff.gif") repeat-x 0 -40px;
         }
 /* The "selected date" style */
 div.datePicker table tbody td.date-picker-selected-date

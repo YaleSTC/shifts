@@ -1,9 +1,7 @@
 <div class="data_field">
   <fieldset>
   <% fields_for_data_field(data_field) do |df_form| %>
-  
-    <%= javascript_include_tag 'data_field_input'%>
-  
+
     <div class="delete_link">
       <%= link_to_function "remove this data field", "$(this).closest('.data_field').remove()"%>
     </div>
@@ -14,7 +12,7 @@
     <p>
       <%= df_form.label :display_type %><br />
       <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
-          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>   
+          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
     </p>
     <p>
       <div class="value_field">
@@ -23,7 +21,7 @@
         <em><small>Value should be either 'integer', 'decimal', or 'text'</small></em>
       </div>
     </p>
-  <% end %>  
+  <% end %>
   </fieldset>
   <br>
 </div>
