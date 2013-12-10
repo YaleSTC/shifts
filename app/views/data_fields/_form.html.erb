@@ -10,7 +10,7 @@
      <%= f.label :display_type %><br />
      <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type" %><br/>
    </p>
-     <%= observe_field('data_field_display_type',
+     <%#= observe_field('data_field_display_type',
         :url => { :controller => :data_fields,
                   :action => :update_form,
                   :layout => false},

@@ -1,8 +1,8 @@
   <%= select_tag "view_options[group_by]", options_for_select(@group_by_options, @selected_by) %>
-  <%= observe_field('view_options_group_by',
+  <%#= observe_field('view_options_group_by',
       :url => { :controller => :data_objects,
-                :action => :index, 
+                :action => :index,
                 :layout => false},
-      :method => :get,     
-      :with => "'group_by=' + escape(value) + '&group_type=' + \'#{@selected_type.second}\'",    
+      :method => :get,
+      :with => "'group_by=' + escape(value) + '&group_type=' + \'#{@selected_type.second}\'",
       :on => "change") %>
