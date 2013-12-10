@@ -45,8 +45,6 @@ module Shifts
     config.filter_parameters += [:password, :password_confirmation]
 
     # config.action_mailer.raise_delivery_errors = true
-    config.action_mailer.default_charset = "utf-8"
-
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true

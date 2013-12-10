@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'mysql2'
-gem 'activerecord-mysql2-adapter'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
