@@ -73,5 +73,3 @@
   <% elsif params[:calendar] %>
     <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
   <% end %>
-
-<%= javascript_include_tag 'shifts_form' %>

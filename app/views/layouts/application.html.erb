@@ -3,32 +3,28 @@
 <% end %>
 
 <%= render :file => "layouts/include/main_header.html.erb" %>
+  <%= yield(:left_nav).empty? ? '<div id="contentNoNav">'.html_safe : yield(:left_nav) %>
 
-<!--this is necessary here for consistent layouts -->
-<%= stylesheet_link_tag 'mobile_application' if mobile_device? %>
+    <div id="flash">
+      <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+    </div>
 
-    <%= yield(:left_nav) || '<div id="contentNoNav">' %>
+    <!-- Main Content -->
 
-      <div id="flash">
-        <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
-      </div>
+    <%- if show_title? -%>
+      <h1 id="page_title"><%=h yield(:title) %></h1>
+      <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
+    <%- end -%>
 
-      <!-- Main Content -->
-
-      <%- if show_title? -%>
-        <h1 id="page_title"><%=h yield(:title) %></h1>
-        <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
-      <%- end -%>
-
-      <!-- Body Content -->
-      <%# TODO: We should not have any more content_for :body tags, we need to
-      figure out how to use this properly, and fix the files with such tags %>
-      <%= yield(:body).empty? ? yield : yield(:body) %>
-    </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
+    <!-- Body Content -->
+    <%# TODO: We should not have any more content_for :body tags, we need to
+    figure out how to use this properly, and fix the files with such tags %>
+    <%= yield(:body).empty? ? yield : yield(:body) %>
+  </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
 
     <div id="footer">
         <p class="footer">
-          <%if @appconfig%>
+          <%if @appconfig %>
             <%= @appconfig.footer %>
           <%end%>
         </p>

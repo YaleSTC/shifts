@@ -4,9 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title><%= h(yield(:title) || 'Shifts') %></title>
-    <%= stylesheet_link_tag 'reset', 'nav', 'superfish', 'timeline', 'shift', 'public_view' %>
-	<%= stylesheet_link_tag "superfish-vertical", 'application', 'report', 'thickbox'%>
-	
     <link rel="icon" href="/favicon.ico" type="image/ico" />
   </head>
   <body>
@@ -26,7 +23,7 @@
 	  </body>
 	</html>
 
-<% else -%>   
+<% else -%>
 
 	<% content_for :body do %>
 
