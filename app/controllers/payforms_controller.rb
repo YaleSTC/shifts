@@ -1,5 +1,5 @@
 class PayformsController < ApplicationController
-  before_filter :require_department_admin,  :except => [:index, :show, :go, :prune, :submit, :unsubmit]
+  before_filter :require_department_admin,  except: [:index, :show, :go, :prune, :submit, :unsubmit]
 
   def index
     # raise params.to_yaml
@@ -28,7 +28,7 @@ class PayformsController < ApplicationController
             csv << ["First Name", "Last Name", "Employee ID", "Payrate", "Start Date", "End Date", "Total Hours"]
             csv << [@payform.user.first_name, @payform.user.last_name, @payform.user.employee_id, @payform.payrate, @payform.start_date, @payform.date, @payform.hours]
           end
-          send_data csv_string, :type => 'text/csv; charset=iso-8859-1; header=present', :disposition => "attachment; filename=users.csv"
+          send_data csv_string, type: 'text/csv; charset=iso-8859-1; header=present', disposition: "attachment; filename=users.csv"
         end
       end
     end
@@ -185,7 +185,7 @@ class PayformsController < ApplicationController
     @admin_user = current_user
     for user in @users
       Payform.build(@department, user, Date.today)
-      unsubmitted_payforms = (Payform.all( :conditions => { :user_id => user.id, :department_id => @department.id, :submitted => nil }, :order => 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
+      unsubmitted_payforms = (Payform.all( conditions: { user_id: user.id, department_id: @department.id, submitted: nil }, order: 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
 
       unless unsubmitted_payforms.blank?
         weeklist = ""
@@ -259,7 +259,7 @@ class PayformsController < ApplicationController
     if payform_source.any?
       redirect_to payform_source.sort_by(&:date).last and return
     else
-      redirect_to :action => "index" and return
+      redirect_to action: "index" and return
     end
   end
 

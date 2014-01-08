@@ -14,30 +14,30 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   test "should create announcement" do
     assert_difference('Announcement.count') do
-      post :create, :announcement => { }
+      post :create, announcement: { }
     end
 
     assert_redirected_to announcement_path(assigns(:announcement))
   end
 
   test "should show announcement" do
-    get :show, :id => announcements(:one).to_param
+    get :show, id: announcements(:one).to_param
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => announcements(:one).to_param
+    get :edit, id: announcements(:one).to_param
     assert_response :success
   end
 
   test "should update announcement" do
-    put :update, :id => announcements(:one).to_param, :announcement => { }
+    put :update, id: announcements(:one).to_param, announcement: { }
     assert_redirected_to announcement_path(assigns(:announcement))
   end
 
   test "should destroy announcement" do
     assert_difference('Announcement.count', -1) do
-      delete :destroy, :id => announcements(:one).to_param
+      delete :destroy, id: announcements(:one).to_param
     end
 
     assert_redirected_to announcements_path

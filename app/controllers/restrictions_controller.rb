@@ -33,7 +33,7 @@ class RestrictionsController < ApplicationController
         @restriction.save! #saving again to run validations
       end
     rescue Exception
-      render :action => "new"
+      render action: "new"
     else
       flash[:notice] = "Successfully created restriction."
       redirect_to restrictions_path
@@ -52,7 +52,7 @@ class RestrictionsController < ApplicationController
       flash[:notice] = "Successfully updated restriction."
       redirect_to @restriction
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

@@ -9,17 +9,17 @@ module ApplicationHelper
 
 	def link_to_post_a_link
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-    	link_to_unless_current('Post a new link', new_link_path(:height => 225, :width => 515, :type => "Link"), :title => "Post a new link", :class => "thickbox", :id => "post_link" )
+    	link_to_unless_current('Post a new link', new_link_path(height: 225, width: 515, type: "Link"), title: "Post a new link", class: "thickbox", id: "post_link" )
 		end
   end
 
 	def link_to_post_a_sticky()
-		link_to_unless_current('Post a new sticky', new_sticky_path(:height => 200, :width => 515, :type => "Sticky"), :title => "Post a new sticky", :class => "thickbox", :id => "post_link" )
+		link_to_unless_current('Post a new sticky', new_sticky_path(height: 200, width: 515, type: "Sticky"), title: "Post a new sticky", class: "thickbox", id: "post_link" )
   end
 
 	def link_to_post_an_announcement
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-			link_to_unless_current('Post a new announcement', new_announcement_path(:height => 345, :width => 515), :title => "Post a new announcement", :class => "thickbox", :id => "announcement_link")
+			link_to_unless_current('Post a new announcement', new_announcement_path(height: 345, width: 515), title: "Post a new announcement", class: "thickbox", id: "announcement_link")
 		end
 	end
 
@@ -36,11 +36,11 @@ module ApplicationHelper
   def tokenized_users_autocomplete(object, field, options = {})
     #set defaults
     options.reverse_merge!({
-      :id => "list_of_logins",
-      :hint_text => "Type a name, NetID, role or department",
-      :style => "vertical", #default to vertical style -- seems more appropriate
-      :classes => ["User","Role","Department"],
-      :include_headers => true
+      id: "list_of_logins",
+      hint_text: "Type a name, NetID, role or department",
+      style: "vertical", #default to vertical style -- seems more appropriate
+      classes: ["User","Role","Department"],
+      include_headers: true
     })
 
 
@@ -71,7 +71,7 @@ module ApplicationHelper
     #Tell the app to put javascript info at top and bottom of pages (Unobtrusive Javascript - style)
     content_for :javascript,
       ('$(document).ready(function() {
-        $("#'+options[:id]+'").tokenInput("'+autocomplete_department_users_path(current_department, :classes => options[:classes])+'", {
+        $("#'+options[:id]+'").tokenInput("'+autocomplete_department_users_path(current_department, classes: options[:classes])+'", {
             prePopulate: ['+json_string+'],
             hintText: "'+options[:hint_text]+'",
             classes: {

@@ -6,12 +6,12 @@ class Calendar < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :start_date
-  validates_presence_of :end_date, :if => Proc.new{|calendar| !calendar.default?}
+  validates_presence_of :end_date, if: Proc.new{|calendar| !calendar.default?}
 
-  validates_uniqueness_of :name, :scope => :department_id
+  validates_uniqueness_of :name, scope: :department_id
 
-  scope :active, -> {where(:active => true)}
-  scope :public, -> {where(:public => true)}
+  scope :active, -> {where(active: true)}
+  scope :public, -> {where(public: true)}
 
   def self.active_in(department, start_date = Time.now, end_date = Time.now)
     active = Calendar.where("department_id = ? AND start_date <= ? and end_date >= ? and active is true", department.id, start_date.utc, end_date.utc)

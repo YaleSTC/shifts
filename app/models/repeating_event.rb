@@ -180,12 +180,12 @@ class RepeatingEvent < ActiveRecord::Base
 
   def adjust_for_past_event
     if self.start_time <= Time.now
-      self.start_time = self.start_time.change(:day => Date.today.day, :month => Date.today.month, :year => Date.today.year)
-      self.end_time = self.end_time.change(:day => Date.today.day, :month => Date.today.month, :year => Date.today.year)
+      self.start_time = self.start_time.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
+      self.end_time = self.end_time.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
     end
     if self.start_time <= Time.now
-      self.start_time = self.start_time.change(:day => Date.tomorrow.day, :month => Date.tomorrow.month, :year => Date.tomorrow.year)
-      self.end_time = self.end_time.change(:day => Date.tomorrow.day, :month => Date.tomorrow.month, :year => Date.tomorrow.year)
+      self.start_time = self.start_time.change(day: Date.tomorrow.day, month: Date.tomorrow.month, year: Date.tomorrow.year)
+      self.end_time = self.end_time.change(day: Date.tomorrow.day, month: Date.tomorrow.month, year: Date.tomorrow.year)
     end
   end
 

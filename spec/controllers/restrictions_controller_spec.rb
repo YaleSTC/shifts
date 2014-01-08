@@ -10,7 +10,7 @@ describe RestrictionsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => Restriction.first
+    get :show, id: Restriction.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe RestrictionsController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => Restriction.first
+    get :edit, id: Restriction.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     Restriction.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Restriction.first
+    put :update, id: Restriction.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     Restriction.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Restriction.first
+    put :update, id: Restriction.first
     response.should redirect_to(restriction_url(assigns[:restriction]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     restriction = Restriction.first
-    delete :destroy, :id => restriction
+    delete :destroy, id: restriction
     response.should redirect_to(restrictions_url)
     Restriction.exists?(restriction.id).should be_false
   end

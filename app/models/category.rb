@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   has_many :locations
 
   validates_presence_of :name, :department_id
-  validates_uniqueness_of :name, :scope => :department_id
+  validates_uniqueness_of :name, scope: :department_id
 
   scope :disabled, where(active: false)
   scope :active, where(active: true)

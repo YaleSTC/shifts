@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
       flash[:notice] = "Successfully created category."
       redirect_to @category
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -34,7 +34,7 @@ class CategoriesController < ApplicationController
       flash[:notice] = "Successfully updated category."
       redirect_to @category
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

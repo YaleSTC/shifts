@@ -1,16 +1,16 @@
 class Shift < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
-  delegate :loc_group, :to => 'location'
+  delegate :loc_group, to: 'location'
   belongs_to :calendar
   belongs_to :repeating_event
   belongs_to :department
   belongs_to :user
   belongs_to :location
-  has_one :report, :dependent => :destroy
-  has_many :sub_requests, :dependent => :destroy
+  has_one :report, dependent: :destroy
+  has_many :sub_requests, dependent: :destroy
   has_many :shifts_tasks
-  has_many :tasks, :through => :shifts_tasks
+  has_many :tasks, through: :shifts_tasks
   before_update :disassociate_from_repeating_event
 
   validates_presence_of :location
@@ -24,43 +24,43 @@ class Shift < ActiveRecord::Base
   attr_accessor :end_time
 
 #TODO: remove all   calls except where needed for booleans
-  scope :active, where(:active => true)
-  scope :for_user, ->(usr){ where(:user_id => usr.id) }
+  scope :active, where(active: true)
+  scope :for_user, ->(usr){ where(user_id: usr.id) }
   scope :not_for_user, ->(usr){ where("user_id != ?", usr.id) }
   scope :on_day, ->(day){ where("start >= ? and start < ?", day.beginning_of_day.utc, day.end_of_day.utc) }
   scope :on_days, ->(start_day, end_day){ where("start  >= ? and start < ?",start_day.beginning_of_day.utc , end_day.end_of_day.utc) }
   scope :between, ->(start, stop){ where("start  >= ? and start  < ?", start.utc, stop.utc) }
   scope :overlaps, ->(start, stop){ where("end > ? and start  < ?", start.utc, stop.utc) }
-  scope :in_department, ->(dept){ where(:department_id => dept.id) }
-  scope :in_departments, ->(dept_array){ where(:department_id => dept_array.collect(&:id)) }
-  scope :in_location, ->(loc){ where(:location_id => loc.id) }
-  scope :in_locations, ->(loc_array){ where(:location_id => loc_array) }
-  scope :in_calendars, ->(calendar_array){ where(:calendar_id => calendar_array) }
-  scope :scheduled, where(:scheduled => true)
-  scope :unscheduled, where(:scheduled => false)
+  scope :in_department, ->(dept){ where(department_id: dept.id) }
+  scope :in_departments, ->(dept_array){ where(department_id: dept_array.collect(&:id)) }
+  scope :in_location, ->(loc){ where(location_id: loc.id) }
+  scope :in_locations, ->(loc_array){ where(location_id: loc_array) }
+  scope :in_calendars, ->(calendar_array){ where(calendar_id: calendar_array) }
+  scope :scheduled, where(scheduled: true)
+  scope :unscheduled, where(scheduled: false)
   scope :super_search, ->(start, stop, incr, locs){ where("( (start >= ? and start < ?) or (end > ? and end <= ?) ) and scheduled  = ? and location_id IN ?", start.utc, stop.utc - incr, start.utc + incr, stop.utc, true, locs).order("location_id , start") }
   scope :hidden_search, ->(start, stop, day_start, day_end, locs){ where("( (start >= ? and end < ?) or (start >= ? and start < ?) ) and scheduled = ? and location_id IN (?)", day_start.utc, start.utc, stop.utc, day_end.utc, true, locs).order("location_id  , start  ") }
-  scope :signed_in, ->(department){where(:signed_in => true, :department_id => department.id)}
+  scope :signed_in, ->(department){where(signed_in: true, department_id: department.id)}
   scope :ordered_by_start, order('start')
   scope :after_date, ->(start_day){ where("end >= ?}", start_day.beginning_of_day.utc) }
-  scope :stats_unsent, where(:stats_unsent => true)
-  scope :stale_shifts_unsent, where(:stale_shifts_unsent => true)
-  scope :parsed, where(:parsed => true)
-  scope :unparsed, where(:parsed => false)
-  scope :missed, where(:parsed => true, :missed => true)
-  scope :late, where(:parsed => true, :late => true)
-  scope :left_early, where(:parsed => true, :left_early => true)
+  scope :stats_unsent, where(stats_unsent: true)
+  scope :stale_shifts_unsent, where(stale_shifts_unsent: true)
+  scope :parsed, where(parsed: true)
+  scope :unparsed, where(parsed: false)
+  scope :missed, where(parsed: true, missed: true)
+  scope :late, where(parsed: true, late: true)
+  scope :left_early, where(parsed: true, left_early: true)
 
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
-  validates_presence_of :end, :if => Proc.new{|shift| shift.scheduled?}
+  validates_presence_of :end, if: Proc.new{|shift| shift.scheduled?}
 #  before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
-  validate :start_less_than_end, :if => Proc.new{|shift| shift.scheduled?}
-  validate :shift_is_within_time_slot, :if => Proc.new{|shift| shift.scheduled?}
-  validate :user_does_not_have_concurrent_shift, :if => Proc.new{|shift| shift.scheduled?}
-  validate :not_in_the_past, :if => Proc.new{|shift| shift.scheduled?}, :on => :create
+  validate :start_less_than_end, if: Proc.new{|shift| shift.scheduled?}
+  validate :shift_is_within_time_slot, if: Proc.new{|shift| shift.scheduled?}
+  validate :user_does_not_have_concurrent_shift, if: Proc.new{|shift| shift.scheduled?}
+  validate :not_in_the_past, if: Proc.new{|shift| shift.scheduled?}, on: :create
   validate :restrictions
-  validate :does_not_exceed_max_concurrent_shifts_in_location, :if => Proc.new{|shift| !shift.power_signed_up?}
+  validate :does_not_exceed_max_concurrent_shifts_in_location, if: Proc.new{|shift| !shift.power_signed_up?}
   validate :obeys_signup_priority
   before_save :adjust_sub_requests
   after_save :combine_with_surrounding_shifts #must be after, or reports can be lost
@@ -338,7 +338,7 @@ class Shift < ActiveRecord::Base
   def exceeds_max_staff?
     count = 0
     shifts_in_period = []
-    Shift.where(:location_id => self.location_id, :scheduled => true).each do |shift|
+    Shift.where(location_id: self.location_id, scheduled: true).each do |shift|
       shifts_in_period << shift if (self.start..self.end).to_a.overlaps((shift.start..shift.end).to_a) && self.end != shift.start && self.start != shift.end
     end
     increment = self.department.department_config.time_increment
@@ -421,7 +421,7 @@ class Shift < ActiveRecord::Base
   end
 
   def sub_request
-    SubRequest.where(:shift_id => self.id).first
+    SubRequest.where(shift_id: self.id).first
   end
 
 

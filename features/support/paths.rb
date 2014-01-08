@@ -16,7 +16,7 @@ module NavigationHelpers
     when /the list of departments/
       departments_path
     when /the page for the payform for the week "([^\"]*)"/i
-      payform_path(Payform.where(:date =>$1.to_date).first)
+      payform_path(Payform.where(date:$1.to_date).first)
     when /the payform for this week/
       go_payforms_path
     when /the payforms page/
@@ -26,18 +26,18 @@ module NavigationHelpers
     when /that_shift page/
       shift_path(Shift.find(@that_shift))
     when /the user settings page/
-      edit_user_config_path(UserConfig.where:user_id => current_user.id).first)
+      edit_user_config_path(UserConfig.whereuser_id: current_user.id).first)
     when /the Application Settings page/
       edit_app_config_path
     when /the department settings page/
       $department = @department
       edit_department_config_path(@department)
     when /the roles page/
-      department_roles_path(:department_id => Department.find(@current_user.user_config.default_dept))
+      department_roles_path(department_id: Department.find(@current_user.user_config.default_dept))
     when /the new role page/
-      new_department_role_path(:department_id => Department.find(@current_user.user_config.default_dept))
+      new_department_role_path(department_id: Department.find(@current_user.user_config.default_dept))
     when /the dashboard/
-      url_for(:controller => 'dashboard', :action => 'index')
+      url_for(controller: 'dashboard', action: 'index')
     when /CAS/
       "https://secure.its.yale.edu/cas/login"
     when /the data types page/i
@@ -45,12 +45,12 @@ module NavigationHelpers
     when /the data objects page/i
       data_objects_path
     when /the categories page for the "([^\"]*)" department/
-      department_categories_path(Department.where(:name => $1).first)
+      department_categories_path(Department.where(name: $1).first)
     when /the login page/
         @appconfig = AppConfig.first
-      url_for(:controller => 'user_sessions', :action => 'new')
+      url_for(controller: 'user_sessions', action: 'new')
     when /the page for the user "([^\"]*)"/
-      edit_user_path(User.where(:login=> $1).first)
+      edit_user_path(User.where(login: $1).first)
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

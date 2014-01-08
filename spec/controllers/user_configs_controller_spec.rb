@@ -10,7 +10,7 @@ describe UserConfigsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => UserConfig.first
+    get :show, id: UserConfig.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe UserConfigsController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => UserConfig.first
+    get :edit, id: UserConfig.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     UserConfig.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => UserConfig.first
+    put :update, id: UserConfig.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     UserConfig.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => UserConfig.first
+    put :update, id: UserConfig.first
     response.should redirect_to(user_config_url(assigns[:user_config]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     user_config = UserConfig.first
-    delete :destroy, :id => user_config
+    delete :destroy, id: user_config
     response.should redirect_to(user_configs_url)
     UserConfig.exists?(user_config.id).should be_false
   end

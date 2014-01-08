@@ -14,30 +14,30 @@ class TasksControllerTest < ActionController::TestCase
 
   test "should create task" do
     assert_difference('Task.count') do
-      post :create, :task => { }
+      post :create, task: { }
     end
 
     assert_redirected_to task_path(assigns(:task))
   end
 
   test "should show task" do
-    get :show, :id => tasks(:one).to_param
+    get :show, id: tasks(:one).to_param
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => tasks(:one).to_param
+    get :edit, id: tasks(:one).to_param
     assert_response :success
   end
 
   test "should update task" do
-    put :update, :id => tasks(:one).to_param, :task => { }
+    put :update, id: tasks(:one).to_param, task: { }
     assert_redirected_to task_path(assigns(:task))
   end
 
   test "should destroy task" do
     assert_difference('Task.count', -1) do
-      delete :destroy, :id => tasks(:one).to_param
+      delete :destroy, id: tasks(:one).to_param
     end
 
     assert_redirected_to tasks_path

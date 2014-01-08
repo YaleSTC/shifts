@@ -9,7 +9,7 @@ class UserProfileFieldsController < ApplicationController
   end
 
   def profile
-    @user_profile_fields = UserProfileField.where(:department_id => @department.id)
+    @user_profile_fields = UserProfileField.where(department_id: @department.id)
   end
 
   def new
@@ -23,15 +23,15 @@ class UserProfileFieldsController < ApplicationController
       UserProfileField.transaction do 
         @user_profile_field.save
         @department.users.each do |user|
-          UserProfileEntry.create!(:user_profile_id => user.user_profile.id,
-                                   :user_profile_field_id => @user_profile_field.id)
+          UserProfileEntry.create!(user_profile_id: user.user_profile.id,
+                                   user_profile_field_id: @user_profile_field.id)
         end
       end
       flash[:notice] = "Successfully created user profile field."
       redirect_to @user_profile_field
     rescue
       flash[:error] = "Something went wrong. Please try again."
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -45,7 +45,7 @@ class UserProfileFieldsController < ApplicationController
       flash[:notice] = "Successfully updated user profile field."
       redirect_to @user_profile_field
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 

@@ -61,7 +61,7 @@ class UserConfigsController < ApplicationController
     	  # if we came here from somewhere else, redirect us back
     	  redirect_to (params[:redirect_to] ? params[:redirect_to] : edit_user_config_path)
     	else
-    	  render :action => 'edit'
+    	  render action: 'edit'
     	end
 		elsif params[:commit] == "Reset"
   		@users = User.all

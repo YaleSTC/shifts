@@ -1,6 +1,6 @@
 class DataFieldsController < ApplicationController
   before_filter :require_department_admin
-    before_filter :check_for_data_type, :except => :update_form
+    before_filter :check_for_data_type, except: :update_form
   
   def index
     @data_fields = DataField.find_all_by_data_type_id(params[:data_type_id])
@@ -21,7 +21,7 @@ class DataFieldsController < ApplicationController
       flash[:notice] = "Successfully created data field."
       redirect_to (params[:add_another] ? new_data_type_data_field_path(params[:data_type_id]) : (data_type_path(params[:data_type_id]) ))
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
   
@@ -35,7 +35,7 @@ class DataFieldsController < ApplicationController
       flash[:notice] = "Successfully updated data field."
       redirect_to (params[:add_another] ? new_data_type_data_field_path(params[:data_type_id]) : data_type_path(params[:data_type_id]))
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
   

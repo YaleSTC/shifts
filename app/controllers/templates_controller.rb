@@ -6,7 +6,7 @@ class TemplatesController < ApplicationController
     @department = current_department
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @week_templates }
+      format.xml  { render xml: @week_templates }
     end
   end
 
@@ -15,7 +15,7 @@ class TemplatesController < ApplicationController
 		@requested_shifts = @week_template.requested_shifts
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @week_template }
+      format.xml  { render xml: @week_template }
     end
   end
 
@@ -24,7 +24,7 @@ class TemplatesController < ApplicationController
 		@department = current_department
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @week_template }
+      format.xml  { render xml: @week_template }
     end
   end
 
@@ -41,10 +41,10 @@ class TemplatesController < ApplicationController
 		  if @week_template.save
 		    flash[:notice] = 'Template was successfully created.'
 				format.html { redirect_to(template_template_time_slots_path(@week_template)) }
-				format.xml  { render :xml => @week_template, :status => :created, :location => @week_template }
+				format.xml  { render xml: @week_template, status: :created, location: @week_template }
 		  else
-		    format.html { render :action => "new" }
-		    format.xml  { render :xml => @week_template.errors, :status => :unprocessable_entity }
+		    format.html { render action: "new" }
+		    format.xml  { render xml: @week_template.errors, status: :unprocessable_entity }
 		  end
 		end
   end
@@ -62,8 +62,8 @@ class TemplatesController < ApplicationController
         format.html { redirect_to(@week_template) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @week_template.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @week_template.errors, status: :unprocessable_entity }
       end
     end
   end

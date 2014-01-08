@@ -1,6 +1,6 @@
 class RequestedShift < ActiveRecord::Base
 	validates_presence_of :acceptable_start, :acceptable_end
-	validates_presence_of :locations, :on => :update
+	validates_presence_of :locations, on: :update
 	validate :proper_times
 	#validate :user_shift_preferences
 	validate :user_does_not_have_concurrent_request
@@ -49,7 +49,7 @@ class RequestedShift < ActiveRecord::Base
   end
 
 	def assign(location)
-		@location_request = LocationsRequestedShift.where(:requested_shift_id => self.id, :location_id => location.id).first
+		@location_request = LocationsRequestedShift.where(requested_shift_id: self.id, location_id: location.id).first
 		@location_request.assigned = true
 		@location_request.save
 	end

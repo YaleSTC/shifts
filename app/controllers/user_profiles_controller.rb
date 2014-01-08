@@ -3,12 +3,12 @@ before_filter :user_login
   def index
     @user_profiles = []
     @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.reverse_name}
-    @user_profile_fields =  UserProfileField.where(:index_display => true, :department_id => @department.id)
+    @user_profile_fields =  UserProfileField.where(index_display: true, department_id: @department.id)
   end
 
   def show
-    @user = User.where(:login => params[:id]).first
-    @user_profile = UserProfile.where(:user_id => @user.id).first
+    @user = User.where(login: params[:id]).first
+    @user_profile = UserProfile.where(user_id: @user.id).first
     unless @user_profile.user.departments.include?(@department)
       flash[:error] = "This user does not have a profile in this department."
     end
@@ -25,18 +25,18 @@ before_filter :user_login
     if @user_profile.save
       flash[:noticcurrent_user.is_admin_of(@department)] = "Successfully created user profile."
       if params[:user_profile] && params[:user_profile][:photo]
-        render :action => 'crop'
+        render action: 'crop'
       else
         redirect_to @user_profile
       end
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
   def edit
-    @user = User.where(:login => params[:id]).first
-    @user_profile = UserProfile.where(:user_id => @user.id).first
+    @user = User.where(login: params[:id]).first
+    @user_profile = UserProfile.where(user_id: @user.id).first
 
     #The dept admin can edit all parts of any profile in their department, and a regular user can only edit their own profile entries that are user editable
     if current_user.is_admin_of?(@department)
@@ -57,7 +57,7 @@ before_filter :user_login
 
     if crop_errors
       flash[:error] = "Cropping failed, please try again."
-      render :action => 'crop' and return
+      render action: 'crop' and return
     end
 
     if params[:user_profile_entries]
@@ -93,7 +93,7 @@ before_filter :user_login
 
     #If user uploaded a new photo, crop it
     if params[:user_profile] && params[:user_profile][:photo]
-      render :action => 'crop'
+      render action: 'crop'
     else
       redirect_to user_profile_path(@user.login)
     end
@@ -107,7 +107,7 @@ before_filter :user_login
   end
 
   def search
-    @user_profile_fields =  UserProfileField.where(:index_display => true, :department_id => @department.id)
+    @user_profile_fields =  UserProfileField.where(index_display: true, department_id: @department.id)
     users = current_department.active_users
     #filter results if we are searching
     if params[:search]
@@ -122,7 +122,7 @@ before_filter :user_login
     end
     @user_profiles = []
     for user in users
-      @user_profiles << UserProfile.where(:user_id => user.id).first
+      @user_profiles << UserProfile.where(user_id: user.id).first
     end
   end
 
@@ -133,7 +133,7 @@ before_filter :user_login
 
   private
   def user_login
-    @user_profile = UserProfile.where(:user_id => User.where(:login => params[:id]).first)
+    @user_profile = UserProfile.where(user_id: User.where(login: params[:id]).first)
   end
 
   def crop_errors

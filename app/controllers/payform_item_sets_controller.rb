@@ -40,13 +40,13 @@ class PayformItemSetsController < ApplicationController
         else
           flash[:error] = @payform_item_set.errors.full_messages.to_sentence
           @users_select = current_department.users.sort_by(&:name)
-          render :action => "new"
+          render action: "new"
         end 
       end
     rescue Exception => e
       flash[:error] = e.message
       @users_select = current_department.users.sort_by(&:name)
-      render :action => "new"
+      render action: "new"
     end
   end
   
@@ -106,13 +106,13 @@ class PayformItemSetsController < ApplicationController
         else
           flash[:error] = @payform_item_set.errors.full_messages.to_sentence
           @users_select = current_department.users.sort_by(&:name)
-          render :action => "edit"
+          render action: "edit"
         end
       end    
     rescue Exception => e
       flash[:error] = e.message
       @users_select = current_department.users.sort_by(&:name)
-      render :action => "edit"
+      render action: "edit"
     end
   end
   

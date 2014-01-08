@@ -10,7 +10,7 @@ describe ReportsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => Report.first
+    get :show, id: Report.first
     response.should render_template(:show)
   end
   
@@ -32,25 +32,25 @@ describe ReportsController do
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => Report.first
+    get :edit, id: Report.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
     Report.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Report.first
+    put :update, id: Report.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
     Report.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Report.first
+    put :update, id: Report.first
     response.should redirect_to(report_url(assigns[:report]))
   end
   
   it "destroy action should destroy model and redirect to index action" do
     report = Report.first
-    delete :destroy, :id => report
+    delete :destroy, id: report
     response.should redirect_to(reports_url)
     Report.exists?(report.id).should be_false
   end

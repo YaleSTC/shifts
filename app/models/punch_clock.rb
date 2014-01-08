@@ -6,7 +6,7 @@ class PunchClock < ActiveRecord::Base
   belongs_to :punch_clock_set
   
   validates_presence_of :user
-  validate :conflicting_shifts_or_clocks?, :on => :create
+  validate :conflicting_shifts_or_clocks?, on: :create
   
   def running_time
     no_of_sec = self.paused ? self.runtime : (Time.now - self.last_touched + runtime)
@@ -37,10 +37,10 @@ class PunchClock < ActiveRecord::Base
   def submit(description = "Punch clock for #{self.user.name}.")
     self.pause unless self.paused?
     if self.save
-      payform_item = PayformItem.new({:date => Date.today,
-                                    :category => Category.where(:name => "Punch Clocks").first,
-                                    :hours => (self.runtime/3600.0), # sec -> hr
-                                    :description => description})
+      payform_item = PayformItem.new({date: Date.today,
+                                    category: Category.where(name: "Punch Clocks").first,
+                                    hours: (self.runtime/3600.0), # sec -> hr
+                                    description: description})
       payform_item.payform = Payform.build(self.department, self.user, Date.today)
     end
     begin

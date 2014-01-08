@@ -2,12 +2,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 module PayformHelper
   def valid_payform_attributes
-    { :date => "2009-5-12".to_date,
-      :monthly => false,
-      :end_of_month => false,
-      :day => 1,
-      :department_id => 1,
-      :user_id => 1,
+    { date: "2009-5-12".to_date,
+      monthly: false,
+      end_of_month: false,
+      day: 1,
+      department_id: 1,
+      user_id: 1,
     }
   end
 end

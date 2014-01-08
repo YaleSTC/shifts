@@ -22,7 +22,7 @@ class RolesController < ApplicationController
       flash[:notice] = "Successfully created role."
       redirect_to department_roles_path(@department)
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -37,7 +37,7 @@ class RolesController < ApplicationController
       flash[:notice] = "Successfully updated role."
       redirect_to @role
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
