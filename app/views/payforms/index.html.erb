@@ -27,8 +27,8 @@
 	<% end %>
 </div>
 
-<%= observe_field :search, :frequency => 0.2, 
-                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :skipped => params[:skipped], :approved => params[:approved], :printed => params[:printed], :start_date => @start_date, :end_date => @end_date}, 
+<%= observe_field :search, :frequency => 0.2,
+                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :skipped => params[:skipped], :approved => params[:approved], :printed => params[:printed], :start_date => @start_date, :end_date => @end_date},
                            :with => :search %>
 
 <div id="payform_list">
@@ -37,7 +37,7 @@
 <br />
 <%= link_to "Your Current Payform", go_payforms_path, :class=>"button" %>
 <% if current_user.is_admin_of?(current_department) %>
-	<%= link_to "Print all approved payforms", payform_sets_path, :method => :post, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
+	<%= link_to "Print all approved payforms", create_payform_set_path, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
 	<%= link_to "Prune all empty payforms", prune_payforms_path, :method => :delete, :class=>"button" %>
 <% end %>
 

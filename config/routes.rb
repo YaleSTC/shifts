@@ -72,7 +72,12 @@ Shifts::Application.routes.draw do |map|
               end
 
   map.resources :payform_item_sets
+  # Temp fix for button not creating POST request for /payform_sets
+  map.create_payform_set '/payform_sets/create', :controller => 'payform_sets', :action => 'create'
   map.resources :payform_sets
+
+
+
   map.resources :department_configs, :only => [:edit, :update]
 
   map.resources :payforms,
