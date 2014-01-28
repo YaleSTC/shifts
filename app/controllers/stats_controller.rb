@@ -1,11 +1,11 @@
 class StatsController < ApplicationController
- 
+
   def index
     @start_date = interpret_start
     @end_date = interpret_end
     @user_stats = {}
     @location_stats = {}
-    
+
     users = current_user.to_a
     locations = []
     if current_user.is_admin_of?(current_department)
@@ -19,7 +19,7 @@ class StatsController < ApplicationController
         end
       end
     end
-    
+
     users.each do |u|
       user_stats = {}
       if params[:calendar]
@@ -27,12 +27,13 @@ class StatsController < ApplicationController
       else
         shifts = u.shifts.on_days(@start_date, @end_date).active
       end
-      
+
       user_stats[:u_id]             =   u.id
       user_stats[:name]             =   u.name
       user_stats[:first_name]       =   u.first_name
       user_stats[:last_name]        =   u.last_name
       user_stats[:email]            =   u.email
+      user_stats[:roles]            =   u.roles.map(&:name).join(", ")
       user_stats[:num_shifts]       =   shifts.size
       user_stats[:num_late]         =   shifts.late.size
       user_stats[:num_missed]       =   shifts.missed.size
@@ -40,7 +41,7 @@ class StatsController < ApplicationController
       user_stats[:hours_scheduled]  =   shifts.collect(&:duration).sum
       valid_report_stats            =   shifts.parsed.sum(:updates_hour)
       valid_report_stats_size       =   shifts.parsed.select{|s| s.updates_hour}.size
-      
+
       if valid_report_stats.nil? || valid_report_stats_size == 0
        user_stats[:updates] = nil
       else
@@ -48,18 +49,18 @@ class StatsController < ApplicationController
       end
       @user_stats[u.id] = user_stats
     end
-    
+
     locations.each do |l|
       location_stats = {}
       shifts = l.shifts.on_days(@start_date, @end_date).active
-      
+
       location_stats[:l_id]           =   l.id
       location_stats[:name]           =   l.name
       location_stats[:num_shifts]     =   shifts.size
       location_stats[:num_late]       =   shifts.late.size
       location_stats[:num_missed]     =   shifts.missed.size
       location_stats[:num_left_early] =   shifts.left_early.size
-      
+
       @location_stats[l.id] = location_stats
     end
 
@@ -79,7 +80,7 @@ class StatsController < ApplicationController
     redirect_to :action => 'for_user', :id => @user.id
     flash[:notice] = "Please enter a valid date range."
   end
-  
+
   def for_location
     @location = Location.find(params[:id])
     return unless user_is_admin_of(@location.loc_group)
@@ -89,9 +90,9 @@ class StatsController < ApplicationController
     @stats_hash = @location.detailed_stats(@start_date, @end_date)
   rescue
     redirect_to :action => 'for_location', :id => @location.id
-    flash[:notice] = "Please enter a valid date range."  
+    flash[:notice] = "Please enter a valid date range."
   end
-  
+
   def show
     begin
       @shift = Shift.find(params[:id])
@@ -109,9 +110,9 @@ class StatsController < ApplicationController
       return unless require_department_membership(@shift.department)
     end
   end
-  
+
   private
-  
+
   def interpret_start
     if params[:stat]
       return Date.civil(params[:stat][:"start_date(1i)"].to_i,params[:stat][:"start_date(2i)"].to_i,params[:stat][:"start_date(3i)"].to_i)
@@ -121,7 +122,7 @@ class StatsController < ApplicationController
       return 1.week.ago.to_date
     end
   end
-  
+
   def interpret_end
     if params[:stat]
       return Date.civil(params[:stat][:"end_date(1i)"].to_i,params[:stat][:"end_date(2i)"].to_i,params[:stat][:"end_date(3i)"].to_i)
@@ -131,5 +132,5 @@ class StatsController < ApplicationController
       return Date.today.to_date
     end
   end
-  
+
 end

@@ -26,11 +26,12 @@
           <th align="left">Late</th>
           <th align="left">Left Early</th>
           <th align="left">Missed</th>
-          <th align="left">Total Scheduled Hours</th>
+          <th align="left">Total Sched. Hours</th>
           <th align="left">Updates/Hour</th>
         <% end %>
         <% if current_user.is_admin_of?(current_department)%>
           <th align="left">Email</th>
+          <th align="left">Roles</th>
         <% end %>
       </tr>
     </thead>
@@ -51,8 +52,9 @@
             <td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
           <% end %>
           <% if current_user.is_admin_of?(current_department)%>
-            <td><%=h stat[:email] %></td>
-            <td><a href="mailto:<%=stat[:email]%>?cc=decal@yale.edu&subject=Missed+Shift+&BODY=This%20week%20you%20have%20missed%20<%=stat[:num_missed]%>%20of%20your%20scheduled%20shifts%2C%20without%20an%20excuse.%0A%0AIf%20you're%20having%20trouble%2C%20please%20contact%20us%20or%20your%20coordinators.%20The%20only%20time%20STs%20are%20truly%20reprimanded%20are%20when%20they%20don't%20communicate.%20You%20haven't%20communicated.%0A%0APlease%20be%20more%20careful%20in%20the%20future%20or%20we'll%20have%20to%20talk%20with%20you.">[email]</a></td>
+          <%#= TODO: Convert text to department setting  %>
+            <td><a href="mailto:<%=stat[:email]%>?cc=decal@yale.edu&subject=Missed+Shift+&BODY=This%20week%20you%20have%20missed%20<%=stat[:num_missed]%>%20of%20your%20scheduled%20shifts%2C%20without%20an%20excuse.%0A%0AIf%20you're%20having%20trouble%2C%20please%20contact%20us%20or%20your%20coordinators.%20The%20only%20time%20STs%20are%20truly%20reprimanded%20are%20when%20they%20don't%20communicate.%20You%20haven't%20communicated.%0A%0APlease%20be%20more%20careful%20in%20the%20future%20or%20we'll%20have%20to%20talk%20with%20you."><%= stat[:email] %></a></td>
+            <td><%=h stat[:roles] %></td>
           <% end %>
         </tr>
       <% end %>
