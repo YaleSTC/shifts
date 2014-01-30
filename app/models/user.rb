@@ -355,9 +355,23 @@ class User < ActiveRecord::Base
 
   # Creates new User entries based on the specified CSV file
   def self.import(file)
+    results = {successes: [], failures: []}
     CSV.foreach(file.path, headers: true) do |row|
-      User.create! row.to_hash
+      attrs = row.to_hash
+      roles = [Role.where(name: row["roles"]).first].compact
+      attrs.delete("roles")
+      u = User.new(attrs)
+      u.set_random_password
+      u.roles = roles
+      u.departments = [roles.first.department]
+
+      if u.save
+        results[:successes] << {name: "#{u.first_name} #{u.last_name}"}
+      else
+        results[:failures] << {name: "#{u.first_name} #{u.last_name}", errors: u.errors}
+      end
     end
+    results
   end
 
   private

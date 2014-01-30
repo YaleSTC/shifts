@@ -214,12 +214,10 @@ class UsersController < ApplicationController
   # Used for importing from CSV
   def verify_import
     file = params[:file]
-    flash[:notice]="The users in red already exist in this department and should not be imported. The users in yellow exist in other departments. They can be imported, but we figured you should know."
     begin
-      @users = User.import(file)
-      @no_nav = true
+      @results = User.import(file)
     rescue Exception => e
-      flash[:notice] = "The file you uploaded is invalid. Please make sure the file you upload is a csv file and the columns are in the right order."
+      flash[:notice] = "The following error was encountered: <br>#{e}<br><br> Please make sure the file you upload is a csv file and the columns are in the right order."
       render action: 'import'
     end
   end
