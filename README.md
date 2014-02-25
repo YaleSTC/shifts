@@ -154,6 +154,9 @@ Shallow routing is used but bear in mind form_for must be treated differently fo
 * `/loc_groups/:loc_group_id/*`
 	* (`require_loc_groug_admin`)
 
+## 5. Setting Up for Development
+
+See the wiki page [here](https://github.com/YaleSTC/shifts/wiki) for instructions on setting up a local Linux machine for development. 
 
 ## CREDITS
 
