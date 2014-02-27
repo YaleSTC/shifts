@@ -28,10 +28,13 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     chronic (0.5.0)
     cocaine (0.1.0)
+    faker (1.2.0)
+      i18n (~> 0.5)
     fastercsv (1.5.4)
     has_many_polymorphs (2.13)
       activerecord
     highline (1.6.15)
+    i18n (0.6.9)
     icalendar (1.1.6)
     mime-types (1.16)
     mysql (2.8.1)
@@ -79,6 +82,7 @@ DEPENDENCIES
   authlogic
   capistrano
   chronic
+  faker
   fastercsv
   has_many_polymorphs
   icalendar
