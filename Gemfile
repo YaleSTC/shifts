@@ -48,6 +48,8 @@ gem 'airbrake'
 group :development do
   gem 'jazz_hands'
   gem 'letter_opener'
+  gem 'faker'
+  gem 'rack-webconsole-pry', :require => 'rack-webconsole'
 end
 
 group :assets do
