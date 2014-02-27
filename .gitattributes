@@ -1,3 +1,6 @@
+# This .gitattributes file is based on the template from 
+# help.github.com/articles/dealing-with-line-endings
+
 # Set default behaviour, in case users don't have core.autocrlf set.
 * text=auto
 
