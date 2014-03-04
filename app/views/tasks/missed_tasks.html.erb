@@ -1,9 +1,5 @@
 <% title "Missed Tasks" %>
 
-<% content_for :head do %>
-  <% stylesheet 'report'%>  
-<% end %>
-
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
 		<% form_tag(:controller => 'tasks', :action => 'missed_tasks') do %>
@@ -21,6 +17,6 @@
 <h2>Recent missed instances of: <%= @task.name%></h2>
 
 		<%= render :partial => "task_items" %>
-		
+
 <br />
 <%= link_to "Back to List", tasks_path%>

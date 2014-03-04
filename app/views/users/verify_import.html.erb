@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <% stylesheet 'verify_import' %>
 <% title 'Verify Users to Import' %>
 <div id="form_div">
@@ -9,3 +10,13 @@
 <% end %>
 
 <%= javascript_include_tag 'verify_import' %>
+=======
+<% title 'Verify Users to Import' %>
+<div id="form_div">
+  <% if @users%>
+    <p><h3>Please examine what was uploaded and make changes as necessary.</h3></p>
+    <p><h5><strong>Note:</strong> The cells in this table are editable </h5></p>
+    <%= render :partial => "import_table" %>
+</div>
+  <% end %>
+>>>>>>> 217_line-endings

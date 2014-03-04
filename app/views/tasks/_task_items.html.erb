@@ -12,11 +12,11 @@
 		<td colspan=4>There are no records for this task.</td>
 	</tr>
 <% else %>
-	<% @shifts_tasks.each do |task| %>	
-	   <tr> 
+	<% @shifts_tasks.each do |task| %>
+	   <tr>
 		  <td><%=h task.created_at.strftime("%Y-%m-%d, %I:%M %p") %></td>
 		  <td><%=h link_to task.shift.user.name, user_path(task.shift.user)%></td>
-			<td id="shift<%=task.shift.id%>" class="<%= task.shift.css_class(current_user) %> click_to_show"><a href="#"><%= task.shift.task_time %></td> 
+			<td id="shift<%=task.shift.id%>" class="<%= task.shift.css_class(current_user) %> click_to_show"><a href="#"><%= task.shift.task_time %></td>
 		</tr>
 	<% end %>
 <% end %>
@@ -29,5 +29,3 @@
 <%= javascript_tag do %>
 	shiftsPath = '<%= shifts_path %>';
 <% end %>
-
-<%= javascript_include_tag 'tooltip' %>

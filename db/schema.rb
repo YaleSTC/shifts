@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711023828) do
+ActiveRecord::Schema.define(:version => 20131204024836) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -614,11 +614,12 @@ ActiveRecord::Schema.define(:version => 20130711023828) do
     t.integer  "user_id"
     t.string   "user_type"
     t.string   "user_name"
-    t.text     "changes"
+    t.text     "modifications"
     t.integer  "number"
     t.string   "tag"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "reverted_from"
   end
 
   add_index "versions", ["created_at"], :name => "index_versions_on_created_at"

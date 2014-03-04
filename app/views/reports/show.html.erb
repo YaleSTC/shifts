@@ -2,7 +2,7 @@
 
 <% if current_user == @report.user && !@report.departed %>
 	<div id = "left_stuff">
-		
+
 	  <fieldset class = "index" id = "report_message_center">
 	    <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
 	    <div id = "message_center">
@@ -11,12 +11,12 @@
 	    <%= link_to_post_a_sticky() %> <%= link_to_post_an_announcement %>
 	    </div>
 	  </fieldset>
-	
+
 	  <% unless mobile_device?%>
 	  	<%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 240 -%>
 	  <% end %>
 	</div>
-	
+
 	<div id = "right_stuff">
 
 	   <fieldset id = "report_data_objects" class = "index">
@@ -59,7 +59,7 @@
 	    	<%# TODO: Re-enable this once we figure out why it's crashing%>
 			<%#= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
 		<% end %>
-		
+
 <% end %>
 
 
@@ -84,5 +84,3 @@
 
 
 <% end %>
-
-<%= javascript_include_tag "reports_show" %>

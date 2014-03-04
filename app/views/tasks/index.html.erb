@@ -34,5 +34,3 @@
 <% if current_user.is_admin_of?(current_department)%>
   <%= link_to 'New Task', new_task_path %>
 <% end %>
-
-<%= javascript_include_tag 'tasks_index' %>

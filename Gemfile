@@ -1,28 +1,57 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '3.0.9'
-gem 'ruby-net-ldap', :require => 'net/ldap'
-gem 'icalendar'
-gem 'chronic'
-gem 'authlogic'
-gem 'ar_mailer', :require => 'action_mailer/ar_mailer'
-gem 'whenever'
-gem 'airbrake'
-gem 'activerecord-mysql2-adapter'
+gem 'rails', '3.2.13'
 gem 'mysql2'
-gem 'vestal_versions'
-gem 'rdoc', '~> 3.6.1'
-gem 'paperclip'
-gem 'htmlentities'
-gem 'capistrano'
-gem 'htmlentities'
+
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'jquery-tablesorter'
+gem 'jcrop-rails'
+gem 'superfish-rails'
+
+# ldap integration
+gem 'ruby-net-ldap', :require => 'net/ldap'
+
+# generate calendar feeds
+gem 'icalendar'
+
+# authentication
+gem 'authlogic'
+
+# simpler forms
 gem 'simple_form'
-# gem 'jazz_hands'
-gem 'letter_opener', :group => :development
-gem 'pry-rails', :group => :development
+
+# image upload
+gem 'paperclip'
+
+# model versioning (used for payform items)
+gem 'vestal_versions', git: 'https://github.com/laserlemon/vestal_versions.git'
+
+gem 'htmlentities'
+
+# deliver mail asynchronously
 gem 'mail'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
+
+# scheduled cron jobs
+gem 'whenever'
+
 #authentication
 gem 'rubycas-client-rails'
 gem 'rubycas-client', '2.2.1'
+
+# deployment
+gem 'capistrano'
+gem 'airbrake'
+
+group :development do
+  gem 'jazz_hands'
+  gem 'letter_opener'
+end
+
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+end

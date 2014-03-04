@@ -1,9 +1,5 @@
 <% title "Completed Tasks" %>
 
-<% content_for :head do %>
-  <% stylesheet 'report'%>  
-<% end %>
-
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
 		<% form_tag(:controller => 'tasks', :action => 'completed_tasks') do %>
