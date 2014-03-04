@@ -178,11 +178,6 @@ Shifts::Application.routes.draw do
   end
 
   #TODO Fix report items routing, this is temporary
-<<<<<<< HEAD
-  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_report_items => [:get, :post], :toggle => [:get, :post]}
-  map.resources :locations, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy], :collection => {:display_shift_history => [:get, :post], :toggle => [:get, :post]}
-  #map.resources :locations, :collection => {:display_report_items => [:post, :get], :toggle => [:post, :get], :index => [:post, :get]}, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
-=======
   resources :locations, except: [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy] do
     collection do
       get  :display_report_items
@@ -192,7 +187,6 @@ Shifts::Application.routes.draw do
     end
   end
   #resources :locations, :collection => {:display_report_items => [:post, :get], :toggle => [:post, :get], :index => [:post, :get]}, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
->>>>>>> 217_line-endings
 
   resources :data_types do
     resources :data_fields
