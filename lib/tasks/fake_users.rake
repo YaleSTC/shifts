@@ -6,7 +6,7 @@ namespace :db do
 
     require 'faker'
 
-    puts "renaming user names, emails, netids (login) and employee ids"
+    puts "renaming user names, emails, netids (login) and employee ids and removing profile photos"
     User.all.each do |user|
       user.first_name = Faker::Name.first_name
       user.last_name = Faker::Name.last_name
@@ -16,6 +16,13 @@ namespace :db do
       if !user.save
         puts "User id #{user.id} not saved! The error message:"
         user.errors.full_messages.each do |message|
+          puts message
+        end
+      end
+      user.user_profile.photo.clear
+      if !user.user_profile.save
+        puts "User id #{user.id} photo not removed! The error message:"
+        user.user_profile.errors.full_messages.each do |message|
           puts message
         end
       end
