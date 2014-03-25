@@ -20,7 +20,9 @@ Shifts::Application.routes.draw do
   resources :password_resets
   resources :user_configs, :only => [:edit, :update]
   resources :sub_requests
-  resources :notices, :collection => {:archive => :get}
+  resources :notices do 
+    get 'archive', on: :collection
+  end
   resources :payform_item_sets
   resources :payform_sets
   resources :department_configs, :only => [:edit, :update]

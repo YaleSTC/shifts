@@ -472,7 +472,7 @@ class Shift < ActiveRecord::Base
         #If users are signing up into a non-active calendar, we want to make sure we still respect the (non-active) timeslots present in that calendar
         c = TimeSlot.where("location_id = ? AND start <= ? AND end >= ? AND calendar_id = ?", self.location_id, self.start, self.end, self.calendar_id).count
       end
-      errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
+      errors.add(:base, "You can only sign up for a shift during a time slot.") if c == 0
     end
   end
 
@@ -484,12 +484,12 @@ class Shift < ActiveRecord::Base
       c = c.in_calendars(self.calendar)
     end
     unless c.empty?
-      errors.add_to_base("#{self.user.name} has an overlapping shift in that period.") unless (c.length == 1  and  self.id == c.first.id)
+      errors.add(:base, "#{self.user.name} has an overlapping shift in that period.") unless (c.length == 1  and  self.id == c.first.id)
     end
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't sign up for a shift that has already passed.") if self.start <= Time.now
+    errors.add(:base, "Can't sign up for a shift that has already passed.") if self.start <= Time.now
   end
 
   def does_not_exceed_max_concurrent_shifts_in_location
@@ -515,7 +515,7 @@ class Shift < ActiveRecord::Base
         end
       end
 
-      errors.add_to_base("#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
+      errors.add(:base, "#{self.location.name} only allows #{max_concurrent} concurrent shifts.") if people_count.values.select{|n| n >= max_concurrent}.size > 0
     end
   end
 
@@ -536,7 +536,7 @@ class Shift < ActiveRecord::Base
         time_slot_present = TimeSlot.active.in_location(prioritized_location).overlaps(time, (time + seconds_increment)).count >= 1
         # if at any time the location is not at min_staff and there is a timeslot, the validation fails
         if people_count < prioritized_location.min_staff && time_slot_present
-          errors.add_to_base("Signup slots in #{prioritized_location.name} are higher priority and must be filled first.")
+          errors.add(:base, "Signup slots in #{prioritized_location.name} are higher priority and must be filled first.")
           break
         end
         time += seconds_increment
@@ -568,7 +568,7 @@ class Shift < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add_to_base("Shift start and end dates must be within the range of the calendar.") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+      errors.add(:base, "Shift start and end dates must be within the range of the calendar.") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
     end
   end
 

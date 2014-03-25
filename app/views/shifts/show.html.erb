@@ -21,7 +21,7 @@
     <%= link_to "View report", shift_report_path(@shift) %>
   <% elsif current_user==@shift.user %>
     <p>
-    <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
+    <%= link_to "Request a sub for this shift", new_shift_sub_path(@shift) %>
     </p>
 	<% if within_sign_in_window?(@shift) %>
 	<p>
