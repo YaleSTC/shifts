@@ -90,14 +90,14 @@ EOF
       run "mkdir -p #{shared_path}/system/datas"
       run "mkdir -p #{shared_path}/assets/user_profiles"
       run "ln -nsfF #{shared_path}/log/ #{current_path}/log"
-      run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"      
+      run "ln -nsfF #{shared_path}/pids/ #{current_path}/tmp/pids"
       run "ln -nsfF #{shared_path}/sessions/ #{current_path}/tmp/sessions"
       run "ln -nsfF #{shared_path}/system/ #{current_path}/public/system"
       run "rm -rf #{current_path}/public/assets/user_profiles/"
       run "ln -nsfF #{shared_path}/assets/user_profiles #{current_path}/public/assets/"
-      run "mv #{current_path}/public/assets/default.jpg #{shared_path}/assets/user_profiles"
-    end    
-  end  
+      run "cp #{current_path}/public/assets/default.jpg #{shared_path}/assets/user_profiles"
+    end
+  end
 end
 
 # == DATABASE ==================================================================
@@ -137,7 +137,7 @@ namespace :deploy do
   desc "Create vhosts file for Passenger config"
   task :passenger_config, :roles => :app do
     run "sh -c \'echo \"RailsBaseURI /#{application_prefix}\" > #{apache_config_dir}/rails/rails_#{application}_#{application_prefix}.conf\'"
-    run "ln -s #{deploy_to}/current/public #{document_root}/#{application_prefix}"    
+    run "ln -s #{deploy_to}/current/public #{document_root}/#{application_prefix}"
   end
 
   desc "Create database"
