@@ -1,7 +1,7 @@
 $('#all_report_items').html('<%= escape_javascript render :partial => 'reports/report_item', :collection => @report.report_items  %>');
 // TODO: get the highlighting to work again
 // $('#current_report_item').highlight();
-$('#new_report_item').reset();
+$('#new_report_item')[0].reset();
 $('#fake_button').hide();
 $('#report_item_submit').show();
 
