@@ -1,11 +1,11 @@
 <div id = "report_item_form">
-  <%= remote_form_for [@report, @report_item] do |f| %>
+  <%= form_for([@report, @report_item], :remote => true) do |f| %>
     <%= f.error_messages %>
     <%= f.text_area :content, :id => 'item', :size => '40x3', :wrap => 'hard' %>
     <%= f.submit "Add to report", :title => 'Ctrl+Enter to add to shift report' %>
     <input id='fake_button' type='button' disabled='disabled' value='Add to report' style='display: none' />
-  <div id = "submit_button">
-  <%= params[:popup] %>
-  </div>
+  	<div id = "submit_button">
+  		<%= params[:popup] %>
+  	</div>
   <% end -%>
 </div>
