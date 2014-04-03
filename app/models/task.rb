@@ -6,7 +6,6 @@ class Task < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_presence_of :name, :kind
   validate :start_less_than_end
-  validate
   validates :link, allow_blank: true, format: {
     with: /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
   }
