@@ -32,6 +32,13 @@ namespace :db do
           puts message
         end
       end
+      user.user_profile.photo.clear
+      if !user.user_profile.save
+        puts "User id #{user.id} photo not removed! The error message:"
+        user.user_profile.errors.full_messages.each do |message|
+          puts message
+        end
+      end
     end
 
     def length_of_time_to_s(seconds)
