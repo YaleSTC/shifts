@@ -7,12 +7,25 @@ namespace :db do
     require 'faker'
 
     puts "renaming user names, emails, netids (login) and employee ids"
+
+    def is_login_unique(login, id) 
+      User.all.each do |user|
+        if user.login == login and user.id != id
+          return false
+        end
+      end
+      return true
+    end
+
     User.all.each do |user|
       user.first_name = Faker::Name.first_name
       user.last_name = Faker::Name.last_name
-      user.login = user.first_name.downcase.first + user.last_name.downcase.first + (6 + rand(994)).to_s
       user.email = Faker::Internet.email(user.first_name + ' ' + user.last_name)
       user.employee_id = Faker::Number.number(5)
+      begin
+        user.login = user.first_name.downcase.first + user.last_name.downcase.first + (6 + rand(994)).to_s
+      end while (!is_login_unique(user.login, user.id))
+
       if !user.save
         puts "User id #{user.id} not saved! The error message:"
         user.errors.full_messages.each do |message|
@@ -20,7 +33,6 @@ namespace :db do
         end
       end
     end
-
 
     def length_of_time_to_s(seconds)
       seconds = seconds.round
