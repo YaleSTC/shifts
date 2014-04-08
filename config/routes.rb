@@ -22,6 +22,7 @@ Shifts::Application.routes.draw do
   resources :sub_requests
   resources :notices do 
     get 'archive', on: :collection
+    get 'update_message_center', on: :collection
   end
   resources :payform_item_sets
   resources :payform_sets
