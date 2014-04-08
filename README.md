@@ -21,7 +21,7 @@
 
 ## 1. Introduction
 
-Shifts is a program that allows the easy tracking of employees who work scheduled (and even unscheduled) hours in various locations and times. It also offers payform features, allowing automatic logging of when employees work shifts, with the option for adding addition hours worked outside of shifts.
+Shifts is a program that allows the easy tracking of employees who work scheduled (and even unscheduled) hours in various locations and times. It also offers payform features, allowing automatic logging of when employees work shifts, with the option for adding additional hours worked outside of shifts.
 
 There are two sections of the application, one for employees who work shifts, and another for administrators, who manage these employees (Note: administrators can use the application as both administrators and employees, allowing them to perform administrative duties on top of using payforms, shifts, etc.)
 
@@ -53,7 +53,7 @@ Locations are places where you have employees working. Examples might be a front
 * Max and Min Staffing Desired
 
 ### Location Groups
-Every Location must belong to exactly one location group. Location groups not only serve as logical groupings, but more importantly, are used for access control. Permissions for things like who can work where are set by location group. This may be explained best by exapmle:
+Every Location must belong to exactly one location group. Location groups not only serve as logical groupings, but more importantly, are used for access control. Permissions for things like who can work where are set by location group. This may be explained best by example:
 
 Say you have two classes of employees, junior staff, and senior staff. You have four locations/positions where you regularly have staffing: a front desk, a courier, an assistant, and a supervisor. If you intend for the assistant and the supervisor shifts to only be staffed by senior staff, you would want to create two location groups. The first group would contain the 'front desk' and 'courier' locations, and the second group would contain the 'assistant' and 'supervisor' locations.
 
@@ -72,7 +72,7 @@ TODO: explains how time slots are used to allow shifts to be signup-able
 
 ## 2. Implementation
 
-We will use Ruby on Rails terminology here to make easier to explain. Each of the headings below corresponds to a model name and its controller name in plural. We try to stick to the RESTful approach. Note that for some controllers (eg. subs controller) we do not need all 7 standard actions (index, new, create, edit, update, show, destroy) – try to keep the design simple by not including unnecessary actions and views. Sometimes additional actions are needed.
+We will use Ruby on Rails terminology here to make easier to explain. Each of the headings below corresponds to a model name and its controller name in plural. We try to stick to the RESTful approach. Note that for some controllers (eg. subs controller) we do not need all 7 standard actions (index, new, create, edit, update, show, destroy) – we try to keep the design simple by not including unnecessary actions and views. Sometimes additional actions are needed.
 
 ### Shift
 * `new`: a shift sign-up page letting the user choose the start/end times and the location to work a shift in
@@ -156,7 +156,7 @@ Shallow routing is used but bear in mind form_for must be treated differently fo
 
 ## 5. Setting Up for Development
 
-See the wiki page [here](https://github.com/YaleSTC/shifts/wiki) for instructions on setting up a local Linux machine for development. 
+See the wiki page [here](https://github.com/YaleSTC/shifts/wiki) for instructions on setting up a Linux machine for development. 
 
 ## CREDITS
 
