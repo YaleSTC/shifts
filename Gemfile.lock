@@ -89,6 +89,8 @@ GEM
     diffy (3.0.1)
     erubis (2.7.0)
     execjs (2.0.2)
+    faker (1.2.0)
+      i18n (~> 0.5)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
@@ -176,6 +178,11 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack-webconsole-pry (0.1.9)
+      json
+      multi_json (>= 1.0.3)
+      pry
+      rack
     rails (3.2.13)
       actionmailer (= 3.2.13)
       actionpack (= 3.2.13)
@@ -250,6 +257,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   delayed_job_active_record
   delayed_job_web
+  faker
   htmlentities
   icalendar
   jazz_hands
@@ -261,6 +269,7 @@ DEPENDENCIES
   mail
   mysql2
   paperclip
+  rack-webconsole-pry
   rails (= 3.2.13)
   ruby-net-ldap
   rubycas-client (= 2.2.1)
