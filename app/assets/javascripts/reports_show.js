@@ -13,4 +13,12 @@ $(document).ready(function(){
 	  $('#fake_button').show();
 	  return true;
 	});
+
+	setInterval(updateNotices,5000);
 });
+
+function updateNotices(){
+	if ($('#update_notices').length) {
+		$.get('/notices/update_message_center');
+	}
+}

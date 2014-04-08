@@ -13,7 +13,9 @@
 	  </fieldset>
 
 	  <% unless mobile_device?%>
+	  	<div id = "update_notices">
 	  	<%#= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 240 -%>
+	  	</div>
 	  <% end %>
 	</div>
 
