@@ -4,6 +4,7 @@ Shifts::Application.routes.draw do
     member do
       post :make_entry
     end
+    get 'update_tasks', on: :collection
   end
 
   resources :shifts_tasks
