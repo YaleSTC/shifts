@@ -14,6 +14,7 @@
 
 	  <% unless mobile_device?%>
 	  	<div id = "update_notices">
+	  	<!-- The following is deprecated. Now in report_show.js in assets-->
 	  	<%#= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 240 -%>
 	  	</div>
 	  <% end %>
@@ -37,7 +38,9 @@
 	  </fieldset>
 
 	  <% unless mobile_device?%>
+	  	<div id = "update_tasks">
 		  <%#= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 300 -%>
+	  	</div>
 	  <% end %>
 
 	  <fieldset id = "shift_tasks" class= "index">
