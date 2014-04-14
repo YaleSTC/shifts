@@ -160,6 +160,7 @@ Shifts::Application.routes.draw do
     member do
       get :popup
       get :update_reports
+      post :custom_search
     end
     resources :report_items
   end
