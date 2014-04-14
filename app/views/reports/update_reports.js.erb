@@ -1,4 +1,4 @@
-// unless current_user.current_shift.nil?
-$("#all_report_items").html('<%= render :partial => "reports/report_item", :collection => @report.report_items %>');
-tb_init('a#edit');
-// end
+<% unless current_user.current_shift.nil? %>
+	$("#all_report_items").html('<%= escape_javascript render :partial => "reports/report_item", :collection => @report.report_items %>');
+	tb_init('a#edit');
+<% end %>
