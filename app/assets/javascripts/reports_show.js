@@ -22,7 +22,7 @@ $(document).ready(function(){
 	if ($('#update_tasks').length) {
 		setInterval(function(){
 			$.get('/tasks/update_tasks');
-		},5000);
+		},300000);
 	}
 
 });
