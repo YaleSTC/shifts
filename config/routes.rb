@@ -159,6 +159,7 @@ Shifts::Application.routes.draw do
   resources :reports, :except => [:new] do
     member do
       get :popup
+      get :update_reports
     end
     resources :report_items
   end
