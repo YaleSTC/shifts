@@ -148,7 +148,7 @@ class TimeSlot < ActiveRecord::Base
   end
 
   def start_less_than_end
-    errors.add(:start, "must be earlier than end time.") if (self.end <= start)
+    errors.add(:base, "Start time should not be less than end time.") if (start >= self.end)
   end
 
   def no_concurrent_timeslots
@@ -160,7 +160,7 @@ class TimeSlot < ActiveRecord::Base
       c = TimeSlot.where("start < ? AND end > ? AND location_id = ? AND calendar_id = ? #{dont_conflict_with_self}", self.end, self.start, self.location, self.calendar.id).count
     end
     unless c == 0
-      errors.add_to_base("There is a conflicting timeslot.")
+      errors.add(:base, "There is a conflicting timeslot.")
     end
   end
 
@@ -174,7 +174,7 @@ class TimeSlot < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add_to_base("Time slot start and end times must be within the range of the calendar.") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+      errors.add(:base, "Time slot start and end times must be within the range of the calendar.") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
     end
   end
 end

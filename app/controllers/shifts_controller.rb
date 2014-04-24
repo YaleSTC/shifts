@@ -145,20 +145,10 @@ class ShiftsController < ApplicationController
       end
       respond_to do |format|
         format.html{ flash[:notice] = "Successfully created shift."; redirect_to(shifts_path)}
-        format.js
       end
     else
       respond_to do |format|
         format.html{ render action: 'new' }
-        format.js do
-          render :update do |page|
-            error_string = ""
-            @shift.errors.each do |attr_name, message|
-              error_string += "<br><br>#{attr_name}: #{message}"
-            end
-            ajax_alert(page, "<strong>Error:</strong> shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
-          end
-        end
       end
     end
   end
