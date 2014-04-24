@@ -26,7 +26,7 @@
           <td><%= loc.priority %></td>
           <td><%= loc.min_staff %></td>
 		  <td><%= link_to "All Shifts", :action => :display_report_items, :id => loc %> </td>
-          <td><%= link_to (loc.active ? "Deactivate" : "Restore"), url: { action: 'toggle', id: loc.id }, remote: true, :html => { :class => 'toggle_link' }%></td>
+          <td><%= link_to (loc.active ? "Deactivate" : "Restore"), { action: 'toggle', id: loc.id }, remote: true, :class => 'toggle_link'%></td>
 		  <% end %>
          </tr>
       <% end -%>
