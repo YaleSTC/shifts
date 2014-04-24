@@ -184,7 +184,7 @@ Shifts::Application.routes.draw do
   end
 
   #TODO Fix report items routing, this is temporary
-  resources :locations, except: [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy] do
+  resources :locations, except: [:find_allowed_locations] do
     collection do
       get  :display_report_items
       post :display_report_items
