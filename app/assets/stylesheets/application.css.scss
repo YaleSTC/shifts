@@ -9,14 +9,14 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require reset
- *= require_self
- *= require_tree .
  *= require jquery.ui.all
  *= require jquery-tablesorter/theme.default
  *= require jcrop
  *= require superfish
  *= require superfish-vertical
  *= require superfish-navbar
+ *= require_self
+ *= require_tree .
 */
 
 
