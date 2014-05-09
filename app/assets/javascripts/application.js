@@ -40,10 +40,9 @@ $(document).ready(function() {
         $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
 
-    // Superfish does NOT work yet!
-    // $("ul.sf-menu").superfish({
-    //         animation: {height:'show'},   // slide-down effect without fade-in
-    //         delay:     1200               // 1.2 second delay on mouseout
-    // });
+    $("ul.sf-menu").superfish({
+            animation: {height:'show'},   // slide-down effect without fade-in
+            delay:     1200               // 1.2 second delay on mouseout
+    });
 
 });
