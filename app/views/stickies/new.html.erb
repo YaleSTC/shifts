@@ -1,5 +1,5 @@
 <%= yield :head %>
-<% form_remote_for(@sticky) do |f| %>
+<%= form_for(@sticky, remote: true) do |f| %>
   <div id ="errors">
     <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
   </div>

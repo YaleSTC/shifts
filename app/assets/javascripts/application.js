@@ -5,6 +5,7 @@
 //= require jcrop
 //= require superfish
 //= require hoverIntent
+//= require thickbox-compressed
 //= require_tree .
 
 //Don't load anything before the document is ready.
