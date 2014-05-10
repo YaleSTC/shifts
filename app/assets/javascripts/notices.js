@@ -12,7 +12,7 @@ jQuery($("#TB_ajaxContent")).ready(function(){
     $("#toggle_link").click(function(){
       if($(this).css("display")!="none") {
             $("#toggle_link").html('Show advanced options');
-      $("#TB_ajaxContent").animate({ height:'-=' + $("#variable_height_box").outerHeight() }, 300 );
+            $("#TB_ajaxContent").animate({ height:'-=' + $("#variable_height_box").outerHeight() }, 300 );
       }
         $("#advanced_options_div").toggle(function(){
         if ($(this).css("display")!="none") {
