@@ -1,5 +1,5 @@
-// Ctrl+Enter adds to the report
 $(document).ready(function(){
+	// Ctrl+Enter adds to the report
 	$('#item').keydown(function (e) {
 	  if (e.keyCode === 13 && e.ctrlKey) {
 	    $('#report_item_submit').click();
@@ -7,12 +7,6 @@ $(document).ready(function(){
 	  }
 	});
 
-	$('#report_item_submit').click(function () {
-	  // $('#report_item_submit').attr('disabled', true);
-	  $(this).hide();
-	  $('#fake_button').show();
-	  return true;
-	});
 	
 	if ($('#update_notices').length) {
 		var freq1=$('#update_notices').data('frequency')*1000;
