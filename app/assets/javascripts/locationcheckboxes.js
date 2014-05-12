@@ -6,16 +6,16 @@ $(document).ready(function(){
 
 //checking the dept box - checks/unchecks everything
     $("#department_wide_locations").click(function(){
-        var dept_status = $("#department_wide_locations").attr('checked');
+        var dept_status = $("#department_wide_locations").prop('checked');
 		$("div#all_locations :checkbox").each(function(){
-            $(this).attr('checked', dept_status);
+            $(this).prop('checked', dept_status);
         });
 	});
 //checking the loc_group - checks/unchecks all locations in the group
     $("input[name^='for_location_group']").click(function(){
-        var locgroup_status = $(this).attr('checked');
+        var locgroup_status = $(this).prop('checked');
         $(this).siblings('input[type=checkbox]').each(function(){
-            $(this).attr('checked', locgroup_status);
+            $(this).prop('checked', locgroup_status);
         });
     });
 
@@ -25,10 +25,10 @@ $(document).ready(function(){
     $("input[name^='for_locations']").click(function(){
         var loccheck = true;
         $(this).closest('li').children("input[name^='for_locations']").each(function() {
-            if($(this).attr('checked') == false)
+            if($(this).prop('checked') == false)
                 {loccheck = false}
         })
-        $(this).closest('li').children("input[name^='for_location_group']").attr('checked', loccheck)
+        $(this).closest('li').children("input[name^='for_location_group']").prop('checked', loccheck)
 });
 
 //if any location group is unchecked, uncheck the dept box
@@ -36,10 +36,10 @@ $(document).ready(function(){
     $("input[name^='for_locations'],input[name^=for_location_group]").click(function(){
         var deptcheck = true;
         $("#all_locations").find("input[name^='for_locations']").each(function() {
-            if($(this).attr('checked') == false)
+            if($(this).prop('checked') == false)
                 {deptcheck = false}
         })
-        $("#department_wide_locations").attr('checked', deptcheck)
+        $("#department_wide_locations").prop('checked', deptcheck)
 });
 
 
