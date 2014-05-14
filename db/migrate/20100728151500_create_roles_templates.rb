@@ -1,6 +1,6 @@
 class CreateRolesTemplates < ActiveRecord::Migration
   def self.up
-    create_table :roles_templates, :id => false do |t|
+    create_table :roles_templates, id: false do |t|
       t.references :role
       t.references :template
 

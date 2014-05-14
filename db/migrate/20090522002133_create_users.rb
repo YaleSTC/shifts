@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_salt
       t.string :persistence_token
       t.string :auth_type
-      t.string :perishable_token, :default => "", :null =>false
+      t.string :perishable_token, default: "", null: false
       t.references :default_department
       t.timestamps
     end

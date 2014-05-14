@@ -1,6 +1,6 @@
 class AddDuePayformEmailToUserConfig < ActiveRecord::Migration
   def self.up
-    add_column :user_configs, :send_due_payform_email, :boolean, :default=>true
+    add_column :user_configs, :send_due_payform_email, :boolean, default: true
   end
 
   def self.down

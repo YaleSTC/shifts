@@ -6,7 +6,7 @@ class CreateCalendars < ActiveRecord::Migration
       t.datetime :end_date
       t.boolean :active
       t.references :department
-      t.boolean :default, :default => false
+      t.boolean :default, default: false
       t.timestamps
     end
   end
