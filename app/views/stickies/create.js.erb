@@ -33,9 +33,9 @@
   <% flash.discard %>
   <% if session[:mobile_param] =='1' %>
     <% if @in_shift %>
-      window.location = "<%= url_for(controller: 'reports', action: 'show', id: @current_shift.report.id) %>";
+      window.location.replace("<%= report_path @current_shift.report %>");
     <% else %>
-      window.location = "<%= url_for(controller: 'dashboard', action: 'index')%>";
+      window.location.replace("<%= root_path %>");
     <% end %>
   <% end %>
 <% else %>
