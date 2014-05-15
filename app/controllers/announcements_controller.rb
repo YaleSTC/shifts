@@ -30,7 +30,7 @@ class AnnouncementsController < NoticesController
 		@current_shift = current_user.current_shift
 
     Announcement.transaction do
-      @announcement.save(false)
+      @announcement.save(validate: false)
       set_sources(@announcement)
       @announcement.save!
       @current_notices = current_department.current_notices
@@ -39,14 +39,14 @@ class AnnouncementsController < NoticesController
 		flash[:notice] = 'Announcement was successfully created.'
     respond_to do |format|
       format.html { redirect_to announcements_path }
-      format.js  #create.js.rjs
+      format.js  #create.js.erb
     end
 
     rescue Exception
       respond_to do |format|
         format.html { render action: "new" }
-        format.js  #create.js.rjs
-      end
+        format.js  #create.js.erb
+    end
   end
 
   def update
