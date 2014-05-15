@@ -58,9 +58,10 @@ class AnnouncementsController < NoticesController
 		current_user.current_shift ? @current_shift = current_user.current_shift : nil
     begin
       Announcement.transaction do
-        @announcement.save(false)
+        @announcement.save(validate: false)
         set_sources(@announcement)
         @announcement.save!
+        @current_notices = current_department.current_notices
       end
     rescue Exception
         respond_to do |format|
@@ -69,8 +70,8 @@ class AnnouncementsController < NoticesController
         end
       else
         respond_to do |format|
+        flash[:notice] = 'Announcement was successfully saved.'
         format.html {
-          flash[:notice] = 'Announcement was successfully saved.'
           redirect_to action: "index"
         }
 				format.js
