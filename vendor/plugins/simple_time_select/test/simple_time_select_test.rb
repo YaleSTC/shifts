@@ -36,7 +36,7 @@ class SimpleTimeSelectTest < Test::Unit::TestCase
   
   def test_simple_time_select_default
     # Default time is 9:00pm
-    time = Time.now.change(:hour => 21)
+    time = Time.now.change(hour: 21)
     
     options = []
     0.upto(23) do |hour|
@@ -45,17 +45,17 @@ class SimpleTimeSelectTest < Test::Unit::TestCase
         options.push  [ ampm_hour(hour).to_s+":"+zero_pad_num(minute*15)+" "+meridiem, zero_pad_num(hour)+":"+zero_pad_num(minute*15)+":00" ]
       end
     end
-    expected = select_tag 'date[minute]', options_for_select(options, "21:00:00"), :id => 'date_minute'  
-    actual = select_minute time, :simple_time_select => true
+    expected = select_tag 'date[minute]', options_for_select(options, "21:00:00"), id: 'date_minute'  
+    actual = select_minute time, simple_time_select: true
     assert_equal(expected.nstrip, actual.nstrip, "Simple Time Select generation")
   end
 
   def test_usual_time_select
     # Default time is 9:00pm
-    time = Time.now.change(:hour => 21)
+    time = Time.now.change(hour: 21)
 
     options = options_for_select((0..59).to_a.map { |m| "%02d" % m }, "00")
-    expected = select_tag 'date[minute]', options, :id => 'date_minute'
+    expected = select_tag 'date[minute]', options, id: 'date_minute'
     expected.nstrip!
 
     # The select_tag helper puts selected="selected" after the value in the options tag
@@ -64,7 +64,7 @@ class SimpleTimeSelectTest < Test::Unit::TestCase
     # selected="selected" from both before I compare
     expected = expected.strip_selected
     
-    actual = select_minute time, :simple_time_select => false
+    actual = select_minute time, simple_time_select: false
     actual = actual.strip_selected
     assert_equal(expected, actual.nstrip, "Usual time select with explicit option")
 
@@ -75,9 +75,9 @@ class SimpleTimeSelectTest < Test::Unit::TestCase
   
   # TODO
   def test_start_and_end_hour
-    time = Time.now.change(:hour => 21)
+    time = Time.now.change(hour: 21)
     # 10 AM to 2 PM
-    output = select_minute time, :simple_time_select => true, :start_hour => 10, :end_hour => 14
+    output = select_minute time, simple_time_select: true, start_hour: 10, end_hour: 14
     puts "#{output.inspect}"
   end
 end

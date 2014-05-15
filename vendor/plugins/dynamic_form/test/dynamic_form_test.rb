@@ -197,12 +197,12 @@ class DynamicFormTest < ActionView::TestCase
   def test_form_with_method_option
     assert_dom_equal(
       %(<form action="create" method="get"><p><label for="post_title">Title</label><br /><input id="post_title" name="post[title]" size="30" type="text" value="Hello World" /></p>\n<p><label for="post_body">Body</label><br /><div class="fieldWithErrors"><textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea></div></p><input name="commit" type="submit" value="Create" /></form>),
-      form("post", :method=>'get')
+      form("post", method: 'get')
     )
   end
 
   def test_form_with_action_option
-    output_buffer << form("post", :action => "sign")
+    output_buffer << form("post", action: "sign")
     assert_select "form[action=sign]" do |form|
       assert_select "input[type=submit][value=Sign]"
     end
@@ -233,9 +233,9 @@ class DynamicFormTest < ActionView::TestCase
 
   def test_error_for_block
     assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>1 error prohibited this post from being saved</h2><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post")
-    assert_equal %(<div class="errorDeathByClass" id="errorDeathById"><h1>1 error prohibited this post from being saved</h1><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", :class => "errorDeathByClass", :id => "errorDeathById", :header_tag => "h1")
-    assert_equal %(<div id="errorDeathById"><h1>1 error prohibited this post from being saved</h1><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", :class => nil, :id => "errorDeathById", :header_tag => "h1")
-    assert_equal %(<div class="errorDeathByClass"><h1>1 error prohibited this post from being saved</h1><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", :class => "errorDeathByClass", :id => nil, :header_tag => "h1")
+    assert_equal %(<div class="errorDeathByClass" id="errorDeathById"><h1>1 error prohibited this post from being saved</h1><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", class: "errorDeathByClass", id: "errorDeathById", header_tag: "h1")
+    assert_equal %(<div id="errorDeathById"><h1>1 error prohibited this post from being saved</h1><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", class: nil, id: "errorDeathById", header_tag: "h1")
+    assert_equal %(<div class="errorDeathByClass"><h1>1 error prohibited this post from being saved</h1><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", class: "errorDeathByClass", id: nil, header_tag: "h1")
   end
 
   def test_error_messages_for_escapes_html
@@ -266,11 +266,11 @@ class DynamicFormTest < ActionView::TestCase
   end
 
   def test_error_message_on_with_options_hash
-    assert_dom_equal "<div class=\"differentError\">beforecan't be emptyafter</div>", error_message_on(:post, :author_name, :css_class => 'differentError', :prepend_text => 'before', :append_text => 'after')
+    assert_dom_equal "<div class=\"differentError\">beforecan't be emptyafter</div>", error_message_on(:post, :author_name, css_class: 'differentError', prepend_text: 'before', append_text: 'after')
   end
 
   def test_error_message_on_with_tag_option_in_options_hash
-    assert_dom_equal "<span class=\"differentError\">beforecan't be emptyafter</span>", error_message_on(:post, :author_name, :html_tag => "span", :css_class => 'differentError', :prepend_text => 'before', :append_text => 'after')
+    assert_dom_equal "<span class=\"differentError\">beforecan't be emptyafter</span>", error_message_on(:post, :author_name, html_tag: "span", css_class: 'differentError', prepend_text: 'before', append_text: 'after')
   end
 
   def test_error_message_on_handles_empty_errors
@@ -284,24 +284,24 @@ class DynamicFormTest < ActionView::TestCase
     assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this user from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for("user", "post")
 
     # add the default to put post back in the title
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this post from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for("user", "post", :object_name => "post")
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this post from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for("user", "post", object_name: "post")
 
     # symbols work as well
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this post from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, :object_name => :post)
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this post from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, object_name: :post)
 
     # any default works too
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this monkey from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, :object_name => "monkey")
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this monkey from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, object_name: "monkey")
 
     # should space object name
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this chunky bacon from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, :object_name => "chunky_bacon")
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this chunky bacon from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, object_name: "chunky_bacon")
 
     # hide header and explanation messages with nil or empty string
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, :header_message => nil, :message => "")
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, header_message: nil, message: "")
 
     # override header and explanation messages
     header_message = "Yikes! Some errors"
     message = "Please fix the following fields and resubmit:"
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>#{header_message}</h2><p>#{message}</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, :header_message => header_message, :message => message)
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>#{header_message}</h2><p>#{message}</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for(:user, :post, header_message: header_message, message: message)
   end
 
   def test_error_messages_for_non_instance_variable
@@ -311,13 +311,13 @@ class DynamicFormTest < ActionView::TestCase
     @post = nil
 
   #explicitly set object
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>1 error prohibited this post from being saved</h2><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", :object => actual_post)
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>1 error prohibited this post from being saved</h2><p>There were problems with the following fields:</p><ul><li>Author name can't be empty</li></ul></div>), error_messages_for("post", object: actual_post)
 
   #multiple objects
-    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this user from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for("user", "post", :object => [actual_user, actual_post])
+    assert_dom_equal %(<div class="errorExplanation" id="errorExplanation"><h2>2 errors prohibited this user from being saved</h2><p>There were problems with the following fields:</p><ul><li>User email can't be empty</li><li>Author name can't be empty</li></ul></div>), error_messages_for("user", "post", object: [actual_user, actual_post])
 
   #nil object
-    assert_equal '', error_messages_for('user', :object => nil)
+    assert_equal '', error_messages_for('user', object: nil)
   end
 
   def test_error_messages_for_model_objects
@@ -333,12 +333,12 @@ class DynamicFormTest < ActionView::TestCase
   def test_form_with_string_multipart
     assert_dom_equal(
       %(<form action="create" enctype="multipart/form-data" method="post"><p><label for="post_title">Title</label><br /><input id="post_title" name="post[title]" size="30" type="text" value="Hello World" /></p>\n<p><label for="post_body">Body</label><br /><div class="fieldWithErrors"><textarea cols="40" id="post_body" name="post[body]" rows="20">Back to the hill and over it again!</textarea></div></p><input name="commit" type="submit" value="Create" /></form>),
-      form("post", :multipart => true)
+      form("post", multipart: true)
     )
   end
 
   def test_default_form_builder_with_dynamic_form_helpers
-    form_for(@post, :as => :post, :url => {}) do |f|
+    form_for(@post, as: :post, url: {}) do |f|
       concat f.error_message_on('author_name')
       concat f.error_messages
     end
@@ -355,7 +355,7 @@ class DynamicFormTest < ActionView::TestCase
     post = @post
     @post = nil
 
-    form_for(post, :as => :post, :url => {}) do |f|
+    form_for(post, as: :post, url: {}) do |f|
       concat f.error_message_on('author_name')
       concat f.error_messages
     end

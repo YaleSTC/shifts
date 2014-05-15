@@ -84,7 +84,7 @@ module Rails
         
         if (path == ":controller/:action/:id.:format" || path == ":controller/:action/:id")
           if !@default_route_generated
-            current_parent << FakeRoute.new("/:controller(/:action(/:id))", {:default_route => true})
+            current_parent << FakeRoute.new("/:controller(/:action(/:id))", {default_route: true})
           
             @default_route_generated = true
           end

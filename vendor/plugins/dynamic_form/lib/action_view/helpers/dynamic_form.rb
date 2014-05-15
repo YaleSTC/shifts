@@ -75,11 +75,11 @@ module ActionView
 
         options = options.symbolize_keys
         options[:action] ||= record.persisted? ? "update" : "create"
-        action = url_for(:action => options[:action], :id => record)
+        action = url_for(action: options[:action], id: record)
 
         submit_value = options[:submit_value] || options[:action].gsub(/[^\w]/, '').capitalize
 
-        contents = form_tag({:action => action}, :method =>(options[:method] || 'post'), :enctype => options[:multipart] ? 'multipart/form-data': nil)
+        contents = form_tag({action: action}, method: (options[:method] || 'post'), enctype: options[:multipart] ? 'multipart/form-data': nil)
         contents.safe_concat hidden_field(record_name, :id) if record.persisted?
         contents.safe_concat all_input_tags(record, record_name, options)
         yield contents if block_given?
@@ -117,7 +117,7 @@ module ActionView
           options[:html_tag] = args[2] || 'div'
           options[:css_class] = args[3] || 'formError'
         end
-        options.reverse_merge!(:prepend_text => '', :append_text => '', :html_tag => 'div', :css_class => 'formError')
+        options.reverse_merge!(prepend_text: '', append_text: '', html_tag: 'div', css_class: 'formError')
 
         object = convert_to_model(object)
 
@@ -125,7 +125,7 @@ module ActionView
           (errors = obj.errors[method]).presence
           content_tag(options[:html_tag],
             (options[:prepend_text].html_safe << errors.first).safe_concat(options[:append_text]),
-            :class => options[:css_class]
+            class: options[:css_class]
           )
         else
           ''
@@ -212,11 +212,11 @@ module ActionView
           end
           options[:object_name] ||= params.first
 
-          I18n.with_options :locale => options[:locale], :scope => [:errors, :template] do |locale|
+          I18n.with_options locale: options[:locale], scope: [:errors, :template] do |locale|
             header_message = if options.include?(:header_message)
               options[:header_message]
             else
-              locale.t :header, :count => count, :model => options[:object_name].to_s.gsub('_', ' ')
+              locale.t :header, count: count, model: options[:object_name].to_s.gsub('_', ' ')
             end
 
             message = options.include?(:message) ? options[:message] : locale.t(:body)

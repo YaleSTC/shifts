@@ -206,9 +206,9 @@ module FightTheMelons #:nodoc:
         root_options[:initial_alternate] = alt if alternate
         
         child_options = {
-          :depth => depth - 1,
-          :initial_level => initial_level + 1,
-          :inner_class => inner_class,
+          depth: depth - 1,
+          initial_level: initial_level + 1,
+          inner_class: inner_class,
         }
         child_options = options.merge(child_options)
         child_options[:initial_alternate] = !alt if alternate
@@ -308,8 +308,8 @@ module FightTheMelons #:nodoc:
         av_content_tag(
           FormMultipleSelectHelperConfiguration.list_tags[0],
           checkboxes,
-          :class => outer_class
-        ) << "\n" << hidden_field_tag("#{name}[]", '', :id => nil)
+          class: outer_class
+        ) << "\n" << hidden_field_tag("#{name}[]", '', id: nil)
       end
       
     private
@@ -351,14 +351,14 @@ module FightTheMelons #:nodoc:
           is_selected = selected_items.include?(item.last)
           is_disabled = is_disabled.include?(item.last) if is_disabled.respond_to?(:include?)
           item_id = idfy("#{name}#{item.last}")
-          cbt = check_box_tag("#{name}[]", html_escape(item.last.to_s), is_selected, :id => item_id, :disabled => is_disabled)
-          lbt = av_content_tag('label', html_escape(item.first.to_s), :for => item_id)
+          cbt = check_box_tag("#{name}[]", html_escape(item.last.to_s), is_selected, id: item_id, disabled: is_disabled)
+          lbt = av_content_tag('label', html_escape(item.first.to_s), for: item_id)
         else
           is_selected = selected_items.include?(item)
           is_disabled = is_disabled.include?(item) if is_disabled.respond_to?(:include?)
           item_id = idfy("#{name}#{item.to_s}")
-          cbt = check_box_tag("#{name}[]", html_escape(item.to_s), is_selected, :id => item_id, :disabled => is_disabled)
-          lbt = av_content_tag('label', html_escape(item.to_s), :for => item_id)
+          cbt = check_box_tag("#{name}[]", html_escape(item.to_s), is_selected, id: item_id, disabled: is_disabled)
+          lbt = av_content_tag('label', html_escape(item.to_s), for: item_id)
         end
         
         item_class = is_alternate ? "#{inner_class} #{alternate_class}".strip : inner_class
@@ -368,7 +368,7 @@ module FightTheMelons #:nodoc:
         av_content_tag(
           FormMultipleSelectHelperConfiguration.list_tags[1],
           position == :left ? lbt + cbt + extra : cbt + lbt + extra,
-          :class => item_class
+          class: item_class
         )
       end
       

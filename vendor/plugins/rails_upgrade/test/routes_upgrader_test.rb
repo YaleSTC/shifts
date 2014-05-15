@@ -57,27 +57,27 @@ end
   end
   
   def test_generates_code_for_regular_route
-    route = Rails::Upgrading::FakeRoute.new("/about", {:controller => 'static', :action => 'about'})
+    route = Rails::Upgrading::FakeRoute.new("/about", {controller: 'static', action: 'about'})
     assert_equal "match '/about' => 'static#about'", route.to_route_code
   end
   
   def test_generates_code_for_named_route
-    route = Rails::Upgrading::FakeRoute.new("/about", {:controller => 'static', :action => 'about'}, "about")
+    route = Rails::Upgrading::FakeRoute.new("/about", {controller: 'static', action: 'about'}, "about")
     assert_equal "match '/about' => 'static#about', :as => :about", route.to_route_code
   end
   
   def test_generates_code_for_namespace
     ns = Rails::Upgrading::FakeNamespace.new("static")
     # Add a route to the namespace
-    ns << Rails::Upgrading::FakeRoute.new("/about", {:controller => 'static', :action => 'about'})
+    ns << Rails::Upgrading::FakeRoute.new("/about", {controller: 'static', action: 'about'})
     
     assert_equal "namespace :static do\nmatch '/about' => 'static#about'\nend\n", ns.to_route_code
   end
   
   def test_generates_code_for_namespace_with_options
-    ns = Rails::Upgrading::FakeNamespace.new("static", { :path_prefix => 'prefix' })
+    ns = Rails::Upgrading::FakeNamespace.new("static", { path_prefix: 'prefix' })
     # Add a route to the namespace
-    ns << Rails::Upgrading::FakeRoute.new("/about", {:controller => 'static', :action => 'about'})
+    ns << Rails::Upgrading::FakeRoute.new("/about", {controller: 'static', action: 'about'})
     
     assert_equal "namespace :static, :path_prefix => 'prefix' do\nmatch '/about' => 'static#about'\nend\n", ns.to_route_code
   end
@@ -109,22 +109,22 @@ end
   end
 
   def test_generates_code_for_resources_with_special_methods
-    route = Rails::Upgrading::FakeResourceRoute.new("hats", {:member => {:wear => :get}, :collection => {:toss => :post}})
+    route = Rails::Upgrading::FakeResourceRoute.new("hats", {member: {wear: :get}, collection: {toss: :post}})
     assert_equal "resources :hats do\ncollection do\npost :toss\nend\nmember do\nget :wear\nend\n\nend\n", route.to_route_code
   end
   
   def test_generates_code_for_resources_with_multiple_special_methods_per_name
-    route = Rails::Upgrading::FakeResourceRoute.new("hats", {:member => {:wear => [:get, :put]}, :collection => {:toss => [:get, :post]}})
+    route = Rails::Upgrading::FakeResourceRoute.new("hats", {member: {wear: [:get, :put]}, collection: {toss: [:get, :post]}})
       assert_equal "resources :hats do\ncollection do\nget :toss\npost :toss\nend\nmember do\nget :wear\nput :wear\nend\n\nend\n", route.to_route_code
   end
   
   def test_generates_code_for_route_with_extra_params
-    route = Rails::Upgrading::FakeRoute.new("/about", {:controller => 'static', :action => 'about', :something => 'extra'})
+    route = Rails::Upgrading::FakeRoute.new("/about", {controller: 'static', action: 'about', something: 'extra'})
     assert_equal "match '/about' => 'static#about', :something => 'extra'", route.to_route_code
   end
   
   def test_generates_code_for_route_with_requirements
-    route = Rails::Upgrading::FakeRoute.new("/foo", {:controller => 'foo', :action => 'bar', :requirements => {:digit => /%d/}})
+    route = Rails::Upgrading::FakeRoute.new("/foo", {controller: 'foo', action: 'bar', requirements: {digit: /%d/}})
     assert_equal "match '/foo' => 'foo#bar', :constraints => { :digit => /%d/ }", route.to_route_code
   end
   
@@ -171,12 +171,12 @@ end
 
 
   def test_preserves_resources_except_option
-    route = Rails::Upgrading::FakeResourceRoute.new("hats", :except => [:index])
+    route = Rails::Upgrading::FakeResourceRoute.new("hats", except: [:index])
     assert_equal "resources :hats, :except => [:index]", route.to_route_code
   end
 
   def test_preserves_resources_only_option
-    route = Rails::Upgrading::FakeResourceRoute.new("hats", :only => :show)
+    route = Rails::Upgrading::FakeResourceRoute.new("hats", only: :show)
     assert_equal "resources :hats, :only => :show", route.to_route_code
   end
 
