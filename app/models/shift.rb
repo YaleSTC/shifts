@@ -536,7 +536,7 @@ class Shift < ActiveRecord::Base
         time_slot_present = TimeSlot.active.in_location(prioritized_location).overlaps(time, (time + seconds_increment)).count >= 1
         # if at any time the location is not at min_staff and there is a timeslot, the validation fails
         if people_count < prioritized_location.min_staff && time_slot_present
-          errors.add_to_base("Signup slots in #{prioritized_location.name} are higher priority and must be filled first.")
+          errors.add(:base, "Signup slots in #{prioritized_location.name} are higher priority and must be filled first.")
           break
         end
         time += seconds_increment
