@@ -1,7 +1,7 @@
 namespace :db do
   desc "Convert notices data to refactored format"
 
-  task :convert_notices => :environment do
+  task convert_notices: :environment do
     
     #Convert notices to use STI instead of old attribute-style typing
     Notice.all.each do |notice|

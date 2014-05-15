@@ -1,6 +1,6 @@
 namespace :db do
   def make_empty_profile_entries_for_default(department_name)
-    department = Department.where(:name => department_name).first
+    department = Department.where(name: department_name).first
     users = User.all.select{|u| u.departments.include?(department)}
     all_field_ids = UserProfileField.all.select{|upf| upf.department_id == department.id}.map{|upf| upf.id}
     users.each do |user|
@@ -15,11 +15,11 @@ namespace :db do
       end
       puts "#{user.name}, entries deleted"
       missing_field_ids.each do |field_id|
-        new_upe = UserProfileEntry.create(:user_profile_id => user.user_profile.id, :user_profile_field_id => field_id)
+        new_upe = UserProfileEntry.create(user_profile_id: user.user_profile.id, user_profile_field_id: field_id)
         new_upe.save
       end
       current_field_ids.each do |field_id|
-        new_upe = UserProfileEntry.create(:user_profile_id => user.user_profile.id, :user_profile_field_id => field_id)
+        new_upe = UserProfileEntry.create(user_profile_id: user.user_profile.id, user_profile_field_id: field_id)
         new_upe.save
       end
       puts "#{user.name}, empty entries added: #{missing_field_ids.size+current_field_ids.size}"
