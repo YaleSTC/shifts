@@ -141,7 +141,7 @@ class TasksController < ApplicationController
 
   def active_tasks
     @report = current_user.current_shift.report if current_user.current_shift
-    @loc_groups = LocGroup.all.select{ |lg| lg.users.include?(current_user) }
+    @loc_groups = current_user.loc_groups
     tasks = []
     @loc_groups.each do |loc_group|
       tasks << loc_group.locations.map{ |loc| loc.tasks }.flatten.uniq.compact
@@ -167,7 +167,7 @@ class TasksController < ApplicationController
   end
 
   def all_allowed_tasks
-    loc_groups = LocGroup.all.select{ |lg| lg.users.include?(current_user) }
+    loc_groups = current_user.loc_groups
     tasks = []
     loc_groups.each do |loc_group|
       tasks << loc_group.locations.map{ |loc| loc.tasks }.flatten.uniq.compact
