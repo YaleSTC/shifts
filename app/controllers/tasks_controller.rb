@@ -141,8 +141,7 @@ class TasksController < ApplicationController
 
   def active_tasks
     @report = current_user.current_shift.report if current_user.current_shift
-    loc_groups = LocGroup.all
-    @loc_groups = loc_groups.select{ |lg| lg.users.include?(current_user) }
+    @loc_groups = LocGroup.all.select{ |lg| lg.users.include?(current_user) }
     tasks = []
     @loc_groups.each do |loc_group|
       tasks << loc_group.locations.map{ |loc| loc.tasks }.flatten.uniq.compact
@@ -151,8 +150,9 @@ class TasksController < ApplicationController
     tasks = Task.active.after_now & tasks
     # filters out daily and weekly tasks scheduled for a time later in the day
     tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight < t.time_of_day.seconds_since_midnight}
-    # filters out weekly tasks on the wrong day
-    @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
+    # filters out weekly tasks on the wrong day, avoids error when completing tasks when not on shift
+    current_day_in_week = @report ? @report.shift.start.strftime('%a') : Time.now.strftime('%a')
+    @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != current_day_in_week }
   end
   
   protected
@@ -167,8 +167,7 @@ class TasksController < ApplicationController
   end
 
   def all_allowed_tasks
-    loc_groups = LocGroup.all
-    loc_groups = loc_groups.select{ |lg| lg.users.include?(current_user) }
+    loc_groups = LocGroup.all.select{ |lg| lg.users.include?(current_user) }
     tasks = []
     loc_groups.each do |loc_group|
       tasks << loc_group.locations.map{ |loc| loc.tasks }.flatten.uniq.compact
@@ -177,8 +176,9 @@ class TasksController < ApplicationController
     tasks = Task.active.after_now & tasks
     # filters out daily and weekly tasks scheduled for a time later in the day
     tasks = tasks.delete_if{|t| t.kind != "Hourly" && Time.now.seconds_since_midnight < t.time_of_day.seconds_since_midnight}
-    # filters out weekly tasks on the wrong day
-    tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != @report.shift.start.strftime("%a") }
+    # filters out weekly tasks on the wrong day, avoids error when completing tasks when not on shift
+    current_day_in_week = @shift ? @shift.start.strftime('%a') : Time.now.strftime('%a')
+    tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != current_day_in_week }
   end
 
   private

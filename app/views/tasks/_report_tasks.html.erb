@@ -17,9 +17,9 @@
         <% elsif task.missed %>
           <div class="task_entry">
             <% if all_tasks %>
-              <%= link_to "#{task.name} - Needs Doing ASAP!", {:controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}, :method => :post, :remote =>true, :class => "task_title" %>
+              <%= link_to "#{task.name} - Needs Doing ASAP!", make_entry_tasks_path("task_ids[]" => task.id, all_tasks: true), method: :post, remote: true, class: :task_title %>
             <% else %>
-              <%= link_to "#{task.name} - Needs Doing ASAP!", {:controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}, :method => :post, :remote =>true, :class => "task_title" %>
+              <%= link_to "#{task.name} - Needs Doing ASAP!", make_entry_tasks_path("task_ids[]" => task.id), method: :post, remote: true, class: :task_title %>
             <% end %>
             <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
             <%if task.link%>
@@ -30,9 +30,9 @@
         <% else %>
           <div class="task_entry">
             <% if all_tasks %>
-              <%= link_to (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), {:controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id, :all_tasks => true}, :method => :post,  :remote => true, :class => "task_title" %>
+              <%= link_to (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), make_entry_tasks_path("task_ids[]" => task.id, all_tasks: true), method: :post, remote: true, class: :task_title %>
             <% else %>
-              <%= link_to (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), { :controller => "tasks", :action => 'make_entry', "task_ids[]" => task.id}, :method => :post, :remote => true , :class => "task_title"%>
+              <%= link_to (task.needs_doing ? "#{task.name} - Needs Doing!" : "#{task.name}"), make_entry_tasks_path("task_ids[]" => task.id), method: :post, remote: true , class: :task_title%>
             <% end %>
             <span class="task_description"> <%= task.time_of_day.strftime("%l:%M%p") %> - <%=task.description%></span>
             <%if task.link%>
