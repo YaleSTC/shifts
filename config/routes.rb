@@ -1,7 +1,7 @@
 Shifts::Application.routes.draw do
 
   resources :tasks do
-    post :make_entry, on: :collection
+    post :make_entry, on: :member
     get 'update_tasks', on: :collection
   end
 

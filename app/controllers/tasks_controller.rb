@@ -91,7 +91,6 @@ class TasksController < ApplicationController
   end
   
   def make_entry
-    # raise params.to_yaml
     @shift = current_user.current_shift
     @all_tasks = params[:all_tasks]
     if @all_tasks == "true"
@@ -99,10 +98,10 @@ class TasksController < ApplicationController
     else
       @tasks = tasks_during_shift
     end
-    params[:task_ids].each do |task_id|
-      @shifts_task = ShiftsTask.new(task_id: task_id, shift_id: @shift ? @shift.id : nil, missed: false )
-      @shifts_task.save
-    end
+    task_id = params[:id]
+    @shifts_task = ShiftsTask.new(task_id: task_id, shift_id: @shift ? @shift.id : nil, missed: false )
+    @shifts_task.save
+
     if @shift #avoids error when completing tasks when not on shift
   		if @report = current_user.current_shift.report
           @report.report_items << ReportItem.new(time: Time.now, content: "#{Task.find(@shifts_task.task_id).name} completed.", ip_address: request.remote_ip)
