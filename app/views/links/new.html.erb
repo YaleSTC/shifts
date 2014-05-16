@@ -1,5 +1,5 @@
 <br/>
-<% form_remote_for(@link) do |f| %>
+<%= form_for(@link) do |f| %>
   <div id ="errors">
     <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
   </div>

@@ -23,14 +23,14 @@ class LinksController < NoticesController
     current_user.current_shift ? @current_shift = current_user.current_shift : nil
 		begin
       Link.transaction do
-        @link.save(false)
+        @link.save(validate: false)
         set_sources(@link)
         @link.save!
     	end
 		rescue ActiveRecord::RecordInvalid
       respond_to do |format|
         format.html { render action: "new" }
-        format.js  #create.js.rjs
+        format.js  #create.js.erb
       end
     else
       respond_to do |format|
@@ -38,7 +38,7 @@ class LinksController < NoticesController
         format.html {
         redirect_to links_path
         }
-        format.js  #create.js.rjs
+        format.js  #create.js.erb
       end
     end
   end
