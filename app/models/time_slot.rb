@@ -148,7 +148,7 @@ class TimeSlot < ActiveRecord::Base
   end
 
   def start_less_than_end
-    errors.add(:base, "Start time should not be less than end time.") if (start >= self.end)
+    errors.add(:base, "The start time should not be later than the end time.") if (start >= self.end)
   end
 
   def no_concurrent_timeslots

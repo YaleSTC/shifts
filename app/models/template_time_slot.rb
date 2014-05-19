@@ -7,7 +7,7 @@ class TemplateTimeSlot < ActiveRecord::Base
 	validate :no_concurrent_timeslots
 
 	def start_less_than_end
-    errors.add(:base, "Start time must be earlier than end time.") if (self.end_time <= start_time)
+    errors.add(:base, "The start time should not be later than the end time.") if (self.end_time <= start_time)
   end
 
   def no_concurrent_timeslots

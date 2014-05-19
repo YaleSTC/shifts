@@ -460,7 +460,7 @@ class Shift < ActiveRecord::Base
   end
 
   def start_less_than_end
-    errors.add(:start, "must be earlier than end time") if (self.end <= self.start)
+    errors.add(:start, "The start time should not be later than the end time.") if (self.end <= self.start)
   end
 
   #TODO: Fix this to check timeslots by time_increment
