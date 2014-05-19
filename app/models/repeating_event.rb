@@ -158,7 +158,7 @@ class RepeatingEvent < ActiveRecord::Base
   end
 
   def start_date_less_than_end_date
-    errors.add(:start_date, "must be earlier than end date") if (self.end_date < self.start_date)
+    errors.add(:start, "The start date should not be later than the end date.") if (self.end_date < self.start_date)
   end
 
   def set_start_times
