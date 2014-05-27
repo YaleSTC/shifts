@@ -1,6 +1,6 @@
 <div class="data_field">
   <fieldset>
-  <% fields_for_data_field(data_field) do |df_form| %>
+  <%= fields_for_data_field(data_field) do |df_form| %>
 
     <div class="delete_link">
       <%= link_to_function "remove this data field", "$(this).closest('.data_field').remove()"%>
@@ -12,13 +12,26 @@
     <p>
       <%= df_form.label :display_type %><br />
       <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
-          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
+          :onchange => "var selected_type = $(this).find(':selected').val(); data_field_type_description($(this).parent().parent().find('.value_field'), selected_type)" %><br/>
     </p>
     <p>
       <div class="value_field">
         <%= df_form.label :values %><br />
         <%= df_form.text_field :values %><br />
-        <em><small>Value should be either 'integer', 'decimal', or 'text'</small></em>
+        <div class="text_field data_field_instruction">
+          <em><small>Value should be either 'integer', 'decimal', or 'text'</small></em>
+          <p>
+            <%= df_form.label :upper_bound, "Alerts" %><br/>
+            <%= df_form.label :upper_bound %><br />
+            <%= df_form.text_field :upper_bound %><br />
+            <%= df_form.label :lower_bound %><br />
+            <%= df_form.text_field :lower_bound %><br />
+            <small><em>You will receive a warning when a value is above or below these bounds</em></small><em/>
+          </p>
+        </div>
+        <div class='check_box select radio_button data_field_instruction' style="display:none">
+          <em><small>Enter a comma-separated list of values</small></em>
+        </div>
       </div>
     </p>
   <% end %>
