@@ -183,7 +183,6 @@ Shifts::Application.routes.draw do
     resources :punch_clocks
   end
 
-  #TODO Fix report items routing, this is temporary
   resources :locations, except: [:find_allowed_locations] do
     collection do
       get  :display_report_items
