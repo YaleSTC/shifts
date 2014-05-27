@@ -4,6 +4,8 @@
 // else
 //   page << "$('#loc_group#{@loc_group.id} a.toggle_link').text('Restore');"
 // end
+$('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
+<% flash.discard %>
 $('#loc_group<%= @loc_group.id %>').toggleClass('disabled');
 <% if @loc_group.active %>
 	$('#loc_group<%= @loc_group.id %> a.toggle_link').text('Deactivate');
