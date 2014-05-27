@@ -1,0 +1,13 @@
+// page << "$('#loc_group#{@loc_group.id}').toggleClass('disabled');"
+// if @loc_group.active
+//   page << "$('#loc_group#{@loc_group.id} a.toggle_link').text('Deactivate');"
+// else
+//   page << "$('#loc_group#{@loc_group.id} a.toggle_link').text('Restore');"
+// end
+$('#loc_group<%= @loc_group.id %>').toggleClass('disabled');
+<% if @loc_group.active %>
+	$('#loc_group<%= @loc_group.id %> a.toggle_link').text('Deactivate');
+<% else %>
+	$('#loc_group<%= @loc_group.id %> a.toggle_link').text('Restore');
+<% end %>
+
