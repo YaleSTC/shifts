@@ -1,9 +1,0 @@
-  if @display_type == "text_field"
-    page.replace_html "optional_fields", :partial => "alert_bounds"
-    page.insert_html :bottom, "optional_fields", :partial => "alert_exact"
-  elsif @display_type == "text_area"
-    page.replace_html "optional_fields", :text => ""
-  else
-    page.replace_html "optional_fields", :partial => "alert_exact"
-    page.insert_html :top, "optional_fields", :partial => "value_field"
-  end
