@@ -13,7 +13,7 @@
   </thead>
   <tbody>
   <% for loc_group in @loc_groups %>
-    <tr id="loc_group<%= loc_group.id%>" <%=  loc_group.active ? "" : "class='disabled'" %>>
+    <tr id="loc_group<%= loc_group.id%>" <%=  loc_group.active ? "" : raw("class='disabled'") %>>
     <td><%= link_to loc_group.name, loc_group_path(loc_group) %></td>
 	  <% unless mobile_device?%>
       <td><%= loc_group.sub_request_email %></td>
