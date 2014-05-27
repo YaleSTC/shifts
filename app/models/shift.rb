@@ -42,7 +42,7 @@ class Shift < ActiveRecord::Base
   scope :hidden_search, ->(start, stop, day_start, day_end, locs){ where("( (start >= ? and end < ?) or (start >= ? and start < ?) ) and scheduled = ? and location_id IN (?)", day_start.utc, start.utc, stop.utc, day_end.utc, true, locs).order("location_id  , start  ") }
   scope :signed_in, ->(department){where(signed_in: true, department_id: department.id)}
   scope :ordered_by_start, order('start')
-  scope :after_date, ->(start_day){ where("end >= ?}", start_day.beginning_of_day.utc) }
+  scope :after_date, ->(start_day){ where("end >= ?", start_day.beginning_of_day.utc) }
   scope :stats_unsent, where(stats_unsent: true)
   scope :stale_shifts_unsent, where(stale_shifts_unsent: true)
   scope :parsed, where(parsed: true)

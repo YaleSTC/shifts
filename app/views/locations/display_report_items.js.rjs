@@ -1,1 +1,0 @@
-page.replace_html("all_report_items", :partial => "report_items")
