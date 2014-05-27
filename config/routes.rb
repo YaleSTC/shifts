@@ -181,7 +181,6 @@ Shifts::Application.routes.draw do
     resources :punch_clocks
   end
 
-  #TODO Fix report items routing, this is temporary
   resources :locations, except: [:find_allowed_locations] do
     collection do
       get  :display_report_items
@@ -218,7 +217,9 @@ Shifts::Application.routes.draw do
         post :save_import
       end
     end
-    resources :loc_groups
+    resources :loc_groups do
+      get :toggle, on: :member
+    end
     resources :locations
     resources :roles do
       member do
