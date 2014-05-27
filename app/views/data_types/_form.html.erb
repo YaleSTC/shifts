@@ -10,12 +10,13 @@
       <%= form.text_field :description %>
     </p>
 
-  <div id="data_fields" style="display:none">
+
+  <div id="data_fields" style="display:block">
     <h2>Data Fields</h2>
     <%= render :partial => 'data_field', :collection => @data_type.data_fields %>
   </div>
-  <div class="javascript_link" style="display:none">
-    <%= add_data_field_link "Add a data field" %>
+  <div class="javascript_link" style="display:block">
+    <%= link_to_function "Add a data field", "$('#data_fields').append('#{j render partial: "data_field", object: DataField.new}')"%>
   </div>
  <br /> <br />
 <%= form.submit "Submit" %>
