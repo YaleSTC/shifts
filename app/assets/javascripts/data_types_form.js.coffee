@@ -1,7 +1,7 @@
 # Toggle javascript elements
 $ ->
-	$('#data_fields').toggle()
-	$('.javascript_link').toggle()
+	$('#data_fields').show()
+	$('.javascript_link').show()
 	$('.data_field').each (i) ->
 		$value_field = $(this).find('.value_field')
 		type = $(this).find(':selected').val()
