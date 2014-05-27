@@ -219,7 +219,9 @@ Shifts::Application.routes.draw do
         post :save_import
       end
     end
-    resources :loc_groups
+    resources :loc_groups do
+      get :toggle, on: :member
+    end
     resources :locations
     resources :roles do
       member do
