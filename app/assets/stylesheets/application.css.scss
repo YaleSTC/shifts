@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require reset
- *= require bootstrap
  *= require jquery.ui.all
  *= require jquery-tablesorter/theme.default
  *= require jcrop
@@ -25,6 +24,15 @@
 /* =CORE GLOBAL STYLES
 ======================================================================= */
 
+.bootstrap-styles {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-color: white;
+
+    @import 'bootstrap';
+}
 
 html {
   overflow-y: scroll;
