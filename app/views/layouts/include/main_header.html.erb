@@ -20,7 +20,7 @@
 
   <body>
     <!-- Start pagebox container -->
-    <div id="pagebox">
+    <div id="pagebox" class='container'>
       <div id="page_header">
         <h2 class="page_header">
           <a href="http://www.yale.edu">Shifts by Yale University</a>
@@ -45,7 +45,7 @@
               </button>
               <%= link_to "Shifts", root_path, class: 'navbar-brand' %>
             </div>
-            <div class="collapse navbar-collapse" id='example-navbar-collapse-1'>
+            <div class="collapse navbar-collapse" id='shifts_navbar'>
              <%= render :partial => "layouts/include/chooser" if current_user%>
 					   <%= render :partial => "layouts/include/shift_indicator" if current_user%>
 					   <%= render :partial => "layouts/include/nav" if current_user %>
