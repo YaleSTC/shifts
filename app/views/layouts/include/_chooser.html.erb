@@ -6,7 +6,7 @@
 		<li><%= link_to current_department.name, dashboard_path %></li>
 	  <% else %>
 		<li class='dropdown'>
-			<%= link_to dashboard_path, data:{toggle: 'dropdown'} do %>
+			<%= link_to dashboard_path, data:{toggle: 'dropdown', hover: 'dropdown'} do %>
 				<%= current_department.name %>
 				<span class='caret'></span>
 			<% end %>

@@ -7,7 +7,7 @@
 
   <% if current_user.is_admin_of?(current_department) && current_user.is_active?(current_department) || current_user.is_superuser? -%>
     <%= content_tag :li, class: ['dropdown',('active' if navbar_highlight(params[:controller]) == "departments")] do%>
-    	<%= link_to current_user.is_superuser? ? departments_path : edit_department_config_path(current_department.department_config), data: {toggle: 'dropdown'} do%>
+    	<%= link_to current_user.is_superuser? ? departments_path : edit_department_config_path(current_department.department_config), data: {toggle: 'dropdown', hover: 'dropdown'} do%>
     		Departments<span class='caret'></span>
     	<% end %>
 			<ul class='dropdown-menu'>
@@ -27,7 +27,7 @@
 
   <% if current_user.is_admin_of?(current_department) && current_user.is_active?(current_department) || current_user.is_superuser? -%>
     <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "users") do%>
-		<%= link_to department_users_path(current_department) ,data: {toggle: 'dropdown'} do%>
+		<%= link_to department_users_path(current_department) ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 			Users<span class='caret'></span>
 		<% end %>
 		<ul class='dropdown-menu'>
@@ -44,7 +44,7 @@
 	<% end %>
   <% else %>
   	<%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "users") do%>
-		<%= link_to user_profile_path(current_user.login) ,data: {toggle: 'dropdown'} do%>
+		<%= link_to user_profile_path(current_user.login) ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 			Profiles<span class='caret'></span>
 		<% end %>
 			<ul class='dropdown-menu'>
@@ -57,7 +57,7 @@
   <% end -%>
 
   <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "shifts") do%>
-		<%= link_to shifts_path  ,data: {toggle: 'dropdown'} do%>
+		<%= link_to shifts_path  ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 			Shifts<span class='caret'></span>
 		<% end %>
 		<ul class='dropdown-menu'>
@@ -72,7 +72,7 @@
   <% end %>
 
   <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "shifts") do%>
-	<%= link_to test_new_lists_path ,data: {toggle: 'dropdown'} do%>
+	<%= link_to test_new_lists_path ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 		Actions<span class='caret'></span>
 	<% end %>
 	<ul class='dropdown-menu'>
@@ -82,7 +82,7 @@
   <% end %>
 
   <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "payforms") do%>
-	<%= link_to (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path),data: {toggle: 'dropdown'} do %>
+	<%= link_to (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path),data: {toggle: 'dropdown', hover: 'dropdown'} do %>
 		Payforms<span class='caret'></span>
 	<% end %>
 		<ul class='dropdown-menu'>
