@@ -7,6 +7,7 @@
 //= require superfish
 //= require hoverIntent
 //= require thickbox-compressed
+//= require bootstrap-hover-dropdown
 //= require_tree .
 
 //Don't load anything before the document is ready.
