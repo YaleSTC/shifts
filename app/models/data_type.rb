@@ -39,7 +39,7 @@ class DataType < ActiveRecord::Base
 
   def save_data_fields
     data_fields.each do |data_field|
-      data_field.save(false)
+      data_field.save(validate: false)
     end
   end
 end
