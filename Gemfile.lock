@@ -1,15 +1,4 @@
 GIT
-  remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: 0d430bc229e4e61591ca1615aae513a3416cc5f1
-  branch: bootstrap3
-  specs:
-    twitter-bootstrap-rails (3.1.1)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
-
-GIT
   remote: https://github.com/laserlemon/vestal_versions.git
   revision: c7aa512666b22e1a47b4fb36bb1679cb847a532e
   specs:
@@ -58,6 +47,8 @@ GEM
     awesome_print (1.2.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
     builder (3.0.4)
     capistrano (3.0.1)
       i18n
@@ -263,6 +254,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   authlogic
+  bootstrap-sass (~> 3.1.1)
   capistrano
   coffee-rails (~> 3.2.1)
   delayed_job_active_record
@@ -286,7 +278,6 @@ DEPENDENCIES
   rubycas-client-rails
   sass-rails (~> 3.2.3)
   simple_form
-  twitter-bootstrap-rails!
   uglifier (>= 1.0.3)
   vestal_versions!
   whenever

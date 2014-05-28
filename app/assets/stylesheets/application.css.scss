@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require reset
+ *= require bootstrap
  *= require jquery.ui.all
  *= require jquery-tablesorter/theme.default
  *= require jcrop
@@ -23,6 +24,8 @@
 /* Main Styles and IDs */
 /* =CORE GLOBAL STYLES
 ======================================================================= */
+
+
 html {
   overflow-y: scroll;
 }

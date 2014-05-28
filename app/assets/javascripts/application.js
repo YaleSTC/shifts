@@ -1,6 +1,6 @@
 //= require jquery
+//= require bootstrap
 //= require jquery_ujs
-//= require twitter/bootstrap
 //= require jquery.ui.all
 //= require jquery-tablesorter
 //= require jcrop
