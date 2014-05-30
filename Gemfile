@@ -52,9 +52,14 @@ group :development do
 end
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  #gem 'sass-rails',   '~> 3.2.3' # using sass-rails below
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
 
+# For Twitter-bootstrap (also use sass-rails), https://github.com/twbs/bootstrap-sass
 gem 'bootstrap-sass', '~> 3.1.1'
+# Starting with bootstrap-sass v3.1.1.1, due to the structural changes from upstream you will need these backported asset pipeline gems on Rails 3.2. 
+gem 'sprockets-rails', '=2.0.0.backport1'
+gem 'sprockets', '=2.2.2.backport2'
+gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
