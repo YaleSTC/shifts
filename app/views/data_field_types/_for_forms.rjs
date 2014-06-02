@@ -3,12 +3,12 @@
     page << "if(false){}"
     DataField::DISPLAY_TYPE_OPTIONS.each do |name, value|  
       page << "else if(type == '#{value}')"
-      page.replace_html "$(this).find('.value_fields')", :partial => "data_fields/data_field_types/#{value}"
-      page.visual_effect :highlight, 'list', :duration => 3
+      page.replace_html "$(this).find('.value_fields')", partial: "data_fields/data_field_types/#{value}"
+      page.visual_effect :highlight, 'list', duration: 3
     end
   page << '}'
 
 # page << 'function clear_list() {'
 #     page.replace_html :list, ""
-#     page.visual_effect :highlight, 'list', :duration => 3
+#     page.visual_effect :highlight, 'list', duration: 3
 # page << '}'
