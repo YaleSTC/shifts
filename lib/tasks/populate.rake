@@ -38,10 +38,10 @@ namespace :db do
       # weekly
     dept = Department.create(name: "Film studies", created_at: 2.years.ago)
       dept.department_config.update_attributes({monthly: true, end_of_month: true}) # monthly
-#    dept = Department.create(:name => "Economics", :created_at => 2.years.ago)
-#      dept.department_config.update_attributes({:complex => true}) # biweekly
-#    dept = Department.create(:name => "Political science", :created_at => 2.years.ago)
-#      dept.department_config.update_attributes({:monthly => true, :complex => true, :day => 16}) # semi-monthly
+#    dept = Department.create(name: "Economics", created_at: 2.years.ago)
+#      dept.department_config.update_attributes({complex: true}) # biweekly
+#    dept = Department.create(name: "Political science", created_at: 2.years.ago)
+#      dept.department_config.update_attributes({monthly: true, complex: true, day: 16}) # semi-monthly
 
     puts "creating users and adding users to departments"
     User.populate(number_of_users) do |user|

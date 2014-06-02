@@ -265,22 +265,22 @@ Shoes.app width: 600, height: 600
 
 ##  config.action_mailer.delivery_method = :smtp
 ##  config.action_mailer.smtp_settings = {
-##    :address => "mail.yale.edu",
-##    :port => 587,
-##    :domain => "yale.edu",
-##    :user_name => '',
-##    :password => '',
-##    :authentication => ''
+##    address: "mail.yale.edu",
+##    port: 587,
+##    domain: "yale.edu",
+##    user_name: '',
+##    password: '',
+##    authentication: ''
 
-##    #for some reason, :authentication => login is not working
+##    #for some reason, authentication: login is not working
 ##    #thus, for now, the server will have to be connected to the yale network
 ##    #to be able to send emails
 ##  }
 
 
 ##CASClient::Frameworks::Rails::Filter.configure(
-##  :cas_base_url => "https://secure.its.yale.edu/cas/",
-##  :username_session_key => :cas_user,
-##  :extra_attributes_session_key => :cas_extra_attributes,
-##  :logger => cas_logger
+##  cas_base_url: "https://secure.its.yale.edu/cas/",
+##  username_session_key: :cas_user,
+##  extra_attributes_session_key: :cas_extra_attributes,
+##  logger: cas_logger
 ##)

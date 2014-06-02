@@ -186,7 +186,7 @@ Shifts::Application.routes.draw do
       post :toggle
     end
   end
-  #resources :locations, :collection => {:display_report_items => [:post, :get], :toggle => [:post, :get], :index => [:post, :get]}, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
+  #resources :locations, collection: {display_report_items: [:post, :get], toggle: [:post, :get], index: [:post, :get]}, except: [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
 
   resources :data_types do
     resources :data_fields
@@ -251,7 +251,7 @@ Shifts::Application.routes.draw do
     end
   end
 
-  #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
+  #map.report_items 'report_items/for_location', controller: 'report_items', action: 'for_location'
 
   match '/dashboard', controller: 'dashboard', action: 'index', as: :dashboard
   match '/access_denied', controller: 'application', action: 'access_denied', as: :access_denied
@@ -273,5 +273,5 @@ Shifts::Application.routes.draw do
   match '/update_data_objects', controller: 'data_objects', action: 'update_data_objects', as: :update_data_objects
   match '/active_tasks', controller: 'tasks', action: 'active_tasks', as: :active_tasks
 
-  match "/delayed_job" => DelayedJobWeb, :anchor => false
+  match "/delayed_job" => DelayedJobWeb, anchor: false
 end
