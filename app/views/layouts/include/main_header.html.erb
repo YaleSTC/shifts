@@ -45,8 +45,10 @@
               </button>
               <%= link_to "Shifts", root_path, class: 'navbar-brand' %>
             </div>
-            <div class="collapse navbar-collapse" id='shifts_navbar'>
-             <%= render :partial => "layouts/include/chooser" if current_user%>
+			<div class="collapse navbar-collapse" id='shifts_navbar'>
+				<!-- This provides an additional "STC" button which also links back to the Dashboard. 
+			         A fix is provided to change the behavior for a user with a single department   -->
+				<%= render :partial => "layouts/include/chooser" if current_user%>
 					   <%= render :partial => "layouts/include/shift_indicator" if current_user%>
 					   <%= render :partial => "layouts/include/nav" if current_user %>
             </div>

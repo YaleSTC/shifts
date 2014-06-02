@@ -3,7 +3,7 @@
 	  <% ad = current_user.accessible_departments %>
 	  <% ad.to_a %>
 	  <% if ad.size == 1 %>
-		<li><%= link_to current_department.name, dashboard_path %></li>
+		<li><%= link_to current_department.name, department_path(ad.first.id) %></li>
 	  <% else %>
 		<li class='dropdown'>
 			<%= link_to dashboard_path, data:{toggle: 'dropdown', hover: 'dropdown'} do %>
