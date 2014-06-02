@@ -5,9 +5,9 @@
 
 <!-- tablesorting and search conflict -->
 <!-- <div id="searchbox" style="margin-bottom: 1em"> -->
-  <%# form_tag(user_profiles_path, :method => :get) do %>
+  <%# form_tag(user_profiles_path, method: :get) do %>
 <!--    Search for a user by name or login:--> <%#= text_field_tag :search %>
-    <%#= submit_tag "Submit", :id => "search_submit" %>
+    <%#= submit_tag "Submit", id: "search_submit" %>
   <%# end %>
 <!-- </div> -->
 
@@ -23,11 +23,11 @@
 		</tr>
   </thead>
 	<tbody id="profile_list">
-  	<%= render :partial => "profile_list" %>
+  	<%= render partial: "profile_list" %>
 	</tbody>
 </table>
 
 <script type="text/javascript">
   $('input#search_submit').toggle();
 </script>
-<%#= observe_field :search, :frequency => 0.2, :url => search_user_profiles_path, :with => :search %>
+<%#= observe_field :search, frequency: 0.2, url: search_user_profiles_path, with: :search %>

@@ -2,11 +2,11 @@
 <% if @report = current_user.current_shift.report %>
   <li>
     <% if current_user.is_admin_of?(@report.shift.location.loc_group) || current_user == link.author %>
-      <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => link.id },
-                           :confirm => "Are you sure you want to remove this link?",
-                           :method => :delete %>
+      <%= link_to '[x]', { controller: 'notices', action: 'destroy', id: link.id },
+                           confirm: "Are you sure you want to remove this link?",
+                           method: :delete %>
     <% end %>
-    <%= link_to "#{link.content}", "#{link.url}", :popup => true %>
+    <%= link_to "#{link.content}", "#{link.url}", popup: true %>
   </li>
 <% end %>
 

@@ -2,27 +2,27 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :starts %><br />
-    <%= f.date_select :start_date, :default => @restriction.starts, :id => :start_date  %><br />
+    <%= f.date_select :start_date, default: @restriction.starts, id: :start_date  %><br />
     <%= f.time_select :start_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
-                :include_start_time => true,
-                :include_end_time => false,
-                :default => @restriction.starts,
+                simple_time_select: true,
+                time_separator: "",
+                minute_interval: current_department.department_config.time_increment,
+                include_start_time: true,
+                include_end_time: false,
+                default: @restriction.starts,
                                           } %>
 
   </p>
   <p>
     <%= f.label :expires %><br />
-    <%= f.date_select :end_date, :default => @restriction.expires.to_date, :id => :end_date  %><br /	>
+    <%= f.date_select :end_date, default: @restriction.expires.to_date, id: :end_date  %><br /	>
     <%= f.time_select :end_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
-                :include_start_time => true,
-                :include_end_time => false,
-                :default => @restriction.expires,
+                simple_time_select: true,
+                time_separator: "",
+                minute_interval: current_department.department_config.time_increment,
+                include_start_time: true,
+                include_end_time: false,
+                default: @restriction.expires,
                                           } %>  </p>
   <p>
     <%= f.label :max_subs %><br />
@@ -38,7 +38,7 @@
   </span>
   <div id="advanced">
     Search for a user, role, or department: <br />
-    <%= tokenized_users_autocomplete(@restriction, "user_sources", :id => "for_users",:style => "facebook") %>
+    <%= tokenized_users_autocomplete(@restriction, "user_sources", id: "for_users",style: "facebook") %>
     <p>
       For locations: <br />
       <% if current_user.is_admin_of?(@department) %>
@@ -46,12 +46,12 @@
       <% end %>
       <% for loc_group in @department.loc_groups do %>
         &nbsp;&nbsp;&nbsp;
-        <%= check_box_tag "for_location_groups[]", loc_group.id, false, :disabled => false %><%= loc_group.name %>:
+        <%= check_box_tag "for_location_groups[]", loc_group.id, false, disabled: false %><%= loc_group.name %>:
         <% for location in loc_group.locations do %>
           <% if current_user.current_shift %>
-            <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, :disabled => false %>
+            <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, disabled: false %>
           <% else %>
-            <%= check_box_tag "for_locations[]", location.id, false, :disabled => false %>
+            <%= check_box_tag "for_locations[]", location.id, false, disabled: false %>
           <% end %>
           <%= location.name %> &nbsp;
         <% end %>

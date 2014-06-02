@@ -2,12 +2,12 @@
 
 <div id="left_stuff">
   <fieldset class="index" id="date_selector">
-    <% form_tag(:controller => 'stats', :action => 'index', :method => :get) do %>
+    <% form_tag(controller: 'stats', action: 'index', method: :get) do %>
       <%= label_tag :start_date %><br />
-      <%= date_select(:stat, :start_date, :default => @start_date)%>
+      <%= date_select(:stat, :start_date, default: @start_date)%>
       <br />
       <%= label_tag :end_date %><br />
-      <%= date_select(:stat, :end_date, :default => @end_date)%>
+      <%= date_select(:stat, :end_date, default: @end_date)%>
       <br />
       <%= submit_tag 'Update dates' %>
     <% end -%>
@@ -40,7 +40,7 @@
       <% end %>
       <% @user_stats.each do |key, stat| %>
         <tr>
-          <td><%= link_to stat[:first_name], {:controller => :stats, :action => 'for_user', :id => stat[:u_id], :start_date => @start_date, :end_date => @end_date} %></td>
+          <td><%= link_to stat[:first_name], {controller: :stats, action: 'for_user', id: stat[:u_id], start_date: @start_date, end_date: @end_date} %></td>
           <td><%=h stat[:last_name] %></td>
           <% unless mobile_device?%>
             <td><%=h stat[:num_shifts] %></td>
@@ -80,7 +80,7 @@
       <% end %>
       <% @location_stats.each do |key, stat| %>
         <tr>
-          <td><%= link_to stat[:name], {:controller => :stats, :action => 'for_location', :id => stat[:l_id], :start_date => @start_date, :end_date => @end_date } %></td>
+          <td><%= link_to stat[:name], {controller: :stats, action: 'for_location', id: stat[:l_id], start_date: @start_date, end_date: @end_date } %></td>
           <% unless mobile_device?%>
             <td><%=h stat[:num_shifts] %></td>
             <td><%=h stat[:num_late] %></td>

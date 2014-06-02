@@ -11,11 +11,11 @@
 <%end%>
   <p>
     <%= f.label :start_date %><br />
-    <%= f.date_select :start_date, :default => @default_start_date.previous_sunday.to_date %>
+    <%= f.date_select :start_date, default: @default_start_date.previous_sunday.to_date %>
   </p>
   <p>
     <%= f.label :end_date %><br />
-    <%= f.date_select :end_date, :default => @default_start_date.previous_sunday.to_date + 6.days %>
+    <%= f.date_select :end_date, default: @default_start_date.previous_sunday.to_date + 6.days %>
   </p>
   <p>
     <%= f.label :calendar %><br />
@@ -29,37 +29,37 @@
   <p>
       <strong>Days:</strong><br />
     <% WEEK_DAYS.each_with_index do |day, i| %>
-      <%= check_box_tag "days[]", i, @repeating_event.days && @repeating_event.days.include?(day), {:id => "days_#{i}"} %>
+      <%= check_box_tag "days[]", i, @repeating_event.days && @repeating_event.days.include?(day), {id: "days_#{i}"} %>
       <%= day %>
     <% end %>
   </p>
   <p>
     <%= f.label :start_time %><br />
     <%= f.time_select :start_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
+                simple_time_select: true,
+                time_separator: "",
+                minute_interval: current_department.department_config.time_increment,
 
-                :start_time => @range_start_time,
-                :end_time => @range_end_time,
-                :include_start_time => true,
-                :include_end_time => false,
-                :default => @repeating_event.start_time
-#                :default => Time.now.to_date + current_department.department_config.schedule_start.minutes,
+                start_time: @range_start_time,
+                end_time: @range_end_time,
+                include_start_time: true,
+                include_end_time: false,
+                default: @repeating_event.start_time
+#                default: Time.now.to_date + current_department.department_config.schedule_start.minutes,
                                           } %>
   </p>
   <p>
     <%= f.label :end_time %><br />
     <%= f.time_select :end_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
-                :start_time => @range_start_time,
-                :end_time => @range_end_time,
-                :include_start_time => false,
-                :include_end_time => true,
-                :default => @repeating_event.end_time
-#                :default => Time.now.to_date + current_department.department_config.schedule_end.minutes,
+                simple_time_select: true,
+                time_separator: "",
+                minute_interval: current_department.department_config.time_increment,
+                start_time: @range_start_time,
+                end_time: @range_end_time,
+                include_start_time: false,
+                include_end_time: true,
+                default: @repeating_event.end_time
+#                default: Time.now.to_date + current_department.department_config.schedule_end.minutes,
                                           } %>
   </p>
     <p>
@@ -68,9 +68,9 @@
   <p>
   <strong>Time Slot or Shift?</strong> <br />
   <%= f.label :time_slot %>
-  <%= f.radio_button( :slot_or_shift, "time_slot", :checked => @repeating_event.has_time_slots? ) %>
+  <%= f.radio_button( :slot_or_shift, "time_slot", checked: @repeating_event.has_time_slots? ) %>
   <%= f.label :shift %>
-  <%= f.radio_button( :slot_or_shift, "shift", :checked => @repeating_event.has_shifts? ) %>
+  <%= f.radio_button( :slot_or_shift, "shift", checked: @repeating_event.has_shifts? ) %>
   </p>
 <div id = "time_slot_fields">
   <h3> Time Slot </h3>
@@ -78,14 +78,14 @@
   <p>
   <%# isn't this view restricted to admins anyway? %>
 		<%# if current_user.is_admin_of?(current_department) %>
-	 		<%#= check_box_tag :department_wide_locations, current_department.id, false, :style => "display: none;" %>
+	 		<%#= check_box_tag :department_wide_locations, current_department.id, false, style: "display: none;" %>
     	<%#= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
 		<%# end %>
 
 	<div id = "all_locations">
     <% for loc_group in current_department.loc_groups do %>
 			<li id = "repeating_event_li">
-	      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked_event?(loc_group, @repeating_event), :style => "display: none;", :class => "only_js" %>
+	      <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked_event?(loc_group, @repeating_event), style: "display: none;", class: "only_js" %>
 	      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 	      <% for location in loc_group.locations do %>
 	        <%= check_box_tag "for_locations[]", location.id, location_checked_event?(location, @repeating_event) %>
@@ -103,7 +103,7 @@
   </p>
     <p>
       <%= f.label :user %><br />
-      <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {:prompt => "Select a user"}) %>
+      <%= f.collection_select(:user_id, current_department.active_users, :id, :name, {prompt: "Select a user"}) %>
     </p>
   <p>
     <%= f.label :location %><br />

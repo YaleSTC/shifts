@@ -1,7 +1,7 @@
 <div class="photo">
 <% fields_for "user_profile[user_profile_pic_attributes][]", user_profile_pic do |p| %>
   <p>
-    <%= p.file_field :photo, :index => nil %>
+    <%= p.file_field :photo, index: nil %>
     <%= link_to_function "delete", "remove_field($(this), ('.photo'))" %>
   </p>
 <% end %>

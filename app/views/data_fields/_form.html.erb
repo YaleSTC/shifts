@@ -1,4 +1,4 @@
-<%#= render :partial => 'data_types/progress_bar', :locals => {:current_step => 2} %>
+<%#= render partial: 'data_types/progress_bar', locals: {current_step: 2} %>
 
 <%= form_for (params[:id] ? [DataType.find(params[:data_type_id]), @data_field] : [:data_type, @data_field]) do |f| %>
   <%= f.error_messages %>
@@ -8,23 +8,23 @@
    </p>
    <p>
      <%= f.label :display_type %><br />
-     <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type" %><br/>
+     <%= f.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, class: "display_type" %><br/>
    </p>
      <%#= observe_field('data_field_display_type',
-        :url => { :controller => :data_fields,
-                  :action => :update_form,
-                  :layout => false},
-        :method => :get,
-        :with => 'display_type',
-        :on => "change") %>
+        url: { controller: :data_fields,
+                  action: :update_form,
+                  layout: false},
+        method: :get,
+        with: 'display_type',
+        on: "change") %>
    <p>
      <div id="optional_fields"></div>
    </p>
    <p>
-     <%= f.submit "Save and add another field", :name => "add_another" %>
-     <%= f.submit "Save and finish", :name => "submit" %>
+     <%= f.submit "Save and add another field", name: "add_another" %>
+     <%= f.submit "Save and finish", name: "submit" %>
    </p>
 <% end %>
 
-<%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
+<%= render partial: "data_types/summary", locals: {data_type: DataType.find(params[:data_type_id])} %>
 

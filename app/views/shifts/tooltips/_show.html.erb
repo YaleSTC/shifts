@@ -1,31 +1,31 @@
-<%= render :partial => '/tooltips/close_tooltip'%>
+<%= render partial: '/tooltips/close_tooltip'%>
 
 <% if (current_user.is_admin_of?(current_department) or ( current_user == @shift.user and @shift.calendar.public? and !@shift.calendar.active? )) and @shift.scheduled? %>
   <% if params[:delete_options] and @shift.repeating_event %>
     <div id="repeating_event_delete_options">
       <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
-      <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
-      <%= button_to_remote "This and all future shifts", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
-      <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :rerender_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %>
+      <%= button_to_remote "Just this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, confirm: 'Are you sure?', method: :delete} %><br />
+      <%= button_to_remote "This and all future shifts", {url: {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], delete_after_date: @shift.start}, confirm: 'Are you sure?', method: :delete} %><br />
+      <%= button_to_remote "All events in this series", {url: {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], rerender_date: @shift.start}, confirm: 'Are you sure?', method: :delete} %>
     </div>
   <% else%>
     <% if @shift.report %>
-      <%= render :partial => 'reports/report', :object => @shift.report, :locals => {:html_id => "dashboard_report_view"} %>
+      <%= render partial: 'reports/report', object: @shift.report, locals: {html_id: "dashboard_report_view"} %>
       <p>
         <% if @shift.signed_in? && (current_user == @shift.user) %>
-          <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true }, :method => :put, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+          <%= button_to "Submit shift report", {controller: 'reports', action: :update, id: @report, sign_out: true }, method: :put, confirm: 'Are you sure you wish to sign out of this shift?' %>
         <% elsif @shift.signed_in? && current_user.is_admin_of?(@shift.loc_group) %>
-          <%= button_to "Submit #{@shift.user.name}'s shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true }, :method => :put, :confirm => "Are you sure you wish to sign the user out of this shift?" %>
+          <%= button_to "Submit #{@shift.user.name}'s shift report", {controller: 'reports', action: :update, id: @report, sign_out: true }, method: :put, confirm: "Are you sure you wish to sign the user out of this shift?" %>
         <% end %>
         <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
           <% @shift.sub_requests.each do |sub| %>
-            <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user) %>
+            <%= (button_to "Take sub", sub_request_path(sub), method: :get) if sub.user_is_eligible?(current_user) %>
           <% end %>
         <% elsif current_user == @shift.user %>
          <% unless @shift.has_passed? or @shift.submitted? %>
         <% if @shift.has_sub?%>
           <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> |
-		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%>
+		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, sign_in: true), method: :delete%>
 
         <% else%>
           <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
@@ -36,14 +36,14 @@
 
       <% if @shift.submitted? %>
         <% unless @shift.repeating_event %>
-          <%= link_to "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :remote => true, :confirm => 'Are you sure?', :method => :delete} %>
+          <%= link_to "Destroy this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true, confirm: 'Are you sure?', method: :delete} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">
             <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
-            <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
-            <%= button_to_remote "This and all future shifts", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
-            <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :rerender_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %>
+            <%= button_to_remote "Just this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, confirm: 'Are you sure?', method: :delete} %><br />
+            <%= button_to_remote "This and all future shifts", {url: {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], delete_after_date: @shift.start}, confirm: 'Are you sure?', method: :delete} %><br />
+            <%= button_to_remote "All events in this series", {url: {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], rerender_date: @shift.start}, confirm: 'Are you sure?', method: :delete} %>
           </div>
         <% end %>
       <% end %>
@@ -53,28 +53,28 @@
 
       <% if @shift.repeating_event %>
         <p>
-          <%= check_box_tag :repeating_event, false, false, :onclick => "$('.toggle_me').toggle()" %> Edit repeating event
+          <%= check_box_tag :repeating_event, false, false, onclick: "$('.toggle_me').toggle()" %> Edit repeating event
         </p>
       <% end %>
 
       <div class="toggle_me">
         <% remote_form_for @shift do |f| %>
-    		  <%= render :partial => 'shifts/form', :locals => {:f => f} %>
-          <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'shifts', :action => 'update', :calendar => params[:calendar] } %></p>
+    		  <%= render partial: 'shifts/form', locals: {f: f} %>
+          <p><%= submit_to_remote "edit_button", "Save Changes", url: { controller: 'shifts', action: 'update', calendar: params[:calendar] } %></p>
         <% end %>
 
         <% if current_user == @shift.user and !@shift.has_passed? %>
 			<% if within_sign_in_window?(@shift)%>
-          <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
+          <%= button_to "Sign in", shift_report_path(@shift), method: :post, onclick: "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
 			<% else %>
-		 <%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift #{distance_of_time_in_words(@shift.start, Time.now)} early?", :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
+		 <%= button_to "Sign in", shift_report_path(@shift), confirm: "Are you sure you want to sign into this shift #{distance_of_time_in_words(@shift.start, Time.now)} early?", method: :post, onclick: "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
 			<% end %>
         <% end %>
 
         <% if !@shift.has_passed? and !@shift.submitted? %>
           <% if @shift.has_sub? %>
             <% @shift.sub_requests.each do |sub| %>
-              <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user)  %>
+              <%= (button_to "Take sub", sub_request_path(sub), method: :get) if sub.user_is_eligible?(current_user)  %>
             <% end %>
             <%= link_to "Manage sub requests", shift_sub_requests_path(@shift) %><br>
           <% else %>
@@ -83,23 +83,23 @@
         <% end %>
 
         <% unless @shift.repeating_event %>
-          <%= link_to "Destroy this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :remote => true, :confirm => 'Are you sure?', :method => :delete} %>
+          <%= link_to "Destroy this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true, confirm: 'Are you sure?', method: :delete} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">
             <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
-            <%= button_to_remote "Just this shift", {:url => {:controller => 'shifts', :action => 'destroy', :id => @shift.id, :calendar => params[:calendar]}, :confirm => 'Are you sure?', :method => :delete} %><br />
-            <%= button_to_remote "This and all future shifts", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :delete_after_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %><br />
-            <%= button_to_remote "All events in this series", {:url => {:controller => 'repeating_events', :action => 'destroy', :id => @shift.repeating_event.id, :calendar => params[:calendar], :rerender_date => @shift.start}, :confirm => 'Are you sure?', :method => :delete} %>
+            <%= button_to_remote "Just this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, confirm: 'Are you sure?', method: :delete} %><br />
+            <%= button_to_remote "This and all future shifts", {url: {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], delete_after_date: @shift.start}, confirm: 'Are you sure?', method: :delete} %><br />
+            <%= button_to_remote "All events in this series", {url: {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], rerender_date: @shift.start}, confirm: 'Are you sure?', method: :delete} %>
           </div>
         <% end %>
       </div>
       <% if current_user.is_admin_of?(@department) and @shift.repeating_event %>
         <div class="toggle_me" style="display:none">
           <% remote_form_for (@repeating_event = @shift.repeating_event) do |f| %>
-            <%= render :partial => 'shifts/form_repeating', :locals => {:f => f, :shift_start => @shift.start, :shift_end => @shift.end} %>
+            <%= render partial: 'shifts/form_repeating', locals: {f: f, shift_start: @shift.start, shift_end: @shift.end} %>
             <%= hidden_field_tag 'rerender_date', @shift.start.to_date.to_s %>
-            <p style="clear:both"><%= submit_to_remote "add_button", "Update Repeating Event", :url => { :controller => 'repeating_events', :action => 'update', :id => @repeating_event.id, :calendar => params[:calendar] } %></p>
+            <p style="clear:both"><%= submit_to_remote "add_button", "Update Repeating Event", url: { controller: 'repeating_events', action: 'update', id: @repeating_event.id, calendar: params[:calendar] } %></p>
           <% end %>
         </div>
       <% end %>
@@ -109,9 +109,9 @@
 <% else %>
 
   <% if @shift.report %>
-    <%= render :partial => 'reports/report', :object => @shift.report, :locals => {:html_id => "dashboard_report_view"}%>
+    <%= render partial: 'reports/report', object: @shift.report, locals: {html_id: "dashboard_report_view"}%>
     <% if @shift.signed_in? && (current_user == @shift.user || current_user.is_admin_of?(@shift.location)) %>
-      <%= button_to "Submit shift report", {:controller => 'reports', :action => :update, :id => @report, :sign_out => true }, :method => :put, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+      <%= button_to "Submit shift report", {controller: 'reports', action: :update, id: @report, sign_out: true }, method: :put, confirm: 'Are you sure you wish to sign out of this shift?' %>
     <% end %>
   <% else %>
     <h2><%= link_to (@shift.scheduled? ? "Shift" : "Unscheduled Shift"), shift_path(@shift)  %></h2>
@@ -137,18 +137,18 @@
 
   <p>
     <% if current_user == @shift.user and !@shift.has_passed? and @shift.report.nil? %>
-      <%= button_to "Sign in", shift_report_path(@shift), :method => :post, :onclick => "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
+      <%= button_to "Sign in", shift_report_path(@shift), method: :post, onclick: "if(ie){window.location.href='#{escape_javascript(shift_path(@shift))}'}" %>
     <% end %>
 
     <% if !@shift.has_passed? and @shift.has_sub? and current_user != @shift.user %>
       <% @shift.sub_requests.each do |sub| %>
-        <%= (button_to "Take sub", sub_request_path(sub), :method => :get) if sub.user_is_eligible?(current_user)  %>
+        <%= (button_to "Take sub", sub_request_path(sub), method: :get) if sub.user_is_eligible?(current_user)  %>
       <% end %>
     <% elsif current_user == @shift.user %>
       <% unless @shift.has_passed? or @shift.submitted? %>
         <% if @shift.has_sub?%>
           <%= link_to "Edit sub request", edit_sub_request_path(@shift.sub_request) %> |
-		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, :sign_in => true), :method => :delete%>
+		  <%= link_to 'Cancel Request and Sign In', sub_request_path(@sub_request, sign_in: true), method: :delete%>
         <% else%>
           <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
         <% end %>

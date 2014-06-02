@@ -1,5 +1,5 @@
 <% title "New Mass Add Job" %>
 
-<%= render :partial => 'form', :locals => {:submit => "Create", :payform_item_set => [@payform,@payform_item]} %>
+<%= render partial: 'form', locals: {submit: "Create", payform_item_set: [@payform,@payform_item]} %>
 
 <p><%= link_to "Back to List", payform_item_sets_path %></p>

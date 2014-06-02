@@ -1,6 +1,6 @@
-<%= (render :partial => 'data_types/progress_bar', :locals => {:current_step => 3} ) if params[:data_type_id] %>
+<%= (render partial: 'data_types/progress_bar', locals: {current_step: 3} ) if params[:data_type_id] %>
 <div style="width:30%; float:right" id="data_type_display">
-  <%= (render :partial => "data_types/summary", :locals => {:data_type => (params[:data_type_id] ? DataType.find(params[:data_type_id]) : @data_object.data_type) }) if params[:data_type_id]%>
+  <%= (render partial: "data_types/summary", locals: {data_type: (params[:data_type_id] ? DataType.find(params[:data_type_id]) : @data_object.data_type) }) if params[:data_type_id]%>
 </div>
 <div style="width: 60%; float:left">
   <%= simple_form_for @data_object do |f| %>
@@ -18,8 +18,8 @@
       <%= f.association :locations, as: :check_boxes %><br />
     </p>
     <p>
-      <%= f.submit "Save and add another object", :name => "add_another" %>
-      <%= f.submit "Save and finish", :name => "submit" %>
+      <%= f.submit "Save and add another object", name: "add_another" %>
+      <%= f.submit "Save and finish", name: "submit" %>
     </p>
   <% end %>
 </div>

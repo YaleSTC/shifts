@@ -33,7 +33,7 @@
  <% if @appconfig.login_options.size >1 %>
   <p>
     <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, @appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
+    <%= f.select(:auth_type, @appconfig.login_options, {selected: @user.auth_type || "CAS"}) %>
   </p>
   <% end %>
   <h3>Roles</h3>
@@ -50,6 +50,6 @@
   <p><%= f.submit submit %></p>
 <% end %>
 <% if @appconfig.use_ldap %>
-<%= observe_form :user_form, :url => { :action => 'ldap_search' }, :frequency => 1, :loading=> "$('#loading_row').css({'display' : 'table-row'});$('.result').css({'display' : 'none'})" %>
+<%= observe_form :user_form, url: { action: 'ldap_search' }, frequency: 1, :loading=> "$('#loading_row').css({'display' : 'table-row'});$('.result').css({'display' : 'none'})" %>
 <% end %>
 

@@ -1,11 +1,11 @@
-<%= render :file => "layouts/include/main_header.html.erb" %>
+<%= render file: "layouts/include/main_header.html.erb" %>
 
 <%= stylesheet_link_tag 'mobile_application' %>
 
     <%= yield(:left_nav) || '<div id="contentNoNav">' %>
 
       <div id="flash">
-        <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+        <%= render partial: "layouts/flash", locals: {flash: flash} %>
       </div>
 
       <!-- Main Content -->
@@ -31,14 +31,14 @@
           For help with Shifts, please visit our repository on <a href="http://github.com/YaleSTC/shifts/tree/master">Github</a>.<br />
           Please report bugs to our <a href="http://mahi.its.yale.edu/bugs">Bug Tracker</a>.<br />
 			<% if mobile_device? %>
-				Mobile Site | <%= link_to "Full Site", :mobile => 0 %>
+				Mobile Site | <%= link_to "Full Site", mobile: 0 %>
 			<% else %>
-				<%= link_to "Mobile Site", :mobile => 1 %> | Full Site
+				<%= link_to "Mobile Site", mobile: 1 %> | Full Site
 			<% end %>
 			<br />
           <% if current_user && current_user.superuser? -%>
             Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
-                {:su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
+                {su_mode: current_user.supermode? ? 'OFF' : 'ON' } %>
                 <% # note that passing true false wont work because Rails thinks that false means not to pass it -%>
           <% end -%>
         </p>

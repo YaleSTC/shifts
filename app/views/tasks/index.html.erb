@@ -17,7 +17,7 @@
 	  </tr>
 	</thead>
 	<tbody>
-		<%= render :partial => "task", :collection => @active_tasks  %>
+		<%= render partial: "task", collection: @active_tasks  %>
 	</tbody>
 </table>
 
@@ -25,7 +25,7 @@
 	<h4>Expired/Inactive Tasks:</h4>
 
 	<table class = "tablesorter">
-	<%= render :partial => "task", :collection => @inactive_tasks %>
+	<%= render partial: "task", collection: @inactive_tasks %>
 	</table>
 <% end %>
 

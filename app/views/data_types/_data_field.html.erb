@@ -11,8 +11,8 @@
     </p>
     <p>
       <%= df_form.label :display_type %><br />
-      <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
-          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
+      <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, class: "display_type",
+          onchange: "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
     </p>
     <p>
       <div class="value_field">

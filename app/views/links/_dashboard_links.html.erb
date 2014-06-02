@@ -1,9 +1,9 @@
 <% current_department.links.each do |link|%>
   <li>
     <% if current_user.is_admin_of?(current_department) || current_user == link.author %>  
-        <%#= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => link.id },
-                                   :confirm => "Are you sure you want to remove this link?",
-                                   :method => :delete %>
-    <% end %><%= link_to "#{link.content}", "#{link.url}", :popup => true %>
+        <%#= link_to '[x]', { controller: 'notices', action: 'destroy', id: link.id },
+                                   confirm: "Are you sure you want to remove this link?",
+                                   method: :delete %>
+    <% end %><%= link_to "#{link.content}", "#{link.url}", popup: true %>
   </li>
 <%end%>
