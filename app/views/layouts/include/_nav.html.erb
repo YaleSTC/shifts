@@ -56,8 +56,9 @@
 	<% end %>
   <% end -%>
 
-  <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "shifts") do%>
-		<%= link_to shifts_path  ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
+  <!-- name here 'shifts3' must be distinct from 'shifts' otherwise it is always highlighted -->
+  <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "shifts3") do%>
+		<%= link_to shifts_path, data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 			Shifts<span class='caret'></span>
 		<% end %>
 		<ul class='dropdown-menu dropdown-menu-left'>
@@ -71,7 +72,7 @@
 		</ul>
   <% end %>
 
-  <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "shifts") do%>
+  <%= content_tag :li, class: ('active' if navbar_highlight(params[:controller]) == "actions") do%>
 	<%= link_to test_new_lists_path ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 		Actions<span class='caret'></span>
 	<% end %>
