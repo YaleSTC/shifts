@@ -10,7 +10,7 @@
     	<%= link_to current_user.is_superuser? ? departments_path : edit_department_config_path(current_department.department_config), data: {toggle: 'dropdown', hover: 'dropdown'} do%>
     		Departments<span class='caret'></span>
     	<% end %>
-			<ul class='dropdown-menu'>
+			<ul class='dropdown-menu dropdown-menu-left'>
 				<% if current_user.is_superuser? -%>
 					<li><%= link_to "All Departments", departments_path %></li>
 					<li><%= link_to "Application Settings", edit_app_config_path %></li>
@@ -30,7 +30,7 @@
 		<%= link_to department_users_path(current_department) ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 			Users<span class='caret'></span>
 		<% end %>
-		<ul class='dropdown-menu'>
+		<ul class='dropdown-menu dropdown-menu-left'>
 			<li><%= link_to "Users", department_users_path(current_department) %></li>
 	    	<% if current_user.is_superuser? -%>
 				<li><%= link_to "Superusers", superusers_path %></li>
@@ -47,7 +47,7 @@
 		<%= link_to user_profile_path(current_user.login) ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 			Profiles<span class='caret'></span>
 		<% end %>
-			<ul class='dropdown-menu'>
+			<ul class='dropdown-menu dropdown-menu-left'>
 				<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
 		  		<li><%= link_to "All Profiles", user_profiles_path %></li>
 				<li><%= link_to "Facebook View", facebook_path %></li>
@@ -60,7 +60,7 @@
 		<%= link_to shifts_path  ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 			Shifts<span class='caret'></span>
 		<% end %>
-		<ul class='dropdown-menu'>
+		<ul class='dropdown-menu dropdown-menu-left'>
 			<li><%= link_to "Shifts Schedule", shifts_path %></li>
 			<li><%= link_to "Public Schedule", :controller => 'public_view', :action => 'index' %></li>
 			<li><%= link_to "Tasks", tasks_path %></li>
@@ -75,7 +75,7 @@
 	<%= link_to test_new_lists_path ,data: {toggle: 'dropdown', hover: 'dropdown'} do%>
 		Actions<span class='caret'></span>
 	<% end %>
-	<ul class='dropdown-menu'>
+	<ul class='dropdown-menu dropdown-menu-left'>
 		<li><%= link_to "All Active Tasks", active_tasks_path %></li>
 		<li><%= link_to "Update Data Objects", update_data_objects_path %></li>
 	</ul>
@@ -85,7 +85,7 @@
 	<%= link_to (current_user.is_admin_of?(current_department) ? payforms_path : go_payforms_path),data: {toggle: 'dropdown', hover: 'dropdown'} do %>
 		Payforms<span class='caret'></span>
 	<% end %>
-		<ul class='dropdown-menu'>
+		<ul class='dropdown-menu dropdown-menu-left'>
 		 	<% unless current_user.is_admin_of?(current_department)%>
 		 		<li><%= link_to "My Payform", go_payforms_path%></li>
 		 	<% end %>
