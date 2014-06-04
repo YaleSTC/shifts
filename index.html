@@ -1,20 +1,67 @@
 ---
 layout: default
+title: YaleSTC/shifts @ GitHub
 ---
 
 <div class="home">
 
-  <h1>Posts</h1>
+	<!-- Fork me on Github banner -->
+	<a href="http://github.com/YaleSTC/shifts"><img style="position: absolute; top: 0; right: 0; border: 0;"
+		src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
+	<style type="text/css">
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+		h1 { font-size: 3.8em; color: #f7db5f; margin-bottom: 3px; }
+    .download { float: right; }
+	</style>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+  <div id="container">
+
+    <div class="download">
+      <a href="http://github.com/YaleSTC/shifts/zipball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+      <a href="http://github.com/YaleSTC/shifts/tarball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+    </div>
+
+    <h1><a href="http://github.com/YaleSTC/shifts">shifts</a>
+      <span class="small">by <a href="http://github.com/YaleSTC">YaleSTC</a></span></h1>
+
+    <div class="description">
+      Application to easily track shifts, reports, and payforms for employees.
+    </div><br/>
+
+    <h2>Authors</h2>
+		<p>Adam Bray (adam.bray@yale.edu)
+		<br/>Harley Trung (harley.trung@yale.edu)
+		<br/>Ben Somers (somers.ben@gmail.com)
+		<br/>Ryan Laughlin (rofreg@gmail.com)
+		<br/>Nathan Grifftith (originalsmudge@gmail.com)
+		<br/>Aashish Manchanda
+		<br/>Bay Gross (bay.gross@yale.edu)
+		<br/>Bob (bob.qu.md@gmail.com)
+		<br/>Casey Watts (casey.s.watts@gmail.com)
+		<br/>ckildow (cassandra.kildow@yale.edu)
+		<br/>Kwabena Antwi-Boasiako (hikwabena@gmail.com)
+		<br/>Laura Tomas (laura.tomas@yale.edu)
+		<br/>Maria Altyeva (maria.altyeva@yale.edu)
+		<br/>Michael Libertin (michael.libertin@yale.edu)
+		<br/></p><br/>
+
+    <h2>Download</h2>
+    <p>
+      You can download this project in either
+      <a href="http://github.com/YaleSTC/shifts/zipball/master">zip</a> or
+      <a href="http://github.com/YaleSTC/shifts/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">git</a>
+      by running:
+      <pre>$ git clone git://github.com/YaleSTC/shifts</pre>
+    </p>
+
+  </div>
 
 </div>
