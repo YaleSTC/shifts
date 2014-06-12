@@ -18,12 +18,6 @@ If you are an Admin, you might want to read more about:
 * [Usage Reports](/reservations/user-doc/reports/)
 * [Managing Announcements](/reservations/user-doc/announcements/)
 
-## Developer
-
-If you're a developer or are interested in modifying the Shifts application, you might want to see the setup instructions:
-
-* [Development Setup](https://github.com/YaleSTC/shifts/wiki)
-
 ## User
 
 If you use Shifts to log your hours, you may be interested in these pages:  
@@ -38,5 +32,10 @@ If you use Shifts to log your hours, you may be interested in these pages:
 {% endfor %}
 </ul>
 
+## Developer
+
+If you're a developer or are interested in modifying the Shifts application, you might want to see the setup instructions:
+
+* [Development Setup](https://github.com/YaleSTC/shifts/wiki)
 
 If you can't find an answer to your question in this documentation, please [report the issue](https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0) to us!
