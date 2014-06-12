@@ -6,7 +6,7 @@ permalink: /features/
 
 ## Application Setup
 
-*Shifts* provides a standard set-up for a server-side application. [Learn how to do it &rarr;](/shifts/user-doc/setting-up-shifts/)
+*Shifts* provides a standard set-up for a server-side application. [Learn how to do it &rarr;](https://github.com/YaleSTC/shifts/blob/rails-3.2/README.md)
 
 ## Introduction
 

@@ -10,7 +10,7 @@ What you want on this page depends on your role within the *Shifts* application.
 
 If you are an Admin, you might want to read more about:
 
-* [Setting up the *Reservations* application](/reservations/user-doc/setting-up-reservations/)
+* [Setting up the *Shifts* application](https://github.com/YaleSTC/shifts/blob/rails-3.2/README.md)
 * [Managing App Configuration](/reservations/user-doc/managing-app-config/)
 * [Managing Categories, Equipment Models and Equipment Items](/reservations/user-doc/managing-equipment/)
 * [Managing Requirements](reservations/user-doc/managing-requirements/)
@@ -40,7 +40,7 @@ If you're an employee who oversees Reservation checkins and checkouts, you're a 
 
 ## Patron
 
-If you're using Reservations to occasionally check items out, you're a Patron. You might want to read more about:
+If you're using Shifts to occasionally check items out, you're a Patron. You might want to read more about:
 
 <ul>
 {% for page in site.pages %}
