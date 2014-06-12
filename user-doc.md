@@ -3,7 +3,8 @@ layout: page
 title: Documentation
 permalink: /user-doc/
 ---
-What you want on this page depends on your role within the *Reservations* application.
+
+What you want on this page depends on your role within the *Shifts* application.
 
 ## Admin
 
@@ -18,6 +19,12 @@ If you are an Admin, you might want to read more about:
 * [Managing Emails](/reservations/user-doc/emails/)
 * [Usage Reports](/reservations/user-doc/reports/)
 * [Managing Announcements](/reservations/user-doc/announcements/)
+
+## Developer
+
+If you're a developer or are interested in modifying the Shifts application, you might want to see the setup instructions:
+
+* [Development Setup](https://github.com/YaleSTC/shifts/wiki)
 
 ## Checkout Person
 
