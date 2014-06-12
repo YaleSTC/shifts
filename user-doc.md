@@ -1,4 +1,5 @@
---- layout: page
+--- 
+layout: page
 title: Documentation
 permalink: /user-doc/
 ---
@@ -29,7 +30,6 @@ If you use Shifts to log your hours, you may be interested in these pages:
 
 * [General Shifts Info](http://weke.its.yale.edu/wiki/index.php/Shifts_Application)
 
-<!---
 <ul>
 {% for page in site.pages %}
   {% if page.layout == 'user-page' %}  
@@ -37,6 +37,6 @@ If you use Shifts to log your hours, you may be interested in these pages:
   {% endif %}
 {% endfor %}
 </ul>
--->
+
 
 If you can't find an answer to your question in this documentation, please [report the issue](https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0) to us!
