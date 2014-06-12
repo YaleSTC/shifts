@@ -1,5 +1,4 @@
----
-layout: page
+--- layout: page
 title: Documentation
 permalink: /user-doc/
 ---
@@ -12,10 +11,8 @@ If you are an Admin, you might want to read more about:
 
 * [Setting up the *Shifts* application](https://github.com/YaleSTC/shifts/blob/rails-3.2/README.md)
 * [Managing App Configuration](/reservations/user-doc/managing-app-config/)
-* [Managing Categories, Equipment Models and Equipment Items](/reservations/user-doc/managing-equipment/)
 * [Managing Requirements](reservations/user-doc/managing-requirements/)
 * [Managing Users](/reservations/user-doc/managing-users/)
-* [Managing Blackouts](/reservations/user-doc/blackouts/)
 * [Managing Emails](/reservations/user-doc/emails/)
 * [Usage Reports](/reservations/user-doc/reports/)
 * [Managing Announcements](/reservations/user-doc/announcements/)
@@ -26,22 +23,13 @@ If you're a developer or are interested in modifying the Shifts application, you
 
 * [Development Setup](https://github.com/YaleSTC/shifts/wiki)
 
-## Checkout Person
+## User
 
-If you're an employee who oversees Reservation checkins and checkouts, you're a Checkout Person. You might want to read more about:
+If you use Shifts to log your hours, you may be interested in these pages:  
 
-<ul>
-{% for page in site.pages %}
-  {% if page.layout == 'cp-page' %}  
-    <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
-  {% endif %}
-{% endfor %}
-</ul>
+* [General Shifts Info](http://weke.its.yale.edu/wiki/index.php/Shifts_Application)
 
-## Patron
-
-If you're using Shifts to occasionally check items out, you're a Patron. You might want to read more about:
-
+<!---
 <ul>
 {% for page in site.pages %}
   {% if page.layout == 'user-page' %}  
@@ -49,5 +37,6 @@ If you're using Shifts to occasionally check items out, you're a Patron. You mig
   {% endif %}
 {% endfor %}
 </ul>
+-->
 
 If you can't find an answer to your question in this documentation, please [report the issue](https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0) to us!
