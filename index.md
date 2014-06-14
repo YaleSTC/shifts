@@ -6,8 +6,8 @@ title: YaleSTC/shifts @ GitHub
 <div class="home">
 
 	<!-- Fork me on Github banner -->
-	<a href="http://github.com/YaleSTC/shifts"><img style="position: absolute; top: 0; right: 0; border: 0;"
-		src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+	<a href="https://github.com/YaleSTC/shifts"><img style="position: absolute; top: 0; right: 0; border: 0;"
+		src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
 	<style type="text/css">
     #container {
@@ -31,14 +31,14 @@ title: YaleSTC/shifts @ GitHub
   <div id="container">
 
     <div class="download">
-      <a href="http://github.com/YaleSTC/shifts/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/YaleSTC/shifts/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+      <a href="https://github.com/YaleSTC/shifts/zipball/master">
+        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
+      <a href="https://github.com/YaleSTC/shifts/tarball/master">
+        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
     </div>
 
-    <h1><a href="http://github.com/YaleSTC/shifts">shifts</a>
-      <span class="small">by <a href="http://github.com/YaleSTC">YaleSTC</a></span></h1>
+    <h1><a href="https://github.com/YaleSTC/shifts">shifts</a>
+      <span class="small">by <a href="https://github.com/YaleSTC">YaleSTC</a></span></h1>
 
     <div class="description">
       Application to easily track shifts, reports, and payforms for employees.
@@ -68,8 +68,8 @@ title: YaleSTC/shifts @ GitHub
     <h2>Download</h2>
     <p>
       You can download this project in either
-      <a href="http://github.com/YaleSTC/shifts/zipball/master">zip</a> or
-      <a href="http://github.com/YaleSTC/shifts/tarball/master">tar</a> formats.
+      <a href="https://github.com/YaleSTC/shifts/zipball/master">zip</a> or
+      <a href="https://github.com/YaleSTC/shifts/tarball/master">tar</a> formats.
     </p>
     <p>You can also clone the project with <a href="http://git-scm.com">git</a>
       by running:
