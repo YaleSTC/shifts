@@ -1,0 +1,20 @@
+language: ruby
+rvm:
+  - 1.9.3-p484
+# we use ruby 1.9.3p374; available versions are:
+# ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress
+# ruby-1.9.3-p545/ruby-1.9.3-p484
+
+env:
+  - DB=mysql
+#  - DB=sqlite
+#  - DB=postgresql
+
+before_script:
+#  - sudo apt-get install graphicsmagick
+  - mysql -e 'create database shifts'
+#  - psql -c 'create database shifts' -U postgres
+
+script:
+  - RAILS_ENV=test bundle exec rake --trace db:migrate
+#  - RAILS_ENV=test bundle exec rake --trace db:migrate test:all
