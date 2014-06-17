@@ -1,21 +1,4 @@
 # Basic Guide to Shifts [![Code Climate](https://codeclimate.com/github/YaleSTC/shifts.png)](https://codeclimate.com/github/YaleSTC/shifts)
-**Creator:** Adam Bray
-
-**Original Contributors:**
-
-* Kwabena Antwi-Boasiako
-* AJ Espinosa
-* Nathan Griffith
-* Cassandra Kildow
-* Ryan Laughlin
-* Michael Libertin
-* Aashish Manchanda
-* Bob Qu
-* Ben Somers
-* Laura Tomas
-* Harley Trung
-* Wei Yan
-* Derek Zhao
 
 The old README.md is stored on the [wiki](https://github.com/YaleSTC/shifts/wiki/Old-README.md) and the [website](https://yalestc.github.io/shifts/features/).
 
@@ -92,7 +75,7 @@ If you have any suggestions, or would like to report an issue, please either:
 * or, if you don't have a GitHub account, use our [issue submission form](https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0)
  
 
-## CREDITS
+## Credits
 
 Application icons provided by led24.de:  
 <http://led24.de/iconset/> (LED Icon Set)
