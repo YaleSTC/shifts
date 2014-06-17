@@ -1,4 +1,5 @@
-# Basic Guide to Shifts [![Code Climate](https://codeclimate.com/github/YaleSTC/shifts.png)](https://codeclimate.com/github/YaleSTC/shifts)
+# Basic Guide to Shifts [![Code Climate](https://codeclimate.com/github/YaleSTC/shifts.png)](https://codeclimate.com/github/YaleSTC/shifts) [![Dependency Status](https://gemnasium.com/YaleSTC/reservations.svg)](https://gemnasium.com/YaleSTC/reservations)
+
 
 The old README.md is stored on the [wiki](https://github.com/YaleSTC/shifts/wiki/Old-README.md) and the [website](https://yalestc.github.io/shifts/features/).
 
