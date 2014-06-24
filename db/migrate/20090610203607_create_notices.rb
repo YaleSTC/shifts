@@ -1,9 +1,9 @@
 class CreateNotices < ActiveRecord::Migration
   def self.up
     create_table :notices do |t|
-      t.boolean :sticky, :default => false
-      t.boolean :useful_link, :default => false
-      t.boolean :announcement, :default => false
+      t.boolean :sticky, default: false
+      t.boolean :useful_link, default: false
+      t.boolean :announcement, default: false
       t.boolean :indefinite
       t.string :content
       t.references :author

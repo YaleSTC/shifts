@@ -7,7 +7,7 @@
 <% end -%>
 <br>
 <% if DataType.first %>
-  <%= render(:partial => "data_objects_table" , :collection => @types_objects_hash) %>
+  <%= render(partial: "data_objects_table" , collection: @types_objects_hash) %>
   <br>
   <%= link_to "New Data Object", new_data_object_path %>
 <% else %>

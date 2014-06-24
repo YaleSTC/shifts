@@ -1,7 +1,7 @@
 class AddSuperuserAttribute < ActiveRecord::Migration
   def self.up
-    add_column :users, :superuser, :boolean, :default => nil
-    add_column :users, :supermode, :boolean, :default => true
+    add_column :users, :superuser, :boolean, default: nil
+    add_column :users, :supermode, :boolean, default: true
   end
 
   def self.down

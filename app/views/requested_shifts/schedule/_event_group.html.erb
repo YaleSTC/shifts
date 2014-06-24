@@ -6,7 +6,7 @@
 <% else %> 
   <% for row in rows %>
     <ul class="event-row">
-      <%= render :partial => "/requested_shifts/schedule/event", :object => row, :locals => {:location => event_group} %>
+      <%= render partial: "/requested_shifts/schedule/event", object: row, locals: {location: event_group} %>
     </ul>
   <% end %>
 <% end %>

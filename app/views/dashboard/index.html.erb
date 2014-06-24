@@ -9,12 +9,12 @@
     <% if user_has_active_shift?%>
 	<h4>Current Shift </h4>
 	 <% end %>
-      <%= render :partial => "shifts/user_options" %>
+      <%= render partial: "shifts/user_options" %>
       <% unless @upcoming_shifts.empty? %>
 <br />
       <h4>My Upcoming Shifts</h4>
         <ul>
-          <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
+          <%= render partial: 'shifts/upcoming_shift', collection: @upcoming_shifts %>
         </ul>
       <% end %>
       <br />
@@ -27,13 +27,13 @@
       <% unless @subs_you_requested.empty? %>
         <h4>Subs You've Requested</h4>
         <ul>
-          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
+          <%= (render partial: 'shifts/upcoming_sub', collection: @subs_you_requested) %>
         </ul>
       <% end %>
       <% unless @subs_you_can_take.empty? %>
         <h4>Subs You Can Take</h4>
           <ul>
-            <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+            <%= (render partial: 'shifts/upcoming_sub', collection: @subs_you_can_take) %>
           </ul>
       <% end %>
     <% else %>
@@ -46,10 +46,10 @@
   <fieldset class="index" id="punch_clock">
     <legend>Punch Clock</legend>
     <% if current_user.punch_clock %>
-      <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
+      <%= render partial: "punch_clocks/dashboard_clock", object: current_user.punch_clock %>
     <% else %>
-      <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
-      <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
+      <%= image_tag("icons/clock_play.png", class: "mini_icon") %>
+      <%= link_to "Clock in", user_punch_clocks_path(current_user), class: "action_with_icon", method: :post %>
     <% end %>
     <br /><br />
   </fieldset>
@@ -57,7 +57,7 @@
  <% unless @watched_objects.empty? %>
       <fieldset class="index" id="watched_objects">
         <legend>Watched Data Objects</legend>
-          <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
+          <%= render partial: 'data_objects/data_objects_table', collection: @watched_objects %>
       </fieldset>
     <% end %>
 
@@ -67,7 +67,7 @@
 
     <fieldset class ="index" id="notices_for_you">
       <legend>Announcements</legend>
-       <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
+       <div id = "dashboard_notices"> <%= render partial: 'notices/dashboard' %></div>
 		<br />
 		<%= link_to_post_a_sticky() %>
 		<%= link_to_post_an_announcement %>
@@ -76,7 +76,7 @@
     <fieldset class="index" id="shifts">
       <legend>Active Shifts</legend>
       <%unless @signed_in_shifts.empty? %>
-        <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
+        <%= render partial: 'shifts/shifts_layout', object: @signed_in_shifts %>
       <% else %>
         <em>There are no active shifts at this time.</em>
       <% end %>
@@ -85,16 +85,16 @@
     <fieldset class="index" id="shift_stats">
       <legend>Shift Statistics</legend>
 				<% @summary = current_user.summary_stats(Date.today-1.month, Date.today) %>
-				<%= render :partial => 'stats/stats_summary', :object => @summary %>
+				<%= render partial: 'stats/stats_summary', object: @summary %>
     </fieldset>
   </div>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
   <fieldset class="index" id="schedule">
   <legend>Daily Schedule</legend>
-  <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), :date => (@current_date - 1)-%>
-  <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), :date => (@current_date + 1)%></span>
-  <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
+  <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), date: (@current_date - 1)-%>
+  <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), date: (@current_date + 1)%></span>
+  <%= render partial: 'shifts/schedule/day', object:  @current_date %>
 </fieldset>
 <% end %>
 

@@ -9,7 +9,7 @@
   </p>
   <p>
     <%= f.label :users %><br />
-    <%= collection_multiple_select_tag(:users, @users_select, :id, :name, :selected_items => @punch_clock_set.users.map{|u| u.id}) %>
+    <%= collection_multiple_select_tag(:users, @users_select, :id, :name, selected_items: @punch_clock_set.users.map{|u| u.id}) %>
   <p>
     <%= f.submit 'Create' %>
   </p>

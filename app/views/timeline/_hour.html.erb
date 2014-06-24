@@ -6,5 +6,5 @@
       </div>
     </div>
   </div>
-  <%= render :partial => "shifts/schedule/minutes", :collection => (0...(@blocks_per_hour-1)).to_a %>
+  <%= render partial: "shifts/schedule/minutes", collection: (0...(@blocks_per_hour-1)).to_a %>
 </li>

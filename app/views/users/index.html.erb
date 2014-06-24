@@ -2,23 +2,23 @@
 
 <div align="right"><br/>
 <%= link_to "Import from CSV", import_department_users_path(@department) %><br/>
-<%= link_to "Export to CSV", :action => 'index', :format => 'csv' %><br/></div>
+<%= link_to "Export to CSV", action: 'index', format: 'csv' %><br/></div>
 
 
 <div id="user_searchbox" style="margin-bottom: 1em">
-  <% form_tag(department_users_path(current_department), :method => :get) do %>
+  <% form_tag(department_users_path(current_department), method: :get) do %>
     Find a user: <%= text_field_tag :search %>
-    <%= submit_tag "Submit", :id => "search_submit" %>
+    <%= submit_tag "Submit", id: "search_submit" %>
   <% end %>
 </div>
 <div align= "left"><br />
 
-	<%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%> |
+	<%= image_tag("icons/add.png", class: "mini_icon")%> <%= link_to "Add A New User", new_user_path, class: "action_with_icon"%> |
 	<% if params[:show_inactive].nil? %>
-	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true), :class => "action_with_icon" %>
+	  <%= image_tag("icons/flag_purple.png", class: "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, show_inactive: true), class: "action_with_icon" %>
 	<% else %>
-	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), :class => "action_with_icon" %>
+	  <%= image_tag("icons/flag_purple.png", class: "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), class: "action_with_icon" %>
 	<% end %>
 </div>
-<%= render :partial => 'user_list' %>
-<%#= observe_field :search, :frequency => 0.2, :url => search_department_users_path(current_department), :with => :search %>
+<%= render partial: 'user_list' %>
+<%#= observe_field :search, frequency: 0.2, url: search_department_users_path(current_department), with: :search %>

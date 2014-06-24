@@ -1,7 +1,7 @@
 namespace :db do
   desc "Randomize existing User names and emails"
 
-  task :fake_users => :environment do
+  task fake_users: :environment do
     task_start_time = Time.now
 
     require 'faker'

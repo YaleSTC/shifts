@@ -1,12 +1,12 @@
 <% title "Time Slots" %>
 
-<h1 class="no_js"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></h1>
+<h1 class="no_js"><%= link_to "New Time Slot", new_time_slot_path(date: params[:date]) %></h1>
 
 <div id="AJAX_status"></div><%# to display status messages in top right corner %>
 
-<%= render :partial => 'shifts/schedule/header' %>
-<%= render :partial => 'location', :collection => @department.locations %>
-<%= render :partial => 'shifts/schedule/footer' %>
+<%= render partial: 'shifts/schedule/header' %>
+<%= render partial: 'location', collection: @department.locations %>
+<%= render partial: 'shifts/schedule/footer' %>
 
 <%= javascript_tag do %>
   newShiftPath = '<%= new_shift_path %>';

@@ -5,10 +5,10 @@
 		</tr>
 	</thead>
 	<tbody id="all_report_items">
-		<%= render :partial => 'report_items' %>
+		<%= render partial: 'report_items' %>
 	</tbody>
 </table>
 
-<% form_remote_tag :url => { :action => :display_report_items, :id => @location.id, :more_items => true } do %>
+<% form_remote_tag url: { action: :display_report_items, id: @location.id, more_items: true } do %>
 	<%= submit_tag "Display More" %>
 <% end %>

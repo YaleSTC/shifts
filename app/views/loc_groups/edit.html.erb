@@ -1,10 +1,10 @@
 <% title = "Edit Location Group" %>
 
-<%= render :partial => 'form', :locals => {:title => title} %>
+<%= render partial: 'form', locals: {title: title} %>
 
 <p>
   <%= link_to "Show", @loc_group %> |
   <%= link_to "View All", department_loc_groups_path(@department) %> |
-  <%= link_to "Destroy", @loc_group, :confirm => 'Are you sure?', :method => :delete %>
+  <%= link_to "Destroy", @loc_group, confirm: 'Are you sure?', method: :delete %>
 </p>
 

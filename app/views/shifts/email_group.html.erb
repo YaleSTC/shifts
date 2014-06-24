@@ -1,15 +1,15 @@
 <% title "Shifts - Email A Group" %>
 
   <fieldset class="index" id="date_selector">
-    <% form_tag(:controller => 'shifts', :action => 'email_group', :method => :get) do %>
+    <% form_tag(controller: 'shifts', action: 'email_group', method: :get) do %>
       <%= label_tag :start_time %><br />
-      <%= datetime_select(:email_group, :start_time, :default => @start_time)%>
+      <%= datetime_select(:email_group, :start_time, default: @start_time)%>
       <br />
       <%= label_tag :end_time %><br />
-      <%= datetime_select(:email_group, :end_time, :default => @end_time)%>
+      <%= datetime_select(:email_group, :end_time, default: @end_time)%>
       <br />
       <%= label_tag :locations %><br />
-      <%= select_tag :locations, option_groups_from_collection_for_select(@loc_groups, "locations.active", :name, :id, :name, @location_ids), {:multiple => true, :size => 15}%><br />
+      <%= select_tag :locations, option_groups_from_collection_for_select(@loc_groups, "locations.active", :name, :id, :name, @location_ids), {multiple: true, size: 15}%><br />
       <br />
       <%= submit_tag 'Update' %>
     <% end -%>

@@ -2,10 +2,10 @@
   <div class="hours" >
     <div class="center_container">
       <div class="center_content">
-        <%= Time.now.change(:hour => hour_header).strftime("%l%p") %>
+        <%= Time.now.change(hour: hour_header).strftime("%l%p") %>
       </div>
     </div>
   </div>
-  <%= render :partial => "time_slots/minutes", :collection => (0...(@blocks_per_hour-1)).to_a %>
+  <%= render partial: "time_slots/minutes", collection: (0...(@blocks_per_hour-1)).to_a %>
 </li>
 

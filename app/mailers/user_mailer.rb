@@ -110,8 +110,8 @@ class UserMailer < ActionMailer::Base
   #   from          "#{dept.department_config.mailer_address}"
   #   sent_on       Time.now
   #   content_type  'text/plain'
-  #   body        :message => message
-  #   attachment  :content_type => "application/pdf",
+  #   body        message: message
+  #   attachment  content_type: "application/pdf",
   #               :body         => File.read("data/payforms/" + attachment_name),
   #               :filename     => attachment_name
   # end

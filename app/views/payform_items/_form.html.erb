@@ -2,7 +2,7 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :date %><br />
-    <%= f.collection_select :date, days_in_period(@payform_item.payform).reverse, :to_s, :to_weekday_date, {:selected => (@payform_item.date || Date.today).to_s} %>
+    <%= f.collection_select :date, days_in_period(@payform_item.payform).reverse, :to_s, :to_weekday_date, {selected: (@payform_item.date || Date.today).to_s} %>
   </p>
   <p>
     <%= f.label :hours %><br />
@@ -10,20 +10,20 @@
     <%= select_integer(:other, :hours, 0, 15, 1, selected_hours(@payform_item) )%> hrs
     <%= select_integer(:other, :minutes, 0, 55, 5, selected_min(@payform_item) )%> min<br />
     <%= radio_button_tag "calculate_hours", "time_input", false %><strong>Compute</strong>
-    <%= time_select "time_input", "start", {:twelve_hour => true}, {:value => 1.hour.ago} %> to
-    <%= time_select "time_input", "end", {:twelve_hour => true} %>
+    <%= time_select "time_input", "start", {twelve_hour: true}, {value: 1.hour.ago} %> to
+    <%= time_select "time_input", "end", {twelve_hour: true} %>
   </p>
   <p>
     <%= f.label :category %><br />
-    <%= f.collection_select :category_id, @department.categories.active, :id, :name, {:prompt => "Select a category"} %>
+    <%= f.collection_select :category_id, @department.categories.active, :id, :name, {prompt: "Select a category"} %>
   </p>
   <p>
     <%= f.label :description %><br />
-    <%= f.text_area :description, :cols => 80, :rows => 5 %>
+    <%= f.text_area :description, cols: 80, rows: 5 %>
   </p>
   <% if submit == "Save" %>
     <%= f.label :reason %><br />
-    <%= f.text_area :reason, :cols => 80, :rows => 5 %>
+    <%= f.text_area :reason, cols: 80, rows: 5 %>
   <% end %>
   <p><%= f.submit submit %></p>
 <% end %>

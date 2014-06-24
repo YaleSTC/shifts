@@ -13,7 +13,7 @@
     <th>Import?</th>
   </tr>
   <% form_tag url_for(:action=>'save_import') do %>
-    <%= render :partial => "import_table_form" %>
+    <%= render partial: "import_table_form" %>
     <tr class="button_row">
       <td colspan=2><%= submit_tag "Cancel"%></td>
       <td colspan=<%= @appconfig.login_options.length==1 ? 4 : @appconfig.login_options.length+4 %>></td>

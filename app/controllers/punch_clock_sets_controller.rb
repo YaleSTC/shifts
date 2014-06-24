@@ -59,7 +59,7 @@ class PunchClockSetsController < ApplicationController
     redirect_to punch_clock_sets_path
   end
 
-# Should be refactored to use :dependent => :destroy, but unsure if that works when
+# Should be refactored to use dependent: :destroy, but unsure if that works when
 # the presence of the parent is optional.  Must investigate.  -ben
   def destroy
     @punch_clock_set = PunchClockSet.find(params[:id])

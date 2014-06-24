@@ -2,7 +2,7 @@ function description(type) {
   var return_value = "";
   // <% DataField::DISPLAY_TYPE_OPTIONS.each do |name, value| %>
   // if(type.match("<%= value %>")){
-  //   return "<%#= escape_javascript(render :partial => "data_fields/data_field_types/#{value}") %>";
+  //   return "<%#= escape_javascript(render partial: "data_fields/data_field_types/#{value}") %>";
   // }
   // <% end %>
   if(type == "text_area")

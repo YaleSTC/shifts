@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title><%= h(yield(:title) || 'Shifts') %></title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
 
@@ -21,17 +21,17 @@
           <a href="http://www.yale.edu">Shifts by Yale University</a>
         </h2>
       <% if ( mobile_device? ) && (current_user || session[:cas_user]) %>
-        <%= render :partial => "layouts/include/mobile_login" %>
+        <%= render partial: "layouts/include/mobile_login" %>
       <% elsif current_user || session[:cas_user] %>
-        <%= render :partial => "layouts/include/login" %>
+        <%= render partial: "layouts/include/login" %>
       <% end %>
       </div>
       <div id="main_banner">
       </div>
       <div id="link_bar">
         <div id="application_tab_bar">
-          <%= render :partial => "layouts/include/chooser" if current_user%>
-					<%= render :partial => "layouts/include/shift_indicator" if current_user%>
-					<%= render :partial => "layouts/include/nav" if current_user %>
+          <%= render partial: "layouts/include/chooser" if current_user%>
+					<%= render partial: "layouts/include/shift_indicator" if current_user%>
+					<%= render partial: "layouts/include/nav" if current_user %>
         </div>
       </div>

@@ -1,3 +1,3 @@
-$("#payform_status").html('<%= escape_javascript render :partial => "status" %>');
-$("#flash").html('<%= escape_javascript render :partial => "layouts/flash", :locals => { :flash => flash } %>');
-$("#payform_buttons").html('<%= escape_javascript render :partial => "payform_buttons", :locals => { :flash => flash } %>');
+$("#payform_status").html('<%= escape_javascript render partial: "status" %>');
+$("#flash").html('<%= escape_javascript render partial: "layouts/flash", locals: { flash: flash } %>');
+$("#payform_buttons").html('<%= escape_javascript render partial: "payform_buttons", locals: { flash: flash } %>');

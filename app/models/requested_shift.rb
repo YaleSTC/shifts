@@ -7,15 +7,15 @@ class RequestedShift < ActiveRecord::Base
 	validate :request_is_within_time_slot
 
   # has_many :locations_requested_shifts
-  # has_many :locations, :through => :locations_requested_shifts
+  # has_many :locations, through: :locations_requested_shifts
 	belongs_to :user
 	belongs_to :template
 
  	scope :assigned, where("requested_shifts.assigned_start < ?", Time.now.utc)
  	scope :unassigned, where("requested_shifts.assigned_start is null")
-# 	scope :unassigned, lambda {|location| {:conditions => ["requested_shifts.assigned_start = ? AND locations_requested_shifts.location_id = ?", nil,  location.id], :joins => :locations_requested_shifts }}
+# 	scope :unassigned, lambda {|location| {conditions: ["requested_shifts.assigned_start = ? AND locations_requested_shifts.location_id = ?", nil,  location.id], joins: :locations_requested_shifts }}
 	scope :on_day, ->(day){where(day: day)}
-  # scope :at_location, lambda {|location| {:conditions => ["locations_requested_shifts.location_id = ?", location.id], :joins => :locations_requested_shifts }}
+  # scope :at_location, lambda {|location| {conditions: ["locations_requested_shifts.location_id = ?", location.id], joins: :locations_requested_shifts }}
 
 	WEEK_DAY_SELECT = [	["Monday", 0],
     									["Tuesday", 1],

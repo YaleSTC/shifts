@@ -10,7 +10,7 @@ gem 'jcrop-rails'
 gem 'superfish-rails'
 
 # ldap integration
-gem 'ruby-net-ldap', :require => 'net/ldap'
+gem 'ruby-net-ldap', require: 'net/ldap'
 
 # generate calendar feeds
 gem 'icalendar'
@@ -49,7 +49,7 @@ group :development do
   gem 'jazz_hands'
   gem 'letter_opener'
   gem 'faker'
-  gem 'rack-webconsole-pry', :require => 'rack-webconsole'
+  gem 'rack-webconsole-pry', require: 'rack-webconsole'
 end
 
 group :assets do

@@ -1,9 +1,9 @@
 <fieldset class="sticky", title= "<%= "Posted on #{sticky.start.to_date} at #{sticky.start.to_s(:am_pm)}" %>" >
   <div class="right">
 	 <% if sticky.active?%>  
-    <%= link_to '[x]', { :controller => 'notices', :action => 'destroy', :id => sticky.id },
-      :confirm => "Are you sure you want to remove this sticky? It will be removed for all users and all locations.",
-      :method => :delete %><% end %>
+    <%= link_to '[x]', { controller: 'notices', action: 'destroy', id: sticky.id },
+      confirm: "Are you sure you want to remove this sticky? It will be removed for all users and all locations.",
+      method: :delete %><% end %>
   </div>
 
   <div class="<%= html_class%>">

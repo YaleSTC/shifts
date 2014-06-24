@@ -5,7 +5,7 @@
 	<fieldset class="index">
 		<legend>On Duty Now</legend>
 		<% @current_shifts.each do |shift| %>
-			<%= render :partial => "shift_user", :locals => { :shift => shift } %>
+			<%= render partial: "shift_user", locals: { shift: shift } %>
 		<% end %>
 	</fieldset>
 </div>	
@@ -28,5 +28,5 @@
 	</fieldset>
 </div>
 
-<%= render :partial => "location", :locals => {:location => @location} %>
+<%= render partial: "location", locals: {location: @location} %>
 Dark regions indicate staffing

@@ -3,7 +3,7 @@
   <h2>User Information</h2>
 
   <%= form_for user, :html=>{:id=>"user_form"} do |f| %>
-    <%= f.error_messages :object => [@user, @user_profile_entries] %>
+    <%= f.error_messages object: [@user, @user_profile_entries] %>
 
     <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
       <h3>Reset Password?</h3>
@@ -43,7 +43,7 @@
     <% if @appconfig.login_options.size >1 %>
       <p>
         <%= f.label :login_type %><br />
-        <%= f.select(:auth_type, @appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
+        <%= f.select(:auth_type, @appconfig.login_options, {selected: @user.auth_type || "CAS"}) %>
       </p>
     <% end %>
 
@@ -63,7 +63,7 @@
 
 <div class='profile'>
   <h2>User Profile</h2>
-  <%= render :partial => 'user_profile' %>
+  <%= render partial: 'user_profile' %>
 </div>
 
 <div class='update_left'>
@@ -73,5 +73,5 @@
   <% end %>
 
 <%# if @appconfig.use_ldap %>
-<%#= observe_form :user_form, :url => { :action => 'ldap_search' }, :frequency => 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})" %>
+<%#= observe_form :user_form, url: { action: 'ldap_search' }, frequency: 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})" %>
 <%# end %>

@@ -3,12 +3,12 @@
 <br/>
 <% form_remote_for(@announcement) do |f| %>
   <div id ="errors">
-    <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
+    <%= render partial: "notices/error_messages", locals: {f: f} %>
   </div>
 
 	<fieldset class = "index">
     <legend>Content:</legend>
-    <%= f.text_area :content, :id=>"content", :size => "40x5" %>
+    <%= f.text_area :content, :id=>"content", size: "40x5" %>
   </fieldset>
 
 	<div id = "time_choices">
@@ -20,7 +20,7 @@ start(1i), start(2i).. start(5i) start(i)
     <legend>Start time:</legend>
     <%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
     <%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
-    <label><%= f.datetime_select :start, :minute_step => current_department.department_config.time_increment, :twelve_hour => true %></label>
+    <label><%= f.datetime_select :start, minute_step: current_department.department_config.time_increment, twelve_hour: true %></label>
   </fieldset>
 -->
 
@@ -33,12 +33,12 @@ start(1i), start(2i).. start(5i) start(i)
     <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
     <%= f.label :end %>
     <%= f.time_select :end_time, {
-            :simple_time_select => true,
-            :time_separator => "",
-            :minute_interval => @department.department_config.time_increment,
-            :default => @announcement.end
+            simple_time_select: true,
+            time_separator: "",
+            minute_interval: @department.department_config.time_increment,
+            default: @announcement.end
                                       } %>
-    <%= f.date_select :end_date, :default => @default_end_date %>
+    <%= f.date_select :end_date, default: @default_end_date %>
     </span>
   </fieldset>
 
@@ -47,7 +47,7 @@ start(1i), start(2i).. start(5i) start(i)
     from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
 		locations, but just disable all of the checkboxes -->
 <div id="variable_height_box">
-	<%= render :partial => "notices/locations", :locals => {:notice => @announcement} %>
+	<%= render partial: "notices/locations", locals: {notice: @announcement} %>
 </div>
 	<p>
   	<%= f.submit 'Save' %>

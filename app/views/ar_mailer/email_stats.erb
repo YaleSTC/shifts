@@ -48,7 +48,7 @@ The following users have <u>left a shift early</u> in the past 24 hours:
   <% userlist.uniq.each do |user|%>
     <h3><%= user.name %></h3>
     <% @summary = user.summary_stats(Time.now, Time.now-1.month) %>
-    <%= render :partial => 'stats/stats_summary', :object => @summary %>
+    <%= render partial: 'stats/stats_summary', object: @summary %>
   <% end %>
 ---
   <br />
