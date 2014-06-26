@@ -1,20 +1,28 @@
+# Documentation: http://docs.travis-ci.com/user/build-configuration/
+# Documentation: http://docs.travis-ci.com/user/languages/ruby/
+
+# Language
 language: ruby
-rvm:
-  - 1.9.3-p484
+
+# Version Numbers (possible to define multiple)
 # we use ruby 1.9.3p374; available versions are:
 # ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress
 # ruby-1.9.3-p545/ruby-1.9.3-p484
+rvm:
+  - 1.9.3-p484
 
+# Environment Variables
+# - DB=sqlite
+# - DB=postgresql # This is needed instead of mysql for Heroku
 env:
   - DB=mysql
-#  - DB=sqlite
-#  - DB=postgresql
 
+# Run before the script
+# - psql -c 'create database shifts' -U postgres
 before_script:
-#  - sudo apt-get install graphicsmagick
   - mysql -e 'create database shifts'
-#  - psql -c 'create database shifts' -U postgres
 
+# Jobs to test on the script
 script:
-  - RAILS_ENV=test bundle exec rake --trace db:migrate
-  - RAILS_ENV=test bundle exec rake --trace test test/test_helper.rb
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - RAILS_ENV=test bundle exec rake --trace
