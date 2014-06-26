@@ -97,7 +97,7 @@ class SubRequest < ActiveRecord::Base
   def add_errors(e)
     e = e.gsub("Validation failed: ", "")
     e.split(", ").each do |error|                   #errors.add_to_base is tokenized by comma-space pattern
-      errors.add_to_base(error.gsub(",,", ", "))    #problem: in comma-seperated lists, each item is incorrectly rendered as a seperate error
+      errors.add(:base, error.gsub(",,", ", "))    #problem: in comma-seperated lists, each item is incorrectly rendered as a seperate error
     end                                             #work-around: lists are printed as "item,,item,,item" which now swap to "item, item, item"
   end
 
@@ -105,45 +105,45 @@ class SubRequest < ActiveRecord::Base
 
   def shift_is_scheduled
     unless self.shift.scheduled?
-      errors.add_to_base("Sub Request cannot be made for an unscheduled shift.")
+      errors.add(:base, "Sub Request cannot be made for an unscheduled shift.")
     end
   end
 
 
   def start_and_end_are_within_shift
     unless self.start.between?(self.shift.start, self.shift.end) && self.end.between?(self.shift.start, self.shift.end)
-      errors.add_to_base("Sub Request must be within shift.")
+      errors.add(:base, "Sub Request must be within shift.")
     end
   end
 
   def mandatory_start_and_end_are_within_subrequest
     unless self.mandatory_start.between?(self.start, self.end) && self.mandatory_end.between?(self.start, self.end)
-      errors.add_to_base("The mandatory portion of this sub request must be within the optional portion.")
+      errors.add(:base, "The mandatory portion of this sub request must be within the optional portion.")
 
     end
   end
 
   def start_less_than_end
     if self.end <= self.start || self.mandatory_end <= self.mandatory_start
-      errors.add_to_base("All start times must be before end times.")
+      errors.add(:start, "The start time should not be later than the end time.")
     end
   end
 
   def not_in_the_past
-    errors.add_to_base("Can't create a sub request for a time that has already passed.") if self.start < Time.now
+    errors.add(:base, "Can't create a sub request for a time that has already passed.") if self.start < Time.now
   end
 
   def user_does_not_have_concurrent_sub_request
     c = SubRequest.where("shift_id = ? AND start < ? AND end > ?", self.shift_id, self.end, self.start).count
     unless c.zero?
-      errors.add_to_base("#{self.shift.user.name} has an overlapping sub request in that period.") unless (self.id and c==1)
+      errors.add(:base, "#{self.shift.user.name} has an overlapping sub request in that period.") unless (self.id and c==1)
     end
   end
 
   def requested_users_have_permission
     c = self.requested_users.select { |user| !user.can_signup?(self.loc_group) || user==self.user}
       unless c.blank?
-        errors.add_to_base("The following users do not have permission to work in this location: #{c.map(&:name)* ", "}")
+        errors.add(:base, "The following users do not have permission to work in this location: #{c.map(&:name)* ", "}")
     end
   end
 
