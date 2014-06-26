@@ -55,4 +55,7 @@ Shifts::Application.configure do
     :domain => "yale.edu",
   }
 
+  # Configure party_foul options
+  config.middleware.use('PartyFoul::Middleware')
+
 end
