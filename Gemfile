@@ -46,8 +46,9 @@ gem 'capistrano'
 gem 'airbrake'
 
 group :development do
-  # gem 'jazz_hands' # Breaks on Ruby 2.0.0+, see issue 258
-  gem 'pry-byebug'   # Add step/next/finish/continue breakpoints to Pry
+  # Issue 258: jazz_hands breaks on Ruby 2.0.0+, pry-byebug requires 2.0.0+
+  gem 'jazz_hands', platform: [:ruby_19]
+  gem 'pry-byebug', platform: [:ruby_20]
   gem 'letter_opener'
   gem 'faker'
   gem 'rack-webconsole-pry', :require => 'rack-webconsole'
