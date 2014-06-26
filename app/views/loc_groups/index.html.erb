@@ -5,7 +5,6 @@
   <tr>
     <th>Name</th>
     <% unless mobile_device?%>
-      <th>Sub Request Email</th>
       <th>Locations</th>
       <th>Public</th>
       <th>Edit</th>
@@ -18,7 +17,6 @@
     <tr id="loc_group<%= loc_group.id%>" <%=  loc_group.active ? "" : raw("class='disabled'") %>>
     <td><%= link_to loc_group.name, loc_group_path(loc_group) %></td>
 	  <% unless mobile_device?%>
-	  <td><a href="mailto:<%= loc_group.sub_request_email %>"> <%= loc_group.sub_request_email %></a></td>
       <td><%=h loc_group.locations.collect{|loc| loc.name} * ", " %></td>
       <td><%= loc_group.public %></td>
 	    <td><%= link_to "Edit", edit_loc_group_path(loc_group)%></td>

@@ -6,7 +6,6 @@ loc_groups_001:
   id: "2"
   name: IO Cluster
   signup_perm_id: "6"
-  sub_request_email: 
   updated_at: 2009-06-22 17:33:43
   view_perm_id: "5"
 loc_groups_002: 
@@ -16,7 +15,6 @@ loc_groups_002:
   id: "3"
   name: Public Clusters
   signup_perm_id: "9"
-  sub_request_email: 
   updated_at: 2009-06-22 17:33:57
   view_perm_id: "8"
 loc_groups_003: 
@@ -26,6 +24,5 @@ loc_groups_003:
   id: "4"
   name: College Clusters
   signup_perm_id: "12"
-  sub_request_email: 
   updated_at: 2009-06-22 17:34:11
   view_perm_id: "11"
