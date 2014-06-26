@@ -45,6 +45,9 @@ gem 'rubycas-client', '2.2.1'
 gem 'capistrano'
 gem 'airbrake'
 
+# catch Rails exception errors
+gem 'party_foul'
+
 group :development do
   gem 'jazz_hands'
   gem 'letter_opener'
