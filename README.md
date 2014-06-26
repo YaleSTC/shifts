@@ -65,7 +65,6 @@ Location groups have the following properties:
 * Short Name
 * Maximum Shift Length
 * Minimum Shift Length
-* Sub Request Email Address
 
 ### Time Slots
 TODO: explains how time slots are used to allow shifts to be signup-able
