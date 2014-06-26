@@ -18,9 +18,6 @@ gem 'icalendar'
 # authentication
 gem 'authlogic'
 
-# simpler forms
-gem 'simple_form'
-
 # image upload
 gem 'paperclip'
 
@@ -46,7 +43,8 @@ gem 'capistrano'
 gem 'airbrake'
 
 # removed these plugins as they are deprecated
-gem 'dynamic_form'
+gem 'dynamic_form' # needed for f.error_messages
+gem 'simple_form'  # replaces multiple_select
 
 group :development do
   # Issue 258: jazz_hands breaks on Ruby 2.0.0+, pry-byebug requires 2.0.0+
