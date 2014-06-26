@@ -5,9 +5,8 @@
 language: ruby
 
 # Version Numbers (possible to define multiple)
-# we use ruby 1.9.3p374; available versions are:
-# ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress
-# ruby-1.9.3-p545/ruby-1.9.3-p484
+# We use ruby 1.9.3p374; available versions are:
+# ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress/ruby-1.9.3-p545/ruby-1.9.3-p484
 rvm:
   - 1.9.3-p484
 
@@ -26,3 +25,19 @@ before_script:
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - RAILS_ENV=test bundle exec rake --trace
+
+# Notifications
+notifications:
+    email:
+        #recipients:
+        #   - test@example.com
+        #   By default, a build email is sent to the committer and the author,
+        #   but only if they have access to the repository the commit was pushed
+        #   to. Add an address here to send all emails there instead.
+        on_success: change   # Only sends success emails when failure -> success
+        on_failure: always   # Always send failure emails
+
+# Run after the script is successful
+after_success:
+  # For example, you could push to Heroku here
+  # - git push git@heroku.com:shifts.git master
