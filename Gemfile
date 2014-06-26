@@ -37,13 +37,16 @@ gem 'delayed_job_web'
 # scheduled cron jobs
 gem 'whenever'
 
-#authentication
+# authentication
 gem 'rubycas-client-rails'
 gem 'rubycas-client', '2.2.1'
 
 # deployment
 gem 'capistrano'
 gem 'airbrake'
+
+# removed these plugins as they are deprecated
+gem 'dynamic_form'
 
 group :development do
   # Issue 258: jazz_hands breaks on Ruby 2.0.0+, pry-byebug requires 2.0.0+

@@ -90,6 +90,7 @@ GEM
       sinatra (>= 0.9.2)
     diff-lcs (1.2.5)
     diffy (3.0.1)
+    dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.0.2)
     faker (1.2.0)
@@ -263,6 +264,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   delayed_job_active_record
   delayed_job_web
+  dynamic_form
   faker
   htmlentities
   icalendar
