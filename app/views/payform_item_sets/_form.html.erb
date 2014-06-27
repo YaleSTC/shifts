@@ -27,7 +27,13 @@
   </p>
 
   <p class="no_js">
-    <%= collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})%>
+    <!-- If javascript is enabled, anything with the class 'no_js' will be hidden
+         so replacing this method is possibly not even necessary. -->
+    <%= f.collection_select(:user_ids, @users_select, :id, :name) %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
+<!-- Original method used in line 30, with the multiple_select plugin:
+collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})
+-->
