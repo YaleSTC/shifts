@@ -11,12 +11,12 @@ What you want on this page depends on your role within the *Shifts* application.
 If you are an Admin, you might want to read more about:
 
 * [Setting up the *Shifts* application](https://github.com/YaleSTC/shifts/blob/rails-3.2/README.md)
-* [Managing App Configuration](/reservations/user-doc/managing-app-config/)
-* [Managing Requirements](reservations/user-doc/managing-requirements/)
-* [Managing Users](/reservations/user-doc/managing-users/)
-* [Managing Emails](/reservations/user-doc/emails/)
-* [Usage Reports](/reservations/user-doc/reports/)
-* [Managing Announcements](/reservations/user-doc/announcements/)
+* [Managing App Configuration](/shifts/user-doc/managing-app-config/)
+* [Managing Requirements](/shifts/user-doc/managing-requirements/)
+* [Managing Users](/shifts/user-doc/managing-users/)
+* [Managing Emails](/shifts/user-doc/emails/)
+* [Usage Reports](/shifts/user-doc/reports/)
+* [Managing Announcements](/shifts/user-doc/announcements/)
 
 ## User
 
