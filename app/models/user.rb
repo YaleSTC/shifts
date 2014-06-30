@@ -1,5 +1,6 @@
 require 'net/ldap'
 require 'rails_extensions'
+require 'memoist'
 class User < ActiveRecord::Base
   acts_as_authentic do |options|
     options.maintain_sessions false
@@ -39,7 +40,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :login
   validate :departments_not_empty
 
-  extend ActiveSupport::Memoizable
+  #extend ActiveSupport::Memoizable
+  extend Memoist
 
   def role=(name)
     self.roles << Role.where(name: name).first if name && Role.where(name: name).first
