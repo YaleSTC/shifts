@@ -5,6 +5,10 @@
       <p>
           <div class="multiple_select">
             <h3><%= current_department.name %></h3>
+            <!-- The method collection_multiple_select is originally from
+            http://ruido-blanco.net/blog/rails-multiple-select-helper-plugin/
+            and is a plugin for Rails 2, which is deprecated. This file should
+            not be loaded as per the `no_js` div, see issue 130 -->
             <%= collection_multiple_select(:user_config, :view_loc_groups, 
                                         @loc_group_select[current_department.id], :id, :name,
                                         :selected_items => @selected_loc_groups) %>
