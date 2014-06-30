@@ -9,7 +9,7 @@ namespace :db do
       if location.has_attribute?(:report_email)
         name=location.report_email.split('@')[0]
         location.report_email=name+'@shifts.app'
-        if !location.save(false)
+        if !location.save(validate: false)
           puts "Location #{location.name} not saved! The error message:"
           location.errors.full_messages.each do |message|
             puts message
