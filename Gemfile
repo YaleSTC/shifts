@@ -45,6 +45,9 @@ gem 'rubycas-client', '2.2.1'
 gem 'capistrano'
 gem 'airbrake'
 
+# replace ActiveSupport::Memoizable
+gem 'memoist'
+
 group :development do
   gem 'jazz_hands'
   gem 'letter_opener'
