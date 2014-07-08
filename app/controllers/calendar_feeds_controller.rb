@@ -54,7 +54,7 @@ class CalendarFeedsController < ApplicationController
 
   def generate_token(source, type)
     if !current_user.calendar_feed_hash
-      current_user.calendar_feed_hash = SecureRandom.hex(32)  #must be 32 characters
+      current_user.calendar_feed_hash = SecureRandom.hex(32) # generates 64-character string
       current_user.save!
     end
       require 'openssl'
