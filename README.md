@@ -1,7 +1,7 @@
 shifts
 ======
 
-Shifts is an open-source application that allows the easy tracking of employees who work scheduled hours in various locations and times.
+Shifts is an open-source application which allows the easy tracking of employees who work scheduled hours in various locations and times.
 
 This gh-pages branch uses Jekyll to serve a static set of webpages for documentation purposes
 
