@@ -17,9 +17,6 @@ gem 'icalendar'
 # authentication
 gem 'authlogic'
 
-# simpler forms
-gem 'simple_form'
-
 # image upload
 gem 'paperclip'
 
@@ -36,7 +33,7 @@ gem 'delayed_job_web'
 # scheduled cron jobs
 gem 'whenever'
 
-#authentication
+# authentication
 gem 'rubycas-client-rails'
 gem 'rubycas-client', '2.2.1'
 
@@ -44,8 +41,14 @@ gem 'rubycas-client', '2.2.1'
 gem 'capistrano'
 gem 'airbrake'
 
+# removed these plugins as they are deprecated
+gem 'dynamic_form' # needed for f.error_messages
+gem 'simple_form'  # replaces multiple_select
+
 group :development do
-  gem 'jazz_hands'
+  # Issue 258: jazz_hands breaks on Ruby 2.0.0+, pry-byebug requires 2.0.0+
+  gem 'jazz_hands', platform: [:ruby_19]
+  gem 'pry-byebug', platform: [:ruby_20]
   gem 'letter_opener'
   gem 'faker'
   gem 'rack-webconsole-pry', :require => 'rack-webconsole'
@@ -59,7 +62,7 @@ end
 
 # For Twitter-bootstrap (also use sass-rails), https://github.com/twbs/bootstrap-sass
 gem 'bootstrap-sass', '~> 3.1.1'
-# Starting with bootstrap-sass v3.1.1.1, due to the structural changes from upstream you will need these backported asset pipeline gems on Rails 3.2. 
+# Starting with bootstrap-sass v3.1.1.1, due to the structural changes from upstream you will need these backported asset pipeline gems on Rails 3.2.
 gem 'sprockets-rails', '=2.0.0.backport1'
 gem 'sprockets', '=2.2.2.backport2'
 gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
