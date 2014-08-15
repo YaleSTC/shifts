@@ -82,6 +82,7 @@ GEM
     coffee-script-source (1.6.3)
     columnize (0.8.9)
     coolline (0.4.2)
+    daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger (1.6.3)
       columnize (>= 0.3.1)
@@ -275,6 +276,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   capistrano
   coffee-rails (~> 3.2.1)
+  daemons
   delayed_job_active_record
   delayed_job_web
   dynamic_form
