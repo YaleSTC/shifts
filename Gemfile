@@ -44,6 +44,8 @@ gem 'airbrake'
 # removed these plugins as they are deprecated
 gem 'dynamic_form' # needed for f.error_messages
 gem 'simple_form'  # replaces multiple_select
+# replace ActiveSupport::Memoizable
+gem 'memoist'
 
 group :development do
   # Issue 258: jazz_hands breaks on Ruby 2.0.0+, pry-byebug requires 2.0.0+
@@ -59,6 +61,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+<<<<<<< HEAD
 
 # For Twitter-bootstrap (also use sass-rails), https://github.com/twbs/bootstrap-sass
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -66,3 +69,5 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'sprockets-rails', '=2.0.0.backport1'
 gem 'sprockets', '=2.2.2.backport2'
 gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
+=======
+>>>>>>> 284_memoizable
