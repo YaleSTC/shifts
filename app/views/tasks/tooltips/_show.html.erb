@@ -52,7 +52,7 @@
       <% end %>
 
       <div class="toggle_me">
-        <%= remote_form_for @shift do |f| %>
+        <%= form_for @shift, remote: true do |f| %>
           <p>
             <%= f.label :start %><br />
             <%= f.time_select :start, :twelve_hour => true, :minute_step => current_department.department_config.time_increment %>
@@ -110,7 +110,7 @@
       </div>
       <% if current_user.is_admin_of?(@department) and @shift.repeating_event %>
         <div class="toggle_me" style="display:none">
-          <%= remote_form_for (@repeating_event = @shift.repeating_event) do |f| %>
+          <%= form_for (@repeating_event = @shift.repeating_event), remote: true do |f| %>
             <%= render :partial => 'shifts/form_repeating', :locals => {:f => f} %>
             <%= hidden_field_tag 'rerender_date', @shift.start.to_date.to_s %>
             <p style="clear:both"><%= submit_to_remote "add_button", "Update Repeating Event", :url => { :controller => 'repeating_events', :action => 'update', :id => @repeating_event.id, :calendar => params[:calendar] } %></p>
