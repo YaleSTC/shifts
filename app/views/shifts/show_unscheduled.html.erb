@@ -1,6 +1,6 @@
 <p>
-  <% form_tag :action => "show_unscheduled" do %>
-    View from 
+  <%= form_tag :action => "show_unscheduled" do %>
+    View from
     <%= select_date @start_date, :prefix => 'start' %>
     to
     <%= select_date @end_date,  :prefix => 'end' %>

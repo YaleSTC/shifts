@@ -2,21 +2,21 @@
 
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
-		<% form_tag(:controller => 'tasks', :action => 'missed_tasks') do %>
+		<%= form_tag(:controller => 'tasks', :action => 'missed_tasks') do %>
 			  <%= label_tag :start_date %><br />
-				<%= date_select(:dates, :start, :default => @start)%>
+				<%= date_select(:dates, :start, :default => @start) %>
 				<br />
 			  <%= label_tag :end_date %><br />
-			  <%= date_select(:dates, :end, :default => @end)%>
+			  <%= date_select(:dates, :end, :default => @end) %>
 				<br />
 				<%= submit_tag 'Update dates' %>
 		<% end -%>
 	</fieldset>
 </div>
 
-<h2>Recent missed instances of: <%= @task.name%></h2>
+<h2>Recent missed instances of: <%= @task.name %></h2>
 
 		<%= render :partial => "task_items" %>
 
 <br />
-<%= link_to "Back to List", tasks_path%>
+<%= link_to "Back to List", tasks_path %>

@@ -1,5 +1,5 @@
 <% title "Data Objects" %>
-<% form_tag '/data_objects/index' do %>
+<%= form_tag '/data_objects/index' do %>
   Group by
   <%= select_tag :group_by, options_for_select(@group_type_options, @selected_type) %>
   &nbsp;&nbsp;&nbsp;&nbsp;

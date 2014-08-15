@@ -58,7 +58,7 @@
       <% end %>
 
       <div class="toggle_me">
-        <% remote_form_for @shift do |f| %>
+        <%= remote_form_for @shift do |f| %>
     		  <%= render :partial => 'shifts/form', :locals => {:f => f} %>
           <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'shifts', :action => 'update', :calendar => params[:calendar] } %></p>
         <% end %>
@@ -96,7 +96,7 @@
       </div>
       <% if current_user.is_admin_of?(@department) and @shift.repeating_event %>
         <div class="toggle_me" style="display:none">
-          <% remote_form_for (@repeating_event = @shift.repeating_event) do |f| %>
+          <%= remote_form_for (@repeating_event = @shift.repeating_event) do |f| %>
             <%= render :partial => 'shifts/form_repeating', :locals => {:f => f, :shift_start => @shift.start, :shift_end => @shift.end} %>
             <%= hidden_field_tag 'rerender_date', @shift.start.to_date.to_s %>
             <p style="clear:both"><%= submit_to_remote "add_button", "Update Repeating Event", :url => { :controller => 'repeating_events', :action => 'update', :id => @repeating_event.id, :calendar => params[:calendar] } %></p>

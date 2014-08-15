@@ -1,4 +1,4 @@
-<% fields_for @user do |f| %>
+<%= fields_for @user do |f| %>
   <%= f.error_messages %>
 
   <% if @user.auth_type == "built-in"%>

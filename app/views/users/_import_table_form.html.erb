@@ -1,5 +1,5 @@
 <% for @user in @users %>
-  <% fields_for @user do |f| %>
+  <%= fields_for @user do |f| %>
     <tr class=<%= determine_class(@user) %>>
       <td class="activable"><%=f.text_field(:login, "index"=>@users.index(@user), :class => "table_field") %></td>
       <td class="activable"><%=f.text_field(:first_name, "index"=>@users.index(@user), :class => "table_field")%></td>

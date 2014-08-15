@@ -12,18 +12,18 @@
 		</tr>
 	  </thead>
 	  <tbody>
-		<tr> 
+		<tr>
 			<% if @template_time_slots.empty? %>
 				Please select roles first
 			<% else %>
 				<% @template_time_slots.each do |@time_slot| %>
-					<% content_tag :div, :id => "time_slot_#{@time_slot.id}" do %>
+					<%= content_tag :div, :id => "time_slot_#{@time_slot.id}" do %>
 						<%= render :partial => 'template_time_slot_form', :locals => {:locations => @locations, :time_slot => @time_slot, :f => f} %>
 					<% end %>
 				<% end %>
 			<% end %>
-		</tr>	
-	   </tbody>	
+		</tr>
+	   </tbody>
 	</table>
 <% end %>
 

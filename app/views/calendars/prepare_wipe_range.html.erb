@@ -1,6 +1,6 @@
 <% title "Wipe Shifts and/or Timeslots" %>
 
-<% form_tag 'wipe_range' do |f| %>
+<%= form_tag 'wipe_range' do |f| %>
   <p>
     <%= label_tag :start_date %><br />
     <%= datetime_select "start_and_end","start_date" %>
