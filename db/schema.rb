@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204024836) do
+ActiveRecord::Schema.define(:version => 20140626011051) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -174,15 +174,14 @@ ActiveRecord::Schema.define(:version => 20131204024836) do
 
   create_table "loc_groups", :force => true do |t|
     t.string   "name"
-    t.string   "sub_request_email"
     t.integer  "department_id"
     t.integer  "view_perm_id"
     t.integer  "signup_perm_id"
     t.integer  "admin_perm_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.boolean  "public",            :default => true
-    t.boolean  "active",            :default => true
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "public",         :default => true
+    t.boolean  "active",         :default => true
   end
 
   create_table "loc_groups_notices", :id => false, :force => true do |t|
