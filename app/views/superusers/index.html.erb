@@ -1,36 +1,34 @@
-	<% title "Manage superusers" -%>
-<% field_set_tag 'Add superuser' do -%> <br />
-<div>
-	With great power comes great responsiblity.  Please use this wisely. (That's why you can only add one at a time)
-</div> <br />
-  <% form_tag add_superusers_path do -%>
-
-  Enter login of the user who want to make superuser:<br />
-  <%= text_field_tag 'new_su_login' %>
-  <%= submit_tag "Add" %>
-  <% end -%>
-<% end -%> <br  />
+<% title "Manage Superusers" %>
+<%= field_set_tag 'Add superuser' do %> <br />
+  <div>
+  	With great power comes great responsiblity.  Please use this wisely. (That's why you can only add one at a time)
+  </div> <br />
+  <%= form_tag add_superusers_path do %>
+    Enter login of the user who want to make superuser:<br />
+    <%= text_field_tag 'new_su_login' %>
+    <%= submit_tag "Add" %>
+  <% end %>
+<% end %> <br  />
 
 <h2>Existing superuser list:</h2>
-<% form_tag remove_superusers_path do %>
+<%= form_tag remove_superusers_path do %>
   <table class="tablesorter">
-   <thead>
-	<tr>
-      <th>Login</th>
-      <th>Name</th>
-      <th>Remove superuser?</th>
-    </tr>
-   </thead>
-	<tbody>
-    <% @superusers.each do |su| -%>
-	<tr> 
-      <td><%= su.login %></td>
-      <td><%= link_to su.name, user_path(su) %></td>
-      <td><%= check_box_tag('remove_su_ids[]', su.id) %></td>
-    </tr>
-    <% end -%>
-	</tbody>
-  </table> 
+    <thead>
+      <tr>
+        <th>Login</th>
+        <th>Name</th>
+        <th>Remove superuser?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @superusers.each do |su| %>
+        <tr>
+          <td><%= su.login %></td>
+          <td><%= link_to su.name, user_path(su) %></td>
+          <td><%= check_box_tag('remove_su_ids[]', su.id) %></td>
+        </tr>
+      <% end %>
+  	</tbody>
+  </table>
   <%= submit_tag "Remove selected" %>
 <% end %>
-

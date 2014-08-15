@@ -1,7 +1,7 @@
 <% title "Shifts - Email A Group" %>
 
   <fieldset class="index" id="date_selector">
-    <% form_tag(:controller => 'shifts', :action => 'email_group', :method => :get) do %>
+    <%= form_tag(:controller => 'shifts', :action => 'email_group', :method => :get) do %>
       <%= label_tag :start_time %><br />
       <%= datetime_select(:email_group, :start_time, :default => @start_time)%>
       <br />
@@ -19,13 +19,13 @@
 </h3><br>
 
 
-  <%emails = [] %>
-  <% @included_shifts.each do |shift|%>
+  <% emails = [] %>
+  <% @included_shifts.each do |shift| %>
     <% emails << shift.user.email %>
   <% end %>
 
   <a href="mailto:<%=emails.uniq.join(",")%>">Email Everyone</a><br><br>
 
-  <% emails.uniq.each do |email|%>
+  <% emails.uniq.each do |email| %>
     <%= email %><br />
   <% end %>

@@ -6,7 +6,7 @@
 
 
 <div id="user_searchbox" style="margin-bottom: 1em">
-  <% form_tag(department_users_path(current_department), :method => :get) do %>
+  <%= form_tag(department_users_path(current_department), :method => :get) do %>
     Find a user: <%= text_field_tag :search %>
     <%= submit_tag "Submit", :id => "search_submit" %>
   <% end %>

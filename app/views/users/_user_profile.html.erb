@@ -1,4 +1,4 @@
-<% fields_for @user_profile do |f| %>
+<%= fields_for @user_profile do |f| %>
   <p>
     <% if @user_profile_entries != [] %>
       <% @user_profile_entries.each do |entry| %>
@@ -10,10 +10,10 @@
             <%= send(entry.display_type, *args) %>
           <% elsif entry.display_type == "picture_link" %>
             <%= send("text_field", *args) %>
-            
-          <% elsif entry.display_type == "upload_pic" %>  
+
+          <% elsif entry.display_type == "upload_pic" %>
             <%= render :partial => "user_profiles/user_profile_pic", :object => UserProfilePics.new %>
-            
+
           <% elsif ["radio_button"].include? entry.display_type %>
             <% args.each do |options| %>
               <%= send(entry.display_type, *options) %>

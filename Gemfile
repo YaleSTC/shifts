@@ -76,4 +76,3 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'sprockets-rails', '=2.0.0.backport1'
 gem 'sprockets', '=2.2.2.backport2'
 gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
-

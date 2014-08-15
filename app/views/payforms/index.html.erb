@@ -2,7 +2,7 @@
 
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
-		<% form_tag(:controller => 'payforms', :action => 'index', :method => :get, :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed], :skipped => params[:skipped]) do %>
+		<%= form_tag(:controller => 'payforms', :action => 'index', :method => :get, :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed], :skipped => params[:skipped]) do %>
 			  <%= label_tag :start_date %><br />
 				<%= date_select(:payform, :start_date, :default => @start_date)%>
 				<br />
@@ -18,7 +18,7 @@
  <% if current_user.is_admin_of?(current_department) %>
 	<fieldset class="index">
 	<div id="payform_searchbox" style="margin-bottom: 1em">
-	  <% form_tag(payforms_path, :method => :get) do %>
+	  <%= form_tag(payforms_path, :method => :get) do %>
 	    Search for a user: <%= text_field_tag :search %>
 	    <%= submit_tag "Submit", :id => "search_submit" %>
 	  <% end %>

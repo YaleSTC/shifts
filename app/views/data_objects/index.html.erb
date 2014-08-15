@@ -1,5 +1,5 @@
 <% title "Data Objects" %>
-<% form_tag '/data_objects/index', :id => "view_options" do %>
+<%= form_tag '/data_objects/index', :id => "view_options" do %>
   <div id="selection_menu">
 
     <div id="group_type">
@@ -24,7 +24,7 @@
 
   </div>
 
-<% end -%>
+<% end %>
 <br>
 <% if DataType.first %>
   <%= render :partial => "data_objects" %>
