@@ -1,6 +1,7 @@
 require 'net/ldap'
 require 'rails_extensions'
 require 'memoist'
+
 class User < ActiveRecord::Base
   acts_as_authentic do |options|
     options.maintain_sessions false
