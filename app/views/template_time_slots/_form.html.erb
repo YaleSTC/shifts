@@ -1,4 +1,4 @@
-<%= remote_form_for([@week_template, @template_time_slot]) do |f| %>
+<%= form_for([@week_template, @template_time_slot], remote: true) do |f| %>
 	<div id ="errors">
 		<%= render :partial => "template_time_slots/error_messages", :locals => {:f => f} %>
 	</div>

@@ -1,5 +1,5 @@
 <h1 id="page_title">Submit your shift requests</h1>
-<%= remote_form_for([@week_template, @requested_shift]) do |f| %>
+<%= form_for([@week_template, @requested_shift], remote: true) do |f| %>
 	<div id ="errors">
 		<%= render :partial => "requested_shifts/error_messages", :locals => {:f => f} %>
 	</div>

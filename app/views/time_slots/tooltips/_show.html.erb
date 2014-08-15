@@ -10,7 +10,7 @@
     </div>
   <% else %>
     <h2>Edit Timeslot</h2>
-    <%= remote_form_for @time_slot do |f| %>
+    <%= form_for @time_slot, remote: true do |f| %>
       <%= render :partial => 'time_slots/form', :locals => {:f => f}  %>
       <p><%= submit_to_remote "edit_button", "Save Changes", :url => { :controller => 'time_slots', :action => 'update', :calendar => (params[:calendar] || true) } %></p>
     <% end %>
