@@ -1,10 +1,13 @@
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require jquery.ui.all
 //= require jquery-tablesorter
 //= require jcrop
 //= require superfish
 //= require hoverIntent
+//= require thickbox-compressed
+//= require bootstrap-hover-dropdown
 //= require_tree .
 
 //Don't load anything before the document is ready.
@@ -40,11 +43,9 @@ $(document).ready(function() {
         $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
 
-    $(document).ready(function(){
-        // $("ul.sf-menu").superfish({
-        //     animation: {height:'show'},   // slide-down effect without fade-in
-        //     delay:     1200               // 1.2 second delay on mouseout
-        // });
+    $("ul.sf-menu").superfish({
+            animation: {height:'show'},   // slide-down effect without fade-in
+            delay:     1200               // 1.2 second delay on mouseout
     });
 
 });

@@ -51,7 +51,7 @@ class ReportsController < ApplicationController
       @report.report_items << ReportItem.new(time: Time.now, content: "#{current_user.name} (#{current_user.login}) logged in from #{request.remote_ip}", ip_address: request.remote_ip)
       a = @report.shift
       a.signed_in = true
-      a.save(false) #ignore validations because this is an existing shift or an unscheduled shift
+      a.save(:validate => false) #ignore validations because this is an existing shift or an unscheduled shift
       redirect_to @report and return
     end
     redirect_to shifts_path

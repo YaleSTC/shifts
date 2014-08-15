@@ -8,20 +8,32 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
- *= require_tree .
+ *= require reset
  *= require jquery.ui.all
  *= require jquery-tablesorter/theme.default
  *= require jcrop
  *= require superfish
  *= require superfish-vertical
  *= require superfish-navbar
+ *= require_self
+ *= require_tree .
 */
 
 
 /* Main Styles and IDs */
 /* =CORE GLOBAL STYLES
 ======================================================================= */
+
+.bootstrap-styles {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-color: white;
+
+    @import 'bootstrap';
+}
+
 html {
   overflow-y: scroll;
 }

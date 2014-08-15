@@ -37,12 +37,12 @@
   font-size:7px;
 }
 
-.active {
+.active:not(.bootstrap-styles li) {
   background:#343661;
   border:3px groove black;
 }
 
-.active input{
+.active:not(.bootstrap-styles li) input{
   color:white;
 }
 

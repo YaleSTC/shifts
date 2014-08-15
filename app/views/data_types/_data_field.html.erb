@@ -1,26 +1,12 @@
 <div class="data_field">
   <fieldset>
-  <% fields_for_data_field(data_field) do |df_form| %>
+  <%= fields_for_data_field(data_field) do |df_form| %>
 
     <div class="delete_link">
       <%= link_to_function "remove this data field", "$(this).closest('.data_field').remove()"%>
     </div>
-    <p>
-      <%= df_form.label :name %><br />
-      <%= df_form.text_field :name %>
-    </p>
-    <p>
-      <%= df_form.label :display_type %><br />
-      <%= df_form.select :display_type, options=(DataField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
-          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
-    </p>
-    <p>
-      <div class="value_field">
-        <%= df_form.label :values %><br />
-        <%= df_form.text_field :values %><br />
-        <em><small>Value should be either 'integer', 'decimal', or 'text'</small></em>
-      </div>
-    </p>
+
+    <%= render partial: 'data_fields/description', locals:{df_form: df_form}%>
   <% end %>
   </fieldset>
   <br>

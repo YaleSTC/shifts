@@ -22,24 +22,22 @@ class StickiesController < NoticesController
 		if @in_shift
 		  @current_shift = current_user.current_shift
 		end
-		begin
+    begin
       Sticky.transaction do
-        @sticky.save(false)
+        @sticky.save(validate: false)
         set_sources(@sticky)
         @sticky.save!
     	end
 		rescue Exception
       respond_to do |format|
         format.html { render action: "new" }
-        format.js  #create.js.rjs
+        format.js  #create.js.erb
       end
     else
+      flash[:notice] = 'Sticky was successfully created.'
       respond_to do |format|
-        flash[:notice] = 'Sticky was successfully created.'
-        format.html {
-        redirect_to stickies_path
-        }
-        format.js  #create.js.rjs
+        format.html { redirect_to stickies_path }
+        format.js  #create.js.erb
       end
     end
   end
@@ -50,7 +48,7 @@ class StickiesController < NoticesController
 		set_author_dept_and_times
     begin
       Sticky.transaction do
-        @sticky.save(false)
+        @sticky.save(validate: false)
         set_sources(@sticky)
         @sticky.save!
       end

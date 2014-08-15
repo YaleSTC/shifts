@@ -13,7 +13,9 @@
 	  </fieldset>
 
 	  <% unless mobile_device?%>
-	  	<%= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 240 -%>
+	  	<%= content_tag :div, nil, id: "update_notices", data:{frequency: 240}%>
+	  	<!-- The following is deprecated. Now in report_show.js in assets-->
+	  	<%#= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 240 -%>
 	  <% end %>
 	</div>
 
@@ -35,7 +37,9 @@
 	  </fieldset>
 
 	  <% unless mobile_device?%>
-		  <%= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 300 -%>
+	  	<%= content_tag :div, nil, id: "update_tasks", data:{frequency: 300}%>
+	  	 <!-- The following is deprecated. Now in report_show.js in assets-->
+	  	 <%#= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 300 -%>
 	  <% end %>
 
 	  <fieldset id = "shift_tasks" class= "index">
@@ -56,7 +60,8 @@
         <%= render :partial => 'new_report_item_form' %>
   <div id="report_relative_size">
 		<% unless mobile_device? %>
-	    	<%# TODO: Re-enable this once we figure out why it's crashing%>
+			<%= content_tag :div, nil, id: "update_report", data: {id: @report.id, frequency: 30} %>
+			<!-- The following is deprecated. Now in report_show.js in assets-->
 			<%#= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
 		<% end %>
 

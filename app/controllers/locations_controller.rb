@@ -55,7 +55,7 @@ class LocationsController < ApplicationController
     end
     flash[:notice] = "Changed activation status of " + @location.name.to_s + "."
     respond_to do |format|
-      format.js 
+      format.js
       format.html {redirect_to notices_path}
     end
   end
