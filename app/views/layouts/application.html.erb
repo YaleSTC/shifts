@@ -1,6 +1,3 @@
-<% if mobile_device?%> <!-- establishes the initial width for mobile browser. -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<% end %>
 
 <%= render :file => "layouts/include/main_header.html.erb" %>
   <%= yield(:left_nav).empty? ? '<div id="contentNoNav">'.html_safe : yield(:left_nav) %>

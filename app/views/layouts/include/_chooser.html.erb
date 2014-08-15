@@ -1,19 +1,24 @@
-<div id="chooser">
+<ul class='nav navbar-nav'>
 	<% if current_user %>
 	  <% ad = current_user.accessible_departments %>
 	  <% ad.to_a %>
-		<ul class="sf-menu" id="application_tabs">
-			<% if ad.size == 1 %>
-				<li><%= link_to current_department.name, dashboard_path %></li>
-			<% else %>
-				<li><%= link_to current_department.name, dashboard_path %>
-					<ul>
-						<% ad.each do |department| %>
-						<li><%= link_to department.name, department_path(department.id) %></li>
-						<% end %>
-					</ul>
-				</li>
+	  <% if ad.size == 1 %>
+		<li><%= link_to current_department.name, department_path(ad.first.id) %></li>
+	  <% else %>
+		<li class='dropdown'>
+			<%= link_to dashboard_path, data:{toggle: 'dropdown', hover: 'dropdown'} do %>
+				<%= current_department.name %>
+				<span class='caret'></span>
 			<% end %>
-		</ul>
+			<ul class='dropdown-menu'>
+				<% ad.each do |department| %>
+					<li><%= link_to department.name, department_path(department.id) %></li>
+				<% end %>
+			</ul>
+		</li>
+		<% end %>
 	<% end %>
-</div>
+</ul>
+
+
+

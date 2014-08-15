@@ -141,9 +141,11 @@ module ApplicationHelper
 
   def navbar_highlight(controller_name)
     navbar_hash = Hash[ "dashboard" => ["dashboard"],
-                        "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups", "calendars", "application", "templates", "calendar_feeds", "time_slots"],
+                        "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups", 
+										  "calendars", "application", "templates", "calendar_feeds", "time_slots"],
                         "users" => ["users", "roles", "user_profiles", "superusers", "user_profile_fields"],
-                        "shifts" => ["shifts", "links", "notices", "data_objects", "stats", "announcements",  "data_entries", "data_fields", "data_types", "repeating_events", "report_items", "stickies", "tasks", "reports"],
+                        "shifts" => ["shifts", "links", "notices", "data_objects", "stats", "announcements", "data_entries",
+									 "data_fields", "data_types", "repeating_events", "report_items", "stickies", "tasks", "reports"],
                         "payforms" => ["payforms", "payform_items", "punch_clocks", "punch_clock_sets", "payform_item_sets", "categories"]]
     navbar_hash.select{|key, value| value.include?(controller_name) }.flatten.first
   end

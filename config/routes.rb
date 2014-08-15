@@ -1,9 +1,8 @@
 Shifts::Application.routes.draw do
 
   resources :tasks do
-    member do
-      post :make_entry
-    end
+    post :make_entry, on: :member
+    get 'update_tasks', on: :collection
   end
 
   resources :shifts_tasks
@@ -20,7 +19,10 @@ Shifts::Application.routes.draw do
   resources :password_resets
   resources :user_configs, :only => [:edit, :update]
   resources :sub_requests
-  resources :notices, :collection => {:archive => :get}
+  resources :notices do 
+    get 'archive', on: :collection
+    get 'update_message_center', on: :collection
+  end
   resources :payform_item_sets
   resources :payform_sets
   resources :department_configs, :only => [:edit, :update]
@@ -155,6 +157,8 @@ Shifts::Application.routes.draw do
   resources :reports, :except => [:new] do
     member do
       get :popup
+      get :update_reports
+      post :custom_search
     end
     resources :report_items
   end
@@ -177,8 +181,7 @@ Shifts::Application.routes.draw do
     resources :punch_clocks
   end
 
-  #TODO Fix report items routing, this is temporary
-  resources :locations, except: [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy] do
+  resources :locations, except: [:find_allowed_locations] do
     collection do
       get  :display_report_items
       post :display_report_items
@@ -214,7 +217,9 @@ Shifts::Application.routes.draw do
         post :save_import
       end
     end
-    resources :loc_groups
+    resources :loc_groups do
+      get :toggle, on: :member
+    end
     resources :locations
     resources :roles do
       member do

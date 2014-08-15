@@ -1,0 +1,14 @@
+// page << "$('#loc#{@location.id}').toggleClass('disabled');"
+// if @location.active
+//   page << "$('#loc#{@location.id} a.toggle_link').text('Deactivate');"
+// else
+//   page << "$('#loc#{@location.id} a.toggle_link').text('Restore');"
+// end
+$('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
+<% flash.discard %>
+$('#loc<%= @location.id %>').toggleClass('disabled');
+<% if @location.active %>
+	$('#loc<%= @location.id %> a.toggle_link').text('Deactivate');
+<% else %>
+	$('#loc<%= @location.id %> a.toggle_link').text('Restore');
+<% end %>
