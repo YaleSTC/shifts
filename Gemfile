@@ -56,6 +56,14 @@ group :development do
   gem 'better_errors'
 end
 
+group :test do
+  gem 'cucumber-rails',   '>=0.3.0'
+  gem 'database_cleaner', '>=0.5.0'
+  gem 'webrat',           '>=0.7.0'
+  gem 'rspec',            '>=1.3.0'
+  gem 'rspec-rails',      '>=1.3.2'
+end
+
 group :assets do
   #gem 'sass-rails',   '~> 3.2.3' # using sass-rails below
   gem 'coffee-rails', '~> 3.2.1'
