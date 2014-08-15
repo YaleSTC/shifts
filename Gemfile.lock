@@ -55,6 +55,9 @@ GEM
       activerecord (>= 3.2)
       activesupport (>= 3.2)
     awesome_print (1.2.0)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.1.1.1)
@@ -198,11 +201,6 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rack-webconsole-pry (0.1.9)
-      json
-      multi_json (>= 1.0.3)
-      pry
-      rack
     rails (3.2.13)
       actionmailer (= 3.2.13)
       actionpack (= 3.2.13)
@@ -272,6 +270,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   authlogic
+  better_errors
   bootstrap-sass (~> 3.1.1)
   capistrano
   coffee-rails (~> 3.2.1)
@@ -292,7 +291,6 @@ DEPENDENCIES
   mysql2
   paperclip
   pry-byebug
-  rack-webconsole-pry
   rails (= 3.2.13)
   ruby-net-ldap
   rubycas-client (= 2.2.1)

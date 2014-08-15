@@ -53,7 +53,7 @@ group :development do
   gem 'pry-byebug', platform: [:ruby_20]
   gem 'letter_opener'
   gem 'faker'
-  gem 'rack-webconsole-pry', :require => 'rack-webconsole'
+  gem 'better_errors'
 end
 
 group :assets do
