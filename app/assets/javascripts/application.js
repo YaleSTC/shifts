@@ -3,7 +3,7 @@
 //= require bootstrap
 //= require jquery.ui.all
 //= require jquery-tablesorter
-//= require jcrop
+//= require jquery.Jcrop
 //= require superfish
 //= require hoverIntent
 //= require thickbox-compressed
