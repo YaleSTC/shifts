@@ -8,7 +8,7 @@ language: ruby
 # We use ruby 1.9.3p374; available versions are:
 # ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress/ruby-1.9.3-p545/ruby-1.9.3-p484
 rvm:
-  - 1.9.3-p484
+  - 1.9.3-p547
 
 # Environment Variables
 # - DB=sqlite
