@@ -19,7 +19,7 @@ Shifts::Application.routes.draw do
   resources :password_resets
   resources :user_configs, :only => [:edit, :update]
   resources :sub_requests
-  resources :notices do 
+  resources :notices do
     get 'archive', on: :collection
     get 'update_message_center', on: :collection
   end
@@ -87,7 +87,7 @@ Shifts::Application.routes.draw do
   match 'calendar_feeds/grab/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab', as: :calendar_feed
 
   # routes for managing superusers
-  match "superusers", :controller => 'superusers', as: :superusers
+  match "superusers", :controller => 'superusers', action: 'index', as: :superusers
   match "superusers/add", :controller => 'superusers', :action => 'add', as: :add_superusers
   match "superusers/remove", :controller => 'superusers', :action => 'remove', as: :remove_superusers
 
