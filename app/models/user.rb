@@ -262,7 +262,7 @@ class User < ActiveRecord::Base
     return true
   end
 
-  def deliver_password_reset_instructions!(mailer)
+  def password_reset_instructions!(mailer)
     self.reset_perishable_token!
     mailer.call(self)
   end
