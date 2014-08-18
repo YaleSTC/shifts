@@ -6,7 +6,7 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tablesorter'
-gem 'jcrop-rails'
+gem 'jcrop-rails-v2', '~> 0.9.12'
 
 # ldap integration
 gem 'ruby-net-ldap', :require => 'net/ldap'
@@ -49,9 +49,7 @@ gem 'simple_form'  # replaces multiple_select
 gem 'memoist'
 
 group :development do
-  # Issue 258: jazz_hands breaks on Ruby 2.0.0+, pry-byebug requires 2.0.0+
-  gem 'jazz_hands', platform: [:ruby_19]
-  gem 'pry-byebug', platform: [:ruby_20]
+  gem 'pry-byebug'
   gem 'letter_opener'
   gem 'faker'
   gem 'better_errors'
