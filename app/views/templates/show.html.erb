@@ -61,9 +61,6 @@
 						<%= event.acceptable_start.strftime("%I:%M %p") %> - <%= event.acceptable_start.strftime("%I:%M %p") %> <br/>
 		        Set assigned start - end:
 					  <%= f.time_select :assigned_start, {
-		              						:simple_time_select => true,
-		              						:time_separator => "",
-		              						:minute_interval => current_department.department_config.time_increment,
 		              						:start_time => event.acceptable_start,
 		              						:end_time => event.acceptable_end,
 								              :default => event.acceptable_start,
@@ -71,9 +68,6 @@
 		      						        :include_end_time => false
 		    		                                  } %> -
 						<%= f.time_select :assigned_end, {
-		        						      :simple_time_select => true,
-		       						       	:time_separator => "",
-		              						:minute_interval => current_department.department_config.time_increment,
 		              						:start_time => event.acceptable_start,
 		             							:end_time => event.acceptable_end,
 		              						:default => event.acceptable_end,

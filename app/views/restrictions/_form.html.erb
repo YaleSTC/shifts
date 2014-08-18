@@ -4,9 +4,6 @@
     <%= f.label :starts %><br />
     <%= f.date_select :start_date, :default => @restriction.starts, :id => :start_date  %><br />
     <%= f.time_select :start_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
                 :include_start_time => true,
                 :include_end_time => false,
                 :default => @restriction.starts,
@@ -17,9 +14,6 @@
     <%= f.label :expires %><br />
     <%= f.date_select :end_date, :default => @restriction.expires.to_date, :id => :end_date  %><br /	>
     <%= f.time_select :end_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
                 :include_start_time => true,
                 :include_end_time => false,
                 :default => @restriction.expires,

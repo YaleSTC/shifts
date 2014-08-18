@@ -20,9 +20,6 @@
 			<p>
 				Start time:<br />
 				<%= f.time_select "start_time", {
-																:simple_time_select => true,
-																:time_separator => "",
-																:minute_interval => current_department.department_config.time_increment,
 																:start_time => @start,
 																:end_time => @end,
 																:include_start_time => true,
@@ -32,9 +29,6 @@
 			<p>
 				End time:<br />
 				<%= f.time_select "end_time", {
-																:simple_time_select => true,
-																:time_separator => "",
-																:minute_interval => current_department.department.department_config.time_increment,
 																:start_time => @start,
 																:end_time => @end,
 																:include_start_time => false,
