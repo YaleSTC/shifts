@@ -582,8 +582,8 @@ table.tablesorter {
 	text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #123456;
-	border: 1px solid #FFF;
+	background-color: #81d8d0; /* This sets the table header color (#303).  */
+	border: 1px solid #FFF;    /* The old background-color was #123456, dark blue */
 	font-size: 8pt;
 	padding: 4px;
 }
