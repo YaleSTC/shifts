@@ -53,6 +53,7 @@ group :development do
   gem 'letter_opener'
   gem 'faker'
   gem 'better_errors'
+  gem 'binding_of_caller' # Enables the REPL in better_errors
 end
 
 group :test do
