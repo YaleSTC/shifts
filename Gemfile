@@ -50,6 +50,7 @@ gem 'simple_form'  # replaces multiple_select
 gem 'memoist'
 
 group :development do
+  gem 'pry-rails'
   gem 'pry-byebug'
   gem 'letter_opener'
   gem 'faker'
