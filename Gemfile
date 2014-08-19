@@ -16,6 +16,7 @@ gem 'icalendar'
 
 # authentication
 gem 'authlogic'
+gem 'scrypt' # dependency of authlogic, which isn't automatically resolved
 
 # image upload
 gem 'paperclip'
