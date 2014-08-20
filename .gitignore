@@ -8,16 +8,10 @@
 /.bundle
 /tmp.bundle
 
-# Ignore all logfiles and tempfiles.
-/log/*.log
-
-Rakefile
-
 config/database.yml
 config/initializers/airbrake.rb
 
 public/attachments
-tmp/*
 
 cleangit
 *~
@@ -27,13 +21,13 @@ cleangit
 *.sqlite3
 Vagrantfile
 .vagrant/
+*.sublime*
 
 *.rbc
 capybara-*.html
 .rspec
 /log
 /tmp
-/db/*.sqlite3
 /public/system
 /coverage/
 /spec/tmp
