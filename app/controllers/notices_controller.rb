@@ -47,7 +47,7 @@ class NoticesController < ApplicationController
     end
     if params[:for_locations]
       params[:for_locations].each do |location_id|
-        notice.locations << Location.find(location_id).first
+        notice.locations << Location.find(location_id)
       end
     end
   end

@@ -1,6 +1,6 @@
 class DataFieldsController < ApplicationController
   before_filter :require_department_admin
-    before_filter :check_for_data_type, except: :update_form
+    before_filter :check_for_data_type
   
   def index
     @data_fields = DataField.find_all_by_data_type_id(params[:data_type_id])
@@ -46,15 +46,6 @@ class DataFieldsController < ApplicationController
     @data_field.save
     flash[:notice] = "Successfully destroyed data field."
     redirect_to data_type_path(@data_type)
-  end
-  
-  #For ajax only -ben
-  def update_form(data_field_id = nil)
-    @data_field = DataField.find(data_field_id) if data_field_id
-    @display_type = params[:display_type] ? params[:display_type] : @data_field.display_type
-    respond_to do |format|
-      format.js
-    end
   end
     
   private

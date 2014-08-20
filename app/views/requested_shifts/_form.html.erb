@@ -3,10 +3,6 @@
 	<p>
     <%= f.label :acceptable_start %>
     <%= f.time_select :acceptable_start, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
-
                 :start_time => @range_start_time,
                 :end_time => @range_end_time,
 
@@ -19,10 +15,6 @@
 	<p>
     <%= f.label :acceptable_end %>
 		<%= f.time_select :acceptable_end, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
-
                 :start_time => @range_start_time,
                 :end_time => @range_end_time,
 
@@ -35,10 +27,6 @@
   <p>
     <%= f.label :preferred_start %>
 		<%= f.time_select :preferred_start, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
-
                 :start_time => @range_start_time,
                 :end_time => @range_end_time,
 
@@ -51,10 +39,6 @@
   <p>
     <%= f.label :preferred_end %>
 		<%= f.time_select :preferred_end, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
-
                 :start_time => @range_start_time,
                 :end_time => @range_end_time,
 

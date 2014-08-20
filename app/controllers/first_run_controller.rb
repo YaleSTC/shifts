@@ -11,7 +11,7 @@ class FirstRunController < ApplicationController
   def create_app_config
     AppConfig.first.destroy if AppConfig.first
     @app_config=AppConfig.new(params[:app_config])
-    @app_config.calendar_feed_hash = ActiveSupport::SecureRandom.hex(32) #must be 32 characters
+    @app_config.calendar_feed_hash = SecureRandom.hex(32) # generates 64 character string
     @app_config.use_ldap = params[:app_config][:use_ldap] && params[:app_config][:use_ldap] == "1" ? true : false
     if @app_config.save
       flash[:notice] = "App Settings have been configured."

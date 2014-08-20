@@ -2,7 +2,7 @@
 <% grouped_objects.each do |type, objects| %>
   <div>
     <h2><%= link_to_if current_user.is_admin_of?(current_department), type.name.pluralize, type %></h2>
-    <table id=<%= "data_objects_table_#{type.id}" %> class="tablesorter">
+    <table class="tablesorter data_objects_table">
       <thead>
         <tr>
           <th>Name</th>
@@ -34,10 +34,4 @@
       </tbody>
     </table>
   </div>
-
-  <%= javascript_tag do %>
-     id = '<%= type.id %>';
-  <% end %>
 <% end %>
-
-<%= javascript_include_tag 'data_objects_table' %>

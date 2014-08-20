@@ -1,5 +1,3 @@
-<% content_for :head, stylesheet_link_tag("shift_view_refactoring") %>
-
 <h1>All requested shifts for <%= @week_template.name %></h1>
 <p>
 	<table class = "tablesorter">
@@ -24,7 +22,7 @@
 
 	<% @requested_shifts.sort_by{|s| [s.day, s.acceptable_start, s.acceptable_end]}.each do |requested_shift| %>
    <tbody>
-	<tr> 
+	<tr>
 			<td><%=h requested_shift.user.name %></td>
 		  <td><%=h requested_shift.preferred_start.strftime("%I:%M %p") if requested_shift.preferred_start %></td>
 		  <td><%=h requested_shift.preferred_end.strftime("%I:%M %p") if requested_shift.preferred_end %></td>

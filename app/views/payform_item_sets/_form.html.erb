@@ -26,8 +26,5 @@
     <%= tokenized_users_autocomplete( @payform_item_set, "users") %>
   </p>
 
-  <p class="no_js">
-    <%= collection_multiple_select_tag(:user_ids, @users_select, :id, :name, :selected_items => @payform_item_set.users.map{|u| u.id})%>
-  </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

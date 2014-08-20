@@ -1,7 +1,7 @@
-  <% calculate_default_times_announcements %>
+<% calculate_default_times_announcements %>
 
 <br/>
-<% form_remote_for(@announcement) do |f| %>
+<%= form_for(@announcement, remote: true) do |f| %>
   <div id ="errors">
     <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
   </div>
@@ -32,12 +32,7 @@ start(1i), start(2i).. start(5i) start(i)
     <span class="end_time_choice_date">
     <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
     <%= f.label :end %>
-    <%= f.time_select :end_time, {
-            :simple_time_select => true,
-            :time_separator => "",
-            :minute_interval => @department.department_config.time_increment,
-            :default => @announcement.end
-                                      } %>
+    <%= f.time_select :end_time, :default => @announcement.end %>
     <%= f.date_select :end_date, :default => @default_end_date %>
     </span>
   </fieldset>
@@ -53,6 +48,3 @@ start(1i), start(2i).. start(5i) start(i)
   	<%= f.submit 'Save' %>
 	</p>
 <% end %>
-
-<%= javascript_include_tag 'notices' %>
-<%= stylesheet_link_tag 'notice' %>

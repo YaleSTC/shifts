@@ -1,6 +1,6 @@
 <h1>New Punch Clock Group</h1>
 
-<%= form_for(@punch_clock_set) do |f| %>
+<%= simple_form_for(@punch_clock_set) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -9,7 +9,7 @@
   </p>
   <p>
     <%= f.label :users %><br />
-    <%= collection_multiple_select_tag(:users, @users_select, :id, :name, :selected_items => @punch_clock_set.users.map{|u| u.id}) %>
+    <%= f.input :id, collection: @users_select, as: :check_boxes %>
   <p>
     <%= f.submit 'Create' %>
   </p>

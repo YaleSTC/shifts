@@ -12,7 +12,7 @@
   <p>
   <fieldset class = "checkboxes" id = "location_groups_prefs">
   <legend>Location Groups</legend>
-    
+
     <small>Control which location groups to view on your shift
     schedule and on the notices index page.</small><br /><br />
     <%= render :partial => 'loc_groups' %>
@@ -29,7 +29,7 @@
     <small>Control which data objects will show updates on your
     dashboard.</small><br /><br />
     <%= render :partial => 'dt_objects' %>
-    
+
   </fieldset>
   <fieldset class = "index">
 	<legend>Email Notifications</legend>
@@ -46,4 +46,3 @@
     <%= f.submit "Submit" %>
   </p>
 <% end %>
-<%= javascript_include_tag 'user_config' %>

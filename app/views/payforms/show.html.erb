@@ -1,17 +1,17 @@
 <% payform_span = start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format) -%>
 <% if current_user.is_admin_of?(current_department) %>
-  <% title "#{@payform.user.name}" -%>
+  <% title "#{@payform.user.name + ' (' + @payform.user.roles.first.name + ')'}" %>
 <% else -%>
-  <% title "Your Payform" -%>
+  <% title "Your Payform" %>
 <% end -%>
-<h2><%= "#{payform_span}" -%></h2><br/>
+<h2><%= "#{payform_span}" %></h2><br/>
 
 <% unless current_user.is_admin_of?(current_department) %>
    <div id="cols">
      <div id="cols-header"><%= error_messages_for 'payform' %></div>
      <div id="left-col"><%= render :partial => 'date_select', :locals => {:date => @payform.date } %></div>
      <div id="right-col"><%= link_to "<span>View all past payforms</span>".html_safe, payforms_path, :class=>"button" %></div>
-     <div id="middle-col"></div> 
+     <div id="middle-col"></div>
      <div id="cols-footer"></div>
     </div>
     <br /><br />
