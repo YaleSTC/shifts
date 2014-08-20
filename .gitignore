@@ -16,6 +16,7 @@ cleangit
 Vagrantfile
 .vagrant/
 *.sublime*
+.sass-cache/
 
 *.rbc
 capybara-*.html
