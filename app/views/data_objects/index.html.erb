@@ -1,12 +1,12 @@
 <% title "Data Objects" %>
-<% form_tag '/data_objects/index', :id => "view_options" do %>
+<%= form_tag '/data_objects/index', :id => "view_options" do %>
   <div id="selection_menu">
 
     <div id="group_type">
       <%= select_tag "view_options[group_type]", options_for_select(@group_type_options, @selected_type) %>
 
     <%#TODO: Change this to UJS style when we get jQuery 1.6 working%>
-    <%= observe_field('view_options_group_type',
+    <%#= observe_field('view_options_group_type',
         :url => { :controller => :data_objects,
                   :action => :index,
                   :layout => false},
@@ -24,7 +24,7 @@
 
   </div>
 
-<% end -%>
+<% end %>
 <br>
 <% if DataType.first %>
   <%= render :partial => "data_objects" %>

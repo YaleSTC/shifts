@@ -27,7 +27,7 @@
   </tr>
  </thead>
  <tbody>
-<tr> 
+<tr>
     <td><%=h @week_template.max_total_hours %></td>
     <td><%=h @week_template.min_total_hours %></td>
     <td><%=h @week_template.max_continuous_hours %></td>
@@ -43,13 +43,11 @@
   </tr>
  </tbody>
 </table>
-	
+
 	<%= link_to 'View all submitted shift preferences', template_shift_preferences_path(@week_template) %> |
-	<%= link_to 'View all requested shifts', template_requested_shifts_path(@week_template) %> 
+	<%= link_to 'View all requested shifts', template_requested_shifts_path(@week_template) %>
 	</p>
 </p>
-
-<% content_for :head, stylesheet_link_tag "shift_view_refactoring", stylesheet_link_tag 'templates_show' %>
 
 <%= render :partial => "/templates/schedule/day", :collection => [6,0,1,2,3,4,5] %>
 
@@ -61,11 +59,8 @@
 					<%= form_for([@week_template, event]) do |f| %>
 						Submitted start - end:
 						<%= event.acceptable_start.strftime("%I:%M %p") %> - <%= event.acceptable_start.strftime("%I:%M %p") %> <br/>
-		        Set assigned start - end: 
+		        Set assigned start - end:
 					  <%= f.time_select :assigned_start, {
-		              						:simple_time_select => true,
-		              						:time_separator => "",
-		              						:minute_interval => current_department.department_config.time_increment,
 		              						:start_time => event.acceptable_start,
 		              						:end_time => event.acceptable_end,
 								              :default => event.acceptable_start,
@@ -73,9 +68,6 @@
 		      						        :include_end_time => false
 		    		                                  } %> -
 						<%= f.time_select :assigned_end, {
-		        						      :simple_time_select => true,
-		       						       	:time_separator => "",
-		              						:minute_interval => current_department.department_config.time_increment,
 		              						:start_time => event.acceptable_start,
 		             							:end_time => event.acceptable_end,
 		              						:default => event.acceptable_end,
@@ -88,9 +80,7 @@
 						<%= f.submit "Assign" %>
 					<% end %>
           <div style="clear:both;"></div>
-      </div>  
+      </div>
     <% end %>
   <% end %>
 <% end %>
-
-<%= javascript_include_tag 'templates_show' %>

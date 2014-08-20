@@ -18,25 +18,17 @@
   <p>
     <%= f.label :start_time %><br />
     <%= f.time_select :start_time, {
-            :simple_time_select => true,
-            :time_separator => "",
-            :minute_interval => @department.department_config.time_increment,
-
             :start_time => @range_start_time,
             :end_time => @range_end_time,
 
             :default => @repeating_event.start_time,
             :include_start_time => true,
-            :include_end_time => false,
+            :include_end_time => false
                                       } %>
   </p>
   <p>
     <%= f.label :end_time %><br />
     <%= f.time_select :end_time, {
-            :simple_time_select => true,
-            :time_separator => "",
-            :minute_interval => @department.department_config.time_increment,
-
             :start_time => @range_start_time,
             :end_time => @range_end_time,
 
@@ -80,6 +72,3 @@
   </p>
   <%= f.hidden_field :slot_or_shift, :value => "time_slot"%>
 </div>
-
-<%= javascript_include_tag 'time_slots_form_repeating' %>
-

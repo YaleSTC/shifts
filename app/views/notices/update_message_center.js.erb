@@ -1,0 +1,9 @@
+// unless current_user.current_shift.nil?
+//   page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices, :locals => {:html_class => "report_notice"}
+//   page << "tb_init('a#edit');"
+// end
+
+<% unless current_user.current_shift.nil? %>
+	$('#message_center').html('<%= escape_javascript render :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices, :locals => {:html_class => "report_notice"}  %>');
+	tb_init('a#edit');
+<% end %>

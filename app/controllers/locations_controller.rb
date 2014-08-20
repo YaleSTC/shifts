@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   before_filter :find_allowed_locations
+  before_filter :loc_group_exists?
 
   def index
     redirect_to access_denied_path if current_user.loc_groups_to_admin(@department).empty?
@@ -13,13 +14,13 @@ class LocationsController < ApplicationController
 
   def new
     @location = Location.new
-  end 
+  end
 
   def create
     @location = Location.new(params[:location])
-    if !current_user.loc_groups_to_admin(@department).include?(@location.loc_group)  
+    if !current_user.loc_groups_to_admin(@department).include?(@location.loc_group)
       flash[:error] = "You do not have permission to create locations in that location group."
-      redirect_to action: "new"   
+      redirect_to action: "new"
     elsif @location.save
       flash[:notice] = "Successfully created location."
       redirect_to department_locations_path(current_department)
@@ -43,7 +44,7 @@ class LocationsController < ApplicationController
       render action: 'edit'
     end
   end
-  
+
   def toggle
     @location = Location.find(params[:id])
     ActiveRecord::Base.transaction do
@@ -55,11 +56,11 @@ class LocationsController < ApplicationController
     end
     flash[:notice] = "Changed activation status of " + @location.name.to_s + "."
     respond_to do |format|
-      format.js 
+      format.js
       format.html {redirect_to notices_path}
     end
   end
-    
+
   def destroy
      @location = Location.find(params[:id])
      redirect_to access_denied_path unless @locations.include?(@location)
@@ -87,9 +88,16 @@ private
   def find_item_number
      session[:items] ||= 0
   end
-  
+
   def find_allowed_locations
     @locations = current_user.loc_groups_to_admin(@department).map{|lg| lg.locations}.flatten
+  end
+
+  def loc_group_exists?
+    if @department.loc_groups.blank?
+      redirect_to department_loc_groups_path
+      flash[:notice] = "You'll need to create a location group before you can work with locations"
+    end
   end
 
 end

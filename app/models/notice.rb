@@ -53,7 +53,7 @@ class Notice < ActiveRecord::Base
   end
 
   def remove(user)
-    self.errors.add_to_base "This notice has already been removed by #{remover.name}." and return if self.remover && self.end
+    self.errors.add(:base, "This notice has already been removed by #{remover.name}.") and return if self.remover && self.end
     self.start = Time.now if self.start > Time.now
     self.end = Time.now
     self.indefinite = false
@@ -69,20 +69,20 @@ class Notice < ActiveRecord::Base
   #Validations
   def presence_of_locations
     if self.display_locations.empty?
-			errors.add_to_base "Your #{self.class.name.downcase} must display somewhere"
+			errors.add  :base, "Your #{self.class.name.downcase} must display somewhere"
   	end
 	end
 
   def proper_time
-    errors.add_to_base "Start/end time combination is invalid." if self.end && self.start >= self.end
+    errors.add :base, "Start/end time combination is invalid." if self.end && self.start >= self.end
   end
 
 	def content_or_label
 		if self.content.blank?
 			if self.type == "Link"
-				errors.add_to_base "Your link must have a label"
+				errors.add :base, "Your link must have a label"
 			else
-				errors.add_to_base "Your #{self.type.downcase} must have content"
+				errors.add :base, "Your #{self.type.downcase} must have content"
 			end
 		end
 	end

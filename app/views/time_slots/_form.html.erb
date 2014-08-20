@@ -16,10 +16,6 @@
       <p>
         <%= f.label :start %><br />
         <%= f.time_select :start_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => @department.department_config.time_increment,
-
                 :start_time => @range_start_time,
                 :end_time => @range_end_time,
 
@@ -32,10 +28,6 @@
         <%= f.label :end %><br />
         <%#= f.hidden_field :end_date, :value => @default_end_date %>
         <%= f.time_select :end_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => @department.department_config.time_increment,
-
                 :start_time => @range_start_time,
                 :end_time => @range_end_time,
 
@@ -50,4 +42,3 @@
       </p>
 
   </p>
-<%= javascript_include_tag 'time_slots_form' %>

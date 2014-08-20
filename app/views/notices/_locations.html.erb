@@ -1,7 +1,7 @@
 <% if !@disable_locations %>
   <fieldset class = "index"><legend>Where:</legend>
 	<% if current_user.is_admin_of?(current_department) && notice.class.name != "Sticky" %>
-    	<%= check_box_tag :department_wide_locations, current_department.id, :style => "display: none;", :class => "only_js" %>
+    	<%= check_box_tag :department_wide_locations, current_department.id, false, :style => "display: none;", :class => "only_js" %>
     	<%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
 	<% end %>
 
@@ -24,7 +24,3 @@
   	</div>
 	</fieldset>
 <% end -%>
-
-<%= javascript_include_tag 'locationcheckboxes', 'application' %>
-<%# next line is to make location_groups appear; the action is early in application.js %>
-<%# <script type="text/javascript"> jQuery.getScript('/javascripts/application.js'); </script> %>

@@ -13,7 +13,7 @@ module ApplicationHelper
 		end
   end
 
-	def link_to_post_a_sticky()
+	def link_to_post_a_sticky
 		link_to_unless_current('Post a new sticky', new_sticky_path(height: 200, width: 515, type: "Sticky"), title: "Post a new sticky", class: "thickbox", id: "post_link" )
   end
 
@@ -79,10 +79,6 @@ module ApplicationHelper
             }
           });
         });').html_safe
-    if options[:include_headers]
-      content_for :head, javascript_include_tag('jquery.tokeninput')
-      content_for :head, stylesheet_link_tag(css_file)
-    end
     text_field_tag(options[:id])
   end
 
@@ -145,9 +141,11 @@ module ApplicationHelper
 
   def navbar_highlight(controller_name)
     navbar_hash = Hash[ "dashboard" => ["dashboard"],
-                        "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups", "calendars", "application", "templates", "calendar_feeds", "time_slots"],
+                        "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups", 
+										  "calendars", "application", "templates", "calendar_feeds", "time_slots"],
                         "users" => ["users", "roles", "user_profiles", "superusers", "user_profile_fields"],
-                        "shifts" => ["shifts", "links", "notices", "data_objects", "stats", "announcements",  "data_entries", "data_fields", "data_types", "repeating_events", "report_items", "stickies", "tasks", "reports"],
+                        "shifts" => ["shifts", "links", "notices", "data_objects", "stats", "announcements", "data_entries",
+									 "data_fields", "data_types", "repeating_events", "report_items", "stickies", "tasks", "reports"],
                         "payforms" => ["payforms", "payform_items", "punch_clocks", "punch_clock_sets", "payform_item_sets", "categories"]]
     navbar_hash.select{|key, value| value.include?(controller_name) }.flatten.first
   end

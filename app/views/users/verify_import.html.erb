@@ -1,32 +1,8 @@
-<% stylesheet 'verify_import' %>
-<% title 'Import Results' %>
-<% if @results%>
-	<h2>Users Successfully Imported</h2>
-		<% if @results[:successes].empty? %>
-			No users successfully imported
-		<% else %>
-			<ul>
-				<% @results[:successes].each do |result| %>
-					<li><%= result[:name] %></li>
-				<% end %>
-			</ul>
-		<% end %>
-
-	<h2>Users that failed to import</h2>
-		<% if @results[:failures].empty? %>
-			All users successfully imported
-		<% else %>
-			<ul>
-				<% @results[:failures].each do |result| %>
-					<li><%= result[:name] %></li>
-					<ul>
-						<% result[:errors].full_messages.uniq.each do |error_message| %>
-							<li><%= error_message %></li>
-						<% end %>
-					</ul>
-				<% end %>
-			</ul>
-		<% end %>
-<% end %>
-
-<%= javascript_include_tag 'verify_import' %>
+<% title 'Verify Users to Import' %>
+<div id="form_div">
+  <% if @users%>
+    <p><h3>Please examine what was uploaded and make changes as necessary.</h3></p>
+    <p><h5><strong>Note:</strong> The cells in this table are editable </h5></p>
+    <%= render :partial => "import_table" %>
+</div>
+  <% end %>

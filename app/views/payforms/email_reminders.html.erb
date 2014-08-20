@@ -3,14 +3,14 @@
 <div id="emailReminders">
     <fieldset class="reminders">
       <legend>Payform Reminders</legend>
-      <% form_tag( { :action => :send_reminders, :id => @department.id }, { :method => :post }) do %>
+      <%= form_tag( { :action => :send_reminders, :id => @department.id }, { :method => :post }) do %>
         <%= text_area :post, :body, :size => "80x5", :value => current_department.department_config.reminder_message %>
         <%= submit_tag "Remind users to Submit Payforms" %>
       <% end %>
     </fieldset>
     <fieldset class="reminders">
       <legend>Late Payform Warnings</legend>
-      <% form_tag( { :action => :send_warnings, :id => @department.id }, { :method => :post }) do %>
+      <%= form_tag( { :action => :send_warnings, :id => @department.id }, { :method => :post }) do %>
         <strong>Warn from date: </strong>
         <input type="text" id="date_select" name="post[date]" size="15" class="date_selector" value="<%= @default_warn_start_date.strftime('%Y/%m/%d') %>"></input>
         <br/>(Default: 8 weeks)

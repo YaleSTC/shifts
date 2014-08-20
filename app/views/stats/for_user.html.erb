@@ -2,7 +2,7 @@
 
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
-		<% form_tag(:controller => 'stats', :action => 'for_user', :method => :get, :id => @user.id) do %>
+		<%= form_tag(:controller => 'stats', :action => 'for_user', :method => :get, :id => @user.id) do %>
 			  <%= label_tag :start_date %><br />
 			  <%= date_select(:stat, :start_date, :default => @start_date)%>
 				<br />
@@ -10,7 +10,7 @@
 			  <%= date_select(:stat, :end_date, :default => @end_date)%>
 				<br />
 				<%= submit_tag 'Update dates' %>
-		<% end -%>
+		<% end %>
 	</fieldset>
 </div>
 
@@ -53,4 +53,3 @@
 <%= javascript_tag do %>
   shiftsPath = '<%= shifts_path %>';
 <% end %>
-<%= javascript_include_tag 'tooltip' %>

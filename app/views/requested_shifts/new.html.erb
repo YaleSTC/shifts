@@ -1,6 +1,5 @@
 <h1 id="page_title">Submit your shift requests</h1>
-<% content_for :head, stylesheet_link_tag("shift_view_refactoring") %>
-<% remote_form_for([@week_template, @requested_shift]) do |f| %>
+<%= form_for([@week_template, @requested_shift], remote: true) do |f| %>
 	<div id ="errors">
 		<%= render :partial => "requested_shifts/error_messages", :locals => {:f => f} %>
 	</div>
@@ -13,9 +12,9 @@
 	<div id = "all_requests">
 		<%= render :partial => "all_requests", :locals => {:requested_shifts => @requested_shifts} %>
 		<% unless @requested_shifts.empty? %>
-			<p>		
+			<p>
 				<%= render :partial => "/requested_shifts/schedule/day", :collection => [6,0,1,2,3,4,5] %>
-			</p>		
+			</p>
 		<% else %>
 			Please add your shift requests above
 		<% end %>

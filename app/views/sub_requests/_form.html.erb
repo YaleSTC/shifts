@@ -14,9 +14,6 @@
     <%= f.label :start %><br />
     <%= f.hidden_field :mandatory_start_date, :value => @default_start_date %>
     <%= f.time_select :mandatory_start_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => true,
@@ -29,9 +26,6 @@
     <%= f.label :end %><br />
     <%#= f.hidden_field :mandatory_end_date, :value => @default_end_date %>
     <%= f.time_select :mandatory_end_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => false,
@@ -45,9 +39,6 @@
     <%= f.label :start %><br />
     <%= f.hidden_field :start_date, :value => @sub_request.shift.start.to_date%>
     <%= f.time_select :start_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => true,
@@ -59,9 +50,6 @@
     <%= f.label :end %><br />
     <%#= f.hidden_field :end_date, :value => @sub_request.shift.end.to_date %>
     <%= f.time_select :end_time, {
-                :simple_time_select => true,
-                :time_separator => "",
-                :minute_interval => current_department.department_config.time_increment,
                 :start_time => @sub_request.shift.start,
                 :end_time => @sub_request.shift.end,
                 :include_start_time => false,
