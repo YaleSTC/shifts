@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.1.2' # Version in .ruby-version must match
 
 gem 'rails', '3.2.19'
 gem 'mysql2'
