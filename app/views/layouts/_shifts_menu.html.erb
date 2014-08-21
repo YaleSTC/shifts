@@ -9,7 +9,7 @@
 		        <li><%= link_to "Active Shifts", show_active_shifts_path %></li>
 		        <li><%= link_to "Sub Requests", sub_requests_path %></li>
 		        <li><%= link_to "Calendars", calendars_path %></li>
-				<li><%= link_to "Templates", templates_path %></li>
+						<li><%= link_to "Templates", templates_path %></li>
 		        <li><%= link_to "Time Slots", time_slots_path %></li>
 		        <li><%= link_to "Tasks", tasks_path %></li>
 					</ul>
@@ -38,7 +38,6 @@
 					</ul>
 			</li>
    </ul>
-    <div id="contentNav">
   <% end %>
 <% else %>
 <%# Non-admin Menu %>
@@ -69,6 +68,5 @@
 					</ul>
 			</li>
 	 	</ul>
-	  <div id="contentNav">
 	<% end %>
 <% end %>

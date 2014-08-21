@@ -26,7 +26,6 @@
 				</ul>
 			</li>
 		</ul>
-	<div id="contentNav">
 	<% end -%>
 <% else -%>
   <% content_for :left_nav do -%>
@@ -34,6 +33,5 @@
       <li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
 	  	<li><%= link_to "Show All Profiles", user_profiles_path %></li>
 		</ul>
-  <div id="contentNav">
   <% end -%>
 <% end -%>

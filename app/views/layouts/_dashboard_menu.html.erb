@@ -17,7 +17,7 @@
 				<ul>
 					<li><%= link_to "Department Settings", edit_department_config_path(@department.department_config) %></li>
 					<li><%= link_to "Calendars", calendars_path %></li>
-					<li><%= link_to "Permissions", department_roles_path(@department) %></li> 
+					<li><%= link_to "Permissions", department_roles_path(@department) %></li>
 					<li><%= link_to "Templates", templates_path %></li>
 				</ul>
 			</li>
@@ -31,7 +31,6 @@
 				</ul>
 			</li>
 	  </ul>
-	  <div id="contentNav">
 	<% end %>
 <% else %>
 <%# Non-admin Menu %>
@@ -41,6 +40,5 @@
 			<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
 			<li><%= link_to "My Calendar Feeds", calendar_feeds_path %></li>
 	  </ul>
-	  <div id="contentNav">
 	<% end %>
 <% end %>

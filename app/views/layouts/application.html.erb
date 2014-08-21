@@ -16,26 +16,27 @@
         <% end %>
       </div>
 
-    <%= render 'layouts/navbar' %>
+      <%= render 'layouts/navbar' %>
 
-    <%= yield(:left_nav).empty? ? '<div id="contentNoNav">'.html_safe : yield(:left_nav) %>
+      <%= yield(:left_nav) %>
+      <div id=<%= content_wrapper_id %>>
 
-    <div id="flash">
-      <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
-    </div>
+        <div id="flash">
+          <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+        </div>
 
-    <!-- Main Content -->
+        <!-- Main Content -->
 
-    <%- if show_title? %>
-      <h1 id="page_title"><%=h yield(:title) %></h1>
-      <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
-    <%- end %>
+        <%- if show_title? %>
+          <h1 id="page_title"><%=h yield(:title) %></h1>
+          <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
+        <%- end %>
 
-    <!-- Body Content -->
-    <%# TODO: We should not have any more content_for :body tags, we need to
-    figure out how to use this properly, and fix the files with such tags %>
-    <%= yield(:body).empty? ? yield : yield(:body) %>
-    </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
+        <!-- Body Content -->
+        <%# TODO: We should not have any more content_for :body tags, we need to
+        figure out how to use this properly, and fix the files with such tags %>
+        <%= yield(:body).empty? ? yield : yield(:body) %>
+      </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
 
       <%= render 'layouts/footer' %>
     </div> <!-- End pagebox container generated in main_header -->
