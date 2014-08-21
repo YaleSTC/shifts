@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <%= render 'layouts/head' %>
 
   <body>
     <!-- Start pagebox container -->
-    <div id="pagebox" class='container'>
-      <div id="page_header">
-        <h2 class="page_header">
-          <a href="http://www.yale.edu">Shifts by Yale University</a>
-        </h2>
-        <% if mobile_device? && (current_user || session[:cas_user]) %>
-          <%= render :partial => "layouts/include/mobile_login" %>
-        <% elsif current_user || session[:cas_user] %>
-          <%= render :partial => "layouts/include/login" %>
-        <% end %>
-      </div>
 
-      <%= render 'layouts/navbar' %>
 
+    <%= render 'layouts/navbar' %>
+    <div class='container'>
       <%= yield(:left_nav) %>
       <div id=<%= content_wrapper_id %>>
 
