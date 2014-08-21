@@ -24,6 +24,8 @@
 /* =CORE GLOBAL STYLES
 ======================================================================= */
 
+
+
 .bootstrap-styles {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -32,6 +34,7 @@
     background-color: white;
 
     @import 'bootstrap';
+
 }
 
 html {
@@ -236,12 +239,6 @@ div#login{
 
 /* tabs
 --------------------------------------------------------- */
-#application_tab_bar {
-  margin-top: 2px;
-	width: 100%;
-	float: left;
-/*	margin-top: -3px;*/
-}
 ul#application_tabs {
   float: right;
 	background-color: #8B9B6C;
