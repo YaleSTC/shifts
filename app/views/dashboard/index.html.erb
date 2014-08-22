@@ -116,20 +116,32 @@
 
   </div>
 
-  <% unless current_user.user_config.view_loc_groups.empty? %>
-    <fieldset class="index" id="schedule">
-    <legend>Daily Schedule</legend>
-    <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), :date => (@current_date - 1)-%>
-    <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), :date => (@current_date + 1)%></span>
-    <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
-  </fieldset>
-  <% end %>
-
-  <div id="AJAX_status"></div><%# for AJAX status updates %>
-
-  <%= javascript_tag do %>
-    newShiftPath = '<%= new_shift_path %>';
-    shiftsPath = '<%= shifts_path %>';
-  <% end %>
-
 </div>
+
+<% unless current_user.user_config.view_loc_groups.empty? %>
+  <div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default" id="schedule">
+          <div class="panel-heading">
+            <h3 class="panel-title">Daily Schedule</h3>
+          </div>
+          <div class="panel-body">
+            <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), :date => (@current_date - 1)-%>
+            <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), :date => (@current_date + 1)%></span>
+            <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
+          </div>
+        </div>
+
+    </div>
+
+  </div>
+
+<% end %>
+
+<div id="AJAX_status"></div><%# for AJAX status updates %>
+
+<%= javascript_tag do %>
+  newShiftPath = '<%= new_shift_path %>';
+  shiftsPath = '<%= shifts_path %>';
+<% end %>
