@@ -1,5 +1,5 @@
 <%- flash.each do |name, msg| -%>
-  <%= content_tag :div, :id => "flash_#{name}", :class => "alert alert-info", :role => 'alert' do %>
+  <%= content_tag :div, :id => "flash_#{name}", :class => "alert alert-info alert-dismissible", :role => 'alert' do %>
     <%= msg.html_safe %>
     <button type="button" class="close" data-dismiss="alert">
       <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
