@@ -17,10 +17,14 @@
 
         <!-- Main Content -->
 
-        <%- if show_title? %>
-          <h1 id="page_title"><%=h yield(:title) %></h1>
-          <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
-        <%- end %>
+        <% if show_title? %>
+          <div class="page-header">
+            <h1 id="page_title">
+              <%= yield(:title) %>
+              <small id="subtitle"><%= yield(:subtitle) %></small>
+            </h1>
+          </div>
+        <% end %>
 
         <!-- Body Content -->
         <%# TODO: We should not have any more content_for :body tags, we need to
