@@ -1,17 +1,16 @@
 <div id="footer">
-  <p class="footer">
-    <% if @appconfig %>
-      <%= @appconfig.footer %>
-    <% end %>
+  <hr>
+  <p>
+    <%= @appconfig.footer if @appconfig %>
   </p>
-  <p class="footer">
+  <p>
     For help with Shifts, please visit our repository on
-    <a href="http://github.com/YaleSTC/shifts/tree/master">Github</a>.<br />
+    <a href="http://github.com/YaleSTC/shifts">Github</a>.<br />
     Use this <a href="https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0">form</a>
     to report a bug.<br />
     <% if current_user && current_user.superuser? %>
       Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
-      {:su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
+      { :su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
       <%# note that passing true false wont work because Rails thinks that false means not to pass it %>
     <% end %>
   </p>

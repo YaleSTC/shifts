@@ -74,20 +74,20 @@ label {
 /* = Header-specific classes
 ======================================================================= */
 
-#pagebox {
-  background: #FFFFFF image-url("pagebox_shadow_bkgd.gif") repeat scroll 0% 0%;
-  margin: 0px auto;
-  padding: 0pt 12px;
-  width: 900px;
-  border: medium none;
-}
-#pageboxBottom {
-  background: transparent image-url("pagebox_shadow_bottom.gif") no-repeat scroll 0% 0%;
-  height: 12px;
-  margin: 0px auto;
-  padding-bottom: 2px;
-  width: 924px;
-}
+// #pagebox {
+//   background: #FFFFFF image-url("pagebox_shadow_bkgd.gif") repeat scroll 0% 0%;
+//   margin: 0px auto;
+//   padding: 0pt 12px;
+//   width: 900px;
+//   border: medium none;
+// }
+// #pageboxBottom {
+//   background: transparent image-url("pagebox_shadow_bottom.gif") no-repeat scroll 0% 0%;
+//   height: 12px;
+//   margin: 0px auto;
+//   padding-bottom: 2px;
+//   width: 924px;
+// }
 #page_header {
   background-color: #536E8D;
   border-bottom: 1px solid #FFFFFF;
@@ -296,29 +296,29 @@ ul#navigationList a:hover {
 
 /* = footer-specific classes
 ======================================================================= */
-#footer {
-  background-color: #536E8D;
-  border-bottom: medium none;
-  border-top: medium none;
-  clear: both;
-  padding: 5px 10px 15px;
-}
-#footer a {
-  color: #999999;
-  font-weight: bold;
-  text-decoration: none;
-}
-#footer a:hover {
-  text-decoration: underline;
-}
-p.footer {
-  color: #FFFFFF;
-  font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
-  font-size: 10px;
-  line-height: 1.6em;
-  margin: 0px 0px 0px 180px;
-  padding: 0em;
-}
+// #footer {
+//   background-color: #536E8D;
+//   border-bottom: medium none;
+//   border-top: medium none;
+//   clear: both;
+//   padding: 5px 10px 15px;
+// }
+// #footer a {
+//   color: #999999;
+//   font-weight: bold;
+//   text-decoration: none;
+// }
+// #footer a:hover {
+//   text-decoration: underline;
+// }
+// p.footer {
+//   color: #FFFFFF;
+//   font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
+//   font-size: 10px;
+//   line-height: 1.6em;
+//   margin: 0px 0px 0px 180px;
+//   padding: 0em;
+// }
 
 
 /* = currently only used by loc_group and location forms
