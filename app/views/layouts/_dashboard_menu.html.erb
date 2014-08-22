@@ -1,8 +1,8 @@
-<% if current_user.is_admin_of?(current_department) %>
+<!-- <%# if current_user.is_admin_of?(current_department) %>
 <%# Admin Menu %>
-	<% content_for :left_nav do %>
+	<%# content_for :left_nav do %>
 	  <ul id="navigationList" class="sf-menu sf-vertical">
-			<% if current_user.is_superuser? %>
+			<%# if current_user.is_superuser? %>
 			<li>
 				<a class="sf-with-ul" href="#">Superuser Options<span class="sf-sub-indicator"> &#187;</span></a>
 				<ul>
@@ -10,8 +10,8 @@
 				  <li><%= link_to "Manage Superusers", superusers_path %></li>
 				</ul>
 			</li>
-			<% end %>
-			<% if current_user.is_admin_of?(@department) %>
+			<%# end %>
+			<%# if current_user.is_admin_of?(@department) %>
 			<li>
 				<a class="sf-with-ul" href="#">Admin Options<span class="sf-sub-indicator"> &#187;</span></a>
 				<ul>
@@ -21,7 +21,7 @@
 					<li><%= link_to "Templates", templates_path %></li>
 				</ul>
 			</li>
-			<% end %>
+			<%# end %>
 			<li>
 				<a class="sf-with-ul" href="#">Application Links<span class="sf-sub-indicator"> &#187;</span></a>
 				<ul>
@@ -31,14 +31,15 @@
 				</ul>
 			</li>
 	  </ul>
-	<% end %>
-<% else %>
+	<%# end %>
+<%# else %>
 <%# Non-admin Menu %>
-	<% content_for :left_nav do %>
+	<%# content_for :left_nav do %>
 	  <ul id="navigationList" class="sf-menu sf-vertical">
 			<li><%= link_to "My Preferences", edit_user_config_path(current_user.user_config) %></li>
 			<li><%= link_to "My Profile", user_profile_path(current_user.login) %></li>
 			<li><%= link_to "My Calendar Feeds", calendar_feeds_path %></li>
 	  </ul>
-	<% end %>
-<% end %>
+	<%# end %>
+<%# end %>
+ -->
