@@ -49,30 +49,27 @@ label {
 /* = Flash (THIS NEEDS CLEANUP / DUP REMOVAL )
 ======================================================================= */
 #flash_error {
-  background-color: #FCC;
-  border-color: #C66;
+  @extend .alert-danger;
 }
 
 #flash_warning {
-  background-color: #FFC118;
-  border-color: #A67E10;
+  @extend .alert-warning;
 }
 
 #flash_notice {
-  background-color:#98EEC3;
-  border-color: #21A454;
+  @extend .alert-success;
 }
-#flash_big_notice {
-  background-color:#FFCCCC;
-  border-color: #CC6666;
-}
+// #flash_big_notice {
+//   background-color:#FFCCCC;
+//   border-color: #CC6666;
+// }
 
-.flash {
-  border: 1px solid;
-  font-size:11px;
-  margin-top:10px;
-  padding:5px 8px;
-}
+// .flash {
+//   border: 1px solid;
+//   font-size:11px;
+//   margin-top:10px;
+//   padding:5px 8px;
+// }
 
 /* = Header-specific classes
 ======================================================================= */
