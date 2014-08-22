@@ -1,15 +1,7 @@
 html {
   overflow-y: scroll;
 }
-body {
-  color: #000;
-  margin: 0pt;
-  padding: 0pt;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  font-size: 11px;
-  background-color: #E9E9E9;
-  background-image: none;
-}
+
 table, td, th{
   /*border:1px solid #666;*/
   padding: 2px;
@@ -276,34 +268,34 @@ ul#navigationList a:hover {
 /* = main content classes
 ======================================================================= */
 
-#contentNav, #contentNoNav {
-  background: transparent none no-repeat scroll 0% 0%;
-  height: auto !important;
-  min-height: 450px;
-}
-#contentNav h1, #contentNoNav h1 {
-  padding: 0px 0px 5px 0px;
-}
-#contentNav {
-  float: left;
-  padding: 10px 30px 10px 30px;
-  width: 650px;
-}
-#contentNoNav {
-  padding: 30px;
-  width: 840px;
-}
-#page_title {
-  padding: 0 0 0;
-  margin-bottom: 15px;
-  border-bottom: thin solid #408080;
-}
-#subtitle {
-  padding: 0 0;
-  margin-top: -8px;
-  margin-bottom: 5px;
-  color: gray;
-}
+// #contentNav, #contentNoNav {
+//   background: transparent none no-repeat scroll 0% 0%;
+//   height: auto !important;
+//   min-height: 450px;
+// }
+// #contentNav h1, #contentNoNav h1 {
+//   padding: 0px 0px 5px 0px;
+// }
+// #contentNav {
+//   float: left;
+//   padding: 10px 30px 10px 30px;
+//   width: 650px;
+// }
+// #contentNoNav {
+//   padding: 30px;
+//   width: 840px;
+// }
+// #page_title {
+//   padding: 0 0 0;
+//   margin-bottom: 15px;
+//   border-bottom: thin solid #408080;
+// }
+// #subtitle {
+//   padding: 0 0;
+//   margin-top: -8px;
+//   margin-bottom: 5px;
+//   color: gray;
+// }
 
 /* = footer-specific classes
 ======================================================================= */
@@ -379,14 +371,14 @@ fieldset#warning {
 fieldset#schedule{
   clear: both;
 }
-div#right_stuff {
- float:right;
- width: 47.5%;
-}
-div#left_stuff {
- float:left;
- width: 47.5%;
-}
+// div#right_stuff {
+//  float:right;
+//  width: 47.5%;
+// }
+// div#left_stuff {
+//  float:left;
+//  width: 47.5%;
+// }
 
 /*for user profiles*/
 div#profile_left{
