@@ -23,22 +23,23 @@
           </div>
         <% end %>
         <div class="row">
-          <div class="col-md-2">
-            <%= yield(:left_nav) if content_for?(:left_nav) %>
-          </div>
-          <div class="col-md-10">
-            <div class="row">
-              <%= yield(:body).empty? ? yield : yield(:body) %>
+          <% if content_for?(:left_nav) %>
+            <div class="col-md-2">
+              <%= yield(:left_nav) %>
             </div>
+          <% end %>
+          <div class=<%= content_for?(:left_nav) ? "col-md-10" : "col-md-12" %>>
+            <%= yield(:body).empty? ? yield : yield(:body) %>
           </div>
         </div>
 
         <!-- Body Content -->
         <%# TODO: We should not have any more content_for :body tags, we need to
         figure out how to use this properly, and fix the files with such tags %>
+        <%= render 'layouts/footer' %>
+
       </div>
 
-      <%= render 'layouts/footer' %>
     </div> <!-- End pagebox container generated in main_header -->
 
     <div id="pageboxBottom"> <!-- do not remove -->

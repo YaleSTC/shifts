@@ -1,50 +1,14 @@
-html {
-  overflow-y: scroll;
-}
-
-table, td, th{
-  /*border:1px solid #666;*/
-  padding: 2px;
-  border-collapse:collapse;
-}
-th{
-  background: #778899;
-/*  border:1px solid black;*/
-  color: white;
-}
-h1, h2, h3, h4, h5, h6 {
-  margin: 2px 0px;
-}
-h1 {
-  font-size: 18px;
-}
-h2 {
-  font-size: 14px;
-}
-h3 {
-  font-size: 12px;
-  font-weight: bold;
-}
-a:link, a:visited {
-  text-decoration: none;
-}
 a {
   color: #104e8b;
+
+  &:hover {
+    color: orange;
+    text-decoration: none;
+  }
 }
-a:hover{
-  color: orange;
-}
-textarea {
-  overflow: auto;
-}
-ul{
-  /*these guys are overflowing left for some reason*/
-  margin-left: 20px;
-}
-/*Align all labels with their form elements*/
-label {
-  vertical-align: baseline;
-}
+
+.nav > li > a > img { height: 18px; }
+
 
 /* = Flash (THIS NEEDS CLEANUP / DUP REMOVAL )
 ======================================================================= */
@@ -71,64 +35,6 @@ label {
 //   padding:5px 8px;
 // }
 
-/* = Header-specific classes
-======================================================================= */
-
-// #pagebox {
-//   background: #FFFFFF image-url("pagebox_shadow_bkgd.gif") repeat scroll 0% 0%;
-//   margin: 0px auto;
-//   padding: 0pt 12px;
-//   width: 900px;
-//   border: medium none;
-// }
-// #pageboxBottom {
-//   background: transparent image-url("pagebox_shadow_bottom.gif") no-repeat scroll 0% 0%;
-//   height: 12px;
-//   margin: 0px auto;
-//   padding-bottom: 2px;
-//   width: 924px;
-// }
-#page_header {
-  background-color: #536E8D;
-  border-bottom: 1px solid #FFFFFF;
-  float: left;
-  width: 100%;
-  height: 35px;
-  padding: 0px;
-}
-#page_header h2 {
-  background: transparent image-url("theme/header.gif") no-repeat scroll 0% 0%;
-  float: left;
-  font-size: 12px;
-  margin: 0pt;
-  text-indent: -9999px;
-  border-bottom: none;
-}
-#page_header h2 a {
-  display: block;
-  height: 36px;
-  width: 130px;
-}
-#main_banner {
-  background: #869FC7 image-url("theme/main_banner.jpg") no-repeat scroll 0% 0%;
-  border-bottom: 1px solid #FFFFFF;
-  color: #FFFFFF;
-  clear: both;
-  height: 85px;
-  margin: 0px auto;
-  padding: 0px;
-}
-#main_banner h1 {
-  float: left;
-  font-size: 12px;
-  height: 0pt;
-  margin: 0pt;
-  text-indent: -9999px;
-}
-#main_banner img {
-  display: block;
-  color: #FFFFFF;
-}
 
 /* login
 --------------------------------------------------------- */
@@ -179,18 +85,18 @@ div#login{
 
 /* tabs
 --------------------------------------------------------- */
-ul#application_tabs {
-  float: right;
-  background-color: #8B9B6C;
-  padding: 0pt;
-  list-style-type: square;
-  font-size: 12px;
+// ul#application_tabs {
+//   float: right;
+//   background-color: #8B9B6C;
+//   padding: 0pt;
+//   list-style-type: square;
+//   font-size: 12px;
 
-/*  line-height: 1.6em;
-  list-style-image: none;
-  list-style-position: outside;
-*/
-}
+// /*  line-height: 1.6em;
+//   list-style-image: none;
+//   list-style-position: outside;
+// */
+// }
 /*ul#application_tabs li {
   display: inline;
   line-height: 11px;
@@ -251,105 +157,6 @@ ul#navigationList {
   font-size: 0.9em;
 }
 
-/*ul#navigationList {
-  color: #415578;
-  font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 1.7em;
-  margin: 40px 0 0;
-  margin-left: -5px;
-  padding: 0;
-  list-style-image: none;
-  list-style-position: outside;
-  list-style-type: square;
-
-  float: left;
-  padding: 5px 0px 5px 20px;
-}
-ul#navigationList li {
-  list-style-type: none;
-  margin-left: 0px;
-}
-ul#navigationList li ul {
-  font-size: 10px;
-  margin: 0pt;
-  padding: 0pt 0pt 0pt 17px;
-}
-ul#navigationList li a, ul#navigationList li h3 {
-  height: 1%;
-  display: inline;
-}
-ul#navigationList h3 {
-  color: #26287f;
-}
-ul#navigationList a:link, ul#navigationList a:visited {
-  color: #2758B3;
-  text-decoration: none;
-}
-ul#navigationList a:hover {
-  color: #FF9933;
-  text-decoration: none;
-}
-*/
-/* = main content classes
-======================================================================= */
-
-// #contentNav, #contentNoNav {
-//   background: transparent none no-repeat scroll 0% 0%;
-//   height: auto !important;
-//   min-height: 450px;
-// }
-// #contentNav h1, #contentNoNav h1 {
-//   padding: 0px 0px 5px 0px;
-// }
-// #contentNav {
-//   float: left;
-//   padding: 10px 30px 10px 30px;
-//   width: 650px;
-// }
-// #contentNoNav {
-//   padding: 30px;
-//   width: 840px;
-// }
-// #page_title {
-//   padding: 0 0 0;
-//   margin-bottom: 15px;
-//   border-bottom: thin solid #408080;
-// }
-// #subtitle {
-//   padding: 0 0;
-//   margin-top: -8px;
-//   margin-bottom: 5px;
-//   color: gray;
-// }
-
-/* = footer-specific classes
-======================================================================= */
-// #footer {
-//   background-color: #536E8D;
-//   border-bottom: medium none;
-//   border-top: medium none;
-//   clear: both;
-//   padding: 5px 10px 15px;
-// }
-// #footer a {
-//   color: #999999;
-//   font-weight: bold;
-//   text-decoration: none;
-// }
-// #footer a:hover {
-//   text-decoration: underline;
-// }
-// p.footer {
-//   color: #FFFFFF;
-//   font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
-//   font-size: 10px;
-//   line-height: 1.6em;
-//   margin: 0px 0px 0px 180px;
-//   padding: 0em;
-// }
-
 
 /* = currently only used by loc_group and location forms
 ======================================================================= */
@@ -385,19 +192,19 @@ table.manage_table th {
 /* = fieldset styles - NEEDS CLEANUP
 ======================================================================= */
 
-fieldset.index,
-fieldset.checkboxes {
-  padding: 5px;
-  margin: 0px 0px 15px 0px;
-  /*border: 1px solid gray;*/
-  background-color:#DDDDFF
-}
-fieldset#warning {
-  background: #C0C0C0;
-}
-fieldset#schedule{
-  clear: both;
-}
+// fieldset.index,
+// fieldset.checkboxes {
+//   padding: 5px;
+//   margin: 0px 0px 15px 0px;
+//   /*border: 1px solid gray;*/
+//   background-color:#DDDDFF
+// }
+// fieldset#warning {
+//   background: #C0C0C0;
+// }
+// fieldset#schedule{
+//   clear: both;
+// }
 // div#right_stuff {
 //  float:right;
 //  width: 47.5%;
@@ -417,23 +224,23 @@ div#profile_right {
   float: right;
   width: 58%;
 }
-legend {
-  color: #eef;
-  background: #0F2B5B;
-  font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
-  padding: 0.2em 1em;
-}
+// legend {
+//   color: #eef;
+//   background: #0F2B5B;
+//   font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
+//   padding: 0.2em 1em;
+// }
 
 /* used in all_notices, but why? */
-#blue_fieldset fieldset {
-  background: #ddf;
-}
-#blue_fieldset fieldset legend {
-  color: #eef;
-  background: #123456;
-  font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
-  padding: 0.2em 1em;
-}
+// #blue_fieldset fieldset {
+//   background: #ddf;
+// }
+// #blue_fieldset fieldset legend {
+//   color: #eef;
+//   background: #123456;
+//   font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
+//   padding: 0.2em 1em;
+// }
 
 
 
@@ -752,19 +559,19 @@ input.view_more {float:right;}
 
 /* Styling & alignment for multiple select checkboxes
 ======================================================*/
-fieldset.checkboxes > div > * {
-  display: inline;
-}
-fieldset.checkboxes div li {
-  list-style-type: none;
-}
-fieldset.checkboxes div.header_container a#hide {
-  vertical-align: baseline;
-  padding-left: 6pt;
-} /* a#hide has alignment issues in non-webkit browsers */
+// fieldset.checkboxes > div > * {
+//   display: inline;
+// }
+// fieldset.checkboxes div li {
+//   list-style-type: none;
+// }
+// fieldset.checkboxes div.header_container a#hide {
+//   vertical-align: baseline;
+//   padding-left: 6pt;
+// } /* a#hide has alignment issues in non-webkit browsers */
 
 /* Alignment for Reset email preferences button text
 ====================================================*/
-span#reset_txt {
-  vertical-align: baseline;
-}
+// span#reset_txt {
+//   vertical-align: baseline;
+// }
