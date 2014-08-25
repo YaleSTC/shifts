@@ -6,11 +6,10 @@
 
     <%= render 'layouts/navbar' %>
     <div class='container'>
-      <%= yield(:left_nav) %>
       <div id=<%= content_wrapper_id %>>
 
         <div id="flash">
-          <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
         </div>
 
         <!-- Main Content -->
@@ -23,11 +22,20 @@
             </h1>
           </div>
         <% end %>
+        <div class="row">
+          <div class="col-md-2">
+            <%= yield(:left_nav) if content_for?(:left_nav) %>
+          </div>
+          <div class="col-md-10">
+            <div class="row">
+              <%= yield(:body).empty? ? yield : yield(:body) %>
+            </div>
+          </div>
+        </div>
 
         <!-- Body Content -->
         <%# TODO: We should not have any more content_for :body tags, we need to
         figure out how to use this properly, and fix the files with such tags %>
-        <%= yield(:body).empty? ? yield : yield(:body) %>
       </div>
 
       <%= render 'layouts/footer' %>
