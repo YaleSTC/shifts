@@ -25,7 +25,7 @@
         <div class="row">
           <% if content_for?(:left_nav) %>
             <div class="col-md-2">
-              <%= yield(:left_nav) %>
+              <%= render 'layouts/left_nav' %>
             </div>
           <% end %>
           <div class=<%= content_for?(:left_nav) ? "col-md-10" : "col-md-12" %>>

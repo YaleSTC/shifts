@@ -1,9 +1,9 @@
 <div align="center">
 <h1>Access Denied</h1>
 
-<div style = "font-size:12px;">
+<div>
 <% if @appconfig.login_options.include?('built-in') %>
-Maybe you want to <%= link_to "try", login_path %> to log in with built-in authentication? 
+Maybe you want to <%= link_to "try", login_path %> to log in with built-in authentication?
 <% end %>
 <br>
 <% if current_user && current_user.departments %>
