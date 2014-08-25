@@ -221,6 +221,36 @@ ul#navigationList {
   font-size: 11px;
 }
 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.sidebar-nav .navbar-nav > li > .dropdown-menu {
+  left: 100%;
+  top: 0;
+}
+
+.sidebar-nav .dropdown a {
+  font-size: 0.9em;
+}
+
 /*ul#navigationList {
   color: #415578;
   font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
