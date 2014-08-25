@@ -680,17 +680,6 @@ img.loading_icon {
   display: block;
 }
 
-/*To align links and icons*/
-a.action_with_icon{
-  vertical-align: middle;
-}
-img.mini_icon {
-  vertical-align: middle;
-  width: 1.2em;
-  height: 1.2em;
-}
-
-
 /*no bullets for active shifts*/
 ul.activeShifts {
   list-style-type: none;

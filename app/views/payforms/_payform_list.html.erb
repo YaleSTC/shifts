@@ -1,9 +1,15 @@
 <div id="right_stuff">
 	<fieldset class="index" id="payform_switch">
 		<% if params[:printed].nil? %>
-		  <div><%= image_tag("icons/flag_purple.png", :class => "mini_icon")%><%= link_to "Include Finalized Payforms", payforms_path(:unsubmitted => true, :submitted => true, :skipped => true, :approved => true, :printed => true, :start_date => @start_date, :end_date => @end_date), :class => "action_with_icon" %></div>
+		  <div>
+        <i class="fa fa-check-circle"></i>
+        <%= link_to "Include Finalized Payforms", payforms_path(:unsubmitted => true, :submitted => true, :skipped => true, :approved => true, :printed => true, :start_date => @start_date, :end_date => @end_date) %>
+      </div>
 		<% else %>
-		  <div><%= image_tag("icons/flag_purple.png", :class => "mini_icon")%><%= link_to "Hide Finalized Payforms", payforms_path(:start_date => @start_date, :end_date => @end_date), :class => "action_with_icon" %></div>
+		  <div>
+        <i class="fa fa-check-circle-o"></i>
+        <%= link_to "Hide Finalized Payforms", payforms_path(:start_date => @start_date, :end_date => @end_date) %>
+      </div>
 		<% end %>
 	</fieldset>
 </div>
@@ -31,7 +37,7 @@
   </tr></thead>
   <%= render :partial => "payform", :collection => @payforms %>
   <% if @payforms.empty? -%>
-    <tr><td colspan=5>(No payforms to show)</td></tr>
+    <tr><td colspan="5">(No   payforms to show)</td></tr>
   <% end -%>
   <tfoot><tr>
     <% if current_user.is_admin_of?(current_department) -%>

@@ -1,17 +1,17 @@
-<% if !dashboard_clock.paused? %>
-      <%= render :partial => 'punch_clocks/punch_clock_timer', :object => current_user.punch_clock %>
+<% unless dashboard_clock.paused? %>
+  <%= render :partial => 'punch_clocks/punch_clock_timer', :object => current_user.punch_clock %>
 <% else %>
-	<h2> Paused at <%= dashboard_clock.running_time %> </h2>
+  <h2> Paused at <%= dashboard_clock.running_time %> </h2>
 <% end %>
-      <%= image_tag("icons/clock_pause.png", :class => "mini_icon") %>
-      <% if dashboard_clock.paused? %>
-        <%= link_to "Unpause Clock", punch_clock_path(dashboard_clock, :unpause => true), :method => :put %>
-      <% else %>
-        <%= link_to "Pause Clock", punch_clock_path(dashboard_clock, :pause => true), :method => :put %>
-      <% end %>
-      <br />
-      <%= image_tag("icons/clock_stop.png", :class => "mini_icon") %>
-      <%= link_to "Clock out", edit_punch_clock_path(current_user.punch_clock), :class => "action_with_icon" %>
-      <br />
-      <%= image_tag("icons/clock_red.png", :class => "mini_icon") %>
-      <%= link_to "Cancel clock", punch_clock_path(dashboard_clock), :method => :delete, :confirm => "Are you sure you want to cancel this clock?  No time will be added to its payform." %>
+<i class="fa fa-pause"></i>
+<% if dashboard_clock.paused? %>
+  <%= link_to "Unpause Clock", punch_clock_path(dashboard_clock, :unpause => true), :method => :put %>
+<% else %>
+  <%= link_to "Pause Clock", punch_clock_path(dashboard_clock, :pause => true), :method => :put %>
+<% end %>
+<br />
+<i class="fa fa-stop"></i>
+<%= link_to "Clock out", edit_punch_clock_path(current_user.punch_clock) %>
+<br />
+<i class="fa fa-times-circle"></i>
+<%= link_to "Cancel clock", punch_clock_path(dashboard_clock), :method => :delete, :confirm => "Are you sure you want to cancel this clock?  No time will be added to its payform." %>
