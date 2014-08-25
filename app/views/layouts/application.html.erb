@@ -6,11 +6,9 @@
 
     <%= render 'layouts/navbar' %>
     <div class='container'>
-      <div id=<%= content_wrapper_id %>>
+      <div id="<%= content_wrapper_id %>">
 
-        <div id="flash">
-          <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
-        </div>
+        <%= render :partial => 'layouts/flash', :locals => {:flash => flash} %>
 
         <!-- Main Content -->
 
