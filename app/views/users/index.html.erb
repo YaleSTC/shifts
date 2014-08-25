@@ -13,11 +13,13 @@
 </div>
 <div align= "left"><br />
 
-	<%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New User", new_user_path, :class => "action_with_icon"%> |
+	<i class="fa fa-users"></i> <%= link_to "Add A New User", new_user_path %> |
 	<% if params[:show_inactive].nil? %>
-	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true), :class => "action_with_icon" %>
+	  <i class="fa fa-eye"></i>
+    <%= link_to "Show Inactive Users", department_users_path(@department, :show_inactive => true) %>
 	<% else %>
-	  <%= image_tag("icons/flag_purple.png", :class => "mini_icon")%> <%= link_to "Hide Inactive Users", department_users_path(@department), :class => "action_with_icon" %>
+	  <i class="fa fa-eye-slash"></i>
+    <%= link_to "Hide Inactive Users", department_users_path(@department) %>
 	<% end %>
 </div>
 <%= render :partial => 'user_list' %>

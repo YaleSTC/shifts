@@ -1,6 +1,9 @@
 <% title "Roles" %>
-<p><%= image_tag("icons/add.png", :class => "mini_icon")%> <%= link_to "Add A New Role", new_department_role_path(@department), :class => "action_with_icon"%></p>
-<table class = "tablesorter">
+<p>
+  <i class="fa fa-plus-circle"></i>
+  <%= link_to "Add A New Role", new_department_role_path(@department) %>
+</p>
+<table class="tablesorter">
  <thead>
   <tr>
     <th>Role Name</th>

@@ -53,8 +53,8 @@
         <% if current_user.punch_clock %>
           <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
         <% else %>
-          <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
-          <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
+          <i class="fa fa-clock-o"></i>
+          <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
         <% end %>
       </div>
     </div>
