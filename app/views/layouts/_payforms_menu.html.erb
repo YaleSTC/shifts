@@ -1,33 +1,31 @@
 <% if current_user.is_admin_of?(current_department) %>
   <% content_for :left_nav do %>
-  	<ul id="navigationList" class="sf-menu sf-vertical">
-			<li>
-	    <a class="sf-with-ul" href="#">View Payforms<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
-           <li><%= link_to "All", payforms_path(:start_date => @start_date, :end_date => @end_dat) %></li>
-           <li><%= link_to "Submitted", payforms_path(:submitted => true, :start_date => @start_date, :end_date => @end_date)%></li>
-					<li><%= link_to "Skipped", payforms_path(:skipped => true, :start_date => @start_date, :end_date => @end_date)%></li>
-           <li><%= link_to "Approved", payforms_path(:approved => true, :start_date => @start_date, :end_date => @end_date)%></li>
-           <li><%= link_to "Printed", payforms_path(:printed => true, :start_date => @start_date, :end_date => @end_date) %></li>
-           <li><%= link_to "History", payform_sets_path %></li>
-				</ul>
+		<li class="dropdown">
+	    <a class="dropdown-toggle" href="#" data-toggle="dropdown">View Payforms <i class="fa fa-caret-right"></i></a>
+			<ul class="dropdown-menu">
+        <li><%= link_to "All", payforms_path(:start_date => @start_date, :end_date => @end_dat) %></li>
+        <li><%= link_to "Submitted", payforms_path(:submitted => true, :start_date => @start_date, :end_date => @end_date) %></li>
+        <li><%= link_to "Skipped", payforms_path(:skipped => true, :start_date => @start_date, :end_date => @end_date) %></li>
+        <li><%= link_to "Approved", payforms_path(:approved => true, :start_date => @start_date, :end_date => @end_date) %></li>
+        <li><%= link_to "Printed", payforms_path(:printed => true, :start_date => @start_date, :end_date => @end_date) %></li>
+        <li><%= link_to "History", payform_sets_path %></li>
+			</ul>
 			</li>
-			<li>
-			<a class="sf-with-ul" href="#">Punch Clocks<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
+			<li class="dropdown">
+  			<a class="dropdown-toggle" href="#" data-toggle="dropdown">Punch Clocks <i class="fa fa-caret-right"></i></a>
+				<ul class="dropdown-menu">
 	        <li><%= link_to "View Active", punch_clocks_path %></li>
 	        <li><%= link_to "View Group", punch_clock_sets_path %></li>
 	        <li><%= link_to "Add Group", new_punch_clock_set_path %></li>
 				</ul>
 			</li>
-			<li>
-			<a class="sf-with-ul" href="#">Group Jobs<span class="sf-sub-indicator"> &#187;</span></a>
-				<ul>
+			<li class="dropdown">
+  			<a class="dropdown-toggle" href="#" data-toggle="dropdown">Group Jobs <i class="fa fa-caret-right"></i></a>
+				<ul class="dropdown-menu">
 	        <li><%= link_to "View All", payform_item_sets_path %></li>
 	        <li><%= link_to "Add", new_payform_item_set_path %></li>
 				</ul>
 			</li>
 			<li><%= link_to "Categories", department_categories_path(current_department) %></li>
-	  </ul>
   <% end %>
 <% end %>
