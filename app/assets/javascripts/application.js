@@ -4,7 +4,6 @@
 //= require jquery.ui.all
 //= require jquery-tablesorter
 //= require jquery.Jcrop
-//= require superfish
 //= require hoverIntent
 //= require thickbox-compressed
 //= require bootstrap-hover-dropdown
