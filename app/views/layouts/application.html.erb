@@ -26,24 +26,15 @@
               <%= render 'layouts/left_nav' %>
             </div>
           <% end %>
-          <div class=<%= content_for?(:left_nav) ? "col-md-10" : "col-md-12" %>>
-            <%= yield(:body).empty? ? yield : yield(:body) %>
+          <div class="<%= content_for?(:left_nav) ? "col-md-10" : "col-md-12" %>">
+            <%= yield %>
           </div>
         </div>
 
-        <!-- Body Content -->
-        <%# TODO: We should not have any more content_for :body tags, we need to
-        figure out how to use this properly, and fix the files with such tags %>
         <%= render 'layouts/footer' %>
 
       </div>
 
-    </div> <!-- End pagebox container generated in main_header -->
-
-    <div id="pageboxBottom"> <!-- do not remove -->
-      <script type='text/javascript' charset='utf-8'>
-        <%= yield(:javascript) %>
-      </script>
     </div>
 
   </body>
