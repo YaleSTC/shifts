@@ -1,4 +1,6 @@
 class DataObjectsController < ApplicationController
+  layout 'shifts'
+
   helper :data_entries
 
 # Needs views revised for non-ajax degradeability -ben

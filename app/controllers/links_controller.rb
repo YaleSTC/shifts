@@ -1,4 +1,6 @@
 class LinksController < NoticesController
+  layout 'shifts'
+
 	before_filter :require_any_loc_group_admin, except: [:index, :show, :destroy]
 
   def new

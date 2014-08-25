@@ -1,4 +1,5 @@
 class NoticesController < ApplicationController
+  layout 'shifts'
 
   def archive
     require_department_admin
