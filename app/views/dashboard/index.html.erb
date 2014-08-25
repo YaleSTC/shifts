@@ -1,119 +1,124 @@
 <div id = "notice"></div>
 <% title "My Dashboard" %>
-  <div id="left_stuff" class="col-md-6">
+  <div class="row">
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Your Shifts</h3>
-      </div>
-      <div class="panel-body">
-        <% if user_has_active_shift?%>
-          <h4>Current Shift </h4>
-         <% end %>
-        <%= render :partial => "shifts/user_options" %>
-        <% unless @upcoming_shifts.empty? %>
-          <h4>My Upcoming Shifts</h4>
-          <ul>
-            <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
-          </ul>
-        <% end %>
-      </div>
-    </div>
+    <div id="left_stuff" class="col-md-6">
 
-    <div class="panel panel-default" id="subs">
-      <div class="panel-heading">
-        <h3 class="panel-title">Sub Requests</h3>
-      </div>
-      <div class="panel-body">
-        <% unless @subs_you_requested.empty? and @subs_you_can_take.empty? %>
-          <% unless @subs_you_requested.empty? %>
-            <h4>Subs You've Requested</h4>
-            <ul>
-              <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
-            </ul>
-          <% end %>
-          <% unless @subs_you_can_take.empty? %>
-            <h4>Subs You Can Take</h4>
-              <ul>
-                <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
-              </ul>
-          <% end %>
-        <% else %>
-          <em>There are no sub requests at this time.</em>
-        <% end %>
-      </div>
-      <div class="panel-footer"><%= link_to "All Subs", sub_requests_path %></div>
-    </div>
-
-    <div class="panel panel-default" id="punch_clock">
-      <div class="panel-heading">
-        <h3 class="panel-title">Punch Clock</h3>
-      </div>
-      <div class="panel-body">
-        <% if current_user.punch_clock %>
-          <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
-        <% else %>
-          <i class="fa fa-clock-o"></i>
-          <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
-        <% end %>
-      </div>
-    </div>
-
-    <% unless @watched_objects.empty? %>
-      <div class="panel panel-default" id="watched_objects">
+      <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Watched Data Objects</h3>
+          <h3 class="panel-title">Your Shifts</h3>
         </div>
         <div class="panel-body">
-          <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
+          <% if user_has_active_shift?%>
+            <h4>Current Shift </h4>
+           <% end %>
+          <%= render :partial => "shifts/user_options" %>
+          <% unless @upcoming_shifts.empty? %>
+            <h4>My Upcoming Shifts</h4>
+            <ul>
+              <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
+            </ul>
+          <% end %>
         </div>
       </div>
-    <% end %>
+
+      <div class="panel panel-default" id="subs">
+        <div class="panel-heading">
+          <h3 class="panel-title">Sub Requests</h3>
+        </div>
+        <div class="panel-body">
+          <% unless @subs_you_requested.empty? and @subs_you_can_take.empty? %>
+            <% unless @subs_you_requested.empty? %>
+              <h4>Subs You've Requested</h4>
+              <ul>
+                <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
+              </ul>
+            <% end %>
+            <% unless @subs_you_can_take.empty? %>
+              <h4>Subs You Can Take</h4>
+                <ul>
+                  <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+                </ul>
+            <% end %>
+          <% else %>
+            <em>There are no sub requests at this time.</em>
+          <% end %>
+        </div>
+        <div class="panel-footer"><%= link_to "All Subs", sub_requests_path %></div>
+      </div>
+
+      <div class="panel panel-default" id="punch_clock">
+        <div class="panel-heading">
+          <h3 class="panel-title">Punch Clock</h3>
+        </div>
+        <div class="panel-body">
+          <% if current_user.punch_clock %>
+            <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
+          <% else %>
+            <i class="fa fa-clock-o"></i>
+            <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
+          <% end %>
+        </div>
+      </div>
+
+      <% unless @watched_objects.empty? %>
+        <div class="panel panel-default" id="watched_objects">
+          <div class="panel-heading">
+            <h3 class="panel-title">Watched Data Objects</h3>
+          </div>
+          <div class="panel-body">
+            <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div id="right_stuff" class="col-md-6">
+
+      <div class="panel panel-default" id="notices_for_you">
+        <div class="panel-heading">
+          <h3 class="panel-title">Announcements</h3>
+        </div>
+        <div class="panel-body">
+          <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
+        </div>
+        <div class="panel-footer">
+          <%= link_to_post_a_sticky %>
+          <%= link_to_post_an_announcement %>
+        </div>
+      </div>
+
+      <div class="panel panel-default" id="shifts">
+        <div class="panel-heading">
+          <h3 class="panel-title">Active Shifts</h3>
+        </div>
+        <div class="panel-body">
+          <% unless @signed_in_shifts.empty? %>
+            <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
+          <% else %>
+            <em>There are no active shifts at this time.</em>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="panel panel-default" id="shift_stats">
+        <div class="panel-heading">
+          <h3 class="panel-title">Shift Statistics</h3>
+        </div>
+        <div class="panel-body">
+          <% @summary = current_user.summary_stats(Date.today-1.month, Date.today) %>
+          <%= render :partial => 'stats/stats_summary', :object => @summary %>
+        </div>
+        <div class="panel-footer">
+          <%= link_to "More Stats", {:controller => :stats, :action => 'index'} %>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 
-  <div id="right_stuff" class="col-md-6">
-
-    <div class="panel panel-default" id="notices_for_you">
-      <div class="panel-heading">
-        <h3 class="panel-title">Announcements</h3>
-      </div>
-      <div class="panel-body">
-        <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
-      </div>
-      <div class="panel-footer">
-        <%= link_to_post_a_sticky %>
-        <%= link_to_post_an_announcement %>
-      </div>
-    </div>
-
-    <div class="panel panel-default" id="shifts">
-      <div class="panel-heading">
-        <h3 class="panel-title">Active Shifts</h3>
-      </div>
-      <div class="panel-body">
-        <% unless @signed_in_shifts.empty? %>
-          <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
-        <% else %>
-          <em>There are no active shifts at this time.</em>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="panel panel-default" id="shift_stats">
-      <div class="panel-heading">
-        <h3 class="panel-title">Shift Statistics</h3>
-      </div>
-      <div class="panel-body">
-        <% @summary = current_user.summary_stats(Date.today-1.month, Date.today) %>
-        <%= render :partial => 'stats/stats_summary', :object => @summary %>
-      </div>
-      <div class="panel-footer">
-        <%= link_to "More Stats", {:controller => :stats, :action => 'index'} %>
-      </div>
-    </div>
-
-  </div>
 
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
