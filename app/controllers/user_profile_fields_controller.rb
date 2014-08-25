@@ -1,4 +1,6 @@
 class UserProfileFieldsController < ApplicationController
+  layout 'users'
+
   before_filter :require_department_admin
   def index
     @user_profile_fields = UserProfileField.all
@@ -19,8 +21,8 @@ class UserProfileFieldsController < ApplicationController
   def create
     @user_profile_field = UserProfileField.new(params[:user_profile_field])
     @user_profile_field.department_id = @department.id
-    begin 
-      UserProfileField.transaction do 
+    begin
+      UserProfileField.transaction do
         @user_profile_field.save
         @department.users.each do |user|
           UserProfileEntry.create!(user_profile_id: user.user_profile.id,

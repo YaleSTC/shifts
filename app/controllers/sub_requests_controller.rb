@@ -1,4 +1,5 @@
 class SubRequestsController < ApplicationController
+  layout 'shifts'
 
   def index
     if params[:shift_id]      # check if index listing is shift specific
