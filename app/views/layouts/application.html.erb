@@ -3,8 +3,6 @@
   <%= render 'layouts/head' %>
 
   <body>
-    <!-- Start pagebox container -->
-
 
     <%= render 'layouts/navbar' %>
     <div class='container'>
@@ -30,7 +28,7 @@
         <%# TODO: We should not have any more content_for :body tags, we need to
         figure out how to use this properly, and fix the files with such tags %>
         <%= yield(:body).empty? ? yield : yield(:body) %>
-      </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
+      </div>
 
       <%= render 'layouts/footer' %>
     </div> <!-- End pagebox container generated in main_header -->
