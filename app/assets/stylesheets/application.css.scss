@@ -14,8 +14,11 @@
 // $navbar-default-color: #fff;
 // $navbar-default-link-color: #fff;
 // $navbar-default-link-active-color: #fff;
+$font-size-base: 14px;
+$font-size-h1: floor($font-size-base * 2.3);
 
 @import 'bootstrap';
+
 @import 'font-awesome';
 
 @import 'jquery.ui.all';
