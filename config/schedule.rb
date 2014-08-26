@@ -16,12 +16,12 @@
 # Override 'rake' command to use Bundler
 job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
 
-every :sunday, :at => '9am' do
+every :sunday, at: '9am' do
   rake "email:payform_reminders"
   rake "email:late_payform_warnings"
 end
 
-every 1.day, :at => '1am' do
+every 1.day, at: '1am' do
   rake "email:daily_stats"
   rake "db:populate_missed_tasks"
 end

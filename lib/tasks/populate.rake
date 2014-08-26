@@ -1,7 +1,7 @@
 namespace :db do
   desc "Erase and fill database"
 
-  task :populate => :load_fixtures do
+  task populate: :load_fixtures do
     task_start_time = Time.now
 
     require 'populator'
@@ -34,10 +34,10 @@ namespace :db do
     end
 
     puts "creating departments and configuring payform settings"
-    Department.create(:name => "STC", :created_at => 2.years.ago)
+    Department.create(name: "STC", created_at: 2.years.ago)
       # weekly
-    dept = Department.create(:name => "Film studies", :created_at => 2.years.ago)
-      dept.department_config.update_attributes({:monthly => true, :end_of_month => true}) # monthly
+    dept = Department.create(name: "Film studies", created_at: 2.years.ago)
+      dept.department_config.update_attributes({monthly: true, end_of_month: true}) # monthly
 #    dept = Department.create(:name => "Economics", :created_at => 2.years.ago)
 #      dept.department_config.update_attributes({:complex => true}) # biweekly
 #    dept = Department.create(:name => "Political science", :created_at => 2.years.ago)
@@ -97,11 +97,11 @@ namespace :db do
       LocGroup.populate(loc_groups_per_department) do |loc_group|
         loc_group.name = Populator.words(1..3).titleize
         loc_group.department_id = department.id
-        view_perm = Permission.create(:name => loc_group.name + " view")
+        view_perm = Permission.create(name: loc_group.name + " view")
         loc_group.view_perm_id = view_perm.id
-        signup_perm = Permission.create(:name => loc_group.name + " signup")
+        signup_perm = Permission.create(name: loc_group.name + " signup")
         loc_group.signup_perm_id = signup_perm.id
-        admin_perm = Permission.create(:name => loc_group.name + " admin")
+        admin_perm = Permission.create(name: loc_group.name + " admin")
         loc_group.admin_perm_id = admin_perm.id
         loc_group.created_at = department.created_at
 
@@ -154,7 +154,7 @@ namespace :db do
       while date > payforms_beginning_date
         user.departments.each do |department|
           end_date = Payform.default_period_date(date, department)
-          unless Payform.exists?({:date => end_date, :department_id => department.id, :user_id => user.id})
+          unless Payform.exists?({date: end_date, department_id: department.id, user_id: user.id})
             payform = Payform.build(department, user, date)
 
             PayformItem.populate(payform_items_per_payform) do |payform_item|
@@ -176,8 +176,8 @@ namespace :db do
             if payform.date < Date.today && rand(4) != 0
               payform.update_attribute(:submitted, (payform.date + 1.day).to_time)
               unless rand(3) == 0
-                payform.update_attributes({:approved => payform.submitted + 1.day,
-                                           :approved_by_id => department.users[rand(department.users.length)].id
+                payform.update_attributes({approved: payform.submitted + 1.day,
+                                           approved_by_id: department.users[rand(department.users.length)].id
                 })
                 if rand(2) == 0
                   payform.update_attribute(:printed, payform.approved + 10.minutes)
@@ -207,8 +207,8 @@ namespace :db do
 
             start_time = Time.parse("9AM -0400 #{day.to_s}")
             end_time = Time.parse("11PM -0400 #{day.to_s}")
-            TimeSlot.create(:location_id => location.id, :start => start_time,
-                            :end => end_time, :created_at => day.to_datetime)
+            TimeSlot.create(location_id: location.id, start: start_time,
+                            end: end_time, created_at: day.to_datetime)
 
             max_number_of_shifts_per_time_slot.times do
               start_hour = 9 + rand(14)
@@ -216,9 +216,9 @@ namespace :db do
               start_time = "#{start_hour}:#{start_minute}, #{day}".to_time
               end_time = start_time + (increment * (1 + rand(6 * blocks_per_hour))).minutes
               user = department.users[rand(department.users.length)]
-              shift = Shift.new(:start => start_time, :end => end_time, :user_id => user.id,
-                                :location_id => location.id, :scheduled => true,
-                                :created_at => day.to_datetime + 30.minutes)
+              shift = Shift.new(start: start_time, end: end_time, user_id: user.id,
+                                location_id: location.id, scheduled: true,
+                                created_at: day.to_datetime + 30.minutes)
               shift.save unless shift.exceeds_max_staff?
               if !shift.new_record? && rand(10) == 0
                 # shift_chunks is the number of smallest shift chunks in the length of the shift
@@ -231,10 +231,10 @@ namespace :db do
                 mandatory_start = start_time + (increment * rand(request_chunks)).minutes
                 request_chunks_left = ((end_time - mandatory_start) / increment_seconds).round
                 mandatory_end = mandatory_start + (increment * (1 + rand(request_chunks_left))).minutes
-                sub_request = SubRequest.create(:shift_id => shift.id, :reason => Populator.sentences(1..3),
-                                                :start => start_time, :end => end_time,
-                                                :mandatory_start => mandatory_start,
-                                                :mandatory_end => mandatory_end)
+                sub_request = SubRequest.create(shift_id: shift.id, reason: Populator.sentences(1..3),
+                                                start: start_time, end: end_time,
+                                                mandatory_start: mandatory_start,
+                                                mandatory_end: mandatory_end)
                 # each sub request has 1/2 chance of being taken
                 if !sub_request.new_record? && rand(2) == 0
                   user = department.users[rand(department.users.length)]

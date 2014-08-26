@@ -11,7 +11,7 @@ gem 'jquery-tablesorter'
 gem 'jcrop-rails-v2', '~> 0.9.12'
 
 # ldap integration
-gem 'ruby-net-ldap', :require => 'net/ldap'
+gem 'ruby-net-ldap', require: 'net/ldap'
 
 # generate calendar feeds
 gem 'icalendar'
