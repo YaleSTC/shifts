@@ -1,5 +1,5 @@
 desc "Show the date/time format strings defined and example output"
-task :date_formats => :environment do
+task date_formats: :environment do
   now = Time.now
   [:to_date, :to_datetime, :to_time].each do |conv_meth|
     obj = now.send(conv_meth)

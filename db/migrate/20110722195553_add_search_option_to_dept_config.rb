@@ -1,7 +1,7 @@
 class AddSearchOptionToDeptConfig < ActiveRecord::Migration
   def self.up
-    add_column :department_configs, :search_engine_name, :string, :default => "Google"
-    add_column :department_configs, :search_engine_url, :string, :default => "http://www.google.com/search?q="
+    add_column :department_configs, :search_engine_name, :string, default: "Google"
+    add_column :department_configs, :search_engine_url, :string, default: "http://www.google.com/search?q="
   end
 
   def self.down

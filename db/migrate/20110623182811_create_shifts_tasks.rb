@@ -1,6 +1,6 @@
 class CreateShiftsTasks < ActiveRecord::Migration
   def self.up
-    create_table :shifts_tasks, :id => false do |t|
+    create_table :shifts_tasks, id: false do |t|
       t.references :task
       t.references :shift
 

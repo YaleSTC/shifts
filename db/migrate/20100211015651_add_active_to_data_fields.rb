@@ -1,6 +1,6 @@
 class AddActiveToDataFields < ActiveRecord::Migration
   def self.up
-    add_column :data_fields, :active, :boolean, :default => true
+    add_column :data_fields, :active, :boolean, default: true
   end
 
   def self.down

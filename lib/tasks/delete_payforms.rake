@@ -3,7 +3,7 @@ namespace :db do
 
   def delete_payforms_for_users(department_name)
   	puts "Starting payform deletion..."
-  	department = Department.where(:name => department_name).first
+  	department = Department.where(name: department_name).first
     users = User.all.select{|u| u.departments.include?(department)}
     users.each do |user|
     	user.payforms.each do |payform|
