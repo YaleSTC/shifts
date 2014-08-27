@@ -4,7 +4,6 @@
 //= require jquery.ui.all
 //= require jquery-tablesorter
 //= require jquery.Jcrop
-//= require superfish
 //= require hoverIntent
 //= require thickbox-compressed
 //= require bootstrap-hover-dropdown
@@ -34,12 +33,17 @@ $(document).ready(function() {
 
     //Also, make all triggers links
     $("[class*=trigger]").each(function() {
-        $(this).html("<a href='#'>"+$(this).text()+"</a>");
+      $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
 
-    $("ul.sf-menu").superfish({
-            animation: {height:'show'},   // slide-down effect without fade-in
-            delay:     1200               // 1.2 second delay on mouseout
+    $("#announcement_link").click(function(e){
+        var modal = $("#modal"), modalBody = $("#modal .modal-body")
+
+        modal.on("show.bs.modal", function(){
+            modalBody.load(e.currentTarget.href);
+            $("#modal .modal-title").html($("#announcement_link").text());
+        }).modal();
+        e.preventDefault();
     });
 
 });

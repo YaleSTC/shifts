@@ -34,7 +34,7 @@ class PayformItem < ActiveRecord::Base
   def add_errors(e)
     e = e.to_s.gsub("Validation failed: ", "")
     e.split(", ").each do |error|
-      errors.add_to_base(error)
+      errors.add(:base, error)
     end
   end
 

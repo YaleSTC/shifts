@@ -1,4 +1,5 @@
 class StickiesController < NoticesController
+  layout 'shifts'
 
   def index
 		redirect_to(notices_path)

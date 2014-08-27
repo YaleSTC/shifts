@@ -53,7 +53,7 @@ class Setup < Shoes
 
   def welcome
     stack do
-      title "Welcome to the App!", :align => 'center'
+      title "Welcome to the App!", align: 'center'
 
     para "Thank you for using our application!  This script is designed to help you set up some important configuration files. Click the button below to get started!"
     para "To begin, please select what type of mail you\'ll be using. SMTP is recommended."
@@ -67,21 +67,21 @@ class Setup < Shoes
 
   def smtp
     @@delivery_method = 'smtp'
-    @main_box = stack :width => '100%' do
-      inscription link("Start Over", :click => '/')
-      title "SMTP Settings", :align => 'center'
+    @main_box = stack width: '100%' do
+      inscription link("Start Over", click: '/')
+      title "SMTP Settings", align: 'center'
       flow{
       para "Please input your smpt server address: "
-      @server_box=edit_line :text => "mail.example.com"}
+      @server_box=edit_line text: "mail.example.com"}
       flow{
       para "Please input your smpt server port: "
-      @port_box=edit_line :text => "444"}
+      @port_box=edit_line text: "444"}
       flow{
       para "If your server has a HELO domain, provide it (optional): "
-      @domain_box=edit_line :text => "example.com"}
+      @domain_box=edit_line text: "example.com"}
       @submit_button = button("Continue"){@@mail_settings = {
-             :address => @server_box.text,
-             :port => @port_box.text}
+             address: @server_box.text,
+             port: @port_box.text}
              @@mail_settings.store(:domain, @domain_box.text) if @domain_box && @domain_box.text
              @@mail_settings.store(:authentication, @auth_box.text) if @auth_box && @auth_box.text
              @@mail_settings.store(:user_name, @username_box.text) if @username_box && @username_box.text
@@ -91,13 +91,13 @@ class Setup < Shoes
         @optional = stack{ button("Push here if your mail server requires authentication"){@main_box.before(@submit_button) do
           flow{
           para "Provide the authentication type: "
-          @auth_box=edit_line :text => "login"}
+          @auth_box=edit_line text: "login"}
           flow{
           para "Provide your mail server username: "
-          @username_box=edit_line :text => "login"}
+          @username_box=edit_line text: "login"}
           flow{
           para "Provide your mail server password: "
-          @pword_box=edit_line :text => "password"}
+          @pword_box=edit_line text: "password"}
          end
       @optional.clear
       }}
@@ -105,18 +105,18 @@ class Setup < Shoes
 
   def sendmail
     @@delivery_method = 'sendmail'
-    stack :width => '100%' do
-      inscription link("Start Over", :click => '/')
-      title "Sendmail Settings", :align => 'center'
+    stack width: '100%' do
+      inscription link("Start Over", click: '/')
+      title "Sendmail Settings", align: 'center'
       flow{
       para "Provide the location of the sendmail executable: "
-      @location_box=edit_line :text => "/usr/sbin/sendmail"}
+      @location_box=edit_line text: "/usr/sbin/sendmail"}
       flow{
       para "Provide your executable\'s command-line arguments: "
-      @arg_box=edit_line :text => "-i -t"}
+      @arg_box=edit_line text: "-i -t"}
       button ("Continue"){@@mail_settings = {
-             :location => @location_box.text,
-             :arguments => @arg_box.text
+             location: @location_box.text,
+             arguments: @arg_box.text
              }
           visit '/authentication'}
     end
@@ -124,9 +124,9 @@ class Setup < Shoes
   end
 
   def authentication
-    stack :width => '100%' do
-      inscription link("Start Over", :click => '/')
-      title "CAS Settings", :align => 'center'
+    stack width: '100%' do
+      inscription link("Start Over", click: '/')
+      title "CAS Settings", align: 'center'
       @main_stack = stack {
       para "Are you planning on using CAS as one of your authentication types?"
       flow do
@@ -134,21 +134,21 @@ class Setup < Shoes
         @main_stack.clear {stack {
           flow{
           para "Provide the base URL of your CAS server: "
-          @server_box=edit_line :text => ""}
+          @server_box=edit_line text: ""}
           flow{
           para "Provide the name your CAS server uses to refer to users: "
-          @user_box=edit_line :text => "cas_user"}
+          @user_box=edit_line text: "cas_user"}
           flow{
           para "Provide the name your CAS server users to refer to extra attributes: "
-          @extra_box=edit_line :text => "cas_extra_attributes"}
+          @extra_box=edit_line text: "cas_extra_attributes"}
           flow{
           para "Provide the name your CAS logger: "
-          @logger_box=edit_line :text => "cas_logger"}
+          @logger_box=edit_line text: "cas_logger"}
           button("Continue"){@@CAS_Settings= {
-            :cas_base_url => @server_box.text,
-            :username_session_key => @user_box.text,
-            :extra_attributes_session_key => @extra_box.text,
-            :logger => @logger_box.text
+            cas_base_url: @server_box.text,
+            username_session_key: @user_box.text,
+            extra_attributes_session_key: @extra_box.text,
+            logger: @logger_box.text
           }
           visit '/review'
 
@@ -166,14 +166,14 @@ class Setup < Shoes
   end
 
   def review
-    stack :width => '100%' do
-      inscription link("Start Over", :click => '/')
-      title "Review", :align => 'center'
+    stack width: '100%' do
+      inscription link("Start Over", click: '/')
+      title "Review", align: 'center'
       subtitle "Here\'s what you\'ve entered:"
-      flow { stack :width => '45%' do para "Type of mail: "+@@delivery_method
+      flow { stack width: '45%' do para "Type of mail: "+@@delivery_method
       para "Mail settings:"+hash_to_string(@@mail_settings, false)
     end
-      stack :width => '45%' do para "Using CAS: "+@@using_cas.to_s
+      stack width: '45%' do para "Using CAS: "+@@using_cas.to_s
         para "CAS settings: "+hash_to_string(@@CAS_Settings, false) if @@using_cas
     end
       }
@@ -190,7 +190,7 @@ class Setup < Shoes
   end
 
   def done
-    stack :width => '100%' do
+    stack width: '100%' do
       title "All Done"
       para "You might want to check your environment.rb file and make sure it\'s still ok..."
       button ("click here to exit"){exit}
@@ -200,7 +200,7 @@ class Setup < Shoes
 
 end
 
-Shoes.app :width=>600, :height=>600
+Shoes.app width: 600, height: 600
 
 
 #puts "\nThank you for using our application!  This script is designed to help you set your configuration action_mailer.  These action_mailer are things that you will probably never need to change, though if you do, all you need to do is run this script again.  If the script should fail for any reason, no changes will be saved; this prevents half-configured applications.  You will need to know a few parameters, namely the action_mailer for your mail server and your CAS (Central Authentication Service) server (if you plan on using CAS.)\n\n"
@@ -265,22 +265,22 @@ Shoes.app :width=>600, :height=>600
 
 ##  config.action_mailer.delivery_method = :smtp
 ##  config.action_mailer.smtp_settings = {
-##    :address => "mail.yale.edu",
-##    :port => 587,
-##    :domain => "yale.edu",
-##    :user_name => '',
-##    :password => '',
-##    :authentication => ''
+##    address: "mail.yale.edu",
+##    port: 587,
+##    domain: "yale.edu",
+##    user_name: '',
+##    password: '',
+##    authentication: ''
 
-##    #for some reason, :authentication => login is not working
+##    #for some reason, authentication: login is not working
 ##    #thus, for now, the server will have to be connected to the yale network
 ##    #to be able to send emails
 ##  }
 
 
 ##CASClient::Frameworks::Rails::Filter.configure(
-##  :cas_base_url => "https://secure.its.yale.edu/cas/",
-##  :username_session_key => :cas_user,
-##  :extra_attributes_session_key => :cas_extra_attributes,
-##  :logger => cas_logger
+##  cas_base_url: "https://secure.its.yale.edu/cas/",
+##  username_session_key: :cas_user,
+##  extra_attributes_session_key: :cas_extra_attributes,
+##  logger: cas_logger
 ##)

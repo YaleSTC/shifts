@@ -37,19 +37,19 @@
 	</p>
   <p>
     <%= f.label :end %><br />
-    <%= f.date_select :end, :default => (Date.today + 1.year)%>
+    <%= f.date_select :end, default: (Date.today + 1.year)%>
   </p>
   <p>
     <%= f.label :time_of_day, text = "Time" %><br />
-<label><%= f.time_select :time_of_day, {:twelve_hour => true, :minute_step => @department.department_config.time_increment} %></label>
+<label><%= f.time_select :time_of_day, {twelve_hour: true, minute_step: @department.department_config.time_increment} %></label>
   </p>
   <p>
     <%= f.label :active %><br />
     <%= f.check_box :active %>
   </p>
   <p>
-    <%= f.submit 'Submit and add another task', :name => "add_another" %>
-	<%= f.submit 'Submit and finish', :name => "submit" %>
+    <%= f.submit 'Submit and add another task', name: "add_another" %>
+	<%= f.submit 'Submit and finish', name: "submit" %>
   </p>
 
 <% end %>

@@ -52,7 +52,7 @@ class ReportItemsController < ApplicationController
 #      flash[:notice] = "Successfully updated report item."
 #      redirect_to @report_item
 #    else
-#      render :action => 'edit'
+#      render action: 'edit'
 #    end
 #  end
 

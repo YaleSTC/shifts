@@ -1,9 +1,9 @@
-<%= render :partial => 'progress_bar', :locals => {:current_step => 1} %>
+<%= render partial: 'progress_bar', locals: {current_step: 1} %>
 <% title "Configure Application Settings" %>
-<%= form_for @app_config, :url => create_first_app_config_path do |f| %>
+<%= form_for @app_config, url: create_first_app_config_path do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :auth_types, text = "Authentication Method", :class => "form_label_large" %>
+    <%= f.label :auth_types, text = "Authentication Method", class: "form_label_large" %>
   </p>
   <small>If your university uses CAS for authentication, select CAS; otherwise, select Built-in Authentication</small><br/>
   <p>
@@ -11,11 +11,11 @@
   <p>
 
   <p>
-    <%= f.label :use_ldap, text = "LDAP", :class => "form_label_large" %> <br />
+    <%= f.label :use_ldap, text = "LDAP", class: "form_label_large" %> <br />
   </p>
   <small>If you have an LDAP server, you can use it to auto-complete information as you add users.</small><br/>
   <p>
-    <%= f.check_box :use_ldap, {:id => "ldap_check_box"} %> Enable
+    <%= f.check_box :use_ldap, {id: "ldap_check_box"} %> Enable
   </p>
 
 <div class="ldap_fields" <%unless @app_config.use_ldap%>id="hide"<%end%>>
@@ -62,10 +62,10 @@
   </p>
 
   <p>
-    <%= f.label :footer, text = "Footer Text", :class => "form_label_large" %><br />
+    <%= f.label :footer, text = "Footer Text", class: "form_label_large" %><br />
     <small>Any text or HTML you place here will be placed in the footer of each page. Be careful to close your tags,
     or you may produce broken pages.</small><br/>
-    <%= f.text_area :footer, {:class => "settings", :size => "80x10"} %>
+    <%= f.text_area :footer, {class: "settings", size: "80x10"} %>
   </p>
 
   <p><%= f.submit "Submit" %></p>

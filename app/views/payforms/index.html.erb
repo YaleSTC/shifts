@@ -2,12 +2,12 @@
 
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
-		<%= form_tag(:controller => 'payforms', :action => 'index', :method => :get, :submitted => params[:submitted], :approved => params[:approved], :unsubmitted => params[:unsubmitted], :printed => params[:printed], :skipped => params[:skipped]) do %>
+		<%= form_tag(controller: 'payforms', action: 'index', method: :get, submitted: params[:submitted], approved: params[:approved], unsubmitted: params[:unsubmitted], printed: params[:printed], skipped: params[:skipped]) do %>
 			  <%= label_tag :start_date %><br />
-				<%= date_select(:payform, :start_date, :default => @start_date)%>
+				<%= date_select(:payform, :start_date, default: @start_date)%>
 				<br />
 			  <%= label_tag :end_date %><br />
-			  <%= date_select(:payform, :end_date, :default => @end_date)%>
+			  <%= date_select(:payform, :end_date, default: @end_date)%>
 				<br />
 				<%= submit_tag 'Update' %>
 		<% end %>
@@ -18,25 +18,25 @@
  <% if current_user.is_admin_of?(current_department) %>
 	<fieldset class="index">
 	<div id="payform_searchbox" style="margin-bottom: 1em">
-	  <%= form_tag(payforms_path, :method => :get) do %>
+	  <%= form_tag(payforms_path, method: :get) do %>
 	    Search for a user: <%= text_field_tag :search %>
-	    <%= submit_tag "Submit", :id => "search_submit" %>
+	    <%= submit_tag "Submit", id: "search_submit" %>
 	  <% end %>
 	</div>
 	</fieldset>
 	<% end %>
 </div>
 
-<%#= observe_field :search, :frequency => 0.2,
-                           :url => {:action => :search, :unsubmitted => params[:unsubmitted], :submitted => params[:submitted], :skipped => params[:skipped], :approved => params[:approved], :printed => params[:printed], :start_date => @start_date, :end_date => @end_date},
-                           :with => :search %>
+<%#= observe_field :search, frequency: 0.2,
+                           url: {action: :search, unsubmitted: params[:unsubmitted], submitted: params[:submitted], skipped: params[:skipped], approved: params[:approved], printed: params[:printed], start_date: @start_date, end_date: @end_date},
+                           with: :search %>
 
 <div id="payform_list">
-  <%= render :partial => "payform_list" %>
+  <%= render partial: "payform_list" %>
 </div>
 <br />
 <%= link_to "Your Current Payform", go_payforms_path, :class=>"button" %>
 <% if current_user.is_admin_of?(current_department) %>
 	<%= link_to "Print all approved payforms", create_payform_set_path, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
-	<%= link_to "Prune all empty payforms", prune_payforms_path, :method => :delete, :class=>"button" %>
+	<%= link_to "Prune all empty payforms", prune_payforms_path, method: :delete, :class=>"button" %>
 <% end %>

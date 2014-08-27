@@ -1,5 +1,8 @@
 class UserProfilesController < ApplicationController
-before_filter :user_login
+  layout 'users'
+
+  before_filter :user_login
+
   def index
     @user_profiles = []
     @user_profiles = UserProfile.all.select{|profile| profile.user.is_active?(@department)}.sort_by{|profile| profile.user.reverse_name}

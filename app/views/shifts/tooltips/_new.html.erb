@@ -1,18 +1,18 @@
-<%= render :partial => '/tooltips/close_tooltip'%>
+<%= render partial: '/tooltips/close_tooltip'%>
 
 <h2>New Shift</h2>
 
 	<% if current_user.is_admin_of?(@department) %>
 	  <p>
-		<%= check_box_tag :repeating_event, false, false, :onclick => "$('.toggle_me').toggle()" %> Repeating event?
+		<%= check_box_tag :repeating_event, false, false, onclick: "$('.toggle_me').toggle()" %> Repeating event?
 	  </p>
 	<% end %>
 
 	<div class="toggle_me">
 	  <%= form_for @shift, remote: true do |f| %>
 		<%= f.error_messages %>
-		  <%= render :partial => 'shifts/form', :locals => {:f => f} %>
-    <p><%= submit_to_remote "add_button", "Create New", :url => { :action => 'create', :calendar => params[:calendar] } %></p>
+		  <%= render partial: 'shifts/form', locals: {f: f} %>
+    <p><%= submit_to_remote "add_button", "Create New", url: { action: 'create', calendar: params[:calendar] } %></p>
 
 	  <% end %>
 	</div>
@@ -20,9 +20,9 @@
 	<% if current_user.is_admin_of?(@department) %>
 	  <div class="toggle_me" style="display:none">
 		<%= form_for(@repeating_event = RepeatingEvent.new, remote: true) do |f| %>
-		  <%= render :partial => 'shifts/form_repeating', :locals => {:f => f, :shift_start => params[:date].to_date.midnight, :shift_end => params[:date].to_date.midnight } %>
+		  <%= render partial: 'shifts/form_repeating', locals: {f: f, shift_start: params[:date].to_date.midnight, shift_end: params[:date].to_date.midnight } %>
 		  <%= hidden_field_tag 'rerender_date', params[:date] %>
-		  <p><%= submit_to_remote "add_button", "Create New Repeating Event", :url => { :controller => 'repeating_events', :action => 'create', :calendar => params[:calendar] }, :loading => "$(this).val('creating...'); $(this).attr('disabled', 'true')" %></p>
+		  <p><%= submit_to_remote "add_button", "Create New Repeating Event", url: { controller: 'repeating_events', action: 'create', calendar: params[:calendar] }, loading: "$(this).val('creating...'); $(this).attr('disabled', 'true')" %></p>
 		<% end %>
 	  </div>
 	<% end %>

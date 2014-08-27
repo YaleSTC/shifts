@@ -1,19 +1,19 @@
 <h1 id="page_title">Submit your shift requests</h1>
 <%= form_for([@week_template, @requested_shift], remote: true) do |f| %>
 	<div id ="errors">
-		<%= render :partial => "requested_shifts/error_messages", :locals => {:f => f} %>
+		<%= render partial: "requested_shifts/error_messages", locals: {f: f} %>
 	</div>
-  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render partial: 'form', locals: {f: f} %>
   <p>
     <%= f.submit 'Add a shift request' %>
   </p>
 <% end %>
 <p>
 	<div id = "all_requests">
-		<%= render :partial => "all_requests", :locals => {:requested_shifts => @requested_shifts} %>
+		<%= render partial: "all_requests", locals: {requested_shifts: @requested_shifts} %>
 		<% unless @requested_shifts.empty? %>
 			<p>
-				<%= render :partial => "/requested_shifts/schedule/day", :collection => [6,0,1,2,3,4,5] %>
+				<%= render partial: "/requested_shifts/schedule/day", collection: [6,0,1,2,3,4,5] %>
 			</p>
 		<% else %>
 			Please add your shift requests above
@@ -23,7 +23,7 @@
 <p>
 	<h1> Timeslots for <%= @week_template.name %> </h1>
 	<div id = "all_time_slots">
-		<%= render :partial => "template_time_slots/all_time_slots", :locals => {:template_time_slots => @template_time_slots} %>
+		<%= render partial: "template_time_slots/all_time_slots", locals: {template_time_slots: @template_time_slots} %>
 	</div>
 </p>
 <% if current_user.is_admin_of?(@week_template.department) %>
@@ -33,4 +33,4 @@
 	</p>
 <% end %>
 
-<%#= render :partial => 'week' %>
+<%#= render partial: 'week' %>

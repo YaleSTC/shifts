@@ -4,7 +4,7 @@
 <p>
   <% unless @calendar.default? %>
     <%= link_to "Edit", edit_calendar_path(@calendar) %> |
-    <%= link_to "Destroy", @calendar, :confirm => 'Are you sure?', :method => :delete %> |
+    <%= link_to "Destroy", @calendar, confirm: 'Are you sure?', method: :delete %> |
   <% else %>
     <p>This is the default calendar, and cannot be edited or deleted.</p>
   <% end %>

@@ -54,9 +54,9 @@ private
   
   def conflicting_shifts_or_clocks?
     if self.user and self.user.current_shift
-      errors.add_to_base("You are already signed in to a shift.")
+      errors.add(:base, "You are already signed in to a shift.")
     elsif self.user and self.user.punch_clock
-      errors.add_to_base("You already have an active punch clock.")
+      errors.add(:base, "You already have an active punch clock.")
     end
   end
 end

@@ -10,7 +10,7 @@
   </tr>
   <tr id="loading_row">
     <td colspan="5">
-      <center><%= image_tag("loading.gif", :align=>:center, :class => "loading_icon") %>Searching...</center>
+      <center><%= image_tag("loading.gif", :align=>:center, class: "loading_icon") %>Searching...</center>
     </td>
   </tr>
  </thead>
@@ -22,7 +22,7 @@
         <td><%= result[:first_name] %></td>
         <td><%= result[:last_name] %></td>
         <td><%= result[:email] %></td>
-        <td><%= button_to_remote "Add Me!", :url=> {:action => "fill_form", :params => {:user=>result}}%></td>
+        <td><%= button_to_remote "Add Me!", :url=> {action: "fill_form", params: {:user=>result}}%></td>
       </tr>
    </tbody>
     <% end %>

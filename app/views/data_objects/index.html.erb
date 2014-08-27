@@ -1,5 +1,5 @@
 <% title "Data Objects" %>
-<%= form_tag '/data_objects/index', :id => "view_options" do %>
+<%= form_tag '/data_objects/index', id: "view_options" do %>
   <div id="selection_menu">
 
     <div id="group_type">
@@ -7,12 +7,12 @@
 
     <%#TODO: Change this to UJS style when we get jQuery 1.6 working%>
     <%#= observe_field('view_options_group_type',
-        :url => { :controller => :data_objects,
-                  :action => :index,
-                  :layout => false},
-        :method => :get,
-        :with => "'group_type=' + escape(value)",
-        :on => "change") %>
+        url: { controller: :data_objects,
+                  action: :index,
+                  layout: false},
+        method: :get,
+        with: "'group_type=' + escape(value)",
+        on: "change") %>
         </div>
 
     <div id='group_by' style='display:none'>
@@ -20,14 +20,14 @@
     </div>
 
     <%# TODO: enable non-javascript compatibility %>
-    <%#= submit_tag "Update", :id => 'submit' %>
+    <%#= submit_tag "Update", id: 'submit' %>
 
   </div>
 
 <% end %>
 <br>
 <% if DataType.first %>
-  <%= render :partial => "data_objects" %>
+  <%= render partial: "data_objects" %>
   <br>
   <% if current_user.is_admin_of?(current_department) %>
     <%= link_to "New Data Object", new_data_object_path %>

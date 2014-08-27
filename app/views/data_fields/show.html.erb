@@ -14,6 +14,6 @@
 </p>
 <p>
   <%= link_to "Edit", edit_data_type_data_field_path(@data_field.data_type, @data_field) %> |
-  <%= link_to "Destroy", data_type_data_field_path(@data_field.data_type, @data_field), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Destroy", data_type_data_field_path(@data_field.data_type, @data_field), confirm: 'Are you sure?', method: :delete %> |
   <%= link_to "View All", data_type_data_fields_path(@data_field.data_type) %>
 </p>

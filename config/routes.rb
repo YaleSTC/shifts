@@ -17,7 +17,7 @@ Shifts::Application.routes.draw do
   resources :punch_clock_sets
   resources :user_sessions
   resources :password_resets
-  resources :user_configs, :only => [:edit, :update]
+  resources :user_configs, only: [:edit, :update]
   resources :sub_requests
   resources :notices do
     get 'archive', on: :collection
@@ -25,7 +25,7 @@ Shifts::Application.routes.draw do
   end
   resources :payform_item_sets
   resources :payform_sets
-  resources :department_configs, :only => [:edit, :update]
+  resources :department_configs, only: [:edit, :update]
   resources :requested_shifts
   resources :templates
   resources :payform_items
@@ -46,7 +46,7 @@ Shifts::Application.routes.draw do
   end
 
 
-  resources :app_configs, :only => [:edit, :update]
+  resources :app_configs, only: [:edit, :update]
   get "app_config" => 'app_configs#edit', as: :edit_app_config
 
   resources :calendars do
@@ -66,33 +66,33 @@ Shifts::Application.routes.draw do
 
   scope '/firstrun' do
     with_options controller: 'first_run' do |f|
-      f.match '/first_app_config', :action => 'new_app_config', :method => 'get', as: :first_app_config
-      f.match '/first_department', :action => 'new_department', :method => 'get', as: :first_department
-      f.match '/first_user', :action => 'new_user', :method => 'get', as: :first_user
-      f.match '/create_first_app_config', :action => 'create_app_config', :method => 'post', as: :create_first_app_config
-      f.match '/create_first_department', :action => 'create_department', :method => 'post', as: :create_first_department
-      f.match '/create_first_user', :action => 'create_user', :method => 'post', as: :create_first_user
+      f.match '/first_app_config', action: 'new_app_config', method: 'get', as: :first_app_config
+      f.match '/first_department', action: 'new_department', method: 'get', as: :first_department
+      f.match '/first_user', action: 'new_user', method: 'get', as: :first_user
+      f.match '/create_first_app_config', action: 'create_app_config', method: 'post', as: :create_first_app_config
+      f.match '/create_first_department', action: 'create_department', method: 'post', as: :create_first_department
+      f.match '/create_first_user', action: 'create_user', method: 'post', as: :create_first_user
     end
   end
 
   match 'login' => 'user_sessions#new', as: :login
   match 'logout' => 'user_sessions#destroy', as: :logout
 
-  match "email_reminders", :controller => 'payforms', :action => 'email_reminders', as: :email_reminders
-  match "reminders_advanced_options", :controller => 'payforms', :action => 'reminders_advanced_options', as: :reminders_advanced_options
-  match  "warnings_advanced_options", :controller => 'payforms', :action => 'warnings_advanced_options', as: :warnings_advanced_options
+  match "email_reminders", controller: 'payforms', action: 'email_reminders', as: :email_reminders
+  match "reminders_advanced_options", controller: 'payforms', action: 'reminders_advanced_options', as: :reminders_advanced_options
+  match  "warnings_advanced_options", controller: 'payforms', action: 'warnings_advanced_options', as: :warnings_advanced_options
 
   #TODO: get rid of sessions controller and move logout action to user_session controller and name it cas_logout
-  match "cas_logout", :controller => 'sessions', :action => 'logout', as: :cas_logout
-  match 'calendar_feeds/grab/:user_id/:token.:format', :controller => 'calendar_feeds', :action => 'grab', as: :calendar_feed
+  match "cas_logout", controller: 'sessions', action: 'logout', as: :cas_logout
+  match 'calendar_feeds/grab/:user_id/:token.:format', controller: 'calendar_feeds', action: 'grab', as: :calendar_feed
 
   # routes for managing superusers
 
-  match "superusers", :controller => 'superusers', action: 'index', as: :superusers
-  match "superusers/add", :controller => 'superusers', :action => 'add', as: :add_superusers
-  match "superusers/remove", :controller => 'superusers', :action => 'remove', as: :remove_superusers
+  match "superusers", controller: 'superusers', action: 'index', as: :superusers
+  match "superusers/add", controller: 'superusers', action: 'add', as: :add_superusers
+  match "superusers/remove", controller: 'superusers', action: 'remove', as: :remove_superusers
 
-  resources :payforms, :shallow => true do
+  resources :payforms, shallow: true do
     collection do
       get :index
       post :index
@@ -123,7 +123,7 @@ Shifts::Application.routes.draw do
     member { get :rerender } #TODO: What should this be nested under, if anything?
   end
 
-  resources :shifts, :shallow => true do
+  resources :shifts, shallow: true do
     member do
       get :rerender
     end
@@ -155,7 +155,7 @@ Shifts::Application.routes.draw do
     resources :punch_clocks
   end
 
-  resources :reports, :except => [:new] do
+  resources :reports, except: [:new] do
     member do
       get :popup
       get :update_reports
@@ -190,7 +190,7 @@ Shifts::Application.routes.draw do
       post :toggle
     end
   end
-  #resources :locations, :collection => {:display_report_items => [:post, :get], :toggle => [:post, :get], :index => [:post, :get]}, :except => [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
+  #resources :locations, collection: {display_report_items: [:post, :get], toggle: [:post, :get], index: [:post, :get]}, except: [:index, :show, :edit, :find_allowed_locations, :new, :update, :create, :destroy]
 
   resources :data_types do
     resources :data_fields
@@ -206,7 +206,7 @@ Shifts::Application.routes.draw do
     end
   end
 
-  resources :departments, :shallow => true do
+  resources :departments, shallow: true do
     resources :users do
       collection do
         get :import
@@ -238,13 +238,13 @@ Shifts::Application.routes.draw do
     end
   end
 
-  match "/facebook", :controller => "user_profiles", :action => "facebook", as: :facebook
-  match "/email_group", :controller => "shifts", :action => "email_group", as: :email_group
+  match "/facebook", controller: "user_profiles", action: "facebook", as: :facebook
+  match "/email_group", controller: "shifts", action: "email_group", as: :email_group
 
   resources :punch_clock_sets
 
   # permissions are always created indirectly so there we only need an index method to list them
-  resources :permissions, :only => :index
+  resources :permissions, only: :index
 
   resources :stats do
     collection do
@@ -257,10 +257,10 @@ Shifts::Application.routes.draw do
     end
   end
 
-  #map.report_items 'report_items/for_location', :controller => 'report_items', :action => 'for_location'
+  #map.report_items 'report_items/for_location', controller: 'report_items', action: 'for_location'
 
-  match '/dashboard', :controller => 'dashboard', :action => 'index', as: :dashboard
-  match '/access_denied', :controller => 'application', :action => 'access_denied', as: :access_denied
+  match '/dashboard', controller: 'dashboard', action: 'index', as: :dashboard
+  match '/access_denied', controller: 'application', action: 'access_denied', as: :access_denied
 
 	resources :templates  do
     collection do
@@ -275,9 +275,9 @@ Shifts::Application.routes.draw do
 
   get '/status' => 'status#index'
 
-  match '/test_new_lists', :controller => 'reports', :action => 'tasks_and_objects_list', as: :test_new_lists
-  match '/update_data_objects', :controller => 'data_objects', :action => 'update_data_objects', as: :update_data_objects
-  match '/active_tasks', :controller => 'tasks', :action => 'active_tasks', as: :active_tasks
+  match '/test_new_lists', controller: 'reports', action: 'tasks_and_objects_list', as: :test_new_lists
+  match '/update_data_objects', controller: 'data_objects', action: 'update_data_objects', as: :update_data_objects
+  match '/active_tasks', controller: 'tasks', action: 'active_tasks', as: :active_tasks
 
-  match "/delayed_job" => DelayedJobWeb, :anchor => false
+  match "/delayed_job" => DelayedJobWeb, anchor: false
 end

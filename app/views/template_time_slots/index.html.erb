@@ -1,13 +1,13 @@
 <h1 id="page_title">Timeslots for <%= @week_template.name %> </h1>
 <div id="all_time_slots">
-	<%= render :partial => "all_time_slots", :locals => {:template_time_slots => @template_time_slots} %>
+	<%= render partial: "all_time_slots", locals: {template_time_slots: @template_time_slots} %>
 </div>
 <p>
 	<fieldset class = "index" >
 		<legend>Add a new a time slot</legend>
 		<%= form_for([@week_template, @template_time_slot], remote: true) do |f| %>
 			<div id ="errors">
-		  	<%= render :partial => "template_time_slots/error_messages", :locals => {:f => f} %>
+		  	<%= render partial: "template_time_slots/error_messages", locals: {f: f} %>
 			</div>
 			<p>
 				Where:<br />
@@ -20,20 +20,20 @@
 			<p>
 				Start time:<br />
 				<%= f.time_select "start_time", {
-																:start_time => @start,
-																:end_time => @end,
-																:include_start_time => true,
-																:include_end_time => false,
-																:default => @start} %>
+																start_time: @start,
+																end_time: @end,
+																include_start_time: true,
+																include_end_time: false,
+																default: @start} %>
 			</p>
 			<p>
 				End time:<br />
 				<%= f.time_select "end_time", {
-																:start_time => @start,
-																:end_time => @end,
-																:include_start_time => false,
-																:include_end_time => true,
-																:default => @end} %>
+																start_time: @start,
+																end_time: @end,
+																include_start_time: false,
+																include_end_time: true,
+																default: @end} %>
 			</p>
 			<p>
 				Weekday:<br />

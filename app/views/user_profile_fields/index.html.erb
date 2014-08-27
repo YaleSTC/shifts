@@ -21,7 +21,7 @@
       <td><%=h user_profile_field.public %></td>
       <td><%=h user_profile_field.user_editable %></td>
       <td><%= link_to "Edit", edit_user_profile_field_path(user_profile_field) %></td>
-      <td><%= link_to "Destroy", user_profile_field, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Destroy", user_profile_field, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>
  </tbody>

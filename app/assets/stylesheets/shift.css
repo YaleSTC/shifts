@@ -1,5 +1,5 @@
 /*SHIFT COLORS*/
-ul li{ z-index: 100;}
+/*ul li{ z-index: 100;}*/
 ul li.user {                 background: #C2F094; font-weight: bold; }
 ul li.user:hover {           background: #85E029; }
 ul li.user_late {            background: #FFCA7A; font-weight: bold; }
@@ -18,14 +18,14 @@ div.sub-bribe {     background: #fcf; height:100%; }
 div.sub-mandatory { background: #eae; height:100%; }
 
 div.shift-time-overlay {
-    width: 100%; 
+    width: 100%;
     height: 100%;
     visibility: hidden;
 }
 
 ul.events li:hover div.shift-time-overlay {
     visibility: visible;
-    background: white; 
+    background: white;
     opacity:0.4;filter:alpha(opacity=40)
 }
 

@@ -1,7 +1,7 @@
 namespace :db do
   desc "Change all location report emails to fake addresses"
 
-  task :fake_location_report_emails => :environment do
+  task fake_location_report_emails: :environment do
     task_start_time = Time.now
 
     puts "Start changing emails..."

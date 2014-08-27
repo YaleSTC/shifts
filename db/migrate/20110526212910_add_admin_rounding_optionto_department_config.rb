@@ -1,6 +1,6 @@
 class AddAdminRoundingOptiontoDepartmentConfig < ActiveRecord::Migration
   def self.up
-    add_column :department_configs, :admin_round_option, :integer, :default => 15
+    add_column :department_configs, :admin_round_option, :integer, default: 15
   end
 
   def self.down

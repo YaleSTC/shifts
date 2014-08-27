@@ -8,7 +8,7 @@
         <% if entry.content.nil? %>
         <% elsif entry.display_type == "picture_link" && entry.content != '' %>
           <div class='pic_box'>
-            <%= image_tag(entry.content, {:alt => @user_profile.user.proper_name, :class => "profile_pic"}) %>
+            <%= image_tag(entry.content, {alt: @user_profile.user.proper_name, class: "profile_pic"}) %>
           </div>
         <% else %>
           <strong><%=h "#{entry.field_name}: " %></strong>

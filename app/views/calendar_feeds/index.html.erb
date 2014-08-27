@@ -6,7 +6,7 @@
 	<% @source_types.each do |source_type|%>
 		<h3><%=h source_type=="User" ? "All Your Shifts" : "Shifts by #{source_type}"%></h3>
 		<% @shift_sources.select {|s| s.type==source_type}.each do |source| %>
-			<%=link_to truncate(source.name, 50, "..."), {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => source.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+			<%=link_to truncate(source.name, 50, "..."), {controller: 'calendar_feeds', action: 'grab', user_id: current_user.id.to_s, token: source.token.to_s, format: :ics, only_path: false, protocol: "webcal"} %><br />
 		<% end %>
 	<% end%>
 </div>
@@ -16,7 +16,7 @@
 	<% @source_types.each do |source_type|%>
 		<h3><%=h source_type=="User" ? "All Subs" : "Subs by #{source_type}"%></h3>
 		<% @sub_sources.select {|s| s.type==source_type}.each do |source| %>
-			<%=link_to truncate(source.name, 50, "..."), {:controller => 'calendar_feeds', :action => 'grab', :user_id => current_user.id.to_s, :token => source.token.to_s, :format => :ics, :only_path => false, :protocol => "webcal"} %><br />
+			<%=link_to truncate(source.name, 50, "..."), {controller: 'calendar_feeds', action: 'grab', user_id: current_user.id.to_s, token: source.token.to_s, format: :ics, only_path: false, protocol: "webcal"} %><br />
 		<% end %>
 	<% end%>
 </div>
@@ -25,7 +25,7 @@
 	<br />
 <hr />
 *Note: To avoid duplicates, public feeds will not render your personal shifts. 
-<%= link_to 'reset feeds', {:controller => 'calendar_feeds', :action => 'reset'}, :confirm => "Warning: This will reset all of your calendar feeds.\nThis action can not be undone."%>
+<%= link_to 'reset feeds', {controller: 'calendar_feeds', action: 'reset'}, confirm: "Warning: This will reset all of your calendar feeds.\nThis action can not be undone."%>
 </div>
 
 

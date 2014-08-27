@@ -1,6 +1,6 @@
 <% title "Edit Payform Item" %>
 
-<%= render :partial => 'form', :locals => {:submit => "Save", :payform_item => @payform_item} %>
+<%= render partial: 'form', locals: {submit: "Save", payform_item: @payform_item} %>
 
 <% unless params[:layout] == "false" %>
   <p>

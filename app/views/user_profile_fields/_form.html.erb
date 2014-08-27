@@ -12,8 +12,8 @@
   </p>
   <p>
       <%= f.label :display_type %><br />
-      <%= f.select :display_type, options=(UserProfileField::DISPLAY_TYPE_OPTIONS), {}, :class => "display_type",
-          :onchange => "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
+      <%= f.select :display_type, options=(UserProfileField::DISPLAY_TYPE_OPTIONS), {}, class: "display_type",
+          onchange: "$(this).parent().parent().find('.value_field').html(description($(this).find(':selected').val()))" %><br/>
     </p>
     <p>
       <div class="value_field">

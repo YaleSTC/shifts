@@ -1,4 +1,6 @@
 class LocationsController < ApplicationController
+  layout 'shifts'
+
   before_filter :find_allowed_locations
   before_filter :loc_group_exists?
 

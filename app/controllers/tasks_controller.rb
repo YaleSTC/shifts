@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  layout 'shifts'
   # GET /tasks
   # GET /tasks.xml
 
@@ -7,7 +8,7 @@ class TasksController < ApplicationController
     @tasks = Task.all
     @active_tasks = Task.where("active = ?", true)
     @inactive_tasks = Task.where("active = ?", false)
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render xml: @tasks }
@@ -65,7 +66,7 @@ class TasksController < ApplicationController
   def update
     # raise params.to_yaml
     @task = Task.find(params[:id])
-    
+
     respond_to do |format|
       if @task.update_attributes(params[:task])
         flash[:notice] = 'Task was successfully updated.'
@@ -89,7 +90,7 @@ class TasksController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   def make_entry
     @shift = current_user.current_shift
     @all_tasks = params[:all_tasks]
@@ -112,7 +113,7 @@ class TasksController < ApplicationController
       format.html {redirect_to @report ? @report : @shift_task.data_object}
     end
   end
-  
+
   def update_tasks
     @shift = current_user.current_shift
     @tasks = tasks_during_shift
@@ -129,7 +130,7 @@ class TasksController < ApplicationController
     @shifts = ShiftsTask.where(task_id: @task.id, missed: false)
     @shifts_tasks = @shifts.select{|st| st.created_at < @end && st.created_at > @start}
   end
-  
+
   def missed_tasks
     @start = interpret_start
     @end = interpret_end
@@ -153,9 +154,9 @@ class TasksController < ApplicationController
     current_day_in_week = @report ? @report.shift.start.strftime('%a') : Time.now.strftime('%a')
     @tasks = tasks.delete_if{|t| t.kind == "Weekly" && t.day_in_week != current_day_in_week }
   end
-  
+
   protected
-  
+
   def tasks_during_shift
     # active, non-expired tasks
     tasks = Task.in_location(current_user.current_shift.location).active.after_now
@@ -202,5 +203,5 @@ class TasksController < ApplicationController
     end
   end
 
-        
+
 end

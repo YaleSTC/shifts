@@ -1,52 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= render 'layouts/head' %>
 
-<%= render :file => "layouts/include/main_header.html.erb" %>
-  <%= yield(:left_nav).empty? ? '<div id="contentNoNav">'.html_safe : yield(:left_nav) %>
+  <body>
 
-    <div id="flash">
-      <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+    <%= render 'layouts/navbar' %>
+    <div class='container'>
+      <div id="<%= content_wrapper_id %>">
+
+        <%= render partial: 'layouts/flash', locals: {flash: flash} %>
+
+        <%# Main Content %>
+
+        <% if show_title? %>
+          <div class="page-header">
+            <h1 id="page_title">
+              <%= yield(:title) %>
+              <small id="subtitle"><%= yield(:subtitle) %></small>
+            </h1>
+          </div>
+        <% end %>
+        <div class="row">
+          <% if content_for?(:left_nav) %>
+            <div class="col-md-2">
+              <%= render 'layouts/left_nav' %>
+            </div>
+          <% end %>
+          <div class="<%= content_for?(:left_nav) ? "col-md-10" : "col-md-12" %>">
+            <%= yield %>
+          </div>
+        </div>
+
+        <%= render 'layouts/footer' %>
+        <%= render 'layouts/modal' %>
+      </div>
+
     </div>
 
-    <!-- Main Content -->
-
-    <%- if show_title? -%>
-      <h1 id="page_title"><%=h yield(:title) %></h1>
-      <h4 id="subtitle"><%=h yield(:subtitle) %></h4>
-    <%- end -%>
-
-    <!-- Body Content -->
-    <%# TODO: We should not have any more content_for :body tags, we need to
-    figure out how to use this properly, and fix the files with such tags %>
-    <%= yield(:body).empty? ? yield : yield(:body) %>
-  </div>  <!-- End contentNav or contentNoNav (generated above or in :left_nav) -->
-
-    <div id="footer">
-        <p class="footer">
-          <%if @appconfig %>
-            <%= @appconfig.footer %>
-          <%end%>
-        </p>
-        <p class="footer">
-          For help with Shifts, please visit our repository on <a href="http://github.com/YaleSTC/shifts/tree/master">Github</a>.<br />
-          Use this <a href="https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0">form</a> to report a bug.<br />
-			<% if mobile_device? %>
-				Mobile Site | <%= link_to "Full Site", :mobile => 0 %>
-			<% else %>
-				<%= link_to "Mobile Site", :mobile => 1 %> | Full Site
-			<% end %>
-			<br />
-          <% if current_user && current_user.superuser? -%>
-            Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
-                {:su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
-                <%# note that passing true false wont work because Rails thinks that false means not to pass it -%>
-          <% end -%>
-        </p>
-      </div>
-  </div> <!-- End pagebox container generated in main_header -->
-
-  <div id="pageboxBottom"> <!-- do not remove -->
-    <script type='text/javascript' charset='utf-8'>
-      <%= yield(:javascript) %>
-    </script>
-  </div>
   </body>
 </html>
