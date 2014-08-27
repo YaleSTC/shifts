@@ -1,45 +1,46 @@
 li#notice_li {
-    list-style-type :none;
+    list-style-type: none;
     padding-left: 1em;
 }
 
-fieldset.sticky { 
+fieldset.sticky {
   padding: 5px;
   margin: 5px 0 5px 5px;
-  background-color:#FFFF99;
+  background-color: #FFFF99;
 }
 
 
 fieldset.announcement {
   padding: 5px;
-  margin:5px 0 5px 5px;
+  margin: 5px 0 5px 5px;
   clear: right;
-  background-color:#ADD8E6;
+  background-color: #ADD8E6;
 }
 
-a#toggle_link {text-decoration:underline;}
+a#toggle_link { text-decoration: underline; }
 
 fieldset.sticky .grayleft, fieldset.announcement .grayleft{
-  float:left;
-  text-align:left;
+  float: left;
+  text-align: left;
 }
 
-fieldset.sticky .grayright, fieldset.sticky .right, fieldset.announcement .right{
-  float:right;
-  text-align:right;
+fieldset.sticky .grayright, fieldset.sticky .right,
+fieldset.announcement .right {
+  float: right;
+  text-align: right;
 }
 
 fieldset.sticky .grayleft, fieldset.sticky .grayright {
-  color:SlateGray;
+  color: SlateGray;
   font-size: 90%;
 }
 
 fieldset.announcement .grayleft, fieldset.announcement .grayright {
-  color:DarkRed;
+  color: DarkRed;
   font-size: 90%;
 }
 
-/*Adding a div class variable to pass, to ensure that the word wrap feature works in 
+/*Adding a div class variable to pass, to ensure that the word wrap feature works in
 three areas of different fixed width */
 
 div.report_notice {
@@ -57,4 +58,10 @@ div.index_notice {
 	word-wrap: break-word;
 }
 
-.gray_url {float:right; overflow:hidden; white-space:none; text-align:right; color:gray;}
+.gray_url {
+  float: right;
+  overflow: hidden;
+  white-space: none;
+  text-align: right;
+  color: gray;
+}
