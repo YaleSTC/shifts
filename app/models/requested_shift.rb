@@ -57,11 +57,11 @@ class RequestedShift < ActiveRecord::Base
 	#protected
 	def user_shift_preferences
 		shift_preference = self.user.shift_preferences.select{|sp| sp.template_id == self.template_id}.first
-		errors.add_to_base("Your preferred shift length is longer than the maximum continuous hours you
+		errors.add(:base, "Your preferred shift length is longer than the maximum continuous hours you
 												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > shift_preference.max_continuous_hours
-		errors.add_to_base("Your preferred shift length is shorter than the minimum continuous hours you
+		errors.add(:base, "Your preferred shift length is shorter than the minimum continuous hours you
 												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 < shift_preference.min_continuous_hours
-		errors.add_to_base("Your preferred shift length is longer than the maximum shift hours per day you
+		errors.add(:base, "Your preferred shift length is longer than the maximum shift hours per day you
 												specified in your shift preferences") if (self.preferred_end - self.preferred_start)/60/60 > shift_preference.max_hours_per_day
 	end
 
@@ -73,7 +73,7 @@ class RequestedShift < ActiveRecord::Base
       conditions = "start_time <= ? AND end_time >= ? AND template_id = ? AND location_id = ? AND day = ?}"
 			c += TemplateTimeSlot.where(conditions, *values).count
 		end
-		errors.add_to_base("You can only sign up for a shift during a time slot.") if c == 0
+		errors.add(:base, "You can only sign up for a shift during a time slot.") if c == 0
   end
 
   def user_does_not_have_concurrent_request
@@ -83,20 +83,20 @@ class RequestedShift < ActiveRecord::Base
 #		Now see if any of the other requests have locations that are the same as this request's locations
 		other_locations = c.collect{|request| request.locations}.flatten
 		self.locations.each do |location|
-			errors.add_to_base("Your request is overlapping with another one of your requests at #{location.short_name}") if other_locations.include?(location)
+			errors.add(:base, "Your request is overlapping with another one of your requests at #{location.short_name}") if other_locations.include?(location)
 		end
   end
 
 	def proper_times
 		if self.preferred_start
-			errors.add_to_base("Preferred start time must be after or the same as the acceptable start time") if self.preferred_start < self.acceptable_start
+			errors.add(:base, "Preferred start time must be after or the same as the acceptable start time") if self.preferred_start < self.acceptable_start
 		end
 		if self.preferred_end
-			errors.add_to_base("Preferred end time must be before or the same as the acceptable end time") if self.preferred_end > self.acceptable_end
+			errors.add(:base, "Preferred end time must be before or the same as the acceptable end time") if self.preferred_end > self.acceptable_end
 		end
-		errors.add_to_base("Acceptable start time cannot be after the acceptable end time") if self.acceptable_start > self.acceptable_end
+		errors.add(:base, "Acceptable start time cannot be after the acceptable end time") if self.acceptable_start > self.acceptable_end
 		if self.preferred_start && self.preferred_end
-			errors.add_to_base("Preferred start time cannot be after the preferred end time") if self.preferred_start > self.preferred_end
+			errors.add(:base, "Preferred start time cannot be after the preferred end time") if self.preferred_start > self.preferred_end
 		end
 	end
 end
