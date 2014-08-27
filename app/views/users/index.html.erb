@@ -1,26 +1,31 @@
 <% title "Users" %>
 
 <div align="right"><br/>
-<%= link_to "Import from CSV", import_department_users_path(@department) %><br/>
-<%= link_to "Export to CSV", action: 'index', format: 'csv' %><br/></div>
+<%= link_to "Import from CSV", import_department_users_path(@department), class: 'btn btn-default' %><br/>
+<%= link_to "Export to CSV", { action: 'index', format: 'csv' }, class: 'btn btn-default' %><br/></div>
 
 
-<div id="user_searchbox" style="margin-bottom: 1em">
+<div id="user_searchbox" style="margin-bottom: 1em;">
   <%= form_tag(department_users_path(current_department), method: :get) do %>
     Find a user: <%= text_field_tag :search %>
-    <%= submit_tag "Submit", id: "search_submit" %>
+    <%= submit_tag "Submit", id: "search_submit", class: 'btn btn-default' %>
   <% end %>
 </div>
-<div align= "left"><br />
 
-	<i class="fa fa-users"></i> <%= link_to "Add A New User", new_user_path %> |
-	<% if params[:show_inactive].nil? %>
-	  <i class="fa fa-eye"></i>
-    <%= link_to "Show Inactive Users", department_users_path(@department, show_inactive: true) %>
-	<% else %>
-	  <i class="fa fa-eye-slash"></i>
-    <%= link_to "Hide Inactive Users", department_users_path(@department) %>
-	<% end %>
-</div>
+<%= link_to new_user_path, class: 'btn btn-default' do %>
+  <i class="fa fa-users"></i>
+  Add A New User
+<% end %>
+<% if params[:show_inactive].nil? %>
+  <%= link_to department_users_path(@department, show_inactive: true), class: 'btn btn-default' do %>
+    <i class="fa fa-eye"></i>
+    Show Inactive Users
+  <% end %>
+<% else %>
+<%= link_to department_users_path(@department), class: 'btn btn-default' do %>
+    <i class="fa fa-eye-slash"></i>
+    Hide Inactive Users
+  <% end %>
+<% end %>
 <%= render partial: 'user_list' %>
 <%#= observe_field :search, frequency: 0.2, url: search_department_users_path(current_department), with: :search %>
