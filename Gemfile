@@ -51,6 +51,12 @@ gem 'simple_form'  # replaces multiple_select
 # replace ActiveSupport::Memoizable
 gem 'memoist'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'factory_girl_rails'
+  gem 'annotate' # https://github.com/ctran/annotate_models add info headers
+end
+
 group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
@@ -65,7 +71,6 @@ group :test do
   gem 'database_cleaner', '>=0.5.0'
   gem 'webrat',           '>=0.7.0'
   gem 'rspec',            '>=1.3.0'
-  gem 'rspec-rails',      '>=1.3.2'
 end
 
 group :assets do
