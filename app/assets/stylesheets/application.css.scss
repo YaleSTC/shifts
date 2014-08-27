@@ -10,14 +10,17 @@
 // stylesheets directory.
 // -----------------------------------------------------------------------------
 
-// $navbar-default-bg: #8b9b6c;
-// $navbar-default-color: #fff;
-// $navbar-default-link-color: #fff;
-// $navbar-default-link-active-color: #fff;
+$navbar-default-bg: #8b9b6c;
+$navbar-default-color: #fefefe;
+$navbar-default-link-color: #fefefe;
+$navbar-default-link-active-color: #fefefe;
+$navbar-default-border: darken($navbar-default-bg, 1%);
 $font-size-base: 14px;
 $font-size-h1: floor($font-size-base * 2.3);
 
 @import 'bootstrap';
+
+body { padding-top: 60px; }
 
 @import 'font-awesome';
 
@@ -31,6 +34,19 @@ $font-size-h1: floor($font-size-base * 2.3);
 @import 'links';
 @import 'loc_groups';
 // @import 'nav';
+.sidebar-nav .navbar {
+  $sidebar-bg: #f8f8f8;
+
+  background: $sidebar-bg;
+  border-color: darken($sidebar-bg, 6.5%);
+
+}
+
+.navbar-default {
+  border-radius: 0;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .3);
+}
+
 @import 'notice';
 @import 'payforms';
 @import 'public_view';
