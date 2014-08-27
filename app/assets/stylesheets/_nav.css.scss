@@ -1,0 +1,11 @@
+.sidebar-nav .navbar {
+  $sidebar-bg: #f8f8f8;
+
+  background: $sidebar-bg;
+  border-color: darken($sidebar-bg, 6.5%);
+}
+
+.navbar-default {
+  border-radius: 0;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .3);
+}
