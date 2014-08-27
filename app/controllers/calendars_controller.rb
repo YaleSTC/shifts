@@ -1,5 +1,4 @@
 class CalendarsController < ApplicationController
-  layout 'calendar'
   before_filter :require_department_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
@@ -123,8 +122,8 @@ class CalendarsController < ApplicationController
       redirect_to action: "index"
     end
   end
-  
-  
+
+
   def apply_schedule
     @calendar = Calendar.find(params[:id])
     ActiveRecord::Base.transaction do
@@ -135,7 +134,7 @@ class CalendarsController < ApplicationController
     flash[:notice] = "Schedule applied successfully."
     redirect_to @calendar
   end
-  
+
 
   private
   def index_prep
