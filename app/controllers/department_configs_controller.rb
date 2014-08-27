@@ -1,6 +1,6 @@
 class DepartmentConfigsController < ApplicationController
   before_filter :require_department_admin
-  layout proc{ |c| c.params[:format] == "js" ? false : "department_configs" }
+  layout proc{ |c| c.params[:format] == "js" ? false : 'application' }
 
 
   def edit
