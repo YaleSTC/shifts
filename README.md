@@ -22,7 +22,8 @@ There are two mains steps to setting up Shifts: setting up a deployment server a
 
 ### Prerequisites
 You'll need the following to run Shifts:
-* [Ruby 2.1](http://www.ruby-lang.org/) and [Rails 3.2](http://rubyonrails.org/)
+* [Ruby 2.1.2](http://www.ruby-lang.org/)
+* [Bundler](http://bundler.io/)
 * a database server ([MySQL](http://www.mysql.com/))
 
 ### Installation
