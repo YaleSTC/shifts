@@ -6,7 +6,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <title><%= h(yield(:title) || 'Shifts') %></title>
+  <title><%= h(yield(:title) + ' &centerdot;'.html_safe + ' Shifts' || 'Shifts') %></title>
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
