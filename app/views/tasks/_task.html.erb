@@ -10,11 +10,11 @@
     <td><%=h task.day_in_week %></td>
     <% if task.active %>
       <td><%=h task.active %></td>
-      <td><%= link_to 'Show Completed', :action => :completed_tasks, :id => task %></td>
-      <td><%= link_to 'Show Missed', :action => :missed_tasks, :id => task %></td>
+      <td><%= link_to 'Show Completed', action: :completed_tasks, id: task %></td>
+      <td><%= link_to 'Show Missed', action: :missed_tasks, id: task %></td>
       <% if current_user.is_admin_of?(current_department) %>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= link_to 'Destroy', task, confirm: 'Are you sure?', method: :delete %></td>
       <% end %>
     <% else %>
       <td>Expired or Inactive</td>

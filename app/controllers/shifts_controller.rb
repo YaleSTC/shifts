@@ -103,7 +103,7 @@ class ShiftsController < ApplicationController
 # TODO - unecessary? they never seem to be called ~Casey
 #    if params[:tooltip]
 #      @shift.user_id = current_user.id
-#      render :partial => 'shifts/tooltips/new', :layout => 'none'
+#      render partial: 'shifts/tooltips/new', layout: 'none'
 #    end
   end
 
@@ -172,7 +172,7 @@ class ShiftsController < ApplicationController
 
 # TODO - unecessary? they never seem to be called ~Casey
 #    return unless user_is_owner_or_admin_of(@shift, @shift.department)
-#    (render :partial => 'shifts/tooltips/edit', :layout => 'none') if params[:tooltip]
+#    (render partial: 'shifts/tooltips/edit', layout: 'none') if params[:tooltip]
   end
 
   def update

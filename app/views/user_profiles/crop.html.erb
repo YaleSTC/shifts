@@ -4,12 +4,12 @@
 </head>
 <% title "Crop Photo" %>
 
-<%= image_tag @user_profile.photo.url(:original), :id => "cropbox" %>
+<%= image_tag @user_profile.photo.url(:original), id: "cropbox" %>
 <a href="#" class="show_hide">Show/hide crop dimensions</a>
 	<div class="cropFields">
 	<%= form_for @user_profile do |form| %>
 	  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
-	    <%= form.text_field attribute, :id => attribute %>
+	    <%= form.text_field attribute, id: attribute %>
 	  <% end %>
 	</div>
 	  <p><%= form.submit "Crop" %></p>

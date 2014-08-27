@@ -17,7 +17,7 @@
       <td><%=h report_item.ip_address %></td>
       <td><%= link_to "Show", report_item %></td>
       <td><%= link_to "Edit", edit_report_item_path(report_item) %></td>
-      <td><%= link_to "Destroy", report_item, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Destroy", report_item, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>
 </table>

@@ -9,7 +9,7 @@
 	</tr>
  </thead>
  <tbody>
-		<%= render :partial => "category", :collection => @categories.active %>
+		<%= render partial: "category", collection: @categories.active %>
  </tbody>
 </table>
 
@@ -17,7 +17,7 @@
 <br /><h4>Disabled Categories:</h4>
 
   <table class = "tablesorter">
-  	<%= render :partial => "category", :collection => @categories.disabled %>
+  	<%= render partial: "category", collection: @categories.disabled %>
   </table>
 
       <div class="note">
@@ -29,7 +29,7 @@
 
 <fieldset class = "index">
     <legend>Add Category</legend><br />
-      <%= render :partial => 'form', :locals => {:submit => "Create", :category => [@department,@category] } %>
+      <%= render partial: 'form', locals: {submit: "Create", category: [@department,@category] } %>
   <br/>
 </fieldset>
   

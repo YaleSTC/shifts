@@ -1,15 +1,15 @@
 <li id="timeslot<%=time_slot.id%>" style="<%=shift_style(time_slot)%><%= " display:none" if !time_slot.calendar.active? %>" class="click_to_edit_timeslot timeslot calendar<%=time_slot.calendar_id%>">
   <div class="time-slot">
     <% if @right_overflow or @left_overflow %>
-      <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => 17 } if @right_overflow %>
-      <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => 17 } if @left_overflow %>
+      <%= image_tag "overflow_arrow_right.png", {class: "right_arrow", alt: "right arrow", height: 17 } if @right_overflow %>
+      <%= image_tag "overflow_arrow_left.png",  {class: "left_arrow",  alt: "left arrow",  height: 17 } if @left_overflow %>
     <% end %>
     <div class="center_container">
       <div class="center_content">
         <% unless time_slot.repeating_event %>
-          <%= link_to "x", {:url => time_slot, :confirm => 'Are you sure?', :method => :delete}, :remote => true, :style => "float:right;margin-right:5px", :class => 'delete_link' %>
+          <%= link_to "x", {url: time_slot, confirm: 'Are you sure?', method: :delete}, remote: true, style: "float:right;margin-right:5px", class: 'delete_link' %>
         <% else %>
-          <%= link_to_function "x", :class => 'click_to_delete_repeating_timeslot', :id => 'delete_repeating_'+time_slot.id.to_s %>
+          <%= link_to_function "x", class: 'click_to_delete_repeating_timeslot', id: 'delete_repeating_'+time_slot.id.to_s %>
         <% end %>
         <%= link_to "#{time_slot.start.strftime("%l:%M%p")} - #{time_slot.end.strftime("%l:%M%p")}", edit_time_slot_path(time_slot) %>
       </div>

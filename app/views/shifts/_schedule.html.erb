@@ -1,6 +1,6 @@
 <div style="clear:both"></div>
 
-<%= render :partial => 'shifts/schedule/header' %>
+<%= render partial: 'shifts/schedule/header' %>
 
 <% if current_department.loc_groups.empty? %>
   <p>Sorry, there are no location groups to view!</p>
@@ -8,8 +8,8 @@
   <p>You have not selected any location groups to view! Fix that in your
     <%= link_to "User settings", edit_user_config_path(current_user.user_config) %>.</p>
 <% else %>
-  <%= render :partial => 'shifts/schedule/day', :collection => @day_collection %>
+  <%= render partial: 'shifts/schedule/day', collection: @day_collection %>
 <% end %>
 
-<%= render :partial => 'shifts/schedule/footer' %>
+<%= render partial: 'shifts/schedule/footer' %>
 

@@ -11,14 +11,14 @@
   <tr class="category">
     <th scope="col" id="<%=h category.name %>" colspan=7>
       <div class="hours-right">
-        <%= number_with_precision(PayformItem.rounded_hours(jobs), :precision => 2) %>
+        <%= number_with_precision(PayformItem.rounded_hours(jobs), precision: 2) %>
       </div>
       <%=h category.name %>
     </th>
   </tr>
 </thead>
 <tbody>
-  <%= render :partial => "payform_item", :collection => jobs, :locals => {:type => 'payform_item'} %>
+  <%= render partial: "payform_item", collection: jobs, locals: {type: 'payform_item'} %>
 </tbody>
 <% end -%>
 

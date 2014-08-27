@@ -5,17 +5,17 @@ module NoticeHelper
     {
       author_id: 1,
       remover_id: 1,
-#      :department =>  Department.find_by_name("STC"),
-#      :department_wide => true,
+#      department:  Department.find_by_name("STC"),
+#      department_wide: true,
       department_id: 1,
       is_sticky: false,
       start_time: Time.now ,
       end_time: Time.now + (60 * 60 * 24),
       created_at: Time.now - (60 * 60 * 24),
-#      :for_users => User.all ,
+#      for_users: User.all ,
       content: "Test content",
-#      :for_locations => 1,
-#      :for_location_groups => 1
+#      for_locations: 1,
+#      for_location_groups: 1
     }
   end
 end

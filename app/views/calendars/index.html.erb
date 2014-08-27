@@ -6,7 +6,7 @@
     <p>
       <% unless @calendar.default? %>
         <%= link_to "Edit", edit_calendar_path(@calendar) %> |
-        <%= link_to "Destroy", @calendar, :confirm => 'Are you sure?', :method => :delete %> |
+        <%= link_to "Destroy", @calendar, confirm: 'Are you sure?', method: :delete %> |
       <% else %>
         <p>This is the default calendar, and cannot be edited or deleted.</p>
       <% end %>
@@ -19,7 +19,7 @@
 
 
 <div id="AJAX_status"></div><%# to display status messages in top right corner %>
-<%= render :partial => 'shifts/view_preferences' %>
+<%= render partial: 'shifts/view_preferences' %>
 
 <table class = "tablesorter">
  <thead>
@@ -46,9 +46,9 @@
       <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled'); calendar_visible[#{calendar.id}] = !calendar_visible[#{calendar.id}]"%></td>
       <% unless calendar.default? or !current_user.is_admin_of?(@department) %>
         <td><%= button_to calendar.active ? "Deactivate" : "Activate" , toggle_calendar_path(calendar) %></td>
-        <td><%= button_to "Convert Shifts to Weekly Events", {:action => 'apply_schedule', :id => calendar.id}, :confirm => "Are you sure? This will convert all shifts on this calendar to weekly repeating events that span the dates of the calendar." %></td>
+        <td><%= button_to "Convert Shifts to Weekly Events", {action: 'apply_schedule', id: calendar.id}, confirm: "Are you sure? This will convert all shifts on this calendar to weekly repeating events that span the dates of the calendar." %></td>
         <td><%= link_to "Copy", prepare_copy_calendar_path(calendar) %></td>
-        <td><%= link_to "Destroy", calendar, :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= link_to "Destroy", calendar, confirm: 'Are you sure?', method: :delete %></td>
       <% end %>
     <% end %>
     </tr>
@@ -63,15 +63,15 @@
   <p><%= link_to "New Calendar", new_calendar_path %></p>
   <p><%= link_to "Wipe shifts and timeslots from a range of days", prepare_wipe_range_calendars_path %></p>
 
-  <p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(:date => params[:date]) %></p>
+  <p id="new_time_slot_link"><%= link_to "New Time Slot", new_time_slot_path(date: params[:date]) %></p>
 
 <% end %>
 
 <div style="clear:both"></div>
 
-<%= render :partial => 'shifts/schedule/header' %>
-<%= render :partial => 'calendars/schedule/day', :collection => @day_collection %>
-<%= render :partial => 'shifts/schedule/footer' %>
+<%= render partial: 'shifts/schedule/header' %>
+<%= render partial: 'calendars/schedule/day', collection: @day_collection %>
+<%= render partial: 'shifts/schedule/footer' %>
 
 <%= javascript_tag do %>
   calendar = "<%= @calendar.nil? ? 'true' : @calendar.id %>";

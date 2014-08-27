@@ -19,7 +19,7 @@
 
 <p>
   <%= link_to "Edit", edit_report_item_path(@report_item) %> |
-  <%= link_to "Destroy", @report_item, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Destroy", @report_item, confirm: 'Are you sure?', method: :delete %> |
   <%= link_to "View All", shift_report_report_items_path(@report_item.report) %>
 </p>
 

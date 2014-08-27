@@ -17,8 +17,8 @@
       <td><%= link_to "Show", data_type_data_field_path(params[:data_type_id], data_field) %></td>
       <td><%= link_to "Edit", edit_data_type_data_field_path(params[:data_type_id], data_field) %></td>
       <td><%= link_to "Destroy", data_type_data_field_path(params[:data_type_id], data_field),
-                                                        :confirm => "Are you sure?",
-                                                        :method => :delete %></td>
+                                                        confirm: "Are you sure?",
+                                                        method: :delete %></td>
     </tr>
  </tbody>
   <% end %>

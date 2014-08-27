@@ -1,21 +1,21 @@
 <% title "Shifts" %>
-<%= render :partial => 'view_preferences' %>
+<%= render partial: 'view_preferences' %>
 
 <div id="shift_links">
   <div id="user_options">
-    <%= render :partial => 'admin_options' if current_user.is_admin_of?(@department) %>
-    <%= render :partial => 'user_options' %>
+    <%= render partial: 'admin_options' if current_user.is_admin_of?(@department) %>
+    <%= render partial: 'user_options' %>
     <% unless @upcoming_shifts.empty? %>
     <h4>My Upcoming Shifts</h4>
       <ul>
-        <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
+        <%= render partial: 'shifts/upcoming_shift', collection: @upcoming_shifts %>
       </ul>
     <% end %>
   </div>
 </div>
 
 <div id="schedule">
-  <%= render :partial => 'shifts/schedule' %>
+  <%= render partial: 'shifts/schedule' %>
 </div>
 
 <div id="AJAX_status"></div><%# for AJAX status updates %>

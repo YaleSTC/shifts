@@ -1,6 +1,6 @@
 <div class="shifts_bottom" style="clear:both">
   <div class="shift_links">
-    <%= link_to HTMLEntities.new.decode("&lt;&lt; Earlier"), {:date => (@period_start - 7), :anchor => @period_start - 1        }, :class => "last_week"  %>
-    <%= link_to HTMLEntities.new.decode("Later &gt;&gt;"),   {:date => (@period_start + 7), :anchor => @period_start + (2*7) - 1}, :class => "next_week" %>
+    <%= link_to HTMLEntities.new.decode("&lt;&lt; Earlier"), {date: (@period_start - 7), anchor: @period_start - 1        }, class: "last_week"  %>
+    <%= link_to HTMLEntities.new.decode("Later &gt;&gt;"),   {date: (@period_start + 7), anchor: @period_start + (2*7) - 1}, class: "next_week" %>
   </div>
 </div>

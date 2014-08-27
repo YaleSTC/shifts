@@ -3,12 +3,12 @@
 		<% if params[:printed].nil? %>
 		  <div>
         <i class="fa fa-check-circle"></i>
-        <%= link_to "Include Finalized Payforms", payforms_path(:unsubmitted => true, :submitted => true, :skipped => true, :approved => true, :printed => true, :start_date => @start_date, :end_date => @end_date) %>
+        <%= link_to "Include Finalized Payforms", payforms_path(unsubmitted: true, submitted: true, skipped: true, approved: true, printed: true, start_date: @start_date, end_date: @end_date) %>
       </div>
 		<% else %>
 		  <div>
         <i class="fa fa-check-circle-o"></i>
-        <%= link_to "Hide Finalized Payforms", payforms_path(:start_date => @start_date, :end_date => @end_date) %>
+        <%= link_to "Hide Finalized Payforms", payforms_path(start_date: @start_date, end_date: @end_date) %>
       </div>
 		<% end %>
 	</fieldset>
@@ -35,7 +35,7 @@
       <th>Finalized</th>
     <% end -%>
   </tr></thead>
-  <%= render :partial => "payform", :collection => @payforms %>
+  <%= render partial: "payform", collection: @payforms %>
   <% if @payforms.empty? -%>
     <tr><td colspan="5">(No   payforms to show)</td></tr>
   <% end -%>
