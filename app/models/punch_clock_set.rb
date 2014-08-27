@@ -19,7 +19,7 @@ private
   def length_of_description
     min = self.department.department_config.description_min
     if self.description.length < min
-      errors.add_to_base("Description must be at least #{min} characters long.") 
+      errors.add(:base, "Description must be at least #{min} characters long.") 
     end
   end   
 
