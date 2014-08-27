@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: data_objects
+#
+#  id           :integer          not null, primary key
+#  data_type_id :integer
+#  name         :string(255)
+#  description  :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 module DataObjectHelper

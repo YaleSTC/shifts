@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: payform_item_sets
+#
+#  id             :integer          not null, primary key
+#  category_id    :integer
+#  date           :date
+#  hours          :decimal(10, 2)
+#  description    :text
+#  active         :boolean
+#  approved_by_id :integer
+#
+
 class PayformItemSet < ActiveRecord::Base
 
   has_many :payform_items

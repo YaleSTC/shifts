@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: permissions
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 --- 
 permissions_001: 
   created_at: 2009-06-22 17:27:52

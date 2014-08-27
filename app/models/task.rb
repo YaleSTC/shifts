@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id                 :integer          not null, primary key
+#  location_id        :integer
+#  name               :string(255)
+#  kind               :string(255)
+#  start              :datetime
+#  end                :datetime
+#  interval_completed :boolean          default(FALSE)
+#  time_of_day        :time
+#  day_in_week        :string(255)
+#  active             :boolean          default(TRUE)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  expired            :boolean          default(FALSE)
+#  description        :string(255)
+#  link               :string(255)
+#
+
 class Task < ActiveRecord::Base
   has_many :shifts_tasks
   has_many :shifts, through: :shifts_tasks

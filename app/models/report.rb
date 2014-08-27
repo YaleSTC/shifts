@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: reports
+#
+#  id         :integer          not null, primary key
+#  shift_id   :integer
+#  arrived    :datetime
+#  departed   :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Report < ActiveRecord::Base
   belongs_to :shift
   delegate :user, to: :shift

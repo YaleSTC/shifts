@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: data_entries
+#
+#  id             :integer          not null, primary key
+#  data_object_id :integer
+#  content        :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 class DataEntry < ActiveRecord::Base
   belongs_to :data_object
 

@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: user_configs
+#
+#  id                     :integer          not null, primary key
+#  user_id                :integer
+#  default_dept           :integer
+#  view_loc_groups        :string(255)
+#  view_week              :string(255)
+#  watched_data_objects   :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  taken_sub_email        :boolean          default(TRUE)
+#  send_due_payform_email :boolean          default(TRUE)
+#
+
 --- 
 user_configs_001: 
   created_at: 2009-06-22 17:42:57

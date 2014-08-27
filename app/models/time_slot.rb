@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: time_slots
+#
+#  id                 :integer          not null, primary key
+#  location_id        :integer
+#  calendar_id        :integer
+#  repeating_event_id :integer
+#  start              :datetime
+#  end                :datetime
+#  active             :boolean
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
 class TimeSlot < ActiveRecord::Base
   belongs_to :location
   belongs_to :calendar
