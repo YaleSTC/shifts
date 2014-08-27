@@ -1,4 +1,4 @@
-<%#= render :partial => 'data_types/progress_bar', :locals => {:current_step => 2} %>
+<%#= render partial: 'data_types/progress_bar', locals: {current_step: 2} %>
 <div class='data_field'>
 <%= form_for (params[:id] ? [DataType.find(params[:data_type_id]), @data_field] : [:data_type, @data_field]) do |df_form| %>
   <%= df_form.error_messages %>
@@ -8,11 +8,11 @@
      <div id="optional_fields"></div>
    </p>
    <p>
-     <%= df_form.submit "Save and add another field", :name => "add_another" %>
-     <%= df_form.submit "Save and finish", :name => "submit" %>
+     <%= df_form.submit "Save and add another field", name: "add_another" %>
+     <%= df_form.submit "Save and finish", name: "submit" %>
    </p>
 <% end %>
 </div>
 
-<%= render :partial => "data_types/summary", :locals => {:data_type => DataType.find(params[:data_type_id])} %>
+<%= render partial: "data_types/summary", locals: {data_type: DataType.find(params[:data_type_id])} %>
 

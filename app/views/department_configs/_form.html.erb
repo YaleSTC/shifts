@@ -27,23 +27,23 @@
      <%= f.label :can_take_passed_sub, text = "Allow for sub request to be taken even if shift has already begun." %>
 <h3> Department Time Options (in minutes)</h3>
     <p>
-      <%= f.text_field :time_increment, :size => 6 %>
+      <%= f.text_field :time_increment, size: 6 %>
       <%= f.label :time_increment, text = "Shift time increment." %>
     </p>
     <p>
-      <%= f.text_field :grace_period, :size => 6 %>
+      <%= f.text_field :grace_period, size: 6 %>
       <%= f.label :grace_period, text = "Late sign-in grace period." %>
     </p>
 	<p>
-	  <%= f.text_field :early_signin, :size => 6 %>
+	  <%= f.text_field :early_signin, size: 6 %>
 	  <%= f.label :early_signin, text = "The earliest a user can sign into a shift without getting a notice." %>
 	</p>
     <p>
-     <%= f.text_field :payform_time_limit, :size => 6 %>
+     <%= f.text_field :payform_time_limit, size: 6 %>
 	 <%= f.label :payform_time_limit, text = " Maximum amount of hours allowed to be submitted without getting a warning. "%>
     </p>
     <p>
-	<%= f.text_field :task_leniency, :size => 6 %>
+	<%= f.text_field :task_leniency, size: 6 %>
     <%= f.label :task_leniency, text = " Amount of time before a task is displayed as missed in the report."%>
 	</p>
   </fieldset>
@@ -52,30 +52,30 @@
     <legend>Edit Payform Configuration</legend>
     <p>
       <%= f.label :schedule_start, text = "Default Printed Payform Message:" %><br />
-      <%= f.text_area :printed_message, :size => "30x5" %>
+      <%= f.text_area :printed_message, size: "30x5" %>
     </p>
     <p>
       <%= f.label :schedule_start, text = "Default Payform Reminder:" %><br />
-      <%= f.text_area :reminder_message, :size => "30x5" %>
+      <%= f.text_area :reminder_message, size: "30x5" %>
     </p>
     <p>
       <%= f.label :schedule_start, text = "Default Late Payform Warning:" %><br />
-      <%= f.text_area :warning_message, :size => "30x5" %>
+      <%= f.text_area :warning_message, size: "30x5" %>
     </p>
     <p>
       <%= f.text_field :mailer_address %>
       <%= f.label :schedule_start, text = "'From' address on automated emails" %>
     </p>
     <p>
-      <%= f.text_field :warning_weeks, :size => 6 %>
+      <%= f.text_field :warning_weeks, size: 6 %>
       <%= f.label :schedule_start, text = "Elapsed weeks before warning admin about lateness of payform." %>
     </p>
     <p>
-      <%= f.text_field :description_min, :size => 6 %>
+      <%= f.text_field :description_min, size: 6 %>
       <%= f.label :schedule_start, text = "Minimum Length for Item Description (in characters; '0' to disable)." %>
     </p>
     <p>
-      <%= f.text_field :reason_min, :size => 6 %>
+      <%= f.text_field :reason_min, size: 6 %>
       <%= f.label :schedule_start, text = "Minimum Length for Edit or Deletion Reason (in characters; '0' to disable)." %>
     </p>
     <p>
@@ -92,7 +92,7 @@
     </p>
     <p>
     <%= f.label "Default Payform Category" %><br/>
-      <%= f.collection_select(:default_category_id, Category.all, :id, :name, {:prompt => "Select a payform category"}) %>
+      <%= f.collection_select(:default_category_id, Category.all, :id, :name, {prompt: "Select a payform category"}) %>
 
     </p>
   </fieldset>
@@ -100,7 +100,7 @@
     <legend>Edit Email Statistics Configuration</legend>
 	<p>
 		<%= f.label :stats_mailer_address, text = "Emails of users to receive shift statistics (separated by commas):"%> <br />
-		<%= f.text_area :stats_mailer_address, :size => "30x5"%>
+		<%= f.text_area :stats_mailer_address, size: "30x5"%>
 	</p>
 </fieldset>
 <fieldset class = "index">

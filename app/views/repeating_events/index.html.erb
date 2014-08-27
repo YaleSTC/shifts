@@ -18,7 +18,7 @@
       <td><%=h repeating_event.locations.map{|l| l.short_name}.join(", ") %></td>
       <td><%= link_to "Show", repeating_event %></td>
       <td><%= link_to "Edit", edit_repeating_event_path(repeating_event) %></td>
-      <td><%= link_to "Destroy", repeating_event, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Destroy", repeating_event, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
  </tbody>
   <% end %>

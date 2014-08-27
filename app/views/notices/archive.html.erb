@@ -1,11 +1,11 @@
 <h1 id = "page_title" > Notices archive </h1>
 <fieldset class="index">
   <legend>Inactive announcements</legend>
-  <%= render :partial => 'notices/notice', :collection => Announcement.inactive, :locals => {:html_class => "index_notice"} %>
+  <%= render partial: 'notices/notice', collection: Announcement.inactive, locals: {html_class: "index_notice"} %>
 </fieldset>
 <fieldset class="index">
   <legend>Inactive stickies</legend>
-  <%= render :partial => 'notices/notice', :collection => Sticky.inactive, :locals => {:html_class => "index_notice"} %>
+  <%= render partial: 'notices/notice', collection: Sticky.inactive, locals: {html_class: "index_notice"} %>
 </fieldset>
 
 

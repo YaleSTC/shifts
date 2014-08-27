@@ -1,6 +1,6 @@
 <% title "Copy Calendar" %>
 
-<%= form_for @calendar, :url => {:action => 'copy'} do |f| %>
+<%= form_for @calendar, url: {action: 'copy'} do |f| %>
     <%if @errors%>
       <strong>The repeating event could not be applied for the following reasons</strong>
       <ul>

@@ -1,8 +1,8 @@
 // if @announcement.errors.empty?
-//   page.replace_html "all_notices", :partial => 'notices/all_notices'
-//   #page.replace_html "dashboard_notices", :partial => 'notices/dashboard'
+//   page.replace_html "all_notices", partial: 'notices/all_notices'
+//   #page.replace_html "dashboard_notices", partial: 'notices/dashboard'
 //   if current_user.current_shift
-//     page.replace_html "message_center", :partial => 'notices/notice', :collection => current_user.current_shift.report.get_notices, :locals => {:html_class => "report_notice"}
+//     page.replace_html "message_center", partial: 'notices/notice', collection: current_user.current_shift.report.get_notices, locals: {html_class: "report_notice"}
 //   end
 //   if session[:mobile_param] != "1"
 //     page << "tb_remove();"
@@ -10,13 +10,13 @@
 //   end
 //   if session[:mobile_param] == "1"
 //     if @current_shift
-//       page.redirect_to(:controller => 'reports', :action => 'show', :id => @current_shift.report.id)
+//       page.redirect_to(controller: 'reports', action: 'show', id: @current_shift.report.id)
 //     else
-//       page.redirect_to(:controller => 'dashboard', :action => 'index')
+//       page.redirect_to(controller: 'dashboard', action: 'index')
 //     end
 //   end  
 // else
-//   page.replace_html "errors", :partial => 'notices/error_messages'
+//   page.replace_html "errors", partial: 'notices/error_messages'
 // end
 
 <% if @announcement.errors.empty? %>

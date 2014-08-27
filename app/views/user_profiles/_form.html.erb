@@ -1,7 +1,7 @@
-<%= form_for @user_profile, :html => { :multipart => true} do |f| %>
+<%= form_for @user_profile, html: { multipart: true} do |f| %>
   <%= f.error_messages %>
 
-<%= render :partial => 'user_info' %>
+<%= render partial: 'user_info' %>
   <p>
     <% if @user_profile_entries %>
       <% @user_profile_entries.each do |entry| %>

@@ -23,14 +23,14 @@
     <p>
     <%= link_to "Request a sub for this shift", new_shift_sub_request_path(@shift) %>
     </p>
-    <%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+    <%= button_to "Sign in", shift_report_path(@shift), method: :post %>
   <% else %>
     This shift has not yet been signed in to.
   <% end %>
 </p>
 <p>
   <%= link_to "Edit", edit_shift_path(@shift) %> |
-  <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Destroy", @shift, confirm: 'Are you sure?', method: :delete %> |
   <%= link_to "View All", shifts_path %>
 </p>
 

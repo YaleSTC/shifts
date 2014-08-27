@@ -1,7 +1,7 @@
 <div id="data_objects">
   <% if current_user.is_admin_of?(current_department) %>
-    <%= render(:partial => "data_objects_table" , locals: {grouped_objects: @types_objects_hash}) %>
+    <%= render(partial: "data_objects_table" , locals: {grouped_objects: @types_objects_hash}) %>
   <% else %>
-  	<%= render(:partial => "data_objects_table" , locals: {grouped_objects: @personal_types_objects_hash}) %>
+  	<%= render(partial: "data_objects_table" , locals: {grouped_objects: @personal_types_objects_hash}) %>
   <% end %>
 </div>

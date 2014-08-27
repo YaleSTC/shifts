@@ -54,7 +54,7 @@ class Shift < ActiveRecord::Base
 
   #TODO: clean this code up -- maybe just one call to shift.scheduled?
   validates_presence_of :end, if: Proc.new{|shift| shift.scheduled?}
-#  before_validation :adjust_end_time_if_in_early_morning, :if => Proc.new{|shift| shift.scheduled?}
+#  before_validation :adjust_end_time_if_in_early_morning, if: Proc.new{|shift| shift.scheduled?}
   validate :start_less_than_end, if: Proc.new{|shift| shift.scheduled?}
   validate :shift_is_within_time_slot, if: Proc.new{|shift| shift.scheduled?}
   validate :user_does_not_have_concurrent_shift, if: Proc.new{|shift| shift.scheduled?}

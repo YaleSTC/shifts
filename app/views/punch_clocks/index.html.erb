@@ -2,9 +2,9 @@
 
 <% if @punch_clocks.empty? %>
   There are currently no punch clocks running.
-  <%= form_tag :action => :create do %>
+  <%= form_tag action: :create do %>
     <%= submit_tag "Punch in" %>
   <% end %>
 <% else %>
-  <%= render :partial => "clocks", :object => @punch_clocks %>
+  <%= render partial: "clocks", object: @punch_clocks %>
 <% end %>
