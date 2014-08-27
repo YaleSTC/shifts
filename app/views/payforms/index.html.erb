@@ -9,7 +9,7 @@
 			  <%= label_tag :end_date %><br />
 			  <%= date_select(:payform, :end_date, default: @end_date)%>
 				<br />
-				<%= submit_tag 'Update' %>
+				<%= submit_tag 'Update', class: 'btn btn-default' %>
 		<% end %>
 	</fieldset>
 </div>
@@ -20,7 +20,7 @@
 	<div id="payform_searchbox" style="margin-bottom: 1em">
 	  <%= form_tag(payforms_path, method: :get) do %>
 	    Search for a user: <%= text_field_tag :search %>
-	    <%= submit_tag "Submit", id: "search_submit" %>
+	    <%= submit_tag "Submit", id: "search_submit", class: 'btn btn-default' %>
 	  <% end %>
 	</div>
 	</fieldset>
@@ -35,8 +35,8 @@
   <%= render partial: "payform_list" %>
 </div>
 <br />
-<%= link_to "Your Current Payform", go_payforms_path, :class=>"button" %>
+<%= link_to "My Current Payform", go_payforms_path, class: "btn btn-default" %>
 <% if current_user.is_admin_of?(current_department) %>
-	<%= link_to "Print all approved payforms", create_payform_set_path, :class=>"button" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
-	<%= link_to "Prune all empty payforms", prune_payforms_path, method: :delete, :class=>"button" %>
+	<%= link_to "Print all approved payforms", create_payform_set_path, class: "btn btn-default" if @payforms.select{|p| p.approved  && !p.printed }.length > 0 %>
+	<%= link_to "Prune all empty payforms", prune_payforms_path, method: :delete, class: "btn btn-default" %>
 <% end %>

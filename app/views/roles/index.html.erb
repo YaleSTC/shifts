@@ -1,7 +1,9 @@
 <% title "Roles" %>
 <p>
-  <i class="fa fa-plus-circle"></i>
-  <%= link_to "Add A New Role", new_department_role_path(@department) %>
+  <%= link_to new_department_role_path(@department), class: 'btn btn-default' do %>
+    <i class="fa fa-plus-circle"></i>
+    Add a New Role
+  <% end %>
 </p>
 <table class="tablesorter">
  <thead>
