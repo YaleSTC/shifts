@@ -1,7 +1,7 @@
 <% title "New Sub Request" %>
 <p>For shift beginning at <%= @sub_request.shift.start.to_s(:short_name) %> and ending at <%= @sub_request.shift.end.to_s(:short_name) %> <p>
 
-<%= render :partial => 'form' %>
+<%= render partial: 'form' %>
 
 <%= link_to 'Back', sub_requests_path %>
 

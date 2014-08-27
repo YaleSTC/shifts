@@ -1,7 +1,7 @@
 <% if !@disable_locations %>
   <fieldset class = "index"><legend>Where:</legend>
 	<% if current_user.is_admin_of?(current_department) && notice.class.name != "Sticky" %>
-    	<%= check_box_tag :department_wide_locations, current_department.id, false, :style => "display: none;", :class => "only_js" %>
+    	<%= check_box_tag :department_wide_locations, current_department.id, false, style: "display: none;", class: "only_js" %>
     	<%= label_tag "department_wide_locations", text = current_department.name + " (all locations)"%>
 	<% end %>
 
@@ -10,7 +10,7 @@
         <% next if !loc_group.active %>
         <% if current_user.is_admin_of?(loc_group) || notice.class.name = "Sticky" %>
 		<li id = "notice_li">
-		   <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked_notice?(loc_group, notice), :style => "display: none;", :class => "only_js" %>
+		   <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked_notice?(loc_group, notice), style: "display: none;", class: "only_js" %>
 		   <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 		   <% for location in loc_group.locations do %>
           <% next if !location.active %>

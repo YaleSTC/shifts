@@ -1,6 +1,6 @@
 namespace :shifts do
 
-task :import_kilroys => :environment do
+task import_kilroys: :environment do
 
     kilroys = "Dan Liu,5,ES"
 
@@ -9,7 +9,7 @@ task :import_kilroys => :environment do
 
     kilroys.split("\n").each do |kilroy|
       kilroy = kilroy.split(",")
-      location = Location.where(:short_name => kilroy[2]).first
+      location = Location.where(short_name: kilroy[2]).first
       user = User.search(kilroy[0])
       day = kilroy[1]
       day = 0 if day == 7

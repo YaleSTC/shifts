@@ -2,12 +2,12 @@
 
 	<div id="left_stuff">
 		<fieldset class="index" id="date_selector">
-		  <%= form_tag data_object_path(@data_object), :method => :get %>
+		  <%= form_tag data_object_path(@data_object), method: :get %>
 				<%= label_tag :start_date %><br />
-	      <%= select_date(@start_date, :prefix => 'start') %>
+	      <%= select_date(@start_date, prefix: 'start') %>
 				<br />
 				<%= label_tag :end_date %><br />
-	      <%= select_date(@end_date, :prefix => 'end') %>
+	      <%= select_date(@end_date, prefix: 'end') %>
 				<br />
 	    <%= submit_tag 'Update Dates' %>
 		</fieldset>
@@ -39,8 +39,8 @@
         </thead>
         <% unless @data_entries.empty? %>
  				<tbody>
-          <%= render(:partial => "data_entries/data_entry_row",
-                     :collection => @data_entries) %>
+          <%= render(partial: "data_entries/data_entry_row",
+                     collection: @data_entries) %>
         </tbody>
 				<% else %>
 				<tbody>
@@ -57,8 +57,8 @@
   <% if current_user.is_admin_of?(current_department) %>
     <p><%= link_to "Edit", edit_data_object_path(@data_object) %> |
     <%= link_to "Destroy", @data_object,
-    :confirm => 'Are you sure? This will destroy all data entries belonging to this object.',
-    :method => :delete %> |
+    confirm: 'Are you sure? This will destroy all data entries belonging to this object.',
+    method: :delete %> |
   <% end %>
   <%= link_to "View all data objects", data_objects_path %></p>
 

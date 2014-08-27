@@ -2,17 +2,17 @@
 							<%#= check_box_tag "for_locations[]", location.id %></td>
 			<!--		<td><%#= label_tag "location_#{.id}", text = location.short_name %></td> -->
 					<td><%= time_select "time_slot_#{time_slot.id}[start]", {
-													:start_time => Time.now-5000,
-										      :end_time => Time.now+5000,
-										      :include_start_time => true,
-										      :include_end_time => false,
-										      :default => Time.now} %></td>
+													start_time: Time.now-5000,
+										      end_time: Time.now+5000,
+										      include_start_time: true,
+										      include_end_time: false,
+										      default: Time.now} %></td>
 					<td><%= time_select "time_slot_#{time_slot.id}[end]", {
-													:start_time => Time.now-5000,
-										      :end_time => Time.now+5000,
-										      :include_start_time => true,
-										      :include_end_time => false,
-										      :default => Time.now} %></td>
+													start_time: Time.now-5000,
+										      end_time: Time.now+5000,
+										      include_start_time: true,
+										      include_end_time: false,
+										      default: Time.now} %></td>
 					<td><% RequestedShift::WEEK_DAY_SELECT.each do |day| %>
 								 <%= check_box "time_slot_#{time_slot.id}[day]}", day[1].to_i" %> <%= "#{day[0][0..2]}" %>
 							<% end %></td>

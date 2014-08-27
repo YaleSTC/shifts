@@ -5,7 +5,7 @@
   <td><%=h payform_item_set.category.name %></td>
   <td><%=h payform_item_set.description %></td>
   <% if payform_item_set.active %>
-    <td><%= link_to "Destroy", payform_item_set, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to "Destroy", payform_item_set, confirm: 'Are you sure?', method: :delete %></td>
   <% else %>
     <td colspan = 2>Expired or Deleted</td>
   <% end %>

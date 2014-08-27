@@ -1,15 +1,15 @@
 <%= form_for(@sticky, remote: true) do |f| %>
   <div id ="errors">
-    <%= render :partial => "notices/error_messages", :locals => {:f => f} %>
+    <%= render partial: "notices/error_messages", locals: {f: f} %>
   </div>
 	<fieldset class = "index">
     <legend>Content:</legend>
-    <%= f.text_area :content, :id=>"content", :size => "40x5" %>
+    <%= f.text_area :content, :id=>"content", size: "40x5" %>
   </fieldset>
-	<%= link_to "Hide advanced options","#", :id => "toggle_link", :style=>"display: none;" %>
+	<%= link_to "Hide advanced options","#", id: "toggle_link", :style=>"display: none;" %>
 	<div id="variable_height_box">
-		<%= content_tag("div", {:id => "advanced_options_div", :style => "display: #{@display};"}) do %>
-			<%= render :partial => "notices/locations", :locals => {:notice => @sticky} %>
+		<%= content_tag("div", {id: "advanced_options_div", style: "display: #{@display};"}) do %>
+			<%= render partial: "notices/locations", locals: {notice: @sticky} %>
 			<fieldset class = "index">
 				<legend>End time:</legend>
 				<%= radio_button_tag 'end_time_choice', 'indefinite', true %> Manually delete only (anyone can delete any sticky) <br/>

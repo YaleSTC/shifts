@@ -1,17 +1,17 @@
 <% for @user in @users %>
   <%= fields_for @user do |f| %>
     <tr class=<%= determine_class(@user) %>>
-      <td class="activable"><%=f.text_field(:login, "index"=>@users.index(@user), :class => "table_field") %></td>
-      <td class="activable"><%=f.text_field(:first_name, "index"=>@users.index(@user), :class => "table_field")%></td>
-      <td class="activable"><%=f.text_field(:nick_name, "index"=>@users.index(@user), :class => "table_field")%></td>
-      <td class="activable"><%=f.text_field(:last_name, "index"=>@users.index(@user), :class => "table_field", :id=>"lname_table_field")%></td>
-      <td class="activable"><%=f.text_field(:email, "index"=>@users.index(@user), :class => "table_field", :id => "email_table_field")%></td>
-      <td class="activable"><%=f.text_field(:employee_id, "index"=>@users.index(@user), :class => "table_field")%></td>
+      <td class="activable"><%=f.text_field(:login, "index"=>@users.index(@user), class: "table_field") %></td>
+      <td class="activable"><%=f.text_field(:first_name, "index"=>@users.index(@user), class: "table_field")%></td>
+      <td class="activable"><%=f.text_field(:nick_name, "index"=>@users.index(@user), class: "table_field")%></td>
+      <td class="activable"><%=f.text_field(:last_name, "index"=>@users.index(@user), class: "table_field", :id=>"lname_table_field")%></td>
+      <td class="activable"><%=f.text_field(:email, "index"=>@users.index(@user), class: "table_field", id: "email_table_field")%></td>
+      <td class="activable"><%=f.text_field(:employee_id, "index"=>@users.index(@user), class: "table_field")%></td>
       <td class="small_select"><%=f.select(:role,  @department.roles.collect{|r| r.name}, {}, {:index=>@users.index(@user)})%></td>
       <%unless @appconfig.login_options.length==1%>
         <% @appconfig.login_options.each do |l| %>
           <td>
-            <%=l%>: <%= f.radio_button( "auth_type", l,{:index=>@users.index(@user), :checked => determine_auth_type(@user,l)} ) %>
+            <%=l%>: <%= f.radio_button( "auth_type", l,{:index=>@users.index(@user), checked: determine_auth_type(@user,l)} ) %>
           </td>
         <% end %>
       <%end%>

@@ -31,7 +31,7 @@ set :scm_verbose, false
 
 role :app, "#{domain}"
 role :web, "#{domain}"
-role :db,  "#{domain}", :primary => true
+role :db,  "#{domain}", primary: true
 
 
 # == CONFIG ====================================================================
@@ -81,7 +81,7 @@ EOF
 
 
     desc "Symlink shared configurations to current"
-    task :localize, :roles => [:app] do
+    task :localize, roles: [:app] do
 
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
       # run "ln -nsf #{shared_path}/config/airbrake.rb #{current_path}/config/initializers/airbrake.rb"
@@ -107,7 +107,7 @@ end
 
 namespace :db do
   desc "Backup your Database to #{shared_path}/db_backups"
-  task :backup, :roles => :db, :only => {:primary => true} do
+  task :backup, roles: :db, only: {primary: true} do
     set :db_user, Capistrano::CLI.ui.ask("Database user: ")
     set :db_pass, Capistrano::CLI.password_prompt("Database password: ")
     now = Time.now
@@ -126,7 +126,7 @@ end
 namespace :deploy do
 
   desc "Initializer. Runs setup, copies code, creates and migrates db, and starts app"
-  task :first, :roles => :app do
+  task :first, roles: :app do
     setup
     create_db
     update
@@ -137,36 +137,36 @@ namespace :deploy do
   end
 
   desc "Create vhosts file for Passenger config"
-  task :passenger_config, :roles => :app do
+  task :passenger_config, roles: :app do
     run "sh -c \'echo \"RailsBaseURI /#{application_prefix}\" > #{apache_config_dir}/rails/rails_#{application}_#{application_prefix}.conf\'"
     run "ln -s #{deploy_to}/current/public #{document_root}/#{application_prefix}"
   end
 
   desc "Create database"
-  task :create_db, :roles => :app do
+  task :create_db, roles: :app do
     run "mysqladmin --user=root --password=#{mysql_pass} create #{application}_#{application_prefix}_production"
   end
 
-  task :start, :roles => :app do
+  task :start, roles: :app do
     run "touch #{current_release}/tmp/restart.txt"
   end
 
-  task :stop, :roles => :app do
+  task :stop, roles: :app do
     # Do nothing.
   end
 
   desc "Restart Application"
-  task :restart, :roles => :app do
+  task :restart, roles: :app do
     run "touch #{current_release}/tmp/restart.txt"
   end
 
   desc "Restart Apache"
-  task :restart_apache, :roles => :app do
+  task :restart_apache, roles: :app do
       run "#{sudo} /etc/init.d/httpd restart"
   end
 
   desc "Update the crontab file"
-  task :update_crontab, :roles => :app do
+  task :update_crontab, roles: :app do
     run "cd #{release_path} && bundle exec whenever --update-crontab #{application}-#{application_prefix} --set 'rails_root=#{current_path}'"
   end
 

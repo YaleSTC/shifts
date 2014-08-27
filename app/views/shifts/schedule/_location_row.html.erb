@@ -3,8 +3,8 @@
     <li id="location<%=location.id%>_<%=day%>_free_time" style="width:100%;" class="no_signups"></li>
   <% else %>
     <%# location_preprocessing(location, day) %>
-    <%= render :partial => 'shifts/schedule/signup_bar', :object => @signup_bar, :locals => {:location => location, :day => day} %>
+    <%= render partial: 'shifts/schedule/signup_bar', object: @signup_bar, locals: {location: location, day: day} %>
   <% end %>
-  <%= render :partial => "shifts/schedule/shift", :collection => location_row -%>
+  <%= render partial: "shifts/schedule/shift", collection: location_row -%>
 </ul>
 <% @location_row += 1 %>

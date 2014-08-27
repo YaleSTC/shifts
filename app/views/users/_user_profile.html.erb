@@ -12,7 +12,7 @@
             <%= send("text_field", *args) %>
 
           <% elsif entry.display_type == "upload_pic" %>
-            <%= render :partial => "user_profiles/user_profile_pic", :object => UserProfilePics.new %>
+            <%= render partial: "user_profiles/user_profile_pic", object: UserProfilePics.new %>
 
           <% elsif ["radio_button"].include? entry.display_type %>
             <% args.each do |options| %>

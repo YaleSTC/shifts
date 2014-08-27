@@ -4,8 +4,8 @@
     </p>
     <p>
       <%= df_form.label :display_type %><br />
-      <%= df_form.select :display_type, options_for_select(DataField::DISPLAY_TYPE_OPTIONS, df_form.object.display_type || 'text_field'), {}, :class => "display_type",
-          :onchange => "var selected_type = $(this).find(':selected').val(); data_field_type_description($(this).parent().parent().find('.value_field'), selected_type)" %><br/>
+      <%= df_form.select :display_type, options_for_select(DataField::DISPLAY_TYPE_OPTIONS, df_form.object.display_type || 'text_field'), {}, class: "display_type",
+          onchange: "var selected_type = $(this).find(':selected').val(); data_field_type_description($(this).parent().parent().find('.value_field'), selected_type)" %><br/>
     </p>
 <p>
       <div class="value_field" >

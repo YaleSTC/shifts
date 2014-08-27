@@ -1,7 +1,7 @@
 namespace :db do
   desc "generates shifts for the users in the fixtures in preload_data"
 
-  task :generate_shifts => :load_fixtures do
+  task generate_shifts: :load_fixtures do
     require 'populator'
 
     shifts_end_date = 3.months.from_now.to_date
@@ -25,8 +25,8 @@ namespace :db do
 
             start_time = Time.parse("9AM -0400 #{day.to_s}")
             end_time = Time.parse("11PM -0400 #{day.to_s}")
-            TimeSlot.create(:location_id => location.id, :start => start_time,
-                            :end => end_time, :created_at => day.to_datetime)
+            TimeSlot.create(location_id: location.id, start: start_time,
+                            end: end_time, created_at: day.to_datetime)
 
             max_number_of_shifts_per_time_slot.times do
               start_hour = 9 + rand(14)
@@ -34,9 +34,9 @@ namespace :db do
               start_time = "#{start_hour}:#{start_minute}, #{day}".to_time
               end_time = start_time + (increment * (1 + rand(6 * blocks_per_hour))).minutes
               user = department.users[rand(department.users.length)]
-              shift = Shift.new(:start => start_time, :end => end_time, :user_id => user.id,
-                                :location_id => location.id, :scheduled => true,
-                                :created_at => day.to_datetime + 30.minutes)
+              shift = Shift.new(start: start_time, end: end_time, user_id: user.id,
+                                location_id: location.id, scheduled: true,
+                                created_at: day.to_datetime + 30.minutes)
               shift.save unless shift.exceeds_max_staff?
               if !shift.new_record? && rand(10) == 0
                 # shift_chunks is the number of smallest shift chunks in the length of the shift
@@ -49,10 +49,10 @@ namespace :db do
                 mandatory_start = start_time + (increment * rand(request_chunks)).minutes
                 request_chunks_left = ((end_time - mandatory_start) / increment_seconds).round
                 mandatory_end = mandatory_start + (increment * (1 + rand(request_chunks_left))).minutes
-                sub_request = SubRequest.create(:shift_id => shift.id, :reason => Populator.sentences(1..3),
-                                                :start => start_time, :end => end_time,
-                                                :mandatory_start => mandatory_start,
-                                                :mandatory_end => mandatory_end)
+                sub_request = SubRequest.create(shift_id: shift.id, reason: Populator.sentences(1..3),
+                                                start: start_time, end: end_time,
+                                                mandatory_start: mandatory_start,
+                                                mandatory_end: mandatory_end)
                 # each sub request has 1/2 chance of being taken
                 if !sub_request.new_record? && rand(2) == 0
                   user = department.users[rand(department.users.length)]

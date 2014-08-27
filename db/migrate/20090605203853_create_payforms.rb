@@ -5,9 +5,9 @@ class CreatePayforms < ActiveRecord::Migration
 
       #Payform Configuration
       #=========================
-      t.boolean  :monthly, :default => false
-      t.boolean  :end_of_month, :default => false
-      t.integer  :day, :default => 6 #if it is weekly, this stores the day of the week, and if this is monthly, day of the month
+      t.boolean  :monthly, default: false
+      t.boolean  :end_of_month, default: false
+      t.integer  :day, default: 6 #if it is weekly, this stores the day of the week, and if this is monthly, day of the month
       #=========================
 
       t.datetime :submitted

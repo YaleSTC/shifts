@@ -1,10 +1,10 @@
-<%= render :partial => 'progress_bar', :locals => {:current_step => 3} %>
+<%= render partial: 'progress_bar', locals: {current_step: 3} %>
 <% title "Create your user" %>
 <div class="form_left" id="new_user_form">
-<%= render :partial => 'form'%>
+<%= render partial: 'form'%>
 </div>
 <% if @appconfig.use_ldap %>
 <div class="table_right" id="result_list">
-<%= render :partial => 'users/result_list' %>
+<%= render partial: 'users/result_list' %>
 </div>
 <% end %>
