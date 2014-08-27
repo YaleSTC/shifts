@@ -1,4 +1,4 @@
-$('#shift.start.strftime("%Y-%m-%d")').html('<%= escape_javascript render :partial => (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), :object => @shift.start.to_date %>');
+$('#shift.start.strftime("%Y-%m-%d")').html('<%= escape_javascript render partial: (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), object: @shift.start.to_date %>');
 // page["#shift#{@shift.id}"].visual_effect :highlight
 $("#tooltip").remove();
 

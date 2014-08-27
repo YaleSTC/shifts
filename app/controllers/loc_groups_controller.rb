@@ -1,4 +1,6 @@
 class LocGroupsController < ApplicationController
+  layout 'shifts'
+
   before_filter :require_department_admin, except: [:index, :show, :edit, :update]
   before_filter :find_loc_group_and_check_admin, only: [:show, :edit, :update]
   # Show, edit, and update will allow the loc_group_admin as well
@@ -25,7 +27,7 @@ class LocGroupsController < ApplicationController
     end
   end
 
-  def edit     
+  def edit
   end
 
   def update
@@ -36,8 +38,8 @@ class LocGroupsController < ApplicationController
       render action: 'edit'
     end
   end
-  
-  
+
+
   def toggle
       @loc_group = LocGroup.find(params[:id])
       ActiveRecord::Base.transaction do
@@ -49,24 +51,24 @@ class LocGroupsController < ApplicationController
       end
       flash[:notice] = "Changed activation status of " + @loc_group.name.to_s + "."
       respond_to do |format|
-        format.js 
+        format.js
         format.html
       end
     end
-  
+
   def destroy
     @loc_group = LocGroup.find(params[:id])
     @loc_group.destroy
     flash[:notice] = "Successfully destroyed Location group."
     redirect_to department_loc_groups_path(current_department)
-  end    
-      
+  end
+
 private
-  
+
   def find_loc_group_and_check_admin
     @loc_group = LocGroup.find(params[:id])
     require_loc_group_admin(@loc_group)
   end
-  
+
 end
 

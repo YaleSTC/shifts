@@ -18,7 +18,7 @@
 
 class HooksController < ApplicationController
   # skip all before filters to add_job
-  # skip_filter filter_chain, :only => 'add_job'
+  # skip_filter filter_chain, only: 'add_job'
 
   # this method hides the billing params from URL when you redirected to CAS
   # so that people are less tempted to mess around

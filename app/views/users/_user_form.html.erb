@@ -7,12 +7,12 @@
 
   <div class='profile'>
     <h2>User Profile</h2>
-    <%= render :partial => 'user_profiles/form' %>
+    <%= render partial: 'user_profiles/form' %>
   </div>
 
     <p><%= f.submit submit %></p>
   <% if @user.auth_type == "built-in"%>
-    <p><%= render :file => "password_resets/edit.html.erb" %></p>
+    <p><%= render file: "password_resets/edit.html.erb" %></p>
   <% end %>
 <% end %>
 

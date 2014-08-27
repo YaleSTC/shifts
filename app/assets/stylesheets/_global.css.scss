@@ -1,0 +1,577 @@
+a {
+  color: #104e8b;
+
+  &:hover {
+    color: orange;
+    text-decoration: none;
+  }
+}
+
+.nav > li > a > img { height: 18px; }
+
+
+/* = Flash (THIS NEEDS CLEANUP / DUP REMOVAL )
+======================================================================= */
+#flash_error {
+  @extend .alert-danger;
+}
+
+#flash_warning {
+  @extend .alert-warning;
+}
+
+#flash_notice {
+  @extend .alert-success;
+}
+// #flash_big_notice {
+//   background-color:#FFCCCC;
+//   border-color: #CC6666;
+// }
+
+// .flash {
+//   border: 1px solid;
+//   font-size:11px;
+//   margin-top:10px;
+//   padding:5px 8px;
+// }
+
+
+/* login
+--------------------------------------------------------- */
+div#login{
+  float: right;
+  width: 84.2%;
+  margin: 7px 5px;
+  text-align: right;
+  color: whitesmoke;
+}
+#login p {
+  margin: 5pt 5px 0pt 0pt;
+  font-size: 12px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  line-height: 1.1em;
+  color: #FFFFFF;
+  float: right;
+}
+#login p.login_status {
+  color: #fff;
+  margin-left: 10px;
+}
+#login a.login_status {
+  color: #660000;
+  font-weight: bold;
+  text-decoration: none;
+}
+#login a.login_status:hover {
+  color: #CC0000;
+}
+
+/* chooser
+--------------------------------------------------------- */
+#chooser {
+  float: left;
+  font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
+  font-size: 12px;
+}
+
+/* shift indicator
+--------------------------------------------------------- */
+#shift_indicator {
+  float: left;
+  font-family: Trebuchet MS, Verdana, Arial, serif;
+  color: #FFFFFF;
+  font-size: 12px;
+}
+
+/* tabs
+--------------------------------------------------------- */
+// ul#application_tabs {
+//   float: right;
+//   background-color: #8B9B6C;
+//   padding: 0pt;
+//   list-style-type: square;
+//   font-size: 12px;
+
+// /*  line-height: 1.6em;
+//   list-style-image: none;
+//   list-style-position: outside;
+// */
+// }
+/*ul#application_tabs li {
+  display: inline;
+  line-height: 11px;
+  list-style-type: none;
+  margin: 0pt;
+  padding: 0pt;
+}
+ul#application_tabs a {
+  color: #FFFFFF;
+  float: left;
+  line-height: 11px;
+  margin: 6px 12px 0px;
+  text-decoration: none;
+}
+ul#application_tabs a:hover {
+    border-bottom:2px solid #EEF0AE;
+    padding-bottom:1px;
+}*/
+
+
+/* = navigation-related classes --> not needed with Superfish menu
+======================================================================= */
+
+ul#navigationList {
+  margin-left:  30px;
+  padding-top: 40px;
+  float:        left;
+  font-size: 11px;
+}
+
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.sidebar-nav .navbar-nav > li > .dropdown-menu {
+  left: 100%;
+  top: 0;
+}
+
+.sidebar-nav .dropdown a {
+  font-size: 0.9em;
+}
+
+
+/* = currently only used by loc_group and location forms
+======================================================================= */
+
+table.manage_table{
+  border: 1px solid #666666;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 4px;
+}
+table.manage_table caption{
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 1em;
+
+}
+table.manage_table td {
+  border: 1px solid #666666;
+  text-align: center;
+}
+table.manage_table th {
+  border: 1px solid #666666;
+}
+.admin_form label {
+  width: 20em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+/* = fieldset styles - NEEDS CLEANUP
+======================================================================= */
+
+// fieldset.index,
+// fieldset.checkboxes {
+//   padding: 5px;
+//   margin: 0px 0px 15px 0px;
+//   /*border: 1px solid gray;*/
+//   background-color:#DDDDFF
+// }
+// fieldset#warning {
+//   background: #C0C0C0;
+// }
+// fieldset#schedule{
+//   clear: both;
+// }
+// div#right_stuff {
+//  float:right;
+//  width: 47.5%;
+// }
+// div#left_stuff {
+//  float:left;
+//  width: 47.5%;
+// }
+
+/*for user profiles*/
+div#profile_left{
+  float:left;
+  width: 42%;
+}
+
+div#profile_right {
+  float: right;
+  width: 58%;
+}
+// legend {
+//   color: #eef;
+//   background: #0F2B5B;
+//   font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
+//   padding: 0.2em 1em;
+// }
+
+/* used in all_notices, but why? */
+// #blue_fieldset fieldset {
+//   background: #ddf;
+// }
+// #blue_fieldset fieldset legend {
+//   color: #eef;
+//   background: #123456;
+//   font-family: "Trebuchet MS", Helvetica, sans-serif; color: #FFFFFF;
+//   padding: 0.2em 1em;
+// }
+
+
+
+
+/* = Error explanation styles
+======================================================================= */
+
+#errorExplanation {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-color: #CF0000;
+  border-width:2px;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+#errorExplanation h2 {
+  text-align: center;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+#errorExplanation p {
+  color: #333;
+  font-size: 12px;
+  margin-bottom: 0;
+  padding: 8px;
+}
+#errorExplanation ul {
+  margin: 2px 24px;
+}
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: disc;
+}
+
+/* = Notices
+======================================================================= */
+/*this is used for useful links*/
+span.success_notification{
+  background-color:#98eec3;
+  border-color: #21a454;
+}
+ul#useful_links {
+    list-style-type: none;
+    display: inline !important;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
+}
+ul#useful_links li a{
+    display: inline !important;
+}
+
+/* = Dashboard right
+======================================================================= */
+/*this is used for indexes in dashboard right*/
+
+ul#dashboard_right {
+    list-style-type: none;
+    display: inline !important;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
+}
+ul#dashboard_right li a {
+    list-style-type: none;
+    display: inline !important;
+    float: left;
+    text-align: left;
+    list-style-position: outside;
+    margin-left: 0px;
+}
+
+/* = Progress bar
+======================================================================= */
+span#progress_bar {
+  /*border: 1px black solid;*/
+  padding: 3px;
+  margin-bottom: 30px;
+}
+span#progress_bar #current_step {
+  background: rgb(83, 110, 141);
+  color: white;
+  border: 1px black solid;
+  padding: 3px;
+}
+span#progress_bar #current_step a {
+  color: white;
+}
+span#progress_bar #other_step {
+  border: 1px black solid;
+  padding: 3px;
+}
+
+/* = Tables
+======================================================================= */
+table.tablesorter {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: #FFFFFF;/* background-color: #CDCDCD; */
+  margin:10px 0pt 15px;
+  font-size: 8pt;
+  width: 100%;
+  text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+  background-color: #81d8d0; /* This sets the table header color (#303).  */
+  border: 1px solid #FFF;    /* The old background-color was #123456, dark blue */
+  font-size: 8pt;
+  padding: 4px;
+}
+table.tablesorter thead tr .header {
+  background-image: image-url("tables/bg.gif");
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer;
+}
+table.tablesorter tbody td {
+  color: #3D3D3D;
+  padding: 4px;
+  background-color: #fff;
+  vertical-align: top;
+  max-width: 400px;
+  word-wrap: break-word;
+}
+table.tablesorter tbody tr:nth-child(odd) td {
+  background-color:#F0F0F6;
+}
+table.tablesorter tbody tr.disabled td {
+  background-color:#CCC;
+}
+table.tablesorter thead tr .headerSortUp {
+  background-image: image-url("tables/asc.gif");
+}
+table.tablesorter thead tr .headerSortDown {
+  background-image: image-url("tables/desc.gif");
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+  background-color: #536E8D;
+}
+table tr.alert_entry {
+  background-color:#ff0033;
+}
+
+table.tablesorter td#staffed {
+  background-color: #536E8D;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
+}
+
+table.tablesorter td#unstaffed {
+  background-color: #EEF;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
+}
+
+table.tablesorter td#date {
+  border: 1px solid #FFF;
+}
+
+table.tablesorter td#date {
+  background-color: #CCE;
+}
+table.tablesorter thead#centered {
+  text-align: center;
+}
+
+/*
+/* Sortable tables
+table.sortable th:hover {
+  color:orange;
+}
+table.sortable th {
+  text-decoration: underline;
+}
+/* Sortable tables hack for AJAX
+table.sortable_style th:hover {
+  color:orange;
+}
+table.sortable_style th {
+  text-decoration: underline;
+}
+*/
+
+/* = TO BE CLEANED UP
+======================================================================= */
+
+
+/* BOXED-IN NOTE */
+div.note {
+  border: 1px solid #AAAAAA;
+  border-style: dashed;
+  margin: 5px;
+  padding: 2px;
+  overflow-x: auto;
+  color: #556677;
+}
+
+
+
+/*Forms w/ tables next to them*/
+div.form_left {
+  width:45%;
+  float:left;
+}
+div.form_right {
+  position:absolute;
+  width:25%;
+  top:500;
+  right:450px;
+}
+div.table_right {
+  width:50%;
+  float:right;
+  margin:12px;
+  visibility:hidden;
+}
+
+tr#loading_row{
+  display:none;
+}
+
+img.loading_icon {
+  vertical-align: middle;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 5px;
+}
+
+#result_list{
+  z-index: 110;
+}
+
+#timer{
+  font-size: 20px;
+}
+#new_notice{
+ margin: 5px 0px;
+}
+
+.delete_link {
+  float: right;
+  text-align: right;
+}
+.form_label_large {
+  font-size: 12pt;
+}
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+.disabled {
+  color: #888;
+  background-color: #ddd !important;
+}
+
+
+/*this is used for the department_config form*/
+.centered_form label {
+  width: 30em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+/*no bullets for active shifts*/
+ul.activeShifts {
+  list-style-type: none;
+}
+
+
+/* Sub Request Table Index
+======================================================================= */
+table#requests_table {margin-bottom:5px;}
+table#requests_table tr td {vertical-align:middle; text-align:left; padding:2px 6px 2px 6px; white-space:nowrap;}
+table#requests_table tr td ul {
+   list-style-type: none;
+   float: left;
+   text-align: left;
+   list-style-position: outside;
+   margin-left:0px;
+}
+td.sub_reason {width:100%;}
+.sub_reason_container {white-space:pre-wrap;}
+.sub_time_mandatory {color:#8A0808;}
+td.sub_location {text-align:center;}
+.sub_invalid {color:#6E6E6E;}
+a#view_more, a#view_all {float:right; padding-right:4px; clear:both;}
+/* Sub Request Show
+======================================================================= */
+p.sub_show {margin-top:0px; margin-left:1.5em; line-height:120%;}
+p.sub_show h4{padding-left:0px;}
+ul#user_sources {margin-top:0px; margin-left:1.5em; list-style-type:none;}
+/* CalendarFeeds Index
+======================================================================= */
+div.feed_subs h3, div.feed_shifts h3 {margin-left:1em; margin-top:1em;}
+div.feed_subs a, div.feed_shifts a {margin-left:2em; line-height:120%}
+div.feed_subs {float:left; margin-left:4em;}
+div.feed_shifts {float:left; max-width:25em;}
+div.feed_bottom {clear:both}
+div.feed_bottom a {float:right;}
+
+/* button for report_item_view on location index */
+input.view_more {float:right;}
+
+/* Styling & alignment for multiple select checkboxes
+======================================================*/
+// fieldset.checkboxes > div > * {
+//   display: inline;
+// }
+// fieldset.checkboxes div li {
+//   list-style-type: none;
+// }
+// fieldset.checkboxes div.header_container a#hide {
+//   vertical-align: baseline;
+//   padding-left: 6pt;
+// } /* a#hide has alignment issues in non-webkit browsers */
+
+/* Alignment for Reset email preferences button text
+====================================================*/
+// span#reset_txt {
+//   vertical-align: baseline;
+// }

@@ -11,7 +11,7 @@ gem 'jquery-tablesorter'
 gem 'jcrop-rails-v2', '~> 0.9.12'
 
 # ldap integration
-gem 'ruby-net-ldap', :require => 'net/ldap'
+gem 'ruby-net-ldap', require: 'net/ldap'
 
 # generate calendar feeds
 gem 'icalendar'
@@ -69,9 +69,10 @@ group :test do
 end
 
 group :assets do
-  #gem 'sass-rails',   '~> 3.2.3' # using sass-rails below
+  # gem 'sass-rails',   '~> 3.2.3' # using sass-rails below
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'font-awesome-rails'
 end
 
 # For Twitter-bootstrap (also use sass-rails), https://github.com/twbs/bootstrap-sass

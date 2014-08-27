@@ -139,22 +139,22 @@ class RepeatingEvent < ActiveRecord::Base
 #  def check_make_future
 #    if failed = self.make_future
 #      failed.each do |f|
-#        errors.add_to_base("#{f.to_s} conflicts. Apply with wipe to fix this.")
+#        errors.add(:base, "#{f.to_s} conflicts. Apply with wipe to fix this.")
 #      end
 #      self.destroy
 #    end
 #  end
 
   def days_of_week_present
-    errors.add_to_base("You must select at least one day of the week.") unless days_of_week
+    errors.add(:base, "You must select at least one day of the week.") unless days_of_week
   end
 
   def loc_ids_present
-    errors.add_to_base("You must select at least one location.") unless loc_ids
+    errors.add(:base, "You must select at least one location.") unless loc_ids
   end
 
   def user_id_present
-    errors.add_to_base("Please select a user.") unless (self.user_id && self.user_id!=0 && !self.user_id.nil?) || self.is_set_of_timeslots
+    errors.add(:base, "Please select a user.") unless (self.user_id && self.user_id!=0 && !self.user_id.nil?) || self.is_set_of_timeslots
   end
 
   def start_date_less_than_end_date
@@ -164,8 +164,8 @@ class RepeatingEvent < ActiveRecord::Base
   def set_start_times
     self.start_time = self.start_date.to_time + self.start_time.seconds_since_midnight
     self.end_time = self.start_date.to_time + self.end_time.seconds_since_midnight
-#self.start_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
- #     self.end_time = self.end_time.change(:day => self.start_date.day, :month => self.start_date.month, :year => self.start_date.year)
+#self.start_time.change(day: self.start_date.day, month: self.start_date.month, year: self.start_date.year)
+ #     self.end_time = self.end_time.change(day: self.start_date.day, month: self.start_date.month, year: self.start_date.year)
   end
 
   def adjust_for_multi_day
@@ -174,7 +174,7 @@ class RepeatingEvent < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add_to_base("Repeating event start and end dates must be within the range of the calendar.") if self.start_date < self.calendar.start_date || self.end_date > self.calendar.end_date
+      errors.add(:base, "Repeating event start and end dates must be within the range of the calendar.") if self.start_date < self.calendar.start_date || self.end_date > self.calendar.end_date
     end
   end
 

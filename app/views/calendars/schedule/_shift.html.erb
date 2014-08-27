@@ -3,16 +3,16 @@
 	</div>
   <div class="time-slot">
     <% if @right_overflow or @left_overflow %>
-      <%= image_tag "overflow_arrow_right.png", {:class => "right_arrow", :alt => "right arrow", :height => @table_pixels / @table_height + 1 } if @right_overflow %>
-      <%= image_tag "overflow_arrow_left.png",  {:class => "left_arrow",  :alt => "left arrow",  :height => @table_pixels / @table_height + 1 } if @left_overflow %>
+      <%= image_tag "overflow_arrow_right.png", {class: "right_arrow", alt: "right arrow", height: @table_pixels / @table_height + 1 } if @right_overflow %>
+      <%= image_tag "overflow_arrow_left.png",  {class: "left_arrow",  alt: "left arrow",  height: @table_pixels / @table_height + 1 } if @left_overflow %>
     <% end %>
     <div class="center_container">
       <div class="center_content">
         <% if current_user.is_admin_of?(@department) or current_user == shift.user %>
           <% unless shift.repeating_event %>
-            <%= link_to "x", {:url => {:controller => 'shifts', :action => 'destroy', :id => shift.id, :calendar => (params[:calendar] || true) },  :remote => true, :confirm => 'Are you sure?', :method => :delete}, :style => "float:right;margin-right:3px", :class => 'delete_link' %>
+            <%= link_to "x", {url: {controller: 'shifts', action: 'destroy', id: shift.id, calendar: (params[:calendar] || true) },  remote: true, confirm: 'Are you sure?', method: :delete}, style: "float:right;margin-right:3px", class: 'delete_link' %>
           <% else %>
-            <%= link_to_function "x", :class => 'click_to_delete_repeating_shift', :id => 'delete_repeating_'+shift.id.to_s %>
+            <%= link_to_function "x", class: 'click_to_delete_repeating_shift', id: 'delete_repeating_'+shift.id.to_s %>
           <% end %>
         <%= shift.user.name %>
         <% end %>

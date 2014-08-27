@@ -1,4 +1,6 @@
 class TimeSlotsController < ApplicationController
+  layout 'shifts'
+
   before_filter :require_department_admin
 
   def index

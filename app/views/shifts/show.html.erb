@@ -25,10 +25,10 @@
     </p>
 	<% if within_sign_in_window?(@shift) %>
 	<p>
-	<%= button_to "Sign in", shift_report_path(@shift), :method => :post %>
+	<%= button_to "Sign in", shift_report_path(@shift), method: :post %>
     </p>
   	<% else %>
-   	<%= button_to "Sign in", shift_report_path(@shift), :confirm => "Are you sure you want to sign into this shift #{distance_of_time_in_words(@shift.start, Time.now)} early?", :method => :post %>
+   	<%= button_to "Sign in", shift_report_path(@shift), confirm: "Are you sure you want to sign into this shift #{distance_of_time_in_words(@shift.start, Time.now)} early?", method: :post %>
 	<% end %>
 	  <% else %>
     This shift has not yet been signed in to.
@@ -37,11 +37,11 @@
 <p>
   <% if current_user.is_admin_of?(current_department) or current_user.is_admin_of?(@shift.location.loc_group) %>
   <%= link_to "Edit", edit_shift_path(@shift) %> |
-  <%= link_to "Destroy", @shift, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Destroy", @shift, confirm: 'Are you sure?', method: :delete %> |
   <% end %>
   <%= link_to "View All", shifts_path %>
 </p>
 <p>
-  <%= link_to "Shift Context", dashboard_path(:date => @shift.start.to_date) %>
+  <%= link_to "Shift Context", dashboard_path(date: @shift.start.to_date) %>
 </p>
 

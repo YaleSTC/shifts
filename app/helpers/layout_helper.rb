@@ -32,5 +32,9 @@ module LayoutHelper
     str == controller.controller_name ? "current_tab" : "tab"
   end
 
+  def content_wrapper_id
+    content_for?(:left_nav) ? 'contentNav' : 'contentNoNav'
+  end
+
 end
 

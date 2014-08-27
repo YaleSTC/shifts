@@ -1,101 +1,146 @@
 <div id = "notice"></div>
 <% title "My Dashboard" %>
 
-<div id="left_stuff">
+  <div class="row">
 
+    <div id="left_stuff" class="col-md-6">
 
-  <fieldset class="index" id="shifts">
-    <legend>Your Shifts</legend>
-    <% if user_has_active_shift?%>
-	<h4>Current Shift </h4>
-	 <% end %>
-      <%= render :partial => "shifts/user_options" %>
-      <% unless @upcoming_shifts.empty? %>
-<br />
-      <h4>My Upcoming Shifts</h4>
-        <ul>
-          <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
-        </ul>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Your Shifts</h3>
+        </div>
+        <div class="panel-body">
+          <% if user_has_active_shift?%>
+            <h4>Current Shift </h4>
+           <% end %>
+          <%= render partial: "shifts/user_options" %>
+          <% unless @upcoming_shifts.empty? %>
+            <h4>My Upcoming Shifts</h4>
+            <ul>
+              <%= render partial: 'shifts/upcoming_shift', collection: @upcoming_shifts %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="panel panel-default" id="subs">
+        <div class="panel-heading">
+          <h3 class="panel-title">Sub Requests</h3>
+        </div>
+        <div class="panel-body">
+          <% unless @subs_you_requested.empty? and @subs_you_can_take.empty? %>
+            <% unless @subs_you_requested.empty? %>
+              <h4>Subs You've Requested</h4>
+              <ul>
+                <%= (render partial: 'shifts/upcoming_sub', collection: @subs_you_requested) %>
+              </ul>
+            <% end %>
+            <% unless @subs_you_can_take.empty? %>
+              <h4>Subs You Can Take</h4>
+                <ul>
+                  <%= (render partial: 'shifts/upcoming_sub', collection: @subs_you_can_take) %>
+                </ul>
+            <% end %>
+          <% else %>
+            <em>There are no sub requests at this time.</em>
+          <% end %>
+        </div>
+        <div class="panel-footer"><%= link_to "All Subs", sub_requests_path %></div>
+      </div>
+
+      <div class="panel panel-default" id="punch_clock">
+        <div class="panel-heading">
+          <h3 class="panel-title">Punch Clock</h3>
+        </div>
+        <div class="panel-body">
+          <% if current_user.punch_clock %>
+            <%= render partial: "punch_clocks/dashboard_clock", object: current_user.punch_clock %>
+          <% else %>
+            <i class="fa fa-clock-o"></i>
+            <%= link_to "Clock in", user_punch_clocks_path(current_user), method: :post %>
+          <% end %>
+        </div>
+      </div>
+
+      <% unless @watched_objects.empty? %>
+        <div class="panel panel-default" id="watched_objects">
+          <div class="panel-heading">
+            <h3 class="panel-title">Watched Data Objects</h3>
+          </div>
+          <div class="panel-body">
+            <%= render partial: 'data_objects/data_objects_table', collection: @watched_objects %>
+          </div>
+        </div>
       <% end %>
-      <br />
-  </fieldset>
 
-  <fieldset class="index" id="subs">
-    <legend>Sub Requests</legend>
+    </div>
 
-    <%unless @subs_you_requested.empty? and @subs_you_can_take.empty? %>
-      <% unless @subs_you_requested.empty? %>
-        <h4>Subs You've Requested</h4>
-        <ul>
-          <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
-        </ul>
-      <% end %>
-      <% unless @subs_you_can_take.empty? %>
-        <h4>Subs You Can Take</h4>
-          <ul>
-            <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
-          </ul>
-      <% end %>
-    <% else %>
-          <em>There are no sub requests at this time.</em>
-    <% end %>
+    <div id="right_stuff" class="col-md-6">
 
-	<span style="float:right;text-align:right;margin-top:1em"><%= link_to "All Subs", sub_requests_path %></span>
-  </fieldset>
+      <div class="panel panel-default" id="notices_for_you">
+        <div class="panel-heading">
+          <h3 class="panel-title">Announcements</h3>
+        </div>
+        <div class="panel-body">
+          <div id = "dashboard_notices"> <%= render partial: 'notices/dashboard' %></div>
+        </div>
+        <div class="panel-footer">
+          <%= link_to_post_a_sticky %>
+          <%= link_to_post_an_announcement %>
+        </div>
+      </div>
 
-  <fieldset class="index" id="punch_clock">
-    <legend>Punch Clock</legend>
-    <% if current_user.punch_clock %>
-      <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
-    <% else %>
-      <%= image_tag("icons/clock_play.png", :class => "mini_icon") %>
-      <%= link_to "Clock in", user_punch_clocks_path(current_user), :class => "action_with_icon", :method => :post %>
-    <% end %>
-    <br /><br />
-  </fieldset>
+      <div class="panel panel-default" id="shifts">
+        <div class="panel-heading">
+          <h3 class="panel-title">Active Shifts</h3>
+        </div>
+        <div class="panel-body">
+          <% unless @signed_in_shifts.empty? %>
+            <%= render partial: 'shifts/shifts_layout', object: @signed_in_shifts %>
+          <% else %>
+            <em>There are no active shifts at this time.</em>
+          <% end %>
+        </div>
+      </div>
 
- <% unless @watched_objects.empty? %>
-      <fieldset class="index" id="watched_objects">
-        <legend>Watched Data Objects</legend>
-          <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
-      </fieldset>
-    <% end %>
+      <div class="panel panel-default" id="shift_stats">
+        <div class="panel-heading">
+          <h3 class="panel-title">Shift Statistics</h3>
+        </div>
+        <div class="panel-body">
+          <% @summary = current_user.summary_stats(Date.today-1.month, Date.today) %>
+          <%= render partial: 'stats/stats_summary', object: @summary %>
+        </div>
+        <div class="panel-footer">
+          <%= link_to "More Stats", {controller: :stats, action: 'index'} %>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 
-  <div id="right_stuff">
 
-    <fieldset class ="index" id="notices_for_you">
-      <legend>Announcements</legend>
-       <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
-		<br />
-		<%= link_to_post_a_sticky() %>
-		<%= link_to_post_an_announcement %>
-    </fieldset>
-
-    <fieldset class="index" id="shifts">
-      <legend>Active Shifts</legend>
-      <%unless @signed_in_shifts.empty? %>
-        <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
-      <% else %>
-        <em>There are no active shifts at this time.</em>
-      <% end %>
-    </fieldset>
-
-    <fieldset class="index" id="shift_stats">
-      <legend>Shift Statistics</legend>
-				<% @summary = current_user.summary_stats(Date.today-1.month, Date.today) %>
-				<%= render :partial => 'stats/stats_summary', :object => @summary %>
-    </fieldset>
-  </div>
 
 <% unless current_user.user_config.view_loc_groups.empty? %>
-  <fieldset class="index" id="schedule">
-  <legend>Daily Schedule</legend>
-  <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), :date => (@current_date - 1)-%>
-  <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), :date => (@current_date + 1)%></span>
-  <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
-</fieldset>
+  <div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default" id="schedule">
+          <div class="panel-heading">
+            <h3 class="panel-title">Daily Schedule</h3>
+          </div>
+          <div class="panel-body">
+            <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), date: (@current_date - 1)-%>
+            <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), date: (@current_date + 1)%></span>
+            <%= render partial: 'shifts/schedule/day', object:  @current_date %>
+          </div>
+        </div>
+
+    </div>
+
+  </div>
+
 <% end %>
 
 <div id="AJAX_status"></div><%# for AJAX status updates %>

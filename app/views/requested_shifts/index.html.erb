@@ -31,7 +31,7 @@
 		  <td><%=h RequestedShift::WEEK_DAY_SELECT[requested_shift.day][0]%></td>
 			<td><%=h requested_shift.locations.collect{|l| l.short_name}.to_sentence %></td>
 		  <td><%= link_to 'Edit', edit_template_requested_shift_path(@week_template, requested_shift) %></td>
-		  <td><%= link_to 'Delete', template_requested_shift_path(@week_template, requested_shift), :confirm => 'Are you sure?', :method => :delete %></td>
+		  <td><%= link_to 'Delete', template_requested_shift_path(@week_template, requested_shift), confirm: 'Are you sure?', method: :delete %></td>
 		</tr>
    </tbody>
 	<% end %>
@@ -40,5 +40,5 @@
 <p>
 <%= link_to 'Back to template', templates_path() %> |
 <%= link_to 'View all general shift preferences', template_shift_preferences_path() %>
-<%= render :partial => "/requested_shifts/schedule/day", :collection => [6,0,1,2,3,4,5] %>
-<%#= render :partial => 'week' %>
+<%= render partial: "/requested_shifts/schedule/day", collection: [6,0,1,2,3,4,5] %>
+<%#= render partial: 'week' %>

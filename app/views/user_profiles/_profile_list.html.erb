@@ -4,7 +4,7 @@
 		<% unless mobile_device?%>
 		<% for upf in @user_profile_fields %>
 			<td>
-				<%= user_profile.user_profile_entries.where(:user_profile_field_id => upf.id).first.content rescue "" %>
+				<%= user_profile.user_profile_entries.where(user_profile_field_id: upf.id).first.content rescue "" %>
 			</td>
 		<% end %>
 		<% end %>

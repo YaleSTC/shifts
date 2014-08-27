@@ -1,7 +1,7 @@
 <% title "Sub Requests" %>
 
 <% if current_user.is_admin_of?(current_department) %>
-<%= link_to "50 Most Recent Sub Requests", sub_requests_path(:include_past => 1, :limit => 50) %>
+<%= link_to "50 Most Recent Sub Requests", sub_requests_path(include_past: 1, limit: 50) %>
 <% end %>
 
 <table id="requests_table", class = "tablesorter"> 
@@ -38,7 +38,7 @@
 
 	<% if current_user.is_admin_of?(sub_request.shift.department) or current_user == sub_request.user %>
     	<td class="sub_edit_link"><%= link_to 'Edit', edit_sub_request_path(sub_request) %></td> 
-    	<td class="sub_destroy_link"><%= link_to 'Destroy', sub_request, :confirm => 'Are you sure?', :method => :delete %></td>
+    	<td class="sub_destroy_link"><%= link_to 'Destroy', sub_request, confirm: 'Are you sure?', method: :delete %></td>
 	<% else %> 
 		<td class="sub_invalid">Edit</td>
 		<td class="sub_invalid">Destroy</td>
@@ -50,10 +50,10 @@
 </table>
 <% if @index_link %>
 	<%= link_to "request another sub", new_shift_sub_request_path(@shift) %>
-	<%= link_to "view all sub requests", sub_requests_path, :id => "view_all" %><br>
+	<%= link_to "view all sub requests", sub_requests_path, id: "view_all" %><br>
 <% end %>
 <% if @limit_links %>
-	<%= link_to "view more", sub_requests_path(:anchor => "view_more", :limit => @limit+25), :id => "view_more" %>
-	<%= link_to "view all", sub_requests_path(:anchor => "view_all", :limit => @subs.size), :id => "view_all" %>
+	<%= link_to "view more", sub_requests_path(anchor: "view_more", limit: @limit+25), id: "view_more" %>
+	<%= link_to "view all", sub_requests_path(anchor: "view_all", limit: @subs.size), id: "view_all" %>
 <% end %>
 

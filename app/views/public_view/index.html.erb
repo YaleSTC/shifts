@@ -3,5 +3,5 @@
 <%for loc_group in @loc_groups%>
 	<h2><%= loc_group.name %></h2><br />
 	<% preprocess_loc_group(loc_group) %>
-	<%= render :partial => "loc_group", :locals => {:loc_group => loc_group} %>
+	<%= render partial: "loc_group", locals: {loc_group: loc_group} %>
 <%end %>
