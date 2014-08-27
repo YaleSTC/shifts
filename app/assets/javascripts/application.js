@@ -33,7 +33,17 @@ $(document).ready(function() {
 
     //Also, make all triggers links
     $("[class*=trigger]").each(function() {
-        $(this).html("<a href='#'>"+$(this).text()+"</a>");
+      $(this).html("<a href='#'>"+$(this).text()+"</a>");
+    });
+
+    $("#announcement_link").click(function(e){
+        var modal = $("#modal"), modalBody = $("#modal .modal-body")
+
+        modal.on("show.bs.modal", function(){
+            modalBody.load(e.currentTarget.href);
+            $("#modal .modal-title").html($("#announcement_link").text());
+        }).modal();
+        e.preventDefault();
     });
 
 });

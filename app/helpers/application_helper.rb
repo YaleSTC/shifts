@@ -19,7 +19,7 @@ module ApplicationHelper
 
 	def link_to_post_an_announcement
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-			link_to_unless_current('Post a new announcement', new_announcement_path(height: 345, width: 515), title: "Post a new announcement", class: "thickbox", id: "announcement_link")
+			link_to_unless_current('Post a new announcement', new_announcement_path(layout: "false"), data: { toggle: 'modal', target: '#myModal' }, id: "announcement_link")
 		end
 	end
 
@@ -141,7 +141,7 @@ module ApplicationHelper
 
   def navbar_highlight(controller_name)
     navbar_hash = Hash[ "dashboard" => ["dashboard"],
-                        "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups", 
+                        "departments" => ["departments", "app_configs", "department_configs", "locations", "loc_groups",
 										  "calendars", "application", "templates", "calendar_feeds", "time_slots"],
                         "users" => ["users", "roles", "user_profiles", "superusers", "user_profile_fields"],
                         "shifts" => ["shifts", "links", "notices", "data_objects", "stats", "announcements", "data_entries",
