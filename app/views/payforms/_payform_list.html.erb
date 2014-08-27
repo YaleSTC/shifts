@@ -2,13 +2,17 @@
 	<fieldset class="index" id="payform_switch">
 		<% if params[:printed].nil? %>
 		  <div>
-        <i class="fa fa-check-circle"></i>
-        <%= link_to "Include Finalized Payforms", payforms_path(unsubmitted: true, submitted: true, skipped: true, approved: true, printed: true, start_date: @start_date, end_date: @end_date) %>
+        <%= link_to payforms_path(unsubmitted: true, submitted: true, skipped: true, approved: true, printed: true, start_date: @start_date, end_date: @end_date), class: 'btn btn-default' do %>
+          <i class="fa fa-eye"></i>
+          Show Finalized Payforms
+        <% end %>
       </div>
 		<% else %>
 		  <div>
-        <i class="fa fa-check-circle-o"></i>
-        <%= link_to "Hide Finalized Payforms", payforms_path(start_date: @start_date, end_date: @end_date) %>
+        <%= link_to payforms_path(start_date: @start_date, end_date: @end_date), class: 'btn btn-default' do %>
+          <i class="fa fa-eye-slash"></i>
+          Hide Finalized Payforms
+        <% end %>
       </div>
 		<% end %>
 	</fieldset>
