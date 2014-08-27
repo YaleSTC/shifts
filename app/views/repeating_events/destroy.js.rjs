@@ -15,14 +15,14 @@ if @locations
   @hidden_timeslots = []
   
   @locations.each do |location|
-    page.replace_html "location#{location.id}", :partial => "time_slots/location", :object => location
+    page.replace_html "location#{location.id}", partial: "time_slots/location", object: location
     page << "initialize('#location#{location.id}');" 
   end
 else
   rerender_start_date.wday.upto(7) do |n|
     if @days.include?(n.day_of_week)
       current_date = rerender_start_date + n.days
-      page.replace_html current_date.strftime("%Y-%m-%d"), :partial => (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), :object => current_date.to_date
+      page.replace_html current_date.strftime("%Y-%m-%d"), partial: (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), object: current_date.to_date
       page << "initialize('##{current_date.strftime("%Y-%m-%d")}');" 
     end
   end

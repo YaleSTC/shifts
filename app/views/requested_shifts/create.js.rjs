@@ -1,14 +1,14 @@
 if @requested_shift.errors.empty?
 	page.hide "errors"
-	page.replace_html "all_requests", :partial => 'requested_shifts/all_requests', :locals => {:requested_shifts => @requested_shifts} 
-	page.visual_effect :highlight, "last_request", :color => '#3bcc77', :duration => 2.0
-	page.replace_html "flash", :partial => "layouts/flash", :locals => {:flash => flash}
+	page.replace_html "all_requests", partial: 'requested_shifts/all_requests', locals: {requested_shifts: @requested_shifts} 
+	page.visual_effect :highlight, "last_request", color: '#3bcc77', duration: 2.0
+	page.replace_html "flash", partial: "layouts/flash", locals: {flash: flash}
 	page.delay(5) do
 		page.visual_effect :fade, "flash"
 	end
 	flash.discard
 else
 	page.show "errors"
-  page.replace_html "errors", :partial => 'error_messages'
+  page.replace_html "errors", partial: 'error_messages'
 end
 

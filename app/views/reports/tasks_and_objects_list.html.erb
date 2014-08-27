@@ -10,7 +10,7 @@ to load the proper tasks list after you complete a task. -->
   <fieldset id = "shift_tasks" class= "index">
 	<legend>All Tasks</legend>
 	<div id = "tasks">
-    <%= render :partial => 'tasks/report_tasks', locals: {all_tasks: true} %>
+    <%= render partial: 'tasks/report_tasks', locals: {all_tasks: true} %>
 	</div>
   </fieldset>
 </div>
@@ -26,7 +26,7 @@ to load the proper tasks list after you complete a task. -->
 	     <% unless loc_group.data_objects.empty? %>
 		    <% loc_group.data_objects.each do |data_object| %>
 			 	<div style="width: 60%; float:left">
-			    <%= link_to "Update #{data_object.name}", new_data_object_data_entry_path(data_object, :height => "400", :width => "600"), :title => "Record New Data Entry", :class => "thickbox", :onclick => "this.blur();" %><br />
+			    <%= link_to "Update #{data_object.name}", new_data_object_data_entry_path(data_object, height: "400", width: "600"), title: "Record New Data Entry", class: "thickbox", onclick: "this.blur();" %><br />
 				</div>
 			<% end %>
 		<% else %>

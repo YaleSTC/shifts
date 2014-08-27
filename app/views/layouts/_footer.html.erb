@@ -10,7 +10,7 @@
     to report a bug.<br />
     <% if current_user && current_user.superuser? %>
       Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
-      { :su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
+      { su_mode: current_user.supermode? ? 'OFF' : 'ON' } %>
       <%# note that passing true false wont work because Rails thinks that false means not to pass it %>
     <% end %>
   </p>

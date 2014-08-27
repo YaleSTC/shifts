@@ -15,5 +15,5 @@
 <% if @appconfig.login_options.include?('CAS') %>
 <p>Can't login? Maybe you want to <%= link_to "login with CAS?", root_url %></p>
 <%end%>
-<p>Or <%= link_to "reset your password?", :controller => "password_resets", :action => "new" %></p>
+<p>Or <%= link_to "reset your password?", controller: "password_resets", action: "new" %></p>
 

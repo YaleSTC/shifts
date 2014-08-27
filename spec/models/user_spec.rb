@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe User do
   before(:each) do
 # the commented bits below don't work yet. -cmk
-#    Department.new(:name => "STC")
+#    Department.new(name: "STC")
     @user = User.new(name: "Wee Willy", login: "ww")
 #stubbing CAS?
 #     controller.stub!(CASClient::Frameworks::Rails::Filter).and_return(true)

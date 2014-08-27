@@ -7,8 +7,8 @@ class CreatePayformItems < ActiveRecord::Migration
       t.references  :payform
       t.references  :payform_item_set # payform_item.payform_item_set
 
-      t.boolean     :active, :default => true
-      t.decimal     :hours, :precision => 10, :scale => 2
+      t.boolean     :active, default: true
+      t.decimal     :hours, precision: 10, scale: 2
       t.date        :date
 
       t.text        :description

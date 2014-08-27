@@ -27,5 +27,5 @@
 </table>
 <br />
 <% if current_user.is_admin_of?(@department) %>
-  <%= render :partial => 'form', :locals => {:title => "Add a new location group"}%>
+  <%= render partial: 'form', locals: {title: "Add a new location group"}%>
 <% end %>

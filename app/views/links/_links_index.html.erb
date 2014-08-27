@@ -9,11 +9,11 @@
 	<% current_department.links.each do |link| %>
 		<li>
 			<% if current_user.is_admin_of?(link.department) || current_user == link.author %>
-				<%= link_to '[x]', { :controller => 'links', :action => 'destroy', :id => link.id },
-													       :confirm => "Are you sure you want to remove this link?",
-													       :method => :delete %>
+				<%= link_to '[x]', { controller: 'links', action: 'destroy', id: link.id },
+													       confirm: "Are you sure you want to remove this link?",
+													       method: :delete %>
 			<% end %>
-		    <%= link_to link.content, link.url, :popup => true %>
+		    <%= link_to link.content, link.url, popup: true %>
 			<div class="link_url">
 			    <%= link.url %>
 			 </div>
@@ -33,11 +33,11 @@
 						<% @loc_links.each do |link| %>
 				    	<li>
 								<% if current_user.is_admin_of?(loc_group) || current_user == link.author %>
-									<%= link_to '[x]', { :controller => 'links', :action => 'destroy', :id => link.id },
-														           :confirm => "Are you sure you want to remove this link?",
-														           :method => :delete %>
+									<%= link_to '[x]', { controller: 'links', action: 'destroy', id: link.id },
+														           confirm: "Are you sure you want to remove this link?",
+														           method: :delete %>
 								<% end %>
-								<%= link_to "#{link.content}", "#{link.url}", :popup => true %>
+								<%= link_to "#{link.content}", "#{link.url}", popup: true %>
 								<div class="link_url">
 								    <%= link.url %>
 								 </div>

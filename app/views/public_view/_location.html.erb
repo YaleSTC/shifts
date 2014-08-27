@@ -10,7 +10,7 @@
 		<tbody>
 			<% shifts = location.shifts_between(@view_days.first, @view_days.last)%>
 			<% for day in @view_days %>
-				<%= render :partial => "day", :locals => {:location => location, :day => day, :shifts => shifts} %>
+				<%= render partial: "day", locals: {location: location, day: day, shifts: shifts} %>
 			<% end %>
 		</tbody>
 </table>

@@ -4,7 +4,7 @@
 
 #Spawns a Celerity Jruby process
 #  $server ||= Culerity::run_server
-#  $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox}
+#  $browser = Culerity::RemoteBrowserProxy.new $server, {browser: :firefox}
 #  $browser.webclient.setJavaScriptEnabled(true)
 #  @host = 'http://localhost:3001'
 

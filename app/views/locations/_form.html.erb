@@ -17,11 +17,11 @@
 	  </p>
       <p>
         <%= f.label :loc_group %>
-        <%= f.collection_select(:loc_group_id, current_user.loc_groups_to_admin(@department), :id, :name, {:prompt => "Select a location group"}) %>
+        <%= f.collection_select(:loc_group_id, current_user.loc_groups_to_admin(@department), :id, :name, {prompt: "Select a location group"}) %>
       </p>
       <p>
         <%= f.label :useful_links %>
-        <%= f.text_area :useful_links, :rows => 4, :cols => 40 %>
+        <%= f.text_area :useful_links, rows: 4, cols: 40 %>
       </p>
       <p>
         <%= f.label :min_staff %>
@@ -44,7 +44,7 @@
       </p>
       <p>
         <%= f.label "Payform Category" %>
-        <%= f.collection_select(:category_id, Category.all, :id, :name, {:prompt => "Select a payform category"}) %>
+        <%= f.collection_select(:category_id, Category.all, :id, :name, {prompt: "Select a payform category"}) %>
       </p>
       <p>
         <label>&#8200;</label>

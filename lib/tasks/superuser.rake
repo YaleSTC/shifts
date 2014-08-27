@@ -1,7 +1,7 @@
 namespace :db do
   desc "Making user id=1 the superuser"
 
-  task :superuser => :environment do
+  task superuser: :environment do
     STDOUT.sync=true
     print "First Name? >"
     first = STDIN.gets.chomp

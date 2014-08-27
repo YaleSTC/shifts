@@ -19,8 +19,8 @@
         <td><%= data_type.data_objects.count %></td>
         <td><%= link_to "Show", data_type %></td>
         <td><%= link_to "Edit", edit_data_type_path(data_type) %></td>
-        <td><%= link_to "Destroy", data_type, :confirm => "Are you sure? This will also delete any data objects associated with this type, as well as any entries belonging to those objects.",
-                                              :method => :delete %></td>
+        <td><%= link_to "Destroy", data_type, confirm: "Are you sure? This will also delete any data objects associated with this type, as well as any entries belonging to those objects.",
+                                              method: :delete %></td>
       </tr>
     <% end %>
  </tbody>

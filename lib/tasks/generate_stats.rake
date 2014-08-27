@@ -12,11 +12,11 @@ namespace :db do
   end
 
   desc "Updates shifts in the database with shift statistics"
-  task :update_shift_stats => :environment do
+  task update_shift_stats: :environment do
     generate_stats
   end
 
-  task :clear_stats => :environment do
+  task clear_stats: :environment do
     shifts = Shift.parsed
     shifts.each do |shift|
       shift.parsed = false

@@ -2,7 +2,7 @@
 
 <%= form_for([@week_template, @shift_preference]) do |f| %>
   <%= f.error_messages %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render partial: 'form', locals: {f: f} %>
   <p>
     <%= f.submit 'Update' %>
   </p>

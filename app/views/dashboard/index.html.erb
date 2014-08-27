@@ -13,11 +13,11 @@
           <% if user_has_active_shift?%>
             <h4>Current Shift </h4>
            <% end %>
-          <%= render :partial => "shifts/user_options" %>
+          <%= render partial: "shifts/user_options" %>
           <% unless @upcoming_shifts.empty? %>
             <h4>My Upcoming Shifts</h4>
             <ul>
-              <%= render :partial => 'shifts/upcoming_shift', :collection => @upcoming_shifts %>
+              <%= render partial: 'shifts/upcoming_shift', collection: @upcoming_shifts %>
             </ul>
           <% end %>
         </div>
@@ -32,13 +32,13 @@
             <% unless @subs_you_requested.empty? %>
               <h4>Subs You've Requested</h4>
               <ul>
-                <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_requested) %>
+                <%= (render partial: 'shifts/upcoming_sub', collection: @subs_you_requested) %>
               </ul>
             <% end %>
             <% unless @subs_you_can_take.empty? %>
               <h4>Subs You Can Take</h4>
                 <ul>
-                  <%= (render :partial => 'shifts/upcoming_sub', :collection => @subs_you_can_take) %>
+                  <%= (render partial: 'shifts/upcoming_sub', collection: @subs_you_can_take) %>
                 </ul>
             <% end %>
           <% else %>
@@ -54,10 +54,10 @@
         </div>
         <div class="panel-body">
           <% if current_user.punch_clock %>
-            <%= render :partial => "punch_clocks/dashboard_clock", :object => current_user.punch_clock %>
+            <%= render partial: "punch_clocks/dashboard_clock", object: current_user.punch_clock %>
           <% else %>
             <i class="fa fa-clock-o"></i>
-            <%= link_to "Clock in", user_punch_clocks_path(current_user), :method => :post %>
+            <%= link_to "Clock in", user_punch_clocks_path(current_user), method: :post %>
           <% end %>
         </div>
       </div>
@@ -68,7 +68,7 @@
             <h3 class="panel-title">Watched Data Objects</h3>
           </div>
           <div class="panel-body">
-            <%= render :partial => 'data_objects/data_objects_table', :collection => @watched_objects %>
+            <%= render partial: 'data_objects/data_objects_table', collection: @watched_objects %>
           </div>
         </div>
       <% end %>
@@ -82,7 +82,7 @@
           <h3 class="panel-title">Announcements</h3>
         </div>
         <div class="panel-body">
-          <div id = "dashboard_notices"> <%= render :partial => 'notices/dashboard' %></div>
+          <div id = "dashboard_notices"> <%= render partial: 'notices/dashboard' %></div>
         </div>
         <div class="panel-footer">
           <%= link_to_post_a_sticky %>
@@ -96,7 +96,7 @@
         </div>
         <div class="panel-body">
           <% unless @signed_in_shifts.empty? %>
-            <%= render :partial => 'shifts/shifts_layout', :object => @signed_in_shifts %>
+            <%= render partial: 'shifts/shifts_layout', object: @signed_in_shifts %>
           <% else %>
             <em>There are no active shifts at this time.</em>
           <% end %>
@@ -109,10 +109,10 @@
         </div>
         <div class="panel-body">
           <% @summary = current_user.summary_stats(Date.today-1.month, Date.today) %>
-          <%= render :partial => 'stats/stats_summary', :object => @summary %>
+          <%= render partial: 'stats/stats_summary', object: @summary %>
         </div>
         <div class="panel-footer">
-          <%= link_to "More Stats", {:controller => :stats, :action => 'index'} %>
+          <%= link_to "More Stats", {controller: :stats, action: 'index'} %>
         </div>
       </div>
 
@@ -131,9 +131,9 @@
             <h3 class="panel-title">Daily Schedule</h3>
           </div>
           <div class="panel-body">
-            <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), :date => (@current_date - 1)-%>
-            <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), :date => (@current_date + 1)%></span>
-            <%= render :partial => 'shifts/schedule/day', :object =>  @current_date %>
+            <%= link_to HTMLEntities.new.decode("&lt;&lt; Previous"), date: (@current_date - 1)-%>
+            <span style="float:right;text-align:right;"><%= link_to HTMLEntities.new.decode("Next &gt;&gt;"), date: (@current_date + 1)%></span>
+            <%= render partial: 'shifts/schedule/day', object:  @current_date %>
           </div>
         </div>
 

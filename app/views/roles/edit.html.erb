@@ -1,7 +1,7 @@
 <% title "Edit Role" %>
 
 <%= form_for @role do |f| %>
-  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render partial: 'form', locals: {f: f} %>
   <p><%= f.submit "Update" %></p>
 <% end %>
 

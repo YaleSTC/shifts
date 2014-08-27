@@ -50,9 +50,9 @@ Shifts::Application.configure do
   # Configure Rails Mail options
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address => "mail.yale.edu",
-    :port => 587,
-    :domain => "yale.edu",
+    address: "mail.yale.edu",
+    port: 587,
+    domain: "yale.edu",
   }
 
 end

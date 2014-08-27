@@ -6,7 +6,7 @@
 	  <fieldset class = "index" id = "report_message_center">
 	    <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
 	    <div id = "message_center">
-	    	<%= render :partial => 'notices/notice', :collection => @report.get_notices, :locals => {:html_class => "report_notice"} %> </div>
+	    	<%= render partial: 'notices/notice', collection: @report.get_notices, locals: {html_class: "report_notice"} %> </div>
 	    <div id="new_notice">
 	    <%= link_to_post_a_sticky() %> <%= link_to_post_an_announcement %>
 	    </div>
@@ -15,7 +15,7 @@
 	  <% unless mobile_device?%>
 	  	<%= content_tag :div, nil, id: "update_notices", data:{frequency: 240}%>
 	  	<!-- The following is deprecated. Now in report_show.js in assets-->
-	  	<%#= periodically_call_remote :url => { :controller => "notices", :action => "update_message_center"}, :frequency => 240 -%>
+	  	<%#= periodically_call_remote url: { controller: "notices", action: "update_message_center"}, frequency: 240 -%>
 	  <% end %>
 	</div>
 
@@ -23,7 +23,7 @@
 
 	   <fieldset id = "report_data_objects" class = "index">
 	     <legend>Data Objects</legend>
-	     <%= render :partial => 'data_objects/report_data_object' %>
+	     <%= render partial: 'data_objects/report_data_object' %>
 	   </fieldset>
 
 	  <fieldset id = "useful_links" class = "index" >
@@ -31,7 +31,7 @@
 	    <div><%= link_to "All Active Tasks", active_tasks_path %></div>
 		<div><%= link_to "All Data Objects", update_data_objects_path %></div>
 	    <ul id="useful_links">
-	   	<%= render :partial => 'links/report_links', :collection => current_user.current_shift.report.get_links, :as => :link %>
+	   	<%= render partial: 'links/report_links', collection: current_user.current_shift.report.get_links, as: :link %>
 	   	</ul>
 	   	<%= link_to_post_a_link %>
 	  </fieldset>
@@ -39,50 +39,50 @@
 	  <% unless mobile_device?%>
 	  	<%= content_tag :div, nil, id: "update_tasks", data:{frequency: 300}%>
 	  	 <!-- The following is deprecated. Now in report_show.js in assets-->
-	  	 <%#= periodically_call_remote :url => { :controller => "tasks", :action => "update_tasks"}, :frequency => 300 -%>
+	  	 <%#= periodically_call_remote url: { controller: "tasks", action: "update_tasks"}, frequency: 300 -%>
 	  <% end %>
 
 	  <fieldset id = "shift_tasks" class= "index">
 		<legend>Shift Tasks</legend>
 		<div id = "tasks">
-	    <%= render :partial => 'tasks/report_tasks' %>
+	    <%= render partial: 'tasks/report_tasks' %>
 		</div>
 	  </fieldset>
 
 	  <fieldset id="searchbox" class = "index">
 	    <legend><%= "Search " + "#{@search_engine_name}"%></legend>
-	    <%= render :partial => 'reports/search'%>
+	    <%= render partial: 'reports/search'%>
 	  </fieldset>
 	</div>
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
-        <%= render :partial => 'new_report_item_form' %>
+        <%= render partial: 'new_report_item_form' %>
   <div id="report_relative_size">
 		<% unless mobile_device? %>
 			<%= content_tag :div, nil, id: "update_report", data: {id: @report.id, frequency: 30} %>
 			<!-- The following is deprecated. Now in report_show.js in assets-->
-			<%#= periodically_call_remote :url => { :controller => "reports", :action => "update_reports", :id => @report.id}, :frequency => 30 -%>
+			<%#= periodically_call_remote url: { controller: "reports", action: "update_reports", id: @report.id}, frequency: 30 -%>
 		<% end %>
 
 <% end %>
 
 
  <% if current_user == @report.user && !@report.departed %>
-       <%= render :partial => 'report', :locals => {:html_id => "dashboard_report_view"}%>
+       <%= render partial: 'report', locals: {html_id: "dashboard_report_view"}%>
  <% else %>
-     <%= render :partial => 'report', :locals => {:html_id => "report_view"}%>
+     <%= render partial: 'report', locals: {html_id: "report_view"}%>
  <% end %>
 
  <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.loc_group)) %>
- 	<%= button_to "Submit #{@report.shift.user.name}'s shift report", { :controller => 'reports', :action => :update, :id => @report, :sign_out => true }, :method => :put, :confirm => 'Are you sure you wish to sign the user out of this shift?' %>
+ 	<%= button_to "Submit #{@report.shift.user.name}'s shift report", { controller: 'reports', action: :update, id: @report, sign_out: true }, method: :put, confirm: 'Are you sure you wish to sign the user out of this shift?' %>
  <% end %>
 
  <% if current_user == @report.user && !@report.departed %>
 
 </div> <!-- close report_relative_size -->
 
-<%= button_to "Submit your shift report", {:action => :update, :id => @report.id, :sign_out => true}, :method => :put, :confirm => 'Are you sure you wish to sign out of this shift?' %>
+<%= button_to "Submit your shift report", {action: :update, id: @report.id, sign_out: true}, method: :put, confirm: 'Are you sure you wish to sign out of this shift?' %>
 
 <div class='clear'></div>
 </div> <!--close active_report_area -->

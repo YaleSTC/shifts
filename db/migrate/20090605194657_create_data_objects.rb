@@ -8,7 +8,7 @@ class CreateDataObjects < ActiveRecord::Migration
     end
 
     # Create the join table
-    create_table :data_objects_locations, :id => false do |t|
+    create_table :data_objects_locations, id: false do |t|
       t.references :data_object
       t.references :location
     end

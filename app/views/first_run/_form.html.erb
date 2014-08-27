@@ -1,5 +1,5 @@
 <% title "Create the first user" %>
-<%= form_for @user, :url => create_first_user_path, :html=>{:id=>"first_user_form"} do |f| %>
+<%= form_for @user, url: create_first_user_path, :html=>{:id=>"first_user_form"} do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :login %><br />
@@ -28,7 +28,7 @@
  <% if @appconfig.login_options.size >1 %>
   <p>
     <%= f.label :login_type %><br />
-    <%= f.select(:auth_type, @appconfig.login_options, {:selected => @user.auth_type || "CAS"}) %>
+    <%= f.select(:auth_type, @appconfig.login_options, {selected: @user.auth_type || "CAS"}) %>
   </p>
   <% end %>
   <%# if @appconfig.login_options.include?('built-in') %>
@@ -46,6 +46,6 @@
   <p><%= f.submit "Submit" %></p>
 <% end %>
 <% if @appconfig.use_ldap %>
-<%= observe_form :first_user_form, :url => { :action => 'ldap_search' }, :frequency => 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})"%>
+<%= observe_form :first_user_form, url: { action: 'ldap_search' }, frequency: 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})"%>
 <% end %>
 

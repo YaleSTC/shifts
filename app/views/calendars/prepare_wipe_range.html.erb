@@ -24,7 +24,7 @@
       <p>
         <strong><%= loc_group.name %></strong><br/>
         <% loc_group.locations.each do |loc| %>
-          <%= check_box_tag "location_ids[]", loc.id, false, {:id => "location_#{loc.id}"} %>
+          <%= check_box_tag "location_ids[]", loc.id, false, {id: "location_#{loc.id}"} %>
           <%= loc.short_name %>
         <% end %>
       </p>
@@ -33,7 +33,7 @@
   <h3>Calendars to wipe</h3>
    <% @department.calendars.each do |cal| %>
       <p>
-          <%= check_box_tag "cal_ids[]", cal.id, false, {:id => "calendar_#{cal.id}"} %>
+          <%= check_box_tag "cal_ids[]", cal.id, false, {id: "calendar_#{cal.id}"} %>
           <%= cal.name %>
       </p>
   <%- end -%>

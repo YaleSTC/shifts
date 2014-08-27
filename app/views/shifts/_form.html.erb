@@ -1,36 +1,36 @@
 <% calculate_default_times_shifts %>
 
   <% if params[:xPercentage] %>
-    <%= f.hidden_field :start_date, :value => @default_start_date, :id => :start_date  %>
+    <%= f.hidden_field :start_date, value: @default_start_date, id: :start_date  %>
   <% else %>
     <p>
       <%= f.label :date %><br />
-      <%= f.date_select :start_date, :default => @default_start_date, :id => :start_date  %>
+      <%= f.date_select :start_date, default: @default_start_date, id: :start_date  %>
     </p>
   <% end %>
   <p>
     <%= f.label :start %><br />
     <%= f.time_select :start_time, {
-                :start_time => @range_start_time,
-                :end_time => @range_end_time,
-                :include_start_time => true,
-                :include_end_time => false,
-                :default => @shift.start,
+                start_time: @range_start_time,
+                end_time: @range_end_time,
+                include_start_time: true,
+                include_end_time: false,
+                default: @shift.start,
                                           } %>
   </p>
   <p>
   <%# if params[:xPercentage] %>
-    <%#= f.hidden_field :end_date, :value => @default_end_date, :id => :end_date  %>
+    <%#= f.hidden_field :end_date, value: @default_end_date, id: :end_date  %>
   <%# else %>
-    <%#= f.date_select :end_date, :default => @default_end_date, :id => :end_date  %>
+    <%#= f.date_select :end_date, default: @default_end_date, id: :end_date  %>
   <%# end %>
     <%= f.label :end %><br />
     <%= f.time_select :end_time, {
-                :start_time => @range_start_time,
-                :end_time => @range_end_time,
-                :include_start_time => false,
-                :include_end_time => true,
-                :default => @shift.end,
+                start_time: @range_start_time,
+                end_time: @range_end_time,
+                include_start_time: false,
+                include_end_time: true,
+                default: @shift.end,
                                           } %>
   </p>
   <p>
@@ -47,12 +47,12 @@
 		<% if select_lg.nil? || current_user.is_superuser? %>
 			<p>
 		    <%= f.label :user %><br />
-		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.name}, :id, :name, {:prompt => "Select a user"}) %>
+		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.name}, :id, :name, {prompt: "Select a user"}) %>
 		  </p>
 		<% else %>
 			<p>
 	      <%= f.label :user %><br />
-	      <%= f.collection_select(:user_id, current_department.active_users.delete_if{|u| !u.can_signup?(select_lg)}.sort_by{|u| u.name}, :id, :name, {:prompt => "Select a user"}) %>
+	      <%= f.collection_select(:user_id, current_department.active_users.delete_if{|u| !u.can_signup?(select_lg)}.sort_by{|u| u.name}, :id, :name, {prompt: "Select a user"}) %>
 	    </p>
 		<% end %>
     <p>
@@ -63,5 +63,5 @@
       <%= f.check_box :power_signed_up %> Power signup
     </p>
   <% elsif params[:calendar] %>
-    <%= (f.hidden_field :calendar_id, :value => params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
+    <%= (f.hidden_field :calendar_id, value: params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
   <% end %>
