@@ -1,4 +1,8 @@
-# Basic Guide to Shifts [![Code Climate](https://codeclimate.com/github/YaleSTC/shifts.png)](https://codeclimate.com/github/YaleSTC/shifts) [![Dependency Status](https://gemnasium.com/YaleSTC/shifts.svg)](https://gemnasium.com/YaleSTC/shifts)
+# Basic Guide to Shifts 
+
+[![Code Climate](https://codeclimate.com/github/YaleSTC/shifts.png)](https://codeclimate.com/github/YaleSTC/shifts) 
+[![Dependency Status](https://gemnasium.com/YaleSTC/shifts.svg)](https://gemnasium.com/YaleSTC/shifts)
+[![Inline docs](http://inch-ci.org/github/yalestc/shifts.svg?branch=master)](http://inch-ci.org/github/yalestc/shifts)
 
 
 
