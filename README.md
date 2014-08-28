@@ -43,7 +43,11 @@ gem install bundler
 bundle install
 ```
 
-Create config/database.yml - you'll need this to be able to connect to your database. Configure it with the correct username and password. Make a copy of the config/database.yml.example and rename it to config/database.yml to start.
+Create `config/database.yml` - you'll need this to be able to connect to your database. Configure it with the correct username and password. Make a copy of the [`config/database.yml.example`](https://github.com/YaleSTC/shifts/blob/master/config/database.yml.example) and rename it to `config/database.yml` to start.
+
+```sh
+cp config/database.example.yml config/database.yml
+```
 
 Then, create the database and run migrations to build the structure:
 
