@@ -25,11 +25,12 @@ You'll need the following to run Shifts:
 * [Ruby 2.1.2](http://www.ruby-lang.org/)
 * [Bundler](http://bundler.io/)
 * a database server ([MySQL](http://www.mysql.com/))
+* [ImageMagick](http://www.imagemagick.org/)
 
 ### Installation
 First, checkout a copy of Shifts using git:
 
-``` sh
+```sh
 cd /your/code/directory
 git clone https://github.com/YaleSTC/shifts.git
 cd shifts
@@ -37,18 +38,22 @@ cd shifts
 
 Shifts uses [Bundler](http://gembundler.com/) to manage dependencies, so if you don't have it, get it, then install dependencies:
 
-``` ruby
+```sh
 gem install bundler
 bundle install
 ```
 
-You'll need to edit config/database.yml to point to your database, including the correct username and password. See [Rails Guides](http://guides.rubyonrails.org/configuring.html#configuring-a-database) for common database examples.
+Create `config/database.yml` - you'll need this to be able to connect to your database. Configure it with the correct username and password. Make a copy of the [`config/database.yml.example`](https://github.com/YaleSTC/shifts/blob/master/config/database.yml.example) and rename it to `config/database.yml` to start.
+
+```sh
+cp config/database.example.yml config/database.yml
+```
 
 Then, create the database and run migrations to build the structure:
 
-``` ruby
+```sh
 rake db:create
-rake db:migrate
+rake db:schema:load
 ```
 
 Finally, start the app locally:
