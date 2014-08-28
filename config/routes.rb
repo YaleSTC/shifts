@@ -178,6 +178,7 @@ Shifts::Application.routes.draw do
     member do
       post :toggle
       get :toggle
+      get :show_shifts
     end
     resources :punch_clocks
   end

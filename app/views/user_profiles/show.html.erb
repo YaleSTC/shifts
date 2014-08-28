@@ -1,20 +1,17 @@
 <% title "#{@user_profile.user.full_name_with_nick}'s Profile" %>
 
-<fieldset class = "index">
-	<div id = "profile_left">
+<div id="profile_left">
 	<% if !mobile_device?%>
-
 		<%= image_tag @user_profile.photo.url(:medium)%>
 	<% elsif @user_profile.photo? %>
-	<%= image_tag @user_profile.photo.url(:thumbnail)%>
+  	<%= image_tag @user_profile.photo.url(:thumbnail)%>
 	<% end %>
-    </div>  
+</div>
 
-    <div id = "profile_right">
-    <%= render partial: 'user_profile_entries' %>
-    </div>
-</fieldset>
+<div id="profile_right">
+  <%= render partial: 'user_profile_entries' %>
+</div>
 <br />
-	<%= link_to 'Edit', edit_user_profile_path(@user_profile.user.login) if current_user.is_admin_of?(current_department) or current_user == @user_profile.user %> | 
-  <%= link_to 'Show Shift Reports', controller: :users, action: :show_shifts, id: @user_profile.user %> | 
-	<%= link_to 'Show All', user_profiles_path %> | 
+<%= link_to_if current_user.is_admin_of?(current_department) || current_user == @user_profile.user, 'Edit', edit_user_profile_path(@user_profile.user.login), class: 'btn btn-default' %>
+<%= link_to 'Show Shift Reports', show_shifts_user_path(@user_profile.user), class: 'btn btn-default' %>
+<%= link_to 'Show All', user_profiles_path, class: 'btn btn-default' %>
