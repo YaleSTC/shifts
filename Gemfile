@@ -43,7 +43,6 @@ gem 'rubycas-client', '2.2.1'
 
 # deployment
 gem 'capistrano'
-gem 'airbrake'
 
 # removed these plugins as they are deprecated
 gem 'dynamic_form' # needed for f.error_messages

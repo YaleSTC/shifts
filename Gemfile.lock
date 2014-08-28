@@ -47,9 +47,6 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.6)
-    airbrake (4.0.0)
-      builder
-      multi_json
     arel (3.0.3)
     authlogic (3.4.2)
       activerecord (>= 3.2)
@@ -280,7 +277,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   authlogic
   better_errors
   binding_of_caller
