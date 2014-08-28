@@ -56,17 +56,6 @@ EOF
       put database_configuration, "#{shared_path}/config/database.yml"
     end
 
-#     desc "Enter Airbrake API code"
-#     task :airbrake do
-#       set :api_key, Capistrano::CLI.ui.ask("Airbrake API Key: ")
-#       airbrake_config=<<-EOF
-# Airbrake.configure do |config|
-#   config.api_key = '#{api_key}'
-# end
-# EOF
-#       put airbrake_config, "#{shared_path}/config/airbrake.rb"
-#     end
-
     task :prefix_initializer do
       prefix_config_file =<<-EOF
 Reservations::Application.configure do
@@ -84,7 +73,6 @@ EOF
     task :localize, roles: [:app] do
 
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
-      # run "ln -nsf #{shared_path}/config/airbrake.rb #{current_path}/config/initializers/airbrake.rb"
       #run "ln -nsf #{shared_path}/config/prefix.rb #{release_path}/config/initializers/prefix.rb"
       run "mkdir -p #{shared_path}/log"
       run "mkdir -p #{shared_path}/pids"
@@ -173,7 +161,6 @@ namespace :deploy do
 end
 
 after "deploy:setup", "init:config:database"
-# after "deploy:setup", "init:config:airbrake"
 after "deploy:setup", "init:config:prefix_initializer"
 after "deploy:create_symlink", "init:config:localize"
 after "deploy:create_symlink", "deploy:update_crontab"
@@ -184,5 +171,3 @@ before "deploy:assets:precompile", "init:config:localize"
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems')].each do |vendored_notifier|
   $: << File.join(vendored_notifier, 'lib')
 end
-
-# require 'airbrake/capistrano'

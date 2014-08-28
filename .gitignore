@@ -3,7 +3,6 @@
 /tmp.bundle
 
 config/database.yml
-config/initializers/airbrake.rb
 
 public/attachments
 
