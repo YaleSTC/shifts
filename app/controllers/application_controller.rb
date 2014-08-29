@@ -284,9 +284,16 @@ class ApplicationController < ActionController::Base
   def parse_date_and_time_output(form_output)
 		time_attribute_names = ["start", "end", "mandatory_start", "mandatory_end"]
     time_attribute_names.each do |field_name|
-      ## Simple Time Select Input
-      if !form_output["#{field_name}_time(5i)"].blank? && form_output["#{field_name}_time(4i)"].blank?
-        form_output["#{field_name}_time"] = Time.parse( form_output["#{field_name}_time(5i)"] )
+
+      unless form_output["#{field_name}_time(5i)"].blank? || form_output["#{field_name}_time(4i)"].blank?
+        hh=form_output["#{field_name}_time(4i)"]
+        mm=form_output["#{field_name}_time(5i)"]
+        form_output["#{field_name}_time"] = Time.parse("#{hh}:#{mm}:00" )
+        form_output.delete("#{field_name}_time(4i)")
+        form_output.delete("#{field_name}_time(3i)")
+        form_output.delete("#{field_name}_time(2i)")
+        form_output.delete("#{field_name}_time(1i)")
+
       end
 
       ## Date Input - Hidden Field
