@@ -1,21 +1,19 @@
-<fieldset class="announcement", title= "<%= "Posted on #{announcement.start.to_date} at #{announcement.start.to_s(:am_pm)}" %>" >
+<div class="alert alert-info announcement" title="<%= "Posted on #{announcement.start.to_date} at #{announcement.start.to_s(:am_pm)}" %>">
   <% if current_user.is_admin_of?(current_department) || announcement.author == current_user%>
-    <div class="right">
-      <%= link_to 'Edit', edit_announcement_path(announcement, width: 530, height: 350), title: "Edit Announcement", class: "thickbox", id: "edit" %>
- 	  <% if announcement.active? %>    
-		<%= link_to '[x]', { controller: 'notices', action: 'destroy', id: announcement.id },
-                           confirm: "Are you sure you want to remove this announcement?",
-                           method: :delete %>
-	  <% end %>
-    </div>
+    <% if announcement.active? %>
+        <%= link_to '&times;'.html_safe, notice_path(announcement),
+        confirm: "Are you sure you want to remove this announcement?",
+        method: :delete, class: 'close' %>
+    <% end %>
+    <%= link_to edit_announcement_path(announcement, width: 530, height: 350), title: "Edit Announcement", class: "thickbox", id: "edit" do %>
+      <i class="fa fa-pencil-square-o"></i>
+    <% end %>
   <% end %>
 
   <div class="<%= html_class %>">
-	<%= announcement.content_with_formatting %>
+    <%= announcement.content_with_formatting %>
   </div>
-  <br />
-  <div class="grayleft">
-    <%= "by #{(announcement.author.name)}" -%>
+  <div class="announcement-author">
+    By <%= link_to announcement.author.name, user_profile_path(announcement.author.login) %>
   </div>
-</fieldset>
-
+</div>

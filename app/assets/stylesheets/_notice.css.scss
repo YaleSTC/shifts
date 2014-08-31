@@ -65,3 +65,15 @@ div.index_notice {
   text-align: right;
   color: gray;
 }
+
+// NEW
+.announcement #edit {
+  @extend .close;
+
+  clear: right;
+  float: right;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  position: relative;
+  left: 1px;
+}
