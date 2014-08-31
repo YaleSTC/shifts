@@ -10,7 +10,8 @@
         <div id="message_center">
           <%= render partial: 'notices/notice', collection: @report.get_notices, locals: { html_class: "report_notice" } %> </div>
         <div id="new_notice">
-          <%= link_to_post_a_sticky() %> <%= link_to_post_an_announcement %>
+          <%= link_to_post_a_sticky %>
+          <%= link_to_post_an_announcement %>
         </div>
       </div>
 
@@ -81,12 +82,12 @@
         <% end %>
 
         <% if @report.shift.signed_in? && (current_user != @report.shift.user && current_user.is_admin_of?(@report.shift.loc_group)) %>
-          <%= button_to "Submit #{@report.shift.user.name}'s shift report", { controller: 'reports', action: :update, id: @report, sign_out: true }, method: :put, confirm: 'Are you sure you wish to sign the user out of this shift?' %>
+          <%= button_to "Submit #{@report.shift.user.name}'s shift report", { controller: 'reports', action: :update, id: @report, sign_out: true }, method: :put, confirm: 'Are you sure you wish to sign the user out of this shift?', class: 'btn btn-default' %>
         <% end %>
       </div> <!-- close report_relative_size -->
 
       <% if current_user == @report.user && !@report.departed %>
-        <%= button_to "Submit your shift report", {action: :update, id: @report.id, sign_out: true}, method: :put, confirm: 'Are you sure you wish to sign out of this shift?' %>
+        <%= button_to "Submit your shift report", {action: :update, id: @report.id, sign_out: true}, method: :put, confirm: 'Are you sure you wish to sign out of this shift?', class: 'btn btn-default' %>
         <div class='clear'></div>
       <% end %>
     </div> <!--close active_report_area -->
