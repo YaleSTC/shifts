@@ -137,7 +137,7 @@ Shifts::Application.routes.draw do
       resources :report_items
     end
     #NOTE: "sub_requests" is a clearer model name, we use subs for routing
-    resources :sub_requests, as: "subs" do
+    resources :sub_requests do
       member do
         put :take
         get :get_take_info
