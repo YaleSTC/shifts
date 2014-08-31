@@ -1,5 +1,5 @@
 class StatsController < ApplicationController
-  layout 'stats'
+  layout 'shifts'
 
   def index
     @start_date = interpret_start
