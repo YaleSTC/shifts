@@ -3,20 +3,6 @@
   clear: uboth;
 }
 
-#active_report_area {
-  width: 99%;
-  border-style:solid;
-  clear: both;
-  background-color: #ddd;
-  padding: 5px;
-}
-
-#report_relative_size {
-  width: 50%;
-  float: right;
-  clear: right;
-}
-
 #announcement_link {
 	float: right;
 }
@@ -57,11 +43,6 @@
   padding-left: 1em;
 }
 
-#report_view .list_header {
-  background-color:#778899;
-  text-align: left;
-}
-
 #report_view_table{
   border-collapse: collapse;
   border-color: gray;
@@ -70,14 +51,6 @@
   border-spacing: 2px;
   width: 100%;
 }
-
-#report_item_form{
-  border-collapse: collapse;
-  width: 49.5%;
-  float: left;
-  margin-top: 5px;
-}
-
 
 #report_view_table tr{
   padding: 4px;
