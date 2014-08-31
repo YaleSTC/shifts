@@ -1,5 +1,5 @@
-<div id= "<%= html_id%>">
-<% @report ||= report %>
+<div id= "<%= html_id %>">
+  <% @report ||= report %>
   <table id="report_view_table">
     <tr>
       <th class="list_header" colspan="2">
@@ -7,7 +7,7 @@
         <%= link_to @report.shift.user.name, user_profile_path(@report.shift.user.login) %> @ <%= link_to @report.shift.location.name, controller: :locations, action: :display_report_items, id: @report.shift.location %></h3>
       </th>
     </tr>
-    <tbody id = "all_report_items">
+    <tbody id="all_report_items">
       <%= render partial: 'reports/report_item', collection: @report.report_items %>
     </tbody>
   </table>
