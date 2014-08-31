@@ -1,30 +1,31 @@
-<% title "Shift Report: #{@report.shift.location.name}"%>
+<% title "Shift Report: #{@report.shift.location.name}" %>
 
 <% if current_user == @report.user && !@report.departed %>
-	<div id = "left_stuff">
+<div class="row">
+	<div class="col-md-6">
 
-	  <fieldset class = "index" id = "report_message_center">
-	    <legend><%= "Message Center: #{@report.shift.location.short_name}"%></legend>
-	    <div id = "message_center">
-	    	<%= render partial: 'notices/notice', collection: @report.get_notices, locals: {html_class: "report_notice"} %> </div>
+	  <div class="index" id="report_message_center">
+	    <legend><%= "Message Center: #{@report.shift.location.short_name}" %></legend>
+	    <div id="message_center">
+	    	<%= render partial: 'notices/notice', collection: @report.get_notices, locals: { html_class: "report_notice" } %> </div>
 	    <div id="new_notice">
-	    <%= link_to_post_a_sticky() %> <%= link_to_post_an_announcement %>
+		    <%= link_to_post_a_sticky() %> <%= link_to_post_an_announcement %>
 	    </div>
-	  </fieldset>
+	  </div>
 
 	  <% unless mobile_device?%>
-	  	<%= content_tag :div, nil, id: "update_notices", data:{frequency: 240}%>
+	  	<%= content_tag :div, nil, id: "update_notices", data:{ frequency: 240 } %>
 	  	<!-- The following is deprecated. Now in report_show.js in assets-->
 	  	<%#= periodically_call_remote url: { controller: "notices", action: "update_message_center"}, frequency: 240 -%>
 	  <% end %>
 	</div>
 
-	<div id = "right_stuff">
+	<div class="col-md-6">
 
-	   <fieldset id = "report_data_objects" class = "index">
+	   <div id="report_data_objects" class="index">
 	     <legend>Data Objects</legend>
 	     <%= render partial: 'data_objects/report_data_object' %>
-	   </fieldset>
+	   </div>
 
 	  <fieldset id = "useful_links" class = "index" >
 	    <legend>Useful Links</legend>
@@ -54,6 +55,10 @@
 	    <%= render partial: 'reports/search'%>
 	  </fieldset>
 	</div>
+</div>
+
+
+
 
   <div id="active_report_area">
         <h2>Update Your Report</h2>
