@@ -112,12 +112,12 @@
 }
 
 
-#user_searchbox{ 
+#user_searchbox{
 	float: center;
 	width: 200px;
 }
 
-#payform_searchbox{ 
+#payform_searchbox{
 	float: center;
 	width: 200px;
 }
@@ -138,9 +138,6 @@
 }
 
 #report_message_center {
-	width: 390px;
-	float: left;
-	clear: right;
 	margin-bottom: 15px;
 }
 
@@ -157,7 +154,7 @@ textarea#item {
 
 .task_entry{
   text-indent: -25px;
-  padding-left: 25px;   
+  padding-left: 25px;
   margin-bottom: 4px;
   line-height:10px;
 }
@@ -170,7 +167,7 @@ textarea#item {
   font-size:11px;
 }
 .task_reference{
-    
+
 }
 .task_complete{
     text-decoration: line-through;
