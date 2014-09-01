@@ -396,11 +396,10 @@ class ApplicationController < ActionController::Base
     if (params[:su_mode] && current_user.superuser?)
       current_user.update_attribute(:supermode, params[:su_mode]=='ON')
       flash[:notice] = "Supermode is now #{current_user.supermode? ? 'ON' : 'OFF'}"
-      redirect_to action: "index" and return
-    end
-    if (params["chooser"] && params["chooser"]["dept_id"])
+      redirect_to :back
+    elsif (params["chooser"] && params["chooser"]["dept_id"])
       session[:department_id] = params["chooser"]["dept_id"]
-      redirect_to switch_department_path and return
+      redirect_to switch_department_path
     end
   end
 
