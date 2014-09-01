@@ -1,20 +1,22 @@
-<fieldset class="sticky", title= "<%= "Posted on #{sticky.start.to_date} at #{sticky.start.to_s(:am_pm)}" %>" >
+<div class="alert alert-warning notice sticky" title="<%= "Posted on #{sticky.start.to_date} at #{sticky.start.to_s(:am_pm)}" %>">
   <div class="right">
-	 <% if sticky.active?%>  
-    <%= link_to '[x]', { controller: 'notices', action: 'destroy', id: sticky.id },
+    <% if sticky.active? %>
+      <%= link_to '&times;'.html_safe, notice_path(sticky),
       confirm: "Are you sure you want to remove this sticky? It will be removed for all users and all locations.",
-      method: :delete %><% end %>
+      method: :delete, class: 'close', title: 'Delete Sticky', data: {
+      toggle: 'tooltip', placement: 'bottom' } %>
+    <% end %>
   </div>
 
-  <div class="<%= html_class%>">
-	<%= sticky.content_with_formatting %>
-  </div> 
-  <br />
-  <div class="grayleft">
-    <%= "by #{sticky.author.name} #{distance_of_time_in_words(sticky.start, Time.now, true)} ago" %>
+  <div class="<%= html_class %>">
+  	<%= sticky.content_with_formatting %>
+  </div>
+
+  <div class="notice-author">
+    By <%= link_to sticky.author.name, user_profile_path(sticky.author.login) %>
+    <%= "#{distance_of_time_in_words(sticky.start, Time.now, true)} ago" %>
   </div>
   <div class="grayright">
     <%= sticky.display_for %>
   </div>
-</fieldset>
-
+</div>

@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require jquery.ui.all
+//= require jquery-ui/effect.all
 //= require jquery-tablesorter
 //= require jquery.Jcrop
 //= require hoverIntent
@@ -37,13 +37,21 @@ $(document).ready(function() {
     });
 
     $("#announcement_link").click(function(e){
-        var modal = $("#modal"), modalBody = $("#modal .modal-body")
+      var modal = $("#modal"), modalBody = $("#modal .modal-body");
 
-        modal.on("show.bs.modal", function(){
-            modalBody.load(e.currentTarget.href);
-            $("#modal .modal-title").html($("#announcement_link").text());
-        }).modal();
-        e.preventDefault();
+      modal.on("show.bs.modal", function(){
+        modalBody.load(e.currentTarget.href);
+        $("#modal .modal-title").html($("#announcement_link").text());
+      }).modal();
+      e.preventDefault();
+    });
+
+    // Tooltips
+    var elems_for_tooltip = [$(".notice a.close"), $(".notice #edit")];
+    $(elems_for_tooltip).each(function(){
+      $(this).tooltip({
+        container: 'body'
+      });
     });
 
 });

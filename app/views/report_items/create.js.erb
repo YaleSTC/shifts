@@ -1,8 +1,4 @@
 $('#all_report_items').html("<%= escape_javascript render partial: 'reports/report_item', collection: @report.report_items  %>");
 $('#dashboard_report_view').scrollTop($('#dashboard_report_view')[0].scrollHeight);
-$('#current_report_item').effect("highlight");
+$('#current_report_item td').effect("highlight", 1100);
 $('#new_report_item')[0].reset();
-
-// page.replace_html "all_report_items", partial: 'reports/report_item', collection: @report.report_items
-// page.visual_effect :highlight, "current_report_item", color: '#3bcc77', duration: 2.0
-// page[:new_report_item].reset

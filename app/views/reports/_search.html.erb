@@ -1,5 +1,9 @@
-<%= form_tag url_for(controller: 'reports', action: 'custom_search', id: @report.id),remote: true  do %>
-	<%= text_field_tag :search %>
-	<%= submit_tag "Search" %>
-<% end %>
+<%= form_tag url_for(controller: 'reports', action: 'custom_search', id: @report.id), remote: true, class: 'form-horizontal' do %>
+  <div class="input-group">
+    <%= search_field_tag 'search', nil, class: 'form-control' %>
+    <span class="input-group-btn">
+      <%= submit_tag 'Search', class: 'btn btn-default', title: 'Search' %>
+    </span>
+  </div>
 
+<% end %>

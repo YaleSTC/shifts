@@ -9,17 +9,17 @@ module ApplicationHelper
 
 	def link_to_post_a_link
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-    	link_to_unless_current('Post a new link', new_link_path(height: 225, width: 515, type: "Link"), title: "Post a new link", class: "thickbox", id: "post_link" )
+    	link_to_unless_current('Post a new link', new_link_path(height: 225, width: 515, type: "Link"), title: "Post a new link", class: "thickbox btn btn-default", id: "post_link" )
 		end
   end
 
 	def link_to_post_a_sticky
-		link_to_unless_current('Post a new sticky', new_sticky_path(height: 200, width: 515, type: "Sticky"), title: "Post a new sticky", class: "thickbox", id: "post_link" )
+		link_to_unless_current('Post a new sticky', new_sticky_path(height: 200, width: 515, type: "Sticky"), title: "Post a new sticky", class: "thickbox btn btn-default", id: "post_link" )
   end
 
 	def link_to_post_an_announcement
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-			link_to_unless_current('Post a new announcement', new_announcement_path(layout: "false"), data: { toggle: 'modal', target: '#myModal' }, id: "announcement_link")
+			link_to_unless_current('Post a new announcement', new_announcement_path(layout: "false"), data: { toggle: 'modal', target: '#myModal' }, id: "announcement_link", class: 'btn btn-default')
 		end
 	end
 
