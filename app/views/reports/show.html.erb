@@ -42,7 +42,7 @@
           <h3 class="panel-title">Useful Links</h3>
         </div>
         <div class="panel-body">
-          <ul id="useful_links">
+          <ul id="useful-links-list">
             <li><%= link_to 'All Active Tasks', active_tasks_path %></li>
             <li><%= link_to 'All Data Objects', update_data_objects_path %></li>
             <%= render partial: 'links/report_links', collection: current_user.current_shift.report.get_links, as: :link %>
