@@ -43,9 +43,8 @@ fieldset.announcement .grayleft, fieldset.announcement .grayright {
 /*Adding a div class variable to pass, to ensure that the word wrap feature works in
 three areas of different fixed width */
 
-div.report_notice {
-	width: 350px;
-	word-wrap: break-word;
+.report_notice {
+  padding-right: 16px;
 }
 
 div.dashboard_notice {
@@ -76,4 +75,8 @@ div.index_notice {
   line-height: $line-height-base;
   position: relative;
   left: 1px;
+}
+
+.notice {
+  margin-bottom: 10px;
 }
