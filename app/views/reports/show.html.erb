@@ -20,8 +20,8 @@
         </div>
       </div>
 
-      <% unless mobile_device?%>
-        <%= content_tag :div, nil, id: "update_notices", data:{ frequency: 240 } %>
+      <% unless mobile_device? %>
+        <%= content_tag :div, nil, id: 'update_notices', data: { frequency: 240 } %>
         <!-- The following is deprecated. Now in report_show.js in assets-->
         <%#= periodically_call_remote url: { controller: "notices", action: "update_message_center"}, frequency: 240 -%>
       <% end %>
@@ -43,8 +43,8 @@
         </div>
         <div class="panel-body">
           <ul id="useful_links">
-            <li><%= link_to "All Active Tasks", active_tasks_path %></li>
-            <li><%= link_to "All Data Objects", update_data_objects_path %></li>
+            <li><%= link_to 'All Active Tasks', active_tasks_path %></li>
+            <li><%= link_to 'All Data Objects', update_data_objects_path %></li>
             <%= render partial: 'links/report_links', collection: current_user.current_shift.report.get_links, as: :link %>
           </ul>
         </div>
@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <% unless mobile_device?%>
+      <% unless mobile_device? %>
         <%= content_tag :div, nil, id: "update_tasks", data: { frequency: 300 } %>
          <%# The following is deprecated. Now in report_show.js in assets %>
          <%#= periodically_call_remote url: { controller: "tasks", action: "update_tasks"}, frequency: 300 -%>
