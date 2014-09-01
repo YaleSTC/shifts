@@ -1,4 +1,4 @@
-<div class="alert alert-warning sticky" title="<%= "Posted on #{sticky.start.to_date} at #{sticky.start.to_s(:am_pm)}" %>">
+<div class="alert alert-warning notice sticky" title="<%= "Posted on #{sticky.start.to_date} at #{sticky.start.to_s(:am_pm)}" %>">
   <div class="right">
     <% if sticky.active? %>
       <%= link_to '&times;'.html_safe, notice_path(sticky),
