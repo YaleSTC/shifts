@@ -1,5 +1,10 @@
-<tr <%= raw 'id="current_report_item"' if @report.report_items.last == report_item %> class="list_report_item" >
-<td class="timestamp"><%=h report_item.time.getlocal.to_s(:am_pm) %></td>
-<td class="report_item_content"> <%= report_item.content_with_formatting %></td>
+<tr <%= raw 'id="current_report_item"' if @report.report_items.last == report_item %> class="list_report_item">
+  <td class="timestamp">
+    <span class="label label-default">
+      <%= report_item.time.getlocal.to_s(:am_pm_secs) %>
+    </span>
+  </td>
+  <td class="report_item_content">
+    <%= report_item.content_with_formatting %>
+  </td>
 </tr>
-
