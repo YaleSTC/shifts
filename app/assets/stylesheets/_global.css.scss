@@ -291,17 +291,13 @@ span.success_notification{
   background-color:#98eec3;
   border-color: #21a454;
 }
-ul#useful_links {
-    list-style-type: none;
-    display: inline !important;
-    float: left;
-    text-align: left;
-    list-style-position: outside;
-    margin-left: 0px;
+ul#useful-links-list {
+  padding-left: 0;
+  list-style-type: none;
 }
-ul#useful_links li a{
-    display: inline !important;
-}
+// ul#useful_links li a{
+//     display: inline !important;
+// }
 
 /* = Dashboard right
 ======================================================================= */

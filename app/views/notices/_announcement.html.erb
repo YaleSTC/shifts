@@ -16,7 +16,7 @@
   <div class="<%= html_class %>">
     <%= announcement.content_with_formatting %>
   </div>
-  <div class="announcement-author">
+  <div class="notice-author">
     By <%= link_to announcement.author.name, user_profile_path(announcement.author.login) %>
   </div>
 </div>
