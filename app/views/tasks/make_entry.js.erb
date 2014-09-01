@@ -1,7 +1,7 @@
 <% if @all_tasks == "true" %>
-	$("#shift_tasks").html('<%= escape_javascript render partial: "tasks/report_tasks", locals: {all_tasks: true} %>');
+	$("#shift_tasks #tasks").html('<%= escape_javascript render partial: "tasks/report_tasks", locals: {all_tasks: true} %>');
 <% else %>
-	$("#shift_tasks").html('<%= escape_javascript render partial: "tasks/report_tasks" %>');
+	$("#shift_tasks #tasks").html('<%= escape_javascript render partial: "tasks/report_tasks" %>');
 <% end %>
 
 <% if @report %>
