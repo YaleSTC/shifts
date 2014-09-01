@@ -5,11 +5,16 @@
 
     <div class="col-md-6">
 
-      <div class="index" id="report_message_center">
-        <legend><%= "Message Center: #{@report.shift.location.short_name}" %></legend>
-        <div id="message_center">
-          <%= render partial: 'notices/notice', collection: @report.get_notices, locals: { html_class: "report_notice" } %> </div>
-        <div id="new_notice">
+      <div id="report_message_center" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= "Message Center: #{@report.shift.location.short_name}" %></h3>
+        </div>
+        <div class="panel-body">
+          <div id="message_center">
+            <%= render partial: 'notices/notice', collection: @report.get_notices, locals: { html_class: 'report_notice' } %>
+          </div>
+        </div>
+        <div class="panel-footer">
           <%= link_to_post_a_sticky %>
           <%= link_to_post_an_announcement %>
         </div>
@@ -23,39 +28,58 @@
     </div>
 
     <div class="col-md-6">
+      <div id="report_data_objects" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Data Objects</h3>
+        </div>
+        <div class="panel-body">
+          <%= render partial: 'data_objects/report_data_object' %>
+        </div>
+      </div>
 
-       <div id="report_data_objects" class="index">
-         <legend>Data Objects</legend>
-         <%= render partial: 'data_objects/report_data_object' %>
-       </div>
-
-      <fieldset id = "useful_links" class = "index" >
-        <legend>Useful Links</legend>
-        <div><%= link_to "All Active Tasks", active_tasks_path %></div>
-        <div><%= link_to "All Data Objects", update_data_objects_path %></div>
-        <ul id="useful_links">
-          <%= render partial: 'links/report_links', collection: current_user.current_shift.report.get_links, as: :link %>
-        </ul>
-        <%= link_to_post_a_link %>
-      </fieldset>
+      <div id="useful_links" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Useful Links</h3>
+        </div>
+        <div class="panel-body">
+          <ul id="useful_links">
+            <li><%= link_to "All Active Tasks", active_tasks_path %></li>
+            <li><%= link_to "All Data Objects", update_data_objects_path %></li>
+            <%= render partial: 'links/report_links', collection: current_user.current_shift.report.get_links, as: :link %>
+          </ul>
+        </div>
+        <div class="panel-footer">
+          <%= link_to_post_a_link %>
+        </div>
+      </div>
 
       <% unless mobile_device?%>
         <%= content_tag :div, nil, id: "update_tasks", data: { frequency: 300 } %>
-         <!-- The following is deprecated. Now in report_show.js in assets-->
+         <%# The following is deprecated. Now in report_show.js in assets %>
          <%#= periodically_call_remote url: { controller: "tasks", action: "update_tasks"}, frequency: 300 -%>
       <% end %>
 
-      <fieldset id = "shift_tasks" class= "index">
-        <legend>Shift Tasks</legend>
-        <div id = "tasks">
-          <%= render partial: 'tasks/report_tasks' %>
+      <div id="shift_tasks" class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Shift Tasks</h3>
         </div>
-      </fieldset>
+        <div class="panel-body">
+          <div id="tasks">
+            <%= render partial: 'tasks/report_tasks' %>
+          </div>
+        </div>
+      </div>
 
-      <fieldset id="searchbox" class = "index">
-        <legend><%= "Search " + "#{@search_engine_name}"%></legend>
-        <%= render partial: 'reports/search'%>
-      </fieldset>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= "Search " + "#{@search_engine_name}" %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= render partial: 'reports/search' %>
+        </div>
+      </div>
     </div>
   <% end %>
 
