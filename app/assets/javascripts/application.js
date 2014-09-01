@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-// jquery.ui.all
+//= require jquery-ui/effect.all
 //= require jquery-tablesorter
 //= require jquery.Jcrop
 //= require hoverIntent
