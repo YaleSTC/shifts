@@ -1,6 +1,6 @@
 <div id="<%= html_id %>">
   <% @report ||= report %>
-  <table id="report_view_table" class="table table-striped">
+  <table id="report_view_table" class="table table-striped table-bordered">
     <tbody id="all_report_items">
       <%= render partial: 'reports/report_item', collection: @report.report_items %>
     </tbody>
