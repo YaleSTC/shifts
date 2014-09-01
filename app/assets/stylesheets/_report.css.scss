@@ -115,8 +115,8 @@
 // }
 
 textarea#item {
-  width: 99%;
-  height:90%;
+  resize: vertical;
+  margin-bottom: 10px;
 }
 
 #submit_button {

@@ -1,7 +1,7 @@
 <%= form_for [@report, @report_item], remote: true, id: 'report_item_form' do |f| %>
   <%= f.error_messages %>
-  <%= f.text_area :content, placeholder: 'Ctrl+Enter to quickly add to report!', id: 'item', size: '40x3', wrap: 'hard' %>
-  <%= f.submit "Add to report", id: 'report_item_submit', title: 'Ctrl+Enter to add to shift report', class: 'btn btn-default', data: { disable_with: "Submitting..." } %>
+  <%= f.text_area :content, placeholder: 'Ctrl+Enter to quickly add to report!', id: 'item', size: '40x3', wrap: 'hard', class: 'form-control' %>
+  <%= f.submit "Add to report", id: 'report_item_submit', title: 'Ctrl+Enter to add to shift report', class: 'btn btn-primary', data: { disable_with: "Submitting..." } %>
   <div id="submit_button">
     <%= params[:popup] %>
   </div>
