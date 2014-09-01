@@ -3,7 +3,8 @@
     <% if sticky.active? %>
       <%= link_to '&times;'.html_safe, notice_path(sticky),
       confirm: "Are you sure you want to remove this sticky? It will be removed for all users and all locations.",
-      method: :delete, class: 'close' %>
+      method: :delete, class: 'close', title: 'Delete Sticky', data: {
+      toggle: 'tooltip', placement: 'bottom' } %>
     <% end %>
   </div>
 
