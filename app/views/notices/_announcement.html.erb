@@ -2,10 +2,13 @@
   <% if current_user.is_admin_of?(current_department) || announcement.author == current_user%>
     <% if announcement.active? %>
       <%= link_to '&times;'.html_safe, notice_path(announcement),
-      confirm: "Are you sure you want to remove this announcement?",
-      method: :delete, class: 'close' %>
+      confirm: 'Are you sure you want to remove this announcement?',
+      method: :delete, class: 'close', title: 'Delete Announcement', data: {
+      toggle: 'tooltip', placement: 'bottom' } %>
     <% end %>
-    <%= link_to edit_announcement_path(announcement, width: 530, height: 350), title: "Edit Announcement", class: "thickbox", id: "edit" do %>
+    <%= link_to edit_announcement_path(announcement, width: 530, height: 350),
+    title: 'Edit Announcement', class: 'thickbox', id: 'edit', data: {
+    toggle: 'tooltip', placement: 'bottom' } do %>
       <i class="fa fa-pencil-square-o"></i>
     <% end %>
   <% end %>
