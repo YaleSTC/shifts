@@ -1,33 +1,34 @@
-<h1 id = "page_title">Editing time slot for <%= "#{@week_template.name}" %> template</h1>
+<% title "Editing time slot for #{@week_template.name} template" %>
+
 <%= form_for([@week_template, @template_time_slot]) do |f| %>
-	<div id ="errors">
-		<%= render partial: "template_time_slots/error_messages", locals: {f: f} %>
-	</div>
-	<p>
-		Where:
-		<%= f.select :location_id, options_from_collection_for_select(@week_template.signup_locations, "id", "short_name", selected: @template_time_slot.location.id) %>
-	</p>
-	<p>
-		Start time:
-		<%= f.time_select "start_time", {
-											start_time: @start,
-											end_time: @end,
-											include_start_time: true,
-											include_end_time: false,
-											default: @template_time_slot.start_time} %>
-	</p>
-	<p>
-		End time:
-		<%= f.time_select "end_time", {
-											start_time: @start,
-											end_time: @end,
-											include_start_time: false,
-											include_end_time: true,
-											default: @template_time_slot.end_time} %>
-	</p>
-	<p>
-		Day:
+  <div id ="errors">
+    <%= render partial: "template_time_slots/error_messages", locals: {f: f} %>
+  </div>
+  <p>
+    Where:
+    <%= f.select :location_id, options_from_collection_for_select(@week_template.signup_locations, "id", "short_name", selected: @template_time_slot.location.id) %>
+  </p>
+  <p>
+    Start time:
+    <%= f.time_select "start_time", {
+                      start_time: @start,
+                      end_time: @end,
+                      include_start_time: true,
+                      include_end_time: false,
+                      default: @template_time_slot.start_time} %>
+  </p>
+  <p>
+    End time:
+    <%= f.time_select "end_time", {
+                      start_time: @start,
+                      end_time: @end,
+                      include_start_time: false,
+                      include_end_time: true,
+                      default: @template_time_slot.end_time} %>
+  </p>
+  <p>
+    Day:
     <%= f.select :day, RequestedShift::WEEK_DAY_SELECT %>
-	</p>
-	<%= f.submit 'Update' %>
+  </p>
+  <%= f.submit 'Update' %>
 <% end %>

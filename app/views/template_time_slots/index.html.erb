@@ -1,4 +1,5 @@
-<h1 id="page_title">Timeslots for <%= @week_template.name %> </h1>
+<% title "Timeslots for #{@week_template.name}" %>
+
 <div id="all_time_slots">
 	<%= render partial: "all_time_slots", locals: {template_time_slots: @template_time_slots} %>
 </div>
