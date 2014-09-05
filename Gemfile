@@ -24,7 +24,8 @@ gem 'scrypt' # dependency of authlogic, which isn't automatically resolved
 gem 'paperclip'
 
 # model versioning (used for payform items)
-gem 'vestal_versions', git: 'https://github.com/laserlemon/vestal_versions.git'
+# gem 'vestal_versions', git: 'https://github.com/laserlemon/vestal_versions.git'
+gem 'paper_trail', '~> 3.0.5'
 
 gem 'htmlentities'
 
