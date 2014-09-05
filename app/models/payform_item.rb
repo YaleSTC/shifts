@@ -1,5 +1,5 @@
 class PayformItem < ActiveRecord::Base
-  versioned
+  has_paper_trail
 
   # acts_as_tree - replaced by 'versioned'
 
