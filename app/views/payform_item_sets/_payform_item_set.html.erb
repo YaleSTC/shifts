@@ -1,9 +1,9 @@
-<%= payform_item_set.active ? "<tr>".html_safe : "<tr class='disabled'>".html_safe %>	
+<%= payform_item_set.active ? "<tr>".html_safe : "<tr class='disabled'>".html_safe %>
   <td><%= link_to payform_item_set.date, edit_payform_item_set_path(payform_item_set) %></td>
   <% unless mobile_device?%>
   <td><%= payform_item_set.hours %></td>
-  <td><%=h payform_item_set.category.name %></td>
-  <td><%=h payform_item_set.description %></td>
+  <td><%= payform_item_set.category.name %></td>
+  <td><%= payform_item_set.description %></td>
   <% if payform_item_set.active %>
     <td><%= link_to "Destroy", payform_item_set, confirm: 'Are you sure?', method: :delete %></td>
   <% else %>
@@ -14,7 +14,7 @@
   <td>
     <strong>Users:</strong>
     <% for payform_item in payform_item_set.payform_items %>
-      <%= link_to payform_item.user.name, payform_item.payform %> <%= "(deleted from payform)" if !payform_item.active %>, 
+      <%= link_to payform_item.user.name, payform_item.payform %> <%= "(deleted from payform)" if !payform_item.active %>,
     <% end %>
   </td>
 </tr>
