@@ -18,9 +18,9 @@
   </td>
   <td class ="updated_by">
     <%# TODO: Clean up this code: %>
+    <%= User.find(payform_item.previous_version.originator) if !payform_item.version.blank? && current_user.is_admin_of?(current_department) %>
+    <%= payform_item.source if payform_item.version == nil && current_user.is_admin_of?(current_department) %>
     <%# binding.pry %>
-    <%= payform_item.originator if !payform_item.version.blank? && current_user.is_admin_of?(current_department) %>
-    <%= payform_item.source if payform_item.version == 1 && current_user.is_admin_of?(current_department) %>
   </td>
   <td class="rightside" id="hours" >
     <%= number_with_precision(payform_item.hours, precision: 2) %>
