@@ -28,11 +28,11 @@
   </p>
 
   <span id ="advanced_link" style="display:none" >
-  <%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
+  <%#= link_toggle "advanced", "Show/hide advanced options", "fast" %>
   </span>
   <div id="advanced">
     Search for a user, role, or department: <br />
-    <%= tokenized_users_autocomplete(@restriction, "user_sources", id: "for_users",style: "facebook") %>
+    <%#= tokenized_users_autocomplete(@restriction, "user_sources", id: "for_users",style: "facebook") %>
     <p>
       For locations: <br />
       <% if current_user.is_admin_of?(@department) %>
