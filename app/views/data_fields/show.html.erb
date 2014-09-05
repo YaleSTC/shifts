@@ -2,15 +2,15 @@
 
 <p>
   <strong>Name:</strong>
-  <%=h @data_field.name %>
+  <%= @data_field.name %>
 </p>
 <p>
   <strong>Display Type:</strong>
-  <%=h @data_field.display_type %>
+  <%= @data_field.display_type %>
 </p>
 <p>
   <strong>Values:</strong>
-  <%=h @data_field.values %>
+  <%= @data_field.values %>
 </p>
 <p>
   <%= link_to "Edit", edit_data_type_data_field_path(@data_field.data_type, @data_field) %> |
