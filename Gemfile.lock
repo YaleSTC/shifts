@@ -8,14 +8,6 @@ GIT
       sass (>= 3.2.0)
       sprockets-rails (~> 2.0.0.backport1)
 
-GIT
-  remote: https://github.com/laserlemon/vestal_versions.git
-  revision: beccc5744ec030664f003d61ffb617edefd7885b
-  specs:
-    vestal_versions (2.0.0)
-      activerecord (>= 3, < 5)
-      activesupport (>= 3, < 5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -160,6 +152,9 @@ GEM
     net-ssh (2.9.1)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
+    paper_trail (3.0.5)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -301,6 +296,7 @@ DEPENDENCIES
   mail
   memoist
   mysql2
+  paper_trail (~> 3.0.5)
   paperclip
   pry-byebug
   pry-rails
@@ -316,6 +312,5 @@ DEPENDENCIES
   sprockets (= 2.2.2.backport2)
   sprockets-rails (= 2.0.0.backport1)
   uglifier (>= 1.0.3)
-  vestal_versions!
   webrat (>= 0.7.0)
   whenever
