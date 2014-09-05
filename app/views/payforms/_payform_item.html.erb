@@ -17,10 +17,13 @@
     <%= "(original)" if type == 'edit_item' && payform_item.version == 1 %>
   </td>
   <td class ="updated_by">
-    <%# TODO: Clean up this code: %>
-    <%= User.find(payform_item.previous_version.originator) if !payform_item.version.blank? && current_user.is_admin_of?(current_department) %>
-    <%= payform_item.source if payform_item.version == nil && current_user.is_admin_of?(current_department) %>
-    <%# binding.pry %>
+    <% if current_user.is_admin_of?(current_department) %>
+      <% if payform_item.version.blank? %>
+        <%= payform_item.source %>
+      <% else %>
+       <%= payform_item.source %>
+      <% end %>
+    <% end %>
   </td>
   <td class="rightside" id="hours" >
     <%= number_with_precision(payform_item.hours, precision: 2) %>
@@ -44,7 +47,7 @@
 </tr>
 <% end %>
 
-<% if !payform_item.version.blank? %>
-  <% payform_item.previous_version %>
+<% unless payform_item.previous_version.blank? %>
+  <% payform_item = payform_item.previous_version %>
   <%= render partial: "payform_item", object: payform_item, locals: {type: 'edit_item' } %>
 <% end %>
