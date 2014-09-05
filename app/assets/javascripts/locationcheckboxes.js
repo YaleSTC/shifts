@@ -1,16 +1,21 @@
 //location group can check or uncheck all, and is only checked itself when all its locations are checked
 
 $(document).ready(function(){
+    locationcheckboxes();
+    $("#modal").on("shown.bs.modal", locationcheckboxes);
+});
 
+
+
+locationcheckboxes = function(){
 ////click responses
-
 //checking the dept box - checks/unchecks everything
     $("#department_wide_locations").click(function(){
         var dept_status = $("#department_wide_locations").prop('checked');
-		$("div#all_locations :checkbox").each(function(){
+        $("div#all_locations :checkbox").each(function(){
             $(this).prop('checked', dept_status);
         });
-	});
+    });
 //checking the loc_group - checks/unchecks all locations in the group
     $("input[name^='for_location_group']").click(function(){
         var locgroup_status = $(this).prop('checked');
@@ -40,8 +45,4 @@ $(document).ready(function(){
                 {deptcheck = false}
         })
         $("#department_wide_locations").prop('checked', deptcheck)
-});
-
-
-});
-
+});}
