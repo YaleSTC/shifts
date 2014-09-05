@@ -6,14 +6,14 @@
     <%= payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
-    <% if payform_item.source_url -%>
-      <%= link_to h(payform_item.description), payform_item.source_url %>
-    <% else -%>
-      <%=h payform_item.description %>
-    <% end -%>
+    <% if payform_item.source_url %>
+      <%= link_to payform_item.description, payform_item.source_url %>
+    <% else %>
+      <%= payform_item.description %>
+    <% end %>
   </td>
   <td class ="description" id= "reason">
-    <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
+    <%= payform_item.reason if current_user.is_admin_of?(current_department) %>
     <%= "(original)" if type == 'edit_item' && payform_item.version == 1 %>
   </td>
   <td class ="updated_by">

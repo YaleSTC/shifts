@@ -126,12 +126,12 @@
     <p>
       <% if current_user.is_admin_of?(@shift.location) or @shift.active %>
         <strong>User:</strong>
-        <%=h @shift.user.name %>
+        <%= @shift.user.name %>
       <%end%>
     </p>
     <p>
       <strong>Location:</strong>
-      <%=h @shift.location.name %>
+      <%= @shift.location.name %>
     </p>
   <% end %>
 
