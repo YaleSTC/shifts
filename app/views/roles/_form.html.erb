@@ -9,17 +9,17 @@
     <%= @department.admin_permission.name %>
   </p>
   <ul>
-    <% if @department.loc_groups.empty? -%>
+    <% if @department.loc_groups.empty? %>
       <p>Permissions for actions like viewing or signing up for shifts are granted per-location group. Please add one or more location groups to include the relevant permissions in your roles.</p>
-    <% end -%>
-    <% for lg in @department.loc_groups -%>
+    <% end %>
+    <% for lg in @department.loc_groups %>
         <li><%= lg.name %></li>
-          <% for perm in lg.permissions -%>
+          <% for perm in lg.permissions %>
               <div>
                 <%= check_box_tag "role[permission_ids][]", perm.id, @role.permissions.include?(perm) %>
                 <%= label_tag "permission_#{perm.id}", text = perm.name %>
               </div>
-          <% end -%>
-    <% end -%>
+          <% end %>
+    <% end %>
   </ul>
 
