@@ -4,9 +4,9 @@
   <% dept_loc_groups = dept[1] %>
   <% dept_val = nil %>
 	<% header_class = "header_#{normalize_str(dept_name)}" %>
-  <%= check_box_tag "#{normalize_str(dept_name)}".html_safe, nil, nil, class: header_class -%>
-  <%= label_tag "#{normalize_str(dept_name)}", "#{dept_name}".html_safe, class: header_class -%></h3>
-	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>".html_safe -%></div>
+  <%= check_box_tag "#{normalize_str(dept_name)}".html_safe, nil, nil, class: header_class %>
+  <%= label_tag "#{normalize_str(dept_name)}", "#{dept_name}".html_safe, class: header_class %></h3>
+	<%= "<a class=\"#{header_class}\" id=\"hide\" href=\"#\">Hide</a>".html_safe %></div>
 	<%= "<ul class=\"#{header_class}\" id=\"ul\">".html_safe %>
   <% dept_loc_groups.each do |loc_grp| %>
   <div class="toggle"><li>

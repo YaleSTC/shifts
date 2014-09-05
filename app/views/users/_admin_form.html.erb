@@ -1,7 +1,7 @@
 <% if @user.auth_type == "built-in"%>
    <h3>Reset Password?</h3>
      <div>
-       <%= check_box_tag :reset_password -%>
+       <%= check_box_tag :reset_password %>
      </div>
  <% end %>
  <%= render partial: 'new_form', locals: {submit: "Update", user: @user}%>

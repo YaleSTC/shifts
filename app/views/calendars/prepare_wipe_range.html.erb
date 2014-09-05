@@ -29,14 +29,14 @@
         <% end %>
       </p>
     <% end %>
-  <%- end -%>
+  <%- end %>
   <h3>Calendars to wipe</h3>
    <% @department.calendars.each do |cal| %>
       <p>
           <%= check_box_tag "cal_ids[]", cal.id, false, {id: "calendar_#{cal.id}"} %>
           <%= cal.name %>
       </p>
-  <%- end -%>
+  <%- end %>
   <p><%= submit_tag "Wipe" %></p>
 <% end %>
 

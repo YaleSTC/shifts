@@ -12,7 +12,7 @@
       <%= select_tag :locations, option_groups_from_collection_for_select(@loc_groups, "locations.active", :name, :id, :name, @location_ids), {multiple: true, size: 15}%><br />
       <br />
       <%= submit_tag 'Update' %>
-    <% end -%>
+    <% end %>
   </fieldset>
 
   <h3>  Everyone working <br><%= @start_time.strftime("%a%l:%M%p (%b %d)") %> to <br><%= @end_time.strftime("%a%l:%M%p (%b %d)") %>
