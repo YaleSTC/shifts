@@ -2,7 +2,7 @@
   <strong>Events:</strong>
   <ul>
   <% report.report_items.each do |item| %>
-    <li><%= item.time.getlocal.to_s(:am_pm) %>: <%=h item.content_with_formatting %></li>
+    <li><%= item.time.getlocal.to_s(:am_pm) %>: <%= item.content_with_formatting %></li>
   <% end %>
   </ul>
 </div>

@@ -2,19 +2,19 @@
 
 <p>
   <strong>Start:</strong>
-  <%=h @shift.start.to_s(:short_name) %>
+  <%= @shift.start.to_s(:short_name) %>
 </p>
 <p>
   <strong>End:</strong>
-  <%=h @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
+  <%= @shift.scheduled? ? @shift.end.to_s(:short_name) : "unscheduled" %>
 </p>
 <p>
   <strong>User:</strong>
-    <%=h link_to @shift.user.name, user_profile_path(@shift.user.login) %>
+    <%= link_to @shift.user.name, user_profile_path(@shift.user.login) %>
 </p>
 <p>
   <strong>Location:</strong>
-  <%=h @shift.location.name %>
+  <%= @shift.location.name %>
 </p>
 <p>
   <% if @shift.report %>

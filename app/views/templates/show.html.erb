@@ -28,13 +28,13 @@
  </thead>
  <tbody>
 <tr>
-    <td><%=h @week_template.max_total_hours %></td>
-    <td><%=h @week_template.min_total_hours %></td>
-    <td><%=h @week_template.max_continuous_hours %></td>
-    <td><%=h @week_template.min_continuous_hours %></td>
-    <td><%=h @week_template.max_number_of_shifts %></td>
-    <td><%=h @week_template.min_number_of_shifts %></td>
-    <td><%=h @week_template.max_hours_per_day %></td>
+    <td><%= @week_template.max_total_hours %></td>
+    <td><%= @week_template.min_total_hours %></td>
+    <td><%= @week_template.max_continuous_hours %></td>
+    <td><%= @week_template.min_continuous_hours %></td>
+    <td><%= @week_template.max_number_of_shifts %></td>
+    <td><%= @week_template.min_number_of_shifts %></td>
+    <td><%= @week_template.max_hours_per_day %></td>
 		<td><%= @week_template.roles.collect{|role| role.name}.to_sentence %></td>
 		<td><%= @week_template.timeslot_locations.uniq.collect{|loc| loc.short_name}.to_sentence %></td>
     <td><%= link_to 'View', @week_template %></td>

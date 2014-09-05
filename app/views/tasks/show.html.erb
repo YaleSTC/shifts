@@ -2,17 +2,17 @@
 
 <p>
   <b>Name:</b>
-  <%=h @task.name %>
+  <%= @task.name %>
 </p>
 
 <p>
   <b>Description:</b>
-  <%=h @task.description %>
+  <%= @task.description %>
 </p>
 
 <p>
   <b>Kind:</b>
-  <%=h @task.kind %>
+  <%= @task.kind %>
 </p>
 
 <p>
@@ -22,27 +22,27 @@
 
 <p>
   <b>Start:</b>
-  <%=h @task.start.strftime("%A, %B %d %Y") %>
+  <%= @task.start.strftime("%A, %B %d %Y") %>
 </p>
 
 <p>
   <b>End:</b>
-  <%=h @task.end.strftime("%A, %B %d %Y") %>
+  <%= @task.end.strftime("%A, %B %d %Y") %>
 </p>
 
 <p>
   <b>Time:</b>
-  <%=h @task.time_of_day.to_s(:am_pm) %>
+  <%= @task.time_of_day.to_s(:am_pm) %>
 </p>
 
 <p>
   <b>Weekday:</b>
-  <%=h @task.day_in_week %>
+  <%= @task.day_in_week %>
 </p>
 
 <p>
   <b>Active:</b>
-  <%=h @task.active %>
+  <%= @task.active %>
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |

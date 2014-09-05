@@ -39,10 +39,10 @@
   <%= (!calendar.active? and @calendar.nil?) ? "<tr class='disabled'>".html_safe : "<tr>".html_safe %>
       <td style="background: #<%= @color[calendar] %>"><%= link_to calendar.name, calendar %></td>
 	  <% unless mobile_device?%>
-      <td><%=h calendar.start_date.strftime("%b %d, %Y") %></td>
-      <td><%=h calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
-      <td><%=h calendar.public %></td>
-      <td><%=h calendar.active %></td>
+      <td><%= calendar.start_date.strftime("%b %d, %Y") %></td>
+      <td><%= calendar.default? ? "never" : calendar.end_date.strftime("%b %d, %Y") %></td>
+      <td><%= calendar.public %></td>
+      <td><%= calendar.active %></td>
       <td><%= link_to_function "Toggle view", "$('.calendar#{calendar.id}').toggle(); $(this).parent().parent().toggleClass('disabled'); calendar_visible[#{calendar.id}] = !calendar_visible[#{calendar.id}]"%></td>
       <% unless calendar.default? or !current_user.is_admin_of?(@department) %>
         <td><%= button_to calendar.active ? "Deactivate" : "Activate" , toggle_calendar_path(calendar) %></td>

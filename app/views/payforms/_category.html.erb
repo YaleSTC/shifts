@@ -9,11 +9,11 @@
 
 <thead>
   <tr class="category">
-    <th scope="col" id="<%=h category.name %>" colspan=7>
+    <th scope="col" id="<%= category.name %>" colspan=7>
       <div class="hours-right">
         <%= number_with_precision(PayformItem.rounded_hours(jobs), precision: 2) %>
       </div>
-      <%=h category.name %>
+      <%= category.name %>
     </th>
   </tr>
 </thead>
