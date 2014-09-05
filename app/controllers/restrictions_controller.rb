@@ -28,18 +28,18 @@ class RestrictionsController < ApplicationController
     params[:restriction].delete :end
 
     @restriction = Restriction.new(params[:restriction])
-    #begin
+    begin
       Restriction.transaction do
-        @restriction.save(validate: false) #polymorphic associations require a saved database record
+        @restriction.save(validate: false) 
         set_sources #setting polymorphic user and location sources
         @restriction.save! #saving again to run validations
       end
-    #rescue Exception
-    #  render action: "new"
-    #else
+    rescue Exception
+      render action: "new"
+    else
       flash[:notice] = "Successfully created restriction."
       redirect_to restrictions_path
-    #end
+    end
   end
 
   def edit
