@@ -45,11 +45,10 @@ $(document).ready(function() {
     //   }).modal();
     //   e.preventDefault();
     // });
-
-    $("#modal").on("click",":submit", function(){
-      console.log(this);
-      $(this).closest("#modal").modal('hide');
-    } );
+    $("#modal").on("hidden.bs.modal", function(){
+      $(this).find('form')[0].reset();
+      $(this).find('#errors').empty();
+    });
 
     // Tooltips
     var elems_for_tooltip = [$(".notice a.close"), $(".notice #edit")];
