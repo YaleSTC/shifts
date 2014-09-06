@@ -1,3 +1,11 @@
+<% if params[:layout]=="false" %>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="myModalLabel">Post a new sticky</h4>
+  </div>
+  <div class="model-body">
+<% end %>
+
 <%= form_for(@sticky, remote: true) do |f| %>
   <div id ="errors">
     <%= render partial: "notices/error_messages", locals: {f: f} %>
@@ -19,7 +27,16 @@
 
 	<% end %>
 	</div>
-	<p>
-    <%= f.submit 'Save' %>
-  </p>
+	<% if params[:layout]=="false" %>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit 'Save', class: "btn btn-primary"%>
+    </div>
+    </div>
+  <% else %>
+    <p>
+      <%= f.submit 'Save' %>
+    </p>
+  <% end %>
 <% end %>

@@ -14,12 +14,18 @@ module ApplicationHelper
   end
 
 	def link_to_post_a_sticky
-		link_to_unless_current('Post a new sticky', new_sticky_path(height: 200, width: 515, type: "Sticky"), title: "Post a new sticky", class: "thickbox btn btn-default", id: "post_link" )
+		link_to_unless_current('Post a new sticky',
+      new_sticky_path(layout: "false"), title: "Post a new sticky",
+      data: { toggle: 'modal', target: '#modal', remote: new_sticky_path(layout: "false") },
+      id: "post_link", class: 'btn btn-default')
   end
 
 	def link_to_post_an_announcement
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-			link_to_unless_current('Post a new announcement', new_announcement_path(layout: "false"), data: { toggle: 'modal', target: '#modal', remote: new_announcement_path(layout: "false")}, id: "announcement_link", class: 'btn btn-default')
+			link_to_unless_current('Post a new announcement',
+        new_announcement_path(layout: "false"), 
+        data: { toggle: 'modal', target: '#modal', remote: new_announcement_path(layout: "false")}, 
+        id: "announcement_link", class: 'btn btn-default')
 		end
 	end
 

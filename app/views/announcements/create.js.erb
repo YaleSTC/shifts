@@ -28,6 +28,7 @@
   $('#dashboard_notices').html("<%= escape_javascript render partial: 'notices/dashboard' %>");
   $('#all_notices').html("<%= escape_javascript render partial: 'notices/all_notices' %>");
 
+  $('#modal').modal('hide'); 
   $('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
   <% flash.discard %>
   <% if session[:mobile_param] =="1" %>
