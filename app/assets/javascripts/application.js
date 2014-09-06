@@ -36,18 +36,11 @@ $(document).ready(function() {
       $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
 
-    // $("#announcement_link").click(function(e){
-    //   var modal = $("#modal"), modalBody = $("#modal .modal-body");
 
-    //   modal.on("show.bs.modal", function(){
-    //     modalBody.load(e.currentTarget.href);
-    //     $("#modal .modal-title").html($("#announcement_link").text());
-    //   }).modal();
-    //   e.preventDefault();
-    // });
     $("#modal").on("hidden.bs.modal", function(){
-      $(this).find('form')[0].reset();
-      $(this).find('#errors').empty();
+      // $(this).find('form')[0].reset();
+      // $(this).find('#errors').empty();
+      $(this).removeData('bs.modal');
     });
 
     // Tooltips

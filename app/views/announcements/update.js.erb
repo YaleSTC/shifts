@@ -25,10 +25,7 @@
   <% if current_user.current_shift %>
     $('#message_center').html("<%= escape_javascript render partial: 'notices/notice', collection: current_user.current_shift.report.get_notices, locals: {html_class: 'report_notice'} %>");
   <% end %>  
-  <% if session[:mobile_param] != '1' %>
-    tb_remove();
-    tb_init('a#edit');
-  <% end %>
+  $('#modal').modal('hide'); 
   $('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
   <% flash.discard %>
   <% if session[:mobile_param] == '1'%>
