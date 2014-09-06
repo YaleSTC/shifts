@@ -19,7 +19,7 @@ module ApplicationHelper
 
 	def link_to_post_an_announcement
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-			link_to_unless_current('Post a new announcement', new_announcement_path(layout: "false"), data: { toggle: 'modal', target: '#myModal' }, id: "announcement_link", class: 'btn btn-default')
+			link_to_unless_current('Post a new announcement', new_announcement_path(layout: "false"), data: { toggle: 'modal', target: '#modal', remote: new_announcement_path(layout: "false")}, id: "announcement_link", class: 'btn btn-default')
 		end
 	end
 

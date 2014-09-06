@@ -36,15 +36,20 @@ $(document).ready(function() {
       $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
 
-    $("#announcement_link").click(function(e){
-      var modal = $("#modal"), modalBody = $("#modal .modal-body");
+    // $("#announcement_link").click(function(e){
+    //   var modal = $("#modal"), modalBody = $("#modal .modal-body");
 
-      modal.on("show.bs.modal", function(){
-        modalBody.load(e.currentTarget.href);
-        $("#modal .modal-title").html($("#announcement_link").text());
-      }).modal();
-      e.preventDefault();
-    });
+    //   modal.on("show.bs.modal", function(){
+    //     modalBody.load(e.currentTarget.href);
+    //     $("#modal .modal-title").html($("#announcement_link").text());
+    //   }).modal();
+    //   e.preventDefault();
+    // });
+
+    $("#modal").on("click",":submit", function(){
+      console.log(this);
+      $(this).closest("#modal").modal('hide');
+    } );
 
     // Tooltips
     var elems_for_tooltip = [$(".notice a.close"), $(".notice #edit")];
