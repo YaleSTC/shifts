@@ -38,8 +38,7 @@ $(document).ready(function() {
 
 
     $("#modal").on("hidden.bs.modal", function(){
-      // $(this).find('form')[0].reset();
-      // $(this).find('#errors').empty();
+      // force reloading remote content
       $(this).removeData('bs.modal');
     });
 
