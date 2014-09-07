@@ -15,7 +15,7 @@ module ApplicationHelper
 
 	def link_to_post_a_sticky
 		link_to_unless_current('Post a new sticky',
-      new_sticky_path(layout: "false"), title: "Post a new sticky",
+      new_sticky_path, title: "Post a new sticky",
       data: { toggle: 'modal', target: '#modal', remote: new_sticky_path(layout: "false") },
       id: "post_link", class: 'btn btn-default')
   end
@@ -23,7 +23,7 @@ module ApplicationHelper
 	def link_to_post_an_announcement
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
 			link_to_unless_current('Post a new announcement',
-        new_announcement_path(layout: "false"), 
+        new_announcement_path, 
         data: { toggle: 'modal', target: '#modal', remote: new_announcement_path(layout: "false")}, 
         id: "announcement_link", class: 'btn btn-default')
 		end
