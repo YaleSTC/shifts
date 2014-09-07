@@ -66,8 +66,8 @@ module PayformsHelper
 
   def payform_add_button
     unless @payform.approved
-      link_to '<span>Add Time</span>'.html_safe, new_payform_payform_item_path(@payform, height: "400", width: "600"),
-                     title: "Add Time", class: "thickbox button", onclick: "this.blur();"
+      link_to '<span>Add Time</span>'.html_safe, new_payform_payform_item_path(@payform), class: "button",
+                data:{toggle: 'modal', target:'#modal', remote: new_payform_payform_item_path(@payform, layout: "false")}
     end
   end
 
