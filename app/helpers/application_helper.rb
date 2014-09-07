@@ -9,7 +9,10 @@ module ApplicationHelper
 
 	def link_to_post_a_link
 		if current_user.is_loc_group_admin?(current_department) || current_user.is_admin_of?(current_department)
-    	link_to_unless_current('Post a new link', new_link_path(height: 225, width: 515, type: "Link"), title: "Post a new link", class: "thickbox btn btn-default", id: "post_link" )
+    	link_to_unless_current('Post a new link', 
+        new_link_path(type: "Link"), 
+        data: { toggle: 'modal', target: '#modal', remote: new_link_path(layout: "false") },
+        class: "btn btn-default", id: "post_link" )
 		end
   end
 
