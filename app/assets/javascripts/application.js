@@ -5,7 +5,6 @@
 //= require jquery-tablesorter
 //= require jquery.Jcrop
 //= require hoverIntent
-//= require thickbox-compressed
 //= require bootstrap-hover-dropdown
 //= require_tree .
 
