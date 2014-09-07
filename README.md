@@ -66,10 +66,10 @@ Just point your browser to ```localhost:3000``` to use Shifts.
 
 Shifts is built using [Ruby on Rails](http://rubyonrails.org/), and can be set up (deployed) like most Rails apps. You'll need a server running with the following software:
 
-* [Ruby 2.1](http://www.ruby-lang.org/)
+* [Ruby 2.1.2](http://www.ruby-lang.org/)
 * database server ([MySQL](http://www.mysql.com/) is preferred, but any database supported by Rails should work, including PostgreSQL)
 * web server ([apache](http://apache.org/) or [nginx](http://wiki.nginx.org/Main) both work well)
-* Rails application server (usually [Passenger Phusion](http://www.modrails.com/) aka mod_rails)
+* Rails application server (we recommend [Phusion Passenger](https://www.phusionpassenger.com/))
 
 For a general guide to setting up your web and application servers, including hosting providers, see the [Rails Deployment Guide](http://rubyonrails.org/deploy/).
 
