@@ -9,7 +9,7 @@
 <% calculate_default_times_announcements %>
 
 <br/>
-<%= form_for(@announcement, remote: true) do |f| %>
+<%= form_for(@announcement, remote: params[:layout]=="false") do |f| %>
   <div id ="errors">
     <%= render partial: "notices/error_messages", locals: {f: f} %>
   </div>
