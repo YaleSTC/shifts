@@ -4,7 +4,6 @@
 
 <% unless params[:layout] == "false" %>
   <p>
-    <%= link_to "Show", @payform_item %> |
     <%= link_to "View All", payform_path(@payform_item.payform) %>
   </p>
 <% end %>
