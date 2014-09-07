@@ -7,9 +7,10 @@
 <% end %>
 
 
-<%= form_for([@data_object, @data_entry], remote: true) do |f| %>
+<%= form_for([@data_object, @data_entry], remote: params[:layout]=="false") do |f| %>
+  <div id="errors">
   <%= f.error_messages %>
-
+  </div>
   <h2><%= @data_object.name %></h2>
 
   <% @data_object.data_type.data_fields.each do |field| %>
@@ -44,3 +45,4 @@
 <% if params[:layout]=="false" %>
   </div> <!-- modal-body div-->
 <% end %>
+  

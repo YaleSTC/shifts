@@ -19,8 +19,7 @@
 //     page.redirect_to(controller: 'dashboard', action: 'index')
 //   end
 // end
-
-<% if session[:mobile_param]!= "1" %>
+<% if @data_entry.errors.empty? %>
 	$('#modal').modal('hide'); 
 	<% if @report %>
 		$('#all_report_items').html("<%= escape_javascript render partial: 'reports/report_item', collection: @report.report_items  %>");
@@ -28,11 +27,9 @@
 	$('#dashboard_report_view').scrollTop($('#dashboard_report_view')[0].scrollHeight);
 	$('#current_report_item').effect("highlight", {color: "#3bcc77"}, 2000);
 <% else %>
-	console.log("This is mobile!");
-	<% if @current_user.current_shift %>
-		window.location.replace("<%= report_path @current_shift.report %>");	
-	<% else %>
-		window.location.replace("<%= root_path %>");
+	<% @data_entry.errors.full_messages.each do |msg| %>
+		$("#modal #errors").append("<%= msg%>");
 	<% end %>
 <% end %>
+
 
