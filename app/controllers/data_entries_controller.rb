@@ -5,7 +5,6 @@ class DataEntriesController < ApplicationController
   def new
     @data_entry = DataEntry.new
     @data_object = DataObject.find(params[:data_object_id])
-    @thickbox = true if params[:layout] == "false"
     layout_check
   end
 

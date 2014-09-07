@@ -1,8 +1,16 @@
+<% if params[:layout]=="false" %>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="myModalLabel"> Record New Data Entry </h4>
+  </div>
+  <div class="model-body">
+<% end %>
+
+
 <%= form_for([@data_object, @data_entry], remote: true) do |f| %>
   <%= f.error_messages %>
 
   <h2><%= @data_object.name %></h2>
-  <%= hidden_field_tag :thickbox, @thickbox %>
 
   <% @data_object.data_type.data_fields.each do |field| %>
     <% args = field.prepare_form_helpers %>
@@ -21,5 +29,18 @@
     </p>
   <% end %>
 
-  <p><%= f.submit "Submit" %></p>
+  <% if params[:layout]=="false" %>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit 'Save', class: "btn btn-primary", data:{disable_with: "Saving..."}%>
+    </div>
+  <% else %>
+    <p>
+      <%= f.submit 'Save' , data:{disable_with: "Saving..."}%>
+    </p>
+  <% end %>
+<% end %>
+<% if params[:layout]=="false" %>
+  </div> <!-- modal-body div-->
 <% end %>
