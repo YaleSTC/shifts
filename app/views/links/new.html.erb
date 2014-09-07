@@ -1,5 +1,13 @@
+<% if params[:layout]=="false" %>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="myModalLabel"> Post a new link </h4>
+  </div>
+  <div class="model-body">
+<% end %>
+
 <br/>
-<%= form_for(@link, remote: true) do |f| %>
+<%= form_for(@link, remote: params[:layout]=="false") do |f| %>
   <div id ="errors">
     <%= render partial: "notices/error_messages", locals: {f: f} %>
   </div>
@@ -16,7 +24,20 @@
 		<%= render partial: "notices/locations", locals: {notice: @link} %>
 	</div>
 
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+<% if params[:layout]=="false" %>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit 'Create', class: "btn btn-primary", data:{disable_with: "Creating..."}%>
+    </div>
+  <% else %>
+    <p>
+      <%= f.submit 'Create' , data:{disable_with: "Creating..."}%>
+    </p>
+  <% end %>
 <% end %>
+
+<% if params[:layout]=="false" %>
+  </div> <!-- modal-body div-->
+<% end %>
+

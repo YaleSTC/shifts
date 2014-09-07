@@ -28,9 +28,7 @@
     $('#dashboard_links').html("<%= escape_javascript render partial: 'dashboard_links' %>");
     $('#links_index').html("<%= escape_javascript render partial: 'links_index' %>");
   <% end %>
-  <% if session[:mobile_param] != '1' %>
-    tb_remove();
-  <% end %>
+  $("#modal").modal('hide');
   $('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
   <% flash.discard %>
   <% if session[:mobile_param] == '1' %>
@@ -41,5 +39,5 @@
     <% end %>
   <% end %>
 <% else %>
-  $('#errors').html("<%= escape_javascript render partial: 'notices/error_messages' %>");
+  $('#errors').html("<%= escape_javascript render partial: 'notices/error_messages'%>");
 <% end %>
