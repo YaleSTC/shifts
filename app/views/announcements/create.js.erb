@@ -20,6 +20,13 @@
 // else
 //   page.replace_html "errors", partial: 'notices/error_messages'
 // end
+  // <% if session[:mobile_param] =="1" %>
+  //   <% if @current_shift %>
+  //     window.location.replace("<%= report_path @current_shift.report %>");
+  //   <% else %>
+  //     window.location.replace("<%= root_path %>");
+  //   <% end %>    
+  // <% end %>
 
 <% if @announcement.errors.empty? %>
   <% if current_user.current_shift %>
@@ -31,13 +38,6 @@
   $('#modal').modal('hide'); 
   $('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
   <% flash.discard %>
-  <% if session[:mobile_param] =="1" %>
-    <% if @current_shift %>
-      window.location.replace("<%= report_path @current_shift.report %>");
-    <% else %>
-      window.location.replace("<%= root_path %>");
-    <% end %>    
-  <% end %>
 <% else %>
   $('#errors').html("<%= escape_javascript render partial: 'notices/error_messages' %>");
 <% end %>

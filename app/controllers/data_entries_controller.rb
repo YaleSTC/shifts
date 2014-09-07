@@ -28,7 +28,7 @@ class DataEntriesController < ApplicationController
     end
     respond_to do |format|
       format.js
-      format.html {redirect_to @report ? @report : @data_entry.data_object}
+      format.html {redirect_to @current_shift.report ? @current_shift.report : @data_entry.data_object}
     end
   end
 
