@@ -33,7 +33,7 @@ class Location < ActiveRecord::Base
   has_and_belongs_to_many :announcements, join_table: :locations_notices, association_foreign_key: :notice_id
   has_and_belongs_to_many :links,         join_table: :locations_notices, association_foreign_key: :notice_id
   has_and_belongs_to_many :stickies,      join_table: :locations_notices, association_foreign_key: :notice_id
-
+  has_and_belongs_to_many :restrictions
 
   delegate :department, to: :loc_group
 

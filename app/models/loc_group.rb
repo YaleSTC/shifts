@@ -19,6 +19,7 @@ class LocGroup < ActiveRecord::Base
   has_and_belongs_to_many :links,         join_table: :loc_groups_notices, association_foreign_key: :notice_id
   has_and_belongs_to_many :stickies,      join_table: :loc_groups_notices, association_foreign_key: :notice_id
   has_and_belongs_to_many :notices
+  has_and_belongs_to_many :restrictions
 
   scope :active, where(active: true)
 
