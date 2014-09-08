@@ -3,7 +3,7 @@
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <h4 class="modal-title" id="myModalLabel"> Record New Data Entry </h4>
   </div>
-  <div class="model-body">
+  <div class="modal-body">
 <% end %>
 
 
@@ -31,7 +31,7 @@
   <% end %>
 
   <% if params[:layout]=="false" %>
-    
+
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <%= f.submit 'Save', class: "btn btn-primary", data:{disable_with: "Saving..."}%>
@@ -45,4 +45,4 @@
 <% if params[:layout]=="false" %>
   </div> <!-- modal-body div-->
 <% end %>
-  
+
