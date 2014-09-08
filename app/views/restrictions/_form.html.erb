@@ -32,25 +32,31 @@
   </span>
   <div id="advanced">
     Search for a user, role, or department: <br />
-    <%= tokenized_users_autocomplete(@restriction, "user_sources", id: "for_users",style: "facebook") %>
+    <%= tokenized_users_autocomplete(@restriction, "users", id: "for_users",style: "facebook") %>
     <p>
       For locations: <br />
       <% if current_user.is_admin_of?(@department) %>
         <%= check_box_tag :department_wide_locations %><%= @department.name %> (all locations)<br />
       <% end %>
+      <div id="all_locations">
       <% for loc_group in @department.loc_groups do %>
         &nbsp;&nbsp;&nbsp;
-        <%= check_box_tag "for_location_groups[]", loc_group.id, false, disabled: false %><%= loc_group.name %>:
-        <% for location in loc_group.locations do %>
-          <% if current_user.current_shift %>
-            <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, disabled: false %>
-          <% else %>
-            <%= check_box_tag "for_locations[]", location.id, false, disabled: false %>
+        <li id='restriction_li'>
+          <%= check_box_tag "for_location_groups[]", loc_group.id, false, disabled: false %><%= loc_group.name %>:
+          <% for location in loc_group.locations do %>
+
+            <% if current_user.current_shift %>
+              <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, disabled: false %>
+            <% else %>
+              <%= check_box_tag "for_locations[]", location.id, false, disabled: false %>
+            <% end %>
+            <%= location.name %> &nbsp;
+
           <% end %>
-          <%= location.name %> &nbsp;
-        <% end %>
-        <br />
+          <br />
+        </li>
       <% end %>
+      </div>
     </p>
   </div>
 
