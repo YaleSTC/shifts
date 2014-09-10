@@ -28,7 +28,6 @@ class DataEntriesController < ApplicationController
         format.html {redirect_to @current_shift.report ? @current_shift.report : @data_entry.data_object}
       end
     else
-      # flash[:error] = "Could not update #{@data_entry.data_object.name}."
       @data_object = DataObject.find(params[:data_object_id])
       respond_to do |format|
         format.js
