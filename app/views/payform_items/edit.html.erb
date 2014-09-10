@@ -1,6 +1,13 @@
 <% title "Edit Payform Item" %>
-
-<%= render partial: 'form', locals: {submit: "Save", payform_item: @payform_item} %>
+<% if params[:layout]=="false" %>
+  <%= render partial: 'form', layout: 'layouts/modal_form_layout', 
+    locals:{modal_title: "Edit Payform Item", submit_text: "Edit", submitting_text: "Applying changes...", 
+    		payform_item: @payform_item} %>
+<% else %>
+  <%= render partial: 'form',
+    locals:{submit_text: "Edit", submitting_text: "Applying changes...", 
+    		payform_item: @payform_item} %>
+<% end %>
 
 <% unless params[:layout] == "false" %>
   <p>

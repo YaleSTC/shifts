@@ -1,6 +1,14 @@
 <% title "New Payform Item" %>
+<% if params[:layout]=="false" %>
+  <%= render partial: 'form', layout: 'layouts/modal_form_layout', 
+    locals:{modal_title: "Add Time to Payform", submit_text: "Add Time", submitting_text: "Adding time...", 
+    		payform_item: [@payform_item.payform,@payform_item]} %>
+<% else %>
+  <%= render partial: 'form',
+    locals:{submit_text: "Add Time", submitting_text: "Adding time...", 
+    		payform_item: [@payform_item.payform,@payform_item]} %>
+<% end %>
 
-<%= render partial: 'form', locals: {submit: "Create", payform_item: [@payform_item.payform,@payform_item] } %>
 
 <% unless params[:layout] == "false" %>
   <p><%= link_to "Back to Payform", payform_path(@payform_item.payform) %></p>
