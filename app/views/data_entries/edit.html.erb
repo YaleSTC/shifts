@@ -1,3 +1,10 @@
 <% title "Edit Data Entry" %>
 
-<%= render partial: 'form' %>
+
+<% if params[:layout]=="false" %>
+	<%= render partial: 'form', layout: 'layouts/modal_form_layout', 
+		locals:{modal_title: "Edit Data Entry", submit_text: "Edit", submitting_text: "Applying changes..."} %>
+<% else %>
+	<%= render partial: 'form',
+		locals:{submit_text: "Edit", submitting_text: "Applying changes..."} %>
+<% end %>
