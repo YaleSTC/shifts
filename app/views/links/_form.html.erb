@@ -1,0 +1,24 @@
+<br/>
+<%= form_for(@link, remote: params[:layout]=="false") do |f| %>
+  <div id ="errors">
+    <%= render partial: "notices/error_messages", locals: {f: f} %>
+  </div>
+	<fieldset class = "index">
+		<legend>Link label</legend>
+		<%= f.text_area :content, :id=>"content", size: "30x1" %>
+	</fieldset>
+
+	<fieldset class = "index">
+		<legend>URL</legend>
+		<%= f.text_area :url, :id=>"url", size: "40x3" %>
+	</fieldset>
+	<div id="variable_height_box">
+		<%= render partial: "notices/locations", locals: {notice: @link} %>
+	</div>
+
+  <% unless params[:layout]=="false" %>
+    <p>
+      <%= f.submit 'Create' , data:{disable_with: "Creating..."}%>
+    </p>
+  <% end %>
+<% end %>

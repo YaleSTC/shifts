@@ -1,43 +1,8 @@
 <% if params[:layout]=="false" %>
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title" id="myModalLabel"> Post a new link </h4>
-  </div>
-  <div class="modal-body">
-<% end %>
-
-<br/>
-<%= form_for(@link, remote: params[:layout]=="false") do |f| %>
-  <div id ="errors">
-    <%= render partial: "notices/error_messages", locals: {f: f} %>
-  </div>
-	<fieldset class = "index">
-		<legend>Link label</legend>
-		<%= f.text_area :content, :id=>"content", size: "30x1" %>
-	</fieldset>
-
-	<fieldset class = "index">
-		<legend>URL</legend>
-		<%= f.text_area :url, :id=>"url", size: "40x3" %>
-	</fieldset>
-	<div id="variable_height_box">
-		<%= render partial: "notices/locations", locals: {notice: @link} %>
-	</div>
-
-<% if params[:layout]=="false" %>
-
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <%= f.submit 'Create', class: "btn btn-primary", data:{disable_with: "Creating..."}%>
-    </div>
-  <% else %>
-    <p>
-      <%= f.submit 'Create' , data:{disable_with: "Creating..."}%>
-    </p>
-  <% end %>
-<% end %>
-
-<% if params[:layout]=="false" %>
-  </div> <!-- modal-body div-->
+  <%= render partial: 'form', layout: 'layouts/modal_form_layout', 
+    locals:{modal_title: "Create new link", submit_text: "Create", submitting_text: "Creating..."} %>
+<% else %>
+  <%= render partial: 'form',
+    locals:{submit_text: "Create", submitting_text: "Creating..."} %>
 <% end %>
 
