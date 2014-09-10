@@ -1,12 +1,14 @@
-$('#modal').modal('hide'); 
-$('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
-<% flash.discard %>
 <% if @data_entry.errors.empty? %>
 	<% if @report %>
 		$('#all_report_items').html("<%= escape_javascript render partial: 'reports/report_item', collection: @report.report_items  %>");
 	<% end %>
+	$('#modal').modal('hide'); 
+	$('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
+	<% flash.discard %>	
 	$('#dashboard_report_view').scrollTop($('#dashboard_report_view')[0].scrollHeight);
 	$('#current_report_item').effect("highlight", {color: "#3bcc77"}, 2000);
+<% else %>
+	$('#errors').html("<%= escape_javascript error_messages_for 'data_entry' %>");
 <% end %>
 
 
