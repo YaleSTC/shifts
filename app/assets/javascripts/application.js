@@ -41,6 +41,18 @@ $(document).ready(function() {
       $(this).removeData('bs.modal');
     });
 
+    $("#modal").on("click","#submit-modal", function(){
+      var button = $(this);
+      var submit_text = button.text();
+      var submitting_text = button.data("submitting");
+      var form = $(this).closest('div.modal-content').find('form');
+      button.prop("disabled",true).text(submitting_text);
+      form.submit();
+      $(document).ajaxComplete(function(){
+        button.text(submit_text).prop("disabled",false);
+      });
+    })
+
     // Tooltips
     var elems_for_tooltip = [$(".notice a.close"), $(".notice #edit")];
     $(elems_for_tooltip).each(function(){
