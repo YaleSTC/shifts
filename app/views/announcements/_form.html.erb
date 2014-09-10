@@ -1,11 +1,3 @@
-<% if params[:layout]=="false" %>
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title" id="myModalLabel"> <%= title_variable %> a new announcement</h4>
-  </div>
-  <div class="modal-body">
-<% end %>
-
 <% calculate_default_times_announcements %>
 
 <br/>
@@ -52,23 +44,11 @@
   <div id="variable_height_box">
 	 <%= render partial: "notices/locations", locals: {notice: @announcement} %>
   </div>
-<!--  	<p>
-    <%= f.submit 'Save' %>
-  </p>  -->
 
-  <% if params[:layout]=="false" %>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <%= f.submit 'Save', class: "btn btn-primary", data:{disable_with: "Saving..."}%>
-    </div>
-  <% else %>
+  <% unless params[:layout]=="false" %>
     <p>
-      <%= f.submit 'Save' , data:{disable_with: "Saving..."}%>
+      <%= f.submit submit_text , data:{disable_with: submitting_text}%>
     </p>
   <% end %>
-<% end %>
-
-<% if params[:layout]=="false" %>
-  </div> <!-- modal-body div-->
 <% end %>
