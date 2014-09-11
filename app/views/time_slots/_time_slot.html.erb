@@ -7,7 +7,7 @@
     <div class="center_container">
       <div class="center_content">
         <% unless time_slot.repeating_event %>
-          <%= link_to "x", {url: time_slot, confirm: 'Are you sure?', method: :delete}, remote: true, style: "float:right;margin-right:5px", class: 'delete_link' %>
+          <%= link_to "x", time_slot, confirm: 'Are you sure?', method: :delete, remote: true, style: "float:right;margin-right:5px", class: 'delete_link' %>
         <% else %>
           <%= link_to_function "x", class: 'click_to_delete_repeating_timeslot', id: 'delete_repeating_'+time_slot.id.to_s %>
         <% end %>
