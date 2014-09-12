@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'rails_helper'
 
-describe Calendar do
+RSpec.describe Calendar, type: :model do
   it "should be valid" do
     Calendar.new.should be_valid
   end
