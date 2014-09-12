@@ -15,7 +15,7 @@ end
 describe PayformItemsController do
   include PayformItemHelper
   fixtures :all
-  integrate_views
+  render_views
 
   describe ", when making a Parent Payform Item," do
     before(:each) do

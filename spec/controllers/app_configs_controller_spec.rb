@@ -2,7 +2,7 @@ require 'rails_helper'
  
 RSpec.describe AppConfigsController, type: :controller do
   fixtures :all
-  integrate_views
+  render_views
   
   it "index action should render index template" do
     get :index
