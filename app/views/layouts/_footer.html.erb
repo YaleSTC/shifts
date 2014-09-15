@@ -4,14 +4,17 @@
     <%= @appconfig.footer if @appconfig %>
   </p>
   <p>
-    For help with Shifts, please visit our repository on
-    <a href="http://github.com/YaleSTC/shifts">Github</a>.<br />
-    Use this <a href="https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0">form</a>
+    Powered by <a href="https://github.com/YaleSTC/shifts" target="_blank">Shifts</a><%= ' (' + APP_VERSION + ')' %><br />
+    Use this <a href="https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0" target="_blank">form</a>
     to report a bug.<br />
     <% if current_user && current_user.superuser? %>
       Superuser mode <%= link_to (current_user.supermode? ? 'ON' : 'OFF'),
       { su_mode: current_user.supermode? ? 'OFF' : 'ON' } %>
       <%# note that passing true false wont work because Rails thinks that false means not to pass it %>
     <% end %>
+  </p>
+  <p>
+    &copy; <%= Time.now.year %>
+    <%= link_to 'Yale Student Developers', 'http://yalestc.github.io/', target: '_blank' %>
   </p>
 </div>
