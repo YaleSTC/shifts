@@ -26,7 +26,7 @@
           <%end%>
         </p>
         <p class="footer">
-          For help with Shifts, please visit our repository on <a href="http://github.com/YaleSTC/shifts/tree/master">Github</a>.<br />
+          Powered by <a href="https://github.com/YaleSTC/shifts">Shifts</a><%= ' (' + APP_VERSION + ')' %><br />
           Use this <a href="https://docs.google.com/a/yale.edu/spreadsheet/viewform?formkey=dE8zTFprNVB4RTAwdURhWEVTTlpDQVE6MQ#gid=0">form</a> to report a bug.<br />
 			<% if mobile_device? %>
 				Mobile Site | <%= link_to "Full Site", :mobile => 0 %>
@@ -39,6 +39,8 @@
                 {:su_mode => current_user.supermode? ? 'OFF' : 'ON' } %>
                 <%# note that passing true false wont work because Rails thinks that false means not to pass it -%>
           <% end -%>
+      <br />
+          &copy; <%= Time.now.year %> Yale Student Developers<br />
         </p>
       </div>
   </div> <!-- End pagebox container generated in main_header -->
