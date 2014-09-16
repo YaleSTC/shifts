@@ -2,7 +2,6 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'csv'
-require File.dirname(__FILE__) + '/../lib/custom_logger.rb'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -35,8 +34,8 @@ module Shifts
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # swap the logger with a custom logger, and skip logging requests to status checker
-    config.middleware.swap Rails::Rack::Logger, CustomLogger
+    # JavaScript files you want as :defaults (application.js is always included).
+    # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
