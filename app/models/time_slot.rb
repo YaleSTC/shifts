@@ -48,11 +48,11 @@ class TimeSlot < ActiveRecord::Base
         seed_end_time = seed_start_time+diff
         while seed_end_time <= (end_date + 1.day)
           if active
-            inner_test.push "(location_id = #{loc_id} AND active = #{true} AND start  <= #{seed_end_time.utc} AND end  >= #{seed_start_time.utc})"
+            inner_test.push "(location_id = #{loc_id} AND active = #{true} AND start  <= \"#{seed_end_time.utc}\" AND end  >= \"#{seed_start_time.utc}\")"
           else
-            inner_test.push "(location_id = #{loc_id} AND calendar_id = #{cal_id} AND start  <= #{seed_end_time.utc} AND end  >= #{seed_start_time.utc})"
+            inner_test.push "(location_id = #{loc_id} AND calendar_id = #{cal_id} AND start  <= \"#{seed_end_time.utc}\" AND end  >= \"#{seed_start_time.utc}\")"
           end
-          inner_make.push "#{loc_id}, #{cal_id}, #{r_e_id}, #{seed_start_time.utc}, #{seed_end_time.utc}, #{Time.now.utc}, #{Time.now.utc}, #{active}"
+          inner_make.push "#{loc_id}, #{cal_id}, #{r_e_id}, \"#{seed_start_time.utc}\", \"#{seed_end_time.utc}\", \"#{Time.now.utc}\", \"#{Time.now.utc}\", #{active}"
           #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
           #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
           #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
@@ -77,7 +77,8 @@ class TimeSlot < ActiveRecord::Base
           TimeSlot.delete_all(s.join(" OR "))
         end
         outer_make.each do |s|
-          sql = "INSERT INTO time_slots (location_id , calendar_id , repeating_event_id }, start , end , created_at }, updated_at , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
+          sql = "INSERT INTO time_slots (location_id , calendar_id , repeating_event_id , start , end , created_at , updated_at , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
+          #binding.pry
           ActiveRecord::Base.connection.execute sql
         end
       return false
