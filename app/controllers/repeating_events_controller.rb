@@ -33,7 +33,6 @@ class RepeatingEventsController < ApplicationController
       @repeating_event.end_date = @repeating_event.calendar.end_date
     end
     warn = @repeating_event.start_time <= Time.now
-    binding.pry
     begin
       ActiveRecord::Base.transaction do
         @repeating_event.save!
