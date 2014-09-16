@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140905024451) do
+ActiveRecord::Schema.define(:version => 20140905140204) do
 
   create_table "app_configs", :force => true do |t|
     t.string   "footer"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.string   "ldap_email"
     t.boolean  "use_ldap"
     t.string   "mailer_address"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "calendar_feed_hash"
     t.string   "admin_email"
   end
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.boolean  "active"
     t.integer  "department_id"
     t.boolean  "default",       :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "public"
   end
 
@@ -48,16 +48,16 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.boolean  "built_in",      :default => false
     t.string   "name"
     t.integer  "department_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "billing_code"
   end
 
   create_table "data_entries", :force => true do |t|
     t.integer  "data_object_id"
     t.text     "content"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "data_fields", :force => true do |t|
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.float    "upper_bound"
     t.float    "lower_bound"
     t.string   "exact_alert"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "active",       :default => true
   end
 
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "data_type_id"
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "data_objects_locations", :id => false, :force => true do |t|
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.string   "name"
     t.text     "description"
     t.integer  "department_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.boolean  "monthly",              :default => false
     t.boolean  "end_of_month",         :default => false
     t.integer  "day",                  :default => 6
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "weekend_shifts"
     t.boolean  "unscheduled_shifts"
     t.text     "printed_message"
@@ -135,8 +135,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.boolean  "can_take_passed_sub",  :default => true
     t.string   "stats_mailer_address"
     t.boolean  "stale_shift",          :default => true
+    t.integer  "admin_round_option"
     t.integer  "payform_time_limit"
-    t.integer  "admin_round_option",   :default => 15
     t.integer  "early_signin",         :default => 60
     t.integer  "task_leniency",        :default => 60
     t.string   "search_engine_name",   :default => "Google"
@@ -149,16 +149,16 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "admin_permission_id"
     t.integer  "payforms_permission_id"
     t.integer  "shifts_permission_id"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "departments_users", :id => false, :force => true do |t|
     t.integer  "department_id"
     t.integer  "user_id"
     t.boolean  "active",                                       :default => true
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.decimal  "payrate",       :precision => 10, :scale => 2
   end
 
@@ -168,8 +168,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "last_send_attempt", :default => 0
     t.text     "mail"
     t.datetime "created_on"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "loc_groups", :force => true do |t|
@@ -178,8 +178,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "view_perm_id"
     t.integer  "signup_perm_id"
     t.integer  "admin_perm_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "public",         :default => true
     t.boolean  "active",         :default => true
   end
@@ -204,9 +204,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.string   "report_email"
     t.boolean  "active"
     t.integer  "loc_group_id"
-    t.integer  "template_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "description"
     t.integer  "category_id"
   end
@@ -220,8 +219,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "requested_shift_id"
     t.integer  "location_id"
     t.boolean  "assigned",           :default => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "locations_restrictions", :id => false, :force => true do |t|
@@ -233,8 +232,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "shift_preference_id"
     t.integer  "location_id"
     t.string   "kind"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notices", :force => true do |t|
@@ -248,8 +247,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.datetime "end"
     t.integer  "department_id"
     t.integer  "remover_id"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "url"
     t.string   "type"
     t.boolean  "department_wide"
@@ -275,15 +274,18 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.text     "description"
     t.text     "reason"
     t.string   "source"
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "source_url"
   end
 
+  add_index "payform_items", ["payform_id"], :name => "payform_id"
+  add_index "payform_items", ["user_id"], :name => "user_id"
+
   create_table "payform_sets", :force => true do |t|
     t.integer  "department_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "payforms", :force => true do |t|
@@ -298,16 +300,19 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "department_id"
     t.integer  "user_id"
     t.integer  "payform_set_id"
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.decimal  "payrate",        :precision => 10, :scale => 2
     t.datetime "skipped"
   end
 
+  add_index "payforms", ["payform_set_id"], :name => "payform_set_id"
+  add_index "payforms", ["user_id"], :name => "user_id"
+
   create_table "permissions", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "permissions_roles", :id => false, :force => true do |t|
@@ -318,8 +323,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
   create_table "punch_clock_sets", :force => true do |t|
     t.string   "description"
     t.integer  "department_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "punch_clocks", :force => true do |t|
@@ -329,8 +334,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "runtime"
     t.datetime "last_touched"
     t.boolean  "paused"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "punch_clock_set_id"
   end
 
@@ -344,8 +349,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "user_id"
     t.string   "loc_ids"
     t.boolean  "is_set_of_timeslots"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "report_items", :force => true do |t|
@@ -353,17 +358,21 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.datetime "time"
     t.text     "content"
     t.string   "ip_address"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "report_items", ["report_id"], :name => "report_id"
 
   create_table "reports", :force => true do |t|
     t.integer  "shift_id"
     t.datetime "arrived"
     t.datetime "departed"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "reports", ["shift_id"], :name => "shift_id"
 
   create_table "requested_shifts", :force => true do |t|
     t.datetime "preferred_start"
@@ -373,8 +382,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "day"
     t.integer  "template_id"
     t.integer  "user_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "assigned_start"
     t.datetime "assigned_end"
   end
@@ -384,8 +393,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.datetime "expires"
     t.integer  "max_subs"
     t.decimal  "max_hours",  :precision => 10, :scale => 2
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "restrictions_users", :id => false, :force => true do |t|
@@ -396,15 +405,15 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles_templates", :id => false, :force => true do |t|
     t.integer  "role_id"
     t.integer  "template_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -422,8 +431,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "max_hours_per_day"
     t.integer  "template_id"
     t.integer  "user_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "shifts", :force => true do |t|
@@ -438,8 +447,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.boolean  "scheduled",                                         :default => true
     t.boolean  "signed_in",                                         :default => false
     t.boolean  "power_signed_up",                                   :default => false
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "stats_unsent",                                      :default => true
     t.boolean  "stale_shifts_unsent",                               :default => true
     t.boolean  "missed",                                            :default => false
@@ -449,13 +458,22 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.decimal  "updates_hour",        :precision => 5, :scale => 2, :default => 0.0
   end
 
+  add_index "shifts", ["department_id"], :name => "department"
+  add_index "shifts", ["location_id", "late"], :name => "loc_stats_late"
+  add_index "shifts", ["location_id", "left_early"], :name => "loc_stats_left_early"
+  add_index "shifts", ["location_id", "missed"], :name => "loc_stats_missed"
+  add_index "shifts", ["location_id"], :name => "location"
+  add_index "shifts", ["user_id", "late"], :name => "stats_late"
+  add_index "shifts", ["user_id", "left_early"], :name => "stats_left_early"
+  add_index "shifts", ["user_id", "missed"], :name => "stats_missed"
   add_index "shifts", ["user_id"], :name => "index_shifts_on_user_id"
+  add_index "shifts", ["user_id"], :name => "user"
 
   create_table "shifts_tasks", :id => false, :force => true do |t|
     t.integer  "task_id"
     t.integer  "shift_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "missed"
   end
 
@@ -467,9 +485,12 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.text     "reason"
     t.integer  "shift_id"
     t.integer  "user_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "sub_requests", ["shift_id"], :name => "shift_id"
+  add_index "sub_requests", ["user_id"], :name => "user_id"
 
   create_table "sub_requests_users", :id => false, :force => true do |t|
     t.integer "sub_request_id"
@@ -486,8 +507,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.time     "time_of_day"
     t.string   "day_in_week"
     t.boolean  "active",             :default => true
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "expired",            :default => false
     t.string   "description"
     t.string   "link"
@@ -499,15 +520,15 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "day"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "templates", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "public"
     t.integer  "max_total_hours"
     t.integer  "min_total_hours"
@@ -525,8 +546,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.datetime "start"
     t.datetime "end"
     t.boolean  "active"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_configs", :force => true do |t|
@@ -535,8 +556,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.string   "view_loc_groups"
     t.string   "view_week"
     t.string   "watched_data_objects"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "taken_sub_email",        :default => true
     t.boolean  "send_due_payform_email", :default => true
   end
@@ -545,9 +566,13 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "user_profile_id"
     t.integer  "user_profile_field_id"
     t.string   "content"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "user_profile_entries", ["user_profile_field_id"], :name => "user_profile_field_id"
+  add_index "user_profile_entries", ["user_profile_id", "user_profile_field_id"], :name => "user_profile_id_2"
+  add_index "user_profile_entries", ["user_profile_id"], :name => "user_profile_id"
 
   create_table "user_profile_fields", :force => true do |t|
     t.string   "name"
@@ -556,15 +581,15 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.boolean  "public"
     t.boolean  "user_editable"
     t.integer  "department_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "index_display", :default => true
   end
 
   create_table "user_profiles", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -574,6 +599,8 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.integer  "crop_h"
     t.integer  "crop_w"
   end
+
+  add_index "user_profiles", ["user_id"], :name => "user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login"
@@ -588,32 +615,23 @@ ActiveRecord::Schema.define(:version => 20140905024451) do
     t.string   "auth_type"
     t.string   "perishable_token",      :default => "",   :null => false
     t.integer  "default_department_id"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "superuser"
     t.boolean  "supermode",             :default => true
+    t.string   "rank"
     t.string   "calendar_feed_hash"
   end
 
   create_table "versions", :force => true do |t|
-    t.integer  "versioned_id"
-    t.string   "versioned_type"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "user_name"
-    t.text     "modifications"
-    t.integer  "number"
-    t.string   "tag"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "reverted_from"
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
   end
 
-  add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
-  add_index "versions", ["number"], :name => "index_versions_on_number"
-  add_index "versions", ["tag"], :name => "index_versions_on_tag"
-  add_index "versions", ["user_id", "user_type"], :name => "index_versions_on_user_id_and_user_type"
-  add_index "versions", ["user_name"], :name => "index_versions_on_user_name"
-  add_index "versions", ["versioned_id", "versioned_type"], :name => "index_versions_on_versioned_id_and_versioned_type"
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end
