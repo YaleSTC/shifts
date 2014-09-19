@@ -1,11 +1,14 @@
-<ul class='nav navbar-nav'>
-	<% if current_user.current_shift %>
-		<%= content_tag :li, class: ('active' if params[:controller].to_s == "reports" &&
-									 params[:id].to_i == current_user.current_shift.report.id) do %>
-		<%= link_to "Current Shift", (current_user.current_shift.report.nil? ?
-		    shift_path(current_user.current_shift) : report_path(current_user.current_shift.report)) %>
-		<% end %>
-	<% end %>
+<ul class="nav navbar-nav">
+  <% if current_user.current_shift %>
+    <%= content_tag :li, class: ('active' if params[:controller].to_s == 'reports' &&
+    params[:id].to_i == current_user.current_shift.report.id) do %>
+      <%= link_to 'Current Shift', (current_user.current_shift.report.nil? ?
+          shift_path(current_user.current_shift) : report_path(current_user.current_shift.report)) %>
+    <% end %>
+
+  <% else %>
+    <%= content_tag :li do %>
+      <%= link_to 'My Payform', go_payforms_path %>
+    <% end %>
+  <% end %>
 </ul>
-
-
