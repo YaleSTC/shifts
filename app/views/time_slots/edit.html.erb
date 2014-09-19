@@ -4,9 +4,9 @@
   <% if params[:delete_options] and @time_slot.repeating_event %>
     <div id="repeating_event_delete_options">
       <p>This time slot is part of a repeating event.<br>What do you wish to destroy?</p>
-      <%= button_to_remote "Just this time slot", {url: {controller: 'time_slots', action: 'destroy', id: @time_slot.id, calendar: (params[:calendar] || true)}, confirm: 'Are you sure?', method: :delete} %><br />
-      <%= button_to_remote "This and all future time slots", {url: {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), delete_after_date: @time_slot.start}, confirm: 'Are you sure?', method: :delete} %><br />
-      <%= button_to_remote "All events in this series", {url: {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), rerender_date: @time_slot.start}, confirm: 'Are you sure?', method: :delete} %>
+          <%= button_to "Just this time slot",  {controller: 'time_slots', action: 'destroy', id: @time_slot.id, calendar: (params[:calendar] || true)}, data:{confirm: 'Are you sure?'}, method: :delete %><br />
+          <%= button_to "This and all future time slots", {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), delete_after_date: @time_slot.start}, data:{confirm: 'Are you sure?'}, method: :delete %><br />
+          <%= button_to "All events in this series", {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), rerender_date: @time_slot.start}, data:{confirm: 'Are you sure?'}, method: :delete %>
     </div>
   <% else %>
     <h2>Edit Timeslot</h2>
@@ -21,9 +21,9 @@
         <%= link_to_function "Destroy this time slot", "$('#repeating_event_delete_options').toggle()" %>
         <div id="repeating_event_delete_options" style="display:none">
           <p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
-          <%= button_to_remote "Just this time slot", {url: {controller: 'time_slots', action: 'destroy', id: @time_slot.id, calendar: (params[:calendar] || true)}, confirm: 'Are you sure?', method: :delete} %><br />
-          <%= button_to_remote "This and all future time slots", {url: {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), delete_after_date: @time_slot.start}, confirm: 'Are you sure?', method: :delete} %><br />
-          <%= button_to_remote "All events in this series", {url: {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), rerender_date: @time_slot.start}, confirm: 'Are you sure?', method: :delete} %>
+          <%= button_to "Just this time slot",  {controller: 'time_slots', action: 'destroy', id: @time_slot.id, calendar: (params[:calendar] || true)}, data:{confirm: 'Are you sure?'}, method: :delete %><br />
+          <%= button_to "This and all future time slots", {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), delete_after_date: @time_slot.start}, data:{confirm: 'Are you sure?'}, method: :delete %><br />
+          <%= button_to "All events in this series", {controller: 'repeating_events', action: 'destroy', id: @time_slot.repeating_event.id, calendar: (params[:calendar] || true), rerender_date: @time_slot.start}, data:{confirm: 'Are you sure?'}, method: :delete %>
         </div>
       <% end %>
     </p>
