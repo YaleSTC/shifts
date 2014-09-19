@@ -9,7 +9,7 @@
         <% unless time_slot.repeating_event %>
           <%= link_to "x", time_slot, confirm: 'Are you sure?', method: :delete, remote: true, style: "float:right;margin-right:5px", class: 'delete_link' %>
         <% else %>
-          <%= link_to_function "x", class: 'click_to_delete_repeating_timeslot', id: 'delete_repeating_'+time_slot.id.to_s %>
+          <%= link_to "x", edit_time_slot_path(time_slot, delete_options: true) %>
         <% end %>
         <%= link_to "#{time_slot.start.strftime("%l:%M%p")} - #{time_slot.end.strftime("%l:%M%p")}", edit_time_slot_path(time_slot) %>
       </div>
