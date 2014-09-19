@@ -1,22 +1,8 @@
-<br/>
-<%= form_for(@link, remote: true) do |f| %>
-  <div id ="errors">
-    <%= render partial: "notices/error_messages", locals: {f: f} %>
-  </div>
-	<fieldset class = "index">
-		<legend>Link label</legend>
-		<%= f.text_area :content, :id=>"content", size: "30x1" %>
-	</fieldset>
-
-	<fieldset class = "index">
-		<legend>URL</legend>
-		<%= f.text_area :url, :id=>"url", size: "40x3" %>
-	</fieldset>
-	<div id="variable_height_box">
-		<%= render partial: "notices/locations", locals: {notice: @link} %>
-	</div>
-
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+<% if params[:layout]=="false" %>
+  <%= render partial: 'form', layout: 'layouts/modal_form_layout', 
+    locals:{modal_title: "Create new link", submit_text: "Create", submitting_text: "Creating..."} %>
+<% else %>
+  <%= render partial: 'form',
+    locals:{submit_text: "Create", submitting_text: "Creating..."} %>
 <% end %>
+

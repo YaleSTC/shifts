@@ -1,7 +1,7 @@
 <% calculate_default_times_announcements %>
 
 <br/>
-<%= form_for(@announcement, remote: true) do |f| %>
+<%= form_for(@announcement, remote: params[:layout]=="false") do |f| %>
   <div id ="errors">
     <%= render partial: "notices/error_messages", locals: {f: f} %>
   </div>
@@ -12,39 +12,43 @@
   </fieldset>
 
 	<div id = "time_choices">
-<!--
-start time cannot currently be set. We need to simultaneously develop the ability to see announcements which haven't posted yet. Also change in announcements_controller "def set_author_dept_and_time" to accept start time again.
-ALSO WATCH OUT. If we decide to make this work, you'll get a mass assignment error if you don't delete the parameters
-start(1i), start(2i).. start(5i) start(i)
-  <fieldset class = "index">
-    <legend>Start time:</legend>
-    <%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
-    <%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
-    <label><%= f.datetime_select :start, minute_step: current_department.department_config.time_increment, twelve_hour: true %></label>
-  </fieldset>
--->
+    <!--
+    start time cannot currently be set. We need to simultaneously develop the ability to see announcements which haven't posted yet. Also change in announcements_controller "def set_author_dept_and_time" to accept start time again.
+    ALSO WATCH OUT. If we decide to make this work, you'll get a mass assignment error if you don't delete the parameters
+    start(1i), start(2i).. start(5i) start(i)
+      <fieldset class = "index">
+        <legend>Start time:</legend>
+        <%= radio_button_tag 'start_time_choice', 'now', start_time_check(true) %> Now <br/>
+        <%= radio_button_tag 'start_time_choice', 'date', start_time_check(false) %>
+        <label><%= f.datetime_select :start, minute_step: current_department.department_config.time_increment, twelve_hour: true %></label>
+      </fieldset>
+    -->
 
-  <fieldset class = "index">
-    <legend>End time:</legend>
-    <span class="end_time_choice_indefinite">
-    <%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
-    </span>
-    <span class="end_time_choice_date">
-    <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
-    <%= f.label :end %>
-    <%= f.time_select :end_time, default: @announcement.end %>
-    <%= f.date_select :end_date, default: @default_end_date %>
-    </span>
-  </fieldset>
+    <fieldset class = "index">
+      <legend>End time:</legend>
+      <span class="end_time_choice_indefinite">
+      <%= radio_button_tag 'end_time_choice', 'indefinite', end_time_check(true) %> Indefinite <br/>
+      </span>
+      <span class="end_time_choice_date">
+      <%= radio_button_tag 'end_time_choice', 'date', end_time_check(false) %>
+      <%= f.label :end %>
+      <%= f.time_select :end_time, default: @announcement.end %>
+      <%= f.date_select :end_date, default: @default_end_date %>
+      </span>
+    </fieldset>
 
   </div>
 <!-- set_sources method in notices controller doesn't handle removing polymorphic associations, so we can't unassociate locations
     from a notice. So if we're editing an announcement, we don't show the locations. We should probably change this to show the
 		locations, but just disable all of the checkboxes -->
-<div id="variable_height_box">
-	<%= render partial: "notices/locations", locals: {notice: @announcement} %>
-</div>
-	<p>
-  	<%= f.submit 'Save' %>
-	</p>
+  <div id="variable_height_box">
+	 <%= render partial: "notices/locations", locals: {notice: @announcement} %>
+  </div>
+
+
+  <% unless params[:layout]=="false" %>
+    <p>
+      <%= f.submit submit_text , data:{disable_with: submitting_text}%>
+    </p>
+  <% end %>
 <% end %>

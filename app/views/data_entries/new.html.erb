@@ -1,3 +1,9 @@
 <% title "New Data Entry" %>
 
-<%= render partial: 'form' %>
+<% if params[:layout]=="false" %>
+	<%= render partial: 'form', layout: 'layouts/modal_form_layout', 
+		locals:{modal_title: "Record New Data Entry", submit_text: "Record", submitting_text: "Recording..."} %>
+<% else %>
+	<%= render partial: 'form',
+		locals:{submit_text: "Record", submitting_text: "Recording..."} %>
+<% end %>

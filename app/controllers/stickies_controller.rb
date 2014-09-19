@@ -2,11 +2,13 @@ class StickiesController < NoticesController
   layout 'shifts'
 
   def index
+    flash.keep
 		redirect_to(notices_path)
   end
 
   def show
-     redirect_to(notices_path)
+    flash.keep
+    redirect_to(notices_path)
   end
 
   def new

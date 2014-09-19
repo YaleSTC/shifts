@@ -6,9 +6,10 @@
       method: :delete, class: 'close', title: 'Delete Announcement', data: {
       toggle: 'tooltip', placement: 'bottom' } %>
     <% end %>
-    <%= link_to edit_announcement_path(announcement, width: 530, height: 350),
-    title: 'Edit Announcement', class: 'thickbox', id: 'edit', data: {
-    toggle: 'tooltip', placement: 'bottom' } do %>
+    <%= link_to edit_announcement_path(announcement),
+    title: 'Edit Announcement', id: 'edit', data: {
+     toggle: "modal", target: "#modal", placement: 'bottom',
+     remote: edit_announcement_path(announcement, layout: "false")} do %>
       <i class="fa fa-pencil-square-o"></i>
     <% end %>
   <% end %>

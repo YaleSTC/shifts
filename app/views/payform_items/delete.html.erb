@@ -1,18 +1,27 @@
 <% title "Destroy Payform Item" %>
 
-<%= form_for @payform_item, html: {method: :delete} do |f| %>
-  <%= f.error_messages %>
+<% if params[:layout]=="false" %>
+  <%= render(layout: 'layouts/modal_form_layout', locals:{modal_title: "Delete Payform Item", submit_text: "Delete", submitting_text: "Deleting..."}) do%>
+    <%= form_for @payform_item, html: {method: :delete} do |f| %>
+      <%= f.error_messages %>
+      <p>
+      <%= f.label :reason %><br />
+      <%= f.text_area :reason, cols: 80, rows: 5 %>
+      </p>
+    <% end %>
+  <% end %>
+<% else %>
+    <%= form_for @payform_item, html: {method: :delete} do |f| %>
+      <%= f.error_messages %>
+      <p>
+      <%= f.label :reason %><br />
+      <%= f.text_area :reason, cols: 80, rows: 5 %>
+      </p>
+      <p>
+        <%= f.submit "Delete" , data:{disable_with: "Deleting..."}%>
+      </p>
+    <% end %>
   <p>
-    <%= f.label :reason %><br />
-    <%= f.text_area :reason, cols: 80, rows: 5 %>
-  </p>
-  <p><%= f.submit "Delete" %></p>
-<% end %>
-
-
-<% unless params[:layout] == "false" %>
-  <p>
-    <%= link_to "Show", @payform_item %> |
     <%= link_to "View All", payform_path(@payform_item.payform) %>
   </p>
 <% end %>

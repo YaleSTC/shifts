@@ -5,7 +5,6 @@
 //= require jquery-tablesorter
 //= require jquery.Jcrop
 //= require hoverIntent
-//= require thickbox-compressed
 //= require bootstrap-hover-dropdown
 //= require_tree .
 
@@ -36,15 +35,23 @@ $(document).ready(function() {
       $(this).html("<a href='#'>"+$(this).text()+"</a>");
     });
 
-    $("#announcement_link").click(function(e){
-      var modal = $("#modal"), modalBody = $("#modal .modal-body");
 
-      modal.on("show.bs.modal", function(){
-        modalBody.load(e.currentTarget.href);
-        $("#modal .modal-title").html($("#announcement_link").text());
-      }).modal();
-      e.preventDefault();
+    $("#modal").on("hidden.bs.modal", function(){
+      // force reloading remote content
+      $(this).removeData('bs.modal');
     });
+
+    $("#modal").on("click","#submit-modal", function(){
+      var button = $(this);
+      var submit_text = button.text();
+      var submitting_text = button.data("submitting");
+      var form = $(this).closest('div.modal-content').find('form');
+      button.prop("disabled",true).text(submitting_text);
+      form.submit();
+      $(document).ajaxComplete(function(){
+        button.text(submit_text).prop("disabled",false);
+      });
+    })
 
     // Tooltips
     var elems_for_tooltip = [$(".notice a.close"), $(".notice #edit")];
