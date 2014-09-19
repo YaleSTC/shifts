@@ -3,7 +3,10 @@ module NoticesHelper
     notice.loc_groups.each do |lg|
       return true if lg == loc_group
     end
-    false
+    loc_group.locations.active.each do |loc|
+      return false if !location_checked_notice?(loc, notice)
+    end
+    true
   end
 
   def location_checked_notice?(location, notice)

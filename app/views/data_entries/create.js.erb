@@ -1,37 +1,14 @@
-// #This is almost a line-for-line copy of report_items/create.js.rjs
-// #Should be improved at a later date -ben
-
-
-// if session[:mobile_param] != "1"
-//   page << "tb_remove();"
-// end
-// if @report
-// 	page.replace_html "all_report_items", partial: 'reports/report_item', collection: @report.report_items
-// end
-// page.visual_effect :highlight, "current_report_item", color: '#3bcc77', duration: 2.0
-// page[:new_report_item].reset
-
-
-// if session[:mobile_param] == "1"
-//   if @current_user.current_shift
-//     page.redirect_to(controller: 'reports', action: 'show', id: @current_shift.report.id)
-//   else
-//     page.redirect_to(controller: 'dashboard', action: 'index')
-//   end
-// end
-
-<% if session[:mobile_param]!= "1" %>
-	tb_remove();
+<% if @data_entry.errors.empty? %>
 	<% if @report %>
 		$('#all_report_items').html("<%= escape_javascript render partial: 'reports/report_item', collection: @report.report_items  %>");
 	<% end %>
+	$('#modal').modal('hide'); 
+	$('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
+	<% flash.discard %>	
 	$('#dashboard_report_view').scrollTop($('#dashboard_report_view')[0].scrollHeight);
 	$('#current_report_item').effect("highlight", {color: "#3bcc77"}, 2000);
 <% else %>
-	<% if @current_user.current_shift %>
-		window.location.replace("<%= report_path @current_shift.report %>");	
-	<% else %>
-		window.location.replace("<%= root_path %>");
-	<% end %>
+	$('#errors').html("<%= escape_javascript error_messages_for 'data_entry' %>");
 <% end %>
+
 

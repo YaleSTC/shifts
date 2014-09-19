@@ -1,8 +1,8 @@
-<%= form_for([@data_object, @data_entry], remote: true) do |f| %>
+<%= form_for([@data_object, @data_entry], remote: params[:layout]=="false") do |f| %>
+  <div id="errors">
   <%= f.error_messages %>
-
+  </div>
   <h2><%= @data_object.name %></h2>
-  <%= hidden_field_tag :thickbox, @thickbox %>
 
   <% @data_object.data_type.data_fields.each do |field| %>
     <% args = field.prepare_form_helpers %>
@@ -21,5 +21,10 @@
     </p>
   <% end %>
 
-  <p><%= f.submit "Submit" %></p>
+  <% unless params[:layout]=="false" %>
+    <p>
+      <%= f.submit submit_text , data:{disable_with: submitting_text}%>
+    </p>
+  <% end %>
 <% end %>
+

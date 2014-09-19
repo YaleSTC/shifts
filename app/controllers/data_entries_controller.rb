@@ -5,7 +5,6 @@ class DataEntriesController < ApplicationController
   def new
     @data_entry = DataEntry.new
     @data_object = DataObject.find(params[:data_object_id])
-    @thickbox = true if params[:layout] == "false"
     layout_check
   end
 
@@ -24,12 +23,18 @@ class DataEntriesController < ApplicationController
           @report.report_items << ReportItem.new(time: Time.now, content: "Updated #{@data_entry.data_object.name}: #{"\n"} #{content.join("\n")}", ip_address: request.remote_ip)
         end
       end
+      respond_to do |format|
+        format.js
+        format.html {redirect_to @current_shift.report ? @current_shift.report : @data_entry.data_object}
+      end
     else
-      flash[:error] = "Could not update #{@data_entry.data_object.name}."
-    end
-    respond_to do |format|
-      format.js
-      format.html {redirect_to @report ? @report : @data_entry.data_object}
+      @data_object = DataObject.find(params[:data_object_id])
+      respond_to do |format|
+        format.js
+        format.html {render action: 'new'}
+      end
+
+
     end
   end
 
