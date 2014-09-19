@@ -1,3 +1,20 @@
+$(document).ready(function(){
+  $("div.timeslots li.click_to_add_new").click(function(e){
+    e.preventDefault();
+    window.location.href = newTimeSlotPath;
+  });
+
+});
+
+
+
+
+
+
+
+
+
+
 initialize("body");
 
 function initialize(element) {
