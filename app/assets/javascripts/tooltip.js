@@ -2,16 +2,6 @@ $(document).ready(function(){
   initialize("body");
 });
 
-
-
-
-
-
-
-
-
-
-
 function initialize(element) {
 
   $(element+' td.click_to_show').click(function (e) {
