@@ -7,7 +7,7 @@ $('#<%= @shift.start.strftime("%Y-%m-%d") %>').html(
 // TODO: Figure out how to make this work in jQuery
 // page["#shift#{@shift.id}"].visual_effect :highlight
 
-initialize('##{@shift.start.strftime("%Y-%m-%d")}');
+initialize('#<%= @shift.start.strftime("%Y-%m-%d") %>');
 
 // display alert
 //alert("shift updated");
