@@ -3,11 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 
 
 require 'rspec'
-# require 'capybara'
 require 'capybara/rails'
-# require 'capybara/dsl'
-# Capybara.default_driver = :webkit
-# include Capybara::DSL
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
 
@@ -16,6 +12,10 @@ RSpec.configure do |c|
   c.mock_with :rspec
   # c.filter_run_including :focus => true
   c.include Capybara::DSL
+end
+
+def sign_in(netid)
+    CASClient::Frameworks::Rails::Filter.fake(netid)
 end
 
 # # This file is copied to ~/spec when you run 'ruby script/generate rspec'
