@@ -1,0 +1,4 @@
+<p>This shift is part of a repeating event.<br>What do you wish to destroy?</p>
+<%= button_to "Just this shift", {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, data:{confirm: 'Are you sure?'}, method: :delete %><br />
+<%= button_to "This and all future shifts", {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], delete_after_date: @shift.start}, data:{confirm: 'Are you sure?'}, method: :delete %><br />
+<%= button_to "All events in this series", {controller: 'repeating_events', action: 'destroy', id: @shift.repeating_event.id, calendar: params[:calendar], rerender_date: @shift.start}, data:{confirm: 'Are you sure?'}, method: :delete %>
