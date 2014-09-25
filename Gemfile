@@ -65,6 +65,10 @@ group :test do
   gem 'capybara'
 end
 
+group :test, :development do
+  gem 'factory_girl_rails'
+end
+
 group :assets do
   # gem 'sass-rails',   '~> 3.2.3' # using sass-rails below
   gem 'coffee-rails', '~> 3.2.1'
