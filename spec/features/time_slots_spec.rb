@@ -33,6 +33,14 @@ describe "timeslot creation process", :type => :feature do
   end
 end
 
+# An easy way to select a timeslot row
+# @param
+#   location_id id of the location we're looking for
+#   day_of_week 1-7 to describe the day of the week
+def time_slot_row(location_id, day_of_week)
+  find("#location#{location_id} .timeslots")[day_of_week]
+end
+
 # feature 'Visitor signs up' do
 #   scenario 'with valid email and password' do
 #     sign_up_with 'valid@example.com', 'password'
