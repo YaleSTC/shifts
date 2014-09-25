@@ -3,7 +3,14 @@ require 'capybara/rails'
 
 describe "timeslot creation process", :type => :feature do
   before :each do
-    load Rails.root + "db/seeds.rb" 
+    app_configs = build(:app_configs)
+    department = build(:department)
+    # user_configs = build(:user_configs)
+    user = build(:admin)
+    user.set_random_password
+    user.departments << Department.first
+    binding.pry
+    # load Rails.root + "db/seeds.rb" 
     sign_in("csw3")
     # assume that it is Monday [specific date]
   end

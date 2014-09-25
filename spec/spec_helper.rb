@@ -8,10 +8,14 @@ require 'casclient'
 require 'casclient/frameworks/rails/filter'
 
 
-RSpec.configure do |c|
-  c.mock_with :rspec
+RSpec.configure do |config|
+  config.mock_with :rspec
   # c.filter_run_including :focus => true
-  c.include Capybara::DSL
+  config.include Capybara::DSL
+  config.include FactoryGirl::Syntax::Methods
+  # config.before(:suite) do
+  #   FactoryGirl.lint
+  # end
 end
 
 def sign_in(netid)
