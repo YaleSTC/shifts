@@ -1,4 +1,4 @@
 <ul id="location<%=location.id%>_<%= time_slot_day %>_timeslots" class="events" style="height: 11%;">
-  <li id="location<%=location.id%>_<%= time_slot_day %>_free_time" style="width:100%" class="click_to_add_new">
+  <li id="location<%=location.id%>_<%= time_slot_day %>_free_time" style="width:100%" class="click_to_add_new_timeslot">
   <%= render partial: "time_slots/time_slot", locals: {time_slot_day: time_slot_day}, collection: fetch_timeslots(time_slot_day,location) -%>
 </ul>
