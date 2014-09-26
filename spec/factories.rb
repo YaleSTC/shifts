@@ -32,6 +32,15 @@ FactoryGirl.define do
     admin_perm_id "113"
   end
 
+  factory :location do
+    name "Jurassic Park Pets"
+    short_name "JPP"
+    max_staff 2
+    min_staff 1
+    priority 1
+    active true
+    loc_group_id 1
+  end
   # factory :user_session do
   #   login "csw3"
   # end
