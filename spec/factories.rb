@@ -35,11 +35,20 @@ FactoryGirl.define do
   factory :location do
     name "Jurassic Park Pets"
     short_name "JPP"
+    description "pets that live in Jurassic Park"
+    category
     max_staff 2
     min_staff 1
     priority 1
     active true
     loc_group_id 1
+  end
+
+  factory :category do
+    name "Magic"
+    active true
+    department_id 1
+    built_in "f"
   end
   # factory :user_session do
   #   login "csw3"
