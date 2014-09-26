@@ -6,7 +6,13 @@ require 'rspec'
 require 'capybara/rails'
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
+require 'authlogic/test_case'
+require "rack_session_access/capybara"
 
+
+# CASClient::Frameworks::Rails::Filter.configure(
+#       :cas_base_url => "https://secure.its.yale.edu/cas/"
+# )
 
 RSpec.configure do |config|
   config.mock_with :rspec
@@ -18,9 +24,6 @@ RSpec.configure do |config|
   # end
 end
 
-def sign_in(netid)
-    CASClient::Frameworks::Rails::Filter.fake(netid)
-end
 
 # # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # # from the project root directory.

@@ -63,6 +63,7 @@ end
 group :test do
   gem 'rspec'
   gem 'capybara'
+  gem 'rack_session_access'
 end
 
 group :test, :development do
