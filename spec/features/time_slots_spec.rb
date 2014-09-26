@@ -11,11 +11,7 @@ describe "timeslot creation process", :type => :feature do
     user.set_random_password
     user.departments << Department.first
     user.save
-    # activate_authlogic
-    # Authlogic::Session::Base.controller = Authlogic::ControllerAdapters::RailsAdapter.new(self)
-    # user_session = build(:user_session)
     sign_in("ad12")
-    # binding.pry
     # assume that it is Monday [specific date]
   end
 
@@ -50,15 +46,4 @@ end
 #   day_of_week 1-7 to describe the day of the week
 def time_slot_row(location_id, day_of_week)
   find("#location#{location_id} .timeslots")[day_of_week]
-end
-
-def sign_in(netid)
-  # CASClient::Frameworks::Rails::Filter.fake(netid)
-  page.set_rack_session(:cas_user => netid)
-  user = User.find_by_login(netid)
-  # user.should_not be_nil
-  # session = UserSession.new
-  # session.should be_valid
-  # session.save
-  # binding.pry
 end
