@@ -5,7 +5,6 @@ FactoryGirl.define do
     created_at "2009-07-09 18:39:41"
     ldap_base "ou=People,o=yale.edu"
     updated_at "2009-07-09 18:39:41"
-    # id "1"
     ldap_port "389"
     auth_types "CAS"
     ldap_login "uid"
@@ -25,7 +24,7 @@ FactoryGirl.define do
   end
 
   factory :loc_group, class: LocGroup do
-    department_id "1"
+    department
     name "Outside of Hogwarts"
     view_perm_id "111"
     signup_perm_id "112"
