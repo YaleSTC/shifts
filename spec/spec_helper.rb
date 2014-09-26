@@ -11,7 +11,9 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   # config.before(:suite) do
   #   FactoryGirl.lint
+  #   %x[bundle exec rake assets:precompile]
   # end
+  Capybara.asset_host = "http://localhost:3000"
 end
 
 def sign_in(netid)
