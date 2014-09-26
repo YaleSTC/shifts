@@ -5,14 +5,15 @@ require 'authlogic/test_case'
 
 describe "timeslot creation process", :type => :feature do
   before :each do
-    app_configs = build(:app_configs)
-    department = build(:department)
+    app_configs = create(:app_configs)
+    department = create(:department)
     user = build(:admin)
     user.set_random_password
     user.departments << Department.first
     user.save
     sign_in("ad12")
-    loc_group = build(:loc_group)
+    loc_group = create(:loc_group)
+    location = create(:location)
     # assume that it is Monday [specific date]
   end
 
