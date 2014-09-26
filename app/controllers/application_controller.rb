@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
 
   protected
   def current_user
-    binding.pry
     @current_user ||= (
     if @user_session
       @user_session.user
