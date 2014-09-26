@@ -11,7 +11,7 @@ describe "timeslot creation process", :type => :feature do
     user.set_random_password
     user.departments << Department.first
     user.save
-    sign_in("ad12")
+    sign_in(user.login)
     loc_group = create(:loc_group)
     location = create(:location)
     # assume that it is Monday [specific date]
@@ -19,7 +19,6 @@ describe "timeslot creation process", :type => :feature do
 
   it "creates a timeslot" do
     visit '/time_slots/new'
-    save_and_open_page
     within("#new_time_slot") do
       # fill_in DATE, :with => TOMORROW
       # fill_in time_slot_start_time_4i, :with => "10" #10am
