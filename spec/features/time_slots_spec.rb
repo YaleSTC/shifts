@@ -5,16 +5,24 @@ require 'authlogic/test_case'
 
 describe "timeslot creation process", :type => :feature do
   before :each do
-    app_configs = create(:app_configs)
+    app_config = create(:app_config)
     department = create(:department)
+    loc_group = build(:loc_group, department: department)
+    @location = create(:location, loc_group: loc_group)
+
     user = build(:admin)
     user.set_random_password
-    user.departments << Department.first
+    user.departments << Department.find(1)
     user.save
     sign_in(user.login)
-    loc_group = create(:loc_group)
-    location = create(:location)
+    # binding.pry
     # assume that it is Monday [specific date]
+  end
+
+  it "can view the main page" do
+    visit '/'
+    # save_and_open_page
+    expect(page).to have_content 'Your Shifts'
   end
 
   it "creates a timeslot" do
@@ -22,13 +30,20 @@ describe "timeslot creation process", :type => :feature do
     expect(page).to have_content 'Success'
   end
 
-  it "displays the timeslot properly on the time slots page" do
+  it "displays the timeslot at all" do
     create_timeslot
     visit '/time_slots'
-    save_and_open_page
+    expect(page).to have_css('.time-slot')
+  end
+
+  xit "displays the timeslot properly on the time slots page" do
+    create_timeslot
+    visit '/time_slots'
+    # save_and_open_page
     #didn't test this at all, but it's a good first guess.
     #this needs to be abstracted/future-proofed, of course
-    expect(find('#location1_2014-09-25_timeslots')).to have_css('#timeslot346')
+    
+    # expect(SPECIFIC ROW).to have_css('.time-slot')
   end
 
   xit "displays the timeslot properly on the shifts page" do
@@ -46,6 +61,7 @@ def create_timeslot
     click_button 'Add'
 end
 
+# THIS DOESN'T WORK
 # An easy way to select a timeslot row
 # @param
 #   location_id id of the location we're looking for
