@@ -18,19 +18,14 @@ describe "timeslot creation process", :type => :feature do
   end
 
   it "creates a timeslot" do
-    visit '/time_slots/new'
-    within("#new_time_slot") do
-      # fill_in DATE, :with => TOMORROW
-      # fill_in time_slot_start_time_4i, :with => "10" #10am
-      # ...more time
-    end
-    click_button 'Add'
+    create_timeslot
     expect(page).to have_content 'Success'
   end
 
-  xit "displays the timeslot properly on the time slots page" do
+  it "displays the timeslot properly on the time slots page" do
+    create_timeslot
     visit '/time_slots'
-
+    save_and_open_page
     #didn't test this at all, but it's a good first guess.
     #this needs to be abstracted/future-proofed, of course
     expect(find('#location1_2014-09-25_timeslots')).to have_css('#timeslot346')
@@ -39,6 +34,16 @@ describe "timeslot creation process", :type => :feature do
   xit "displays the timeslot properly on the shifts page" do
     visit '/shifts'
   end
+end
+
+def create_timeslot
+    visit '/time_slots/new'
+    within("#new_time_slot") do
+      # fill_in DATE, :with => TOMORROW
+      # fill_in time_slot_start_time_4i, :with => "10" #10am
+      # ...more time
+    end
+    click_button 'Add'
 end
 
 # An easy way to select a timeslot row
