@@ -3,7 +3,8 @@ require File.expand_path('../../config/environment', __FILE__)
 
 require 'rspec'
 require 'capybara/rails'
-require "rack_session_access/capybara"
+require 'casclient'
+require 'casclient/frameworks/rails/filter'
 
 RSpec.configure do |config|
   config.mock_with :rspec
@@ -17,7 +18,7 @@ RSpec.configure do |config|
 end
 
 def sign_in(netid)
-  page.set_rack_session(:cas_user => netid)
+  RubyCAS::Filter.fake(netid)
 end
 
 # # This file is copied to ~/spec when you run 'ruby script/generate rspec'
