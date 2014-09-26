@@ -17,8 +17,8 @@ FactoryGirl.define do
   end
 
   factory :department do
-    id 1
-    name {generate(:department_name)}
+    id 1 # we can safely assume we only have one department ever
+    name "SDMP"
     association :admin_permission_id, factory: :permission
     association :payforms_permission_id, factory: :permission
     association :shifts_permission_id, factory: :permission
@@ -33,11 +33,11 @@ FactoryGirl.define do
   end
 
   factory :location do
+    category
     loc_group
     name "Jurassic Park Pets"
     short_name "JPP"
     description "pets that live in Jurassic Park"
-    category
     max_staff 2
     min_staff 1
     priority 1
@@ -51,6 +51,36 @@ FactoryGirl.define do
     built_in "f"
   end
 
+  factory :permission do
+    name {generate(:permission_name)}
+  end
+
+  factory :user, class: User do
+    login "ad12"
+    first_name "Albus"
+    last_name "Dumbledore"
+    nick_name "Albus"
+    email "ad12@hogwarts.edu"
+    auth_type "CAS"
+    default_department_id 1
+
+    factory :admin do
+      superuser true
+    end
+
+    before :create do |obj|
+      obj.set_random_password
+      obj.departments << Department.find(1)
+    end
+
+  end
+
+
+
+  #
+  ## Sequences
+  #
+
   sequence :permission_name do |n|
     "#{n}_permission"
   end
@@ -59,17 +89,18 @@ FactoryGirl.define do
     "Outside Hogwarts #{n}"
   end
 
-  sequence :department_name do |n|
-    "SDMP Dept #{n}"
-  end
 
-  factory :permission do
-    # department_id 1
-    name {generate(:permission_name)}
-  end
+  # As long as we only use CAS, we shouldn't need to think about Authlogic
+  # UserSessions, just CAS
+  #
   # factory :user_session do
   #   login "csw3"
   # end
+
+
+  # DepartmentConfig is automatically created by the DepartmentObserver class
+  # after creating a department (???)
+  #
   # factory :department_configs, class: DepartmentConfig do
   #   # id "1"
   #   department
@@ -92,27 +123,15 @@ FactoryGirl.define do
   #   warning_message "You have not submitted payforms for the weeks ending on the following dates:\n \n@weeklist@\n Please submit your payforms. If some of the weeks listed are weeks during which you did not work, please just submit a blank payform."
   # end
 
-  factory :user_config, class: UserConfig do
-    # association :user, factory: :admin
-    default_dept 1
-    view_loc_groups 1
-    view_week "whole_period"
-    watched_data_objects ""
-  end
 
-  factory :admin, class: User do
-    login "ad12"
-    first_name "Albus"
-    last_name "Dumbledore"
-    nick_name "Albus"
-    email "ad12@hogwarts.edu"
-    auth_type "CAS"
-    # crypted_password "72065f776f0902c24d4a9f7b2803f58ba7e22829ce90efbb691eb803aa25d6e6f995b9ae4b17f45e10ce6aa02c6853ec26a773c645cadc8f23206e7efbaa734c"
-    # password_salt "gDVImevY5D5G02T9cb3x"
-    superuser true
-    # association :default_department_id, factory: :department
-    default_department_id 1
-    # user_config
-  end
+  # UserConfig is automatically created by the UserObserver class
+  # after creating a user (???)
+  # factory :user_config, class: UserConfig do
+  #   # association :user, factory: :admin
+  #   default_dept 1
+  #   view_loc_groups 1
+  #   view_week "whole_period"
+  #   watched_data_objects ""
+  # end
 
 end

@@ -5,23 +5,13 @@ require 'authlogic/test_case'
 
 describe "timeslot creation process", :type => :feature do
   before :each do
-    app_config = create(:app_config)
-    department = create(:department)
-    loc_group = build(:loc_group, department: department)
-    @location = create(:location, loc_group: loc_group)
-
-    user = build(:admin)
-    user.set_random_password
-    user.departments << Department.find(1)
-    user.save
-    sign_in(user.login)
-    # binding.pry
-    # assume that it is Monday [specific date]
+    app_setup
+    @user = create(:admin)
+    sign_in(@user.login)
   end
 
   it "can view the main page" do
     visit '/'
-    # save_and_open_page
     expect(page).to have_content 'Your Shifts'
   end
 
@@ -38,11 +28,7 @@ describe "timeslot creation process", :type => :feature do
 
   xit "displays the timeslot properly on the time slots page" do
     create_timeslot
-    visit '/time_slots'
-    # save_and_open_page
-    #didn't test this at all, but it's a good first guess.
-    #this needs to be abstracted/future-proofed, of course
-    
+    visit '/time_slots'    
     # expect(SPECIFIC ROW).to have_css('.time-slot')
   end
 
@@ -51,21 +37,34 @@ describe "timeslot creation process", :type => :feature do
   end
 end
 
-def create_timeslot
-    visit '/time_slots/new'
-    within("#new_time_slot") do
-      # fill_in DATE, :with => TOMORROW
-      # fill_in time_slot_start_time_4i, :with => "10" #10am
-      # ...more time
-    end
-    click_button 'Add'
+
+#
+## Common Actions
+#
+
+def app_setup
+  @app_config = create(:app_config)
+  @department = create(:department)
+  @loc_group = build(:loc_group, department: @department)
+  @location = create(:location, loc_group: @loc_group)
 end
+
+def create_timeslot
+  visit '/time_slots/new'
+  within("#new_time_slot") do
+    # fill_in DATE, :with => TOMORROW
+    # fill_in time_slot_start_time_4i, :with => "10" #10am
+    # ...more time
+  end
+  click_button 'Add'
+end
+
 
 # THIS DOESN'T WORK
 # An easy way to select a timeslot row
 # @param
 #   location_id id of the location we're looking for
 #   day_of_week 1-7 to describe the day of the week
-def time_slot_row(location_id, day_of_week)
-  find("#location#{location_id} .timeslots")[day_of_week]
-end
+# def time_slot_row(location_id, day_of_week)
+#   find("#location#{location_id} .timeslots")[day_of_week]
+# end
