@@ -7,7 +7,7 @@ FactoryGirl.define do
     updated_at "2009-07-09 18:39:41"
     # id "1"
     ldap_port "389"
-    auth_types "CAS, built-in"
+    auth_types "CAS"
     ldap_login "uid"
     footer 'Certifying authority: Adam Bray, Asst. Manager, Student Technology<br/>Last modified: Wed Feb 28 00:17:00 EST 2007'
     ldap_last_name "sn"
@@ -24,6 +24,9 @@ FactoryGirl.define do
     shifts_permission_id "23"
   end
 
+  factory :user_session do
+    login "csw3"
+  end
   # factory :department_configs, class: DepartmentConfig do
   #   # id "1"
   #   department

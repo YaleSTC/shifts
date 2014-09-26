@@ -4,12 +4,12 @@ class ApplicationController < ActionController::Base
   before_filter :load_app_config
   before_filter :department_chooser
   before_filter :load_user_session
-  before_filter RubyCAS::Filter, if: Proc.new{|s| s.using_CAS?}, except: 'access_denied'
+  # before_filter RubyCAS::Filter, if: Proc.new{|s| s.using_CAS?}, except: 'access_denied'
   before_filter :login_check, except: :access_denied
-  before_filter :load_department
-  before_filter :prepare_mail_url
-  before_filter :prepare_for_mobile
-  before_filter :load_user
+  # before_filter :load_department
+  # before_filter :prepare_mail_url
+  # before_filter :prepare_for_mobile
+  # before_filter :load_user
 
   helper :layout
   helper :application
@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def current_user
+    binding.pry
     @current_user ||= (
     if @user_session
       @user_session.user
@@ -85,6 +86,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -105,6 +107,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -119,12 +122,13 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-	def require_any_loc_group_admin
+  def require_any_loc_group_admin
     unless current_user.is_loc_group_admin?(current_department)
       error_message = "That action is restricted to location group administrators."
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -145,6 +149,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -163,6 +168,7 @@ class ApplicationController < ActionController::Base
     unless current_user.has_proper_role_for?(Template.find(params[:template_id])) || current_user.is_admin_of?(Template.find(params[:template_id]).department)
       error_message = "This page is only availabe to the following roles: #{Template.find(params[:template_id]).roles.to_sentence}"
       flash[:error] = error_message
+      binding.pry
       redirect_to access_denied_path
     end
     return true
@@ -182,6 +188,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -205,6 +212,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -227,6 +235,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -248,6 +257,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
+          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -268,6 +278,7 @@ class ApplicationController < ActionController::Base
       if @appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
         redirect_to login_path
       else
+        binding.pry
         redirect_to access_denied_path
       end
     end
@@ -405,7 +416,7 @@ class ApplicationController < ActionController::Base
 
   #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
   def layout_check(action = action_name, controller = controller_name)
-     if params[:layout] == "false"
+    if params[:layout] == "false"
       render controller: controller, action: action, layout: false
     end
   end

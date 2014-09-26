@@ -34,4 +34,8 @@ Shifts::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Rack Session Access for CAS spoofing in Capybara
+  config.middleware.use RackSessionAccess::Middleware
+
 end
