@@ -16,6 +16,10 @@ FactoryGirl.define do
     admin_email "adam.bray@yale.edu"
   end
 
+  factory :permission do
+    name {generate(:permission_name)}
+  end
+
   factory :department do
     id 1 # we can safely assume we only have one department ever
     name "SDMP"
@@ -35,9 +39,9 @@ FactoryGirl.define do
   factory :location do
     category
     loc_group
-    name "Jurassic Park Pets"
-    short_name "JPP"
-    description "pets that live in Jurassic Park"
+    name "Technology Troubleshooting Office"
+    short_name "TTO"
+    description "students come here when things break"
     max_staff 2
     min_staff 1
     priority 1
@@ -49,10 +53,6 @@ FactoryGirl.define do
     name "Magic"
     active true
     built_in "f"
-  end
-
-  factory :permission do
-    name {generate(:permission_name)}
   end
 
   factory :user, class: User do
@@ -72,9 +72,7 @@ FactoryGirl.define do
       obj.set_random_password
       obj.departments << Department.find(1)
     end
-
   end
-
 
 
   #
@@ -86,7 +84,7 @@ FactoryGirl.define do
   end
 
   sequence :loc_group_name do |n|
-    "Outside Hogwarts #{n}"
+    "Public Clusters #{n}"
   end
 
 
