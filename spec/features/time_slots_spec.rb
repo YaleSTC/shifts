@@ -12,6 +12,7 @@ describe "timeslot creation process", :type => :feature do
     user.departments << Department.first
     user.save
     sign_in("ad12")
+    loc_group = build(:loc_group)
     # assume that it is Monday [specific date]
   end
 

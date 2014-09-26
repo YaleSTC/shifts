@@ -24,9 +24,17 @@ FactoryGirl.define do
     shifts_permission_id "23"
   end
 
-  factory :user_session do
-    login "csw3"
+  factory :loc_group, class: LocGroup do
+    department_id "1"
+    name "Outside of Hogwarts"
+    view_perm_id "111"
+    signup_perm_id "112"
+    admin_perm_id "113"
   end
+
+  # factory :user_session do
+  #   login "csw3"
+  # end
   # factory :department_configs, class: DepartmentConfig do
   #   # id "1"
   #   department
