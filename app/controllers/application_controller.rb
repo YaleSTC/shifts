@@ -85,7 +85,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -106,7 +105,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -127,7 +125,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -148,7 +145,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path
         end
         format.js do
@@ -167,7 +163,6 @@ class ApplicationController < ActionController::Base
     unless current_user.has_proper_role_for?(Template.find(params[:template_id])) || current_user.is_admin_of?(Template.find(params[:template_id]).department)
       error_message = "This page is only availabe to the following roles: #{Template.find(params[:template_id]).roles.to_sentence}"
       flash[:error] = error_message
-      binding.pry
       redirect_to access_denied_path
     end
     return true
@@ -187,7 +182,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -211,7 +205,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -234,7 +227,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -256,7 +248,6 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html do
           flash[:error] = error_message
-          binding.pry
           redirect_to access_denied_path and return false
         end
         format.js do
@@ -277,7 +268,6 @@ class ApplicationController < ActionController::Base
       if @appconfig.login_options==['built-in'] #AppConfig.first.login_options_array.include?('built-in')
         redirect_to login_path
       else
-        binding.pry
         redirect_to access_denied_path
       end
     end
