@@ -49,7 +49,7 @@ class RepeatingEvent < ActiveRecord::Base
   end
 
   def locations
-    self.loc_ids.split(",").collect{|d| Location.find(d.to_i)} if loc_ids
+    Location.find_all_by_id self.location_ids
   end
 
   def days_int
