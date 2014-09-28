@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'capybara/rails'
-require 'authlogic/test_case'
 
 
 describe "timeslot creation process", :type => :feature do
