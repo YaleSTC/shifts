@@ -18,7 +18,6 @@ class RepeatingEventsController < ApplicationController
 
   def create
     #TODO: persistent calendar selection? it would be nice...
-
     parse_date_and_time_output(params[:repeating_event])
     session[:calendar] = params[:repeating_event][:calendar_id]
     params[:repeating_event][:days] = params[:days]
