@@ -1,10 +1,29 @@
 <% title "New Time Slot" %>
 
-<%= form_for @time_slot do |f| %>
-  <%= f.error_messages %>
-  <%= render partial: 'form', locals: {f: f}  %>
-  <p><%= f.submit "Add" %></p>
-<% end %>
+
+  <% if current_user.is_admin_of?(@department) %>
+    <p>
+      <%= check_box_tag :repeating_event, false, false, onclick: "$('.toggle_me').toggle()" %> Repeating event?
+    </p>
+  <% end %>
+
+  <div class="toggle_me">
+    <%= form_for @time_slot do |f| %>
+      <%= f.error_messages %>
+      <%= render partial: 'time_slots/form', locals: {f: f}  %>
+      <p><%= submit_tag  "Create New" %></p>
+    <% end %>
+  </div>
+
+  <% if current_user.is_admin_of?(@department) %>
+    <div class="toggle_me" style="display:none">
+      <%= form_for (@repeating_event = RepeatingEvent.new) do |f| %>
+        <%= render partial: 'time_slots/form_repeating', locals: {f: f} %>
+        <%= hidden_field_tag 'rerender_date', params[:date] %>
+        <p><%= submit_tag "Create New Repeating Event", url: { controller: 'repeating_events', action: 'create', calendar: params[:calendar] } %></p>
+      <% end %>
+    </div>
+  <% end %>
 
 
 <p><%= link_to "Back to List", time_slots_path %></p>
