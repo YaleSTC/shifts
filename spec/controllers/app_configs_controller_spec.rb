@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'rails_helper'
  
-describe AppConfigsController do
+RSpec.describe AppConfigsController, type: :controller do
   fixtures :all
-  integrate_views
+  render_views
   
   it "index action should render index template" do
     get :index
