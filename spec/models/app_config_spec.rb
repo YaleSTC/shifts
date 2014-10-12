@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'rails_helper'
 
-describe AppConfig do
+RSpec.describe AppConfig, type: :model do
   it "should be valid" do
     AppConfig.new.should be_valid
   end
