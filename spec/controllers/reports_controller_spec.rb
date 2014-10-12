@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
  
 describe ReportsController do
   fixtures :all
-  integrate_views
+  render_views
   
   it "index action should render index template" do
     get :index
