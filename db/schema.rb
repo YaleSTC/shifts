@@ -189,14 +189,11 @@ ActiveRecord::Schema.define(:version => 20140905140204) do
     t.integer "notice_id"
   end
 
-<<<<<<< HEAD
   create_table "loc_groups_restrictions", :id => false, :force => true do |t|
     t.integer "restriction_id"
     t.integer "loc_group_id"
   end
 
-=======
->>>>>>> init paper_trail
   create_table "locations", :force => true do |t|
     t.string   "name"
     t.string   "short_name"
@@ -224,14 +221,11 @@ ActiveRecord::Schema.define(:version => 20140905140204) do
     t.boolean  "assigned",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-<<<<<<< HEAD
   end
 
   create_table "locations_restrictions", :id => false, :force => true do |t|
     t.integer "restriction_id"
     t.integer "location_id"
-=======
->>>>>>> init paper_trail
   end
 
   create_table "locations_shift_preferences", :id => false, :force => true do |t|
@@ -403,14 +397,11 @@ ActiveRecord::Schema.define(:version => 20140905140204) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
   create_table "restrictions_users", :id => false, :force => true do |t|
     t.integer "restriction_id"
     t.integer "user_id"
   end
 
-=======
->>>>>>> init paper_trail
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "department_id"
