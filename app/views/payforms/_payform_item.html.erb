@@ -6,20 +6,24 @@
     <%= payform_item.date.strftime('%b %d') %>
   </td>
   <td class="description">
-    <% if payform_item.source_url -%>
-      <%= link_to h(payform_item.description), payform_item.source_url %>
-    <% else -%>
-      <%=h payform_item.description %>
-    <% end -%>
+    <% if payform_item.source_url %>
+      <%= link_to payform_item.description, payform_item.source_url %>
+    <% else %>
+      <%= payform_item.description %>
+    <% end %>
   </td>
   <td class ="description" id= "reason">
-    <%=h payform_item.reason if current_user.is_admin_of?(current_department) %>
-    <%= "(original)" if type == 'edit_item' and payform_item.version == 1 %>
+    <%= payform_item.reason if current_user.is_admin_of?(current_department) %>
+    <%= "(original)" if type == 'edit_item' && payform_item.version == 1 %>
   </td>
   <td class ="updated_by">
-    <%# TODO: Clean up this code: %>
-    <%=h payform_item.versions[payform_item.version-2].user if payform_item.version > 1 and current_user.is_admin_of?(current_department) %>
-    <%=h payform_item.source if payform_item.version == 1  and current_user.is_admin_of?(current_department) %>
+    <% if current_user.is_admin_of?(current_department) %>
+      <% if payform_item.version.blank? %>
+        <%= payform_item.source %>
+      <% else %>
+       <%= payform_item.source %>
+      <% end %>
+    <% end %>
   </td>
   <td class="rightside" id="hours" >
     <%= number_with_precision(payform_item.hours, precision: 2) %>
@@ -43,7 +47,7 @@
 </tr>
 <% end %>
 
-<% if payform_item.version > 1 %>
-  <% payform_item.revert_to(payform_item.version-1) %>
+<% unless payform_item.previous_version.blank? %>
+  <% payform_item = payform_item.previous_version %>
   <%= render partial: "payform_item", object: payform_item, locals: {type: 'edit_item' } %>
 <% end %>

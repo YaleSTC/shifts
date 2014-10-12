@@ -1,4 +1,4 @@
-<div class="day" style="height: <%= @table_pixels / (@table_height) * (@location_rows[location].length) + @location_rows[location].length - 1 %>px;">
+<div class="day" style="height: <%= (@table_pixels / (@table_height)) * @location_rows[location].length %>px;">
 <%# Why is the div on the next line there? where does it appear?
     You can't click on the box in this column to add anything     %>
   <div class="center_container click_to_add_new" id="location<%=location.id%>_<%=day%>_label">

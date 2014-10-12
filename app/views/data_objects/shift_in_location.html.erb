@@ -4,7 +4,7 @@
   <%= select_tag :group_by, options_for_select(@group_type_options, @selected_type) %>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <%= submit_tag "Update" %>
-<% end -%>
+<% end %>
 <br>
 <% if DataType.first %>
   <%= render(partial: "data_objects_table" , collection: @types_objects_hash) %>

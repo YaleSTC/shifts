@@ -351,7 +351,7 @@ end
 
     @timeslot_rows = 0 #counter
 
-    @row_height = 24 #pixels - this could be user-configurable
+    @row_height = 48 #pixels - this could be user-configurable
     @divider_height = 3 #pixels - this could be user-configurable
     @table_height = rowcount
     @table_pixels = @row_height * rowcount + rowcount+1

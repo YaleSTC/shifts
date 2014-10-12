@@ -24,7 +24,8 @@ gem 'scrypt' # dependency of authlogic, which isn't automatically resolved
 gem 'paperclip'
 
 # model versioning (used for payform items)
-gem 'vestal_versions', git: 'https://github.com/laserlemon/vestal_versions.git'
+# gem 'vestal_versions', git: 'https://github.com/laserlemon/vestal_versions.git'
+gem 'paper_trail', '~> 3.0.5'
 
 gem 'htmlentities'
 
@@ -50,6 +51,12 @@ gem 'simple_form'  # replaces multiple_select
 # replace ActiveSupport::Memoizable
 gem 'memoist'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'factory_girl_rails'
+  gem 'annotate' # https://github.com/ctran/annotate_models add info headers
+end
+
 group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
@@ -65,10 +72,6 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'timecop'
-end
-
-group :test, :development do
-  gem 'factory_girl_rails'
 end
 
 group :assets do
