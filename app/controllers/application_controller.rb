@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
     return true
   end
 
-	def require_any_loc_group_admin
+  def require_any_loc_group_admin
     unless current_user.is_loc_group_admin?(current_department)
       error_message = "That action is restricted to location group administrators."
       respond_to do |format|
@@ -405,7 +405,7 @@ class ApplicationController < ActionController::Base
 
   #checks to see if the action should be rendered without a layout. optionally pass it another action/controller
   def layout_check(action = action_name, controller = controller_name)
-     if params[:layout] == "false"
+    if params[:layout] == "false"
       render controller: controller, action: action, layout: false
     end
   end

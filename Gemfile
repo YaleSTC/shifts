@@ -64,13 +64,14 @@ group :development do
   gem 'faker'
   gem 'better_errors'
   gem 'binding_of_caller' # Enables the REPL in better_errors
+  gem 'guard-rspec', require: false
 end
 
 group :test do
-  gem 'cucumber-rails',   '>=0.3.0', :require => false
-  gem 'database_cleaner', '>=0.5.0'
-  gem 'webrat',           '>=0.7.0'
-  gem 'rspec',            '>=1.3.0'
+  gem 'rspec'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'timecop'
 end
 
 group :assets do
