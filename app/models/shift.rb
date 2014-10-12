@@ -107,12 +107,12 @@ class Shift < ActiveRecord::Base
   def self.mass_delete_with_dependencies(shifts_to_erase)
     array_of_shift_arrays = shifts_to_erase.batch(450)
     array_of_shift_arrays.each do |shifts|
-      subs_to_erase = SubRequest.where(shifts.collect{|shift| "(shift_id = #{shift})"}.join(" OR "))
+      subs_to_erase = SubRequest.where(shifts.collect{|shift| "(shift_id = #{shift.id})"}.join(" OR "))
       array_of_sub_arrays = subs_to_erase.batch(450)
       array_of_sub_arrays.each do |subs|
-        SubRequest.delete_all([subs.collect{|sub| "(id = #{sub})"}.join(" OR ")])
+        SubRequest.delete_all([subs.collect{|sub| "(id = #{sub.id})"}.join(" OR ")])
       end
-      Shift.delete_all([shifts.collect{|shift| "(id = #{shift})"}.join(" OR ")])
+      Shift.delete_all([shifts.collect{|shift| "(id = #{shift.id})"}.join(" OR ")])
     end
   end
 
