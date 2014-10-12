@@ -4,25 +4,25 @@ work_category:
   name: Magic
   active: true
   department_id: "1"
-  built_in: f
+  built_in: false
 
 study_category:
   id: "2"
   name: Study
   active: true
   department_id: "1"
-  built_in: f
+  built_in: false
 
 play_category:
   id: "3"
   name: Quidditch
   active: true
   department_id: "1"
-  built_in: f
+  built_in: false
 
 shifts_category:
   id: "4"
   name: Shifts
   active: true
   department_id: "1"
-  built_in: f
+  built_in: false
