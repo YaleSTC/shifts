@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: template_time_slots
+#
+#  id          :integer          not null, primary key
+#  location_id :integer
+#  template_id :integer
+#  day         :integer
+#  start_time  :datetime
+#  end_time    :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class TemplateTimeSlot < ActiveRecord::Base
 	belongs_to :template
 	belongs_to :location

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: data_types
+#
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  description   :text
+#  department_id :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 module DataTypeHelper

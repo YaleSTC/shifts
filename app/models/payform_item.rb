@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: payform_items
+#
+#  id                  :integer          not null, primary key
+#  category_id         :integer
+#  user_id             :integer
+#  payform_id          :integer
+#  payform_item_set_id :integer
+#  active              :boolean          default(TRUE)
+#  hours               :decimal(10, 2)
+#  date                :date
+#  description         :text
+#  reason              :text
+#  source              :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  source_url          :string(255)
+#
+
 class PayformItem < ActiveRecord::Base
   has_paper_trail
 

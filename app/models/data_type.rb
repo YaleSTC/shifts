@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: data_types
+#
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  description   :text
+#  department_id :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 class DataType < ActiveRecord::Base
   belongs_to :department
   has_many :data_objects, dependent: :destroy

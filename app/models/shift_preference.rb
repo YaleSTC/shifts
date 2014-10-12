@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: shift_preferences
+#
+#  id                   :integer          not null, primary key
+#  max_total_hours      :integer
+#  min_total_hours      :integer
+#  max_continuous_hours :integer
+#  min_continuous_hours :integer
+#  max_number_of_shifts :integer
+#  min_number_of_shifts :integer
+#  max_hours_per_day    :integer
+#  template_id          :integer
+#  user_id              :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
+
 class ShiftPreference < ActiveRecord::Base
 	belongs_to :user
 	has_many :locations_shift_preferences

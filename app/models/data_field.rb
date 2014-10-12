@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: data_fields
+#
+#  id           :integer          not null, primary key
+#  data_type_id :integer
+#  name         :string(255)
+#  display_type :string(255)
+#  values       :string(255)
+#  upper_bound  :float
+#  lower_bound  :float
+#  exact_alert  :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  active       :boolean          default(TRUE)
+#
+
 class DataField < ActiveRecord::Base
   # options for select; these are the allowable data field display types
   DISPLAY_TYPE_OPTIONS = {"Text Field"   => "text_field",

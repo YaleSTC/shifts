@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: sub_requests
+#
+#  id              :integer          not null, primary key
+#  start           :datetime
+#  end             :datetime
+#  mandatory_start :datetime
+#  mandatory_end   :datetime
+#  reason          :text
+#  shift_id        :integer
+#  user_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class SubRequest < ActiveRecord::Base
   belongs_to :shift
   delegate :user, to: :shift

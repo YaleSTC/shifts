@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: user_profile_entries
+#
+#  id                    :integer          not null, primary key
+#  user_profile_id       :integer
+#  user_profile_field_id :integer
+#  content               :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+
 class UserProfileEntry < ActiveRecord::Base
 
   belongs_to :user_profile_field

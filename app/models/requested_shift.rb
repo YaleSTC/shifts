@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: requested_shifts
+#
+#  id               :integer          not null, primary key
+#  preferred_start  :datetime
+#  preferred_end    :datetime
+#  acceptable_start :datetime
+#  acceptable_end   :datetime
+#  day              :integer
+#  template_id      :integer
+#  user_id          :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  assigned_start   :datetime
+#  assigned_end     :datetime
+#
+
 class RequestedShift < ActiveRecord::Base
 	validates_presence_of :acceptable_start, :acceptable_end
 	validates_presence_of :locations, on: :update

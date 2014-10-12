@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: data_fields
+#
+#  id           :integer          not null, primary key
+#  data_type_id :integer
+#  name         :string(255)
+#  display_type :string(255)
+#  values       :string(255)
+#  upper_bound  :float
+#  lower_bound  :float
+#  exact_alert  :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  active       :boolean          default(TRUE)
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 module DataFieldHelper

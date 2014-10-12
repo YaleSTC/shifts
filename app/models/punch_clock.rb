@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: punch_clocks
+#
+#  id                 :integer          not null, primary key
+#  description        :string(255)
+#  user_id            :integer
+#  department_id      :integer
+#  runtime            :integer
+#  last_touched       :datetime
+#  paused             :boolean
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  punch_clock_set_id :integer
+#
+
 # Needs to be refactored for consistency in messages pause, unpause, and submit
 # Should all return a message in event of failure, nil for success
 class PunchClock < ActiveRecord::Base

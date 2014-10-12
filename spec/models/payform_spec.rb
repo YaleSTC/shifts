@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: payforms
+#
+#  id             :integer          not null, primary key
+#  date           :date
+#  monthly        :boolean          default(FALSE)
+#  end_of_month   :boolean          default(FALSE)
+#  day            :integer          default(6)
+#  submitted      :datetime
+#  approved       :datetime
+#  printed        :datetime
+#  approved_by_id :integer
+#  department_id  :integer
+#  user_id        :integer
+#  payform_set_id :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  payrate        :decimal(10, 2)
+#  skipped        :datetime
+#
+
 require File.dirname(__FILE__) + '/../spec_helper'
 
 module PayformHelper

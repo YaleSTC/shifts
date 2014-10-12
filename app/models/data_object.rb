@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: data_objects
+#
+#  id           :integer          not null, primary key
+#  data_type_id :integer
+#  name         :string(255)
+#  description  :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class DataObject < ActiveRecord::Base
   has_and_belongs_to_many :locations
   belongs_to :data_type

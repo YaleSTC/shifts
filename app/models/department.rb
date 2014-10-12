@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: departments
+#
+#  id                     :integer          not null, primary key
+#  name                   :string(255)
+#  admin_permission_id    :integer
+#  payforms_permission_id :integer
+#  shifts_permission_id   :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+
 class Department < ActiveRecord::Base
   belongs_to :admin_permission, class_name: "Permission", dependent: :destroy
   has_one :department_config, dependent: :destroy
