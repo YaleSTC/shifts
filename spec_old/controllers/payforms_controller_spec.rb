@@ -15,7 +15,7 @@ end
 describe PayformsController do
   include PayformHelper
   fixtures :all
-  integrate_views
+  render_views
 
     describe "after adding jobs" do
     before(:each) do

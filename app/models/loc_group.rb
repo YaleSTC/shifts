@@ -23,8 +23,8 @@ class LocGroup < ActiveRecord::Base
 
   scope :active, where(active: true)
 
-  before_validation(on: :create) {:create_permissions}
-  before_validation(on: :update) {:update_permissions}
+  before_validation :create_permissions, on: :create
+  before_validation :update_permissions, on: :update
 
   validates_presence_of :department
 

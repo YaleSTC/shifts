@@ -1,4 +1,4 @@
-<% title "Manage superusers" -%>
+<% title "Manage superusers" %>
 <%= field_set_tag 'Add superusers' do %>
   <div>With great power comes great responsiblity. Please use this wisely.</div>
   <%= form_tag update_superusers_users_path do %>
@@ -15,7 +15,7 @@
       <th>Name</th>
       <th>Remove su?</th>
     </tr>
-    <% User.superusers.each do |su| -%>
+    <% User.superusers.each do |su| %>
 	<tr>
       <td><%= su.login %></td>
       <td><%= su.name %></td>

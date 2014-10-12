@@ -2,30 +2,30 @@
 
 <p>
   <strong>Start Date:</strong>
-  <%=h @repeating_event.start_date.to_date %>
+  <%= @repeating_event.start_date.to_date %>
 </p>
 <p>
   <strong>End Date:</strong>
-  <%=h @repeating_event.end_date.to_date %>
+  <%= @repeating_event.end_date.to_date %>
 </p>
 <p>
   <strong>Start Time:</strong>
-  <%=h @repeating_event.start_time.to_s(:am_pm) %>
+  <%= @repeating_event.start_time.to_s(:am_pm) %>
 </p>
 <p>
   <strong>End Time:</strong>
-  <%=h @repeating_event.end_time.to_s(:am_pm) %>
+  <%= @repeating_event.end_time.to_s(:am_pm) %>
 </p>
 <p>
   <strong>Calendar:</strong>
-  <%=h @repeating_event.calendar.name %>
+  <%= @repeating_event.calendar.name %>
 </p>
 
 <p>
   <strong>Days Of Week:</strong>
   <ul>
     <% @repeating_event.days.each do |day|%>
-    <li> <%=h day %> </li>
+    <li> <%= day %> </li>
     <% end %>
   </ul>
 </p>
@@ -34,7 +34,7 @@
   <strong>Locations:</strong>
 <ul>
   <% @repeating_event.locations.each do |loc| %>
-  <li> <%=h loc.name %> </li>
+  <li> <%= loc.name %> </li>
   <% end %>
 </ul>
 </p>

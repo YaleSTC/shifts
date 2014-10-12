@@ -10,7 +10,7 @@
       <%= date_select(:stat, :end_date, default: @end_date)%>
       <br />
       <%= submit_tag 'Update dates' %>
-    <% end -%>
+    <% end %>
   </fieldset>
 </div>
 
@@ -41,17 +41,17 @@
       <% @user_stats.each do |key, stat| %>
         <tr>
           <td><%= link_to stat[:first_name], {controller: :stats, action: 'for_user', id: stat[:u_id], start_date: @start_date, end_date: @end_date} %></td>
-          <td><%=h stat[:last_name] %></td>
+          <td><%= stat[:last_name] %></td>
           <% unless mobile_device?%>
-            <td><%=h stat[:num_shifts] %></td>
-            <td><%=h stat[:num_late] %></td>
-            <td><%=h stat[:num_left_early] %></td>
-            <td><%=h stat[:num_missed] %></td>
-            <td><%=h sprintf("%.1f", stat[:hours_scheduled]) %></td>
-            <td><%=h sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
+            <td><%= stat[:num_shifts] %></td>
+            <td><%= stat[:num_late] %></td>
+            <td><%= stat[:num_left_early] %></td>
+            <td><%= stat[:num_missed] %></td>
+            <td><%= sprintf("%.1f", stat[:hours_scheduled]) %></td>
+            <td><%= sprintf("%.1f", stat[:updates]) if stat[:updates] %></td>
           <% end %>
           <% if current_user.is_admin_of?(current_department)%>
-            <td><%=h stat[:email] %></td>
+            <td><%= stat[:email] %></td>
             <td><a href="mailto:<%=stat[:email]%>?cc=decal@yale.edu&subject=Missed+Shift+&BODY=This%20week%20you%20have%20missed%20<%=stat[:num_missed]%>%20of%20your%20scheduled%20shifts%2C%20without%20an%20excuse.%0A%0AIf%20you're%20having%20trouble%2C%20please%20contact%20us%20or%20your%20coordinators.%20The%20only%20time%20STs%20are%20truly%20reprimanded%20are%20when%20they%20don't%20communicate.%20You%20haven't%20communicated.%0A%0APlease%20be%20more%20careful%20in%20the%20future%20or%20we'll%20have%20to%20talk%20with%20you.">[email]</a></td>
           <% end %>
         </tr>
@@ -82,10 +82,10 @@
         <tr>
           <td><%= link_to stat[:name], {controller: :stats, action: 'for_location', id: stat[:l_id], start_date: @start_date, end_date: @end_date } %></td>
           <% unless mobile_device?%>
-            <td><%=h stat[:num_shifts] %></td>
-            <td><%=h stat[:num_late] %></td>
-            <td><%=h stat[:num_left_early] %></td>
-            <td><%=h stat[:num_missed] %></td>
+            <td><%= stat[:num_shifts] %></td>
+            <td><%= stat[:num_late] %></td>
+            <td><%= stat[:num_left_early] %></td>
+            <td><%= stat[:num_missed] %></td>
           <% end %>
         </tr>
       <% end %>

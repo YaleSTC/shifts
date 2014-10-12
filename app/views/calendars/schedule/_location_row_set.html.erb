@@ -1,8 +1,8 @@
-<%= render partial: "calendars/schedule/location_row", collection: @location_rows[location_row_set], locals: {day: day, location: location_row_set} -%>
+<%= render partial: "calendars/schedule/location_row", collection: @location_rows[location_row_set], locals: {day: day, location: location_row_set} %>
 
 <%#force this row to be drawn even if there are no timeslots%>
 <ul id="location<%=location_row_set.id%>_<%=day%>_events" class="events" style="height:<%= (@table_pixels / (@table_height)) / 2 %>px;">
   <li id="location<%=location_row_set.id%>_<%=day%>_timeslots" style="width:100%" class="click_to_add_new_timeslot"></li>
-  <%= render partial: "calendars/schedule/time_slot", collection: @location_rows_timeslots[location_row_set] -%>
+  <%= render partial: "calendars/schedule/time_slot", collection: @location_rows_timeslots[location_row_set] %>
 </ul>
 <% @timeslot_rows += 1 %>

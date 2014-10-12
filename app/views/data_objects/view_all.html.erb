@@ -8,13 +8,13 @@
     <th>Data Type</th>
   </tr>
  </thead>
-   <%- for obj in @data_objects -%>
+   <%- for obj in @data_objects %>
  <tbody>
     <tr>
    <td><%= obj.name %></td>
    <td><%= DataType.find(obj.data_type_id).name %></td>  <!-- should this logic go elsewhere? -->
   </tr>
  </tbody>
-   <%- end -%>
+   <%- end %>
 </table>
 <p><%= link_to "Back to Data Types List", data_types_path %></p>

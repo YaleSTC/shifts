@@ -1,4 +1,6 @@
-initialize("body");
+$(document).ready(function(){
+  initialize("body");
+});
 
 function initialize(element) {
 
@@ -162,9 +164,8 @@ function popup_new_timeslot(parent_element, e, raw_element){
   var relX = e.pageX - getXOffset(raw_element);
   var widthPercentage = relX / parent_element.width();
   var date = params[1];
-
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"calendar="+calendar+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath});
+  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath});
 }
 
 function popup_new_shift(parent_element, e, raw_element){
