@@ -2,7 +2,7 @@
 
 <% unless !@data_type.description? %>
 <strong>Description:</strong>
-<%=h @data_type.description %> <br /> <br />
+<%= @data_type.description %> <br /> <br />
 <% end %>
 
 <h2><strong>Data fields:</strong></h2>
@@ -23,11 +23,11 @@
 	  <td> <%= (field.values.nil? or field.values.empty?) ? "none" : field.values %> </td>
 	  <td> <%= link_to "Edit", edit_data_type_data_field_path(@data_type, field) %> </td>
 	  <td> <%= link_to "Delete", data_type_data_field_path(@data_type, field), confirm: 'Delete this data field?', method: :delete %></td>
-	<% end %>		
+	<% end %>
 	</tr>
  </tbody>
 </table>
-    <%= link_to "New Data Field", new_data_type_data_field_path(@data_type), method: :get %> | 
+    <%= link_to "New Data Field", new_data_type_data_field_path(@data_type), method: :get %> |
     <%= link_to "All Data Fields", data_type_data_fields_path(@data_type) %><br /> <br  />
 
 
@@ -62,7 +62,7 @@
 	  <td>
 		<%= link_to "Edit", edit_data_object_path(obj) %>
 	  </td>
-      <td>  
+      <td>
 		<%= link_to "Delete", obj, confirm: 'Are you sure you want to destroy this data object? This will destroy all entries belonging to this object.',method: :delete %>
 	  </td>
     </tr>
@@ -73,7 +73,7 @@
 
 
   <p>
-    <%= link_to "Edit", edit_data_type_path(@data_type) %> | 
+    <%= link_to "Edit", edit_data_type_path(@data_type) %> |
     <%= link_to "Destroy", @data_type, confirm: 'Are you sure? This will destroy all data objects of this type, as well as their associated entries.', method: :delete %> |
     <%= link_to "View All", data_types_path %>
   </p>

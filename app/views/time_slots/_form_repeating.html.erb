@@ -45,8 +45,8 @@
 	      <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
 	      <% loc_group.locations.each_with_index do |location, i| %>
 	        <%= check_box_tag "for_locations[]", location.id, (@repeating_event.location_ids && @repeating_event.location_ids.include?(location.id)) %>
-	        <%= label_tag "location_#{location.id}", text = location.short_name -%>
-          <%= "<br>".html_safe if (i == 1) || ((i-2) % 5 == 4) %>
+	        <%= label_tag "location_#{location.id}", text = location.short_name %>
+          <%= "<br>" if (i == 1) || ((i-2) % 5 == 4) %>
 	      <% end %>
 	    </li>
     <% end %>

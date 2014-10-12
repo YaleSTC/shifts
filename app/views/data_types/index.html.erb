@@ -14,7 +14,7 @@
     <% for data_type in @data_types %>
       <tr>
         <td><%= link_to data_type.name, data_type %></td>
-        <td><%=h data_type.description %></td>
+        <td><%= data_type.description %></td>
         <td><%= data_type.data_fields.map{|df| h df.name}.join(', ') %></td>
         <td><%= data_type.data_objects.count %></td>
         <td><%= link_to "Show", data_type %></td>

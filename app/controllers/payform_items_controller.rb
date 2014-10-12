@@ -15,6 +15,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.new(params[:payform_item])
     @payform_item.payform = Payform.find(params[:payform_id])
     return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.department)
+    binding.pry
     @payform_item.source = current_user.name
     if @payform_item.save
       flash[:notice] = "Successfully created payform item."
@@ -39,7 +40,7 @@ class PayformItemsController < ApplicationController
     @payform_item = PayformItem.find(params[:id])
     return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.department)
     @payform_item.attributes = params[:payform_item]
-    @payform_item.updated_by = current_user.name
+
     if @payform_item.save
       if @payform_item.user != current_user
         UserMailer.delay.payform_item_modify_notification(@payform_item, @payform_item.payform.department)
@@ -54,13 +55,13 @@ class PayformItemsController < ApplicationController
   def delete
     @payform_item = PayformItem.find(params[:id])
     @payform_item.reason = nil
-    return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.department)    
+    return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.department)
     layout_check
   end
 
   def destroy
     @payform_item = PayformItem.find(params[:id])
-    return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.department)    
+    return unless user_is_owner_or_admin_of(@payform_item.payform, @payform_item.department)
     if @payform_item.update_attributes(reason: params[:payform_item][:reason], active: false, updated_by: current_user.name)
       if @payform_item.payform.user != current_user
         UserMailer.delay.payform_item_deletion_notification(@payform_item, @payform_item.department)
@@ -71,6 +72,6 @@ class PayformItemsController < ApplicationController
       render action: 'delete'
     end
   end
-  
+
 end
 

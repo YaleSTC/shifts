@@ -3,7 +3,7 @@
   <% if @user.auth_type == "built-in" && current_user!=@user && current_user.is_admin_of?(current_department)%>
    <h3>Reset Password?</h3>
      <div>
-       <%= check_box_tag :reset_password -%>
+       <%= check_box_tag :reset_password %>
      </div>
  <% end %>
   <p>
@@ -37,12 +37,12 @@
   </p>
   <% end %>
   <h3>Roles</h3>
-  <% for role in @department.roles -%>
+  <% for role in @department.roles %>
     <div>
       <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
       <%= role.name %>
     </div>
-  <% end -%>
+  <% end %>
   <p>
     <%= label_tag :payrate %><br />
     <%= text_field_tag :payrate %>
