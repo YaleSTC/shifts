@@ -10,7 +10,7 @@
 			  <%= date_select(:stat, :end_date, default: @end_date)%>
 				<br />
 				<%= submit_tag 'Update dates' %>
-		<% end -%>
+		<% end %>
 	</fieldset>
 </div>
 
@@ -38,11 +38,11 @@
 		<% @stats_hash.each do |shift_id, stat_entry| %>
 			<tr>
 				<% s = Shift.find(stat_entry[:id]) %>
-				<td><%=h s.start.to_date %></td>
-				<td><%=h s.user.name %></td>
+				<td><%= s.start.to_date %></td>
+				<td><%= s.user.name %></td>
 				<% if !s.report.nil? %><td id="shift<%=s.id%>" class="<%= s.css_class(current_user) %> click_to_show"><a href="#"><%= stat_entry[:shift] %></td><% else %></a><td><%= stat_entry[:shift] %></td><% end %>
-				<td><%=h stat_entry[:notes] %></td>
-				<td><%=h stat_entry[:updates] %></td>
+				<td><%= stat_entry[:notes] %></td>
+				<td><%= stat_entry[:updates] %></td>
 			</tr>
 		<% end %>
 	</tbody>

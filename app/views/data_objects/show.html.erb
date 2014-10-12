@@ -16,12 +16,12 @@
   <div id="right_stuff">
 		<fieldset class="index">
 	    <p>
-			<strong><%=h @data_object.data_type.name.to_s + ": " %></strong>
-	    <%=h @data_object.description ? @data_object.description : @data_object.data_type.description %>
+			<strong><%= @data_object.data_type.name.to_s + ": " %></strong>
+	    <%= @data_object.description ? @data_object.description : @data_object.data_type.description %>
 			</p>
 			<p>
 	    <strong>Locations:</strong>
-	    <%=h @data_object.locations.map{|l| l.short_name}.join(', ') %>
+	    <%= @data_object.locations.map{|l| l.short_name}.join(', ') %>
 			</p>
 		</fieldset>
 	</div>

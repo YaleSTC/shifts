@@ -11,11 +11,11 @@
  </thead>
   <% for restriction in @restrictions %>
  <tbody>
-	<tr> 
-      <td><%=h restriction.starts %></td>
-      <td><%=h restriction.expires %></td>
-      <td><%=h restriction.max_subs %></td>
-      <td><%=h restriction.max_hours %></td>
+	<tr>
+      <td><%= restriction.starts %></td>
+      <td><%= restriction.expires %></td>
+      <td><%= restriction.max_subs %></td>
+      <td><%= restriction.max_hours %></td>
       <td><%= link_to "Show", restriction %></td>
       <td><%= link_to "Edit", edit_restriction_path(restriction) %></td>
       <td><%= link_to "Destroy", restriction, confirm: 'Are you sure?', method: :delete %></td>

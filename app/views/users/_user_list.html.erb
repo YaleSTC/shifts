@@ -15,12 +15,12 @@
     <% for user in @users %>
       <tr <%= !user.is_active?(current_department) ? "class='disabled'" : "" %> id="user<%= user.id %>">
         <td><%= link_to user.login, edit_user_path(user.id) %></td>
-        <td><%=h user.first_name %></td>
-        <td><%=h user.last_name %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
 		<% unless mobile_device?%>
-        <td><%=h user.nick_name %></td>
-        <td><%=h user.employee_id %></td>
-        <td><%=h user.email %></td>
+        <td><%= user.nick_name %></td>
+        <td><%= user.employee_id %></td>
+        <td><%= user.email %></td>
         <td><%= deactivate_link(user) %></td>
 		<% end %>
       </tr>
