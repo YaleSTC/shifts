@@ -8,7 +8,7 @@
   <div id = "all_locations">
    	 <% for loc_group in current_department.loc_groups do %>
         <% next if !loc_group.active %>
-        <% if current_user.is_admin_of?(loc_group) || notice.class.name = "Sticky" %>
+        <% if current_user.is_admin_of?(loc_group) || notice.class.name == "Sticky" %>
 		<li id = "notice_li">
 		   <%= check_box_tag "for_location_groups[]", loc_group.id, loc_group_checked_notice?(loc_group, notice)%>
 		   <%= label_tag "location_group_#{loc_group.id}", text = loc_group.name %>:
