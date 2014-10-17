@@ -14,15 +14,11 @@
   </td>
   <td class ="description" id= "reason">
     <%= payform_item.reason if current_user.is_admin_of?(current_department) %>
-    <%= "(original)" if type == 'edit_item' && payform_item.version == 1 %>
+    <%= "(original)" if type == 'edit_item' && payform_item.previous_version.nil? %>
   </td>
   <td class ="updated_by">
     <% if current_user.is_admin_of?(current_department) %>
-      <% if payform_item.version.blank? %>
-        <%= payform_item.source %>
-      <% else %>
-       <%= payform_item.source %>
-      <% end %>
+        <%= payform_item.originator %>
     <% end %>
   </td>
   <td class="rightside" id="hours" >
