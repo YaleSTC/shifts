@@ -34,6 +34,10 @@ class ApplicationController < ActionController::Base
     User.all.first && (!current_user || current_user.auth_type=='CAS') && @appconfig && @appconfig.login_options.include?('CAS')
   end
 
+  def user_for_paper_trail
+    current_user.name
+  end
+
   protected
   def current_user
     @current_user ||= (
