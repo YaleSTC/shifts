@@ -86,7 +86,7 @@ class PayformItemSetsController < ApplicationController
             old_payform_item.reason = "#{current_user.name} changed this group job."
             old_payform_item.payform = nil 
       
-            new_item.save(false)
+            new_item.save(validate: false)
             old_payform_item.save! 
             new_item.save!
             @payform_item_set.payform_items.delete(old_payform_item)

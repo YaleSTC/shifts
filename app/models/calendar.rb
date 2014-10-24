@@ -57,7 +57,7 @@ class Calendar < ActiveRecord::Base
       new_shift.calendar = new_calendar
       new_shift.active = new_calendar.active
       new_shift.power_signed_up = true
-      new_shift.save(false)
+      new_shift.save(validate: false)
     end
     errors
   end

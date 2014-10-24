@@ -56,7 +56,7 @@ class ShiftPreferencesController < ApplicationController
     @locations = @week_template.signup_locations
     @shift_preference = ShiftPreference.new(params[:shift_preference])
     @shift_preference.user = current_user
-		@shift_preference.save(false)
+		@shift_preference.save(validate: false)
 		@locations.each do |current_location|
     	preference_name = "kind"+current_location.id.to_s
 			if params[preference_name]
