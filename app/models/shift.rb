@@ -79,18 +79,18 @@ class Shift < ActiveRecord::Base
       shift.destroy
     elsif start_of_delete == shift.start
       shift.start=end_of_delete
-      shift.save(false)
+      shift.save(validate: false)
     elsif end_of_delete == shift.end
       shift.end=start_of_delete
-      shift.save(false)
+      shift.save(validate: false)
     else
       later_shift = shift.clone
       later_shift.user = shift.user
       later_shift.location = shift.location
       shift.end = start_of_delete
       later_shift.start = end_of_delete
-      shift.save(false)
-      later_shift.save(false)
+      shift.save(validate: false)
+      later_shift.save(validate: false)
       shift.sub_requests.each do |s|
         if s.start >= later_shift.start
           s.shift = later_shift
@@ -315,7 +315,7 @@ class Shift < ActiveRecord::Base
             self.end = shift_later.end
             shift_later.sub_requests.each { |s| s.shift = self }
             shift_later.destroy
-            self.save(false)
+            self.save(validate: false)
           end
         end
         if (shift_earlier = Shift.where("end = ? AND user_id = ? AND location_id = ? AND calendars.active = ?", self.start, self.user_id, self.location_id, self.calendar.active?).includes(:calendar).first) && (!shift_earlier.has_sub?)
@@ -330,7 +330,7 @@ class Shift < ActiveRecord::Base
             end
             self.signed_in = shift_earlier.signed_in
             shift_earlier.destroy
-            self.save(false)
+            self.save(validate: false)
           end
         end
   end
@@ -554,7 +554,7 @@ class Shift < ActiveRecord::Base
         sub.mandatory_start = self.start if sub.mandatory_start < self.start
         sub.end = self.end if sub.end > self.end
         sub.mandatory_end = self.end if sub.mandatory_end > self.end
-        sub.save(false)
+        sub.save(validate: false)
       end
     end
   end

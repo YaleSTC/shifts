@@ -28,7 +28,7 @@ class SubRequest < ActiveRecord::Base
         SubRequest.transaction do
           old_shift = sub_request.shift
 
-          new_shift = sub_request.shift.clone
+          new_shift = sub_request.shift.dup
           new_shift.location = old_shift.location #association not handled by clone method
           new_shift.power_signed_up = true #so that you don't get blocked taking a sub due to validations
           new_shift.signed_in = false #if you take a sub for a shift, but the requestor has signed in this prevents an error
