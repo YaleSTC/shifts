@@ -87,7 +87,7 @@ class TemplatesController < ApplicationController
 		end
 		@template_time_slots = @week_template.template_time_slots
 		@time_slot = TemplateTimeSlot.new
-		@time_slot.save(false)
+		@time_slot.save(validate: false)
 		@template_time_slots << @time_slot if @template_time_slots.empty?
 		puts @locations.to_yaml
 		@locations.flatten!
@@ -96,7 +96,7 @@ class TemplatesController < ApplicationController
 	def add_timeslot
     @week_template = Template.find(params[:id])
 		@time_slot = TemplateTimeSlot.new
-		@time_slot.save(false)
+		@time_slot.save(validate: false)
 		@template_time_slots = @week_template.template_time_slots
 		@template_time_slots << @time_slot
 	end
