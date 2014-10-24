@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_for_paper_trail
-    current_user.name
+    current_user.name if current_user
   end
 
   protected
