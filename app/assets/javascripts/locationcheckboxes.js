@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
     locationcheckboxes();
-    $("#modal").on("shown.bs.modal", locationcheckboxes);
+    $("#modal").on("loaded.bs.modal", locationcheckboxes);
 });
 
 
