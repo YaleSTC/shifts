@@ -8,6 +8,9 @@ Shifts::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Dummy value for deploy script - change as necessary
+  config.action_controller.relative_url_root = ""
+
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
@@ -54,5 +57,7 @@ Shifts::Application.configure do
     port: 587,
     domain: "yale.edu",
   }
+
+
 
 end
