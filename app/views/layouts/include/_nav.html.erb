@@ -106,7 +106,7 @@
 		</ul>
   <% end %>
   <%= content_tag :li do %>
-    <%= link_to user_profile_path(current_user), data: {toggle: 'dropdown', hover: 'dropdown'} do %>
+    <%= link_to user_profile_path(current_user.login), data: {toggle: 'dropdown', hover: 'dropdown'} do %>
       <% if current_user && current_user.user_profile && current_user.user_profile.photo && current_user.user_profile.photo.file? %>
         <%= image_tag current_user.user_profile.photo(:pico) %>
       <% end %>
