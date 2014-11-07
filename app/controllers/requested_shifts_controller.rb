@@ -77,7 +77,7 @@ class RequestedShiftsController < ApplicationController
 		@locations = @requested_shift.template.timeslot_locations
 		begin
 			RequestedShift.transaction do
-				@requested_shift.save(false)
+				@requested_shift.save(validate: false)
 				if params[:for_locations]
 					params[:for_locations].each do |loc_id|
 						@locations_requested_shift = LocationsRequestedShift.new
