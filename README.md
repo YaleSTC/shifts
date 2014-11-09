@@ -26,6 +26,7 @@ You'll need the following to run Shifts:
 * [Bundler](http://bundler.io/)
 * a database server ([MySQL](http://www.mysql.com/))
 * [ImageMagick](http://www.imagemagick.org/)
+* A JavaScript runtime (like [Node](http://nodejs.org/))
 
 ### Installation
 First, checkout a copy of Shifts using git:
