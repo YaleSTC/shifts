@@ -27,11 +27,11 @@ body { padding-top: 60px; }
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url('<%= asset_path('fontawesome-webfont.eot') %>?v=4.2.0')
-  src: asset-url('fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), 
-  asset-url('fontawesome-webfont.woff?v=4.2.0') format('woff'), 
-  asset-url('fontawesome-webfont.ttf?v=4.2.0') format('truetype'), 
-  asset-url('fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+  src: url('<%= Rails.application.assets.find_asset('fontawesome-webfont.eot').digest_path %>?v=4.2.0');
+  src: url('<%= Rails.application.assets.find_asset('fontawesome-webfont.eot').digest_path %>?#iefix&v=4.2.0') format('embedded-opentype'), 
+  url('<%= Rails.application.assets.find_asset('fontawesome-webfont.woff').digest_path %>?v=4.2.0') format('woff'), 
+  url('<%= Rails.application.assets.find_asset('fontawesome-webfont.ttf').digest_path %>?v=4.2.0') format('truetype'), 
+  url('<%= Rails.application.assets.find_asset('fontawesome-webfont.svg').digest_path %>?v=4.2.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
