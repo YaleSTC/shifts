@@ -12,7 +12,7 @@ describe "timeslot creation process", :type => :feature do
 
   it "can view the main page" do
     visit '/'
-    save_and_open_page
+    # save_and_open_page
     expect(page).to have_content 'Your Shifts'
   end
 

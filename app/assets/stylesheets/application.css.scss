@@ -22,7 +22,17 @@ $font-size-h1: floor($font-size-base * 2.3);
 
 body { padding-top: 60px; }
 
-@import 'font-awesome';
+// @import "font-awesome-sprockets";
+@import "font-awesome";
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url(font-path('fontawesome-webfont.eot?v=4.2.0'));
+  src: font-url('fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), font-url('fontawesome-webfont.woff?v=4.2.0') format('woff'), font-url('fontawesome-webfont.ttf?v=4.2.0') format('truetype'), font-url('fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 // @import 'jquery.ui.all';
 @import 'jquery-tablesorter/theme.default';
