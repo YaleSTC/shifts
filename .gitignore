@@ -19,7 +19,6 @@ Vagrantfile
 
 *.rbc
 capybara-*.html
-.rspec
 /log
 /tmp
 /public/system
