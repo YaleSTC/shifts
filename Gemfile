@@ -83,6 +83,7 @@ end
 # For Twitter-bootstrap (also use sass-rails), https://github.com/twbs/bootstrap-sass
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'font-awesome-rails'
+#gem 'font-awesome-sass', '~> 4.2.0'
 
 # Starting with bootstrap-sass v3.1.1.1, due to the structural changes from upstream you will need these backported asset pipeline gems on Rails 3.2.
 gem 'sprockets-rails', '=2.0.0.backport1'

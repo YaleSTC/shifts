@@ -46,6 +46,6 @@
   <p><%= f.submit "Submit" %></p>
 <% end %>
 <% if @appconfig.use_ldap %>
-<%= observe_form :first_user_form, url: { action: 'ldap_search' }, frequency: 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})"%>
+<%#= observe_form :first_user_form, url: { action: 'ldap_search' }, frequency: 1, :loading=> "$('#loading_icon').css({'display' : 'inline'})"%>
 <% end %>
 
