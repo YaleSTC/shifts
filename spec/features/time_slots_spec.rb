@@ -5,7 +5,6 @@ require 'capybara/rails'
 
 describe "timeslot creation process", :type => :feature do
   before :each do
-    Timecop.freeze(Time.local(2014, 9, 1, 10, 5, 0))
     app_setup
     @user = create(:admin)
     sign_in(@user.login)
