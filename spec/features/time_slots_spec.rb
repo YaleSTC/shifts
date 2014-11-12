@@ -57,7 +57,7 @@ def create_timeslot
     # fill_in time_slot_start_time_4i, :with => "10" #10am
     # ...more time
   end
-  click_button 'Add'
+  click_button 'Create New'
 end
 
 
