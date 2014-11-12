@@ -50,6 +50,6 @@
   <p><%= f.submit submit %></p>
 <% end %>
 <% if @appconfig.use_ldap %>
-<%= observe_form :user_form, url: { action: 'ldap_search' }, frequency: 1, :loading=> "$('#loading_row').css({'display' : 'table-row'});$('.result').css({'display' : 'none'})" %>
+<%#= observe_form :user_form, url: { action: 'ldap_search' }, frequency: 1, :loading=> "$('#loading_row').css({'display' : 'table-row'});$('.result').css({'display' : 'none'})" %>
 <% end %>
 
