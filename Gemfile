@@ -86,6 +86,6 @@ gem 'font-awesome-rails'
 #gem 'font-awesome-sass', '~> 4.2.0'
 
 # Starting with bootstrap-sass v3.1.1.1, due to the structural changes from upstream you will need these backported asset pipeline gems on Rails 3.2.
-gem 'sprockets-rails', '=2.0.0.backport1'
-gem 'sprockets', '=2.2.2.backport2'
-gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'sprockets'
+gem 'sass-rails'
