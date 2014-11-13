@@ -23,11 +23,10 @@ def fill_in_date(prefix, target_datetime)
   select target_datetime.day.to_s, :from => "#{prefix}_3i"
 end
 
-# THIS DOESN'T WORK
 # An easy way to select a timeslot row
 # @param
 #   location_id id of the location we're looking for
 #   day_of_week 1-7 to describe the day of the week
-# def time_slot_row(location_id, day_of_week)
-#   find("#location#{location_id} .timeslots")[day_of_week]
-# end
+def time_slot_row(location_id)
+  find("#location#{location_id}_2014-09-01_timeslots")
+end

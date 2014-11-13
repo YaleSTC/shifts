@@ -26,13 +26,15 @@ describe "timeslot creation process", :type => :feature do
     expect(page).to have_css('.time-slot')
   end
 
-  xit "displays the timeslot properly on the time slots page" do
+  it "displays the timeslot properly on the time slots page" do
     create_timeslot
-    visit '/time_slots'    
-    # expect(SPECIFIC ROW).to have_css('.time-slot')
+    visit '/time_slots'
+    expect(time_slot_row(4)).to have_css('.time-slot') # loc_id 4 is TTO
   end
 
   xit "displays the timeslot properly on the shifts page" do
+    create_timeslot
     visit '/shifts'
+    expect(time_slot_row()).to have_css('.time-slot')
   end
 end
