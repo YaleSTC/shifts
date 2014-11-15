@@ -12,7 +12,7 @@
 </fieldset>
 
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
-		  <% loc_group.locations.each do |loc| %>
+		  <% loc_group.locations.active.each do |loc| %>
 		    <% @loc_links = loc.links.active %>
 		    <% unless @loc_links.empty? %>
 				<fieldset class ="index">
