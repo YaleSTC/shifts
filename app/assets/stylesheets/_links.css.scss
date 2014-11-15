@@ -1,8 +1,19 @@
-// ul#useful_links { width:100%; }
-.link_url {
-  color: gray;
-  display: inline;
-  float: right;
-  width: 40em;
-  text-align: left;
+// ul#useful_links { 
+// 	overflow: auto;
+// 	li {
+// 		vertical-align: top;
+// 		overflow: auto;
+// 	}
+// }
+li.link_with_url {
+	overflow: auto;
+	div.link_url {
+	  color: gray;
+	  display: inline;
+	  float: right;
+	  width: 40em;
+	  text-align: left;
+	  word-wrap: break-word;
+	  word-break: break-all;
+	}
 }
