@@ -6,7 +6,7 @@
 <fieldset class="index">	
 	<legend>Department Wide</legend>
 	<ul id = "useful_links">
-	<% current_department.links.each do |link| %>
+	<% current_department.links.active.each do |link| %>
 		<li>
 			<% if current_user.is_admin_of?(link.department) || current_user == link.author %>
 				<%= link_to '[x]', { controller: 'links', action: 'destroy', id: link.id },
@@ -25,7 +25,7 @@
 
   <% current_user.user_config.view_loc_groups.each do |loc_group| %>
 		  <% loc_group.locations.each do |loc| %>
-		    <% @loc_links = loc.links %>
+		    <% @loc_links = loc.links.active %>
 		    <% unless @loc_links.empty? %>
 					<fieldset class ="index">
 						<legend><%= loc.name %></legend>
