@@ -68,7 +68,7 @@
             <h3 class="panel-title">Watched Data Objects</h3>
           </div>
           <div class="panel-body">
-            <%= render partial: 'data_objects/data_objects_table', collection: @watched_objects %>
+            <%= render partial: 'data_objects/data_objects_table', locals: {grouped_objects: @watched_objects} %>
           </div>
         </div>
       <% end %>
