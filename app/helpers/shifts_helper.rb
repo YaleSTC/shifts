@@ -133,7 +133,7 @@ module ShiftsHelper
     #the date doesn't matter for range_start_time, only the time
       @range_start_time = Date.today.to_time + current_department.department_config.schedule_start.minutes
       @range_end_time = Date.today.to_time  + current_department.department_config.schedule_end.minutes
-
+      @time_increment = current_department.department_config.time_increment
     if params[:xPercentage] #Using ToolTip view
         @shift.start = @default_start_date
         config = current_department.department_config
