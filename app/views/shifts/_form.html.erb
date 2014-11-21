@@ -9,7 +9,7 @@
   <% end %>
   <p>
     <%= f.label :start %><br />
-    <%= f.time_select :start_time, {minute_step: current_department.department_config.time_increment,
+    <%= f.time_select :start_time, {minute_step: @time_increment,
                                     ampm: true,
                                     default: @shift.start} %>
   </p>
@@ -20,7 +20,7 @@
     <%#= f.date_select :end_date, default: @default_end_date, id: :end_date  %>
   <%# end %>
     <%= f.label :end %><br />
-    <%= f.time_select :end_time, {minute_step: current_department.department_config.time_increment, 
+    <%= f.time_select :end_time, {minute_step: @time_increment, 
                                   ampm: true,
                                   default: @shift.end} %>
   </p>
