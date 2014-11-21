@@ -312,12 +312,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def toggle #for ajax deactivation/restore
+  def toggle #for ajax deactivation/restore, POST action
     @user = User.find(params[:id])
     @user.toggle_active(@department)
     respond_to do |format|
       format.html {redirect_to user_path(@user)}
-      format.js {render nothing: true}
+      format.js
     end
   end
 
