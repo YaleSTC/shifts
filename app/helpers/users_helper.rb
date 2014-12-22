@@ -2,9 +2,7 @@ module UsersHelper
 
   def deactivate_link(user = @user)
     active = user.is_active?(current_department)
-    link_to (active ? "Deactivate" : "Restore"), {url: toggle_user_path(user),
-      success: "$('#user#{user.id}').toggleClass('disabled');$('#user#{user.id} a.toggle_link').text(($('#user#{user.id}').hasClass('disabled') ? 'Restore' : 'Deactivate'))"},
-      href: toggle_user_path(user), remote: true, class: 'toggle_link'
+    link_to (active ? "Deactivate" : "Restore"), toggle_user_path(user), method: :post, remote: true, class: 'toggle_link'   
   end
 
   def determine_class(user)

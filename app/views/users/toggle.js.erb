@@ -1,0 +1,5 @@
+var tr = $('#user<%= @user.id %>');
+$(tr).toggleClass('disabled');
+$(tr).find('a.toggle_link').text($(tr).hasClass('disabled') ? "Restore" : "Deactivate");
+
+
