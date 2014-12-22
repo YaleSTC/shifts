@@ -145,17 +145,6 @@ Shifts::Application.routes.draw do
     end
   end
 
-  resources :users do
-    collection do
-      post :update_superusers
-    end
-    member do
-      get   :toggle
-      post  :toggle
-    end
-    resources :punch_clocks
-  end
-
   resources :reports, except: [:new] do
     member do
       get :popup
@@ -178,7 +167,7 @@ Shifts::Application.routes.draw do
     end
     member do
       post :toggle
-      get :toggle
+      #get :toggle
       get :show_shifts
     end
     resources :punch_clocks
