@@ -58,21 +58,21 @@ module TimeSlotsHelper
     else #do we ever hit this? ~Casey
       @default_start_date = Time.now.to_date
     end
-
-#    if params[:xPercentage]
-#      @time_slot.start = @default_start_date
-#      @dept_start_minutes ||= current_department.department_config.schedule_start
-#      @dept_end_minutes ||= current_department.department_config.schedule_end
-#      @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
-#      @time_slot.start += @dept_start_minutes.minutes
-#      @time_slot.start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int * 3600 #truncates the hour
-##if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
-##if the schedule starts at 9:30, I'm not sure what happens ~Casey
-#      @time_slot.end = @time_slot.start + 1.hour
-#    else
+    @time_increment = current_department.department_config.time_increment
+   if params[:xPercentage]
+     @time_slot.start = @default_start_date
+     @dept_start_minutes ||= current_department.department_config.schedule_start
+     @dept_end_minutes ||= current_department.department_config.schedule_end
+     @minutes_per_day ||= (@dept_end_minutes - @dept_start_minutes)
+     @time_slot.start += @dept_start_minutes.minutes
+     @time_slot.start += (@minutes_per_day * params[:xPercentage].to_f / 60).to_int.hours #truncates the hour
+#if the time slot starts off of the hour (at 9:30), this is not ideal because it will select either 9:00 or 10:00 and the following hour. We need timeslot validation first.
+#if the schedule starts at 9:30, I'm not sure what happens ~Casey
+     @time_slot.end = @time_slot.start + 1.hour
+   else
       @time_slot.start ||= @default_start_date.to_time + current_department.department_config.schedule_start.minutes
       @time_slot.end ||= @default_start_date.to_time + current_department.department_config.schedule_end.minutes
-#    end
+   end
     @range_start_time = Time.now.to_date + current_department.department_config.schedule_start.minutes
     @range_end_time = Time.now.to_date + current_department.department_config.schedule_end.minutes
 
