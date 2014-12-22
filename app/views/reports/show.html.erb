@@ -94,16 +94,26 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Update Your Report</h3>
+        <h3 class="panel-title">
+          <% if @report.departed %>
+            Submitted Report
+          <% elsif current_user == @report.user %>
+            Update Your Report
+          <% else %>
+            Live Report
+          <% end %>
+        </h3>
       </div>
 
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-6">
-            <%= render partial: 'new_report_item_form' %>
-          </div>
+          <% if current_user == @report.user && !@report.departed %>
+            <div class="col-md-6">
+              <%= render partial: 'new_report_item_form' %>
+            </div>
+          <% end %>
 
-          <div class="col-md-6">
+          <div class="col-md-<%= current_user == @report.user && !@report.departed ? "6" : "12" %>">
             <% unless mobile_device? %>
               <%= content_tag :div, nil, id: 'update_report', data: { id: @report.id, frequency: 30 } %>
               <!-- The following is deprecated. Now in report_show.js in assets-->
