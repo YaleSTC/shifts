@@ -60,8 +60,17 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.3)
+      capybara (>= 1.0, < 3)
+      colored
+      launchy
+    capybara-webkit (1.3.1)
+      capybara (>= 2.0.2, < 2.5.0)
+      json
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    childprocess (0.5.5)
+      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -75,6 +84,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    colored (1.2)
     colorize (0.7.3)
     columnize (0.8.9)
     daemons (1.1.9)
@@ -230,6 +240,7 @@ GEM
     rubycas-client-rails (0.1.0)
       rails (>= 3.0.0)
       rubycas-client (>= 2.2.0)
+    rubyzip (1.1.6)
     sass (3.4.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -238,6 +249,11 @@ GEM
     scrypt (2.0.0)
       ffi-compiler (>= 0.0.2)
       rake
+    selenium-webdriver (2.44.0)
+      childprocess (~> 0.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
     simple_form (2.1.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -269,6 +285,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    websocket (1.2.1)
     whenever (0.9.3)
       chronic (>= 0.6.3)
     xpath (2.0.0)
@@ -285,6 +302,8 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   capistrano
   capybara
+  capybara-screenshot
+  capybara-webkit
   coffee-rails (~> 3.2.1)
   daemons (~> 1.1.9)
   database_cleaner
@@ -317,6 +336,7 @@ DEPENDENCIES
   rubycas-client-rails
   sass-rails
   scrypt
+  selenium-webdriver
   simple_form
   sprockets
   sprockets-rails

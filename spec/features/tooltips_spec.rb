@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'feature_helper'
-require 'capybara/rails'
 
 
 describe "tooltip", js: true, :type => :feature do
@@ -10,7 +9,7 @@ describe "tooltip", js: true, :type => :feature do
     sign_in(@user.login)
   end
 
-  it "appears on timeslots page when you click an empty slot" do
+  xit "appears on timeslots page when you click an empty slot" do
     visit '/time_slots'
     first('.click_to_add_new_timeslot').click
     save_and_open_page
