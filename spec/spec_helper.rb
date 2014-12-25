@@ -3,6 +3,8 @@ require File.expand_path('../../config/environment', __FILE__)
 
 require 'rspec'
 require 'capybara/rails'
+require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
 
@@ -13,8 +15,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     # FactoryGirl.lint
     # %x[bundle exec rake assets:precompile]
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :truncation
+    #DatabaseCleaner.clean_with(:truncation)
   end
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
@@ -22,6 +24,7 @@ RSpec.configure do |config|
     end
   end
   Capybara.asset_host = "http://localhost:3000"
+  Capybara.javascript_driver = :webkit
 end
 
 def sign_in(netid)

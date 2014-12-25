@@ -70,6 +70,9 @@ end
 group :test do
   gem 'rspec'
   gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'timecop'
 end

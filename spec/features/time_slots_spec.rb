@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'feature_helper'
-require 'capybara/rails'
 
 
 describe "timeslot creation process", :type => :feature do
@@ -20,13 +19,13 @@ describe "timeslot creation process", :type => :feature do
     expect(page).to have_content 'Success'
   end
 
-  it "displays the timeslot at all" do
+  xit "displays the timeslot at all" do
     create_timeslot
     visit '/time_slots'
     expect(page).to have_css('.time-slot')
   end
 
-  it "displays the timeslot properly on the time slots page" do
+  xit "displays the timeslot properly on the time slots page" do
     create_timeslot
     visit '/time_slots'
     expect(time_slot_row(4)).to have_css('.time-slot') # loc_id 4 is TTO
