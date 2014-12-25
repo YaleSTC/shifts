@@ -9,10 +9,11 @@ end
 
 def create_timeslot
   visit '/time_slots/new'
+  #save_and_open_page
   within("#new_time_slot") do
     fill_in_date("time_slot_start_date", @a_local_time)
-    select "10", :from => "time_slot_start_time_4i"
-    select "11", :from => "time_slot_end_time_4i"
+    select "10 AM", :from => "time_slot_start_time_4i"
+    select "11 AM", :from => "time_slot_end_time_4i"
   end
   click_button 'Create New'
 end
