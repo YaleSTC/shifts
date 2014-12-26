@@ -4,9 +4,9 @@ def app_setup
   @loc_group = create(:loc_group, department: @department)
   @location = create(:location, loc_group: @loc_group)
   @admin_role = create(:admin_role)
-  @a_local_time = Time.local(2014, 9, 1, 10, 5, 0)
+  #@a_local_time = Time.local(2014, 9, 1, 10, 5, 0)
   #Time freezing breaks capybara! use travelling instead
-  Timecop.travel(@a_local_time)
+  #Timecop.travel(@a_local_time)
 end
 
 def create_timeslot
