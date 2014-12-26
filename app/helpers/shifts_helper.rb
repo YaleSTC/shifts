@@ -82,7 +82,6 @@ module ShiftsHelper
         end
       end
     end
-
     #what should the bar display?
     @signup_bar = []
     @total_blocks = @blocks_per_hour * @hours_per_day

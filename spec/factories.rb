@@ -68,14 +68,45 @@ FactoryGirl.define do
 
     factory :admin do
       superuser true
+      # admin has admin_role
+      before :create do |admin|
+        admin.roles ||= []
+        admin.roles += Role.all.select{|r| r.name=='admin_role'}
+      end
     end
 
     before :create do |obj|
       obj.set_random_password
       obj.departments << Department.find(1)
+
+      # Set roles
+      obj.roles ||= []
+      obj.roles += Role.all.select{|r| r.name=="ordinary_role"}
     end
   end
 
+  factory :role do
+    name "ordinary_role"
+    department_id 1
+    # Role with all signup and view permissions of all Loc Groups
+    before :create do |role|
+      role.permissions ||= []
+      LocGroup.all.each do |lg|
+        role.permissions += [lg.view_permission, lg.signup_permission]
+      end
+    end
+
+    # admin_role has the admin permission of all loc groups
+    factory :admin_role do
+      name "admin_role"
+      before :create do |role|
+        role.permissions ||= []
+        LocGroup.all.each do |lg|
+          role.permissions << lg.admin_permission
+        end
+      end
+    end
+  end
 
   #
   ## Sequences
