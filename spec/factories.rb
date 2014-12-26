@@ -23,17 +23,19 @@ FactoryGirl.define do
   factory :department do
     id 1 # we can safely assume we only have one department ever
     name "SDMP"
-    association :admin_permission_id, factory: :permission
-    association :payforms_permission_id, factory: :permission
-    association :shifts_permission_id, factory: :permission
+    # permissions are set automatically in the model before hook
+    #association :admin_permission_id, factory: :permission
+    #association :payforms_permission_id, factory: :permission
+    #association :shifts_permission_id, factory: :permission
   end
 
   factory :loc_group, class: LocGroup do
     department_id 1
     name {generate(:loc_group_name)}
-    association :view_perm_id, factory: :permission
-    association :signup_perm_id, factory: :permission
-    association :admin_perm_id, factory: :permission
+    # No need to create permissions here since it is automatic in loc_group model
+    #association :view_perm_id, factory: :permission
+    #association :signup_perm_id, factory: :permission
+    #association :admin_perm_id, factory: :permission
   end
 
   factory :location do
@@ -48,7 +50,7 @@ FactoryGirl.define do
     active true
   end
 
-  factory :category do
+  factory :category do # payform category
     department_id 1
     name "Magic"
     active true
