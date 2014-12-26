@@ -23,7 +23,7 @@ RSpec.configure do |config|
       example.run
     end
   end
-  Capybara.asset_host = "http://localhost:3000"
+  Capybara.asset_host = "http://localhost:3000" # using assets when server is running
   Capybara.javascript_driver = :webkit
 end
 

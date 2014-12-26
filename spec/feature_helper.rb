@@ -1,7 +1,7 @@
 def app_setup
   @app_config = create(:app_config)
   @department = create(:department)
-  @loc_group = build(:loc_group, department: @department)
+  @loc_group = create(:loc_group, department: @department)
   @location = create(:location, loc_group: @loc_group)
   @a_local_time = Time.local(2014, 9, 1, 10, 5, 0)
   Timecop.freeze(@a_local_time)
@@ -13,7 +13,7 @@ def create_timeslot
   within("#new_time_slot") do
     fill_in_date("time_slot_start_date", @a_local_time)
     select "10 AM", :from => "time_slot_start_time_4i"
-    select "11 AM", :from => "time_slot_end_time_4i"
+    select "01 PM", :from => "time_slot_end_time_4i"
   end
   click_button 'Create New'
 end
