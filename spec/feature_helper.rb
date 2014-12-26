@@ -6,7 +6,7 @@ def app_setup
   @admin_role = create(:admin_role)
   @a_local_time = Time.local(2014, 9, 1, 10, 5, 0)
   #Time freezing breaks capybara! use travelling instead
-  #Timecop.freeze(@a_local_time)
+  Timecop.travel(@a_local_time)
 end
 
 def create_timeslot
