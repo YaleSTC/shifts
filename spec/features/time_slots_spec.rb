@@ -2,18 +2,11 @@ require 'spec_helper'
 require 'feature_helper'
 
 
-describe "timeslot creation process"  do
-  before :all do
+describe "timeslot"  do
+  before :each do
     app_setup
     @user = create(:admin)
     sign_in(@user.login)
-  end
-
-  before :each do 
-    Timecop.travel(@a_local_time)
-  end
-  after :each do
-    Timecop.return
   end
 
   it "can view the timeslot creation page" do
@@ -22,7 +15,7 @@ describe "timeslot creation process"  do
   end
 
   context "when timeslot is created" do
-    before :all do
+    before :each do
       create_timeslot
     end
 
@@ -37,12 +30,12 @@ describe "timeslot creation process"  do
 
     it "displays the timeslot properly on the time slots page" do
       visit '/time_slots'
-      expect(time_slot_row(1)).to have_css('.time-slot') # loc_id 1 is TTO
+      expect(time_slot_row(TimeSlot.last.location.id)).to have_css('.time-slot') 
     end
 
     it "displays the timeslot properly on the shifts page" do
       visit '/shifts'
-      expect(shift_schedule_row(1)).to have_css('li.bar_open')
+      expect(shift_schedule_row(TimeSlot.last.location.id)).to have_css('li.bar_open')
     end
   end
 end
