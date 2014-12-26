@@ -15,13 +15,16 @@ RSpec.configure do |config|
   config.before(:suite) do
     # FactoryGirl.lint
     # %x[bundle exec rake assets:precompile]
-    DatabaseCleaner.strategy = :truncation
-    #DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :transaction
   end
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
     end
+  end
+  config.after(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
   end
   Capybara.asset_host = "http://localhost:3000" # using assets when server is running
   Capybara.javascript_driver = :webkit
