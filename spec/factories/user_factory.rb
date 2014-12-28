@@ -1,29 +1,34 @@
 FactoryGirl.define do
+
   factory :user do
-    login "ad12"
-    first_name "Albus"
-    last_name "Dumbledore"
-    nick_name "Albus"
-    email "ad12@hogwarts.edu"
+    sequence(:login) {|n| "hp#{n}"}
+    sequence(:first_name) {|n| "Harry##{n}"}
+    last_name "Potter"
+    nick_name ""
+    email {"#{login}@hogwarts.edu"}
+    sequence(:employee_id, 6000000) {|n| "#{n}"} 
+    # CAS authentication only
     auth_type "CAS"
-    default_department_id 1
+    # Default value
+    supermode true
 
     factory :admin do
+      login "ad12"
+      first_name "Albus"
+      last_name "Dumbledore"
       superuser true
       # admin has admin_role
       before :create do |admin|
-        #admin.roles ||= []
         admin.roles += Role.all.select{|r| r.name=='admin_role'}
       end
     end
 
-    before :create do |obj|
-      obj.set_random_password
-      obj.departments << Department.find(1)
-
-      # Set roles
-      #obj.roles ||= []
-      obj.roles += Role.all.select{|r| r.name=="ordinary_role"}
+    before :create do |user|
+      user.set_random_password
+      user.departments = [create(:department)]
+      user.roles += Role.all.select{|r| r.name=="ordinary_role"}
     end
+
+    #On create, UserObserver creates the default UserConfig, and an empty UserProfile
   end
 end
