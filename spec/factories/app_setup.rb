@@ -1,4 +1,3 @@
-# This will guess the User class
 FactoryGirl.define do
   factory :app_config, class: AppConfig do
     ldap_host_address "directory.yale.edu"
@@ -16,26 +15,22 @@ FactoryGirl.define do
     admin_email "adam.bray@yale.edu"
   end
 
-  factory :permission do
-    name {generate(:permission_name)}
-  end
-
   factory :department do
     id 1 # we can safely assume we only have one department ever
     name "SDMP"
     # permissions are set automatically in the model before hook
-    #association :admin_permission_id, factory: :permission
-    #association :payforms_permission_id, factory: :permission
-    #association :shifts_permission_id, factory: :permission
   end
 
   factory :loc_group, class: LocGroup do
     department_id 1
     name {generate(:loc_group_name)}
     # No need to create permissions here since it is automatic in loc_group model
-    #association :view_perm_id, factory: :permission
-    #association :signup_perm_id, factory: :permission
-    #association :admin_perm_id, factory: :permission
+    after :create do |lg|
+      Role.all.each do |role|
+        role.permissions += [lg.view_permission, lg.signup_permission]
+        role.permissions << lg.admin_permission if role.name=='admin_role'
+      end
+    end
   end
 
   factory :location do
@@ -57,40 +52,12 @@ FactoryGirl.define do
     built_in "f"
   end
 
-  factory :user, class: User do
-    login "ad12"
-    first_name "Albus"
-    last_name "Dumbledore"
-    nick_name "Albus"
-    email "ad12@hogwarts.edu"
-    auth_type "CAS"
-    default_department_id 1
-
-    factory :admin do
-      superuser true
-      # admin has admin_role
-      before :create do |admin|
-        admin.roles ||= []
-        admin.roles += Role.all.select{|r| r.name=='admin_role'}
-      end
-    end
-
-    before :create do |obj|
-      obj.set_random_password
-      obj.departments << Department.find(1)
-
-      # Set roles
-      obj.roles ||= []
-      obj.roles += Role.all.select{|r| r.name=="ordinary_role"}
-    end
-  end
-
   factory :role do
     name "ordinary_role"
     department_id 1
     # Role with all signup and view permissions of all Loc Groups
     before :create do |role|
-      role.permissions ||= []
+      #role.permissions ||= []
       LocGroup.all.each do |lg|
         role.permissions += [lg.view_permission, lg.signup_permission]
       end
@@ -100,7 +67,7 @@ FactoryGirl.define do
     factory :admin_role do
       name "admin_role"
       before :create do |role|
-        role.permissions ||= []
+        #role.permissions ||= []
         LocGroup.all.each do |lg|
           role.permissions << lg.admin_permission
         end
@@ -112,9 +79,6 @@ FactoryGirl.define do
   ## Sequences
   #
 
-  sequence :permission_name do |n|
-    "#{n}_permission"
-  end
 
   sequence :loc_group_name do |n|
     "Public Clusters #{n}"
