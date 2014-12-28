@@ -5,8 +5,7 @@ require 'rspec'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
-require 'casclient'
-require 'casclient/frameworks/rails/filter'
+
 
 RSpec.configure do |config|
   config.mock_with :rspec
@@ -15,8 +14,6 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     # FactoryGirl.lint
-    # %x[bundle exec rake assets:precompile]
-    #DatabaseCleaner.clean_with(:truncation)
     # The slower truncation strategy is required for DB to be consistent across example groups with Capybara
     DatabaseCleaner.strategy = :truncation
   end
@@ -34,6 +31,4 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 end
 
-def sign_in(netid)
-  RubyCAS::Filter.fake(netid)
-end
+
