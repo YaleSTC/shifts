@@ -1,7 +1,7 @@
 <div id="footer">
   <hr>
   <p>
-    <%= @appconfig.footer if @appconfig %>
+    <%= @appconfig.footer.html_safe if @appconfig %>
   </p>
   <p>
     Powered by <a href="https://github.com/YaleSTC/shifts" target="_blank">Shifts</a><%= ' (' + APP_VERSION + ')' %><br />
