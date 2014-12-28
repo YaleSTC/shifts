@@ -3,8 +3,7 @@ require 'rails_helper'
 describe "TimeSlot" , :time_slot do
   before :each do
     app_setup
-    @user = create(:admin)
-    sign_in(@user.login)
+    sign_in(@admin.login)
   end
 
   it "can view the timeslot creation page" do
