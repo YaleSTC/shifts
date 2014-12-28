@@ -16,48 +16,38 @@ FactoryGirl.define do
   end
 
   factory :department do
-    id 1 # we can safely assume we only have one department ever
     name "SDMP"
-    # permissions are set automatically in the model before hook
+    # admin_permission is set automatically in the model before hook
+    # DepartmentConfig are set automatically through DepartmentObserver Class
+    # So are three built-in categories: Shifts, Punch Clocks and Miscellaneous
+    # A Default Calendar is created too, named "#{department.name} Default Calendar"
+    
+    # we can safely assume we only have one department ever
+    # Default to existing Department
+    initialize_with {Department.where(name: name).first_or_initialize}
   end
 
-  factory :loc_group, class: LocGroup do
-    department_id 1
-    name {generate(:loc_group_name)}
-    # No need to create permissions here since it is automatic in loc_group model
-    after :create do |lg|
-      Role.all.each do |role|
-        role.permissions += [lg.view_permission, lg.signup_permission]
-        role.permissions << lg.admin_permission if role.name=='admin_role'
-      end
-    end
-  end
 
-  factory :location do
-    category
-    loc_group
-    name "Technology Troubleshooting Office"
-    short_name "TTO"
-    description "students come here when things break"
-    max_staff 2
-    min_staff 1
-    priority 1
-    active true
-  end
 
   factory :category do # payform category
-    department_id 1
-    name "Magic"
+    department
+    sequence(:name){|n| "Magic category #{n}"}
     active true
     built_in "f"
+
+    # Default to existing category
+    initialize_with {Category.where(name: name).first_or_initialize}
   end
 
   factory :role do
+    department
     name "ordinary_role"
-    department_id 1
+    
+    # Default to existing role
+    initialize_with {Role.where(name: name).first_or_initialize}
+
     # Role with all signup and view permissions of all Loc Groups
     before :create do |role|
-      #role.permissions ||= []
       LocGroup.all.each do |lg|
         role.permissions += [lg.view_permission, lg.signup_permission]
       end
@@ -67,22 +57,14 @@ FactoryGirl.define do
     factory :admin_role do
       name "admin_role"
       before :create do |role|
-        #role.permissions ||= []
         LocGroup.all.each do |lg|
           role.permissions << lg.admin_permission
         end
+        role.permissions << role.department.admin_permission
       end
     end
   end
 
-  #
-  ## Sequences
-  #
-
-
-  sequence :loc_group_name do |n|
-    "Public Clusters #{n}"
-  end
 
 
   # As long as we only use CAS, we shouldn't need to think about Authlogic
