@@ -14,6 +14,7 @@ module FeatureHelper
     @location = create(:location, loc_group: @loc_group)
     @ord_role = create(:role)
     @admin_role = create(:admin_role)
+    @admin = create(:admin)
   end
 
 
