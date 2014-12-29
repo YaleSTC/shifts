@@ -46,16 +46,18 @@ FactoryGirl.define do
     # Default to existing role
     initialize_with {Role.where(name: name).first_or_initialize}
 
-    # Role with all signup and view permissions of all Loc Groups
+    # Give Role all signup and view permissions of all Loc Groups before saving to Database
+    # Not executed if factory is called with #build
     before :create do |role|
       LocGroup.all.each do |lg|
         role.permissions += [lg.view_permission, lg.signup_permission]
       end
     end
 
-    # admin_role has the admin permission of all loc groups
     factory :admin_role do
       name "admin_role"
+      # Give admin_role the admin permission of all loc groups before saving to Database
+      # Not executed if factory is called with #build
       before :create do |role|
         LocGroup.all.each do |lg|
           role.permissions << lg.admin_permission
