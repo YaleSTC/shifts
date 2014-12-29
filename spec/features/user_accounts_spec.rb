@@ -1,9 +1,8 @@
 require 'rails_helper'
 
-describe "User accounts" do
+describe "User accounts", :user do
 	before(:each) do 
-		app_setup
-		@user = create(:user)
+		full_setup
 	end
 
 	context "When admin is using Shifts" do 
@@ -18,16 +17,11 @@ describe "User accounts" do
 
 		it "can add new user" do
 			click_on "Add A New User"
-			@new_user = build(:user)
+			new_user = attributes_for(:user)
 			role = Role.first
 			within '#user_form' do
-				fill_in "Login", with: @new_user[:login]
-				fill_in "First name", with: @new_user[:first_name]
-				fill_in "Nick name", with: @new_user[:nick_name]
-				fill_in "Last name", with: @new_user[:last_name]
-				fill_in "Email", with: @new_user[:email]
-				fill_in "Employee", with: @new_user[:employee_id]
-				# Checking the user
+				fill_in_user_form(new_user)
+				# Checking the role
 				find("[name='user[role_ids][]'][value='#{role.id}']").set(true)
 				fill_in "Payrate", with: 12
 			end
@@ -46,15 +40,10 @@ describe "User accounts" do
 		# Strangely this test works only with selenium. WebKit cannot wait until the DB transaction happens, and Rack does not even wait till the page redirects.
 		it "can update another user", driver: :selenium do
 			click_on @user.login
-			@new_user = build(:user)
+			new_user = attributes_for(:user)
 			#pp @new_user
 			within "#user_form" do
-				fill_in "Login", with: @new_user[:login]
-				fill_in "First name", with: @new_user[:first_name]
-				fill_in "Nick name", with: @new_user[:nick_name]
-				fill_in "Last name", with: @new_user[:last_name]
-				fill_in "Email", with: @new_user[:email]
-				fill_in "Employee", with: @new_user[:employee_id]
+				fill_in_user_form(new_user)
 				fill_in "Payrate", with: 13				
 			end
 			expect{click_button "Update User"}.to change{@user.reload.login}
@@ -75,10 +64,5 @@ describe "User accounts" do
 			expect(find("#user#{@user.id}")).to have_content("Deactivate")
 			expect(@department.active_users).to include(@user.reload)
 		end
-	end
-
-	context "When ordinary user is using Shifts" do
-		before(:each) {sign_in(@user.login)}
-		it "can update itself"
 	end
 end

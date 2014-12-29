@@ -12,17 +12,25 @@ FactoryGirl.define do
     # Default value
     supermode true
 
+    # If admin factory is called with create, the department and the admin_role will be created as well, if not already created.
     factory :admin do
       login "ad12"
       first_name "Albus"
       last_name "Dumbledore"
       nick_name ""
-      superuser true
-      # Give admin_role (if exists) to admin if saving to Database
+      
+      # Give admin_role to admin if saving to Database
       before :create do |admin|
-        r = Role.where(name: "admin_role").first
-        admin.roles << r if not r.nil?
+        admin.roles << create(:admin_role)
       end
+    end
+
+    factory :superuser do
+        login "tmr42"
+        first_name "Lord"
+        last_name "Voldemort"
+        nick_name "He-Who-Must-Not-Be-Named"
+        superuser true
     end
 
     after :build do |user|

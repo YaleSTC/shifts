@@ -75,4 +75,12 @@ end
 # 		pp "#{Department.all.count} department(s)"
 # 		pp "#{User.count} user(s)"
 # 	end
+
+#   xit "has one department, built-in categories" do
+#     full_setup
+#     pp Department.count
+#     pp Category.all
+#     pp Location.first
+#     pp Location.first.category
+#   end
 # end
