@@ -28,7 +28,6 @@ describe "First Run Application Configuration" do
 
 			# Superuser
 			within('#first_user_form') {fill_in_user_form(@superuser_attrs)}
-			
 			expect{click_button "Submit"}.to change{User.count}.from(0).to(1)
 			expect_flash_notice "Successfully set up application"
 		end
