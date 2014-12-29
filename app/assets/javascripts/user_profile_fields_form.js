@@ -1,7 +1,7 @@
 function description(type)
 {
   var return_value = "";
-  if(type == "text_area") return "";
+  if(type == "text_area" || type == "picture_link") return "";
   else
   {
     return_value = values+"<br />"+textField+"<br /><em><small>";
