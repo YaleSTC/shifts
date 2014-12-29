@@ -62,6 +62,7 @@ FactoryGirl.define do
         LocGroup.all.each do |lg|
           role.permissions << lg.admin_permission
         end
+        # Give department admin_permission to admin_role
         role.permissions << role.department.admin_permission
       end
     end

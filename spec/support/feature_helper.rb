@@ -7,14 +7,22 @@ module FeatureHelper
     RubyCAS::Filter.fake(netid)
   end
 
+  # Equivalent to going through first-run setup
   def app_setup
     @app_config = create(:app_config)
     @department = create(:department)
-    @loc_group = create(:loc_group, department: @department)
-    @location = create(:location, loc_group: @loc_group)
+    @superuser = create(:superuser)
+  end
+
+  # Does app_setup, creates a Location Group with a location, an ordinary role and an admin_role with default permissions, an ordinary user and an admin.
+  def full_setup
+    app_setup
+    @loc_group = create(:loc_group)
+    @location = create(:location, loc_group: @loc_group, category: @department.categories.where(name: "Shifts").first)
     @ord_role = create(:role)
     @admin_role = create(:admin_role)
     @admin = create(:admin)
+    @user = create(:user)
   end
 
   # Capybara expectation helpers, does not modify browser state

@@ -41,5 +41,6 @@ RSpec.configure do |config|
   config.include FeatureHelper
   config.include TimeSlotHelper, :time_slot
   config.include ShiftHelper, :shift
+  config.include UserHelper, :user
 end
 

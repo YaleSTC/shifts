@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "TimeSlot" , :time_slot do
   before :each do
-    app_setup
+    full_setup
     sign_in(@admin.login)
   end
 

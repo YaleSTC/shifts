@@ -27,7 +27,7 @@ RSpec.configure do |config|
   end
 
   Capybara.asset_host = "http://localhost:3000" # using assets when server is running
-  Capybara.javascript_driver = :webkit # WebKit is a bit faster than selenium
+  Capybara.javascript_driver = :webkit # WebKit is a lot faster than selenium
 end
 
 
