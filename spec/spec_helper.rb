@@ -13,7 +13,6 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    # FactoryGirl.lint
     # The slower truncation strategy is required for DB to be consistent across example groups with Capybara
     DatabaseCleaner.strategy = :truncation
   end

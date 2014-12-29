@@ -16,20 +16,25 @@ FactoryGirl.define do
       login "ad12"
       first_name "Albus"
       last_name "Dumbledore"
-      nick_name "Bumblebee"
+      nick_name ""
       superuser true
-      # admin has admin_role
+      # Give admin_role (if exists) to admin if saving to Database
       before :create do |admin|
-        admin.roles += Role.all.select{|r| r.name=='admin_role'}
+        r = Role.where(name: "admin_role").first
+        admin.roles << r if not r.nil?
       end
     end
 
-    before :create do |user|
+    after :build do |user|
       user.set_random_password
       user.departments = [create(:department)]
-      user.roles += Role.all.select{|r| r.name=="ordinary_role"}
     end
-
+      
+    # Give ordinary_role (if exists) to user if saving to Database
+    before :create do |user|
+      r =  Role.where(name: "ordinary_role").first
+      user.roles << r if not r.nil?
+    end
     #On create, UserObserver creates the default UserConfig, and an empty UserProfile
   end
 end
