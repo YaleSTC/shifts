@@ -12,6 +12,6 @@
   <%= render partial: 'user_profile_entries' %>
 </div>
 <br />
-<%= link_to_if current_user.is_admin_of?(current_department) || current_user == @user_profile.user, 'Edit', edit_user_profile_path(@user_profile.user.login), class: 'btn btn-default' %>
+<%= link_to('Edit', edit_user_profile_path(@user_profile.user.login), class: 'btn btn-default') if current_user.is_admin_of?(current_department) || current_user == @user_profile.user %>
 <%= link_to 'Show Shift Reports', show_shifts_user_path(@user_profile.user), class: 'btn btn-default' %>
 <%= link_to 'Show All', user_profiles_path, class: 'btn btn-default' %>
