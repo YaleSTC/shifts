@@ -15,6 +15,7 @@ describe "User accounts" do
 		it "can view users page" do
 			expect(page).to have_selector("h1", text: "Users")
 		end
+
 		it "can add new user" do
 			click_on "Add A New User"
 			@new_user = build(:user)
@@ -33,6 +34,7 @@ describe "User accounts" do
 			expect{click_button "Create"}.to change{role.users.count}.by(1)
 			expect(find('#flash_notice')).to have_content("Successfully created user")
 		end
+
 		it "can find another user" do
 			within '#user_searchbox' do
 				fill_in "search", with: @user.login
@@ -40,7 +42,8 @@ describe "User accounts" do
 			end
 			expect(find('#user_list')).to have_css('tbody tr', count: 1)
 		end
-		# Strangely this test works only with selenium
+
+		# Strangely this test works only with selenium. WebKit cannot wait until the DB transaction happens, and Rack does not even wait till the page redirects.
 		it "can update another user", driver: :selenium do
 			click_on @user.login
 			@new_user = build(:user)
@@ -54,13 +57,26 @@ describe "User accounts" do
 				fill_in "Employee", with: @new_user[:employee_id]
 				fill_in "Payrate", with: 13				
 			end
-			expect{click_button "Update User"}.to change{User.find(2).login}
+			expect{click_button "Update User"}.to change{@user.reload.login}
 			expect(find('#flash_notice')).to have_content("Successfully updated user")
 		end
-		
-		it "can deactivate a user"
-		it "can activate a user"
+
+		it "can deactivate a user", js: true do
+			find("#user#{@user.id}").click_on "Deactivate"
+			expect(find("#user#{@user.id}")).to have_content("Restore")
+			expect(@department.active_users).not_to include(@user.reload)
+		end
+
+		it "can activate a user", js: true do
+			@user.toggle_active(@department)
+			visit current_path
+			click_on "Show Inactive Users"
+			find("#user#{@user.id}").click_on "Restore"
+			expect(find("#user#{@user.id}")).to have_content("Deactivate")
+			expect(@department.active_users).to include(@user.reload)
+		end
 	end
+
 	context "When ordinary user is using Shifts" do
 		before(:each) {sign_in(@user.login)}
 		it "can update itself"
