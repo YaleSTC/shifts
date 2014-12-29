@@ -23,7 +23,7 @@ describe "TimeSlot" , :time_slot do
     end
 
     it "displays success banner" do
-       expect(page).to have_content 'Successfully created timeslot(s)'
+       expect_flash_notice 'Successfully created timeslot(s)'
     end
 
     it "displays the timeslot at all" do

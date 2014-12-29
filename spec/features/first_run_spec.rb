@@ -19,14 +19,14 @@ describe "First Run Application Configuration" do
 				fill_in "Footer Text", with: "<b>Bold App Footer</b><br><i>Italic App Footer 2</i>"
 			end
 			expect{click_button "Submit"}.to change{AppConfig.count}.from(0).to(1)
-			expect(find("#flash_notice")).to have_content("App Settings have been configured")
+			expect_flash_notice "App Settings have been configured"
 			
 			# New Department
 			within '#new_department' do
 				fill_in "Name", with: @dpmt_attrs[:name]
 			end
 			expect{click_button "Submit"}.to change{Department.count}.from(0).to(1)
-			expect(find("#flash_notice")).to have_content("The first department was successfully created")
+			expect_flash_notice "The first department was successfully created"
 
 			# Superuser
 			within '#first_user_form' do
@@ -38,7 +38,7 @@ describe "First Run Application Configuration" do
 				fill_in "Employee ID", with: @admin_attrs[:employee_id]
 			end
 			expect{click_button "Submit"}.to change{User.count}.from(0).to(1)
-			expect(find("#flash_notice")).to have_content("Successfully set up application")
+			expect_flash_notice "Successfully set up application"
 		end
 
 	end

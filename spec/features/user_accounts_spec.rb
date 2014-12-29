@@ -32,7 +32,7 @@ describe "User accounts" do
 				fill_in "Payrate", with: 12
 			end
 			expect{click_button "Create"}.to change{role.users.count}.by(1)
-			expect(find('#flash_notice')).to have_content("Successfully created user")
+			expect_flash_notice("Successfully created user")
 		end
 
 		it "can find another user" do
@@ -58,7 +58,7 @@ describe "User accounts" do
 				fill_in "Payrate", with: 13				
 			end
 			expect{click_button "Update User"}.to change{@user.reload.login}
-			expect(find('#flash_notice')).to have_content("Successfully updated user")
+			expect_flash_notice "Successfully updated user"
 		end
 
 		it "can deactivate a user", js: true do

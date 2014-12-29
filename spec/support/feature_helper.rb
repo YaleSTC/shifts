@@ -17,6 +17,10 @@ module FeatureHelper
     @admin = create(:admin)
   end
 
+  # Capybara expectation helpers, does not modify browser state
+  def expect_flash_notice(message, type="info")
+    expect(find("#flash_notice.alert-#{type}")).to have_content(message)
+  end
 
   # Capybara brower helpers, modifies browser state
   def fill_in_date(prefix, target_datetime)
