@@ -45,4 +45,30 @@ FactoryGirl.define do
     end
     #On create, UserObserver creates the default UserConfig, and an empty UserProfile
   end
+
+
+  factory :user_profile_field, class: UserProfileField do
+    department
+    sequence(:name) {|n| "Profile Field #{n}"}
+    display_type "text_field"
+    values ""
+    public true
+    user_editable true
+    index_display true
+  end
+
+  # We cannot have a user_profile factory since it is created after each user is created by UserObserver Class, and a user can have only one profile
+  # Therefore we can pass in a user (or create one) into the user_profile_entry factory to associate it with the correct user_profile
+  factory :user_profile_entry, class: UserProfileEntry do
+    content ""
+    ignore do
+      user {create(:user)}
+    end
+    user_profile_field
+    after(:build) do |entry, evaluator|
+      entry.user_profile = evaluator.user.user_profile
+    end
+  end
+
 end
+

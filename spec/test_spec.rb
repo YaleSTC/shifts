@@ -33,7 +33,7 @@ RSpec.describe "Factory Girl" do
   end
 end
 
-# describe "testing department factory" do
+describe "testing factory" do
 # 	xit "does not create two departments" do
 # 		d1=create(:department)
 # 		d2=create(:department)
@@ -83,4 +83,10 @@ end
 #     pp Location.first
 #     pp Location.first.category
 #   end
-# end
+  # xit "creates user_profile_field" do
+  #   user = create(:admin)
+  #   f = create(:user_profile_entry, user: user);
+  #   pp user.user_profile.user_profile_entries
+  #   pp User.all
+  end
+end
