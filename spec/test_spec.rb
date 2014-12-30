@@ -88,5 +88,5 @@ describe "testing factory" do
   #   f = create(:user_profile_entry, user: user);
   #   pp user.user_profile.user_profile_entries
   #   pp User.all
-  end
+  # end
 end
