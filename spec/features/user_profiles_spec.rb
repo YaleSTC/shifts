@@ -58,7 +58,7 @@ describe "User Profiles", :user do
 			end
 		end
 
-		it "can update his editable profile fields" do
+		it "can update his editable profile fields (checkbox)" do
 			create_field_and_entry("check_box", @user, "c1,c2", "c1,c2,c3, c4")
 			click_on "Edit"
 			check "c3"
