@@ -23,7 +23,7 @@ class UserProfileEntry < ActiveRecord::Base
     elseif display_type == "upload_pic"
       return ["user_profile_entries[#{id}]", id, {value: content}]
     elsif display_type == "text_area"
-      return ["user_profile_entries[#{id}]", id, {id: id, value: content}]
+      return ["user_profile_entries[#{id}]", id, {value: content}]
     elsif display_type == "select"
       options = values.split(',').each{|opt| opt.squish!}
       return ["user_profile_entries[#{id}]", id, options.map{|opt| [opt, opt]}, {selected: content}]
