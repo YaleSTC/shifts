@@ -26,8 +26,8 @@ module FeatureHelper
   end
 
   # Capybara expectation helpers, does not modify browser state
-  def expect_flash_notice(message, type="info")
-    expect(find("#flash_notice.alert-#{type}")).to have_content(message)
+  def expect_flash_notice(message, type="notice")
+    expect(find("#flash_#{type}.alert")).to have_content(message)
   end
 
   # Capybara brower helpers, modifies browser state
