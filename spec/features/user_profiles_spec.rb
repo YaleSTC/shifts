@@ -20,55 +20,70 @@ describe "User Profiles", :user do
 			end.to change{find('div#profile_left img')["src"]}
 		end
 
-		context "When rendering profile fields of different types" do
+		context "When having profile fields of different types" do
 
-			it "renders Text Field correctly" do 
+			it "renders and updates Text Field correctly" do 
 				create_field_and_entry("text_field", @user, "text content")
 				click_on "Edit"
 				expect(page).to have_field(@profile_field.name, with: "text content", type: "text")
+				fill_in @profile_field.name, with: "changed content"
+				click_on "Update"
+				expect(page).to have_content("changed content")
+				expect{@profile_entry.reload}.to change{@profile_entry.content}
 			end
-			it "renders List correctly" do
+			it "renders and updates List correctly" do
 				create_field_and_entry("select", @user,"s2", "s1, s2, s3")
 				click_on "Edit"
 				expect(page).to have_select(@profile_field.name, selected: "s2")
+				select "s1", from: @profile_field.name
+				click_on "Update"
+				expect(page).to have_content("s1")
+				expect{@profile_entry.reload}.to change{@profile_entry.content}
 			end
-			it "renders Multiple Choice correctly" do
+			it "renders and updates Multiple Choice correctly" do
 				create_field_and_entry("radio_button", @user, "r2", "r1,r2,r3")
 				click_on "Edit"
 				expect(page).to have_checked_field("r2")
+				choose "r3"
+				click_on "Update"
+				expect(page).to have_content("r3")
+				expect{@profile_entry.reload}.to change{@profile_entry.content}
+
 			end
-			it "renders checkboxes correctly" do
+			it "renders and updates checkboxes correctly" do
 				create_field_and_entry("check_box", @user, "c1,c2", "c1,c2, c3")
 				click_on "Edit"
 				expect(page).to have_checked_field("c1")
 				expect(page).to have_checked_field("c2")
+				uncheck "c1"
+				check "c3"
+				click_on "Update"
+				expect(page).not_to have_content("c1")
+				expect(page).to have_content("c2")
+				expect(page).to have_content("c3")
+				expect{@profile_entry.reload}.to change{@profile_entry.content}
 			end
-			it "renders Paragraph Text correctly" do 
+			it "renders and updates Paragraph Text correctly" do 
 				create_field_and_entry("text_area", @user, "text area")
 				click_on "Edit"
 				expect(page).to have_selector("textarea", text: "text area")
+				find("textarea").set(text: "more text")
+				click_on "Update"
+				expect(page).to have_content("more text")
+				expect{@profile_entry.reload}.to change{@profile_entry.content}
 			end
-			it "renders picture link correctly" do 
+			it "renders and updates picture link correctly" do 
 				url = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
-				create_field_and_entry("picture_link", @user, url)
-				visit current_path
-				expect(page).to have_selector("img[src='#{url}']")
+				create_field_and_entry("picture_link", @user, nil)
 				click_on "Edit"
-				expect(page).to have_field(@profile_field.name, with: url, type: "text")
+				expect(page).to have_field(@profile_field.name, type: "text")
+				fill_in @profile_field.name, with: url
+				click_on "Update"
+				expect(page).to have_selector("img[src='#{url}']")
+				expect{@profile_entry.reload}.to change{@profile_entry.content}
 			end
 		end
 
-		it "can update his editable profile fields (checkbox)" do
-			create_field_and_entry("check_box", @user, "c1,c2", "c1,c2,c3, c4")
-			click_on "Edit"
-			check "c3"
-			check "c4"
-			uncheck "c1"
-			uncheck "c2"
-			click_on "Update"
-			expect(page).to have_content("c3")
-			expect(page).to have_content("c4")
-		end
 		it "cannot update his non-editable profile fields"
 		it "can see public profile fields"
 		it "cannot see non-public profile fields"
