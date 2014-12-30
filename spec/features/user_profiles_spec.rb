@@ -91,10 +91,10 @@ describe "User Profiles", :user do
 
 		it "cannot see non-public profile fields" do 
 			field = create(:user_profile_field, public: false)
-			entry = UserProfileEntry.where(user_profile_field_id: field.id, user_profile_id: @user.user_profile.id).first
+			entry = UserProfileEntry.where(user_profile_field_id: field.id, user_profile_id: @admin.user_profile.id).first
 			content = "Not public"
 			entry.update_attribute(:content, content)
-			visit user_profile_path(@user.login)
+			visit user_profile_path(@admin.login)
 			expect(page).not_to have_content(content)
 		end
 		it "can see profile fields on index page" do
