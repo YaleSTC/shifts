@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "User Profiles" do 
+describe "User Profiles", :user do 
 	before :each do
 		full_setup
 	end
@@ -22,51 +22,53 @@ describe "User Profiles" do
 
 		context "When rendering profile fields of different types" do
 
-			def create_field_and_entry(display_type, content, values="")
-				profile_field = create(:user_profile_field, display_type: display_type, values: values)
-				profile_entry = create(:user_profile_entry, user: @user, user_profile_field: profile_field, content: content)
-				return profile_field.name
-			end
-
 			it "renders Text Field correctly" do 
-				content = "text content"
-				name = create_field_and_entry("text_field", content)
+				create_field_and_entry("text_field", "text content")
 				click_on "Edit"
-				expect(page).to have_field(name, with: content, type: "text")
+				expect(page).to have_field(@profile_field.name, with: "text content", type: "text")
 			end
 			it "renders List correctly" do
-				content = "s2"
-				name = create_field_and_entry("select", content, "s1, s2, s3")
+				create_field_and_entry("select", "s2", "s1, s2, s3")
 				click_on "Edit"
-				expect(page).to have_select(name, selected: content)
+				expect(page).to have_select(@profile_field.name, selected: "s2")
 			end
 			it "renders Multiple Choice correctly" do
-				content = "r2"
-				name = create_field_and_entry("radio_button", content, "r1,r2,r3")
+				create_field_and_entry("radio_button", "r2", "r1,r2,r3")
 				click_on "Edit"
-				expect(page).to have_checked_field(content)
+				expect(page).to have_checked_field("r2")
 			end
 			it "renders checkboxes correctly" do
-				content = "c2"
-				name = create_field_and_entry("check_box", content, "c1,c2, c3")
+				create_field_and_entry("check_box", "c1,c2", "c1,c2, c3")
 				click_on "Edit"
-				expect(page).to have_checked_field(content)
+				expect(page).to have_checked_field("c1")
+				expect(page).to have_checked_field("c2")
 			end
 			it "renders Paragraph Text correctly" do 
-				content = "text area"
-				name = create_field_and_entry("text_area", content)
+				create_field_and_entry("text_area", "text area")
 				click_on "Edit"
-				expect(page).to have_selector("textarea", text: content)
+				expect(page).to have_selector("textarea", text: "text area")
 			end
 			it "renders picture link correctly" do 
-				content = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
-				name = create_field_and_entry("picture_link", content)
+				url = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
+				create_field_and_entry("picture_link", url)
+				visit current_path
+				expect(page).to have_selector("img[src='#{url}']")
 				click_on "Edit"
-				expect(page).to have_field(name, with: content, type: "text")
+				expect(page).to have_field(@profile_field.name, with: url, type: "text")
 			end
 		end
 
-		it "can update his editable profile fields"
+		it "can update his editable profile fields" do
+			create_field_and_entry("check_box", "c1,c2", "c1,c2,c3, c4")
+			click_on "Edit"
+			check "c3"
+			check "c4"
+			uncheck "c1"
+			uncheck "c2"
+			click_on "Update"
+			expect(page).to have_content("c3")
+			expect(page).to have_content("c4")
+		end
 		it "cannot update his non-editable profile fields"
 		it "can see public profile fields"
 		it "cannot see non-public profile fields"
