@@ -1,4 +1,8 @@
 module UserHelper
+	def create_field_and_entry(display_type, content, values="")
+		@profile_field = create(:user_profile_field, display_type: display_type, values: values)
+		@profile_entry = create(:user_profile_entry, user: @user, user_profile_field: @profile_field, content: content)
+	end
 	# Capybara Browser helpers, modifies browser state
 	def fill_in_user_form(user)
 		fill_in "Login", with: user[:login]
