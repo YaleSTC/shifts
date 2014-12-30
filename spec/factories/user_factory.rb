@@ -55,20 +55,14 @@ FactoryGirl.define do
     public true
     user_editable true
     index_display true
-  end
-
-  # We cannot have a user_profile factory since it is created after each user is created by UserObserver Class, and a user can have only one profile
-  # Therefore we can pass in a user (or create one) into the user_profile_entry factory to associate it with the correct user_profile
-  factory :user_profile_entry, class: UserProfileEntry do
-    content ""
-    ignore do
-      user {create(:user)}
-    end
-    user_profile_field
-    after(:build) do |entry, evaluator|
-      entry.user_profile = evaluator.user.user_profile
+    # If saving to Database, create empty profiles for every user
+    before :create do |field|
+      field.department.users.each do |user|
+        UserProfileEntry.create!(user_profile: user.user_profile, user_profile_field: field)
+      end
     end
   end
 
+  # No need to have a user_profile_entry factory since all entries are created when user_profile_field is created
 end
 
