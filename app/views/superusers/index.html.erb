@@ -26,7 +26,7 @@
         <tr>
           <td><%= su.login %></td>
           <td><%= link_to su.name, user_path(su) %></td>
-          <td><%= check_box_tag('remove_su_ids[]', su.id) %></td>
+          <td><%= check_box_tag("remove_su_ids[#{su.id}]", su.id, false, name: "remove_su_ids[]") %></td>
         </tr>
       <% end %>
   	</tbody>
