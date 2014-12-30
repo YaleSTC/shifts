@@ -72,14 +72,13 @@ class UserProfilesController < ApplicationController
             entry = UserProfileEntry.find(entry_id)
             @content = ""
             if entry.display_type == "check_box"
-              UserProfileEntry.find(entry_id).values.split(", ").each do |value|
-                c = entry_content[value]
+              entry.user_profile_field.values.split(",").each do |value|
+                c = entry_content[value.squish]
                 @content += value + ", " if c == "1"
               end
-            @content.gsub!(/, \Z/, "")
-            entry.content = @content
-            @failed << entry.field_name unless entry.save
-
+              @content.gsub!(/, \Z/, "")
+              entry.content = @content
+              @failed << entry.field_name unless entry.save
             elsif entry.display_type == "radio_button"
               entry.content = entry_content["1"]
               @failed << entry.field_name unless entry.save
