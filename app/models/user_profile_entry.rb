@@ -25,11 +25,11 @@ class UserProfileEntry < ActiveRecord::Base
     elsif display_type == "text_area"
       return ["user_profile_entries[#{id}]", :content, {value: content}]
     elsif display_type == "select"
-      options = values.split(',').collect{|opt| opt.squish}
+      options = values.to_s.split(',').collect{|opt| opt.squish}
       return ["user_profile_entries[#{id}]", :content, options.map{|opt| [opt, opt]}, {selected: content}]
     elsif display_type == "check_box"
-      options = values.split(',').collect{|opt| opt.squish}
-      chosen = content.split(',').collect{|opt| opt.squish}
+      options = values.to_s.split(',').collect{|opt| opt.squish}
+      chosen = content.to_s.split(',').collect{|opt| opt.squish}
       if content
         return options.map{|v| ["user_profile_entries[#{id}]", v, chosen.include?(v) ? {checked: true} : {}]}
       else
