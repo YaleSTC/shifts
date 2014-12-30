@@ -1,17 +1,15 @@
 require 'rails_helper'
 
-describe "User Profiles" do 
+describe "User Profiles", :user do 
 	before :each do
 		full_setup
 	end
 
 	context "When user is using Shifts" do
-		before(:each) do
-			sign_in(@user.login)
-			visit user_profile_path(@user.login)
-		end
+		before(:each) {sign_in(@user.login)}
 
 		it "can upload a profile picture" do
+			visit user_profile_path(@user.login)
 			expect do
 				click_on "Edit"
 				attach_file "user_profile_photo", Rails.root.join("app/assets/images/fail_yale.jpg")
@@ -80,22 +78,80 @@ describe "User Profiles" do
 			end
 		end
 
-		it "cannot update his non-editable profile fields"
-		it "can see public profile fields"
-		it "cannot see non-public profile fields"
-		it "can see profile fields on index page"
-		it "cannot see certain profile fields on index page"
+		it "cannot update his non-editable profile fields" do 
+			field = create(:user_profile_field, user_editable: false)
+			entry = UserProfileEntry.where(user_profile_field_id: field.id, user_profile_id: @user.user_profile.id).first
+			content = "Not editable"
+			entry.update_attribute(:content, content)
+			visit user_profile_path(@user.login)
+			expect(page).to have_content(content)
+			click_on "Edit"
+			expect(page).not_to have_field(field.name)
+		end
+
+		it "cannot see non-public profile fields" do 
+			field = create(:user_profile_field, public: false)
+			entry = UserProfileEntry.where(user_profile_field_id: field.id, user_profile_id: @user.user_profile.id).first
+			content = "Not public"
+			entry.update_attribute(:content, content)
+			visit user_profile_path(@user.login)
+			expect(page).not_to have_content(content)
+		end
+		it "can see profile fields on index page" do
+			field = create(:user_profile_field)
+			visit user_profiles_path
+			expect(page).to have_content(field.name)
+		end
+		it "cannot see certain profile fields on index page" do 
+			field = create(:user_profile_field, index_display: false)
+			visit user_profiles_path
+			expect(page).not_to have_content(field.name)
+		end
 	end
 	context "When admin is using Shifts" do 
 		before(:each) {sign_in(@admin.login)}
-		# xit "displays user profile fields" do
-		# 	visit user_profile_fields_path
-		# 	save_and_open_page
-		# end
 
-		it "can create a profile field"
-		it "can edit a profile field"
-		it "can destroy a profile field"
-		it "can update the profile of another user"
+		it "can create a profile field" do 
+			visit new_user_profile_field_path
+			fill_in "Name", with: "Favorite Programming Language"
+			select "Multiple Choice", from: "Display type"
+			fill_in "Values", with: "C, C++, Objective C, Java, JavaScript, Ruby, Python"
+			uncheck "Displayed in Index?"
+			check "Public?"
+			check "User Editable?"
+			click_button "Submit"
+			expect_flash_notice "Successfully created user profile field"
+			expect(UserProfileField.last.name).to eq("Favorite Programming Language")
+		end
+		it "can edit a profile field" do 
+			field = create(:user_profile_field, display_type: "text_area")
+			visit user_profile_fields_path
+			click_on "Edit"
+			select "Check Boxes", from: "Display type"
+			fill_in "Values", with: "a,b, c,  d  ,e"
+			click_button "Submit"
+			expect(field.reload.display_type).to eq("check_box")
+		end
+
+		# Only selenium can handle alert popups
+		it "can destroy a profile field" , driver: :selenium do 
+			create(:user_profile_field)
+			visit user_profile_fields_path
+			id = page.all('td a', text: "Destroy")[0]["href"].match(/(\d+)$/)[1].to_i
+			click_on "Destroy"
+			# If using selenium driver
+			alert = page.driver.browser.switch_to.alert
+			alert.accept
+			expect_flash_notice "Successfully destroyed user profile field"
+			expect{UserProfileField.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
+		end
+		it "can update the profile of another user" do 
+			field = create(:user_profile_field)
+			entry = UserProfileEntry.where(user_profile_field_id: field.id, user_profile_id: @user.user_profile.id).first
+			visit edit_user_profile_path(@user.login)
+			fill_in field.name, with: "test entry"
+			click_button "Update"
+			expect(entry.reload.content).to eq("test entry")
+		end
 	end
 end
