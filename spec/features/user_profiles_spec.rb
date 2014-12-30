@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "User Profiles", :user do 
+describe "User Profiles" do 
 	before :each do
 		full_setup
 	end
@@ -22,65 +22,61 @@ describe "User Profiles", :user do
 
 		context "When having profile fields of different types" do
 
+			def expect_to_render_and_update_correctly(type, values="")
+				profile_field = create(:user_profile_field, display_type: type, values: values)
+				profile_entry = UserProfileEntry.where(user_profile_id: @user.user_profile.id, user_profile_field_id: profile_field.id).first
+			 	visit edit_user_profile_path(@user.login)
+			 	yield profile_field, profile_entry
+			 	expect{profile_entry.reload}.to change{profile_entry.content}
+			end
+
 			it "renders and updates Text Field correctly" do 
-				create_field_and_entry("text_field", @user, "text content")
-				click_on "Edit"
-				expect(page).to have_field(@profile_field.name, with: "text content", type: "text")
-				fill_in @profile_field.name, with: "changed content"
-				click_on "Update"
-				expect(page).to have_content("changed content")
-				expect{@profile_entry.reload}.to change{@profile_entry.content}
+				expect_to_render_and_update_correctly(:text_field) do |field, entry|
+					content = "text content"
+					fill_in field.name, with: content
+					click_on "Update"
+					expect(page).to have_content(content)
+				end
 			end
 			it "renders and updates List correctly" do
-				create_field_and_entry("select", @user,"s2", "s1, s2, s3")
-				click_on "Edit"
-				expect(page).to have_select(@profile_field.name, selected: "s2")
-				select "s1", from: @profile_field.name
-				click_on "Update"
-				expect(page).to have_content("s1")
-				expect{@profile_entry.reload}.to change{@profile_entry.content}
+				expect_to_render_and_update_correctly(:select, "s1, s2, s3") do |field, entry|
+					content = "s2"
+					select content, from: field.name
+					click_on "Update"
+					expect(page).to have_content(content)
+				end
 			end
 			it "renders and updates Multiple Choice correctly" do
-				create_field_and_entry("radio_button", @user, "r2", "r1,r2,r3")
-				click_on "Edit"
-				expect(page).to have_checked_field("r2")
-				choose "r3"
-				click_on "Update"
-				expect(page).to have_content("r3")
-				expect{@profile_entry.reload}.to change{@profile_entry.content}
-
+				expect_to_render_and_update_correctly(:radio_button, "r1,r2,r3") do |field, entry|
+					(1..3).each {|i| expect(page).to have_field("r#{i}")}
+					choose "r3"
+					click_on "Update"
+					expect(page).to have_content("r3")
+				end
 			end
 			it "renders and updates checkboxes correctly" do
-				create_field_and_entry("check_box", @user, "c1,c2", "c1,c2, c3")
-				click_on "Edit"
-				expect(page).to have_checked_field("c1")
-				expect(page).to have_checked_field("c2")
-				uncheck "c1"
-				check "c3"
-				click_on "Update"
-				expect(page).not_to have_content("c1")
-				expect(page).to have_content("c2")
-				expect(page).to have_content("c3")
-				expect{@profile_entry.reload}.to change{@profile_entry.content}
+				expect_to_render_and_update_correctly(:check_box, "c1,c2, c3") do |field, entry|
+					check "c1"; uncheck "c2"; check "c3"; click_on "Update"
+					expect(page).not_to have_content("c2")
+					expect(page).to have_content("c1")
+					expect(page).to have_content("c3")
+				end
 			end
 			it "renders and updates Paragraph Text correctly" do 
-				create_field_and_entry("text_area", @user, "text area")
-				click_on "Edit"
-				expect(page).to have_selector("textarea", text: "text area")
-				find("textarea").set(text: "more text")
-				click_on "Update"
-				expect(page).to have_content("more text")
-				expect{@profile_entry.reload}.to change{@profile_entry.content}
+				expect_to_render_and_update_correctly(:text_area) do |field, entry|
+					content = "text area"
+					find("textarea").set(text: content)
+					click_on "Update"
+					expect(page).to have_content(content)
+				end
 			end
 			it "renders and updates picture link correctly" do 
-				url = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
-				create_field_and_entry("picture_link", @user, nil)
-				click_on "Edit"
-				expect(page).to have_field(@profile_field.name, type: "text")
-				fill_in @profile_field.name, with: url
-				click_on "Update"
-				expect(page).to have_selector("img[src='#{url}']")
-				expect{@profile_entry.reload}.to change{@profile_entry.content}
+				expect_to_render_and_update_correctly(:picture_link) do |field, entry|
+					url = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
+					fill_in field.name, with: url
+					click_on "Update"
+					expect(page).to have_selector("img[src='#{url}']")
+				end
 			end
 		end
 
