@@ -68,22 +68,19 @@ class UserProfilesController < ApplicationController
         UserProfile.transaction do
           @failed = []
           @user_profile_entries = params[:user_profile_entries]
-          @user_profile_entries.each do |entry_id, entry_content|
+          @user_profile_entries.each do |entry_id, entry_attributes|
             entry = UserProfileEntry.find(entry_id)
-            @content = ""
             if entry.display_type == "check_box"
+              content = ""
               entry.user_profile_field.values.split(",").each do |value|
-                c = entry_content[value.squish]
-                @content += value + ", " if c == "1"
+                c = entry_attributes[value.squish]
+                content += value + ", " if c == "1"
               end
-              @content.gsub!(/, \Z/, "")
-              entry.content = @content
-              @failed << entry.field_name unless entry.save
-            elsif entry.display_type == "radio_button"
-              entry.content = entry_content["1"]
+              content.gsub!(/, \Z/, "")
+              entry.content = content
               @failed << entry.field_name unless entry.save
             else
-              entry.content = entry_content[entry_id]
+              entry.update_attributes(entry_attributes)
               @failed << entry.field_name unless entry.save
             end
           end
