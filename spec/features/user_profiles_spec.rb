@@ -23,34 +23,34 @@ describe "User Profiles", :user do
 		context "When rendering profile fields of different types" do
 
 			it "renders Text Field correctly" do 
-				create_field_and_entry("text_field", "text content")
+				create_field_and_entry("text_field", @user, "text content")
 				click_on "Edit"
 				expect(page).to have_field(@profile_field.name, with: "text content", type: "text")
 			end
 			it "renders List correctly" do
-				create_field_and_entry("select", "s2", "s1, s2, s3")
+				create_field_and_entry("select", @user,"s2", "s1, s2, s3")
 				click_on "Edit"
 				expect(page).to have_select(@profile_field.name, selected: "s2")
 			end
 			it "renders Multiple Choice correctly" do
-				create_field_and_entry("radio_button", "r2", "r1,r2,r3")
+				create_field_and_entry("radio_button", @user, "r2", "r1,r2,r3")
 				click_on "Edit"
 				expect(page).to have_checked_field("r2")
 			end
 			it "renders checkboxes correctly" do
-				create_field_and_entry("check_box", "c1,c2", "c1,c2, c3")
+				create_field_and_entry("check_box", @user, "c1,c2", "c1,c2, c3")
 				click_on "Edit"
 				expect(page).to have_checked_field("c1")
 				expect(page).to have_checked_field("c2")
 			end
 			it "renders Paragraph Text correctly" do 
-				create_field_and_entry("text_area", "text area")
+				create_field_and_entry("text_area", @user, "text area")
 				click_on "Edit"
 				expect(page).to have_selector("textarea", text: "text area")
 			end
 			it "renders picture link correctly" do 
 				url = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
-				create_field_and_entry("picture_link", url)
+				create_field_and_entry("picture_link", @user, url)
 				visit current_path
 				expect(page).to have_selector("img[src='#{url}']")
 				click_on "Edit"
@@ -59,7 +59,7 @@ describe "User Profiles", :user do
 		end
 
 		it "can update his editable profile fields" do
-			create_field_and_entry("check_box", "c1,c2", "c1,c2,c3, c4")
+			create_field_and_entry("check_box", @user, "c1,c2", "c1,c2,c3, c4")
 			click_on "Edit"
 			check "c3"
 			check "c4"
