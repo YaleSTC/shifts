@@ -20,15 +20,52 @@ describe "User Profiles" do
 			end.to change{find('div#profile_left img')["src"]}
 		end
 
-		context "When rendering profile fields of different type" do
+		context "When rendering profile fields of different types" do
 
-			it "renders Text Field correctly"
-			it "renders List correctly"
-			it "renders Multiple Choice correctly"
-			it "renders checkboxes correctly"
-			it "renders Paragraph Text correctly"
-			it "renders picture link correctly"
+			def create_field_and_entry(display_type, content, values="")
+				profile_field = create(:user_profile_field, display_type: display_type, values: values)
+				profile_entry = create(:user_profile_entry, user: @user, user_profile_field: profile_field, content: content)
+				return profile_field.name
+			end
+
+			it "renders Text Field correctly" do 
+				content = "text content"
+				name = create_field_and_entry("text_field", content)
+				click_on "Edit"
+				expect(page).to have_field(name, with: content, type: "text")
+			end
+			it "renders List correctly" do
+				content = "s2"
+				name = create_field_and_entry("select", content, "s1, s2, s3")
+				click_on "Edit"
+				expect(page).to have_select(name, selected: content)
+			end
+			it "renders Multiple Choice correctly" do
+				content = "r2"
+				name = create_field_and_entry("radio_button", content, "r1,r2,r3")
+				click_on "Edit"
+				expect(page).to have_checked_field(content)
+			end
+			it "renders checkboxes correctly" do
+				content = "c2"
+				name = create_field_and_entry("check_box", content, "c1,c2, c3")
+				click_on "Edit"
+				expect(page).to have_checked_field(content)
+			end
+			it "renders Paragraph Text correctly" do 
+				content = "text area"
+				name = create_field_and_entry("text_area", content)
+				click_on "Edit"
+				expect(page).to have_selector("textarea", text: content)
+			end
+			it "renders picture link correctly" do 
+				content = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
+				name = create_field_and_entry("picture_link", content)
+				click_on "Edit"
+				expect(page).to have_field(name, with: content, type: "text")
+			end
 		end
+
 		it "can update his editable profile fields"
 		it "cannot update his non-editable profile fields"
 		it "can see public profile fields"
