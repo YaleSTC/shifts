@@ -89,4 +89,25 @@ describe "testing factory" do
   #   pp user.user_profile.user_profile_entries
   #   pp User.all
   # end
+  # xit "creates timeslot" do 
+  #   pp ts = build(:time_slot)
+  # end
+  # xit "creates repeating timeslot" do 
+  #   pp re = create(:repeating_time_slots)
+  #   pp re.start_date
+  #   pp re.start_time
+  #   #ts = create(:time_slot)
+  #   #pp ts.start
+  #   #pp ts.end
+  #   # TimeSlot.all.each do |ts|
+  #   #   pp ts.start
+  #   #   pp ts.end
+  #   #   pp ts
+  #   # end
+  #   # pp Department.all
+  #   # pp Calendar.all
+  #   # pp Location.all
+  #   # pp LocGroup.all
+  #   # pp Permission.all
+  # end
 end

@@ -29,6 +29,9 @@ FactoryGirl.define do
 
 
 
+
+
+
   factory :category do # payform category
     department
     sequence(:name){|n| "Magic category #{n}"}
