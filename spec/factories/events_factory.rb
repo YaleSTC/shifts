@@ -1,11 +1,11 @@
 
 module TimeHelper
 	def self.local_start_time
-		Time.zone.local(2014,9,1,9,0)
+		Time.zone.local(2014,9,1,10,0)
 	end
 	
 	def self.local_end_time
-		Time.zone.local(2014,9,1,23,45)
+		Time.zone.local(2014,9,1,16,45)
 	end
 end
 
@@ -18,7 +18,7 @@ FactoryGirl.define do
 		# active entry is set automatically according to the status of calendar and location
 	end
 
-	# Pass in an array of location ids.
+	# Pass in an array of location ids, or create a new location
 	factory :repeating_time_slots, class: RepeatingEvent do 
 		calendar
 		ignore do 
@@ -47,9 +47,7 @@ FactoryGirl.define do
     	end_date  {start_date.end_of_year}
     	public false
     	active false
-    	after(:build) do |c|
-      		c.default = false
-    	end
+    	default false # Only built-in calendar is default
   	end
 end
 
