@@ -36,10 +36,17 @@ describe "TimeSlot" , :time_slot do
         end
       end
 
-      xit "can update one-time timeslot" do 
+      it "can update one-time timeslot" do 
         c = create(:calendar); loc = create(:location)
         visit edit_time_slot_path(@slot)
-        save_and_open_page
+        select c.name, from: "Calendar"
+        fill_in_date("time_slot_start_date", @slot.start+1.day)
+        select loc.name, from: "Location"
+        click_on "Save Changes"
+        expect_flash_notice "Successfully updated timeslot"
+        expect{@slot.reload}.to change(@slot, :start)
+        expect(@slot.calendar).to eq(c)
+        expect(@slot.location).to eq(loc)
       end
 
       it "displays the edit form on tooltip when you click on a timeslot", js: true do
