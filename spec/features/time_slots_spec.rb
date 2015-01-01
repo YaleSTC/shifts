@@ -19,12 +19,6 @@ describe "TimeSlot" , :time_slot do
         @slot = create(:time_slot, location: @location, calendar: @department.calendars.default)
       end
 
-      def expect_time_slot_to_display_properly(slot, row)
-        w, l = calculate_position(slot, @department.department_config)
-        expect(row["style"]).to match(/width:\s*#{w.to_i}.*%\s*/)
-        expect(row["style"]).to match(/left:\s*#{l.to_i}.*%\s*/)
-      end
-
       it "displays the timeslot properly on the time slots page" do
         visit '/time_slots'
         expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id).find('li.timeslot'))
