@@ -17,6 +17,12 @@ module TimeSlotHelper
     page.all("#location#{location_id}_#{@a_local_time.strftime("%Y-%m-%d")}_timeslots")[0]
   end
 
+  def expect_time_slot_to_display_properly(slot, row)
+    w, l = calculate_position(slot, @department.department_config)
+    expect(row["style"]).to match(/width:\s*#{w.to_i}.*%\s*/)
+    expect(row["style"]).to match(/left:\s*#{l.to_i}.*%\s*/)
+  end
+
   # Other helpers
   def calculate_position(slot, config)
     entire = (config.schedule_end-config.schedule_start).minutes
