@@ -1,7 +1,7 @@
 
 module TimeHelper
 	def self.local_start_time
-		Time.zone.local(2014,9,1,10,0)
+		Time.zone.local(2014,9,1,10,15)
 	end
 	
 	def self.local_end_time

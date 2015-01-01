@@ -14,33 +14,33 @@ describe "TimeSlot" , :time_slot do
       end.to change{TimeSlot.count}.by(1)
     end
 
-
-    it 'can view the timeslot creation page on tooltip', js: true do
-        visit '/time_slots'
-        first('.click_to_add_new_timeslot').click
-        expect(page).to have_content "Add New Time Slot"
-    end
-
-    context "when timeslot is created" do
+    context "when timeslot is created", :shift do
       before :each do
         @slot = create(:time_slot, location: @location, calendar: @department.calendars.default)
       end
 
-      it "displays the timeslot properly on the time slots page" do
-        visit '/time_slots'
-        w, l = calculate_position(@slot, @department.department_config)
-        within time_slot_row(@slot.location.id) do 
-          css=find('li.timeslot')["style"]
-          expect(css).to match(/width:\s*#{w.to_i}.*%\s*;/)
-          expect(css).to match(/left:\s*#{l.to_i}.*%\s*;/)
-        end
+      def expect_time_slot_to_display_properly(slot, row)
+        w, l = calculate_position(slot, @department.department_config)
+        expect(row["style"]).to match(/width:\s*#{w.to_i}.*%\s*/)
+        expect(row["style"]).to match(/left:\s*#{l.to_i}.*%\s*/)
       end
 
-      it "can update one-time timeslot" do 
+      it "displays the timeslot properly on the time slots page" do
+        visit '/time_slots'
+        expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id).find('li.timeslot'))
+      end
+
+      # Note that the part of time_slot in the past is not open
+      it "displays the timeslot properly on the shifts schedule page" do 
+        visit shifts_path
+        expect_time_slot_to_display_properly(@slot, shift_schedule_row(@slot.location.id).find('li.bar_open'))
+      end
+
+      it "can update timeslot" do 
         c = create(:calendar); loc = create(:location)
         visit edit_time_slot_path(@slot)
         select c.name, from: "Calendar"
-        fill_in_date("time_slot_start_date", @slot.start+1.day)
+        fill_in_date("time_slot_start_date", @slot.start+2.day)
         select loc.name, from: "Location"
         click_on "Save Changes"
         expect_flash_notice "Successfully updated timeslot"
@@ -49,21 +49,19 @@ describe "TimeSlot" , :time_slot do
         expect(@slot.location).to eq(loc)
       end
 
-      it "displays the edit form on tooltip when you click on a timeslot", js: true do
-        visit '/time_slots'
-        # find created timeslot
-        time_slot_row(@slot.location.id).first('.click_to_edit_timeslot').click
-        expect(page).to have_content 'Edit Timeslot'
+      # Using selenium to handle alert
+      it "can destroy timeslot", driver: :selenium do 
+        visit time_slot_path(@slot)
+        click_on "Destroy"
+        # If using selenium driver
+        page.driver.browser.switch_to.alert.accept
+        expect_flash_notice "Successfully destroyed timeslot"
+        expect{TimeSlot.find(@slot.id)}.to raise_error(ActiveRecord::RecordNotFound)
       end
 
-      context "when navigate to shifts page", :shift do
-        before :each do
-          visit "/shifts"
-        end
-        it "displays the timeslot properly on the shifts page" do
-          expect(shift_schedule_row(@slot.location.id)).to have_css('li.bar_open')
-        end
-      end
     end
+  end
+
+  context "For repeating time_slots" do 
   end
 end
