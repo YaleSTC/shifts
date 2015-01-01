@@ -4,7 +4,7 @@
       <%= (f.hidden_field :calendar_id, value: params[:calendar].to_i) unless params[:calendar].to_i == 0 %>
     <% else %>
       <p>
-        <%= f.label :calendar %><br />
+        <%= f.label :calendar_id %><br />
         <%= select_tag 'time_slot[calendar_id]', options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar].to_i)%>
       </p>
     <% end %>
@@ -23,7 +23,7 @@
         <%= f.time_select :end_time, {minute_step: @time_increment, default: @time_slot.end, ampm: true} %>
       </p>
       <p>
-        <%= f.label :location %><br />
+        <%= f.label :location_id %><br />
         <%= select_tag 'time_slot[location_id]', option_groups_from_collection_for_select(@department.loc_groups, :locations, :name, :id, :name, @time_slot.location_id)%><br />
       </p>
 
