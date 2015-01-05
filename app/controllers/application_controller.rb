@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied
-    render file: "layouts/access_denied.html.erb", layout: true
+    render "layouts/access_denied"
   end
 
   def using_CAS?
