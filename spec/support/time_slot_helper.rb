@@ -17,6 +17,7 @@ module TimeSlotHelper
     page.all("#location#{location_id}_#{@a_local_time.strftime("%Y-%m-%d")}_timeslots")[0]
   end
 
+  # Calculate the relative width and starting position of timeslot and check if the display is correct
   def expect_time_slot_to_display_properly(slot, row)
     w, l = calculate_position(slot, @department.department_config)
     expect(row["style"]).to match(/width:\s*#{w.to_i}.*%\s*/)
