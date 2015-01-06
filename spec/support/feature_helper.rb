@@ -12,13 +12,15 @@ module FeatureHelper
     @app_config = create(:app_config)
     @department = create(:department)
     @superuser = create(:superuser)
+    @category = @department.categories.where(name: "Shifts").first
+    @calendar = @department.calendars.default
   end
 
   # Does app_setup, creates a Location Group with a location, an ordinary role and an admin_role with default permissions, an ordinary user and an admin.
   def full_setup
     app_setup
     @loc_group = create(:loc_group)
-    @location = create(:location, loc_group: @loc_group, category: @department.categories.where(name: "Shifts").first)
+    @location = create(:location, loc_group: @loc_group, category: @category)
     @ord_role = create(:role)
     @admin_role = create(:admin_role)
     @admin = create(:admin)
