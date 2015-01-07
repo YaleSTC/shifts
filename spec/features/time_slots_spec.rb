@@ -46,12 +46,12 @@ describe "TimeSlot" , :time_slot do
         expect(@slot.location).to eq(loc)
       end
 
-      # Using selenium to handle alert
-      it "can destroy timeslot", driver: :selenium do 
+      # Alternatively, one can use selenium to handle alert
+      it "can destroy timeslot" do 
         visit time_slot_path(@slot)
         click_on "Destroy"
         # If using selenium driver
-        page.driver.browser.switch_to.alert.accept
+        # page.driver.browser.switch_to.alert.accept
         expect_flash_notice "Successfully destroyed timeslot"
         expect{TimeSlot.find(@slot.id)}.to raise_error(ActiveRecord::RecordNotFound)
       end

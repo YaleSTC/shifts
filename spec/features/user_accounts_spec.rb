@@ -37,7 +37,7 @@ describe "User accounts", :user do
 			expect(find('#user_list')).to have_css('tbody tr', count: 1)
 		end
 
-		# Strangely this test works only with Selenium or WebKit, Rack::Test does not even wait till the page redirectst
+		# Strangely this test works only with Selenium or WebKit, Rack::Test does not even wait till the page redirects
 		it "can update another user", driver: :webkit do
 			click_on @user.login
 			new_user = attributes_for(:user)
