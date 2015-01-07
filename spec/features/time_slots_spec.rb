@@ -21,13 +21,13 @@ describe "TimeSlot" , :time_slot do
 
       it "displays the timeslot properly on the time slots page" do
         visit '/time_slots'
-        expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id).find('li.timeslot'))
+        expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id, @a_local_time).find('li.timeslot'))
       end
 
       # Note that the part of time_slot in the past is not open
       it "displays the timeslot properly on the shifts schedule page" do 
         visit shifts_path
-        expect_time_slot_to_display_properly(@slot, shift_schedule_row(@slot.location.id).find('li.bar_open'))
+        expect_time_slot_to_display_properly(@slot, shift_schedule_row(@slot.location.id, @a_local_time).find('li.bar_open'))
       end
 
       # Note that when new loc_groups are created, the roles are NOT updated 
@@ -80,7 +80,7 @@ describe "TimeSlot" , :time_slot do
         click_on "This and all future time slots"
         visit time_slots_path
         # expect the first time_slot is still there
-        expect(time_slot_row(@slot.location.id)).to have_selector('li.timeslot')
+        expect(time_slot_row(@slot.location.id, @a_local_time)).to have_selector('li.timeslot')
         expect(TimeSlot.count).to eq(1)
       end
       it "can delete all timeslots in the series" do 

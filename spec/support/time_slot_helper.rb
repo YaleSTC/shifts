@@ -13,8 +13,8 @@ module TimeSlotHelper
 
   # Capybara page finder helpers, does not modify browser state
   # returns the location row in timeslot index page
-  def time_slot_row(location_id)
-    page.all("#location#{location_id}_#{@a_local_time.strftime("%Y-%m-%d")}_timeslots")[0]
+  def time_slot_row(location_id, date)
+    page.first("#location#{location_id}_#{date.strftime("%Y-%m-%d")}_timeslots")
   end
 
   # Calculate the relative width and starting position of timeslot and check if the display is correct
