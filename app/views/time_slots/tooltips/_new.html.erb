@@ -4,7 +4,8 @@
 
   <% if current_user.is_admin_of?(@department) %>
     <p>
-      <%= check_box_tag :repeating_event, false, false, onclick: "$('.toggle_me').toggle()" %> Repeating event?
+      <%= check_box_tag :repeating_event, false, false, onclick: "$('.toggle_me').toggle()" %>
+      <%= label_tag :repeating_event, 'Repeating event?' %> 
     </p>
   <% end %>
 
