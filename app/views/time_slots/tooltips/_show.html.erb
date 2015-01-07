@@ -16,7 +16,7 @@
     <% end %>
     <p>
       <% unless @time_slot.repeating_event %>
-        <%= link_to "Destroy this time slot", time_slot_path(@time_slot, calendar: (params[:calendar] || true)), data:{confirm: 'Are you sure?'}, method: :delete %>
+        <%= button_to "Destroy this time slot", time_slot_path(@time_slot, calendar: (params[:calendar] || true)), data:{confirm: 'Are you sure?'}, method: :delete %>
       <% else %>
         <%= link_to_function "Destroy this time slot", "$('#repeating_event_delete_options').toggle()" %>
         <div id="repeating_event_delete_options" style="display:none">
