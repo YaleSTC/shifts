@@ -1,7 +1,8 @@
 <% calculate_default_times_repeating_events %>
 
 <p style="margin-top: -10px">
-  <%= check_box_tag "whole_calendar", "1", false, onclick: "$('#date_selects').toggle()" %> Apply to entire calendar (does not work on default calendar)
+  <%= check_box_tag "whole_calendar", "1", false, onclick: "$('#date_selects').toggle()" %> 
+  <%= label_tag "whole_calendar", "Apply to entire calendar (does not work on default calendar)" %>
 </p>
 
 <div style="float:left">
