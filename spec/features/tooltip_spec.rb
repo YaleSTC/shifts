@@ -12,6 +12,7 @@ describe "Tooltip", js: true do
         context "New TimeSlot tooltip" do 
             def show_new_tooltip
                 visit time_slots_path
+                # Open at the day after today
                 time_slot_row(@location2.id, @a_local_time+1.day).find('.click_to_add_new_timeslot').click
             end
 
@@ -40,10 +41,11 @@ describe "Tooltip", js: true do
                 select "5 PM", from: "repeating_event_end_time_4i"
                 check @location2.short_name
                 select @calendar.name, from: "Calendar"
-                check "Saturday"
+                uncheck "Saturday"
                 check "Wipe conflicts?"
                 click_on "Create New Repeating Event"
-                save_and_open_page
+                expect_flash_notice "Successfully created repeating event"
+                expect(TimeSlot.count).to be > 1
             end
 
             it 'can create repeating timeslots on entire calendar'
