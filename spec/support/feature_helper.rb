@@ -12,6 +12,7 @@ module FeatureHelper
     @app_config = create(:app_config)
     @department = create(:department)
     @superuser = create(:superuser)
+    # Default created with department
     @category = @department.categories.where(name: "Shifts").first
     @calendar = @department.calendars.default
   end
