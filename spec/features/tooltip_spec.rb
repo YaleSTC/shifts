@@ -38,7 +38,7 @@ describe "Tooltip", js: true do
                 fill_in_date("repeating_event_end_date", @a_local_time+2.weeks)
                 select "10 AM", from: "repeating_event_start_time_4i"
                 select "5 PM", from: "repeating_event_end_time_4i"
-                check @location2.shot_name
+                check @location2.short_name
                 select @calendar.name, from: "Calendar"
                 check "Saturday"
                 check "Wipe conflicts?"
