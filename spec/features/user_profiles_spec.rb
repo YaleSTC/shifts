@@ -134,14 +134,14 @@ describe "User Profiles", :user do
 		end
 
 		# Only selenium can handle alert popups
-		it "can destroy a profile field" , driver: :selenium do 
+		it "can destroy a profile field" do 
 			create(:user_profile_field)
 			visit user_profile_fields_path
 			id = page.all('td a', text: "Destroy")[0]["href"].match(/(\d+)$/)[1].to_i
 			click_on "Destroy"
 			# If using selenium driver
-			alert = page.driver.browser.switch_to.alert
-			alert.accept
+			# alert = page.driver.browser.switch_to.alert
+			# alert.accept
 			expect_flash_notice "Successfully destroyed user profile field"
 			expect{UserProfileField.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
 		end
