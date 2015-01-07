@@ -36,6 +36,7 @@ describe "Tooltip", js: true do
             it 'can create repeating timeslots' do 
                 show_new_tooltip
                 check "Repeating event?"
+                uncheck "Apply to entire calendar"
                 fill_in_date("repeating_event_end_date", @a_local_time+2.weeks)
                 select "10 AM", from: "repeating_event_start_time_4i"
                 select "5 PM", from: "repeating_event_end_time_4i"
