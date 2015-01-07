@@ -38,18 +38,31 @@ describe "Tooltip", js: true do
             end
         end
 
-    	it "can edit existing timeslot from tooltip" do
-    		@slot = create(:time_slot, location: @location, calendar: @calendar)
-        	visit '/time_slots'
-        	# find created timeslot
-        	time_slot_row(@slot.location.id, @a_local_time).first('.click_to_edit_timeslot').click
-        	expect(page).to have_content 'Edit Timeslot'
-            select "11 AM", from: "time_slot_start_time_4i"
-            select "00", from: "time_slot_start_time_5i"
-            click_on "Save Changes"
-            expect(page).not_to have_selector("#tooltip") #Wait till tooltip closes
-            expect{@slot.reload}.to change(@slot, :start)
-            expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id, @a_local_time).first('li.timeslot'))
-      	end
+        context "Tooltip for existing timeslots" do 
+            before(:each) {@slot = create(:time_slot, location: @location, calendar: @calendar)} 
+            def show_edit_tooltip
+                visit '/time_slots'
+                # find created timeslot
+                time_slot_row(@slot.location.id, @a_local_time).first('.click_to_edit_timeslot').click  
+            end
+
+            it "can edit existing timeslot from tooltip" do
+                show_edit_tooltip
+                expect(page).to have_content 'Edit Timeslot'
+                select "11 AM", from: "time_slot_start_time_4i"
+                select "00", from: "time_slot_start_time_5i"
+                click_on "Save Changes"
+                expect(page).not_to have_selector("#tooltip") #Wait till tooltip closes
+                expect{@slot.reload}.to change(@slot, :start)
+                expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id, @a_local_time).first('li.timeslot'))
+            end
+            it 'can destroy timeslot from tooltip' do 
+                show_edit_tooltip
+                click_on "Destroy this time slot"
+                expect(page).not_to have_selector('#tooltip')
+                expect(time_slot_row(@slot.location.id, @a_local_time)).not_to have_selector('li.timeslot')
+                expect{TimeSlot.find(@slot.id)}.to raise_error(ActiveRecord::RecordNotFound)
+            end
+        end
 	end
 end
