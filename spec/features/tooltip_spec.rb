@@ -31,6 +31,23 @@ describe "Tooltip", js: true do
                 expect(time_slot_row(@location2.id, @a_local_time+1.day)).to have_selector('li.timeslot')
                 expect(TimeSlot.count).to eq(1)
             end
+
+            it 'can create repeating timeslots' do 
+                show_new_tooltip
+                check "Repeating event?"
+                fill_in_date("repeating_event_end_date", @a_local_time+2.weeks)
+                select "10 AM", from: "repeating_event_start_time_4i"
+                select "5 PM", from: "repeating_event_end_time_4i"
+                check @location2.shot_name
+                select @calendar.name, from: "Calendar"
+                check "Saturday"
+                check "Wipe conflicts?"
+                click_on "Create New Repeating Event"
+                save_and_open_page
+            end
+
+            it 'can create repeating timeslots on entire calendar'
+
             it 'can close tooltip' do 
                 show_new_tooltip
                 click_on "[esc]"
