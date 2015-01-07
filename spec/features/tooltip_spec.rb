@@ -49,7 +49,18 @@ describe "Tooltip", js: true do
                 expect(TimeSlot.count).to be > 1
             end
 
-            it 'can create repeating timeslots on entire calendar'
+            it 'can create repeating timeslots on entire calendar' do 
+                c = create(:calendar, active: true)
+                show_new_tooltip
+                check "Repeating event?"
+                check "Apply to entire calendar"
+                select c.name, from: "Calendar"
+                check "Wipe conflicts?"
+                click_on "Create New Repeating Event"
+                expect_flash_notice "Successfully created repeating event"
+                expect(TimeSlot.count).to be >= (c.end_date-Time.now)/3600/24/7
+            end
+
 
             it 'can close tooltip' do 
                 show_new_tooltip
