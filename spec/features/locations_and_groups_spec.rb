@@ -3,7 +3,6 @@ require 'rails_helper'
 describe "Location Groups" do 
 	before :each do 
 		full_setup
-		@location2 = create(:location, loc_group: @loc_group)
 		sign_in(@admin.login)
 	end
 
@@ -70,7 +69,7 @@ describe "Locations" do
 			select @loc_group.name, from: "Loc group"
 			fill_in "Min staff", with: 1
 			fill_in "Max staff", with: 3
-			fill_in "Receiving email address for shift reports", with: "test@test.com"
+			fill_in "email address", with: "test@test.com"
 			fill_in "Priority", with: 1
 			check "Active"
 			select @category.name, from: "Payform category"
@@ -81,12 +80,34 @@ describe "Locations" do
 	end
 
 	context "For existing locations" do 
-		it "can update location"
+		it "can update location" do 
+			visit edit_location_path(@location)
+			fill_in "email address", with: "test@test.com"
+			click_on "Update"
+			expect_flash_notice "Successfully updated location"
+			expect{@location.reload}.to change(@location, :report_email)
+		end
 
-		it "can deactivate location"
+		it "can deactivate location", js: true do 
+			visit loc_group_path(@loc_group)
+			find("tr#loc#{@location.id}").click_on "Deactivate"
+			expect(find("tr#loc#{@location.id}")).to have_content("Restore")
+			expect(@location.reload.active).to be false
+		end
 
-		it "can re-activate location"
+		it "can re-activate location", js: true do 
+			@location.deactivate
+			visit loc_group_path(@loc_group)
+			find("tr#loc#{@location.id}").click_on "Restore"
+			expect(find("tr#loc#{@location.id}")).to have_content("Deactivate")
+			expect(@location.reload.active).to be true
+		end
 
-		it "can delete location"
+		it "can delete location" do 
+			visit loc_group_path(@loc_group)
+			find("tr#loc#{@location.id}").click_on "Destroy"
+			expect_flash_notice "Successfully destroyed location"
+			expect{@location.reload}.to raise_error(ActiveRecord::RecordNotFound)
+		end
 	end
 end
