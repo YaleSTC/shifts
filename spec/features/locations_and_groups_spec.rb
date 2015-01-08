@@ -47,10 +47,29 @@ describe "Location Groups" do
 		end
 		it "can delete location group" do 
 			visit loc_group_path(@loc_group)
+			# There are other Destroy links to destroy locations in the table
 			all('a', text: "Destroy").last.click
 			expect_flash_notice "Successfully destroyed Location group"
 			expect{@loc_group.reload}.to raise_error(ActiveRecord::RecordNotFound)
 		end
 	end
+end
 
+describe "Locations" do 
+	before :each do 
+		full_setup
+		sign_in(@admin.login)
+	end
+
+	it "can create new locations"
+
+	context "For existing locations" do 
+		it "can update location"
+
+		it "can deactivate location"
+
+		it "can re-activate location"
+
+		it "can delete location"
+	end
 end
