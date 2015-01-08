@@ -61,7 +61,24 @@ describe "Locations" do
 		sign_in(@admin.login)
 	end
 
-	it "can create new locations"
+	it "can create new locations" do 
+		visit locations_path
+		within '#new_location' do 
+			fill_in "Name", with: "Test Location"
+			fill_in "Short name", with: "TL"
+			fill_in "Description", with: "Test description"
+			select @loc_group.name, from: "Loc group"
+			fill_in "Min staff", with: 1
+			fill_in "Max staff", with: 3
+			fill_in "Receiving email address for shift reports", with: "test@test.com"
+			fill_in "Priority", with: 1
+			check "Active"
+			select @category.name, from: "Payform category"
+			click_on "Create"
+		end
+		expect_flash_notice "Successfully created location"
+		expect(Location.count).to eq(2)
+	end
 
 	context "For existing locations" do 
 		it "can update location"
