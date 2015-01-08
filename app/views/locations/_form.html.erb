@@ -16,7 +16,7 @@
 		<%= f.text_field :description %>
 	  </p>
       <p>
-        <%= f.label :loc_group %>
+        <%= f.label :loc_group_id %>
         <%= f.collection_select(:loc_group_id, current_user.loc_groups_to_admin(@department), :id, :name, {prompt: "Select a location group"}) %>
       </p>
       <p>
@@ -43,7 +43,7 @@
         <%= f.check_box :active %>
       </p>
       <p>
-        <%= f.label "Payform Category" %>
+        <%= f.label :category_id, "Payform category" %>
         <%= f.collection_select(:category_id, Category.all, :id, :name, {prompt: "Select a payform category"}) %>
       </p>
       <p>
