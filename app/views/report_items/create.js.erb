@@ -1,6 +1,5 @@
-setTimeout(function(){
-	var new_tr = $('tr.list_report_item').filter(function(index){return $(this).find(".report_item_content").text()==='<%= @report_item.content%>'})[0];
-	$('#current_report_item').removeAttr('id');
-	$(new_tr).replaceWith("<%= escape_javascript render partial: 'reports/report_item', object: @report_item %>")
-	$('#current_report_item td').effect("highlight", 1100);	
-},1000)
+var new_tr = $('tr.list_report_item#<%= @item_token %>');
+$('#current_report_item').removeAttr('id');
+$(new_tr).replaceWith("<%= escape_javascript render partial: 'reports/report_item', object: @report_item %>")
+$('#dashboard_report_view').scrollTop($('#dashboard_report_view')[0].scrollHeight);
+$('#current_report_item td').effect("highlight", 1100);	

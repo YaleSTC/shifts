@@ -10,13 +10,14 @@ $(document).ready(function(){
 	$('#report_item_submit').click(function(e){
 		e.preventDefault();
 		var form = $(this).closest('form');
-		form.submit();
 		var msg = $(form).find('textarea').val();
-		$('#new_report_item')[0].reset();
+		var token = Math.random().toString(36).substr(2);
 		if (msg) {
-			var image = '<%= image_tag "spinner.gif", class: "center-block"%>'
-			var htmlc = "<tr class='list_report_item'>"+
-				"<td class='timestamp'>"+image+"</td>"+
+			$('#token').val(token);
+			form.submit();
+			$('#new_report_item')[0].reset();
+			var htmlc = "<tr class='list_report_item' id='"+token+"'>"+
+				"<td class='timestamp'>"+spinner_tag+"</td>"+
 				"<td class='report_item_content'>"+msg+"</td>"+
 				"</tr>";
 			$('#all_report_items').append(htmlc);

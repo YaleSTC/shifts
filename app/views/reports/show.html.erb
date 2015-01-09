@@ -148,3 +148,7 @@
 
   </div>
 </div>
+
+<%= javascript_tag do %>
+  spinner_tag = "<%= escape_javascript image_tag "loading.gif", class: "center-block"%>"
+<% end %>

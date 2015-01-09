@@ -13,6 +13,7 @@ class ReportItemsController < ApplicationController
 #  end
 
   def create
+    @item_token = params[:token]
     @report_item = ReportItem.new(params[:report_item])
     @report_item.time = Time.now
     @report_item.ip_address = request.remote_ip
