@@ -15,7 +15,7 @@ $ ->
 			form.submit()
 			$('#new_report_item')[0].reset()
 			$('#all_report_items').append "<tr class='list_report_item' id='#{token}'>
-												<td class='timestamp'>#{spinner_tag}</td>
+												<td class='timestamp'><span class='label label-default'>Adding...</span>#{spinner_tag}</td>
 												<td class='report_item_content'>#{msg}</td>
 										   </tr>"
 			view = $('#dashboard_report_view')
