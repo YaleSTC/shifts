@@ -15,9 +15,12 @@ class PayformSetsController < ApplicationController
     @sorted_payforms = @payform_set.payforms.delete_if{|payform| payform.hours == 0}.sort_by{|payform| payform.user.last_name}.sort_by{|payform| payform.date}
     respond_to do |show|
       show.html #show.html.erb
-      show.csv {render text: @payform_set.payforms.export_payform}
-      #show.xls {render file: @payform_set.payforms.export_payform({col_sep: "\t"})}
-      show.xml
+      show.csv {render :text => @payform_set.payforms.export_payform}
+      #show.xls {render :file => @payform_set.payforms.export_payform({:col_sep => "\t"})}
+      show.xml do 
+        stream = render_to_string :template => "payform_sets/show"
+        send_data stream, :type => "text/xml", :disposition => "attachment", :filename => "#{@payform_set.id}.xml"
+      end
     end
   end
 
