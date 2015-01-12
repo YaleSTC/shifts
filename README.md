@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/YaleSTC/shifts/badges/gpa.svg)](https://codeclimate.com/github/YaleSTC/shifts)
 [![Dependency Status](https://gemnasium.com/YaleSTC/shifts.svg)](https://gemnasium.com/YaleSTC/shifts)
 [![Test Coverage](https://codeclimate.com/github/YaleSTC/shifts/badges/coverage.svg)](https://codeclimate.com/github/YaleSTC/shifts)
-[![Inline docs](http://inch-ci.org/github/yalestc/shifts.svg?branch=master)](http://inch-ci.org/github/yalestc/shifts)
+[![Inline docs](http://inch-ci.org/github/yalestc/shifts.svg?branch=master&style=flat)](http://inch-ci.org/github/yalestc/shifts)
 
 
 The old README.md is stored on the [wiki](https://github.com/YaleSTC/shifts/wiki/Old-README.md) and the [website](https://yalestc.github.io/shifts/features/).
