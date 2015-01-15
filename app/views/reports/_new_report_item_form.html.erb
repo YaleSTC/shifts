@@ -1,7 +1,7 @@
 <%= form_for [@report, @report_item], remote: true, id: 'report_item_form' do |f| %>
   <%= f.error_messages %>
   <% if request.env['HTTP_USER_AGENT'].downcase.match(/mac/i) %>
-    <%= f.text_area :content, placeholder: 'Command+Enter to quickly add to report!', id: 'item', size: '40x3', wrap: 'hard', class: 'form-control' %>
+    <%= f.text_area :content, placeholder: 'Cmd+Enter to quickly add to report!', id: 'item', size: '40x3', wrap: 'hard', class: 'form-control' %>
   <% else %>
     <%= f.text_area :content, placeholder: 'Ctrl+Enter to quickly add to report!', id: 'item', size: '40x3', wrap: 'hard', class: 'form-control' %>
   <% end %>
