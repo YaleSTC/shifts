@@ -1,6 +1,10 @@
 <% payform_span = start_of_period(@payform.date).strftime(date_format)+ " through " + @payform.date.strftime(date_format) %>
 <% if current_user.is_admin_of?(current_department) %>
-  <% title "#{@payform.user.name + ' (' + @payform.user.roles.first.name + ')'}" %>
+  <% if @payform.user.roles.empty? %>
+    <% title @payform.user.name + ' (No roles have been defined for this user)' %>
+  <% else %>
+    <% title "#{@payform.user.name + ' (' + @payform.user.roles.collect(&:name).join(',') + ')'}" %>
+  <% end %>  
 <% else %>
   <% title "Your Payform" %>
 <% end %>
