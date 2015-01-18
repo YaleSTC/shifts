@@ -97,8 +97,8 @@ private
 
   def loc_group_exists?
     if @department.loc_groups.blank?
-      redirect_to department_loc_groups_path
-      flash[:notice] = "You'll need to create a location group before you can work with locations"
+      redirect_to department_loc_groups_path(@department)
+      flash[:notice] = "You do not have admin permission of any Location Groups"
     end
   end
 
