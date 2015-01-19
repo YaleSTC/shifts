@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'
   gem 'annotate' # https://github.com/ctran/annotate_models add info headers
+  gem 'fuubar'
 end
 
 group :development do
