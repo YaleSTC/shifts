@@ -1,8 +1,8 @@
 class LocationsController < ApplicationController
   layout 'shifts'
 
-  before_filter :find_allowed_locations
-  before_filter :loc_group_exists?
+  before_filter :find_allowed_locations, except: :display_report_items
+  before_filter :loc_group_exists? , except: :display_report_items
 
   def index
     redirect_to access_denied_path if current_user.loc_groups_to_admin(@department).empty?
@@ -75,7 +75,7 @@ class LocationsController < ApplicationController
   def display_report_items
     @location = Location.find(params[:id])
     if params[:more_items] == nil
-      session[:items] = 0
+      session[:items] = 0 
     end
     item_number = find_item_number + 5
     session[:items] = item_number
