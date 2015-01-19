@@ -118,6 +118,9 @@ GEM
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    fuubar (2.0.0)
+      rspec (~> 3.0)
+      ruby-progressbar (~> 1.4)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -235,6 +238,7 @@ GEM
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
     ruby-net-ldap (0.0.4)
+    ruby-progressbar (1.7.1)
     rubycas-client (2.2.1)
       activesupport
     rubycas-client-rails (0.1.0)
@@ -313,6 +317,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   font-awesome-rails
+  fuubar
   guard-rspec
   htmlentities
   icalendar
