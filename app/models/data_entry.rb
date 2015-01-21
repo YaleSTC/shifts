@@ -43,23 +43,27 @@ class DataEntry < ActiveRecord::Base
   # Good candidate for refactoring *shudder* -ben
   # Returns the data fields and user content in a set of {field => content} hashes
   def data_fields_with_contents
-    content_arrays = self.content.split(';;').map{|str| str.split('::')}
-    content_arrays.each do |a|
-      if DataField.find_with_destroyed(a.first).display_type == "check_box"
-        checked = []
-        a.second.split(';').each do |box|
-          box = box.split(':')
-          checked << box.first if box.second == "1"
+    begin
+      content_arrays = self.content.split(';;').map{|str| str.split('::')}
+      content_arrays.each do |a|
+        if DataField.find_with_destroyed(a.first).display_type == "check_box"
+          checked = []
+          a.second.split(';').each do |box|
+            box = box.split(':')
+            checked << box.first if box.second == "1"
+          end
+          a[1] = checked.join(', ') unless checked.empty?
+        elsif DataField.find_with_destroyed(a.first).display_type == "radio_button"
+          box = a.second.split(':')
+          a[1] = box.second if box.first == "1" and box.count>2
         end
-        a[1] = checked.join(', ') unless checked.empty?
-      elsif DataField.find_with_destroyed(a.first).display_type == "radio_button"
-        box = a.second.split(':')
-        a[1] = box.second if box.first == "1"
       end
-    end
-    content_arrays.sort!          # At this point, we have [field, content] arrays
-    content_hash = {}
-    content_arrays.each{|array| content_hash.store(array.first,array.second.gsub("**semicolon**",";").gsub("**colon**",":"))}     
+      content_arrays.sort!          # At this point, we have [field, content] arrays
+      content_hash = {}
+      content_arrays.each{|array| content_hash.store(array.first,array.second.gsub("**semicolon**",";").gsub("**colon**",":"))}     
+    rescue 
+      content_hash = {}
+    end      
     content_hash
   end
 
