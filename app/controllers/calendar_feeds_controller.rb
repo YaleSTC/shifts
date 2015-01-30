@@ -97,7 +97,7 @@ class CalendarFeedsController < ApplicationController
         if @type == "Shift"
           @event.summary = "Shift" + (@source.class.name != "User" ? " for #{shift.user.name}" : "") + " in #{shift.location.short_name}"
           @event.summary << " (sub requested!)" if shift.has_sub?
-          @event.description = shift.user.name + " has requested a sub for this shift!"
+          @event.description = shift.user.name + " has requested a sub for this shift!" if shift.has_sub?
         elsif @type == "SubRequest"
           @event.description = "\nMandatory: " + shift.mandatory_start.to_s(:twelve_hour) + " - " + shift.mandatory_end.to_s(:twelve_hour)
           @event.description << "\n\n" + shift.reason
