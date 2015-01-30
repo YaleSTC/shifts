@@ -2,7 +2,7 @@
  <% grouped_items = payform.payform_items.select{|p| p.active}.group_by{|p| p.category.billing_code} %>
  <% grouped_items.each_with_index do |(billing_code, payform_items), index| %>
     <% key = index + 1 %>
-    <% description = current_department.name+Date.today.strftime("_%Y_%m_%d") %>
+    <% description = "#{current_department.name}_#{Date.today.strftime("%Y_%m_%d")}_#{@payform_set.id}" %>
     <% end_date = payform.date.strftime("%Y-%m-%d")%>
     <% start_date = payform.date.previous_sunday.strftime("%Y-%m-%d")%>
     <% hours = PayformItem.rounded_hours(payform_items) %>
