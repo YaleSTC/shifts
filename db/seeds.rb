@@ -8,11 +8,16 @@
 
 require 'faker'
 
-NLoc_group = 5
-NLocation_per_group = 10
+NLoc_group = 2
+NLocation_per_group = 3
+NUser = 10
+Active_user_chance = 0.6
 Active_loc_group_chance = 0.8
 Active_location_chance = 0.8
 Public_loc_group_chance = 0.6
+User_with_nick_name_chance = 0.2
+User_profile_complete_chance = 0.8
+User_has_profile_chance = 0.3
 
 def prompt_field(obj, field)
   puts field.to_s.split('_').collect(&:capitalize).join(' ') + ':'
@@ -40,6 +45,7 @@ def user_gen
 	user = User.new
 	user.first_name = Faker::Name.first_name
 	user.last_name = Faker::Name.last_name
+  user.nick_name = Faker::Name.first_name if rand() < User_with_nick_name_chance
 	user.employee_id = Faker::Number.number(6)
 	user.email = Faker::Internet.email(user.name)
 	user.auth_type = "CAS"
@@ -84,6 +90,51 @@ def location_gen(lg = loc_group_gen)
   l
 end
 
+def user_profile_entry_gen(field, user)
+  entry = user.user_profile.user_profile_entries.new
+  entry.user_profile_field = field
+  entry.content = ""
+  if rand()<User_profile_complete_chance
+    case field.name
+    when "Favorite Word"
+      entry.content = Faker::Hacker.noun
+    when "About Me"
+      entry.content = Faker::Lorem.paragraph
+    when "Class"
+      entry.content = ["2014","2015","2016","2017","2018","Other"][rand(6)]
+    when "Gender"
+      entry.content = ["M","F"][rand(2)]
+    when "OS"
+      entry.content = ["Linux", "OS X","Windows"].sample(1+rand(3)).sort.join(", ")     
+    when "Favorite Meme"
+      entry.content = "http://d24w6bsrhbeh9d.cloudfront.net/photo/aD0OoQK_700b.jpg" if rand()<User_has_profile_chance
+    end
+  end
+  entry.save!
+  entry
+end
+
+def user_profiles_gen
+  # Text field Major
+  field1 = @department.user_profile_fields.create!(name: "Favorite Word", display_type: "text_field", public: true, user_editable: true, index_display: true)
+  # Paragraph
+  field2 = @department.user_profile_fields.create!(name: "About Me", display_type: "text_area", public: true, user_editable: true, index_display: false)
+  # Select from List
+  field3 = @department.user_profile_fields.create!(name: "Class", display_type: "select", public: true, user_editable: true, index_display: true, values: "2014,2015,2016,2017,2018,Other")
+  # Multiple Choice
+  field4 = @department.user_profile_fields.create!(name: "Gender", display_type: "radio_button", public: false, user_editable: false, index_display: true, values: "M,F")
+  # Check boxes
+  field5 = @department.user_profile_fields.create!(name: "OS", display_type: "check_box", public: true, user_editable: true, index_display: false, values: "Linux, OS X, Windows")
+  # Picture Link
+  field6 = @department.user_profile_fields.create!(name: "Pic", display_type: "picture_link", public: true, user_editable: true, index_display: false)
+
+  UserProfileField.all.each do |field|
+    User.all.each do |user|
+      user_profile_entry_gen(field, user)
+    end
+  end  
+end
+
 # First AppConfig
 puts "creating AppConfig..."
 @app_config = app_config_gen
@@ -91,7 +142,7 @@ puts "creating AppConfig..."
 
 # Then Department
 puts "creating Department.."
-@department = Department.create(name: "SDMP")
+@department = Department.create!(name: "SDMP")
 @department_config = @department.department_config
 # Setting end-time to 11pm
 @department_config.update_attributes(schedule_end: 1380)
@@ -103,7 +154,8 @@ puts "creating Department.."
 puts "creating Superuser..."
 @su = user_gen
 @su.superuser = true
-prompt_field(@su, "login")
+#prompt_field(@su, "login")
+@su.update_attributes(login: 'xy63')
 
 # Creating Locations and Location Groups
 puts "creating loc_groups and locations..."
@@ -115,13 +167,25 @@ end
 
 # Creating roles
 puts "creating roles..."
-@ord_role = @department.roles.create(name: "Developer")
-@admin_role = @department.roles.create(name: "Admin")
+@ord_role = @department.roles.create!(name: "Developer")
+@admin_role = @department.roles.create!(name: "Admin")
 @ord_role.permissions = LocGroup.all.map{|lg| [lg.view_permission, lg.signup_permission]}.flatten
 @admin_role.permissions = Permission.all
 @su.roles = Role.all
 
-## Locations and Loc_grousp are deactivated after the setup of shifts
+# Creating Users
+puts "creating users..."
+NUser.times do 
+  user = user_gen
+  user.roles << @ord_role
+end
+
+# Creating User Profiles
+puts "creating user profiles..."
+user_profiles_gen
+
+
+## Locations and Loc_grous and users are deactivated after the setup
 
 
 
