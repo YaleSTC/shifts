@@ -337,6 +337,7 @@ DEPENDENCIES
   rspec
   rspec-rails (~> 3.0.0)
   ruby-net-ldap
+  ruby-progressbar
   rubycas-client (= 2.2.1)
   rubycas-client-rails
   sass-rails
