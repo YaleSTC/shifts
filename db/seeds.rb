@@ -8,12 +8,20 @@
 
 require 'faker'
 
+# Number of records
 NLoc_group = 2
 NLocation_per_group = 3
 NUser = 10
-Active_user_chance = 0.6
-Active_loc_group_chance = 0.8
-Active_location_chance = 0.8
+NAnnouncement = 6
+NSticky = 10
+NLink = 10
+NNotice_department_wide = 1
+
+# Custom Ratios
+Active_user_chance = 0.6 # Not implemented
+Active_loc_group_chance = 0.8 # Not implemented
+Active_location_chance = 0.8 # Not implemented
+Active_notice_chance = 0.7
 Public_loc_group_chance = 0.6
 User_with_nick_name_chance = 0.2
 User_profile_complete_chance = 0.8
@@ -38,6 +46,7 @@ def app_config_gen
   ap.admin_email = Faker::Internet.email
   ap.use_ldap = false
   ap.calendar_feed_hash = SecureRandom.hex(32)
+  ap.save!
   ap
 end
 
@@ -68,7 +77,7 @@ def loc_group_gen
   begin 
     lgn = Faker::Address.state
   end until LocGroup.where(name: lgn).empty?
-  @department.loc_groups.create(name: lgn);
+  @department.loc_groups.create!(name: lgn)
 end
 
 def location_gen(lg = loc_group_gen)
@@ -135,19 +144,51 @@ def user_profiles_gen
   end  
 end
 
+def random_user
+  rand_id = rand(User.count)+1
+  User.where("id > ?", rand_id).first
+end
+
+def announcement_gen(locations=nil)
+  a = Announcement.new(indefinite: true, author: @su, department: @department, department_wide: locations.nil?)
+  a.start = Faker::Time.backward(14)
+  a.content = Faker::Lorem.paragraph
+  a.locations = locations if !locations.nil?
+  a.save!
+  a.remove(@su) if rand() > Active_notice_chance
+end
+
+def sticky_gen(locations=nil)
+  a = Sticky.new(indefinite: true, author: random_user, department: @department, department_wide: locations.nil?)
+  a.start = Faker::Time.backward(14)
+  a.content = Faker::Lorem.paragraph
+  a.locations = locations if !locations.nil?
+  a.save!
+  a.remove(random_user) if rand() > Active_notice_chance
+end
+
+def link_gen(locations=nil)
+  a = Link.new(indefinite: true, author: random_user, department: @department, department_wide: locations.nil?)
+  a.start = Faker::Time.backward(14)
+  a.content = Faker::Lorem.sentence(2,false,2)
+  a.url = Faker::Internet.url
+  a.locations = locations if !locations.nil?
+  a.save!
+  a.remove(@su) if rand() > Active_notice_chance
+end
+
 # First AppConfig
 puts "creating AppConfig..."
 @app_config = app_config_gen
-@app_config.save!
 
 # Then Department
 puts "creating Department.."
 @department = Department.create!(name: "SDMP")
 @department_config = @department.department_config
 # Setting end-time to 11pm
-@department_config.update_attributes(schedule_end: 1380)
+@department_config.update_attributes(schedule_end: 1440)
 @category = @department.categories.first
-@category.billing_code = ptaeo_gen
+@category.update_attributes(billing_code: ptaeo_gen)
 @calendar = @department.calendars.default
 
 # Create superuser
@@ -161,7 +202,7 @@ puts "creating Superuser..."
 puts "creating loc_groups and locations..."
 NLoc_group.times do 
   loc_group = loc_group_gen
-  loc_group.public = false if rand()>Public_loc_group_chance
+  loc_group.update_attributes(public: false) if rand()>Public_loc_group_chance
   NLocation_per_group.times { location_gen(loc_group) }
 end
 
@@ -183,6 +224,16 @@ end
 # Creating User Profiles
 puts "creating user profiles..."
 user_profiles_gen
+
+# Creating Notices
+puts "creating notices..."
+NNotice_department_wide.times do 
+  announcement_gen
+  link_gen
+end
+NAnnouncement.times {announcement_gen(Location.all.sample(1+rand(Location.count)))}
+NSticky.times {sticky_gen(Location.all.sample(1+rand(Location.count)))}
+NLink.times {link_gen(Location.all.sample(1+rand(Location.count)))}
 
 
 ## Locations and Loc_grous and users are deactivated after the setup
