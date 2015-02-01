@@ -154,7 +154,7 @@ end
 
 def announcement_gen(locations=nil)
   a = Announcement.new(indefinite: true, author: @su, department: @department, department_wide: locations.nil?)
-  a.start = Faker::Time.backward(14)
+  a.start = Faker::Time.backward(5)
   a.content = Faker::Lorem.paragraph
   a.locations = locations if !locations.nil?
   a.save!
@@ -163,7 +163,7 @@ end
 
 def sticky_gen(locations=nil)
   a = Sticky.new(indefinite: true, author: random_user, department: @department, department_wide: locations.nil?)
-  a.start = Faker::Time.backward(14)
+  a.start = Faker::Time.backward(5)
   a.content = Faker::Lorem.paragraph
   a.locations = locations if !locations.nil?
   a.save!
@@ -172,7 +172,7 @@ end
 
 def link_gen(locations=nil)
   a = Link.new(indefinite: true, author: random_user, department: @department, department_wide: locations.nil?)
-  a.start = Faker::Time.backward(14)
+  a.start = Faker::Time.backward(5)
   a.content = Faker::Lorem.sentence(2,false,2)
   a.url = Faker::Internet.url
   a.locations = locations if !locations.nil?
@@ -193,6 +193,8 @@ def repeating_time_slots_gen(locations)
   re.save!
   re.make_future(true)
 end
+
+Timecop.travel(DateTime.now - 2.weeks)
 
 # First AppConfig
 progress_bar_gen("AppConfig [1/9]", 1) do
@@ -278,10 +280,10 @@ progress_bar_gen("TimeSlots [9/9]", LocGroup.count) do |bar|
   end
 end
 
-
+# Creating Shifts
 
 
 ## Locations and Loc_grous and users are deactivated after the setup
 
-
+Timecop.return
 
