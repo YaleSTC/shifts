@@ -65,6 +65,7 @@ group :development do
   gem 'faker'
   gem 'better_errors'
   gem 'binding_of_caller' # Enables the REPL in better_errors
+  gem 'ruby-progressbar'
   gem 'guard-rspec', require: false
 end
 

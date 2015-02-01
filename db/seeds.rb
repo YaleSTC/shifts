@@ -7,11 +7,12 @@
 #   Mayor.create(name: 'Daley', city: cities.first)
 
 require 'faker'
+require 'ruby-progressbar'
 
 # Number of records
-NLoc_group = 2
-NLocation_per_group = 3
-NUser = 10
+NLoc_group = 3
+NLocation_per_group = 5
+NUser = 50
 NAnnouncement = 6
 NSticky = 10
 NLink = 10
@@ -28,6 +29,12 @@ User_profile_complete_chance = 0.8
 User_has_pic_chance = 0.3
 Location_has_time_slot_chance = 0.8
 Weekday_has_time_slot_chance = 5/7.0
+
+def progress_bar_gen(title, total)
+  progress_bar = ProgressBar.create(title: title, format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･', total: total)
+  yield progress_bar
+  progress_bar.finish
+end
 
 def prompt_field(obj, field)
   puts field.to_s.split('_').collect(&:capitalize).join(' ') + ':'
@@ -117,7 +124,7 @@ def user_profile_entry_gen(field, user)
       entry.content = ["M","F"][rand(2)]
     when "OS"
       entry.content = ["Linux", "OS X","Windows"].sample(1+rand(3)).sort.join(", ")     
-    when "Favorite Meme"
+    when "Pic"
       entry.content = "http://d24w6bsrhbeh9d.cloudfront.net/photo/aD0OoQK_700b.jpg" if rand()<User_has_pic_chance
     end
   end
@@ -138,12 +145,6 @@ def user_profiles_gen
   field5 = @department.user_profile_fields.create!(name: "OS", display_type: "check_box", public: true, user_editable: true, index_display: false, values: "Linux, OS X, Windows")
   # Picture Link
   field6 = @department.user_profile_fields.create!(name: "Pic", display_type: "picture_link", public: true, user_editable: true, index_display: false)
-
-  UserProfileField.all.each do |field|
-    User.all.each do |user|
-      user_profile_entry_gen(field, user)
-    end
-  end  
 end
 
 def random_user
@@ -187,75 +188,94 @@ def repeating_time_slots_gen(locations)
   re.loc_ids = loc_ids
   re.start_time = today+@department_config.schedule_start.minutes
   re.end_time = today+(@department_config.schedule_end-@department_config.time_increment).minutes
-  re.start_date = Date.today # Cannot use DateTime! Must use Date!
+  re.start_date = Date.yesterday # Cannot use DateTime! Must use Date!
   re.end_date = Date.today + 90.days
   re.save!
   re.make_future(true)
 end
 
 # First AppConfig
-puts "creating AppConfig..."
-@app_config = app_config_gen
+progress_bar_gen("AppConfig [1/9]", 1) do
+  @app_config = app_config_gen
+end
 
 # Then Department
-puts "creating Department.."
-@department = Department.create!(name: "SDMP")
-@department_config = @department.department_config
-# Setting end-time to 11pm
-@department_config.update_attributes(schedule_end: 1440)
-@category = @department.categories.first
-@category.update_attributes(billing_code: ptaeo_gen)
-@calendar = @department.calendars.default
+progress_bar_gen("Department [2/9]", 1) do 
+  @department = Department.create!(name: "SDMP")
+  @department_config = @department.department_config
+  # Setting end-time to 11pm
+  @department_config.update_attributes(schedule_end: 1440)
+  @category = @department.categories.first
+  @category.update_attributes(billing_code: ptaeo_gen)
+  @calendar = @department.calendars.default
+end
 
 # Create superuser
-puts "creating Superuser..."
-@su = user_gen
-@su.superuser = true
-#prompt_field(@su, "login")
-@su.update_attributes(login: 'xy63')
+progress_bar_gen("Superuser [3/9]", 1) do 
+  @su = user_gen
+  @su.superuser = true
+  #puts;prompt_field(@su, "login")
+  @su.update_attributes(login: 'xy63')
+end
 
 # Creating Locations and Location Groups
-puts "creating loc_groups and locations..."
-NLoc_group.times do 
-  loc_group = loc_group_gen
-  loc_group.update_attributes(public: false) if rand()>Public_loc_group_chance
-  NLocation_per_group.times { location_gen(loc_group) }
+progress_bar_gen("Locations [4/9]", NLoc_group*NLocation_per_group) do |bar|
+  NLoc_group.times do 
+    loc_group = loc_group_gen
+    loc_group.update_attributes(public: false) if rand()>Public_loc_group_chance
+    NLocation_per_group.times {location_gen(loc_group); bar.increment}
+  end
 end
 
 # Creating roles
-puts "creating roles..."
-@ord_role = @department.roles.create!(name: "Developer")
-@admin_role = @department.roles.create!(name: "Admin")
-@ord_role.permissions = LocGroup.all.map{|lg| [lg.view_permission, lg.signup_permission]}.flatten
-@admin_role.permissions = Permission.all
-@su.roles = Role.all
+progress_bar_gen("Roles [5/9]", 2) do |bar|
+  @ord_role = @department.roles.create!(name: "Developer")
+  @ord_role.permissions = LocGroup.all.map{|lg| [lg.view_permission, lg.signup_permission]}.flatten
+  bar.increment
+  @admin_role = @department.roles.create!(name: "Admin")
+  @admin_role.permissions = Permission.all
+  @su.roles = Role.all
+end
 
 # Creating Users
-puts "creating users..."
-NUser.times do 
-  user = user_gen
-  user.roles << @ord_role
+progress_bar_gen("Users [6/9]", NUser) do |bar|
+  NUser.times do 
+    user = user_gen
+    user.roles << @ord_role
+    bar.increment
+  end
 end
 
 # Creating User Profiles
-puts "creating user profiles..."
-user_profiles_gen
+progress_bar_gen("User Profiles [7/9]", 6*User.count) do |bar|
+  user_profiles_gen
+  UserProfileField.all.each do |field|
+    User.all.each do |user|
+      user_profile_entry_gen(field, user)
+      bar.increment
+    end
+  end
+end  
 
 # Creating Notices
-puts "creating notices..."
-NNotice_department_wide.times do 
-  announcement_gen
-  link_gen
+progress_bar_gen("Notices [8/9]", NNotice_department_wide*2+NAnnouncement+NSticky+NLink) do |bar|
+  NNotice_department_wide.times do 
+    announcement_gen; bar.increment
+    link_gen; bar.increment
+  end
+  NAnnouncement.times {announcement_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
+  NSticky.times {sticky_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
+  NLink.times {link_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
 end
-NAnnouncement.times {announcement_gen(Location.all.sample(1+rand(Location.count)))}
-NSticky.times {sticky_gen(Location.all.sample(1+rand(Location.count)))}
-NLink.times {link_gen(Location.all.sample(1+rand(Location.count)))}
 
 # Creating Repeating TimeSlots till 3 months after
-LocGroup.all.each do |lg|
-  n = lg.locations.count
-  locs = lg.locations.sample((n*Location_has_time_slot_chance).to_i)
-  repeating_time_slots_gen(locs)
+progress_bar_gen("TimeSlots [9/9]", LocGroup.count) do |bar|
+  LocGroup.all.each do |lg|
+    n = lg.locations.count
+    locs = lg.locations.sample((n*Location_has_time_slot_chance).to_i)
+    repeating_time_slots_gen(locs)
+    bar.increment
+  end
 end
 
 
