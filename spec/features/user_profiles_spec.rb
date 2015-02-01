@@ -70,7 +70,7 @@ describe "User Profiles", :user do
 			end
 			it "renders and updates picture link correctly" do 
 				expect_to_render_and_update_correctly(:picture_link) do |field, entry|
-					url = "http://weknowmemes.com/wp-content/uploads/2012/09/id-give-a-fuck-but.jpg"
+					url = "https://raw.githubusercontent.com/YaleSTC/shifts/master/app/assets/images/fail_yale.jpg"
 					fill_in field.name, with: url
 					click_on "Update"
 					expect(page).to have_selector("img[src='#{url}']")
