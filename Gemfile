@@ -56,6 +56,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'annotate' # https://github.com/ctran/annotate_models add info headers
   gem 'fuubar'
+  gem 'timecop'
 end
 
 group :development do
@@ -76,7 +77,6 @@ group :test do
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
-  gem 'timecop'
 end
 
 group :assets do
