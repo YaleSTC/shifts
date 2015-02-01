@@ -23,9 +23,11 @@ Active_loc_group_chance = 0.8 # Not implemented
 Active_location_chance = 0.8 # Not implemented
 Active_notice_chance = 0.7
 Public_loc_group_chance = 0.6
-User_with_nick_name_chance = 0.2
+User_with_nick_name_chance = 0.3
 User_profile_complete_chance = 0.8
-User_has_profile_chance = 0.3
+User_has_pic_chance = 0.3
+Location_has_time_slot_chance = 0.8
+Weekday_has_time_slot_chance = 5/7.0
 
 def prompt_field(obj, field)
   puts field.to_s.split('_').collect(&:capitalize).join(' ') + ':'
@@ -88,9 +90,9 @@ def location_gen(lg = loc_group_gen)
   end until Location.where(short_name: sn).empty?
   l.name = ln
   l.short_name = sn
-  l.min_staff = rand(3)
-  l.max_staff = l.min_staff+rand(3)
-  l.priority = rand(10)
+  l.min_staff = rand(2)
+  l.max_staff = l.min_staff+rand(3)+1
+  l.priority = rand(2)
   l.report_email = Faker::Internet.email
   l.category = @category
   l.active = true
@@ -116,7 +118,7 @@ def user_profile_entry_gen(field, user)
     when "OS"
       entry.content = ["Linux", "OS X","Windows"].sample(1+rand(3)).sort.join(", ")     
     when "Favorite Meme"
-      entry.content = "http://d24w6bsrhbeh9d.cloudfront.net/photo/aD0OoQK_700b.jpg" if rand()<User_has_profile_chance
+      entry.content = "http://d24w6bsrhbeh9d.cloudfront.net/photo/aD0OoQK_700b.jpg" if rand()<User_has_pic_chance
     end
   end
   entry.save!
@@ -177,6 +179,20 @@ def link_gen(locations=nil)
   a.remove(@su) if rand() > Active_notice_chance
 end
 
+def repeating_time_slots_gen(locations)    
+  loc_ids = locations.map(&:id).sort.join(',')
+  re = RepeatingEvent.new(calendar: @calendar, is_set_of_timeslots: true)
+  re.days_of_week = [1,2,3,4,5,6,7].sample((7*Weekday_has_time_slot_chance).to_i).sort.join(',')
+  today = DateTime.now.beginning_of_day
+  re.loc_ids = loc_ids
+  re.start_time = today+@department_config.schedule_start.minutes
+  re.end_time = today+(@department_config.schedule_end-@department_config.time_increment).minutes
+  re.start_date = Date.today # Cannot use DateTime! Must use Date!
+  re.end_date = Date.today + 90.days
+  re.save!
+  re.make_future(true)
+end
+
 # First AppConfig
 puts "creating AppConfig..."
 @app_config = app_config_gen
@@ -234,6 +250,15 @@ end
 NAnnouncement.times {announcement_gen(Location.all.sample(1+rand(Location.count)))}
 NSticky.times {sticky_gen(Location.all.sample(1+rand(Location.count)))}
 NLink.times {link_gen(Location.all.sample(1+rand(Location.count)))}
+
+# Creating Repeating TimeSlots till 3 months after
+LocGroup.all.each do |lg|
+  n = lg.locations.count
+  locs = lg.locations.sample((n*Location_has_time_slot_chance).to_i)
+  repeating_time_slots_gen(locs)
+end
+
+
 
 
 ## Locations and Loc_grous and users are deactivated after the setup
