@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'
   gem 'annotate' # https://github.com/ctran/annotate_models add info headers
+  gem 'fuubar'
 end
 
 group :development do
@@ -70,6 +71,9 @@ end
 group :test do
   gem 'rspec'
   gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'timecop'
 end

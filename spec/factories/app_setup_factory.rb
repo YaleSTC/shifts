@@ -1,4 +1,3 @@
-# This will guess the User class
 FactoryGirl.define do
   factory :app_config, class: AppConfig do
     ldap_host_address "directory.yale.edu"
@@ -16,76 +15,62 @@ FactoryGirl.define do
     admin_email "adam.bray@yale.edu"
   end
 
-  factory :permission do
-    name {generate(:permission_name)}
-  end
-
   factory :department do
-    id 1 # we can safely assume we only have one department ever
     name "SDMP"
-    association :admin_permission_id, factory: :permission
-    association :payforms_permission_id, factory: :permission
-    association :shifts_permission_id, factory: :permission
+    # admin_permission is set automatically in the model before hook
+    # DepartmentConfig are set automatically through DepartmentObserver Class
+    # So are three built-in categories: Shifts, Punch Clocks and Miscellaneous
+    # A Default Calendar is created too, named "#{department.name} Default Calendar"
+    
+    # we can safely assume we only have one department ever
+    # Default to existing Department
+    initialize_with {Department.where(name: name).first_or_initialize}
   end
 
-  factory :loc_group, class: LocGroup do
-    department_id 1
-    name {generate(:loc_group_name)}
-    association :view_perm_id, factory: :permission
-    association :signup_perm_id, factory: :permission
-    association :admin_perm_id, factory: :permission
-  end
 
-  factory :location do
-    category
-    loc_group
-    name "Technology Troubleshooting Office"
-    short_name "TTO"
-    description "students come here when things break"
-    max_staff 2
-    min_staff 1
-    priority 1
-    active true
-  end
 
-  factory :category do
-    department_id 1
-    name "Magic"
+
+
+
+  factory :category do # payform category
+    department
+    sequence(:name){|n| "Magic category #{n}"}
     active true
     built_in "f"
+
+    # Default to existing category
+    initialize_with {Category.where(name: name).first_or_initialize}
   end
 
-  factory :user, class: User do
-    login "ad12"
-    first_name "Albus"
-    last_name "Dumbledore"
-    nick_name "Albus"
-    email "ad12@hogwarts.edu"
-    auth_type "CAS"
-    default_department_id 1
+  factory :role do
+    department
+    name "ordinary_role"
+    
+    # Default to existing role
+    initialize_with {Role.where(name: name).first_or_initialize}
 
-    factory :admin do
-      superuser true
+    # Give Role all signup and view permissions of all Loc Groups before saving to Database
+    # Not executed if factory is called with #build
+    before :create do |role|
+      LocGroup.all.each do |lg|
+        role.permissions += [lg.view_permission, lg.signup_permission]
+      end
     end
 
-    before :create do |obj|
-      obj.set_random_password
-      obj.departments << Department.find(1)
+    factory :admin_role do
+      name "admin_role"
+      # Give admin_role the admin permission of all loc groups before saving to Database
+      # Not executed if factory is called with #build
+      before :create do |role|
+        LocGroup.all.each do |lg|
+          role.permissions << lg.admin_permission
+        end
+        # Give department admin_permission to admin_role
+        role.permissions << role.department.admin_permission
+      end
     end
   end
 
-
-  #
-  ## Sequences
-  #
-
-  sequence :permission_name do |n|
-    "#{n}_permission"
-  end
-
-  sequence :loc_group_name do |n|
-    "Public Clusters #{n}"
-  end
 
 
   # As long as we only use CAS, we shouldn't need to think about Authlogic
