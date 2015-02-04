@@ -216,8 +216,8 @@ end
 progress_bar_gen("Superuser [3/9]", 1) do 
   @su = user_gen
   @su.superuser = true
-  #puts;prompt_field(@su, "login")
-  @su.update_attributes(login: 'xy63')
+  puts;prompt_field(@su, "login")
+  #@su.update_attributes(login: 'xy63')
 end
 
 # Creating Locations and Location Groups
