@@ -7,7 +7,7 @@
       <% @user_profile_entries.each do |entry| %>
         <% args = entry.prepare_form_helpers %>
         <p>
-          <%= label "user_profile_entries[#{entry.id}]", "#{entry.field_name}" %><br/>
+          <%= label "user_profile_entries[#{entry.id}]", :content, entry.field_name %><br/>
 
           <% if ["text_field", "select", "text_area"].include? entry.display_type %>
             <%= send(entry.display_type, *args) %>
@@ -16,12 +16,12 @@
           <% elsif ["radio_button"].include? entry.display_type %>
             <% args.each do |options| %>
               <%= send(entry.display_type, *options) %>
-              <%= label "user_profile_entries[#{entry.id}]", "#{options.third}" %>
+              <%= label "user_profile_entries[#{entry.id}]", :content, options.third, value: options.third %>
             <% end %>
           <% elsif ["check_box"].include? entry.display_type %>
             <% args.each do |options| %>
               <%= send(entry.display_type, *options) %>
-              <%= label "user_profile_entries[#{entry.id}]", "#{options.second}" %>
+              <%= label "user_profile_entries[#{entry.id}]", options.second, options.second %>
           <% end %>
         <% end %>
 
