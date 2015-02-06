@@ -10,18 +10,28 @@ require 'faker'
 require 'ruby-progressbar'
 
 # Number of records
-NLoc_group = 3
-NLocation_per_group = 5
-NUser = 50
+NLoc_group = 2
+NLocation_per_group = 3
+NUser = 20
 NAnnouncement = 6
 NSticky = 10
 NLink = 10
 NNotice_department_wide = 1
+NShift_per_day_per_location = 3
+NTasks_per_location = 5
+NData_Object = 5
+NCategories = 3
+NPayform_item_per_user = 3
+
+# Other params
+Ndays_of_schedule_into_past = 7
+Ndays_of_schedule_into_future = 14
+Shifts_duration_min_hours = 1
+Shifts_duration_max_hours = 3
+
+Total_days = Ndays_of_schedule_into_future+Ndays_of_schedule_into_past
 
 # Custom Ratios
-Active_user_chance = 0.6 # Not implemented
-Active_loc_group_chance = 0.8 # Not implemented
-Active_location_chance = 0.8 # Not implemented
 Active_notice_chance = 0.7
 Public_loc_group_chance = 0.6
 User_with_nick_name_chance = 0.3
@@ -29,6 +39,7 @@ User_profile_complete_chance = 0.8
 User_has_pic_chance = 0.3
 Location_has_time_slot_chance = 0.8
 Weekday_has_time_slot_chance = 5/7.0
+Payform_printed_chance = 0.5
 
 def progress_bar_gen(title, total)
   progress_bar = ProgressBar.create(title: title, format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･', total: total)
@@ -189,12 +200,72 @@ def repeating_time_slots_gen(locations)
   re.start_time = today+@department_config.schedule_start.minutes
   re.end_time = today+(@department_config.schedule_end-@department_config.time_increment).minutes
   re.start_date = Date.yesterday # Cannot use DateTime! Must use Date!
-  re.end_date = Date.today + 90.days
+  re.end_date = Date.today + Total_days.days
   re.save!
-  re.make_future(true)
+  begin
+    re.make_future(true)
+  rescue Exception => e
+    puts
+    puts e.message
+  end
 end
 
-Timecop.travel(DateTime.now - 2.weeks)
+def shift_gen(location, date, user)
+  shift = Shift.new(calendar: @calendar, department: @department, location: location, user: user)
+  start_hour = @department_config.schedule_start/60
+  end_hour = @department_config.schedule_end/60
+  shift_start = date + (start_hour+rand(end_hour-start_hour)).hours
+  duration = Shifts_duration_min_hours+rand(Shifts_duration_max_hours-Shifts_duration_min_hours)
+  shift_end = shift_start + duration.hours
+  shift.start = shift_start
+  shift.end = shift_end
+  shift.power_signed_up = true # to avoid validation trouble
+  shift.save!
+end
+
+def task_gen(location)
+  task = Task.new(location: location)
+  task.name = Faker::Lorem.sentence(2,false,2)
+  task.kind = ["Hourly", "Daily", "Weekly"].sample
+  task.start = Date.today
+  task.end = Date.today+Total_days.days
+  task.time_of_day = Faker::Time.between(Time.now.beginning_of_day, Time.now.end_of_day, :all)
+  task.day_in_week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].sample
+  task.active = true
+  task.description = Faker::Lorem.sentence
+  task.link = Faker::Internet.url
+  task.save!
+end
+
+def data_fields_gen(type)
+  type.data_fields.create!(name: "How many boxes of paper?", display_type: "text_field", values: "integer", upper_bound: 10.0, lower_bound: 1.0, exact_alert: "0", active: true)
+  type.data_fields.create!(name: "Work Notes", display_type: "text_area", active: true)
+  type.data_fields.create!(name: "Which college?", display_type: "select", values: "BR, JE, SY, TC, TD, SM, MC, ES, PC, DC, BC, CC", exact_alert: "JE", active: true)
+  type.data_fields.create!(name: "Mac or PC?", display_type: "radio_button", values: "Mac, PC", exact_alert: "PC", active: true)
+  type.data_fields.create!(name: "Are you happy?", display_type: "check_box", values: "yes, no, dunno", exact_alert: "no", active: true)
+end
+
+def data_type_gen
+  type = DataType.new(department: @department)
+  type.name = Faker::Hacker.noun
+  type.description = Faker::Lorem.sentence
+  type.save!
+  data_fields_gen(type)
+  type
+end
+
+def data_object_gen(type)
+  object = DataObject.new(data_type: type, name: Faker::Lorem.sentence(2,false,1), description: Faker::Hacker.adjective)
+  object.locations = Location.all
+  object.save!
+end
+
+def category_gen
+  cat = Category.new(name: Faker::Lorem.sentence(2,false,1), department: @department, billing_code: ptaeo_gen)
+  cat.save!
+end
+
+Timecop.travel(DateTime.now - Ndays_of_schedule_into_past.days)
 
 # First AppConfig
 progress_bar_gen("AppConfig [1/9]", 1) do
@@ -207,8 +278,8 @@ progress_bar_gen("Department [2/9]", 1) do
   @department_config = @department.department_config
   # Setting end-time to 11pm
   @department_config.update_attributes(schedule_end: 1440)
+  Category.all.each {|cat| cat.update_attributes(billing_code: ptaeo_gen)}
   @category = @department.categories.first
-  @category.update_attributes(billing_code: ptaeo_gen)
   @calendar = @department.calendars.default
 end
 
@@ -270,7 +341,7 @@ progress_bar_gen("Notices [8/9]", NNotice_department_wide*2+NAnnouncement+NStick
   NLink.times {link_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
 end
 
-# Creating Repeating TimeSlots till 3 months after
+# Creating Repeating TimeSlots
 progress_bar_gen("TimeSlots [9/9]", LocGroup.count) do |bar|
   LocGroup.all.each do |lg|
     n = lg.locations.count
@@ -281,9 +352,54 @@ progress_bar_gen("TimeSlots [9/9]", LocGroup.count) do |bar|
 end
 
 # Creating Shifts
+nShifts = NShift_per_day_per_location*Total_days*Location.count
+progress_bar_gen("Shifts [10/10]", nShifts) do |bar|
+  (1..Total_days).each do |d|
+    users = User.all.sample(Location.count*NShift_per_day_per_location)
+    Location.all.each do |l|
+      NShift_per_day_per_location.times do 
+        shift_gen(l, Date.today+d.days, users.shift) if !users.empty?
+        bar.increment
+      end
+    end
+  end
+end
 
+# Creating Tasks
+progress_bar_gen("Tasks [11/11]", NTasks_per_location*Location.count) do |bar|
+  Location.all.each do |l|
+    NTasks_per_location.times do 
+      task_gen(l)
+      bar.increment
+    end
+  end
+end
 
-## Locations and Loc_grous and users are deactivated after the setup
+# Creating DataObjects
+progress_bar_gen("Data Objects [12/12]", NData_Object+1) do |bar|
+  type = data_type_gen; bar.increment
+  NData_Object.times do 
+    data_object_gen(type)
+    bar.increment
+  end
+end
+
+# Creating Categories
+progress_bar_gen("Categories [13/13]", NCategories) do |bar|
+  NCategories.times do 
+    category_gen
+    bar.increment
+  end
+end
+
+# Creating Payforms
+progress_bar_gen("Payforms [14/14]", User.count) do |bar|
+  User.all.each do |user|
+    payform = Payform.build(@department, user, Date.today)
+    bar.increment
+  end
+end
+
 
 Timecop.return
 
