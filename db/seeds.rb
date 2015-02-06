@@ -40,6 +40,7 @@ User_profile_complete_chance = 0.8
 User_has_pic_chance = 0.3
 Location_has_time_slot_chance = 0.8
 Weekday_has_time_slot_chance = 5/7.0
+Payform_submitted_chance = 0.9
 Payform_printed_chance = 0.5
 
 def progress_bar_gen(title, total)
@@ -410,6 +411,12 @@ progress_bar_gen("Payforms [14/14]", User.count*NPayform_item_per_user) do |bar|
     NPayform_item_per_user.times do 
       payform_item_gen(payform, categories.sample)
       bar.increment
+    end
+    if rand()<Payform_submitted_chance
+      payform.update_attributes(submitted: Time.now)
+      if rand()<Payform_printed_chance
+        payform.update_attributes(approved: Time.now, approved_by: @su)
+      end
     end
   end
 end
