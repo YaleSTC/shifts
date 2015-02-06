@@ -28,6 +28,7 @@ Ndays_of_schedule_into_past = 7
 Ndays_of_schedule_into_future = 14
 Shifts_duration_min_hours = 1
 Shifts_duration_max_hours = 3
+Payform_item_max_hour = 3
 
 Total_days = Ndays_of_schedule_into_future+Ndays_of_schedule_into_past
 
@@ -265,6 +266,15 @@ def category_gen
   cat.save!
 end
 
+def payform_item_gen(payform, cat)
+  item = PayformItem.new(category: cat, payform: payform, date: Date.today, source: payform.user.name)
+  item.hours = 1 + rand(Payform_item_max_hour)
+  item.description = Faker::Hacker.say_something_smart
+  item.save!
+end
+
+## Beginning of seed script
+
 Timecop.travel(DateTime.now - Ndays_of_schedule_into_past.days)
 
 # First AppConfig
@@ -393,10 +403,14 @@ progress_bar_gen("Categories [13/13]", NCategories) do |bar|
 end
 
 # Creating Payforms
-progress_bar_gen("Payforms [14/14]", User.count) do |bar|
+progress_bar_gen("Payforms [14/14]", User.count*NPayform_item_per_user) do |bar|
+  categories = Category.all
   User.all.each do |user|
     payform = Payform.build(@department, user, Date.today)
-    bar.increment
+    NPayform_item_per_user.times do 
+      payform_item_gen(payform, categories.sample)
+      bar.increment
+    end
   end
 end
 
