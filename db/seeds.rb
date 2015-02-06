@@ -12,9 +12,9 @@ require 'ruby-progressbar'
 ## Parameters
 ################################################################################
 # Number of records
-NLoc_group = 2
+NLoc_group = 3
 NLocation_per_group = 3
-NUser = 20
+NUser = 50
 NAnnouncement = 6
 NSticky = 10
 NLink = 10
@@ -30,22 +30,22 @@ NReport_item_per_report = 5
 Ndays_of_schedule_into_past = 7
 Ndays_of_schedule_into_future = 14
 Shifts_duration_min_hours = 1
-Shifts_duration_max_hours = 3
+Shifts_duration_max_hours = 2
 Payform_item_max_hour = 3
 
 Total_days = Ndays_of_schedule_into_future+Ndays_of_schedule_into_past
 
 # Custom Ratios
-Active_notice_chance = 0.7
+Active_notice_chance = 0.8
 Public_loc_group_chance = 0.6
 User_with_nick_name_chance = 0.3
-User_profile_complete_chance = 0.8
-User_has_pic_chance = 0.3
+User_profile_complete_chance = 0.9
+User_has_pic_chance = 0.4
 Location_has_time_slot_chance = 0.8
 Weekday_has_time_slot_chance = 5/7.0
 Shift_signed_in_chance = 0.9
 Payform_submitted_chance = 0.9
-Payform_printed_chance = 0.5
+Payform_printed_chance = 0.7
 
 ################################################################################
 ## Helper methods
@@ -73,6 +73,11 @@ end
 
 def ptaeo_gen
   [7,2,6,6,6].map{|d| Faker::Number.number(d)}.join('.')
+end
+
+def random_user
+  rand_id = rand(User.count)+1
+  User.where("id > ?", rand_id).first
 end
 ################################################################################
 ## Record Generating Methods
@@ -175,10 +180,6 @@ def user_profiles_gen
   field6 = @department.user_profile_fields.create!(name: "Pic", display_type: "picture_link", public: true, user_editable: true, index_display: false)
 end
 
-def random_user
-  rand_id = rand(User.count)+1
-  User.where("id > ?", rand_id).first
-end
 
 def announcement_gen(locations=nil)
   a = Announcement.new(indefinite: true, author: @su, department: @department, department_wide: locations.nil?)
@@ -232,7 +233,7 @@ def shift_gen(location, date, user)
   start_hour = @department_config.schedule_start/60
   end_hour = @department_config.schedule_end/60
   shift_start = date + (start_hour+rand(end_hour-start_hour)).hours
-  duration = Shifts_duration_min_hours+rand(Shifts_duration_max_hours-Shifts_duration_min_hours)
+  duration = Shifts_duration_min_hours+rand(Shifts_duration_max_hours-Shifts_duration_min_hours+1)
   shift_end = shift_start + duration.hours
   shift.start = shift_start
   shift.end = shift_end
@@ -336,7 +337,6 @@ progress_bar_gen("Superuser [3/15]", 1) do
   @su = user_gen
   @su.superuser = true
   puts;prompt_field(@su, "login")
-  #@su.update_attributes(login: 'xy63')
 end
 
 # Creating Locations and Location Groups
