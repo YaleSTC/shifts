@@ -22,6 +22,7 @@ NTasks_per_location = 5
 NData_Object = 5
 NCategories = 3
 NPayform_item_per_user = 3
+NReport_item_per_report = 5
 
 # Other params
 Ndays_of_schedule_into_past = 7
@@ -40,6 +41,7 @@ User_profile_complete_chance = 0.8
 User_has_pic_chance = 0.3
 Location_has_time_slot_chance = 0.8
 Weekday_has_time_slot_chance = 5/7.0
+Shift_signed_in_chance = 0.5
 Payform_submitted_chance = 0.9
 Payform_printed_chance = 0.5
 
@@ -281,6 +283,20 @@ def print_payforms
   set.save!
 end
 
+def report_item_gen(report, ip)
+  report.report_items.create!(time: Time.now, content: Faker::Hacker.say_something_smart, ip_address: ip)
+end
+
+def report_gen(shift)
+  report = Report.new(shift: shift, arrived: shift.start)
+  report.save!
+  ip = Faker::Internet.ip_v4_address
+  NReport_item_per_report.times do 
+    report_item_gen(report, ip)
+  end
+  report.update_attributes(departed: shift.end)
+end
+
 ## Beginning of seed script
 
 Timecop.travel(DateTime.now - Ndays_of_schedule_into_past.days)
@@ -398,6 +414,15 @@ progress_bar_gen("Data Objects [12/12]", NData_Object+1) do |bar|
   type = data_type_gen; bar.increment
   NData_Object.times do 
     data_object_gen(type)
+    bar.increment
+  end
+end
+
+# Creating Shift Reports
+shifts = Shift.where("end < ?", Date.today+Ndays_of_schedule_into_past.days)
+progress_bar_gen("Shift Reports [15/15]", shifts.count) do |bar|
+  shifts.each do |shift|
+    report_gen(shift) if rand()<Shift_signed_in_chance 
     bar.increment
   end
 end
