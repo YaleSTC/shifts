@@ -274,6 +274,13 @@ def payform_item_gen(payform, cat)
   item.save!
 end
 
+def print_payforms    
+  set = PayformSet.new(department: @department)
+  set.payforms = @department.payforms.unprinted
+  set.payforms.map {|p| p.printed = Time.now}
+  set.save!
+end
+
 ## Beginning of seed script
 
 Timecop.travel(DateTime.now - Ndays_of_schedule_into_past.days)
@@ -412,13 +419,14 @@ progress_bar_gen("Payforms [14/14]", User.count*NPayform_item_per_user) do |bar|
       payform_item_gen(payform, categories.sample)
       bar.increment
     end
-    if rand()<Payform_submitted_chance
+    if rand()<Payform_submitted_chance and user!=@su
       payform.update_attributes(submitted: Time.now)
       if rand()<Payform_printed_chance
         payform.update_attributes(approved: Time.now, approved_by: @su)
       end
     end
   end
+  print_payforms
 end
 
 
