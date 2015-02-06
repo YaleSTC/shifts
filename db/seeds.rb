@@ -8,7 +8,9 @@
 
 require 'faker'
 require 'ruby-progressbar'
-
+################################################################################
+## Parameters
+################################################################################
 # Number of records
 NLoc_group = 2
 NLocation_per_group = 3
@@ -41,10 +43,13 @@ User_profile_complete_chance = 0.8
 User_has_pic_chance = 0.3
 Location_has_time_slot_chance = 0.8
 Weekday_has_time_slot_chance = 5/7.0
-Shift_signed_in_chance = 0.5
+Shift_signed_in_chance = 0.9
 Payform_submitted_chance = 0.9
 Payform_printed_chance = 0.5
 
+################################################################################
+## Helper methods
+################################################################################
 def progress_bar_gen(title, total)
   progress_bar = ProgressBar.create(title: title, format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･', total: total)
   yield progress_bar
@@ -62,10 +67,20 @@ def prompt_field(obj, field)
   end
 end
 
+def short_phrase_gen
+  Faker::Lorem.words(2+rand(2)).join(' ')
+end
+
+def ptaeo_gen
+  [7,2,6,6,6].map{|d| Faker::Number.number(d)}.join('.')
+end
+################################################################################
+## Record Generating Methods
+################################################################################
 def app_config_gen
 	ap = AppConfig.new
   ap.auth_types = "CAS"
-  ap.footer = 'Certifying authority: Adam Bray, Asst. Manager, Student Technology<br/>Last modified: Wed Feb 28 00:17:00 EST 2007'
+  ap.footer = 'Seed Script by David Yao'
   ap.mailer_address = "shifts.app@yale.edu"
   ap.admin_email = Faker::Internet.email
   ap.use_ldap = false
@@ -83,7 +98,7 @@ def user_gen
 	user.email = Faker::Internet.email(user.name)
 	user.auth_type = "CAS"
 	begin
-        login = user.first_name.downcase.first + user.last_name.downcase.first + Faker::Number.number(2+rand(2))
+    login = user.first_name.downcase.first + user.last_name.downcase.first + Faker::Number.number(2+rand(2))
   end until User.where(login: login).empty?
   user.login = login
   user.set_random_password
@@ -93,9 +108,7 @@ def user_gen
   user
 end
 
-def ptaeo_gen
-  [7,2,6,6,6].map{|d| Faker::Number.number(d)}.join('.')
-end
+
 
 def loc_group_gen
   begin 
@@ -188,7 +201,7 @@ end
 def link_gen(locations=nil)
   a = Link.new(indefinite: true, author: random_user, department: @department, department_wide: locations.nil?)
   a.start = Faker::Time.backward(5)
-  a.content = Faker::Lorem.sentence(2,false,2)
+  a.content = short_phrase_gen
   a.url = Faker::Internet.url
   a.locations = locations if !locations.nil?
   a.save!
@@ -229,7 +242,7 @@ end
 
 def task_gen(location)
   task = Task.new(location: location)
-  task.name = Faker::Lorem.sentence(2,false,2)
+  task.name = short_phrase_gen
   task.kind = ["Hourly", "Daily", "Weekly"].sample
   task.start = Date.today
   task.end = Date.today+Total_days.days
@@ -259,13 +272,13 @@ def data_type_gen
 end
 
 def data_object_gen(type)
-  object = DataObject.new(data_type: type, name: Faker::Lorem.sentence(2,false,1), description: Faker::Hacker.adjective)
+  object = DataObject.new(data_type: type, name: short_phrase_gen, description: Faker::Hacker.adjective)
   object.locations = Location.all
   object.save!
 end
 
 def category_gen
-  cat = Category.new(name: Faker::Lorem.sentence(2,false,1), department: @department, billing_code: ptaeo_gen)
+  cat = Category.new(name: short_phrase_gen, department: @department, billing_code: ptaeo_gen)
   cat.save!
 end
 
@@ -297,17 +310,18 @@ def report_gen(shift)
   report.update_attributes(departed: shift.end)
 end
 
+################################################################################
 ## Beginning of seed script
-
+################################################################################
 Timecop.travel(DateTime.now - Ndays_of_schedule_into_past.days)
 
 # First AppConfig
-progress_bar_gen("AppConfig [1/9]", 1) do
+progress_bar_gen("AppConfig [1/15]", 1) do
   @app_config = app_config_gen
 end
 
 # Then Department
-progress_bar_gen("Department [2/9]", 1) do 
+progress_bar_gen("Department [2/15]", 1) do 
   @department = Department.create!(name: "SDMP")
   @department_config = @department.department_config
   # Setting end-time to 11pm
@@ -318,7 +332,7 @@ progress_bar_gen("Department [2/9]", 1) do
 end
 
 # Create superuser
-progress_bar_gen("Superuser [3/9]", 1) do 
+progress_bar_gen("Superuser [3/15]", 1) do 
   @su = user_gen
   @su.superuser = true
   puts;prompt_field(@su, "login")
@@ -326,7 +340,7 @@ progress_bar_gen("Superuser [3/9]", 1) do
 end
 
 # Creating Locations and Location Groups
-progress_bar_gen("Locations [4/9]", NLoc_group*NLocation_per_group) do |bar|
+progress_bar_gen("Locations [4/15]", NLoc_group*NLocation_per_group) do |bar|
   NLoc_group.times do 
     loc_group = loc_group_gen
     loc_group.update_attributes(public: false) if rand()>Public_loc_group_chance
@@ -335,7 +349,7 @@ progress_bar_gen("Locations [4/9]", NLoc_group*NLocation_per_group) do |bar|
 end
 
 # Creating roles
-progress_bar_gen("Roles [5/9]", 2) do |bar|
+progress_bar_gen("Roles [5/15]", 2) do |bar|
   @ord_role = @department.roles.create!(name: "Developer")
   @ord_role.permissions = LocGroup.all.map{|lg| [lg.view_permission, lg.signup_permission]}.flatten
   bar.increment
@@ -345,7 +359,7 @@ progress_bar_gen("Roles [5/9]", 2) do |bar|
 end
 
 # Creating Users
-progress_bar_gen("Users [6/9]", NUser) do |bar|
+progress_bar_gen("Users [6/15]", NUser) do |bar|
   NUser.times do 
     user = user_gen
     user.roles << @ord_role
@@ -354,7 +368,7 @@ progress_bar_gen("Users [6/9]", NUser) do |bar|
 end
 
 # Creating User Profiles
-progress_bar_gen("User Profiles [7/9]", 6*User.count) do |bar|
+progress_bar_gen("User Profiles [7/15]", 6*User.count) do |bar|
   user_profiles_gen
   UserProfileField.all.each do |field|
     User.all.each do |user|
@@ -365,7 +379,7 @@ progress_bar_gen("User Profiles [7/9]", 6*User.count) do |bar|
 end  
 
 # Creating Notices
-progress_bar_gen("Notices [8/9]", NNotice_department_wide*2+NAnnouncement+NSticky+NLink) do |bar|
+progress_bar_gen("Notices [8/15]", NNotice_department_wide*2+NAnnouncement+NSticky+NLink) do |bar|
   NNotice_department_wide.times do 
     announcement_gen; bar.increment
     link_gen; bar.increment
@@ -376,7 +390,7 @@ progress_bar_gen("Notices [8/9]", NNotice_department_wide*2+NAnnouncement+NStick
 end
 
 # Creating Repeating TimeSlots
-progress_bar_gen("TimeSlots [9/9]", LocGroup.count) do |bar|
+progress_bar_gen("TimeSlots [9/15]", LocGroup.count) do |bar|
   LocGroup.all.each do |lg|
     n = lg.locations.count
     locs = lg.locations.sample((n*Location_has_time_slot_chance).to_i)
@@ -387,7 +401,7 @@ end
 
 # Creating Shifts
 nShifts = NShift_per_day_per_location*Total_days*Location.count
-progress_bar_gen("Shifts [10/10]", nShifts) do |bar|
+progress_bar_gen("Shifts [10/15]", nShifts) do |bar|
   (1..Total_days).each do |d|
     users = User.all.sample(Location.count*NShift_per_day_per_location)
     Location.all.each do |l|
@@ -400,7 +414,7 @@ progress_bar_gen("Shifts [10/10]", nShifts) do |bar|
 end
 
 # Creating Tasks
-progress_bar_gen("Tasks [11/11]", NTasks_per_location*Location.count) do |bar|
+progress_bar_gen("Tasks [11/15]", NTasks_per_location*Location.count) do |bar|
   Location.all.each do |l|
     NTasks_per_location.times do 
       task_gen(l)
@@ -410,7 +424,7 @@ progress_bar_gen("Tasks [11/11]", NTasks_per_location*Location.count) do |bar|
 end
 
 # Creating DataObjects
-progress_bar_gen("Data Objects [12/12]", NData_Object+1) do |bar|
+progress_bar_gen("Data Objects [12/15]", NData_Object+1) do |bar|
   type = data_type_gen; bar.increment
   NData_Object.times do 
     data_object_gen(type)
@@ -420,7 +434,7 @@ end
 
 # Creating Shift Reports
 shifts = Shift.where("end < ?", Date.today+Ndays_of_schedule_into_past.days)
-progress_bar_gen("Shift Reports [15/15]", shifts.count) do |bar|
+progress_bar_gen("Shift Reports [13/15]", shifts.count) do |bar|
   shifts.each do |shift|
     report_gen(shift) if rand()<Shift_signed_in_chance 
     bar.increment
@@ -428,7 +442,7 @@ progress_bar_gen("Shift Reports [15/15]", shifts.count) do |bar|
 end
 
 # Creating Categories
-progress_bar_gen("Categories [13/13]", NCategories) do |bar|
+progress_bar_gen("Categories [14/15]", NCategories) do |bar|
   NCategories.times do 
     category_gen
     bar.increment
@@ -436,7 +450,7 @@ progress_bar_gen("Categories [13/13]", NCategories) do |bar|
 end
 
 # Creating Payforms
-progress_bar_gen("Payforms [14/14]", User.count*NPayform_item_per_user) do |bar|
+progress_bar_gen("Payforms [15/15]", User.count*NPayform_item_per_user) do |bar|
   categories = Category.all
   User.all.each do |user|
     payform = Payform.build(@department, user, Date.today)
@@ -454,6 +468,5 @@ progress_bar_gen("Payforms [14/14]", User.count*NPayform_item_per_user) do |bar|
   print_payforms
 end
 
-
 Timecop.return
-
+################################################################################
