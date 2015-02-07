@@ -12,41 +12,41 @@ require 'ruby-progressbar'
 ## Parameters
 ################################################################################
 # Number of records
-NLoc_group = 3
-NLocation_per_group = 3
-NUser = 10
-NAnnouncement = 6
-NSticky = 10
-NLink = 10
-NNotice_department_wide = 1
-NShift_per_day_per_location = 3
-NTasks_per_location = 5
-NData_Object = 5
-NCategories = 3
-NPayform_item_per_user = 3
-NReport_item_per_report = 5
+N_LOC_GROUPS = 3
+N_LOCATIONS_PER_GROUP = 3
+N_USERS = 50
+N_ANNOUNCEMENTS = 6
+N_STICKIES = 10
+N_LINKS = 10
+N_DEPARTMENT_WIDE_NOTICES = 1
+N_SHIFTS_PER_DAY_PER_LOCATION = 3
+N_TASKS_PER_LOCATION = 5
+N_DATA_OBJECTS = 5
+N_CATEGORIES = 3
+N_PAYFORM_ITEMS_PER_USER = 3
+N_REPORT_ITEMS_PER_REPORT = 8
 
 # Other params
-Ndays_of_schedule_into_past = 3
-Ndays_of_schedule_into_future = 3
-Shifts_duration_min_hours = 1
-Shifts_duration_max_hours = 3
-Payform_item_max_hour = 3
+N_DAYS_OF_SCHEDULE_INTO_PAST = 7
+N_DAYS_OF_SCHEDULE_INTO_FUTURE = 14
+SHIFTS_DURATION_MIN_HOURS = 1
+SHIFTS_DURATION_MAX_HOURS = 3
+PAYFORM_ITEM_MAX_HOUR = 3
 
-Total_days = Ndays_of_schedule_into_future+Ndays_of_schedule_into_past
+TOTAL_DAYS = N_DAYS_OF_SCHEDULE_INTO_FUTURE+N_DAYS_OF_SCHEDULE_INTO_PAST
 
 # Custom Ratios
-Active_notice_chance = 0.8
-Public_loc_group_chance = 0.6
-User_with_nick_name_chance = 0.3
-User_profile_complete_chance = 0.9
-User_has_pic_chance = 0.4
-Location_has_time_slot_chance = 0.8
-Weekday_has_time_slot_chance = 5/7.0
-Shift_signed_in_chance = 0.9
-Shift_subbed_chance = 0.1
-Payform_submitted_chance = 0.9
-Payform_printed_chance = 0.7
+ACTIVE_NOTICE_CHANCE = 0.8
+PUBLIC_LOC_GROUP_CHANCE = 0.6
+USER_WITH_NICK_NAME_CHANCE = 0.3
+USER_PROFILE_COMPLETE_CHANCE = 0.9
+USER_HAS_PIC_CHANCE = 0.4
+LOCATION_HAS_TIME_SLOT_CHANCE = 0.8
+WEEKDAY_HAS_TIME_SLOT_CHANCE = 5/7.0
+SHIFT_SIGNED_IN_CHANCE = 0.9
+SHIFT_SUBBED_CHANCE = 0.1
+PAYFORM_SUBMITTED_CHANCE = 0.9
+PAYFORM_PRINTED_CHANCE = 0.7
 ################################################################################
 ## Helper methods
 ################################################################################
@@ -65,10 +65,6 @@ def prompt_field(obj, field)
     puts e.to_s
     prompt_field(obj, field)
   end
-end
-
-def short_phrase_gen
-  Faker::Lorem.words(2+rand(2)).join(' ')
 end
 
 def ptaeo_gen
@@ -98,7 +94,7 @@ def user_gen
   user = User.new
   user.first_name = Faker::Name.first_name
   user.last_name = Faker::Name.last_name
-  user.nick_name = Faker::Name.first_name if rand() < User_with_nick_name_chance
+  user.nick_name = Faker::Name.first_name if rand() < USER_WITH_NICK_NAME_CHANCE
   user.employee_id = Faker::Number.number(6)
   user.email = Faker::Internet.email(user.name)
   user.auth_type = "CAS"
@@ -143,7 +139,7 @@ def user_profile_entry_gen(field, user)
   entry = user.user_profile.user_profile_entries.new
   entry.user_profile_field = field
   entry.content = ""
-  if rand()<User_profile_complete_chance
+  if rand()<USER_PROFILE_COMPLETE_CHANCE
     case field.name
     when "Favorite Word"
       entry.content = Faker::Hacker.noun
@@ -156,7 +152,7 @@ def user_profile_entry_gen(field, user)
     when "OS"
       entry.content = ["Linux", "OS X","Windows"].sample(1+rand(3)).sort.join(", ")     
     when "Pic"
-      entry.content = "http://d24w6bsrhbeh9d.cloudfront.net/photo/aD0OoQK_700b.jpg" if rand()<User_has_pic_chance
+      entry.content = "http://d24w6bsrhbeh9d.cloudfront.net/photo/aD0OoQK_700b.jpg" if rand()<USER_HAS_PIC_CHANCE
     end
   end
   entry.save!
@@ -184,7 +180,7 @@ def announcement_gen(locations=nil)
   a.content = Faker::Lorem.paragraph
   a.locations = locations if !locations.nil?
   a.save!
-  a.remove(@su) if rand() > Active_notice_chance
+  a.remove(@su) if rand() > ACTIVE_NOTICE_CHANCE
 end
 
 def sticky_gen(locations=nil)
@@ -193,29 +189,29 @@ def sticky_gen(locations=nil)
   a.content = Faker::Lorem.paragraph
   a.locations = locations if !locations.nil?
   a.save!
-  a.remove(random_user) if rand() > Active_notice_chance
+  a.remove(random_user) if rand() > ACTIVE_NOTICE_CHANCE
 end
 
 def link_gen(locations=nil)
   a = Link.new(indefinite: true, author: random_user, department: @department, department_wide: locations.nil?)
   a.start = Faker::Time.backward(5)
-  a.content = short_phrase_gen
+  a.content = Faker::Company.name
   a.url = Faker::Internet.url
   a.locations = locations if !locations.nil?
   a.save!
-  a.remove(@su) if rand() > Active_notice_chance
+  a.remove(@su) if rand() > ACTIVE_NOTICE_CHANCE
 end
 
 def repeating_time_slots_gen(locations)    
   loc_ids = locations.map(&:id).sort.join(',')
   re = RepeatingEvent.new(calendar: @calendar, is_set_of_timeslots: true)
-  re.days_of_week = [1,2,3,4,5,6,7].sample((7*Weekday_has_time_slot_chance).to_i).sort.join(',')
+  re.days_of_week = [1,2,3,4,5,6,7].sample((7*WEEKDAY_HAS_TIME_SLOT_CHANCE).to_i).sort.join(',')
   today = DateTime.now.beginning_of_day
   re.loc_ids = loc_ids
   re.start_time = today+@department_config.schedule_start.minutes
   re.end_time = today+(@department_config.schedule_end-@department_config.time_increment).minutes
   re.start_date = Date.yesterday # Cannot use DateTime! Must use Date!
-  re.end_date = Date.today + (Total_days*2).days
+  re.end_date = Date.today + (TOTAL_DAYS*2).days
   re.save!
   begin
     re.make_future(true)
@@ -230,7 +226,7 @@ def shift_gen(location, date, user)
   start_hour = @department_config.schedule_start/60
   end_hour = @department_config.schedule_end/60
   shift_start = date + (start_hour+rand(end_hour-start_hour)).hours
-  duration = Shifts_duration_min_hours+rand(Shifts_duration_max_hours-Shifts_duration_min_hours+1)
+  duration = SHIFTS_DURATION_MIN_HOURS+rand(SHIFTS_DURATION_MAX_HOURS-SHIFTS_DURATION_MIN_HOURS+1)
   shift_end = shift_start + duration.hours
   shift.start = shift_start
   shift.end = shift_end
@@ -240,10 +236,12 @@ end
 
 def task_gen(location)
   task = Task.new(location: location)
-  task.name = short_phrase_gen
+  begin
+    task.name = Faker::Hacker.verb + Faker::Hacker.adjective + Faker::Hacker.noun
+  end until Task.where(name: task.name).empty?
   task.kind = ["Hourly", "Daily", "Weekly"].sample
   task.start = Date.today
-  task.end = Date.today+Total_days.days
+  task.end = Date.today+TOTAL_DAYS.days
   task.time_of_day = Faker::Time.between(Time.now.beginning_of_day, Time.now.end_of_day, :all)
   task.day_in_week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].sample
   task.active = true
@@ -270,19 +268,22 @@ def data_type_gen
 end
 
 def data_object_gen(type)
-  object = DataObject.new(data_type: type, name: short_phrase_gen, description: Faker::Hacker.adjective)
+  object = DataObject.new(data_type: type, description: Faker::Company.catch_phrase)
+  begin
+    object.name = Faker::App.name + Faker::App.version
+  end until DataObject.where(name: object.name).empty?
   object.locations = Location.all
   object.save!
 end
 
 def category_gen
-  cat = Category.new(name: short_phrase_gen, department: @department, billing_code: ptaeo_gen)
+  cat = Category.new(name: Faker::Name.title, department: @department, billing_code: ptaeo_gen)
   cat.save!
 end
 
 def payform_item_gen(payform, cat)
   item = PayformItem.new(category: cat, payform: payform, date: Date.today, source: payform.user.name)
-  item.hours = 1 + rand(Payform_item_max_hour)
+  item.hours = 1 + rand(PAYFORM_ITEM_MAX_HOUR)
   item.description = Faker::Hacker.say_something_smart
   item.save!
 end
@@ -302,7 +303,7 @@ def report_gen(shift)
   report = Report.new(shift: shift, arrived: shift.start)
   report.save!
   ip = Faker::Internet.ip_v4_address
-  NReport_item_per_report.times do 
+  N_REPORT_ITEMS_PER_REPORT.times do 
     report_item_gen(report, ip)
   end
   report.update_attributes(departed: shift.end)
@@ -322,15 +323,15 @@ end
 ################################################################################
 ## Beginning of seed script
 ################################################################################
-Timecop.travel(DateTime.now - Ndays_of_schedule_into_past.days)
+Timecop.travel(DateTime.now - N_DAYS_OF_SCHEDULE_INTO_PAST.days)
 
 # First AppConfig
-progress_bar_gen("AppConfig [1/15]", 1) do
+progress_bar_gen("AppConfig [1/16]", 1) do
   @app_config = app_config_gen
 end
 
 # Then Department
-progress_bar_gen("Department [2/15]", 1) do 
+progress_bar_gen("Department [2/16]", 1) do 
   @department = Department.create!(name: "SDMP")
   @department_config = @department.department_config
   # Setting end-time to 11pm
@@ -341,23 +342,23 @@ progress_bar_gen("Department [2/15]", 1) do
 end
 
 # Create superuser
-progress_bar_gen("Superuser [3/15]", 1) do 
+progress_bar_gen("Superuser [3/16]", 1) do 
   @su = user_gen
   @su.superuser = true
   puts;prompt_field(@su, "login")
 end
 
 # Creating Locations and Location Groups
-progress_bar_gen("Locations [4/15]", NLoc_group*NLocation_per_group) do |bar|
-  NLoc_group.times do 
+progress_bar_gen("Locations [4/16]", N_LOC_GROUPS*N_LOCATIONS_PER_GROUP) do |bar|
+  N_LOC_GROUPS.times do 
     loc_group = loc_group_gen
-    loc_group.update_attributes(public: false) if rand()>Public_loc_group_chance
-    NLocation_per_group.times {location_gen(loc_group); bar.increment}
+    loc_group.update_attributes(public: false) if rand()>PUBLIC_LOC_GROUP_CHANCE
+    N_LOCATIONS_PER_GROUP.times {location_gen(loc_group); bar.increment}
   end
 end
 
 # Creating roles
-progress_bar_gen("Roles [5/15]", 2) do |bar|
+progress_bar_gen("Roles [5/16]", 2) do |bar|
   @ord_role = @department.roles.create!(name: "Developer")
   @ord_role.permissions = LocGroup.all.map{|lg| [lg.view_permission, lg.signup_permission]}.flatten
   bar.increment
@@ -367,8 +368,8 @@ progress_bar_gen("Roles [5/15]", 2) do |bar|
 end
 
 # Creating Users
-progress_bar_gen("Users [6/15]", NUser) do |bar|
-  NUser.times do 
+progress_bar_gen("Users [6/16]", N_USERS) do |bar|
+  N_USERS.times do 
     user = user_gen
     user.roles << @ord_role
     bar.increment
@@ -376,7 +377,7 @@ progress_bar_gen("Users [6/15]", NUser) do |bar|
 end
 
 # Creating User Profiles
-progress_bar_gen("User Profiles [7/15]", 6*User.count) do |bar|
+progress_bar_gen("User Profiles [7/16]", 6*User.count) do |bar|
   user_profiles_gen
   UserProfileField.all.each do |field|
     User.all.each do |user|
@@ -387,33 +388,33 @@ progress_bar_gen("User Profiles [7/15]", 6*User.count) do |bar|
 end  
 
 # Creating Notices
-progress_bar_gen("Notices [8/15]", NNotice_department_wide*2+NAnnouncement+NSticky+NLink) do |bar|
-  NNotice_department_wide.times do 
+progress_bar_gen("Notices [8/16]", N_DEPARTMENT_WIDE_NOTICES*2+N_ANNOUNCEMENTS+N_STICKIES+N_LINKS) do |bar|
+  N_DEPARTMENT_WIDE_NOTICES.times do 
     announcement_gen; bar.increment
     link_gen; bar.increment
   end
-  NAnnouncement.times {announcement_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
-  NSticky.times {sticky_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
-  NLink.times {link_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
+  N_ANNOUNCEMENTS.times {announcement_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
+  N_STICKIES.times {sticky_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
+  N_LINKS.times {link_gen(Location.all.sample(1+rand(Location.count))); bar.increment}
 end
 
 # Creating Repeating TimeSlots
-progress_bar_gen("TimeSlots [9/15]", LocGroup.count) do |bar|
+progress_bar_gen("TimeSlots [9/16]", LocGroup.count) do |bar|
   LocGroup.all.each do |lg|
     n = lg.locations.count
-    locs = lg.locations.sample((n*Location_has_time_slot_chance).to_i)
+    locs = lg.locations.sample((n*LOCATION_HAS_TIME_SLOT_CHANCE).to_i)
     repeating_time_slots_gen(locs)
     bar.increment
   end
 end
 
 # Creating Shifts
-nShifts = NShift_per_day_per_location*Total_days*Location.count
-progress_bar_gen("Shifts [10/15]", nShifts) do |bar|
-  (1..Total_days).each do |d|
-    users = User.all.sample(Location.count*NShift_per_day_per_location)
+nShifts = N_SHIFTS_PER_DAY_PER_LOCATION*TOTAL_DAYS*Location.count
+progress_bar_gen("Shifts [10/16]", nShifts) do |bar|
+  (1..TOTAL_DAYS).each do |d|
+    users = User.all.sample(Location.count*N_SHIFTS_PER_DAY_PER_LOCATION)
     Location.all.each do |l|
-      NShift_per_day_per_location.times do 
+      N_SHIFTS_PER_DAY_PER_LOCATION.times do 
         shift_gen(l, Date.today+d.days, users.shift) if !users.empty?
         bar.increment
       end
@@ -422,9 +423,9 @@ progress_bar_gen("Shifts [10/15]", nShifts) do |bar|
 end
 
 # Creating Tasks
-progress_bar_gen("Tasks [11/15]", NTasks_per_location*Location.count) do |bar|
+progress_bar_gen("Tasks [11/16]", N_TASKS_PER_LOCATION*Location.count) do |bar|
   Location.all.each do |l|
-    NTasks_per_location.times do 
+    N_TASKS_PER_LOCATION.times do 
       task_gen(l)
       bar.increment
     end
@@ -432,52 +433,52 @@ progress_bar_gen("Tasks [11/15]", NTasks_per_location*Location.count) do |bar|
 end
 
 # Creating DataObjects
-progress_bar_gen("Data Objects [12/15]", NData_Object+1) do |bar|
+progress_bar_gen("Data Objects [12/16]", N_DATA_OBJECTS+1) do |bar|
   type = data_type_gen; bar.increment
-  NData_Object.times do 
+  N_DATA_OBJECTS.times do 
     data_object_gen(type)
     bar.increment
   end
 end
 
 # Creating Shift Reports
-shifts = Shift.where("end < ?", Time.now+Ndays_of_schedule_into_past.days)
-progress_bar_gen("Shift Reports [13/15]", shifts.count) do |bar|
+shifts = Shift.where("end < ?", Time.now+N_DAYS_OF_SCHEDULE_INTO_PAST.days)
+progress_bar_gen("Shift Reports [13/16]", shifts.count) do |bar|
   shifts.each do |shift|
-    report_gen(shift) if rand()<Shift_signed_in_chance 
+    report_gen(shift) if rand()<SHIFT_SIGNED_IN_CHANCE 
     bar.increment
   end
 end
 
 # Creating SubRequests
-shifts = Shift.where("start > ?", Time.now+Ndays_of_schedule_into_past.days)
+shifts = Shift.where("start > ?", Time.now+N_DAYS_OF_SCHEDULE_INTO_PAST.days)
 progress_bar_gen("SubRequests [14/16]", shifts.count) do |bar|
   shifts.each do |shift|
-    sub_request_gen(shift) if rand()<Shift_subbed_chance
+    sub_request_gen(shift) if rand()<SHIFT_SUBBED_CHANCE
     bar.increment
   end
 end
 
 # Creating Categories
-progress_bar_gen("Categories [15/16]", NCategories) do |bar|
-  NCategories.times do 
+progress_bar_gen("Categories [15/16]", N_CATEGORIES) do |bar|
+  N_CATEGORIES.times do 
     category_gen
     bar.increment
   end
 end
 
 # Creating Payforms
-progress_bar_gen("Payforms [16/16]", User.count*NPayform_item_per_user) do |bar|
+progress_bar_gen("Payforms [16/16]", User.count*N_PAYFORM_ITEMS_PER_USER) do |bar|
   categories = Category.all
   User.all.each do |user|
     payform = Payform.build(@department, user, Date.today)
-    NPayform_item_per_user.times do 
+    N_PAYFORM_ITEMS_PER_USER.times do 
       payform_item_gen(payform, categories.sample)
       bar.increment
     end
-    if rand()<Payform_submitted_chance && user!=@su
+    if rand()<PAYFORM_SUBMITTED_CHANCE && user!=@su
       payform.update_attributes(submitted: Time.now)
-      if rand()<Payform_printed_chance
+      if rand()<PAYFORM_PRINTED_CHANCE
         payform.update_attributes(approved: Time.now, approved_by: @su)
       end
     end
