@@ -30,7 +30,7 @@ NReport_item_per_report = 5
 Ndays_of_schedule_into_past = 7
 Ndays_of_schedule_into_future = 14
 Shifts_duration_min_hours = 1
-Shifts_duration_max_hours = 2
+Shifts_duration_max_hours = 3
 Payform_item_max_hour = 3
 
 Total_days = Ndays_of_schedule_into_future+Ndays_of_schedule_into_past
@@ -44,6 +44,7 @@ User_has_pic_chance = 0.4
 Location_has_time_slot_chance = 0.8
 Weekday_has_time_slot_chance = 5/7.0
 Shift_signed_in_chance = 0.9
+Shift_subbed_chance = 0.1
 Payform_submitted_chance = 0.9
 Payform_printed_chance = 0.7
 
@@ -311,6 +312,18 @@ def report_gen(shift)
   report.update_attributes(departed: shift.end)
 end
 
+def sub_request_gen(shift)
+  sub = SubRequest.new(shift: shift, reason: Faker::Lorem.sentence)
+  slots = ((shift.end - shift.start)/3600).to_i
+  mand_end_slot = 1+rand(slots)
+  end_slot = mand_end_slot+rand(slots-mand_end_slot+1)
+  sub.mandatory_start = shift.start
+  sub.mandatory_end = shift.start+mand_end_slot*1.hour
+  sub.start = shift.start
+  sub.end = shift.start+end_slot*1.hour
+  sub.save!
+end
+
 ################################################################################
 ## Beginning of seed script
 ################################################################################
@@ -433,7 +446,7 @@ progress_bar_gen("Data Objects [12/15]", NData_Object+1) do |bar|
 end
 
 # Creating Shift Reports
-shifts = Shift.where("end < ?", Date.today+Ndays_of_schedule_into_past.days)
+shifts = Shift.where("end < ?", Time.now+Ndays_of_schedule_into_past.days)
 progress_bar_gen("Shift Reports [13/15]", shifts.count) do |bar|
   shifts.each do |shift|
     report_gen(shift) if rand()<Shift_signed_in_chance 
@@ -441,8 +454,17 @@ progress_bar_gen("Shift Reports [13/15]", shifts.count) do |bar|
   end
 end
 
+# Creating SubRequests
+shifts = Shift.where("start > ?", Time.now+Ndays_of_schedule_into_past.days)
+progress_bar_gen("SubRequests [14/16]", shifts.count) do |bar|
+  shifts.each do |shift|
+    sub_request_gen(shift) if rand()<Shift_subbed_chance
+    bar.increment
+  end
+end
+
 # Creating Categories
-progress_bar_gen("Categories [14/15]", NCategories) do |bar|
+progress_bar_gen("Categories [15/16]", NCategories) do |bar|
   NCategories.times do 
     category_gen
     bar.increment
@@ -450,7 +472,7 @@ progress_bar_gen("Categories [14/15]", NCategories) do |bar|
 end
 
 # Creating Payforms
-progress_bar_gen("Payforms [15/15]", User.count*NPayform_item_per_user) do |bar|
+progress_bar_gen("Payforms [16/16]", User.count*NPayform_item_per_user) do |bar|
   categories = Category.all
   User.all.each do |user|
     payform = Payform.build(@department, user, Date.today)
