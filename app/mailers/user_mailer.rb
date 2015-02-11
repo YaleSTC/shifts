@@ -161,7 +161,7 @@ class UserMailer < ActionMailer::Base
     @late_shifts = late_shifts
     @left_early_shifts = left_early_shifts
     mail(to: dept.department_config.stats_mailer_address, from: dept.department_config.mailer_address,
-      subject: "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y'), date: Time.now,) #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
+      subject: "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y'), date: Time.now) #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
   end
 
   #STALE SHIFTS
