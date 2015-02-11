@@ -136,21 +136,21 @@ class UserMailer < ActionMailer::Base
   end
 
   #email a group of users who want to see whenever a sub request is taken
-  def sub_taken_watch(user, sub_request, new_shift, email_start, email_end, dept)
-    @sub_request = sub_request
+  def sub_taken_watch(user, owner, new_shift, email_start, email_end, dept, disp)
+    @owner = owner
     @new_shift = new_shift
     @email_start = email_start
     @email_end = email_end
-    mail(to: "#{user.name} <#{user.email}>", from: sub_request.shift.user.email,
-      subject: "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display, date: Time.now)
+    mail(to: "#{user.name} <#{user.email}>", from: owner.email,
+      subject: "Re: [Sub Request] Sub needed for " + disp, date: Time.now)
   end
 
 
   #email the user who took the sub and the requester of the sub that their shift has been taken
-  def sub_taken_notification(sub_request, new_shift, dept)
-    @sub_request = sub_request
+  def sub_taken_notification(owner, new_shift, dept)
+    @owner = owner
     @new_shift = new_shift
-    mail(to: sub_request.shift.user.email, from: dept.department_config.mailer_address,
+    mail(to: @owner.email, from: dept.department_config.mailer_address,
       subject: "[Sub Request] #{new_shift.user.name} took your sub!", date: Time.now)
   end
 
