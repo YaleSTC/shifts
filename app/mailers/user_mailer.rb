@@ -25,16 +25,16 @@ class UserMailer < ActionMailer::Base
           date:     Time.now)
   end
 
-  def sub_taken_notification(sub_request, new_shift, dept)
-    @sub_request = sub_request
-    @new_shift = new_shift
-    @dept = dept
-    mail( to:       sub_request.shift.user.email,
-          from:     dept.department_config.mailer_address,
-          subject:  "[Sub Request] #{new_shift.user.name} took your sub!",
-          cc:       new_shift.user.email,
-          date:     Time.now)
-  end
+  # def sub_taken_notification(sub_request, new_shift, dept)
+  #   @sub_request = sub_request
+  #   @new_shift = new_shift
+  #   @dept = dept
+  #   mail( to:       sub_request.shift.user.email,
+  #         from:     dept.department_config.mailer_address,
+  #         subject:  "[Sub Request] #{new_shift.user.name} took your sub!",
+  #         cc:       new_shift.user.email,
+  #         date:     Time.now)
+  # end
 
   def payform_item_modify_notification(new_payform_item, dept)
   	@new_payform_item = new_payform_item
@@ -63,13 +63,13 @@ class UserMailer < ActionMailer::Base
   end
 
   # For use when users are imported from csv #duplicate found in ar_mailer, not DRY -ben
-  def new_user_password_instructions(user, dept)
-    @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
-    @user = user
-    @dept = dept
-    mail(to: user.email, from: dept.department_config.mailer_address,
-    	subject: "Password Creation Instructions", date: Time.now)
-  end
+  # def new_user_password_instructions(user, dept)
+  #   @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
+  #   @user = user
+  #   @dept = dept
+  #   mail(to: user.email, from: dept.department_config.mailer_address,
+  #   	subject: "Password Creation Instructions", date: Time.now)
+  # end
 
   def change_auth_type_password_reset_instructions(user)
     @edit_password_url = edit_password_reset_url(user.perishable_token)
