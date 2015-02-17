@@ -25,16 +25,16 @@ class UserMailer < ActionMailer::Base
           date:     Time.now)
   end
 
-  def sub_taken_notification(sub_request, new_shift, dept)
-    @sub_request = sub_request
-    @new_shift = new_shift
-    @dept = dept
-    mail( to:       sub_request.shift.user.email,
-          from:     dept.department_config.mailer_address,
-          subject:  "[Sub Request] #{new_shift.user.name} took your sub!",
-          cc:       new_shift.user.email,
-          date:     Time.now)
-  end
+  # def sub_taken_notification(sub_request, new_shift, dept)
+  #   @sub_request = sub_request
+  #   @new_shift = new_shift
+  #   @dept = dept
+  #   mail( to:       sub_request.shift.user.email,
+  #         from:     dept.department_config.mailer_address,
+  #         subject:  "[Sub Request] #{new_shift.user.name} took your sub!",
+  #         cc:       new_shift.user.email,
+  #         date:     Time.now)
+  # end
 
   def payform_item_modify_notification(new_payform_item, dept)
   	@new_payform_item = new_payform_item
@@ -47,7 +47,7 @@ class UserMailer < ActionMailer::Base
     @old_payform_item = old_payform_item
     @dept = dept
     mail(to: old_payform_item.user.email, from: dept.department_config.mailer_address,
-    	subject: "Your payform item has been deleted by #{old_payform_item.versions.last.user}", date: Time.now)
+    	subject: "Your payform item has been deleted by #{old_payform_item.originator}", date: Time.now)
   end
 
   def password_reset_instructions(user)
@@ -63,13 +63,13 @@ class UserMailer < ActionMailer::Base
   end
 
   # For use when users are imported from csv #duplicate found in ar_mailer, not DRY -ben
-  def new_user_password_instructions(user, dept)
-    @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
-    @user = user
-    @dept = dept
-    mail(to: user.email, from: dept.department_config.mailer_address,
-    	subject: "Password Creation Instructions", date: Time.now)
-  end
+  # def new_user_password_instructions(user, dept)
+  #   @edit_new_user_password_url = edit_password_reset_url(user.perishable_token)
+  #   @user = user
+  #   @dept = dept
+  #   mail(to: user.email, from: dept.department_config.mailer_address,
+  #   	subject: "Password Creation Instructions", date: Time.now)
+  # end
 
   def change_auth_type_password_reset_instructions(user)
     @edit_password_url = edit_password_reset_url(user.perishable_token)
@@ -136,21 +136,21 @@ class UserMailer < ActionMailer::Base
   end
 
   #email a group of users who want to see whenever a sub request is taken
-  def sub_taken_watch(user, sub_request, new_shift, email_start, email_end, dept)
-    @sub_request = sub_request
+  def sub_taken_watch(user, owner, new_shift, email_start, email_end, dept, disp)
+    @owner = owner
     @new_shift = new_shift
     @email_start = email_start
     @email_end = email_end
-    mail(to: "#{user.name} <#{user.email}>", from: sub_request.shift.user.email,
-      subject: "Re: [Sub Request] Sub needed for " + sub_request.shift.short_display, date: Time.now)
+    mail(to: "#{user.name} <#{user.email}>", from: owner.email,
+      subject: "Re: [Sub Request] Sub needed for " + disp, date: Time.now)
   end
 
 
   #email the user who took the sub and the requester of the sub that their shift has been taken
-  def sub_taken_notification(sub_request, new_shift, dept)
-    @sub_request = sub_request
+  def sub_taken_notification(owner, new_shift, dept)
+    @owner = owner
     @new_shift = new_shift
-    mail(to: sub_request.shift.user.email, from: dept.department_config.mailer_address,
+    mail(to: @owner.email, from: dept.department_config.mailer_address,
       subject: "[Sub Request] #{new_shift.user.name} took your sub!", date: Time.now)
   end
 
@@ -161,8 +161,7 @@ class UserMailer < ActionMailer::Base
     @late_shifts = late_shifts
     @left_early_shifts = left_early_shifts
     mail(to: dept.department_config.stats_mailer_address, from: dept.department_config.mailer_address,
-      subject: "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y'), date: Time.now,
-      content_type: "text/html") #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
+      subject: "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y'), date: Time.now) #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
   end
 
   #STALE SHIFTS

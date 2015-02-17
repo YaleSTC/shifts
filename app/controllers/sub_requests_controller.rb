@@ -79,7 +79,7 @@ class SubRequestsController < ApplicationController
       flash[:notice] = 'Sub request was successfully created.'
       @users = @sub_request.potential_takers
       for user in @users
-        UserMailer.sub_created_notify(user, @sub_request)
+        UserMailer.delay.sub_created_notify(user, @sub_request)
       end
       redirect_to action: "show", id: @sub_request
     end
