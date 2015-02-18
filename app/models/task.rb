@@ -172,7 +172,7 @@ class Task < ActiveRecord::Base
     missed_shifts_hash = {}
 
     if self.kind == "Hourly"
-      missed_shifts_tasks_slots = (start_date.to_time..end_date.to_time).step(3600).to_a
+      missed_shifts_tasks_slots = (start_date.to_time.to_i..end_date.to_time.to_i).step(3600).to_a.map{|i| Time.at(i)}
     elsif self.kind == "Daily"
       missed_shifts_tasks_slots = (start_date..end_date).to_a
     elsif self.kind == "Weekly"
