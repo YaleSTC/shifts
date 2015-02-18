@@ -100,6 +100,7 @@ class UserMailer < ActionMailer::Base
   def late_payform_warning(user, message, dept)
     @user = user
     @message = message
+    @dept = dept
     mail(to: "#{user.name} <#{user.email}>", from: "#{dept.department_config.mailer_address}",
       subject: "Late Payform Warning", date: Time.now)
   end
