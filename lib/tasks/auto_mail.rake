@@ -15,11 +15,8 @@ namespace :email do
       start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 4.week
       @users = department.active_users.sort_by(&:name)
       users_warned = []
-    
       for user in @users     
-        #Payform.build(department, user, Date.today)
-        unsubmitted_payforms = (Payform.all( conditions: { user_id: user.id, department_id: department.id, submitted: nil }, order: 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
-      
+        unsubmitted_payforms = user.payforms.where(department_id: department.id, submitted: nil, date: start_date..Date.today-1.day)
         unless unsubmitted_payforms.blank?
           weeklist = ""
           for payform in unsubmitted_payforms

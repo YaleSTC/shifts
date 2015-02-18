@@ -14,8 +14,8 @@
 # end
 
 every :sunday, at: '9am' do
-  rake "email:payform_reminders"
   rake "email:late_payform_warnings"
+  rake "email:payform_reminders"
 end
 
 every 1.day, at: '1am' do
