@@ -92,6 +92,7 @@ class UserMailer < ActionMailer::Base
   def due_payform_reminder(user, message, dept)
     @user = user
     @message = message
+    @dept = dept
     mail(to: "#{user.name} <#{user.email}>", from: "#{dept.department_config.mailer_address}",
       subject: "Due Payforms Reminder", date: Time.now)
   end
