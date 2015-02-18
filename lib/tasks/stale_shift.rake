@@ -5,7 +5,7 @@ namespace :email do
     for shift in stale_shifts     
       UserMailer.delay.stale_shift(shift.user, shift, department)
       shift.stale_shifts_unsent = false
-      shift.save
+      shift.save(validate: false)
     end
 
     puts "#{stale_shifts.length} users in the #{department.name} department "  +
