@@ -2,14 +2,11 @@ namespace :email do
   
     def send_reminders(department)
       message = department.department_config.reminder_message
-      @users = department.users.select {|u| if u.is_active?(department) then u.email end }
-      users_reminded = []
+      @users = department.users.select {|u| u.is_active?(department) && u.email && u.user_config.send_due_payform_email}
       for user in @users
-        if user.user_config.send_due_payform_email
         UserMailer.delay.due_payform_reminder(user, message, department)
-        end
       end
-      puts "#{users_reminded.length} users in the #{department.name} department "  +
+      puts "#{@users.length} users in the #{department.name} department "  +
            "have been reminded to submit their due payforms."
     end
   
