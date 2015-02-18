@@ -158,7 +158,7 @@ class UserMailer < ActionMailer::Base
 
   #EMAILING STATS
   #email notifies admin that a shift has been missed, was signed into late, or was left early
-  def email_stats (missed_shifts, late_shifts, left_early_shifts, dept)
+  def email_stats(missed_shifts, late_shifts, left_early_shifts, dept)
     @missed_shifts = missed_shifts
     @late_shifts = late_shifts
     @left_early_shifts = left_early_shifts
