@@ -2,4 +2,10 @@ Hi <%= @user.name %>,
 
 <%= @message %>
 
+Link to unsubmitted payforms:
+
+<% for payform in @payforms %>
+	<%= payform.date.to_formatted_s(:long) %>: <%= payform_url(payform) %>
+<% end %>
+
 Message sent by <%= @dept.name %>@Shifts.
