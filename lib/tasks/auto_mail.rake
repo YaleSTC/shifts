@@ -22,7 +22,7 @@ namespace :email do
           for payform in unsubmitted_payforms
             weeklist += payform.date.strftime("\t%b %d, %Y\n")
           end
-          UserMailer.delay.late_payform_warning(user, message.gsub("@weeklist@", weeklist), department)
+          UserMailer.delay.late_payform_warning(user, message.gsub("@weeklist@", weeklist), department, unsubmitted_payforms.to_a)
           users_warned << "#{user.name} (#{user.login}) <pre>#{user.email}</pre>"
         end
       end  # currently I am not doing anything with the list of users, it should be displayed somewhere
