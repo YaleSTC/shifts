@@ -1,7 +1,7 @@
 Hi <%= @new_payform_item.user.name %>,
-<%= @new_payform_item.source %> has modified your payform item for <%= @old_payform_item.created_at.strftime("%A %B %d, %Y") %>.
+<%= @new_payform_item.originator %> has modified your payform item for <%= @old_payform_item.created_at.strftime("%A %B %d, %Y") %>.
 
-<%= @new_payform_item.source %> said:
+<%= @new_payform_item.originator %> said:
 
  "<%= @old_payform_item.reason %>"
 
