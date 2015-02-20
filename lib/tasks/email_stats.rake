@@ -2,17 +2,17 @@ namespace :email do
   def shift_email(department)
     shifts_to_email = Shift.in_department(department).active.between(1.day.ago.midnight, Time.now).stats_unsent
       
-    # Mailer methods does not work with ActiveRecord::Relation, thus the need to
-    # convert to array
-    missed_shifts = shifts_to_email.missed.to_a
-    late_shifts = shifts_to_email.late.to_a
-    left_early_shifts = shifts_to_email.left_early.to_a
+    # Mailer methods does not work with ActiveRecord::Relation, or array of 
+    # Records, thus the need to convert to array of ids
+    missed_shifts = shifts_to_email.missed.collect(&:id)
+    late_shifts = shifts_to_email.late.collect(&:id)
+    left_early_shifts = shifts_to_email.left_early.collect(&:id)
     unless shifts_to_email.empty?
-      UserMailer.delay.email_stats(missed_shifts, late_shifts, left_early_shifts, department)      
+      UserMailer.delay.email_stats(missed_shifts, late_shifts, left_early_shifts, department)    
     end
   
     for shift in shifts_to_email
-      shift.stats_unsent = false
+      shift.stats_unsent = false  
       shift.save(validate: false)
     end
 

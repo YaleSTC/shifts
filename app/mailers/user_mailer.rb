@@ -117,9 +117,9 @@ class UserMailer < ActionMailer::Base
 
   #email notifies admin that a shift has been missed, was signed into late, or was left early
   def email_stats(missed_shifts, late_shifts, left_early_shifts, dept)
-    @missed_shifts = missed_shifts
-    @late_shifts = late_shifts
-    @left_early_shifts = left_early_shifts
+    @missed_shifts = missed_shifts.map{|id| Shift.find(id)}
+    @late_shifts = late_shifts.map{|id| Shift.find(id)}
+    @left_early_shifts = left_early_shifts.map{|id| Shift.find(id)}
     mail(to: dept.department_config.stats_mailer_address, from: dept.department_config.mailer_address,
       subject: "Shift Statistics for #{dept.name}:" + (Time.now - 86400).strftime('%m/%d/%y'), date: Time.now) #this assumes that the email is sent the day after the shifts (ex. after midnight) so that the email captures all of the shifts
   end
