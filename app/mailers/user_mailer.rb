@@ -81,17 +81,6 @@ class UserMailer < ActionMailer::Base
     	subject: "Your payform item has been deleted by #{old_payform_item.originator}", date: Time.now)
   end
 
-  #notifies a user when somebody else edits their payform
-  def admin_edit_notification(payform, payform_item, edit_item, dept)
-    @payform = payform
-    @payform_item = payform_item
-    @edit_item = edit_item
-    user = payform.user
-    mail(to: "#{user.name} <#{user.email}>", from: dept.department_config.mailer.address,
-      subject: "Your payform has been edited", date: Time.now, cc: User.where(login: edit_item.edited_by).first.email,
-      content_type: 'text/plain')
-  end
-
   # Beginning of payform notification methods
 
   def due_payform_reminder(user, message, dept)
