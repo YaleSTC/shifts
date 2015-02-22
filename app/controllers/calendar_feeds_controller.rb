@@ -75,7 +75,7 @@ class CalendarFeedsController < ApplicationController
     cipher.decrypt
     cipher.key = AppConfig.first.calendar_feed_hash
       cipher.iv = User.find(user_id).calendar_feed_hash
-      @source_string = cipher.update(token.to_a.pack("H*"))    #unpacks cipher and decrpts to original string
+      @source_string = cipher.update(JSON.parse(token).pack("H*"))    #unpacks cipher and decrpts to original string
       @source_string << cipher.final
       @source = @source_string.split(',')[0].constantize.find(@source_string.split(',')[1])     #gets shift_source from string
       @feed_type=@source_string.split(',')[2]   #is it for Shifts or for Sub_Requests
@@ -85,10 +85,10 @@ class CalendarFeedsController < ApplicationController
 
   def generate_ical
     cal = Icalendar::Calendar.new
-    cal.custom_property("METHOD","PUBLISH")
-    cal.custom_property("x-wr-calname", @type + "s: " + @source.name)
-    cal.custom_property("X-WR-CALDESC", @type + "s Calendar Feed for user: " + @user.name + ".  The feed is " + @source.class.name.downcase + ": " + @source.name)
-    cal.custom_property("X-PUBLISHED-TTL", "PT1H")  #default refresh rate
+    cal.append_custom_property("METHOD","PUBLISH")
+    cal.append_custom_property("x-wr-calname", @type + "s: " + @source.name)
+    cal.append_custom_property("X-WR-CALDESC", @type + "s Calendar Feed for user: " + @user.name + ".  The feed is " + @source.class.name.downcase + ": " + @source.name)
+    cal.append_custom_property("X-PUBLISHED-TTL", "PT1H")  #default refresh rate
       @shifts.each do |shift|
         @event = Icalendar::Event.new
         @event.dtstart = shift.start.utc.to_s(:us_icaldate_utc)
@@ -103,7 +103,7 @@ class CalendarFeedsController < ApplicationController
            @event.summary = "Sub for #{shift.user.name} in #{shift.location.short_name}"
         end
         @event.location = shift.location.name
-        cal.add @event
+        cal.add_event @event
       end
       headers['Content-Type'] = "text/calendar; charset=UTF-8"
       headers['Content-Disposition'] = "inline; filename=" + User.find(params[:user_id]).name + "_calendar_feed.ics"
