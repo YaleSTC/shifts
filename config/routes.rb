@@ -6,7 +6,6 @@ Shifts::Application.routes.draw do
   end
 
   resources :shifts_tasks
-  resources :calendar_feeds
   resources :template_time_slots
   resources :stickies
   resources :announcements
@@ -86,6 +85,7 @@ Shifts::Application.routes.draw do
   match "cas_logout", controller: 'sessions', action: 'logout', as: :cas_logout
   match 'calendar_feeds/grab/:user_id/:token', controller: 'calendar_feeds', action: 'grab', as: :calendar_feed
   match 'calendar_feeds/reset', controller: 'calendar_feeds', action: 'reset', as: :calendar_feed_reset
+  resources :calendar_feeds
 
   # routes for managing superusers
 
