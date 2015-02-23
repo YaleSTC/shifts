@@ -1,15 +1,15 @@
 namespace :email do
   def stale_shift_email(department)
-    stale_shifts = []
     stale_shifts = Shift.stale_shifts_with_unsent_emails(department)
   
     for shift in stale_shifts     
-      UserMailer.stale_shift(shift.user, shift, department)
-      # email = ArMailer.create_stale_shift(shift.user, shift, department)
-      # ArMailer.deliver(email)
+      UserMailer.delay.stale_shift(shift.user, shift, department)
       shift.stale_shifts_unsent = false
-      shift.save
+      shift.save(validate: false)
     end
+
+    puts "#{stale_shifts.length} users in the #{department.name} department "  +
+           "have been reminded to update their shift reports."
    
   end
 
