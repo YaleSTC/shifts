@@ -13,6 +13,7 @@ FactoryGirl.define do
     ldap_first_name "givenname"
     mailer_address "yale.edu"
     admin_email "adam.bray@yale.edu"
+    calendar_feed_hash {"a"*64}
   end
 
   factory :department do
