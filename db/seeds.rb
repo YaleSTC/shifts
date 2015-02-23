@@ -336,6 +336,7 @@ progress_bar_gen("Department [2/16]", 1) do
   @department_config = @department.department_config
   # Setting end-time to 11pm
   @department_config.update_attributes(schedule_end: 1440)
+  @department_config.update_attributes(stats_mailer_address: "department_admin@email.com")
   Category.all.each {|cat| cat.update_attributes(billing_code: ptaeo_gen)}
   @category = @department.categories.first
   @calendar = @department.calendars.default
