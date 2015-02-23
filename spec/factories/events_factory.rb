@@ -56,5 +56,27 @@ FactoryGirl.define do
     	active false
     	default false # Only built-in calendar is default
   	end
+
+  	factory :shift do 
+  		department
+  		calendar
+  		user
+  		location
+  		scheduled true
+  		power_signed_up true
+  		start {local_start_time}
+  		self.end {local_end_time}
+  	end
+
+  	factory :sub_request, class: SubRequest do
+  		shift
+  		reason "Out of town"
+  		after :build do |sub|
+  			sub.start = sub.shift.start
+  			sub.end = sub.shift.end
+  			sub.mandatory_start = sub.start
+  			sub.mandatory_end = sub.end
+  		end
+  	end 
 end
 
