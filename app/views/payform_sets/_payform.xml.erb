@@ -1,0 +1,30 @@
+ <% user = User.find(payform.user_id) %>
+ <% grouped_items = payform.payform_items.select{|p| p.active}.group_by{|p| p.category.billing_code} %>
+ <% grouped_items.each_with_index do |(billing_code, payform_items), index| %>
+    <% key = index + 1 %>
+    <% description = "#{current_department.name}_#{Date.today.strftime("%Y_%m_%d")}_#{@payform_set.id}" %>
+    <% end_date = payform.date.strftime("%Y-%m-%d")%>
+    <% start_date = payform.date.previous_sunday.strftime("%Y-%m-%d")%>
+    <% hours = PayformItem.rounded_hours(payform_items) %>
+    <% ptaeoO2 = (billing_code.nil? ||  billing_code.empty?) ? "" : billing_code+".02"%>
+    <Row ss:AutoFitHeight="0">
+        <Cell ss:Index="2"><Data ss:Type="Number"><%= key %></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:Index="5"><Data ss:Type="String"><%= description %></Data></Cell>
+        <Cell><Data ss:Type="String">N</Data></Cell>
+        <Cell><Data ss:Type="String"><%= start_date %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= end_date %></Data></Cell>
+        <Cell><Data ss:Type="String">regular</Data></Cell>
+        <Cell ss:StyleID="s81"><Data ss:Type="Number"><%= user.employee_id %></Data></Cell>
+        <Cell ss:Index="12"><Data ss:Type="String">Timeentry</Data></Cell>
+        <Cell ss:Index="16"><Data ss:Type="Number"><%= hours %></Data></Cell>
+        <Cell ss:Index="18"><Data ss:Type="String">N</Data></Cell>
+        <Cell ss:Index="24"><Data ss:Type="String"><%= ptaeoO2 %></Data></Cell>
+        <Cell ss:Index="27"><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String">Related_Calculation_ID</Data></Cell>
+        <Cell><Data ss:Type="String">BASERT</Data></Cell>
+        <Cell><Data ss:Type="Number"><%= payform.payrate %></Data></Cell>
+    </Row>
+ <% end %>
+
+
