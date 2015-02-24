@@ -25,7 +25,7 @@ describe "Calendar Feeds" do
 
   it "should have correct sub_request feeds", js: true do 
     visit calendar_feeds_path
-    subss_feed_link = within("div.feed_subs") {find_link(@user.name)["href"].gsub(/^webcal/, "http")}
+    subs_feed_link = within("div.feed_subs") {find_link(@user.name)["href"].gsub(/^webcal/, "http")}
     open(subs_feed_link) do |f|
       cal = Icalendar.parse(f).first
       events = cal.events
