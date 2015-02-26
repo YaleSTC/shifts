@@ -29,21 +29,19 @@ class TimeSlot < ActiveRecord::Base
   scope :ordered_by_start, order('start')
   scope :after_now, -> { where("end >= ?", Time.now.utc) }
 
-  def dates_from_array(start_date, end_date, table)
+
+
+  def self.make_future(start_date, end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
     start_date = start_date.to_date
     end_date = end_date.to_date
     array = Array.new
     (start_date..end_date).each do |i|
-       array << i if table.include? i.wday
+      array << i if days.include? i.wday
     end
-    array
-  end
-
-  def self.make_future(start_date, end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
+    dates = array
     table = TimeSlot.arel_table
     time_slots_all = []
     duration = end_time - start_time
-    dates = dates_from_array()
     conflict_all = nil
     loc_ids.each do |loc_id|
       dates.each do |date|
@@ -67,10 +65,12 @@ class TimeSlot < ActiveRecord::Base
     time_slots_with_conflict = TimeSlot.where(conflict_all)
     if wipe
       time_slots_with_conflict.delete_all
-
+      TimeSlot.import time_slots_all, validate: false
+      return false
     else
       if time_slots_with_conflict.empty?
-
+        TimeSlot.import time_slots_all, validate: false
+        return false
       else
         return "The time_slot " + time_slots_with_conflict.map(&:to_message_name).join(", ") + " conflict. Use wipe to fix."
       end

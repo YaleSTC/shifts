@@ -51,6 +51,8 @@ gem 'simple_form'  # replaces multiple_select
 # replace ActiveSupport::Memoizable
 gem 'memoist'
 
+gem 'activerecord-import'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'
