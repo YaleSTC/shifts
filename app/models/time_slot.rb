@@ -29,72 +29,51 @@ class TimeSlot < ActiveRecord::Base
   scope :ordered_by_start, order('start')
   scope :after_now, -> { where("end >= ?", Time.now.utc) }
 
+  def dates_from_array(start_date, end_date, table)
+    start_date = start_date.to_date
+    end_date = end_date.to_date
+    array = Array.new
+    (start_date..end_date).each do |i|
+       array << i if table.include? i.wday
+    end
+    array
+  end
 
-  #This method creates the multitude of shifts required for repeating_events to work
-  #in order to work efficiently, it makes a few GIANT sql insert calls -Mike
-  def self.make_future(end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
-    #We need several inner arrays with one big outer one, b/c sqlite freaks out
-    #if the sql insert call is too big. The "make" arrays are then used for making
-    #the timeslots, and the "test" for finding conflicts.
-    outer_make = []
-    inner_make = []
-    outer_test = []
-    inner_test = []
-    diff = end_time - start_time
-    #Take each location and day and build an arrays containing the pieces of the sql queries
+  def self.make_future(start_date, end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
+    table = TimeSlot.arel_table
+    time_slots_all = []
+    duration = end_time - start_time
+    dates = dates_from_array()
+    conflict_all = nil
     loc_ids.each do |loc_id|
-      days.each do |day|
-        seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
-        seed_end_time = seed_start_time+diff
-        while seed_end_time <= (end_date + 1.day)
-          if active
-            inner_test.push "(location_id = #{loc_id} AND active = #{true} AND start  <= \"#{seed_end_time.utc}\" AND end  >= \"#{seed_start_time.utc}\")"
-          else
-            inner_test.push "(location_id = #{loc_id} AND calendar_id = #{cal_id} AND start  <= \"#{seed_end_time.utc}\" AND end  >= \"#{seed_start_time.utc}\")"
-          end
-          inner_make.push "#{loc_id}, #{cal_id}, #{r_e_id}, \"#{seed_start_time.utc}\", \"#{seed_end_time.utc}\", \"#{Time.now.utc}\", \"#{Time.now.utc}\", #{active}"
-          #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
-          #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
-          #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
-          if inner_make.length > 450
-            outer_make.push inner_make
-            inner_make = []
-            outer_test.push inner_test
-            inner_test = []
-          end
-          seed_start_time = seed_start_time.next(day)
-          seed_end_time = seed_start_time + diff
+      dates.each do |date|
+        start_time_on_date = date.to_time + start_time.seconds_since_midnight
+        end_time_on_date = start_time_on_date + duration
+        conflict_condition = table[:location_id].eq(loc_id).and(table[:start].lt(end_time_on_date)).and(table[:end].gt(start_time_on_date))
+        if active
+          conflict_condition = conflict_condition.and(table[:active].eq(true))
+        else
+          conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal_id))
         end
-        #handle leftovers or the case where there are less than 450 rows to be inserted
+        time_slots_all << TimeSlot.new(location_id: loc_id, calendar_id: cal_id, repeating_event_id: r_e_id, start: start_time_on_date, end: end_time_on_date, active: active)
+        if conflict_all.nil?
+          conflict_all = conflict_condition
+        else
+          conflict_all = conflict_all.or(conflict_condition)
+        end
       end
     end
-      outer_make.push inner_make unless inner_make.empty?
-      outer_test.push inner_test unless inner_test.empty?
-    #Look for conflicts, delete them if wipe is on, and either complain about
-    #conflicts or make the new timeslots
+
+    time_slots_with_conflict = TimeSlot.where(conflict_all)
     if wipe
-        outer_test.each do |s|
-          TimeSlot.delete_all(s.join(" OR "))
-        end
-        outer_make.each do |s|
-          sql = "INSERT INTO time_slots (location_id , calendar_id , repeating_event_id , start , end , created_at , updated_at , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
-          #binding.pry
-          ActiveRecord::Base.connection.execute sql
-        end
-      return false
+      time_slots_with_conflict.delete_all
+
     else
-      out = []
-        outer_test.each do |s|
-          out += TimeSlot.where(s.join(" OR "))
-        end
-      if out.empty?
-          outer_make.each do |s|
-            sql = "INSERT INTO time_slots (location_id , calendar_id , repeating_event_id , start , end , created_at , updated_at , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
-            ActiveRecord::Base.connection.execute sql
-          end
-        return false
+      if time_slots_with_conflict.empty?
+
+      else
+        return "The time_slot " + time_slots_with_conflict.map(&:to_message_name).join(", ") + " conflict. Use wipe to fix."
       end
-      return out.collect{|t| "The timeslot "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
     end
   end
 
