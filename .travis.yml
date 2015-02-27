@@ -30,7 +30,8 @@ cache:
 # Run before the script
 before_script:
   - cp config/database.yml.travis config/database.yml
-  - mysql -e 'create database `db/shifts_test`'
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
 
 # Jobs to test on the script
 script:
