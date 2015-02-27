@@ -25,8 +25,9 @@ describe "TimeSlot" , :time_slot do
         pp TimeSlot.first
         pp TimeSlot.first.start
         pp TimeSlot.first.end
-        pp TimeSlot.first.duration/3600
-        pp Date.today
+        pp Time.now
+        pp Time.zone.now
+        pp Date.today.to_time
         pp time_slot_row(@slot.location.id, Date.today)
         pp time_slot_row(@slot.location.id, Date.today).find('li.timeslot')
         expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id, Date.today).find('li.timeslot'))
