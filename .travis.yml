@@ -8,24 +8,33 @@ language: ruby
 # We use ruby 1.9.3p374; available versions are:
 # ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress/ruby-1.9.3-p545/ruby-1.9.3-p484
 rvm:
-  - 1.9.3-p547
   - 2.1.2
 
 # Environment Variables
-# - DB=sqlite
-# - DB=postgresql # This is needed instead of mysql for Heroku
 env:
-  - DB=mysql
+  global:
+    - RAILS_ENV=test
+
+# Dependencies
+before_install:
+  - sudo apt-get install -y imagemagick qt-sdk
+
+# Installation
+bundler_args: --without development
+
+# Caching the gems and dependencies
+cache: 
+  - bundler
+  - apt
 
 # Run before the script
-# - psql -c 'create database shifts' -U postgres
 before_script:
-  - mysql -e 'create database shifts'
+  - cp config/database.yml.travis config/database.yml
+  - mysql -e 'create database `db/shifts_test`'
 
 # Jobs to test on the script
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - RAILS_ENV=test bundle exec rake --trace
+  - bundle exec rake spec
 
 # Notifications
 notifications:
@@ -39,6 +48,6 @@ notifications:
         on_failure: always   # Always send failure emails
 
 # Run after the script is successful
-after_success:
+# after_success:
   # For example, you could push to Heroku here
   # - git push git@heroku.com:shifts.git master
