@@ -1,0 +1,31 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: db/shifts_development
+  pool: 5
+  username: travis
+  password:
+
+test: &TEST
+  adapter: mysql2
+  encoding: utf8
+  database: db/shifts_test
+  pool: 5
+  username: travis
+  password:
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: shifts3
+  pool: 5
+  username: travis
+  password:
+
+staging:
+  adapter: mysql2
+  encoding: utf8
+  database: shifts3
+  pool: 5
+  username: travis
+  password:
