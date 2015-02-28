@@ -16,7 +16,7 @@ env:
 before_install:
   - convert -version # Check ImageMagick version
   - apt-get install -y qt-sdk
-  - sh -e /etc/init.d/xvfb start # Start xvfb virtual display used by Capybara
+  - /etc/init.d/xvfb start # Start xvfb virtual display used by Capybara
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc' # Don't install docs
 
 # Installation
