@@ -1,44 +1,44 @@
 # Documentation: http://docs.travis-ci.com/user/build-configuration/
 # Documentation: http://docs.travis-ci.com/user/languages/ruby/
 
-# Language
 language: ruby
-
-# Version Numbers (possible to define multiple)
-# We use ruby 1.9.3p374; available versions are:
-# ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress/ruby-1.9.3-p545/ruby-1.9.3-p484
 rvm:
-  - 1.9.3-p547
   - 2.1.2
 
 # Environment Variables
-# - DB=sqlite
-# - DB=postgresql # This is needed instead of mysql for Heroku
 env:
-  - DB=mysql
+  global:
+    - RAILS_ENV=test
+    - TZ=America/New_York # Set the system Time Zone to be EST
+    - DISPLAY=:99.0 # Display port
+
+# Dependencies
+before_install:
+  - convert -version # Check ImageMagick version
+  - sudo apt-get install -y qt-sdk
+  - sh -e /etc/init.d/xvfb start # Start xvfb virtual display used by Capybara
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc' # Don't install docs
+
+# Installation
+bundler_args: --without development
+
+# Caching the gems and dependencies, not available for now
+cache:
+  - bundler
+  - apt
 
 # Run before the script
-# - psql -c 'create database shifts' -U postgres
 before_script:
-  - mysql -e 'create database shifts'
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
 
 # Jobs to test on the script
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - RAILS_ENV=test bundle exec rake --trace
+  - bundle exec rake spec
 
 # Notifications
 notifications:
-    email:
-        #recipients:
-        #   - test@example.com
-        #   By default, a build email is sent to the committer and the author,
-        #   but only if they have access to the repository the commit was pushed
-        #   to. Add an address here to send all emails there instead.
-        on_success: change   # Only sends success emails when failure -> success
-        on_failure: always   # Always send failure emails
-
-# Run after the script is successful
-after_success:
-  # For example, you could push to Heroku here
-  # - git push git@heroku.com:shifts.git master
+  email: false
+  slack:
+    secure: cgNX+p8In037Pf6Dylc0JU9NkqBehxvfAnq2hsdDJS3C/J+JNF1O4u6obCBsuhXIOYCbqB02XZ/Mvu+iw/toVlMgrCyMyW+OBbGEMBUngrrjMTuOtmhizyH/1xlG05Eg70+DbdEHzu8pdtcs6sS+Lt64ME3GLyZoym76yAp8o44=
