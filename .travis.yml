@@ -10,11 +10,11 @@ env:
   global:
     - RAILS_ENV=test
     - TZ=America/New_York # Set the system Time Zone to be EST
+    - DISPLAY=:99.0 # Display port
 
 # Dependencies
 before_install:
   - sudo apt-get install -y imagemagick qt-sdk
-  - "export DISPLAY=:99.0" # Display port
   - "sh -e /etc/init.d/xvfb start" # Start xvfb virtual display used by Capybara
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc' # Don't install docs
 
