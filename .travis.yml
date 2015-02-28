@@ -37,7 +37,7 @@ before_script:
 script:
   - bundle exec rake spec
 
-# Use Travis' faster container-based infrastructure – also enables caching
+# Use Travis' faster container-based infrastructure - also enables caching
 sudo: false
 
 # Notifications
