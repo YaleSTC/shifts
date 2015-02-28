@@ -16,7 +16,7 @@ before_install:
   - sudo apt-get install -y imagemagick qt-sdk
   - "export DISPLAY=:99.0" # Display port
   - "sh -e /etc/init.d/xvfb start" # Start xvfb virtual display used by Capybara
-  - echo 'gem: --no-ri --no-rdoc > ~/.gemrc' # Don't install docs
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc' # Don't install docs
 
 # Installation
 bundler_args: --without development
