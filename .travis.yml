@@ -11,6 +11,9 @@ env:
     - RAILS_ENV=test
     - TZ=America/New_York # Set the system Time Zone to be EST
     - DISPLAY=:99.0 # Display port
+    -
+      # Code Climate Test Coverage Integration
+      secure: FW8A6JKXmOcOBIYIJ9OKui+Zh4S2o/o1rHYdIEEddiA/eGX8YK5jC80zS9aNQF35bQgSwl8BMND3ot0cD2uIkPN7EokTCiM+BSAmS/ef7v8j36f0CzxOJj/N99BfXukxS0ohi6qMCu/TchXS2vc2gZFIsyq3k7c1ui0IiMgkRLk=
 
 # Dependencies
 before_install:
