@@ -15,7 +15,7 @@ env:
 # Dependencies
 before_install:
   - convert -version # Check ImageMagick version
-  - apt-get install -y qt-sdk
+  - sudo apt-get install -y qt-sdk
   - /etc/init.d/xvfb start # Start xvfb virtual display used by Capybara
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc' # Don't install docs
 
@@ -36,9 +36,6 @@ before_script:
 # Jobs to test on the script
 script:
   - bundle exec rake spec
-
-# Use Travis' faster container-based infrastructure - also enables caching
-sudo: false
 
 # Notifications
 notifications:
