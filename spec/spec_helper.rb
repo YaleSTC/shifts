@@ -1,3 +1,6 @@
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 
@@ -30,5 +33,3 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :webkit # WebKit is a lot faster than selenium
   Capybara.default_wait_time = 15 # TravisCI may be slow
 end
-
-
