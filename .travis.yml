@@ -1,12 +1,7 @@
 # Documentation: http://docs.travis-ci.com/user/build-configuration/
 # Documentation: http://docs.travis-ci.com/user/languages/ruby/
 
-# Language
 language: ruby
-
-# Version Numbers (possible to define multiple)
-# We use ruby 1.9.3p374; available versions are:
-# ruby-1.9.3-p547/ruby-1.9.3-p545-railsexpress/ruby-1.9.3-p545/ruby-1.9.3-p484
 rvm:
   - 2.1.2
 
@@ -26,7 +21,7 @@ before_install:
 bundler_args: --without development
 
 # Caching the gems and dependencies, not available for now
-cache: 
+cache:
   - bundler
   - apt
 
@@ -42,16 +37,6 @@ script:
 
 # Notifications
 notifications:
-    email:
-        #recipients:
-        #   - test@example.com
-        #   By default, a build email is sent to the committer and the author,
-        #   but only if they have access to the repository the commit was pushed
-        #   to. Add an address here to send all emails there instead.
-        on_success: change   # Only sends success emails when failure -> success
-        on_failure: always   # Always send failure emails
-
-# Run after the script is successful
-# after_success:
-  # For example, you could push to Heroku here
-  # - git push git@heroku.com:shifts.git master
+  email: false
+  slack:
+    secure: cgNX+p8In037Pf6Dylc0JU9NkqBehxvfAnq2hsdDJS3C/J+JNF1O4u6obCBsuhXIOYCbqB02XZ/Mvu+iw/toVlMgrCyMyW+OBbGEMBUngrrjMTuOtmhizyH/1xlG05Eg70+DbdEHzu8pdtcs6sS+Lt64ME3GLyZoym76yAp8o44=
