@@ -14,18 +14,18 @@ rvm:
 env:
   global:
     - RAILS_ENV=test
-    - TZ=America/New_York
+    - TZ=America/New_York # Set the system Time Zone to be EST
 
 # Dependencies
 before_install:
   - sudo apt-get install -y imagemagick qt-sdk
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+  - "export DISPLAY=:99.0" # Display port
+  - "sh -e /etc/init.d/xvfb start" # Start xvfb virtual display used by Capybara
 
 # Installation
 bundler_args: --without development
 
-# Caching the gems and dependencies
+# Caching the gems and dependencies, not available for now
 cache: 
   - bundler
   - apt

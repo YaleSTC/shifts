@@ -21,15 +21,6 @@ describe "TimeSlot" , :time_slot do
 
       it "displays the timeslot properly on the time slots page" do
         visit '/time_slots'
-        pp @department.department_config
-        pp TimeSlot.first
-        pp TimeSlot.first.start
-        pp TimeSlot.first.end
-        pp Time.now
-        pp Time.zone.now
-        pp Date.today.to_time
-        pp time_slot_row(@slot.location.id, Date.today)
-        pp time_slot_row(@slot.location.id, Date.today).find('li.timeslot')
         expect_time_slot_to_display_properly(@slot, time_slot_row(@slot.location.id, Date.today).find('li.timeslot'))
       end
 
