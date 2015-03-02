@@ -79,6 +79,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'codeclimate-test-reporter', require: false
 end
 
 group :assets do
