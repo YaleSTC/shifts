@@ -30,10 +30,21 @@ class RepeatingEvent < ActiveRecord::Base
 
   def make_future(wipe)
     if self.has_time_slots?
-      TimeSlot.make_future(self.start_date, self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids, self.start_time, self.end_time, self.calendar.active, wipe)
+      TimeSlot.make_future(self, wipe)
     else
       Shift.make_future(self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids.first, self.start_time, self.end_time, self.user_id, Location.find(self.location_ids.first).loc_group.department.id, self.calendar.active, wipe)
     end
+  end
+
+  # returns array of all dates with repeating events
+  def dates_array
+    start_date = self.start_date.to_date
+    end_date = self.end_date.to_date
+    array = Array.new
+    (start_date..end_date).each do |i|
+      array << i if self.days_int.include? i.wday
+    end
+    array
   end
 
   def days
