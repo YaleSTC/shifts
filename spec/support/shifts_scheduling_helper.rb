@@ -5,6 +5,7 @@ module ShiftsSchedulingHelper
 	    	fill_in "Name", with: name
 	    	fill_in_date("calendar_start_date", start_date)
 	    	fill_in_date("calendar_end_date", end_date)
+	    	uncheck "Active"
 	    	check 'Public'
 	    end
 	    click_button 'Submit'
