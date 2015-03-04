@@ -31,29 +31,25 @@ class TimeSlot < ActiveRecord::Base
 
 
 
-  def self.make_future(start_date, end_date, cal_id, r_e_id, days, loc_ids, start_time, end_time, active, wipe)
-    start_date = start_date.to_date
-    end_date = end_date.to_date
-    array = Array.new
-    (start_date..end_date).each do |i|
-      array << i if days.include? i.wday
-    end
-    dates = array
+  def self.make_future(event, wipe)
+    dates = event.dates_array
+    cal = event.calendar
+    loc_ids = event.location_ids
     table = TimeSlot.arel_table
-    time_slots_all = []
-    duration = end_time - start_time
+    time_slots_all = Array.new
+    duration = event.end_time - event.start_time
     conflict_all = nil
     loc_ids.each do |loc_id|
       dates.each do |date|
-        start_time_on_date = date.to_time + start_time.seconds_since_midnight
+        start_time_on_date = date.to_time + event.start_time.seconds_since_midnight
         end_time_on_date = start_time_on_date + duration
         conflict_condition = table[:location_id].eq(loc_id).and(table[:start].lt(end_time_on_date)).and(table[:end].gt(start_time_on_date))
-        if active
+        if cal.active
           conflict_condition = conflict_condition.and(table[:active].eq(true))
         else
-          conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal_id))
+          conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal.id))
         end
-        time_slots_all << TimeSlot.new(location_id: loc_id, calendar_id: cal_id, repeating_event_id: r_e_id, start: start_time_on_date, end: end_time_on_date, active: active)
+        time_slots_all << TimeSlot.new(location_id: loc_id, calendar_id: cal.id, repeating_event_id: event.id, start: start_time_on_date, end: end_time_on_date, active: cal.active)
         if conflict_all.nil?
           conflict_all = conflict_condition
         else

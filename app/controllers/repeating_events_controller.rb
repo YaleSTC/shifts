@@ -40,7 +40,7 @@ class RepeatingEventsController < ApplicationController
         raise @failed if @failed
       end
       respond_to do |format|
-        format.html {flash[:notice] = "Successfully created repeating event."; flash[:notice] += " Please note that some events were not created because they started in the past."; redirect_to @repeating_event}
+        format.html {flash[:notice] = "Successfully created repeating event."; flash[:notice] += " Please note that some events were not created because they started in the past." if warn; redirect_to @repeating_event}
         format.js
       end
     rescue Exception => e
