@@ -123,7 +123,6 @@ describe "Tooltip", js: true do
         it 'can delete all repeating shifts in series'
       end
     end
-
-    end
+    
   end
 end
