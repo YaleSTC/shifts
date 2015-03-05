@@ -16,7 +16,7 @@ describe "Tooltip", js: true do
         time_slot_row(@location2.id, Date.tomorrow).find('.click_to_add_new_timeslot').click
       end
 
-      it 'can view the timeslot creation page on tooltip' do
+      it 'can view the timeslot creation page on tooltip with correct location' do
         show_new_tooltip
         expect(page).to have_content "Add New Time Slot"
         expect(page).to have_select("Location", selected: @location2.name)
@@ -96,4 +96,34 @@ describe "Tooltip", js: true do
       end
     end
 	end
+
+  context "Tooltip on Shifts Page", :shift do
+    before(:each) {sign_in(@admin.login)}
+
+    context "New Shift Tooltip" do 
+      it 'can view the shift creation page on tooltip with correct location'
+      it 'can create one-time shift'
+      it 'can create repeating shifts'
+      it 'can create repeating shifts on entire calendar'
+      it 'can close tooltip'
+    end
+
+    context "Tooltip for existing shifts" do 
+      context "Edit Shift Tooltip" do 
+        it 'can edit one-time shift'
+        it 'can edit repeating shifts'
+      end
+
+      it 'can view shift report tooltip'
+      it 'can take sub request on tooltip'
+
+      context "Destroy Shift Tooltip" do 
+        it 'can delete one instance of repeating shifts'
+        it 'can delete future repeating shifts'
+        it 'can delete all repeating shifts in series'
+      end
+    end
+
+    end
+  end
 end
