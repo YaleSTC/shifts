@@ -37,17 +37,17 @@
   <% if current_user.is_admin_of?(current_department) %>
 		<% if select_lg.nil? || current_user.is_superuser? %>
 			<p>
-		    <%= f.label :user %><br />
+		    <%= f.label :user_id %><br />
 		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.name}, :id, :name, {prompt: "Select a user"}) %>
 		  </p>
 		<% else %>
 			<p>
-	      <%= f.label :user %><br />
+	      <%= f.label :user_id %><br />
 	      <%= f.collection_select(:user_id, current_department.active_users.delete_if{|u| !u.can_signup?(select_lg)}.sort_by{|u| u.name}, :id, :name, {prompt: "Select a user"}) %>
 	    </p>
 		<% end %>
     <p>
-      <%= f.label :calendar %><br />
+      <%= f.label :calendar_id %><br />
       <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
     </p>
     <p>
