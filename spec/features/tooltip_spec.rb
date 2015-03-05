@@ -98,10 +98,26 @@ describe "Tooltip", js: true do
 	end
 
   context "Tooltip on Shifts Page", :shift do
-    before(:each) {sign_in(@admin.login)}
+    before(:each) do
+      start_time = Date.tomorrow.to_time+@department.department_config.schedule_start.minutes
+      end_time = Date.tomorrow.to_time+@department.department_config.schedule_start.minutes-1.hour
+      create(:time_slot, location: @location2, calendar: @calendar, start: start_time, end: end_time)
+      sign_in(@admin.login)
+    end
 
     context "New Shift Tooltip" do 
-      it 'can view the shift creation page on tooltip with correct location'
+      def show_new_tooltip
+        visit shifts_path
+        shift_schedule_row(@location2.id, Date.tomorrow).first('li.click_to_add_new').click
+      end
+      
+      it 'can view the shift creation page on tooltip with correct location' do 
+        show_new_tooltip
+        expect(page).to have_content("New Shift")
+        save_and_open_page
+        expect(page).to have_select("Location", @location2.name)
+      end
+
       it 'can create one-time shift'
       it 'can create repeating shifts'
       it 'can create repeating shifts on entire calendar'
