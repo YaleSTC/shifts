@@ -100,9 +100,8 @@ describe "Tooltip", js: true do
   context "Tooltip on Shifts Page", :shift do
     before(:each) do
       start_time = Date.tomorrow.to_time+@department.department_config.schedule_start.minutes
-      end_time = Date.tomorrow.to_time+@department.department_config.schedule_start.minutes-1.hour
+      end_time = Date.tomorrow.to_time+@department.department_config.schedule_end.minutes-1.hour
       create(:time_slot, location: @location2, calendar: @calendar, start: start_time, end: end_time)
-      sign_in(@admin.login)
     end
 
     context "New Shift Tooltip" do 
@@ -112,16 +111,76 @@ describe "Tooltip", js: true do
       end
       
       it 'can view the shift creation page on tooltip with correct location' do 
+        sign_in(@admin.login)
         show_new_tooltip
         expect(page).to have_content("New Shift")
-        save_and_open_page
         expect(page).to have_select("Location", @location2.name)
       end
 
-      it 'can create one-time shift'
-      it 'can create repeating shifts'
-      it 'can create repeating shifts on entire calendar'
-      it 'can close tooltip'
+      it 'ordinary user can create one-time shift', driver: :selenium do 
+        sign_in(@user.login)
+        show_new_tooltip
+        within('#new_shift') do 
+          select "11 AM", from: "shift_start_time_4i"
+          select "01 PM", from: "shift_end_time_4i"
+        end
+        click_on "Create New"
+        expect(page.find("li[id*='shift']")).to have_content(@user.name)
+        expect(Shift.count).to eq(1)
+      end
+
+      it 'admin can create one-time shift' do 
+        sign_in(@admin.login)
+        show_new_tooltip
+        within('#new_shift') do 
+          select "11 AM", from: "shift_start_time_4i"
+          select "01 PM", from: "shift_end_time_4i"
+          select @admin.name, from: "User"
+        end
+        click_on "Create New"
+        expect(page.find("li[id*='shift']")).to have_content(@admin.name)
+        expect(Shift.count).to eq(1)
+      end
+
+      it 'can create repeating shifts' do 
+        sign_in(@admin.login)
+        show_new_tooltip
+        check "Repeating event?"
+        uncheck "Apply to entire calendar"
+        fill_in_date("repeating_event_end_date", Date.today+2.weeks)
+        select "11 AM", from: "repeating_event_start_time_4i"
+        select "01 PM", from: "repeating_event_end_time_4i"
+        select @location2.name, from: "Location"
+        select @user.name, from: "User"
+        select @calendar.name, from: "Calendar"
+        check "Friday"
+        uncheck "Saturday"
+        check "Wipe conflicts?"
+        click_on "Create New Repeating Event"
+        expect_flash_notice "Successfully created repeating event"
+        expect(Shift.count).to be > 1
+      end
+
+      it 'can create repeating shifts on entire calendar' do 
+        c = create(:calendar, active: true)
+        sign_in(@admin.login)
+        show_new_tooltip
+        check "Repeating event?"
+        check "Apply to entire calendar"
+        select @user.name, from: "User"
+        select c.name, from: "Calendar"
+        check "Wipe conflicts?"
+        click_on "Create New Repeating Event"
+        expect_flash_notice "Successfully created repeating event"
+        expect(@user.shifts.count).to be >= (c.end_date-Time.now)/3600/24/7
+      end
+      
+      it 'can close tooltip' do 
+        sign_in(@user.login)
+        show_new_tooltip
+        click_on "[esc]"
+        expect(page).not_to have_selector('#tooltip')
+      end
     end
 
     context "Tooltip for existing shifts" do 
