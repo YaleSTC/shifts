@@ -25,7 +25,7 @@
                                   default: @shift.end} %>
   </p>
   <p>
-    <%= f.label :location %><br />
+    <%= f.label :location_id %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
 	<% if @shift.location.nil? && params[:location_id] %>
