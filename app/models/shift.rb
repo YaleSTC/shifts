@@ -137,7 +137,7 @@ class Shift < ActiveRecord::Base
       else
         conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal.id))
       end
-      shifts_all << Shift.new(repeating_event_id: event.id, location_id: location.id, calendar_id: cal.id, start: start_time_on_date, end: end_time_on_date, user_id: user.id, department_id: dept.id, active: cal.active)
+      shifts_all << Shift.new(power_signed_up: true, repeating_event_id: event.id, location_id: location.id, calendar_id: cal.id, start: start_time_on_date, end: end_time_on_date, user_id: user.id, department_id: dept.id, active: cal.active)
       if conflict_all.nil?
         conflict_all = conflict_condition
       else
@@ -148,15 +148,15 @@ class Shift < ActiveRecord::Base
     shifts_with_conflict = Shift.where(conflict_all)
     if wipe
       Shift.mass_delete_with_dependencies(shifts_with_conflict)
-      Shift.import shifts_all, validate: false
+    elsif !shifts_with_conflict.empty?
+      return "The shifts " + shifts_with_conflict.map(&:to_message_name).join(', ')+" conflict. Use wipe to fix."
+    end
+    if shifts_all.map(&:valid?).all?
+      Shift.import shifts_all
       return false
     else
-      if shifts_with_conflict.empty?
-        Shift.import shifts_all, validate: false
-        return false
-      else
-        return "The shifts " + shifts_with_conflict.map(&:to_message_name).join(', ')+" conflict. Use wipe to fix."
-      end
+      invalid_shifts = shifts_all.select{|s| !s.valid?}
+      return invalid_shifts.map{|s| "#{s.to_message_name}: #{s.errors.full_messages.join('; ')}"}.join('. ')
     end
   end
 

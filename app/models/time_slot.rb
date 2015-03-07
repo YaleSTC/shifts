@@ -61,15 +61,15 @@ class TimeSlot < ActiveRecord::Base
     time_slots_with_conflict = TimeSlot.where(conflict_all)
     if wipe
       time_slots_with_conflict.delete_all
-      TimeSlot.import time_slots_all, validate: false
+    elsif !time_slots_with_conflict.empty?
+      return "The time_slot " + time_slots_with_conflict.map(&:to_message_name).join(", ") + " conflict. Use wipe to fix."
+    end
+    if time_slots_all.map(&:valid?).all?
+      TimeSlot.import time_slots_all
       return false
     else
-      if time_slots_with_conflict.empty?
-        TimeSlot.import time_slots_all, validate: false
-        return false
-      else
-        return "The time_slot " + time_slots_with_conflict.map(&:to_message_name).join(", ") + " conflict. Use wipe to fix."
-      end
+      invalid_time_slots = time_slots_all.select{|t| !t.valid?}
+      return invalid_time_slots.map{|s| "#{s.to_message_name}: #{s.errors.full_messages.join('; ')}"}.join('. ')
     end
   end
 
