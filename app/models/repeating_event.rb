@@ -41,6 +41,7 @@ class RepeatingEvent < ActiveRecord::Base
     start_date = self.start_date.to_date
     end_date = self.end_date.to_date
     array = Array.new
+    return array if end_date<start_date
     (start_date..end_date).each do |i|
       array << i if self.days_int.include? i.wday
     end
@@ -175,8 +176,6 @@ class RepeatingEvent < ActiveRecord::Base
   def set_start_times
     self.start_time = self.start_date.to_time + self.start_time.seconds_since_midnight
     self.end_time = self.start_date.to_time + self.end_time.seconds_since_midnight
-#self.start_time.change(day: self.start_date.day, month: self.start_date.month, year: self.start_date.year)
- #     self.end_time = self.end_time.change(day: self.start_date.day, month: self.start_date.month, year: self.start_date.year)
   end
 
   def adjust_for_multi_day
@@ -191,12 +190,10 @@ class RepeatingEvent < ActiveRecord::Base
 
   def adjust_for_past_event
     if self.start_time <= Time.now
+      self.start_date = self.start_date.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
+      duration = self.end_time - self.start_time
       self.start_time = self.start_time.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
-      self.end_time = self.end_time.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
-    end
-    if self.start_time <= Time.now
-      self.start_time = self.start_time.change(day: Date.tomorrow.day, month: Date.tomorrow.month, year: Date.tomorrow.year)
-      self.end_time = self.end_time.change(day: Date.tomorrow.day, month: Date.tomorrow.month, year: Date.tomorrow.year)
+      self.end_time = self.start_time + duration
     end
   end
 
