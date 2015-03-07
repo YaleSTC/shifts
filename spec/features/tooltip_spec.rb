@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe "Tooltip", js: true do 
-	before :each do
+  before :each do
     full_setup
       @location2 = create(:location, loc_group: @loc_group)
-  	end
+    end
 
-	context "Tooltip on TimeSlot page", :time_slot do 
-		before(:each) {sign_in(@admin.login)}
+  context "Tooltip on TimeSlot page", :time_slot do 
+    before(:each) {sign_in(@admin.login)}
 
     context "New TimeSlot tooltip" do 
       def show_new_tooltip
@@ -95,7 +95,7 @@ describe "Tooltip", js: true do
         expect{TimeSlot.find(@slot.id)}.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-	end
+  end
 
   context "Tooltip on Shifts Page", :shift do
     before(:each) do
