@@ -117,7 +117,7 @@ describe "Tooltip", js: true do
         expect(page).to have_select("Location", @location2.name)
       end
 
-      it 'ordinary user can create one-time shift', driver: :selenium do 
+      it 'ordinary user can create one-time shift' do 
         sign_in(@user.login)
         show_new_tooltip
         within('#new_shift') do 
@@ -218,9 +218,33 @@ describe "Tooltip", js: true do
       it 'can take sub request on tooltip'
 
       context "Destroy Shift Tooltip" do 
-        it 'can delete one instance of repeating shifts'
-        it 'can delete future repeating shifts'
-        it 'can delete all repeating shifts in series'
+        before(:each) do
+          @re = create(:repeating_shifts, calendar: @calendar, location: @location, user: @user)
+          @shift1 = @re.shifts.order(:start).first
+          @shift = @re.shifts.order(:start).second
+          @count = @re.shifts.count
+          visit shifts_path
+          shift_schedule_row(@location.id, @shift.start).first("li#shift#{@shift.id}").click
+          click_on "Destroy this shift"
+        end
+        it 'can delete one instance of repeating shifts' do 
+          click_on "Just this shift"
+          expect_flash_notice "Successfully destroyed shift"
+          expect{Shift.find(@shift.id)}.to raise_error(ActiveRecord::RecordNotFound)
+          expect(Shift.count).to eq(@count-1)
+        end
+        it 'can delete future repeating shifts' do 
+          click_on "This and all future shifts"
+          visit shifts_path
+          expect(shift_schedule_row(@location.id, @shift1.start)).to have_selector("li#shift#{@shift1.id}")
+          expect(Shift.count).to eq(1)
+        end
+        it 'can delete all repeating shifts in series' do 
+          click_on "All events in this series"
+          visit shifts_path
+          expect(page).not_to have_selector("li[id*='shift']")
+          expect(Shift.count).to eq(0)
+        end
       end
     end
     
