@@ -35,7 +35,7 @@ FactoryGirl.define do
     end_time {local_end_time}
     start_date {local_date}
     end_date {start_date+2.weeks}
-    days_of_week "1,2,3,4,5,6,7"
+    days_of_week "0,1,2,3,4,5,6"
     is_set_of_timeslots true
     after :build do |re, evaluator|
       re.loc_ids = evaluator.locations.map(&:id).join(',')
@@ -56,7 +56,7 @@ FactoryGirl.define do
     end_time {local_end_time}
     start_date {local_date}
     end_date {start_date+2.weeks}
-    days_of_week "1,2,3,4,5,6,7"
+    days_of_week "0,1,2,3,4,5,6"
     is_set_of_timeslots false
     after :build do |re, evaluator|
       re.loc_ids = evaluator.location.id.to_s # Only one location is allowed

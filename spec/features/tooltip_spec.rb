@@ -197,14 +197,20 @@ describe "Tooltip", js: true do
           click_on "Save Changes"
           expect(page).not_to have_selector("#tooltip")
           expect{shift.reload}.to change(shift, :location)
-          expect(shift_schedule_row(@location2.id, shift.start)).to have_selector("li#shift#{@shift.id}")
+          expect(shift_schedule_row(@location2.id, shift.start)).to have_selector("li#shift#{shift.id}")
         end
         it 'can edit repeating shifts' do 
           re = create(:repeating_shifts, calendar: @calendar, location: @location, user: @user)
-          shift = re.shifts.first
+          shift = re.shifts.on_day(Date.today).first
           show_shift_tooltip(shift)
           check "Edit repeating event"
-          save_and_open_page
+          select @location2.name, from: "Location"
+          select @admin.name, from: "User"
+          uncheck "Saturday"
+          click_on "Update Repeating Event"
+          expect_flash_notice "Successfully edited repeating event"
+          expect(Shift.where(location_id: @location.id)).to be_empty
+          expect(Shift.where(location_id: @location2.id)).not_to be_empty
         end
       end
 
