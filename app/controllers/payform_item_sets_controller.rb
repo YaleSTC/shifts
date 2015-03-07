@@ -78,19 +78,10 @@ class PayformItemSetsController < ApplicationController
             old_payform_item.save!
             @payform_item_set.payform_items.delete(old_payform_item)
           else #update with new values
-            new_item = PayformItem.new(params[:payform_item_set])
-            new_item.payform = Payform.build(current_department, old_payform_item.user, date)
-            new_item.source = current_user.name 
-            new_item.parent = old_payform_item 
-
+            old_payform_item.assign_attributes(params[:payform_item_set])
+            old_payform_item.payform = Payform.build(current_department, old_payform_item.user, date)
             old_payform_item.reason = "#{current_user.name} changed this group job."
-            old_payform_item.payform = nil 
-      
-            new_item.save(validate: false)
             old_payform_item.save! 
-            new_item.save!
-            @payform_item_set.payform_items.delete(old_payform_item)
-            @payform_item_set.payform_items << new_item
           end
         end
   
