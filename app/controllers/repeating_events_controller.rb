@@ -87,7 +87,7 @@ class RepeatingEventsController < ApplicationController
       respond_to do |format|
         format.html {
           flash[:notice] = "Successfully edited repeating event."
-          flash[:notice] += " Please note that some events were not created because they started in the past."
+          flash[:notice] += " Please note that some events were not created because they started in the past." if warn
           redirect_to @repeating_event
         }
         format.js
