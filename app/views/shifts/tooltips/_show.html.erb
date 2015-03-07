@@ -48,7 +48,8 @@
 
       <% if @shift.repeating_event %>
         <p>
-          <%= check_box_tag :repeating_event, false, false, onclick: "$('.toggle_me').toggle()" %> Edit repeating event
+          <%= check_box_tag :repeating_event, false, false, onclick: "$('.toggle_me').toggle()" %> 
+          <%= label_tag :repeating_event, "Edit repeating event" %>
         </p>
       <% end %>
 
