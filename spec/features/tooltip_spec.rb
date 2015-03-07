@@ -184,9 +184,28 @@ describe "Tooltip", js: true do
     end
 
     context "Tooltip for existing shifts" do 
+      before(:each) {sign_in(@admin.login)}
+      def show_shift_tooltip(shift)
+        visit shifts_path
+        shift_schedule_row(shift.location.id, shift.start).first("li#shift#{shift.id}").click    
+      end
       context "Edit Shift Tooltip" do 
-        it 'can edit one-time shift'
-        it 'can edit repeating shifts'
+        it 'can edit one-time shift' do 
+          shift = create(:shift, calendar: @calendar, location: @location, user: @user)
+          show_shift_tooltip(shift)
+          select @location2.name, from: "Location"
+          click_on "Save Changes"
+          expect(page).not_to have_selector("#tooltip")
+          expect{shift.reload}.to change(shift, :location)
+          expect(shift_schedule_row(@location2.id, shift.start)).to have_selector("li#shift#{@shift.id}")
+        end
+        it 'can edit repeating shifts' do 
+          re = create(:repeating_shifts, calendar: @calendar, location: @location, user: @user)
+          shift = re.shifts.first
+          show_shift_tooltip(shift)
+          check "Edit repeating event"
+          save_and_open_page
+        end
       end
 
       it 'can view shift report tooltip'
