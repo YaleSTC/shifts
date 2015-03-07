@@ -117,12 +117,10 @@ class Shift < ActiveRecord::Base
   end
 
 
-  def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, active, wipe)
-    event = RepeatingEvent.find(r_e_id)
-    cal = Calendar.find(cal_id)
-    dept = Department.find(department_id)
-    user = User.find(user_id)
-    location = Location.find(loc_id)
+  def self.make_future(event, location, wipe)
+    cal = event.calendar
+    dept = location.department
+    user_id = event.user_id
     dates = event.dates_array
     table = Shift.arel_table
     shifts_all = Array.new
@@ -131,13 +129,13 @@ class Shift < ActiveRecord::Base
     dates.each do |date|
       start_time_on_date = date.to_time + event.start_time.seconds_since_midnight
       end_time_on_date = start_time_on_date + duration
-      conflict_condition = table[:user_id].eq(user.id).and(table[:department_id].eq(dept.id)).and(table[:start].lt(end_time_on_date)).and(table[:end].gt(start_time_on_date))
+      conflict_condition = table[:user_id].eq(user_id).and(table[:department_id].eq(dept.id)).and(table[:start].lt(end_time_on_date)).and(table[:end].gt(start_time_on_date))
       if cal.active
         conflict_condition = conflict_condition.and(table[:active].eq(true))
       else
         conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal.id))
       end
-      shifts_all << Shift.new(power_signed_up: true, repeating_event_id: event.id, location_id: location.id, calendar_id: cal.id, start: start_time_on_date, end: end_time_on_date, user_id: user.id, department_id: dept.id, active: cal.active)
+      shifts_all << Shift.new(power_signed_up: true, repeating_event_id: event.id, location_id: location.id, calendar_id: cal.id, start: start_time_on_date, end: end_time_on_date, user_id: user_id, department_id: dept.id, active: cal.active)
       if conflict_all.nil?
         conflict_all = conflict_condition
       else

@@ -18,7 +18,7 @@ describe "Shifts", :shift do
 			expect(Shift.first.duration).to eq(3)
 		end
 
-		# Massive import does not trigger callbacks
+		# Massive import does not trigger callbacks, thus it won't merge shifts
 		xit "shoud join shifts in repeating event" do 
 			@shift1 = create(:shift, calendar: @calendar, user: @user, location: @location, start: @t1, end: @t1+1.hour)
 			@shift2 = create(:shift, calendar: @calendar, user: @user, location: @location, start: @t1+2.hours, end: @t1+3.hours)
