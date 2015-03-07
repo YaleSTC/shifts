@@ -187,7 +187,7 @@ describe "Tooltip", js: true do
       before(:each) {sign_in(@admin.login)}
       def show_shift_tooltip(shift)
         visit shifts_path
-        shift_schedule_row(shift.location.id, shift.start).first("li#shift#{shift.id}").click    
+        shift_in_schedule(shift).click    
       end
       context "Edit Shift Tooltip" do 
         it 'can edit one-time shift' do 
@@ -242,7 +242,7 @@ describe "Tooltip", js: true do
         it 'can delete all repeating shifts in series' do 
           click_on "All events in this series"
           visit shifts_path
-          expect(page).not_to have_selector("li[id*='shift']")
+          expect(page).not_to have_selector("li[id^='shift']")
           expect(Shift.count).to eq(0)
         end
       end
