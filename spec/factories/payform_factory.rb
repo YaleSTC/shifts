@@ -46,7 +46,8 @@ FactoryGirl.define do
     after :build do |pis, evaluator|
       evaluator.users.each do |u|
         payform = create(:payform, user: u, date: pis.date)
-        create(:payform_item, category: pis.category, date: pis.date, hours: pis.hours, description: pis.description, payform: payform)
+        item = create(:payform_item, category: pis.category, date: pis.date, hours: pis.hours, description: pis.description, payform: payform, reason: "Added as Group Job")
+        pis.payform_items << item
       end
     end
   end
