@@ -50,7 +50,15 @@ describe "Group Jobs" do
       expect(page).to have_link(@superuser.name, href: payform_path(@superuser.payforms.joins(payform_items: :payform_item_set).where(payform_item_sets: {id: @pis.id}).first))      
     end
 
-    it "admin can edit group job"
+    it "admin can edit group job" do 
+      visit edit_payform_item_set_path(@pis)
+      choose "calculate_hours_time_input"
+      fill_in_time("time_input_start", Time.now)
+      fill_in_time("time_input_end", Time.now+3.hours)
+      click_on "Submit"
+      expect_flash_notice "Successfully updated payform item set"
+      expect(@pis.reload.hours).to eq(3)
+    end
 
     it "admin can destroy group job"
   end
