@@ -14,7 +14,7 @@ class PayformItem < ActiveRecord::Base
   belongs_to :payform
   #has_and_belongs_to_many :payforms
 
-  #belongs_to :payform_item_set
+  belongs_to :payform_item_set
   belongs_to :category
 
   delegate :department, to: :payform
