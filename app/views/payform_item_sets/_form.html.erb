@@ -14,7 +14,7 @@
     <%= time_select "time_input", "end", {twelve_hour: true} %>
   </p>
   <p>
-     <%= f.label :category %><br />
+     <%= f.label :category_id %><br />
      <%= f.collection_select(:category_id, current_department.categories, :id, :name, {prompt: "Select a category"}) %>
   </p>
   <p>
