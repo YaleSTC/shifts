@@ -60,7 +60,12 @@ describe "Group Jobs" do
       expect(@pis.reload.hours).to eq(3)
     end
 
-    it "admin can destroy group job"
+    it "admin can destroy group job" do 
+      visit payform_item_sets_path
+      click_on "Destroy"
+      expect_flash_notice "Successfully destroyed payform item set"
+      expect(page).to have_content("Expired or Deleted")
+    end
   end
 
 end
