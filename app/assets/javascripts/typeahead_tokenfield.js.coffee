@@ -8,3 +8,10 @@
     local: users
   return engine;
 
+$ ->
+  $('.autocomplete').on 'tokenfield:createtoken', (event)->
+    existing_tokens = $(this).tokenfield 'getTokens'
+    $.each existing_tokens, (index, token)->
+      if token.value==event.attrs.value
+        event.preventDefault()
+        
