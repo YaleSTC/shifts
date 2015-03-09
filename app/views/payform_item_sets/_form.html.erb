@@ -26,5 +26,36 @@
     <%= select_tag :user_ids, options_from_collection_for_select(@users_select, :id, :name, @payform_item_set.users.map(&:id)), multiple: true %>
   </p>
 
+  <%= text_field_tag :autocomplete, nil, class: :typeahead %>
+  <%= javascript_tag do  %>
+    var numbers = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('num'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  local: [
+    { num: 'one' },
+    { num: 'two' },
+    { num: 'three' },
+    { num: 'four' },
+    { num: 'five' },
+    { num: 'six' },
+    { num: 'seven' },
+    { num: 'eight' },
+    { num: 'nine' },
+    { num: 'ten' }
+  ]
+});
+
+// initialize the bloodhound suggestion engine
+numbers.initialize();
+
+// instantiate the typeahead UI
+$(document).ready(function(){
+$('.typeahead').typeahead(null, {
+  displayKey: 'num',
+  source: numbers.ttAdapter()
+});
+  
+});
+  <% end %>
   <p><%= f.submit "Submit" %></p>
 <% end %>
