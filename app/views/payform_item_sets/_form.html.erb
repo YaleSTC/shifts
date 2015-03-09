@@ -28,34 +28,14 @@
 
   <%= text_field_tag :autocomplete, nil, class: :typeahead %>
   <%= javascript_tag do  %>
-    var numbers = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  local: [
-    { value: 'one' },
-    { value: 'two' },
-    { value: 'three' },
-    { value: 'four' },
-    { value: 'five' },
-    { value: 'six' },
-    { value: 'seven' },
-    { value: 'eight' },
-    { value: 'nine' },
-    { value: 'ten' }
-  ]
-});
-
-// initialize the bloodhound suggestion engine
-numbers.initialize();
-
-// instantiate the typeahead UI
-$(document).ready(function(){
- $('.typeahead').tokenfield({typeahead: [null, {
-  //displayKey: 'value',
-  source: numbers.ttAdapter()
-}]});
-  
-});
+    var user_engine = get_users_engine(<%= users_to_autocomplete_json(@users_select) %>);
+    user_engine.initialize();
+    $(document).ready(function(){
+      $('.typeahead').tokenfield({typeahead: [null, {
+        //displayKey: 'value',
+        source: user_engine.ttAdapter()
+      }]});
+    });
   <% end %>
   <p><%= f.submit "Submit" %></p>
 <% end %>
