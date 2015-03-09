@@ -45,7 +45,7 @@ module ApplicationHelper
   def users_to_autocomplete_json(users)
     result = Array.new
     users.each do |u|
-      result << {id: u.id, value: "#{u.name} (#{u.login})", name: u.name, login: u.login}
+      result << {id: u.id, name: "#{u.name} (#{u.login})"}
     end
     result.to_json.html_safe
   end
