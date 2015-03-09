@@ -26,13 +26,12 @@
     <%= select_tag :user_ids, options_from_collection_for_select(@users_select, :id, :name, @payform_item_set.users.map(&:id)), multiple: true %>
   </p>
 
-  <%= text_field_tag :autocomplete, nil, class: :typeahead %>
+  <%= text_field_tag :autocomplete, nil, class: :autocomplete %>
   <%= javascript_tag do  %>
     var user_engine = get_users_engine(<%= users_to_autocomplete_json(@users_select) %>);
     user_engine.initialize();
     $(document).ready(function(){
-      $('.typeahead').tokenfield({typeahead: [null, {
-        //displayKey: 'value',
+      $('.autocomplete').tokenfield({typeahead: [null, {
         source: user_engine.ttAdapter()
       }]});
     });
