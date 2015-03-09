@@ -1,13 +1,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require twitter/typeahead.min
-//= require bootstrap-tokenfield
 //= require jquery-ui/effect.all
 //= require jquery-tablesorter
 //= require jquery.Jcrop
 //= require hoverIntent
 //= require bootstrap-hover-dropdown
+//= require jquery.tokeninput
 //= require_tree .
 
 //Don't load anything before the document is ready.

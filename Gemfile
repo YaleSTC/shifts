@@ -9,8 +9,6 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tablesorter'
 gem 'jcrop-rails-v2', '~> 0.9.12'
-gem 'twitter-typeahead-rails'
-gem 'bootstrap_tokenfield_rails'
 
 # ldap integration
 gem 'ruby-net-ldap', require: 'net/ldap'
