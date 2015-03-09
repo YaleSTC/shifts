@@ -266,32 +266,32 @@ class UsersController < ApplicationController
   def autocomplete
     @list = []
 
-    classes = params[:classes]
+    #classes = params[:classes]
 
-    if classes.include?("User")
+    #if classes.include?("User")
       users = Department.find(params[:department_id]).users.sort_by(&:first_name)
       users.each do |user|
         if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
-          @list << {id: "User||#{user.id}", name: "#{user.name} (#{user.login})"}
+          @list << {id: "user.id", name: "#{user.name} (#{user.login})"}
         end
       end
-    end
-    if classes.include?("Department")
-      departments = current_user.departments.sort_by(&:name)
-      departments.each do |department|
-        if department.name.downcase.include?(params[:q])
-          @list << {id: "Department||#{department.id}", name: "Department: #{department.name}"}
-        end
-      end
-    end
-    if classes.include?("Role")
-      roles = Department.find(params[:department_id]).roles.sort_by(&:name)
-      roles.each do |role|
-        if role.name.downcase.include?(params[:q])
-          @list << {id: "Role||#{role.id}", name: "Role: #{role.name}"}
-        end
-      end
-    end
+    #end
+    # if classes.include?("Department")
+    #   departments = current_user.departments.sort_by(&:name)
+    #   departments.each do |department|
+    #     if department.name.downcase.include?(params[:q])
+    #       @list << {id: "Department||#{department.id}", name: "Department: #{department.name}"}
+    #     end
+    #   end
+    # end
+    # if classes.include?("Role")
+    #   roles = Department.find(params[:department_id]).roles.sort_by(&:name)
+    #   roles.each do |role|
+    #     if role.name.downcase.include?(params[:q])
+    #       @list << {id: "Role||#{role.id}", name: "Role: #{role.name}"}
+    #     end
+    #   end
+    # end
 
     render json: @list
   end

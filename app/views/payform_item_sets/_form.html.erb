@@ -25,7 +25,15 @@
     <%= label_tag :user_ids, "Select Users" %><br>
     <%= select_tag :user_ids, options_from_collection_for_select(@users_select, :id, :name, @payform_item_set.users.map(&:id)), multiple: true %>
   </p>
-  <%= tokenized_users_autocomplete(@payform_item_set, "users") %>
+  <%= text_field_tag :auto_ids, nil, placeholder: "Autocomplete Users", class: :autocomplete %>
+  <%= javascript_tag do %>
+    $(document).ready(function(){
+      $('input.autocomplete').tokenInput(<%= users_to_autocomplete_json(@users_select) %>, {
+        theme: "facebook",
+        hintText: "Type to search for names and logins",
+      });
+    });
+  <% end %>
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
