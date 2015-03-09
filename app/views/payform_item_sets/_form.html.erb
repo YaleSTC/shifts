@@ -29,19 +29,19 @@
   <%= text_field_tag :autocomplete, nil, class: :typeahead %>
   <%= javascript_tag do  %>
     var numbers = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('num'),
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   local: [
-    { num: 'one' },
-    { num: 'two' },
-    { num: 'three' },
-    { num: 'four' },
-    { num: 'five' },
-    { num: 'six' },
-    { num: 'seven' },
-    { num: 'eight' },
-    { num: 'nine' },
-    { num: 'ten' }
+    { value: 'one' },
+    { value: 'two' },
+    { value: 'three' },
+    { value: 'four' },
+    { value: 'five' },
+    { value: 'six' },
+    { value: 'seven' },
+    { value: 'eight' },
+    { value: 'nine' },
+    { value: 'ten' }
   ]
 });
 
@@ -50,10 +50,10 @@ numbers.initialize();
 
 // instantiate the typeahead UI
 $(document).ready(function(){
-$('.typeahead').typeahead(null, {
-  displayKey: 'num',
+ $('.typeahead').tokenfield({typeahead: [null, {
+  //displayKey: 'value',
   source: numbers.ttAdapter()
-});
+}]});
   
 });
   <% end %>
