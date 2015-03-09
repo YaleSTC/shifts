@@ -25,6 +25,7 @@
     <%= label_tag :user_ids, "Select Users" %><br>
     <%= select_tag :user_ids, options_from_collection_for_select(@users_select, :id, :name, @payform_item_set.users.map(&:id)), multiple: true %>
   </p>
+  <%= tokenized_users_autocomplete(@payform_item_set, "users") %>
 
   <p><%= f.submit "Submit" %></p>
 <% end %>
