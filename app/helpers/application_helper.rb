@@ -43,6 +43,7 @@ module ApplicationHelper
   end
 
   def users_to_autocomplete_json(users)
+    return [] if !users
     result = Array.new
     users.each do |u|
       result << {id: u.id, name: "#{u.name} (#{u.login})"}
