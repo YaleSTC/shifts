@@ -6,7 +6,8 @@ describe "Group Jobs", js:true do
     sign_in(@admin.login)
   end
 
-  it "admin can create new group job" do 
+  # Only selenium can handle clicking on overlapping elements
+  it "admin can create new group job", driver: :selenium do 
     visit new_payform_item_set_path
     fill_in_date("payform_item_set_date", Date.today)
     choose "calculate_hours_user_input"
@@ -31,19 +32,20 @@ describe "Group Jobs", js:true do
       expect(page).to have_content("deleted from payform")
     end
 
-    it "admin can remove user from group job" do 
+    it "admin can remove user from group job", driver: :selenium do 
       visit edit_payform_item_set_path(@pis)
       @payform = @admin.payforms.joins(payform_items: :payform_item_set).where(payform_item_sets: {id: @pis.id}).first
-      unselect @admin.name, from: "Select Users"
+      user_token = find('li.token-input-token-facebook', text: @admin.name)
+      user_token.find('span.token-input-delete-token-facebook').click
       click_on "Submit"
       expect_flash_notice "Successfully updated payform item set"
       visit payform_path(@payform)
       expect(page).to have_content("removed you from this group job")
     end
 
-    it "admin can add user to group job" do 
+    it "admin can add user to group job", driver: :selenium do 
       visit edit_payform_item_set_path(@pis)
-      select @superuser.name, from: "Select Users"
+      click_on "Add all eligible users"
       click_on "Submit"
       expect_flash_notice "Successfully updated payform item set"
       expect(page).to have_link(@superuser.name, href: payform_path(@superuser.payforms.joins(payform_items: :payform_item_set).where(payform_item_sets: {id: @pis.id}).first))      
