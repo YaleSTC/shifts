@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require twitter/typeahead.min
+//= require bootstrap-tokenfield
 //= require jquery-ui/effect.all
 //= require jquery-tablesorter
 //= require jquery.Jcrop
