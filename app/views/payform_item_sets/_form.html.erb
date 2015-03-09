@@ -22,12 +22,13 @@
     <%= f.text_field :description %>
   </p>
   <p>
-    <%= label_tag :auto_ids, "Select Users" %><br>
+    <%= label_tag :auto_ids, "Select Users" %> <%= link_to "Add all eligible users", "#", onclick: "autocomplete_add('auto_ids',autocomplete_data);" %>
     <%#= select_tag :user_ids, options_from_collection_for_select(@users_select, :id, :name, @payform_item_set.users.map(&:id)), multiple: true %>
     <%= text_field_tag :auto_ids, nil, class: :autocomplete %>
   </p>
   <%= javascript_tag do %>
-    set_up_autocomplete(<%= users_to_autocomplete_json(@users_select) %>)
+    autocomplete_data = <%= users_to_autocomplete_json(@users_select) %>;
+    set_up_autocomplete("auto_ids", autocomplete_data)
   <% end %>
 
   <p><%= f.submit "Submit" %></p>
