@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Group Jobs" do 
+describe "Group Jobs", js:true do 
   before :each do 
     full_setup
     sign_in(@admin.login)
@@ -14,8 +14,7 @@ describe "Group Jobs" do
     select 30, from: "other_minutes"
     select @category.name, from: "Category"
     fill_in "Description", with: "A Test Group Job"
-    select @superuser.name, from: "Select Users"
-    select @user.name, from: "Select Users"
+    click_on "Add all eligible users"
     click_on "Submit"
     expect_flash_notice("Successfully created payform item set")
     expect(PayformItemSet.count).to eq(1)

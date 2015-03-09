@@ -28,7 +28,8 @@
   </p>
   <%= javascript_tag do %>
     autocomplete_data = <%= users_to_autocomplete_json(@users_select) %>;
-    set_up_autocomplete("auto_ids", autocomplete_data)
+    prepopulate_data = <%= users_to_autocomplete_json(@users_selected) %>
+    set_up_autocomplete("auto_ids", autocomplete_data, prepopulate_data)
   <% end %>
 
   <p><%= f.submit "Submit" %></p>
