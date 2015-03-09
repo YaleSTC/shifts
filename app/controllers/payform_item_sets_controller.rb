@@ -53,6 +53,7 @@ class PayformItemSetsController < ApplicationController
   def edit
     @payform_item_set = PayformItemSet.find(params[:id])
     @users_select = current_department.users.sort_by(&:name)
+    @users_selected = @payform_item_set.users
   end
   
   def update
