@@ -31,8 +31,13 @@
   <%= link_toggle "advanced", "Show/hide advanced options", "fast" %>
   </span>
   <div id="advanced">
-    Search for a user, role, or department: <br />
-    <%= tokenized_users_autocomplete(@restriction, "users", id: "for_users",style: "facebook") %>
+    <%= label_tag :for_users, "Search for a user, role, or department" %>
+    <%= text_field_tag :for_users, nil, class: :autocomplete %>
+    <%= javascript_tag do %>
+      autocomplete_path = "<%= j autocomplete_department_users_path(current_department).html_safe %>"
+      prepopulated_data = <%= users_to_autocomplete_json(@restriction.users) %>
+      set_up_autocomplete("for_users", autocomplete_path, prepopulated_data)
+    <% end %>
     <p>
       For locations: <br />
       <% if current_user.is_admin_of?(@department) %>
@@ -42,16 +47,10 @@
       <% for loc_group in @department.loc_groups do %>
         &nbsp;&nbsp;&nbsp;
         <li id='restriction_li'>
-          <%= check_box_tag "for_location_groups[]", loc_group.id, false, disabled: false %><%= loc_group.name %>:
+          <%= check_box_tag "for_location_groups[]", loc_group.id, @restriction.loc_groups.include?(loc_group), disabled: false %><%= loc_group.name %>:
           <% for location in loc_group.locations do %>
-
-            <% if current_user.current_shift %>
-              <%= check_box_tag "for_locations[]", location.id, current_user.current_shift.location == location, disabled: false %>
-            <% else %>
-              <%= check_box_tag "for_locations[]", location.id, false, disabled: false %>
-            <% end %>
+            <%= check_box_tag "for_locations[]", location.id, @restriction.locations.include?(location), disabled: false %>
             <%= location.name %> &nbsp;
-
           <% end %>
           <br />
         </li>
