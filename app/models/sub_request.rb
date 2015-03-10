@@ -77,8 +77,12 @@ class SubRequest < ActiveRecord::Base
     user.can_signup?(self.shift.loc_group)
   end
 
+  def all_potential_takers
+    roles_with_permission.collect(&:users).flatten.uniq.select{ |u| u.is_active?(self.shift.department)}
+  end
+
   def potential_takers
-    !users_with_permission.empty? ? users_with_permission : roles_with_permission.collect(&:users).flatten.uniq.select{ |u| u.is_active?(self.shift.department)}
+    !users_with_permission.empty? ? users_with_permission : all_potential_takers
   end
 
   def users_with_permission
