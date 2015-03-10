@@ -16,7 +16,6 @@ class PayformItemSetsController < ApplicationController
   end
   
   def create
-    params[:auto_ids] = params[:auto_ids].split(',')
     set_payform_item_hours("payform_item_set")
     @payform_item_set = PayformItemSet.new(params[:payform_item_set])
     @payform_item_set.active = true #TODO: set this as a default in the database
@@ -25,8 +24,8 @@ class PayformItemSetsController < ApplicationController
     begin
       PayformItemSet.transaction do
         @payform_items = []
-      
-        users = User.find(params[:auto_ids])
+        
+        users = parse_users_autocomplete(params[:auto_ids])
         users.each do |user| 
           payform_item = PayformItem.new(params[:payform_item_set])
           payform_item.payform = Payform.build(current_department, user, date)
@@ -58,10 +57,9 @@ class PayformItemSetsController < ApplicationController
   
   def update
     @payform_item_set = PayformItemSet.find(params[:id])
-    params[:auto_ids] = params[:auto_ids].split(',')
     set_payform_item_hours("payform_item_set")
     date = build_date_from_params(:date, params[:payform_item_set])
-    @new_users = params[:auto_ids].collect {|id| User.find(id) }
+    @new_users = parse_users_autocomplete(params[:auto_ids])
     @old_users = @payform_item_set.users
     @old_payform_items = @payform_item_set.payform_items.dup # .dup is crucial here!
                                                              # otherwise the loop below

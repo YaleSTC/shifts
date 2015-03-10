@@ -46,7 +46,7 @@ module ApplicationHelper
     return [] if !users
     result = Array.new
     users.each do |u|
-      result << {id: u.id, name: "#{u.name} (#{u.login})"}
+      result << {id: "User||#{u.id}", name: "#{u.full_name_with_nick} (#{u.login})"}
     end
     result.to_json.html_safe
   end

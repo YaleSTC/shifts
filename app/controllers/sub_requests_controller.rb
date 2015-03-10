@@ -62,8 +62,9 @@ class SubRequestsController < ApplicationController
     join_date_and_time(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
-    unless params[:list_of_logins].empty?
-      params[:list_of_logins].split(",").each do |l|
+    unless params[:selected_users].empty?
+      @sub_request.requested_users = User.find(params[:selected_users].split(","))
+      params[:selected_users].split(",").each do |l|
         l = l.split("||")
         if l.length == 2
           for user in l[0].constantize.find(l[1]).users
