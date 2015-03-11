@@ -1,5 +1,6 @@
-# Welcome to Shifts 
+# Welcome to Shifts
 
+[![Build Status](https://travis-ci.org/YaleSTC/shifts.svg)](https://travis-ci.org/YaleSTC/shifts)
 [![Code Climate](https://codeclimate.com/github/YaleSTC/shifts/badges/gpa.svg)](https://codeclimate.com/github/YaleSTC/shifts)
 [![Dependency Status](https://gemnasium.com/YaleSTC/shifts.svg)](https://gemnasium.com/YaleSTC/shifts)
 [![Test Coverage](https://codeclimate.com/github/YaleSTC/shifts/badges/coverage.svg)](https://codeclimate.com/github/YaleSTC/shifts)
@@ -27,6 +28,7 @@ You'll need the following to run Shifts:
 * a database server ([MySQL](http://www.mysql.com/))
 * [ImageMagick](http://www.imagemagick.org/)
 * A JavaScript runtime (like [Node](http://nodejs.org/))
+* [Qt] (http://qt-project.org/) (only needed for testing)
 
 ### Installation
 First, checkout a copy of Shifts using git:

@@ -11,6 +11,7 @@ This is a report of shift statistics for <%= (Time.now - 86400).strftime('%A, %m
   <br />
 	<% for shift in @missed_shifts %>
 	<%= shift.stats_display_missed %>
+  <%= link_to "[link to shift]", shift_url(shift) %>
 	<% userlist << shift.user %>
   <br />
 	<% end %>
@@ -23,6 +24,7 @@ This is a report of shift statistics for <%= (Time.now - 86400).strftime('%A, %m
   <br />
 	<% for shift in @late_shifts %>
 	<%= shift.stats_display_late %>
+  <%= link_to "[link to shift]", shift_url(shift) %>
 	<% userlist << shift.user %>
   <br />
 	<% end %>
@@ -36,6 +38,7 @@ The following users have <u>left a shift early</u> in the past 24 hours:
   <br />
 	<% for shift in @left_early_shifts %>
 	<%= shift.stats_display_left_early %>
+  <%= link_to "[link to shift]", shift_url(shift) %>
 	<% userlist << shift.user %>
   <br />
 	<% end %>
@@ -45,9 +48,10 @@ The following users have <u>left a shift early</u> in the past 24 hours:
   <br />
 
   <h2>User Statistics</h2>
+  <%= link_to "More Stats", stats_url %>
   <% userlist.uniq.each do |user|%>
     <h3><%= user.name %></h3>
-    <% @summary = user.summary_stats(Time.now, Time.now-1.month) %>
+    <% @summary = user.summary_stats(Time.now-1.month, Time.now) %>
     <%= render partial: 'stats/stats_summary', object: @summary %>
   <% end %>
 ---

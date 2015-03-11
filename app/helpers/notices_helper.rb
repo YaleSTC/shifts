@@ -17,11 +17,14 @@ module NoticesHelper
 		false
   end
 
+  # if the radio_button should be selected
+  # returns the result for the indefinite radio_button if indifinite is true
+  # returns the result for the End radio_button if indefinite is false
   def end_time_check(indefinite)
     if indefinite
-      return true unless @announcement.created_at
+      return @announcement.created_at && @announcement.indefinite
     else
-      return true if @announcement.created_at
+      return @announcement.created_at && !@announcement.indefinite
     end
   end
 

@@ -8,6 +8,9 @@
   <%= link_to "Export Spreadsheet (CSV)", action: "show", id: @payform_set, format: :csv %>
 </p>
 <p>
+  <%= link_to "Export to Workday-compatible XML",  action: "show", id: @payform_set, format: :xml %>
+</p>
+<p>
   <%= link_to "Print History", payform_sets_path %>
 </p>
 <table>

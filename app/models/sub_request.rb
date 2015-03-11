@@ -27,7 +27,7 @@ class SubRequest < ActiveRecord::Base
     if sub_request.user_is_eligible?(user)
         SubRequest.transaction do
           old_shift = sub_request.shift
-
+          owner = old_shift.user
           new_shift = sub_request.shift.dup
           new_shift.location = old_shift.location #association not handled by clone method
           new_shift.power_signed_up = true #so that you don't get blocked taking a sub due to validations
@@ -35,21 +35,21 @@ class SubRequest < ActiveRecord::Base
           new_shift.user = user
           if new_shift.start < Time.now && old_shift.department.department_config.can_take_passed_sub #if the sub request shift has already started, someone else can still sign up for the sub, but the start time will be the time you took the sub, to avoid the "not_in_the_past" validations
             new_shift.start = Time.now #
-            new_shift.save_with_validation(false)
+            new_shift.save(validate: false)
           else
             new_shift.start = just_mandatory ? sub_request.mandatory_start : sub_request.start
           end
           new_shift.end = just_mandatory ? sub_request.mandatory_end : sub_request.end
-          sub_request.destroy
           email_start = new_shift.start.time
           email_end = new_shift.end.time
-          Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           new_shift.save!
-          UserMailer.delay.sub_taken_notification(sub_request, new_shift, new_shift.department)
+          UserMailer.delay.sub_taken_notification(owner, new_shift, new_shift.department)
           sub_watch_users = sub_request.potential_takers.select {|u| u.user_config.taken_sub_email}
           for user in sub_watch_users
-            UserMailer.delay.sub_taken_watch(user, sub_request, new_shift, email_start, email_end, new_shift.department)
+            UserMailer.delay.sub_taken_watch(user, owner, new_shift, email_start, email_end, new_shift.department, old_shift.short_display)
           end
+          sub_request.destroy
+          Shift.delete_part_of_shift(old_shift, new_shift.start, new_shift.end)
           return true
         end
     else
