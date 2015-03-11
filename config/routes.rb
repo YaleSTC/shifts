@@ -3,10 +3,12 @@ Shifts::Application.routes.draw do
   resources :tasks do
     post :make_entry, on: :member
     get 'update_tasks', on: :collection
+    get :completed_tasks, on: :member
+    get :missed_tasks, on: :member
   end
 
   resources :shifts_tasks
-  resources :calendar_feeds
+  resources :calendar_feeds, only: :index
   resources :template_time_slots
   resources :stickies
   resources :announcements
@@ -84,7 +86,7 @@ Shifts::Application.routes.draw do
 
   #TODO: get rid of sessions controller and move logout action to user_session controller and name it cas_logout
   match "cas_logout", controller: 'sessions', action: 'logout', as: :cas_logout
-  match 'calendar_feeds/grab/:user_id/:token.:format', controller: 'calendar_feeds', action: 'grab', as: :calendar_feed
+  match 'calendar_feeds/grab/:user_id/:token', controller: 'calendar_feeds', action: 'grab', as: :calendar_feed
   match 'calendar_feeds/reset', controller: 'calendar_feeds', action: 'reset', as: :calendar_feed_reset
 
   # routes for managing superusers

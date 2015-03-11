@@ -2,14 +2,11 @@ namespace :email do
   
     def send_reminders(department)
       message = department.department_config.reminder_message
-      @users = department.users.select {|u| if u.is_active?(department) then u.email end }
-      users_reminded = []
+      @users = department.users.select {|u| u.is_active?(department) && u.email && u.user_config.send_due_payform_email}
       for user in @users
-        if user.user_config.send_due_payform_email
         UserMailer.delay.due_payform_reminder(user, message, department)
-        end
       end
-      puts "#{users_reminded.length} users in the #{department.name} department "  +
+      puts "#{@users.length} users in the #{department.name} department "  +
            "have been reminded to submit their due payforms."
     end
   
@@ -18,17 +15,14 @@ namespace :email do
       start_date = (w = department.department_config.warning_weeks) ? Date.today - w.week : Date.today - 4.week
       @users = department.active_users.sort_by(&:name)
       users_warned = []
-    
       for user in @users     
-        #Payform.build(department, user, Date.today)
-        unsubmitted_payforms = (Payform.all( conditions: { user_id: user.id, department_id: department.id, submitted: nil }, order: 'date' ).select { |p| p if p.date >= start_date && p.date < Date.today }).compact
-      
+        unsubmitted_payforms = user.payforms.where(department_id: department.id, submitted: nil, date: start_date..Date.today-1.day)
         unless unsubmitted_payforms.blank?
           weeklist = ""
           for payform in unsubmitted_payforms
             weeklist += payform.date.strftime("\t%b %d, %Y\n")
           end
-          UserMailer.delay.late_payform_warning(user, message.gsub("@weeklist@", weeklist), department)
+          UserMailer.delay.late_payform_warning(user, message.gsub("@weeklist@", weeklist), department, unsubmitted_payforms.collect(&:id))
           users_warned << "#{user.name} (#{user.login}) <pre>#{user.email}</pre>"
         end
       end  # currently I am not doing anything with the list of users, it should be displayed somewhere
