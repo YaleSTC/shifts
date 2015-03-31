@@ -55,18 +55,9 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
 
     ## Part 3. Create Schedule Preview
     # Duplicating calendars
-    visit calendars_path
-    calendar_row(calendar).find('a', text: /^Copy$/).click
-    fill_in "Name", with: "Fall 2014 - ST Shift Requests 2nd Copy"
-    uncheck "Active"
-    uncheck "Wipe conflicts?"
-    click_on "Submit"
-    calendar_row(calendar).find('a', text: /^Copy$/).click
-    calendar2 = Calendar.last
-    fill_in "Name", with: "Fall 2014 - ST Shift Requests 3rd Copy"
-    uncheck "Active"
-    uncheck "Wipe conflicts?"
-    click_on "Submit"
+    calendar2 = copy_calendar(calendar, "Fall 2014 - ST Shift Request Copy")
+    working_calendar = copy_calendar(calendar, "Fall 2014 - ST Shift Request Working Copy")
+
     # Make request calendar non-public
     visit edit_calendar_path(calendar)
     uncheck "Public"
@@ -74,17 +65,17 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     sign_in(@user2.login)
     visit calendar_path_with_date
     expect_flash_notice "Only an administrator may view a private calendar."
+
     # Work on the working copy
     sign_in(@admin.login)
-    calendar3 = Calendar.last
-    visit calendar_path(calendar3)+"?date="+format_date(next_week)
+    visit calendar_path(working_calendar)+"?date="+format_date(next_week)
     ids = page.all("li[class^='click_to_edit_shift']").map{|li| li["id"].match(/shift(\d+)/)[1]}
     ids.each do |id|
       page.first("li#shift#{id}").click
       shift = Shift.find(id.to_i)
       select "30", from: "shift_start_time_5i" if shift.user == @user
       select "30", from: "shift_end_time_5i" if shift.user == @user2
-      select calendar3.name, from: "Calendar"
+      select working_calendar.name, from: "Calendar"
       if (1..5).include?(shift.start.wday)
         click_on "Save Changes" 
       else
@@ -92,17 +83,22 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
       end
       expect(page).not_to have_content("Edit Shift")
     end
+    
     # Copying working calendar as preview calendar
-    visit calendars_path
-    calendar_row(calendar3).find('a', text: /^Copy$/).click
-    fill_in "Name", with: "Fall 2014 - ST Shift Preview"
+    preview_calendar = copy_calendar(working_calendar, "Fall 2014 - ST Shift Preview")
+    visit edit_calendar_path(preview_calendar)
+    check "Public"
     click_on "Submit"
-    expect(page).to have_selector("a", text: "Preview")
-    # View calendar as worker
-    preview_calendar = Calendar.last
+
+    ## Part 4. 2nd Round changes
+    # View preview as worker
     sign_in(@user.login)
     visit calendar_path(preview_calendar)+"?date="+format_date(next_week)
 
-    
+    ## Part 5. GO LIVE
+    sign_in(@admin.login)
+    schedule_calendar = copy_calendar(preview_calendar, "Fall 2014 - ST Shift Schedule")
+    visit calendar_path(schedule_calendar)
+    save_and_open_page
   end
 end
