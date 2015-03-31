@@ -1,15 +1,15 @@
-$('#tooltip').remove();
-$('#<%= @shift.start.strftime("%Y-%m-%d") %>').html(
-	'<%= escape_javascript render partial: 
-	(params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), 
-	object: @shift.start.to_date %>');
-
-// TODO: Figure out how to make this work in jQuery
-// page["#shift#{@shift.id}"].visual_effect :highlight
-
-$('#shift<%= @shift.id %>').effect('highlight', 1100);
-
-initialize('#<%= @shift.start.strftime("%Y-%m-%d") %>');
-
+<% if !@ajax_error_message %>
+  $('#tooltip').remove();
+  $('#<%= @shift.start.strftime("%Y-%m-%d") %>').html(
+	 '<%= escape_javascript render partial: 
+	 (params[:calendar] ? "calendars/schedule/day" : "shifts/schedule/day"), 
+	 object: @shift.start.to_date %>');
+  $('#shift<%= @shift.id %>').effect('highlight', 1100);
+  initialize('#<%= @shift.start.strftime("%Y-%m-%d") %>');
+<% else %>
+  $('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
+  $("#tooltip").html("<%= j @ajax_error_message.html_safe %>")
+  <% flash.discard %>
+<% end %>
 // display alert
 //alert("shift updated");
