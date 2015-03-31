@@ -151,13 +151,12 @@ class ShiftsController < ApplicationController
       respond_to do |format|
         format.html{ render action: 'new' }
         format.js do
-          render :update do |page|
-            error_string = ""
-            @shift.errors.each do |attr_name, message|
-              error_string += "<br><br>#{attr_name}: #{message}"
-            end
-            ajax_alert(page, "<strong>Error:</strong> shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
+          error_string = ""
+          @shift.errors.each do |attr_name, message|
+            error_string += "<br><br>#{attr_name}: #{message}"
           end
+          @ajax_error_message = "<strong>Error:</strong> shift could not be saved."+error_string
+          render :update
         end
       end
     end
