@@ -60,9 +60,27 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     fill_in "Name", with: "Fall 2014 - ST Shift Requests 2nd Copy"
     uncheck "Active"
     uncheck "Wipe conflicts?"
-
-    
+    click_on "Submit"
+    calendar_row(calendar).find('a', text: /^Copy$/).click
+    calendar2 = Calendar.last
+    fill_in "Name", with: "Fall 2014 - ST Shift Requests 3rd Copy"
+    uncheck "Active"
+    uncheck "Wipe conflicts?"
+    click_on "Submit"
+    # Make request calendar non-public
+    visit edit_calendar_path(calendar)
+    uncheck "Public"
+    click_on "Submit"
+    sign_in(@user2.login)
+    visit calendar_path_with_date
+    expect_flash_notice "Only an administrator may view a private calendar."
+    # Work on the working copy
+    sign_in(@admin.login)
+    calendar3 = Calendar.last
+    visit calendar_path(calendar3)
+    # click_link("Fall 2014 - ST Shift Requests 3rd Copy")
     save_and_open_page
+
 
   end
 end
