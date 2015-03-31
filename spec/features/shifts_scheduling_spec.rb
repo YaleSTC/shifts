@@ -3,12 +3,13 @@ require 'rails_helper'
 # Refer to the 'How to Schedule Shifts' google drive doc to learn
 # about the shifts scheduling process in more detail. 
 
-describe "Shifts scheduling", :shifts_scheduling, :time_slot do
+describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
 	start_date = Date.new(2014, 9, 7) # aka 'go live' date
 	end_date = Date.new(2015, 9, 7)
 
 	before :each do
 		full_setup
+		@user2 = create(:user, nick_name: nil)
 		sign_in(@admin.login)
 	end
 
@@ -34,11 +35,16 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot do
 		expect_flash_notice "Successfully created repeating event"
 
 		## Part 2. Get requests from workers
-		sign_in(@user.login)
-		visit calendar_path_with_date
-				
-		save_and_open_page
+		[@user, @user2].each do |user|
+			sign_in(user.login)
+			visit calendar_path_with_date
+			(next_week..next_week+6.days).each do |date|
+				shift_schedule_row(@location.id, date).first('.click_to_add_new_shift').click
+				click_on "Create New"
+				expect_shift_on_schedule(@location.id, date, user.name)
+			end
+		end
 
-
+		
 	end
 end
