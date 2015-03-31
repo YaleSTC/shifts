@@ -48,7 +48,7 @@ class CalendarsController < ApplicationController
   end
 
   def prepare_copy
-    @calendar = Calendar.find(params[:id]).clone
+    @calendar = Calendar.find(params[:id]).dup
   end
 
   def copy
@@ -66,7 +66,7 @@ class CalendarsController < ApplicationController
       end
     rescue Exception => e
       @errors = e.message.gsub("Validation failed:", "").split(",")
-      @calendar = @new_calendar.clone
+      @calendar = @new_calendar.dup
       render action: 'prepare_copy'
     end
   end

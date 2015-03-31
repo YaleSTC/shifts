@@ -46,14 +46,14 @@ class Calendar < ActiveRecord::Base
     # end
 
     old_calendar.time_slots.select{|s| s.repeating_event.nil?}.each do |r|
-      new_time_slot = r.clone
+      new_time_slot = r.dup
       new_time_slot.calendar = new_calendar
       new_time_slot.active = new_calendar.active
       new_time_slot.save!
     end
 
     old_calendar.shifts.select{|s| s.repeating_event.nil?}.each do |r|
-      new_shift = r.clone
+      new_shift = r.dup
       new_shift.calendar = new_calendar
       new_shift.active = new_calendar.active
       new_shift.power_signed_up = true

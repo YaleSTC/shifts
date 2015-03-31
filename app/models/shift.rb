@@ -84,7 +84,7 @@ class Shift < ActiveRecord::Base
       shift.end=start_of_delete
       shift.save(validate: false)
     else
-      later_shift = shift.clone
+      later_shift = shift.dup
       later_shift.user = shift.user
       later_shift.location = shift.location
       shift.end = start_of_delete
