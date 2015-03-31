@@ -78,7 +78,8 @@
         <% end %>
 
         <% unless @shift.repeating_event %>
-          <%= link_to "Destroy this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true, confirm: 'Are you sure?', method: :delete} %>
+          <%= button_to "Destroy this shift", {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true,  method: :delete,
+           data: {confirm: 'Are you sure?'} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">
