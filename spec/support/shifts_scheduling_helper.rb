@@ -34,4 +34,15 @@ module ShiftsSchedulingHelper
     uncheck "Wipe conflicts?"
     click_button "Create New Repeating Event"
   end
+
+  def copy_calendar(source, name)
+    visit calendars_path
+    calendar_row(source).find('a', text: /^Copy$/).click
+    fill_in "Name", with: name
+    uncheck "Active"
+    uncheck "Wipe conflicts?"
+    click_on "Submit"
+    expect(page).to have_selector("a", text: name)
+    return Calendar.last
+  end
 end
