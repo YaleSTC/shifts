@@ -92,5 +92,17 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
       end
       expect(page).not_to have_content("Edit Shift")
     end
+    # Copying working calendar as preview calendar
+    visit calendars_path
+    calendar_row(calendar3).find('a', text: /^Copy$/).click
+    fill_in "Name", with: "Fall 2014 - ST Shift Preview"
+    click_on "Submit"
+    expect(page).to have_selector("a", text: "Preview")
+    # View calendar as worker
+    preview_calendar = Calendar.last
+    sign_in(@user.login)
+    visit calendar_path(preview_calendar)+"?date="+format_date(next_week)
+
+    
   end
 end
