@@ -77,10 +77,20 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Work on the working copy
     sign_in(@admin.login)
     calendar3 = Calendar.last
-    visit calendar_path(calendar3)
-    # click_link("Fall 2014 - ST Shift Requests 3rd Copy")
-    save_and_open_page
-
-
+    visit calendar_path(calendar3)+"?date="+format_date(next_week)
+    ids = page.all("li[class^='click_to_edit_shift']").map{|li| li["id"].match(/shift(\d+)/)[1]}
+    ids.each do |id|
+      page.first("li#shift#{id}").click
+      shift = Shift.find(id.to_i)
+      select "30", from: "shift_start_time_5i" if shift.user == @user
+      select "30", from: "shift_end_time_5i" if shift.user == @user2
+      select calendar3.name, from: "Calendar"
+      if (1..5).include?(shift.start.wday)
+        click_on "Save Changes" 
+      else
+        click_on "Destroy this shift"
+      end
+      expect(page).not_to have_content("Edit Shift")
+    end
   end
 end
