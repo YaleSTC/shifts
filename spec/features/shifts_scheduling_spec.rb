@@ -28,8 +28,10 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Advance in request calendar to week after start date
     click_link(calendar_name)
     next_week = start_date + 7.days
+    calendar_path_with_date = current_path + "?date=" + format_date(next_week)
     pp calendar_path_on_date(calendar, next_week)
-    visit calendar_path_on_date(calendar, next_week)
+    pp calendar_path_with_date
+    visit calendar_path_with_date
 
     # Create time slots for the week
     time_slot_row(@location.id, next_week).click    
