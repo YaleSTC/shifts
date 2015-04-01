@@ -26,8 +26,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Advance in request calendar to week after start date
     click_link(calendar_name)
     next_week = start_date + 7.days
-    calendar_path_with_date = current_path + "?date=" + format_date(next_week)
-    visit calendar_path_with_date
+    visit calendar_path_on_date(calendar, next_week)
 
     # Create time slots for the week
     time_slot_row(@location.id, next_week).click    
@@ -37,7 +36,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     ## Part 2. Get requests from workers
     [@user, @user2].each do |user|
       sign_in(user.login)
-      visit calendar_path_with_date
+      visit calendar_path_on_date(calendar, next_week)
       (next_week..next_week+6.days).each do |date|
         shift_schedule_row(@location.id, date).first('.click_to_add_new_shift').click
         click_on "Create New"
@@ -47,11 +46,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Check stats (should implement this in the view)
     sign_in(@admin.login)
     visit stats_path
-    save_and_open_page
-    select calendar.name, from: "Calendar"
-    fill_in_date "stat_start_date", next_week
-    fill_in_date "stat_end_date", next_week+6.days
-    click_on "Update dates"
+    view_stats(calendar, next_week, next_week+6.days)
     expect(page).to have_content("7.0", count: 2)
 
     ## Part 3. Create Schedule Preview
@@ -64,12 +59,12 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     uncheck "Public"
     click_on "Submit"
     sign_in(@user2.login)
-    visit calendar_path_with_date
+    visit calendar_path_on_date(calendar, next_week)
     expect_flash_notice "Only an administrator may view a private calendar."
 
     # Work on the working copy
     sign_in(@admin.login)
-    visit calendar_path(working_calendar)+"?date="+format_date(next_week)
+    visit calendar_path_on_date(working_calendar, next_week)
     ids = page.all("li[class^='click_to_edit_shift']").map{|li| li["id"].match(/shift(\d+)/)[1]}
     ids.each do |id|
       page.first("li#shift#{id}").click
@@ -88,7 +83,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Copying working calendar as preview calendar
     preview_calendar = copy_calendar(working_calendar, "Fall 2014 - ST Shift Preview")
     # removing all time slots
-    visit calendar_path(preview_calendar) + "?date=" + format_date(next_week)
+    visit calendar_path_on_date(preview_calendar, next_week)
     page.first("li.click_to_edit_timeslot").click
     click_on "Destroy this time slot"
     click_on "All events in this series"
@@ -99,7 +94,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     ## Part 4. 2nd Round changes
     # View preview as worker
     sign_in(@user.login)
-    visit calendar_path(preview_calendar)+"?date="+format_date(next_week)
+    visit calendar_path_on_date(preview_calendar, next_week)
     expect(page).not_to have_selector("li[id^='timeslot']")
 
     ## Part 5. GO LIVE
@@ -116,12 +111,8 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     visit shifts_path + "?date="+format_date(start_date)
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user2.name)
-    visit stats_path
-    fill_in_date "stat_start_date", start_date
-    fill_in_date "stat_end_date", start_date+6.days
-    click_on "Update dates"
-    save_and_open_page
-    expect(page).to have_content("7.5")
-    expect(page).to have_content("2.5")
+    view_stats(nil, start_date, end_date)
+    expect(page).to have_content("130.5")
+    expect(page).to have_content("391.5")
   end
 end
