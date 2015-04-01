@@ -111,7 +111,7 @@ class CalendarsController < ApplicationController
           @calendar.deactivate
           @problems = false
       else
-          @problems = @calendar.activate(wipe)
+         @problems = @calendar.activate(wipe)
       end
     end
     if @problems

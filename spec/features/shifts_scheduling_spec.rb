@@ -86,6 +86,11 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     
     # Copying working calendar as preview calendar
     preview_calendar = copy_calendar(working_calendar, "Fall 2014 - ST Shift Preview")
+    # removing all time slots
+    visit calendar_path(preview_calendar) + "?date=" + format_date(next_week)
+    page.first("li.click_to_edit_timeslot").click
+    click_on "Destroy this time slot"
+    click_on "All events in this series"
     visit edit_calendar_path(preview_calendar)
     check "Public"
     click_on "Submit"
@@ -94,11 +99,20 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # View preview as worker
     sign_in(@user.login)
     visit calendar_path(preview_calendar)+"?date="+format_date(next_week)
+    expect(page).not_to have_selector("li[id^='timeslot']")
 
     ## Part 5. GO LIVE
     sign_in(@admin.login)
     schedule_calendar = copy_calendar(preview_calendar, "Fall 2014 - ST Shift Schedule")
     visit calendar_path(schedule_calendar)
-    save_and_open_page
+    click_on "Convert Shifts to Weekly Events"
+    page.driver.browser.switch_to.alert.accept
+    expect_flash_notice "Schedule applied successfully."
+    click_on "Activate"
+    expect_flash_notice "The calendar was successfully activated"
+    visit shifts_path + "?date="+format_date(start_date)
+    expect(page).to have_content(@user.name)
+    expect(page).to have_content(@user2.name)
+    
   end
 end
