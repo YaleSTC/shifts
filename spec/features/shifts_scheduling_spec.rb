@@ -4,8 +4,7 @@ require 'rails_helper'
 # about the shifts scheduling process in more detail. 
 
 describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
-  start_date = Date.new(2014, 9, 7) # aka 'go live' date
-  end_date = Date.new(2015, 9, 7)
+
 
   before :each do
     full_setup
@@ -15,6 +14,9 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
 
   it "can schedule shifts", driver: :selenium do
 
+    start_date = Date.new(2014, 9, 7) # aka 'go live' date
+    end_date = Date.new(2015, 9, 7)
+    
     ## Part 1. Prepare request calendar
 
     # Create a request calendar
@@ -26,6 +28,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Advance in request calendar to week after start date
     click_link(calendar_name)
     next_week = start_date + 7.days
+    pp calendar_path_on_date(calendar, next_week)
     visit calendar_path_on_date(calendar, next_week)
 
     # Create time slots for the week
