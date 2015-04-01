@@ -112,14 +112,18 @@ class TimeSlot < ActiveRecord::Base
       ""
     elsif wipe
       big_array.each do |t_slots|
-        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start <= #{t.end.utc} AND end >= #{t.start.utc})"}.join(" OR ")])
+        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start < \"#{t.end.utc}\" AND end > \"#{t.start.utc}\")"}.join(" OR ")])
       end
       return ""
     else
       out=big_array.collect do |t_slots|
-        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start <= #{t.end.utc} AND end >= #{t.start.utc})"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
+        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start <= \"#{t.end.utc}\" AND end > \"#{t.start.utc}\")"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
       end
-      return out.join(",")
+      if out.collect(&:empty?).all?
+        return ""
+      else
+        return out.join(",")+","
+      end
     end
   end
 
