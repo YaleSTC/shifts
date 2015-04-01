@@ -46,11 +46,12 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     end
     # Check stats (should implement this in the view)
     sign_in(@admin.login)
-    stats_uri = URI(stats_path)
-    stats_uri.query = URI.encode_www_form([["calendar", calendar.id],
-                                          ["start_date", format_date(next_week)],
-                                          ["end_date", format_date(next_week+6.days)]])
-    visit stats_uri.to_s
+    visit stats_path
+    save_and_open_page
+    select calendar.name, from: "Calendar"
+    fill_in_date "stat_start_date", next_week
+    fill_in_date "stat_end_date", next_week+6.days
+    click_on "Update dates"
     expect(page).to have_content("7.0", count: 2)
 
     ## Part 3. Create Schedule Preview
@@ -110,9 +111,17 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     expect_flash_notice "Schedule applied successfully."
     click_on "Activate"
     expect_flash_notice "The calendar was successfully activated"
+    
+    # Checking
     visit shifts_path + "?date="+format_date(start_date)
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user2.name)
-    
+    visit stats_path
+    fill_in_date "stat_start_date", start_date
+    fill_in_date "stat_end_date", start_date+6.days
+    click_on "Update dates"
+    save_and_open_page
+    expect(page).to have_content("7.5")
+    expect(page).to have_content("2.5")
   end
 end
