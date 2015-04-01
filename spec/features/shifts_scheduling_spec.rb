@@ -110,7 +110,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     expect_flash_notice "The calendar was successfully activated"
     
     # Checking
-    visit shifts_path + "?date="+format_date(start_date)
+    visit shifts_path + "?date="+start_date.strftime("%Y-%m-%d")
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user2.name)
     view_stats(nil, start_date, end_date)

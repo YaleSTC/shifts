@@ -39,11 +39,5 @@ module FeatureHelper
     select Date::MONTHNAMES[target_datetime.month], :from => "#{prefix}_2i"
     select target_datetime.day.to_s, :from => "#{prefix}_3i"
   end
-
-
-  # Format helper
-  def format_date(date)
-    "#{date.year}-#{date.mon}-#{date.day}"
-  end
 end
 
