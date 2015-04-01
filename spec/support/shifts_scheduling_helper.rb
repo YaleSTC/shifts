@@ -5,7 +5,7 @@ module ShiftsSchedulingHelper
   end
 
   def calendar_path_on_date(calendar, date)
-    calendar_path(calendar)+"?date="+date.strftime("%Y-%m-%d")
+    calendar_path(calendar)+"?date="+format_date(date)
   end
 
   # Capybara brower helpers, modifies browser state
