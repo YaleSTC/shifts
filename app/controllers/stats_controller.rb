@@ -23,7 +23,7 @@ class StatsController < ApplicationController
 
     users.each do |u|
       user_stats = {}
-      if params[:calendar]
+      if params[:calendar] && !params[:calendar].empty?
         shifts = u.shifts.on_days(@start_date, @end_date).in_calendars(params[:calendar].split(","))
       else
         shifts = u.shifts.on_days(@start_date, @end_date).active
