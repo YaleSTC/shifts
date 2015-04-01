@@ -4,6 +4,9 @@ module ShiftsSchedulingHelper
     page.first("table tr", text: c.name)
   end
 
+  def calendar_path_on_date(calendar, date)
+    calendar_path(calendar)+"?date="+date.strftime("%Y-%m-%d")
+  end
 
   # Capybara brower helpers, modifies browser state
   def create_calendar(name, start_date, end_date)
@@ -44,5 +47,13 @@ module ShiftsSchedulingHelper
     click_on "Submit"
     expect(page).to have_selector("a", text: name)
     return Calendar.last
+  end
+
+  def view_stats(calendar, start_date, end_date)
+    visit stats_path
+    fill_in_date "stat_start_date", start_date
+    fill_in_date "stat_end_date", end_date
+    select calendar.name, from: "Calendar" if calendar
+    click_on "Update dates"
   end
 end
