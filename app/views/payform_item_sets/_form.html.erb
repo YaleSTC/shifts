@@ -14,7 +14,7 @@
     <%= time_select "time_input", "end", {twelve_hour: true} %>
   </p>
   <p>
-     <%= f.label :category %><br />
+     <%= f.label :category_id %><br />
      <%= f.collection_select(:category_id, current_department.categories, :id, :name, {prompt: "Select a category"}) %>
   </p>
   <p>
@@ -22,8 +22,8 @@
     <%= f.text_field :description %>
   </p>
   <p>
-    <%= label_tag "Leave blank to send to everyone" %><br />
-    <%= tokenized_users_autocomplete( @payform_item_set, "users") %>
+    <%= label_tag :user_ids, "Select Users" %><br>
+    <%= select_tag :user_ids, options_from_collection_for_select(@users_select, :id, :name, @payform_item_set.users.map(&:id)), multiple: true %>
   </p>
 
   <p><%= f.submit "Submit" %></p>

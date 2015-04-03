@@ -32,9 +32,9 @@ class PayformItemSetsController < ApplicationController
           payform_item.payform = Payform.build(current_department, user, date)
           @payform_items << payform_item
         end
+        @payform_item_set.payform_items = @payform_items
 
-        
-        if @payform_item_set.save and @payform_item_set.payform_items << @payform_items
+        if @payform_item_set.save
           flash[:notice] = "Successfully created payform item set."
           redirect_to payform_item_sets_path
         else
@@ -58,6 +58,7 @@ class PayformItemSetsController < ApplicationController
   def update
     @payform_item_set = PayformItemSet.find(params[:id])
     params[:user_ids].delete("")
+    set_payform_item_hours("payform_item_set")
     date = build_date_from_params(:date, params[:payform_item_set])
     @new_users = params[:user_ids].collect {|id| User.find(id) }
     @old_users = @payform_item_set.users
@@ -78,19 +79,10 @@ class PayformItemSetsController < ApplicationController
             old_payform_item.save!
             @payform_item_set.payform_items.delete(old_payform_item)
           else #update with new values
-            new_item = PayformItem.new(params[:payform_item_set])
-            new_item.payform = Payform.build(current_department, old_payform_item.user, date)
-            new_item.source = current_user.name 
-            new_item.parent = old_payform_item 
-
+            old_payform_item.assign_attributes(params[:payform_item_set])
+            old_payform_item.payform = Payform.build(current_department, old_payform_item.user, date)
             old_payform_item.reason = "#{current_user.name} changed this group job."
-            old_payform_item.payform = nil 
-      
-            new_item.save(validate: false)
             old_payform_item.save! 
-            new_item.save!
-            @payform_item_set.payform_items.delete(old_payform_item)
-            @payform_item_set.payform_items << new_item
           end
         end
   
@@ -99,7 +91,6 @@ class PayformItemSetsController < ApplicationController
           payform_item.payform = Payform.build(current_department, user, date)
           @payform_item_set.payform_items << payform_item
         end
-        
         if @payform_item_set.update_attributes(params[:payform_item_set])
           flash[:notice] = "Successfully updated payform item set."
           redirect_to payform_item_sets_path

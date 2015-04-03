@@ -38,6 +38,7 @@ FactoryGirl.define do
     sequence(:name){|n| "Magic category #{n}"}
     active true
     built_in "f"
+    billing_code "4737568.81.838131.887583.295865"
 
     # Default to existing category
     initialize_with {Category.where(name: name).first_or_initialize}
