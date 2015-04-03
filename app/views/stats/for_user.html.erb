@@ -2,7 +2,7 @@
 
 <div id="left_stuff">
 	<fieldset class="index" id="date_selector">
-		<%= form_tag(controller: 'stats', action: 'for_user', method: :get, id: @user.id) do %>
+		<%= form_tag(for_user_stats_path(id: @user.id), method: :post) do %>
 			  <%= label_tag :start_date %><br />
 			  <%= date_select(:stat, :start_date, default: @start_date)%>
 				<br />

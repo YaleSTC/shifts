@@ -1,6 +1,6 @@
 <% title "Copy Calendar" %>
 
-<%= form_for @calendar, url: {action: 'copy'} do |f| %>
+<%= form_for @calendar, url: {action: 'copy'}, method: :post do |f| %>
     <%if @errors%>
       <strong>The repeating event could not be applied for the following reasons</strong>
       <ul>
@@ -27,7 +27,7 @@
   </p>
   <p>
   <p>
-    <%= f.label "wipe_conflicts?" %><br />
+    <%= label_tag "wipe", "Wipe conflicts?" %><br />
     <%= check_box_tag "wipe", "1", false %>
   <p>
   </p>

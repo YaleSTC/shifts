@@ -86,16 +86,14 @@ class ApplicationController < ActionController::Base
   def require_department_admin
     unless current_user.is_admin_of?(current_department)
       error_message = "That action is restricted to department administrators."
+      flash[:error] = error_message
       respond_to do |format|
         format.html do
-          flash[:error] = error_message
           redirect_to access_denied_path
         end
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong>" + error_message
+          render :update 
           return false
         end
       end
@@ -383,6 +381,16 @@ class ApplicationController < ActionController::Base
       form_output["start"] ||= Time.now
       form_output
     end
+  end
+
+
+  def parse_users_autocomplete(token_output)
+    result = []
+    list = token_output.split(',').map{|l| l.split("||")}
+    list.each do |tokens|
+      result += tokens[0].safe_constantize.find(tokens[1]).users
+    end
+    return result.uniq    
   end
 
   def department_day_start_time
