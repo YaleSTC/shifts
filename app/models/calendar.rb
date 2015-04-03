@@ -37,8 +37,8 @@ class Calendar < ActiveRecord::Base
 
     old_calendar.repeating_events.each do |r|
       new_repeating_event = r.dup
-      new_repeating_event.start_date = new_calendar.start_date
-      new_repeating_event.end_date = new_calendar.end_date
+      new_repeating_event.start_date = new_calendar.start_date if new_calendar.start_date > new_repeating_event.start_date
+      new_repeating_event.end_date = new_calendar.end_date if new_calendar.end_date < new_repeating_event.end_date
       new_repeating_event.calendar = new_calendar
       new_repeating_event.save!
       error = new_repeating_event.make_future(wipe)
