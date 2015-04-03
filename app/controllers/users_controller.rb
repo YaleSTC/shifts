@@ -265,17 +265,17 @@ class UsersController < ApplicationController
 
   def autocomplete
     @list = []
-
-    classes = params[:classes]
+    classes = params[:classes] || ["User", "Department", "Role"]
 
     if classes.include?("User")
       users = Department.find(params[:department_id]).users.sort_by(&:first_name)
       users.each do |user|
         if user.login.downcase.include?(params[:q]) or user.name.downcase.include?(params[:q])
-          @list << {id: "User||#{user.id}", name: "#{user.name} (#{user.login})"}
+          @list << {id: "User||#{user.id}",name: "#{user.name} (#{user.login})"}
         end
       end
     end
+
     if classes.include?("Department")
       departments = current_user.departments.sort_by(&:name)
       departments.each do |department|

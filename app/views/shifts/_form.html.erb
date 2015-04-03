@@ -47,7 +47,7 @@
 	    </p>
 		<% end %>
     <p>
-      <%= f.label :calendar_id %><br />
+      <%= f.label :calendar_id, "Calendar" %><br />
       <%= f.collection_select(:calendar_id, current_department.calendars, :id, :name) %>
     </p>
     <p>

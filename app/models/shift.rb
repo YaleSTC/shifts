@@ -84,7 +84,7 @@ class Shift < ActiveRecord::Base
       shift.end=start_of_delete
       shift.save(validate: false)
     else
-      later_shift = shift.clone
+      later_shift = shift.dup
       later_shift.user = shift.user
       later_shift.location = shift.location
       shift.end = start_of_delete
@@ -167,14 +167,18 @@ class Shift < ActiveRecord::Base
       ""
     elsif wipe
       big_array.each do |sh|
-        Shift.mass_delete_with_dependencies(Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start <= #{s.end.utc} AND end >= #{s.start.utc})"}.join(" OR ")))
+        Shift.mass_delete_with_dependencies(Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start < \"#{s.end.utc}\" AND end > \"#{s.start.utc})\")"}.join(" OR ")))
       end
       return ""
     else
       out=big_array.collect do |sh|
-        Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start <= #{s.end.utc} AND end >= #{s.start.utc})"}.join(" OR ")).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
+        Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start < \"#{s.end.utc}\" AND end > \"#{s.start.utc}\")"}.join(" OR ")).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
       end
-      out.join(",")+","
+      if out.collect(&:empty?).all?
+        return ""
+      else
+        return out.join(",")+","
+      end
     end
   end
 
