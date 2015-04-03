@@ -12,6 +12,8 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     sign_in(@admin.login)
   end
 
+
+  # Using selenium to avoid problems of clicking overlapping elements
   it "can schedule shifts", driver: :selenium do
 
     start_date = Date.new(2014, 9, 7) # aka 'go live' date
@@ -28,7 +30,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Advance in request calendar to week after start date
     click_link(calendar_name)
     next_week = start_date + 7.days
-    visit calendar_path_on_date(calendar, next_week)
+    visit_calendar_on_date(calendar, next_week)
 
     # Create time slots for the week
     time_slot_row(@location.id, next_week).click    
@@ -38,7 +40,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     ## Part 2. Get requests from workers
     [@user, @user2].each do |user|
       sign_in(user.login)
-      visit calendar_path_on_date(calendar, next_week)
+      visit_calendar_on_date(calendar, next_week)
       (next_week..next_week+6.days).each do |date|
         shift_schedule_row(@location.id, date).first('.click_to_add_new_shift').click
         click_on "Create New"
@@ -61,12 +63,12 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     uncheck "Public"
     click_on "Submit"
     sign_in(@user2.login)
-    visit calendar_path_on_date(calendar, next_week)
+    visit calendar_path(calendar)
     expect_flash_notice "Only an administrator may view a private calendar."
 
     # Work on the working copy
     sign_in(@admin.login)
-    visit calendar_path_on_date(working_calendar, next_week)
+    visit_calendar_on_date(working_calendar, next_week)
     ids = page.all("li[class^='click_to_edit_shift']").map{|li| li["id"].match(/shift(\d+)/)[1]}
     ids.each do |id|
       page.first("li#shift#{id}").click
@@ -85,7 +87,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     # Copying working calendar as preview calendar
     preview_calendar = copy_calendar(working_calendar, "Fall 2014 - ST Shift Preview")
     # removing all time slots
-    visit calendar_path_on_date(preview_calendar, next_week)
+    visit_calendar_on_date(preview_calendar, next_week)
     page.first("li.click_to_edit_timeslot").click
     click_on "Destroy this time slot"
     click_on "All events in this series"
@@ -96,7 +98,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     ## Part 4. 2nd Round changes
     # View preview as worker
     sign_in(@user.login)
-    visit calendar_path_on_date(preview_calendar, next_week)
+    visit_calendar_on_date(preview_calendar, next_week)
     expect(page).not_to have_selector("li[id^='timeslot']")
 
     ## Part 5. GO LIVE

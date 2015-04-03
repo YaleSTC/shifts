@@ -4,11 +4,14 @@ module ShiftsSchedulingHelper
     page.first("table tr", text: c.name)
   end
 
-  def calendar_path_on_date(calendar, date)
-    calendar_path(calendar)+"?date="+date.strftime("%Y-%m-%d")
-  end
 
   # Capybara brower helpers, modifies browser state
+  def visit_calendar_on_date(calendar, date)
+    path = calendar_path(calendar)+"?date="+date.strftime("%Y-%m-%d")
+    visit path
+    expect(page).to have_content(date.to_s(:just_date_long))
+  end
+
   def create_calendar(name, start_date, end_date)
       visit '/calendars/new'
       within("#new_calendar") do
