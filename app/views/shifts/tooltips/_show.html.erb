@@ -33,7 +33,8 @@
 
       <% if @shift.submitted? %>
         <% unless @shift.repeating_event %>
-          <%= link_to "Destroy this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true, confirm: 'Are you sure?', method: :delete} %>
+          <%= button_to "Destroy this shift", {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true,  method: :delete,
+           data: {confirm: 'Are you sure?'} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">
@@ -53,9 +54,9 @@
       <% end %>
 
       <div class="toggle_me">
-        <%= form_for @shift, remote: true do |f| %>
+        <%= form_for @shift, url: { controller: 'shifts', action: 'update', calendar: params[:calendar] }, remote: true do |f| %>
     		  <%= render partial: 'shifts/form', locals: {f: f} %>
-          <p><%= submit_tag "Save Changes", url: { controller: 'shifts', action: 'update', calendar: params[:calendar] } %></p>
+          <p><%= submit_tag "Save Changes" %></p>
         <% end %>
 
         <% if current_user == @shift.user and !@shift.has_passed? %>
@@ -78,7 +79,8 @@
         <% end %>
 
         <% unless @shift.repeating_event %>
-          <%= link_to "Destroy this shift", {url: {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true, confirm: 'Are you sure?', method: :delete} %>
+          <%= button_to "Destroy this shift", {controller: 'shifts', action: 'destroy', id: @shift.id, calendar: params[:calendar]}, remote: true,  method: :delete,
+           data: {confirm: 'Are you sure?'} %>
         <% else %>
           <%= link_to_function "Destroy this shift", "$('#repeating_event_delete_options').toggle()" %>
           <div id="repeating_event_delete_options" style="display:none">

@@ -2,7 +2,11 @@
 
 <div id="left_stuff">
   <fieldset class="index" id="date_selector">
-    <%= form_tag(controller: 'stats', action: 'index', method: :get) do %>
+    <%= form_tag(stats_path, method: :post) do %>
+      <% if current_user.is_admin_of?(current_department) %>
+        <%= label_tag :calendar, "Calendar, leave blank to see all active stats" %><br />
+        <%= select_tag :calendar, options_from_collection_for_select(current_department.calendars, :id, :name, params[:calendar]), include_blank: true %><br />
+      <% end %>
       <%= label_tag :start_date %><br />
       <%= date_select(:stat, :start_date, default: @start_date)%>
       <br />

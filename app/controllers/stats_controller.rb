@@ -23,7 +23,7 @@ class StatsController < ApplicationController
 
     users.each do |u|
       user_stats = {}
-      if params[:calendar]
+      if params[:calendar] && !params[:calendar].empty?
         shifts = u.shifts.on_days(@start_date, @end_date).in_calendars(params[:calendar].split(","))
       else
         shifts = u.shifts.on_days(@start_date, @end_date).active
@@ -52,7 +52,11 @@ class StatsController < ApplicationController
 
     locations.each do |l|
       location_stats = {}
-      shifts = l.shifts.on_days(@start_date, @end_date).active
+      if params[:calendar] && !params[:calendar].empty?
+        shifts = l.shifts.on_days(@start_date, @end_date).in_calendars(params[:calendar].split(","))
+      else
+        shifts = l.shifts.on_days(@start_date, @end_date).active
+      end
 
       location_stats[:l_id]           =   l.id
       location_stats[:name]           =   l.name
