@@ -6,6 +6,7 @@
 //= require jquery.Jcrop
 //= require hoverIntent
 //= require bootstrap-hover-dropdown
+//= require jquery.tokeninput
 //= require_tree .
 
 //Don't load anything before the document is ready.

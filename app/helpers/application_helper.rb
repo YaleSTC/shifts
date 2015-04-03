@@ -42,53 +42,13 @@ module ApplicationHelper
     current_user.current_shift
   end
 
-  def tokenized_users_autocomplete(object, field, options = {})
-    #set defaults
-    options.reverse_merge!({
-      id: "list_of_logins",
-      hint_text: "Type a name, NetID, role or department",
-      style: "vertical", #default to vertical style -- seems more appropriate
-      classes: ["User","Role","Department"],
-      include_headers: true
-    })
-
-
-    if (options[:style] == "facebook")
-      style = 'tokenList: "token-input-list-facebook",
-              token: "token-input-token-facebook",
-              tokenDelete: "token-input-delete-token-facebook",
-              selectedToken: "token-input-selected-token-facebook",
-              highlightedToken: "token-input-highlighted-token-facebook",
-              dropdown: "token-input-dropdown-facebook",
-              dropdownItem: "token-input-dropdown-item-facebook",
-              dropdownItem2: "token-input-dropdown-item2-facebook",
-              selectedDropdownItem: "token-input-selected-dropdown-item-facebook",
-              inputToken: "token-input-input-token-facebook"'
-      css_file = 'tokeninput-facebook'
-    else
-      style = ''
-      css_file = 'token-input'
+  def users_to_autocomplete_json(users)
+    return [] if !users
+    result = Array.new
+    users.each do |u|
+      result << {id: "User||#{u.id}", name: "#{u.full_name_with_nick} (#{u.login})"}
     end
-
-    json_string = ""
-    unless object.nil? or field.nil?
-      object.send(field).each do |user_source|
-        json_string += "{name: '#{user_source.name}', id: '#{user_source.class}||#{user_source.id}'},\n"
-      end
-    end
-
-    #Tell the app to put javascript info at top and bottom of pages (Unobtrusive Javascript - style)
-    content_for :javascript,
-      ('$(document).ready(function() {
-        $("#'+options[:id]+'").tokenInput("'+autocomplete_department_users_path(current_department, classes: options[:classes])+'", {
-            prePopulate: ['+json_string+'],
-            hintText: "'+options[:hint_text]+'",
-            classes: {
-              '+style+'
-            }
-          });
-        });').html_safe
-    text_field_tag(options[:id])
+    result.to_json.html_safe
   end
 
 

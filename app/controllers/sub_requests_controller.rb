@@ -62,16 +62,8 @@ class SubRequestsController < ApplicationController
     join_date_and_time(params[:sub_request])
     @sub_request = SubRequest.new(params[:sub_request])
     @sub_request.shift = Shift.find(params[:shift_id])
-    unless params[:list_of_logins].empty?
-      params[:list_of_logins].split(",").each do |l|
-        l = l.split("||")
-        if l.length == 2
-          for user in l[0].constantize.find(l[1]).users
-            @sub_request.requested_users << user
-          end
-        end
-        @sub_request.requested_users << User.where(login: l[0]).first if l.length == 1
-      end
+    unless params[:selected_users].empty?
+      @sub_request.requested_users = parse_users_autocomplete(params[:selected_users])
     end
     unless @sub_request.save
       render action: "new"
@@ -91,16 +83,8 @@ class SubRequestsController < ApplicationController
     begin
       SubRequest.transaction do
           @sub_request.requested_users = []
-          unless params[:list_of_logins].empty?
-             params[:list_of_logins].split(",").each do |l|
-                l = l.split("||")
-                if l.length == 2
-                  for user in l[0].constantize.find(l[1]).users
-                    @sub_request.requested_users << user
-                  end
-                end
-                @sub_request.requested_users << User.where(login: l[0]).first if l.length == 1
-             end
+          unless params[:selected_users].empty?
+             @sub_request.requested_users = parse_users_autocomplete(params[:selected_users])
            end
           parse_date_and_time_output(params[:sub_request])
           join_date_and_time(params[:sub_request])

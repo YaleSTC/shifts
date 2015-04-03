@@ -385,6 +385,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def parse_users_autocomplete(token_output)
+    result = []
+    list = token_output.split(',').map{|l| l.split("||")}
+    list.each do |tokens|
+      result += tokens[0].safe_constantize.find(tokens[1]).users
+    end
+    return result.uniq    
+  end
+
   def department_day_start_time
     DateTime.now.in_time_zone(Time.zone).beginning_of_day + current_department.department_config.schedule_start.minutes
   end
