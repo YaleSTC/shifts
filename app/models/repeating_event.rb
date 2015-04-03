@@ -184,7 +184,7 @@ class RepeatingEvent < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add(:base, "Repeating event start and end dates must be within the range of the calendar.") if self.start_date < self.calendar.start_date || self.end_date > self.calendar.end_date
+      errors.add(:base, "Repeating event start and end dates must be within the range of the calendar.") if self.start_date.to_date < self.calendar.start_date.to_date || self.end_date.to_date > self.calendar.end_date.to_date
     end
   end
 

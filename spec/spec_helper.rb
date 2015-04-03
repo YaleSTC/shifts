@@ -31,5 +31,5 @@ RSpec.configure do |config|
 
   Capybara.asset_host = "http://localhost:3000" # using assets when server is running
   Capybara.javascript_driver = :webkit # WebKit is a lot faster than selenium
-  Capybara.default_wait_time = 2 # TravisCI may be slow
+  Capybara.default_wait_time = 15 # TravisCI may be slow
 end
