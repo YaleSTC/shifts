@@ -154,7 +154,7 @@ class TimeSlot < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add(:base, "Time slot start and end times must be within the range of the calendar.") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+      errors.add(:base, "Time slot start and end times must be within the range of the calendar.") if self.start.to_date < self.calendar.start_date.to_date || self.end.to_date > self.calendar.end_date.to_date
     end
   end
 end
