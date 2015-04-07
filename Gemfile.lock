@@ -22,6 +22,8 @@ GEM
       activesupport (= 3.2.21)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-import (0.7.0)
+      activerecord (>= 3.0)
     activeresource (3.2.21)
       activemodel (= 3.2.21)
       activesupport (= 3.2.21)
@@ -307,6 +309,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   annotate
   authlogic
   better_errors

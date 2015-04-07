@@ -30,10 +30,22 @@ class RepeatingEvent < ActiveRecord::Base
 
   def make_future(wipe)
     if self.has_time_slots?
-      TimeSlot.make_future(self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids, self.start_time, self.end_time, self.calendar.active, wipe)
+      TimeSlot.make_future(self, wipe)
     else
-      Shift.make_future(self.end_date, self.calendar.id, self.id, self.days_int, self.location_ids.first, self.start_time, self.end_time, self.user_id, Location.find(self.location_ids.first).loc_group.department.id, self.calendar.active, wipe)
+      Shift.make_future(self, self.locations.first,wipe)
     end
+  end
+
+  # returns array of all dates with repeating events
+  def dates_array
+    start_date = self.start_date.to_date
+    end_date = self.end_date.to_date
+    array = Array.new
+    return array if end_date<start_date
+    (start_date..end_date).each do |i|
+      array << i if self.days_int.include? i.wday
+    end
+    array
   end
 
   def days
@@ -164,8 +176,6 @@ class RepeatingEvent < ActiveRecord::Base
   def set_start_times
     self.start_time = self.start_date.to_time + self.start_time.seconds_since_midnight
     self.end_time = self.start_date.to_time + self.end_time.seconds_since_midnight
-#self.start_time.change(day: self.start_date.day, month: self.start_date.month, year: self.start_date.year)
- #     self.end_time = self.end_time.change(day: self.start_date.day, month: self.start_date.month, year: self.start_date.year)
   end
 
   def adjust_for_multi_day
@@ -174,18 +184,16 @@ class RepeatingEvent < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add(:base, "Repeating event start and end dates must be within the range of the calendar.") if self.start_date < self.calendar.start_date || self.end_date > self.calendar.end_date
+      errors.add(:base, "Repeating event start and end dates must be within the range of the calendar.") if self.start_date.to_date < self.calendar.start_date.to_date || self.end_date.to_date > self.calendar.end_date.to_date
     end
   end
 
   def adjust_for_past_event
     if self.start_time <= Time.now
+      self.start_date = self.start_date.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
+      duration = self.end_time - self.start_time
       self.start_time = self.start_time.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
-      self.end_time = self.end_time.change(day: Date.today.day, month: Date.today.month, year: Date.today.year)
-    end
-    if self.start_time <= Time.now
-      self.start_time = self.start_time.change(day: Date.tomorrow.day, month: Date.tomorrow.month, year: Date.tomorrow.year)
-      self.end_time = self.end_time.change(day: Date.tomorrow.day, month: Date.tomorrow.month, year: Date.tomorrow.year)
+      self.end_time = self.start_time + duration
     end
   end
 

@@ -117,96 +117,64 @@ class Shift < ActiveRecord::Base
   end
 
 
-
-  #This method creates the multitude of shifts required for repeating_events to work
-  #in order to work efficiently, it makes a few GIANT sql insert calls -mike
-  def self.make_future(end_date, cal_id, r_e_id, days, loc_id, start_time, end_time, user_id, department_id, active, wipe)
-    #We need several inner arrays with one big outer one, b/c sqlite freaks out
-    #if the sql insert call is too big. The "make" arrays are then used for making
-    #the shifts, and the "test" for finding conflicts.
-    outer_make = []
-    inner_make = []
-    outer_test = []
-    inner_test = []
-    diff = end_time - start_time
-    #Take each day and build an arrays containing the pieces of the sql queries
-    days.each do |day|
-      seed_start_time = (start_time.wday == day ? start_time : start_time.next(day))
-      seed_end_time = seed_start_time+diff
-      while seed_end_time <= (end_date + 1.day)
-        if active
-          inner_test.push "(user_id = #{user_id} AND active = #{true} AND department_id = #{department_id} AND start <= '#{seed_end_time.utc}' AND end >= '#{seed_start_time.utc}')"
-        else
-          inner_test.push "(user_id  = #{user_id} AND calendar_id = #{cal_id} AND department_id = #{department_id} AND start <= '#{seed_end_time.utc}' AND end >= '#{seed_start_time.utc}')"
-        end
-        inner_make.push "#{loc_id}, #{cal_id}, #{r_e_id}, '#{seed_start_time.utc}', '#{seed_end_time.utc}', '#{Time.now.utc}', '#{Time.now.utc}', #{user_id}, #{department_id}, #{active}"
-        #Once the array becomes big enough that the sql call will insert 450 rows, start over w/ a new array
-        #without this bit, sqlite freaks out if you are inserting a larger number of rows. Might need to be changed
-        #for other databases (it can probably be higher for other ones I think, which would result in faster execution)
-        if inner_make.length > 450
-          outer_make.push inner_make
-          inner_make = []
-          outer_test.push inner_test
-          inner_test = []
-        end
-         seed_start_time = seed_start_time.next(day)
-         seed_end_time = seed_start_time + diff
-      end
-      #handle leftovers or the case where there are less than 450 rows to be inserted
-    end
-      outer_make.push inner_make unless inner_make.empty?
-      outer_test.push inner_test unless inner_test.empty?
-    #Look for conflicts, delete them if wipe is on, and either complain about
-    #conflicts or make the new shifts
-    if wipe
-        outer_test.each do |sh|
-          Shift.mass_delete_with_dependencies(Shift.where(sh.join(" OR ")))
-        end
-        outer_make.each do |s|
-          sql = "INSERT INTO shifts (location_id , calendar_id , repeating_event_id , start , end , created_at , updated_at , user_id , department_id , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
-          ActiveRecord::Base.connection.execute sql
-        end
-      return false
+  def self.make_future(event, location, wipe)
+    cal = event.calendar
+    if cal.active 
+      shift_scope = Shift.active
     else
-      out = []
-        outer_test.each do |s|
-          out += Shift.where(s.join(" OR "))
-        end
-      if out.empty?
-          outer_make.each do |s|
-            sql = "INSERT INTO shifts (location_id , calendar_id , repeating_event_id , start , end , created_at , updated_at , user_id , department_id , active ) SELECT #{s.join(" UNION ALL SELECT ")};"
-            ActiveRecord::Base.connection.execute sql
-          end
+      shift_scope = Shift.where(calendar_id: cal.id)
+    end
+    dept = location.department
+    user_id = event.user_id
+    dates = event.dates_array
+    table = Shift.arel_table
+    shifts_all = Array.new
+    duration = event.end_time - event.start_time
+    conflict_all = nil
+    dates.each do |date|
+      start_time_on_date = date.to_time + event.start_time.seconds_since_midnight
+      end_time_on_date = start_time_on_date + duration
+      shifts_all << Shift.new(power_signed_up: true, repeating_event_id: event.id, location_id: location.id, calendar_id: cal.id, start: start_time_on_date, end: end_time_on_date, user_id: user_id, department_id: dept.id, active: cal.active)
+    end
+    conflict_msg = Shift.check_for_conflicts(shifts_all, wipe, shift_scope)
+    if conflict_msg.empty?
+      if shifts_all.map(&:valid?).all?
+        Shift.import shifts_all
         return false
-      end
-      return out.collect{|t| "The shift for "+t.to_message_name+" conflicts. Use wipe to fix."}.join(",")
-    end
-  end
-
-
-  #Used for activating calendars, check/wipe conflicts -Mike
-  def self.check_for_conflicts(shifts, wipe)
-    #big_array is just an array of arrays, the inner arrays being less than 450
-    #elements so sql doesn't freak
-    big_array = shifts.batch(450)
-    if big_array.empty?
-      ""
-    elsif wipe
-      big_array.each do |sh|
-        Shift.mass_delete_with_dependencies(Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start < \"#{s.end.utc}\" AND end > \"#{s.start.utc})\")"}.join(" OR ")))
-      end
-      return ""
-    else
-      out=big_array.collect do |sh|
-        Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start < \"#{s.end.utc}\" AND end > \"#{s.start.utc}\")"}.join(" OR ")).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
-      end
-      if out.collect(&:empty?).all?
-        return ""
       else
-        return out.join(",")+","
+        invalid_shifts = shifts_all.select{|s| !s.valid?}
+        return invalid_shifts.map{|s| "#{s.to_message_name}: #{s.errors.full_messages.join('; ')}"}.join('. ')
       end
+    else
+      return conflict_msg + " have conflict. Use wipe to fix."
     end
   end
+
+  def self.check_for_conflicts(shifts, wipe, shift_scope)
+    return "" if shifts.empty?
+    table = Shift.arel_table
+    shifts_with_conflict = Array.new
+    shifts.each_slice(450) do |shs|
+      conflict_all = nil
+      shs.each do |s|
+        conflict_condition = table[:user_id].eq(s.user_id).and(table[:department_id].eq(s.department_id)).and(table[:start].lt(s.end)).and(table[:end].gt(s.start))
+        if conflict_all.nil?
+          conflict_all = conflict_condition
+        else
+          conflict_all = conflict_all.or(conflict_condition)
+        end
+      end
+      shifts_with_conflict = shifts_with_conflict + shift_scope.where(conflict_all)
+      shifts_with_conflict.uniq!
+    end
+    if wipe
+      Shift.mass_delete_with_dependencies(shifts_with_conflict)
+    elsif !shifts_with_conflict.empty?
+      return shifts_with_conflict.map{|s| "The shift for #{s.to_message_name}."}.join(',')
+    end
+    return ""
+  end
+
 
   # ==================
   # = Object methods =
@@ -572,7 +540,7 @@ class Shift < ActiveRecord::Base
 
   def is_within_calendar
     unless self.calendar.default
-      errors.add(:base, "Shift start and end dates must be within the range of the calendar.") if self.start < self.calendar.start_date || self.end > self.calendar.end_date
+      errors.add(:base, "Shift start and end dates must be within the range of the calendar.") if self.start.to_date < self.calendar.start_date.to_date || self.end.to_date > self.calendar.end_date.to_date
     end
   end
 

@@ -63,7 +63,7 @@ describe "TimeSlot" , :time_slot do
     # Need JavaScript for the deletion submenu to work
     context "Different types of deletion", js: true do
       before :each do 
-        @re = create(:repeating_time_slots, location_ids: [@location.id], calendar: @calendar)
+        @re = create(:repeating_time_slots, locations: [@location], calendar: @calendar)
         # getting the second timeslot in the series
         @slot = @re.time_slots.order(:start).second
         @count = TimeSlot.count
