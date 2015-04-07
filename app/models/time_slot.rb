@@ -137,7 +137,7 @@ class TimeSlot < ActiveRecord::Base
       time_slots_with_conflict.uniq!
     end
     if wipe
-      time_slots_with_conflict.delete_all
+      TimeSlot.delete(time_slots_with_conflict.map(&:id))
     elsif !time_slots_with_conflict.empty?
       return time_slots_with_conflict.map{|t| "The timeslot #{t.to_message_name}."}.join(',')
     end
