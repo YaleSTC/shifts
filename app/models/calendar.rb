@@ -92,8 +92,8 @@ class Calendar < ActiveRecord::Base
   def activate(wipe)
     self.active = true
     conditions = ["calendar_id  = ? AND start > ?", self.id, Time.now.utc]
-    s_conflicts = Shift.check_for_conflicts(Shift.where(conditions), wipe)
-    ts_conflicts = TimeSlot.check_for_conflicts(TimeSlot.where(conditions), wipe)
+    s_conflicts = Shift.check_for_conflicts(Shift.where(conditions), wipe, Shift.active)
+    ts_conflicts = TimeSlot.check_for_conflicts(TimeSlot.where(conditions), wipe, TimeSlot.active)
     if s_conflicts.empty? && ts_conflicts.empty?
       TimeSlot.where(conditions).update_all(active: true)
       Shift.where(conditions).update_all(active: true)
