@@ -116,8 +116,8 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user2.name)
     view_stats(nil, start_date, end_date)
-    expect(page).to have_content("130.5")
-    expect(page).to have_content("391.5")
+    expect(page).to have_content("652.5")
+    expect(page).to have_content("1957.5")
 
     # Deactivating the calendar when an error is found
     visit calendar_path(schedule_calendar)
