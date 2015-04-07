@@ -34,6 +34,11 @@ class TimeSlot < ActiveRecord::Base
   def self.make_future(event, wipe)
     dates = event.dates_array
     cal = event.calendar
+    if cal.active
+      time_slot_scope = TimeSlot.active
+    else
+      time_slot_scope = TimeSlot.where(calendar_id: cal.id)
+    end
     loc_ids = event.location_ids
     table = TimeSlot.arel_table
     time_slots_all = Array.new
@@ -43,63 +48,100 @@ class TimeSlot < ActiveRecord::Base
       dates.each do |date|
         start_time_on_date = date.to_time + event.start_time.seconds_since_midnight
         end_time_on_date = start_time_on_date + duration
-        conflict_condition = table[:location_id].eq(loc_id).and(table[:start].lt(end_time_on_date)).and(table[:end].gt(start_time_on_date))
-        if cal.active
-          conflict_condition = conflict_condition.and(table[:active].eq(true))
-        else
-          conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal.id))
-        end
+        # conflict_condition = table[:location_id].eq(loc_id).and(table[:start].lt(end_time_on_date)).and(table[:end].gt(start_time_on_date))
+        # if cal.active
+        #   conflict_condition = conflict_condition.and(table[:active].eq(true))
+        # else
+        #   conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal.id))
+        # end
         time_slots_all << TimeSlot.new(location_id: loc_id, calendar_id: cal.id, repeating_event_id: event.id, start: start_time_on_date, end: end_time_on_date, active: cal.active)
+        # if conflict_all.nil?
+        #   conflict_all = conflict_condition
+        # else
+        #   conflict_all = conflict_all.or(conflict_condition)
+        # end
+      end
+    end
+    conflict_msg = TimeSlot.check_for_conflicts(time_slots_all, wipe, time_slot_scope)
+    if conflict_msg.empty?
+      if time_slots_all.map(&:valid?).all?
+        TimeSlot.import time_slots_all
+        return false
+      else
+        invalid_time_slots = time_slots_all.select{|t| !t.valid?}
+        return invalid_time_slots.map{|s| "#{s.to_message_name}: #{s.errors.full_messages.join('; ')}"}.join('. ')
+      end
+    else
+      return conflict_msg + " have conflict. Use wipe to fix."
+    end
+
+    # time_slots_with_conflict = TimeSlot.where(conflict_all)
+    # if wipe
+    #   time_slots_with_conflict.delete_all
+    # elsif !time_slots_with_conflict.empty?
+    #   return "The time_slot " + time_slots_with_conflict.map(&:to_message_name).join(", ") + " conflict. Use wipe to fix."
+    # end
+    # if time_slots_all.map(&:valid?).all?
+    #   TimeSlot.import time_slots_all
+    #   return false
+    # else
+    #   invalid_time_slots = time_slots_all.select{|t| !t.valid?}
+    #   return invalid_time_slots.map{|s| "#{s.to_message_name}: #{s.errors.full_messages.join('; ')}"}.join('. ')
+    # end
+  end
+
+
+  # #Used for activating calendars, check/wipe conflicts -Mike
+  # def self.check_for_conflicts(time_slots, wipe)
+  #   #big_array is just an array of arrays, the inner arrays being less than 450
+  #   #elements so sql doesn't freak
+  #   big_array = []
+  #   while time_slots && !time_slots.empty? do
+  #     big_array.push time_slots[0..450]
+  #     time_slots = time_slots[451..time_slots.length]
+  #   end
+  #   if big_array.empty?
+  #     ""
+  #   elsif wipe
+  #     big_array.each do |t_slots|
+  #       TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start < \"#{t.end.utc}\" AND end > \"#{t.start.utc}\")"}.join(" OR ")])
+  #     end
+  #     return ""
+  #   else
+  #     out=big_array.collect do |t_slots|
+  #       TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start <= \"#{t.end.utc}\" AND end > \"#{t.start.utc}\")"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
+  #     end
+  #     if out.collect(&:empty?).all?
+  #       return ""
+  #     else
+  #       return out.join(",")+","
+  #     end
+  #   end
+  # end
+
+  def self.check_for_conflicts(time_slots, wipe, time_slot_scope)
+    return "" if time_slots.empty?
+    table = TimeSlot.arel_table
+    time_slots_with_conflict = Array.new
+    time_slots.each_slice(450) do |tss|
+      conflict_all = nil
+      tss.each do |ts|
+        conflict_condition = table[:location_id].eq(ts.location_id).and(table[:start].lt(ts.end)).and(table[:end].gt(ts.start))
         if conflict_all.nil?
           conflict_all = conflict_condition
         else
           conflict_all = conflict_all.or(conflict_condition)
         end
       end
+      time_slots_with_conflict += time_slot_scope.where(conflict_all)
+      time_slots_with_conflict.uniq!
     end
-
-    time_slots_with_conflict = TimeSlot.where(conflict_all)
     if wipe
       time_slots_with_conflict.delete_all
     elsif !time_slots_with_conflict.empty?
-      return "The time_slot " + time_slots_with_conflict.map(&:to_message_name).join(", ") + " conflict. Use wipe to fix."
+      return time_slots_with_conflict.map{|t| "The timeslot #{t.to_message_name}."}.join(',')
     end
-    if time_slots_all.map(&:valid?).all?
-      TimeSlot.import time_slots_all
-      return false
-    else
-      invalid_time_slots = time_slots_all.select{|t| !t.valid?}
-      return invalid_time_slots.map{|s| "#{s.to_message_name}: #{s.errors.full_messages.join('; ')}"}.join('. ')
-    end
-  end
-
-
-  #Used for activating calendars, check/wipe conflicts -Mike
-  def self.check_for_conflicts(time_slots, wipe)
-    #big_array is just an array of arrays, the inner arrays being less than 450
-    #elements so sql doesn't freak
-    big_array = []
-    while time_slots && !time_slots.empty? do
-      big_array.push time_slots[0..450]
-      time_slots = time_slots[451..time_slots.length]
-    end
-    if big_array.empty?
-      ""
-    elsif wipe
-      big_array.each do |t_slots|
-        TimeSlot.delete_all([t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start < \"#{t.end.utc}\" AND end > \"#{t.start.utc}\")"}.join(" OR ")])
-      end
-      return ""
-    else
-      out=big_array.collect do |t_slots|
-        TimeSlot.where(t_slots.collect{|t| "(location_id = #{t.location_id} AND active = #{true} AND start <= \"#{t.end.utc}\" AND end > \"#{t.start.utc}\")"}.join(" OR ")).collect{|t| "The timeslot "+t.to_message_name+"."}.join(",")
-      end
-      if out.collect(&:empty?).all?
-        return ""
-      else
-        return out.join(",")+","
-      end
-    end
+    return ""
   end
 
   def duration
