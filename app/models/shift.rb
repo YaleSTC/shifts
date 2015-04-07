@@ -134,18 +134,7 @@ class Shift < ActiveRecord::Base
     dates.each do |date|
       start_time_on_date = date.to_time + event.start_time.seconds_since_midnight
       end_time_on_date = start_time_on_date + duration
-      # conflict_condition = table[:user_id].eq(user_id).and(table[:department_id].eq(dept.id)).and(table[:start].lt(end_time_on_date)).and(table[:end].gt(start_time_on_date))
-      # if cal.active
-      #   conflict_condition = conflict_condition.and(table[:active].eq(true))
-      # else
-      #   conflict_condition = conflict_condition.and(table[:calendar_id].eq(cal.id))
-      # end
       shifts_all << Shift.new(power_signed_up: true, repeating_event_id: event.id, location_id: location.id, calendar_id: cal.id, start: start_time_on_date, end: end_time_on_date, user_id: user_id, department_id: dept.id, active: cal.active)
-      # if conflict_all.nil?
-      #   conflict_all = conflict_condition
-      # else
-      #   conflict_all = conflict_all.or(conflict_condition)
-      # end
     end
     conflict_msg = Shift.check_for_conflicts(shifts_all, wipe, shift_scope)
     if conflict_msg.empty?
@@ -160,44 +149,6 @@ class Shift < ActiveRecord::Base
       return conflict_msg + " have conflict. Use wipe to fix."
     end
   end
-    # shifts_with_conflict = Shift.where(conflict_all)
-  #   if wipe
-  #     Shift.mass_delete_with_dependencies(shifts_with_conflict)
-  #   elsif !shifts_with_conflict.empty?
-  #     return "The shifts " + shifts_with_conflict.map(&:to_message_name).join(', ')+" conflict. Use wipe to fix."
-  #   end
-  #   if shifts_all.map(&:valid?).all?
-  #     Shift.import shifts_all
-  #     return false
-  #   else
-  #     invalid_shifts = shifts_all.select{|s| !s.valid?}
-  #     return invalid_shifts.map{|s| "#{s.to_message_name}: #{s.errors.full_messages.join('; ')}"}.join('. ')
-  #   end
-  # end
-
-  # #Used for activating calendars, check/wipe conflicts -Mike
-  # def self.check_for_conflicts(shifts, wipe)
-  #   #big_array is just an array of arrays, the inner arrays being less than 450
-  #   #elements so sql doesn't freak
-  #   big_array = shifts.batch(450)
-  #   if big_array.empty?
-  #     ""
-  #   elsif wipe
-  #     big_array.each do |sh|
-  #       Shift.mass_delete_with_dependencies(Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start < \"#{s.end.utc}\" AND end > \"#{s.start.utc})\")"}.join(" OR ")))
-  #     end
-  #     return ""
-  #   else
-  #     out=big_array.collect do |sh|
-  #       Shift.where(sh.collect{|s| "(user_id = #{s.user_id} AND active = #{true} AND department_id = #{s.department_id} AND start < \"#{s.end.utc}\" AND end > \"#{s.start.utc}\")"}.join(" OR ")).collect{|t| "The shift for "+t.to_message_name+"."}.join(",")
-  #     end
-  #     if out.collect(&:empty?).all?
-  #       return ""
-  #     else
-  #       return out.join(",")+","
-  #     end
-  #   end
-  # end
 
   def self.check_for_conflicts(shifts, wipe, shift_scope)
     return "" if shifts.empty?
