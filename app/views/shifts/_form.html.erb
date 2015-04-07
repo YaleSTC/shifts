@@ -25,7 +25,7 @@
                                   default: @shift.end} %>
   </p>
   <p>
-    <%= f.label :location %><br />
+    <%= f.label :location_id %><br />
     <%= select_tag 'shift[location_id]', option_groups_from_collection_for_select(current_department.loc_groups, :locations, :name, :id, :name, @shift.location ? @shift.location.id : params[:location_id].to_i )%><br />
   </p>
 	<% if @shift.location.nil? && params[:location_id] %>
@@ -37,12 +37,12 @@
   <% if current_user.is_admin_of?(current_department) %>
 		<% if select_lg.nil? || current_user.is_superuser? %>
 			<p>
-		    <%= f.label :user %><br />
+		    <%= f.label :user_id %><br />
 		    <%= f.collection_select(:user_id, current_department.active_users.sort_by{|u| u.name}, :id, :name, {prompt: "Select a user"}) %>
 		  </p>
 		<% else %>
 			<p>
-	      <%= f.label :user %><br />
+	      <%= f.label :user_id %><br />
 	      <%= f.collection_select(:user_id, current_department.active_users.delete_if{|u| !u.can_signup?(select_lg)}.sort_by{|u| u.name}, :id, :name, {prompt: "Select a user"}) %>
 	    </p>
 		<% end %>

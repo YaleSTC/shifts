@@ -17,7 +17,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
   it "can schedule shifts", driver: :selenium do
 
     start_date = Date.new(2014, 9, 7) # aka 'go live' date
-    end_date = Date.new(2015, 9, 7)
+    end_date = Date.new(2019, 9, 7) # Create lots of events
     
     ## Part 1. Prepare request calendar
 
@@ -47,7 +47,7 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
         expect_shift_on_schedule(@location.id, date, user.name)
       end
     end
-    # Check stats (should implement this in the view)
+    # Check stats
     sign_in(@admin.login)
     visit stats_path
     view_stats(calendar, next_week, next_week+6.days)
@@ -116,7 +116,19 @@ describe "Shifts scheduling", :shifts_scheduling, :time_slot, :shift do
     expect(page).to have_content(@user.name)
     expect(page).to have_content(@user2.name)
     view_stats(nil, start_date, end_date)
-    expect(page).to have_content("130.5")
-    expect(page).to have_content("391.5")
+    expect(page).to have_content("652.5")
+    expect(page).to have_content("1957.5")
+
+    # Deactivating the calendar when an error is found
+    visit calendar_path(schedule_calendar)
+    click_on "Deactivate"
+    expect_flash_notice "The calendar was successfully deactivated"
+
+    # Checking
+    visit shifts_path + "?date="+start_date.strftime("%Y-%m-%d")
+    expect(page).not_to have_content(@user.name)
+    expect(page).not_to have_content(@user2.name)
+    view_stats(nil, start_date, end_date)
+    expect(page).to have_content("0.0")
   end
 end

@@ -6,6 +6,6 @@
 <%end%>
 </ul>
 <p>Would you like to activate the calendar anyway?<p>
-<%= button_to "No! Take me back!", calendars_path %>
+<%= button_to "No! Take me back!", calendars_path, method: :get %>
 <%= button_to "Activate anyway." , toggle_calendar_path(id: @calendar.id, wipe: "true"), confirm: "This will delete all shifts listed on this page. Are you sure?" %>
 
