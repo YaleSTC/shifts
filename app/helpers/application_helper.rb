@@ -73,23 +73,23 @@ module ApplicationHelper
     '%B %d, %Y'
   end
 
-  #requires a div with id "AJAX_status" to be included in the page
-  def ajax_alert(page, content, delay_length = 2.5)
-    rand = "rand"+rand(10000).to_s #unique id for element
-    page.insert_html :top, "AJAX_status", "<div id='#{rand}' class='AJAX_alert'>#{content}</div>"
-    page[rand].visual_effect :slide_down
-    page[rand].visual_effect :highlight
-    page.delay(delay_length) do
-      page[rand].visual_effect :slide_up
-    end
-  end
+  # #requires a div with id "AJAX_status" to be included in the page
+  # def ajax_alert(page, content, delay_length = 2.5)
+  #   rand = "rand"+rand(10000).to_s #unique id for element
+  #   page.insert_html :top, "AJAX_status", "<div id='#{rand}' class='AJAX_alert'>#{content}</div>"
+  #   page[rand].visual_effect :slide_down
+  #   page[rand].visual_effect :highlight
+  #   page.delay(delay_length) do
+  #     page[rand].visual_effect :slide_up
+  #   end
+  # end
 
-  def persistent_ajax_alert(page, content)
-    rand = "rand"+rand(10000).to_s #unique id for element
-    page.insert_html :top, "AJAX_status", "<div id='#{rand}' class='AJAX_alert'><a href='#' style='float:right;' onclick='$(this).parent().remove(); return false;'>[x]</a><br>#{content}</div>"
-    page[rand].visual_effect :slide_down
-    page[rand].visual_effect :highlight
-  end
+  # def persistent_ajax_alert(page, content)
+  #   rand = "rand"+rand(10000).to_s #unique id for element
+  #   page.insert_html :top, "AJAX_status", "<div id='#{rand}' class='AJAX_alert'><a href='#' style='float:right;' onclick='$(this).parent().remove(); return false;'>[x]</a><br>#{content}</div>"
+  #   page[rand].visual_effect :slide_down
+  #   page[rand].visual_effect :highlight
+  # end
 
   def calculate_default_times_repeating_events
     if params[:date]
