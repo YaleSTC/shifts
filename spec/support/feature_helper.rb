@@ -44,7 +44,7 @@ module FeatureHelper
     begin
       select target_time.strftime("%I %p"), from: "#{prefix}_4i"
       inc = @department.department_config.time_increment
-      select ("%.2d" % target_time.min/inc*inc), from: "#{prefix}_5i"
+      select ("%.2d" % (target_time.min/inc*inc)), from: "#{prefix}_5i"
     rescue
       select target_time.strftime("%H"), from: "#{prefix}_4i"
       select target_time.strftime("%M"), from: "#{prefix}_5i"
