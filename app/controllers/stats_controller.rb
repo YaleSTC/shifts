@@ -104,10 +104,8 @@ class StatsController < ApplicationController
       respond_to do |format|
         # format.html #freak out
         format.js do
-          render :update do |page|
-            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.")
-            page.hide "tooltip"
-          end
+          @ajax_error_message = "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page."
+          render "layouts/ajax_alert"
         end
       end
     else
