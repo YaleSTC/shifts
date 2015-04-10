@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
         end
         format.js do
           @ajax_error_message = "<strong>Error:</strong>" + error_message
-          render :update 
+          render "layouts/ajax_alert" 
           return false
         end
       end
