@@ -50,7 +50,7 @@ class RepeatingEventsController < ApplicationController
         format.html {render action: 'new'}
         format.js do
           @persistent = true
-          @ajax_error_message = "<strong>Error:</strong> repeating event could not be saved.<br><br>"+(@errors.nil? ? e : @errors*"<br><br>"
+          @ajax_error_message = "<strong>Error:</strong> repeating event could not be saved.<br><br>"+(@errors.nil? ? e : @errors*"<br><br>")
           render "layouts/ajax_alert"
         end
       end
@@ -99,7 +99,7 @@ class RepeatingEventsController < ApplicationController
         format.html {render action: 'edit'}
         format.js do
           @persistent = true
-          @ajax_error_message = "<strong>Error:</strong> repeating event could not be saved.<br><br>"+(@errors.nil? ? e : @errors*"<br><br>"
+          @ajax_error_message = "<strong>Error:</strong> repeating event could not be saved.<br><br>"+(@errors.nil? ? e : @errors*"<br><br>")
           render "layouts/ajax_alert"
         end
       end
