@@ -61,6 +61,17 @@ describe "Tooltip", js: true do
         expect(TimeSlot.count).to be >= (c.end_date-Time.now)/3600/24/7
       end
 
+      it 'can display error when trying to create one-time time_slot with conflict' do 
+        slot = create(:time_slot, location: @location2, calendar: @calendar)
+        show_new_tooltip
+        within("#new_time_slot") do
+          fill_in_date("time_slot_start_date", slot.start.to_date)
+          fill_in_time("time_slot_start_time", slot.start)
+          fill_in_time("time_slot_end_time", slot.end)
+        end
+        click_on "Create New"
+        expect(page).to have_content("timeslot could not be saved")
+      end
 
       it 'can close tooltip' do 
         show_new_tooltip
