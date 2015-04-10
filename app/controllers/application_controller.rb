@@ -110,10 +110,8 @@ class ApplicationController < ActionController::Base
           redirect_to access_denied_path
         end
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong> "+error_message
+          render "layouts/ajax_alert"
           return false
         end
       end
@@ -130,10 +128,8 @@ class ApplicationController < ActionController::Base
           redirect_to access_denied_path
         end
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong> "+error_message
+          render "layouts/ajax_alert"
           return false
         end
       end
@@ -150,10 +146,8 @@ class ApplicationController < ActionController::Base
           redirect_to access_denied_path
         end
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong> "+error_message
+          render "layouts/ajax_alert"
           return false
         end
       end
@@ -187,10 +181,8 @@ class ApplicationController < ActionController::Base
           redirect_to access_denied_path and return false
         end
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong> "+error_message
+          render "layouts/ajax_alert"
           return false
         end
       end
@@ -210,10 +202,8 @@ class ApplicationController < ActionController::Base
           redirect_to access_denied_path and return false
         end
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong> "+error_message
+          render "layouts/ajax_alert"
           return false
         end
       end
@@ -232,10 +222,8 @@ class ApplicationController < ActionController::Base
           redirect_to access_denied_path and return false
         end
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong> "+error_message
+          render "layouts/ajax_alert"
           return false
         end
       end
@@ -253,9 +241,8 @@ class ApplicationController < ActionController::Base
           redirect_to access_denied_path and return false
         end
         format.js do
-          render :update do |page|
-            ajax_alert(page, "<strong>error:</strong> "+error_message);
-          end
+          @ajax_error_message = "<strong>Error:</strong> "+error_message
+          render "layouts/ajax_alert"
           return false
         end
       end
