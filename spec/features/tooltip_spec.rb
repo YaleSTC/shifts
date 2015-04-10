@@ -112,7 +112,7 @@ describe "Tooltip", js: true do
     before(:each) do
       start_time = Date.tomorrow.to_time+@department.department_config.schedule_start.minutes
       end_time = Date.tomorrow.to_time+@department.department_config.schedule_end.minutes-1.hour
-      create(:time_slot, location: @location2, calendar: @calendar, start: start_time, end: end_time)
+      @slot = create(:time_slot, location: @location2, calendar: @calendar, start: start_time, end: end_time)
     end
 
     context "New Shift Tooltip" do 
@@ -138,6 +138,17 @@ describe "Tooltip", js: true do
         click_on "Create New"
         expect(page.find("li[id*='shift']")).to have_content(@user.name)
         expect(Shift.count).to eq(1)
+      end
+
+      it 'ordinary user cannot create shift outside of time slot' do 
+        sign_in(@user.login)
+        show_new_tooltip
+        within('#new_shift') do 
+          fill_in_time('shift_start_time', @slot.end)
+          fill_in_time('shift_end_time', @slot.end+2.hours)
+        end
+        click_on "Create New"
+        expect(page).to have_content("You can only sign up for a shift during a time slot")
       end
 
       it 'admin can create one-time shift' do 

@@ -70,10 +70,8 @@ class ShiftsController < ApplicationController
       respond_to do |format|
         format.html #freak out
         format.js do
-          render :update do |page|
-            ajax_alert(page, "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page.".html_safe)
-            page.hide "tooltip"
-          end
+          @ajax_error_message = "<strong>Error (404):</strong> shift ##{params[:id]} cannot be found. Please refresh the current page."
+          render "layouts/ajax_alert"
         end
       end
     else
@@ -156,7 +154,7 @@ class ShiftsController < ApplicationController
             error_string += "<br><br>#{attr_name}: #{message}"
           end
           @ajax_error_message = "<strong>Error:</strong> shift could not be saved."+error_string
-          render :update
+          render "layouts/ajax_alert"
         end
       end
     end
@@ -191,13 +189,13 @@ class ShiftsController < ApplicationController
     else
       respond_to do |format|
         format.js do
-          render :update do |page|
-            error_string = ""
-            @shift.errors.each do |attr_name, message|
-              error_string += "<br><br>#{attr_name}: #{message}"
-            end
-            ajax_alert(page, "<strong>error:</strong> updated shift could not be saved."+error_string, 2.5 + (@shift.errors.size))
+          error_string = ""
+          @shift.errors.each do |attr_name, message|
+            error_string += "<br><br>#{attr_name}: #{message}"
           end
+          @ajax_error_message = "<strong>error:</strong> updated shift could not be saved."+error_string
+          @duration = 2.5 + (@shift.errors.size)
+          render "layouts/ajax_alert"
         end
         format.html {render action: 'edit'}
       end
@@ -216,10 +214,8 @@ class ShiftsController < ApplicationController
       respond_to do |format|
         format.html {flash[:notice] = "That action is restricted."; redirect_to access_denied_path}
         format.js do
-          render :update do |page|
-            # display alert
-            ajax_alert(page, "<strong>error:</strong> That action is restricted.");
-          end
+          @ajax_error_message = "<strong>error:</strong> That action is restricted."
+          render "layouts/ajax_alert"
         end
       end
     end
