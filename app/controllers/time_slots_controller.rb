@@ -31,6 +31,7 @@ class TimeSlotsController < ApplicationController
     @time_slot = TimeSlot.new(params[:time_slot])
     if !@time_slot.save
       errors << "Error saving timeslot"
+      errors += @time_slot.errors.full_messages
     end
 
     respond_to do |format|
