@@ -53,9 +53,8 @@ class TimeSlotsController < ApplicationController
               @time_slot_day = @time_slot.start.to_date - 1.day
             end
           else
-            render :update do |page|
-              ajax_alert(page, "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>")
-            end
+            @ajax_error_message = "<strong>error:</strong> timeslot could not be saved<br>"+errors*"<br/>"
+            render "layouts/ajax_alert"
           end
       end
     end
@@ -91,7 +90,7 @@ class TimeSlotsController < ApplicationController
             error_string += "<br><br>#{attr_name}: #{message}"
           end
           @ajax_error_message = "<strong>error:</strong> updated time slot could not be saved."+error_string
-          render :update
+          render "layouts/ajax_alert"
         end
         format.html {render action: 'edit'}
       end
