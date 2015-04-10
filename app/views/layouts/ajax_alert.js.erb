@@ -1,11 +1,8 @@
   $('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
   var new_div = $("<div class='AJAX_alert'><%= j @ajax_error_message.html_safe %></div>").prependTo("#AJAX_status");
-  console.log(new_div);
   <% if @persistent %>
     new_div.slideDown().effect("highlight");
-    alert("persistent!");
   <% else %>
     new_div.slideDown().effect("highlight").delay(2500).slideUp();
-    alert("gone!");
   <% end %>
   <% flash.discard %>
