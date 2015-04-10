@@ -19,7 +19,7 @@
 
   <% if current_user.is_admin_of?(@department) %>
     <div class="toggle_me" style="display:none">
-      <%= form_for (@repeating_event = RepeatingEvent.new) do |f| %>
+      <%= form_for (@repeating_event = RepeatingEvent.new), remote: true do |f| %>
         <%= render partial: 'time_slots/form_repeating', locals: {f: f} %>
         <%= hidden_field_tag 'rerender_date', params[:date] %>
         <p><%= submit_tag "Create New Repeating Event", url: { controller: 'repeating_events', action: 'create', calendar: params[:calendar] } %></p>
