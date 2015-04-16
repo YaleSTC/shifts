@@ -39,8 +39,10 @@ class RepeatingEventsController < ApplicationController
         @failed = @repeating_event.make_future(wipe)
         raise @failed if @failed
       end
+      flash[:notice] = "Successfully created repeating event."
+      flash[:notice] += " Please note that some events were not created because they started in the past." if warn
       respond_to do |format|
-        format.html {flash[:notice] = "Successfully created repeating event."; flash[:notice] += " Please note that some events were not created because they started in the past." if warn; redirect_to @repeating_event}
+        format.html {redirect_to @repeating_event}
         format.js
       end
     rescue Exception => e

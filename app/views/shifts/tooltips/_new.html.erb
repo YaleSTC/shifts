@@ -13,16 +13,16 @@
 	  <%= form_for @shift, url: { action: 'create', calendar: params[:calendar] }, remote: true do |f| %>
 		<%= f.error_messages %>
 		  <%= render partial: 'shifts/form', locals: {f: f} %>
-    	<p><%= submit_tag "Create New" %></p>
+    	<p><%= f.submit "Create New" %></p>
 	  <% end %>
 	</div>
 
 	<% if current_user.is_admin_of?(@department) %>
 	  <div class="toggle_me" style="display:none">
-		<%= form_for (@repeating_event = RepeatingEvent.new), remote: true do |f| %>
+		<%= form_for (@repeating_event = RepeatingEvent.new), url: repeating_events_path(calendar: params[:calendar]), method: :post, remote: true do |f| %>
 		  <%= render partial: 'shifts/form_repeating', locals: {f: f, shift_start: params[:date].to_date.midnight, shift_end: params[:date].to_date.midnight } %>
 		  <%= hidden_field_tag 'rerender_date', params[:date] %>
-		  <p><%= submit_tag "Create New Repeating Event", url: { controller: 'repeating_events', action: 'create', calendar: params[:calendar] }, data:{disable_with: "Creating repeating event..."} %></p>
+		  <p><%= f.submit "Create New Repeating Event", data:{disable_with: "Creating repeating event..."} %></p>
 		<% end %>
 	  </div>
 	<% end %>

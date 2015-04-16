@@ -13,7 +13,7 @@
     <%= form_for @time_slot, remote: true do |f| %>
       <%= f.error_messages %>
       <%= render partial: 'time_slots/form', locals: {f: f}  %>
-      <p><%= submit_tag  "Create New" %></p>
+      <p><%= f.submit  "Create New" %></p>
     <% end %>
   </div>
 
@@ -22,7 +22,7 @@
       <%= form_for (@repeating_event = RepeatingEvent.new), remote: true do |f| %>
         <%= render partial: 'time_slots/form_repeating', locals: {f: f} %>
         <%= hidden_field_tag 'rerender_date', params[:date] %>
-        <p><%= submit_tag "Create New Repeating Event", url: { controller: 'repeating_events', action: 'create', calendar: params[:calendar] } %></p>
+        <p><%= f.submit "Create New Repeating Event", data:{disable_with: "Creating repeating event..."} %></p>
       <% end %>
     </div>
   <% end %>
