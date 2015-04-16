@@ -19,7 +19,7 @@
 
 	<% if current_user.is_admin_of?(@department) %>
 	  <div class="toggle_me" style="display:none">
-		<%= form_for(@repeating_event = RepeatingEvent.new), remote: true do |f| %>
+		<%= form_for (@repeating_event = RepeatingEvent.new), remote: true do |f| %>
 		  <%= render partial: 'shifts/form_repeating', locals: {f: f, shift_start: params[:date].to_date.midnight, shift_end: params[:date].to_date.midnight } %>
 		  <%= hidden_field_tag 'rerender_date', params[:date] %>
 		  <p><%= submit_tag "Create New Repeating Event", url: { controller: 'repeating_events', action: 'create', calendar: params[:calendar] }, data:{disable_with: "Creating repeating event..."} %></p>
