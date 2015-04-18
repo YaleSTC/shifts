@@ -141,7 +141,11 @@ function popup_edit_timeslot(parent_element, e){
   var id = parent_element.attr('id').substring(8); //remove "timeslot" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit'});
+  var calendar_data="";
+  if (typeof calendar !== 'undefined') {
+    calendar_data = "calendar="+calendar;
+  }
+  $.ajax({data: calendar_data, dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit'});
 }
 
 function popup_delete_repeating_timeslot(parent_element, e){
@@ -150,7 +154,11 @@ function popup_delete_repeating_timeslot(parent_element, e){
   var id = parent_element.attr('id').substring(17); //remove "delete_repeating_" from id
 
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"delete_options=true", dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit'});
+  var calendar_data="";
+  if (typeof calendar !== 'undefined') {
+    calendar_data = "calendar="+calendar;
+  }
+  $.ajax({data:calendar_data+"&delete_options=true", dataType:'script', type:'get', url:timeSlotsPath+'/'+id+'/edit'});
 }
 
 function popup_new_timeslot(parent_element, e, raw_element){
@@ -165,7 +173,12 @@ function popup_new_timeslot(parent_element, e, raw_element){
   var widthPercentage = relX / parent_element.width();
   var date = params[1];
   loading_tooltip(e.pageX, e.pageY);
-  $.ajax({data:"location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath});
+  var calendar_data="";
+  if (typeof calendar !== 'undefined') {
+    calendar_data = "calendar="+calendar;
+  }
+
+  $.ajax({data:calendar_data+"&location_id="+locationID+"&date="+date+"&xPercentage="+widthPercentage, dataType:'script', type:'get', url:newTimeSlotPath});
 }
 
 function popup_new_shift(parent_element, e, raw_element){

@@ -10,7 +10,7 @@
   <% end %>
 
   <div class="toggle_me">
-    <%= form_for @time_slot, remote: true do |f| %>
+    <%= form_for @time_slot, url: { action: 'create', calendar: params[:calendar] }, remote: true do |f| %>
       <%= f.error_messages %>
       <%= render partial: 'time_slots/form', locals: {f: f}  %>
       <p><%= f.submit  "Create New" %></p>
@@ -19,7 +19,7 @@
 
   <% if current_user.is_admin_of?(@department) %>
     <div class="toggle_me" style="display:none">
-      <%= form_for (@repeating_event = RepeatingEvent.new), remote: true do |f| %>
+      <%= form_for (@repeating_event = RepeatingEvent.new), url: repeating_events_path(calendar: params[:calendar]), method: :post, remote: true do |f| %>
         <%= render partial: 'time_slots/form_repeating', locals: {f: f} %>
         <%= hidden_field_tag 'rerender_date', params[:date] %>
         <p><%= f.submit "Create New Repeating Event", data:{disable_with: "Creating repeating event..."} %></p>
