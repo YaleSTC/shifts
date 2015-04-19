@@ -1,3 +1,4 @@
+
 $('#tooltip').remove();
 <% if @repeating_event.is_set_of_timeslots? and !params[:calendar] %>
    <% @period_start = params[:rerender_date] ? Date.parse(params[:rerender_date]).previous_sunday : Date.today.previous_sunday %>
@@ -27,6 +28,6 @@ $('#tooltip').remove();
 <% end %>
 
 $('#flash').html("<%= escape_javascript render partial: 'layouts/flash', locals: {flash: flash} %>");
-var new_div = $("<div class='AJAX_alert'>event(s) created</div>").prependTo("#AJAX_status");
+var new_div = $("<div class='AJAX_alert'>event(s) updated</div>").prependTo("#AJAX_status");
 new_div.slideDown().effect("highlight").delay(2500).slideUp();
 <% flash.discard %>
