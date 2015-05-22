@@ -3,17 +3,19 @@ require 'rails_helper'
 describe "Tooltip", js: true do 
   before :each do
     full_setup
-      @location2 = create(:location, loc_group: @loc_group)
-    end
+    @location2 = create(:location, loc_group: @loc_group)
+    @event_date = Date.today+20.days
+    @time_slots_path_on_date = time_slots_path+"?date="+@event_date.strftime("%Y-%m-%d")
+    @shifts_path_on_date = shifts_path+"?date="+@event_date.strftime("%Y-%m-%d")
+  end
 
   context "Tooltip on TimeSlot page", :time_slot do 
     before(:each) {sign_in(@admin.login)}
 
     context "New TimeSlot tooltip" do 
       def show_new_tooltip
-        visit time_slots_path
-        # Open at the day after today
-        time_slot_row(@location2.id, Date.tomorrow).find('.click_to_add_new_timeslot').click
+        visit @time_slots_path_on_date
+        time_slot_row(@location2.id, @event_date).find('.click_to_add_new_timeslot').click
       end
 
       it 'can view the timeslot creation page on tooltip with correct location' do
@@ -24,12 +26,12 @@ describe "Tooltip", js: true do
       it 'can create one-time timeslot on tooltip' do 
         show_new_tooltip
         within("#new_time_slot") do
-          fill_in_date("time_slot_start_date", Date.today+1.day)
+          fill_in_date("time_slot_start_date", @event_date)
           select "10 AM", :from => "time_slot_start_time_4i"
           select "5 PM", :from => "time_slot_end_time_4i"
         end
         click_on "Create New"
-        expect(time_slot_row(@location2.id, Date.tomorrow)).to have_selector('li.timeslot')
+        expect(time_slot_row(@location2.id, @event_date)).to have_selector('li.timeslot')
         expect(TimeSlot.count).to eq(1)
       end
 
@@ -37,11 +39,12 @@ describe "Tooltip", js: true do
         show_new_tooltip
         check "Repeating event?"
         uncheck "Apply to entire calendar"
-        fill_in_date("repeating_event_end_date", Date.today+2.weeks)
+        fill_in_date("repeating_event_end_date", @event_date+2.weeks)
         select "10 AM", from: "repeating_event_start_time_4i"
         select "5 PM", from: "repeating_event_end_time_4i"
         check @location2.short_name
         select @calendar.name, from: "Calendar"
+        check "Monday"
         uncheck "Saturday"
         check "Wipe conflicts?"
         click_on "Create New Repeating Event"
@@ -58,7 +61,7 @@ describe "Tooltip", js: true do
         check "Wipe conflicts?"
         click_on "Create New Repeating Event"
         expect_flash_notice "Successfully created repeating event"
-        expect(TimeSlot.count).to be >= (c.end_date-Time.now)/3600/24/7
+        expect(TimeSlot.count).to be >= ((c.end_date-Time.now)/3600/24/7).floor
       end
 
       it 'can display error when trying to create one-time time_slot with conflict' do 
@@ -110,15 +113,15 @@ describe "Tooltip", js: true do
 
   context "Tooltip on Shifts Page", :shift do
     before(:each) do
-      start_time = Date.tomorrow.to_time+@department.department_config.schedule_start.minutes
-      end_time = Date.tomorrow.to_time+@department.department_config.schedule_end.minutes-1.hour
+      start_time = @event_date.to_time+@department.department_config.schedule_start.minutes
+      end_time = @event_date.to_time+@department.department_config.schedule_end.minutes-1.hour
       @slot = create(:time_slot, location: @location2, calendar: @calendar, start: start_time, end: end_time)
     end
 
     context "New Shift Tooltip" do 
       def show_new_tooltip
-        visit shifts_path
-        shift_schedule_row(@location2.id, Date.tomorrow).first('li.click_to_add_new').click
+        visit @shifts_path_on_date
+        shift_schedule_row(@location2.id, @event_date).first('li.click_to_add_new').click
       end
       
       it 'can view the shift creation page on tooltip with correct location' do 
@@ -169,7 +172,7 @@ describe "Tooltip", js: true do
         show_new_tooltip
         check "Repeating event?"
         uncheck "Apply to entire calendar"
-        fill_in_date("repeating_event_end_date", Date.today+2.weeks)
+        fill_in_date("repeating_event_end_date", @event_date+2.weeks)
         select "11 AM", from: "repeating_event_start_time_4i"
         select "01 PM", from: "repeating_event_end_time_4i"
         select @location2.name, from: "Location"
@@ -194,7 +197,7 @@ describe "Tooltip", js: true do
         check "Wipe conflicts?"
         click_on "Create New Repeating Event"
         expect_flash_notice "Successfully created repeating event"
-        expect(@user.shifts.count).to be >= (c.end_date-Time.now)/3600/24/7
+        expect(@user.shifts.count).to be >= ((c.end_date-Time.now)/3600/24/7).floor
       end
       
       it 'can close tooltip' do 
