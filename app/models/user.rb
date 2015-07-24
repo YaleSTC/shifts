@@ -361,8 +361,29 @@ class User < ActiveRecord::Base
     results = {successes: [], failures: []}
     CSV.foreach(file.path, headers: true) do |row|
       attrs = row.to_hash
-      roles = [Role.where(name: row["roles"]).first].compact
-      attrs.delete("roles")
+
+      # De-humanize row labels (if using Rails 2 CSV export which has them)
+      attrs = Hash[attrs.map {|k, v| [k.sub(' ', '').underscore, v]}]
+
+      # allow for CSVs with either `role` and/or `roles` headers
+      unless attrs['roles'].nil?
+        attrs['role'] ||= attrs['roles']
+      end
+
+      # Expand if field has multiple roles
+      attrs['role'] = attrs['role'].split(';')
+
+      # Get roles from database and only include those that exist
+      roles = [Role.where(name: attrs["role"]).first].compact
+
+      # Chuck the record if no valid roles are included
+      if roles.empty?
+        results[:failures] << {name: attrs['first_name'] + ' ' + attrs['last_name'], errors: ['Invalid role']}
+        next
+      end
+
+      attrs.delete("role") # Not useful for initial User creation
+      
       u = User.new(attrs)
       u.set_random_password
       u.roles = roles
@@ -371,7 +392,7 @@ class User < ActiveRecord::Base
       if u.save
         results[:successes] << {name: "#{u.first_name} #{u.last_name}"}
       else
-        results[:failures] << {name: "#{u.first_name} #{u.last_name}", errors: u.errors}
+        results[:failures] << {name: "#{u.first_name} #{u.last_name}", errors: u.errors.messages.map { |subject, failure| subject.to_s.humanize + ' ' + failure.join('; ')  }}
       end
     end
     results
