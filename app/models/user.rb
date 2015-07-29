@@ -365,13 +365,10 @@ class User < ActiveRecord::Base
       # De-humanize row labels (if using Rails 2 CSV export which has them)
       attrs = Hash[attrs.map {|k, v| [k.sub(' ', '').underscore, v]}]
 
-      # allow for CSVs with either `role` and/or `roles` headers
+      # Allow for CSVs with either `role` and/or `roles` headers
       unless attrs['roles'].nil?
         attrs['role'] ||= attrs['roles']
       end
-
-      # Expand if field has multiple roles
-      attrs['role'] = attrs['role'].split(';')
 
       # Get roles from database and only include those that exist
       roles = [Role.where(name: attrs["role"]).first].compact
