@@ -389,7 +389,10 @@ class User < ActiveRecord::Base
       if u.save
         results[:successes] << {name: "#{u.first_name} #{u.last_name}"}
       else
-        results[:failures] << {name: "#{u.first_name} #{u.last_name}", errors: u.errors.messages.map { |subject, failure| subject.to_s.humanize + ' ' + failure.join('; ')  }}
+				# Prepare errors for rendering in a readable form
+        results[:failures] << {name: "#{u.first_name} #{u.last_name}", \
+															 errors: u.errors.messages.map { |subject, failure| \
+																								subject.to_s.humanize + ' ' + failure.join('; ')  }}
       end
     end
     results
