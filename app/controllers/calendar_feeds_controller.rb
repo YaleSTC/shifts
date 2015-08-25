@@ -1,4 +1,6 @@
 class CalendarFeedsController < ApplicationController
+	skip_before_filter RubyCAS::Filter, only: [ :grab ]
+	skip_before_filter :login_check, only: [ :grab ]
 
   def index
     @source_types = %w[User Department LocGroup Location]
