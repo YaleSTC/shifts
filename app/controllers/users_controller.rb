@@ -216,8 +216,9 @@ class UsersController < ApplicationController
     file = params[:file]
     begin
       @results = User.import(file)
-    rescue Exception => e
-      flash[:notice] = "The following error was encountered: <br>#{e}<br><br> Please make sure the file you upload is a csv file and the columns are in the right order."
+    rescue ActiveRecord::ActiveRecordError => e
+      flash[:error] = "A database error was encountered: <br>#{e}.<br><br> Please try again. If you fail, contact your administrator."
+    ensure
       render action: 'import'
     end
   end
