@@ -209,6 +209,7 @@ Shifts::Application.routes.draw do
         post :restore
         post :search
         post :save_import
+        post :verify_import
       end
     end
     resources :loc_groups do
